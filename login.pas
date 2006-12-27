@@ -148,7 +148,7 @@ begin
     p.biz_accounts.BindAgencies(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
     Label_user.text := 'Department Staffer';
-    p.biz_accounts.BindDepartment Staffers(DropDownList_user);
+    p.biz_accounts.BindDepartmentStaffers(DropDownList_user);
   end else begin
     session.Remove('target_user_table');
     Label_user.enabled := FALSE;
