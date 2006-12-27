@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS leave_of_absence (
   id int(10) unsigned NOT NULL auto_increment,
   member_id int(10) unsigned NOT NULL,
   start_date date NOT NULL,
-  end_date date NOT NULL,
+  end_date date default NULL,
   num_obliged_shifts tinyint(3) unsigned NOT NULL default '0',
   note varchar(127) default NULL,
   PRIMARY KEY  (id),
