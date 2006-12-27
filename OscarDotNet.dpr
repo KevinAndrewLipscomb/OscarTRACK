@@ -1,4 +1,4 @@
-library WebEMSOF;
+library OscarDotNet;
 
 {%AspWebConfigContainer 'Web.config'}
 {%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll'}

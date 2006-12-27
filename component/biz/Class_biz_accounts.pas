@@ -194,7 +194,7 @@ begin
     ConfigurationSettings.AppSettings['sender_email_address'],
     kind1_email_address,
     'Reminder of approaching deadline',
-    'This is an automated reminder from KiAspdotnetFramework.' + NEW_LINE
+    'This is an automated reminder from OSCAR.' + NEW_LINE
     + NEW_LINE
     + 'You have ' + num_days_left.tostring + ' days to ' + task_description + '.  The deadline is '
     + deadline_date.tostring('HH:mm:ss dddd, MMMM d, yyyy') + '.' + NEW_LINE

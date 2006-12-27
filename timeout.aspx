@@ -22,7 +22,7 @@
                     </tr>
                     <tr>
 					  <td>
-                        <p>As a security precaution, KiAspdotnetFramework has logged you out.
+                        <p>As a security precaution, OSCAR has logged you out.
 					    </p>
                         <p>Please <ASP:HyperLink id="HyperLink_login" runat="server" font-bold="True" navigateurl="login.aspx">log in</ASP:HyperLink> again to continue using the application.
 					  </p></td>
