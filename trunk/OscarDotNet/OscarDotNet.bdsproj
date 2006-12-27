@@ -212,7 +212,7 @@
       <File FileName="new_password.aspx" ContainerId="AspMarkupContainer" ModuleName="new_password"/>
       <File FileName="protected\change_email_address.aspx" ContainerId="AspMarkupContainer" ModuleName="change_email_address"/>
       <File FileName="protected\change_password.aspx" ContainerId="AspMarkupContainer" ModuleName="change_password"/>
-      <File FileName="protected\agency_overview.aspx" ContainerId="AspMarkupContainer" ModuleName="agency_overview"/>
+      <File FileName="protected\squad_commander_overview.aspx" ContainerId="AspMarkupContainer" ModuleName="squad_commander_overview"/>
       <File FileName="protected\profile.aspx" ContainerId="AspMarkupContainer" ModuleName="profile"/>
       <File FileName="protected\department_staffer_overview.aspx" ContainerId="AspMarkupContainer" ModuleName="department_staffer_overview"/>
       <File FileName="protected\member_overview.aspx" ContainerId="AspMarkupContainer" ModuleName="member_overview"/>
@@ -242,7 +242,7 @@
       <File FileName="new_password.pas" ContainerId="" ModuleName="new_password" Parent="new_password.aspx"/>
       <File FileName="protected\change_email_address.pas" ContainerId="" ModuleName="change_email_address" Parent="protected\change_email_address.aspx"/>
       <File FileName="protected\change_password.pas" ContainerId="" ModuleName="change_password" Parent="protected\change_password.aspx"/>
-      <File FileName="protected\agency_overview.pas" ContainerId="" ModuleName="agency_overview" Parent="protected\agency_overview.aspx"/>
+      <File FileName="protected\squad_commander_overview.pas" ContainerId="" ModuleName="squad_commander_overview" Parent="protected\squad_commander_overview.aspx"/>
       <File FileName="protected\profile.pas" ContainerId="" ModuleName="profile" Parent="protected\profile.aspx"/>
       <File FileName="protected\department_staffer_overview.pas" ContainerId="" ModuleName="department_staffer_overview" Parent="protected\department_staffer_overview.aspx"/>
       <File FileName="protected\member_overview.pas" ContainerId="" ModuleName="member_overview" Parent="protected\member_overview.aspx"/>

@@ -1,4 +1,4 @@
--- $Id$
+﻿-- $Id$
 --
 -- phpMyAdmin SQL Dump
 -- version 2.6.4-pl4
@@ -25,11 +25,11 @@ START TRANSACTION;
 
 DROP TABLE IF EXISTS agency;
 CREATE TABLE IF NOT EXISTS agency (
-  id tinyint(3) unsigned NOT NULL,
+  id int unsigned NOT NULL,
   short_designator varchar(3) NOT NULL,
   medium_designator varchar(23) NOT NULL,
   long_designator varchar(63) NOT NULL,
-  be_active tinyint(1) NOT NULL default '0',
+  be_active boolean NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY short_designator (short_designator),
   UNIQUE KEY medium_designator (medium_designator),
@@ -138,13 +138,13 @@ INSERT INTO `medical_release_code_description_map` (`code`, `description`) VALUE
 
 DROP TABLE IF EXISTS member;
 CREATE TABLE IF NOT EXISTS member (
-  id int(8) unsigned NOT NULL auto_increment,
+  id int unsigned NOT NULL auto_increment,
   cad_num varchar(6) default NULL,
   last_name varchar(31) NOT NULL,
   first_name varchar(31) NOT NULL,
   medical_release_code tinyint(3) unsigned NOT NULL default '0',
-  agency_id tinyint(3) unsigned NOT NULL,
-  be_driver_qualified tinyint(1) NOT NULL,
+  agency_id int unsigned NOT NULL,
+  be_driver_qualified boolean NOT NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY cad_num (cad_num),
   KEY agency_id (agency_id),
@@ -159,11 +159,11 @@ CREATE TABLE IF NOT EXISTS member (
 
 DROP TABLE IF EXISTS member_user;
 CREATE TABLE IF NOT EXISTS member_user (
-  id int(8) unsigned NOT NULL,
+  id int unsigned NOT NULL,
   encoded_password char(40) default NULL,
-  be_stale_password tinyint(1) NOT NULL default '1',
+  be_stale_password boolean NOT NULL default '1',
   password_reset_email_address varchar(255) NOT NULL,
-  be_active tinyint(1) NOT NULL default '1',
+  be_active boolean NOT NULL default '1',
   PRIMARY KEY  (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -242,6 +242,20 @@ INSERT INTO `rank` (`code`, `name`, `pecking_order`) VALUES (1, 'Sergeant', 1),
 (13, 'Other Council corporate officer', 4),
 (14, 'Other Squad corporate officer', 2);
 
+-- 
+-- Table structure for table `squad_commander_user`
+--
+
+DROP TABLE IF EXISTS squad_commander_user;
+CREATE TABLE IF NOT EXISTS squad_commander_user (
+  id int unsigned NOT NULL,
+  encoded_password char(40) default NULL,
+  be_stale_password boolean NOT NULL default '1',
+  password_reset_email_address varchar(255) NOT NULL,
+  be_active boolean NOT NULL default '1',
+  PRIMARY KEY  (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- 
 -- Constraints for dumped tables
@@ -279,6 +293,9 @@ ALTER TABLE `member_user`
 ALTER TABLE `officership`
   ADD CONSTRAINT officership_ibfk_4 FOREIGN KEY (member_id) REFERENCES member (id),
   ADD CONSTRAINT officership_ibfk_5 FOREIGN KEY (rank_code) REFERENCES rank (`code`);
+
+ALTER TABLE squad_commander_user
+  ADD CONSTRAINT squad_commander_user_ibfk_1 FOREIGN KEY (id) REFERENCES agency (id);
 
 
 SET FOREIGN_KEY_CHECKS=1;

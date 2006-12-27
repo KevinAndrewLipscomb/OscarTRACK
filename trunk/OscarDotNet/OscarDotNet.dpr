@@ -23,7 +23,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'new_password.aspx'}
 {%AspMarkupContainer 'protected\change_email_address.aspx'}
 {%AspMarkupContainer 'protected\change_password.aspx'}
-{%AspMarkupContainer 'protected\agency_overview.aspx'}
+{%AspMarkupContainer 'protected\squad_commander_overview.aspx'}
 {%AspMarkupContainer 'protected\profile.aspx'}
 {%AspMarkupContainer 'protected\department_staffer_overview.aspx'}
 {%AspMarkupContainer 'protected\member_overview.aspx'}
@@ -55,7 +55,7 @@ uses
   new_password in 'new_password.pas' {new_password.TWebForm_new_password: ki_web_ui.page_class},
   change_email_address in 'protected\change_email_address.pas' {change_email_address.TWebForm_change_email_address: ki_web_ui.page_class},
   change_password in 'protected\change_password.pas' {change_password.TWebForm_change_password: ki_web_ui.page_class},
-  agency_overview in 'protected\agency_overview.pas' {agency_overview.TWebForm_agency_overview: ki_web_ui.page_class},
+  squad_commander_overview in 'protected\squad_commander_overview.pas' {squad_commander_overview.TWebForm_squad_commander_overview: ki_web_ui.page_class},
   profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
   department_staffer_overview in 'protected\department_staffer_overview.pas' {department_staffer_overview.TWebForm_department_staffer_overview: ki_web_ui.page_class},
   member_overview in 'protected\member_overview.pas' {member_overview.TWebForm_member_overview: ki_web_ui.page_class},

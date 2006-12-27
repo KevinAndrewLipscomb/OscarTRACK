@@ -10,16 +10,16 @@
 -- PHP Version: 4.4.2
 -- 
 -- Database: `oscardotnet_x`
--- 
+--
 
 SET FOREIGN_KEY_CHECKS=0;
 
 SET AUTOCOMMIT=0;
 START TRANSACTION;
 
--- 
+--
 -- Dumping data for table `agency`
--- 
+--
 
 INSERT INTO `agency` (`id`, `short_designator`, `medium_designator`, `long_designator`, `be_active`) VALUES (0, 'EMS', 'VBDEMS', 'Va Beach Dept of EMS', 1),
 (1, 'R01', 'Rescue 1', 'Ocean Park ', 1),
@@ -41,13 +41,13 @@ INSERT INTO `agency` (`id`, `short_designator`, `medium_designator`, `long_desig
 (17, 'R17', 'Rescue 17', 'Sandbridge', 1),
 (18, 'R18', 'Rescue 18', '-- placeholder 18 --', 0),
 (19, 'R19', 'Rescue 19', '-- placeholder 19 --', 0),
-(201, 'S09', 'Support 9', 'Support 9', 1),
+(201, 'S09', 'Support 9', 'Support 9', 0),
 (202, 'SST', 'Support Services', 'Support Services Team', 0),
 (203, 'MRT', 'Marine Rescue Team', 'Marine Rescue Team', 0);
 
--- 
+--
 -- Dumping data for table `enrollment_history`
--- 
+--
 
 INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_date`, `end_disposition_code`) VALUES (7, 6, 3, '2003-07-13', NULL),
 (9, 7, 3, '2004-09-26', NULL),
@@ -143,9 +143,9 @@ INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_d
 (106, 101, 2, '2006-02-20', NULL),
 (107, 102, 2, '2005-06-20', NULL);
 
--- 
+--
 -- Dumping data for table `leave_of_absence`
--- 
+--
 
 INSERT INTO `leave_of_absence` (`id`, `member_id`, `start_date`, `end_date`, `num_obliged_shifts`, `note`) VALUES (1, 2, '2006-12-01', '2007-02-28', 0, NULL),
 (2, 3, '2006-12-01', '2006-12-31', 0, NULL),
@@ -158,9 +158,9 @@ INSERT INTO `leave_of_absence` (`id`, `member_id`, `start_date`, `end_date`, `nu
 (9, 13, '2007-01-01', '2007-01-31', 0, NULL),
 (10, 14, '2007-01-01', '2007-08-31', 0, 'VB police cadet');
 
--- 
+--
 -- Dumping data for table `member`
--- 
+--
 
 INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_release_code`, `agency_id`, `be_driver_qualified`) VALUES (2, '801958', 'Viel', 'Joseph', 3, 9, 0),
 (3, '801672', 'Cairns', 'Eddy', 3, 9, 1),
@@ -251,105 +251,121 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (101, NULL, 'Weakley', 'Robert', 1, 9, 0),
 (102, '801946', 'Weakley', 'Tina', 3, 9, 1);
 
--- 
+--
 -- Dumping data for table `member_user`
--- 
+--
 
 INSERT INTO `member_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES (2, NULL, 1, 'josephviel@netscape.com', 1),
-(3, NULL, 1, 'fireball9112000@yahoo.com', 1),
-(4, NULL, 1, 'mrsrankin0510@hotmail.com', 1),
-(5, NULL, 1, 'cparks32001@yahoo.com', 1),
-(6, NULL, 1, 'L8Jan@cox.net', 1),
-(7, NULL, 1, 'nbarclift@cox.net', 1),
-(8, NULL, 1, 'wjblack@sentara.com', 1),
-(9, NULL, 1, 'KEVIN.LIPSCOMB@KVRS.ORG', 1),
-(10, NULL, 1, '', 1),
-(11, NULL, 1, '', 1),
-(12, NULL, 1, 'prush001@odu.edu', 1),
-(13, NULL, 1, 'jwsourbeer@aol.com', 1),
-(14, NULL, 1, 'lilkerlin@yahoo.com', 1),
-(16, NULL, 1, 'aachesinski@hotmail.com', 1),
-(17, NULL, 1, 'VENITANDAV@AOL.COM', 1),
-(18, NULL, 1, 'annbakr@aol.com', 1),
-(19, NULL, 1, 'BAKERRT85@AOL.COM', 1),
-(20, NULL, 1, 'resq9schedule@aol.com', 1),
-(21, NULL, 1, 'VENITANDAV@AOL.COM', 1),
-(22, NULL, 1, 'luvlighthouses@cox.net', 1),
-(24, NULL, 1, 'firemedic100677@yahoo.com', 1),
-(25, NULL, 1, 'cbeson@houriganconstruction.com', 1),
-(27, NULL, 1, 'DPBlais1@cox.net', 1),
-(28, NULL, 1, 'RBB001@AOL.COM', 1),
-(29, NULL, 1, 'firephoto@verizon.net', 1),
-(30, NULL, 1, 'branchesi123@msn.com', 1),
-(31, NULL, 1, 'jbrewer@magic-sweep.com', 1),
-(32, NULL, 1, 'ShirleyBrew7@aol.com', 1),
-(33, NULL, 1, 'crash1997@sprynet.com', 1),
-(34, NULL, 1, 'scott.burke@cox.net', 1),
-(35, NULL, 1, 'buschlight_96@hotmail.com', 1),
-(37, NULL, 1, 'bcarew@infionline.net', 1),
-(38, NULL, 1, 'rc8544@cox.net', 1),
-(39, NULL, 1, 'rescue@ddaniscool.com', 1),
-(40, NULL, 1, 'bdavis2906@cox.net', 1),
-(41, NULL, 1, 'kdavs@hotmail.com', 1),
-(42, NULL, 1, 'mdegrave1022@yahoo.com', 1),
-(43, NULL, 1, 'bdelugo85@yahoo.com', 1),
-(44, NULL, 1, 'vashortstop@hotmail.com', 1),
-(45, NULL, 1, 'kathydunhoff@yahoo.com', 1),
-(46, NULL, 1, '', 1),
-(47, NULL, 1, 'hotstik97@cox.net', 1),
-(48, NULL, 1, 'esfedak78743@hotmail.com', 1),
-(49, NULL, 1, 'jfleek1977@yahoo.com', 1),
-(50, NULL, 1, 'hanksfrye@cox.net', 1),
-(51, NULL, 1, 'shannonchica_2002@yahoo.com', 1),
-(52, NULL, 1, 'krg31313@aol.com', 1),
-(53, NULL, 1, 'sag1a@yahoo.com', 1),
-(54, NULL, 1, 'RescueRash@AOL.com', 1),
-(55, NULL, 1, 'gowreaper@cox.net', 1),
-(56, NULL, 1, 'blondi_2u@hotmail.com', 1),
-(57, NULL, 1, 'brianjames23@hotmail.com', 1),
-(58, NULL, 1, 'ki1234567@aol.com', 1),
-(59, NULL, 1, 'jacobsfive@aol.com', 1),
-(61, NULL, 1, 'gousmc@hotmail.com', 1),
-(62, NULL, 1, 'vbrs31@hotmail.com', 1),
-(63, NULL, 1, 'travis.p.johnson@verizon.net', 1),
-(65, NULL, 1, 'TKiernan@mllnet.com', 1),
-(68, NULL, 1, 'cptldy@cox.net', 1),
-(69, NULL, 1, 'vapm23@cox.net', 1),
-(70, NULL, 1, 'jmaud001@odu.edu', 1),
-(71, NULL, 1, 'dmedero@cox.net', 1),
-(72, NULL, 1, 'am21992004@yahoo.com', 1),
-(73, NULL, 1, 'gracie2002@sprynet.com', 1),
-(74, NULL, 1, 'nuckolsstump@aol.com', 1),
-(75, NULL, 1, 'brittany061004@aol.com', 1),
-(76, NULL, 1, 'mozwald1@gmail.com', 1),
-(78, NULL, 1, 'secondquess23@hotmail.com', 1),
-(79, NULL, 1, 'Jmpaulsen@cox.net', 1),
-(80, NULL, 1, 'Jmpaulsen@cox.net', 1),
-(81, NULL, 1, 'navyfire@firehousezone.com', 1),
-(82, NULL, 1, 'strikerjtq@aol.com', 1),
-(84, NULL, 1, 'teamyates28@hotmail.com', 1),
-(85, NULL, 1, 'Riceal27@yahoo.com', 1),
-(87, NULL, 1, 'vbsauce@yahoo.com', 1),
-(89, NULL, 1, 'JAVA@SERIES2000.COM', 1),
-(90, NULL, 1, 'steve.stacey@gmail.com', 1),
-(91, NULL, 1, 'dstewart25@cox.net', 1),
-(92, NULL, 1, 'ashlee1184@yahoo.com', 1),
-(93, NULL, 1, 'taszer104@aol.com', 1),
-(94, NULL, 1, 'adrenalinejunkie319@yahoo.com', 1),
-(95, NULL, 1, 'jturner78@cox.net', 1),
-(97, NULL, 1, 'rmnjit20@att.net', 1),
-(98, NULL, 1, '', 1),
-(99, NULL, 1, 'lisavbresqr@yahoo.com', 1),
-(100, NULL, 1, 'wardjb@hotmail.com', 1),
-(101, NULL, 1, 'hvacbob55@yahoo.com', 1),
-(102, NULL, 1, 'tina72860@yahoo.com', 1);
+(3, NULL, 1, 'fireball9112000@yahoo.com', 0),
+(4, NULL, 1, 'mrsrankin0510@hotmail.com', 0),
+(5, NULL, 1, 'cparks32001@yahoo.com', 0),
+(6, NULL, 1, 'L8Jan@cox.net', 0),
+(7, NULL, 1, 'nbarclift@cox.net', 0),
+(8, NULL, 1, 'wjblack@sentara.com', 0),
+(9, NULL, 1, 'KEVIN.LIPSCOMB@KVRS.ORG', 0),
+(10, NULL, 1, '', 0),
+(11, NULL, 1, '', 0),
+(12, NULL, 1, 'prush001@odu.edu', 0),
+(13, NULL, 1, 'jwsourbeer@aol.com', 0),
+(14, NULL, 1, 'lilkerlin@yahoo.com', 0),
+(16, NULL, 1, 'aachesinski@hotmail.com', 0),
+(17, NULL, 1, 'VENITANDAV@AOL.COM', 0),
+(18, NULL, 1, 'annbakr@aol.com', 0),
+(19, NULL, 1, 'BAKERRT85@AOL.COM', 0),
+(20, NULL, 1, 'resq9schedule@aol.com', 0),
+(21, NULL, 1, 'VENITANDAV@AOL.COM', 0),
+(22, NULL, 1, 'luvlighthouses@cox.net', 0),
+(24, NULL, 1, 'firemedic100677@yahoo.com', 0),
+(25, NULL, 1, 'cbeson@houriganconstruction.com', 0),
+(27, NULL, 1, 'DPBlais1@cox.net', 0),
+(28, NULL, 1, 'RBB001@AOL.COM', 0),
+(29, NULL, 1, 'firephoto@verizon.net', 0),
+(30, NULL, 1, 'branchesi123@msn.com', 0),
+(31, NULL, 1, 'jbrewer@magic-sweep.com', 0),
+(32, NULL, 1, 'ShirleyBrew7@aol.com', 0),
+(33, NULL, 1, 'crash1997@sprynet.com', 0),
+(34, NULL, 1, 'scott.burke@cox.net', 0),
+(35, NULL, 1, 'buschlight_96@hotmail.com', 0),
+(37, NULL, 1, 'bcarew@infionline.net', 0),
+(38, NULL, 1, 'rc8544@cox.net', 0),
+(39, NULL, 1, 'rescue@ddaniscool.com', 0),
+(40, NULL, 1, 'bdavis2906@cox.net', 0),
+(41, NULL, 1, 'kdavs@hotmail.com', 0),
+(42, NULL, 1, 'mdegrave1022@yahoo.com', 0),
+(43, NULL, 1, 'bdelugo85@yahoo.com', 0),
+(44, NULL, 1, 'vashortstop@hotmail.com', 0),
+(45, NULL, 1, 'kathydunhoff@yahoo.com', 0),
+(46, NULL, 1, '', 0),
+(47, NULL, 1, 'hotstik97@cox.net', 0),
+(48, NULL, 1, 'esfedak78743@hotmail.com', 0),
+(49, NULL, 1, 'jfleek1977@yahoo.com', 0),
+(50, NULL, 1, 'hanksfrye@cox.net', 0),
+(51, NULL, 1, 'shannonchica_2002@yahoo.com', 0),
+(52, NULL, 1, 'krg31313@aol.com', 0),
+(53, NULL, 1, 'sag1a@yahoo.com', 0),
+(54, NULL, 1, 'RescueRash@AOL.com', 0),
+(55, NULL, 1, 'gowreaper@cox.net', 0),
+(56, NULL, 1, 'blondi_2u@hotmail.com', 0),
+(57, NULL, 1, 'brianjames23@hotmail.com', 0),
+(58, NULL, 1, 'ki1234567@aol.com', 0),
+(59, NULL, 1, 'jacobsfive@aol.com', 0),
+(61, NULL, 1, 'gousmc@hotmail.com', 0),
+(62, NULL, 1, 'vbrs31@hotmail.com', 0),
+(63, NULL, 1, 'travis.p.johnson@verizon.net', 0),
+(65, NULL, 1, 'TKiernan@mllnet.com', 0),
+(68, NULL, 1, 'cptldy@cox.net', 0),
+(69, NULL, 1, 'vapm23@cox.net', 0),
+(70, NULL, 1, 'jmaud001@odu.edu', 0),
+(71, NULL, 1, 'dmedero@cox.net', 0),
+(72, NULL, 1, 'am21992004@yahoo.com', 0),
+(73, NULL, 1, 'gracie2002@sprynet.com', 0),
+(74, NULL, 1, 'nuckolsstump@aol.com', 0),
+(75, NULL, 1, 'brittany061004@aol.com', 0),
+(76, NULL, 1, 'mozwald1@gmail.com', 0),
+(78, NULL, 1, 'secondquess23@hotmail.com', 0),
+(79, NULL, 1, 'Jmpaulsen@cox.net', 0),
+(80, NULL, 1, 'Jmpaulsen@cox.net', 0),
+(81, NULL, 1, 'navyfire@firehousezone.com', 0),
+(82, NULL, 1, 'strikerjtq@aol.com', 0),
+(84, NULL, 1, 'teamyates28@hotmail.com', 0),
+(85, NULL, 1, 'Riceal27@yahoo.com', 0),
+(87, NULL, 1, 'vbsauce@yahoo.com', 0),
+(89, NULL, 1, 'JAVA@SERIES2000.COM', 0),
+(90, NULL, 1, 'steve.stacey@gmail.com', 0),
+(91, NULL, 1, 'dstewart25@cox.net', 0),
+(92, NULL, 1, 'ashlee1184@yahoo.com', 0),
+(93, NULL, 1, 'taszer104@aol.com', 0),
+(94, NULL, 1, 'adrenalinejunkie319@yahoo.com', 0),
+(95, NULL, 1, 'jturner78@cox.net', 0),
+(97, NULL, 1, 'rmnjit20@att.net', 0),
+(98, NULL, 1, '', 0),
+(99, NULL, 1, 'lisavbresqr@yahoo.com', 0),
+(100, NULL, 1, 'wardjb@hotmail.com', 0),
+(101, NULL, 1, 'hvacbob55@yahoo.com', 0),
+(102, NULL, 1, 'tina72860@yahoo.com', 0);
 
--- 
+--
 -- Dumping data for table `officership`
--- 
+--
 
 INSERT INTO `officership` (`id`, `member_id`, `start_date`, `end_date`, `rank_code`) VALUES (1, 6, '2006-11-18', '2007-11-18', 9),
 (2, 9, '2006-11-18', '2007-11-18', 4);
+
+--
+-- Dumping data for table `squad_commander_user`
+--
+
+INSERT INTO `squad_commander_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES
+(1, NULL, 1, 'captain@kvrs.org', 1),
+(2, NULL, 1, 'captain@kvrs.org', 1),
+(4, NULL, 1, 'captain@kvrs.org', 1),
+(5, NULL, 1, 'captain@kvrs.org', 1),
+(6, NULL, 1, 'captain@kvrs.org', 1),
+(9, NULL, 1, 'captain@kvrs.org', 1),
+(13, NULL, 1, 'captain@kvrs.org', 1),
+(14, NULL, 1, 'captain@kvrs.org', 1),
+(16, NULL, 1, 'captain@kvrs.org', 1),
+(17, NULL, 1, 'captain@kvrs.org', 1);
 
 
 SET FOREIGN_KEY_CHECKS=1;
