@@ -23,10 +23,10 @@ library OscarDotNet;
 {%AspMarkupContainer 'new_password.aspx'}
 {%AspMarkupContainer 'protected\change_email_address.aspx'}
 {%AspMarkupContainer 'protected\change_password.aspx'}
-{%AspMarkupContainer 'protected\kind3_overview.aspx'}
+{%AspMarkupContainer 'protected\agency_overview.aspx'}
 {%AspMarkupContainer 'protected\profile.aspx'}
-{%AspMarkupContainer 'protected\kind2_overview.aspx'}
-{%AspMarkupContainer 'protected\kind1_overview.aspx'}
+{%AspMarkupContainer 'protected\department_staffer_overview.aspx'}
+{%AspMarkupContainer 'protected\member_overview.aspx'}
 {%AspWebConfigContainer 'protected\Web.config'}
 {%AspMarkupContainer 'salogin.aspx'}
 {%AspMarkupContainer 'login.aspx'}
@@ -44,31 +44,31 @@ uses
   System.Runtime.CompilerServices,
   Class_biz_user in 'component\biz\Class_biz_user.pas',
   Class_biz_accounts in 'component\biz\Class_biz_accounts.pas',
-  Class_biz_kind1s in 'component\biz\Class_biz_kind1s.pas',
+  Class_biz_members in 'component\biz\Class_biz_members.pas',
   Class_db_user in 'component\db\Class_db_user.pas',
   Class_db in 'component\db\Class_db.pas',
   Class_db_accounts in 'component\db\Class_db_accounts.pas',
-  Class_db_kind1s in 'component\db\Class_db_kind1s.pas',
+  Class_db_members in 'component\db\Class_db_members.pas',
   Default in 'Default.pas' {Default.TWebForm_Default: ki_web_ui.page_class},
   Global in 'Global.pas' {Global.TGlobal: System.Web.HttpApplication},
   salogin in 'salogin.pas' {salogin.TWebForm_salogin: ki_web_ui.page_class},
   new_password in 'new_password.pas' {new_password.TWebForm_new_password: ki_web_ui.page_class},
   change_email_address in 'protected\change_email_address.pas' {change_email_address.TWebForm_change_email_address: ki_web_ui.page_class},
   change_password in 'protected\change_password.pas' {change_password.TWebForm_change_password: ki_web_ui.page_class},
-  kind3_overview in 'protected\kind3_overview.pas' {kind3_overview.TWebForm_kind3_overview: ki_web_ui.page_class},
+  agency_overview in 'protected\agency_overview.pas' {agency_overview.TWebForm_agency_overview: ki_web_ui.page_class},
   profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
-  kind2_overview in 'protected\kind2_overview.pas' {kind2_overview.TWebForm_kind2_overview: ki_web_ui.page_class},
-  kind1_overview in 'protected\kind1_overview.pas' {kind1_overview.TWebForm_kind1_overview: ki_web_ui.page_class},
-  Class_biz_kind2s in 'component\biz\Class_biz_kind2s.pas',
-  Class_db_kind2s in 'component\db\Class_db_kind2s.pas',
+  department_staffer_overview in 'protected\department_staffer_overview.pas' {department_staffer_overview.TWebForm_department_staffer_overview: ki_web_ui.page_class},
+  member_overview in 'protected\member_overview.pas' {member_overview.TWebForm_member_overview: ki_web_ui.page_class},
+  Class_biz_department_staffers in 'component\biz\Class_biz_department_staffers.pas',
+  Class_db_department_staffers in 'component\db\Class_db_department_staffers.pas',
   login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
   exception in 'exception.pas' {exception.TWebForm_exception: ki_web_ui.page_class},
   timeout in 'timeout.pas' {timeout.TWebForm_timeout: system.web.ui.page},
   milestone_sweep in 'noninteractive\milestone_sweep.pas' {milestone_sweep.TWebForm_milestone_sweep: system.web.ui.page},
   Class_biz_milestones in 'component\biz\Class_biz_milestones.pas',
   Class_db_milestones in 'component\db\Class_db_milestones.pas',
-  Class_biz_kind3s in 'component\biz\Class_biz_kind3s.pas',
-  Class_db_kind3s in 'component\db\Class_db_kind3s.pas',
+  Class_biz_agencies in 'component\biz\Class_biz_agencies.pas',
+  Class_db_agencies in 'component\db\Class_db_agencies.pas',
   appcommon in 'appcommon.pas';
 
 const ID = '$Id$';
@@ -114,7 +114,7 @@ const ID = '$Id$';
 //
 // Notes:
 //   (*) If no key is specified, the assembly is not signed.
-//   (*) KeyName refers to a key that has been installed in the Crypto kind1
+//   (*) KeyName refers to a key that has been installed in the Crypto member
 //       Provider (CSP) on your machine. KeyFile refers to a file which contains
 //       a key.
 //   (*) If the KeyFile and the KeyName values are both specified, the
