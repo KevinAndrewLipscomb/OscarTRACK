@@ -40,6 +40,9 @@ type
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
+    DataGrid1: System.Web.UI.WebControls.DataGrid;
+    LinkButton_add: System.Web.UI.WebControls.LinkButton;
+    DropDownList_filter: System.Web.UI.WebControls.DropDownList;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
