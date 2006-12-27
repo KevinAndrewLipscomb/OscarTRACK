@@ -1,4 +1,4 @@
-unit Class_db_kind1s;
+unit Class_db_members;
 
 interface
 
@@ -8,7 +8,7 @@ uses
   system.web.ui.webcontrols;
 
 type
-  TClass_db_kind1s = class(TClass_db)
+  TClass_db_members = class(TClass_db)
   private
     { Private Declarations }
   public
@@ -17,7 +17,7 @@ type
     function BeValidProfile(id: string): boolean;
     procedure BindDropDownList
       (
-      kind3_user_id: string;
+      agency_user_id: string;
       target: system.object;
       be_unfiltered: boolean = FALSE
       );
@@ -27,7 +27,7 @@ type
       out name: string;
       out be_valid_profile: boolean
       );
-    function NameOf(kind1_id: string): string;
+    function NameOf(member_id: string): string;
     procedure SetProfile
       (
       id: string;
@@ -37,35 +37,35 @@ type
 
 implementation
 
-constructor TClass_db_kind1s.Create;
+constructor TClass_db_members.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
 end;
 
-function TClass_db_kind1s.AffiliateNumOfId(id: string): string;
+function TClass_db_members.AffiliateNumOfId(id: string): string;
 begin
   self.Open;
   AffiliateNumOfId := borland.data.provider.BdpCommand.Create
     (
-    'SELECT affiliate_num FROM kind1 WHERE id = ' + id,
+    'SELECT affiliate_num FROM member WHERE id = ' + id,
     connection
     )
     .ExecuteScalar.tostring;
   self.Close;
 end;
 
-function TClass_db_kind1s.BeValidProfile(id: string): boolean;
+function TClass_db_members.BeValidProfile(id: string): boolean;
 begin
   self.Open;
   BeValidProfile :=
-    ('1' = bdpCommand.Create('select be_valid_profile from kind1 where id = ' + id,connection).ExecuteScalar.tostring);
+    ('1' = bdpCommand.Create('select be_valid_profile from member where id = ' + id,connection).ExecuteScalar.tostring);
   self.Close;
 end;
 
-procedure TClass_db_kind1s.BindDropDownList
+procedure TClass_db_members.BindDropDownList
   (
-  kind3_user_id: string;
+  agency_user_id: string;
   target: system.object;
   be_unfiltered: boolean = FALSE
   );
@@ -77,9 +77,9 @@ begin
   DropDownList(target).Items.Clear;
   DropDownList(target).Items.Add(listitem.Create('-- Select --','0'));
   //
-  cmdText := 'SELECT id,name FROM kind1_user JOIN kind1 using (id) WHERE be_active = TRUE ';
+  cmdText := 'SELECT id,name FROM member_user JOIN member using (id) WHERE be_active = TRUE ';
   if not be_unfiltered then begin
-    cmdText := cmdText + 'and kind3_code = ' + kind3_user_id + ' ';
+    cmdText := cmdText + 'and agency_code = ' + agency_user_id + ' ';
   end;
   cmdText := cmdText + 'ORDER BY name';
   //
@@ -91,7 +91,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_kind1s.GetProfile
+procedure TClass_db_members.GetProfile
   (
   id: string;
   out name: string;
@@ -105,7 +105,7 @@ begin
     (
     'SELECT name,'
     + 'be_valid_profile '
-    + 'FROM kind1 '
+    + 'FROM member '
     + 'WHERE id = "' + id + '"',
     connection
     )
@@ -117,14 +117,14 @@ begin
   self.Close;
 end;
 
-function TClass_db_kind1s.NameOf(kind1_id: string): string;
+function TClass_db_members.NameOf(member_id: string): string;
 begin
   self.Open;
-  NameOf := bdpcommand.Create('select name from kind1 where id = ' + kind1_id,connection).ExecuteScalar.tostring;
+  NameOf := bdpcommand.Create('select name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
-procedure TClass_db_kind1s.SetProfile
+procedure TClass_db_members.SetProfile
   (
   id: string;
   name: string
@@ -133,7 +133,7 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE kind1 '
+    'UPDATE member '
     + 'SET name = "' + name + '"'
     +   ', be_valid_profile = TRUE '
     + 'WHERE id = "' + id + '"',

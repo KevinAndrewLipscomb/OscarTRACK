@@ -1,14 +1,14 @@
-unit Class_biz_kind2s;
+unit Class_biz_department_staffers;
 
 interface
 
 uses
-  Class_db_kind2s;
+  Class_db_department_staffers;
 
 type
-  TClass_biz_kind2s = class
+  TClass_biz_department_staffers = class
   private
-    db_kind2s: TClass_db_kind2s;
+    db_department_staffers: TClass_db_department_staffers;
   public
     constructor Create;
     function RegionCodeOf(id: string): string;
@@ -17,21 +17,21 @@ type
 
 implementation
 
-constructor TClass_biz_kind2s.Create;
+constructor TClass_biz_department_staffers.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  db_kind2s := TClass_db_kind2s.Create;
+  db_department_staffers := TClass_db_department_staffers.Create;
 end;
 
-function TClass_biz_kind2s.RegionCodeOf(id: string): string;
+function TClass_biz_department_staffers.RegionCodeOf(id: string): string;
 begin
-  RegionCodeOf := db_kind2s.RegionCodeOf(id);
+  RegionCodeOf := db_department_staffers.RegionCodeOf(id);
 end;
 
-function TClass_biz_kind2s.RegionNameOf(id: string): string;
+function TClass_biz_department_staffers.RegionNameOf(id: string): string;
 begin
-  RegionNameOf := db_kind2s.RegionNameOf(id);
+  RegionNameOf := db_department_staffers.RegionNameOf(id);
 end;
 
 end.

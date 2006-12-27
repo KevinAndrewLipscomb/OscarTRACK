@@ -89,8 +89,8 @@ begin
     p.biz_user := TClass_biz_user.Create;
     //
     Label_account_descriptor.Text := session[session['target_user_table'].ToString + '_name'].ToString;
-    if session['target_user_table'].tostring = 'kind3' then begin
-      Label_account_descriptor.Text := Label_account_descriptor.Text + ' Kind3';
+    if session['target_user_table'].tostring = 'agency' then begin
+      Label_account_descriptor.Text := Label_account_descriptor.Text + ' Agency';
     end;
     LinkButton_back_to_overview.text := session['target_user_table'].tostring + ' overview';
   end;

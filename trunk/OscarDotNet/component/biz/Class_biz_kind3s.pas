@@ -1,14 +1,14 @@
-unit Class_biz_kind3s;
+unit Class_biz_agencys;
 
 interface
 
 uses
-  Class_db_kind3s;
+  Class_db_agencys;
 
 type
-  TClass_biz_kind3s = class
+  TClass_biz_agencys = class
   private
-    db_kind3s: TClass_db_kind3s;
+    db_agencys: TClass_db_agencys;
   public
     constructor Create;
     function NameOf(code: string): string;
@@ -16,16 +16,16 @@ type
 
 implementation
 
-constructor TClass_biz_kind3s.Create;
+constructor TClass_biz_agencys.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  db_kind3s := TClass_db_kind3s.Create;
+  db_agencys := TClass_db_agencys.Create;
 end;
 
-function TClass_biz_kind3s.NameOf(code: string): string;
+function TClass_biz_agencys.NameOf(code: string): string;
 begin
-  NameOf := db_kind3s.NameOf(code);
+  NameOf := db_agencys.NameOf(code);
 end;
 
 end.

@@ -64,8 +64,8 @@ begin
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - new_password';
     biz_accounts := TClass_biz_accounts.Create;
     Label_user_name.Text := session[session['target_user_table'].ToString + '_name'].ToString;
-    if session['target_user_table'].tostring = 'kind3' then begin
-      Label_user_name.Text := Label_user_name.Text + ' Kind3';
+    if session['target_user_table'].tostring = 'agency' then begin
+      Label_user_name.Text := Label_user_name.Text + ' Agency';
     end;
     Label_application_name.text := configurationsettings.appsettings['application_name'];
     //
@@ -73,7 +73,7 @@ begin
     //
     temporary_password := System.Guid.NewGuid.ToString.Substring(0,8);
     //
-    // Make the password string the kind1's new temporary password, and set the stale flag to force an immediate password change.
+    // Make the password string the member's new temporary password, and set the stale flag to force an immediate password change.
     //
     biz_accounts.SetTemporaryPassword
       (
@@ -82,7 +82,7 @@ begin
       ki.Digest(temporary_password)
       );
     //
-    // Send the new password to the kind1's email address of record.
+    // Send the new password to the member's email address of record.
     //
     email_address := biz_accounts.EmailAddressByKindId
       (session['target_user_table'].ToString,session[session['target_user_table'].ToString + '_user_id'].ToString);

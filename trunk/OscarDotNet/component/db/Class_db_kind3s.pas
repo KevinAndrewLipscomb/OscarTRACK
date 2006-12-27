@@ -1,4 +1,4 @@
-unit Class_db_kind3s;
+unit Class_db_agencys;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Class_db;
 
 type
-  TClass_db_kind3s = class(TClass_db)
+  TClass_db_agencys = class(TClass_db)
   private
     { Private Declarations }
   public
@@ -17,16 +17,16 @@ type
 
 implementation
 
-constructor TClass_db_kind3s.Create;
+constructor TClass_db_agencys.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
 end;
 
-function TClass_db_kind3s.NameOf(code: string): string;
+function TClass_db_agencys.NameOf(code: string): string;
 begin
   self.Open;
-  NameOf := bdpcommand.Create('select name from kind3_code_name_map where code = ' + code,connection).ExecuteScalar.tostring;
+  NameOf := bdpcommand.Create('select name from agency_code_name_map where code = ' + code,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 

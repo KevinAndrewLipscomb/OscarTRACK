@@ -101,7 +101,7 @@ begin
 //            master_id_q := biz_emsof_requests.SusceptibleTo(milestone);
 //            for j := 1 to master_id_q.Count do begin
 //              master_id := master_id_q.Dequeue.tostring;
-//              biz_accounts.Remind(milestone,relative_day_num,deadline,biz_emsof_requests.Kind1IdOfMasterId(master_id));
+//              biz_accounts.Remind(milestone,relative_day_num,deadline,biz_emsof_requests.MemberIdOfMasterId(master_id));
 //              be_handled := TRUE;
 //            end;
           end;

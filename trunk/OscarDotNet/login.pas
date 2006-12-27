@@ -140,15 +140,15 @@ begin
   session.Remove('target_user_table');
   session.Add('target_user_table',Safe(DropDownList_user_kind.selectedvalue,ECMASCRIPT_WORD));
   Label_user.enabled := TRUE;
-  if DropDownList_user_kind.selectedvalue = 'kind1' then begin
-    Label_user.text := 'Kind1';
-    p.biz_accounts.Bindkind1s(DropDownList_user);
-  end else if DropDownList_user_kind.selectedvalue = 'kind3' then begin
-    Label_user.text := 'Kind3';
-    p.biz_accounts.BindKind3s(DropDownList_user);
-  end else if DropDownList_user_kind.selectedvalue = 'kind2' then begin
-    Label_user.text := 'Kind2';
-    p.biz_accounts.BindKind2s(DropDownList_user);
+  if DropDownList_user_kind.selectedvalue = 'member' then begin
+    Label_user.text := 'Member';
+    p.biz_accounts.Bindmembers(DropDownList_user);
+  end else if DropDownList_user_kind.selectedvalue = 'agency' then begin
+    Label_user.text := 'Agency';
+    p.biz_accounts.BindAgencys(DropDownList_user);
+  end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
+    Label_user.text := 'Department Staffer';
+    p.biz_accounts.BindDepartment Staffers(DropDownList_user);
   end else begin
     session.Remove('target_user_table');
     Label_user.enabled := FALSE;

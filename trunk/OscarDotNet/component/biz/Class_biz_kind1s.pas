@@ -1,21 +1,21 @@
-unit Class_biz_kind1s;
+unit Class_biz_members;
 
 interface
 
 uses
-  Class_db_kind1s;
+  Class_db_members;
 
 type
-  TClass_biz_kind1s = class
+  TClass_biz_members = class
   private
-    db_kind1s: TClass_db_kind1s;
+    db_members: TClass_db_members;
   public
     constructor Create;
     function AffiliateNumOfId(id: string): string;
     function BeValidProfile(id: string): boolean;
     procedure BindDropDownList
       (
-      kind3_user_id: string;
+      agency_user_id: string;
       target: system.object;
       be_unfiltered: boolean = FALSE
       );
@@ -25,7 +25,7 @@ type
       out name: string;
       out be_valid_profile: boolean
       );
-    function NameOf(kind1_id: string): string;
+    function NameOf(member_id: string): string;
     procedure SetProfile
       (
       id: string;
@@ -35,41 +35,41 @@ type
 
 implementation
 
-constructor TClass_biz_kind1s.Create;
+constructor TClass_biz_members.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  db_kind1s := TClass_db_kind1s.Create;
+  db_members := TClass_db_members.Create;
 end;
 
-function TClass_biz_kind1s.AffiliateNumOfId(id: string): string;
+function TClass_biz_members.AffiliateNumOfId(id: string): string;
 begin
-  AffiliateNumOfId := db_kind1s.AffiliateNumOfId(id);
+  AffiliateNumOfId := db_members.AffiliateNumOfId(id);
 end;
 
-function TClass_biz_kind1s.BeValidProfile(id: string): boolean;
+function TClass_biz_members.BeValidProfile(id: string): boolean;
 begin
-  BeValidProfile := db_kind1s.BeValidProfile(id);
+  BeValidProfile := db_members.BeValidProfile(id);
 end;
 
-procedure TClass_biz_kind1s.BindDropDownList
+procedure TClass_biz_members.BindDropDownList
   (
-  kind3_user_id: string;
+  agency_user_id: string;
   target: system.object;
   be_unfiltered: boolean = FALSE
   );
 begin
-  db_kind1s.BindDropDownList(kind3_user_id,target,be_unfiltered);
+  db_members.BindDropDownList(agency_user_id,target,be_unfiltered);
 end;
 
-procedure TClass_biz_kind1s.GetProfile
+procedure TClass_biz_members.GetProfile
   (
   id: string;
   out name: string;
   out be_valid_profile: boolean
   );
 begin
-  db_kind1s.GetProfile
+  db_members.GetProfile
     (
     id,
     name,
@@ -77,18 +77,18 @@ begin
     );
 end;
 
-function TClass_biz_kind1s.NameOf(kind1_id: string): string;
+function TClass_biz_members.NameOf(member_id: string): string;
 begin
-  NameOf := db_kind1s.NameOf(kind1_id);
+  NameOf := db_members.NameOf(member_id);
 end;
 
-procedure TClass_biz_kind1s.SetProfile
+procedure TClass_biz_members.SetProfile
   (
   id: string;
   name: string
   );
 begin
-  db_kind1s.SetProfile
+  db_members.SetProfile
     (
     id,
     name
