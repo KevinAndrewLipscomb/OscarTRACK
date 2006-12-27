@@ -3,9 +3,9 @@ unit Class_biz_accounts;
 interface
 
 uses
-  Class_biz_kind3s,
+  Class_biz_agencys,
   Class_biz_milestones,
-  Class_biz_kind1s,
+  Class_biz_members,
   Class_biz_user,
   Class_db_accounts,
   ki,
@@ -18,8 +18,8 @@ const ID = '$Id$';
 type
   TClass_biz_accounts = class
   private
-    biz_kind3s: TClass_biz_kind3s;
-    biz_kind1s: TClass_biz_kind1s;
+    biz_agencys: TClass_biz_agencys;
+    biz_members: TClass_biz_members;
     biz_user: TClass_biz_user;
     db_accounts: TClass_db_accounts;
     function SelfEmailAddress: string;
@@ -32,9 +32,9 @@ type
       )
       : boolean;
     function BeValidSysAdminCredentials(encoded_password: string): boolean;
-    procedure BindKind3s(target: system.object);
-    procedure BindKind2s(target: system.object);
-    procedure BindKind1s(target: system.object);
+    procedure BindAgencys(target: system.object);
+    procedure BindDepartmentStaffers(target: system.object);
+    procedure BindMembers(target: system.object);
     procedure Check
       (
       user_kind: string;
@@ -61,7 +61,7 @@ type
       milestone: milestone_type;
       num_days_left: cardinal;
       deadline_date: datetime;
-      kind1_id: string
+      member_id: string
       );
     procedure SetEmailAddress
       (
@@ -89,8 +89,8 @@ constructor TClass_biz_accounts.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  biz_kind3s := TClass_biz_kind3s.Create;
-  biz_kind1s := TClass_biz_kind1s.Create;
+  biz_agencys := TClass_biz_agencys.Create;
+  biz_members := TClass_biz_members.Create;
   biz_user := TClass_biz_user.Create;
   db_accounts := TClass_db_accounts.Create;
 end;
@@ -110,19 +110,19 @@ begin
   BeValidSysAdminCredentials := (encoded_password = configurationsettings.appsettings['sysadmin_encoded_password']);
 end;
 
-procedure TClass_biz_accounts.BindKind3s(target: system.object);
+procedure TClass_biz_accounts.BindAgencys(target: system.object);
 begin
-  db_accounts.BindKind3s(target);
+  db_accounts.BindAgencys(target);
 end;
 
-procedure TClass_biz_accounts.BindKind2s(target: system.object);
+procedure TClass_biz_accounts.BindDepartmentStaffers(target: system.object);
 begin
-  db_accounts.BindKind2s(target);
+  db_accounts.BindDepartmentStaffers(target);
 end;
 
-procedure TClass_biz_accounts.BindKind1s(target: system.object);
+procedure TClass_biz_accounts.BindMembers(target: system.object);
 begin
-  db_accounts.BindKind1s(target);
+  db_accounts.BindMembers(target);
 end;
 
 procedure TClass_biz_accounts.Check
@@ -172,19 +172,19 @@ procedure TClass_biz_accounts.Remind
   milestone: milestone_type;
   num_days_left: cardinal;
   deadline_date: datetime;
-  kind1_id: string
+  member_id: string
   );
 var
-  kind1_email_address: string;
-  kind1_name: string;
+  member_email_address: string;
+  member_name: string;
   task_description: string;
 begin
-  kind1_email_address := EmailAddressByKindId('kind1',kind1_id);
-  kind1_name := biz_kind1s.NameOf(kind1_id);
+  member_email_address := EmailAddressByKindId('member',member_id);
+  member_name := biz_members.NameOf(member_id);
   //
   case milestone of
   FIRST_MILESTONE:
-    task_description := 'finalize your EMSOF request and submit it to your kind3 EMSOF coordinator';
+    task_description := 'finalize your EMSOF request and submit it to your agency EMSOF coordinator';
   SECOND_MILESTONE:
     task_description := 'purchase all the items in your EMSOF request(s)';
   end;
@@ -192,7 +192,7 @@ begin
   ki.SmtpMailSend
     (
     ConfigurationSettings.AppSettings['sender_email_address'],
-    kind1_email_address,
+    member_email_address,
     'Reminder of approaching deadline',
     'This is an automated reminder from OSCAR.' + NEW_LINE
     + NEW_LINE

@@ -18,9 +18,9 @@ type
       user_id: string
       )
       : boolean;
-    procedure BindKind3s(target: system.object);
-    procedure BindKind2s(target: system.object);
-    procedure BindKind1s(target: system.object);
+    procedure BindAgencys(target: system.object);
+    procedure BindDepartmentStaffers(target: system.object);
+    procedure BindMembers(target: system.object);
     procedure Check
       (
       user_kind: string;
@@ -90,7 +90,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_accounts.BindKind3s(target: system.object);
+procedure TClass_db_accounts.BindAgencys(target: system.object);
 var
   bdr: borland.data.provider.bdpdatareader;
 begin
@@ -99,21 +99,21 @@ begin
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'SELECT kind3_user.id,name '
-    + 'FROM kind3_user JOIN kind3 on (kind3.id = kind3_user.id) '
+    'SELECT agency_user.id,name '
+    + 'FROM agency_user JOIN agency on (agency.id = agency_user.id) '
     + 'WHERE be_active = TRUE '
     + 'ORDER BY name',
     connection
     )
     .ExecuteReader;
   while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'kind3_' + bdr['id'].ToString));
+    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'agency_' + bdr['id'].ToString));
   end;
   bdr.Close;
   self.Close;
 end;
 
-procedure TClass_db_accounts.BindKind2s(target: system.object);
+procedure TClass_db_accounts.BindDepartmentStaffers(target: system.object);
 var
   bdr: borland.data.provider.bdpdatareader;
 begin
@@ -123,7 +123,7 @@ begin
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
     'SELECT id,name '
-    + 'FROM kind2_user JOIN kind2 using (id) '
+    + 'FROM department_staffer_user JOIN department_staffer using (id) '
     + 'WHERE be_active = TRUE '
     + 'ORDER BY name',
     connection
@@ -131,13 +131,13 @@ begin
     .ExecuteReader;
   while bdr.Read do begin
     DropDownList(target).Items.Add
-      (listitem.Create(bdr['name'].tostring,'kind2_' + bdr['id'].ToString));
+      (listitem.Create(bdr['name'].tostring,'department_staffer_' + bdr['id'].ToString));
   end;
   bdr.Close;
   self.Close;
 end;
 
-procedure TClass_db_accounts.BindKind1s(target: system.object);
+procedure TClass_db_accounts.BindMembers(target: system.object);
 var
   bdr: borland.data.provider.bdpdatareader;
 begin
@@ -146,12 +146,12 @@ begin
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'SELECT id,name FROM kind1_user JOIN kind1 using (id) WHERE be_active = TRUE ORDER BY name',
+    'SELECT id,name FROM member_user JOIN member using (id) WHERE be_active = TRUE ORDER BY name',
     connection
     )
     .ExecuteReader;
   while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'kind1_' + bdr['id'].ToString));
+    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'member_' + bdr['id'].ToString));
   end;
   bdr.Close;
   self.Close;
@@ -223,10 +223,10 @@ begin
   bdr := borland.data.provider.bdpcommand.Create
     (
     'select password_reset_email_address'
-    + ' from kind2_user'
-    +   ' join kind2_role on (kind2_role.user_id=kind2_user.id)'
-    +   ' join kind2_group on (kind2_group.id=kind2_role.group_id)'
-    + ' where kind2_group.name = "' + role + '"',
+    + ' from department_staffer_user'
+    +   ' join department_staffer_role on (department_staffer_role.user_id=department_staffer_user.id)'
+    +   ' join department_staffer_group on (department_staffer_group.id=department_staffer_role.group_id)'
+    + ' where department_staffer_group.name = "' + role + '"',
     connection
     )
     .ExecuteReader;

@@ -26,7 +26,7 @@ uses
   Class_db_user;
 
 const
-  KIND_THAT_HAS_ROLES = 'kind2';
+  KIND_THAT_HAS_ROLES = 'department_staffer';
 
 constructor TClass_biz_user.Create;
 begin
@@ -56,7 +56,7 @@ var
 begin
   name := httpcontext.current.user.identity.name;
   if Kind = KIND_THAT_HAS_ROLES then begin
-    Roles := Class_db_user.TClass_db_user.Create.RolesOf('kind2_',IdNum);
+    Roles := Class_db_user.TClass_db_user.Create.RolesOf('department_staffer_',IdNum);
   end;
 end;
 

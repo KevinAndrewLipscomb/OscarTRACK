@@ -1,4 +1,4 @@
-unit Class_db_kind2s;
+unit Class_db_department_staffers;
 
 interface
 
@@ -7,7 +7,7 @@ uses
   Class_db;
 
 type
-  TClass_db_kind2s = class(TClass_db)
+  TClass_db_department_staffers = class(TClass_db)
   private
     { Private Declarations }
   public
@@ -18,31 +18,31 @@ type
 
 implementation
 
-constructor TClass_db_kind2s.Create;
+constructor TClass_db_department_staffers.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
 end;
 
-function TClass_db_kind2s.RegionCodeOf(id: string): string;
+function TClass_db_department_staffers.RegionCodeOf(id: string): string;
 begin
   self.Open;
   RegionCodeOf := borland.data.provider.BdpCommand.Create
     (
-    'SELECT region_code FROM kind2 WHERE id = ' + id,
+    'SELECT region_code FROM department_staffer WHERE id = ' + id,
     connection
     )
     .ExecuteScalar.tostring;
   self.Close;
 end;
 
-function TClass_db_kind2s.RegionNameOf(id: string): string;
+function TClass_db_department_staffers.RegionNameOf(id: string): string;
 begin
   self.Open;
   RegionNameOf := borland.data.provider.BdpCommand.Create
     (
     'SELECT name'
-    + ' FROM kind2 join region_code_name_map on (region_code_name_map.code=kind2.region_code)'
+    + ' FROM department_staffer join region_code_name_map on (region_code_name_map.code=department_staffer.region_code)'
     + ' WHERE id = ' + id,
     connection
     )
