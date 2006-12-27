@@ -10,7 +10,7 @@
 	</PersonalityInfo>
 	<DelphiDotNet.Personality>
 		<Source>
-			<Source Name="MainSource" Type="String">KiAspdotnetFramework.dpr</Source>
+			<Source Name="MainSource" Type="String">OscarDotNet.dpr</Source>
 		</Source>
 		<FileVersion>
 			<FileVersion Name="Version" Type="String">7.0</FileVersion>
@@ -123,7 +123,7 @@
 			<Directories Name="UnitOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDLLOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDCPOutputDir" Type="String"></Directories>
-			<Directories Name="SearchPath" Type="String">c:\inetpub\wwwroot\KiAspdotnetFramework;c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\KiAspdotnetFramework\component\biz;c:\inetpub\wwwroot\KiAspdotnetFramework\component\db;c:\inetpub\wwwroot\KiAspdotnetFramework\bin;c:\inetpub\wwwroot\KiAspdotnetFramework\lib\ki</Directories>
+			<Directories Name="SearchPath" Type="String">c:\inetpub\wwwroot\KiAspdotnetFramework;c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\KiAspdotnetFramework\component\biz;c:\inetpub\wwwroot\KiAspdotnetFramework\component\db;c:\inetpub\wwwroot\KiAspdotnetFramework\bin;c:\inetpub\wwwroot\KiAspdotnetFramework\lib\ki;c:\inetpub\wwwroot\oscardotnet\lib\ki</Directories>
 			<Directories Name="Packages" Type="String">ki;c:\windows\microsoft.net\framework\v1.1.4322\mscorlib.dll;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Common.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Design.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
 			<Directories Name="Conditionals" Type="String"></Directories>
 			<Directories Name="DebugSourceDirs" Type="String">C:\Inetpub\wwwroot\KiAspdotnetFramework\component\biz\</Directories>
@@ -132,7 +132,7 @@
 		<Parameters>
 			<Parameters Name="RunParams" Type="String"></Parameters>
 			<Parameters Name="HostApplication" Type="String">http://localhost/KiAspdotnetFramework/login.aspx</Parameters>
-			<Parameters Name="Launcher" Type="String">"C:\Program Files\Internet Explorer\iexplore.exe"</Parameters>
+			<Parameters Name="Launcher" Type="String">"C:\Program Files\Internet Explorer\IEXPLORE.EXE"</Parameters>
 			<Parameters Name="UseLauncher" Type="Boolean">True</Parameters>
 			<Parameters Name="DebugCWD" Type="String"></Parameters>
 			<Parameters Name="RemoteHost" Type="String"></Parameters>
@@ -165,7 +165,7 @@
 			<Options Name="AspNetStartPage" Type="String">login.aspx</Options>
 			<Options Name="AspNetHostServer" Type="String">IIS</Options>
 			<Options Name="AspNetCassiniVirtualDirectory" Type="String">\</Options>
-			<Options Name="AspNetIISVirtualDirectory" Type="String">KiAspdotnetFramework</Options>
+			<Options Name="AspNetIISVirtualDirectory" Type="String">OscarDotNet</Options>
 			<Options Name="AspNetHTTPAddress" Type="String"></Options>
 			<Options Name="AspNetCassiniPortIndex">0</Options>
 			<Options Name="AspNetCassiniStartup">ProjectRun</Options>
@@ -188,22 +188,6 @@
 			<Language Name="ProjectLang">$00000000</Language>
 			<Language Name="RootDir"></Language>
 		</Language>  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -240,7 +224,7 @@
       <File FileName="dbscript" ContainerId="AspFolderContainer" ModuleName="dbscript"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
       <File FileName="timeout.aspx" ContainerId="AspMarkupContainer" ModuleName="timeout"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2509.21529" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2545.29526" LinkUnits="False"/>
       <File FileName="noninteractive\.crontab" ContainerId="File"/>
       <File FileName="noninteractive\milestone_sweep.aspx" ContainerId="AspMarkupContainer" ModuleName="milestone_sweep"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
