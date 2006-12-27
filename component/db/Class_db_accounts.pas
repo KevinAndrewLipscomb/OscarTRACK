@@ -18,7 +18,7 @@ type
       user_id: string
       )
       : boolean;
-    procedure BindAgencys(target: system.object);
+    procedure BindAgencies(target: system.object);
     procedure BindDepartmentStaffers(target: system.object);
     procedure BindMembers(target: system.object);
     procedure Check
@@ -90,7 +90,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_accounts.BindAgencys(target: system.object);
+procedure TClass_db_accounts.BindAgencies(target: system.object);
 var
   bdr: borland.data.provider.bdpdatareader;
 begin

@@ -3,7 +3,7 @@ unit Class_biz_accounts;
 interface
 
 uses
-  Class_biz_agencys,
+  Class_biz_agencies,
   Class_biz_milestones,
   Class_biz_members,
   Class_biz_user,
@@ -18,7 +18,7 @@ const ID = '$Id$';
 type
   TClass_biz_accounts = class
   private
-    biz_agencys: TClass_biz_agencys;
+    biz_agencies: TClass_biz_agencies;
     biz_members: TClass_biz_members;
     biz_user: TClass_biz_user;
     db_accounts: TClass_db_accounts;
@@ -32,7 +32,7 @@ type
       )
       : boolean;
     function BeValidSysAdminCredentials(encoded_password: string): boolean;
-    procedure BindAgencys(target: system.object);
+    procedure BindAgencies(target: system.object);
     procedure BindDepartmentStaffers(target: system.object);
     procedure BindMembers(target: system.object);
     procedure Check
@@ -89,7 +89,7 @@ constructor TClass_biz_accounts.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  biz_agencys := TClass_biz_agencys.Create;
+  biz_agencies := TClass_biz_agencies.Create;
   biz_members := TClass_biz_members.Create;
   biz_user := TClass_biz_user.Create;
   db_accounts := TClass_db_accounts.Create;
@@ -110,9 +110,9 @@ begin
   BeValidSysAdminCredentials := (encoded_password = configurationsettings.appsettings['sysadmin_encoded_password']);
 end;
 
-procedure TClass_biz_accounts.BindAgencys(target: system.object);
+procedure TClass_biz_accounts.BindAgencies(target: system.object);
 begin
-  db_accounts.BindAgencys(target);
+  db_accounts.BindAgencies(target);
 end;
 
 procedure TClass_biz_accounts.BindDepartmentStaffers(target: system.object);
