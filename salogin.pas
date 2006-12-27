@@ -132,9 +132,9 @@ begin
   if DropDownList_user_kind.selectedvalue = 'member' then begin
     Label_user.text := 'member';
     p.biz_accounts.Bindmembers(DropDownList_user);
-  end else if DropDownList_user_kind.selectedvalue = 'agency' then begin
+  end else if DropDownList_user_kind.selectedvalue = 'squad_commander' then begin
     Label_user.text := 'Agency';
-    p.biz_accounts.BindAgencies(DropDownList_user);
+    p.biz_accounts.BindSquadCommanders(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
     Label_user.text := 'Regional staffer';
     p.biz_accounts.BindDepartmentStaffers(DropDownList_user);

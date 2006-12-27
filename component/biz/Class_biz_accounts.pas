@@ -32,7 +32,7 @@ type
       )
       : boolean;
     function BeValidSysAdminCredentials(encoded_password: string): boolean;
-    procedure BindAgencies(target: system.object);
+    procedure BindSquadCommanders(target: system.object);
     procedure BindDepartmentStaffers(target: system.object);
     procedure BindMembers(target: system.object);
     procedure Check
@@ -110,9 +110,9 @@ begin
   BeValidSysAdminCredentials := (encoded_password = configurationsettings.appsettings['sysadmin_encoded_password']);
 end;
 
-procedure TClass_biz_accounts.BindAgencies(target: system.object);
+procedure TClass_biz_accounts.BindSquadCommanders(target: system.object);
 begin
-  db_accounts.BindAgencies(target);
+  db_accounts.BindSquadCommanders(target);
 end;
 
 procedure TClass_biz_accounts.BindDepartmentStaffers(target: system.object);

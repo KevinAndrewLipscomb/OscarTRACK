@@ -18,7 +18,7 @@ type
       user_id: string
       )
       : boolean;
-    procedure BindAgencies(target: system.object);
+    procedure BindSquadCommanders(target: system.object);
     procedure BindDepartmentStaffers(target: system.object);
     procedure BindMembers(target: system.object);
     procedure Check
@@ -90,7 +90,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_accounts.BindAgencies(target: system.object);
+procedure TClass_db_accounts.BindSquadCommanders(target: system.object);
 var
   bdr: borland.data.provider.bdpdatareader;
 begin
@@ -99,15 +99,16 @@ begin
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'SELECT agency_user.id,name '
-    + 'FROM agency_user JOIN agency on (agency.id = agency_user.id) '
-    + 'WHERE be_active = TRUE '
-    + 'ORDER BY name',
+    'SELECT squad_commander_user.id,concat(medium_designator," - ",long_designator) as name'
+    + ' FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)'
+    + ' WHERE agency.be_active = TRUE'
+    +   ' and squad_commander_user.be_active = TRUE'
+    + ' ORDER BY agency.id',
     connection
     )
     .ExecuteReader;
   while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'agency_' + bdr['id'].ToString));
+    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'squad_commander_' + bdr['id'].ToString));
   end;
   bdr.Close;
   self.Close;
@@ -146,7 +147,11 @@ begin
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'SELECT id,name FROM member_user JOIN member using (id) WHERE be_active = TRUE ORDER BY name',
+    'SELECT id'
+    + ' , concat(last_name,", ",first_name,ifnull(concat(", ",cad_num),"")) as name'
+    + ' FROM member_user JOIN member using (id)'
+    + ' WHERE be_active = TRUE'
+    + ' ORDER BY last_name,first_name,cad_num',
     connection
     )
     .ExecuteReader;
