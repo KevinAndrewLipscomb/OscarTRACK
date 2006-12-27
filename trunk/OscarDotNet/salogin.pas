@@ -134,7 +134,7 @@ begin
     p.biz_accounts.Bindmembers(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'agency' then begin
     Label_user.text := 'Agency';
-    p.biz_accounts.BindAgencys(DropDownList_user);
+    p.biz_accounts.BindAgencies(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
     Label_user.text := 'Regional staffer';
     p.biz_accounts.BindDepartmentStaffers(DropDownList_user);
