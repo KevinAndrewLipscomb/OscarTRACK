@@ -33,6 +33,7 @@ type
       );
     procedure BindSquadCommanderOverview
       (
+      agency_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object
@@ -103,12 +104,13 @@ end;
 
 procedure TClass_biz_members.BindSquadCommanderOverview
   (
+  agency_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object
   );
 begin
-  db_members.BindSquadCommanderOverview(sort_order,be_sort_order_ascending,target);
+  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target);
 end;
 
 end.
