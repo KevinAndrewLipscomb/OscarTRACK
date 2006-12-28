@@ -33,9 +33,20 @@ type
       id: string;
       name: string
       );
+    procedure BindSquadCommanderOverview
+      (
+      sort_order: string;
+      be_sort_order_ascending: boolean;
+      target: system.object
+      );
   end;
 
 implementation
+
+const
+  TCCI_LAST_NAME = 0;
+  TCCI_FIRST_NAME = 1;
+  TCCI_CAD_NUM = 2;
 
 constructor TClass_db_members.Create;
 begin
@@ -140,6 +151,33 @@ begin
     connection
     )
     .ExecuteNonQuery;
+  self.Close;
+end;
+
+procedure TClass_db_members.BindSquadCommanderOverview
+  (
+  sort_order: string;
+  be_sort_order_ascending: boolean;
+  target: system.object
+  );
+var
+  command_text: string;
+begin
+  command_text :=
+  'select last_name' // column 0
+  + ' , first_name'  // column 1
+  + ' , cad_num'     // column 2
+  + ' from member'
+  + ' order by ' + sort_order;
+  if be_sort_order_ascending then begin
+    command_text := command_text + ' asc';
+  end else begin
+    command_text := command_text + ' desc';
+  end;
+  //
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create(command_text,connection).ExecuteReader;
+  DataGrid(target).DataBind;
   self.Close;
 end;
 

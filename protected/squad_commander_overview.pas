@@ -9,6 +9,7 @@ uses
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration, borland.data.provider,
   system.web.security,
   Class_biz_accounts,
+  Class_biz_members,
   Class_biz_user;
 
 const ID = '$Id$';
@@ -16,8 +17,16 @@ const ID = '$Id$';
 type
   p_type =
     RECORD
+    be_datagrid_empty: boolean;
+    be_sort_order_ascending: boolean;
     biz_accounts: TClass_biz_accounts;
     biz_user: TClass_biz_user;
+    biz_members: TClass_biz_members;
+    tcci_id: cardinal; // tcci = TableCellCollection Index
+    tcci_field1: cardinal;
+    tcci_field2: cardinal;
+    num_datagrid_rows: cardinal;
+    sort_order: string;
     END;
   TWebForm_squad_commander_overview = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -26,11 +35,15 @@ type
     procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
+    procedure DataGrid_roster_SortCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridSortCommandEventArgs);
+    procedure DataGrid_roster_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
+    procedure DataGrid_roster_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
     procedure TWebForm_squad_commander_overview_PreRender(sender: System.Object;
       e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
+    procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
@@ -40,9 +53,11 @@ type
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    DataGrid1: System.Web.UI.WebControls.DataGrid;
-    LinkButton_add: System.Web.UI.WebControls.LinkButton;
     DropDownList_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList1: System.Web.UI.WebControls.DropDownList;
+    Label_leave_filter: System.Web.UI.WebControls.Label;
+    DataGrid_roster: System.Web.UI.WebControls.DataGrid;
+    TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -65,6 +80,9 @@ begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
+  Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
+  Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_squad_commander_overview_PreRender);
 end;
@@ -74,6 +92,7 @@ procedure TWebForm_squad_commander_overview.Page_Load(sender: System.Object; e: 
 var
   be_stale_password: boolean;
   squad_commander_user_email_address: string;
+  waypoint_stack: stack;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
@@ -87,6 +106,13 @@ begin
     //
     p.biz_accounts := TClass_biz_accounts.Create;
     p.biz_user := TClass_biz_user.Create;
+    p.biz_members := TClass_biz_members.Create;
+    p.be_sort_order_ascending := TRUE;
+    p.tcci_id := 1;
+    p.tcci_field1 := 2;
+    p.tcci_field2 := 3;
+    p.num_datagrid_rows := 0;
+    p.sort_order := 'last_name,first_name';
     //
     Label_agency_name.Text := session['squad_commander_name'].ToString;
     //
@@ -94,6 +120,12 @@ begin
     if not be_stale_password then begin
       //
       // Do meaningful processing...
+      session.Remove('waypoint_stack');
+      waypoint_stack := system.collections.stack.Create;
+      waypoint_stack.Push('regional_staffer_overview.aspx');
+      session.Add('waypoint_stack',waypoint_stack);
+      //
+      Bind;
       //
     end else begin
       server.Transfer('change_password.aspx');
@@ -129,12 +161,75 @@ begin
   server.Transfer('change_password.aspx');
 end;
 
+procedure TWebForm_squad_commander_overview.DataGrid_roster_ItemCommand(source: System.Object;
+  e: System.Web.UI.WebControls.DataGridCommandEventArgs);
+begin
+  if (e.item.itemtype = listitemtype.alternatingitem)
+    or (e.item.itemtype = listitemtype.edititem)
+    or (e.item.itemtype = listitemtype.item)
+    or (e.item.itemtype = listitemtype.selecteditem)
+  then begin
+    //
+    // We are dealing with a data row, not a header or footer row.
+    //
+    if e.commandname = 'Select' then begin
+      system.collections.stack(session['waypoint_stack']).Push('emsof_request_status_filter.aspx');
+      server.Transfer('full_request_review_approve.aspx');
+    end;
+    //
+  end;
+end;
+
+procedure TWebForm_squad_commander_overview.DataGrid_roster_ItemDataBound(sender: System.Object;
+  e: System.Web.UI.WebControls.DataGridItemEventArgs);
+begin
+  if (e.item.itemtype = listitemtype.alternatingitem)
+    or (e.item.itemtype = listitemtype.edititem)
+    or (e.item.itemtype = listitemtype.item)
+    or (e.item.itemtype = listitemtype.selecteditem)
+  then begin
+    //
+    // We are dealing with a data row, not a header or footer row.
+    //
+    p.num_datagrid_rows := p.num_datagrid_rows + 1;
+  end;
+end;
+
+procedure TWebForm_squad_commander_overview.DataGrid_roster_SortCommand(source: System.Object;
+  e: System.Web.UI.WebControls.DataGridSortCommandEventArgs);
+begin
+  if e.SortExpression = p.sort_order then begin
+    p.be_sort_order_ascending := not p.be_sort_order_ascending;
+  end else begin
+    p.sort_order := e.SortExpression;
+    p.be_sort_order_ascending := TRUE;
+  end;
+  DataGrid_roster.EditItemIndex := -1;
+  Bind;
+end;
+
 procedure TWebForm_squad_commander_overview.LinkButton_logout_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   formsauthentication.SignOut;
   session.Clear;
   server.Transfer('../Default.aspx');
+end;
+
+procedure TWebForm_squad_commander_overview.Bind;
+begin
+  p.biz_members.BindSquadCommanderOverview(p.sort_order,p.be_sort_order_ascending,DataGrid_roster);
+  //
+  // Manage control visibilities.
+  //
+  p.be_datagrid_empty := (p.num_datagrid_rows = 0);
+  TableRow_none.visible := p.be_datagrid_empty;
+  DataGrid_roster.visible := not p.be_datagrid_empty;
+  //
+  // Clear aggregation vars for next bind, if any.
+  //
+  p.num_datagrid_rows := 0;
+  //
 end;
 
 end.

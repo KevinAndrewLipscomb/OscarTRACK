@@ -31,6 +31,12 @@ type
       id: string;
       name: string
       );
+    procedure BindSquadCommanderOverview
+      (
+      sort_order: string;
+      be_sort_order_ascending: boolean;
+      target: system.object
+      );
   end;
 
 implementation
@@ -93,6 +99,16 @@ begin
     id,
     name
     );
+end;
+
+procedure TClass_biz_members.BindSquadCommanderOverview
+  (
+  sort_order: string;
+  be_sort_order_ascending: boolean;
+  target: system.object
+  );
+begin
+  db_members.BindSquadCommanderOverview(sort_order,be_sort_order_ascending,target);
 end;
 
 end.
