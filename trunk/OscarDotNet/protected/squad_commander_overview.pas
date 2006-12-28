@@ -218,7 +218,8 @@ end;
 
 procedure TWebForm_squad_commander_overview.Bind;
 begin
-  p.biz_members.BindSquadCommanderOverview(p.sort_order,p.be_sort_order_ascending,DataGrid_roster);
+  p.biz_members.BindSquadCommanderOverview
+    (session['squad_commander_user_id'].tostring,p.sort_order,p.be_sort_order_ascending,DataGrid_roster);
   //
   // Manage control visibilities.
   //

@@ -35,6 +35,7 @@ type
       );
     procedure BindSquadCommanderOverview
       (
+      agency_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object
@@ -156,6 +157,7 @@ end;
 
 procedure TClass_db_members.BindSquadCommanderOverview
   (
+  agency_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object
@@ -163,17 +165,25 @@ procedure TClass_db_members.BindSquadCommanderOverview
 var
   command_text: string;
 begin
-  command_text :=
-  'select last_name' // column 0
-  + ' , first_name'  // column 1
-  + ' , cad_num'     // column 2
-  + ' from member'
-  + ' order by ' + sort_order;
+  //
   if be_sort_order_ascending then begin
-    command_text := command_text + ' asc';
+    sort_order := sort_order.Replace('%',' asc');
   end else begin
-    command_text := command_text + ' desc';
+    sort_order := sort_order.Replace('%',' desc');
   end;
+  //
+  command_text :=
+  'select last_name'                                                                     // column 0
+  + ' , first_name'                                                                      // column 1
+  + ' , cad_num'                                                                         // column 2
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 3
+  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 4
+  + ' , "NYI" as enrollment' // column 3
+  + ' , "NYI" as on_leave'   // column 4
+  + ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  + ' where agency_id = ' + agency_id
+  + ' order by ' + sort_order;
   //
   self.Open;
   DataGrid(target).datasource := bdpcommand.Create(command_text,connection).ExecuteReader;

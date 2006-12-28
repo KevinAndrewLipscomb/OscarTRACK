@@ -38,7 +38,7 @@
 													<td nowrap="true">Enrollment filter:
                                         <ASP:DropDownList id="DropDownList_filter" runat="server">
                                           <ASP:ListItem value="all">All</ASP:ListItem>
-                                          <ASP:ListItem value="engaged" selected="True">- Active</ASP:ListItem>
+                                          <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
                                           <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
                                           <ASP:ListItem value="associate">- - - Associate</ASP:ListItem>
                                           <ASP:ListItem value="regular">- - - Regular</ASP:ListItem>
@@ -46,21 +46,21 @@
                                           <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
                                           <ASP:ListItem value="special">- - - Special</ASP:ListItem>
                                           <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
-                                          <ASP:ListItem value="disengaged">- Inactive</ASP:ListItem>
+                                          <ASP:ListItem value="past">- Past</ASP:ListItem>
                                           <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
                                           <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
                                           <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
                                           <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
                                           <ASP:ListItem value="expelled">- - Expelled</ASP:ListItem>
-                                          <ASP:ListItem value="deceased">- - Deceased</ASP:ListItem>
+                                          <ASP:ListItem value="deceased">- Deceased</ASP:ListItem>
                                         </ASP:DropDownList></td>
 													<td nowrap="true">
 													  <ASP:Label id="Label_leave_filter" runat="server" enabled="False">Leave filter:</ASP:Label>
 													  <ASP:DropDownList id="DropDownList1" runat="server" enabled="False">
-														<ASP:ListItem value="0" selected="True">--</ASP:ListItem>
-														<ASP:ListItem value="both">Both</ASP:ListItem>
-														<ASP:ListItem value="duty_bound">- Duty-bound</ASP:ListItem>
-														<ASP:ListItem value="on_leave">- On leave</ASP:ListItem>
+                                          <ASP:ListItem value="0" selected="True">--</ASP:ListItem>
+                                          <ASP:ListItem value="both">Both</ASP:ListItem>
+                                          <ASP:ListItem value="obligated">- Not on leave</ASP:ListItem>
+                                          <ASP:ListItem value="on_leave">- On leave</ASP:ListItem>
 													  </ASP:DropDownList></td>
 												  </tr>
 											  </table>
@@ -75,12 +75,18 @@
 					<tr>
 					  <td>
 						<ASP:DataGrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
-                          <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                          <Columns>
-                            <ASP:BoundColumn datafield="last_name" sortexpression="last_name,first_name" readonly="True" headertext="Last name"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="first_name" sortexpression="first_name,last_name" readonly="True" headertext="First name"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#"></ASP:BoundColumn>
-                          </Columns>
+  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+  <Columns>
+	<ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name%, cad_num%" readonly="True" headertext="Last name"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name%, cad_num%" readonly="True" headertext="First name"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name%, first_name%, cad_num%" readonly="True" headertext="Released med level"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name%, first_name%, cad_num%" readonly="True" headertext="Released driver">
+	  <ItemStyle horizontalalign="Center"></ItemStyle>
+	</ASP:BoundColumn>
+	<ASP:BoundColumn datafield="enrollment" sortexpression="enrollment%, last_name%, first_name%, cad_num%" readonly="True" headertext="Enrollment"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="on_leave" sortexpression="on_leave%, last_name%, first_name%, cad_num%" readonly="True" headertext="On leave"></ASP:BoundColumn>
+  </Columns>
 						</ASP:DataGrid></td>
 					</tr>
 				</table></td>

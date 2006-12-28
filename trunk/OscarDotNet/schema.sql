@@ -113,22 +113,24 @@ DROP TABLE IF EXISTS medical_release_code_description_map;
 CREATE TABLE IF NOT EXISTS medical_release_code_description_map (
   `code` tinyint(3) unsigned NOT NULL auto_increment,
   description varchar(31) NOT NULL,
+  pecking_order tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`code`),
-  UNIQUE KEY description (description)
+  UNIQUE KEY description (description),
+  UNIQUE KEY pecking_order (pecking_order)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table `medical_release_code_description_map`
 -- 
 
-INSERT INTO `medical_release_code_description_map` (`code`, `description`) VALUES (1, '(na)'),
-(3, 'EMT-B'),
-(5, 'EMT-CT'),
-(7, 'EMT-E'),
-(8, 'EMT-I'),
-(6, 'EMT-P'),
-(4, 'EMT-ST'),
-(2, 'Trainee');
+INSERT INTO medical_release_code_description_map (code, description, pecking_order) VALUES (1, '(na)', 0),
+(2, 'Trainee', 10),
+(3, 'EMT-B', 20),
+(4, 'EMT-ST', 30),
+(5, 'EMT-CT', 50),
+(6, 'EMT-P', 70),
+(7, 'EMT-E', 40),
+(8, 'EMT-I', 60);
 
 -- --------------------------------------------------------
 
