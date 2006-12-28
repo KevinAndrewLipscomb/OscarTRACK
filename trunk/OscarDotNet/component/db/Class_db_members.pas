@@ -165,7 +165,6 @@ procedure TClass_db_members.BindSquadCommanderOverview
 var
   command_text: string;
   current_month_first_date_string: string;
-  current_month_last_date_string: string;
   current_month_num: cardinal;
   current_month_num_string: string;
   current_year_num: cardinal;
@@ -179,8 +178,6 @@ begin
   current_month_num := today.Month;
   current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
   current_month_first_date_string := current_month_num_string + '-01';
-  current_month_last_date_string :=
-    current_month_num_string + '-' + datetime.DaysInMonth(current_year_num,current_month_num).tostring('d2');
   //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
@@ -196,11 +193,11 @@ begin
   + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 4
   + ' , obligation_code_description_map.description as enrollment'                       // column 5
   + ' , if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  +     ' and (leave_of_absence.end_date >= "' + current_month_last_date_string + '")'
+  +     ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
   +     ' ,concat('
   +       ' if(leave_of_absence.start_date < "' + current_month_first_date_string + '","&lt;","")'
   +       ' ,kind_of_leave_code_description_map.description'
-  +       ' ,if(leave_of_absence.end_date > "' + current_month_last_date_string + '","&gt;","")'
+  +       ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
   +       ')'
   +     ' ,""'
   +   ' ) as leave_status'                                                               // column 6
