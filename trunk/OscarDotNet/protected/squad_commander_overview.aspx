@@ -26,51 +26,66 @@
               <td>
                 <table cellspacing="0" cellpadding="10" width="100%" border="0">
                     <tr bgcolor="#f5f5f5">
-					  <td><strong>
-                        <p>
-                            <table cellspacing="0" cellpadding="5" width="100%" border="0">
-                                <tr>
-                                  <td><strong>Roster</strong></td><td>&nbsp;&nbsp;
-
-                                    <div align="center"><ASP:LinkButton id="LinkButton_add" runat="server">Add</ASP:LinkButton>
-                                    </div>&nbsp;&nbsp;&nbsp;</td>
-                                  <td>
-                                    <p align="right">Filter:<ASP:DropDownList id="DropDownList_filter" runat="server">
-                                        <ASP:ListItem value="all">All</ASP:ListItem>
-                                        <ASP:ListItem value="engaged">- Engaged</ASP:ListItem>
-                                        <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
-                                        <ASP:ListItem value="associate">- - - Associate</ASP:ListItem>
-                                        <ASP:ListItem value="regular">- - - Regular</ASP:ListItem>
-                                        <ASP:ListItem value="life">- - - Life</ASP:ListItem>
-                                        <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
-                                        <ASP:ListItem value="special">- - - Special</ASP:ListItem>
-                                        <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
-                                        <ASP:ListItem value="disengaged">- Disengaged</ASP:ListItem>
-                                        <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
-                                        <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
-                                        <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
-                                        <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
-                                        <ASP:ListItem value="expelled">- - Expelled</ASP:ListItem>
-                                        <ASP:ListItem value="deceased">- - Deceased</ASP:ListItem>
-</ASP:DropDownList>
-                                    </p></td>
-                                </tr>
-                            </table>
-                        </p></strong></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <ASP:DataGrid id="DataGrid1" runat="server" autogeneratecolumns="False">
+					  <td>
+					   <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
+						  <tr><td><strong>Roster</strong>
+						  </td>
+						</tr>
+						<tr>
+						  <td>
+												<table cellspacing="0" cellpadding="5" border="0" align="right">
+												  <tr>
+													<td nowrap="true">Enrollment filter:
+                                        <ASP:DropDownList id="DropDownList_filter" runat="server">
+                                          <ASP:ListItem value="all">All</ASP:ListItem>
+                                          <ASP:ListItem value="engaged" selected="True">- Active</ASP:ListItem>
+                                          <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
+                                          <ASP:ListItem value="associate">- - - Associate</ASP:ListItem>
+                                          <ASP:ListItem value="regular">- - - Regular</ASP:ListItem>
+                                          <ASP:ListItem value="life">- - - Life</ASP:ListItem>
+                                          <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
+                                          <ASP:ListItem value="special">- - - Special</ASP:ListItem>
+                                          <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
+                                          <ASP:ListItem value="disengaged">- Inactive</ASP:ListItem>
+                                          <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
+                                          <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
+                                          <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
+                                          <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
+                                          <ASP:ListItem value="expelled">- - Expelled</ASP:ListItem>
+                                          <ASP:ListItem value="deceased">- - Deceased</ASP:ListItem>
+                                        </ASP:DropDownList></td>
+													<td nowrap="true">
+													  <ASP:Label id="Label_leave_filter" runat="server" enabled="False">Leave filter:</ASP:Label>
+													  <ASP:DropDownList id="DropDownList1" runat="server" enabled="False">
+														<ASP:ListItem value="0" selected="True">--</ASP:ListItem>
+														<ASP:ListItem value="both">Both</ASP:ListItem>
+														<ASP:ListItem value="duty_bound">- Duty-bound</ASP:ListItem>
+														<ASP:ListItem value="on_leave">- On leave</ASP:ListItem>
+													  </ASP:DropDownList></td>
+												  </tr>
+											  </table>
+							</td>
+						</tr>
+					</table>
+				  </td>
+					</tr>
+					<tr id="TableRow_none" runat="server">
+					  <td><em>--&nbsp;NONE&nbsp;--</em></td>
+					</tr>
+					<tr>
+					  <td>
+						<ASP:DataGrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
+                          <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                           <Columns>
-                            <ASP:BoundColumn datafield="last_name" sortexpression="last_name" readonly="True" headertext="Last name"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="first_name" sortexpression="first_name" readonly="True" headertext="First name"></ASP:BoundColumn>
+                            <ASP:BoundColumn datafield="last_name" sortexpression="last_name,first_name" readonly="True" headertext="Last name"></ASP:BoundColumn>
+                            <ASP:BoundColumn datafield="first_name" sortexpression="first_name,last_name" readonly="True" headertext="First name"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#"></ASP:BoundColumn>
                           </Columns>
-                        </ASP:DataGrid></td>
-                    </tr>
-                </table></td>
-            </tr>
-        </table></p>
+						</ASP:DataGrid></td>
+					</tr>
+				</table></td>
+			</tr>
+		</table></p>
 <p></p>
     <asp:placeholder id="PlaceHolder_postcontent" runat="server">
     </asp:placeholder>
