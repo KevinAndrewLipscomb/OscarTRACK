@@ -164,7 +164,23 @@ procedure TClass_db_members.BindSquadCommanderOverview
   );
 var
   command_text: string;
+  current_month_first_date_string: string;
+  current_month_last_date_string: string;
+  current_month_num: cardinal;
+  current_month_num_string: string;
+  current_year_num: cardinal;
+  current_year_num_string: string;
+  today: datetime;
 begin
+  //
+  today := datetime.Today;
+  current_year_num := today.Year;
+  current_year_num_string := current_year_num.tostring('d4');
+  current_month_num := today.Month;
+  current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
+  current_month_first_date_string := current_month_num_string + '-01';
+  current_month_last_date_string :=
+    current_month_num_string + '-' + datetime.DaysInMonth(current_year_num,current_month_num).tostring('d2');
   //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
@@ -179,11 +195,22 @@ begin
   + ' , medical_release_code_description_map.description as medical_release_description' // column 3
   + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 4
   + ' , obligation_code_description_map.description as enrollment'                       // column 5
-  + ' , "NYI" as on_leave'   // column 6
+  + ' , if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
+  +     ' and (leave_of_absence.end_date >= "' + current_month_last_date_string + '")'
+  +     ' ,concat('
+  +       ' if(leave_of_absence.start_date < "' + current_month_first_date_string + '","&lt;","")'
+  +       ' ,kind_of_leave_code_description_map.description'
+  +       ' ,if(leave_of_absence.end_date > "' + current_month_last_date_string + '","&gt;","")'
+  +       ')'
+  +     ' ,""'
+  +   ' ) as leave_status'                                                               // column 6
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
   +   ' join obligation_code_description_map on (obligation_code_description_map.code=enrollment_history.obligation_code)'
+  +   ' left join leave_of_absence on (leave_of_absence.member_id=member.id)'
+  +   ' left join kind_of_leave_code_description_map'
+  +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
   + ' where agency_id = ' + agency_id
   +   ' and end_disposition_code is null'
   + ' order by ' + sort_order;
