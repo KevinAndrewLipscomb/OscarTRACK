@@ -84,7 +84,7 @@
 	<ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released driver">
 	  <ItemStyle horizontalalign="Center"></ItemStyle>
 	</ASP:BoundColumn>
-	<ASP:BoundColumn datafield="enrollment" sortexpression="enrollment%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="enrollment" sortexpression="obligation_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment"></ASP:BoundColumn>
 	<ASP:BoundColumn datafield="on_leave" sortexpression="on_leave%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="On leave"></ASP:BoundColumn>
   </Columns>
 						</ASP:DataGrid></td>

@@ -180,20 +180,25 @@ CREATE TABLE IF NOT EXISTS obligation_code_description_map (
   `code` tinyint(3) unsigned NOT NULL auto_increment,
   description varchar(31) NOT NULL,
   num_shifts tinyint(3) unsigned default NULL,
+  pecking_order tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`code`),
-  UNIQUE KEY description (description)
+  UNIQUE KEY description (description),
+  UNIQUE KEY pecking_order (pecking_order)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 
 -- Dumping data for table `obligation_code_description_map`
 -- 
 
-INSERT INTO `obligation_code_description_map` (`code`, `description`, `num_shifts`) VALUES (1, '(na)', 0),
-(2, 'Regular', 4),
-(3, 'Life', 3),
-(4, 'Tenured', 2),
-(5, 'Associate', 2),
-(6, 'Special', NULL);
+INSERT INTO obligation_code_description_map (code, description, num_shifts, pecking_order) VALUES (1, '(na)', 0, 90),
+(2, 'Regular', 4, 30),
+(3, 'Life', 3, 20),
+(4, 'Tenured', 2, 10),
+(5, 'Associate', 2, 80),
+(6, 'Special', NULL, 70),
+(7, 'Reduced (1)', 1, 60),
+(8, 'Reduced (2)', 2, 50),
+(9, 'Reduced (3)', 3, 40);
 
 -- --------------------------------------------------------
 

@@ -178,11 +178,14 @@ begin
   + ' , cad_num'                                                                         // column 2
   + ' , medical_release_code_description_map.description as medical_release_description' // column 3
   + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 4
-  + ' , "NYI" as enrollment' // column 5
+  + ' , obligation_code_description_map.description as enrollment'                       // column 5
   + ' , "NYI" as on_leave'   // column 6
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
+  +   ' join obligation_code_description_map on (obligation_code_description_map.code=enrollment_history.obligation_code)'
   + ' where agency_id = ' + agency_id
+  +   ' and end_disposition_code is null'
   + ' order by ' + sort_order;
   //
   self.Open;
