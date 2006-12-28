@@ -68,9 +68,9 @@ INSERT INTO `end_disposition_code_description_map` (`code`, `description`, `elab
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `enrollment_history`
--- 
+--
 
 DROP TABLE IF EXISTS enrollment_history;
 CREATE TABLE IF NOT EXISTS enrollment_history (
@@ -87,6 +87,31 @@ CREATE TABLE IF NOT EXISTS enrollment_history (
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `kind_of_leave_code_description_map`
+--
+
+DROP TABLE IF EXISTS kind_of_leave_code_description_map;
+CREATE TABLE IF NOT EXISTS kind_of_leave_code_description_map (
+  `code` tinyint(3) unsigned NOT NULL auto_increment,
+  description varchar(31) NOT NULL,
+  PRIMARY KEY  (`code`),
+  UNIQUE KEY description (description)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+--
+-- Dumping data for table `kind_of_leave_code_description_map`
+--
+
+INSERT INTO kind_of_leave_code_description_map (code, description) VALUES (6, 'Administrative'),
+(5, 'Educational'),
+(4, 'Maternity'),
+(2, 'Medical'),
+(3, 'Military'),
+(1, 'Personal');
+
+-- --------------------------------------------------------
+
 -- 
 -- Table structure for table `leave_of_absence`
 -- 
@@ -95,12 +120,14 @@ DROP TABLE IF EXISTS leave_of_absence;
 CREATE TABLE IF NOT EXISTS leave_of_absence (
   id int(10) unsigned NOT NULL auto_increment,
   member_id int(10) unsigned NOT NULL,
+  kind_of_leave_code tinyint(3) unsigned NOT NULL,
   start_date date NOT NULL,
   end_date date default NULL,
   num_obliged_shifts tinyint(3) unsigned NOT NULL default '0',
   note varchar(127) default NULL,
   PRIMARY KEY  (id),
   KEY member_id (member_id)
+  KEY kind_of_leave_code (kind_of_leave_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -280,7 +307,8 @@ ALTER TABLE `enrollment_history`
 -- Constraints for table `leave_of_absence`
 -- 
 ALTER TABLE `leave_of_absence`
-  ADD CONSTRAINT leave_of_absence_ibfk_1 FOREIGN KEY (member_id) REFERENCES member (id);
+  ADD CONSTRAINT leave_of_absence_ibfk_1 FOREIGN KEY (member_id) REFERENCES member (id),
+  ADD CONSTRAINT leave_of_absence_ibfk_2 FOREIGN KEY (kind_of_leave_code) REFERENCES kind_of_leave_code_description_map (`code`);
 
 -- 
 -- Constraints for table `member`

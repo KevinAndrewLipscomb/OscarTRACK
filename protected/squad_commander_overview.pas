@@ -112,7 +112,7 @@ begin
     p.tcci_field1 := 2;
     p.tcci_field2 := 3;
     p.num_datagrid_rows := 0;
-    p.sort_order := 'last_name,first_name';
+    p.sort_order := 'last_name,first_name,cad_num';
     //
     Label_agency_name.Text := session['squad_commander_name'].ToString;
     //
