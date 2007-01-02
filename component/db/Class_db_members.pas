@@ -186,15 +186,16 @@ begin
   end;
   //
   command_text :=
-  'select last_name'                                                                     // column 0
-  + ' , first_name'                                                                      // column 1
-  + ' , cad_num'                                                                         // column 2
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 3
-  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 4
-  + ' , obligation_code_description_map.description as enrollment'                       // column 5
+  'select member.id as member_id'                                                        // column 0
+  + ' , last_name'                                                                       // column 1
+  + ' , first_name'                                                                      // column 2
+  + ' , cad_num'                                                                         // column 3
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 4
+  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 5
+  + ' , obligation_code_description_map.description as enrollment'                       // column 6
   + ' , if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
   +     ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +     ' ,kind_of_leave_code_description_map.description,"") as kind_of_leave'          // column 6.1
+  +     ' ,kind_of_leave_code_description_map.description,"") as kind_of_leave'          // column 7.1
   + ' , concat('
   +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
   +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
@@ -206,7 +207,7 @@ begin
   +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
   +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
   +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' ) as time_of_leave'                                                              // column 6.2
+  +   ' ) as time_of_leave'                                                              // column 7.2
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'

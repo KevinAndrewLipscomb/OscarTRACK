@@ -172,10 +172,10 @@ begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
-    if e.commandname = 'Select' then begin
-      system.collections.stack(session['waypoint_stack']).Push('emsof_request_status_filter.aspx');
-      server.Transfer('full_request_review_approve.aspx');
-    end;
+    session.Remove('e_item');
+    session.Add('e_item',e.item);
+    system.collections.stack(session['waypoint_stack']).Push('squad_commander_overview.aspx');
+    server.Transfer('member_detail.aspx');
     //
   end;
 end;

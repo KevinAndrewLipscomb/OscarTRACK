@@ -77,6 +77,7 @@
 						<ASP:DataGrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
                           <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                           <Columns>
+                            <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#"></ASP:BoundColumn>
@@ -93,6 +94,7 @@
                 </div></td></tr></table>
                               </ItemTemplate>
                             </ASP:TemplateColumn>
+                            <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
                           </Columns>
 						</ASP:DataGrid></td>
 					</tr>
