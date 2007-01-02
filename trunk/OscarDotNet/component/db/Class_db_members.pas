@@ -194,13 +194,19 @@ begin
   + ' , obligation_code_description_map.description as enrollment'                       // column 5
   + ' , if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
   +     ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +     ' ,concat('
-  +       ' if(leave_of_absence.start_date < "' + current_month_first_date_string + '","&lt;","")'
-  +       ' ,kind_of_leave_code_description_map.description'
-  +       ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +       ')'
-  +     ' ,""'
-  +   ' ) as leave_status'                                                               // column 6
+  +     ' ,kind_of_leave_code_description_map.description,"") as kind_of_leave'          // column 6.1
+  + ' , concat('
+  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,"&lt;&nbsp;","")'
+  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
+  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
+  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
+  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
+  +   ' ) as time_of_leave'                                                              // column 6.2
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
