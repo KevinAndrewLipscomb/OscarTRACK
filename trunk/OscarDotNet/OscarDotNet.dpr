@@ -38,6 +38,7 @@ library OscarDotNet;
 {%DelphiDotNetAssemblyCompiler 'lib\ki\ki.dll'}
 {%File 'noninteractive\.crontab'}
 {%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
+{%AspMarkupContainer 'protected\member_detail.aspx'}
 
 uses
   System.Reflection,
@@ -69,7 +70,8 @@ uses
   Class_db_milestones in 'component\db\Class_db_milestones.pas',
   Class_biz_agencies in 'component\biz\Class_biz_agencies.pas',
   Class_db_agencies in 'component\db\Class_db_agencies.pas',
-  appcommon in 'appcommon.pas';
+  appcommon in 'appcommon.pas',
+  member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class};
 
 const ID = '$Id$';
 
