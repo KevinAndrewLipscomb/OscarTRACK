@@ -85,9 +85,14 @@
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
                             <ASP:BoundColumn datafield="enrollment" sortexpression="obligation_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="leave_status" sortexpression="leave_status%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Leave">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
+                            <ASP:TemplateColumn sortexpression="leave_status%, last_name asc, first_name asc, cad_num asc" headertext="Leave">
+                              <ItemTemplate><table cellspacing="0" cellpadding="0" width="100%" border="0"><tr><td>
+                <div align="center"><asp:Label id="Label_kind_of_leave" runat="server" text='<%# DataBinder.Eval(Container, "DataItem.kind_of_leave") %>'></asp:Label>
+                </div></td></tr><tr><td>
+                <div align="center"><ASP:Label id="Label_months" runat="server" text='<%# DataBinder.Eval(Container, "DataItem.time_of_leave") %>' font-italic="True"></ASP:Label>
+                </div></td></tr></table>
+                              </ItemTemplate>
+                            </ASP:TemplateColumn>
                           </Columns>
 						</ASP:DataGrid></td>
 					</tr>
