@@ -195,6 +195,9 @@
     
     
     
+    
+    
+    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -235,6 +238,8 @@
       <File FileName="noninteractive\.crontab" ContainerId="File"/>
       <File FileName="noninteractive\milestone_sweep.aspx" ContainerId="AspMarkupContainer" ModuleName="milestone_sweep"/>
       <File FileName="protected\member_detail.aspx" ContainerId="AspMarkupContainer" ModuleName="member_detail"/>
+      <File FileName="control" ContainerId="AspFolderContainer" ModuleName="NewFolder1"/>
+      <File FileName="control\WebUserControl1.ascx" ContainerId="AspMarkupContainer" ModuleName="WebUserControl1"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="component\biz\Class_biz_user.pas" ContainerId="" ModuleName="Class_biz_user"/>
@@ -266,6 +271,9 @@
       <File FileName="component\db\Class_db_agencies.pas" ContainerId="" ModuleName="Class_db_agencies"/>
       <File FileName="appcommon.pas" ContainerId="" ModuleName="appcommon"/>
       <File FileName="protected\member_detail.pas" ContainerId="" ModuleName="member_detail" Parent="protected\member_detail.aspx"/>
+      <File FileName="control\WebUserControl1.pas" ContainerId="" ModuleName="WebUserControl1" Parent="control\WebUserControl1.ascx"/>
+      <File FileName="component\biz\Class_biz_enrollment.pas" ContainerId="" ModuleName="Class_biz_enrollment"/>
+      <File FileName="component\biz\Class_biz_leave.pas" ContainerId="" ModuleName="Class_biz_leave"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

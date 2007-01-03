@@ -5,6 +5,8 @@ interface
 uses
   borland.data.provider,
   Class_db,
+  Class_biz_enrollment,
+  Class_biz_leave,
   system.web.ui.webcontrols;
 
 type
@@ -38,7 +40,9 @@ type
       agency_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
-      target: system.object
+      target: system.object;
+      enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
+      leave_filter: Class_biz_leave.filter_type = BOTH
       );
   end;
 
@@ -160,9 +164,12 @@ procedure TClass_db_members.BindSquadCommanderOverview
   agency_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
-  target: system.object
+  target: system.object;
+  enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
+  leave_filter: Class_biz_leave.filter_type = BOTH
   );
 var
+  any_relevant_leave_test_string: string;
   command_text: string;
   current_month_first_date_string: string;
   current_month_num: cardinal;
@@ -170,6 +177,7 @@ var
   current_year_num: cardinal;
   current_year_num_string: string;
   today: datetime;
+  filter: string;
 begin
   //
   today := datetime.Today;
@@ -179,23 +187,57 @@ begin
   current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
   current_month_first_date_string := current_month_num_string + '-01';
   //
+  any_relevant_leave_test_string := '(leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
+  + ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))';
+  //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
   end else begin
     sort_order := sort_order.Replace('%',' desc');
   end;
   //
+  filter := system.string.EMPTY;
+  //
+  if enrollment_filter <> ALL then begin
+    filter := ' and obligation_code_description_map.description ';
+    case enrollment_filter of
+    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Admin") ';
+    OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special") ';
+    ASSOCIATE: filter := filter + ' = "Associate" ';
+    REGULAR: filter := filter + ' = "Regular" ';
+    LIFE: filter := filter + ' = "Life" ';
+    TENURED: filter := filter + ' = "Tenured" ';
+    SPECIAL: filter := filter + ' = "Special" ';
+    ADMIN: filter := filter + ' = "Admin" ';
+    PAST: filter := filter + '  in ("Disengaged","Resigned","Disabled","Expelled","Deceased") ';
+    LOST_INTEREST: filter := filter + ' = "Disengaged" ';
+    RESIGNED: filter := filter + ' = "Resigned" ';
+    RETIRED: filter := filter + ' = "Retired" ';
+    DISABLED: filter := filter + ' = "Disabled" ';
+    EXPELLED: filter := filter + ' = "Expelled" ';
+    DECEASED: filter := filter + ' = "Deceased" ';
+    end;
+    //
+    case enrollment_filter of
+    CURRENT..ADMIN:
+      BEGIN
+      case leave_filter of
+      OBLIGATED: filter := filter + ' and (not(' + any_relevant_leave_test_string + ') or (leave_of_absence.start_date is null)) ';
+      ON_LEAVE: filter := filter + ' and ' + any_relevant_leave_test_string + ' ';
+      end;
+      END;
+    end;
+  end;
+  //
   command_text :=
-  'select member.id as member_id'                                                        // column 0
-  + ' , last_name'                                                                       // column 1
-  + ' , first_name'                                                                      // column 2
-  + ' , cad_num'                                                                         // column 3
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 4
-  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                           // column 5
-  + ' , obligation_code_description_map.description as enrollment'                       // column 6
-  + ' , if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  +     ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +     ' ,kind_of_leave_code_description_map.description,"") as kind_of_leave'          // column 7.1
+  'select member.id as member_id'                                                                                      // column 0
+  + ' , last_name'                                                                                                     // column 1
+  + ' , first_name'                                                                                                    // column 2
+  + ' , cad_num'                                                                                                       // column 3
+  + ' , medical_release_code_description_map.description as medical_release_description'                               // column 4
+  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                                                         // column 5
+  + ' , obligation_code_description_map.description as enrollment'                                                     // column 6
+  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave' // column 7.1
   + ' , concat('
   +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
   +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
@@ -207,7 +249,7 @@ begin
   +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
   +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
   +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' ) as time_of_leave'                                                              // column 7.2
+  +   ' ) as time_of_leave'                                                                                            // column 7.2
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
@@ -217,6 +259,7 @@ begin
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
   + ' where agency_id = ' + agency_id
   +   ' and end_disposition_code is null'
+  +   filter
   + ' order by ' + sort_order;
   //
   self.Open;

@@ -49,6 +49,17 @@ type
     Label_account_descriptor: System.Web.UI.WebControls.Label;
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
     LinkButton_drill_down: System.Web.UI.WebControls.LinkButton;
+    Label_member_designator: System.Web.UI.WebControls.Label;
+    LinkButton_change_medical_release_level: System.Web.UI.WebControls.LinkButton;
+    Label_medical_release_level: System.Web.UI.WebControls.Label;
+    Label_be_driver_qualified: System.Web.UI.WebControls.Label;
+    LinkButton_change_driver_qual: System.Web.UI.WebControls.LinkButton;
+    Label_enrollment: System.Web.UI.WebControls.Label;
+    LinkButton_enrollment_detail: System.Web.UI.WebControls.LinkButton;
+    Label_leave: System.Web.UI.WebControls.Label;
+    LinkButton_leave_detail: System.Web.UI.WebControls.LinkButton;
+    Label_officership: System.Web.UI.WebControls.Label;
+    LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -91,6 +102,13 @@ begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
+      //
+//      Label_member_designator.Text := // first_name last_name (CAD # cad_num)
+//      Label_leave.Text :=
+//      Label_officership.Text :=
+//      Label_medical_release_level.Text :=
+//      Label_enrollment,Text :=
+//      Label_be_driver_qualified.Text :=
       //
     end;
   end;

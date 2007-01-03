@@ -1,4 +1,5 @@
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="squad_commander_overview.pas" AutoEventWireup="false" Inherits="squad_commander_overview.TWebForm_squad_commander_overview" %>
+<%@ Register TagPrefix="uc1" TagName="WebUserControl1" Src="~/control/WebUserControl1.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
@@ -36,7 +37,7 @@
 												<table cellspacing="0" cellpadding="5" border="0" align="right">
 												  <tr>
 													<td nowrap="true">Enrollment filter:
-                                        <ASP:DropDownList id="DropDownList_filter" runat="server">
+                                        <ASP:DropDownList id="DropDownList_enrollment_filter" runat="server" autopostback="True">
                                           <ASP:ListItem value="all">All</ASP:ListItem>
                                           <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
                                           <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
@@ -55,10 +56,9 @@
                                           <ASP:ListItem value="deceased">- Deceased</ASP:ListItem>
                                         </ASP:DropDownList></td>
 													<td nowrap="true">
-													  <ASP:Label id="Label_leave_filter" runat="server" enabled="False">Leave filter:</ASP:Label>
-													  <ASP:DropDownList id="DropDownList1" runat="server" enabled="False">
-                                          <ASP:ListItem value="0" selected="True">--</ASP:ListItem>
-                                          <ASP:ListItem value="both">Both</ASP:ListItem>
+													  <ASP:Label id="Label_leave_filter" runat="server">Leave filter:</ASP:Label>
+													  <ASP:DropDownList id="DropDownList_leave_filter" runat="server" autopostback="True">
+                                          <ASP:ListItem value="both" selected="True">Both</ASP:ListItem>
                                           <ASP:ListItem value="obligated">- Not on leave</ASP:ListItem>
                                           <ASP:ListItem value="on_leave">- On leave</ASP:ListItem>
 													  </ASP:DropDownList></td>
