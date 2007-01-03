@@ -9,6 +9,8 @@ uses
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration, borland.data.provider,
   system.web.security,
   Class_biz_accounts,
+  Class_biz_enrollment,
+  Class_biz_leave,
   Class_biz_members,
   Class_biz_user;
 
@@ -22,6 +24,8 @@ type
     biz_accounts: TClass_biz_accounts;
     biz_user: TClass_biz_user;
     biz_members: TClass_biz_members;
+    enrollment_filter: Class_biz_enrollment.filter_type;
+    leave_filter: Class_biz_leave.filter_type;
     tcci_id: cardinal; // tcci = TableCellCollection Index
     tcci_field1: cardinal;
     tcci_field2: cardinal;
@@ -40,6 +44,10 @@ type
     procedure DataGrid_roster_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
     procedure TWebForm_squad_commander_overview_PreRender(sender: System.Object;
       e: System.EventArgs);
+    procedure DropDownList_enrollment_filter_SelectedIndexChanged(sender: System.Object;
+      e: System.EventArgs);
+    procedure DropDownList_leave_filter_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -53,11 +61,11 @@ type
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    DropDownList_filter: System.Web.UI.WebControls.DropDownList;
-    DropDownList1: System.Web.UI.WebControls.DropDownList;
     Label_leave_filter: System.Web.UI.WebControls.Label;
     DataGrid_roster: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
+    DropDownList_leave_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -80,6 +88,8 @@ begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
@@ -108,6 +118,8 @@ begin
     p.biz_user := TClass_biz_user.Create;
     p.biz_members := TClass_biz_members.Create;
     p.be_sort_order_ascending := TRUE;
+    p.enrollment_filter := CURRENT;
+    p.leave_filter := NONE;
     p.tcci_id := 1;
     p.tcci_field1 := 2;
     p.tcci_field2 := 3;
@@ -140,6 +152,35 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_squad_commander_overview.DropDownList_leave_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.leave_filter :=
+    Class_biz_leave.filter_type(enum.Parse(system.object(p.leave_filter).GetType,DropDownList_leave_filter.selectedvalue,TRUE));
+  Bind;
+end;
+
+procedure TWebForm_squad_commander_overview.DropDownList_enrollment_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.enrollment_filter := Class_biz_enrollment.filter_type
+    (enum.Parse(system.object(p.enrollment_filter).GetType,DropDownList_enrollment_filter.selectedvalue,TRUE));
+  case p.enrollment_filter of CURRENT..ADMIN:
+    BEGIN
+    Label_leave_filter.Enabled := TRUE;
+    DropDownList_leave_filter.Enabled := TRUE;
+    END;
+  else
+    BEGIN
+    Label_leave_filter.Enabled := FALSE;
+    DropDownList_leave_filter.selectedindex := 0;
+    DropDownList_leave_filter.Enabled := FALSE;
+    p.leave_filter := NONE;
+    END;
+  end;
+  Bind;
 end;
 
 procedure TWebForm_squad_commander_overview.TWebForm_squad_commander_overview_PreRender(sender: System.Object;
@@ -219,7 +260,14 @@ end;
 procedure TWebForm_squad_commander_overview.Bind;
 begin
   p.biz_members.BindSquadCommanderOverview
-    (session['squad_commander_user_id'].tostring,p.sort_order,p.be_sort_order_ascending,DataGrid_roster);
+    (
+    session['squad_commander_user_id'].tostring,
+    p.sort_order,
+    p.be_sort_order_ascending,
+    DataGrid_roster,
+    p.enrollment_filter,
+    p.leave_filter
+    );
   //
   // Manage control visibilities.
   //

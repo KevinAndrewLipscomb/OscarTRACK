@@ -3,6 +3,8 @@ unit Class_biz_members;
 interface
 
 uses
+  Class_biz_enrollment,
+  Class_biz_leave,
   Class_db_members;
 
 type
@@ -36,7 +38,9 @@ type
       agency_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
-      target: system.object
+      target: system.object;
+      enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
+      leave_filter: Class_biz_leave.filter_type = NONE
       );
   end;
 
@@ -107,10 +111,12 @@ procedure TClass_biz_members.BindSquadCommanderOverview
   agency_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
-  target: system.object
+  target: system.object;
+  enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
+  leave_filter: Class_biz_leave.filter_type = NONE
   );
 begin
-  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target);
+  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target,enrollment_filter,leave_filter);
 end;
 
 end.
