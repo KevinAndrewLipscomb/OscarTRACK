@@ -40,7 +40,6 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
 {%AspMarkupContainer 'protected\member_detail.aspx'}
 {%AspFolderContainer 'control'}
-{%AspMarkupContainer 'control\WebUserControl1.ascx'}
 
 uses
   System.Reflection,
@@ -74,7 +73,6 @@ uses
   Class_db_agencies in 'component\db\Class_db_agencies.pas',
   appcommon in 'appcommon.pas',
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
-  WebUserControl1 in 'control\WebUserControl1.pas' {WebUserControl1.TWebUserControl1: System.Windows.Forms.UserControl},
   Class_biz_enrollment in 'component\biz\Class_biz_enrollment.pas',
   Class_biz_leave in 'component\biz\Class_biz_leave.pas';
 

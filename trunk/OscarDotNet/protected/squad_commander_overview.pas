@@ -26,9 +26,6 @@ type
     biz_members: TClass_biz_members;
     enrollment_filter: Class_biz_enrollment.filter_type;
     leave_filter: Class_biz_leave.filter_type;
-    tcci_id: cardinal; // tcci = TableCellCollection Index
-    tcci_field1: cardinal;
-    tcci_field2: cardinal;
     num_datagrid_rows: cardinal;
     sort_order: string;
     END;
@@ -120,9 +117,6 @@ begin
     p.be_sort_order_ascending := TRUE;
     p.enrollment_filter := CURRENT;
     p.leave_filter := NONE;
-    p.tcci_id := 1;
-    p.tcci_field1 := 2;
-    p.tcci_field2 := 3;
     p.num_datagrid_rows := 0;
     p.sort_order := 'last_name,first_name,cad_num';
     //
