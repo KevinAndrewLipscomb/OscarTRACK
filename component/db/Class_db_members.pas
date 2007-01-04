@@ -54,9 +54,13 @@ type
       id: string;
       name: string
       );
+    function TimeOfLeaveOf(e_item: system.object): string;
   end;
 
 implementation
+
+uses
+  system.web.ui.HtmlControls;
 
 const
   TCCI_ID = 0;
@@ -66,8 +70,9 @@ const
   TCCI_MEDICAL_RELEASE_LEVEL = 4;
   TCCI_BE_DRIVER_QUALIFIED = 5;
   TCCI_ENROLLMENT = 6;
-  TCCI_KIND_OF_LEAVE = 7;
-  TCCI_TIME_OF_LEAVE = 8;
+  TCCI_LEAVE = 7;
+  TCCI_KIND_OF_LEAVE_HIDDEN = 8;
+  TCCI_TIME_OF_LEAVE_HIDDEN = 9;
 
 constructor TClass_db_members.Create;
 begin
@@ -88,8 +93,15 @@ begin
 end;
 
 function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): string;
+var
+  be_driver_qualified_of: string;
 begin
-  BeDriverQualifiedOf := Safe(DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text,ALPHA);
+  be_driver_qualified_of := Safe(DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text,ALPHA);
+  if be_driver_qualified_of = 'nbsp' then begin
+    BeDriverQualifiedOf := system.string.Empty;
+  end else begin
+    BeDriverQualifiedOf := be_driver_qualified_of;
+  end;
 end;
 
 function TClass_db_members.BeValidProfile(id: string): boolean;
@@ -204,9 +216,9 @@ begin
   + ' , first_name'                                                                                                    // column 2
   + ' , cad_num'                                                                                                       // column 3
   + ' , medical_release_code_description_map.description as medical_release_description'                               // column 4
-  + ' , if(be_driver_qualified,"Y","") as be_driver_qualified'                                                         // column 5
+  + ' , if(be_driver_qualified,"YES","no") as be_driver_qualified'                                                     // column 5
   + ' , obligation_code_description_map.description as enrollment'                                                     // column 6
-  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave' // column 7
+  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave' // column 7.1
   + ' , concat('
   +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
   +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
@@ -218,7 +230,21 @@ begin
   +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
   +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
   +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' ) as time_of_leave'                                                                                            // column 8
+  +   ' ) as time_of_leave'                                                                                            // column 7.2
+  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave_hidden'
+                                                                                                                       // column 8
+  + ' , concat('
+  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,"&lt;&nbsp;","")'
+  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
+  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
+  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
+  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
+  +   ' ) as time_of_leave_hidden'                                                                                     // column 9
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
@@ -284,8 +310,15 @@ begin
 end;
 
 function TClass_db_members.KindOfLeaveOf(e_item: system.object): string;
+var
+  kind_of_leave_of: string;
 begin
-  KindOfLeaveOf := Safe(DataGridItem(e_item).cells[TCCI_KIND_OF_LEAVE].text,NUM);
+  kind_of_leave_of := Safe(DataGridItem(e_item).cells[TCCI_KIND_OF_LEAVE_HIDDEN].text,ALPHA);
+  if kind_of_leave_of = 'nbsp' then begin
+    KindOfLeaveOf := system.string.EMPTY;
+  end else begin
+    KindOfLeaveOf := kind_of_leave_of;
+  end;
 end;
 
 function TClass_db_members.LastNameOf(e_item: system.object): string;
@@ -348,5 +381,9 @@ begin
   self.Close;
 end;
 
+function TClass_db_members.TimeOfLeaveOf(e_item: system.object): string;
+begin
+  TimeOfLeaveOf := DataGridItem(e_item).cells[TCCI_TIME_OF_LEAVE_HIDDEN].text;
+end;
 
 end.

@@ -93,6 +93,8 @@
                 </div></td></tr></table>
                               </ItemTemplate>
                             </ASP:TemplateColumn>
+                            <ASP:BoundColumn visible="False" datafield="kind_of_leave_hidden" readonly="True" headertext="kind_of_leave_hidden"></ASP:BoundColumn>
+                            <ASP:BoundColumn visible="False" datafield="time_of_leave_hidden" readonly="True" headertext="time_of_leave_hidden"></ASP:BoundColumn>
                             <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
                           </Columns>
 						</ASP:DataGrid></td>

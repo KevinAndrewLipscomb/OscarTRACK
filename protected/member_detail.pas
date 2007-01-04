@@ -54,12 +54,13 @@ type
     LinkButton_change_driver_qual: System.Web.UI.WebControls.LinkButton;
     Label_enrollment: System.Web.UI.WebControls.Label;
     LinkButton_enrollment_detail: System.Web.UI.WebControls.LinkButton;
-    Label_leave: System.Web.UI.WebControls.Label;
     LinkButton_leave_detail: System.Web.UI.WebControls.LinkButton;
     Label_officership: System.Web.UI.WebControls.Label;
     LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
     Label_email_address: System.Web.UI.WebControls.Label;
     LinkButton1: System.Web.UI.WebControls.LinkButton;
+    Label_kind_of_leave: System.Web.UI.WebControls.Label;
+    Label_time_of_leave: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -123,9 +124,12 @@ begin
         + ' (CAD # '
         + cad_num_string
         + ')';
-      Label_leave.Text := p.biz_members.KindOfLeaveOf(session['e_item']);
-      if Label_leave.Text = system.string.Empty then begin
-        Label_leave.Text := '(none)';
+      Label_kind_of_leave.Text := p.biz_members.KindOfLeaveOf(session['e_item']);
+      if Label_kind_of_leave.Text = system.string.EMPTY then begin
+        Label_kind_of_leave.Text := '(none)';
+        Label_time_of_leave.visible := FALSE;
+      end else begin
+        Label_time_of_leave.text := p.biz_members.TimeOfLeaveOf(session['e_item']);
       end;
       Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
       if Label_officership.Text = system.string.Empty then begin

@@ -51,6 +51,7 @@ type
       id: string;
       name: string
       );
+    function TimeOfLeaveOf(e_item: system.object): string;
   end;
 
 implementation
@@ -85,6 +86,19 @@ procedure TClass_biz_members.BindDropDownList
   );
 begin
   db_members.BindDropDownList(agency_user_id,target,be_unfiltered);
+end;
+
+procedure TClass_biz_members.BindSquadCommanderOverview
+  (
+  agency_id: string;
+  sort_order: string;
+  be_sort_order_ascending: boolean;
+  target: system.object;
+  enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
+  leave_filter: Class_biz_leave.filter_type = NONE
+  );
+begin
+  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target,enrollment_filter,leave_filter);
 end;
 
 function TClass_biz_members.CadNumOf(e_item: system.object): string;
@@ -156,17 +170,9 @@ begin
   db_members.SetProfile(id,name);
 end;
 
-procedure TClass_biz_members.BindSquadCommanderOverview
-  (
-  agency_id: string;
-  sort_order: string;
-  be_sort_order_ascending: boolean;
-  target: system.object;
-  enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
-  leave_filter: Class_biz_leave.filter_type = NONE
-  );
+function TClass_biz_members.TimeOfLeaveOf(e_item: system.object): string;
 begin
-  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target,enrollment_filter,leave_filter);
+  TimeOfLeaveOf := db_members.TimeOfLeaveOf(e_item);
 end;
 
 end.
