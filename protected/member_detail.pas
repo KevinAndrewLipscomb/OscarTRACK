@@ -8,6 +8,8 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   appcommon,
+  Class_biz_accounts,
+  Class_biz_members,
   ki_web_ui;
 
 const ID = '$Id$';
@@ -15,6 +17,8 @@ const ID = '$Id$';
 type
   p_type =
     RECORD
+    biz_accounts: TClass_biz_accounts;
+    biz_members: TClass_biz_members;
     END;
   TWebForm_member_detail = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -30,12 +34,6 @@ type
       e: System.EventArgs);
     procedure LinkButton_drill_down_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
-  //
-  // Expected session objects:
-  //
-  //   waypoint_stack: system.collections.stack;
-  //
-  //
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -60,6 +58,8 @@ type
     LinkButton_leave_detail: System.Web.UI.WebControls.LinkButton;
     Label_officership: System.Web.UI.WebControls.Label;
     LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
+    Label_email_address: System.Web.UI.WebControls.Label;
+    LinkButton1: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -87,6 +87,8 @@ end;
 {$ENDREGION}
 
 procedure TWebForm_member_detail.Page_Load(sender: System.Object; e: System.EventArgs);
+var
+  cad_num_string: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
@@ -94,7 +96,8 @@ begin
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       //
-      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore unknown.  This is rarely allowed.
+      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore
+      // unknown.  This is rarely allowed.
       //
       session.Clear;
       server.Transfer('~/login.aspx');
@@ -103,12 +106,34 @@ begin
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
       //
-//      Label_member_designator.Text := // first_name last_name (CAD # cad_num)
-//      Label_leave.Text :=
-//      Label_officership.Text :=
-//      Label_medical_release_level.Text :=
-//      Label_enrollment,Text :=
-//      Label_be_driver_qualified.Text :=
+      p.biz_accounts := TClass_biz_accounts.Create;
+      p.biz_members := TClass_biz_members.Create;
+      //
+      Label_email_address.Text := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
+      if Label_email_address.Text = system.string.Empty then begin
+        Label_email_address.Text := '(none on file)';
+      end;
+      cad_num_string := p.biz_members.CadNumOf(session['e_item']);
+      if cad_num_string = system.string.EMPTY then begin
+        cad_num_string := '-none-';
+      end;
+      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+        + ' '
+        + p.biz_members.LastNameOf(session['e_item'])
+        + ' (CAD # '
+        + cad_num_string
+        + ')';
+      Label_leave.Text := p.biz_members.KindOfLeaveOf(session['e_item']);
+      if Label_leave.Text = system.string.Empty then begin
+        Label_leave.Text := '(none)';
+      end;
+      Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
+      if Label_officership.Text = system.string.Empty then begin
+        Label_officership.Text := '(none)';
+      end;
+      Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
+      Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
+      Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
       //
     end;
   end;
