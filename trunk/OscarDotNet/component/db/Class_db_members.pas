@@ -157,8 +157,10 @@ var
   current_month_num_string: string;
   current_year_num: cardinal;
   current_year_num_string: string;
-  today: datetime;
   filter: string;
+  kind_of_leave_selection_clause: string;
+  time_of_leave_selection_clause: string;
+  today: datetime;
 begin
   //
   today := datetime.Today;
@@ -210,41 +212,32 @@ begin
     end;
   end;
   //
+  kind_of_leave_selection_clause := 'if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"")';
+  time_of_leave_selection_clause := 'concat('
+  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,"&lt;&nbsp;","")'
+  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
+  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
+  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
+  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
+  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
+  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
+  +   ' )';
+  //
   command_text :=
-  'select member.id as member_id'                                                                                      // column 0
-  + ' , last_name'                                                                                                     // column 1
-  + ' , first_name'                                                                                                    // column 2
-  + ' , cad_num'                                                                                                       // column 3
-  + ' , medical_release_code_description_map.description as medical_release_description'                               // column 4
-  + ' , if(be_driver_qualified,"YES","no") as be_driver_qualified'                                                     // column 5
-  + ' , obligation_code_description_map.description as enrollment'                                                     // column 6
-  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave' // column 7.1
-  + ' , concat('
-  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,"&lt;&nbsp;","")'
-  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
-  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
-  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
-  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' ) as time_of_leave'                                                                                            // column 7.2
-  + ' , if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"") as kind_of_leave_hidden'
-                                                                                                                       // column 8
-  + ' , concat('
-  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,"&lt;&nbsp;","")'
-  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
-  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
-  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
-  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' ) as time_of_leave_hidden'                                                                                     // column 9
+  'select member.id as member_id'                                                        // column 0
+  + ' , last_name'                                                                       // column 1
+  + ' , first_name'                                                                      // column 2
+  + ' , cad_num'                                                                         // column 3
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 4
+  + ' , if(be_driver_qualified,"YES","no") as be_driver_qualified'                       // column 5
+  + ' , obligation_code_description_map.description as enrollment'                       // column 6
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7.1
+  + ' , ' + time_of_leave_selection_clause + ' as time_of_leave'                         // column 7.2
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave_hidden'                  // column 8
+  + ' , ' + time_of_leave_selection_clause + ' as time_of_leave_hidden'                  // column 9
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
