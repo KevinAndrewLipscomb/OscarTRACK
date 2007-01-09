@@ -45,7 +45,8 @@
                                           <ASP:ListItem value="life">- - - Life</ASP:ListItem>
                                           <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
                                           <ASP:ListItem value="special">- - - Special</ASP:ListItem>
-                                          <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
+                                          <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
+										  <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
                                           <ASP:ListItem value="past">- Past</ASP:ListItem>
                                           <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
                                           <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
@@ -79,7 +80,9 @@
                             <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#"></ASP:BoundColumn>
+                            <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
+                              <ItemStyle horizontalalign="Center"></ItemStyle>
+                            </ASP:BoundColumn>
                             <ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released med level"></ASP:BoundColumn>
                             <ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released driver">
                               <ItemStyle horizontalalign="Center"></ItemStyle>

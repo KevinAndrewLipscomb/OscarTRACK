@@ -8,6 +8,9 @@ uses
 
 const ID = '$Id$';
 
+const
+  NOT_APPLICABLE_INDICATION_HTML = '&ndash;&nbsp;&ndash;&nbsp;&ndash;';
+
 procedure PopulatePlaceHolders
   (
   var precontent: System.Web.Ui.WebControls.PlaceHolder;

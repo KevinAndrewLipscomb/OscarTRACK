@@ -7,7 +7,6 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   system.web.ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration,
-  Class_biz_user,
   system.web.mail;
 
 const ID = '$Id$';

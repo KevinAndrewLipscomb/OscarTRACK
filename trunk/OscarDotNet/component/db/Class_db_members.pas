@@ -10,6 +10,18 @@ uses
   ki,
   system.web.ui.webcontrols;
 
+const
+  TCCI_ID = 0;
+  TCCI_LAST_NAME = 1;
+  TCCI_FIRST_NAME = 2;
+  TCCI_CAD_NUM = 3;
+  TCCI_MEDICAL_RELEASE_LEVEL = 4;
+  TCCI_BE_DRIVER_QUALIFIED = 5;
+  TCCI_ENROLLMENT = 6;
+  TCCI_LEAVE = 7;
+  TCCI_KIND_OF_LEAVE_HIDDEN = 8;
+  TCCI_TIME_OF_LEAVE_HIDDEN = 9;
+
 type
   TClass_db_members = class(TClass_db)
   private
@@ -61,18 +73,6 @@ implementation
 
 uses
   system.web.ui.HtmlControls;
-
-const
-  TCCI_ID = 0;
-  TCCI_LAST_NAME = 1;
-  TCCI_FIRST_NAME = 2;
-  TCCI_CAD_NUM = 3;
-  TCCI_MEDICAL_RELEASE_LEVEL = 4;
-  TCCI_BE_DRIVER_QUALIFIED = 5;
-  TCCI_ENROLLMENT = 6;
-  TCCI_LEAVE = 7;
-  TCCI_KIND_OF_LEAVE_HIDDEN = 8;
-  TCCI_TIME_OF_LEAVE_HIDDEN = 9;
 
 constructor TClass_db_members.Create;
 begin
@@ -184,13 +184,14 @@ begin
   if enrollment_filter <> ALL then begin
     filter := ' and obligation_code_description_map.description ';
     case enrollment_filter of
-    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Admin") ';
+    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin") ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
     REGULAR: filter := filter + ' = "Regular" ';
     LIFE: filter := filter + ' = "Life" ';
     TENURED: filter := filter + ' = "Tenured" ';
     SPECIAL: filter := filter + ' = "Special" ';
+    RECRUIT: filter := filter + ' = "Recruit" ';
     ADMIN: filter := filter + ' = "Admin" ';
     PAST: filter := filter + '  in ("Disengaged","Resigned","Disabled","Expelled","Deceased") ';
     LOST_INTEREST: filter := filter + ' = "Disengaged" ';
@@ -321,9 +322,8 @@ end;
 
 function TClass_db_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
-  MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,HYPHENATED_ALPHA);
+  MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,NARRATIVE);
 end;
-
 
 function TClass_db_members.NameOf(member_id: string): string;
 begin
@@ -353,7 +353,6 @@ begin
   end;
   self.Close;
 end;
-
 
 procedure TClass_db_members.SetProfile
   (

@@ -10,7 +10,6 @@ uses
   ki, System.Globalization,
   System.Data.SqlClient, System.Data.Common, system.configuration,
   system.text.regularexpressions, system.web.security, system.io,
-  appcommon,
   Class_biz_accounts;
 
 const ID = '$Id$';
@@ -60,6 +59,9 @@ type
   end;
 
 implementation
+
+uses
+  appcommon;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>

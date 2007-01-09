@@ -73,7 +73,8 @@ type
 implementation
 
 uses
-  appcommon;
+  appcommon,
+  Class_db_members;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -225,6 +226,10 @@ begin
   then begin
     //
     // We are dealing with a data row, not a header or footer row.
+    //
+    if e.item.cells[Class_db_members.TCCI_CAD_NUM].text = '&nbsp;' then begin
+      e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
+    end;
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;

@@ -14,6 +14,7 @@ type
           LIFE,
           TENURED,
           SPECIAL,
+        RECRUIT,
         ADMIN,
       PAST,
         LOST_INTEREST,
