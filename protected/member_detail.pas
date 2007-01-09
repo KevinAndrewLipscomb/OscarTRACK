@@ -7,7 +7,6 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  appcommon,
   Class_biz_accounts,
   Class_biz_members,
   ki_web_ui;
@@ -70,6 +69,9 @@ type
 
 implementation
 
+uses
+  appcommon;
+
 {$REGION 'Designer Managed Code'}
 /// <summary>
 /// Required method for Designer support -- do not modify
@@ -112,11 +114,11 @@ begin
       //
       Label_email_address.Text := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
       if Label_email_address.Text = system.string.Empty then begin
-        Label_email_address.Text := '(none on file)';
+        Label_email_address.Text := NOT_APPLICABLE_INDICATION_HTML;
       end;
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
       if cad_num_string = system.string.EMPTY then begin
-        cad_num_string := '-none-';
+        cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
         + ' '
@@ -126,14 +128,14 @@ begin
         + ')';
       Label_kind_of_leave.Text := p.biz_members.KindOfLeaveOf(session['e_item']);
       if Label_kind_of_leave.Text = system.string.EMPTY then begin
-        Label_kind_of_leave.Text := '(none)';
+        Label_kind_of_leave.Text := NOT_APPLICABLE_INDICATION_HTML;
         Label_time_of_leave.visible := FALSE;
       end else begin
         Label_time_of_leave.text := p.biz_members.TimeOfLeaveOf(session['e_item']);
       end;
       Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
       if Label_officership.Text = system.string.Empty then begin
-        Label_officership.Text := '(none)';
+        Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
       end;
       Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
       Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);

@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS medical_release_code_description_map (
 -- Dumping data for table `medical_release_code_description_map`
 -- 
 
-INSERT INTO medical_release_code_description_map (code, description, pecking_order) VALUES (1, '(na)', 0),
+INSERT INTO medical_release_code_description_map (code, description, pecking_order) VALUES (1, 'none', 0),
 (2, 'Trainee', 10),
 (3, 'EMT-B', 20),
 (4, 'EMT-ST', 30),
@@ -217,7 +217,7 @@ CREATE TABLE IF NOT EXISTS obligation_code_description_map (
 -- Dumping data for table `obligation_code_description_map`
 -- 
 
-INSERT INTO obligation_code_description_map (code, description, num_shifts, pecking_order) VALUES (1, '(na)', 0, 90),
+INSERT INTO obligation_code_description_map (code, description, num_shifts, pecking_order) VALUES (1, 'Admin', 0, 90),
 (2, 'Regular', 4, 30),
 (3, 'Life', 3, 20),
 (4, 'Tenured', 2, 10),
@@ -225,7 +225,8 @@ INSERT INTO obligation_code_description_map (code, description, num_shifts, peck
 (6, 'Special', NULL, 70),
 (7, 'Reduced (1)', 1, 60),
 (8, 'Reduced (2)', 2, 50),
-(9, 'Reduced (3)', 3, 40);
+(9, 'Reduced (3)', 3, 40),
+(10, 'Recruit', 0, 85);
 
 -- --------------------------------------------------------
 
