@@ -9,7 +9,7 @@ uses
 const ID = '$Id$';
 
 const
-  NOT_APPLICABLE_INDICATION_HTML = '&ndash;&nbsp;&ndash;&nbsp;&ndash;';
+  NOT_APPLICABLE_INDICATION_HTML = '-&nbsp;-&nbsp;-';
 
 procedure PopulatePlaceHolders
   (
