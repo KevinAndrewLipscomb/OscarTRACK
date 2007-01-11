@@ -32,6 +32,7 @@ type
       e: System.EventArgs);
     procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -55,6 +56,7 @@ type
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     RadioButtonList_be_driver_qualified: System.Web.UI.WebControls.RadioButtonList;
+    Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -79,6 +81,7 @@ begin
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_member_driver_qualification_PreRender);
 end;
@@ -120,6 +123,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_change_member_driver_qualification.Button_cancel_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
 procedure TWebForm_change_member_driver_qualification.Button_submit_Click(sender: System.Object;
