@@ -35,6 +35,7 @@ type
     procedure CustomValidator_member_email_address_ServerValidate(source: System.Object; 
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -62,6 +63,7 @@ type
     CustomValidator_member_email_address: System.Web.UI.WebControls.CustomValidator;
     RegularExpressionValidator_member_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     TextBox_noop_ie_behavior_workaround: System.Web.UI.WebControls.TextBox;
+    Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -87,6 +89,7 @@ begin
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.CustomValidator_member_email_address.ServerValidate, Self.CustomValidator_member_email_address_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_member_email_address_PreRender);
 end;
@@ -129,6 +132,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_change_member_email_address.Button_cancel_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
 procedure TWebForm_change_member_email_address.Button_submit_Click(sender: System.Object;

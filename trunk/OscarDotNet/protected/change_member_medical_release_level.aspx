@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			         [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			         [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			          [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			          [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -33,7 +33,7 @@
 						<p>Indicate the level at which <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>
 						is approved <u>to function in Virginia Beach</u>.
                         </p>
-                        <p><ASP:Label id="Label_member_name_3" runat="server"></ASP:Label>'s medical release level:&nbsp; <ASP:DropDownList id="DropDownList_medical_release_level" runat="server"></ASP:DropDownList>&nbsp;<ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button></p></td>
+                        <p><ASP:Label id="Label_member_name_3" runat="server"></ASP:Label>'s medical release level:&nbsp; <ASP:DropDownList id="DropDownList_medical_release_level" runat="server"></ASP:DropDownList>&nbsp;<ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></p></td>
                     </tr>
                 </table></td>
             </tr>

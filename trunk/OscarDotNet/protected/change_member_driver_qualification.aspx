@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			       [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			       [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			         [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			         [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -36,7 +36,9 @@
 							<ASP:RadioButtonList id="RadioButtonList_be_driver_qualified" runat="server" repeatdirection="Horizontal">
 							  <ASP:ListItem value="TRUE">True</ASP:ListItem>
                               <ASP:ListItem value="false">False</ASP:ListItem>
-                            </ASP:RadioButtonList>&nbsp; <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>
+                            </ASP:RadioButtonList>
+                          </p>
+                          <p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button>
                           </p>
                         </blockquote></td>
                     </tr>

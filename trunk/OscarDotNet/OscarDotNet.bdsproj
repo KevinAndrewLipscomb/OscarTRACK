@@ -195,7 +195,6 @@
     
     
     
-    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -240,6 +239,7 @@
       <File FileName="protected\change_member_email_address.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_email_address"/>
       <File FileName="protected\change_member_medical_release_level.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_medical_release_level"/>
       <File FileName="protected\change_member_driver_qualification.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_driver_qualification"/>
+      <File FileName="protected\enrollment_detail.aspx" ContainerId="AspMarkupContainer" ModuleName="enrollment_detail"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="component\biz\Class_biz_user.pas" ContainerId="" ModuleName="Class_biz_user"/>
@@ -278,6 +278,7 @@
       <File FileName="component\biz\Class_biz_medical_release_levels.pas" ContainerId="" ModuleName="Class_biz_medical_release_levels"/>
       <File FileName="component\db\Class_db_medical_release_levels.pas" ContainerId="" ModuleName="Class_db_medical_release_levels"/>
       <File FileName="protected\change_member_driver_qualification.pas" ContainerId="" ModuleName="change_member_driver_qualification" Parent="protected\change_member_driver_qualification.aspx"/>
+      <File FileName="protected\enrollment_detail.pas" ContainerId="" ModuleName="enrollment_detail" Parent="protected\enrollment_detail.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
