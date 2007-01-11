@@ -61,6 +61,11 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    procedure SetMedicalReleaseCode
+      (
+      id: string;
+      code: string
+      );
     procedure SetProfile
       (
       id: string;
@@ -351,6 +356,22 @@ begin
   end else begin
     OfficershipOf := system.string.EMPTY;
   end;
+  self.Close;
+end;
+
+procedure TClass_db_members.SetMedicalReleaseCode
+  (
+  id: string;
+  code: string
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    'UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + id,
+    connection
+    )
+    .ExecuteNonQuery;
   self.Close;
 end;
 
