@@ -46,6 +46,11 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    procedure SetDriverQualification
+      (
+      be_driver_qualified: boolean;
+      e_item: system.object
+      );
     procedure SetMedicalReleaseCode
       (
       code: string;
@@ -164,6 +169,15 @@ end;
 function TClass_biz_members.OfficershipOf(member_id: string): string;
 begin
   OfficerShipOf := db_members.OfficershipOf(member_id);
+end;
+
+procedure TClass_biz_members.SetDriverQualification
+  (
+  be_driver_qualified: boolean;
+  e_item: system.object
+  );
+begin
+  db_members.SetDriverQualification(be_driver_qualified,e_item);
 end;
 
 procedure TClass_biz_members.SetMedicalReleaseCode
