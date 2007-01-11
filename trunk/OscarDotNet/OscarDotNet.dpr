@@ -41,6 +41,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\member_detail.aspx'}
 {%AspFolderContainer 'control'}
 {%AspMarkupContainer 'protected\change_member_email_address.aspx'}
+{%AspMarkupContainer 'protected\change_member_medical_release_level.aspx'}
 
 uses
   System.Reflection,
@@ -76,7 +77,10 @@ uses
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   Class_biz_enrollment in 'component\biz\Class_biz_enrollment.pas',
   Class_biz_leave in 'component\biz\Class_biz_leave.pas',
-  change_member_email_address in 'protected\change_member_email_address.pas' {change_member_email_address.TWebForm_change_member_email_address: ki_web_ui.page_class};
+  change_member_email_address in 'protected\change_member_email_address.pas' {change_member_email_address.TWebForm_change_member_email_address: ki_web_ui.page_class},
+  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
+  Class_biz_medical_release_levels in 'component\biz\Class_biz_medical_release_levels.pas',
+  Class_db_medical_release_levels in 'component\db\Class_db_medical_release_levels.pas';
 
 const ID = '$Id$';
 
