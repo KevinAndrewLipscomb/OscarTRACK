@@ -9,6 +9,7 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_accounts,
   Class_biz_members,
+  ki,
   ki_web_ui;
 
 const ID = '$Id$';
@@ -18,6 +19,7 @@ type
     RECORD
     biz_accounts: TClass_biz_accounts;
     biz_members: TClass_biz_members;
+    raw_member_email_address: string;
     END;
   TWebForm_member_detail = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -31,7 +33,14 @@ type
       e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_drill_down_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_member_email_address_Click(sender: System.Object;
+      e: System.EventArgs);
+    procedure LinkButton_leave_detail_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_officership_detail_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_medical_release_level_Click(sender: System.Object; 
+      e: System.EventArgs);
+    procedure LinkButton_enrollment_detail_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_driver_qual_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -45,7 +54,6 @@ type
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
     Label_account_descriptor: System.Web.UI.WebControls.Label;
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
-    LinkButton_drill_down: System.Web.UI.WebControls.LinkButton;
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_change_medical_release_level: System.Web.UI.WebControls.LinkButton;
     Label_medical_release_level: System.Web.UI.WebControls.Label;
@@ -57,9 +65,9 @@ type
     Label_officership: System.Web.UI.WebControls.Label;
     LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
     Label_email_address: System.Web.UI.WebControls.Label;
-    LinkButton1: System.Web.UI.WebControls.LinkButton;
     Label_kind_of_leave: System.Web.UI.WebControls.Label;
     Label_time_of_leave: System.Web.UI.WebControls.Label;
+    LinkButton_change_member_email_address: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -83,7 +91,12 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
-  Include(Self.LinkButton_drill_down.Click, Self.LinkButton_drill_down_Click);
+  Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
+  Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
+  Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
+  Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
+  Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
+  Include(Self.LinkButton_change_driver_qual.Click, Self.LinkButton_change_driver_qual_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_member_detail_PreRender);
 end;
@@ -112,8 +125,10 @@ begin
       p.biz_accounts := TClass_biz_accounts.Create;
       p.biz_members := TClass_biz_members.Create;
       //
-      Label_email_address.Text := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
-      if Label_email_address.Text = system.string.Empty then begin
+      p.raw_member_email_address := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
+      if p.raw_member_email_address <> system.string.Empty then begin
+        Label_email_address.Text := p.raw_member_email_address;
+      end else begin
         Label_email_address.Text := NOT_APPLICABLE_INDICATION_HTML;
       end;
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
@@ -154,14 +169,49 @@ begin
   inherited OnInit(e);
 end;
 
-{$REGION 'Waypoint management code for drill-down server.Transfer calls.'}
-procedure TWebForm_member_detail.LinkButton_drill_down_Click(sender: System.Object;
+procedure TWebForm_member_detail.LinkButton_change_driver_qual_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('detail.aspx');
+  server.Transfer('change_member_driver_qualification.aspx');
 end;
-{$ENDREGION}
+
+procedure TWebForm_member_detail.LinkButton_enrollment_detail_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('enrollment_detail.aspx');
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_medical_release_level_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_member_medical_release_level.aspx');
+end;
+
+procedure TWebForm_member_detail.LinkButton_officership_detail_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('officership_detail.aspx');
+end;
+
+procedure TWebForm_member_detail.LinkButton_leave_detail_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('leave_detail.aspx');
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_member_email_address_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  session.Remove('member_email_address');
+  session.Add('member_email_address',p.raw_member_email_address);
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_member_email_address.aspx');
+end;
 
 procedure TWebForm_member_detail.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);

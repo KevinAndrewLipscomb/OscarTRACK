@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			         [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			         [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			           [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			           [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -35,7 +35,7 @@
 							<tr>
 							  <td>Email address:</td>
 							  <td><ASP:Label id="Label_email_address" runat="server"></ASP:Label></td>
-							  <td><ASP:LinkButton id="LinkButton1" runat="server">Change</ASP:LinkButton></td>
+							  <td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server">Change</ASP:LinkButton></td>
 							</tr>
 							<tr>
 							  <td>Leave:</td>
@@ -76,7 +76,6 @@
                 </table></td>
             </tr>
         </table></p>
-          <ASP:LinkButton id="LinkButton_drill_down" runat="server">There is important waypoint-management code behind this drill-down LinkButton.</ASP:LinkButton>
 	  <asp:placeholder id="PlaceHolder_postcontent" runat="server"></asp:placeholder>
      <sstchur:SmartScroller runat="server" /></form>
   </body>

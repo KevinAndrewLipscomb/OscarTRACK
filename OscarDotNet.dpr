@@ -40,6 +40,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
 {%AspMarkupContainer 'protected\member_detail.aspx'}
 {%AspFolderContainer 'control'}
+{%AspMarkupContainer 'protected\change_member_email_address.aspx'}
 
 uses
   System.Reflection,
@@ -74,7 +75,8 @@ uses
   appcommon in 'appcommon.pas',
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   Class_biz_enrollment in 'component\biz\Class_biz_enrollment.pas',
-  Class_biz_leave in 'component\biz\Class_biz_leave.pas';
+  Class_biz_leave in 'component\biz\Class_biz_leave.pas',
+  change_member_email_address in 'protected\change_member_email_address.pas' {change_member_email_address.TWebForm_change_member_email_address: ki_web_ui.page_class};
 
 const ID = '$Id$';
 

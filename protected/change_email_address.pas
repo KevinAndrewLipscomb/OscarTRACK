@@ -140,12 +140,7 @@ end;
 procedure TWebForm_change_email_address.CustomValidator_nominal_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := TRUE;
-  try
-    dns.GetHostByName(args.value.Substring(args.value.LastIndexOf('@') + 1));
-  except
-    args.isvalid := FALSE;
-  end;
+  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value); 
 end;
 
 procedure TWebForm_change_email_address.Button_submit_Click(sender: System.Object;
