@@ -5,6 +5,7 @@ interface
 uses
   borland.data.provider,
   Class_db,
+  Class_db_medical_release_levels,
   Class_biz_enrollment,
   Class_biz_leave,
   ki,
@@ -25,7 +26,7 @@ const
 type
   TClass_db_members = class(TClass_db)
   private
-    { Private Declarations }
+    db_medical_release_levels: TClass_db_medical_release_levels;
   public
     constructor Create;
     function AffiliateNumOfId(id: string): string;
@@ -63,8 +64,8 @@ type
     function OfficershipOf(member_id: string): string;
     procedure SetMedicalReleaseCode
       (
-      id: string;
-      code: string
+      code: string;
+      e_item: system.object
       );
     procedure SetProfile
       (
@@ -83,6 +84,7 @@ constructor TClass_db_members.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_medical_release_levels := TClass_db_medical_release_levels.Create;
 end;
 
 function TClass_db_members.AffiliateNumOfId(id: string): string;
@@ -361,17 +363,18 @@ end;
 
 procedure TClass_db_members.SetMedicalReleaseCode
   (
-  id: string;
-  code: string
+  code: string;
+  e_item: system.object
   );
 begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + id,
+    'UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text,
     connection
     )
     .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].Text := db_medical_release_levels.DescriptionOf(code);
   self.Close;
 end;
 

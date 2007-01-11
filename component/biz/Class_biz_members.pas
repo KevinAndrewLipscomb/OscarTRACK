@@ -48,8 +48,8 @@ type
     function OfficershipOf(member_id: string): string;
     procedure SetMedicalReleaseCode
       (
-      member_id: string;
-      code: string
+      code: string;
+      e_item: system.object
       );
     procedure SetProfile
       (
@@ -168,11 +168,11 @@ end;
 
 procedure TClass_biz_members.SetMedicalReleaseCode
   (
-  member_id: string;
-  code: string
+  code: string;
+  e_item: system.object
   );
 begin
-  db_members.SetMedicalReleaseCode(member_id,code);
+  db_members.SetMedicalReleaseCode(code,e_item);
 end;
 
 procedure TClass_biz_members.SetProfile
