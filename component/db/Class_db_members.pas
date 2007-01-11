@@ -62,6 +62,11 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    procedure SetDriverQualification
+      (
+      be_driver_qualified: boolean;
+      e_item: system.object
+      );
     procedure SetMedicalReleaseCode
       (
       code: string;
@@ -240,7 +245,7 @@ begin
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
   + ' , medical_release_code_description_map.description as medical_release_description' // column 4
-  + ' , if(be_driver_qualified,"YES","no") as be_driver_qualified'                       // column 5
+  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
   + ' , obligation_code_description_map.description as enrollment'                       // column 6
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7.1
   + ' , ' + time_of_leave_selection_clause + ' as time_of_leave'                         // column 7.2
@@ -357,6 +362,29 @@ begin
     OfficershipOf := rank_name_obj.tostring;
   end else begin
     OfficershipOf := system.string.EMPTY;
+  end;
+  self.Close;
+end;
+
+procedure TClass_db_members.SetDriverQualification
+  (
+  be_driver_qualified: boolean;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    'UPDATE member'
+    + ' SET be_driver_qualified = ' + be_driver_qualified.tostring
+    + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text,
+    connection
+    )
+    .ExecuteNonQuery;
+  if be_driver_qualified then begin
+    DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'TRUE';
+  end else begin
+    DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'false';
   end;
   self.Close;
 end;
