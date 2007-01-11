@@ -130,7 +130,7 @@ end;
 procedure TWebForm_change_member_medical_release_level.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_members.SetMedicalReleaseCode(p.biz_members.IdOf(session['e_item']),DropDownList_medical_release_level.selectedvalue);
+  p.biz_members.SetMedicalReleaseCode(DropDownList_medical_release_level.selectedvalue,session['e_item']);
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
