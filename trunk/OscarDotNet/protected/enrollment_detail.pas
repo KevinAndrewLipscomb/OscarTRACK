@@ -21,9 +21,6 @@ type
     be_datagrid_empty: boolean;
     biz_enrollment: TClass_biz_enrollment;
     biz_members: TClass_biz_members;
-    tcci_id: cardinal; // tcci = TableCellCollection Index
-    tcci_field1: cardinal;
-    tcci_field2: cardinal;
     num_datagrid_rows: cardinal;
     END;
   TWebForm_enrollment_detail = class(ki_web_ui.page_class)
@@ -54,7 +51,7 @@ type
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
     DataGrid_member_history: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
-    Label_member_name: System.Web.UI.WebControls.Label;
+    Label_member_designator: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -86,6 +83,8 @@ end;
 {$ENDREGION}
 
 procedure TWebForm_enrollment_detail.Page_Load(sender: System.Object; e: System.EventArgs);
+var
+  cad_num_string: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
@@ -106,10 +105,18 @@ begin
       //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
-      p.tcci_id := 1;
-      p.tcci_field1 := 2;
-      p.tcci_field2 := 3;
       p.num_datagrid_rows := 0;
+      //
+      cad_num_string := p.biz_members.CadNumOf(session['e_item']);
+      if cad_num_string = system.string.EMPTY then begin
+        cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
+      end;
+      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+        + ' '
+        + p.biz_members.LastNameOf(session['e_item'])
+        + ' (CAD # '
+        + cad_num_string
+        + ')';
       //
       Bind;
       //
