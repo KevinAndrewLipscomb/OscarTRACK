@@ -26,7 +26,7 @@
               <td>
                 <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
-                      <td bgcolor="#f5f5f5"><strong>Enrollment details for <ASP:Label id="Label_member_name" runat="server"></ASP:Label></strong></td>
+                      <td bgcolor="#f5f5f5"><strong>Enrollment details for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
 					</tr>
 					<tr id="TableRow_none" runat="server">
 					  <td><em>--&nbsp;NONE&nbsp;--</em></td>

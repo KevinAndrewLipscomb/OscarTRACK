@@ -84,7 +84,7 @@ uses
   Class_biz_medical_release_levels in 'component\biz\Class_biz_medical_release_levels.pas',
   Class_db_medical_release_levels in 'component\db\Class_db_medical_release_levels.pas',
   change_member_driver_qualification in 'protected\change_member_driver_qualification.pas' {change_member_driver_qualification.TWebForm_change_member_driver_qualification: ki_web_ui.page_class},
-  enrollment_detail in 'protected\enrollment_detail.pas' {enrollment_detail.TWebForm_enrollment_detail: ki_web_ui.page_class},
+  enrollment_detail in 'protected\enrollment_detail.pas' {TWebForm_enrollment_detail: ki_web_ui.page_class},
   Class_db_enrollment in 'component\db\Class_db_enrollment.pas';
 
 const ID = '$Id$';
