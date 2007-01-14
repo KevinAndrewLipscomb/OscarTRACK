@@ -1,4 +1,4 @@
-﻿-- $Id$
+-- $Id$
 --
 -- phpMyAdmin SQL Dump
 -- version 2.6.4-pl4
@@ -126,7 +126,7 @@ CREATE TABLE IF NOT EXISTS leave_of_absence (
   num_obliged_shifts tinyint(3) unsigned NOT NULL default '0',
   note varchar(127) default NULL,
   PRIMARY KEY  (id),
-  KEY member_id (member_id)
+  KEY member_id (member_id),
   KEY kind_of_leave_code (kind_of_leave_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

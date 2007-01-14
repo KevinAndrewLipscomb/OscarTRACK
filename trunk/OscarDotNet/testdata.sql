@@ -147,16 +147,16 @@ INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_d
 -- Dumping data for table `leave_of_absence`
 --
 
-INSERT INTO `leave_of_absence` (`id`, `member_id`, `start_date`, `end_date`, `num_obliged_shifts`, `note`) VALUES (1, 2, '2006-12-01', '2007-02-28', 0, NULL),
-(2, 3, '2006-12-01', '2006-12-31', 0, NULL),
-(3, 5, '2006-12-01', '2006-12-31', 0, NULL),
-(4, 6, '2006-12-01', '2007-01-31', 0, NULL),
-(5, 7, '2007-01-01', '2007-03-31', 0, NULL),
-(6, 8, '2006-12-01', '2007-01-31', 0, NULL),
-(7, 10, '2006-12-01', '2007-03-31', 0, NULL),
-(8, 12, '2007-01-01', '2007-01-31', 0, NULL),
-(9, 13, '2007-01-01', '2007-01-31', 0, NULL),
-(10, 14, '2007-01-01', '2007-08-31', 0, 'VB police cadet');
+INSERT INTO `leave_of_absence` (`id`, `member_id`, `kind_of_leave_code`, `start_date`, `end_date`, `num_obliged_shifts`, `note`) VALUES (1, 2, 4, '2006-12-01', '2007-02-28', 0, NULL),
+(2, 3, 1, '2006-12-01', '2006-12-31', 0, NULL),
+(3, 5, 2, '2006-12-01', '2006-12-31', 0, NULL),
+(4, 6, 3, '2006-12-01', '2007-01-31', 0, NULL),
+(5, 7, 4, '2007-01-01', '2007-03-31', 0, NULL),
+(6, 8, 5, '2006-12-01', '2007-01-31', 0, NULL),
+(7, 10, 6, '2006-12-01', '2007-03-31', 0, NULL),
+(8, 12, 1, '2007-01-01', '2007-01-31', 0, NULL),
+(9, 13, 2, '2007-01-01', '2007-01-31', 0, NULL),
+(10, 14, 3, '2007-01-01', '2007-08-31', 0, 'VB police cadet');
 
 --
 -- Dumping data for table `member`

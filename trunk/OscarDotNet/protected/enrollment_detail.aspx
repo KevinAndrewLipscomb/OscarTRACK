@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			             [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			             [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			              [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			              [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -33,13 +33,14 @@
 					</tr>
                     <tr>
                       <td>
-                        <ASP:DataGrid id="DataGrid1" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
-                          <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                          <Columns>
-                            <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="field1" sortexpression="field1" readonly="True" headertext="Field1"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="field2" sortexpression="field2" readonly="True" headertext="Field2"></ASP:BoundColumn>
-                          </Columns></ASP:DataGrid></td>
+                        <ASP:DataGrid id="DataGrid_member_history" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
+  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+  <Columns>
+    <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
+    <ASP:BoundColumn datafield="start_date" sortexpression="start_date" readonly="True" headertext="Date (yyyy-mm-dd)"></ASP:BoundColumn>
+    <ASP:BoundColumn datafield="description" sortexpression="description" readonly="True" headertext="Level"></ASP:BoundColumn>
+    <ASP:BoundColumn datafield="end_disposition" sortexpression="end_disposition" headertext="End disposition"></ASP:BoundColumn>
+  </Columns></ASP:DataGrid></td>
                     </tr>
                 </table></td>
             </tr>
