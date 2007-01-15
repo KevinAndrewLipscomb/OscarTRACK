@@ -5,6 +5,12 @@ interface
 uses
   Class_db;
 
+const
+  TCCI_ID = 0;
+  TCCI_START_DATE = 1;
+  TCCI_DESCRIPTION = 2;
+  TCCI_END_DISPOSITION = 3;
+
 type
   TClass_db_enrollment = class(TClass_db)
   private
@@ -40,8 +46,8 @@ begin
   DataGrid(target).datasource := bdpcommand.Create
     (
     'select enrollment_history.id as id'                                       // column 0
-    + ' , date_format(start_date,"%Y-%m-%d") as start_date'                    // column 2
-    + ' , obligation_code_description_map.description as description'          // column 1
+    + ' , date_format(start_date,"%Y-%m-%d") as start_date'                    // column 1
+    + ' , obligation_code_description_map.description as description'          // column 2
     + ' , end_disposition_code_description_map.description as end_disposition' // column 3
     + ' from enrollment_history'
     +   ' join member on (member.id=enrollment_history.member_id)'
@@ -49,7 +55,7 @@ begin
     +   ' left join end_disposition_code_description_map'
     +     ' on (end_disposition_code_description_map.code=enrollment_history.end_disposition_code)'
     + ' where member.id = ' + member_id
-    + ' order by start_date',
+    + ' order by start_date desc',
     connection
     )
     .ExecuteReader;
