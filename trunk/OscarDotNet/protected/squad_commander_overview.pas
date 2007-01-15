@@ -241,7 +241,7 @@ begin
   if e.SortExpression = p.sort_order then begin
     p.be_sort_order_ascending := not p.be_sort_order_ascending;
   end else begin
-    p.sort_order := e.SortExpression;
+    p.sort_order := Safe(e.SortExpression,KI_SORT_EXPRESSION);
     p.be_sort_order_ascending := TRUE;
   end;
   DataGrid_roster.EditItemIndex := -1;

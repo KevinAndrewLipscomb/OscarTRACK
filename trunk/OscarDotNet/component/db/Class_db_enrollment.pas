@@ -22,6 +22,7 @@ type
       member_id: string;
       target: system.object
       );
+    function NumObligedShifts(description: string): cardinal;
   end;
 
 implementation
@@ -60,6 +61,21 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).DataBind;
+  self.Close;
+end;
+
+function TClass_db_enrollment.NumObligedShifts(description: string): cardinal;
+var
+  num_obliged_shifts_obj: system.object;
+begin
+  self.Open;
+  num_obliged_shifts_obj := bdpcommand.Create
+    ('select num_shifts from obligation_code_description_map where description = "' + description + '"',connection).ExecuteScalar;
+  if num_obliged_shifts_obj <> nil then begin
+    NumObligedShifts := uint32.Parse(num_obliged_shifts_obj.tostring);
+  end else begin
+    NumObligedShifts := 0; 
+  end;
   self.Close;
 end;
 
