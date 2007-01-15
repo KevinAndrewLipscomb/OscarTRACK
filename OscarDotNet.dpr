@@ -46,6 +46,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\enrollment_detail.aspx'}
 {%AspMarkupContainer 'protected\officership_detail.aspx'}
 {%AspMarkupContainer 'protected\leave_detail.aspx'}
+{%AspMarkupContainer 'protected\grant_leave.aspx'}
 
 uses
   System.Reflection,
@@ -93,7 +94,8 @@ uses
   Class_db_officerships in 'component\db\Class_db_officerships.pas',
   leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   Class_biz_leaves in 'component\biz\Class_biz_leaves.pas',
-  Class_db_leaves in 'component\db\Class_db_leaves.pas';
+  Class_db_leaves in 'component\db\Class_db_leaves.pas',
+  grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class};
 
 const ID = '$Id$';
 

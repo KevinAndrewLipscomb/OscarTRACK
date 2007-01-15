@@ -251,6 +251,7 @@ begin
   + ' , ' + time_of_leave_selection_clause + ' as time_of_leave'                         // column 7.2
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave_hidden'                  // column 8
   + ' , ' + time_of_leave_selection_clause + ' as time_of_leave_hidden'                  // column 9
+  + ' , max(leave_of_absence.start_date) as max_start_date'                              // column 10
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
@@ -261,6 +262,7 @@ begin
   + ' where agency_id = ' + agency_id
   +   ' and end_disposition_code is null'
   +   filter
+  + ' group by member_id'
   + ' order by ' + sort_order;
   //
   self.Open;

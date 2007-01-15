@@ -38,6 +38,7 @@ type
       e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -55,6 +56,7 @@ type
     DataGrid_leaves: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
+    LinkButton_new: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -78,6 +80,7 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.DataGrid_leaves.ItemCommand, Self.DataGrid_leaves_ItemCommand);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
   Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
@@ -109,9 +112,9 @@ begin
       //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
-      p.be_sort_order_ascending := TRUE;
+      p.be_sort_order_ascending := FALSE;
       p.num_datagrid_rows := 0;
-      p.sort_order := 'field1';
+      p.sort_order := 'start_date%';
       //
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
       if cad_num_string = system.string.EMPTY then begin
@@ -137,6 +140,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_leave_detail.LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
+begin
+  stack(session['waypoint_stack']).Push('leave_detail.aspx');
+  server.Transfer('grant_leave.aspx');
 end;
 
 procedure TWebForm_leave_detail.LinkButton_change_email_address_Click(sender: System.Object;
@@ -198,7 +207,7 @@ begin
   if e.SortExpression = p.sort_order then begin
     p.be_sort_order_ascending := not p.be_sort_order_ascending;
   end else begin
-    p.sort_order := e.SortExpression;
+    p.sort_order := Safe(e.SortExpression,KI_SORT_EXPRESSION);
     p.be_sort_order_ascending := TRUE;
   end;
   DataGrid_leaves.EditItemIndex := -1;
@@ -221,7 +230,7 @@ end;
 
 procedure TWebForm_leave_detail.Bind;
 begin
-  p.biz_leaves.Bind(p.biz_members.IdOf(session['e_item']),p.sort_order,p.be_sort_order_ascending,DataGrid_leaves);
+  p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(session['e_item']),p.sort_order,p.be_sort_order_ascending,DataGrid_leaves);
   //
   // Manage control visibilities.
   //
