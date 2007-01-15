@@ -1,4 +1,4 @@
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="enrollment_detail.pas" AutoEventWireup="false" Inherits="enrollment_detail.TWebForm_enrollment_detail" %>
+<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="officership_detail.pas" AutoEventWireup="false" Inherits="officership_detail.TWebForm_officership_detail" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
@@ -26,24 +26,24 @@
               <td>
                 <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
-                      <td bgcolor="#f5f5f5"><strong>Enrollment details for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
+                      <td bgcolor="#f5f5f5"><strong>Officership detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
 					</tr>
 					<tr id="TableRow_none" runat="server">
 					  <td><em>--&nbsp;NONE&nbsp;--</em></td>
 					</tr>
                     <tr>
                       <td>
-                        <ASP:DataGrid id="DataGrid_member_history" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
+                        <ASP:DataGrid id="DataGrid_officerships" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
                           <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                           <Columns>
                             <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="start_date" sortexpression="start_date" readonly="True" headertext="Date (yyyy-mm-dd)">
+                            <ASP:BoundColumn datafield="start_date" sortexpression="start_date" readonly="True" headertext="Start date">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="description" sortexpression="description" readonly="True" headertext="Level">
+                            <ASP:BoundColumn datafield="end_date" sortexpression="end_date" readonly="True" headertext="End date">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="end_disposition" sortexpression="end_disposition" headertext="End disposition">
+                            <ASP:BoundColumn datafield="rank" sortexpression="rank" readonly="True" headertext="Rank">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
                           </Columns></ASP:DataGrid></td>
