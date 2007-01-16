@@ -51,7 +51,7 @@ begin
   bdr := Borland.Data.Provider.BdpCommand.Create
     ('SELECT code,description FROM kind_of_leave_code_description_map ORDER BY description',connection).ExecuteReader;
   while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].ToString));
+    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].tostring));
   end;
   bdr.Close;
   self.Close;
