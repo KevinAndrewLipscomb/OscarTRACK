@@ -5,21 +5,22 @@
 -- http://www.phpmyadmin.net
 -- 
 -- Host: localhost
--- Generation Time: Dec 19, 2006 at 12:46 PM
+-- Generation Time: Jan 16, 2007 at 12:22 PM
 -- Server version: 5.0.20
 -- PHP Version: 4.4.2
--- 
--- Database: `oscardotnet_x`
---
 
 SET FOREIGN_KEY_CHECKS=0;
 
 SET AUTOCOMMIT=0;
 START TRANSACTION;
 
---
+-- 
+-- Database: `oscardotnet_x`
+-- 
+
+-- 
 -- Dumping data for table `agency`
---
+-- 
 
 INSERT INTO `agency` (`id`, `short_designator`, `medium_designator`, `long_designator`, `be_active`) VALUES (0, 'EMS', 'VBDEMS', 'Va Beach Dept of EMS', 1),
 (1, 'R01', 'Rescue 1', 'Ocean Park ', 1),
@@ -45,9 +46,9 @@ INSERT INTO `agency` (`id`, `short_designator`, `medium_designator`, `long_desig
 (202, 'SST', 'Support Services', 'Support Services Team', 0),
 (203, 'MRT', 'Marine Rescue Team', 'Marine Rescue Team', 0);
 
---
+-- 
 -- Dumping data for table `enrollment_history`
---
+-- 
 
 INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_date`, `end_disposition_code`) VALUES (7, 6, 3, '2003-07-13', NULL),
 (9, 7, 3, '2004-09-26', NULL),
@@ -63,29 +64,29 @@ INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_d
 (25, 7, 2, '1994-09-26', 2),
 (26, 8, 2, '1969-05-01', 2),
 (27, 9, 2, '1989-01-01', NULL),
-(28, 10, 2, '2006-04-17', NULL),
-(30, 12, 2, '2004-04-25', NULL),
+(28, 10, 10, '2006-04-17', NULL),
+(30, 12, 2, '2004-04-25', 3),
 (31, 13, 2, '2001-07-30', NULL),
 (32, 14, 2, '2005-04-04', NULL),
 (33, 16, 2, '1997-08-11', NULL),
 (34, 17, 2, '1999-04-16', NULL),
-(35, 18, 2, '2000-08-07', NULL),
+(35, 18, 1, '2000-08-07', NULL),
 (36, 19, 2, '1996-02-12', NULL),
-(37, 20, 2, '2003-07-27', NULL),
-(38, 21, 2, '1998-12-07', NULL),
+(37, 20, 1, '2003-07-27', NULL),
+(38, 21, 2, '1998-12-07', 2),
 (39, 22, 2, '1997-04-07', NULL),
-(40, 24, 2, '1996-09-09', NULL),
+(40, 24, 2, '1996-09-09', 2),
 (41, 25, 2, '2004-01-11', NULL),
 (42, 27, 2, '1998-05-04', NULL),
-(43, 28, 2, '1987-06-23', NULL),
+(43, 28, 2, '1987-06-23', 2),
 (44, 29, 2, '1988-06-10', NULL),
 (45, 30, 2, '2003-03-07', NULL),
 (46, 31, 2, '2006-05-02', NULL),
-(47, 32, 2, '2003-04-18', NULL),
+(47, 32, 1, '2003-04-18', NULL),
 (48, 33, 2, '1995-01-09', NULL),
-(49, 34, 2, '1990-09-10', NULL),
+(49, 34, 2, '1990-09-10', 2),
 (50, 35, 2, '2004-06-05', NULL),
-(51, 37, 2, '1990-03-05', NULL),
+(51, 37, 2, '1990-03-05', 2),
 (52, 38, 2, '2003-09-08', NULL),
 (53, 39, 2, '2003-09-08', NULL),
 (54, 40, 2, '2006-03-06', NULL),
@@ -99,8 +100,8 @@ INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_d
 (62, 48, 2, '2003-12-13', NULL),
 (63, 49, 2, '2003-10-25', NULL),
 (64, 50, 2, '2004-07-19', NULL),
-(65, 51, 2, '2006-02-05', NULL),
-(66, 52, 2, '1996-12-31', NULL),
+(65, 51, 10, '2006-02-05', NULL),
+(66, 52, 1, '1996-12-31', NULL),
 (67, 53, 2, '2004-03-28', NULL),
 (68, 54, 2, '2002-07-08', NULL),
 (69, 55, 2, '2005-07-03', NULL),
@@ -108,59 +109,101 @@ INSERT INTO `enrollment_history` (`id`, `member_id`, `obligation_code`, `start_d
 (71, 57, 2, '2004-10-23', NULL),
 (72, 58, 2, '2004-02-16', NULL),
 (73, 59, 2, '2006-03-12', NULL),
-(74, 61, 2, '2006-05-07', NULL),
+(74, 61, 10, '2006-05-07', NULL),
 (75, 62, 2, '2002-08-19', NULL),
-(76, 63, 2, '2004-02-08', NULL),
-(77, 65, 2, '2002-02-02', NULL),
-(78, 68, 2, '2000-09-19', NULL),
+(76, 63, 10, '2004-02-08', NULL),
+(77, 65, 1, '2002-02-02', NULL),
+(78, 68, 1, '2000-09-19', NULL),
 (79, 69, 2, '1970-08-01', NULL),
 (80, 70, 2, '2004-07-19', NULL),
 (81, 71, 2, '2000-05-04', NULL),
 (82, 72, 2, '2005-06-07', NULL),
-(83, 73, 2, '1995-06-05', NULL),
+(83, 73, 1, '1995-06-05', NULL),
 (84, 74, 2, '2003-12-07', NULL),
-(85, 75, 2, '2006-07-09', NULL),
+(85, 75, 10, '2006-07-09', NULL),
 (86, 76, 2, '2005-07-18', NULL),
 (87, 78, 2, '2005-12-13', NULL),
 (88, 79, 2, '1990-12-03', NULL),
-(89, 80, 2, '1999-06-07', NULL),
-(90, 81, 2, '2005-01-17', NULL),
-(91, 82, 2, '2004-10-28', NULL),
-(92, 84, 2, '2005-11-01', NULL),
+(89, 80, 1, '1999-06-07', NULL),
+(90, 81, 10, '2005-01-17', NULL),
+(91, 82, 2, '2004-10-28', 3),
+(92, 84, 1, '2005-11-01', NULL),
 (93, 85, 2, '2002-07-08', NULL),
 (94, 87, 2, '2004-07-12', NULL),
 (95, 89, 2, '2001-09-25', NULL),
-(96, 90, 2, '2006-12-04', NULL),
-(97, 91, 2, '1996-02-12', NULL),
+(96, 90, 10, '2006-12-04', NULL),
+(97, 91, 1, '1996-02-12', NULL),
 (98, 92, 2, '2004-08-07', NULL),
-(99, 93, 2, '2006-01-18', NULL),
+(99, 93, 10, '2006-01-18', NULL),
 (100, 94, 2, '2003-09-08', NULL),
-(101, 95, 2, '2005-05-10', NULL),
+(101, 95, 10, '2005-05-10', NULL),
 (102, 97, 2, '1999-12-06', NULL),
 (103, 98, 2, '2003-12-01', NULL),
-(104, 99, 2, '2003-12-13', NULL),
+(104, 99, 2, '2003-12-13', 3),
 (105, 100, 2, '2004-02-14', NULL),
-(106, 101, 2, '2006-02-20', NULL),
-(107, 102, 2, '2005-06-20', NULL);
+(106, 101, 1, '2006-02-20', NULL),
+(107, 102, 2, '2005-06-20', NULL),
+(108, 24, 3, '2006-09-09', NULL),
+(109, 34, 3, '2000-09-10', 5),
+(110, 37, 3, '2000-03-05', 3),
+(111, 82, 6, '2006-12-01', NULL),
+(112, 34, 1, '2006-03-31', NULL),
+(113, 37, 1, '2006-11-01', NULL),
+(114, 12, 6, '2006-12-01', NULL),
+(115, 99, 8, '2006-11-01', NULL),
+(116, 28, 3, '1997-06-23', 2),
+(117, 28, 4, '2007-02-01', NULL),
+(118, 21, 3, '2007-01-08', NULL),
+(119, 103, 10, '2007-01-01', NULL),
+(120, 104, 10, '2007-01-01', NULL),
+(121, 105, 10, '2007-01-01', NULL),
+(122, 106, 10, '2007-01-01', NULL),
+(123, 107, 10, '2007-01-01', NULL),
+(124, 108, 10, '2007-01-01', NULL),
+(125, 109, 10, '2007-01-01', NULL),
+(126, 110, 10, '2007-01-13', NULL);
 
---
+-- 
 -- Dumping data for table `leave_of_absence`
---
+-- 
 
-INSERT INTO `leave_of_absence` (`id`, `member_id`, `kind_of_leave_code`, `start_date`, `end_date`, `num_obliged_shifts`, `note`) VALUES (1, 2, 4, '2006-12-01', '2007-02-28', 0, NULL),
+INSERT INTO `leave_of_absence` (`id`, `member_id`, `kind_of_leave_code`, `start_date`, `end_date`, `num_obliged_shifts`, `note`) VALUES (1, 2, 1, '2006-12-01', '2007-02-28', 0, 'studying to pass VA bar exam'),
 (2, 3, 1, '2006-12-01', '2006-12-31', 0, NULL),
-(3, 5, 2, '2006-12-01', '2006-12-31', 0, NULL),
-(4, 6, 3, '2006-12-01', '2007-01-31', 0, NULL),
-(5, 7, 4, '2007-01-01', '2007-03-31', 0, NULL),
-(6, 8, 5, '2006-12-01', '2007-01-31', 0, NULL),
-(7, 10, 6, '2006-12-01', '2007-03-31', 0, NULL),
+(3, 5, 1, '2006-12-01', '2006-12-31', 0, NULL),
+(4, 6, 1, '2006-12-01', '2007-01-31', 0, NULL),
+(5, 7, 1, '2007-01-01', '2007-03-31', 0, NULL),
+(6, 8, 1, '2006-12-01', '2007-01-31', 0, NULL),
+(7, 10, 1, '2006-12-01', '2007-03-31', 0, NULL),
 (8, 12, 1, '2007-01-01', '2007-01-31', 0, NULL),
-(9, 13, 2, '2007-01-01', '2007-01-31', 0, NULL),
-(10, 14, 3, '2007-01-01', '2007-08-31', 0, 'VB police cadet');
+(9, 13, 1, '2007-01-01', '2007-01-31', 0, NULL),
+(10, 14, 1, '2007-01-01', '2007-08-31', 0, 'VB police cadet'),
+(11, 17, 1, '2006-12-01', '2007-01-31', 0, NULL),
+(12, 21, 1, '2006-12-01', '2007-01-31', 0, NULL),
+(13, 58, 1, '2007-01-01', NULL, 0, NULL),
+(14, 38, 1, '2007-01-01', NULL, 0, NULL),
+(15, 53, 1, '2007-01-01', NULL, 0, NULL),
+(16, 54, 1, '2006-12-01', NULL, 0, NULL),
+(17, 55, 1, '2007-01-01', NULL, 0, NULL),
+(19, 22, 1, '2006-11-01', NULL, 0, NULL),
+(20, 29, 1, '2006-12-01', NULL, 0, NULL),
+(21, 41, 1, '2006-12-01', '2006-12-31', 0, NULL),
+(22, 45, 1, '2006-11-01', '2006-12-31', 0, NULL),
+(23, 69, 1, '2006-12-01', '2006-12-31', 1, NULL),
+(24, 70, 1, '2006-12-01', NULL, 0, NULL),
+(25, 87, 1, '2006-12-01', '2006-12-31', 0, NULL),
+(26, 92, 1, '2006-12-01', '2006-12-31', 0, NULL),
+(27, 97, 1, '2006-12-01', NULL, 0, NULL),
+(28, 100, 1, '2007-02-01', NULL, 0, 'VB fire academy; may give early month avails'),
+(29, 21, 1, '2007-02-01', '2007-02-28', 3, NULL),
+(30, 17, 1, '2007-02-01', '2007-05-31', 1, NULL),
+(31, 81, 1, '2006-11-01', '2006-12-31', 0, 'military'),
+(32, 72, 1, '2006-11-01', '2007-04-30', 2, 'plus 24 pickup hrs after sched is published'),
+(33, 74, 1, '2007-02-01', '2007-02-28', 0, NULL),
+(34, 49, 6, '2007-01-12', NULL, 0, 'pending disposition of criminal charge');
 
---
+-- 
 -- Dumping data for table `member`
---
+-- 
 
 INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_release_code`, `agency_id`, `be_driver_qualified`) VALUES (2, '801958', 'Viel', 'Joseph', 3, 9, 0),
 (3, '801672', 'Cairns', 'Eddy', 3, 9, 1),
@@ -191,7 +234,7 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (31, '801983', 'Brewer', 'James', 3, 9, 1),
 (32, NULL, 'Brewer', 'Shirley', 1, 9, 0),
 (33, '800115', 'Budy', 'Kathleen', 1, 9, 1),
-(34, '800207', 'Burke', 'Scott', 6, 9, 1),
+(34, '800207', 'Burke', 'Scott', 1, 9, 1),
 (35, '801775', 'Busch', 'Anthony', 3, 9, 1),
 (37, '800662', 'Carew', 'Brendan', 1, 9, 1),
 (38, '801642', 'Carroll', 'Richard', 3, 9, 1),
@@ -214,7 +257,7 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (55, '801930', 'Grimm', 'Vincent', 3, 9, 1),
 (56, '801376', 'Heim', 'Rebecca', 6, 9, 1),
 (57, '801791', 'Hoffower', 'Brian', 6, 9, 1),
-(58, '801683', 'Ice', 'Kristine', 3, 9, 1),
+(58, '801683', 'Benadum', 'Kristine', 3, 9, 1),
 (59, '801977', 'Jacobs', 'Diane', 1, 9, 0),
 (61, NULL, 'James', 'Stephen', 1, 9, 0),
 (62, '801406', 'Johnson', 'James', 3, 9, 1),
@@ -227,10 +270,10 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (72, '801859', 'Mitchell', 'Amber-Leigh', 3, 9, 1),
 (73, '800962', 'Moore', 'Jennifer', 1, 9, 0),
 (74, '801639', 'Nuckols', 'Robert', 3, 9, 1),
-(75, '802002', 'O''Hagan', 'Brittany', 1, 9, 0),
+(75, '802002', 'OHagan', 'Brittany', 1, 9, 0),
 (76, '801939', 'Oswald', 'Michael', 3, 9, 1),
 (78, '801955', 'Pascarosa', 'Joseph', 3, 9, 1),
-(79, '800921', 'Paulsen', 'Judith', 0, 9, 1),
+(79, '800921', 'Paulsen', 'Judith', 3, 9, 1),
 (80, '800863', 'Paulsen', 'Robert', 1, 9, 1),
 (81, '801844', 'Prager', 'Erik', 1, 9, 0),
 (82, '801788', 'Quinn', 'Jonathan', 3, 9, 0),
@@ -240,7 +283,7 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (89, '801230', 'Spencer', 'Scott', 3, 9, 1),
 (90, '802026', 'Stacey', 'Stephen', 1, 9, 0),
 (91, '800998', 'Stewart', 'Dennis', 1, 9, 0),
-(92, '801811', 'Strickland', 'Ashley-Rae', 0, 9, 1),
+(92, '801811', 'Strickland', 'Ashley-Rae', 1, 9, 1),
 (93, '801982', 'Tasz', 'Alicia', 1, 9, 0),
 (94, '801658', 'Thompson', 'Amanda', 3, 9, 1),
 (95, '801858', 'Turner', 'Jeffrey', 1, 9, 1),
@@ -249,11 +292,19 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (99, '801662', 'Walsh', 'Lisa', 3, 9, 1),
 (100, '801790', 'Ward', 'John', 6, 9, 1),
 (101, NULL, 'Weakley', 'Robert', 1, 9, 0),
-(102, '801946', 'Weakley', 'Tina', 3, 9, 1);
+(102, '801946', 'Weakley', 'Tina', 3, 9, 1),
+(103, NULL, 'Arroyo', 'Carla', 1, 9, 0),
+(104, NULL, 'Brown', 'Nancy', 1, 9, 0),
+(105, NULL, 'Kehoe', 'Chris', 1, 9, 0),
+(106, NULL, 'Mayes', 'Richard', 1, 9, 0),
+(107, NULL, 'Page', 'Arlene', 1, 9, 0),
+(108, NULL, 'Taylor', 'Judith', 1, 9, 0),
+(109, NULL, 'Zaccaria', 'Chris', 1, 9, 0),
+(110, NULL, 'Orem', 'Arliss', 1, 9, 0);
 
---
+-- 
 -- Dumping data for table `member_user`
---
+-- 
 
 INSERT INTO `member_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES (2, NULL, 1, 'josephviel@netscape.com', 1),
 (3, NULL, 1, 'fireball9112000@yahoo.com', 0),
@@ -344,19 +395,18 @@ INSERT INTO `member_user` (`id`, `encoded_password`, `be_stale_password`, `passw
 (101, NULL, 1, 'hvacbob55@yahoo.com', 0),
 (102, NULL, 1, 'tina72860@yahoo.com', 0);
 
---
+-- 
 -- Dumping data for table `officership`
---
+-- 
 
 INSERT INTO `officership` (`id`, `member_id`, `start_date`, `end_date`, `rank_code`) VALUES (1, 6, '2006-11-18', '2007-11-18', 9),
 (2, 9, '2006-11-18', '2007-11-18', 4);
 
---
+-- 
 -- Dumping data for table `squad_commander_user`
---
+-- 
 
-INSERT INTO `squad_commander_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES
-(1, NULL, 1, 'captain@kvrs.org', 1),
+INSERT INTO `squad_commander_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES (1, NULL, 1, 'captain@kvrs.org', 1),
 (2, NULL, 1, 'captain@kvrs.org', 1),
 (4, NULL, 1, 'captain@kvrs.org', 1),
 (5, NULL, 1, 'captain@kvrs.org', 1),
@@ -366,7 +416,6 @@ INSERT INTO `squad_commander_user` (`id`, `encoded_password`, `be_stale_password
 (14, NULL, 1, 'captain@kvrs.org', 1),
 (16, NULL, 1, 'captain@kvrs.org', 1),
 (17, NULL, 1, 'captain@kvrs.org', 1);
-
 
 SET FOREIGN_KEY_CHECKS=1;
 
