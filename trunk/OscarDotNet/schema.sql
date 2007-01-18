@@ -171,7 +171,7 @@ CREATE TABLE IF NOT EXISTS member (
   cad_num varchar(6) default NULL,
   last_name varchar(31) NOT NULL,
   first_name varchar(31) NOT NULL,
-  medical_release_code tinyint(3) unsigned NOT NULL default '0',
+  medical_release_code tinyint(3) unsigned NOT NULL default '1',
   agency_id int unsigned NOT NULL,
   be_driver_qualified boolean NOT NULL,
   PRIMARY KEY  (id),
@@ -315,7 +315,8 @@ ALTER TABLE `leave_of_absence`
 -- Constraints for table `member`
 -- 
 ALTER TABLE `member`
-  ADD CONSTRAINT member_ibfk_1 FOREIGN KEY (agency_id) REFERENCES agency (id);
+  ADD CONSTRAINT member_ibfk_1 FOREIGN KEY (agency_id) REFERENCES agency (id),
+  ADD CONSTRAINT member_ibfk_2 FOREIGN KEY (medical_release_code) REFERENCES medical_release_code_description_map (`code`);
 
 -- 
 -- Constraints for table `member_user`
