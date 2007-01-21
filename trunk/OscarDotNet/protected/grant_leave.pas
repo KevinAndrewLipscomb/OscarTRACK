@@ -10,6 +10,7 @@ uses
   appcommon,
   Class_biz_leaves,
   Class_biz_members,
+  ki,
   ki_web_ui;
 
 const ID = '$Id$';
@@ -34,6 +35,7 @@ type
     procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure CustomValidator_end_month_ServerValidate(source: System.Object; 
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
+    procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -67,6 +69,8 @@ type
     RequiredFieldValidator_end_month: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_kind_of_leave: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_num_obligated_shifts: System.Web.UI.WebControls.RequiredFieldValidator;
+    LinkButton1: System.Web.UI.WebControls.LinkButton;
+    Label_member_first_name: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -88,6 +92,7 @@ begin
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.CustomValidator_end_month.ServerValidate, Self.CustomValidator_end_month_ServerValidate);
+  Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_grant_leave_PreRender);
 end;
@@ -119,7 +124,8 @@ begin
       if cad_num_string = system.string.EMPTY then begin
         cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
-      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+      Label_member_first_name.Text := p.biz_members.FirstNameOf(session['e_item']);
+      Label_member_designator.Text := Label_member_first_name.Text
         + ' '
         + p.biz_members.LastNameOf(session['e_item'])
         + ' (CAD # '
@@ -143,6 +149,20 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_grant_leave.Button_submit_Click(sender: System.Object; e: System.EventArgs);
+begin
+  p.biz_leaves.Grant
+    (
+    p.biz_members.IdOf(session['e_item']),
+    Safe(DropDownList_start_month.selectedvalue,NUM),
+    Safe(DropDownList_end_month.selectedvalue,NUM),
+    Safe(DropDownList_kind_of_leave.selectedvalue,NUM),
+    Safe(DropDownList_num_obligated_shifts.selectedvalue,NUM),
+    Safe(TextBox_note.text,NARRATIVE)
+    );
+  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
 procedure TWebForm_grant_leave.CustomValidator_end_month_ServerValidate(source: System.Object;

@@ -45,6 +45,8 @@ type
       e: System.EventArgs);
     procedure DropDownList_leave_filter_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
+    procedure RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -63,6 +65,8 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     DropDownList_leave_filter: System.Web.UI.WebControls.DropDownList;
     DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
+    Label_num_rows: System.Web.UI.WebControls.Label;
+    RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -86,11 +90,12 @@ begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
-  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
-  Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
+  Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
+  Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_squad_commander_overview_PreRender);
 end;
@@ -147,6 +152,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_squad_commander_overview.RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Bind;
 end;
 
 procedure TWebForm_squad_commander_overview.DropDownList_leave_filter_SelectedIndexChanged(sender: System.Object;
@@ -264,9 +275,11 @@ begin
     p.sort_order,
     p.be_sort_order_ascending,
     DataGrid_roster,
+    RadioButtonList_which_month.selectedvalue,
     p.enrollment_filter,
     p.leave_filter
     );
+  Label_num_rows.text := p.num_datagrid_rows.tostring;
   //
   // Manage control visibilities.
   //

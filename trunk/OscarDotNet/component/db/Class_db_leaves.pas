@@ -26,6 +26,15 @@ type
       be_sort_order_ascending: boolean;
       target: system.object
       );
+    procedure Grant
+      (
+      member_id: string;
+      relative_start_month: string;
+      relative_end_month: string;
+      kind_of_leave_code: string;
+      num_obligated_shifts: string;
+      note: string
+      );
   end;
 
 implementation
@@ -88,6 +97,32 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_leaves.Grant
+  (
+  member_id: string;
+  relative_start_month: string;
+  relative_end_month: string;
+  kind_of_leave_code: string;
+  num_obligated_shifts: string;
+  note: string
+  );
+begin
+  self.Open;
+  bdpcommand.Create
+    (
+    'insert into leave_of_absence'
+    + ' set member_id = ' + member_id
+    + ' , kind_of_leave_code = ' + kind_of_leave_code
+    + ' , start_date = DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + relative_start_month + ' MONTH)'
+    + ' , end_date = LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
+    + ' , num_obliged_shifts = ' + num_obligated_shifts
+    + ' , note = "' + note + '"',
+    connection
+    )
+    .ExecuteNonQuery;
   self.Close;
 end;
 
