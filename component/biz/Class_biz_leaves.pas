@@ -34,6 +34,15 @@ type
       target: system.object
       );
     procedure BindStartMonthDropDownList(target: system.object);
+    procedure Grant
+      (
+      member_id: string;
+      relative_start_month: string;
+      relative_end_month: string;
+      kind_of_leave_code: string;
+      num_obligated_shifts: string;
+      note: string
+      );
   end;
 
 implementation
@@ -114,6 +123,20 @@ begin
   for month_offset := 0 to 11 do begin
     DropDownList(target).Items.Add(listitem.Create(datetime.today.AddMonths(month_offset).tostring('MMM yyyy'),month_offset.tostring));
   end;
+end;
+
+procedure TClass_biz_leaves.Grant
+  (
+  member_id: string;
+  relative_start_month: string;
+  relative_end_month: string;
+  kind_of_leave_code: string;
+  num_obligated_shifts: string;
+  note: string
+  );
+begin
+  db_leaves.Grant(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
+  // db_accounts.SendEmailNotification(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
 end;
 
 end.

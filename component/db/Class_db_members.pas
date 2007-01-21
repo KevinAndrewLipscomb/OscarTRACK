@@ -44,6 +44,7 @@ type
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
+      relative_month: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = BOTH
       );
@@ -158,6 +159,7 @@ procedure TClass_db_members.BindSquadCommanderOverview
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
+  relative_month: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = BOTH
   );
@@ -171,7 +173,6 @@ var
   current_year_num_string: string;
   filter: string;
   kind_of_leave_selection_clause: string;
-  time_of_leave_selection_clause: string;
   today: datetime;
 begin
   //
@@ -182,8 +183,12 @@ begin
   current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
   current_month_first_date_string := current_month_num_string + '-01';
   //
-  any_relevant_leave_test_string := '(leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  + ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))';
+  any_relevant_leave_test_string := '(leave_of_absence.start_date <= DATE_ADD("'
+  + current_month_first_date_string
+  + '",INTERVAL ' + relative_month + ' MONTH))'
+  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("'
+  + current_month_first_date_string
+  + '",INTERVAL ' + relative_month + ' MONTH)))';
   //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
@@ -226,18 +231,6 @@ begin
   end;
   //
   kind_of_leave_selection_clause := 'if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"")';
-  time_of_leave_selection_clause := 'concat('
-  +     ' if((leave_of_absence.start_date < "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,"&lt;&nbsp;","")'
-  +     ' ,if((leave_of_absence.start_date <= "' + current_month_first_date_string + '")'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY("' + current_month_first_date_string + '"))'
-  +       ' ,concat(DATE_FORMAT("' + current_month_first_date_string + '","%b"),"&nbsp;"),"")'
-  +     ' ,if((leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH))'
-  +       ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH)))'
-  +       ' ,concat(DATE_FORMAT(DATE_ADD("' + current_month_first_date_string + '",INTERVAL 1 MONTH),"%b"),"&nbsp;"),"")'
-  +     ' ,if(leave_of_absence.end_date > LAST_DAY("' + current_month_first_date_string + '"),"&gt;","")'
-  +   ' )';
   //
   command_text :=
   'select member.id as member_id'                                                        // column 0
@@ -247,11 +240,8 @@ begin
   + ' , medical_release_code_description_map.description as medical_release_description' // column 4
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
   + ' , obligation_code_description_map.description as enrollment'                       // column 6
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7.1
-  + ' , ' + time_of_leave_selection_clause + ' as time_of_leave'                         // column 7.2
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave_hidden'                  // column 8
-  + ' , ' + time_of_leave_selection_clause + ' as time_of_leave_hidden'                  // column 9
-  + ' , max(leave_of_absence.start_date) as max_start_date'                              // column 10
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7
+  + ' , max(leave_of_absence.start_date) as max_start_date'                              // column 8
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'

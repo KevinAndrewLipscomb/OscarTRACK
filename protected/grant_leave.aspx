@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			           [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			           [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			            [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			            [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -48,13 +48,19 @@
                               <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">!ERR!</ASP:RequiredFieldValidator></td>
                             </tr>
                             <tr>
-                              <td>Num obligated shifts:</td>
-                              <td><ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server"></ASP:DropDownList></td>
+                              <td valign="top">Num obligated shifts:</td>
+                              <td>
+                                <table cellspacing="0" cellpadding="5" border="0">
+                                    <tr>
+                                      <td valign="top"><ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server"></ASP:DropDownList></td>
+                                      <td>For long-term purposes, you may wish to change <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>'s <ASP:LinkButton id="LinkButton1" runat="server">enrollment level</ASP:LinkButton> instead.</td>
+                                    </tr>
+                                </table></td>
                               <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">!ERR!</ASP:RequiredFieldValidator></td>
                             </tr>
                             <tr>
                               <td valign="top">Note:</td>
-                              <td><ASP:TextBox id="TextBox_note" runat="server" rows="3" columns="40" maxlength="127" textmode="MultiLine"></ASP:TextBox></td>
+                              <td><ASP:TextBox id="TextBox_note" runat="server" columns="50" maxlength="127"></ASP:TextBox></td>
                               <td></td>
                             </tr>
                             <tr>

@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			                     [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			                     [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			                      [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			                      [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -50,7 +50,9 @@
                             <ASP:BoundColumn datafield="end_date" sortexpression="end_date%" readonly="True" headertext="End month">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date%" readonly="True" headertext="Kind"></ASP:BoundColumn>
+                            <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date%" readonly="True" headertext="Kind">
+                              <ItemStyle horizontalalign="Center"></ItemStyle>
+                            </ASP:BoundColumn>
                             <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date%" readonly="True" headertext="Num shifts">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>

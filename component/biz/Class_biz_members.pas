@@ -28,6 +28,7 @@ type
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
+      relative_month: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = NONE
       );
@@ -104,11 +105,13 @@ procedure TClass_biz_members.BindSquadCommanderOverview
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
+  relative_month: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = NONE
   );
 begin
-  db_members.BindSquadCommanderOverview(agency_id,sort_order,be_sort_order_ascending,target,enrollment_filter,leave_filter);
+  db_members.BindSquadCommanderOverview
+    (agency_id,sort_order,be_sort_order_ascending,target,relative_month,enrollment_filter,leave_filter);
 end;
 
 function TClass_biz_members.CadNumOf(e_item: system.object): string;
