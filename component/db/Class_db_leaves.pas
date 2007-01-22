@@ -26,6 +26,13 @@ type
       be_sort_order_ascending: boolean;
       target: system.object
       );
+    procedure DescribeThisAndNextMonthForMember
+      (
+      member_id: string;
+      out this_month_description: string;
+      out next_month_description: string;
+      null_description: string
+      );
     procedure Grant
       (
       member_id: string;
@@ -97,6 +104,53 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_leaves.DescribeThisAndNextMonthForMember
+  (
+  member_id: string;
+  out this_month_description: string;
+  out next_month_description: string;
+  null_description: string
+  );
+var
+  this_month_description_obj: system.object;
+  next_month_description_obj: system.object;
+begin
+  self.Open;
+  this_month_description_obj := bdpcommand.Create
+    (
+    'select description'
+    + ' from leave_of_absence'
+    +   ' join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
+    + ' where member_id = ' + member_id
+    +   ' and start_date <= CONCAT(DATE_FORMAT(CURDATE(),"%Y-%m-"),"01")'
+    +   ' and end_date >= LAST_DAY(CURDATE())',
+    connection
+    )
+    .ExecuteScalar;
+  if this_month_description_obj = nil then begin
+    this_month_description := null_description;
+  end else begin
+    this_month_description := this_month_description_obj.tostring;
+  end;
+  next_month_description_obj := bdpcommand.Create
+    (
+    'select description'
+    + ' from leave_of_absence'
+    +   ' join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
+    + ' where member_id = ' + member_id
+    +   ' and start_date <= CONCAT(DATE_FORMAT(DATE_ADD(CURDATE(),INTERVAL 1 MONTH),"%Y-%m-"),"01")'
+    +   ' and end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))',
+    connection
+    )
+    .ExecuteScalar;
+  if next_month_description_obj = nil then begin
+    next_month_description := null_description;
+  end else begin
+    next_month_description := next_month_description_obj.tostring;
+  end;
   self.Close;
 end;
 

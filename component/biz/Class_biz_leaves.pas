@@ -34,6 +34,13 @@ type
       target: system.object
       );
     procedure BindStartMonthDropDownList(target: system.object);
+    procedure DescribeThisAndNextMonthForMember
+      (
+      member_id: string;
+      out this_month_description: string;
+      out next_month_description: string;
+      null_description: string
+      );
     procedure Grant
       (
       member_id: string;
@@ -123,6 +130,17 @@ begin
   for month_offset := 0 to 11 do begin
     DropDownList(target).Items.Add(listitem.Create(datetime.today.AddMonths(month_offset).tostring('MMM yyyy'),month_offset.tostring));
   end;
+end;
+
+procedure TClass_biz_leaves.DescribeThisAndNextMonthForMember
+  (
+  member_id: string;
+  out this_month_description: string;
+  out next_month_description: string;
+  null_description: string
+  );
+begin
+  db_leaves.DescribeThisAndNextMonthForMember(member_id,this_month_description,next_month_description,null_description);
 end;
 
 procedure TClass_biz_leaves.Grant
