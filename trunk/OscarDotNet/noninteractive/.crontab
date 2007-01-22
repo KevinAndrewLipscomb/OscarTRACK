@@ -1,4 +1,4 @@
 #
 # $Id$
 #
-00 00 * * * wget -q https://sslws010.alentus.com/frompaper2web/KiAspdotnetFramework/noninteractive/milestone_sweep.aspx
+@daily wget -q https://sslws010.alentus.com/frompaper2web/KiAspdotnetFramework/noninteractive/milestone_sweep.aspx
