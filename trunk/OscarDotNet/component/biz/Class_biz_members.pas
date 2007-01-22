@@ -42,7 +42,6 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
-    function KindOfLeaveOf(e_item: system.object): string;
     function LastNameOf(e_item: system.object): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
@@ -62,7 +61,6 @@ type
       id: string;
       name: string
       );
-    function TimeOfLeaveOf(e_item: system.object): string;
   end;
 
 implementation
@@ -149,11 +147,6 @@ begin
   IdOf := db_members.IdOf(e_item);
 end;
 
-function TClass_biz_members.KindOfLeaveOf(e_item: system.object): string;
-begin
-  KindOfLeaveOf := db_members.KindOfLeaveOf(e_item);
-end;
-
 function TClass_biz_members.LastNameOf(e_item: system.object): string;
 begin
   LastNameOf := db_members.LastNameOf(e_item);
@@ -199,11 +192,6 @@ procedure TClass_biz_members.SetProfile
   );
 begin
   db_members.SetProfile(id,name);
-end;
-
-function TClass_biz_members.TimeOfLeaveOf(e_item: system.object): string;
-begin
-  TimeOfLeaveOf := db_members.TimeOfLeaveOf(e_item);
 end;
 
 end.

@@ -8,6 +8,7 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_accounts,
+  Class_biz_leaves,
   Class_biz_members,
   ki,
   ki_web_ui;
@@ -18,6 +19,7 @@ type
   p_type =
     RECORD
     biz_accounts: TClass_biz_accounts;
+    biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
     raw_member_email_address: string;
     END;
@@ -65,9 +67,9 @@ type
     Label_officership: System.Web.UI.WebControls.Label;
     LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
     Label_email_address: System.Web.UI.WebControls.Label;
-    Label_kind_of_leave: System.Web.UI.WebControls.Label;
-    Label_time_of_leave: System.Web.UI.WebControls.Label;
     LinkButton_change_member_email_address: System.Web.UI.WebControls.LinkButton;
+    Label_leave_this_month: System.Web.UI.WebControls.Label;
+    Label_leave_next_month: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -105,6 +107,8 @@ end;
 procedure TWebForm_member_detail.Page_Load(sender: System.Object; e: System.EventArgs);
 var
   cad_num_string: string;
+  leave_next_month_description: string;
+  leave_this_month_description: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
@@ -123,6 +127,7 @@ begin
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
       //
       p.biz_accounts := TClass_biz_accounts.Create;
+      p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
       //
       p.raw_member_email_address := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
@@ -141,13 +146,15 @@ begin
         + ' (CAD # '
         + cad_num_string
         + ')';
-      Label_kind_of_leave.Text := p.biz_members.KindOfLeaveOf(session['e_item']);
-      if Label_kind_of_leave.Text = system.string.EMPTY then begin
-        Label_kind_of_leave.Text := NOT_APPLICABLE_INDICATION_HTML;
-        Label_time_of_leave.visible := FALSE;
-      end else begin
-        Label_time_of_leave.text := p.biz_members.TimeOfLeaveOf(session['e_item']);
-      end;
+      p.biz_leaves.DescribeThisAndNextMonthForMember
+        (
+        p.biz_members.IdOf(session['e_item']),
+        leave_this_month_description,
+        leave_next_month_description,
+        NOT_APPLICABLE_INDICATION_HTML
+        );
+      Label_leave_this_month.text := leave_this_month_description;
+      Label_leave_next_month.text := leave_next_month_description;
       Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
       if Label_officership.Text = system.string.Empty then begin
         Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;

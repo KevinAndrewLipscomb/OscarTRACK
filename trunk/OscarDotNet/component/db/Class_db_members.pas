@@ -20,8 +20,6 @@ const
   TCCI_BE_DRIVER_QUALIFIED = 5;
   TCCI_ENROLLMENT = 6;
   TCCI_LEAVE = 7;
-  TCCI_KIND_OF_LEAVE_HIDDEN = 8;
-  TCCI_TIME_OF_LEAVE_HIDDEN = 9;
 
 type
   TClass_db_members = class(TClass_db)
@@ -58,7 +56,6 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
-    function KindOfLeaveOf(e_item: system.object): string;
     function LastNameOf(e_item: system.object): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
@@ -78,7 +75,6 @@ type
       id: string;
       name: string
       );
-    function TimeOfLeaveOf(e_item: system.object): string;
   end;
 
 implementation
@@ -183,12 +179,9 @@ begin
   current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
   current_month_first_date_string := current_month_num_string + '-01';
   //
-  any_relevant_leave_test_string := '(leave_of_absence.start_date <= DATE_ADD("'
-  + current_month_first_date_string
-  + '",INTERVAL ' + relative_month + ' MONTH))'
-  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("'
-  + current_month_first_date_string
-  + '",INTERVAL ' + relative_month + ' MONTH)))';
+  any_relevant_leave_test_string :=
+  '(leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL ' + relative_month + ' MONTH))'
+  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL ' + relative_month + ' MONTH)))';
   //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
@@ -307,18 +300,6 @@ begin
   IdOf := Safe(DataGridItem(e_item).cells[TCCI_ID].text,NUM);
 end;
 
-function TClass_db_members.KindOfLeaveOf(e_item: system.object): string;
-var
-  kind_of_leave_of: string;
-begin
-  kind_of_leave_of := Safe(DataGridItem(e_item).cells[TCCI_KIND_OF_LEAVE_HIDDEN].text,ALPHA);
-  if kind_of_leave_of = 'nbsp' then begin
-    KindOfLeaveOf := system.string.EMPTY;
-  end else begin
-    KindOfLeaveOf := kind_of_leave_of;
-  end;
-end;
-
 function TClass_db_members.LastNameOf(e_item: system.object): string;
 begin
   LastNameOf := Safe(DataGridItem(e_item).cells[TCCI_LAST_NAME].text,HUMAN_NAME);
@@ -415,11 +396,6 @@ begin
     )
     .ExecuteNonQuery;
   self.Close;
-end;
-
-function TClass_db_members.TimeOfLeaveOf(e_item: system.object): string;
-begin
-  TimeOfLeaveOf := DataGridItem(e_item).cells[TCCI_TIME_OF_LEAVE_HIDDEN].text;
 end;
 
 end.

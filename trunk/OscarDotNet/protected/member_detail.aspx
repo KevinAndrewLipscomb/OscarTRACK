@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			            [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			            [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			               [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			               [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>  
@@ -39,15 +39,19 @@
 							</tr>
 							<tr>
 							  <td>Leave:</td>
-							  <td>
-								  <table cellspacing="0" cellpadding="0" border="0">
+							  <td valign="middle">
+                                <table cellspacing="0" cellpadding="3" border="0">
 									  <tr>
-										<td><ASP:Label id="Label_kind_of_leave" runat="server"></ASP:Label></td>
+										<td>This month:</td>
+                                      <td>
+                                        <ASP:Label id="Label_leave_this_month" runat="server" font-bold="True"></ASP:Label></td>
 									  </tr>
 									  <tr>
-										<td><ASP:Label id="Label_time_of_leave" runat="server" font-italic="True"></ASP:Label></td>
+										<td>Next month:</td>
+                                      <td>
+                                        <ASP:Label id="Label_leave_next_month" runat="server" font-bold="True"></ASP:Label></td>
 									  </tr>
-								  </table>
+                                </table>
                                 </td>
 							  <td><ASP:LinkButton id="LinkButton_leave_detail" runat="server">Detail</ASP:LinkButton></td>
 							</tr>
