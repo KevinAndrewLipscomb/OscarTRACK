@@ -162,26 +162,13 @@ procedure TClass_db_members.BindSquadCommanderOverview
 var
   any_relevant_leave_test_string: string;
   command_text: string;
-  current_month_first_date_string: string;
-  current_month_num: cardinal;
-  current_month_num_string: string;
-  current_year_num: cardinal;
-  current_year_num_string: string;
   filter: string;
   kind_of_leave_selection_clause: string;
-  today: datetime;
 begin
   //
-  today := datetime.Today;
-  current_year_num := today.Year;
-  current_year_num_string := current_year_num.tostring('d4');
-  current_month_num := today.Month;
-  current_month_num_string := current_year_num_string + '-' + current_month_num.tostring('d2');
-  current_month_first_date_string := current_month_num_string + '-01';
-  //
   any_relevant_leave_test_string :=
-  '(leave_of_absence.start_date <= DATE_ADD("' + current_month_first_date_string + '",INTERVAL ' + relative_month + ' MONTH))'
-  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD("' + current_month_first_date_string + '",INTERVAL ' + relative_month + ' MONTH)))';
+  '(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))';
   //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
@@ -194,9 +181,11 @@ begin
   if enrollment_filter <> ALL then begin
     filter := ' and obligation_code_description_map.description ';
     case enrollment_filter of
-    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin") ';
+    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
+    REDUCED: filter := filter + ' in ("Reduced (1)","Reduced (2)","Reduced (3)") ';
     REGULAR: filter := filter + ' = "Regular" ';
     LIFE: filter := filter + ' = "Life" ';
     TENURED: filter := filter + ' = "Tenured" ';
@@ -234,18 +223,30 @@ begin
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
   + ' , obligation_code_description_map.description as enrollment'                       // column 6
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7
-  + ' , max(leave_of_absence.start_date) as max_start_date'                              // column 8
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
   +   ' join obligation_code_description_map on (obligation_code_description_map.code=enrollment_history.obligation_code)'
-  +   ' left join leave_of_absence on (leave_of_absence.member_id=member.id)'
+  +   ' left join leave_of_absence'
+  +     ' on'
+  +       ' ('
+  +       ' leave_of_absence.member_id=member.id'
+  +       ' and '
+  +         ' ('
+  +           ' (leave_of_absence.start_date is null)'
+  +         ' or'
+  +           ' ('
+  +             ' (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  +           ' and'
+  +             ' (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
   +   ' left join kind_of_leave_code_description_map'
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
   + ' where agency_id = ' + agency_id
   +   ' and end_disposition_code is null'
   +   filter
-  + ' group by member_id'
   + ' order by ' + sort_order;
   //
   self.Open;

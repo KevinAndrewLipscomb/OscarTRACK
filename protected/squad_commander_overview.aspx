@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							[ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							 [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -39,10 +39,11 @@
 										<asp:listitem value="all">All</asp:listitem>
 										<asp:listitem value="current" selected="true">- Current</asp:listitem>
 										<asp:listitem value="operational">- - Operational</asp:listitem>
-										<asp:listitem value="associate">- - - Associate</asp:listitem>
-										<asp:listitem value="regular">- - - Regular</asp:listitem>
-										<asp:listitem value="life">- - - Life</asp:listitem>
 										<asp:listitem value="tenured">- - - Tenured</asp:listitem>
+										<asp:listitem value="life">- - - Life</asp:listitem>
+										<asp:listitem value="regular">- - - Regular</asp:listitem>
+										<asp:listitem value="reduced">- - - Reduced</asp:listitem>
+										<asp:listitem value="associate">- - - Associate</asp:listitem>
 										<asp:listitem value="special">- - - Special</asp:listitem>
 										<asp:listitem value="recruit">- - Recruit</asp:listitem>
 										<asp:listitem value="admin">- - Admin</asp:listitem>

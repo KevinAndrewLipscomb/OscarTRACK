@@ -302,9 +302,9 @@ INSERT INTO `member` (`id`, `cad_num`, `last_name`, `first_name`, `medical_relea
 (109, NULL, 'Zaccaria', 'Chris', 1, 9, 0),
 (110, NULL, 'Orem', 'Arliss', 1, 9, 0);
 
--- 
+--
 -- Dumping data for table `member_user`
--- 
+--
 
 INSERT INTO `member_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES (2, NULL, 1, 'josephviel@netscape.com', 1),
 (3, NULL, 1, 'fireball9112000@yahoo.com', 0),
@@ -393,7 +393,15 @@ INSERT INTO `member_user` (`id`, `encoded_password`, `be_stale_password`, `passw
 (99, NULL, 1, 'lisavbresqr@yahoo.com', 0),
 (100, NULL, 1, 'wardjb@hotmail.com', 0),
 (101, NULL, 1, 'hvacbob55@yahoo.com', 0),
-(102, NULL, 1, 'tina72860@yahoo.com', 0);
+(102, NULL, 1, 'tina72860@yahoo.com', 0),
+(103, NULL, 1, '', 0),
+(104, NULL, 1, '', 0),
+(105, NULL, 1, '', 0),
+(106, NULL, 1, '', 0),
+(107, NULL, 1, '', 0),
+(108, NULL, 1, '', 0),
+(109, NULL, 1, '', 0),
+(110, NULL, 1, '', 0);
 
 -- 
 -- Dumping data for table `officership`
