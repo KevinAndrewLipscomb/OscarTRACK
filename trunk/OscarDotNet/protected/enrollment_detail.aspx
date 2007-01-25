@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			               [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			               [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			                 [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			                 [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -26,7 +26,12 @@
               <td>
                 <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
-                      <td bgcolor="#f5f5f5"><strong>Enrollment details for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
+                      <td bgcolor="#f5f5f5"><strong>
+                          <table cellspacing="0" cellpadding="5" width="100%" border="0">
+                              <tr><td><strong>Enrollment details for 
+                                    <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td><td><ASP:LinkButton id="LinkButton_add_new_enrollment_status" runat="server">[Add&nbsp;a&nbsp;new&nbsp;status]</ASP:LinkButton></td>
+                              </tr>
+                          </table></strong></td>
 					</tr>
 					<tr id="TableRow_none" runat="server">
 					  <td><em>--&nbsp;NONE&nbsp;--</em></td>
@@ -41,9 +46,6 @@
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
                             <ASP:BoundColumn datafield="description" sortexpression="description" readonly="True" headertext="Level">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="end_disposition" sortexpression="end_disposition" headertext="End disposition">
                               <ItemStyle horizontalalign="Center"></ItemStyle>
                             </ASP:BoundColumn>
                           </Columns></ASP:DataGrid></td>

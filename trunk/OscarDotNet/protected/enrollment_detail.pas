@@ -35,6 +35,8 @@ type
       e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_add_new_enrollment_status_Click(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -52,6 +54,7 @@ type
     DataGrid_member_history: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
+    LinkButton_add_new_enrollment_status: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -76,6 +79,7 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_add_new_enrollment_status.Click, Self.LinkButton_add_new_enrollment_status_Click);
   Include(Self.DataGrid_member_history.ItemCommand, Self.DataGrid_member_history_ItemCommand);
   Include(Self.DataGrid_member_history.ItemDataBound, Self.DataGrid_member_history_ItemDataBound);
   Include(Self.Load, Self.Page_Load);
@@ -134,6 +138,13 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebForm_enrollment_detail.LinkButton_add_new_enrollment_status_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  stack(session['waypoint_stack']).Push('enrollment_detail.aspx');
+  server.Transfer('add_new_enrollment_status.aspx');
+end;
+
 procedure TWebForm_enrollment_detail.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -183,9 +194,6 @@ begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
-    if e.item.cells[Class_db_enrollment.TCCI_END_DISPOSITION].text = '&nbsp;' then begin
-      e.item.cells[Class_db_enrollment.TCCI_END_DISPOSITION].text := NOT_APPLICABLE_INDICATION_HTML;
-    end;
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
 end;

@@ -34,6 +34,11 @@ type
     db_enrollment: TClass_db_enrollment;
   public
     constructor Create;
+    procedure BindTransitionRadioButtonList
+      (
+      member_id: string;
+      target: system.object
+      );
     procedure BindMemberHistory
       (
       member_id: string;
@@ -48,6 +53,15 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_enrollment := TClass_db_enrollment.Create;
+end;
+
+procedure TClass_biz_enrollment.BindTransitionRadioButtonList
+  (
+  member_id: string;
+  target: system.object
+  );
+begin
+  db_enrollment.BindTransitionRadioButtonList(member_id,target);
 end;
 
 procedure TClass_biz_enrollment.BindMemberHistory
