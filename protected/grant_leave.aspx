@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			            [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			            [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			              [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			              [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -53,11 +53,18 @@
                                 <table cellspacing="0" cellpadding="5" border="0">
                                     <tr>
                                       <td valign="top"><ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server"></ASP:DropDownList></td>
-                                      <td>For long-term purposes, you may wish to change <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>'s <ASP:LinkButton id="LinkButton1" runat="server">enrollment level</ASP:LinkButton> instead.</td>
-                                    </tr>
-                                </table></td>
-                              <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">!ERR!</ASP:RequiredFieldValidator></td>
-                            </tr>
+                                      <td>
+											<table cellspacing="0" cellpadding="5" border="0">
+												<tr><td valign="top">•</td>
+												  <td><small>For long-term purposes, consider changing
+  
+  <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>'s <ASP:LinkButton id="LinkButton1" runat="server">enrollment level</ASP:LinkButton>&nbsp;instead.</small></td>
+                                                </tr>
+                                                <tr><td valign="top">•</td>
+                                                  <td><small>To&nbsp;grant leave for less than a full month, specify a one-month leave, and specify the number of shifts they have run or should run in that month.</small></td>
+                                                </tr>
+                                            </table>
+                              <td valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">!ERR!</ASP:RequiredFieldValidator></td>
                             <tr>
                               <td valign="top">Note:</td>
                               <td><ASP:TextBox id="TextBox_note" runat="server" columns="50" maxlength="127"></ASP:TextBox></td>
@@ -68,12 +75,7 @@
                               <td>
                                 <p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel"></ASP:Button></p></td>
                               <td></td>
-                            </tr>
-                        </table></td>
-                    </tr>
-                </table></td>
-            </tr>
-        </table></p>
+                            </tr></p>
           <ASP:LinkButton id="LinkButton_drill_down" runat="server">There is important waypoint-management code behind this drill-down LinkButton.</ASP:LinkButton>
 	  <asp:placeholder id="PlaceHolder_postcontent" runat="server"></asp:placeholder>
      <sstchur:SmartScroller runat="server" /></form>

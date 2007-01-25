@@ -1,4 +1,4 @@
--- $Id$
+﻿-- $Id$
 --
 -- phpMyAdmin SQL Dump
 -- version 2.6.4-pl4
@@ -38,36 +38,6 @@ CREATE TABLE IF NOT EXISTS agency (
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `end_disposition_code_description_map`
--- 
-
-DROP TABLE IF EXISTS end_disposition_code_description_map;
-CREATE TABLE IF NOT EXISTS end_disposition_code_description_map (
-  `code` tinyint(3) unsigned NOT NULL auto_increment,
-  description varchar(63) NOT NULL,
-  elaboration varchar(127) NOT NULL,
-  PRIMARY KEY  (`code`),
-  UNIQUE KEY description (description),
-  UNIQUE KEY elaboration (elaboration)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `end_disposition_code_description_map`
--- 
-
-INSERT INTO `end_disposition_code_description_map` (`code`, `description`, `elaboration`) VALUES (1, 'Unknown', 'No information available'),
-(2, 'Advanced', 'Earned higher enrollment status'),
-(3, 'Receded', 'Converted to lower enrollment status'),
-(4, 'Resigned', 'Explicitly disassociated on own accord'),
-(5, 'Retired', 'Life member disengaged on own accord'),
-(6, 'Died', 'Died'),
-(7, 'Expelled', 'Forced out against own wishes'),
-(8, 'Disabled', 'Suffered persistent injury or illness'),
-(9, 'Disengaged', 'Stopped reporting to organization');
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `enrollment_history`
 --
@@ -76,14 +46,51 @@ DROP TABLE IF EXISTS enrollment_history;
 CREATE TABLE IF NOT EXISTS enrollment_history (
   id int(10) unsigned NOT NULL auto_increment,
   member_id int(10) unsigned NOT NULL,
-  obligation_code tinyint(3) unsigned NOT NULL,
+  level_code tinyint(3) unsigned NOT NULL,
   start_date date NOT NULL,
-  end_disposition_code tinyint(3) unsigned default NULL,
   PRIMARY KEY  (id),
   UNIQUE KEY member_id (member_id,start_date),
-  KEY obligation_code (obligation_code),
-  KEY end_disposition_code (end_disposition_code)
+  KEY level_code (level_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enrollment_level`
+--
+
+DROP TABLE IF EXISTS enrollment_level;
+CREATE TABLE IF NOT EXISTS enrollment_level (
+  `code` tinyint(3) unsigned NOT NULL auto_increment,
+  description varchar(31) NOT NULL,
+  num_shifts tinyint(3) unsigned default NULL,
+  pecking_order smallint(5) unsigned NOT NULL default '0',
+  elaboration varchar(511) NOT NULL,
+  PRIMARY KEY  (`code`),
+  UNIQUE KEY description (description),
+  UNIQUE KEY pecking_order (pecking_order)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `enrollment_level`
+--
+
+INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elaboration) VALUES (1, 'Admin', 0, 90, 'For Admin I, II, and Support Services members.'),
+(2, 'Regular', 4, 30, 'as defined in EMS Duty Policy'),
+(3, 'Life', 3, 20, 'as defined in EMS Duty Policy'),
+(4, 'Tenured', 2, 10, 'as defined in EMS Duty Policy'),
+(5, 'Associate', 2, 80, 'as defined in EMS Duty Policy'),
+(6, 'Special', NULL, 70, 'Use when duty obligation is seasonal (for non-regional college students, etc) or otherwise unusual.  Also for MD and certain Special Ops members.'),
+(7, 'Reduced (1)', 1, 60, 'Consider granting leave and specifying an obligation of 1 shift unless this arrangement is presumed to be very long term.'),
+(8, 'Reduced (2)', 2, 50, 'Consider granting leave and specifying an obligation of 2 shifts unless this arrangement is presumed to be very long term.'),
+(9, 'Reduced (3)', 3, 40, 'Consider granting leave and specifying an obligation of 3 shifts unless this arrangement is presumed to be very long term.'),
+(10, 'Recruit', 0, 85, 'Use for members who do not have a white ID card.'),
+(11, 'Resigned', 0, 100, 'If the member did not clearly resign verbally or in writing, use "Disengaged" instead.  For Life or Tenured members, use "Retired" unless they have indicated a desire to "divorce" themselves from the organization.'),
+(12, 'Retired', 0, 150, 'Life or Tenured member disengaged on own accord.  It is recommended to put member on leave for a while prior to using this level.'),
+(13, 'Died', 0, 5555, 'Self-explanatory'),
+(14, 'Expelled', 0, 800, 'Forced out against own wishes'),
+(15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.'),
+(16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.');
 
 -- --------------------------------------------------------
 
@@ -198,41 +205,9 @@ CREATE TABLE IF NOT EXISTS member_user (
 
 -- --------------------------------------------------------
 
--- 
--- Table structure for table `obligation_code_description_map`
--- 
-
-DROP TABLE IF EXISTS obligation_code_description_map;
-CREATE TABLE IF NOT EXISTS obligation_code_description_map (
-  `code` tinyint(3) unsigned NOT NULL auto_increment,
-  description varchar(31) NOT NULL,
-  num_shifts tinyint(3) unsigned default NULL,
-  pecking_order tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY  (`code`),
-  UNIQUE KEY description (description),
-  UNIQUE KEY pecking_order (pecking_order)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 
--- Dumping data for table `obligation_code_description_map`
--- 
-
-INSERT INTO obligation_code_description_map (code, description, num_shifts, pecking_order) VALUES (1, 'Admin', 0, 90),
-(2, 'Regular', 4, 30),
-(3, 'Life', 3, 20),
-(4, 'Tenured', 2, 10),
-(5, 'Associate', 2, 80),
-(6, 'Special', NULL, 70),
-(7, 'Reduced (1)', 1, 60),
-(8, 'Reduced (2)', 2, 50),
-(9, 'Reduced (3)', 3, 40),
-(10, 'Recruit', 0, 85);
-
--- --------------------------------------------------------
-
--- 
+--
 -- Table structure for table `officership`
--- 
+--
 
 DROP TABLE IF EXISTS officership;
 CREATE TABLE IF NOT EXISTS officership (
@@ -301,8 +276,7 @@ CREATE TABLE IF NOT EXISTS squad_commander_user (
 -- 
 ALTER TABLE `enrollment_history`
   ADD CONSTRAINT enrollment_history_ibfk_3 FOREIGN KEY (member_id) REFERENCES member (id),
-  ADD CONSTRAINT enrollment_history_ibfk_4 FOREIGN KEY (obligation_code) REFERENCES obligation_code_description_map (`code`),
-  ADD CONSTRAINT enrollment_history_ibfk_5 FOREIGN KEY (end_disposition_code) REFERENCES end_disposition_code_description_map (`code`);
+  ADD CONSTRAINT enrollment_history_ibfk_4 FOREIGN KEY (level_code) REFERENCES enrollment_level (`code`);
 
 -- 
 -- Constraints for table `leave_of_absence`

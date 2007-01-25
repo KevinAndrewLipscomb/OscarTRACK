@@ -179,7 +179,7 @@ begin
   filter := system.string.EMPTY;
   //
   if enrollment_filter <> ALL then begin
-    filter := ' and obligation_code_description_map.description ';
+    filter := ' and enrollment_level.description ';
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
     + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
@@ -221,12 +221,13 @@ begin
   + ' , cad_num'                                                                         // column 3
   + ' , medical_release_code_description_map.description as medical_release_description' // column 4
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
-  + ' , obligation_code_description_map.description as enrollment'                       // column 6
+  + ' , enrollment_level.description as enrollment'                                      // column 6
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7
+  + ' , max(enrollment_history.start_date)'
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
-  +   ' join obligation_code_description_map on (obligation_code_description_map.code=enrollment_history.obligation_code)'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
   +   ' left join leave_of_absence'
   +     ' on'
   +       ' ('
@@ -245,8 +246,8 @@ begin
   +   ' left join kind_of_leave_code_description_map'
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
   + ' where agency_id = ' + agency_id
-  +   ' and end_disposition_code is null'
   +   filter
+  + ' group by (member.id)'
   + ' order by ' + sort_order;
   //
   self.Open;
