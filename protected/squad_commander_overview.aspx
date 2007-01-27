@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							 [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							  [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -101,7 +101,7 @@
 						<asp:boundcolumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="true" headertext="Released driver">
 						  <itemstyle horizontalalign="Center"></itemstyle>
 						</asp:boundcolumn>
-						<asp:boundcolumn datafield="enrollment" sortexpression="obligation_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="true"
+						<asp:boundcolumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="true"
 						headertext="Enrollment"></asp:boundcolumn>
 						<asp:boundcolumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num"
 						readonly="true" headertext="Leave">
