@@ -142,7 +142,7 @@ var
 begin
   self.Open;
   num_obliged_shifts_obj := bdpcommand.Create
-    ('select num_shifts from obligation_code_description_map where description = "' + description + '"',connection).ExecuteScalar;
+    ('select num_shifts from enrollment_level where description = "' + description + '"',connection).ExecuteScalar;
   if num_obliged_shifts_obj <> nil then begin
     NumObligedShifts := uint32.Parse(num_obliged_shifts_obj.tostring);
   end else begin
