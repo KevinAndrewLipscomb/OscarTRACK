@@ -1,4 +1,4 @@
-﻿-- $Id$
+-- $Id$
 --
 -- phpMyAdmin SQL Dump
 -- version 2.6.4-pl4
