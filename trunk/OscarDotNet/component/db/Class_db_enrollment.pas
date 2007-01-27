@@ -13,7 +13,7 @@ const
 type
   TClass_db_enrollment = class(TClass_db)
   private
-    { Private Declarations }
+    //
   public
     constructor Create;
     procedure BindTransitionRadioButtonList
@@ -26,13 +26,21 @@ type
       member_id: string;
       target: system.object
       );
+    function DescriptionOf(level_code: string): string;
     function NumObligedShifts(description: string): cardinal;
+    procedure SetLevel
+      (
+      new_level_code: string;
+      effective_date: datetime;
+      e_item: system.object
+      );
   end;
 
 implementation
 
 uses
   borland.data.provider,
+  Class_db_members,
   system.web.ui.webcontrols;
 
 constructor TClass_db_enrollment.Create;
@@ -119,6 +127,14 @@ begin
   self.Close;
 end;
 
+function TClass_db_enrollment.DescriptionOf(level_code: string): string;
+begin
+  self.Open;
+  DescriptionOf := bdpcommand.Create
+    ('select description from enrollment_level where code = ' + level_code,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
 function TClass_db_enrollment.NumObligedShifts(description: string): cardinal;
 var
   num_obliged_shifts_obj: system.object;
@@ -129,8 +145,42 @@ begin
   if num_obliged_shifts_obj <> nil then begin
     NumObligedShifts := uint32.Parse(num_obliged_shifts_obj.tostring);
   end else begin
-    NumObligedShifts := 0; 
+    NumObligedShifts := 0;
   end;
+  self.Close;
+end;
+
+procedure TClass_db_enrollment.SetLevel
+  (
+  new_level_code: string;
+  effective_date: datetime;
+  e_item: system.object
+  );
+var
+  effective_date_string: string;
+  member_id: string;
+begin
+  effective_date_string := effective_date.tostring('yyyy-MM-dd');
+  member_id := TClass_db_members.Create.IdOf(e_item);
+  self.Open;
+  bdpcommand.Create
+    (
+    'START TRANSACTION;'
+    + ' update enrollment_history'
+    +   ' set end_date = "' + effective_date_string + '"'
+    +   ' where member_id = ' + member_id
+    +     ' and end_date is null'
+    + ' ;'
+    + ' insert into enrollment_history'
+    +   ' set member_id = ' + member_id
+    +     ' , level_code = ' + new_level_code
+    +     ' , start_date = "' + effective_date_string + '"'
+    + ' ;'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[Class_db_members.TCCI_ENROLLMENT].text := DescriptionOf(new_level_code);
   self.Close;
 end;
 
