@@ -44,12 +44,13 @@ type
       member_id: string;
       target: system.object
       );
-    procedure SetLevel
+    function SetLevel
       (
       new_level_code: string;
       effective_date: datetime;
       e_item: system.object
-      );
+      )
+      : boolean;
   end;
 
 implementation
@@ -79,14 +80,15 @@ begin
   db_enrollment.BindMemberHistory(member_id,target);
 end;
 
-procedure TClass_biz_enrollment.SetLevel
+function TClass_biz_enrollment.SetLevel
   (
   new_level_code: string;
   effective_date: datetime;
   e_item: system.object
-  );
+  )
+  : boolean;
 begin
-  db_enrollment.SetLevel(new_level_code,effective_date,e_item);
+  SetLevel := db_enrollment.SetLevel(new_level_code,effective_date,e_item);
 end;
 
 end.
