@@ -431,36 +431,45 @@ CREATE TABLE IF NOT EXISTS squad_commander_user (
 -- Constraints for dumped tables
 -- 
 
--- 
+--
 -- Constraints for table `enrollment_history`
--- 
+--
 ALTER TABLE `enrollment_history`
   ADD CONSTRAINT enrollment_history_ibfk_3 FOREIGN KEY (member_id) REFERENCES member (id),
   ADD CONSTRAINT enrollment_history_ibfk_4 FOREIGN KEY (level_code) REFERENCES enrollment_level (`code`);
 
--- 
+--
+-- Constraints for table `enrollment_transition`
+--
+ALTER TABLE enrollment_transition
+  ADD CONSTRAINT enrollment_transition_ibfk_1 FOREIGN KEY (current_level_code) REFERENCES enrollment_level (code),
+  ADD CONSTRAINT enrollment_transition_ibfk_2 FOREIGN KEY (required_historical_level_code) REFERENCES enrollment_level (code),
+  ADD CONSTRAINT enrollment_transition_ibfk_3 FOREIGN KEY (disallowed_historical_level_code) REFERENCES enrollment_level (code),
+  ADD CONSTRAINT enrollment_transition_ibfk_4 FOREIGN KEY (valid_next_level_code) REFERENCES enrollment_level (code);
+
+--
 -- Constraints for table `leave_of_absence`
--- 
+--
 ALTER TABLE `leave_of_absence`
   ADD CONSTRAINT leave_of_absence_ibfk_1 FOREIGN KEY (member_id) REFERENCES member (id),
   ADD CONSTRAINT leave_of_absence_ibfk_2 FOREIGN KEY (kind_of_leave_code) REFERENCES kind_of_leave_code_description_map (`code`);
 
--- 
+--
 -- Constraints for table `member`
--- 
+--
 ALTER TABLE `member`
   ADD CONSTRAINT member_ibfk_1 FOREIGN KEY (agency_id) REFERENCES agency (id),
   ADD CONSTRAINT member_ibfk_2 FOREIGN KEY (medical_release_code) REFERENCES medical_release_code_description_map (`code`);
 
--- 
+--
 -- Constraints for table `member_user`
--- 
+--
 ALTER TABLE `member_user`
   ADD CONSTRAINT member_user_ibfk_1 FOREIGN KEY (id) REFERENCES member (id);
 
--- 
+--
 -- Constraints for table `officership`
--- 
+--
 ALTER TABLE `officership`
   ADD CONSTRAINT officership_ibfk_4 FOREIGN KEY (member_id) REFERENCES member (id),
   ADD CONSTRAINT officership_ibfk_5 FOREIGN KEY (rank_code) REFERENCES rank (`code`);
