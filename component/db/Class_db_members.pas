@@ -223,10 +223,23 @@ begin
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
   + ' , enrollment_level.description as enrollment'                                      // column 6
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7
-  + ' , max(enrollment_history.start_date)'
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-  +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
   +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
   +   ' left join leave_of_absence'
   +     ' on'
@@ -247,7 +260,6 @@ begin
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
   + ' where agency_id = ' + agency_id
   +   filter
-  + ' group by (member.id)'
   + ' order by ' + sort_order;
   //
   self.Open;
