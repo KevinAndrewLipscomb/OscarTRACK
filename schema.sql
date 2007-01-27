@@ -96,6 +96,165 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `enrollment_transition`
+--
+
+DROP TABLE IF EXISTS enrollment_transition;
+CREATE TABLE IF NOT EXISTS enrollment_transition (
+  current_level_code tinyint(3) unsigned NOT NULL,
+  required_historical_level_code tinyint(3) unsigned,
+  disallowed_historical_level_code tinyint(3) unsigned,
+  valid_next_level_code tinyint(3) unsigned NOT NULL,
+  UNIQUE KEY (current_level_code, required_historical_level_code, disallowed_historical_level_code, valid_next_level_code),
+  KEY (required_historical_level_code),
+  KEY (disallowed_historical_level_code),
+  KEY (valid_next_level_code)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `enrollment_transition`
+--
+
+INSERT INTO enrollment_transition (current_level_code, required_historical_level_code, disallowed_historical_level_code, valid_next_level_code) VALUES (1, NULL, NULL, 2),
+(1, 3, 4, 3),
+(1, 4, NULL, 4),
+(1, NULL, NULL, 5),
+(1, NULL, NULL, 6),
+(1, 2, NULL, 7),
+(1, 5, NULL, 7),
+(1, 2, 4, 8),
+(1, 2, 3, 9),
+(1, NULL, NULL, 11),
+(1, 3, NULL, 12),
+(1, NULL, NULL, 13),
+(1, NULL, NULL, 14),
+(1, NULL, NULL, 15),
+(1, NULL, NULL, 16),
+(2, NULL, NULL, 1),
+(2, NULL, NULL, 3),
+(2, NULL, NULL, 5),
+(2, NULL, NULL, 6),
+(2, NULL, NULL, 7),
+(2, NULL, NULL, 8),
+(2, NULL, NULL, 9),
+(2, NULL, NULL, 11),
+(2, NULL, NULL, 13),
+(2, NULL, NULL, 14),
+(2, NULL, NULL, 15),
+(2, NULL, NULL, 16),
+(3, NULL, NULL, 1),
+(3, NULL, NULL, 4),
+(3, NULL, NULL, 5),
+(3, NULL, NULL, 6),
+(3, NULL, NULL, 7),
+(3, NULL, NULL, 8),
+(3, NULL, NULL, 11),
+(3, NULL, NULL, 12),
+(3, NULL, NULL, 13),
+(3, NULL, NULL, 14),
+(3, NULL, NULL, 15),
+(3, NULL, NULL, 16),
+(4, NULL, NULL, 1),
+(4, NULL, NULL, 6),
+(4, NULL, NULL, 7),
+(4, NULL, NULL, 11),
+(4, NULL, NULL, 12),
+(4, NULL, NULL, 13),
+(4, NULL, NULL, 14),
+(4, NULL, NULL, 15),
+(4, NULL, NULL, 16),
+(5, NULL, NULL, 1),
+(5, NULL, NULL, 2),
+(5, 3, 4, 3),
+(5, NULL, NULL, 6),
+(5, NULL, NULL, 7),
+(5, 2, 3, 9),
+(5, NULL, NULL, 11),
+(5, 3, NULL, 12),
+(5, NULL, NULL, 13),
+(5, NULL, NULL, 14),
+(5, NULL, NULL, 15),
+(5, NULL, NULL, 16),
+(6, NULL, NULL, 1),
+(6, NULL, NULL, 2),
+(6, 3, 4, 3),
+(6, 4, NULL, 4),
+(6, 2, NULL, 7),
+(6, 2, 4, 8),
+(6, 2, 3, 9),
+(6, NULL, NULL, 11),
+(6, 3, NULL, 12),
+(6, NULL, NULL, 13),
+(6, NULL, NULL, 14),
+(6, NULL, NULL, 15),
+(6, NULL, NULL, 16),
+(7, NULL, NULL, 1),
+(7, 2, NULL, 2),
+(7, 3, 4, 3),
+(7, 4, 3, 4),
+(7, 2, NULL, 5),
+(7, 5, NULL, 5),
+(7, NULL, NULL, 6),
+(7, 2, 4, 8),
+(7, 2, 3, 9),
+(7, NULL, NULL, 11),
+(7, 3, NULL, 12),
+(7, NULL, NULL, 13),
+(7, NULL, NULL, 14),
+(7, NULL, NULL, 15),
+(7, NULL, NULL, 16),
+(8, NULL, NULL, 1),
+(8, NULL, 3, 2),
+(8, 3, 4, 3),
+(8, 4, NULL, 4),
+(8, NULL, NULL, 5),
+(8, NULL, NULL, 6),
+(8, NULL, NULL, 7),
+(8, NULL, 3, 9),
+(8, NULL, NULL, 11),
+(8, 3, NULL, 12),
+(8, NULL, NULL, 13),
+(8, NULL, NULL, 14),
+(8, NULL, NULL, 15),
+(8, NULL, NULL, 16),
+(9, NULL, NULL, 1),
+(9, NULL, NULL, 2),
+(9, 3, NULL, 3),
+(9, 4, 3, 4),
+(9, NULL, 4, 5),
+(9, NULL, NULL, 6),
+(9, NULL, NULL, 7),
+(9, NULL, 4, 8),
+(9, NULL, NULL, 11),
+(9, 3, NULL, 12),
+(9, NULL, NULL, 13),
+(9, NULL, NULL, 14),
+(9, NULL, NULL, 15),
+(9, NULL, NULL, 16),
+(10, NULL, NULL, 1),
+(10, NULL, NULL, 2),
+(10, NULL, NULL, 5),
+(10, NULL, NULL, 6),
+(10, NULL, NULL, 7),
+(10, NULL, NULL, 8),
+(10, NULL, NULL, 9),
+(10, NULL, NULL, 11),
+(10, NULL, NULL, 13),
+(10, NULL, NULL, 14),
+(10, NULL, NULL, 15),
+(10, NULL, NULL, 16),
+(11, NULL, NULL, 10),
+(12, NULL, NULL, 10),
+(12, 3, NULL, 13),
+(14, NULL, NULL, 10),
+(15, NULL, NULL, 10),
+(16, NULL, NULL, 10);
+
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `kind_of_leave_code_description_map`
 --
 
@@ -120,9 +279,9 @@ INSERT INTO kind_of_leave_code_description_map (code, description) VALUES (6, 'A
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `leave_of_absence`
--- 
+--
 
 DROP TABLE IF EXISTS leave_of_absence;
 CREATE TABLE IF NOT EXISTS leave_of_absence (
