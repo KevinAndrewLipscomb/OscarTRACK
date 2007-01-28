@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							  [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							   [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -86,29 +86,28 @@
 				<tr>
 				  <td>
 					<asp:datagrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
-					  <headerstyle backcolor="WhiteSmoke"></headerstyle>
-					  <columns>
-						<asp:boundcolumn visible="False" datafield="member_id" readonly="true"></asp:boundcolumn>
-						<asp:boundcolumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="true"
-						headertext="Last name"></asp:boundcolumn>
-						<asp:boundcolumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="true"
-						headertext="First name"></asp:boundcolumn>
-						<asp:boundcolumn datafield="cad_num" sortexpression="cad_num" readonly="true" headertext="CAD#">
-						  <itemstyle horizontalalign="Center"></itemstyle>
-						</asp:boundcolumn>
-						<asp:boundcolumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="true"
-						headertext="Released med level"></asp:boundcolumn>
-						<asp:boundcolumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="true" headertext="Released driver">
-						  <itemstyle horizontalalign="Center"></itemstyle>
-						</asp:boundcolumn>
-						<asp:boundcolumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="true"
-						headertext="Enrollment"></asp:boundcolumn>
-						<asp:boundcolumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num"
-						readonly="true" headertext="Leave">
-						  <itemstyle horizontalalign="Center"></itemstyle>
-						</asp:boundcolumn>
-						<asp:buttoncolumn text="Detail"></asp:buttoncolumn>
-					  </columns>
+                        <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                        <Columns>
+                          <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released med level">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released driver">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
+                        </Columns>
 					</asp:datagrid>
 				  </td>
 				</tr>
