@@ -1,5 +1,8 @@
 #
 # $Id$
 #
-#@daily wget -q https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/milestone_sweep.aspx
-@daily wget -q https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/daily_tasks.aspx
+MAILTO=kevin.lipscomb@kvrs.org
+00 00 * * * wget https://sslws010.alentus.com/frompaper2web/WebEMSOF/noninteractive/milestone_sweep.aspx
+15 00 * * * wget https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/daily_tasks.aspx
+30 00 * * * wget https://sslws010.alentus.com/frompaper2web/WebEMSOF_x/noninteractive/milestone_sweep.aspx
+45 00 * * * wget https://sslws010.alentus.com/frompaper2web/OscarDotNet_x/noninteractive/daily_tasks.aspx
