@@ -48,6 +48,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\leave_detail.aspx'}
 {%AspMarkupContainer 'protected\grant_leave.aspx'}
 {%AspMarkupContainer 'protected\add_new_enrollment_status.aspx'}
+{%AspMarkupContainer 'noninteractive\daily_tasks.aspx'}
 
 uses
   System.Reflection,
@@ -97,7 +98,9 @@ uses
   Class_biz_leaves in 'component\biz\Class_biz_leaves.pas',
   Class_db_leaves in 'component\db\Class_db_leaves.pas',
   grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
-  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class};
+  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class},
+  daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm1: system.web.ui.page},
+  Class_biz_scheduled_tasks in 'component\biz\Class_biz_scheduled_tasks.pas';
 
 const ID = '$Id$';
 
