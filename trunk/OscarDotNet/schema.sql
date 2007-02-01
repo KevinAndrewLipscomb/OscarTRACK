@@ -250,7 +250,20 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (15, NULL, NULL, 10),
 (16, NULL, NULL, 10);
 
+-- --------------------------------------------------------
 
+--
+-- Table structure for table `journal`
+--
+
+DROP TABLE IF EXISTS journal;
+CREATE TABLE IF NOT EXISTS journal (
+  `timestamp` TIMESTAMP NOT NULL,
+  actor VARCHAR(31) NOT NULL,
+  action VARCHAR(2047) NOT NULL,
+  PRIMARY KEY(`timestamp`),
+  INDEX actor (actor)
+) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -264,7 +277,7 @@ CREATE TABLE IF NOT EXISTS kind_of_leave_code_description_map (
   description varchar(31) NOT NULL,
   PRIMARY KEY  (`code`),
   UNIQUE KEY description (description)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `kind_of_leave_code_description_map`

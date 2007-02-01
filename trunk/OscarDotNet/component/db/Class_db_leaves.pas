@@ -3,7 +3,8 @@ unit Class_db_leaves;
 interface
 
 uses
-  Class_db;
+  Class_db,
+  Class_db_trail;
 
 const
   TCCI_ID = 0;
@@ -15,7 +16,7 @@ const
 type
   TClass_db_leaves = class(TClass_db)
   private
-    { Private Declarations }
+    db_trail: TClass_db_trail;
   public
     constructor Create;
     procedure BindKindDropDownList(target: system.object);
@@ -54,6 +55,7 @@ constructor TClass_db_leaves.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_trail := TClass_db_trail.Create;
 end;
 
 procedure TClass_db_leaves.BindKindDropDownList(target: system.object);
@@ -167,13 +169,16 @@ begin
   self.Open;
   bdpcommand.Create
     (
-    'insert into leave_of_absence'
-    + ' set member_id = ' + member_id
-    + ' , kind_of_leave_code = ' + kind_of_leave_code
-    + ' , start_date = DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + relative_start_month + ' MONTH)'
-    + ' , end_date = LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
-    + ' , num_obliged_shifts = ' + num_obligated_shifts
-    + ' , note = "' + note + '"',
+    db_trail.Saved
+      (
+      'insert into leave_of_absence'
+      + ' set member_id = ' + member_id
+      + ' , kind_of_leave_code = ' + kind_of_leave_code
+      + ' , start_date = DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + relative_start_month + ' MONTH)'
+      + ' , end_date = LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
+      + ' , num_obliged_shifts = ' + num_obligated_shifts
+      + ' , note = "' + note + '"'
+      ),
     connection
     )
     .ExecuteNonQuery;

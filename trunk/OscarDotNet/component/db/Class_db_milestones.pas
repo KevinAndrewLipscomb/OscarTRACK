@@ -4,11 +4,13 @@ interface
 
 uses
   Class_db,
+  Class_db_trail,
   system.collections;
 
 type
   TClass_db_milestones = class(TClass_db)
   private
+    db_trail: TClass_db_trail;
   public
     constructor Create;
     procedure Check
@@ -29,6 +31,7 @@ constructor TClass_db_milestones.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_trail := TClass_db_trail.Create;
 end;
 
 procedure TClass_db_milestones.Check
@@ -68,7 +71,7 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    cmdText,
+    db_trail.Saved(cmdText),
     connection
     )
     .ExecuteNonQuery;
