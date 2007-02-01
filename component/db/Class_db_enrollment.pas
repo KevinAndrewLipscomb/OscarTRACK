@@ -3,7 +3,8 @@ unit Class_db_enrollment;
 interface
 
 uses
-  Class_db;
+  Class_db,
+  Class_db_trail;
 
 const
   TCCI_ID = 0;
@@ -13,7 +14,7 @@ const
 type
   TClass_db_enrollment = class(TClass_db)
   private
-    //
+    db_trail: TClass_db_trail;
   public
     constructor Create;
     procedure BindTransitionRadioButtonList
@@ -49,6 +50,7 @@ constructor TClass_db_enrollment.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_trail := TClass_db_trail.Create;
 end;
 
 procedure TClass_db_enrollment.BindTransitionRadioButtonList
@@ -145,22 +147,25 @@ begin
   watermark := bdpcommand.Create('select max(id) from enrollment_history',connection).ExecuteScalar.tostring;
   bdpcommand.Create
     (
-    'START TRANSACTION;'
-    + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
-    +   ' SELECT member_id,(level_code + 1),date_add(start_date,interval 10 year),NULL'
-    +     ' FROM enrollment_history'
-    +     ' where end_date is null'
-    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-    +       ' and level_code in (2,3)'
-    + ' ;'
-    + ' update enrollment_history'
-    +   ' set end_date = date_add(start_date,interval 10 year)'
-    +     ' where end_date is null'
-    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-    +       ' and level_code in (2,3)'
-    +       ' and id <= ' + watermark
-    + ' ;'
-    + ' COMMIT',
+    db_trail.Saved
+      (
+      'START TRANSACTION;'
+      + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
+      +   ' SELECT member_id,(level_code + 1),date_add(start_date,interval 10 year),NULL'
+      +     ' FROM enrollment_history'
+      +     ' where end_date is null'
+      +       ' and start_date <= date_sub(curdate(),interval 10 year)'
+      +       ' and level_code in (2,3)'
+      + ' ;'
+      + ' update enrollment_history'
+      +   ' set end_date = date_add(start_date,interval 10 year)'
+      +     ' where end_date is null'
+      +       ' and start_date <= date_sub(curdate(),interval 10 year)'
+      +       ' and level_code in (2,3)'
+      +       ' and id <= ' + watermark
+      + ' ;'
+      + ' COMMIT'
+      ),
     connection
     )
     .ExecuteNonQuery;
@@ -203,18 +208,21 @@ begin
   if effective_date >=  latest_start_date then begin
     bdpcommand.Create
       (
-      'START TRANSACTION;'
-      + ' update enrollment_history'
-      +   ' set end_date = "' + effective_date_string + '"'
-      +   ' where member_id = ' + member_id
-      +     ' and end_date is null'
-      + ' ;'
-      + ' insert into enrollment_history'
-      +   ' set member_id = ' + member_id
-      +     ' , level_code = ' + new_level_code
-      +     ' , start_date = "' + effective_date_string + '"'
-      + ' ;'
-      + ' COMMIT',
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        + ' update enrollment_history'
+        +   ' set end_date = "' + effective_date_string + '"'
+        +   ' where member_id = ' + member_id
+        +     ' and end_date is null'
+        + ' ;'
+        + ' insert into enrollment_history'
+        +   ' set member_id = ' + member_id
+        +     ' , level_code = ' + new_level_code
+        +     ' , start_date = "' + effective_date_string + '"'
+        + ' ;'
+        + ' COMMIT'
+        ),
       connection
       )
       .ExecuteNonQuery;

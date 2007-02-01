@@ -100,7 +100,8 @@ uses
   grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
   add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class},
   daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm1: system.web.ui.page},
-  Class_biz_scheduled_tasks in 'component\biz\Class_biz_scheduled_tasks.pas';
+  Class_biz_scheduled_tasks in 'component\biz\Class_biz_scheduled_tasks.pas',
+  Class_db_trail in 'component\db\Class_db_trail.pas';
 
 const ID = '$Id$';
 

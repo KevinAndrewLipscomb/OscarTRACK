@@ -6,6 +6,7 @@ uses
   borland.data.provider,
   Class_db,
   Class_db_medical_release_levels,
+  Class_db_trail,
   Class_biz_enrollment,
   Class_biz_leave,
   ki,
@@ -25,6 +26,7 @@ type
   TClass_db_members = class(TClass_db)
   private
     db_medical_release_levels: TClass_db_medical_release_levels;
+    db_trail: TClass_db_trail;
   public
     constructor Create;
     function AffiliateNumOfId(id: string): string;
@@ -87,6 +89,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_medical_release_levels := TClass_db_medical_release_levels.Create;
+  db_trail := TClass_db_trail.Create;
 end;
 
 function TClass_db_members.AffiliateNumOfId(id: string): string;
@@ -362,9 +365,12 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE member'
-    + ' SET be_driver_qualified = ' + be_driver_qualified.tostring
-    + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text,
+    db_trail.Saved
+      (
+      'UPDATE member'
+      + ' SET be_driver_qualified = ' + be_driver_qualified.tostring
+      + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text
+      ),
     connection
     )
     .ExecuteNonQuery;
@@ -385,7 +391,7 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text,
+    db_trail.Saved('UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
     )
     .ExecuteNonQuery;
@@ -402,10 +408,13 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE member '
-    + 'SET name = "' + name + '"'
-    +   ', be_valid_profile = TRUE '
-    + 'WHERE id = "' + id + '"',
+    db_trail.Saved
+      (
+      'UPDATE member '
+      + 'SET name = "' + name + '"'
+      +   ', be_valid_profile = TRUE '
+      + 'WHERE id = "' + id + '"'
+      ),
     connection
     )
     .ExecuteNonQuery;

@@ -4,12 +4,13 @@ interface
 
 uses
   borland.data.provider,
-  Class_db;
+  Class_db,
+  Class_db_trail;
 
 type
   TClass_db_accounts = class(TClass_db)
   private
-    { Private Declarations }
+    db_trail: TClass_db_trail;
   public
     constructor Create;
     function BeStalePassword
@@ -71,6 +72,7 @@ constructor TClass_db_accounts.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_trail := TClass_db_trail.Create;
 end;
 
 function TClass_db_accounts.BeStalePassword
@@ -273,9 +275,12 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'UPDATE ' + user_kind + '_user '
-    + 'SET password_reset_email_address = "' + email_address + '"'
-    + 'WHERE id = ' + user_id,
+    db_trail.Saved
+      (
+      'UPDATE ' + user_kind + '_user '
+      + 'SET password_reset_email_address = "' + email_address + '"'
+      + 'WHERE id = ' + user_id
+      ),
     connection
     )
     .ExecuteNonQuery;
@@ -292,10 +297,13 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'update ' + user_kind + '_user'
-    + ' set encoded_password = "' + encoded_password + '",'
-    +   ' be_stale_password = FALSE '
-    + ' where id = ' + user_id,
+    db_trail.Saved
+      (
+      'update ' + user_kind + '_user'
+      + ' set encoded_password = "' + encoded_password + '",'
+      +   ' be_stale_password = FALSE '
+      + ' where id = ' + user_id
+      ),
     connection
     )
     .ExecuteNonQuery;
@@ -312,10 +320,13 @@ begin
   self.Open;
   borland.data.provider.bdpcommand.Create
     (
-    'update ' + user_kind + '_user'
-    + ' set encoded_password = "' + encoded_password + '",'
-    +   ' be_stale_password = TRUE '
-    + ' where id = ' + user_id,
+    db_trail.Saved
+      (
+      'update ' + user_kind + '_user'
+      + ' set encoded_password = "' + encoded_password + '",'
+      +   ' be_stale_password = TRUE '
+      + ' where id = ' + user_id
+      ),
     connection
     )
     .ExecuteNonQuery;
