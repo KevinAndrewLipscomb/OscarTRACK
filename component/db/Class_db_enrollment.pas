@@ -147,25 +147,25 @@ begin
   watermark := bdpcommand.Create('select max(id) from enrollment_history',connection).ExecuteScalar.tostring;
   bdpcommand.Create
     (
-    db_trail.Saved
-      (
-      'START TRANSACTION;'
-      + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
-      +   ' SELECT member_id,(level_code + 1),date_add(start_date,interval 10 year),NULL'
-      +     ' FROM enrollment_history'
-      +     ' where end_date is null'
-      +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-      +       ' and level_code in (2,3)'
-      + ' ;'
-      + ' update enrollment_history'
-      +   ' set end_date = date_add(start_date,interval 10 year)'
-      +     ' where end_date is null'
-      +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-      +       ' and level_code in (2,3)'
-      +       ' and id <= ' + watermark
-      + ' ;'
-      + ' COMMIT'
-      ),
+    //
+    // Deliberately not db_trail.Saved.
+    //
+    'START TRANSACTION;'
+    + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
+    +   ' SELECT member_id,(level_code + 1),date_add(start_date,interval 10 year),NULL'
+    +     ' FROM enrollment_history'
+    +     ' where end_date is null'
+    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
+    +       ' and level_code in (2,3)'
+    + ' ;'
+    + ' update enrollment_history'
+    +   ' set end_date = date_add(start_date,interval 10 year)'
+    +     ' where end_date is null'
+    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
+    +       ' and level_code in (2,3)'
+    +       ' and id <= ' + watermark
+    + ' ;'
+    + ' COMMIT',
     connection
     )
     .ExecuteNonQuery;
