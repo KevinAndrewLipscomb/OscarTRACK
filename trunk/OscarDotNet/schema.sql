@@ -258,10 +258,11 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 
 DROP TABLE IF EXISTS journal;
 CREATE TABLE IF NOT EXISTS journal (
+  `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `timestamp` TIMESTAMP NOT NULL,
   actor VARCHAR(31) NOT NULL,
   action VARCHAR(2047) NOT NULL,
-  PRIMARY KEY(`timestamp`),
+  PRIMARY KEY(`id`),
   INDEX actor (actor)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;
 
