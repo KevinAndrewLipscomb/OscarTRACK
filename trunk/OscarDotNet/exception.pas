@@ -83,7 +83,9 @@ begin
     //
     p.exception := server.GetLastError.GetBaseException;
     //
-    if regex.IsMatch(p.exception.message,'Connection.*to MySQL server',regexoptions.IGNORECASE) then begin
+    if regex.IsMatch(p.exception.message,'Connection.*to MySQL server',regexoptions.IGNORECASE)
+      or (p.exception.message = 'Connection open failed. Too many connections')
+    then begin
       Table_oops.visible := FALSE;
     end else begin
       Table_db_down.visible := FALSE;
