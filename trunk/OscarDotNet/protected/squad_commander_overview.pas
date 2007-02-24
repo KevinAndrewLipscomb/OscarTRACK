@@ -47,6 +47,7 @@ type
       e: System.EventArgs);
     procedure RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
+    procedure LinkButton_add_member_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -67,6 +68,7 @@ type
     DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
     Label_num_rows: System.Web.UI.WebControls.Label;
     RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
+    LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -96,6 +98,7 @@ begin
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
+  Include(Self.LinkButton_add_member.Click, Self.LinkButton_add_member_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_squad_commander_overview_PreRender);
 end;
@@ -134,7 +137,7 @@ begin
       // Do meaningful processing...
       session.Remove('waypoint_stack');
       waypoint_stack := system.collections.stack.Create;
-      waypoint_stack.Push('regional_staffer_overview.aspx');
+      waypoint_stack.Push('squad_commander_overview.aspx');
       session.Add('waypoint_stack',waypoint_stack);
       //
       Bind;
@@ -152,6 +155,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_squad_commander_overview.LinkButton_add_member_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer('add_member.aspx');
 end;
 
 procedure TWebForm_squad_commander_overview.RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object;

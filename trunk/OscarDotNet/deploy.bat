@@ -14,6 +14,8 @@
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\*.config ready-to-deploy\protected /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\image ready-to-deploy\protected\image /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\resource ready-to-deploy\resource /m /i /k /y /z
+@xcopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\app\*.aspx ready-to-deploy\usercontrol\app /m /i /k /y /z
+@xcopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\ki\*.aspx ready-to-deploy\usercontrol\ki /a /i /k /y /z
 @xcopy "C:\Program Files\Common Files\Borland Shared\BDS\Shared Assemblies\4.0\Borland.Data.Provider.dll" ready-to-deploy\bin /m /i /k /y /z
 @xcopy "C:\Program Files\Common Files\Borland Shared\BDS\Shared Assemblies\4.0\Borland.Data.Common.dll" ready-to-deploy\bin /m /i /k /y /z
 @xcopy "C:\Program Files\Common Files\Borland Shared\BDS\Shared Assemblies\4.0\Borland.Delphi.dll" ready-to-deploy\bin /m /i /k /y /z

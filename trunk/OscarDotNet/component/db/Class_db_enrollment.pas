@@ -17,16 +17,17 @@ type
     db_trail: TClass_db_trail;
   public
     constructor Create;
-    procedure BindTransitionRadioButtonList
-      (
-      member_id: string;
-      target: system.object
-      );
     procedure BindMemberHistory
       (
       member_id: string;
       target: system.object
       );
+    procedure BindTransitionRadioButtonList
+      (
+      member_id: string;
+      target: system.object
+      );
+    procedure BindUncontrolledDropDownList(target: system.object);
     function DescriptionOf(level_code: string): string;
     procedure MakeSeniorityPromotions;
     function NumObligedShifts(description: string): cardinal;
@@ -51,6 +52,30 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_trail := TClass_db_trail.Create;
+end;
+
+procedure TClass_db_enrollment.BindMemberHistory
+  (
+  member_id: string;
+  target: system.object
+  );
+begin
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select enrollment_history.id as id'                                       // column 0
+    + ' , date_format(start_date,"%Y-%m-%d") as start_date'                    // column 1
+    + ' , enrollment_level.description as description'                         // column 2
+    + ' from enrollment_history'
+    +   ' join member on (member.id=enrollment_history.member_id)'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    + ' where member.id = ' + member_id
+    + ' order by start_date desc',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).DataBind;
+  self.Close;
 end;
 
 procedure TClass_db_enrollment.BindTransitionRadioButtonList
@@ -107,27 +132,23 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_enrollment.BindMemberHistory
-  (
-  member_id: string;
-  target: system.object
-  );
+procedure TClass_db_enrollment.BindUncontrolledDropDownList(target: system.object);
+var
+  bdr: bdpdatareader;
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DropDownList(target).items.Clear;
+  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'select enrollment_history.id as id'                                       // column 0
-    + ' , date_format(start_date,"%Y-%m-%d") as start_date'                    // column 1
-    + ' , enrollment_level.description as description'                         // column 2
-    + ' from enrollment_history'
-    +   ' join member on (member.id=enrollment_history.member_id)'
-    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-    + ' where member.id = ' + member_id
-    + ' order by start_date desc',
+    'SELECT code, description from enrollment_level order by pecking_order',
     connection
     )
     .ExecuteReader;
-  DataGrid(target).DataBind;
+  while bdr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].ToString));
+  end;
+  bdr.Close;
   self.Close;
 end;
 

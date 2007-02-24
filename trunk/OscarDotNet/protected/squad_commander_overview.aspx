@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							   [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							     [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -27,7 +27,14 @@
 				  <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
 					<tr>
 					  <td>
-						<strong>Roster</strong>
+						<strong>
+                                <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                    <tr>
+                                      <td><strong>Roster</strong></td>
+                                      <td>
+                                        <p align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True">Add member(s)</ASP:LinkButton></p></td>
+                                    </tr>
+                                </table></strong>
 					  </td>
 					</tr>
 					<tr>

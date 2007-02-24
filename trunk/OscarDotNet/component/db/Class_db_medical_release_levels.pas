@@ -14,7 +14,7 @@ type
     procedure BindDropDownList
       (
       target: system.object;
-      selected_description: string
+      selected_description: string = ''
       );
     function DescriptionOf(code: string): string;
   end;
@@ -34,13 +34,16 @@ end;
 procedure TClass_db_medical_release_levels.BindDropDownList
   (
   target: system.object;
-  selected_description: string
+  selected_description: string = ''
   );
 var
   bdr: bdpdatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
+  if selected_description = system.string.EMPTY then begin
+    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  end;
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
     'SELECT code, description from medical_release_code_description_map order by pecking_order',

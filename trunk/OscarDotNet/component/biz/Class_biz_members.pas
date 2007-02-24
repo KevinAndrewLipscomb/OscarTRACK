@@ -13,6 +13,19 @@ type
     db_members: TClass_db_members;
   public
     constructor Create;
+    function Add
+      (
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      medical_release_code: string;
+      be_driver_qualified: string;
+      agency_id: string;
+      email_address: string;
+      enrollment_date: datetime;
+      enrollment_level: string = ''
+      )
+      : boolean;
     function AffiliateNumOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
     function BeValidProfile(id: string): boolean;
@@ -70,6 +83,38 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_members := TClass_db_members.Create;
+end;
+
+function TClass_biz_members.Add
+  (
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  medical_release_code: string;
+  be_driver_qualified: string;
+  agency_id: string;
+  email_address: string;
+  enrollment_date: datetime;
+  enrollment_level: string = ''
+  )
+  : boolean;
+begin
+  Add := FALSE;
+  if not db_members.BeKnown(first_name,last_name,cad_num) then begin
+    db_members.Add
+      (
+      first_name,
+      last_name,
+      cad_num,
+      uint32.Parse(medical_release_code),
+      boolean(system.object.Create).Parse(be_driver_qualified),
+      uint32.Parse(agency_id),
+      email_address,
+      enrollment_date,
+      uint32.Parse(enrollment_level)
+      );
+    Add := TRUE;
+  end;
 end;
 
 function TClass_biz_members.AffiliateNumOfId(id: string): string;

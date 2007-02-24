@@ -14,7 +14,7 @@ type
     procedure BindDropDownList
       (
       target: system.object;
-      selected_description: string
+      selected_description: string = ''
       );
   end;
 
@@ -30,7 +30,7 @@ end;
 procedure TClass_biz_medical_release_levels.BindDropDownList
   (
   target: system.object;
-  selected_description: string
+  selected_description: string = ''
   );
 begin
   db_medical_release_levels.BindDropDownList(target,selected_description);

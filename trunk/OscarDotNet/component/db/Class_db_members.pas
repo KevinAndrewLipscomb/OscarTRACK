@@ -29,8 +29,27 @@ type
     db_trail: TClass_db_trail;
   public
     constructor Create;
+    procedure Add
+      (
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      medical_release_code: cardinal;
+      be_driver_qualified: boolean;
+      agency_id: cardinal;
+      email_address: string;
+      enrollment_date: datetime;
+      enrollment_code: cardinal = 10
+      );
     function AffiliateNumOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
+    function BeKnown
+      (
+      first_name: string;
+      last_name: string;
+      cad_num: string
+      )
+      : boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindDropDownList
       (
@@ -92,6 +111,48 @@ begin
   db_trail := TClass_db_trail.Create;
 end;
 
+procedure TClass_db_members.Add
+  (
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  medical_release_code: cardinal;
+  be_driver_qualified: boolean;
+  agency_id: cardinal;
+  email_address: string;
+  enrollment_date: datetime;
+  enrollment_code: cardinal = 10
+  );
+var
+  sql: string;
+begin
+  sql := 'START TRANSACTION;'
+  + ' insert into member'
+  + ' set first_name = "' + first_name + '"'
+  +   ' , last_name = "' + last_name + '"';
+  if cad_num <> system.string.EMPTY then begin
+    sql := sql + ' , cad_num = "' + cad_num + '"';
+  end;
+  sql := sql
+  +   ' , medical_release_code = ' + medical_release_code.tostring
+  +   ' , be_driver_qualified = ' + be_driver_qualified.tostring
+  +   ' , agency_id = ' + agency_id.tostring
+  + ';'
+  + ' insert into member_user'
+  + ' set id = (select max(id) from member)'
+  +   ' , password_reset_email_address = "' + email_address + '"'
+  + ';'
+  + ' insert into enrollment_history'
+  + ' set member_id = (select max(id) from member)'
+  +   ' , level_code = ' + enrollment_code.tostring
+  +   ' , start_date = "' + enrollment_date.tostring('yyyy-MM-dd') + '"'
+  + ';'
+  + ' COMMIT';
+  self.Open;
+  bdpcommand.Create(db_trail.Saved(sql),connection).ExecuteNonQuery;
+  self.Close;
+end;
+
 function TClass_db_members.AffiliateNumOfId(id: string): string;
 begin
   self.Open;
@@ -114,6 +175,30 @@ begin
   end else begin
     BeDriverQualifiedOf := be_driver_qualified_of;
   end;
+end;
+
+function TClass_db_members.BeKnown
+  (
+  first_name: string;
+  last_name: string;
+  cad_num: string
+  )
+  : boolean;
+var
+  sql: string;
+begin
+  sql := 'select 1 from member where'
+  + ' ('
+  + ' first_name = "' + first_name + '"'
+  + ' and last_name = "' + last_name + '"';
+  if cad_num = '' then begin
+    sql := sql + ')';
+  end else begin
+    sql := sql + ' and (cad_num = "' + cad_num + '" or cad_num is null)) or (cad_num = "' + cad_num + '")';
+  end;
+  self.Open;
+  BeKnown := (bdpcommand.Create(sql,connection).ExecuteScalar <> nil);
+  self.Close;
 end;
 
 function TClass_db_members.BeValidProfile(id: string): boolean;
