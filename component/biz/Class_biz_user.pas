@@ -6,8 +6,7 @@ uses
   ki,
   system.web;
 
-const
-  ID = '$Id$';
+
 
 type
   TClass_biz_user = class

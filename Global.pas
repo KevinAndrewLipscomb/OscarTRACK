@@ -7,7 +7,7 @@ uses
   System.Web, System.Web.SessionState,
   system.security.principal;
 
-const ID = '$Id$';
+
 
 type
   TGlobal = class(System.Web.HttpApplication)

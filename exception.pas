@@ -12,7 +12,7 @@ uses
   system.web.mail;
 
 
-const ID = '$Id$';
+
 
 type
   p_type =

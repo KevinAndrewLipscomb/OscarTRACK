@@ -9,7 +9,7 @@ uses
   system.web.ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration,
   system.web.mail;
 
-const ID = '$Id$';
+
 
 type
   p_type =

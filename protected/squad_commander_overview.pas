@@ -14,7 +14,7 @@ uses
   Class_biz_members,
   Class_biz_user;
 
-const ID = '$Id$';
+
 
 type
   p_type =

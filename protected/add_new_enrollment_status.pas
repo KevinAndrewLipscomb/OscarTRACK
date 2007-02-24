@@ -11,7 +11,7 @@ uses
   Class_biz_members,
   ki_web_ui;
 
-const ID = '$Id$';
+
 
 type
   p_type =

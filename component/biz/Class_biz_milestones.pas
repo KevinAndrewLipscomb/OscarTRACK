@@ -2,8 +2,7 @@ unit Class_biz_milestones;
 
 interface
 
-const
-  ID = '$Id$';
+
 
 type
   TClass_biz_milestones = class

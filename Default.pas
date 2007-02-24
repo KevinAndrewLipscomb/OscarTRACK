@@ -11,7 +11,7 @@ uses
   system.configuration,
   system.security.principal;
 
-const ID = '$Id$';
+
 
 type
   TWebForm_Default = class(ki_web_ui.page_class)

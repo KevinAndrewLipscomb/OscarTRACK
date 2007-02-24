@@ -11,7 +11,7 @@ uses
   System.Data.Common, system.configuration, system.web.security,
   Class_biz_members;
 
-const ID = '$Id$';
+
 
 type
   p_type =

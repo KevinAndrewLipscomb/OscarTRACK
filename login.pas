@@ -15,7 +15,7 @@ uses
   ki_web_ui,
   system.Web.ui;
 
-const ID = '$Id$';
+
 
 type
   p_type =
