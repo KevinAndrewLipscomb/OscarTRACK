@@ -7,103 +7,86 @@ library OscarDotNet;
 {%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll'}
 {%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll'}
 {%DelphiDotNetAssemblyCompiler 'c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll'}
-{%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll'}
-{%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Design.dll'}
-{%DelphiDotNetAssemblyCompiler 'c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Common.dll'}
-{%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\mscorlib.dll'}
-{%File 'schema.sql'}
-{%ConfigurationCompiler 'unpublished.config'}
-{%File 'testdata.sql'}
-{%AspFolderContainer 'protected'}
-{%AspFolderContainer 'component'}
-{%AspFolderContainer 'component\biz'}
-{%AspFolderContainer 'component\db'}
-{%AspMarkupContainer 'Default.aspx'}
 {%AspMarkupContainer 'Global.asax'}
-{%AspMarkupContainer 'new_password.aspx'}
-{%AspMarkupContainer 'protected\change_email_address.aspx'}
-{%AspMarkupContainer 'protected\change_password.aspx'}
-{%AspMarkupContainer 'protected\squad_commander_overview.aspx'}
-{%AspMarkupContainer 'protected\profile.aspx'}
-{%AspMarkupContainer 'protected\department_staffer_overview.aspx'}
-{%AspMarkupContainer 'protected\member_overview.aspx'}
-{%AspWebConfigContainer 'protected\Web.config'}
-{%AspMarkupContainer 'salogin.aspx'}
-{%AspMarkupContainer 'login.aspx'}
-{%AspFolderContainer 'protected\scratch'}
-{%AspFolderContainer 'protected\image'}
-{%AspFolderContainer 'dbscript'}
+{%AspMarkupContainer 'Default.aspx'}
 {%AspMarkupContainer 'exception.aspx'}
+{%AspMarkupContainer 'login.aspx'}
+{%AspMarkupContainer 'new_password.aspx'}
+{%AspMarkupContainer 'salogin.aspx'}
 {%AspMarkupContainer 'timeout.aspx'}
-{%DelphiDotNetAssemblyCompiler 'lib\ki\ki.dll'}
-{%File 'noninteractive\.crontab'}
-{%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
-{%AspMarkupContainer 'protected\member_detail.aspx'}
-{%AspFolderContainer 'control'}
+{%AspMarkupContainer 'protected\squad_commander_overview.aspx'}
+{%AspMarkupContainer 'protected\add_member.aspx'}
+{%AspMarkupContainer 'protected\add_new_enrollment_status.aspx'}
+{%AspMarkupContainer 'protected\change_email_address.aspx'}
+{%AspMarkupContainer 'protected\change_member_driver_qualification.aspx'}
 {%AspMarkupContainer 'protected\change_member_email_address.aspx'}
 {%AspMarkupContainer 'protected\change_member_medical_release_level.aspx'}
-{%AspMarkupContainer 'protected\change_member_driver_qualification.aspx'}
+{%AspMarkupContainer 'protected\change_password.aspx'}
+{%AspMarkupContainer 'protected\department_staffer_overview.aspx'}
 {%AspMarkupContainer 'protected\enrollment_detail.aspx'}
-{%AspMarkupContainer 'protected\officership_detail.aspx'}
-{%AspMarkupContainer 'protected\leave_detail.aspx'}
 {%AspMarkupContainer 'protected\grant_leave.aspx'}
-{%AspMarkupContainer 'protected\add_new_enrollment_status.aspx'}
+{%AspMarkupContainer 'protected\leave_detail.aspx'}
+{%AspMarkupContainer 'protected\member_detail.aspx'}
+{%AspMarkupContainer 'protected\member_overview.aspx'}
+{%AspMarkupContainer 'protected\officership_detail.aspx'}
+{%AspMarkupContainer 'protected\profile.aspx'}
+{%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
 {%AspMarkupContainer 'noninteractive\daily_tasks.aspx'}
+{%AspMarkupContainer 'usercontrol\ki\UserControl_drop_down_date.ascx'}
 
 uses
   System.Reflection,
   System.Runtime.CompilerServices,
+  Global in 'Global.pas' {Global.TGlobal: System.Web.HttpApplication},
+  Default in 'Default.pas',
+  exception in 'exception.pas' {exception.TWebForm_exception: ki_web_ui.page_class},
+  login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
+  new_password in 'new_password.pas',
+  salogin in 'salogin.pas',
+  timeout in 'timeout.pas',
   Class_biz_user in 'component\biz\Class_biz_user.pas',
   Class_biz_accounts in 'component\biz\Class_biz_accounts.pas',
+  Class_biz_agencies in 'component\biz\Class_biz_agencies.pas',
+  Class_biz_department_staffers in 'component\biz\Class_biz_department_staffers.pas',
+  Class_biz_enrollment in 'component\biz\Class_biz_enrollment.pas',
+  Class_biz_leave in 'component\biz\Class_biz_leave.pas',
+  Class_biz_leaves in 'component\biz\Class_biz_leaves.pas',
+  Class_biz_medical_release_levels in 'component\biz\Class_biz_medical_release_levels.pas',
   Class_biz_members in 'component\biz\Class_biz_members.pas',
+  Class_biz_milestones in 'component\biz\Class_biz_milestones.pas',
+  Class_biz_officerships in 'component\biz\Class_biz_officerships.pas',
+  Class_biz_scheduled_tasks in 'component\biz\Class_biz_scheduled_tasks.pas',
   Class_db_user in 'component\db\Class_db_user.pas',
   Class_db in 'component\db\Class_db.pas',
   Class_db_accounts in 'component\db\Class_db_accounts.pas',
-  Class_db_members in 'component\db\Class_db_members.pas',
-  Default in 'Default.pas' {Default.TWebForm_Default: ki_web_ui.page_class},
-  Global in 'Global.pas' {Global.TGlobal: System.Web.HttpApplication},
-  salogin in 'salogin.pas' {salogin.TWebForm_salogin: ki_web_ui.page_class},
-  new_password in 'new_password.pas' {new_password.TWebForm_new_password: ki_web_ui.page_class},
-  change_email_address in 'protected\change_email_address.pas' {change_email_address.TWebForm_change_email_address: ki_web_ui.page_class},
-  change_password in 'protected\change_password.pas' {change_password.TWebForm_change_password: ki_web_ui.page_class},
-  squad_commander_overview in 'protected\squad_commander_overview.pas' {squad_commander_overview.TWebForm_squad_commander_overview: ki_web_ui.page_class},
-  profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
-  department_staffer_overview in 'protected\department_staffer_overview.pas' {department_staffer_overview.TWebForm_department_staffer_overview: ki_web_ui.page_class},
-  member_overview in 'protected\member_overview.pas' {member_overview.TWebForm_member_overview: ki_web_ui.page_class},
-  Class_biz_department_staffers in 'component\biz\Class_biz_department_staffers.pas',
-  Class_db_department_staffers in 'component\db\Class_db_department_staffers.pas',
-  login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
-  exception in 'exception.pas' {exception.TWebForm_exception: ki_web_ui.page_class},
-  timeout in 'timeout.pas' {timeout.TWebForm_timeout: system.web.ui.page},
-  milestone_sweep in 'noninteractive\milestone_sweep.pas' {milestone_sweep.TWebForm_milestone_sweep: system.web.ui.page},
-  Class_biz_milestones in 'component\biz\Class_biz_milestones.pas',
-  Class_db_milestones in 'component\db\Class_db_milestones.pas',
-  Class_biz_agencies in 'component\biz\Class_biz_agencies.pas',
   Class_db_agencies in 'component\db\Class_db_agencies.pas',
-  appcommon in 'appcommon.pas',
-  member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
-  Class_biz_enrollment in 'component\biz\Class_biz_enrollment.pas',
-  Class_biz_leave in 'component\biz\Class_biz_leave.pas',
-  change_member_email_address in 'protected\change_member_email_address.pas' {change_member_email_address.TWebForm_change_member_email_address: ki_web_ui.page_class},
-  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
-  Class_biz_medical_release_levels in 'component\biz\Class_biz_medical_release_levels.pas',
-  Class_db_medical_release_levels in 'component\db\Class_db_medical_release_levels.pas',
-  change_member_driver_qualification in 'protected\change_member_driver_qualification.pas' {change_member_driver_qualification.TWebForm_change_member_driver_qualification: ki_web_ui.page_class},
-  enrollment_detail in 'protected\enrollment_detail.pas' {enrollment_detail.TWebForm_enrollment_detail: ki_web_ui.page_class},
+  Class_db_department_staffers in 'component\db\Class_db_department_staffers.pas',
   Class_db_enrollment in 'component\db\Class_db_enrollment.pas',
-  officership_detail in 'protected\officership_detail.pas' {officership_detail.TWebForm_officership_detail: ki_web_ui.page_class},
-  Class_biz_officerships in 'component\biz\Class_biz_officerships.pas',
-  Class_db_officerships in 'component\db\Class_db_officerships.pas',
-  leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
-  Class_biz_leaves in 'component\biz\Class_biz_leaves.pas',
   Class_db_leaves in 'component\db\Class_db_leaves.pas',
-  grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
-  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class},
-  daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm1: system.web.ui.page},
-  Class_biz_scheduled_tasks in 'component\biz\Class_biz_scheduled_tasks.pas',
-  Class_db_trail in 'component\db\Class_db_trail.pas';
-
-const ID = '$Id$';
+  Class_db_medical_release_levels in 'component\db\Class_db_medical_release_levels.pas',
+  Class_db_members in 'component\db\Class_db_members.pas',
+  Class_db_milestones in 'component\db\Class_db_milestones.pas',
+  Class_db_officerships in 'component\db\Class_db_officerships.pas',
+  Class_db_trail in 'component\db\Class_db_trail.pas',
+  squad_commander_overview in 'protected\squad_commander_overview.pas',
+  add_member in 'protected\add_member.pas' {add_member.TWebForm_add_member: ki_web_ui.page_class},
+  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas',
+  change_email_address in 'protected\change_email_address.pas',
+  change_member_driver_qualification in 'protected\change_member_driver_qualification.pas',
+  change_member_email_address in 'protected\change_member_email_address.pas',
+  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas',
+  change_password in 'protected\change_password.pas',
+  department_staffer_overview in 'protected\department_staffer_overview.pas',
+  enrollment_detail in 'protected\enrollment_detail.pas',
+  grant_leave in 'protected\grant_leave.pas',
+  leave_detail in 'protected\leave_detail.pas',
+  member_detail in 'protected\member_detail.pas',
+  member_overview in 'protected\member_overview.pas',
+  officership_detail in 'protected\officership_detail.pas',
+  profile in 'protected\profile.pas',
+  milestone_sweep in 'noninteractive\milestone_sweep.pas',
+  daily_tasks in 'noninteractive\daily_tasks.pas',
+  UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl};
 
 //
 // General Information about an assembly is controlled through the following
@@ -146,7 +129,7 @@ const ID = '$Id$';
 //
 // Notes:
 //   (*) If no key is specified, the assembly is not signed.
-//   (*) KeyName refers to a key that has been installed in the Crypto member
+//   (*) KeyName refers to a key that has been installed in the Crypto Service
 //       Provider (CSP) on your machine. KeyFile refers to a file which contains
 //       a key.
 //   (*) If the KeyFile and the KeyName values are both specified, the

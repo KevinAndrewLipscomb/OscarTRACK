@@ -11,6 +11,7 @@ type
     db_agencies: TClass_db_agencies;
   public
     constructor Create;
+    procedure BindDropDownList(target: system.object);
     function NameOf(code: string): string;
   end;
 
@@ -21,6 +22,11 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_agencies := TClass_db_agencies.Create;
+end;
+
+procedure TClass_biz_agencies.BindDropDownList(target: system.object);
+begin
+  db_agencies.BindDropDownList(target);
 end;
 
 function TClass_biz_agencies.NameOf(code: string): string;

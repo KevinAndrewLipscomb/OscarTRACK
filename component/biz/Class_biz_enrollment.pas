@@ -34,16 +34,17 @@ type
     db_enrollment: TClass_db_enrollment;
   public
     constructor Create;
-    procedure BindTransitionRadioButtonList
-      (
-      member_id: string;
-      target: system.object
-      );
     procedure BindMemberHistory
       (
       member_id: string;
       target: system.object
       );
+    procedure BindTransitionRadioButtonList
+      (
+      member_id: string;
+      target: system.object
+      );
+    procedure BindUncontrolledDropDownList(target: system.object);
     function SetLevel
       (
       new_level_code: string;
@@ -62,6 +63,15 @@ begin
   db_enrollment := TClass_db_enrollment.Create;
 end;
 
+procedure TClass_biz_enrollment.BindMemberHistory
+  (
+  member_id: string;
+  target: system.object
+  );
+begin
+  db_enrollment.BindMemberHistory(member_id,target);
+end;
+
 procedure TClass_biz_enrollment.BindTransitionRadioButtonList
   (
   member_id: string;
@@ -71,13 +81,10 @@ begin
   db_enrollment.BindTransitionRadioButtonList(member_id,target);
 end;
 
-procedure TClass_biz_enrollment.BindMemberHistory
-  (
-  member_id: string;
-  target: system.object
-  );
+
+procedure TClass_biz_enrollment.BindUncontrolledDropDownList(target: system.object);
 begin
-  db_enrollment.BindMemberHistory(member_id,target);
+  db_enrollment.BindUncontrolledDropDownList(target);
 end;
 
 function TClass_biz_enrollment.SetLevel
