@@ -12,7 +12,7 @@ uses
   ki,
   ki_web_ui;
 
-const ID = '$Id$';
+
 
 type
   p_type =

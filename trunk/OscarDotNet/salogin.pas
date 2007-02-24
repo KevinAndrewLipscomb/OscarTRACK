@@ -12,7 +12,7 @@ uses
   system.text.regularexpressions, system.web.security, system.io,
   Class_biz_accounts;
 
-const ID = '$Id$';
+
 
 type
   p_type =

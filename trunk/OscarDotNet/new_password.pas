@@ -9,7 +9,7 @@ uses
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki,
   system.web.mail, system.configuration;
 
-const ID = '$Id$';
+
 
 type
   TWebForm_new_password = class(ki_web_ui.page_class)

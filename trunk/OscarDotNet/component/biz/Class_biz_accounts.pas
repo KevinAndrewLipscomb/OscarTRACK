@@ -13,7 +13,7 @@ uses
   system.configuration,
   system.web.mail;
 
-const ID = '$Id$';
+
 
 type
   TClass_biz_accounts = class

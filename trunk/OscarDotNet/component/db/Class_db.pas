@@ -7,8 +7,7 @@ uses
   system.configuration,
   system.data;
 
-const
-  ID = '$Id$';
+
 
 type
   TClass_db = class abstract

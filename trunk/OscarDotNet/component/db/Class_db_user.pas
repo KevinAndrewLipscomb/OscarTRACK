@@ -8,8 +8,7 @@ uses
   Class_db,
   system.collections;
 
-const
-  ID = '$Id$';
+
 
 type
   TClass_db_user = class(Class_db.TClass_db)

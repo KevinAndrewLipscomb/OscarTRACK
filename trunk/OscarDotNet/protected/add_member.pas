@@ -16,7 +16,7 @@ uses
   UserControl_drop_down_date,
   ki_web_ui;
 
-const ID = '$Id$';
+
 
 type
   p_type =

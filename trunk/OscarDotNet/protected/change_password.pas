@@ -11,7 +11,7 @@ uses
   Class_biz_accounts,
   Class_biz_user;
 
-const ID = '$Id$';
+
 
 type
   p_type =
