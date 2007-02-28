@@ -35,6 +35,7 @@ type
     procedure CustomValidator_end_month_ServerValidate(source: System.Object; 
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -48,19 +49,13 @@ type
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
     PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
     Label_account_descriptor: System.Web.UI.WebControls.Label;
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
-    LinkButton_drill_down: System.Web.UI.WebControls.LinkButton;
     Label_member_designator: System.Web.UI.WebControls.Label;
-    Button_submit: System.Web.UI.WebControls.Button;
-    Button_cancel: System.Web.UI.WebControls.Button;
     DropDownList_kind_of_leave: System.Web.UI.WebControls.DropDownList;
-    DropDownList_num_obligated_shifts: System.Web.UI.WebControls.DropDownList;
-    TextBox_note: System.Web.UI.WebControls.TextBox;
     DropDownList_start_month: System.Web.UI.WebControls.DropDownList;
     DropDownList_end_month: System.Web.UI.WebControls.DropDownList;
     CustomValidator_end_month: System.Web.UI.WebControls.CustomValidator;
@@ -68,8 +63,13 @@ type
     RequiredFieldValidator_end_month: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_kind_of_leave: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_num_obligated_shifts: System.Web.UI.WebControls.RequiredFieldValidator;
-    LinkButton1: System.Web.UI.WebControls.LinkButton;
+    TextBox_note: System.Web.UI.WebControls.TextBox;
+    Button_submit: System.Web.UI.WebControls.Button;
+    Button_cancel: System.Web.UI.WebControls.Button;
+    DropDownList_num_obligated_shifts: System.Web.UI.WebControls.DropDownList;
     Label_member_first_name: System.Web.UI.WebControls.Label;
+    LinkButton1: System.Web.UI.WebControls.LinkButton;
+    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -95,6 +95,7 @@ begin
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.CustomValidator_end_month.ServerValidate, Self.CustomValidator_end_month_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_grant_leave_PreRender);
 end;
@@ -153,6 +154,11 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebForm_grant_leave.Button_cancel_Click(sender: System.Object; e: System.EventArgs);
+begin
+  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+end;
+
 procedure TWebForm_grant_leave.Button_submit_Click(sender: System.Object; e: System.EventArgs);
 begin
   p.biz_leaves.Grant
@@ -172,15 +178,6 @@ procedure TWebForm_grant_leave.CustomValidator_end_month_ServerValidate(source: 
 begin
   args.isvalid := p.biz_leaves.BeValid(DropDownList_start_month.selectedvalue,args.value);
 end;
-
-//{$REGION 'Waypoint management code for drill-down server.Transfer calls.'}
-//procedure TWebForm_grant_leave.LinkButton_drill_down_Click(sender: System.Object;
-//  e: System.EventArgs);
-//begin
-//  system.collections.stack(session['waypoint_stack']).Push('grant_leave.aspx');
-//  server.Transfer('detail.aspx');
-//end;
-//{$ENDREGION}
 
 procedure TWebForm_grant_leave.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);

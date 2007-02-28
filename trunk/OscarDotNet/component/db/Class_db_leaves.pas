@@ -27,6 +27,7 @@ type
       be_sort_order_ascending: boolean;
       target: system.object
       );
+    procedure Delete(id: string);
     procedure DescribeThisAndNextMonthForMember
       (
       member_id: string;
@@ -43,6 +44,7 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function TcciOfId: cardinal;
   end;
 
 implementation
@@ -106,6 +108,13 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_leaves.Delete(id: string);
+begin
+  self.Open;
+  bdpcommand.Create(db_trail.Saved('delete from leave_of_absence where id = ' + id),connection).ExecuteNonQuery;
   self.Close;
 end;
 
@@ -183,6 +192,11 @@ begin
     )
     .ExecuteNonQuery;
   self.Close;
+end;
+
+function TClass_db_leaves.TcciOfId: cardinal;
+begin
+  TcciOfId := TCCI_ID;
 end;
 
 end.

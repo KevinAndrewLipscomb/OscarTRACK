@@ -41,6 +41,7 @@ type
       out next_month_description: string;
       null_description: string
       );
+    procedure Delete(id: string);
     procedure Grant
       (
       member_id: string;
@@ -50,6 +51,7 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function TcciOfId: cardinal;
   end;
 
 implementation
@@ -143,6 +145,11 @@ begin
   db_leaves.DescribeThisAndNextMonthForMember(member_id,this_month_description,next_month_description,null_description);
 end;
 
+procedure TClass_biz_leaves.Delete(id: string);
+begin
+  db_leaves.Delete(id);
+end;
+
 procedure TClass_biz_leaves.Grant
   (
   member_id: string;
@@ -155,6 +162,11 @@ procedure TClass_biz_leaves.Grant
 begin
   db_leaves.Grant(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
   // db_accounts.SendEmailNotification(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
+end;
+
+function TClass_biz_leaves.TcciOfId: cardinal;
+begin
+  TcciOfId := db_leaves.TcciOfId;
 end;
 
 end.
