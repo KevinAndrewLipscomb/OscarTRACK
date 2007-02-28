@@ -33,12 +33,12 @@ type
     procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure DataGrid_leaves_SortCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridSortCommandEventArgs);
     procedure DataGrid_leaves_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
-    procedure DataGrid_leaves_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
     procedure TWebForm_leave_detail_PreRender(sender: System.Object;
       e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
+    procedure DataGrid_leaves_DeleteCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -80,10 +80,10 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
-  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
-  Include(Self.DataGrid_leaves.ItemCommand, Self.DataGrid_leaves_ItemCommand);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
+  Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
   Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
+  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_leave_detail_PreRender);
 end;
@@ -142,6 +142,14 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebForm_leave_detail.DataGrid_leaves_DeleteCommand(source: System.Object;
+  e: System.Web.UI.WebControls.DataGridCommandEventArgs);
+begin
+  p.biz_leaves.Delete(Safe(e.Item.Cells[p.biz_leaves.TcciOfId].Text,NUM));
+  DataGrid_leaves.EditItemIndex := -1;
+  Bind;
+end;
+
 procedure TWebForm_leave_detail.LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
 begin
   stack(session['waypoint_stack']).Push('leave_detail.aspx');
@@ -165,25 +173,6 @@ procedure TWebForm_leave_detail.TWebForm_leave_detail_PreRender(sender: System.O
 begin
   session.Remove('p');
   session.Add('p',p);
-end;
-
-procedure TWebForm_leave_detail.DataGrid_leaves_ItemCommand(source: System.Object;
-  e: System.Web.UI.WebControls.DataGridCommandEventArgs);
-begin
-  if (e.item.itemtype = listitemtype.alternatingitem)
-    or (e.item.itemtype = listitemtype.edititem)
-    or (e.item.itemtype = listitemtype.item)
-    or (e.item.itemtype = listitemtype.selecteditem)
-  then begin
-    //
-    // We are dealing with a data row, not a header or footer row.
-    //
-    if e.commandname = 'Select' then begin
-      system.collections.stack(session['waypoint_stack']).Push('emsof_request_status_filter.aspx');
-      server.Transfer('full_request_review_approve.aspx');
-    end;
-    //
-  end;
 end;
 
 procedure TWebForm_leave_detail.DataGrid_leaves_ItemDataBound(sender: System.Object;
