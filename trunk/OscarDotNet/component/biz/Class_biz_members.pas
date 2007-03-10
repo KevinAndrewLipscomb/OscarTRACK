@@ -59,9 +59,15 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
       (
       be_driver_qualified: boolean;
+      e_item: system.object
+      );
+    procedure SetSection
+      (
+      section_num: string;
       e_item: system.object
       );
     procedure SetMedicalReleaseCode
@@ -212,6 +218,11 @@ begin
   OfficerShipOf := db_members.OfficershipOf(member_id);
 end;
 
+function TClass_biz_members.SectionOf(e_item: system.object): string;
+begin
+  SectionOf := db_members.SectionOf(e_item);
+end;
+
 procedure TClass_biz_members.SetDriverQualification
   (
   be_driver_qualified: boolean;
@@ -219,6 +230,15 @@ procedure TClass_biz_members.SetDriverQualification
   );
 begin
   db_members.SetDriverQualification(be_driver_qualified,e_item);
+end;
+
+procedure TClass_biz_members.SetSection
+  (
+  section_num: string;
+  e_item: system.object
+  );
+begin
+  db_members.SetSection(section_num,e_item);
 end;
 
 procedure TClass_biz_members.SetMedicalReleaseCode

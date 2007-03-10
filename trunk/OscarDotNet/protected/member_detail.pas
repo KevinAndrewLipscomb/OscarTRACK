@@ -1,4 +1,3 @@
-
 unit member_detail;
 
 interface
@@ -12,8 +11,6 @@ uses
   Class_biz_members,
   ki,
   ki_web_ui;
-
-
 
 type
   p_type =
@@ -43,6 +40,7 @@ type
       e: System.EventArgs);
     procedure LinkButton_enrollment_detail_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_driver_qual_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_section_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -70,6 +68,8 @@ type
     LinkButton_change_member_email_address: System.Web.UI.WebControls.LinkButton;
     Label_leave_this_month: System.Web.UI.WebControls.Label;
     Label_leave_next_month: System.Web.UI.WebControls.Label;
+    Label_section: System.Web.UI.WebControls.Label;
+    LinkButton_change_section: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -96,6 +96,7 @@ begin
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
+  Include(Self.LinkButton_change_section.Click, Self.LinkButton_change_section_Click);
   Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
   Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
   Include(Self.LinkButton_change_driver_qual.Click, Self.LinkButton_change_driver_qual_Click);
@@ -159,6 +160,7 @@ begin
       if Label_officership.Text = system.string.Empty then begin
         Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
       end;
+      Label_section.text := p.biz_members.SectionOf(session['e_item']);
       Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
       Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
       Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
@@ -174,6 +176,13 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_section_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_member_section.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_driver_qual_Click(sender: System.Object;

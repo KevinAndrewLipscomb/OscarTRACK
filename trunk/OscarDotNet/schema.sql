@@ -355,10 +355,12 @@ CREATE TABLE IF NOT EXISTS member (
   medical_release_code tinyint(3) unsigned NOT NULL default '1',
   agency_id int unsigned NOT NULL,
   be_driver_qualified boolean NOT NULL,
+  section_num tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY cad_num (cad_num),
   KEY agency_id (agency_id),
-  KEY medical_release_code (medical_release_code)
+  KEY medical_release_code (medical_release_code),
+  KEY section_num (section_num)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------

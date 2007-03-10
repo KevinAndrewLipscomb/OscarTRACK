@@ -17,10 +17,11 @@ const
   TCCI_LAST_NAME = 1;
   TCCI_FIRST_NAME = 2;
   TCCI_CAD_NUM = 3;
-  TCCI_MEDICAL_RELEASE_LEVEL = 4;
-  TCCI_BE_DRIVER_QUALIFIED = 5;
-  TCCI_ENROLLMENT = 6;
-  TCCI_LEAVE = 7;
+  TCCI_SECTION_NUM = 4;
+  TCCI_MEDICAL_RELEASE_LEVEL = 5;
+  TCCI_BE_DRIVER_QUALIFIED = 6;
+  TCCI_ENROLLMENT = 7;
+  TCCI_LEAVE = 8;
 
 type
   TClass_db_members = class(TClass_db)
@@ -81,9 +82,15 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
       (
       be_driver_qualified: boolean;
+      e_item: system.object
+      );
+    procedure SetSection
+      (
+      section_num: string;
       e_item: system.object
       );
     procedure SetMedicalReleaseCode
@@ -307,10 +314,11 @@ begin
   + ' , last_name'                                                                       // column 1
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 4
-  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 5
-  + ' , enrollment_level.description as enrollment'                                      // column 6
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 7
+  + ' , section_num'                                                                     // column 4
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 5
+  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 6
+  + ' , enrollment_level.description as enrollment'                                      // column 7
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 8
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'
@@ -441,6 +449,11 @@ begin
   self.Close;
 end;
 
+function TClass_db_members.SectionOf(e_item: system.object): string;
+begin
+  SectionOf := Safe(DataGridItem(e_item).cells[TCCI_SECTION_NUM].text,NUM);
+end;
+
 procedure TClass_db_members.SetDriverQualification
   (
   be_driver_qualified: boolean;
@@ -464,6 +477,23 @@ begin
   end else begin
     DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'false';
   end;
+  self.Close;
+end;
+
+procedure TClass_db_members.SetSection
+  (
+  section_num: string;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    db_trail.Saved('UPDATE member SET section_num = ' + section_num + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_SECTION_NUM].Text := section_num;
   self.Close;
 end;
 
