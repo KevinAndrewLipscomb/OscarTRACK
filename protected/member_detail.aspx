@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			                      [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			                      [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+			                       [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			                       [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>  
@@ -61,16 +61,21 @@
 							  <td><ASP:LinkButton id="LinkButton_officership_detail" runat="server">Detail</ASP:LinkButton></td>
 							</tr>
 							<tr bgcolor="#dcdcdc">
+							  <td>Section:</td>
+							  <td><ASP:Label id="Label_section" runat="server"></ASP:Label></td>
+							  <td><ASP:LinkButton id="LinkButton_change_section" runat="server">Change</ASP:LinkButton></td>
+							</tr>
+							<tr>
 							  <td>Medical release level:</td>
 							  <td><ASP:Label id="Label_medical_release_level" runat="server"></ASP:Label></td>
 							  <td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server">Change</ASP:LinkButton></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Enrollment:</td>
 							  <td><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></td>
 							  <td><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server">Detail</ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Driver qualified:</td>
 							  <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
 							  <td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server">Change</ASP:LinkButton></td>

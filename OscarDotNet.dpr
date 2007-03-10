@@ -7,6 +7,7 @@ library OscarDotNet;
 {%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll'}
 {%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll'}
 {%DelphiDotNetAssemblyCompiler 'c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll'}
+{%DelphiDotNetAssemblyCompiler 'lib\ki\ki.dll'}
 {%AspMarkupContainer 'Global.asax'}
 {%AspMarkupContainer 'Default.aspx'}
 {%AspMarkupContainer 'exception.aspx'}
@@ -21,6 +22,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\change_member_driver_qualification.aspx'}
 {%AspMarkupContainer 'protected\change_member_email_address.aspx'}
 {%AspMarkupContainer 'protected\change_member_medical_release_level.aspx'}
+{%AspMarkupContainer 'protected\change_member_section.aspx'}
 {%AspMarkupContainer 'protected\change_password.aspx'}
 {%AspMarkupContainer 'protected\department_staffer_overview.aspx'}
 {%AspMarkupContainer 'protected\enrollment_detail.aspx'}
@@ -68,25 +70,27 @@ uses
   Class_db_milestones in 'component\db\Class_db_milestones.pas',
   Class_db_officerships in 'component\db\Class_db_officerships.pas',
   Class_db_trail in 'component\db\Class_db_trail.pas',
-  squad_commander_overview in 'protected\squad_commander_overview.pas',
+  squad_commander_overview in 'protected\squad_commander_overview.pas' {squad_commander_overview.TWebForm_squad_commander_overview: ki_web_ui.page_class},
   add_member in 'protected\add_member.pas' {add_member.TWebForm_add_member: ki_web_ui.page_class},
   add_new_enrollment_status in 'protected\add_new_enrollment_status.pas',
   change_email_address in 'protected\change_email_address.pas',
   change_member_driver_qualification in 'protected\change_member_driver_qualification.pas',
   change_member_email_address in 'protected\change_member_email_address.pas',
-  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas',
+  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
   change_password in 'protected\change_password.pas',
   department_staffer_overview in 'protected\department_staffer_overview.pas',
   enrollment_detail in 'protected\enrollment_detail.pas',
   grant_leave in 'protected\grant_leave.pas',
-  leave_detail in 'protected\leave_detail.pas',
-  member_detail in 'protected\member_detail.pas',
+  leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
+  member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   member_overview in 'protected\member_overview.pas',
   officership_detail in 'protected\officership_detail.pas',
   profile in 'protected\profile.pas',
   milestone_sweep in 'noninteractive\milestone_sweep.pas',
   daily_tasks in 'noninteractive\daily_tasks.pas',
-  UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl};
+  UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl},
+  change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
+  Class_biz_sections in 'component\biz\Class_biz_sections.pas';
 
 //
 // General Information about an assembly is controlled through the following

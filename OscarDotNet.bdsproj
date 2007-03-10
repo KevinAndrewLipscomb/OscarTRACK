@@ -124,7 +124,7 @@
 			<Directories Name="PackageDLLOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDCPOutputDir" Type="String"></Directories>
 			<Directories Name="SearchPath" Type="String">c:\inetpub\wwwroot\KiAspdotnetFramework;c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\KiAspdotnetFramework\component\biz;c:\inetpub\wwwroot\KiAspdotnetFramework\component\db;c:\inetpub\wwwroot\KiAspdotnetFramework\bin;c:\inetpub\wwwroot\KiAspdotnetFramework\lib\ki;c:\inetpub\wwwroot\oscardotnet\lib\ki</Directories>
-			<Directories Name="Packages" Type="String">c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
+			<Directories Name="Packages" Type="String">ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
 			<Directories Name="Conditionals" Type="String"></Directories>
 			<Directories Name="DebugSourceDirs" Type="String">C:\Inetpub\wwwroot\KiAspdotnetFramework\component\biz\</Directories>
 			<Directories Name="UsePackages" Type="Boolean">True</Directories>
@@ -197,6 +197,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2592.27106" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -211,6 +212,7 @@
       <File FileName="protected\change_member_driver_qualification.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_driver_qualification"/>
       <File FileName="protected\change_member_email_address.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_email_address"/>
       <File FileName="protected\change_member_medical_release_level.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_medical_release_level"/>
+      <File FileName="protected\change_member_section.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_section"/>
       <File FileName="protected\change_password.aspx" ContainerId="AspMarkupContainer" ModuleName="change_password"/>
       <File FileName="protected\department_staffer_overview.aspx" ContainerId="AspMarkupContainer" ModuleName="department_staffer_overview"/>
       <File FileName="protected\enrollment_detail.aspx" ContainerId="AspMarkupContainer" ModuleName="enrollment_detail"/>
@@ -275,6 +277,8 @@
       <File FileName="noninteractive\milestone_sweep.pas" ContainerId="" ModuleName="milestone_sweep" Parent="noninteractive\milestone_sweep.aspx"/>
       <File FileName="noninteractive\daily_tasks.pas" ContainerId="" ModuleName="daily_tasks" Parent="noninteractive\daily_tasks.aspx"/>
       <File FileName="usercontrol\ki\UserControl_drop_down_date.pas" ContainerId="" ModuleName="UserControl_drop_down_date" Parent="usercontrol\ki\UserControl_drop_down_date.ascx"/>
+      <File FileName="protected\change_member_section.pas" ContainerId="" ModuleName="change_member_section" Parent="protected\change_member_section.aspx"/>
+      <File FileName="component\biz\Class_biz_sections.pas" ContainerId="" ModuleName="Class_biz_sections"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

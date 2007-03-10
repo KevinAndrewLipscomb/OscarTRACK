@@ -1,4 +1,4 @@
-unit change_member_medical_release_level;
+unit change_member_section;
 
 interface
 
@@ -7,22 +7,22 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   appcommon,
-  Class_biz_medical_release_levels,
+  Class_biz_sections,
   Class_biz_members,
   ki_web_ui;
 
 type
   p_type =
     RECORD
-    biz_medical_release_levels: TClass_biz_medical_release_levels;
+    biz_sections: TClass_biz_sections;
     biz_members: TClass_biz_members;
     END;
-  TWebForm_change_member_medical_release_level = class(ki_web_ui.page_class)
+  TWebForm_change_member_section = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
-    procedure TWebForm_change_member_medical_release_level_PreRender(sender: System.Object;
+    procedure TWebForm_change_member_section_PreRender(sender: System.Object;
       e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object;
       e: System.EventArgs);
@@ -52,9 +52,8 @@ type
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
     Label_member_name_1: System.Web.UI.WebControls.Label;
     Label_member_name_2: System.Web.UI.WebControls.Label;
-    Label_member_name_3: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
-    DropDownList_medical_release_level: System.Web.UI.WebControls.DropDownList;
+    DropDownList_section: System.Web.UI.WebControls.DropDownList;
     Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: EventArgs); override;
   private
@@ -73,7 +72,7 @@ uses
 /// Required method for Designer support -- do not modify
 /// the contents of this method with the code editor.
 /// </summary>
-procedure TWebForm_change_member_medical_release_level.InitializeComponent;
+procedure TWebForm_change_member_section.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
@@ -82,11 +81,11 @@ begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
-  Include(Self.PreRender, Self.TWebForm_change_member_medical_release_level_PreRender);
+  Include(Self.PreRender, Self.TWebForm_change_member_section_PreRender);
 end;
 {$ENDREGION}
 
-procedure TWebForm_change_member_medical_release_level.Page_Load(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_change_member_section.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
@@ -100,25 +99,24 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_medical_release_level';
+      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_section';
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
       //
       p.biz_members := TClass_biz_members.Create;
-      p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
+      p.biz_sections := TClass_biz_sections.Create;
       //
       Label_member_name_1.text :=
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
       Label_member_name_2.text := Label_member_name_1.text;
-      Label_member_name_3.text := Label_member_name_2.text;
       //
-      p.biz_medical_release_levels.BindDropDownList
-        (DropDownList_medical_release_level,p.biz_members.MedicalReleaseLevelOf(session['e_item']));
+      p.biz_sections.BindDropDownList
+        (DropDownList_section,p.biz_members.SectionOf(session['e_item']));
       //
     end;
   end;
 end;
 
-procedure TWebForm_change_member_medical_release_level.OnInit(e: EventArgs);
+procedure TWebForm_change_member_section.OnInit(e: EventArgs);
 begin
   //
   // Required for Designer support
@@ -127,45 +125,45 @@ begin
   inherited OnInit(e);
 end;
 
-procedure TWebForm_change_member_medical_release_level.Button_cancel_Click(sender: System.Object;
+procedure TWebForm_change_member_section.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_change_member_medical_release_level.Button_submit_Click(sender: System.Object;
+procedure TWebForm_change_member_section.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_members.SetMedicalReleaseCode(Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
+  p.biz_members.SetSection(Safe(DropDownList_section.selectedvalue,NUM),session['e_item']);
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_change_member_medical_release_level.LinkButton_change_email_address_Click(sender: System.Object;
+procedure TWebForm_change_member_section.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer('change_email_address.aspx');
 end;
 
-procedure TWebForm_change_member_medical_release_level.LinkButton_change_password_Click(sender: System.Object;
+procedure TWebForm_change_member_section.LinkButton_change_password_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer('change_password.aspx');
 end;
 
-procedure TWebForm_change_member_medical_release_level.LinkButton_back_Click(sender: System.Object;
+procedure TWebForm_change_member_section.LinkButton_back_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_change_member_medical_release_level.TWebForm_change_member_medical_release_level_PreRender(sender: System.Object;
+procedure TWebForm_change_member_section.TWebForm_change_member_section_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
   session.Remove('p');
   session.Add('p',p);
 end;
 
-procedure TWebForm_change_member_medical_release_level.LinkButton_logout_Click(sender: System.Object;
+procedure TWebForm_change_member_section.LinkButton_logout_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   formsauthentication.SignOut;
