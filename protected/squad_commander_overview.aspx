@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							      [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							       [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -114,6 +114,9 @@
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
                           <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave">
+                            <ItemStyle horizontalalign="Center"></ItemStyle>
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts" readonly="True" headertext="Obliged shifts">
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
                           <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
