@@ -177,7 +177,9 @@ begin
     TextBox_cad_num.text := system.string.EMPTY;
     DropDownList_medical_release_level.selectedindex := 0;
     RadioButtonList_be_driver_qualified.selectedindex := -1;
-    DropDownList_agency.selectedindex := 0;
+    if p.biz_user.Kind = 'department_staffer' then begin
+      DropDownList_agency.selectedindex := 0;
+    end;
     TextBox_email_address.text := system.string.EMPTY;
     UserControl_enrollment_date.Clear;
     Label_invalid_enrollment_date.visible := FALSE;
