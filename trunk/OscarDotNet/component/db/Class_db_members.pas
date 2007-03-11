@@ -255,13 +255,13 @@ procedure TClass_db_members.BindSquadCommanderOverview
   leave_filter: Class_biz_leave.filter_type = BOTH
   );
 var
-  any_relevant_leave_test_string: string;
+  any_relevant_leave: string;
   command_text: string;
   filter: string;
   kind_of_leave_selection_clause: string;
 begin
   //
-  any_relevant_leave_test_string :=
+  any_relevant_leave :=
   '(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
   + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))';
   //
@@ -300,14 +300,14 @@ begin
     CURRENT..ADMIN:
       BEGIN
       case leave_filter of
-      OBLIGATED: filter := filter + ' and (not(' + any_relevant_leave_test_string + ') or (leave_of_absence.start_date is null)) ';
-      ON_LEAVE: filter := filter + ' and ' + any_relevant_leave_test_string + ' ';
+      OBLIGATED: filter := filter + ' and (not(' + any_relevant_leave + ') or (leave_of_absence.start_date is null)) ';
+      ON_LEAVE: filter := filter + ' and ' + any_relevant_leave + ' ';
       end;
       END;
     end;
   end;
   //
-  kind_of_leave_selection_clause := 'if(' + any_relevant_leave_test_string + ',kind_of_leave_code_description_map.description,"")';
+  kind_of_leave_selection_clause := 'if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"")';
   //
   command_text :=
   'select member.id as member_id'                                                        // column 0
@@ -319,6 +319,7 @@ begin
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 6
   + ' , enrollment_level.description as enrollment'                                      // column 7
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 8
+  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 9
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'
