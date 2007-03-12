@@ -10,6 +10,7 @@ uses
   Class_biz_accounts,
   Class_biz_enrollment,
   Class_biz_leave,
+  Class_biz_medical_release_levels,
   Class_biz_members,
   Class_biz_user;
 
@@ -19,12 +20,14 @@ type
     be_datagrid_empty: boolean;
     be_sort_order_ascending: boolean;
     biz_accounts: TClass_biz_accounts;
+    biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_user: TClass_biz_user;
     biz_members: TClass_biz_members;
     enrollment_filter: Class_biz_enrollment.filter_type;
     leave_filter: Class_biz_leave.filter_type;
-    num_shifts: cardinal;
+    num_cooked_shifts: cardinal;  // takes into account leaves
     num_datagrid_rows: cardinal;
+    num_raw_shifts: cardinal;  // does not take into account leaves
     sort_order: string;
     END;
   TWebForm_squad_commander_overview = class(ki_web_ui.page_class)
@@ -68,6 +71,7 @@ type
     RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
     Label_num_crew_shifts: System.Web.UI.WebControls.Label;
+    Label_utilization: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -120,13 +124,15 @@ begin
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - squad_commander_overview';
     //
     p.biz_accounts := TClass_biz_accounts.Create;
-    p.biz_user := TClass_biz_user.Create;
+    p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
     p.biz_members := TClass_biz_members.Create;
+    p.biz_user := TClass_biz_user.Create;
     p.be_sort_order_ascending := TRUE;
     p.enrollment_filter := CURRENT;
     p.leave_filter := NONE;
-    p.num_shifts := 0;
+    p.num_cooked_shifts := 0;
     p.num_datagrid_rows := 0;
+    p.num_raw_shifts := 0;
     p.sort_order := 'last_name,first_name,cad_num';
     //
     Label_agency_name.Text := session['squad_commander_name'].ToString;
@@ -251,8 +257,13 @@ begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
     end;
     //
-    if e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text <> '&nbsp;' then begin
-      p.num_shifts := p.num_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text);
+    if p.biz_medical_release_levels.BeReleased(e.item.cells[Class_db_members.TCCI_MEDICAL_RELEASE_CODE].text) then begin
+      if e.item.cells[Class_db_members.TCCI_ENROLLMENT_OBLIGATION].text <> '&nbsp;' then begin
+        p.num_raw_shifts := p.num_raw_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_ENROLLMENT_OBLIGATION].text);
+      end;
+      if e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text <> '&nbsp;' then begin
+        p.num_cooked_shifts := p.num_cooked_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text);
+      end;
     end;
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
@@ -291,7 +302,8 @@ begin
     p.enrollment_filter,
     p.leave_filter
     );
-  Label_num_crew_shifts.text := decimal(p.num_shifts/2).tostring;
+  Label_utilization.text := decimal(p.num_cooked_shifts/p.num_raw_shifts).tostring('P0');
+  Label_num_crew_shifts.text := decimal(p.num_cooked_shifts/2).tostring;
   Label_num_rows.text := p.num_datagrid_rows.tostring;
   //
   // Manage control visibilities.
@@ -302,8 +314,9 @@ begin
   //
   // Clear aggregation vars for next bind, if any.
   //
-  p.num_shifts := 0;
+  p.num_cooked_shifts := 0;
   p.num_datagrid_rows := 0;
+  p.num_raw_shifts := 0;
   //
 end;
 
