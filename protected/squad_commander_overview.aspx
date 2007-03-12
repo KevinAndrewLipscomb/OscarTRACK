@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							       [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							        [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -80,7 +80,13 @@
 					</tr>
 					<tr>
 					  <td>
-							  <asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label>&nbsp;members meet these criteria</td>
+                              <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                                  <tr>
+                                    <td>
+							  <asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label>&nbsp;members meet these criteria</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                                    <td align="right"><ASP:Label id="Label_num_crew_shifts" runat="server" font-bold="True"></ASP:Label>&nbsp;crew-shifts</td>
+                                  </tr>
+                              </table></td>
 					</tr>
 				  </table>
 				</td>
