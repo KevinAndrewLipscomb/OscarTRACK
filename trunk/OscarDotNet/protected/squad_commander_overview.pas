@@ -23,6 +23,7 @@ type
     biz_members: TClass_biz_members;
     enrollment_filter: Class_biz_enrollment.filter_type;
     leave_filter: Class_biz_leave.filter_type;
+    num_shifts: cardinal;
     num_datagrid_rows: cardinal;
     sort_order: string;
     END;
@@ -66,6 +67,7 @@ type
     Label_num_rows: System.Web.UI.WebControls.Label;
     RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
+    Label_num_crew_shifts: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -123,6 +125,7 @@ begin
     p.be_sort_order_ascending := TRUE;
     p.enrollment_filter := CURRENT;
     p.leave_filter := NONE;
+    p.num_shifts := 0;
     p.num_datagrid_rows := 0;
     p.sort_order := 'last_name,first_name,cad_num';
     //
@@ -248,6 +251,9 @@ begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
     end;
     //
+    if e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text <> '&nbsp;' then begin
+      p.num_shifts := p.num_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text);
+    end;
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
 end;
@@ -285,6 +291,7 @@ begin
     p.enrollment_filter,
     p.leave_filter
     );
+  Label_num_crew_shifts.text := decimal(p.num_shifts/2).tostring;
   Label_num_rows.text := p.num_datagrid_rows.tostring;
   //
   // Manage control visibilities.
@@ -295,6 +302,7 @@ begin
   //
   // Clear aggregation vars for next bind, if any.
   //
+  p.num_shifts := 0;
   p.num_datagrid_rows := 0;
   //
 end;

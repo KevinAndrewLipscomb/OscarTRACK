@@ -22,6 +22,7 @@ const
   TCCI_BE_DRIVER_QUALIFIED = 6;
   TCCI_ENROLLMENT = 7;
   TCCI_LEAVE = 8;
+  TCCI_OBLIGED_SHIFTS = 9;
 
 type
   TClass_db_members = class(TClass_db)
