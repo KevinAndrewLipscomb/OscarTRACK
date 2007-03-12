@@ -18,11 +18,13 @@ const
   TCCI_FIRST_NAME = 2;
   TCCI_CAD_NUM = 3;
   TCCI_SECTION_NUM = 4;
-  TCCI_MEDICAL_RELEASE_LEVEL = 5;
-  TCCI_BE_DRIVER_QUALIFIED = 6;
-  TCCI_ENROLLMENT = 7;
-  TCCI_LEAVE = 8;
-  TCCI_OBLIGED_SHIFTS = 9;
+  TCCI_MEDICAL_RELEASE_CODE = 5;
+  TCCI_MEDICAL_RELEASE_LEVEL = 6;
+  TCCI_BE_DRIVER_QUALIFIED = 7;
+  TCCI_ENROLLMENT = 8;
+  TCCI_ENROLLMENT_OBLIGATION = 9;
+  TCCI_LEAVE = 10;
+  TCCI_OBLIGED_SHIFTS = 11;
 
 type
   TClass_db_members = class(TClass_db)
@@ -316,11 +318,13 @@ begin
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
   + ' , section_num'                                                                     // column 4
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 5
-  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 6
-  + ' , enrollment_level.description as enrollment'                                      // column 7
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 8
-  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 9
+  + ' , medical_release_code'                                                            // column 5
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 6
+  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 7
+  + ' , enrollment_level.description as enrollment'                                      // column 8
+  + ' , num_shifts as enrollment_obligation'                                             // column 9
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 10
+  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 11
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'

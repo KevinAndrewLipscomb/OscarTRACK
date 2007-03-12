@@ -5,6 +5,9 @@ interface
 uses
   Class_db;
 
+const
+  LOWEST_RELEASED_CODE = 3;
+
 type
   TClass_db_medical_release_levels = class(TClass_db)
   private

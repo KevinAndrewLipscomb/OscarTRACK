@@ -11,7 +11,7 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							        [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+							                 [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -31,8 +31,7 @@
                                 <table cellspacing="0" cellpadding="0" width="100%" border="0">
                                     <tr>
                                       <td><strong>Roster</strong></td>
-                                      <td>
-                                        <p align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True">Add member(s)</ASP:LinkButton></p></td>
+									  <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True">Add member(s)</ASP:LinkButton></td>
                                     </tr>
                                 </table></strong>
 					  </td>
@@ -82,9 +81,11 @@
 					  <td>
                               <table cellspacing="0" cellpadding="0" width="100%" border="0">
                                   <tr>
-                                    <td>
-							  <asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label>&nbsp;members meet these criteria</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                                    <td align="right"><ASP:Label id="Label_num_crew_shifts" runat="server" font-bold="True"></ASP:Label>&nbsp;crew-shifts</td>
+									<td valign="middle"><asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label>&nbsp;members meet these criteria</td>
+									<td>&nbsp;&nbsp;&nbsp;</td>
+									<td align="center" valign="middle"><ASP:Label id="Label_utilization" runat="server" font-bold="True"></ASP:Label>&nbsp;utilization</td>
+									<td>&nbsp;&nbsp;&nbsp;</td>
+									<td align="right" valign="middle"><ASP:Label id="Label_num_crew_shifts" runat="server" font-bold="True"></ASP:Label>&nbsp;crew-shifts</td>
                                   </tr>
                               </table></td>
 					</tr>
@@ -110,6 +111,7 @@
                           <ASP:BoundColumn datafield="section_num" sortexpression="section_num%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Section">
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
+                          <ASP:BoundColumn visible="False" datafield="medical_release_code" readonly="True"></ASP:BoundColumn>
                           <ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released med level">
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
@@ -119,6 +121,7 @@
                           <ASP:BoundColumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment">
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
+                          <ASP:BoundColumn visible="False" datafield="enrollment_obligation" readonly="True"></ASP:BoundColumn>
                           <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave">
                             <ItemStyle horizontalalign="Center"></ItemStyle>
                           </ASP:BoundColumn>
