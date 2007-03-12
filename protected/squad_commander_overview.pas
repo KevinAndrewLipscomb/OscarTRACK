@@ -72,6 +72,7 @@ type
     LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
     Label_num_crew_shifts: System.Web.UI.WebControls.Label;
     Label_utilization: System.Web.UI.WebControls.Label;
+    Label_utilization_caption: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -291,7 +292,10 @@ begin
 end;
 
 procedure TWebForm_squad_commander_overview.Bind;
+var
+  be_raw_shifts_nonzero: boolean;
 begin
+  //
   p.biz_members.BindSquadCommanderOverview
     (
     session['squad_commander_user_id'].tostring,
@@ -302,7 +306,13 @@ begin
     p.enrollment_filter,
     p.leave_filter
     );
-  Label_utilization.text := decimal(p.num_cooked_shifts/p.num_raw_shifts).tostring('P0');
+  //
+  be_raw_shifts_nonzero := (p.num_raw_shifts > 0);
+  Label_utilization.visible := be_raw_shifts_nonzero;
+  Label_utilization_caption.visible := be_raw_shifts_nonzero;
+  if be_raw_shifts_nonzero then begin
+    Label_utilization.text := decimal(p.num_cooked_shifts/p.num_raw_shifts).tostring('P0');
+  end;
   Label_num_crew_shifts.text := decimal(p.num_cooked_shifts/2).tostring;
   Label_num_rows.text := p.num_datagrid_rows.tostring;
   //
