@@ -281,7 +281,8 @@ begin
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
     + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
-    OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special") ';
+    OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special","Reduced (1)","Reduced (2)"'
+    + ',"Reduced (3)") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
     REDUCED: filter := filter + ' in ("Reduced (1)","Reduced (2)","Reduced (3)") ';
     REGULAR: filter := filter + ' = "Regular" ';
@@ -290,7 +291,7 @@ begin
     SPECIAL: filter := filter + ' = "Special" ';
     RECRUIT: filter := filter + ' = "Recruit" ';
     ADMIN: filter := filter + ' = "Admin" ';
-    PAST: filter := filter + '  in ("Disengaged","Resigned","Disabled","Expelled","Deceased") ';
+    PAST: filter := filter + '  in ("Disengaged","Resigned","Retired","Disabled","Expelled") ';
     LOST_INTEREST: filter := filter + ' = "Disengaged" ';
     RESIGNED: filter := filter + ' = "Resigned" ';
     RETIRED: filter := filter + ' = "Retired" ';
