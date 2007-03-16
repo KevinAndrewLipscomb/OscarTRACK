@@ -1,0 +1,10 @@
+<cad_num/> <last_name/> <first_name/> => <new_level/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed <first_name/> <last_name/>'s enrollment level to "<new_level/>" in <application_name/>.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

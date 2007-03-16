@@ -148,6 +148,7 @@ begin
     (
     Safe(RadioButtonList_disposition.selectedvalue,NUM),
     Calendar_effective_date.selecteddate,
+    p.biz_members.IdOf(session['e_item']),
     session['e_item']
     )
   then begin

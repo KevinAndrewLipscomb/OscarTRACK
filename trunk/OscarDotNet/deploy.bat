@@ -13,6 +13,7 @@
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\*.aspx ready-to-deploy\protected /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\*.config ready-to-deploy\protected /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\image ready-to-deploy\protected\image /m /i /k /y /z
+@xcopy C:\Inetpub\wwwroot\OscarDotNet\protected\template\notification ready-to-deploy\protected\template\notification /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\resource ready-to-deploy\resource /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\app\*.aspx ready-to-deploy\usercontrol\app /m /i /k /y /z
 @xcopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\ki\*.aspx ready-to-deploy\usercontrol\ki /a /i /k /y /z

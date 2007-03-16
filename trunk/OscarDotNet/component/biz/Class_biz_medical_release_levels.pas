@@ -17,6 +17,7 @@ type
       target: system.object;
       selected_description: string = ''
       );
+    function DescriptionOf(code: string): string;
   end;
 
 implementation
@@ -40,6 +41,11 @@ procedure TClass_biz_medical_release_levels.BindDropDownList
   );
 begin
   db_medical_release_levels.BindDropDownList(target,selected_description);
+end;
+
+function TClass_biz_medical_release_levels.DescriptionOf(code: string): string;
+begin
+  DescriptionOf := db_medical_release_levels.DescriptionOf(code);
 end;
 
 end.

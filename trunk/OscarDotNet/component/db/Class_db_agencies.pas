@@ -12,7 +12,9 @@ type
   public
     constructor Create;
     procedure BindDropDownList(target: system.object);
-    function NameOf(code: string): string;
+    function LongDesignatorOf(id: string): string;
+    function MediumDesignatorOf(id: string): string;
+    function ShortDesignatorOf(id: string): string;
   end;
 
 implementation
@@ -51,10 +53,27 @@ begin
   self.Close;
 end;
 
-function TClass_db_agencies.NameOf(code: string): string;
+function TClass_db_agencies.LongDesignatorOf(id: string): string;
 begin
   self.Open;
-  NameOf := bdpcommand.Create('select name from agency_code_name_map where code = ' + code,connection).ExecuteScalar.tostring;
+  LongDesignatorOf :=
+    bdpcommand.Create('select long_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_agencies.MediumDesignatorOf(id: string): string;
+begin
+  self.Open;
+  MediumDesignatorOf :=
+    bdpcommand.Create('select medium_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_agencies.ShortDesignatorOf(id: string): string;
+begin
+  self.Open;
+  ShortDesignatorOf :=
+    bdpcommand.Create('select short_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 

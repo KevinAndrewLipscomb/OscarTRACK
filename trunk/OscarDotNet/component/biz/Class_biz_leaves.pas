@@ -4,13 +4,15 @@ interface
 
 uses
   Class_db_enrollment,
-  Class_db_leaves;
+  Class_db_leaves,
+  Class_biz_notifications;
 
 type
   TClass_biz_leaves = class
   private
     db_enrollment: TClass_db_enrollment;
     db_leaves: TClass_db_leaves;
+    biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
     function BeValid
@@ -34,6 +36,7 @@ type
       target: system.object
       );
     procedure BindStartMonthDropDownList(target: system.object);
+    procedure Delete(id: string);
     procedure DescribeThisAndNextMonthForMember
       (
       member_id: string;
@@ -41,7 +44,8 @@ type
       out next_month_description: string;
       null_description: string
       );
-    procedure Delete(id: string);
+    function DescriptionOf(code: string): string;
+    function EndDateOf(id: string): datetime;
     procedure Grant
       (
       member_id: string;
@@ -51,12 +55,18 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function KindOfLeaveCodeOf(id: string): string;
+    function MemberIdOf(id: string): string;
+    function NoteOf(id: string): string;
+    function NumObligedShiftsOf(id: string): cardinal;
+    function StartDateOf(id: string): datetime;
     function TcciOfId: cardinal;
   end;
 
 implementation
 
 uses
+  Class_biz_members,
   system.web.ui.webcontrols;
 
 constructor TClass_biz_leaves.Create;
@@ -65,6 +75,7 @@ begin
   // TODO: Add any constructor code here
   db_enrollment := TClass_db_enrollment.Create;
   db_leaves := TClass_db_leaves.Create;
+  biz_notifications := TClass_biz_notifications.Create;
 end;
 
 function TClass_biz_leaves.BeValid
@@ -134,6 +145,32 @@ begin
   end;
 end;
 
+procedure TClass_biz_leaves.Delete(id: string);
+var
+  biz_members: TClass_biz_members;
+  member_id: string;
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  //
+  member_id := MemberIdOf(id);
+  biz_notifications.IssueForLeaveDeleted
+    (
+    member_id,
+    biz_members.FirstNameOfMemberId(member_id),
+    biz_members.LastNameOfMemberId(member_id),
+    biz_members.CadNumOfMemberId(member_id),
+    StartDateOf(id).tostring('MMM yyyy'),
+    EndDateOf(id).tostring('MMM yyyy'),
+    DescriptionOf(KindOfLeaveCodeOf(id)),
+    NumObligedShiftsOf(id).tostring,
+    NoteOf(id)
+    );
+  //
+  db_leaves.Delete(id);
+  //
+end;
+
 procedure TClass_biz_leaves.DescribeThisAndNextMonthForMember
   (
   member_id: string;
@@ -145,9 +182,14 @@ begin
   db_leaves.DescribeThisAndNextMonthForMember(member_id,this_month_description,next_month_description,null_description);
 end;
 
-procedure TClass_biz_leaves.Delete(id: string);
+function TClass_biz_leaves.DescriptionOf(code: string): string;
 begin
-  db_leaves.Delete(id);
+  DescriptionOf := db_leaves.DescriptionOf(code);
+end;
+
+function TClass_biz_leaves.EndDateOf(id: string): datetime;
+begin
+  EndDateOf := db_leaves.EndDateOf(id);
 end;
 
 procedure TClass_biz_leaves.Grant
@@ -159,9 +201,52 @@ procedure TClass_biz_leaves.Grant
   num_obligated_shifts: string;
   note: string
   );
+var
+  biz_members: TClass_biz_members;
 begin
+  //
+  biz_members := TClass_biz_members.Create;
+  //
   db_leaves.Grant(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
-  // db_accounts.SendEmailNotification(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
+  //
+  biz_notifications.IssueForLeaveGranted
+    (
+    member_id,
+    biz_members.FirstNameOfMemberId(member_id),
+    biz_members.LastNameOfMemberId(member_id),
+    biz_members.CadNumOfMemberId(member_id),
+    datetime.today.AddMonths(uint32.Parse(relative_start_month)).tostring('MMM yyyy'),
+    datetime.today.AddMonths(uint32.Parse(relative_end_month)).tostring('MMM yyyy'),
+    DescriptionOf(kind_of_leave_code),
+    num_obligated_shifts,
+    note
+    );
+  //
+end;
+
+function TClass_biz_leaves.KindOfLeaveCodeOf(id: string): string;
+begin
+  KindOfLeaveCodeOf := db_leaves.KindOfLeaveCodeOf(id);
+end;
+
+function TClass_biz_leaves.MemberIdOf(id: string): string;
+begin
+  MemberIdOf := db_leaves.MemberIdOf(id);
+end;
+
+function TClass_biz_leaves.NoteOf(id: string): string;
+begin
+  NoteOf := db_leaves.NoteOf(id);
+end;
+
+function TClass_biz_leaves.NumObligedShiftsOf(id: string): cardinal;
+begin
+  NumObligedShiftsOf := db_leaves.NumObligedShiftsOf(id);
+end;
+
+function TClass_biz_leaves.StartDateOf(id: string): datetime;
+begin
+  StartDateOf := db_leaves.StartDateOf(id);
 end;
 
 function TClass_biz_leaves.TcciOfId: cardinal;

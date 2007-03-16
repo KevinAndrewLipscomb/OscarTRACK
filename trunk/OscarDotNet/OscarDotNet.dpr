@@ -72,7 +72,7 @@ uses
   Class_db_trail in 'component\db\Class_db_trail.pas',
   squad_commander_overview in 'protected\squad_commander_overview.pas' {squad_commander_overview.TWebForm_squad_commander_overview: ki_web_ui.page_class},
   add_member in 'protected\add_member.pas' {add_member.TWebForm_add_member: ki_web_ui.page_class},
-  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas',
+  add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class},
   change_email_address in 'protected\change_email_address.pas',
   change_member_driver_qualification in 'protected\change_member_driver_qualification.pas',
   change_member_email_address in 'protected\change_member_email_address.pas',
@@ -80,7 +80,7 @@ uses
   change_password in 'protected\change_password.pas',
   department_staffer_overview in 'protected\department_staffer_overview.pas',
   enrollment_detail in 'protected\enrollment_detail.pas',
-  grant_leave in 'protected\grant_leave.pas',
+  grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
   leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   member_overview in 'protected\member_overview.pas',
@@ -90,7 +90,8 @@ uses
   daily_tasks in 'noninteractive\daily_tasks.pas',
   UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl},
   change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
-  Class_biz_sections in 'component\biz\Class_biz_sections.pas';
+  Class_biz_sections in 'component\biz\Class_biz_sections.pas',
+  Class_biz_notifications in 'component\biz\Class_biz_notifications.pas';
 
 //
 // General Information about an assembly is controlled through the following

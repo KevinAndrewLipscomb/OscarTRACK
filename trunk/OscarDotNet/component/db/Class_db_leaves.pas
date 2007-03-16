@@ -35,6 +35,8 @@ type
       out next_month_description: string;
       null_description: string
       );
+    function DescriptionOf(code: string): string;
+    function EndDateOf(id: string): datetime;
     procedure Grant
       (
       member_id: string;
@@ -44,6 +46,11 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function KindOfLeaveCodeOf(id: string): string;
+    function MemberIdOf(id: string): string;
+    function NoteOf(id: string): string;
+    function NumObligedShiftsOf(id: string): cardinal;
+    function StartDateOf(id: string): datetime;
     function TcciOfId: cardinal;
   end;
 
@@ -165,6 +172,21 @@ begin
   self.Close;
 end;
 
+function TClass_db_leaves.DescriptionOf(code: string): string;
+begin
+  self.Open;
+  DescriptionOf :=bdpcommand.Create
+    ('SELECT description FROM kind_of_leave_code_description_map WHERE code = ' + code,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_leaves.EndDateOf(id: string): datetime;
+begin
+  self.Open;
+  EndDateOf := datetime(bdpcommand.Create('select end_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
+  self.Close;
+end;
+
 procedure TClass_db_leaves.Grant
   (
   member_id: string;
@@ -191,6 +213,43 @@ begin
     connection
     )
     .ExecuteNonQuery;
+  self.Close;
+end;
+
+function TClass_db_leaves.KindOfLeaveCodeOf(id: string): string;
+begin
+  self.Open;
+  KindOfLeaveCodeOf := bdpcommand.Create
+    ('select kind_of_leave_code from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_leaves.MemberIdOf(id: string): string;
+begin
+  self.Open;
+  MemberIdOf := bdpcommand.Create('select member_id from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_leaves.NoteOf(id: string): string;
+begin
+  self.Open;
+  NoteOf := bdpcommand.Create('select note from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_leaves.NumObligedShiftsOf(id: string): cardinal;
+begin
+  self.Open;
+  NumObligedShiftsOf := uint32.Parse
+    (bdpcommand.Create('select num_obliged_shifts from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring);
+  self.Close;
+end;
+
+function TClass_db_leaves.StartDateOf(id: string): datetime;
+begin
+  self.Open;
+  StartDateOf := datetime(bdpcommand.Create('select start_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
   self.Close;
 end;
 

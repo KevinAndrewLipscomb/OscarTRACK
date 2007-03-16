@@ -45,7 +45,7 @@ type
       enrollment_date: datetime;
       enrollment_code: cardinal = 10
       );
-    function AffiliateNumOfId(id: string): string;
+    function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
     function BeKnown
       (
@@ -72,8 +72,10 @@ type
       leave_filter: Class_biz_leave.filter_type = BOTH
       );
     function CadNumOf(e_item: system.object): string;
+    function CadNumOfMemberId(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
+    function FirstNameOfMemberId(member_id: string): string;
     procedure GetProfile
       (
       id: string;
@@ -82,8 +84,8 @@ type
       );
     function IdOf(e_item: system.object): string;
     function LastNameOf(e_item: system.object): string;
+    function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
-    function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
     function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
@@ -163,12 +165,12 @@ begin
   self.Close;
 end;
 
-function TClass_db_members.AffiliateNumOfId(id: string): string;
+function TClass_db_members.AgencyIdOfId(id: string): string;
 begin
   self.Open;
-  AffiliateNumOfId := borland.data.provider.BdpCommand.Create
+  AgencyIdOfId := borland.data.provider.BdpCommand.Create
     (
-    'SELECT affiliate_num FROM member WHERE id = ' + id,
+    'SELECT agency_id FROM member WHERE id = ' + id,
     connection
     )
     .ExecuteScalar.tostring;
@@ -376,6 +378,13 @@ begin
   CadNumOf := Safe(DataGridItem(e_item).cells[TCCI_CAD_NUM].text,NUM);
 end;
 
+function TClass_db_members.CadNumOfMemberId(member_id: string): string;
+begin
+  self.Open;
+  CadNumOfMemberId := bdpcommand.Create('select cad_num from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
 function TClass_db_members.EnrollmentOf(e_item: system.object): string;
 begin
   EnrollmentOf := Safe(DataGridItem(e_item).cells[TCCI_ENROLLMENT].text,NARRATIVE);
@@ -384,6 +393,13 @@ end;
 function TClass_db_members.FirstNameOf(e_item: system.object): string;
 begin
   FirstNameOf := Safe(DataGridItem(e_item).cells[TCCI_FIRST_NAME].text,HUMAN_NAME);
+end;
+
+function TClass_db_members.FirstNameOfMemberId(member_id: string): string;
+begin
+  self.Open;
+  FirstNameOfMemberId := bdpcommand.Create('select first_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  self.Close;
 end;
 
 procedure TClass_db_members.GetProfile
@@ -422,16 +438,16 @@ begin
   LastNameOf := Safe(DataGridItem(e_item).cells[TCCI_LAST_NAME].text,HUMAN_NAME);
 end;
 
+function TClass_db_members.LastNameOfMemberId(member_id: string): string;
+begin
+  self.Open;
+  LastNameOfMemberId := bdpcommand.Create('select last_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
 function TClass_db_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
   MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,NARRATIVE);
-end;
-
-function TClass_db_members.NameOf(member_id: string): string;
-begin
-  self.Open;
-  NameOf := bdpcommand.Create('select name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
-  self.Close;
 end;
 
 function TClass_db_members.OfficershipOf(member_id: string): string;
