@@ -35,6 +35,7 @@ type
       (
       new_level_code: string;
       effective_date: datetime;
+      member_id: string;
       e_item: system.object
       )
       : boolean;
@@ -70,7 +71,7 @@ begin
     +   ' join member on (member.id=enrollment_history.member_id)'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     + ' where member.id = ' + member_id
-    + ' order by start_date desc',
+    + ' order by start_date desc, enrollment_history.id desc',
     connection
     )
     .ExecuteReader;
@@ -212,16 +213,15 @@ function TClass_db_enrollment.SetLevel
   (
   new_level_code: string;
   effective_date: datetime;
+  member_id: string;
   e_item: system.object
   )
   : boolean;
 var
   effective_date_string: string;
   latest_start_date: datetime;
-  member_id: string;
 begin
   SetLevel := FALSE;
-  member_id := TClass_db_members.Create.IdOf(e_item);
   effective_date_string := effective_date.tostring('yyyy-MM-dd');
   self.Open;
   latest_start_date := datetime

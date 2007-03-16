@@ -1,0 +1,15 @@
+Driver qual change to <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following change in <application_name/>:
+
+   <first_name/> <last_name/> (<cad_num/>) is fully qualified to drive
+   ambulances in Virginia Beach:
+
+      <be_driver_qualified/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

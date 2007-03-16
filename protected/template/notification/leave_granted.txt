@@ -1,0 +1,19 @@
+Leave granted to <cad_num/> <last_name/> <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has granted leave to <first_name/> <last_name/> in <application_name/> as follows:
+
+   Kind of leave:
+      <kind_of_leave/>
+   Period:
+      <start_month/> - <end_month/>
+   Number of shifts that <first_name/> must run each month in this period:
+      <num_obligated_shifts/>
+   Note:
+      <note/>      
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -1,0 +1,10 @@
+Section change to <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has assigned <first_name/> <last_name/> (<cad_num/>) to Section <section_num/> of <agency_name/>.  If not already done, <first_name/> <last_name/> and <agency_name/> Section Sergeant <section_num/> are encouraged to contact each other to discuss <first_name/> <last_name/>'s typical scheduling profile and any other squad-related interests or concerns.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

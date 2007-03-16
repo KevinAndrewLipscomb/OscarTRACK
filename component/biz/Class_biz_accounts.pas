@@ -5,7 +5,6 @@ interface
 uses
   Class_biz_agencies,
   Class_biz_milestones,
-  Class_biz_members,
   Class_biz_user,
   Class_db_accounts,
   ki,
@@ -19,7 +18,6 @@ type
   TClass_biz_accounts = class
   private
     biz_agencies: TClass_biz_agencies;
-    biz_members: TClass_biz_members;
     biz_user: TClass_biz_user;
     db_accounts: TClass_db_accounts;
     function SelfEmailAddress: string;
@@ -56,13 +54,6 @@ type
       encoded_password: string
       )
       : boolean;
-    procedure Remind
-      (
-      milestone: milestone_type;
-      num_days_left: cardinal;
-      deadline_date: datetime;
-      member_id: string
-      );
     procedure SetEmailAddress
       (
       user_kind: string;
@@ -90,7 +81,6 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   biz_agencies := TClass_biz_agencies.Create;
-  biz_members := TClass_biz_members.Create;
   biz_user := TClass_biz_user.Create;
   db_accounts := TClass_db_accounts.Create;
 end;
@@ -165,47 +155,6 @@ end;
 function TClass_biz_accounts.SelfEmailAddress: string;
 begin
   SelfEmailAddress := EmailAddressByKindId(biz_user.Kind,biz_user.IdNum);
-end;
-
-procedure TClass_biz_accounts.Remind
-  (
-  milestone: milestone_type;
-  num_days_left: cardinal;
-  deadline_date: datetime;
-  member_id: string
-  );
-var
-  member_email_address: string;
-  member_name: string;
-  task_description: string;
-begin
-  member_email_address := EmailAddressByKindId('member',member_id);
-  member_name := biz_members.NameOf(member_id);
-  //
-  case milestone of
-  FIRST_MILESTONE:
-    task_description := 'finalize your EMSOF request and submit it to your agency EMSOF coordinator';
-  SECOND_MILESTONE:
-    task_description := 'purchase all the items in your EMSOF request(s)';
-  end;
-  //
-  ki.SmtpMailSend
-    (
-    ConfigurationSettings.AppSettings['sender_email_address'],
-    member_email_address,
-    'Reminder of approaching deadline',
-    'This is an automated reminder from OSCAR.' + NEW_LINE
-    + NEW_LINE
-    + 'You have ' + num_days_left.tostring + ' days to ' + task_description + '.  The deadline is '
-    + deadline_date.tostring('HH:mm:ss dddd, MMMM d, yyyy') + '.' + NEW_LINE
-    + NEW_LINE
-    + 'You can review your EMSOF requests by visiting:' + NEW_LINE
-    + NEW_LINE
-    + '   http://' + ConfigurationSettings.AppSettings['host_domain_name'] + '/'
-    + ConfigurationSettings.AppSettings['application_name'] + NEW_LINE
-    + NEW_LINE
-    + '-- ' + ConfigurationSettings.AppSettings['application_name']
-    );
 end;
 
 procedure TClass_biz_accounts.SetEmailAddress

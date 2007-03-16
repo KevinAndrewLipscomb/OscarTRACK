@@ -1,0 +1,29 @@
+Member added to <application_name/>: <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has added a member in <application_name/> as follows:
+
+   First name:
+      <first_name/>
+   Last name:
+      <last_name/>
+   CAD #:
+      <cad_num/>
+   Email address:
+      <email_address/>
+   Agency:
+      <agency_name/>
+   Medical release level:
+      <medical_release_level/>
+   Driver qualified:
+      <be_driver_qualified/>
+   Enrollment date:
+      <enrollment_date/>
+   Enrollment level:
+      <enrollment_level/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

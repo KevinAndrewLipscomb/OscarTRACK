@@ -3,14 +3,21 @@ unit Class_biz_members;
 interface
 
 uses
+  Class_biz_agencies,
   Class_biz_enrollment,
   Class_biz_leave,
+  Class_biz_medical_release_levels,
+  Class_biz_notifications,
   Class_db_members;
 
 type
   TClass_biz_members = class
   private
     db_members: TClass_db_members;
+    biz_agencies: TClass_biz_agencies;
+    biz_enrollment: TClass_biz_enrollment;
+    biz_medical_release_levels: TClass_biz_medical_release_levels;
+    biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
     function Add
@@ -26,7 +33,7 @@ type
       enrollment_level: string = ''
       )
       : boolean;
-    function AffiliateNumOfId(id: string): string;
+    function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
     function BeValidProfile(id: string): boolean;
     procedure BindDropDownList
@@ -46,8 +53,10 @@ type
       leave_filter: Class_biz_leave.filter_type = NONE
       );
     function CadNumOf(e_item: system.object): string;
+    function CadNumOfMemberId(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
+    function FirstNameOfMemberId(member_id: string): string;
     procedure GetProfile
       (
       id: string;
@@ -56,8 +65,8 @@ type
       );
     function IdOf(e_item: system.object): string;
     function LastNameOf(e_item: system.object): string;
+    function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
-    function NameOf(member_id: string): string;
     function OfficershipOf(member_id: string): string;
     function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
@@ -89,6 +98,10 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_members := TClass_db_members.Create;
+  biz_agencies := TClass_biz_agencies.Create;
+  biz_enrollment := TClass_biz_enrollment.Create;
+  biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
+  biz_notifications := TClass_biz_notifications.Create;
 end;
 
 function TClass_biz_members.Add
@@ -119,13 +132,25 @@ begin
       enrollment_date,
       uint32.Parse(enrollment_level)
       );
+    biz_notifications.IssueForMemberAdded
+      (
+      first_name,
+      last_name,
+      cad_num,
+      biz_medical_release_levels.DescriptionOf(medical_release_code),
+      be_driver_qualified,
+      biz_agencies.MediumDesignatorOf(agency_id) + ' - ' + biz_agencies.LongDesignatorOf(agency_id),
+      email_address,
+      enrollment_date.tostring('dd MMMM yyyy'),
+      biz_enrollment.DescriptionOf(enrollment_level)
+      );
     Add := TRUE;
   end;
 end;
 
-function TClass_biz_members.AffiliateNumOfId(id: string): string;
+function TClass_biz_members.AgencyIdOfId(id: string): string;
 begin
-  AffiliateNumOfId := db_members.AffiliateNumOfId(id);
+  AgencyIdOfId := db_members.AgencyIdOfId(id);
 end;
 
 function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): string;
@@ -168,6 +193,11 @@ begin
   CadNumOf := db_members.CadNumOf(e_item);
 end;
 
+function TClass_biz_members.CadNumOfMemberId(member_id: string): string;
+begin
+  CadNumOfMemberId := db_members.CadNumOfMemberId(member_id);
+end;
+
 function TClass_biz_members.EnrollmentOf(e_item: system.object): string;
 begin
   EnrollmentOf := db_members.EnrollmentOf(e_item);
@@ -176,6 +206,11 @@ end;
 function TClass_biz_members.FirstNameOf(e_item: system.object): string;
 begin
   FirstNameOf := db_members.FirstNameOf(e_item);
+end;
+
+function TClass_biz_members.FirstNameOfMemberId(member_id: string): string;
+begin
+  FirstNameOfMemberId := db_members.FirstNameOfMemberId(member_id);
 end;
 
 procedure TClass_biz_members.GetProfile
@@ -203,14 +238,14 @@ begin
   LastNameOf := db_members.LastNameOf(e_item);
 end;
 
+function TClass_biz_members.LastNameOfMemberId(member_id: string): string;
+begin
+  LastNameOfMemberId := db_members.LastNameOfMemberId(member_id);
+end;
+
 function TClass_biz_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
   MedicalReleaseLevelOf := db_members.MedicalReleaseLevelOf(e_item);
-end;
-
-function TClass_biz_members.NameOf(member_id: string): string;
-begin
-  NameOf := db_members.NameOf(member_id);
 end;
 
 function TClass_biz_members.OfficershipOf(member_id: string): string;
@@ -230,6 +265,14 @@ procedure TClass_biz_members.SetDriverQualification
   );
 begin
   db_members.SetDriverQualification(be_driver_qualified,e_item);
+  biz_notifications.IssueForDriverQualificationChange
+    (
+    IdOf(e_item),
+    FirstNameOf(e_item),
+    LastNameOf(e_item),
+    CadNumOf(e_item),
+    be_driver_qualified.tostring.ToUpper
+    );
 end;
 
 procedure TClass_biz_members.SetSection
@@ -237,8 +280,20 @@ procedure TClass_biz_members.SetSection
   section_num: string;
   e_item: system.object
   );
+var
+  member_id: string;
 begin
   db_members.SetSection(section_num,e_item);
+  member_id := IdOf(e_item);
+  biz_notifications.IssueForSectionChange
+    (
+    member_id,
+    FirstNameOf(e_item),
+    LastNameOf(e_item),
+    CadNumOf(e_item),
+    biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)),
+    section_num
+    );
 end;
 
 procedure TClass_biz_members.SetMedicalReleaseCode
@@ -248,6 +303,14 @@ procedure TClass_biz_members.SetMedicalReleaseCode
   );
 begin
   db_members.SetMedicalReleaseCode(code,e_item);
+  biz_notifications.IssueForMedicalReleaseLevelChange
+    (
+    IdOf(e_item),
+    FirstNameOf(e_item),
+    LastNameOf(e_item),
+    CadNumOf(e_item),
+    MedicalReleaseLevelOf(e_item)
+    );
 end;
 
 procedure TClass_biz_members.SetProfile
