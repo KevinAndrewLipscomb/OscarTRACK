@@ -128,7 +128,8 @@ begin
   DropDownList(target).Items.Clear;
   DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
   //
-  for num_obliged_shifts := 0 to (db_enrollment.NumObligedShifts(enrollment) - 1) do begin
+  for num_obliged_shifts := 0 to math.Max(0,(integer(db_enrollment.NumObligedShifts(enrollment)) - 1)) do begin
+    // The integer() cast and the use of math.Max are workarounds to what I suspect should be a runtime overflow bug.
     DropDownList(target).Items.Add(listitem.Create(num_obliged_shifts.tostring,num_obliged_shifts.tostring));
   end;
 end;
