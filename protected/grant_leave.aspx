@@ -11,13 +11,13 @@
       <asp:placeholder id="PlaceHolder_precontent" runat="server"></asp:placeholder>
       <p>
         <small>[ <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">
-                                        Logout</ASP:LinkButton>
-        &nbsp;] [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">
-                                        previous</ASP:LinkButton>
-        &nbsp;form ]&nbsp; [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">
-                                        password</asp:LinkButton>
-        &nbsp; | <asp:LinkButton id="LinkButton_change_email_address" runat="server">
-                                        email address</asp:LinkButton>
+                                                                                Logout</ASP:LinkButton>
+        &nbsp;] [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">
+                                                                                previous</ASP:LinkButton>
+        &nbsp;form ]&nbsp; [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">
+                                                                                password</asp:LinkButton>
+        &nbsp; | <asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">
+                                                                                email address</asp:LinkButton>
         &nbsp;] 
         </small>
       </p>
@@ -40,7 +40,7 @@
 				  <ASP:DropDownList id="DropDownList_start_month" runat="server"></ASP:DropDownList></td>
 				<td>
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_start_month" runat="server" errormessage="Please select a starting month." font-bold="True" controltovalidate="DropDownList_start_month">
-																		!ERR!</ASP:RequiredFieldValidator></td>
+																																				!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td>Ending:</td>
@@ -48,9 +48,9 @@
 				  <ASP:DropDownList id="DropDownList_end_month" runat="server"></ASP:DropDownList></td>
 				<td>
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month">
-																		!ERR!</ASP:RequiredFieldValidator>
+																																				!ERR!</ASP:RequiredFieldValidator>
 				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month">
-																		!ERR!</ASP:CustomValidator></td>
+																																				!ERR!</ASP:CustomValidator></td>
 			  </tr>
 			  <tr>
 				<td>Kind:</td>
@@ -58,7 +58,7 @@
 				  <ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
 				<td>
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">
-																		!ERR!</ASP:RequiredFieldValidator></td>
+																																				!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td valign="top">Num obligated shifts:</td>
@@ -75,7 +75,7 @@
 							  <small>For long-term purposes, consider changing
 								<ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>
 							  's <ASP:LinkButton id="LinkButton1" runat="server">
-																																enrollment level</ASP:LinkButton>
+																																																																enrollment level</ASP:LinkButton>
 							  &nbsp;instead.
 							  </small></td>
 						  </tr>
@@ -89,7 +89,7 @@
 				  </table></td>
 				<td valign="top" nowrap="true">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">
-																		!ERR!</ASP:RequiredFieldValidator></td>
+																																				!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td>Note:</td>

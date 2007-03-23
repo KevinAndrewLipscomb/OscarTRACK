@@ -11,9 +11,8 @@ uses
   Class_biz_leaves,
   Class_biz_members,
   ki,
-  ki_web_ui;
-
-
+  ki_web_ui,
+  UserControl_print_div;
 
 type
   p_type =
@@ -57,6 +56,7 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_new: System.Web.UI.WebControls.LinkButton;
+    UserControl_print_div: TWebUserControl_print_div;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -80,10 +80,10 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
   Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
   Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
-  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_leave_detail_PreRender);
 end;
@@ -106,6 +106,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - leave_detail';
+      HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
       Label_account_descriptor.text := session['squad_commander_name'].tostring;
       //
       // Initialize implementation-wide vars.

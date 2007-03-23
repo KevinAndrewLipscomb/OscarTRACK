@@ -10,7 +10,8 @@ uses
   Class_biz_leaves,
   Class_biz_members,
   ki,
-  ki_web_ui;
+  ki_web_ui,
+  UserControl_print_div;
 
 type
   p_type =
@@ -70,6 +71,7 @@ type
     Label_leave_next_month: System.Web.UI.WebControls.Label;
     Label_section: System.Web.UI.WebControls.Label;
     LinkButton_change_section: System.Web.UI.WebControls.LinkButton;
+    UserControl_print_div: TWebUserControl_print_div;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -125,6 +127,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
+      HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
       //
       p.biz_accounts := TClass_biz_accounts.Create;
