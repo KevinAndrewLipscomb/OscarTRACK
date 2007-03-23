@@ -11,9 +11,8 @@ uses
   Class_biz_members,
   Class_biz_officerships,
   ki,
-  ki_web_ui;
-
-
+  ki_web_ui,
+  UserControl_print_div;
 
 type
   p_type =
@@ -52,6 +51,7 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
     DataGrid_officerships: System.Web.UI.WebControls.DataGrid;
+    UserControl_print_div: TWebUserControl_print_div;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -100,6 +100,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - officership_detail';
+      HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
       Label_account_descriptor.text := session['squad_commander_name'].tostring;
       //
       // Initialize implementation-wide vars.

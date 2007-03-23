@@ -12,7 +12,8 @@ uses
   Class_biz_leave,
   Class_biz_medical_release_levels,
   Class_biz_members,
-  Class_biz_user;
+  Class_biz_user,
+  UserControl_print_div;
 
 type
   p_type =
@@ -73,6 +74,7 @@ type
     Label_num_crew_shifts: System.Web.UI.WebControls.Label;
     Label_utilization: System.Web.UI.WebControls.Label;
     Label_utilization_caption: System.Web.UI.WebControls.Label;
+    UserControl_print_div: TWebUserControl_print_div;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -123,6 +125,7 @@ begin
       server.Transfer('~/login.aspx');
     end;
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - squad_commander_overview';
+    HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
     //
     p.biz_accounts := TClass_biz_accounts.Create;
     p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;

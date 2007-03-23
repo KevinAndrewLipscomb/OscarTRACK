@@ -35,6 +35,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
 {%AspMarkupContainer 'noninteractive\daily_tasks.aspx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_drop_down_date.ascx'}
+{%AspMarkupContainer 'usercontrol\ki\UserControl_print_div.ascx'}
 
 uses
   System.Reflection,
@@ -79,19 +80,20 @@ uses
   change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
   change_password in 'protected\change_password.pas',
   department_staffer_overview in 'protected\department_staffer_overview.pas',
-  enrollment_detail in 'protected\enrollment_detail.pas',
+  enrollment_detail in 'protected\enrollment_detail.pas' {enrollment_detail.TWebForm_enrollment_detail: ki_web_ui.page_class},
   grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
   leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   member_overview in 'protected\member_overview.pas',
-  officership_detail in 'protected\officership_detail.pas',
-  profile in 'protected\profile.pas',
+  officership_detail in 'protected\officership_detail.pas' {officership_detail.TWebForm_officership_detail: ki_web_ui.page_class},
+  profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
   milestone_sweep in 'noninteractive\milestone_sweep.pas',
   daily_tasks in 'noninteractive\daily_tasks.pas',
   UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl},
   change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
   Class_biz_sections in 'component\biz\Class_biz_sections.pas',
-  Class_biz_notifications in 'component\biz\Class_biz_notifications.pas';
+  Class_biz_notifications in 'component\biz\Class_biz_notifications.pas',
+  UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas';
 
 //
 // General Information about an assembly is controlled through the following
