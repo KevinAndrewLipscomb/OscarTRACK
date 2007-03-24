@@ -261,7 +261,7 @@ begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
     end;
     //
-    if p.biz_medical_release_levels.BeReleased(e.item.cells[Class_db_members.TCCI_MEDICAL_RELEASE_CODE].text) then begin
+    if p.biz_medical_release_levels.BeReleased(e.item.cells[Class_db_members.TCCI_MEDICAL_RELEASE_PECK_CODE].text) then begin
       if e.item.cells[Class_db_members.TCCI_ENROLLMENT_OBLIGATION].text <> '&nbsp;' then begin
         p.num_raw_shifts := p.num_raw_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_ENROLLMENT_OBLIGATION].text);
       end;
