@@ -11,7 +11,7 @@ type
     db_medical_release_levels: TClass_db_medical_release_levels;
   public
     constructor Create;
-    function BeReleased(code: string): boolean;
+    function BeReleased(peck_code: string): boolean;
     procedure BindDropDownList
       (
       target: system.object;
@@ -29,9 +29,9 @@ begin
   db_medical_release_levels := TClass_db_medical_release_levels.Create;
 end;
 
-function TClass_biz_medical_release_levels.BeReleased(code: string): boolean;
+function TClass_biz_medical_release_levels.BeReleased(peck_code: string): boolean;
 begin
-  BeReleased := (uint32.Parse(code) >= Class_db_medical_release_levels.LOWEST_RELEASED_CODE);
+  BeReleased := (uint32.Parse(peck_code) >= Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE);
 end;
 
 procedure TClass_biz_medical_release_levels.BindDropDownList

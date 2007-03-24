@@ -6,7 +6,7 @@ uses
   Class_db;
 
 const
-  LOWEST_RELEASED_CODE = 3;
+  LOWEST_RELEASED_PECK_CODE = 20;
 
 type
   TClass_db_medical_release_levels = class(TClass_db)

@@ -331,14 +331,16 @@ CREATE TABLE IF NOT EXISTS medical_release_code_description_map (
 -- Dumping data for table `medical_release_code_description_map`
 -- 
 
-INSERT INTO medical_release_code_description_map (code, description, pecking_order) VALUES (1, 'none', 0),
+INSERT INTO medical_release_code_description_map (code, description, pecking_order) VALUES
+(1, 'none', 0),
 (2, 'Trainee', 10),
 (3, 'EMT-B', 20),
 (4, 'EMT-ST', 30),
 (5, 'EMT-CT', 50),
 (6, 'EMT-P', 70),
 (7, 'EMT-E', 40),
-(8, 'EMT-I', 60);
+(8, 'EMT-I', 60),
+(9, 'In class', 5);
 
 -- --------------------------------------------------------
 

@@ -18,7 +18,7 @@ const
   TCCI_FIRST_NAME = 2;
   TCCI_CAD_NUM = 3;
   TCCI_SECTION_NUM = 4;
-  TCCI_MEDICAL_RELEASE_CODE = 5;
+  TCCI_MEDICAL_RELEASE_PECK_CODE = 5;
   TCCI_MEDICAL_RELEASE_LEVEL = 6;
   TCCI_BE_DRIVER_QUALIFIED = 7;
   TCCI_ENROLLMENT = 8;
@@ -321,7 +321,7 @@ begin
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
   + ' , section_num'                                                                     // column 4
-  + ' , medical_release_code'                                                            // column 5
+  + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 5
   + ' , medical_release_code_description_map.description as medical_release_description' // column 6
   + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 7
   + ' , enrollment_level.description as enrollment'                                      // column 8

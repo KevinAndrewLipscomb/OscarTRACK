@@ -118,7 +118,7 @@ procedure TClass_biz_notifications.IssueForDriverQualificationChange
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -137,14 +137,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/driver_qualification_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -168,7 +168,7 @@ procedure TClass_biz_notifications.IssueForLeaveDeleted
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -192,14 +192,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_deleted.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -223,7 +223,7 @@ procedure TClass_biz_notifications.IssueForLeaveGranted
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -247,14 +247,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_granted.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -274,7 +274,7 @@ procedure TClass_biz_notifications.IssueForMedicalReleaseLevelChange
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -293,14 +293,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/medical_release_level_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -324,7 +324,7 @@ procedure TClass_biz_notifications.IssueForMemberAdded
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -348,14 +348,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_added.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    email_address + ',' + official_targets,
+    email_address + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -376,7 +376,7 @@ procedure TClass_biz_notifications.IssueForNewEnrollmentLevel
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -397,14 +397,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/new_enrollment_level.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -425,7 +425,7 @@ procedure TClass_biz_notifications.IssueForSectionChange
 var
   actor: string;
   actor_email_address: string;
-  official_targets: string;
+  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -445,14 +445,14 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/section_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + official_targets,
+    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
