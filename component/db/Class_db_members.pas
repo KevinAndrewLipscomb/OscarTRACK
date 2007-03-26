@@ -8,7 +8,9 @@ uses
   Class_db_medical_release_levels,
   Class_db_trail,
   Class_biz_enrollment,
+  Class_biz_medical_release_levels,
   Class_biz_leave,
+  Class_biz_sections,
   ki,
   system.web.ui.webcontrols;
 
@@ -69,7 +71,9 @@ type
       target: system.object;
       relative_month: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
-      leave_filter: Class_biz_leave.filter_type = BOTH
+      leave_filter: Class_biz_leave.filter_type = BOTH;
+      med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
+      section_filter: Class_biz_sections.filter_type = 0
       );
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
@@ -257,7 +261,9 @@ procedure TClass_db_members.BindSquadCommanderOverview
   target: system.object;
   relative_month: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
-  leave_filter: Class_biz_leave.filter_type = BOTH
+  leave_filter: Class_biz_leave.filter_type = BOTH;
+  med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
+  section_filter: Class_biz_sections.filter_type = 0
   );
 var
   any_relevant_leave: string;
@@ -278,8 +284,8 @@ begin
   //
   filter := system.string.EMPTY;
   //
-  if enrollment_filter <> ALL then begin
-    filter := ' and enrollment_level.description ';
+  if enrollment_filter <> Class_biz_enrollment.ALL then begin
+    filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
     + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
@@ -311,6 +317,27 @@ begin
       end;
       END;
     end;
+  end;
+  //
+  if med_release_level_filter <> Class_biz_medical_release_levels.ALL then begin
+    filter := filter + ' and medical_release_code_description_map.description ';
+    case med_release_level_filter of
+    NOT_RELEASED: filter := filter + ' in ("None","In class","Trainee") ';
+    Class_biz_medical_release_levels.NONE: filter := filter + ' = "none" ';
+    IN_CLASS: filter := filter + ' = "In class" ';
+    TRAINEE: filter := filter + ' = "Trainee" ';
+    RELEASED: filter := filter + ' in ("EMT-B","EMT-ST","EMT-E","EMT-CT","EMT-I","EMT-P") ';
+    EMT_B: filter := filter + ' = "EMT-B" ';
+    EMT_ST: filter := filter + ' = "EMT-ST" ';
+    EMT_E: filter := filter + ' = "EMT-E" ';
+    EMT_CT: filter := filter + ' = "EMT-CT" ';
+    EMT_I: filter := filter + ' = "EMT-I" ';
+    EMT_P: filter := filter + ' = "EMT-P" ';
+    end;
+  end;
+  //
+  if section_filter > 0 then begin
+    filter := filter + ' and section_num = ' + uint32(section_filter).tostring + ' ';
   end;
   //
   kind_of_leave_selection_clause := 'if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"")';

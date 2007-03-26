@@ -6,6 +6,21 @@ uses
   Class_db_medical_release_levels;
 
 type
+  filter_type =
+    (
+    ALL,
+      NOT_RELEASED,
+        NONE,
+        IN_CLASS,
+        TRAINEE,
+      RELEASED,
+        EMT_B,
+        EMT_ST,
+        EMT_E,
+        EMT_CT,
+        EMT_I,
+        EMT_P
+    );
   TClass_biz_medical_release_levels = class
   private
     db_medical_release_levels: TClass_db_medical_release_levels;

@@ -14,7 +14,7 @@
 			  <tr>
 				<td><small>[
 				  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-															     [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
+															                  [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]</small></td>
 				<td align="right"><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
@@ -47,39 +47,67 @@
 					  <td align="right">
 							  <table cellspacing="0" cellpadding="5" border="0">
 						  <tr>
-									<td nowrap="true">Enrollment filter:
-									  <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True">
-										<asp:listitem value="all">All</asp:listitem>
-										<asp:listitem value="current" selected="true">- Current</asp:listitem>
-										<asp:listitem value="operational">- - Operational</asp:listitem>
-										<asp:listitem value="tenured">- - - Tenured</asp:listitem>
-										<asp:listitem value="life">- - - Life</asp:listitem>
-										<asp:listitem value="regular">- - - Regular</asp:listitem>
-										<asp:listitem value="reduced">- - - Reduced</asp:listitem>
-										<asp:listitem value="associate">- - - Associate</asp:listitem>
-										<asp:listitem value="special">- - - Special</asp:listitem>
-										<asp:listitem value="recruit">- - Recruit</asp:listitem>
-										<asp:listitem value="admin">- - Admin</asp:listitem>
-										<asp:listitem value="past">- Past</asp:listitem>
-										<asp:listitem value="lost_interest">- - Lost interest</asp:listitem>
-										<asp:listitem value="resigned">- - Resigned</asp:listitem>
-										<asp:listitem value="retired">- - Retired</asp:listitem>
-										<asp:listitem value="disabled">- - Disabled</asp:listitem>
-										<asp:listitem value="expelled">- - Expelled</asp:listitem>
-										<asp:listitem value="deceased">- Deceased</asp:listitem>
-									  </asp:dropdownlist></td>
-							<td nowrap="true"><asp:label id="Label_leave_filter" runat="server">Leave filter:&nbsp;</asp:label>
+						    <td><b><small>Filters:</small></b></td>
+							<td>
+                                          <p align="center"><small>Enrollment</small><br>
+							  <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px">
+								<asp:listitem value="all">All</asp:listitem>
+								<asp:listitem value="current" selected="true">- Current</asp:listitem>
+								<asp:listitem value="operational">- - Operational</asp:listitem>
+								<asp:listitem value="tenured">- - - Tenured</asp:listitem>
+								<asp:listitem value="life">- - - Life</asp:listitem>
+								<asp:listitem value="regular">- - - Regular</asp:listitem>
+								<asp:listitem value="reduced">- - - Reduced</asp:listitem>
+								<asp:listitem value="associate">- - - Associate</asp:listitem>
+								<asp:listitem value="special">- - - Special</asp:listitem>
+								<asp:listitem value="recruit">- - Recruit</asp:listitem>
+								<asp:listitem value="admin">- - Admin</asp:listitem>
+								<asp:listitem value="past">- Past</asp:listitem>
+								<asp:listitem value="lost_interest">- - Lost interest</asp:listitem>
+								<asp:listitem value="resigned">- - Resigned</asp:listitem>
+								<asp:listitem value="retired">- - Retired</asp:listitem>
+								<asp:listitem value="disabled">- - Disabled</asp:listitem>
+								<asp:listitem value="expelled">- - Expelled</asp:listitem>
+								<asp:listitem value="deceased">- Deceased</asp:listitem>
+							  </asp:dropdownlist>
+                                          </p>
+							</td>
+							<td>
+                                          <p align="center">
+							  <asp:label id="Label_leave_filter" runat="server"><small>Leave</small></asp:label><br>
 									  <asp:dropdownlist id="DropDownList_leave_filter" runat="server" autopostback="True">
 										<asp:listitem value="both" selected="true">Both</asp:listitem>
 										<asp:listitem value="obligated">- Not on leave</asp:listitem>
 										<asp:listitem value="on_leave">- On leave</asp:listitem>
 									  </asp:dropdownlist>
+                                          </p>
 							</td>
-									<td nowrap="true" align="center" colspan="2">
-									  <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True">
-										<ASP:ListItem value="0" selected="True">This&nbsp;month</ASP:ListItem>
-										<ASP:ListItem value="1">Next&nbsp;month</ASP:ListItem>
-									  </asp:radiobuttonlist></td>
+							<td nowrap="true">
+                                          <p align="center">
+                              <small>Med release level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True">
+                                              <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
+                                              <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
+                                              <ASP:ListItem value="none">- - None</ASP:ListItem>
+                                              <ASP:ListItem value="in_class">- - In class</ASP:ListItem>
+                                              <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
+                                              <ASP:ListItem value="released">- Released</ASP:ListItem>
+                                              <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
+                                              <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
+                                              <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
+                                              <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
+                                              <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
+                                              <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
+                                          </p>							</td>
+							<td nowrap="true">
+                                          <p align="center"><small>Section</small><br><ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True"></ASP:DropDownList>
+                                          </p>
+							</td>
+							<td nowrap="true" align="center" colspan="2">
+							  <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True">
+								<ASP:ListItem value="0" selected="True">This&nbsp;month</ASP:ListItem>
+								<ASP:ListItem value="1">Next&nbsp;month</ASP:ListItem>
+							  </asp:radiobuttonlist>
+							</td>
 						  </tr>
 							  </table>
 					  </td>
@@ -146,6 +174,19 @@
 	  </table>
 	  <asp:placeholder id="PlaceHolder_postcontent" runat="server"></asp:placeholder>
 	  <sstchur:smartscroller runat="server"></sstchur:smartscroller>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
           <p></p>
           <p></p></p>
 	</form></div>

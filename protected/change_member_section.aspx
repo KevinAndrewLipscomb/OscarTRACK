@@ -13,8 +13,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			             [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			             [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+			              [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			              [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -31,7 +31,7 @@
                     <tr>
                       <td>
 						<p>If a squad finds that its personnel lieutenants are overwhelmed by the size of its&nbsp;operational membership, it should consider subdividing the members into <em>sections</em> and appointing <em>section sergeants</em>.&nbsp; Doing so is an optimization of the officers' <em>span of control</em>.</p>
-						<p><ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;is assigned to Section <ASP:DropDownList id="DropDownList_section" runat="server"></ASP:DropDownList>.&nbsp; (0&nbsp;=&nbsp;unassigned)</p>
+						<p><ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;is assigned to Section <ASP:DropDownList id="DropDownList_section" runat="server"></ASP:DropDownList>.&nbsp; (*&nbsp;=&nbsp;unassigned)</p>
 						<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></p></td>
                     </tr>
                 </table></td>
