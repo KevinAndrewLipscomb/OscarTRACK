@@ -445,7 +445,7 @@ var
 begin
   actor := 'Captain ' + biz_user.IdNum + '50';
   actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
+  other_official_targets := system.string.EMPTY;
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/section_change.txt'));
   ki.SmtpMailSend
     (
