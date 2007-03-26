@@ -8,6 +8,7 @@ uses
   Class_biz_leave,
   Class_biz_medical_release_levels,
   Class_biz_notifications,
+  Class_biz_sections,
   Class_db_members;
 
 type
@@ -18,6 +19,7 @@ type
     biz_enrollment: TClass_biz_enrollment;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_notifications: TClass_biz_notifications;
+    biz_sections: TClass_biz_sections;
   public
     constructor Create;
     function Add
@@ -50,7 +52,9 @@ type
       target: system.object;
       relative_month: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
-      leave_filter: Class_biz_leave.filter_type = NONE
+      leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
+      med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
+      section_filter: Class_biz_sections.filter_type = 0
       );
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
@@ -102,6 +106,7 @@ begin
   biz_enrollment := TClass_biz_enrollment.Create;
   biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
   biz_notifications := TClass_biz_notifications.Create;
+  biz_sections := TClass_biz_sections.Create;
 end;
 
 function TClass_biz_members.Add
@@ -181,11 +186,23 @@ procedure TClass_biz_members.BindSquadCommanderOverview
   target: system.object;
   relative_month: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
-  leave_filter: Class_biz_leave.filter_type = NONE
+  leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
+  med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
+  section_filter: Class_biz_sections.filter_type = 0
   );
 begin
   db_members.BindSquadCommanderOverview
-    (agency_id,sort_order,be_sort_order_ascending,target,relative_month,enrollment_filter,leave_filter);
+    (
+    agency_id,
+    sort_order,
+    be_sort_order_ascending,
+    target,
+    relative_month,
+    enrollment_filter,
+    leave_filter,
+    med_release_level_filter,
+    section_filter
+    );
 end;
 
 function TClass_biz_members.CadNumOf(e_item: system.object): string;

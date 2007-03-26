@@ -12,6 +12,7 @@ uses
   Class_biz_leave,
   Class_biz_medical_release_levels,
   Class_biz_members,
+  Class_biz_sections,
   Class_biz_user,
   UserControl_print_div;
 
@@ -22,13 +23,16 @@ type
     be_sort_order_ascending: boolean;
     biz_accounts: TClass_biz_accounts;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
-    biz_user: TClass_biz_user;
     biz_members: TClass_biz_members;
+    biz_sections: TClass_biz_sections;
+    biz_user: TClass_biz_user;
     enrollment_filter: Class_biz_enrollment.filter_type;
     leave_filter: Class_biz_leave.filter_type;
+    med_release_level_filter: Class_biz_medical_release_levels.filter_type;
     num_cooked_shifts: cardinal;  // takes into account leaves
     num_datagrid_rows: cardinal;
     num_raw_shifts: cardinal;  // does not take into account leaves
+    section_filter: Class_biz_sections.filter_type;
     sort_order: string;
     END;
   TWebForm_squad_commander_overview = class(ki_web_ui.page_class)
@@ -50,6 +54,10 @@ type
     procedure RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure LinkButton_add_member_Click(sender: System.Object; e: System.EventArgs);
+    procedure DropDownList_med_release_filter_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
+    procedure DropDownList_section_filter_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -75,6 +83,8 @@ type
     Label_utilization: System.Web.UI.WebControls.Label;
     Label_utilization_caption: System.Web.UI.WebControls.Label;
     UserControl_print_div: TWebUserControl_print_div;
+    DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -99,12 +109,14 @@ begin
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_add_member.Click, Self.LinkButton_add_member_Click);
-  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_squad_commander_overview_PreRender);
 end;
@@ -130,10 +142,13 @@ begin
     p.biz_accounts := TClass_biz_accounts.Create;
     p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
     p.biz_members := TClass_biz_members.Create;
+    p.biz_sections := TClass_biz_sections.Create;
     p.biz_user := TClass_biz_user.Create;
     p.be_sort_order_ascending := TRUE;
     p.enrollment_filter := CURRENT;
-    p.leave_filter := NONE;
+    p.leave_filter := Class_biz_leave.NONE;
+    p.med_release_level_filter := ALL;
+    p.section_filter := 0;
     p.num_cooked_shifts := 0;
     p.num_datagrid_rows := 0;
     p.num_raw_shifts := 0;
@@ -150,6 +165,7 @@ begin
       waypoint_stack.Push('squad_commander_overview.aspx');
       session.Add('waypoint_stack',waypoint_stack);
       //
+      p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
       Bind;
       //
     end else begin
@@ -165,6 +181,23 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_squad_commander_overview.DropDownList_section_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.section_filter := uint32.Parse(DropDownList_section_filter.selectedvalue);
+  Bind;
+end;
+
+procedure TWebForm_squad_commander_overview.DropDownList_med_release_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.med_release_level_filter := Class_biz_medical_release_levels.filter_type
+    (
+    enum.Parse(system.object(p.med_release_level_filter).GetType,DropDownList_med_release_filter.selectedvalue,TRUE)
+    );
+  Bind;
 end;
 
 procedure TWebForm_squad_commander_overview.LinkButton_add_member_Click(sender: System.Object;
@@ -202,7 +235,7 @@ begin
     Label_leave_filter.Enabled := FALSE;
     DropDownList_leave_filter.selectedindex := 0;
     DropDownList_leave_filter.Enabled := FALSE;
-    p.leave_filter := NONE;
+    p.leave_filter := Class_biz_leave.NONE;
     END;
   end;
   Bind;
@@ -307,7 +340,9 @@ begin
     DataGrid_roster,
     RadioButtonList_which_month.selectedvalue,
     p.enrollment_filter,
-    p.leave_filter
+    p.leave_filter,
+    p.med_release_level_filter,
+    p.section_filter
     );
   //
   be_raw_shifts_nonzero := (p.num_raw_shifts > 0);
