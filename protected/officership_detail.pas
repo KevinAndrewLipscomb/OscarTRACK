@@ -100,7 +100,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - officership_detail';
-      HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
+      
       Label_account_descriptor.text := session['squad_commander_name'].tostring;
       //
       // Initialize implementation-wide vars.
