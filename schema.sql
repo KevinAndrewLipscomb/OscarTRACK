@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS enrollment_history (
   start_date date NOT NULL,
   end_date date,
   PRIMARY KEY  (id),
-  UNIQUE KEY member_id (member_id,start_date),
+  UNIQUE KEY member_id (member_id,level_code,start_date),
   KEY level_code (level_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
