@@ -1,4 +1,3 @@
-
 unit add_new_enrollment_status;
 
 interface
@@ -9,9 +8,8 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_enrollment,
   Class_biz_members,
-  ki_web_ui;
-
-
+  ki_web_ui,
+  UserControl_drop_down_date;
 
 type
   p_type =
@@ -55,11 +53,11 @@ type
     Label_member_designator: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
-    Calendar_effective_date: System.Web.UI.WebControls.Calendar;
     RequiredFieldValidator_new_status: System.Web.UI.WebControls.RequiredFieldValidator;
     RadioButtonList_disposition: System.Web.UI.WebControls.RadioButtonList;
     Label_member_first_name: System.Web.UI.WebControls.Label;
     LinkButton_grant_leave: System.Web.UI.WebControls.LinkButton;
+    UserControl_effective_date: TWebUserControl_drop_down_date;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -126,7 +124,7 @@ begin
         + ')';
       //
       p.biz_enrollment.BindTransitionRadioButtonList(p.biz_members.IdOf(session['e_item']),RadioButtonList_disposition);
-      Calendar_effective_date.selecteddate := datetime.Today;
+      UserControl_effective_date.selectedvalue := datetime.Today;
       //
     end;
   end;
@@ -147,7 +145,7 @@ begin
   if p.biz_enrollment.SetLevel
     (
     Safe(RadioButtonList_disposition.selectedvalue,NUM),
-    Calendar_effective_date.selecteddate,
+    UserControl_effective_date.selectedvalue,
     p.biz_members.IdOf(session['e_item']),
     session['e_item']
     )

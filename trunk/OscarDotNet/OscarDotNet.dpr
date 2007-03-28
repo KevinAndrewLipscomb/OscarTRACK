@@ -36,6 +36,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\daily_tasks.aspx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_drop_down_date.ascx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_print_div.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_roster.ascx'}
 
 uses
   System.Reflection,
@@ -93,7 +94,8 @@ uses
   change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
   Class_biz_sections in 'component\biz\Class_biz_sections.pas',
   Class_biz_notifications in 'component\biz\Class_biz_notifications.pas',
-  UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: System.Windows.Forms.UserControl};
+  UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: System.Windows.Forms.UserControl},
+  UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: System.Windows.Forms.UserControl};
 
 //
 // General Information about an assembly is controlled through the following
