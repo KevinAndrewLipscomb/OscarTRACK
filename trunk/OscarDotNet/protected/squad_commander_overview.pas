@@ -137,7 +137,6 @@ begin
       server.Transfer('~/login.aspx');
     end;
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - squad_commander_overview';
-    HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
     //
     p.biz_accounts := TClass_biz_accounts.Create;
     p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;

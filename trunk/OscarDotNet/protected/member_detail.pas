@@ -127,7 +127,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
-      HtmlInputButton(UserControl_print_div.controls[0]).value := 'Print form body';
+      
       Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
       //
       p.biz_accounts := TClass_biz_accounts.Create;
