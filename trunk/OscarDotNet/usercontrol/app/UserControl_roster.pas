@@ -8,12 +8,14 @@ uses
   Class_biz_medical_release_levels,
   Class_biz_members,
   Class_biz_sections,
+  Class_biz_user,
   System.Data,
   System.Drawing,
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls;
+  System.Web.UI.HtmlControls,
+  UserControl_print_div;
      
 type
   p_type =
@@ -23,6 +25,8 @@ type
     biz_sections: TClass_biz_sections;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_members: TClass_biz_members;
+    biz_user: TClass_biz_user;
+    distribution_list: string;
     enrollment_filter: Class_biz_enrollment.filter_type;
     leave_filter: Class_biz_leave.filter_type;
     med_release_level_filter: Class_biz_medical_release_levels.filter_type;
@@ -52,6 +56,7 @@ type
       e: System.EventArgs);
     procedure DropDownList_section_filter_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
+    procedure Button_send_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -71,6 +76,14 @@ type
     Label_utilization_caption: System.Web.UI.WebControls.Label;
     DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
     DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
+    TableRow_data: System.Web.UI.HtmlControls.HtmlTableRow;
+    UserControl_print_div: TWebUserControl_print_div;
+    Label_distribution_list: System.Web.UI.WebControls.Label;
+    TextBox_quick_message_subject: System.Web.UI.WebControls.TextBox;
+    TextBox_quick_message_body: System.Web.UI.WebControls.TextBox;
+    RequiredFieldValidator_quick_message_body: System.Web.UI.WebControls.RequiredFieldValidator;
+    Button_send: System.Web.UI.WebControls.Button;
+    Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -84,8 +97,9 @@ uses
   appcommon,
   Class_db_members,
   ki,
-  System.Collections;
- 
+  System.Collections,
+  system.configuration;
+
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
@@ -95,7 +109,9 @@ begin
     p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
     p.biz_members := TClass_biz_members.Create;
     p.biz_sections := TClass_biz_sections.Create;
+    p.biz_user := TClass_biz_user.Create;
     p.be_sort_order_ascending := TRUE;
+    p.distribution_list := system.string.EMPTY;
     p.enrollment_filter := CURRENT;
     p.leave_filter := Class_biz_leave.NONE;
     p.med_release_level_filter := ALL;
@@ -105,6 +121,7 @@ begin
     p.num_raw_shifts := 0;
     p.sort_order := 'last_name,first_name,cad_num';
     //
+    UserControl_print_div.text := '[print]';
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
     Bind;
   end;
@@ -120,6 +137,25 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebUserControl_roster.Button_send_Click(sender: System.Object; e: System.EventArgs);
+begin
+  ki.SmtpMailSend
+    (
+    // from
+    configurationsettings.appsettings['sender_email_address'],
+    // to
+    Label_distribution_list.text,
+    // subject
+    TextBox_quick_message_subject.text,
+    // body
+    '-- From ' + session[p.biz_user.Kind + '_name'].tostring + ' (via OscarTRACK)' + NEW_LINE
+    + NEW_LINE
+    + TextBox_quick_message_body.text
+    );
+  TextBox_quick_message_subject.text := system.string.EMPTY;
+  TextBox_quick_message_body.text := system.string.EMPTY;
+end;
+
 {$REGION 'Designer Managed Code'}
 /// <summary>
 /// Required method for Designer support -- do not modify
@@ -128,14 +164,15 @@ end;
 procedure TWebUserControl_roster.InitializeComponent;
 begin
   Include(Self.LinkButton_add_member.Click, Self.LinkButton_add_member_Click);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
-  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
-  Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
-  Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
+  Include(Self.Button_send.Click, Self.Button_send_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
 end;
@@ -241,6 +278,11 @@ begin
         p.num_cooked_shifts := p.num_cooked_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text);
       end;
     end;
+    //
+    if e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text <> '&nbsp;' then begin
+       p.distribution_list := p.distribution_list + e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text + ', ';
+    end;
+    //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
 end;
@@ -270,7 +312,7 @@ var
   be_raw_shifts_nonzero: boolean;
 begin
   //
-  p.biz_members.BindSquadCommanderOverview
+  p.biz_members.BindRoster
     (
     session['squad_commander_user_id'].tostring,
     p.sort_order,
@@ -296,10 +338,12 @@ begin
   //
   p.be_datagrid_empty := (p.num_datagrid_rows = 0);
   TableRow_none.visible := p.be_datagrid_empty;
-  DataGrid_roster.visible := not p.be_datagrid_empty;
+  TableRow_data.visible := not p.be_datagrid_empty;
+  Label_distribution_list.text := p.distribution_list.TrimEnd([',',' ']);
   //
   // Clear aggregation vars for next bind, if any.
   //
+  p.distribution_list := system.string.EMPTY;
   p.num_cooked_shifts := 0;
   p.num_datagrid_rows := 0;
   p.num_raw_shifts := 0;

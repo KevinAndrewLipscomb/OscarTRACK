@@ -9,7 +9,6 @@ uses
   system.web.security,
   Class_biz_accounts,
   Class_biz_user,
-  UserControl_print_div,
   UserControl_roster;
 
 type
@@ -39,8 +38,6 @@ type
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    UserControl_print_div: TWebUserControl_print_div;
-    UserControl_roster: TWebUserControl_roster;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
