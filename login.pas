@@ -1,4 +1,3 @@
-
 unit login;
 
 interface
@@ -14,8 +13,6 @@ uses
   ki,
   ki_web_ui,
   system.Web.ui;
-
-
 
 type
   p_type =
@@ -144,7 +141,7 @@ begin
     Label_user.text := 'Member';
     p.biz_accounts.Bindmembers(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'squad_commander' then begin
-    Label_user.text := 'Agency';
+    Label_user.text := 'Squad Commander';
     p.biz_accounts.BindSquadCommanders(DropDownList_user);
   end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
     Label_user.text := 'Department Staffer';

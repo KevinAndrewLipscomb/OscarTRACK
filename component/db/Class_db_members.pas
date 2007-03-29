@@ -27,6 +27,7 @@ const
   TCCI_ENROLLMENT_OBLIGATION = 9;
   TCCI_LEAVE = 10;
   TCCI_OBLIGED_SHIFTS = 11;
+  TCCI_EMAIL_ADDRESS = 12;
 
 type
   TClass_db_members = class(TClass_db)
@@ -63,7 +64,7 @@ type
       target: system.object;
       be_unfiltered: boolean = FALSE
       );
-    procedure BindSquadCommanderOverview
+    procedure BindRoster
       (
       agency_id: string;
       sort_order: string;
@@ -253,7 +254,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindSquadCommanderOverview
+procedure TClass_db_members.BindRoster
   (
   agency_id: string;
   sort_order: string;
@@ -355,6 +356,7 @@ begin
   + ' , num_shifts as enrollment_obligation'                                             // column 9
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 10
   + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 11
+  + ' , password_reset_email_address as email_address'                                   // column 12
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'
@@ -390,6 +392,7 @@ begin
   +       ' )'
   +   ' left join kind_of_leave_code_description_map'
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
+  +   ' join member_user on (member_user.id=member.id)'
   + ' where agency_id = ' + agency_id
   +   filter
   + ' order by ' + sort_order;

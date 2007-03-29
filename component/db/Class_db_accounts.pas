@@ -101,7 +101,7 @@ begin
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
-    'SELECT squad_commander_user.id,concat(medium_designator," - ",long_designator) as name'
+    'SELECT squad_commander_user.id,concat(squad_commander_user.id,"50") as name'
     + ' FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)'
     + ' WHERE agency.be_active = TRUE'
     +   ' and squad_commander_user.be_active = TRUE'

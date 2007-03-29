@@ -44,7 +44,7 @@ type
       target: system.object;
       be_unfiltered: boolean = FALSE
       );
-    procedure BindSquadCommanderOverview
+    procedure BindRoster
       (
       agency_id: string;
       sort_order: string;
@@ -178,7 +178,7 @@ begin
   db_members.BindDropDownList(agency_user_id,target,be_unfiltered);
 end;
 
-procedure TClass_biz_members.BindSquadCommanderOverview
+procedure TClass_biz_members.BindRoster
   (
   agency_id: string;
   sort_order: string;
@@ -191,7 +191,7 @@ procedure TClass_biz_members.BindSquadCommanderOverview
   section_filter: Class_biz_sections.filter_type = 0
   );
 begin
-  db_members.BindSquadCommanderOverview
+  db_members.BindRoster
     (
     agency_id,
     sort_order,
