@@ -14,8 +14,8 @@
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			                                               [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			                                               [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+			                                                [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
+			                                                [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -84,7 +84,7 @@
 							</tr>
 							<tr>
 							  <td>
-								<div align="right"><ASP:Label id="Label_duplicate" runat="server" font-bold="True" forecolor="Red" font-italic="True" visible="False">!Name and/or CAD# already in system!</ASP:Label>
+								<div align="right">
 								</div></td>
 							  <td nowrap="true"><ASP:Button id="Button_add_and_stop" runat="server" text="Add and stop"></ASP:Button>&nbsp; <ASP:Button id="Button_add_and_repeat" runat="server" text="Add and repeat"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
 							  <td></td>
