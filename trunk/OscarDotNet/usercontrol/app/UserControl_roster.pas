@@ -9,6 +9,7 @@ uses
   Class_biz_members,
   Class_biz_sections,
   Class_biz_user,
+  ki_web_ui,
   System.Data,
   System.Drawing,
   System.Web,
@@ -36,7 +37,7 @@ type
     section_filter: Class_biz_sections.filter_type;
     sort_order: string;
     END;
-  TWebUserControl_roster = class(System.Web.UI.UserControl)
+  TWebUserControl_roster = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
@@ -154,6 +155,7 @@ begin
     );
   TextBox_quick_message_subject.text := system.string.EMPTY;
   TextBox_quick_message_body.text := system.string.EMPTY;
+  Alert('Button_send_Click_alert','Message sent');
 end;
 
 {$REGION 'Designer Managed Code'}

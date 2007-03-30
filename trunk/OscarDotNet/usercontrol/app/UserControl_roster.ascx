@@ -10,13 +10,12 @@
 			  <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
 				<tr>
 				  <td>
-					<strong>
-							<table cellspacing="0" cellpadding="0" width="100%" border="0">
-								<tr>
-								  <td><strong>Roster&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></strong></td>
-								  <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True">Add member(s)</ASP:LinkButton></td>
-								</tr>
-							</table></strong>
+					<table cellspacing="0" cellpadding="0" width="100%" border="0">
+						<tr>
+						  <td><strong>Roster</strong>&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
+						  <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False">Add member(s)</ASP:LinkButton></td>
+						</tr>
+					</table>
 				  </td>
 				</tr>
 				<tr>

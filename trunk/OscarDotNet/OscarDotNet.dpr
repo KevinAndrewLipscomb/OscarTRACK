@@ -95,7 +95,7 @@ uses
   Class_biz_sections in 'component\biz\Class_biz_sections.pas',
   Class_biz_notifications in 'component\biz\Class_biz_notifications.pas',
   UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: System.Windows.Forms.UserControl},
-  UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: System.Windows.Forms.UserControl};
+  UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
