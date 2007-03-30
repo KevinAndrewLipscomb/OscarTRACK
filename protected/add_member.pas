@@ -16,8 +16,6 @@ uses
   UserControl_drop_down_date,
   ki_web_ui;
 
-
-
 type
   p_type =
     RECORD
@@ -82,7 +80,6 @@ type
     RegularExpressionValidator_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     CustomValidator_email_address: System.Web.UI.WebControls.CustomValidator;
     RadioButtonList_be_driver_qualified: System.Web.UI.WebControls.RadioButtonList;
-    Label_duplicate: System.Web.UI.WebControls.Label;
     Button_add_and_stop: System.Web.UI.WebControls.Button;
     Button_add_and_repeat: System.Web.UI.WebControls.Button;
     DropDownList_enrollment_level: System.Web.UI.WebControls.DropDownList;
@@ -171,7 +168,6 @@ procedure TWebForm_add_member.Button_add_and_repeat_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if Add then begin
-    Label_duplicate.visible := FALSE;
     TextBox_first_name.text := system.string.EMPTY;
     TextBox_last_name.text := system.string.EMPTY;
     TextBox_cad_num.text := system.string.EMPTY;
@@ -266,12 +262,15 @@ begin
       then begin
         Add := TRUE;
       end else begin
-        Label_duplicate.visible := TRUE;
+        Alert('Add_alert','NOT ADDED:  The specified name and/or CAD# is already in the system.');
       end;
       //
+    end else begin
+      ValidationAlert;
     end;
   end else begin
     Label_invalid_enrollment_date.visible := TRUE;
+    ValidationAlert;
   end;
 end;
 
