@@ -110,7 +110,7 @@
 			  </td>
 			</tr>
 			<tr id="TableRow_data" runat="server">
-			  <td><p align="right"></p>
+			  <td>
 				<p align="right"><a href="#QuickMessage">QuickMessage</a></p>
 				<p>
 				<asp:datagrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
@@ -154,7 +154,7 @@
   </table>
 </div>
 <p></p>
-<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">
+<table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">
   <tr>
 	<td>
 	  <table cellspacing="0" cellpadding="10" width="100%" border="0">
@@ -175,7 +175,7 @@
 				  </tr>
 				  <tr>
 					<td></td>
-					<td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+					<td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button></td>
 					<td></td>
 				  </tr>
 				  <tr><td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td><td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>
