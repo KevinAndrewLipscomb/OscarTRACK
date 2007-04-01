@@ -84,7 +84,7 @@ type
     TextBox_quick_message_body: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_quick_message_body: System.Web.UI.WebControls.RequiredFieldValidator;
     Button_send: System.Web.UI.WebControls.Button;
-    Button_cancel: System.Web.UI.WebControls.Button;
+    Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -149,7 +149,8 @@ begin
     // subject
     TextBox_quick_message_subject.text,
     // body
-    '-- From ' + session[p.biz_user.Kind + '_name'].tostring + ' (via OscarTRACK)' + NEW_LINE
+    '-- From ' + session[p.biz_user.Kind + '_name'].tostring + ' (via ' + configurationsettings.appsettings['application_name']
+    + ')' + NEW_LINE
     + NEW_LINE
     + TextBox_quick_message_body.text
     );
@@ -341,7 +342,8 @@ begin
   p.be_datagrid_empty := (p.num_datagrid_rows = 0);
   TableRow_none.visible := p.be_datagrid_empty;
   TableRow_data.visible := not p.be_datagrid_empty;
-  Label_distribution_list.text := p.distribution_list.TrimEnd([',',' ']);
+  Table_quick_message.visible := not p.be_datagrid_empty;
+  Label_distribution_list.text := (p.distribution_list + SPACE).TrimEnd([',',' ']);
   //
   // Clear aggregation vars for next bind, if any.
   //
