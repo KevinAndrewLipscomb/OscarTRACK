@@ -9,7 +9,7 @@ uses
   System.Globalization,
   System.Data.SqlClient, System.Data.Common, system.configuration,
   system.text.regularexpressions, system.web.security, system.io,
-  Class_biz_accounts,
+  Class_biz_users,
   ki,
   ki_web_ui,
   system.Web.ui;
@@ -17,42 +17,39 @@ uses
 type
   p_type =
     RECORD
-    biz_accounts: TClass_biz_accounts;
+    biz_users: TClass_biz_users;
     END;
   TWebForm_login = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure Button_log_in_Click(sender: System.Object; e: System.EventArgs);
-    procedure Button_new_password_Click(sender: System.Object; e: System.EventArgs);
-    procedure DropDownList_user_kind_SelectedIndexChanged(sender: System.Object; 
-      e: System.EventArgs);
-    procedure DropDownList_user_SelectedIndexChanged(sender: System.Object;
-      e: System.EventArgs);
+    procedure TWebForm_login_PreRender(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_user_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_forgot_username_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_forgot_password_Click(sender: System.Object; e: System.EventArgs);
     procedure CustomValidator_account_exists_ServerValidate(source: System.Object; 
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
-    procedure TWebForm_login_PreRender(sender: System.Object; e: System.EventArgs);
+    procedure Button_log_in_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    TextBox_password: System.Web.UI.WebControls.TextBox;
-    Button_log_in: System.Web.UI.WebControls.Button;
-    CheckBox_keep_me_logged_in: System.Web.UI.WebControls.CheckBox;
+    LinkButton_forgot_password: System.Web.UI.WebControls.LinkButton;
     PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
-    Button_new_password: System.Web.UI.WebControls.Button;
-    RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
-    Label_application_name: System.Web.UI.WebControls.Label;
-    DropDownList_user_kind: System.Web.UI.WebControls.DropDownList;
-    Label_user: System.Web.UI.WebControls.Label;
-    DropDownList_user: System.Web.UI.WebControls.DropDownList;
-    RegularExpressionValidator_user_kind: System.Web.UI.WebControls.RegularExpressionValidator;
-    TextBox_noop_ie_behavior_workaround: System.Web.UI.WebControls.TextBox;
     CustomValidator_account_exists: System.Web.UI.WebControls.CustomValidator;
-    RegularExpressionValidator_user: System.Web.UI.WebControls.RegularExpressionValidator;
+    TextBox_username: System.Web.UI.WebControls.TextBox;
+    LinkButton_new_user: System.Web.UI.WebControls.LinkButton;
+    LinkButton_forgot_username: System.Web.UI.WebControls.LinkButton;
+    RegularExpressionValidator_username: System.Web.UI.WebControls.RegularExpressionValidator;
+    TextBox_password: System.Web.UI.WebControls.TextBox;
+    RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
+    CheckBox_keep_me_logged_in: System.Web.UI.WebControls.CheckBox;
+    Button_log_in: System.Web.UI.WebControls.Button;
+    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
+    RequiredFieldValidator_username: System.Web.UI.WebControls.RequiredFieldValidator;
+    RequiredFieldValidator_password: System.Web.UI.WebControls.RequiredFieldValidator;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -71,10 +68,10 @@ uses
 procedure TWebForm_login.InitializeComponent;
 begin
   Include(Self.CustomValidator_account_exists.ServerValidate, Self.CustomValidator_account_exists_ServerValidate);
-  Include(Self.DropDownList_user_kind.SelectedIndexChanged, Self.DropDownList_user_kind_SelectedIndexChanged);
-  Include(Self.DropDownList_user.SelectedIndexChanged, Self.DropDownList_user_SelectedIndexChanged);
+  Include(Self.LinkButton_new_user.Click, Self.LinkButton_new_user_Click);
+  Include(Self.LinkButton_forgot_username.Click, Self.LinkButton_forgot_username_Click);
+  Include(Self.LinkButton_forgot_password.Click, Self.LinkButton_forgot_password_Click);
   Include(Self.Button_log_in.Click, Self.Button_log_in_Click);
-  Include(Self.Button_new_password.Click, Self.Button_new_password_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_login_PreRender);
 end;
@@ -83,12 +80,11 @@ end;
 procedure TWebForm_login.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
+  if IsPostback and (session['login.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['login.p']);
   end else begin
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - login';
-    Label_application_name.text := configurationsettings.appsettings['application_name'];
-    p.biz_accounts := TClass_biz_accounts.Create;
+    p.biz_users := TClass_biz_users.Create;
   end;
 end;
 
@@ -101,70 +97,75 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebForm_login.LinkButton_new_user_Click(sender: System.Object; e: System.EventArgs);
+begin
+  server.Transfer('new_user_registration.aspx');
+end;
+
+procedure TWebForm_login.LinkButton_forgot_username_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer('remind_username.aspx');
+end;
+
+procedure TWebForm_login.LinkButton_forgot_password_Click(sender: System.Object;
+  e: System.EventArgs);
+var
+  username: string;
+begin
+  if TextBox_username.text = system.string.EMPTY then begin
+    Alert(ki.USER,ki.FAILURE,'misusrnam','Please enter your username.');
+  end else begin
+    username := Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM);
+    if p.biz_users.BeRegisteredUsername(username) then begin
+      p.biz_users.IssueTemporaryPassword(username,Safe(request.userhostname,HOSTNAME));
+      Alert
+        (
+        ki.LOGIC,
+        ki.NORMAL,
+        'tmpassent',
+        'A temporary password has been sent to the email address that ' + configurationsettings.appsettings['application_name']
+        + ' has on file for ' + username + '.  Please log in after you receive it.  You will receive further instructions at that'
+        + ' time.'
+        );
+    end else begin
+      Alert(ki.USER,ki.FAILURE,'nosuchusr','No such user registered');
+    end;
+  end;
+end;
+
 procedure TWebForm_login.TWebForm_login_PreRender(sender: System.Object; e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('login.p');
+  session.Add('login.p',p);
 end;
 
 procedure TWebForm_login.CustomValidator_account_exists_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := p.biz_accounts.Exists
+  args.isvalid := p.biz_users.BeAuthorized
     (
-    Safe(DropDownList_user_kind.selectedvalue,ECMASCRIPT_WORD),
-    Safe(DropDownList_user.selectedvalue.Substring(DropDownList_user.selectedvalue.LastIndexOf('_') + 1),NUM),
-    ki.Digest(Safe(TextBox_password.Text.trim,ALPHANUM))
+    Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM),
+    Digest(Safe(TextBox_password.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM))
     );
-end;
-
-procedure TWebForm_login.DropDownList_user_SelectedIndexChanged(sender: System.Object;
-  e: System.EventArgs);
-begin
-  session.Remove(DropDownList_user_kind.selectedvalue + '_user_id');
-  session.Add
-    (
-    DropDownList_user_kind.selectedvalue + '_user_id',
-    Safe(DropDownList_user.selectedvalue.Substring(DropDownList_user.selectedvalue.LastIndexOf('_') + 1),NUM)
-    );
-  session.Remove(DropDownList_user_kind.selectedvalue + '_name');
-  session.Add(DropDownList_user_kind.selectedvalue + '_name',Safe(DropDownList_user.SelectedItem.Text,ORG_NAME));
-end;
-
-procedure TWebForm_login.DropDownList_user_kind_SelectedIndexChanged(sender: System.Object;
-  e: System.EventArgs);
-begin
-  session.Remove('target_user_table');
-  session.Add('target_user_table',Safe(DropDownList_user_kind.selectedvalue,ECMASCRIPT_WORD));
-  Label_user.enabled := TRUE;
-  if DropDownList_user_kind.selectedvalue = 'member' then begin
-    Label_user.text := 'Member';
-    p.biz_accounts.Bindmembers(DropDownList_user);
-  end else if DropDownList_user_kind.selectedvalue = 'squad_commander' then begin
-    Label_user.text := 'Squad Commander';
-    p.biz_accounts.BindSquadCommanders(DropDownList_user);
-  end else if DropDownList_user_kind.selectedvalue = 'department_staffer' then begin
-    Label_user.text := 'Department Staffer';
-    p.biz_accounts.BindDepartmentStaffers(DropDownList_user);
-  end else begin
-    session.Remove('target_user_table');
-    Label_user.enabled := FALSE;
-    Label_user.text := 'User';
-    DropDownList_user.items.Clear;
-  end;
-end;
-
-procedure TWebForm_login.Button_new_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('new_password.aspx');
 end;
 
 procedure TWebForm_login.Button_log_in_Click(sender: System.Object; e: System.EventArgs);
+var
+  username: string;
 begin
+  username := Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM);
   if page.isvalid then begin
-    formsauthentication.RedirectFromLoginPage
-      (Safe(DropDownList_user.selectedvalue,HYPHENATED_ALPHANUM),CheckBox_keep_me_logged_in.checked);
+    session.Remove('user_id');
+    session.Add('user_id',p.biz_users.IdOf(username));
+    session.Remove('username');
+    session.Add('username',username);
+    p.biz_users.RecordSuccessfulLogin(session['user_id'].tostring);
+    formsauthentication.RedirectFromLoginPage(username,CheckBox_keep_me_logged_in.checked);
+  end else begin
+    if p.biz_users.BeRegisteredUsername(username) then begin
+      p.biz_users.RecordUnsuccessfulLoginAttempt(username);
+    end;
   end;
 end;
 

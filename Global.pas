@@ -7,8 +7,6 @@ uses
   System.Web, System.Web.SessionState,
   system.security.principal;
 
-
-
 type
   TGlobal = class(System.Web.HttpApplication)
   {$REGION 'Designer Managed Code'}
@@ -81,7 +79,7 @@ procedure TGlobal.Application_AuthenticateRequest(sender: System.Object; e: Even
 begin
   if request.isauthenticated then begin
     httpcontext.current.user :=
-      system.security.principal.GenericPrincipal.Create(user.identity,Class_biz_user.TClass_biz_user.Create.Roles);
+      system.security.principal.GenericPrincipal.Create(user.identity,TClass_biz_user.Create.Roles);
   end;
 end;
 

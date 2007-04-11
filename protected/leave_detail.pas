@@ -19,8 +19,10 @@ type
     RECORD
     be_datagrid_empty: boolean;
     be_sort_order_ascending: boolean;
+    be_user_privileged_to_grant_leave: boolean;
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
+    cad_num_string: string;
     num_datagrid_rows: cardinal;
     sort_order: string;
     END;
@@ -69,6 +71,9 @@ implementation
 uses
   appcommon;
 
+const
+  TCCI_DELETE = 6;
+
 {$REGION 'Designer Managed Code'}
 /// <summary>
 /// Required method for Designer support -- do not modify
@@ -76,24 +81,48 @@ uses
 /// </summary>
 procedure TWebForm_leave_detail.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
   Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
   Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
+  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
+  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
+  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_leave_detail_PreRender);
 end;
 {$ENDREGION}
 
 procedure TWebForm_leave_detail.Page_Load(sender: System.Object; e: System.EventArgs);
-var
-  cad_num_string: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
+  if not IsPostback then begin
+    //
+    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - leave_detail';
+    Label_account_descriptor.text := session['username'].tostring;
+    //
+    Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+      + ' '
+      + p.biz_members.LastNameOf(session['e_item'])
+      + ' (CAD # '
+      + p.cad_num_string
+      + ')';
+    LinkButton_new.visible := p.be_user_privileged_to_grant_leave;
+    //
+    Bind;
+    //
+  end;
+end;
+
+procedure TWebForm_leave_detail.OnInit(e: EventArgs);
+begin
+  //
+  // Required for Designer support
+  //
+  InitializeComponent;
+  inherited OnInit(e);
+  //
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['p']);
   end else begin
@@ -105,42 +134,21 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - leave_detail';
-      
-      Label_account_descriptor.text := session['squad_commander_name'].tostring;
-      //
-      // Initialize implementation-wide vars.
-      //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
+      //
       p.be_sort_order_ascending := FALSE;
+      p.be_user_privileged_to_grant_leave := Has(string_array(session['privilege_array']),'grant-leave');
       p.num_datagrid_rows := 0;
       p.sort_order := 'start_date%';
       //
-      cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
-        cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
+      p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
+      if p.cad_num_string = system.string.EMPTY then begin
+        p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
-      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-        + ' '
-        + p.biz_members.LastNameOf(session['e_item'])
-        + ' (CAD # '
-        + cad_num_string
-        + ')';
-      //
-      Bind;
       //
     end;
   end;
-end;
-
-procedure TWebForm_leave_detail.OnInit(e: EventArgs);
-begin
-  //
-  // Required for Designer support
-  //
-  InitializeComponent;
-  inherited OnInit(e);
 end;
 
 procedure TWebForm_leave_detail.DataGrid_leaves_DeleteCommand(source: System.Object;
@@ -220,6 +228,9 @@ end;
 
 procedure TWebForm_leave_detail.Bind;
 begin
+  //
+  DataGrid_leaves.columns[TCCI_DELETE].visible := p.be_user_privileged_to_grant_leave;
+  //
   p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(session['e_item']),p.sort_order,p.be_sort_order_ascending,DataGrid_leaves);
   //
   // Manage control visibilities.

@@ -101,7 +101,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_medical_release_level';
-      Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
+      Label_account_descriptor.text := session['username'].tostring;
       //
       p.biz_members := TClass_biz_members.Create;
       p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;

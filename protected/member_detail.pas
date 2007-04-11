@@ -6,7 +6,7 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  Class_biz_accounts,
+  Class_biz_users,
   Class_biz_leaves,
   Class_biz_members,
   ki,
@@ -16,9 +16,12 @@ uses
 type
   p_type =
     RECORD
-    biz_accounts: TClass_biz_accounts;
+    biz_users: TClass_biz_users;
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
+    cad_num_string: string;
+    leave_next_month_description: string;
+    leave_this_month_description: string;
     raw_member_email_address: string;
     END;
   TWebForm_member_detail = class(ki_web_ui.page_class)
@@ -108,67 +111,40 @@ end;
 {$ENDREGION}
 
 procedure TWebForm_member_detail.Page_Load(sender: System.Object; e: System.EventArgs);
-var
-  cad_num_string: string;
-  leave_next_month_description: string;
-  leave_this_month_description: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
-  end else begin
-    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
-      //
-      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore
-      // unknown.  This is rarely allowed.
-      //
-      session.Clear;
-      server.Transfer('~/login.aspx');
+  if not IsPostback then begin
+    //
+    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
+    Label_account_descriptor.text := session['username'].tostring;
+    //
+    if p.raw_member_email_address <> system.string.Empty then begin
+      Label_email_address.Text := p.raw_member_email_address;
     end else begin
-      //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
-      
-      Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
-      //
-      p.biz_accounts := TClass_biz_accounts.Create;
-      p.biz_leaves := TClass_biz_leaves.Create;
-      p.biz_members := TClass_biz_members.Create;
-      //
-      p.raw_member_email_address := p.biz_accounts.EmailAddressByKindId('member',p.biz_members.IdOf(session['e_item']));
-      if p.raw_member_email_address <> system.string.Empty then begin
-        Label_email_address.Text := p.raw_member_email_address;
-      end else begin
-        Label_email_address.Text := NOT_APPLICABLE_INDICATION_HTML;
-      end;
-      cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
-        cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
-      end;
-      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-        + ' '
-        + p.biz_members.LastNameOf(session['e_item'])
-        + ' (CAD # '
-        + cad_num_string
-        + ')';
-      p.biz_leaves.DescribeThisAndNextMonthForMember
-        (
-        p.biz_members.IdOf(session['e_item']),
-        leave_this_month_description,
-        leave_next_month_description,
-        NOT_APPLICABLE_INDICATION_HTML
-        );
-      Label_leave_this_month.text := leave_this_month_description;
-      Label_leave_next_month.text := leave_next_month_description;
-      Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
-      if Label_officership.Text = system.string.Empty then begin
-        Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
-      end;
-      Label_section.text := p.biz_members.SectionOf(session['e_item']);
-      Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
-      Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
-      Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
-      //
+      Label_email_address.Text := NOT_APPLICABLE_INDICATION_HTML;
     end;
+    Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+      + ' '
+      + p.biz_members.LastNameOf(session['e_item'])
+      + ' (CAD # '
+      + p.cad_num_string
+      + ')';
+    Label_leave_this_month.text := p.leave_this_month_description;
+    Label_leave_next_month.text := p.leave_next_month_description;
+    Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
+    if Label_officership.Text = system.string.Empty then begin
+      Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
+    end;
+    Label_section.text := p.biz_members.SectionOf(session['e_item']);
+    Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
+    Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
+    Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
+    //
+    LinkButton_change_medical_release_level.visible := Has(string_array(session['privilege_array']),'change-med-release-level');
+    LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual');
+    LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address');
+    LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section');
+    //
   end;
 end;
 
@@ -179,6 +155,37 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+  if IsPostback and (session['member_detail.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['member_detail.p']);
+  end else begin
+    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
+      //
+      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore
+      // unknown.  This is rarely allowed.
+      //
+      session.Clear;
+      server.Transfer('~/login.aspx');
+    end else begin
+      //
+      p.biz_users := TClass_biz_users.Create;
+      p.biz_leaves := TClass_biz_leaves.Create;
+      p.biz_members := TClass_biz_members.Create;
+      //
+      p.raw_member_email_address := p.biz_members.EmailAddressOf(p.biz_members.IdOf(session['e_item']));
+      p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
+      if p.cad_num_string = system.string.EMPTY then begin
+        p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
+      end;
+      p.biz_leaves.DescribeThisAndNextMonthForMember
+        (
+        p.biz_members.IdOf(session['e_item']),
+        p.leave_this_month_description,
+        p.leave_next_month_description,
+        NOT_APPLICABLE_INDICATION_HTML
+        );
+      //
+    end;
+  end;
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_section_Click(sender: System.Object;
@@ -253,8 +260,8 @@ end;
 procedure TWebForm_member_detail.TWebForm_member_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('member_detail.p');
+  session.Add('member_detail.p',p);
 end;
 
 procedure TWebForm_member_detail.LinkButton_logout_Click(sender: System.Object;

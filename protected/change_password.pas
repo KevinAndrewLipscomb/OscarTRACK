@@ -8,15 +8,13 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, borland.data.provider, system.configuration,
   system.web.security,
-  Class_biz_accounts,
+  Class_biz_users,
   Class_biz_user;
-
-
 
 type
   p_type =
     RECORD
-    biz_accounts: TClass_biz_accounts;
+    biz_users: TClass_biz_users;
     biz_user: TClass_biz_user;
     END;
   TWebForm_change_password = class(ki_web_ui.page_class)
@@ -66,8 +64,8 @@ uses
 procedure TWebForm_change_password.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back_to_overview.Click, Self.LinkButton_overview_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
+  Include(Self.LinkButton_back_to_overview.Click, Self.LinkButton_overview_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_password_PreRender);
 end;
@@ -76,8 +74,8 @@ end;
 procedure TWebForm_change_password.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
+  if IsPostback and (session['change_password.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['change_password.p']);
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       session.Clear;
@@ -85,14 +83,10 @@ begin
     end;
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - change_password';
     //
-    p.biz_accounts := TClass_biz_accounts.Create;
+    p.biz_users := TClass_biz_users.Create;
     p.biz_user := TClass_biz_user.Create;
     //
-    Label_account_descriptor.Text := session[session['target_user_table'].ToString + '_name'].ToString;
-    if session['target_user_table'].tostring = 'agency' then begin
-      Label_account_descriptor.Text := Label_account_descriptor.Text + ' Agency';
-    end;
-    LinkButton_back_to_overview.text := session['target_user_table'].tostring + ' overview';
+    Label_account_descriptor.Text := session['username'].ToString;
   end;
 end;
 
@@ -108,8 +102,8 @@ end;
 procedure TWebForm_change_password.TWebForm_change_password_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('change_password.p');
+  session.Add('change_password.p',p);
 end;
 
 procedure TWebForm_change_password.LinkButton_logout_Click(sender: System.Object;
@@ -123,14 +117,14 @@ end;
 procedure TWebForm_change_password.LinkButton_overview_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(session['target_user_table'].tostring + '_overview.aspx');
+  server.Transfer('overview.aspx');
 end;
 
 procedure TWebForm_change_password.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_accounts.SetPassword(p.biz_user.Kind,p.biz_user.IdNum,ki.Digest(Safe(TextBox_nominal_password.Text.trim,ALPHANUM)));
-  server.Transfer(session['target_user_table'].ToString + '_overview.aspx');
+  p.biz_users.SetPassword(p.biz_user.IdNum,ki.Digest(Safe(TextBox_nominal_password.Text.trim,ALPHANUM)));
+  server.Transfer('overview.aspx');
 end;
 
 end.

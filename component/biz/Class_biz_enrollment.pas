@@ -36,6 +36,7 @@ type
     biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
+    function BeLeaf(filter: filter_type): boolean;
     procedure BindMemberHistory
       (
       member_id: string;
@@ -69,6 +70,14 @@ begin
   // TODO: Add any constructor code here
   db_enrollment := TClass_db_enrollment.Create;
   biz_notifications := TClass_biz_notifications.Create;
+end;
+
+function TClass_biz_enrollment.BeLeaf(filter: filter_type): boolean;
+begin
+  BeLeaf := FALSE;
+  if not (filter in [ALL,CURRENT,OPERATIONAL,PAST]) then begin
+    BeLeaf := TRUE;
+  end;
 end;
 
 procedure TClass_biz_enrollment.BindMemberHistory

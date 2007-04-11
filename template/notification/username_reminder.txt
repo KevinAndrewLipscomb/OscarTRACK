@@ -1,0 +1,6 @@
+<application_name/> username reminder
+Someone (possibly you) at the host known as <client_host_name/> asked for a username reminder for your <application_name/> account.  Your username is:
+
+   <username/>
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

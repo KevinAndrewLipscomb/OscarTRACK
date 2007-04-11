@@ -118,7 +118,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - grant_leave';
-      Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
+      Label_account_descriptor.text := session['username'].tostring;
       //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;

@@ -20,6 +20,7 @@ type
     be_datagrid_empty: boolean;
     biz_enrollment: TClass_biz_enrollment;
     biz_members: TClass_biz_members;
+    cad_num_string: string;
     num_datagrid_rows: cardinal;
     END;
   TWebForm_enrollment_detail = class(ki_web_ui.page_class)
@@ -76,22 +77,45 @@ uses
 procedure TWebForm_enrollment_detail.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_add_new_enrollment_status.Click, Self.LinkButton_add_new_enrollment_status_Click);
   Include(Self.DataGrid_member_history.ItemCommand, Self.DataGrid_member_history_ItemCommand);
   Include(Self.DataGrid_member_history.ItemDataBound, Self.DataGrid_member_history_ItemDataBound);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_enrollment_detail_PreRender);
 end;
 {$ENDREGION}
 
 procedure TWebForm_enrollment_detail.Page_Load(sender: System.Object; e: System.EventArgs);
-var
-  cad_num_string: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
+  if not IsPostback then begin
+    //
+    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - enrollment_detail';
+    Label_account_descriptor.text := session['username'].tostring;
+    Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
+      + ' '
+      + p.biz_members.LastNameOf(session['e_item'])
+      + ' (CAD # '
+      + p.cad_num_string
+      + ')';
+    LinkButton_add_new_enrollment_status.visible := Has(string_array(session['privilege_array']),'edit-enrollments');
+    //
+    Bind;
+    //
+  end;
+end;
+
+procedure TWebForm_enrollment_detail.OnInit(e: EventArgs);
+begin
+  //
+  // Required for Designer support
+  //
+  InitializeComponent;
+  inherited OnInit(e);
+  //
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['p']);
   end else begin
@@ -103,40 +127,17 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - enrollment_detail';
-      
-      Label_account_descriptor.text := session['squad_commander_name'].tostring;
-      //
-      // Initialize implementation-wide vars.
-      //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
       p.num_datagrid_rows := 0;
       //
-      cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
-        cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
+      p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
+      if p.cad_num_string = system.string.EMPTY then begin
+        p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
-      Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-        + ' '
-        + p.biz_members.LastNameOf(session['e_item'])
-        + ' (CAD # '
-        + cad_num_string
-        + ')';
-      //
-      Bind;
       //
     end;
   end;
-end;
-
-procedure TWebForm_enrollment_detail.OnInit(e: EventArgs);
-begin
-  //
-  // Required for Designer support
-  //
-  InitializeComponent;
-  inherited OnInit(e);
 end;
 
 procedure TWebForm_enrollment_detail.LinkButton_add_new_enrollment_status_Click(sender: System.Object;

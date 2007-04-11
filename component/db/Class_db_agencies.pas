@@ -8,10 +8,16 @@ uses
 type
   TClass_db_agencies = class(TClass_db)
   private
-    { Private Declarations }
+    procedure BindDropDownList
+      (
+      unselected_literal: string;
+      designator_clause: string;
+      target: system.object
+      );
   public
     constructor Create;
-    procedure BindDropDownList(target: system.object);
+    procedure BindDropDownListShort(target: system.object);
+    procedure BindDropDownListShortDashLong(target: system.object);
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
     function ShortDesignatorOf(id: string): string;
@@ -29,17 +35,22 @@ begin
   // TODO: Add any constructor code here
 end;
 
-procedure TClass_db_agencies.BindDropDownList(target: system.object);
+procedure TClass_db_agencies.BindDropDownList
+  (
+  unselected_literal: string;
+  designator_clause: string;
+  target: system.object
+  );
 var
   bdr: bdpdatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  DropDownList(target).Items.Add(listitem.Create(unselected_literal,''));
   bdr := Borland.Data.Provider.BdpCommand.Create
     (
     'SELECT id'
-    + ' , concat(short_designator," - ",long_designator) as designator'
+    + ' , ' + designator_clause + ' as designator'
     + ' from agency'
     + ' where be_active = TRUE'
     + ' order by short_designator',
@@ -51,6 +62,16 @@ begin
   end;
   bdr.Close;
   self.Close;
+end;
+
+procedure TClass_db_agencies.BindDropDownListShort(target: system.object);
+begin
+  BindDropDownList('All','short_designator',target);
+end;
+
+procedure TClass_db_agencies.BindDropDownListShortDashLong(target: system.object);
+begin
+  BindDropDownList('-- Select --','concat(short_designator," - ",long_designator)',target);
 end;
 
 function TClass_db_agencies.LongDesignatorOf(id: string): string;

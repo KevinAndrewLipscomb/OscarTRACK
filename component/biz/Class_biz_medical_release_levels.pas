@@ -26,6 +26,7 @@ type
     db_medical_release_levels: TClass_db_medical_release_levels;
   public
     constructor Create;
+    function BeLeaf(filter: filter_type): boolean;
     function BeReleased(peck_code: string): boolean;
     procedure BindDropDownList
       (
@@ -42,6 +43,14 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_medical_release_levels := TClass_db_medical_release_levels.Create;
+end;
+
+function TClass_biz_medical_release_levels.BeLeaf(filter: filter_type): boolean;
+begin
+  BeLeaf := FALSE;
+  if not (filter in [ALL,NOT_RELEASED,RELEASED]) then begin
+    BeLeaf := TRUE;
+  end;
 end;
 
 function TClass_biz_medical_release_levels.BeReleased(peck_code: string): boolean;

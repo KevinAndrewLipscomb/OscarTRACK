@@ -121,37 +121,21 @@ end;
 procedure TWebForm_add_member.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
-  end else begin
-    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
-      //
-      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore unknown.  This is rarely allowed.
-      //
-      session.Clear;
-      server.Transfer('~/login.aspx');
+  if not IsPostback then begin
+    //
+    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - add_member';
+    Label_account_descriptor.text := session['username'].tostring;
+    //
+    if Has(string_array(session['privilege_array']),'see-all-squads') then begin
+      TableRow_agency.visible := TRUE;
+      p.biz_agencies.BindDropDownListShortDashLong(DropDownList_agency);
     end else begin
-      //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - add_member';
-      Label_account_descriptor.text := session[session['target_user_table'].tostring + '_name'].tostring;
-      //
-      p.biz_agencies := TClass_biz_agencies.Create;
-      p.biz_enrollment := TClass_biz_enrollment.Create;
-      p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
-      p.biz_members := TClass_biz_members.Create;
-      p.biz_user := TClass_biz_user.Create;
-      //
-      if p.biz_user.Kind = 'department_staffer' then begin
-        TableRow_agency.visible := TRUE;
-        p.biz_agencies.BindDropDownList(DropDownList_agency);
-      end else begin
-        TableRow_agency.visible := FALSE;
-      end;
-      p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level);
-      UserControl_enrollment_date.minyear := '1940';
-      UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
-      p.biz_enrollment.BindUncontrolledDropDownList(DropDownList_enrollment_level);
+      TableRow_agency.visible := FALSE;
     end;
+    p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level);
+    UserControl_enrollment_date.minyear := '1940';
+    UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
+    p.biz_enrollment.BindUncontrolledDropDownList(DropDownList_enrollment_level);
   end;
 end;
 
@@ -162,6 +146,26 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+  //
+  if IsPostback and (session['add_member.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['add_member.p']);
+  end else begin
+    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
+      //
+      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore unknown.  This is rarely allowed.
+      //
+      session.Clear;
+      server.Transfer('~/login.aspx');
+    end else begin
+      //
+      p.biz_agencies := TClass_biz_agencies.Create;
+      p.biz_enrollment := TClass_biz_enrollment.Create;
+      p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
+      p.biz_members := TClass_biz_members.Create;
+      p.biz_user := TClass_biz_user.Create;
+      //
+    end;
+  end;
 end;
 
 procedure TWebForm_add_member.Button_add_and_repeat_Click(sender: System.Object;
@@ -173,7 +177,7 @@ begin
     TextBox_cad_num.text := system.string.EMPTY;
     DropDownList_medical_release_level.selectedindex := 0;
     RadioButtonList_be_driver_qualified.selectedindex := -1;
-    if p.biz_user.Kind = 'department_staffer' then begin
+    if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       DropDownList_agency.selectedindex := 0;
     end;
     TextBox_email_address.text := system.string.EMPTY;
@@ -223,8 +227,8 @@ end;
 procedure TWebForm_add_member.TWebForm_add_member_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('add_member.p');
+  session.Add('add_member.p',p);
 end;
 
 procedure TWebForm_add_member.LinkButton_logout_Click(sender: System.Object;
@@ -242,7 +246,7 @@ begin
   Add := FALSE;
   if UserControl_enrollment_date.isvalid then begin
     if page.isvalid then begin
-      if p.biz_user.Kind = 'department_staffer' then begin
+      if Has(string_array(session['privilege_array']),'see-all-squads') then begin
         agency_id := Safe(DropDownList_agency.selectedvalue,NUM);
       end else begin
         agency_id := p.biz_user.IdNum;
@@ -262,7 +266,7 @@ begin
       then begin
         Add := TRUE;
       end else begin
-        Alert('Add_alert','NOT ADDED:  The specified name and/or CAD# is already in the system.');
+        Alert(ki.USER,ki.FAILURE,'alreadinsys','NOT ADDED:  The specified name and/or CAD# is already in the system.');
       end;
       //
     end else begin

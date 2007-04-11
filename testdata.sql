@@ -419,16 +419,8 @@ INSERT INTO `officership` (`id`, `member_id`, `start_date`, `end_date`, `rank_co
 -- Dumping data for table `squad_commander_user`
 -- 
 
-INSERT INTO `squad_commander_user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES (1, NULL, 1, 'captain@kvrs.org', 1),
-(2, NULL, 1, 'captain@kvrs.org', 1),
-(4, NULL, 1, 'captain@kvrs.org', 1),
-(5, NULL, 1, 'captain@kvrs.org', 1),
-(6, NULL, 1, 'captain@kvrs.org', 1),
+INSERT INTO `user` (`id`, `encoded_password`, `be_stale_password`, `password_reset_email_address`, `be_active`) VALUES
 (9, NULL, 1, 'captain@kvrs.org', 1),
-(13, NULL, 1, 'captain@kvrs.org', 1),
-(14, NULL, 1, 'captain@kvrs.org', 1),
-(16, NULL, 1, 'captain@kvrs.org', 1),
-(17, NULL, 1, 'captain@kvrs.org', 1);
 
 SET FOREIGN_KEY_CHECKS=1;
 

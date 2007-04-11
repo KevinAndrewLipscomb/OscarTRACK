@@ -1,4 +1,3 @@
-
 unit Default;
 
 interface
@@ -10,8 +9,6 @@ uses
   ki,
   system.configuration,
   system.security.principal;
-
-
 
 type
   TWebForm_Default = class(ki_web_ui.page_class)
@@ -55,9 +52,7 @@ begin
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - Default';
     Label_application_name.text := ConfigurationSettings.AppSettings['application_name'];
     //
-    if session['target_user_table'] <> nil then begin
-      response.Redirect('protected/' + session['target_user_table'].tostring + '_overview.aspx');
-    end;
+    response.Redirect('~/protected/overview.aspx');
     //
   end;
 end;

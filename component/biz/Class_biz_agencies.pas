@@ -11,7 +11,8 @@ type
     db_agencies: TClass_db_agencies;
   public
     constructor Create;
-    procedure BindDropDownList(target: system.object);
+    procedure BindDropDownListShort(target: system.object);
+    procedure BindDropDownListShortDashLong(target: system.object);
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
     function ShortDesignatorOf(id: string): string;
@@ -26,9 +27,14 @@ begin
   db_agencies := TClass_db_agencies.Create;
 end;
 
-procedure TClass_biz_agencies.BindDropDownList(target: system.object);
+procedure TClass_biz_agencies.BindDropDownListShort(target: system.object);
 begin
-  db_agencies.BindDropDownList(target);
+  db_agencies.BindDropDownListShort(target);
+end;
+
+procedure TClass_biz_agencies.BindDropDownListShortDashLong(target: system.object);
+begin
+  db_agencies.BindDropDownListShortDashLong(target);
 end;
 
 function TClass_biz_agencies.LongDesignatorOf(id: string): string;

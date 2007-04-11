@@ -106,7 +106,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - add_new_enrollment_status';
-      Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
+      Label_account_descriptor.text := session['username'].tostring;
       //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
