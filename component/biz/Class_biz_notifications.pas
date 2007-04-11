@@ -162,7 +162,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -270,7 +270,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -335,7 +335,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -391,7 +391,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -515,7 +515,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -573,7 +573,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
