@@ -118,7 +118,7 @@ begin
     //
     UserControl_print_div.text := '[print]';
     //
-    LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-member');
+    LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-members');
     //
     if p.be_user_privileged_to_see_all_squads then begin
       p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
