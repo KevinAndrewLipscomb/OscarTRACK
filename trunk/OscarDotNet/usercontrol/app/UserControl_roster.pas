@@ -195,9 +195,9 @@ begin
     // subject
     TextBox_quick_message_subject.text,
     // body
-    '-- From ' + p.biz_members.FirstNameOfMemberId(session['member_id'].tostring) + ' '
-    + p.biz_members.LastNameOfMemberId(session['member_id'].tostring)
-    + ' (via ' + configurationsettings.appsettings['application_name'] + ')' + NEW_LINE
+    '-- From ' + p.biz_user.Roles[0] + SPACE + p.biz_members.FirstNameOfMemberId(session['member_id'].tostring) + SPACE
+    + p.biz_members.LastNameOfMemberId(session['member_id'].tostring) + ' (via '
+    + configurationsettings.appsettings['application_name'] + ')' + NEW_LINE
     + NEW_LINE
     + TextBox_quick_message_body.text
     );
