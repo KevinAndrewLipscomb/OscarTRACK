@@ -16,6 +16,7 @@
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected\image                           ready-to-deploy\protected\image                                           /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected\template\notification           ready-to-deploy\protected\template\notification                           /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\resource                                  ready-to-deploy\resource                                                  /m /np /ns /z | qgrep "New "
+@robocopy C:\Inetpub\wwwroot\OscarDotNet\template\notification                     ready-to-deploy\template\notification                                     /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\app                           ready-to-deploy\usercontrol\app                 *.ascx                    /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\usercontrol\ki                            ready-to-deploy\usercontrol\ki                  *.ascx                    /A /np /ns /z | qgrep "New "
 @robocopy "C:\Program Files\Common Files\Borland Shared\BDS\Shared Assemblies\4.0" ready-to-deploy\bin                             Borland.Data.Provider.dll /m /np /ns /z | qgrep "New "
