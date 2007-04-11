@@ -152,7 +152,7 @@ begin
   biz_users := TClass_biz_users.Create;
   //
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
-  actor := biz_user.Roles[0] + SPACE + biz_user.Roles[0] + SPACE + biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE
   + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
