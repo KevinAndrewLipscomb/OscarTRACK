@@ -3,6 +3,7 @@ unit UserControl_roster;
 interface
 
 uses
+  Class_biz_agencies,
   Class_biz_enrollment,
   Class_biz_leave,
   Class_biz_medical_release_levels,
@@ -17,15 +18,19 @@ uses
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
   UserControl_print_div;
-     
+
 type
   p_type =
     RECORD
+    agency_filter: string;
     be_datagrid_empty: boolean;
     be_sort_order_ascending: boolean;
-    biz_sections: TClass_biz_sections;
+    be_user_privileged_to_see_all_squads: boolean;
+    biz_agencies: TClass_biz_agencies;
+    biz_enrollment: TClass_biz_enrollment;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_members: TClass_biz_members;
+    biz_sections: TClass_biz_sections;
     biz_user: TClass_biz_user;
     distribution_list: string;
     enrollment_filter: Class_biz_enrollment.filter_type;
@@ -58,6 +63,8 @@ type
     procedure DropDownList_section_filter_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
     procedure Button_send_Click(sender: System.Object; e: System.EventArgs);
+    procedure DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -85,6 +92,9 @@ type
     RequiredFieldValidator_quick_message_body: System.Web.UI.WebControls.RequiredFieldValidator;
     Button_send: System.Web.UI.WebControls.Button;
     Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
+    TableData_agency_filter: System.Web.UI.HtmlControls.HtmlTableCell;
+    DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
+    Paragraph_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlGenericControl;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -104,27 +114,26 @@ uses
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if IsPostback and (session[self.id + '.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session[self.id + '.p']);
-  end else begin
-    p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
-    p.biz_members := TClass_biz_members.Create;
-    p.biz_sections := TClass_biz_sections.Create;
-    p.biz_user := TClass_biz_user.Create;
-    p.be_sort_order_ascending := TRUE;
-    p.distribution_list := system.string.EMPTY;
-    p.enrollment_filter := CURRENT;
-    p.leave_filter := Class_biz_leave.NONE;
-    p.med_release_level_filter := ALL;
-    p.section_filter := 0;
-    p.num_cooked_shifts := 0;
-    p.num_datagrid_rows := 0;
-    p.num_raw_shifts := 0;
-    p.sort_order := 'last_name,first_name,cad_num';
+  if not IsPostback then begin
     //
     UserControl_print_div.text := '[print]';
+    //
+    LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-member');
+    //
+    if p.be_user_privileged_to_see_all_squads then begin
+      p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
+      DropDownList_agency_filter.selectedindex := 0;
+    end else begin
+      TableData_agency_filter.visible := FALSE;
+    end;
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
+    //
+    Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    //
     Bind;
+    //
+    Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    //
   end;
   //
 end;
@@ -136,6 +145,43 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+  //
+  if IsPostback and (session['UserControl_roster.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['UserControl_roster.p']);
+  end else begin
+    //
+    p.biz_agencies := TClass_biz_agencies.Create;
+    p.biz_enrollment := TClass_biz_enrollment.Create;
+    p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
+    p.biz_members := TClass_biz_members.Create;
+    p.biz_sections := TClass_biz_sections.Create;
+    p.biz_user := TClass_biz_user.Create;
+    //
+    p.be_user_privileged_to_see_all_squads := Has(string_array(session['privilege_array']),'see-all-squads');
+    if p.be_user_privileged_to_see_all_squads then begin
+      p.agency_filter := system.string.EMPTY;
+    end else begin
+      p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
+    end;
+    p.be_sort_order_ascending := TRUE;
+    p.distribution_list := system.string.EMPTY;
+    p.enrollment_filter := CURRENT;
+    p.leave_filter := Class_biz_leave.NONE;
+    p.med_release_level_filter := ALL;
+    p.section_filter := 0;
+    p.num_cooked_shifts := 0;
+    p.num_datagrid_rows := 0;
+    p.num_raw_shifts := 0;
+    p.sort_order := 'last_name,first_name,cad_num';
+  end;
+  //
+end;
+
+procedure TWebUserControl_roster.DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.agency_filter := Safe(DropDownList_agency_filter.selectedvalue,NUM);
+  Bind;
 end;
 
 procedure TWebUserControl_roster.Button_send_Click(sender: System.Object; e: System.EventArgs);
@@ -149,14 +195,15 @@ begin
     // subject
     TextBox_quick_message_subject.text,
     // body
-    '-- From ' + session[p.biz_user.Kind + '_name'].tostring + ' (via ' + configurationsettings.appsettings['application_name']
-    + ')' + NEW_LINE
+    '-- From ' + p.biz_members.FirstNameOfMemberId(session['member_id'].tostring) + ' '
+    + p.biz_members.LastNameOfMemberId(session['member_id'].tostring)
+    + ' (via ' + configurationsettings.appsettings['application_name'] + ')' + NEW_LINE
     + NEW_LINE
     + TextBox_quick_message_body.text
     );
   TextBox_quick_message_subject.text := system.string.EMPTY;
   TextBox_quick_message_body.text := system.string.EMPTY;
-  Alert('Button_send_Click_alert','Message sent');
+  Alert(ki.LOGIC,ki.NORMAL,'messagsnt','Message sent');
 end;
 
 {$REGION 'Designer Managed Code'}
@@ -167,10 +214,11 @@ end;
 procedure TWebUserControl_roster.InitializeComponent;
 begin
   Include(Self.LinkButton_add_member.Click, Self.LinkButton_add_member_Click);
+  Include(Self.DropDownList_agency_filter.SelectedIndexChanged, Self.DropDownList_agency_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
   Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
-  Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
-  Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
@@ -252,7 +300,7 @@ begin
     //
     session.Remove('e_item');
     session.Add('e_item',e.item);
-    system.collections.stack(session['waypoint_stack']).Push('squad_commander_overview.aspx');
+    system.collections.stack(session['waypoint_stack']).Push('overview.aspx');
     server.Transfer('member_detail.aspx');
     //
   end;
@@ -293,8 +341,8 @@ end;
 procedure TWebUserControl_roster.TWebUserControl_roster_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove(self.id + '.p');
-  session.Add(self.id + '.p',p);
+  session.Remove('UserControl_roster.p');
+  session.Add('UserControl_roster.p',p);
 end;
 
 procedure TWebUserControl_roster.DataGrid_roster_SortCommand(source: System.Object;
@@ -315,13 +363,20 @@ var
   be_raw_shifts_nonzero: boolean;
 begin
   //
+  DataGrid_roster.columns[TCCI_AGENCY].visible := (p.agency_filter = system.string.EMPTY);
+  DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.section_filter = 0);
+  DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter);
+  DataGrid_roster.columns[TCCI_ENROLLMENT].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
+  DataGrid_roster.columns[TCCI_LEAVE].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
+  //
   p.biz_members.BindRoster
     (
-    session['squad_commander_user_id'].tostring,
+    session['member_id'].tostring,
     p.sort_order,
     p.be_sort_order_ascending,
     DataGrid_roster,
     RadioButtonList_which_month.selectedvalue,
+    p.agency_filter,
     p.enrollment_filter,
     p.leave_filter,
     p.med_release_level_filter,

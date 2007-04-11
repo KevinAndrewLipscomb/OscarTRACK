@@ -6,8 +6,6 @@ uses
   system.configuration,
   system.web.UI.WebControls;
 
-
-
 const
   NOT_APPLICABLE_INDICATION_HTML = '-&nbsp;-&nbsp;-';
 
@@ -39,7 +37,7 @@ begin
   + '<h1>' + ConfigurationSettings.AppSettings['application_name'] + ' system</h1>'
   + '<table cellspacing="0" cellpadding="10" width="100%" border="0">'
   + '	 <tr>'
-  + '		 <td valign="top" width="15%">'
+  + '		 <td valign="top" width="10%">'
   + '		   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">'
   + '			   <tr>'
   + '			     <td>'
@@ -77,12 +75,6 @@ begin
   + '				     <table cellspacing="0" cellpadding="5" border="0">'
   + '					     <tr><td bgcolor="#f5f5f5"><small><strong>Process improvement</strong></small></td></tr>'
   + '					     <tr><td><small><small>You can help us make this application better!</small></small></td></tr>'
-  + '              <tr>'
-  + '                <td>'
-  + '                  <small><small>Copy any fatal errors and paste them into an email '
-  + '                    <a href="mailto:feedback@frompaper2web.com?subject=OSCAR%20bug%20report">here</a>.</small></small>'
-  + '                </td>'
-  + '              </tr>'
   + '              <tr><td><small><small>Send suggestions <a href="mailto:feedback@frompaper2web.com?subject=OSCAR%20suggestion">here</a>.</small></small></td></tr>'
   + '              <tr><td><small><small><strong>Thanks!</strong></small></small></td></tr>'
   + '				     </table>'

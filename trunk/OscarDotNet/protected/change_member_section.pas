@@ -100,7 +100,7 @@ begin
     end else begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_section';
-      Label_account_descriptor.text := session.item['squad_commander_name'].tostring;
+      Label_account_descriptor.text := session['username'].tostring;
       //
       p.biz_members := TClass_biz_members.Create;
       p.biz_sections := TClass_biz_sections.Create;

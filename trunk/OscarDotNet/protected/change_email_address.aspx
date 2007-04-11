@@ -11,14 +11,18 @@
 	 <form runat="server">
       <asp:placeholder id="PlaceHolder_precontent" runat="server">
       </asp:placeholder>
-<p><small>[ 
-          <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;] [ Back to <ASP:LinkButton id="LinkButton_back_to_overview" runat="server" causesvalidation="False"></ASP:LinkButton>&nbsp;form ]</small></p>
-<p>
-        <ASP:Label id="Label_account_descriptor" runat="server" font-bold="True" font-size="Large"></ASP:Label></p></small>
+		  <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#d3d3d3" border="0">
+			  <tr>
+				<td><small><ASP:Label id="Label_account_descriptor" runat="server"></ASP:Label>:&nbsp;[
+		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;] [ <ASP:LinkButton id="LinkButton_back_to_overview" runat="server" causesvalidation="False">Overview</ASP:LinkButton>]</small></td>
+				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+				<td></td>
+			  </tr>
+		  </table>
 <p>
 		<table cellspacing="0" cellpadding="0" width="%" border="1" bordercolor="#dcdcdc">
 			<tr><td>
-				<table cellspacing="0" cellpadding="5" width="%" border="0">
+				<table cellspacing="0" cellpadding="10" width="%" border="0">
 			<tr><td bgcolor="#f5f5f5" colspan="3"><strong>Change email address</strong></td></tr>
 	<tr>
 	  <td>
@@ -48,6 +52,6 @@
         </table></p>
     <asp:placeholder id="PlaceHolder_postcontent" runat="server">
     </asp:placeholder>
-     <sstchur:SmartScroller runat="server" /></form>
+     <p><sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>

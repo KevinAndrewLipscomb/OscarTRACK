@@ -101,7 +101,7 @@ begin
       //
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - officership_detail';
       
-      Label_account_descriptor.text := session['squad_commander_name'].tostring;
+      Label_account_descriptor.text := session['username'].tostring;
       //
       // Initialize implementation-wide vars.
       //

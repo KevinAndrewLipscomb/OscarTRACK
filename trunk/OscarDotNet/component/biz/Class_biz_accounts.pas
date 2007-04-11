@@ -20,7 +20,6 @@ type
     biz_agencies: TClass_biz_agencies;
     biz_user: TClass_biz_user;
     db_accounts: TClass_db_accounts;
-    function SelfEmailAddress: string;
   public
     constructor Create;
     function BeStalePassword
@@ -150,11 +149,6 @@ function TClass_biz_accounts.Exists
   : boolean;
 begin
   Exists := db_accounts.Exists(user_kind,user_id,encoded_password);
-end;
-
-function TClass_biz_accounts.SelfEmailAddress: string;
-begin
-  SelfEmailAddress := EmailAddressByKindId(biz_user.Kind,biz_user.IdNum);
 end;
 
 procedure TClass_biz_accounts.SetEmailAddress

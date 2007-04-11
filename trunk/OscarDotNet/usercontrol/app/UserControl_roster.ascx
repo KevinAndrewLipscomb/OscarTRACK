@@ -23,6 +23,29 @@
 						  <table cellspacing="0" cellpadding="5" border="0">
 					  <tr>
 						<td><b><small>Filters:</small></b></td>
+						<td id="TableData_agency_filter" runat="server"><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
+						<td nowrap="true">
+									  <p align="center"><small>Section</small><br>
+										<ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True">
+										</ASP:DropDownList>
+									  </p>
+						</td>
+						<td nowrap="true">
+									  <p align="center">
+						  <small>Med release level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True">
+										  <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
+										  <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
+										  <ASP:ListItem value="none">- - None</ASP:ListItem>
+										  <ASP:ListItem value="in_class">- - In class</ASP:ListItem>
+										  <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
+										  <ASP:ListItem value="released">- Released</ASP:ListItem>
+										  <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
+										  <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
+										  <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
+										  <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
+										  <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
+										  <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
+									  </p>							</td>
 						<td>
 									  <p align="center"><small>Enrollment</small><br>
 						  <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px">
@@ -57,28 +80,6 @@
 								  </asp:dropdownlist>
 									  </p>
 						</td>
-						<td nowrap="true">
-									  <p align="center">
-						  <small>Med release level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True">
-										  <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
-										  <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
-										  <ASP:ListItem value="none">- - None</ASP:ListItem>
-										  <ASP:ListItem value="in_class">- - In class</ASP:ListItem>
-										  <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
-										  <ASP:ListItem value="released">- Released</ASP:ListItem>
-										  <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
-										  <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
-										  <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
-										  <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
-										  <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
-										  <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
-									  </p>							</td>
-						<td nowrap="true">
-									  <p align="center"><small>Section</small><br>
-										<ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True">
-										</ASP:DropDownList>
-									  </p>
-						</td>
 						<td nowrap="true" align="center" colspan="2">
 						  <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True">
 							<ASP:ListItem value="0" selected="True">This&nbsp;month</ASP:ListItem>
@@ -111,40 +112,43 @@
 			</tr>
 			<tr id="TableRow_data" runat="server">
 			  <td>
-				<p align="right"><a href="#QuickMessage">QuickMessage</a></p>
+				<p id="Paragraph_quick_message_shortcut" runat="server" align="right"><a href="#QuickMessage">QuickMessage</a></p>
 				<p>
-				<asp:datagrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
-                    <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                    <Columns>
-                      <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="section_num" sortexpression="section_num%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Section">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn visible="False" datafield="medical_release_peck_code" readonly="True"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released med level">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released driver">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn visible="False" datafield="enrollment_obligation" readonly="True"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts" readonly="True" headertext="Obliged shifts">
-                        <ItemStyle horizontalalign="Center"></ItemStyle>
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn visible="False" datafield="email_address" readonly="True"></ASP:BoundColumn>
-                      <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
-                    </Columns>
+				<asp:datagrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" font-size="X-Small">
+                      <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                      <Columns>
+                        <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="agency_id" sortexpression="agency_id%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Agency">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="section_num" sortexpression="section_num%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Section">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn visible="False" datafield="medical_release_peck_code" readonly="True"></ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="medical_release_description" sortexpression="medical_release_code_description_map.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released med level">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="be_driver_qualified" sortexpression="be_driver_qualified%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Released driver">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="enrollment" sortexpression="enrollment_level.pecking_order%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Enrollment">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn visible="False" datafield="enrollment_obligation" readonly="True"></ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts" readonly="True" headertext="Obliged shifts">
+                          <ItemStyle horizontalalign="Center"></ItemStyle>
+                        </ASP:BoundColumn>
+                        <ASP:BoundColumn visible="False" datafield="email_address" readonly="True"></ASP:BoundColumn>
+                        <ASP:ButtonColumn text="Detail"></ASP:ButtonColumn>
+                      </Columns>
 				</asp:datagrid></p>
 			  </td>
 			</tr>

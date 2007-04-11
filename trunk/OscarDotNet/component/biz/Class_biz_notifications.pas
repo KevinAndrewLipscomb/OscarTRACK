@@ -2,16 +2,10 @@ unit Class_biz_notifications;
 
 interface
 
-uses
-  Class_biz_accounts,
-  Class_biz_user;
-
 type
   TClass_biz_notifications = class
   private
     application_name: string;
-    biz_accounts: TClass_biz_accounts;
-    biz_user: TClass_biz_user;
     host_domain_name: string;
   public
     constructor Create;
@@ -22,6 +16,12 @@ type
       last_name: string;
       cad_num: string;
       be_driver_qualified: string
+      );
+    procedure IssueForForgottenUsername
+      (
+      email_address: string;
+      username: string;
+      client_host_name: string
       );
     procedure IssueForLeaveDeleted
       (
@@ -85,11 +85,20 @@ type
       agency_name: string;
       section_num: string
       );
+    procedure IssueForTemporaryPassword
+      (
+      username: string;
+      client_host_name: string;
+      temporary_password: string
+      );
   end;
 
 implementation
 
 uses
+  Class_biz_members,
+  Class_biz_user,
+  Class_biz_users,
   ki,
   system.configuration,
   system.io,
@@ -102,8 +111,6 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   application_name := configurationsettings.appsettings['application_name'];
-  biz_accounts := TClass_biz_accounts.Create;
-  biz_user := TClass_biz_user.Create;
   host_domain_name := configurationsettings.appsettings['host_domain_name'];
 end;
 
@@ -118,6 +125,10 @@ procedure TClass_biz_notifications.IssueForDriverQualificationChange
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -135,8 +146,15 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_user.Roles[0] + SPACE + biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE
+  + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/driver_qualification_change.txt'));
   ki.SmtpMailSend
@@ -144,7 +162,50 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForForgottenUsername
+  (
+  email_address: string;
+  username: string;
+  client_host_name: string
+  );
+var
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<client_host_name/>',client_host_name)
+      .Replace('<email_address/>',client_host_name)
+      .Replace('<username/>',username);
+  END;
+  //
+begin
+  //
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/username_reminder.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    email_address,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -168,6 +229,10 @@ procedure TClass_biz_notifications.IssueForLeaveDeleted
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -190,8 +255,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_deleted.txt'));
   ki.SmtpMailSend
@@ -199,7 +270,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -223,6 +294,10 @@ procedure TClass_biz_notifications.IssueForLeaveGranted
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -245,8 +320,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_granted.txt'));
   ki.SmtpMailSend
@@ -254,7 +335,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -274,6 +355,10 @@ procedure TClass_biz_notifications.IssueForMedicalReleaseLevelChange
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -291,8 +376,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/medical_release_level_change.txt'));
   ki.SmtpMailSend
@@ -300,7 +391,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -324,6 +415,10 @@ procedure TClass_biz_notifications.IssueForMemberAdded
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -346,8 +441,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_added.txt'));
   ki.SmtpMailSend
@@ -376,6 +477,10 @@ procedure TClass_biz_notifications.IssueForNewEnrollmentLevel
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -395,8 +500,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/new_enrollment_level.txt'));
   ki.SmtpMailSend
@@ -404,7 +515,7 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -425,6 +536,10 @@ procedure TClass_biz_notifications.IssueForSectionChange
 var
   actor: string;
   actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
   other_official_targets: string;
   template_reader: streamreader;
   //
@@ -443,8 +558,14 @@ var
   END;
   //
 begin
-  actor := 'Captain ' + biz_user.IdNum + '50';
-  actor_email_address := biz_accounts.EmailAddressByKindId('squad_commander',biz_user.IdNum);
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   other_official_targets := system.string.EMPTY;
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/section_change.txt'));
   ki.SmtpMailSend
@@ -452,7 +573,47 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_accounts.EmailAddressByKindId('member',member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_users.PasswordResetEmailAddressOfId(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForTemporaryPassword
+  (
+  username: string;
+  client_host_name: string;
+  temporary_password: string
+  );
+var
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<client_host_name/>',client_host_name)
+      .Replace('<temporary_password/>',temporary_password);
+  END;
+  //
+begin
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/temporary_password.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    biz_users.PasswordResetEmailAddressOfUsername(username),
     //subject
     Merge(template_reader.ReadLine),
     //body

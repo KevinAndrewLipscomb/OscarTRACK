@@ -9,12 +9,14 @@ uses
   Class_biz_medical_release_levels,
   Class_biz_notifications,
   Class_biz_sections,
-  Class_db_members;
+  Class_db_members,
+  Class_db_users;
 
 type
   TClass_biz_members = class
   private
     db_members: TClass_db_members;
+    db_users: TClass_db_users;
     biz_agencies: TClass_biz_agencies;
     biz_enrollment: TClass_biz_enrollment;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
@@ -38,19 +40,14 @@ type
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
     function BeValidProfile(id: string): boolean;
-    procedure BindDropDownList
-      (
-      agency_user_id: string;
-      target: system.object;
-      be_unfiltered: boolean = FALSE
-      );
     procedure BindRoster
       (
-      agency_id: string;
+      member_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
       relative_month: string;
+      agency_filter: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
@@ -58,6 +55,7 @@ type
       );
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
+    function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
     function FirstNameOfMemberId(member_id: string): string;
@@ -68,6 +66,7 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
+    function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
@@ -102,6 +101,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_members := TClass_db_members.Create;
+  db_users := TClass_db_users.Create;
   biz_agencies := TClass_biz_agencies.Create;
   biz_enrollment := TClass_biz_enrollment.Create;
   biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
@@ -168,23 +168,14 @@ begin
   BeValidProfile := db_members.BeValidProfile(id);
 end;
 
-procedure TClass_biz_members.BindDropDownList
-  (
-  agency_user_id: string;
-  target: system.object;
-  be_unfiltered: boolean = FALSE
-  );
-begin
-  db_members.BindDropDownList(agency_user_id,target,be_unfiltered);
-end;
-
 procedure TClass_biz_members.BindRoster
   (
-  agency_id: string;
+  member_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
   relative_month: string;
+  agency_filter: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
   med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
@@ -193,11 +184,12 @@ procedure TClass_biz_members.BindRoster
 begin
   db_members.BindRoster
     (
-    agency_id,
+    member_id,
     sort_order,
     be_sort_order_ascending,
     target,
     relative_month,
+    agency_filter,
     enrollment_filter,
     leave_filter,
     med_release_level_filter,
@@ -213,6 +205,18 @@ end;
 function TClass_biz_members.CadNumOfMemberId(member_id: string): string;
 begin
   CadNumOfMemberId := db_members.CadNumOfMemberId(member_id);
+end;
+
+function TClass_biz_members.EmailAddressOf(member_id: string): string;
+var
+  email_address_of: string;
+  user_id: cardinal;
+begin
+  db_members.GetUserIdAndEmailAddress(member_id,user_id,email_address_of);
+  if user_id > 0 then begin
+    email_address_of := db_users.PasswordResetEmailAddressOfId(user_id.tostring);
+  end;
+  EmailAddressOf := email_address_of;
 end;
 
 function TClass_biz_members.EnrollmentOf(e_item: system.object): string;
@@ -248,6 +252,11 @@ end;
 function TClass_biz_members.IdOf(e_item: system.object): string;
 begin
   IdOf := db_members.IdOf(e_item);
+end;
+
+function TClass_biz_members.IdOfUserId(user_id: string): string;
+begin
+  IdOfUserId := db_members.IdOfUserId(user_id);
 end;
 
 function TClass_biz_members.LastNameOf(e_item: system.object): string;

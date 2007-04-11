@@ -18,6 +18,6 @@
                        id="HyperLink_login" runat="server" font-bold="True" navigateurl="login.aspx">log in</ASP:HyperLink>.</p>
     <asp:placeholder id="PlaceHolder_postcontent" runat="server">
     </asp:placeholder>
-     <sstchur:SmartScroller runat="server" /></form>
+     <p><sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>

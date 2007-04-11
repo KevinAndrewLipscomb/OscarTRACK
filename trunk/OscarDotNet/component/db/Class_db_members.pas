@@ -15,19 +15,20 @@ uses
   system.web.ui.webcontrols;
 
 const
-  TCCI_ID = 0;
-  TCCI_LAST_NAME = 1;
-  TCCI_FIRST_NAME = 2;
-  TCCI_CAD_NUM = 3;
-  TCCI_SECTION_NUM = 4;
-  TCCI_MEDICAL_RELEASE_PECK_CODE = 5;
-  TCCI_MEDICAL_RELEASE_LEVEL = 6;
-  TCCI_BE_DRIVER_QUALIFIED = 7;
-  TCCI_ENROLLMENT = 8;
-  TCCI_ENROLLMENT_OBLIGATION = 9;
-  TCCI_LEAVE = 10;
-  TCCI_OBLIGED_SHIFTS = 11;
-  TCCI_EMAIL_ADDRESS = 12;
+  TCCI_ID                        =  0;
+  TCCI_LAST_NAME                 =  1;
+  TCCI_FIRST_NAME                =  2;
+  TCCI_CAD_NUM                   =  3;
+  TCCI_AGENCY                    =  4;
+  TCCI_SECTION_NUM               =  5;
+  TCCI_MEDICAL_RELEASE_PECK_CODE =  6;
+  TCCI_MEDICAL_RELEASE_LEVEL     =  7;
+  TCCI_BE_DRIVER_QUALIFIED       =  8;
+  TCCI_ENROLLMENT                =  9;
+  TCCI_ENROLLMENT_OBLIGATION     = 10;
+  TCCI_LEAVE                     = 11;
+  TCCI_OBLIGED_SHIFTS            = 12;
+  TCCI_EMAIL_ADDRESS             = 13;
 
 type
   TClass_db_members = class(TClass_db)
@@ -58,19 +59,14 @@ type
       )
       : boolean;
     function BeValidProfile(id: string): boolean;
-    procedure BindDropDownList
-      (
-      agency_user_id: string;
-      target: system.object;
-      be_unfiltered: boolean = FALSE
-      );
     procedure BindRoster
       (
-      agency_id: string;
+      member_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
       relative_month: string;
+      agency_filter: string;
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = BOTH;
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
@@ -87,7 +83,14 @@ type
       out name: string;
       out be_valid_profile: boolean
       );
+    procedure GetUserIdAndEmailAddress
+      (
+      member_id: string;
+      out user_id: cardinal;
+      out email_address: string
+      );
     function IdOf(e_item: system.object): string;
+    function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
@@ -151,13 +154,10 @@ begin
     sql := sql + ' , cad_num = "' + cad_num + '"';
   end;
   sql := sql
+  +   ' , email_address = "' + email_address + '"'
   +   ' , medical_release_code = ' + medical_release_code.tostring
   +   ' , be_driver_qualified = ' + be_driver_qualified.tostring
   +   ' , agency_id = ' + agency_id.tostring
-  + ';'
-  + ' insert into member_user'
-  + ' set id = (select max(id) from member)'
-  +   ' , password_reset_email_address = "' + email_address + '"'
   + ';'
   + ' insert into enrollment_history'
   + ' set member_id = (select max(id) from member)'
@@ -226,41 +226,14 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindDropDownList
-  (
-  agency_user_id: string;
-  target: system.object;
-  be_unfiltered: boolean = FALSE
-  );
-var
-  bdr: borland.data.provider.bdpdatareader;
-  cmdText: string;
-begin
-  self.Open;
-  DropDownList(target).Items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --','0'));
-  //
-  cmdText := 'SELECT id,name FROM member_user JOIN member using (id) WHERE be_active = TRUE ';
-  if not be_unfiltered then begin
-    cmdText := cmdText + 'and agency_code = ' + agency_user_id + ' ';
-  end;
-  cmdText := cmdText + 'ORDER BY name';
-  //
-  bdr := Borland.Data.Provider.BdpCommand.Create(cmdText,connection).ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,bdr['id'].ToString));
-  end;
-  bdr.Close;
-  self.Close;
-end;
-
 procedure TClass_db_members.BindRoster
   (
-  agency_id: string;
+  member_id: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
   relative_month: string;
+  agency_filter: string;
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = BOTH;
   med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
@@ -283,7 +256,11 @@ begin
     sort_order := sort_order.Replace('%',' desc');
   end;
   //
-  filter := system.string.EMPTY;
+  filter := ' where 1=1 ';
+  //
+  if agency_filter <> system.string.EMPTY then begin
+    filter := filter + ' and agency_id = ' + agency_filter + ' ';
+  end;
   //
   if enrollment_filter <> Class_biz_enrollment.ALL then begin
     filter := filter + ' and enrollment_level.description ';
@@ -348,15 +325,16 @@ begin
   + ' , last_name'                                                                       // column 1
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
-  + ' , section_num'                                                                     // column 4
-  + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 5
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 6
-  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 7
-  + ' , enrollment_level.description as enrollment'                                      // column 8
-  + ' , num_shifts as enrollment_obligation'                                             // column 9
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 10
-  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 11
-  + ' , password_reset_email_address as email_address'                                   // column 12
+  + ' , agency_id'                                                                       // column 4
+  + ' , section_num'                                                                     // column 5
+  + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 6
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 7
+  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 8
+  + ' , enrollment_level.description as enrollment'                                      // column 9
+  + ' , num_shifts as enrollment_obligation'                                             // column 10
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 11
+  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 12
+  + ' , email_address'                                                                   // column 13
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'
@@ -392,8 +370,6 @@ begin
   +       ' )'
   +   ' left join kind_of_leave_code_description_map'
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
-  +   ' join member_user on (member_user.id=member.id)'
-  + ' where agency_id = ' + agency_id
   +   filter
   + ' order by ' + sort_order;
   //
@@ -458,9 +434,41 @@ begin
   self.Close;
 end;
 
+procedure TClass_db_members.GetUserIdAndEmailAddress
+  (
+  member_id: string;
+  out user_id: cardinal;
+  out email_address: string
+  );
+var
+  bdr: bdpdatareader;
+begin
+  //
+  user_id := 0;
+  email_address := system.string.EMPTY;
+  //
+  self.Open;
+  bdr := bdpcommand.Create('select user_id,email_address from member where id = ' + member_id,connection).ExecuteReader;
+  bdr.Read;
+  if bdr['user_id'] <> dbnull.value then begin
+    user_id := uint32.Parse(bdr['user_id'].tostring);
+  end;
+  if bdr['email_address'] <> dbnull.value then begin
+    email_address := bdr['email_address'].tostring;
+  end;
+  self.Close;
+end;
+
 function TClass_db_members.IdOf(e_item: system.object): string;
 begin
   IdOf := Safe(DataGridItem(e_item).cells[TCCI_ID].text,NUM);
+end;
+
+function TClass_db_members.IdOfUserId(user_id: string): string;
+begin
+  self.Open;
+  IdOfUserId := bdpcommand.Create('select id from member where user_id = ' + user_id,connection).ExecuteScalar.tostring;
+  self.Close;
 end;
 
 function TClass_db_members.LastNameOf(e_item: system.object): string;

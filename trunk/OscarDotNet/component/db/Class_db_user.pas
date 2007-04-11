@@ -8,20 +8,13 @@ uses
   Class_db,
   system.collections;
 
-
-
 type
   TClass_db_user = class(Class_db.TClass_db)
   private
     { Private Declarations }
   public
     constructor Create;
-    function RolesOf
-      (
-      target_user_table: string;
-      id: string
-      )
-      : ki.string_array;
+    function RolesOf(id: string): ki.string_array;
   end;
 
 implementation
@@ -32,33 +25,24 @@ begin
   // TODO: Add any constructor code here
 end;
 
-function TClass_db_user.RolesOf
-  (
-  target_user_table: string;
-  id: string
-  )
-  : ki.string_array;
+function TClass_db_user.RolesOf(id: string): ki.string_array;
 var
-  bdr: borland.data.provider.bdpdatareader;
+  bdr: bdpdatareader;
+  num_roles: cardinal;
   roles_of: ki.string_array;
-  roles_of_len: cardinal;
 begin
   self.Open;
-  bdr := borland.data.provider.bdpcommand.Create
+  bdr := bdpcommand.Create
     (
-    'select ' + target_user_table + 'group.name as group_name'
-    + ' from ' + target_user_table + 'role'
-    +   ' join ' + target_user_table + 'group on (' + target_user_table + 'group.id=' + target_user_table + 'role.group_id)'
-    +   ' join ' + target_user_table + 'user on (' + target_user_table + 'user.id=' + target_user_table + 'role.user_id)'
-    + ' where ' + target_user_table + 'user.id = ' + id,
+    'select name from role join role_user_map on (role_user_map.role_id=role.id) where role_user_map.user_id = ' + id,
     connection
     )
     .ExecuteReader;
-  roles_of_len := 0;
+  num_roles := 0;
   while bdr.Read do begin
-    roles_of_len := roles_of_len + 1;
-    SetLength(roles_of,roles_of_len);
-    roles_of[roles_of_len - 1] := bdr['group_name'].tostring;
+    num_roles := num_roles + 1;
+    SetLength(roles_of,num_roles);
+    roles_of[num_roles - 1] := bdr['name'].tostring;
   end;
   bdr.Close;
   self.Close;

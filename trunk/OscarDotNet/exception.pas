@@ -1,4 +1,3 @@
-
 unit exception;
 
 interface
@@ -10,9 +9,6 @@ uses
   Class_biz_user,
   system.text.regularexpressions,
   system.web.mail;
-
-
-
 
 type
   p_type =
@@ -93,7 +89,7 @@ begin
       if user.identity.name = system.string.EMPTY then begin
         user_designator := 'unknown';
       end else begin
-        user_designator := user.identity.name + ' (' + session[p.biz_user.Kind + '_name'].tostring + ')';
+        user_designator := user.identity.name;
       end;
       //
       p.notification_message := '[USER]' + NEW_LINE

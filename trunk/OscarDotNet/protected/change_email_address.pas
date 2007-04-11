@@ -1,4 +1,3 @@
-
 unit change_email_address;
 
 interface
@@ -8,16 +7,14 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, borland.data.provider, system.configuration,
   system.net, system.web.security,
-  Class_biz_accounts,
-  Class_biz_user;
-
-
+  Class_biz_user,
+  Class_biz_users;
 
 type
   p_type =
     RECORD
-    biz_accounts: TClass_biz_accounts;
     biz_user: TClass_biz_user;
+    biz_users: TClass_biz_users;
     END;
   TWebForm_change_email_address = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -80,28 +77,24 @@ var
   email_address: string;
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
+  if IsPostback and (session['change_email_password.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['change_email_password.p']);
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end;
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - change_email_address';
-    p.biz_accounts := TClass_biz_accounts.Create;
     p.biz_user:= TClass_biz_user.Create;
+    p.biz_users := TClass_biz_users.Create;
     //
     // Set Label_account descriptor
     //
-    Label_account_descriptor.Text := session[session['target_user_table'].ToString + '_name'].ToString;
-    if session['target_user_table'].tostring = 'agency' then begin
-      Label_account_descriptor.Text := Label_account_descriptor.Text + ' Agency';
-    end;
-    LinkButton_back_to_overview.text := session['target_user_table'].tostring + ' overview';
+    Label_account_descriptor.Text := session['username'].ToString;
     //
     // Preload email address fields
     //
-    email_address := p.biz_accounts.EmailAddressByKindId(p.biz_user.Kind,p.biz_user.IdNum);
+    email_address := p.biz_users.SelfEmailAddress;
     TextBox_nominal_email_address.Text := email_address;
     TextBox_confirmation_email_address.Text := email_address;
     end;
@@ -119,8 +112,8 @@ end;
 procedure TWebForm_change_email_address.TWebForm_change_email_address_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('change_email_password.p');
+  session.Add('change_email_password.p',p);
 end;
 
 procedure TWebForm_change_email_address.LinkButton_logout_Click(sender: System.Object;
@@ -134,21 +127,21 @@ end;
 procedure TWebForm_change_email_address.LinkButton_back_to_overview_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(session['target_user_table'].tostring + '_overview.aspx');
+  server.Transfer('overview.aspx');
 end;
 
 procedure TWebForm_change_email_address.CustomValidator_nominal_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value); 
+  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_change_email_address.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if page.isvalid then begin
-    p.biz_accounts.SetEmailAddress(p.biz_user.Kind,Safe(TextBox_nominal_email_address.Text.Trim,EMAIL_ADDRESS),p.biz_user.IdNum);
-    server.Transfer(session['target_user_table'].ToString + '_overview.aspx');
+    p.biz_users.SetEmailAddress(Safe(TextBox_nominal_email_address.Text.Trim,EMAIL_ADDRESS),p.biz_user.IdNum);
+    server.Transfer('overview.aspx');
   end else begin
     ValidationAlert;
   end;
