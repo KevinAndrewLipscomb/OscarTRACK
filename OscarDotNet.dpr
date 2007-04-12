@@ -91,7 +91,7 @@ uses
   Class_biz_notifications in 'component\biz\Class_biz_notifications.pas',
   UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: System.Windows.Forms.UserControl},
   UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
-  remind_username in 'remind_username.pas',
+  remind_username in 'remind_username.pas' {remind_username.TWebForm_remind_username: ki_web_ui.page_class},
   new_user_registration in 'new_user_registration.pas' {new_user_registration.TWebForm_new_user_registration: ki_web_ui.page_class},
   overview in 'protected\overview.pas' {overview.TWebForm_overview: ki_web_ui.page_class},
   Class_biz_members in 'component\biz\Class_biz_members.pas',

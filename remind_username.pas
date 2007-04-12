@@ -24,6 +24,7 @@ type
     procedure LinkButton_register_new_user_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_return_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -43,6 +44,7 @@ type
     LinkButton_return: System.Web.UI.WebControls.LinkButton;
     Table_return: System.Web.UI.HtmlControls.HtmlTable;
     Label_application_name_1: System.Web.UI.WebControls.Label;
+    Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -65,6 +67,7 @@ begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.LinkButton_register_new_user.Click, Self.LinkButton_register_new_user_Click);
   Include(Self.LinkButton_return.Click, Self.LinkButton_return_Click);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_remind_username_PreRender);
 end;
@@ -102,6 +105,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+end;
+
+procedure TWebForm_remind_username.Button_cancel_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer('login.aspx');
 end;
 
 procedure TWebForm_remind_username.LinkButton_return_Click(sender: System.Object;
