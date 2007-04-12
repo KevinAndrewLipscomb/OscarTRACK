@@ -39,6 +39,7 @@ type
       : boolean;
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
+    function BeLinkedToUser(id: string): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRoster
       (
@@ -76,6 +77,11 @@ type
       (
       be_driver_qualified: boolean;
       e_item: system.object
+      );
+    procedure SetEmailAddress
+      (
+      id: string;
+      email_address: string
       );
     procedure SetSection
       (
@@ -161,6 +167,11 @@ end;
 function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): string;
 begin
   BeDriverQualifiedOf := db_members.BeDriverQualifiedOf(e_item);
+end;
+
+function TClass_biz_members.BeLinkedToUser(id: string): boolean;
+begin
+  BeLinkedToUser := db_members.BeLinkedToUser(id);
 end;
 
 function TClass_biz_members.BeValidProfile(id: string): boolean;
@@ -299,6 +310,15 @@ begin
     CadNumOf(e_item),
     be_driver_qualified.tostring.ToUpper
     );
+end;
+
+procedure TClass_biz_members.SetEmailAddress
+  (
+  id: string;
+  email_address: string
+  );
+begin
+  db_members.SetEmailAddress(id,email_address);
 end;
 
 procedure TClass_biz_members.SetSection

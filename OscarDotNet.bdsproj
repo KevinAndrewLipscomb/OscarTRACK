@@ -202,7 +202,6 @@
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
       <File FileName="login.aspx" ContainerId="AspMarkupContainer" ModuleName="login"/>
-      <File FileName="new_password.aspx" ContainerId="AspMarkupContainer" ModuleName="new_password"/>
       <File FileName="new_user_registration.aspx" ContainerId="AspMarkupContainer" ModuleName="new_user_registration"/>
       <File FileName="remind_username.aspx" ContainerId="AspMarkupContainer" ModuleName="remind_username"/>
       <File FileName="salogin.aspx" ContainerId="AspMarkupContainer" ModuleName="salogin"/>
@@ -233,7 +232,6 @@
       <File FileName="Default.pas" ContainerId="" ModuleName="Default" Parent="Default.aspx"/>
       <File FileName="exception.pas" ContainerId="" ModuleName="exception" Parent="exception.aspx"/>
       <File FileName="login.pas" ContainerId="" ModuleName="login" Parent="login.aspx"/>
-      <File FileName="new_password.pas" ContainerId="" ModuleName="new_password" Parent="new_password.aspx"/>
       <File FileName="salogin.pas" ContainerId="" ModuleName="salogin" Parent="salogin.aspx"/>
       <File FileName="timeout.pas" ContainerId="" ModuleName="timeout" Parent="timeout.aspx"/>
       <File FileName="component\biz\Class_biz_user.pas" ContainerId="" ModuleName="Class_biz_user"/>

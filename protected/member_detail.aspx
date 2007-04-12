@@ -17,8 +17,8 @@
 				<td>
 		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-										   [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-										   [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+										    [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+										    [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -45,7 +45,7 @@
 							<tr>
 							  <td>Email address:</td>
 							  <td><ASP:Label id="Label_email_address" runat="server"></ASP:Label></td>
-							  <td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server">Change</ASP:LinkButton></td>
+							  <td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server" visible="False">Change</ASP:LinkButton></td>
 							</tr>
 							<tr bgcolor="#dcdcdc">
 							  <td>Leave:</td>

@@ -12,7 +12,6 @@ library OscarDotNet;
 {%AspMarkupContainer 'Default.aspx'}
 {%AspMarkupContainer 'exception.aspx'}
 {%AspMarkupContainer 'login.aspx'}
-{%AspMarkupContainer 'new_password.aspx'}
 {%AspMarkupContainer 'new_user_registration.aspx'}
 {%AspMarkupContainer 'remind_username.aspx'}
 {%AspMarkupContainer 'salogin.aspx'}
@@ -45,7 +44,6 @@ uses
   Default in 'Default.pas' {Default.TWebForm_Default: ki_web_ui.page_class},
   exception in 'exception.pas' {exception.TWebForm_exception: ki_web_ui.page_class},
   login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
-  new_password in 'new_password.pas',
   salogin in 'salogin.pas',
   timeout in 'timeout.pas',
   Class_biz_user in 'component\biz\Class_biz_user.pas',
