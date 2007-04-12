@@ -24,7 +24,7 @@
 			  </tr>
 		  </table></p>
 	  <p></p>
-      <p><ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
+      <p><ASP:PlaceHolder id="PlaceHolder_establish_membership" runat="server"></ASP:PlaceHolder><ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
       <p>
 	  <asp:placeholder id="PlaceHolder_postcontent" runat="server"></asp:placeholder></p>
     <p><sstchur:SmartScroller runat="server" /></p></form>

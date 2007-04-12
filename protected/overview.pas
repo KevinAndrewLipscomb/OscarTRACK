@@ -11,6 +11,7 @@ uses
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
+  UserControl_establish_membership,
   UserControl_print_div,
   UserControl_roster;
 
@@ -44,6 +45,7 @@ type
     UserControl_print_div: TWebUserControl_print_div;
     Label_username: System.Web.UI.WebControls.Label;
     PlaceHolder_roster: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_establish_membership: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -124,6 +126,8 @@ begin
     //
     // Display controls appropriate ONLY to unprivileged users.
     //
+    PlaceHolder_establish_membership.controls.Add
+      (TWebUserControl_establish_membership(LoadControl('~/usercontrol/app/UserControl_establish_membership.ascx')));
     //
   end else begin
     //

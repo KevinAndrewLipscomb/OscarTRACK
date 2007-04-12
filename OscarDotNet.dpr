@@ -36,6 +36,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\ki\UserControl_drop_down_date.ascx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_print_div.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_roster.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_establish_membership.ascx'}
+{%AspMarkupContainer 'protected\establish_membership_trouble.aspx'}
 
 uses
   System.Reflection,
@@ -90,13 +92,15 @@ uses
   UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: System.Windows.Forms.UserControl},
   UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
   remind_username in 'remind_username.pas',
-  new_user_registration in 'new_user_registration.pas',
+  new_user_registration in 'new_user_registration.pas' {new_user_registration.TWebForm_new_user_registration: ki_web_ui.page_class},
   overview in 'protected\overview.pas' {overview.TWebForm_overview: ki_web_ui.page_class},
   Class_biz_members in 'component\biz\Class_biz_members.pas',
   Class_db_members in 'component\db\Class_db_members.pas',
   Class_biz_users in 'component\biz\Class_biz_users.pas',
   Class_db_users in 'component\db\Class_db_users.pas',
-  appcommon in 'appcommon.pas';
+  appcommon in 'appcommon.pas',
+  UserControl_establish_membership in 'usercontrol\app\UserControl_establish_membership.pas' {UserControl_establish_membership.TWebUserControl_establish_membership: ki_web_ui.usercontrol_class},
+  establish_membership_trouble in 'protected\establish_membership_trouble.pas' {establish_membership_trouble.TWebForm_establish_membership_trouble: ki_web_ui.page_class};
 
 //
 // General Information about an assembly is controlled through the following

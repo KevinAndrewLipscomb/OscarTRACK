@@ -1,0 +1,14 @@
+<full_name/> unable to match membership record in <application_name/>
+This is an automated message from <application_name/>.
+
+<full_name/> has been unable to demonstrate a match to a membership record using <application_name/>.  This means that some personal data provided by the user does not match the corresponding data in the user's official membership record.  The user provided the following explanation:
+
+   <explanation/>
+
+Please contact this user about properly updating the user's membership record.  The user's email address is:
+
+   <user_email_address/>
+
+Please *CC:* the <application_name/> Application Administrator on all future messages related to this matter.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

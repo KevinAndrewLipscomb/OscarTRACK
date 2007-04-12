@@ -14,6 +14,12 @@ type
     biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
+    function AcceptAsMember
+      (
+      shared_secret: string;
+      id: string
+      )
+      : boolean;
     function BeAuthorized
       (
       username: string;
@@ -72,6 +78,16 @@ begin
   // TODO: Add any constructor code here
   biz_notifications := TClass_biz_notifications.Create;
   db_users := TClass_db_users.Create;
+end;
+
+function TClass_biz_users.AcceptAsMember
+  (
+  shared_secret: string;
+  id: string
+  )
+  : boolean;
+begin
+  AcceptAsMember := db_users.AcceptAsMember(shared_secret,id);
 end;
 
 function TClass_biz_users.BeAuthorized
