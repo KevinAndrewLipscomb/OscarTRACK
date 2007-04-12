@@ -13,6 +13,12 @@ type
     db_trail: TClass_db_trail;
   public
     constructor Create;
+    function AcceptAsMember
+      (
+      shared_secret: string;
+      id: string
+      )
+      : boolean;
     function BeAuthorized
       (
       username: string;
@@ -63,6 +69,36 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_trail := TClass_db_trail.Create;
+end;
+
+function TClass_db_users.AcceptAsMember
+  (
+  shared_secret: string;
+  id: string
+  )
+  : boolean;
+var
+  accept_as_member: boolean;
+begin
+  accept_as_member := FALSE;
+  self.Open;
+  if nil <> bdpcommand.Create('select 1 from member where cad_num = "' + shared_secret + '"',connection).ExecuteScalar then begin
+    bdpcommand.Create
+      (
+      'START TRANSACTION'
+      + ' ;'
+      + ' update member set user_id = ' + id + ' where cad_num = "' + shared_secret + '"'
+      + ' ;'
+      + ' insert role_user_map (user_id,role_id) select ' + id + ', role.id from role where role.name = "Member"'
+      + ' ;'
+      + ' COMMIT',
+      connection
+      )
+      .ExecuteNonquery;
+    accept_as_member := TRUE;
+  end;
+  self.Close;
+  AcceptAsMember := accept_as_member;
 end;
 
 function TClass_db_users.BeAuthorized

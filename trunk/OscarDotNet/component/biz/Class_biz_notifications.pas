@@ -67,6 +67,11 @@ type
       enrollment_date: string;
       enrollment_level: string
       );
+    procedure IssueForMembershipEstablishmentTrouble
+      (
+      full_name: string;
+      explanation: string
+      );
     procedure IssueForNewEnrollmentLevel
       (
       member_id: string;
@@ -96,6 +101,7 @@ type
 implementation
 
 uses
+  borland.vcl.sysutils,
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
@@ -105,6 +111,9 @@ uses
   system.text.regularexpressions,
   system.web,
   system.web.mail;
+
+var
+  BreakChars: array[1..3] of char;
 
 constructor TClass_biz_notifications.Create;
 begin
@@ -465,6 +474,52 @@ begin
   template_reader.Close;
 end;
 
+procedure TClass_biz_notifications.IssueForMembershipEstablishmentTrouble
+  (
+  full_name: string;
+  explanation: string
+  );
+var
+  user_email_address: string;
+  biz_user: TClass_biz_user;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<full_name/>',full_name.toupper)
+      .Replace('<user_email_address/>',user_email_address)
+      .Replace('<application_name/>',application_name)
+      .Replace
+        (
+        '<explanation/>',
+        WrapText
+          (explanation,(NEW_LINE + '   '),BreakChars,int16.Parse(configurationsettings.AppSettings['email_blockquote_maxcol']))
+        )
+      .Replace('<host_domain_name/>',host_domain_name);
+  END;
+  //
+begin
+  //
+  biz_user := TClass_biz_user.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/membership_establishment_trouble.txt'));
+  user_email_address := biz_user.EmailAddress;
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    // to
+    configurationsettings.appsettings['membership_establishment_liaison'] + ','
+    + configurationsettings.appsettings['application_name'] + '-appadmin@' + host_domain_name,
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
 procedure TClass_biz_notifications.IssueForNewEnrollmentLevel
   (
   member_id: string;
@@ -622,4 +677,8 @@ begin
   template_reader.Close;
 end;
 
+begin
+  BreakChars[1] := ki.SPACE;
+  BreakChars[2] := ki.TAB;
+  BreakChars[3] := '-';
 end.

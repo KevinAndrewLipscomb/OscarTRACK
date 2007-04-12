@@ -15,6 +15,7 @@ type
     db_users: TClass_db_users;
   public
     constructor Create;
+    function EmailAddress: string;
     function IdNum: string;
     function Privileges: ki.string_array;
     function Roles: ki.string_array;
@@ -28,6 +29,11 @@ begin
   // TODO: Add any constructor code here
   db_user := TClass_db_user.Create;
   db_users := TClass_db_users.Create;
+end;
+
+function TClass_biz_user.EmailAddress: string;
+begin
+  EmailAddress := db_users.PasswordResetEmailAddressOfId(IdNum);
 end;
 
 function TClass_biz_user.IdNum: string;
