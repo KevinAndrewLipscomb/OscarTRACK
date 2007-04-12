@@ -58,6 +58,7 @@ type
       cad_num: string
       )
       : boolean;
+    function BeLinkedToUser(id: string): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRoster
       (
@@ -100,6 +101,11 @@ type
       (
       be_driver_qualified: boolean;
       e_item: system.object
+      );
+    procedure SetEmailAddress
+      (
+      id: string;
+      email_address: string
       );
     procedure SetSection
       (
@@ -215,6 +221,13 @@ begin
   end;
   self.Open;
   BeKnown := (bdpcommand.Create(sql,connection).ExecuteScalar <> nil);
+  self.Close;
+end;
+
+function TClass_db_members.BeLinkedToUser(id: string): boolean;
+begin
+  self.Open;
+  BeLinkedToUser := (dbnull.value <> bdpcommand.Create('select user_id from member where id = ' + id,connection).ExecuteScalar); 
   self.Close;
 end;
 
@@ -538,6 +551,27 @@ begin
   end else begin
     DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'false';
   end;
+  self.Close;
+end;
+
+procedure TClass_db_members.SetEmailAddress
+  (
+  id: string;
+  email_address: string
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'UPDATE member '
+      + 'SET email_address = "' + email_address + '"'
+      + 'WHERE id = ' + id
+      ),
+    connection
+    )
+    .ExecuteNonQuery;
   self.Close;
 end;
 

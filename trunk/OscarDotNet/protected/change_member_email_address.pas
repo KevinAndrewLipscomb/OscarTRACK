@@ -1,4 +1,3 @@
-
 unit change_member_email_address;
 
 interface
@@ -8,17 +7,15 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   appcommon,
-  Class_biz_accounts,
   Class_biz_members,
+  Class_biz_users,
   ki_web_ui;
-
-
 
 type
   p_type =
     RECORD
-    biz_accounts: TClass_biz_accounts;
     biz_members: TClass_biz_members;
+    biz_users: TClass_biz_users;
     END;
   TWebForm_change_member_email_address = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -98,30 +95,17 @@ end;
 procedure TWebForm_change_member_email_address.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
-  if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['p']);
-  end else begin
-    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
-      //
-      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore unknown.  This is rarely allowed.
-      //
-      session.Clear;
-      server.Transfer('~/login.aspx');
-    end else begin
-      //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_email_address';
-      Label_account_descriptor.text := session['username'].tostring;
-      //
-      p.biz_accounts := TClass_biz_accounts.Create;
-      p.biz_members := TClass_biz_members.Create;
-      //
-      Label_member_name_1.text :=
-        p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
-      Label_member_name_2.text := Label_member_name_1.text;
-      Label_member_name_3.text := Label_member_name_2.text;
-      Textbox_member_email_address.text := session['member_email_address'].tostring;
-      //
-    end;
+  if not IsPostback then begin
+    //
+    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_email_address';
+    Label_account_descriptor.text := session['username'].tostring;
+    //
+    Label_member_name_1.text :=
+      p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
+    Label_member_name_2.text := Label_member_name_1.text;
+    Label_member_name_3.text := Label_member_name_2.text;
+    Textbox_member_email_address.text := session['member_email_address'].tostring;
+    //
   end;
 end;
 
@@ -132,6 +116,24 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+  //
+  if IsPostback and (session['change_member_email_address.p'].GetType.namespace = p.GetType.namespace) then begin
+    p := p_type(session['change_member_email_address.p']);
+  end else begin
+    if request.servervariables['URL'] = request.currentexecutionfilepath then begin
+      //
+      // The request for this page could not have been the result of a server.Transfer call, and the session state is therefore unknown.  This is rarely allowed.
+      //
+      session.Clear;
+      server.Transfer('~/login.aspx');
+    end else begin
+      //
+      p.biz_members := TClass_biz_members.Create;
+      p.biz_users := TClass_biz_users.Create;
+      //
+    end;
+  end;
+  //
 end;
 
 procedure TWebForm_change_member_email_address.Button_cancel_Click(sender: System.Object;
@@ -143,8 +145,7 @@ end;
 procedure TWebForm_change_member_email_address.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_accounts.SetEmailAddress
-    ('member',p.biz_members.IdOf(session['e_item']),Safe(Textbox_member_email_address.text,EMAIL_ADDRESS));
+  p.biz_members.SetEmailAddress(p.biz_members.IdOf(session['e_item']),Safe(Textbox_member_email_address.text,EMAIL_ADDRESS));
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
@@ -175,8 +176,8 @@ end;
 procedure TWebForm_change_member_email_address.TWebForm_change_member_email_address_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  session.Remove('change_member_email_address.p');
+  session.Add('change_member_email_address.p',p);
 end;
 
 procedure TWebForm_change_member_email_address.LinkButton_logout_Click(sender: System.Object;
