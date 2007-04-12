@@ -27,6 +27,7 @@ type
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_trouble_handler_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_proceed_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -43,6 +44,8 @@ type
     RegularExpressionValidator_shared_secret: System.Web.UI.WebControls.RegularExpressionValidator;
     TextBox_noop_ie_behavior_workaround: System.Web.UI.WebControls.TextBox;
     LinkButton_trouble_handler: System.Web.UI.WebControls.LinkButton;
+    LinkButton_proceed: System.Web.UI.WebControls.LinkButton;
+    Table_proceed: System.Web.UI.HtmlControls.HtmlTable;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -98,6 +101,12 @@ begin
   //
 end;
 
+procedure TWebUserControl_establish_membership.LinkButton_proceed_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer('~/Default.aspx');
+end;
+
 procedure TWebUserControl_establish_membership.LinkButton_trouble_handler_Click(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -109,7 +118,7 @@ procedure TWebUserControl_establish_membership.Button_submit_Click(sender: Syste
 begin
   if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,NUM),p.biz_user.IdNum) then begin
     Alert(ki.USER,ki.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.');
-    server.Transfer('~/Default.aspx');
+    Table_proceed.visible := TRUE;
   end else begin
     Alert(ki.USER,ki.FAILURE,'nosuchmem','No such membership record could be located.  Please check your submission for accuracy.');
   end;
@@ -124,6 +133,7 @@ procedure TWebUserControl_establish_membership.InitializeComponent;
 begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.LinkButton_trouble_handler.Click, Self.LinkButton_trouble_handler_Click);
+  Include(Self.LinkButton_proceed.Click, Self.LinkButton_proceed_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_establish_membership_PreRender);
 end;
