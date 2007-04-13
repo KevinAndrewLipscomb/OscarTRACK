@@ -365,9 +365,11 @@ begin
   //
   DataGrid_roster.columns[TCCI_AGENCY].visible := (p.agency_filter = system.string.EMPTY);
   DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.section_filter = 0);
-  DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter);
+  DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter)
+    and (not (p.enrollment_filter = ADMIN));
   DataGrid_roster.columns[TCCI_ENROLLMENT].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
   DataGrid_roster.columns[TCCI_LEAVE].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
+  DataGrid_roster.columns[TCCI_OBLIGED_SHIFTS].visible := not (p.enrollment_filter = ADMIN);
   //
   p.biz_members.BindRoster
     (

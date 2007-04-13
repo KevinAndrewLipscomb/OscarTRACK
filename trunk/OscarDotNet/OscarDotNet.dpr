@@ -38,6 +38,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_roster.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_establish_membership.ascx'}
 {%AspMarkupContainer 'protected\establish_membership_trouble.aspx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_precontent.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_postcontent.ascx'}
 
 uses
   System.Reflection,
@@ -100,7 +102,9 @@ uses
   Class_db_users in 'component\db\Class_db_users.pas',
   appcommon in 'appcommon.pas',
   UserControl_establish_membership in 'usercontrol\app\UserControl_establish_membership.pas' {UserControl_establish_membership.TWebUserControl_establish_membership: ki_web_ui.usercontrol_class},
-  establish_membership_trouble in 'protected\establish_membership_trouble.pas' {establish_membership_trouble.TWebForm_establish_membership_trouble: ki_web_ui.page_class};
+  establish_membership_trouble in 'protected\establish_membership_trouble.pas' {establish_membership_trouble.TWebForm_establish_membership_trouble: ki_web_ui.page_class},
+  UserControl_precontent in 'usercontrol\app\UserControl_precontent.pas' {UserControl_precontent.TWebUserControl_precontent: ki_web_ui.usercontrol_class},
+  UserControl_postcontent in 'usercontrol\app\UserControl_postcontent.pas' {UserControl_postcontent.TWebUserControl_postcontent: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
