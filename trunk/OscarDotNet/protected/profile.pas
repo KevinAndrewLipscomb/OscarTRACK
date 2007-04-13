@@ -35,8 +35,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_member_name: System.Web.UI.WebControls.Label;
     TextBox_member_name: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_member_name: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -82,7 +80,6 @@ var
   be_valid_profile: boolean;
   name: string;
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['p']);
   end else begin

@@ -48,7 +48,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
@@ -69,7 +68,6 @@ type
     DropDownList_num_obligated_shifts: System.Web.UI.WebControls.DropDownList;
     Label_member_first_name: System.Web.UI.WebControls.Label;
     LinkButton1: System.Web.UI.WebControls.LinkButton;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -105,7 +103,6 @@ procedure TWebForm_grant_leave.Page_Load(sender: System.Object; e: System.EventA
 var
   cad_num_string: string;
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['p']);
   end else begin

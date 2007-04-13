@@ -31,8 +31,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_application_name_2: System.Web.UI.WebControls.Label;
     Label_application_name_3: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -75,7 +73,6 @@ end;
 
 procedure TWebForm_remind_username.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['remind_username.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['remind_username.p']);
   end else begin
