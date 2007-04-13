@@ -71,12 +71,6 @@ begin
     Label_sponsor_2.text := configurationsettings.appsettings['sponsor'];
     Label_sponsor_3.text := configurationsettings.appsettings['sponsor'];
     Label_shared_secret_description.text := configurationsettings.appsettings['shared_secret_description'];
-//    HyperLink_contact_appadmin.navigateurl := 'mailto:'
-//    + configurationsettings.appsettings['application_name'] + '-appadmin@' + configurationsettings.appsettings['host_domain_name']
-//    + '?subject=Unable%20to%20establish%20membership'
-//    + '&body=Please%20replace%20this%20text%20with%20an%20explanation%20that%20includes%20your%20FULL%20NAME%20and%20why%20the%20'
-//    + 'department%20may%20have%20supplied%20the%20wrong%20data%20to%20' + configurationsettings.appsettings['application_name']
-//    + '.';
     //
   end;
   //

@@ -30,6 +30,8 @@ type
     HtmlImage_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     HtmlImage_sponsor_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     HtmlImage_partner_banner: System.Web.UI.HtmlControls.HtmlImage;
+    Label_sponsor: System.Web.UI.WebControls.Label;
+    ValidationSummary1: System.Web.UI.WebControls.ValidationSummary;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -50,6 +52,7 @@ begin
   //
   if not IsPostback then begin
     //
+    Label_sponsor.text := configurationsettings.appsettings['sponsor'];
     Label_application_name.text := configurationsettings.appsettings['application_name'];
     HtmlImage_sponsor_logoseal.src := HtmlImage_sponsor_logoseal.src
       .Replace('\','/')

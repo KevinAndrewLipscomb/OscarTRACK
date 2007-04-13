@@ -1,7 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_precontent.pas" Inherits="UserControl_precontent.TWebUserControl_precontent"%>
+<%@ OutputCache Duration="86400" VaryByParam="none" Shared="true" %>
 <table width="100%" cellspacing="0" cellpadding="5" bgcolor="#b0c4de" border="0">
   <tr>
-	<td align="center"><strong>Virginia Beach EMS</strong></td>
+	<td align="center"><strong><ASP:Label id="Label_sponsor" runat="server"></ASP:Label></strong></td>
   </tr>
 </table>
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
@@ -52,7 +53,7 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-									              Policy</a>
+									                 Policy</a>
 						</small></td>
 					</tr>
 					<tr>
@@ -115,3 +116,4 @@
 	  </p>
 	  </td>
 	<td valign="top">
+        <ASP:ValidationSummary id="ValidationSummary1" runat="server"></ASP:ValidationSummary>
