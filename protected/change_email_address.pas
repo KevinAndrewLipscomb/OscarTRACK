@@ -32,8 +32,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_account_descriptor: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_nominal_email_address: System.Web.UI.WebControls.TextBox;
@@ -76,7 +74,6 @@ procedure TWebForm_change_email_address.Page_Load(sender: System.Object; e: Syst
 var
   email_address: string;
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['change_email_password.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['change_email_password.p']);
   end else begin

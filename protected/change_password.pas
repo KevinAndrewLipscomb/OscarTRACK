@@ -32,8 +32,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_account_descriptor: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_nominal_password: System.Web.UI.WebControls.TextBox;
@@ -64,8 +62,8 @@ uses
 procedure TWebForm_change_password.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.LinkButton_back_to_overview.Click, Self.LinkButton_overview_Click);
+  Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_password_PreRender);
 end;
@@ -73,7 +71,6 @@ end;
 
 procedure TWebForm_change_password.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['change_password.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['change_password.p']);
   end else begin

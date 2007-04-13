@@ -37,7 +37,6 @@ type
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
     LinkButton_forgot_password: System.Web.UI.WebControls.LinkButton;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
     CustomValidator_account_exists: System.Web.UI.WebControls.CustomValidator;
     TextBox_username: System.Web.UI.WebControls.TextBox;
     LinkButton_new_user: System.Web.UI.WebControls.LinkButton;
@@ -47,7 +46,6 @@ type
     RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
     CheckBox_keep_me_logged_in: System.Web.UI.WebControls.CheckBox;
     Button_log_in: System.Web.UI.WebControls.Button;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     RequiredFieldValidator_username: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_password: System.Web.UI.WebControls.RequiredFieldValidator;
     procedure OnInit(e: EventArgs); override;
@@ -79,7 +77,6 @@ end;
 
 procedure TWebForm_login.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['login.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['login.p']);
   end else begin

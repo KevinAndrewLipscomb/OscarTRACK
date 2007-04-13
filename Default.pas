@@ -20,8 +20,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_application_name: System.Web.UI.WebControls.Label;
     HyperLink_login: System.Web.UI.WebControls.HyperLink;
     procedure OnInit(e: EventArgs); override;
@@ -47,7 +45,6 @@ end;
 
 procedure TWebForm_Default.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if not IsPostback then begin
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - Default';
     Label_application_name.text := ConfigurationSettings.AppSettings['application_name'];

@@ -35,8 +35,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     Label_application_name: System.Web.UI.WebControls.Label;
     TextBox_email_address: System.Web.UI.WebControls.TextBox;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -87,7 +85,6 @@ end;
 
 procedure TWebForm_new_user_registration.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if IsPostback and (session['new_user_registration.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['new_user_registration.p']);
   end else begin

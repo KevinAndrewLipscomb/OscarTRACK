@@ -45,8 +45,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    PlaceHolder_precontent: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_postcontent: System.Web.UI.WebControls.PlaceHolder;
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
@@ -94,7 +92,6 @@ end;
 
 procedure TWebForm_change_member_email_address.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  appcommon.PopulatePlaceHolders(PlaceHolder_precontent,PlaceHolder_postcontent);
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_email_address';

@@ -1,4 +1,6 @@
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="leave_detail.pas" AutoEventWireup="false" Inherits="leave_detail.TWebForm_leave_detail" %>
+<%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
@@ -9,9 +11,7 @@
   </head>
 
   <body>
-	 <form runat="server">
-	  <asp:placeholder id="PlaceHolder_precontent" runat="server"></asp:placeholder>
-	  <p><table cellspacing="0" cellpadding="0" width="100%" border="0" bgcolor="#d3d3d3"><tr><td>		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
+	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p><table cellspacing="0" cellpadding="0" width="100%" border="0" bgcolor="#d3d3d3"><tr><td>		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
 									         [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
 									         [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
@@ -68,8 +68,7 @@
             </tr>
 		</table></p>
 </div>
-	  <p>
-	  <asp:placeholder id="PlaceHolder_postcontent" runat="server"></asp:placeholder></p>
+	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
 	 <sstchur:SmartScroller runat="server" /></form>
   </body>
 </html>

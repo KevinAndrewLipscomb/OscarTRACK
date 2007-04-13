@@ -1,4 +1,6 @@
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="profile.pas" AutoEventWireup="false" Inherits="profile.TWebForm_profile" %>
+<%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 
 <html>
@@ -9,9 +11,7 @@
 
   <body>
 	 <form runat="server">
-	  <p>
-	  <asp:placeholder id="PlaceHolder_precontent" runat="server">
-	  </asp:placeholder></p>
+	  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 	  <p>
 		<small>[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;] [ Back to <ASP:LinkButton id="LinkButton_member_overview" runat="server">member overview</ASP:LinkButton>&nbsp;form ]
@@ -38,6 +38,4 @@
 					  <td>
 				<ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button></td>
 					  <td></td>
-					</tr></table></td></tr></table></p>
-	<asp:placeholder id="PlaceHolder_postcontent" runat="server">
-	</asp:placeholder><sstchur:SmartScroller runat="server" /></form></body></html>
+					</tr></table></td></tr></table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><sstchur:SmartScroller runat="server" /></form></body></html>
