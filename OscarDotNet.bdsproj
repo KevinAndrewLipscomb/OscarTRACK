@@ -189,6 +189,20 @@
 			<Language Name="RootDir"></Language>
 		</Language>  
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -197,7 +211,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2656.35254" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2658.33384" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -228,6 +242,8 @@
       <File FileName="usercontrol\app\UserControl_roster.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_roster"/>
       <File FileName="usercontrol\app\UserControl_establish_membership.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_establish_membership"/>
       <File FileName="protected\establish_membership_trouble.aspx" ContainerId="AspMarkupContainer" ModuleName="establish_membership_trouble"/>
+      <File FileName="usercontrol\app\UserControl_precontent.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_precontent"/>
+      <File FileName="usercontrol\app\UserControl_postcontent.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_postcontent"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -289,6 +305,8 @@
       <File FileName="appcommon.pas" ContainerId="" ModuleName="appcommon"/>
       <File FileName="usercontrol\app\UserControl_establish_membership.pas" ContainerId="" ModuleName="UserControl_establish_membership" Parent="usercontrol\app\UserControl_establish_membership.ascx"/>
       <File FileName="protected\establish_membership_trouble.pas" ContainerId="" ModuleName="establish_membership_trouble" Parent="protected\establish_membership_trouble.aspx"/>
+      <File FileName="usercontrol\app\UserControl_precontent.pas" ContainerId="" ModuleName="UserControl_precontent" Parent="usercontrol\app\UserControl_precontent.ascx"/>
+      <File FileName="usercontrol\app\UserControl_postcontent.pas" ContainerId="" ModuleName="UserControl_postcontent" Parent="usercontrol\app\UserControl_postcontent.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
