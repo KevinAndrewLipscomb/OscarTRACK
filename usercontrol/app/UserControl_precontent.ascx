@@ -19,8 +19,8 @@
 	  <p>
 	  <table cellspacing="0" cellpadding="0" width="100%" border="0">
 		<tr>
-		  <td align="center"><img height="105" hspace="0"
-					   src="..\..\protected\image\DEMS_SEAL.jpg" width="108" border="0" alt="VBDEMS seal"></td>
+		  <td align="center"><a href="http://www.vabeachems.com"><img id="HtmlImage_sponsor_logoseal" height="105" alt="VBDEMS seal" src="~\protected\image\vbemspatch150.jpg" width="108" border="0" name="HtmlImage_sponsor_logoseal" runat="Server">
+                  </a></td>
 		</tr>
 	  </table>
 	  </p>
@@ -52,7 +52,7 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-									         Policy</a>
+									              Policy</a>
 						</small></td>
 					</tr>
 					<tr>
@@ -106,9 +106,10 @@
 		<table cellspacing="0" cellpadding="5" width="100%" border="0">
 			<tr>
 			  <td>
-				  <p align="center"><img height="500" hspace="0" src="..\..\protected\image\vbemslogosmall-rot-minus-90.JPG" width="127" border="0" alt="VRSs of VB with ECG"></p>
-				  <p align="center"><img height="162" hspace="0"
-                         src="http://localhost/OscarDotNet/protected/image/seal.jpg" width="154" border="0" alt="City of VB seal"></p></td>
+				  <p align="center"><img id="HtmlImage_partner_banner" height="500" alt="VRSs of VB banner" src="~\protected\image\vbemslogosmall.jpg" width="127" border="0" name="HtmlImage_partner_banner" runat="Server"></p>
+				  <p align="center">
+                    <a href="http://www.vbgov.com"><img id="HtmlImage_sponsor_sponsor_logoseal" height="162" alt="City of Va Beach seal" src="~\protected\image\cityseal150.jpg" width="154" border="0" name="HtmlImage_sponsor_sponsor_logoseal" runat="Server">
+                    </a></p></td>
 			</tr>
 		</table>
 	  </p>
