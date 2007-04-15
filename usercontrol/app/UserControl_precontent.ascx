@@ -1,27 +1,26 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_precontent.pas" Inherits="UserControl_precontent.TWebUserControl_precontent"%>
 <%@ OutputCache Duration="86400" VaryByParam="none" Shared="true" %>
-<table width="100%" cellspacing="0" cellpadding="5" bgcolor="#b0c4de" border="0">
+<table width="100%" cellspacing="0" cellpadding="5" bgcolor="#b0c4de" border="1" bordercolor="lightsteelblue">
   <tr>
-	<td align="center"><strong><ASP:Label id="Label_sponsor" runat="server"></ASP:Label></strong></td>
+	<td align="center"><ASP:Label id="Label_application_name" runat="server" font-bold="True"></ASP:Label></td>
   </tr>
 </table>
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
   <tr>
 	<td valign="top" width="10%">
 	  <p>
-          <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="5" width="100%" border="1">
-              <tr>
-                <td bgcolor="#f5f5f5">
-                  <p align="center"><strong><ASP:Label id="Label_application_name" runat="server" font-bold="True" font-italic="True"></ASP:Label></strong>
-                  </p></td>
-              </tr>
-          </table>
+		  <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="5" width="100%" border="1">
+			  <tr>
+				<td bgcolor="#f5f5f5">
+				  <p align="center"><ASP:HyperLink id="HyperLink_sponsor" runat="server" font-bold="True" navigateurl="http://www.vabeachems.com"></ASP:HyperLink>
+				  </p></td>
+			  </tr>
+		  </table>
 	  </p>
 	  <p>
 	  <table cellspacing="0" cellpadding="0" width="100%" border="0">
 		<tr>
-		  <td align="center"><a href="http://www.vabeachems.com"><img id="HtmlImage_sponsor_logoseal" height="105" alt="VBDEMS seal" src="~\protected\image\vbemspatch150.jpg" width="108" border="0" name="HtmlImage_sponsor_logoseal" runat="Server">
-                  </a></td>
+		  <td align="center"><a href="http://www.vabeachems.com"><img id="HtmlImage_sponsor_logoseal" height="145" alt="VBDEMS seal" src="~\protected\image\vbemspatch150.jpg" width="149" border="0" runat="Server"></a></td>
 		</tr>
 	  </table>
 	  </p>
@@ -53,7 +52,7 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-									                 Policy</a>
+														     Policy</a>
 						</small></td>
 					</tr>
 					<tr>
@@ -107,10 +106,9 @@
 		<table cellspacing="0" cellpadding="5" width="100%" border="0">
 			<tr>
 			  <td>
-				  <p align="center"><img id="HtmlImage_partner_banner" height="500" alt="VRSs of VB banner" src="~\protected\image\vbemslogosmall.jpg" width="127" border="0" name="HtmlImage_partner_banner" runat="Server"></p>
-				  <p align="center">
-                    <a href="http://www.vbgov.com"><img id="HtmlImage_sponsor_sponsor_logoseal" height="162" alt="City of Va Beach seal" src="~\protected\image\cityseal150.jpg" width="154" border="0" name="HtmlImage_sponsor_sponsor_logoseal" runat="Server">
-                    </a></p></td>
+				  <p align="center"><a href="http://groups.yahoo.com/group/BeachEMS/"><img id="HtmlImage_partner_logoseal" height="151" alt="Rescue Council logoseal" src="http://localhost/OscarDotNet/usercontrol/app/~/protected/image/rc-logo.jpg" width="154" border="0" runat="Server"></a></p>
+				  <p align="center"><a href="http://www.vbgov.com"><img id="HtmlImage_sponsor_sponsor_logoseal" height="162" alt="City of Va Beach seal" src="~\protected\image\cityseal150.jpg" width="154" border="0" runat="Server"></a></p>
+			  </td>
 			</tr>
 		</table>
 	  </p>
