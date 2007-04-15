@@ -69,6 +69,10 @@ begin
 end;
 
 procedure TWebUserControl_precontent.OnInit(e: System.EventArgs);
+var
+  is_post_back: boolean;
+  session_object_namespace: string;
+  class_object_namespace: string;
 begin
   //
   // Required for Designer support
@@ -76,8 +80,13 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_precontent.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['UserControl_precontent.p']);
+  is_post_back := IsPostback;
+  if is_post_back then begin
+    session_object_namespace := session['UserControl_precontent.p'].GetType.namespace;
+    class_object_namespace := p.GetType.namespace;
+    if (session_object_namespace = class_object_namespace) then begin
+      p := p_type(session['UserControl_precontent.p']);
+    end;
   end else begin
     //
     //
