@@ -29,9 +29,9 @@ type
     Label_application_name: System.Web.UI.WebControls.Label;
     HtmlImage_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     HtmlImage_sponsor_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
-    HtmlImage_partner_banner: System.Web.UI.HtmlControls.HtmlImage;
-    Label_sponsor: System.Web.UI.WebControls.Label;
     ValidationSummary1: System.Web.UI.WebControls.ValidationSummary;
+    HyperLink_sponsor: System.Web.UI.WebControls.HyperLink;
+    HtmlImage_partner_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -52,12 +52,12 @@ begin
   //
   if not IsPostback then begin
     //
-    Label_sponsor.text := configurationsettings.appsettings['sponsor'];
+    HyperLink_sponsor.text := configurationsettings.appsettings['sponsor'];
     Label_application_name.text := configurationsettings.appsettings['application_name'];
     HtmlImage_sponsor_logoseal.src := HtmlImage_sponsor_logoseal.src
       .Replace('\','/')
       .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
-    HtmlImage_partner_banner.src := HtmlImage_partner_banner.src
+    HtmlImage_partner_logoseal.src := HtmlImage_partner_logoseal.src
       .Replace('\','/')
       .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
     HtmlImage_sponsor_sponsor_logoseal.src := HtmlImage_sponsor_sponsor_logoseal.src
