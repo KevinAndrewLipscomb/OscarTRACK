@@ -52,7 +52,7 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-														     Policy</a>
+														      Policy</a>
 						</small></td>
 					</tr>
 					<tr>
@@ -106,7 +106,7 @@
 		<table cellspacing="0" cellpadding="5" width="100%" border="0">
 			<tr>
 			  <td>
-				  <p align="center"><a href="http://groups.yahoo.com/group/BeachEMS/"><img id="HtmlImage_partner_logoseal" height="151" alt="Rescue Council logoseal" src="http://localhost/OscarDotNet/usercontrol/app/~/protected/image/rc-logo.jpg" width="154" border="0" runat="Server"></a></p>
+				  <p align="center"><a href="http://groups.yahoo.com/group/BeachEMS/"><img id="HtmlImage_partner_logoseal" height="151" alt="Rescue Council logoseal" src="~/protected/image/rc-logo.jpg" width="154" border="0" runat="Server"></a></p>
 				  <p align="center"><a href="http://www.vbgov.com"><img id="HtmlImage_sponsor_sponsor_logoseal" height="162" alt="City of Va Beach seal" src="~\protected\image\cityseal150.jpg" width="154" border="0" runat="Server"></a></p>
 			  </td>
 			</tr>
