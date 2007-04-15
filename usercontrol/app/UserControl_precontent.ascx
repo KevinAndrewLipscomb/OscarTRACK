@@ -1,5 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_precontent.pas" Inherits="UserControl_precontent.TWebUserControl_precontent"%>
-<%@ OutputCache Duration="86400" VaryByParam="none" Shared="true" %>
 <table width="100%" cellspacing="0" cellpadding="5" bgcolor="#b0c4de" border="1" bordercolor="lightsteelblue">
   <tr>
 	<td align="center"><ASP:Label id="Label_application_name" runat="server" font-bold="True"></ASP:Label></td>
@@ -52,7 +51,7 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-														      Policy</a>
+														       Policy</a>
 						</small></td>
 					</tr>
 					<tr>
