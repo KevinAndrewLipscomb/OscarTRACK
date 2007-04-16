@@ -1,17 +1,18 @@
 unit UserControl_precontent;
+//
+// UserControl_precontent must not attempt to access session state because UserControl_precontent is invoked on the timeout page
+// and session state is by definition nonexistent in a timeout situation.
+//
 
 interface
 
 uses
-  System.Data,
-  System.Drawing,
-  System.Web,
-  System.Web.UI,
+  ki_web_ui,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls;
 
 type
-  TWebUserControl_precontent = class(system.web.ui.usercontrol)
+  TWebUserControl_precontent = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
