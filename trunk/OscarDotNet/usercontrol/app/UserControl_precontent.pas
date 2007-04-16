@@ -3,7 +3,6 @@ unit UserControl_precontent;
 interface
 
 uses
-  ki_web_ui,
   System.Data,
   System.Drawing,
   System.Web,
@@ -12,18 +11,12 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    END;
-  TWebUserControl_precontent = class(ki_web_ui.usercontrol_class)
+  TWebUserControl_precontent = class(system.web.ui.usercontrol)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure TWebUserControl_precontent_PreRender(sender: System.Object;
-      e: System.EventArgs);
   {$ENDREGION}
   strict private
-    p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
@@ -42,9 +35,6 @@ type
 implementation
 
 uses
-  appcommon,
-  ki,
-  System.Collections,
   system.configuration;
 
 procedure TWebUserControl_precontent.Page_Load(sender: System.Object; e: System.EventArgs);
@@ -69,28 +59,12 @@ begin
 end;
 
 procedure TWebUserControl_precontent.OnInit(e: System.EventArgs);
-var
-  is_post_back: boolean;
-  session_object_namespace: string;
-  class_object_namespace: string;
 begin
   //
   // Required for Designer support
   //
   InitializeComponent;
   inherited OnInit(e);
-  //
-  is_post_back := IsPostback;
-  if is_post_back then begin
-    session_object_namespace := session['UserControl_precontent.p'].GetType.namespace;
-    class_object_namespace := p.GetType.namespace;
-    if (session_object_namespace = class_object_namespace) then begin
-      p := p_type(session['UserControl_precontent.p']);
-    end;
-  end else begin
-    //
-    //
-  end;
   //
 end;
 
@@ -102,15 +76,7 @@ end;
 procedure TWebUserControl_precontent.InitializeComponent;
 begin
   Include(Self.Load, Self.Page_Load);
-  Include(Self.PreRender, Self.TWebUserControl_precontent_PreRender);
 end;
 {$ENDREGION}
-
-procedure TWebUserControl_precontent.TWebUserControl_precontent_PreRender(sender: System.Object;
-  e: System.EventArgs);
-begin
-  session.Remove('UserControl_precontent.p');
-  session.Add('UserControl_precontent.p',p);
-end;
 
 end.
