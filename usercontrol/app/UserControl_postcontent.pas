@@ -1,12 +1,16 @@
 unit UserControl_postcontent;
+//
+// UserControl_postcontent must not attempt to access session state because UserControl_postcontent is invoked on the timeout page
+// and session state is by definition nonexistent in a timeout situation.
+//
 
 interface
 
 uses
-  System.Web.UI;
+  ki_web_ui;
 
 type
-  TWebUserControl_postcontent = class(system.web.ui.usercontrol)
+  TWebUserControl_postcontent = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
   {$ENDREGION}
