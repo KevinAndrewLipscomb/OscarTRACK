@@ -252,7 +252,10 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (14, NULL, NULL, 10),
 (15, NULL, NULL, 10),
 (16, NULL, NULL, 10),
-(17, NULL, NULL, 10);
+(17, NULL, NULL, 10),
+(17, NULL, NULL, 13),
+(17, NULL, NULL, 14),
+(17, NULL, NULL, 16);
 
 -- --------------------------------------------------------
 
