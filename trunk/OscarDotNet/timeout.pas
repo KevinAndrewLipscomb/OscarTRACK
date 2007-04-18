@@ -61,7 +61,12 @@ begin
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       session.Clear;
-      server.Transfer('~/login.aspx');
+      //
+      // Use response.Redirect instead of server.Transfer to, I hope, force IsPostback to FALSE in the target login form.  The
+      // sequence of login -> timeout -> login may have been allowing IsPostback to stay TRUE through, which I had not anticipated.
+      //
+      response.Redirect('~/login.aspx');
+      //
     end;
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - timeout';
   end;
