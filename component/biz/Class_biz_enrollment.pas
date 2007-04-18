@@ -12,6 +12,7 @@ type
     (
     ALL,
       CURRENT,
+        APPLICANT,
         OPERATIONAL,
           TENURED,
           LIFE,

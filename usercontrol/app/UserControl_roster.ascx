@@ -49,24 +49,25 @@
 						<td>
 									  <p align="center"><small>Enrollment</small><br>
 						  <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px">
-							<asp:listitem value="all">All</asp:listitem>
-							<asp:listitem value="current" selected="true">- Current</asp:listitem>
-							<asp:listitem value="operational">- - Operational</asp:listitem>
-							<asp:listitem value="tenured">- - - Tenured</asp:listitem>
-							<asp:listitem value="life">- - - Life</asp:listitem>
-							<asp:listitem value="regular">- - - Regular</asp:listitem>
-							<asp:listitem value="reduced">- - - Reduced</asp:listitem>
-							<asp:listitem value="associate">- - - Associate</asp:listitem>
-							<asp:listitem value="special">- - - Special</asp:listitem>
-							<asp:listitem value="recruit">- - Recruit</asp:listitem>
-							<asp:listitem value="admin">- - Admin</asp:listitem>
-							<asp:listitem value="past">- Past</asp:listitem>
-							<asp:listitem value="lost_interest">- - Lost interest</asp:listitem>
-							<asp:listitem value="resigned">- - Resigned</asp:listitem>
-							<asp:listitem value="retired">- - Retired</asp:listitem>
-							<asp:listitem value="disabled">- - Disabled</asp:listitem>
-							<asp:listitem value="expelled">- - Expelled</asp:listitem>
-							<asp:listitem value="deceased">- Deceased</asp:listitem>
+                                      <ASP:ListItem value="all">All</ASP:ListItem>
+                                      <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
+                                      <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
+                                      <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
+                                      <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
+                                      <ASP:ListItem value="life">- - - Life</ASP:ListItem>
+                                      <ASP:ListItem value="regular">- - - Regular</ASP:ListItem>
+                                      <ASP:ListItem value="reduced">- - - Reduced</ASP:ListItem>
+                                      <ASP:ListItem value="associate">- - - Associate</ASP:ListItem>
+                                      <ASP:ListItem value="special">- - - Special</ASP:ListItem>
+                                      <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
+                                      <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
+                                      <ASP:ListItem value="past">- Past</ASP:ListItem>
+                                      <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
+                                      <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
+                                      <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
+                                      <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
+                                      <ASP:ListItem value="expelled">- - Expelled</ASP:ListItem>
+                                      <ASP:ListItem value="deceased">- Deceased</ASP:ListItem>
 						  </asp:dropdownlist>
 									  </p>
 						</td>

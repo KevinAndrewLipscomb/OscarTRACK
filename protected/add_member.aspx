@@ -1,26 +1,34 @@
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="add_member.pas" AutoEventWireup="false" Inherits="add_member.TWebForm_add_member" %>
+<%@ Page language="c#" Debug="true" Codebehind="add_member.pas" AutoEventWireup="false" Inherits="add_member.TWebForm_add_member" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
+<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-
 <html>
   <head>
 	<title id="Title" runat="server"></title>
-      <!-- $Id$ -->
+	  <!-- $Id$ -->
   </head>
 
   <body>
-     <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
-		<small>[
+	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
+	  <p>
+		<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#d3d3d3" border="0">
+			<tr>
+			  <td><small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			                                                [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			                                                [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+															     [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>]&nbsp;
+															     [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
-		</small>
+					</small></td>
+			  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+			  <td align="right"><uc1:UserControl_print_div id="UserControl1" runat="server"></uc1:UserControl_print_div></td>
+			</tr>
+		</table>
 	  </p>
-	  <p><asp:label id="Label_account_descriptor" runat="server" font-bold="True" font-size="Large"></asp:label></p>
+<div id="Div_print_area">
 	  <p>
         <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
             <tr>
@@ -78,7 +86,7 @@
 							  <td nowrap="true"><ASP:Label id="Label_invalid_enrollment_date" runat="server" font-bold="True" forecolor="Red" visible="False">!ERR!</ASP:Label></td>
 							</tr>
 							<tr>
-							  <td><p>Enrollment level:<br><small><em>Once database is deemed clean, this setting will disappear from this form and all new members will be enrolled as Recruits.</em></small></p></td>
+							  <td><p>Enrollment level:<br><small><em>Once database is deemed clean, this setting will disappear from this form and all new members will be enrolled as Applicants.</em></small></p></td>
 							  <td><ASP:DropDownList id="DropDownList_enrollment_level" runat="server"></ASP:DropDownList></td>
 							  <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_enrollment_level" runat="server" errormessage="Please select an enrollment level." font-bold="True" controltovalidate="DropDownList_enrollment_level">!ERR!</ASP:RequiredFieldValidator></td>
 							</tr>
@@ -88,4 +96,7 @@
 								</div></td>
 							  <td nowrap="true"><ASP:Button id="Button_add_and_stop" runat="server" text="Add and stop"></ASP:Button>&nbsp; <ASP:Button id="Button_add_and_repeat" runat="server" text="Add and repeat"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
 							  <td></td>
-							</tr></table></td></tr></table></td></tr></table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><sstchur:SmartScroller runat="server" /></form></body></html>
+							</tr></table></td></tr></table></td></tr></table></p>
+</div>
+<uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
+<p><sstchur:SmartScroller runat="server" /></p></form></body></html>

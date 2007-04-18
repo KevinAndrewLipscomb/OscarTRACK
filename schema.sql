@@ -76,8 +76,9 @@ CREATE TABLE IF NOT EXISTS enrollment_level (
 -- Dumping data for table `enrollment_level`
 --
 
-INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elaboration) VALUES (1, 'Admin', 0, 90, 'For Admin I, II, and Support Services members.'),
-(2, 'Regular', 4, 30, 'as defined in EMS Duty Policy'),
+INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elaboration) VALUES
+(1, 'Admin', 0, 90, 'For Admin I, II, and Support Services members.'),
+(2, 'Regular', 4, 30, 'As defined in EMS Duty Policy.  Has been issued a white ID card.'),
 (3, 'Life', 3, 20, 'as defined in EMS Duty Policy'),
 (4, 'Tenured', 2, 10, 'as defined in EMS Duty Policy'),
 (5, 'Associate', 2, 80, 'as defined in EMS Duty Policy'),
@@ -85,13 +86,14 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (7, 'Reduced (1)', 1, 60, 'Only use when 1 shift per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 1 shift.'),
 (8, 'Reduced (2)', 2, 50, 'Only use when 2 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 2 shifts.'),
 (9, 'Reduced (3)', 3, 40, 'Only use when 3 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 3 shifts.'),
-(10, 'Recruit', 0, 85, 'Use for members who do not have a white ID card.'),
+(10, 'Recruit', 0, 85, 'Has been issued a red or yellow ID card.'),
 (11, 'Resigned', 0, 100, 'If the member did not clearly resign verbally or in writing, use "Disengaged" instead.  For Life or Tenured members, use "Retired" unless they have indicated a desire to "divorce" themselves from the organization.'),
 (12, 'Retired', 0, 150, 'Life or Tenured member disengaged on own accord.  It is recommended to put member on leave for a while prior to using this level.'),
 (13, 'Died', 0, 5555, 'Self-explanatory'),
 (14, 'Expelled', 0, 800, 'Forced out against own wishes'),
 (15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.'),
-(16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.');
+(16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.'),
+(17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.');
 
 -- --------------------------------------------------------
 
@@ -115,7 +117,8 @@ CREATE TABLE IF NOT EXISTS enrollment_transition (
 -- Dumping data for table `enrollment_transition`
 --
 
-INSERT INTO enrollment_transition (current_level_code, required_historical_level_code, disallowed_historical_level_code, valid_next_level_code) VALUES (1, NULL, NULL, 2),
+INSERT INTO enrollment_transition (current_level_code, required_historical_level_code, disallowed_historical_level_code, valid_next_level_code) VALUES
+(1, NULL, NULL, 2),
 (1, 3, 4, 3),
 (1, 4, NULL, 4),
 (1, NULL, NULL, 5),
@@ -248,7 +251,8 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (12, 3, NULL, 13),
 (14, NULL, NULL, 10),
 (15, NULL, NULL, 10),
-(16, NULL, NULL, 10);
+(16, NULL, NULL, 10),
+(17, NULL, NULL, 10);
 
 -- --------------------------------------------------------
 
