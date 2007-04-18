@@ -278,8 +278,9 @@ begin
   if enrollment_filter <> Class_biz_enrollment.ALL then begin
     filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
-    CURRENT: filter := filter + ' in ("Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
+    CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
     + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
+    APPLICANT: filter := filter + ' = "Applicant" ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special","Reduced (1)","Reduced (2)"'
     + ',"Reduced (3)") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';

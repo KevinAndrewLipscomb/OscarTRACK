@@ -103,14 +103,14 @@ uses
 /// </summary>
 procedure TWebForm_add_member.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.CustomValidator_email_address.ServerValidate, Self.CustomValidator_email_address_ServerValidate);
   Include(Self.Button_add_and_stop.Click, Self.Button_add_and_stop_Click);
   Include(Self.Button_add_and_repeat.Click, Self.Button_add_and_repeat_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
+  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
+  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
+  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_add_member_PreRender);
 end;
