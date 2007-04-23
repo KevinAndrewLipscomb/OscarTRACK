@@ -47,7 +47,7 @@ type
       agency_id: cardinal;
       email_address: string;
       enrollment_date: datetime;
-      enrollment_code: cardinal = 10
+      enrollment_code: cardinal = 17
       );
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
@@ -147,7 +147,7 @@ procedure TClass_db_members.Add
   agency_id: cardinal;
   email_address: string;
   enrollment_date: datetime;
-  enrollment_code: cardinal = 10
+  enrollment_code: cardinal = 17
   );
 var
   sql: string;

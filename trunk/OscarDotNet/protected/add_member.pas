@@ -74,7 +74,6 @@ type
     RequiredFieldValidator_agency: System.Web.UI.WebControls.RequiredFieldValidator;
     TableRow_agency: System.Web.UI.HtmlControls.HtmlTableRow;
     TextBox_email_address: System.Web.UI.WebControls.TextBox;
-    RequiredFieldValidator_email_address: System.Web.UI.WebControls.RequiredFieldValidator;
     RegularExpressionValidator_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     CustomValidator_email_address: System.Web.UI.WebControls.CustomValidator;
     RadioButtonList_be_driver_qualified: System.Web.UI.WebControls.RadioButtonList;
@@ -103,14 +102,14 @@ uses
 /// </summary>
 procedure TWebForm_add_member.InitializeComponent;
 begin
-  Include(Self.CustomValidator_email_address.ServerValidate, Self.CustomValidator_email_address_ServerValidate);
-  Include(Self.Button_add_and_stop.Click, Self.Button_add_and_stop_Click);
-  Include(Self.Button_add_and_repeat.Click, Self.Button_add_and_repeat_Click);
-  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.CustomValidator_email_address.ServerValidate, Self.CustomValidator_email_address_ServerValidate);
+  Include(Self.Button_add_and_stop.Click, Self.Button_add_and_stop_Click);
+  Include(Self.Button_add_and_repeat.Click, Self.Button_add_and_repeat_Click);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_add_member_PreRender);
 end;
@@ -200,7 +199,7 @@ end;
 procedure TWebForm_add_member.CustomValidator_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := (args.value = system.string.EMPTY) or ki.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_add_member.LinkButton_change_email_address_Click(sender: System.Object;
