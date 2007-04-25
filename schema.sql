@@ -358,7 +358,6 @@ drop table if exists member;
 create table if not exists member
   (
   id int unsigned AUTO_INCREMENT,
-  user_id int unsigned,
   be_valid boolean NOT NULL default 0,
   last_name varchar(31) NOT NULL,
   first_name varchar(31) NOT NULL,
@@ -369,7 +368,6 @@ create table if not exists member
   be_driver_qualified boolean NOT NULL,
   section_num tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (id),
-  UNIQUE KEY user_id (user_id),
   UNIQUE KEY cad_num (cad_num),
   KEY agency_id (agency_id),
   KEY medical_release_code (medical_release_code),
@@ -481,6 +479,17 @@ INSERT INTO role (id,`name`) VALUES
 (10,'Squad Analyst'),
 (11,'Member'),
 (12,'Department ALS ID Coordinator');
+
+--
+-- table structure for table `role_member_map`
+--
+DROP TABLE IF EXISTS role_member_map;
+CREATE TABLE role_member_map (
+  member_id int unsigned NOT NULL,
+  role_id int unsigned NOT NULL,
+  PRIMARY KEY  (member_id,role_id),
+  KEY role_id (role_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `role_privilege_map`
@@ -602,17 +611,6 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (12,14),
 (12,15);
 
---
--- table structure for table `role_user_map`
---
-DROP TABLE IF EXISTS role_user_map;
-CREATE TABLE role_user_map (
-  user_id int unsigned NOT NULL,
-  role_id int unsigned NOT NULL,
-  PRIMARY KEY  (user_id,role_id),
-  KEY role_id (role_id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- --------------------------------------------------------
 
 --
@@ -632,6 +630,17 @@ CREATE TABLE user (
   PRIMARY KEY (id),
   UNIQUE KEY (username),
   UNIQUE KEY (password_reset_email_address)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- table structure for table `user_member_map`
+--
+DROP TABLE IF EXISTS user_member_map;
+CREATE TABLE user_member_map (
+  user_id int unsigned NOT NULL,
+  member_id int unsigned NOT NULL,
+  PRIMARY KEY  (user_id),
+  UNIQUE KEY (member_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -673,13 +682,16 @@ ALTER TABLE `officership`
 -- Constraints for table `member`
 --
 ALTER TABLE member
-  ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES user (id),
   ADD CONSTRAINT FOREIGN KEY (agency_id) REFERENCES agency (id),
   ADD CONSTRAINT FOREIGN KEY (medical_release_code) REFERENCES medical_release_code_description_map (`code`);
 
-ALTER TABLE role_user_map
-  ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES user (id),
+ALTER TABLE role_member_map
+  ADD CONSTRAINT FOREIGN KEY (member_id) REFERENCES member (id),
   ADD CONSTRAINT FOREIGN KEY (role_id) REFERENCES role (id);
+
+ALTER TABLE user_member_map
+  ADD CONSTRAINT FOREIGN KEY (user_id) REFERENCES user (id),
+  ADD CONSTRAINT FOREIGN KEY (member_id) REFERENCES member (id);
 
 
 SET FOREIGN_KEY_CHECKS=1;

@@ -137,7 +137,7 @@ begin
     Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
     Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
     //
-    if not p.biz_members.BeLinkedToUser(p.biz_members.IdOf(session['e_item'])) then begin
+    if p.biz_members.UserIdOf(p.biz_members.IdOf(session['e_item'])) = system.string.EMPTY then begin
       LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address');
     end;
     LinkButton_change_medical_release_level.visible := Has(string_array(session['privilege_array']),'change-med-release-level');

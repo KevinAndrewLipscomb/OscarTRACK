@@ -39,7 +39,6 @@ type
       : boolean;
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): string;
-    function BeLinkedToUser(id: string): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRoster
       (
@@ -98,6 +97,7 @@ type
       id: string;
       name: string
       );
+    function UserIdOf(member_id: string): string;
   end;
 
 implementation
@@ -169,11 +169,6 @@ begin
   BeDriverQualifiedOf := db_members.BeDriverQualifiedOf(e_item);
 end;
 
-function TClass_biz_members.BeLinkedToUser(id: string): boolean;
-begin
-  BeLinkedToUser := db_members.BeLinkedToUser(id);
-end;
-
 function TClass_biz_members.BeValidProfile(id: string): boolean;
 begin
   BeValidProfile := db_members.BeValidProfile(id);
@@ -219,15 +214,8 @@ begin
 end;
 
 function TClass_biz_members.EmailAddressOf(member_id: string): string;
-var
-  email_address_of: string;
-  user_id: cardinal;
 begin
-  db_members.GetUserIdAndEmailAddress(member_id,user_id,email_address_of);
-  if user_id > 0 then begin
-    email_address_of := db_users.PasswordResetEmailAddressOfId(user_id.tostring);
-  end;
-  EmailAddressOf := email_address_of;
+  EmailAddressOf := db_members.EmailAddressOf(member_id);
 end;
 
 function TClass_biz_members.EnrollmentOf(e_item: system.object): string;
@@ -366,6 +354,11 @@ procedure TClass_biz_members.SetProfile
   );
 begin
   db_members.SetProfile(id,name);
+end;
+
+function TClass_biz_members.UserIdOf(member_id: string): string;
+begin
+  UserIdOf := db_members.UserIdOf(member_id);
 end;
 
 end.
