@@ -79,19 +79,18 @@ function TClass_db_users.AcceptAsMember
   : boolean;
 var
   accept_as_member: boolean;
+  member_id_obj: system.object;
 begin
   accept_as_member := FALSE;
   self.Open;
-  if nil <> bdpcommand.Create('select 1 from member where cad_num = "' + shared_secret + '"',connection).ExecuteScalar then begin
+  member_id_obj := bdpcommand.Create('select id from member where cad_num = "' + shared_secret + '"',connection).ExecuteScalar;
+  if member_id_obj <> nil then begin
     bdpcommand.Create
       (
-      'START TRANSACTION'
-      + ' ;'
-      + ' update member set user_id = ' + id + ' where cad_num = "' + shared_secret + '"'
-      + ' ;'
-      + ' insert role_user_map (user_id,role_id) select ' + id + ', role.id from role where role.name = "Member"'
-      + ' ;'
-      + ' COMMIT',
+      'insert user_member_map'
+      + ' set user_id = ' + id
+      + ' , member_id = ' + member_id_obj.tostring
+      + ' on duplicate key update user_id = ' + id,
       connection
       )
       .ExecuteNonquery;
@@ -195,9 +194,10 @@ begin
   bdr := bdpcommand.Create
     (
     'select distinct name'
-    + ' from privilege'
-    +   ' join role_privilege_map on (role_privilege_map.privilege_id=privilege.id)'
-    +   ' join role_user_map on (role_user_map.role_id=role_privilege_map.role_id)'
+    + ' from user_member_map'
+    +   ' join role_member_map using (member_id)'
+    +   ' join role_privilege_map using (role_id)'
+    +   ' join privilege on (privilege.id=role_privilege_map.privilege_id)'
     + ' where user_id = ' + id,
     connection
     )

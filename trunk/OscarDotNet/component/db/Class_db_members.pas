@@ -58,7 +58,6 @@ type
       cad_num: string
       )
       : boolean;
-    function BeLinkedToUser(id: string): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRoster
       (
@@ -75,6 +74,7 @@ type
       );
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
+    function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
     function FirstNameOfMemberId(member_id: string): string;
@@ -83,12 +83,6 @@ type
       id: string;
       out name: string;
       out be_valid_profile: boolean
-      );
-    procedure GetUserIdAndEmailAddress
-      (
-      member_id: string;
-      out user_id: cardinal;
-      out email_address: string
       );
     function IdOf(e_item: system.object): string;
     function IdOfUserId(user_id: string): string;
@@ -122,6 +116,7 @@ type
       id: string;
       name: string
       );
+    function UserIdOf(member_id: string): string;
   end;
 
 implementation
@@ -154,21 +149,25 @@ var
 begin
   sql := 'START TRANSACTION;'
   + ' insert into member'
-  + ' set first_name = "' + first_name + '"'
-  +   ' , last_name = "' + last_name + '"';
+  +   ' set first_name = "' + first_name + '"'
+  +     ' , last_name = "' + last_name + '"';
   if cad_num <> system.string.EMPTY then begin
     sql := sql + ' , cad_num = "' + cad_num + '"';
   end;
   sql := sql
-  +   ' , email_address = "' + email_address + '"'
-  +   ' , medical_release_code = ' + medical_release_code.tostring
-  +   ' , be_driver_qualified = ' + be_driver_qualified.tostring
-  +   ' , agency_id = ' + agency_id.tostring
+  +     ' , email_address = "' + email_address + '"'
+  +     ' , medical_release_code = ' + medical_release_code.tostring
+  +     ' , be_driver_qualified = ' + be_driver_qualified.tostring
+  +     ' , agency_id = ' + agency_id.tostring
   + ';'
   + ' insert into enrollment_history'
-  + ' set member_id = (select max(id) from member)'
-  +   ' , level_code = ' + enrollment_code.tostring
-  +   ' , start_date = "' + enrollment_date.tostring('yyyy-MM-dd') + '"'
+  +   ' set member_id = (select max(id) from member)'
+  +     ' , level_code = ' + enrollment_code.tostring
+  +     ' , start_date = "' + enrollment_date.tostring('yyyy-MM-dd') + '"'
+  + ';'
+  + ' insert into role_member_map'
+  +   ' set member_id = (select max(id) from member)'
+  +     ' , role_id = (select id from role where name = "Member")'
   + ';'
   + ' COMMIT';
   self.Open;
@@ -221,13 +220,6 @@ begin
   end;
   self.Open;
   BeKnown := (bdpcommand.Create(sql,connection).ExecuteScalar <> nil);
-  self.Close;
-end;
-
-function TClass_db_members.BeLinkedToUser(id: string): boolean;
-begin
-  self.Open;
-  BeLinkedToUser := (dbnull.value <> bdpcommand.Create('select user_id from member where id = ' + id,connection).ExecuteScalar); 
   self.Close;
 end;
 
@@ -405,6 +397,22 @@ begin
   self.Close;
 end;
 
+function TClass_db_members.EmailAddressOf(member_id: string): string;
+var
+  email_address_obj: system.object;
+begin
+  //
+  self.Open;
+  email_address_obj :=
+    bdpcommand.Create('select email_address from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  if email_address_obj <> nil then begin
+    EmailAddressOf := email_address_obj.tostring;
+  end else begin
+    EmailAddressOf := system.string.EMPTY;
+  end;
+  self.Close;
+end;
+
 function TClass_db_members.EnrollmentOf(e_item: system.object): string;
 begin
   EnrollmentOf := Safe(DataGridItem(e_item).cells[TCCI_ENROLLMENT].text,NARRATIVE);
@@ -448,40 +456,22 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.GetUserIdAndEmailAddress
-  (
-  member_id: string;
-  out user_id: cardinal;
-  out email_address: string
-  );
-var
-  bdr: bdpdatareader;
-begin
-  //
-  user_id := 0;
-  email_address := system.string.EMPTY;
-  //
-  self.Open;
-  bdr := bdpcommand.Create('select user_id,email_address from member where id = ' + member_id,connection).ExecuteReader;
-  bdr.Read;
-  if bdr['user_id'] <> dbnull.value then begin
-    user_id := uint32.Parse(bdr['user_id'].tostring);
-  end;
-  if bdr['email_address'] <> dbnull.value then begin
-    email_address := bdr['email_address'].tostring;
-  end;
-  self.Close;
-end;
-
 function TClass_db_members.IdOf(e_item: system.object): string;
 begin
   IdOf := Safe(DataGridItem(e_item).cells[TCCI_ID].text,NUM);
 end;
 
 function TClass_db_members.IdOfUserId(user_id: string): string;
+var
+  member_id_obj: system.object;
 begin
   self.Open;
-  IdOfUserId := bdpcommand.Create('select id from member where user_id = ' + user_id,connection).ExecuteScalar.tostring;
+  member_id_obj := bdpcommand.Create('select member_id from user_member_map where user_id = ' + user_id,connection).ExecuteScalar;
+  if member_id_obj <> nil then begin
+    IdOfUserId := member_id_obj.tostring;
+  end else begin
+    IdOfUserId := system.string.EMPTY;
+  end;
   self.Close;
 end;
 
@@ -629,6 +619,21 @@ begin
     connection
     )
     .ExecuteNonQuery;
+  self.Close;
+end;
+
+function TClass_db_members.UserIdOf(member_id: string): string;
+var
+  user_id_obj: system.object;
+begin
+  //
+  self.Open;
+  user_id_obj := bdpcommand.Create('select user_id from user_member_map where member_id = ' + member_id,connection).ExecuteScalar;
+  if user_id_obj <> nil then begin
+    UserIdOf := user_id_obj.tostring;
+  end else begin
+    UserIdOf := system.string.EMPTY;
+  end;
   self.Close;
 end;
 
