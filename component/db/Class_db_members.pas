@@ -85,6 +85,13 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
+    function IdOfFirstnameLastnameCadnum
+      (
+      first_name: string;
+      last_name: string;
+      cad_num: string
+      )
+      : string;
     function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
@@ -459,6 +466,35 @@ end;
 function TClass_db_members.IdOf(e_item: system.object): string;
 begin
   IdOf := Safe(DataGridItem(e_item).cells[TCCI_ID].text,NUM);
+end;
+
+function TClass_db_members.IdOfFirstnameLastnameCadnum
+  (
+  first_name: string;
+  last_name: string;
+  cad_num: string
+  )
+  : string;
+var
+  id_obj: system.object;
+begin
+  self.Open;
+  id_obj := bdpcommand.Create
+    (
+    'select id'
+    + ' from member'
+    + ' where first_name = "' + first_name + '"'
+    +   ' and last_name = "' + last_name + '"'
+    +   ' and cad_num = "' + cad_num + '"',
+    connection
+    )
+    .ExecuteScalar;
+  self.Close;
+  if id_obj <> nil then begin
+    IdOfFirstnameLastnameCadnum := id_obj.tostring;
+  end else begin
+    IdOfFirstnameLastnameCadnum := system.string.EMPTY;
+  end;
 end;
 
 function TClass_db_members.IdOfUserId(user_id: string): string;

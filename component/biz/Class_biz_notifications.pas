@@ -2,10 +2,14 @@ unit Class_biz_notifications;
 
 interface
 
+uses
+  Class_db_notifications;
+
 type
   TClass_biz_notifications = class
   private
     application_name: string;
+    db_notifications: TClass_db_notifications;
     host_domain_name: string;
   public
     constructor Create;
@@ -57,6 +61,7 @@ type
       );
     procedure IssueForMemberAdded
       (
+      member_id: string;
       first_name: string;
       last_name: string;
       cad_num: string;
@@ -120,6 +125,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   application_name := configurationsettings.appsettings['application_name'];
+  db_notifications := TClass_db_notifications.Create;
   host_domain_name := configurationsettings.appsettings['host_domain_name'];
 end;
 
@@ -138,7 +144,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -164,14 +169,15 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE
   + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/driver_qualification_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id)
+    + ',' + actor_email_address
+    + ',' + db_notifications.TargetOf('driver-qualification-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -242,7 +248,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -272,14 +277,13 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_deleted.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-deleted',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -307,7 +311,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -337,14 +340,13 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_granted.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -368,7 +370,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -393,14 +394,15 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/medical_release_level_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id)
+    + ',' + actor_email_address
+    + ',' + db_notifications.TargetOf('medical-release-level-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -411,6 +413,7 @@ end;
 
 procedure TClass_biz_notifications.IssueForMemberAdded
   (
+  member_id: string;
   first_name: string;
   last_name: string;
   cad_num: string;
@@ -428,7 +431,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -458,14 +460,13 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_added.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    email_address + ',' + actor_email_address + ',' + other_official_targets,
+    email_address + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-added',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -536,7 +537,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -563,14 +563,15 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := configurationsettings.appsettings['department_member_status_coordinator'];
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/new_enrollment_level.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id)
+    + ',' + actor_email_address
+    + ',' + db_notifications.TargetOf('new-enrollment-level',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -595,7 +596,6 @@ var
   biz_members: TClass_biz_members;
   biz_user: TClass_biz_user;
   biz_users: TClass_biz_users;
-  other_official_targets: string;
   template_reader: streamreader;
   //
   FUNCTION Merge(s: string): string;
@@ -621,14 +621,13 @@ begin
   actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
-  other_official_targets := system.string.EMPTY;
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/section_change.txt'));
   ki.SmtpMailSend
     (
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + other_official_targets,
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('section-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body

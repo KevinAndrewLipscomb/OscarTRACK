@@ -145,6 +145,7 @@ begin
       );
     biz_notifications.IssueForMemberAdded
       (
+      db_members.IdOfFirstnameLastnameCadnum(first_name,last_name,cad_num),
       first_name,
       last_name,
       cad_num,
