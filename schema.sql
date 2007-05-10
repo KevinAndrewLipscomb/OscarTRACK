@@ -82,7 +82,7 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (3, 'Life', 3, 20, 'as defined in EMS Duty Policy'),
 (4, 'Tenured', 2, 10, 'as defined in EMS Duty Policy'),
 (5, 'Associate', 2, 80, 'as defined in EMS Duty Policy'),
-(6, 'Special', NULL, 70, 'Use when duty obligation is seasonal (for non-regional college students, etc) or otherwise unusual.  Also for MD and certain Special Ops members.'),
+(6, 'Atypical', NULL, 70, 'Use when duty obligation is seasonal (for non-regional college students, etc) or otherwise unusual.  Also for MD and certain Special Ops members.'),
 (7, 'Reduced (1)', 1, 60, 'Only use when 1 shift per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 1 shift.'),
 (8, 'Reduced (2)', 2, 50, 'Only use when 2 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 2 shifts.'),
 (9, 'Reduced (3)', 3, 40, 'Only use when 3 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 3 shifts.'),
@@ -93,7 +93,8 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (14, 'Expelled', 0, 800, 'Forced out against own wishes'),
 (15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.'),
 (16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.'),
-(17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.');
+(17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.'),
+(18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.');
 
 -- --------------------------------------------------------
 
@@ -255,7 +256,14 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (17, NULL, NULL, 10),
 (17, NULL, NULL, 13),
 (17, NULL, NULL, 14),
-(17, NULL, NULL, 16);
+(17, NULL, NULL, 16),
+(17, NULL, NULL, 18),
+(18, NULL, NULL, 11),
+(18, NULL, NULL, 13),
+(18, NULL, NULL, 14),
+(18  NULL, NULL, 15),
+(18, NULL, NULL, 16);
+
 
 -- --------------------------------------------------------
 
@@ -636,8 +644,6 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (6,12),
 (6,13),
 (6,14),
-(6,15),
-(6,16),
 (6,17),
 (6,18),
 (7,8),
