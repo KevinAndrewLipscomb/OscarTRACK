@@ -33,32 +33,34 @@
 						<td nowrap="true">
 									  <p align="center">
 						  <small>Med release level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True">
-										  <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
-										  <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
-										  <ASP:ListItem value="none">- - None</ASP:ListItem>
-										  <ASP:ListItem value="in_class">- - In class</ASP:ListItem>
-										  <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
-										  <ASP:ListItem value="released">- Released</ASP:ListItem>
-										  <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
-										  <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
-										  <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
-										  <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
-										  <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
-										  <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
+                                      <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
+                                      <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
+                                      <ASP:ListItem value="none">- - None</ASP:ListItem>
+                                      <ASP:ListItem value="in_class">- - In class</ASP:ListItem>
+                                      <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
+                                      <ASP:ListItem value="released">- Released</ASP:ListItem>
+                                      <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
+                                      <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
+                                      <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
+                                      <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
+                                      <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
+                                      <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
 									  </p>							</td>
 						<td>
 									  <p align="center"><small>Enrollment</small><br>
 						  <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px">
                                       <ASP:ListItem value="all">All</ASP:ListItem>
                                       <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
-                                      <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
                                       <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
-                                      <ASP:ListItem value="tenured">- - - Tenured</ASP:ListItem>
-                                      <ASP:ListItem value="life">- - - Life</ASP:ListItem>
-                                      <ASP:ListItem value="regular">- - - Regular</ASP:ListItem>
-                                      <ASP:ListItem value="reduced">- - - Reduced</ASP:ListItem>
-                                      <ASP:ListItem value="associate">- - - Associate</ASP:ListItem>
-                                      <ASP:ListItem value="special">- - - Special</ASP:ListItem>
+                                      <ASP:ListItem value="standard_ops">- - - Standard ops</ASP:ListItem>
+                                      <ASP:ListItem value="tenured">- - - - Tenured</ASP:ListItem>
+                                      <ASP:ListItem value="life">- - - - Life</ASP:ListItem>
+                                      <ASP:ListItem value="regular">- - - - Regular</ASP:ListItem>
+                                      <ASP:ListItem value="reduced">- - - - Reduced</ASP:ListItem>
+                                      <ASP:ListItem value="associate">- - - - Associate</ASP:ListItem>
+                                      <ASP:ListItem value="atypical">- - - - Atypical</ASP:ListItem>
+                                      <ASP:ListItem value="specops">- - - Special ops</ASP:ListItem>
+                                      <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
                                       <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
                                       <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
                                       <ASP:ListItem value="past">- Past</ASP:ListItem>
@@ -124,7 +126,7 @@
                         <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
                           <ItemStyle horizontalalign="Center"></ItemStyle>
                         </ASP:BoundColumn>
-                        <ASP:BoundColumn datafield="agency_id" sortexpression="agency_id%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Agency">
+                        <ASP:BoundColumn datafield="agency" sortexpression="agency%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Agency">
                           <ItemStyle horizontalalign="Center"></ItemStyle>
                         </ASP:BoundColumn>
                         <ASP:BoundColumn datafield="section_num" sortexpression="section_num%, last_name asc, first_name asc, cad_num asc" readonly="True" headertext="Section">

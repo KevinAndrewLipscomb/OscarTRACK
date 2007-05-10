@@ -277,17 +277,20 @@ begin
   if enrollment_filter <> Class_biz_enrollment.ALL then begin
     filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
-    CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Special","Recruit","Admin"'
-    + ',"Reduced (1)","Reduced (2)","Reduced (3)") ';
+    CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin"'
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps") ';
     APPLICANT: filter := filter + ' = "Applicant" ';
-    OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Special","Reduced (1)","Reduced (2)"'
+    OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
+    + ',"Reduced (3)","SpecOps") ';
+    STANDARD_OPS: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
     + ',"Reduced (3)") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
     REDUCED: filter := filter + ' in ("Reduced (1)","Reduced (2)","Reduced (3)") ';
     REGULAR: filter := filter + ' = "Regular" ';
     LIFE: filter := filter + ' = "Life" ';
     TENURED: filter := filter + ' = "Tenured" ';
-    SPECIAL: filter := filter + ' = "Special" ';
+    ATYPICAL: filter := filter + ' = "Atypical" ';
+    SPECOPS: filter := filter + ' = "SpecOps" ';
     RECRUIT: filter := filter + ' = "Recruit" ';
     ADMIN: filter := filter + ' = "Admin" ';
     PAST: filter := filter + '  in ("Disengaged","Resigned","Retired","Disabled","Expelled") ';
@@ -338,7 +341,7 @@ begin
   + ' , last_name'                                                                       // column 1
   + ' , first_name'                                                                      // column 2
   + ' , cad_num'                                                                         // column 3
-  + ' , agency_id'                                                                       // column 4
+  + ' , short_designator as agency'                                                      // column 4
   + ' , section_num'                                                                     // column 5
   + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 6
   + ' , medical_release_code_description_map.description as medical_release_description' // column 7
@@ -383,6 +386,7 @@ begin
   +       ' )'
   +   ' left join kind_of_leave_code_description_map'
   +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
+  +   ' join agency on (agency.id=member.agency_id)'
   +   filter
   + ' order by ' + sort_order;
   //

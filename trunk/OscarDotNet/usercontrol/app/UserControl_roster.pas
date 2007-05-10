@@ -28,6 +28,7 @@ type
     be_user_privileged_to_see_all_squads: boolean;
     biz_agencies: TClass_biz_agencies;
     biz_enrollment: TClass_biz_enrollment;
+    biz_leave: TClass_biz_leave;
     biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_members: TClass_biz_members;
     biz_sections: TClass_biz_sections;
@@ -152,6 +153,7 @@ begin
     //
     p.biz_agencies := TClass_biz_agencies.Create;
     p.biz_enrollment := TClass_biz_enrollment.Create;
+    p.biz_leave := TClass_biz_leave.Create;
     p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
     p.biz_members := TClass_biz_members.Create;
     p.biz_sections := TClass_biz_sections.Create;
@@ -161,7 +163,7 @@ begin
     if p.be_user_privileged_to_see_all_squads then begin
       p.agency_filter := system.string.EMPTY;
     end else begin
-      p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
+      p.agency_filter := p.biz_agencies.ShortDesignatorOf(p.biz_members.AgencyIdOfId(session['member_id'].tostring));
     end;
     p.be_sort_order_ascending := TRUE;
     p.distribution_list := system.string.EMPTY;
@@ -364,11 +366,11 @@ var
 begin
   //
   DataGrid_roster.columns[TCCI_AGENCY].visible := (p.agency_filter = system.string.EMPTY);
-  DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.section_filter = 0);
+  DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.agency_filter <> system.string.EMPTY) and (p.section_filter = 0);
   DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter)
     and (not (p.enrollment_filter = ADMIN));
   DataGrid_roster.columns[TCCI_ENROLLMENT].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
-  DataGrid_roster.columns[TCCI_LEAVE].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
+  DataGrid_roster.columns[TCCI_LEAVE].visible := (p.leave_filter <> OBLIGATED);
   DataGrid_roster.columns[TCCI_OBLIGED_SHIFTS].visible := not (p.enrollment_filter = ADMIN);
   //
   p.biz_members.BindRoster

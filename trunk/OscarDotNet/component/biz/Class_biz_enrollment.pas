@@ -14,12 +14,14 @@ type
       CURRENT,
         APPLICANT,
         OPERATIONAL,
-          TENURED,
-          LIFE,
-          REGULAR,
-          REDUCED,
-          ASSOCIATE,
-          SPECIAL,
+          STANDARD_OPS,
+            TENURED,
+            LIFE,
+            REGULAR,
+            REDUCED,
+            ASSOCIATE,
+            ATYPICAL,
+          SPECOPS,
         RECRUIT,
         ADMIN,
       PAST,
@@ -76,7 +78,7 @@ end;
 function TClass_biz_enrollment.BeLeaf(filter: filter_type): boolean;
 begin
   BeLeaf := FALSE;
-  if not (filter in [ALL,CURRENT,OPERATIONAL,PAST]) then begin
+  if not (filter in [ALL,CURRENT,OPERATIONAL,STANDARD_OPS,PAST]) then begin
     BeLeaf := TRUE;
   end;
 end;
