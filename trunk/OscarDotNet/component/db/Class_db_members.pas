@@ -271,7 +271,7 @@ begin
   filter := ' where 1=1 ';
   //
   if agency_filter <> system.string.EMPTY then begin
-    filter := filter + ' and agency_id = ' + agency_filter + ' ';
+    filter := filter + ' and short_designator = "' + agency_filter + '" ';
   end;
   //
   if enrollment_filter <> Class_biz_enrollment.ALL then begin
