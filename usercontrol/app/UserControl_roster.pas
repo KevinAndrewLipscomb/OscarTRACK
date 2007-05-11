@@ -163,7 +163,7 @@ begin
     if p.be_user_privileged_to_see_all_squads then begin
       p.agency_filter := system.string.EMPTY;
     end else begin
-      p.agency_filter := p.biz_agencies.ShortDesignatorOf(p.biz_members.AgencyIdOfId(session['member_id'].tostring));
+      p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
     end;
     p.be_sort_order_ascending := TRUE;
     p.distribution_list := system.string.EMPTY;
