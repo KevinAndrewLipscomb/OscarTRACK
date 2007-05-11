@@ -137,7 +137,7 @@ procedure TWebForm_change_email_address.Button_submit_Click(sender: System.Objec
   e: System.EventArgs);
 begin
   if page.isvalid then begin
-    p.biz_users.SetEmailAddress(Safe(TextBox_nominal_email_address.Text.Trim,EMAIL_ADDRESS),p.biz_user.IdNum);
+    p.biz_users.SetEmailAddress(p.biz_user.IdNum,Safe(TextBox_nominal_email_address.Text.Trim,EMAIL_ADDRESS));
     server.Transfer('overview.aspx');
   end else begin
     ValidationAlert;
