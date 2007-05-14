@@ -96,6 +96,7 @@ type
     TableData_agency_filter: System.Web.UI.HtmlControls.HtmlTableCell;
     DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
     Paragraph_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlGenericControl;
+    TableData_section_filter: System.Web.UI.HtmlControls.HtmlTableCell;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -121,13 +122,14 @@ begin
     //
     LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-members');
     //
-    if p.be_user_privileged_to_see_all_squads then begin
-      p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
-      DropDownList_agency_filter.selectedindex := 0;
-    end else begin
-      TableData_agency_filter.visible := FALSE;
+    p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
+    if not p.be_user_privileged_to_see_all_squads then begin
+      DropDownList_agency_filter.selectedvalue := p.agency_filter;
     end;
+    DropDownList_agency_filter.enabled := p.be_user_privileged_to_see_all_squads;
+    //
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
+    TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
     //
     Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
@@ -183,6 +185,13 @@ procedure TWebUserControl_roster.DropDownList_agency_filter_SelectedIndexChanged
   e: System.EventArgs);
 begin
   p.agency_filter := Safe(DropDownList_agency_filter.selectedvalue,NUM);
+  TableData_section_filter.visible := (p.agency_filter <> system.string.EMPTY);
+  //
+  // Always reset section filter when agency filter changes.
+  //
+  DropDownList_section_filter.selectedindex := 0;
+  p.section_filter := 0;
+  //
   Bind;
 end;
 

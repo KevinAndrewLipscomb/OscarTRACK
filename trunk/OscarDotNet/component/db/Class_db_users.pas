@@ -284,9 +284,9 @@ begin
     (
     db_trail.Saved
       (
-      'UPDATE user '
-      + 'SET password_reset_email_address = "' + email_address + '"'
-      + 'WHERE id = ' + id
+      'UPDATE user'
+      + ' SET password_reset_email_address = "' + email_address + '"'
+      + ' WHERE id = ' + id
       ),
     connection
     )
