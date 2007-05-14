@@ -24,7 +24,7 @@
 					  <tr>
 						<td><b><small>Filters:</small></b></td>
 						<td id="TableData_agency_filter" runat="server"><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
-						<td nowrap="true">
+						<td id="TableData_section_filter" runat="server" nowrap="true">
 									  <p align="center"><small>Section</small><br>
 										<ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True">
 										</ASP:DropDownList>
