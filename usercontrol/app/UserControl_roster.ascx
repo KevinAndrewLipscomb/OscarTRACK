@@ -52,7 +52,7 @@
                                       <ASP:ListItem value="all">All</ASP:ListItem>
                                       <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
                                       <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
-                                      <ASP:ListItem value="standard_ops">- - - Standard ops</ASP:ListItem>
+                                      <ASP:ListItem value="standard_ops">- - - CORE OPS</ASP:ListItem>
                                       <ASP:ListItem value="tenured">- - - - Tenured</ASP:ListItem>
                                       <ASP:ListItem value="life">- - - - Life</ASP:ListItem>
                                       <ASP:ListItem value="regular">- - - - Regular</ASP:ListItem>
@@ -63,6 +63,7 @@
                                       <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
                                       <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
                                       <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
+                                      <ASP:ListItem value="suspended">- - Suspended</ASP:ListItem>
                                       <ASP:ListItem value="past">- Past</ASP:ListItem>
                                       <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
                                       <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>

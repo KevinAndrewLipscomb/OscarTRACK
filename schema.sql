@@ -94,7 +94,8 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.'),
 (16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.'),
 (17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.'),
-(18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.');
+(18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.'),
+(19, 'Suspended', 0, 95, 'as described in Corrective Action Policy');
 
 -- --------------------------------------------------------
 
@@ -262,7 +263,35 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (18, NULL, NULL, 13),
 (18, NULL, NULL, 14),
 (18  NULL, NULL, 15),
-(18, NULL, NULL, 16);
+(18, NULL, NULL, 16),
+(1,NULL,NULL,19),
+(2,NULL,NULL,19),
+(3,NULL,NULL,19),
+(4,NULL,NULL,19),
+(5,NULL,NULL,19),
+(6,NULL,NULL,19),
+(7,NULL,NULL,19),
+(8,NULL,NULL,19),
+(9,NULL,NULL,19),
+(10,NULL,NULL,19),
+(18,NULL,NULL,19),
+(19,NULL,NULL,1),
+(19,2,NULL,2),
+(19,3,NULL,3),
+(19,4,NULL,4),
+(19,NULL,NULL,5),
+(19,NULL,NULL,6),
+(19,NULL,NULL,7),
+(19,NULL,NULL,8),
+(19,NULL,NULL,9),
+(19,NULL,NULL,10),
+(19,NULL,NULL,11),
+(19,NULL,NULL,12),
+(19,NULL,NULL,13),
+(19,NULL,NULL,14),
+(19,NULL,NULL,15),
+(19,NULL,NULL,16),
+(19,NULL,NULL,18);
 
 
 -- --------------------------------------------------------
