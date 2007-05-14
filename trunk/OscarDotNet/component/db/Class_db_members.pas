@@ -278,7 +278,7 @@ begin
     filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin"'
-    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps") ';
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Suspended") ';
     APPLICANT: filter := filter + ' = "Applicant" ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
     + ',"Reduced (3)","SpecOps") ';
@@ -293,6 +293,7 @@ begin
     SPECOPS: filter := filter + ' = "SpecOps" ';
     RECRUIT: filter := filter + ' = "Recruit" ';
     ADMIN: filter := filter + ' = "Admin" ';
+    SUSPENDED: filter := filter + ' = "Suspended" ';
     PAST: filter := filter + '  in ("Disengaged","Resigned","Retired","Disabled","Expelled") ';
     LOST_INTEREST: filter := filter + ' = "Disengaged" ';
     RESIGNED: filter := filter + ' = "Resigned" ';

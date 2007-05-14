@@ -24,6 +24,7 @@ type
           SPECOPS,
         RECRUIT,
         ADMIN,
+        SUSPENDED,
       PAST,
         LOST_INTEREST,
         RESIGNED,
