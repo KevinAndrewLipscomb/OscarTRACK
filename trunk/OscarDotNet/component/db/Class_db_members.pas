@@ -156,8 +156,8 @@ var
 begin
   sql := 'START TRANSACTION;'
   + ' insert into member'
-  +   ' set first_name = "' + first_name + '"'
-  +     ' , last_name = "' + last_name + '"';
+  +   ' set first_name = "' + first_name.ToUpper + '"'
+  +     ' , last_name = "' + last_name.ToUpper + '"';
   if cad_num <> system.string.EMPTY then begin
     sql := sql + ' , cad_num = "' + cad_num + '"';
   end;
