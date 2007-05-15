@@ -48,7 +48,7 @@ uses
   Default in 'Default.pas' {Default.TWebForm_Default: ki_web_ui.page_class},
   exception in 'exception.pas' {exception.TWebForm_exception: ki_web_ui.page_class},
   login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
-  salogin in 'salogin.pas',
+  salogin in 'salogin.pas' {salogin.TWebForm_salogin: ki_web_ui.page_class},
   timeout in 'timeout.pas' {timeout.TWebForm_timeout: system.web.ui.page},
   Class_biz_user in 'component\biz\Class_biz_user.pas',
   Class_biz_accounts in 'component\biz\Class_biz_accounts.pas',
