@@ -111,7 +111,8 @@ uses
   Class_db_members,
   ki,
   System.Collections,
-  system.configuration;
+  system.configuration,
+  system.security.principal;
 
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -130,6 +131,16 @@ begin
     //
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
     TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
+    //
+    if httpcontext.current.user.IsInRole('Squad Scheduler') or httpcontext.current.user.IsInRole('Department Scheduler') then begin
+      p.enrollment_filter := STANDARD_OPS;
+      DropDownList_enrollment_filter.selectedvalue := 'standard_ops';
+      RadioButtonList_which_month.selectedvalue := '1'; // next month
+    end else begin
+      p.enrollment_filter := CURRENT;
+      DropDownList_enrollment_filter.selectedvalue := 'current';
+      RadioButtonList_which_month.selectedvalue := '0'; // this month
+    end;
     //
     Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
@@ -169,7 +180,6 @@ begin
     end;
     p.be_sort_order_ascending := TRUE;
     p.distribution_list := system.string.EMPTY;
-    p.enrollment_filter := CURRENT;
     p.leave_filter := Class_biz_leave.NONE;
     p.med_release_level_filter := ALL;
     p.section_filter := 0;
