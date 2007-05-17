@@ -114,6 +114,9 @@ uses
   system.configuration,
   system.security.principal;
 
+const
+  TCCI_DETAIL = 14;
+
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
@@ -132,7 +135,10 @@ begin
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
     TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
     //
-    if httpcontext.current.user.IsInRole('Squad Scheduler') or httpcontext.current.user.IsInRole('Department Scheduler') then begin
+    if httpcontext.current.user.IsInRole('Squad Scheduler')
+      or httpcontext.current.user.IsInRole('Department Scheduler')
+      or (session['mode:report/monthly-core-ops-roster'] <> nil)
+    then begin
       p.enrollment_filter := STANDARD_OPS;
       DropDownList_enrollment_filter.selectedvalue := 'standard_ops';
       RadioButtonList_which_month.selectedvalue := '1'; // next month
@@ -142,10 +148,27 @@ begin
       RadioButtonList_which_month.selectedvalue := '0'; // this month
     end;
     //
-    Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    if session['mode:report'] <> nil then begin
+      DataGrid_roster.enabled := FALSE;
+      DataGrid_roster.columns[TCCI_DETAIL].visible := FALSE;
+      DataGrid_roster.allowsorting := FALSE;
+      DropDownList_leave_filter.enabled := FALSE;
+      DropDownList_enrollment_filter.enabled := FALSE;
+      RadioButtonList_which_month.enabled := FALSE;
+      LinkButton_add_member.enabled := FALSE;
+      DropDownList_med_release_filter.enabled := FALSE;
+      DropDownList_section_filter.enabled := FALSE;
+      UserControl_print_div.visible := FALSE;
+      TextBox_quick_message_subject.enabled := FALSE;
+      TextBox_quick_message_body.enabled := FALSE;
+      RequiredFieldValidator_quick_message_body.enabled := FALSE;
+      Button_send.enabled := FALSE;
+      DropDownList_agency_filter.enabled := FALSE;
+    end;
     //
     Bind;
     //
+    Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
   end;

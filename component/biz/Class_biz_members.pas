@@ -66,6 +66,12 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
+    function IdOfRoleHolderAtAgency
+      (
+      role_name: string;
+      agency_short_designator: string
+      )
+      : string;
     function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
@@ -252,6 +258,16 @@ end;
 function TClass_biz_members.IdOf(e_item: system.object): string;
 begin
   IdOf := db_members.IdOf(e_item);
+end;
+
+function TClass_biz_members.IdOfRoleHolderAtAgency
+  (
+  role_name: string;
+  agency_short_designator: string
+  )
+  : string;
+begin
+  IdOfRoleHolderAtAgency := db_members.IdOfRoleHolderAtAgency(role_name,agency_short_designator);
 end;
 
 function TClass_biz_members.IdOfUserId(user_id: string): string;

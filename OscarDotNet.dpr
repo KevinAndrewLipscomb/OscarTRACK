@@ -40,6 +40,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\establish_membership_trouble.aspx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_precontent.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_postcontent.ascx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_core_ops_roster.aspx'}
 
 uses
   System.Reflection,
@@ -105,7 +106,8 @@ uses
   establish_membership_trouble in 'protected\establish_membership_trouble.pas' {establish_membership_trouble.TWebForm_establish_membership_trouble: ki_web_ui.page_class},
   UserControl_precontent in 'usercontrol\app\UserControl_precontent.pas' {UserControl_precontent.TWebUserControl_precontent: ki_web_ui.usercontrol_class},
   UserControl_postcontent in 'usercontrol\app\UserControl_postcontent.pas' {UserControl_postcontent.TWebUserControl_postcontent: ki_web_ui.usercontrol_class},
-  Class_db_notifications in 'component\db\Class_db_notifications.pas';
+  Class_db_notifications in 'component\db\Class_db_notifications.pas',
+  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following
