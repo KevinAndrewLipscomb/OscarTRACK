@@ -92,6 +92,12 @@ type
       cad_num: string
       )
       : string;
+    function IdOfRoleHolderAtAgency
+      (
+      role_name: string;
+      agency_short_designator: string
+      )
+      : string;
     function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
@@ -500,6 +506,36 @@ begin
   end else begin
     IdOfFirstnameLastnameCadnum := system.string.EMPTY;
   end;
+end;
+
+function TClass_db_members.IdOfRoleHolderAtAgency
+  (
+  role_name: string;
+  agency_short_designator: string
+  )
+  : string;
+var
+  member_id_obj: system.object;
+begin
+  self.Open;
+  member_id_obj := bdpcommand.Create
+    (
+    'select member.id'
+    + ' from member'
+    +   ' join role_member_map on (role_member_map.member_id=member.id)'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where role.name = "' + role_name + '"'
+    +   ' and agency.short_designator = "' + agency_short_designator + '"',
+    connection
+    )
+    .ExecuteScalar;
+  if member_id_obj <> nil then begin
+    IdOfRoleHolderAtAgency := member_id_obj.tostring;
+  end else begin
+    IdOfRoleHolderAtAgency := system.string.EMPTY;
+  end;
+  self.Close;
 end;
 
 function TClass_db_members.IdOfUserId(user_id: string): string;
