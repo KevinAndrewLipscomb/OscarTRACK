@@ -41,6 +41,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_precontent.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_postcontent.ascx'}
 {%AspMarkupContainer 'noninteractive\report_monthly_core_ops_roster.aspx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_current_roster.aspx'}
 
 uses
   System.Reflection,
@@ -107,7 +108,8 @@ uses
   UserControl_precontent in 'usercontrol\app\UserControl_precontent.pas' {UserControl_precontent.TWebUserControl_precontent: ki_web_ui.usercontrol_class},
   UserControl_postcontent in 'usercontrol\app\UserControl_postcontent.pas' {UserControl_postcontent.TWebUserControl_postcontent: ki_web_ui.usercontrol_class},
   Class_db_notifications in 'component\db\Class_db_notifications.pas',
-  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster: system.web.ui.page};
+  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster: system.web.ui.page},
+  report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas' {report_monthly_current_roster.TWebForm_report_monthly_current_roster: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following
