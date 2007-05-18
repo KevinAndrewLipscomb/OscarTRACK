@@ -443,7 +443,7 @@ begin
   p.be_datagrid_empty := (p.num_datagrid_rows = 0);
   TableRow_none.visible := p.be_datagrid_empty;
   TableRow_data.visible := not p.be_datagrid_empty;
-  Table_quick_message.visible := not p.be_datagrid_empty;
+  Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages') and not p.be_datagrid_empty;
   Label_distribution_list.text := (p.distribution_list + SPACE).TrimEnd([',',' ']);
   //
   // Clear aggregation vars for next bind, if any.

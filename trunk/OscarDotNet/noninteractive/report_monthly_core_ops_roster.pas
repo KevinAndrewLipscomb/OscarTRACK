@@ -6,15 +6,22 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
+  Class_biz_members,
   UserControl_roster;
 
 type
+  p_type =
+    RECORD
+    biz_members: TClass_biz_members;
+    member_id: string;
+    END;
   TWebForm_report_monthly_core_ops_roster = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
   {$ENDREGION}
   strict private
+    p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
@@ -30,7 +37,7 @@ type
 implementation
 
 uses
-  Class_biz_members,
+  Class_biz_agencies,
   ki,
   system.configuration,
   system.io,
@@ -55,6 +62,7 @@ end;
 procedure TWebForm_report_monthly_core_ops_roster.OnInit(e: EventArgs);
 var
   privilege_array: ki.string_array;
+  role_name: string;
 begin
   //
   // Required for Designer support
@@ -62,15 +70,26 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
+  p.biz_members := TClass_biz_members.Create;
+  //
   // Set session objects referenced by UserControl_roster.
   //
   session.Add('mode:report',system.string.EMPTY);
   session.Add('mode:report/monthly-core-ops-roster',system.string.EMPTY);
   //
-  SetLength(privilege_array,0);
-  session.Add('privilege_array',privilege_array);
+  if request['agency'] = 'EMS' then begin
+    role_name := 'Department Scheduler';
+    SetLength(privilege_array,1);
+    privilege_array[0] := 'see-all-squads';
+    session.Add('privilege_array',privilege_array);
+  end else begin
+    role_name := 'Squad Scheduler';
+    SetLength(privilege_array,0);
+    session.Add('privilege_array',privilege_array);
+  end;
   //
-  session.Add('member_id',TClass_biz_members.Create.IdOfRoleHolderAtAgency('Squad Scheduler',request['agency']));
+  p.member_id := p.biz_members.IdOfRoleHolderAtAgency(role_name,request['agency']);
+  session.Add('member_id',p.member_id);
   //
   PlaceHolder_roster.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));
   //
@@ -93,9 +112,9 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    'recipient@frompaper2web.com',
+    p.biz_members.EmailAddressOf(p.member_id),
     //subject
-    'Test Report',
+    'Monthly Core Ops Report',
     //body
     sb.tostring,
     //be_html
