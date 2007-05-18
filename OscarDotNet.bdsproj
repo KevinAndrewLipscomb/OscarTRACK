@@ -197,6 +197,15 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -239,6 +248,7 @@
       <File FileName="usercontrol\app\UserControl_precontent.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_precontent"/>
       <File FileName="usercontrol\app\UserControl_postcontent.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_postcontent"/>
       <File FileName="noninteractive\report_monthly_core_ops_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_core_ops_roster"/>
+      <File FileName="noninteractive\report_monthly_current_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_current_roster"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -304,6 +314,7 @@
       <File FileName="usercontrol\app\UserControl_postcontent.pas" ContainerId="" ModuleName="UserControl_postcontent" Parent="usercontrol\app\UserControl_postcontent.ascx"/>
       <File FileName="component\db\Class_db_notifications.pas" ContainerId="" ModuleName="Class_db_notifications"/>
       <File FileName="noninteractive\report_monthly_core_ops_roster.pas" ContainerId="" ModuleName="report_monthly_core_ops_roster" Parent="noninteractive\report_monthly_core_ops_roster.aspx"/>
+      <File FileName="noninteractive\report_monthly_current_roster.pas" ContainerId="" ModuleName="report_monthly_current_roster" Parent="noninteractive\report_monthly_current_roster.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

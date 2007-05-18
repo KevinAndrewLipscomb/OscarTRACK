@@ -1,4 +1,4 @@
-unit report_monthly_core_ops_roster;
+unit report_monthly_current_roster;
 
 interface
 
@@ -15,7 +15,7 @@ type
     biz_members: TClass_biz_members;
     member_id: string;
     END;
-  TWebForm_report_monthly_core_ops_roster = class(System.Web.UI.Page)
+  TWebForm_report_monthly_current_roster = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
@@ -48,18 +48,18 @@ uses
 /// Required method for Designer support -- do not modify
 /// the contents of this method with the code editor.
 /// </summary>
-procedure TWebForm_report_monthly_core_ops_roster.InitializeComponent;
+procedure TWebForm_report_monthly_current_roster.InitializeComponent;
 begin
   Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
-procedure TWebForm_report_monthly_core_ops_roster.Page_Load(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_report_monthly_current_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_core_ops_roster';
+  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_current_roster';
 end;
 
-procedure TWebForm_report_monthly_core_ops_roster.OnInit(e: EventArgs);
+procedure TWebForm_report_monthly_current_roster.OnInit(e: EventArgs);
 var
   privilege_array: ki.string_array;
   role_name: string;
@@ -75,15 +75,15 @@ begin
   // Set session objects referenced by UserControl_roster.
   //
   session.Add('mode:report',system.string.EMPTY);
-  session.Add('mode:report/monthly-core-ops-roster',system.string.EMPTY);
+  session.Add('mode:report/monthly-current-roster',system.string.EMPTY);
   //
   if request['agency'] = 'EMS' then begin
-    role_name := 'Department Scheduler';
+    role_name := 'Department Authority';
     SetLength(privilege_array,1);
     privilege_array[0] := 'see-all-squads';
     session.Add('privilege_array',privilege_array);
   end else begin
-    role_name := 'Squad Scheduler';
+    role_name := 'Squad Commander';
     SetLength(privilege_array,0);
     session.Add('privilege_array',privilege_array);
   end;
@@ -95,7 +95,7 @@ begin
   //
 end;
 
-procedure TWebForm_report_monthly_core_ops_roster.Render(writer: HtmlTextWriter);
+procedure TWebForm_report_monthly_current_roster.Render(writer: HtmlTextWriter);
 var
   sb: StringBuilder;
 begin
@@ -114,7 +114,7 @@ begin
     //to
     p.biz_members.EmailAddressOf(p.member_id),
     //subject
-    'Report: Monthly Core Ops Roster',
+    'Report: Monthly Current Roster',
     //body
     sb.tostring,
     //be_html
