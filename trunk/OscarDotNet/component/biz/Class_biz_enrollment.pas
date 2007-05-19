@@ -24,13 +24,14 @@ type
           SPECOPS,
         RECRUIT,
         ADMIN,
+        TRANSFERRING,
         SUSPENDED,
       PAST,
-        LOST_INTEREST,
+        DISENGAGED,
         RESIGNED,
         RETIRED,
         DISABLED,
-        EXPELLED,
+        DISMISSED,
       DECEASED
     );
   //

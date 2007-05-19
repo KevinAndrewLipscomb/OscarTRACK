@@ -63,13 +63,14 @@
                                       <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
                                       <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
                                       <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
+                                      <ASP:ListItem value="transferring">- - Transferring</ASP:ListItem>
                                       <ASP:ListItem value="suspended">- - Suspended</ASP:ListItem>
                                       <ASP:ListItem value="past">- Past</ASP:ListItem>
-                                      <ASP:ListItem value="lost_interest">- - Lost interest</ASP:ListItem>
+                                      <ASP:ListItem value="disengaged">- - Disengaged</ASP:ListItem>
                                       <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
                                       <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
                                       <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
-                                      <ASP:ListItem value="expelled">- - Expelled</ASP:ListItem>
+                                      <ASP:ListItem value="dismissed">- - Dismissed</ASP:ListItem>
                                       <ASP:ListItem value="deceased">- Deceased</ASP:ListItem>
 						  </asp:dropdownlist>
 									  </p>
