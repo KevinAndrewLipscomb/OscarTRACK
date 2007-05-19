@@ -90,12 +90,13 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (11, 'Resigned', 0, 100, 'If the member did not clearly resign verbally or in writing, use "Disengaged" instead.  For Life or Tenured members, use "Retired" unless they have indicated a desire to "divorce" themselves from the organization.'),
 (12, 'Retired', 0, 150, 'Life or Tenured member disengaged on own accord.  It is recommended to put member on leave for a while prior to using this level.'),
 (13, 'Died', 0, 5555, 'Self-explanatory'),
-(14, 'Expelled', 0, 800, 'Forced out against own wishes'),
+(14, 'Dismissed', 0, 800, 'Forced out against own wishes'),
 (15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.'),
 (16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.'),
 (17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.'),
 (18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.'),
-(19, 'Suspended', 0, 95, 'as described in Corrective Action Policy');
+(19, 'Suspended', 0, 95, 'as described in Corrective Action Policy'),
+(20, 'Transferring', 0, 81, 'In the process of switching affiliation WITHIN the system.  Temporarily relieves member from duty obligation.');
 
 -- --------------------------------------------------------
 
@@ -291,7 +292,26 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 (19,NULL,NULL,14),
 (19,NULL,NULL,15),
 (19,NULL,NULL,16),
-(19,NULL,NULL,18);
+(19,NULL,NULL,18),
+(4,NULL,NULL,20),
+(3,NULL,NULL,20),
+(2,NULL,NULL,20),
+(9,NULL,NULL,20),
+(8,NULL,NULL,20),
+(7,NULL,NULL,20),
+(6,NULL,NULL,20),
+(5,NULL,NULL,20),
+(18,NULL,NULL,20),
+(20,4,NULL,4),
+(20,3,4,3),
+(20,2,3,2),
+(20,2,3,9),
+(20,2,4,8),
+(20,2,NULL,7),
+(20,NULL,NULL,6),
+(20,NULL,NULL,5),
+(20,NULL,NULL,18),
+(20,NULL,NULL,1);
 
 
 -- --------------------------------------------------------
@@ -446,7 +466,7 @@ CREATE TABLE IF NOT EXISTS officership (
   id int(10) unsigned NOT NULL auto_increment,
   member_id int(10) unsigned NOT NULL,
   start_date date NOT NULL,
-  end_date date NOT NULL,
+  end_date date,
   rank_code tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (id),
   KEY member_id (member_id),
