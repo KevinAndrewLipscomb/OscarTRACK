@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS enrollment_history (
   level_code tinyint(3) unsigned NOT NULL,
   start_date date NOT NULL,
   end_date date,
+  note VARCHAR(127),
   PRIMARY KEY  (id),
   UNIQUE KEY member_id (member_id,level_code,start_date),
   KEY level_code (level_code)

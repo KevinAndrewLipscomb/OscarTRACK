@@ -56,6 +56,7 @@ type
     Label_member_first_name: System.Web.UI.WebControls.Label;
     LinkButton_grant_leave: System.Web.UI.WebControls.LinkButton;
     UserControl_effective_date: TWebUserControl_drop_down_date;
+    TextBox_note: System.Web.UI.WebControls.TextBox;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -143,6 +144,7 @@ begin
     (
     Safe(RadioButtonList_disposition.selectedvalue,NUM),
     UserControl_effective_date.selectedvalue,
+    Safe(TextBox_note.text,NARRATIVE),
     p.biz_members.IdOf(session['e_item']),
     session['e_item']
     )

@@ -10,6 +10,7 @@ const
   TCCI_ID = 0;
   TCCI_START_DATE = 1;
   TCCI_DESCRIPTION = 2;
+  TCCI_NOTE = 3;
 
 type
   TClass_db_enrollment = class(TClass_db)
@@ -35,6 +36,7 @@ type
       (
       new_level_code: string;
       effective_date: datetime;
+      note: string;
       member_id: string;
       e_item: system.object
       )
@@ -64,9 +66,10 @@ begin
   self.Open;
   DataGrid(target).datasource := bdpcommand.Create
     (
-    'select enrollment_history.id as id'                                       // column 0
-    + ' , date_format(start_date,"%Y-%m-%d") as start_date'                    // column 1
-    + ' , enrollment_level.description as description'                         // column 2
+    'select enrollment_history.id as id'                    // column 0
+    + ' , date_format(start_date,"%Y-%m-%d") as start_date' // column 1
+    + ' , enrollment_level.description as description'      // column 2
+    + ' , note'                                             // column 3
     + ' from enrollment_history'
     +   ' join member on (member.id=enrollment_history.member_id)'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
@@ -213,6 +216,7 @@ function TClass_db_enrollment.SetLevel
   (
   new_level_code: string;
   effective_date: datetime;
+  note: string;
   member_id: string;
   e_item: system.object
   )
@@ -241,6 +245,7 @@ begin
         +   ' set member_id = ' + member_id
         +     ' , level_code = ' + new_level_code
         +     ' , start_date = "' + effective_date_string + '"'
+        +     ' , note = "' + note + '"'
         + ' ;'
         + ' COMMIT'
         ),

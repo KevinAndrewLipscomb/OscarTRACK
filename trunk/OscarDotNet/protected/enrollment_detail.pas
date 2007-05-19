@@ -75,12 +75,12 @@ uses
 procedure TWebForm_enrollment_detail.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_add_new_enrollment_status.Click, Self.LinkButton_add_new_enrollment_status_Click);
   Include(Self.DataGrid_member_history.ItemCommand, Self.DataGrid_member_history_ItemCommand);
   Include(Self.DataGrid_member_history.ItemDataBound, Self.DataGrid_member_history_ItemDataBound);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_enrollment_detail_PreRender);
 end;

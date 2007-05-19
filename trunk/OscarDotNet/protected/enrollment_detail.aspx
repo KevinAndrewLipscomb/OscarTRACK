@@ -17,8 +17,8 @@
 				<td>
 				  <small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							         [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-							        [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+							           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+							          [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 				  </small>
@@ -58,6 +58,10 @@
 							<ASP:BoundColumn datafield="description" sortexpression="description" readonly="True" headertext="Level">
 							  <ItemStyle horizontalalign="Center"></ItemStyle>
 							</ASP:BoundColumn>
+                            <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note">
+                              <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                              <ItemStyle horizontalalign="Left"></ItemStyle>
+                            </ASP:BoundColumn>
 						  </Columns></ASP:DataGrid></td>
 					</tr>
 				</table></td>
@@ -65,6 +69,6 @@
 		</table></p>
 </div>
 	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
-	 <sstchur:SmartScroller runat="server" /></form>
+	 <p><sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>

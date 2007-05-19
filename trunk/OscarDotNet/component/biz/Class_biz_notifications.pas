@@ -84,7 +84,8 @@ type
       last_name: string;
       cad_num: string;
       new_level: string;
-      effective_date: string
+      effective_date: string;
+      note: string
       );
     procedure IssueForSectionChange
       (
@@ -528,7 +529,8 @@ procedure TClass_biz_notifications.IssueForNewEnrollmentLevel
   last_name: string;
   cad_num: string;
   new_level: string;
-  effective_date: string
+  effective_date: string;
+  note: string
   );
 var
   actor: string;
@@ -551,7 +553,8 @@ var
       .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<member_id/>',member_id)
-      .Replace('<new_level/>',new_level);
+      .Replace('<new_level/>',new_level)
+      .Replace('<note/>',note);
   END;
   //
 begin
