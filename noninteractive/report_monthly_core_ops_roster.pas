@@ -25,6 +25,9 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Label_application_name_1: System.Web.UI.WebControls.Label;
+    Label_application_name_2: System.Web.UI.WebControls.Label;
+    HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
     PlaceHolder_roster: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
@@ -55,8 +58,19 @@ end;
 {$ENDREGION}
 
 procedure TWebForm_report_monthly_core_ops_roster.Page_Load(sender: System.Object; e: System.EventArgs);
+var
+  url: string;
 begin
-  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_core_ops_roster';
+  //
+  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_current_roster';
+  Label_application_name_1.text := configurationsettings.appsettings['application_name'];
+  Label_application_name_2.text := configurationsettings.appsettings['application_name'];
+  //
+  url :=
+    'http://' + configurationsettings.appsettings['host_domain_name'] + '/' + configurationsettings.appsettings['application_name'];
+  HyperLink_web_site.text := url;
+  HyperLink_web_site.navigateurl := url;
+  //
 end;
 
 procedure TWebForm_report_monthly_core_ops_roster.OnInit(e: EventArgs);

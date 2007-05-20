@@ -1,9 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_precontent.pas" Inherits="UserControl_precontent.TWebUserControl_precontent"%>
-<table width="100%" cellspacing="0" cellpadding="5" bgcolor="#b0c4de" border="1" bordercolor="lightsteelblue">
-  <tr>
-	<td align="center"><ASP:Label id="Label_application_name" runat="server" font-bold="True"></ASP:Label></td>
-  </tr>
-</table>
+<%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
+<uc1:UserControl_common_header_bar id="UserControl_common_header_bar" runat="server"></uc1:UserControl_common_header_bar>
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
   <tr>
 	<td valign="top" width="10%">
@@ -51,9 +48,13 @@
 						<li></li></td>
 					  <td>
 						<small><a href="http://www.vbgov.com/file_source/dept/ems/Document/103.01.01.EMS_Duty_Policy.pdf">EMS Duty
-														       Policy</a>
+														            Policy</a>
 						</small></td>
 					</tr>
+							  <tr>
+								<td valign="top"><li></li></td>
+								<td><small><a href="http://www.oscarsystem.com/">OSCAR (classic)</a></small></td>
+							  </tr>
 					<tr>
 					  <td valign="top">
 						<li></li></td>
