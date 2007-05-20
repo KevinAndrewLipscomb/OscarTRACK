@@ -14,17 +14,17 @@
   <body>
 	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 	  <p>
-		<table cellspacing="0" cellpadding="0" width="100%" bgcolor="#d3d3d3" border="0">
+		<table cellspacing="0" cellpadding="1" width="100%" bgcolor="#d3d3d3" border="0">
 			<tr>
 			  <td><small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-															      [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>]&nbsp;
-															      [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+															           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>]&nbsp;
+															           [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 					</small></td>
 			  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			  <td align="right"><uc1:UserControl_print_div id="UserControl1" runat="server"></uc1:UserControl_print_div></td>
+			  <td align="right"><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
 			</tr>
 		</table>
 	  </p>
@@ -64,10 +64,10 @@
 							</tr>
 							<tr>
 							  <td>Qualified driver:</td>
-							  <td><ASP:RadioButtonList id="RadioButtonList_be_driver_qualified" runat="server" repeatdirection="Horizontal">
-								  <ASP:ListItem value="TRUE">Yes</ASP:ListItem>
-								  <ASP:ListItem value="FALSE">No</ASP:ListItem></ASP:RadioButtonList></td>
-							  <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_be_qualified_driver" runat="server" errormessage="Please indicate whether or not the member is a qualified driver." font-bold="True" controltovalidate="RadioButtonList_be_driver_qualified">!ERR!</ASP:RequiredFieldValidator></td>
+							  <td><ASP:RadioButtonList id="RadioButtonList_driver_qualified_yes_no" runat="server" repeatdirection="Horizontal">
+								  <ASP:ListItem value="Yes">Yes</ASP:ListItem>
+								  <ASP:ListItem value="No">No</ASP:ListItem></ASP:RadioButtonList></td>
+							  <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_qualified_driver_yes_no" runat="server" errormessage="Please indicate whether or not the member is a qualified driver." font-bold="True" controltovalidate="RadioButtonList_driver_qualified_yes_no">!ERR!</ASP:RequiredFieldValidator></td>
 							</tr>
 							<tr id="TableRow_agency" runat="server">
 							  <td>Agency:</td>

@@ -30,7 +30,7 @@ type
       last_name: string;
       cad_num: string;
       medical_release_code: string;
-      be_driver_qualified: string;
+      be_driver_qualified: boolean;
       agency_id: string;
       email_address: string;
       enrollment_date: datetime;
@@ -38,7 +38,7 @@ type
       )
       : boolean;
     function AgencyIdOfId(id: string): string;
-    function BeDriverQualifiedOf(e_item: system.object): string;
+    function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRoster
       (
@@ -127,7 +127,7 @@ function TClass_biz_members.Add
   last_name: string;
   cad_num: string;
   medical_release_code: string;
-  be_driver_qualified: string;
+  be_driver_qualified: boolean;
   agency_id: string;
   email_address: string;
   enrollment_date: datetime;
@@ -143,7 +143,7 @@ begin
       last_name,
       cad_num,
       uint32.Parse(medical_release_code),
-      boolean(system.object.Create).Parse(be_driver_qualified),
+      be_driver_qualified,
       uint32.Parse(agency_id),
       email_address,
       enrollment_date,
@@ -171,7 +171,7 @@ begin
   AgencyIdOfId := db_members.AgencyIdOfId(id);
 end;
 
-function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): string;
+function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): boolean;
 begin
   BeDriverQualifiedOf := db_members.BeDriverQualifiedOf(e_item);
 end;
@@ -313,7 +313,7 @@ begin
     FirstNameOf(e_item),
     LastNameOf(e_item),
     CadNumOf(e_item),
-    be_driver_qualified.tostring.ToUpper
+    be_driver_qualified
     );
 end;
 

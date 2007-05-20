@@ -135,7 +135,7 @@ begin
     Label_section.text := p.biz_members.SectionOf(session['e_item']);
     Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
     Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
-    Label_be_driver_qualified.Text := p.biz_members.BeDriverQualifiedOf(session['e_item']);
+    Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
     //
     if p.biz_members.UserIdOf(p.biz_members.IdOf(session['e_item'])) = system.string.EMPTY then begin
       LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address');
