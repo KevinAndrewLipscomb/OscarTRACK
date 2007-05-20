@@ -20,7 +20,6 @@ type
   strict private
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Label_application_name: System.Web.UI.WebControls.Label;
     HtmlImage_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     HtmlImage_sponsor_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
     ValidationSummary1: System.Web.UI.WebControls.ValidationSummary;
@@ -45,7 +44,6 @@ begin
   if not IsPostback then begin
     //
     HyperLink_sponsor.text := configurationsettings.appsettings['sponsor'];
-    Label_application_name.text := configurationsettings.appsettings['application_name'];
     HtmlImage_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_logoseal.src);
     HtmlImage_partner_logoseal.src := ExpandTildePath(HtmlImage_partner_logoseal.src);
     HtmlImage_sponsor_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_sponsor_logoseal.src);
