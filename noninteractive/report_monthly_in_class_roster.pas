@@ -102,7 +102,7 @@ begin
     session.Add('privilege_array',privilege_array);
   end;
   //
-  p.member_id := p.biz_members.IdOfRoleHolderAtAgency(role_name,request['agency']);
+  p.member_id := p.biz_members.IdOfAppropriateRoleHolder(role_name,request['agency']);
   session.Add('member_id',p.member_id);
   //
   PlaceHolder_roster.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));

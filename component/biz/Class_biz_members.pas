@@ -66,7 +66,7 @@ type
       out be_valid_profile: boolean
       );
     function IdOf(e_item: system.object): string;
-    function IdOfRoleHolderAtAgency
+    function IdOfAppropriateRoleHolder
       (
       role_name: string;
       agency_short_designator: string
@@ -260,14 +260,18 @@ begin
   IdOf := db_members.IdOf(e_item);
 end;
 
-function TClass_biz_members.IdOfRoleHolderAtAgency
+function TClass_biz_members.IdOfAppropriateRoleHolder
   (
   role_name: string;
   agency_short_designator: string
   )
   : string;
 begin
-  IdOfRoleHolderAtAgency := db_members.IdOfRoleHolderAtAgency(role_name,agency_short_designator);
+  if agency_short_designator <> 'EMS' then begin
+    IdOfAppropriateRoleHolder := db_members.IdOfRoleHolderAtAgency(role_name,agency_short_designator);
+  end else begin
+    IdOfAppropriateRoleHolder := db_members.IdOfRoleHolder(role_name);
+  end;
 end;
 
 function TClass_biz_members.IdOfUserId(user_id: string): string;
