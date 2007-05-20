@@ -123,7 +123,7 @@
                       <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                       <Columns>
                         <ASP:BoundColumn visible="False" datafield="member_id" readonly="True"></ASP:BoundColumn>
-                        <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; border=0&gt;" commandname="Select"></ASP:ButtonColumn>
+                        <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></ASP:ButtonColumn>
                         <ASP:BoundColumn datafield="last_name" sortexpression="last_name%, first_name asc, cad_num asc" readonly="True" headertext="Last name"></ASP:BoundColumn>
                         <ASP:BoundColumn datafield="first_name" sortexpression="first_name%, last_name asc, cad_num asc" readonly="True" headertext="First name"></ASP:BoundColumn>
                         <ASP:BoundColumn datafield="cad_num" sortexpression="cad_num" readonly="True" headertext="CAD#">
