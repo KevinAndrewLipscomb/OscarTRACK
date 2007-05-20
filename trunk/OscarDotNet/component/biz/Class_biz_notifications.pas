@@ -19,7 +19,7 @@ type
       first_name: string;
       last_name: string;
       cad_num: string;
-      be_driver_qualified: string
+      be_driver_qualified: boolean
       );
     procedure IssueForForgottenUsername
       (
@@ -66,7 +66,7 @@ type
       last_name: string;
       cad_num: string;
       medical_release_level: string;
-      be_driver_qualified: string;
+      be_driver_qualified: boolean;
       agency_name: string;
       email_address: string;
       enrollment_date: string;
@@ -136,7 +136,7 @@ procedure TClass_biz_notifications.IssueForDriverQualificationChange
   first_name: string;
   last_name: string;
   cad_num: string;
-  be_driver_qualified: string
+  be_driver_qualified: boolean
   );
 var
   actor: string;
@@ -157,7 +157,7 @@ var
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
-      .Replace('<be_driver_qualified/>',be_driver_qualified);
+      .Replace('<be_driver_qualified/>',YesNoOf(be_driver_qualified));
   END;
   //
 begin
@@ -419,7 +419,7 @@ procedure TClass_biz_notifications.IssueForMemberAdded
   last_name: string;
   cad_num: string;
   medical_release_level: string;
-  be_driver_qualified: string;
+  be_driver_qualified: boolean;
   agency_name: string;
   email_address: string;
   enrollment_date: string;
@@ -444,7 +444,7 @@ var
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<medical_release_level/>',medical_release_level)
-      .Replace('<be_driver_qualified/>',be_driver_qualified)
+      .Replace('<be_driver_qualified/>',YesNoOf(be_driver_qualified))
       .Replace('<agency_name/>',agency_name)
       .Replace('<email_address/>',email_address)
       .Replace('<enrollment_date/>',enrollment_date)

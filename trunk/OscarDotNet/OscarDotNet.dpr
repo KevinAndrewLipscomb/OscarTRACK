@@ -77,7 +77,7 @@ uses
   add_member in 'protected\add_member.pas' {add_member.TWebForm_add_member: ki_web_ui.page_class},
   add_new_enrollment_status in 'protected\add_new_enrollment_status.pas' {add_new_enrollment_status.TWebForm_add_new_enrollment_status: ki_web_ui.page_class},
   change_email_address in 'protected\change_email_address.pas' {change_email_address.TWebForm_change_email_address: ki_web_ui.page_class},
-  change_member_driver_qualification in 'protected\change_member_driver_qualification.pas',
+  change_member_driver_qualification in 'protected\change_member_driver_qualification.pas' {change_member_driver_qualification.TWebForm_change_member_driver_qualification: ki_web_ui.page_class},
   change_member_email_address in 'protected\change_member_email_address.pas' {change_member_email_address.TWebForm_change_member_email_address: ki_web_ui.page_class},
   change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
   change_password in 'protected\change_password.pas' {change_password.TWebForm_change_password: ki_web_ui.page_class},

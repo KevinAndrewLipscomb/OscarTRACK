@@ -50,7 +50,7 @@ type
       enrollment_code: cardinal = 17
       );
     function AgencyIdOfId(id: string): string;
-    function BeDriverQualifiedOf(e_item: system.object): string;
+    function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeKnown
       (
       first_name: string;
@@ -200,16 +200,9 @@ begin
   self.Close;
 end;
 
-function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): string;
-var
-  be_driver_qualified_of: string;
+function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): boolean;
 begin
-  be_driver_qualified_of := Safe(DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text,ALPHA);
-  if be_driver_qualified_of = 'nbsp' then begin
-    BeDriverQualifiedOf := system.string.Empty;
-  end else begin
-    BeDriverQualifiedOf := be_driver_qualified_of;
-  end;
+  BeDriverQualifiedOf := BooleanOfYesNo(Safe(DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text,ALPHA));
 end;
 
 function TClass_db_members.BeKnown
@@ -353,7 +346,7 @@ begin
   + ' , section_num'                                                                     // column 5
   + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 6
   + ' , medical_release_code_description_map.description as medical_release_description' // column 7
-  + ' , if(be_driver_qualified,"TRUE","false") as be_driver_qualified'                   // column 8
+  + ' , if(be_driver_qualified,"Yes","No") as be_driver_qualified'                       // column 8
   + ' , enrollment_level.description as enrollment'                                      // column 9
   + ' , num_shifts as enrollment_obligation'                                             // column 10
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 11
@@ -615,11 +608,7 @@ begin
     connection
     )
     .ExecuteNonQuery;
-  if be_driver_qualified then begin
-    DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'TRUE';
-  end else begin
-    DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].Text := 'false';
-  end;
+  DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text := YesNoOf(be_driver_qualified);
   self.Close;
 end;
 

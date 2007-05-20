@@ -16,7 +16,7 @@ uses
 type
   p_type =
     RECORD
-    driver_initially_qualified: string;
+    be_driver_initially_qualified: boolean;
     biz_members: TClass_biz_members;
     END;
   TWebForm_change_member_driver_qualification = class(ki_web_ui.page_class)
@@ -53,8 +53,8 @@ type
     Label_member_name_1: System.Web.UI.WebControls.Label;
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
-    RadioButtonList_be_driver_qualified: System.Web.UI.WebControls.RadioButtonList;
     Button_cancel: System.Web.UI.WebControls.Button;
+    RadioButtonList_driver_qualified_yes_no: System.Web.UI.WebControls.RadioButtonList;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -106,8 +106,8 @@ begin
       Label_member_name_1.text :=
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
       Label_member_name_2.text := Label_member_name_1.text;
-      p.driver_initially_qualified := p.biz_members.BeDriverQualifiedOf(session['e_item']);
-      RadioButtonList_be_driver_qualified.selectedvalue := p.driver_initially_qualified;
+      p.be_driver_initially_qualified := p.biz_members.BeDriverQualifiedOf(session['e_item']);
+      RadioButtonList_driver_qualified_yes_no.selectedvalue := YesNoOf(p.be_driver_initially_qualified);
       //
     end;
   end;
@@ -130,9 +130,12 @@ end;
 
 procedure TWebForm_change_member_driver_qualification.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
+var
+  be_driver_qualified: boolean;
 begin
-  if RadioButtonList_be_driver_qualified.SelectedValue <> p.driver_initially_qualified then begin
-    p.biz_members.SetDriverQualification((RadioButtonList_be_driver_qualified.SelectedValue = 'TRUE'),session['e_item']);
+  be_driver_qualified := BooleanOfYesNo(RadioButtonList_driver_qualified_yes_no.SelectedValue);
+  if be_driver_qualified <> p.be_driver_initially_qualified then begin
+    p.biz_members.SetDriverQualification(be_driver_qualified,session['e_item']);
   end;
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;

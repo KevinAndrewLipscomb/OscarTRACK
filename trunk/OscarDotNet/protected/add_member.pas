@@ -70,19 +70,19 @@ type
     RequiredFieldValidator_last_name: System.Web.UI.WebControls.RequiredFieldValidator;
     RegularExpressionValidator_cad_num: System.Web.UI.WebControls.RegularExpressionValidator;
     RequiredFieldValidator_medical_release_level: System.Web.UI.WebControls.RequiredFieldValidator;
-    RequiredFieldValidator_be_qualified_driver: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_agency: System.Web.UI.WebControls.RequiredFieldValidator;
     TableRow_agency: System.Web.UI.HtmlControls.HtmlTableRow;
     TextBox_email_address: System.Web.UI.WebControls.TextBox;
     RegularExpressionValidator_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     CustomValidator_email_address: System.Web.UI.WebControls.CustomValidator;
-    RadioButtonList_be_driver_qualified: System.Web.UI.WebControls.RadioButtonList;
     Button_add_and_stop: System.Web.UI.WebControls.Button;
     Button_add_and_repeat: System.Web.UI.WebControls.Button;
     DropDownList_enrollment_level: System.Web.UI.WebControls.DropDownList;
     RequiredFieldValidator_enrollment_level: System.Web.UI.WebControls.RequiredFieldValidator;
     UserControl_enrollment_date: TWebUserControl_drop_down_date;
     Label_invalid_enrollment_date: System.Web.UI.WebControls.Label;
+    RadioButtonList_driver_qualified_yes_no: System.Web.UI.WebControls.RadioButtonList;
+    RequiredFieldValidator_qualified_driver_yes_no: System.Web.UI.WebControls.RequiredFieldValidator;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -172,7 +172,7 @@ begin
     TextBox_last_name.text := system.string.EMPTY;
     TextBox_cad_num.text := system.string.EMPTY;
     DropDownList_medical_release_level.selectedindex := 0;
-    RadioButtonList_be_driver_qualified.selectedindex := -1;
+    RadioButtonList_driver_qualified_yes_no.selectedindex := -1;
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       DropDownList_agency.selectedindex := 0;
     end;
@@ -253,7 +253,7 @@ begin
         Safe(TextBox_last_name.text,HUMAN_NAME),
         Safe(TextBox_cad_num.text,NUM),
         Safe(DropDownList_medical_release_level.selectedvalue,NUM),
-        Safe(RadioButtonList_be_driver_qualified.selectedvalue,ALPHA),
+        BooleanOfYesNo(Safe(RadioButtonList_driver_qualified_yes_no.selectedvalue,ALPHA)),
         agency_id,
         Safe(TextBox_email_address.text,EMAIL_ADDRESS),
         UserControl_enrollment_date.selectedvalue,
