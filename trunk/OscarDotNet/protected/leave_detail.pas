@@ -79,14 +79,14 @@ const
 /// </summary>
 procedure TWebForm_leave_detail.InitializeComponent;
 begin
-  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
-  Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
-  Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
-  Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
+  Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
+  Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
+  Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_leave_detail_PreRender);
 end;
@@ -191,6 +191,10 @@ begin
   then begin
     //
     // We are dealing with a data row, not a header or footer row.
+    //
+    LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text :=
+      LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text
+        .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
