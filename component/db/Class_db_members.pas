@@ -16,19 +16,20 @@ uses
 
 const
   TCCI_ID                        =  0;
-  TCCI_LAST_NAME                 =  1;
-  TCCI_FIRST_NAME                =  2;
-  TCCI_CAD_NUM                   =  3;
-  TCCI_AGENCY                    =  4;
-  TCCI_SECTION_NUM               =  5;
-  TCCI_MEDICAL_RELEASE_PECK_CODE =  6;
-  TCCI_MEDICAL_RELEASE_LEVEL     =  7;
-  TCCI_BE_DRIVER_QUALIFIED       =  8;
-  TCCI_ENROLLMENT                =  9;
-  TCCI_ENROLLMENT_OBLIGATION     = 10;
-  TCCI_LEAVE                     = 11;
-  TCCI_OBLIGED_SHIFTS            = 12;
-  TCCI_EMAIL_ADDRESS             = 13;
+  TCCI_DRILLDOWN_LINKBUTTON      =  1;
+  TCCI_LAST_NAME                 =  2;
+  TCCI_FIRST_NAME                =  3;
+  TCCI_CAD_NUM                   =  4;
+  TCCI_AGENCY                    =  5;
+  TCCI_SECTION_NUM               =  6;
+  TCCI_MEDICAL_RELEASE_PECK_CODE =  7;
+  TCCI_MEDICAL_RELEASE_LEVEL     =  8;
+  TCCI_BE_DRIVER_QUALIFIED       =  9;
+  TCCI_ENROLLMENT                = 10;
+  TCCI_ENROLLMENT_OBLIGATION     = 11;
+  TCCI_LEAVE                     = 12;
+  TCCI_OBLIGED_SHIFTS            = 13;
+  TCCI_EMAIL_ADDRESS             = 14;
 
 type
   TClass_db_members = class(TClass_db)
