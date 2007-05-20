@@ -114,9 +114,6 @@ uses
   system.configuration,
   system.security.principal;
 
-const
-  TCCI_DETAIL = 14;
-
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
@@ -150,7 +147,7 @@ begin
     //
     if session['mode:report'] <> nil then begin
       DataGrid_roster.enabled := FALSE;
-      DataGrid_roster.columns[TCCI_DETAIL].visible := FALSE;
+      DataGrid_roster.columns[TCCI_DRILLDOWN_LINKBUTTON].visible := FALSE;
       DataGrid_roster.allowsorting := FALSE;
       DropDownList_leave_filter.enabled := FALSE;
       DropDownList_enrollment_filter.enabled := FALSE;
@@ -360,6 +357,10 @@ begin
   then begin
     //
     // We are dealing with a data row, not a header or footer row.
+    //
+    LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text :=
+      LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text
+        .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
     //
     if e.item.cells[Class_db_members.TCCI_CAD_NUM].text = '&nbsp;' then begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
