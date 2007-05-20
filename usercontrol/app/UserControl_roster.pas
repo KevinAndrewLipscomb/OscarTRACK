@@ -359,8 +359,7 @@ begin
     // We are dealing with a data row, not a header or footer row.
     //
     LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text :=
-      LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text
-        .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
+      ExpandTildePath(LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text);
     //
     if e.item.cells[Class_db_members.TCCI_CAD_NUM].text = '&nbsp;' then begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;

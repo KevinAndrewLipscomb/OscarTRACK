@@ -193,8 +193,7 @@ begin
     // We are dealing with a data row, not a header or footer row.
     //
     LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text :=
-      LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text
-        .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
+      ExpandTildePath(LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text);
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
