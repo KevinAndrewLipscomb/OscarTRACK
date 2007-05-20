@@ -2,7 +2,79 @@
 # $Id$
 #
 MAILTO=kevin.lipscomb@kvrs.org
-00 00 * * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/WebEMSOF/noninteractive/milestone_sweep.aspx
+#
+# Daily
+#
 15 00 * * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/daily_tasks.aspx
-30 00 * * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/WebEMSOF_x/noninteractive/milestone_sweep.aspx
-45 00 * * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet_x/noninteractive/daily_tasks.aspx
+#
+# Weekly
+#
+#
+# Monthly
+#
+01 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R01
+02 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R02
+04 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R04
+05 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R05
+06 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R06
+09 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R09
+13 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R13
+14 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R14
+16 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R16
+17 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R17
+20 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=EMS
+21 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R01
+22 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R02
+24 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R04
+25 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R05
+26 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R06
+29 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R09
+33 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R13
+34 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R14
+36 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R16
+37 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=R17
+40 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_roster.aspx?agency=EMS
+41 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R01
+42 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R02
+44 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R04
+45 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R05
+46 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R06
+49 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R09
+53 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R13
+54 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R14
+56 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R16
+57 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=R17
+00 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_in_class_roster.aspx?agency=EMS
+01 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R01
+02 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R02
+04 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R04
+05 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R05
+06 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R06
+09 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R09
+13 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R13
+14 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R14
+16 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R16
+17 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=R17
+20 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_recruit_awaiting_class_roster.aspx?agency=EMS
+21 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R01
+22 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R02
+24 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R04
+25 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R05
+26 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R06
+29 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R09
+33 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R13
+34 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R14
+36 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R16
+37 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=R17
+40 04 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_trainee_roster.aspx?agency=EMS
+01 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R01
+02 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R02
+04 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R04
+05 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R05
+06 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R06
+09 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R09
+13 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R13
+14 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R14
+16 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R16
+17 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R17
+20 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=EMS
