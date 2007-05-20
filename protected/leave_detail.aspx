@@ -13,8 +13,8 @@
   <body>
 	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p><table cellspacing="0" cellpadding="0" width="100%" border="0" bgcolor="#d3d3d3"><tr><td>		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-									          [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-									          [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+									           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+									           [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -42,27 +42,27 @@
                     <tr>
                       <td>
                         <ASP:DataGrid id="DataGrid_leaves" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
-                          <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                          <Columns>
-                            <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="start_date" sortexpression="start_date%" readonly="True" headertext="Start month">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="end_date" sortexpression="end_date%" readonly="True" headertext="End month">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date%" readonly="True" headertext="Kind">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date%" readonly="True" headertext="Num shifts">
-                              <ItemStyle horizontalalign="Center"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note">
-                              <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                              <ItemStyle horizontalalign="Left"></ItemStyle>
-                            </ASP:BoundColumn>
-                            <ASP:ButtonColumn text="Delete" commandname="Delete"></ASP:ButtonColumn>
-                          </Columns></ASP:DataGrid></td>
+                            <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                            <Columns>
+                              <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
+                              <ASP:BoundColumn datafield="start_date" sortexpression="start_date%" readonly="True" headertext="Start month">
+                                <ItemStyle horizontalalign="Center"></ItemStyle>
+                              </ASP:BoundColumn>
+                              <ASP:BoundColumn datafield="end_date" sortexpression="end_date%" readonly="True" headertext="End month">
+                                <ItemStyle horizontalalign="Center"></ItemStyle>
+                              </ASP:BoundColumn>
+                              <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date%" readonly="True" headertext="Kind">
+                                <ItemStyle horizontalalign="Center"></ItemStyle>
+                              </ASP:BoundColumn>
+                              <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date%" readonly="True" headertext="Num shifts">
+                                <ItemStyle horizontalalign="Center"></ItemStyle>
+                              </ASP:BoundColumn>
+                              <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note">
+                                <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                                <ItemStyle horizontalalign="Left"></ItemStyle>
+                              </ASP:BoundColumn>
+                              <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/delete_x16_h.png&quot; alt=&quot;Delete&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Delete"></ASP:ButtonColumn>
+                            </Columns></ASP:DataGrid></td>
                     </tr>
                 </table></td>
             </tr>

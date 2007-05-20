@@ -96,12 +96,12 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
-  Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
+  Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
+  Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_change_section.Click, Self.LinkButton_change_section_Click);
   Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
-  Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
   Include(Self.LinkButton_change_driver_qual.Click, Self.LinkButton_change_driver_qual_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_member_detail_PreRender);
