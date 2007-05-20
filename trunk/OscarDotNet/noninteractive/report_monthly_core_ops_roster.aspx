@@ -20,6 +20,7 @@
 					</tr>
 					<tr>
 					  <td>
+					    <p>Monthly report of CORE OPERATIONS PERSONNEL</p>
 						<small>
 						<ul>
 						  <li><p>Use this report along with any subsequent

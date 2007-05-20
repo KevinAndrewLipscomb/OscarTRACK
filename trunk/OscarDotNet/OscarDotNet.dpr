@@ -43,6 +43,10 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\report_monthly_core_ops_roster.aspx'}
 {%AspMarkupContainer 'noninteractive\report_monthly_current_roster.aspx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_common_header_bar.ascx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_in_class_roster.aspx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_trainee_roster.aspx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_recruit_awaiting_class_roster.aspx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_applicant_roster.aspx'}
 
 uses
   System.Reflection,
@@ -111,7 +115,11 @@ uses
   Class_db_notifications in 'component\db\Class_db_notifications.pas',
   report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster: system.web.ui.page},
   report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas' {report_monthly_current_roster.TWebForm_report_monthly_current_roster: system.web.ui.page},
-  UserControl_common_header_bar in 'usercontrol\app\UserControl_common_header_bar.pas' {UserControl_common_header_bar.TWebUserControl_common_header_bar: ki_web_ui.usercontrol_class};
+  UserControl_common_header_bar in 'usercontrol\app\UserControl_common_header_bar.pas' {UserControl_common_header_bar.TWebUserControl_common_header_bar: ki_web_ui.usercontrol_class},
+  report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas' {report_monthly_in_class_roster.TWebForm_report_monthly_in_class_roster: system.web.ui.page},
+  report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas' {report_monthly_trainee_roster.TWebForm_report_monthly_trainee_roster: system.web.ui.page},
+  report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas' {report_monthly_recruit_awaiting_class_roster.TWebForm_report_monthly_recruit_awaiting_class_roster: system.web.ui.page},
+  report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <BorlandProject>
 	<PersonalityInfo>
 		<Option>
@@ -207,6 +207,20 @@
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <FileList>
       <File FileName="Web.config" ContainerId="AspWebConfigContainer" ModuleName="Web"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System" AssemblyName="System" Version="1.0.5000.0" LinkUnits="False"/>
@@ -251,6 +265,10 @@
       <File FileName="noninteractive\report_monthly_core_ops_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_core_ops_roster"/>
       <File FileName="noninteractive\report_monthly_current_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_current_roster"/>
       <File FileName="usercontrol\app\UserControl_common_header_bar.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_common_header_bar"/>
+      <File FileName="noninteractive\report_monthly_in_class_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_in_class_roster"/>
+      <File FileName="noninteractive\report_monthly_trainee_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_trainee_roster"/>
+      <File FileName="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_recruit_awaiting_class_roster"/>
+      <File FileName="noninteractive\report_monthly_applicant_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_applicant_roster"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -318,6 +336,10 @@
       <File FileName="noninteractive\report_monthly_core_ops_roster.pas" ContainerId="" ModuleName="report_monthly_core_ops_roster" Parent="noninteractive\report_monthly_core_ops_roster.aspx"/>
       <File FileName="noninteractive\report_monthly_current_roster.pas" ContainerId="" ModuleName="report_monthly_current_roster" Parent="noninteractive\report_monthly_current_roster.aspx"/>
       <File FileName="usercontrol\app\UserControl_common_header_bar.pas" ContainerId="" ModuleName="UserControl_common_header_bar" Parent="usercontrol\app\UserControl_common_header_bar.ascx"/>
+      <File FileName="noninteractive\report_monthly_in_class_roster.pas" ContainerId="" ModuleName="report_monthly_in_class_roster" Parent="noninteractive\report_monthly_in_class_roster.aspx"/>
+      <File FileName="noninteractive\report_monthly_trainee_roster.pas" ContainerId="" ModuleName="report_monthly_trainee_roster" Parent="noninteractive\report_monthly_trainee_roster.aspx"/>
+      <File FileName="noninteractive\report_monthly_recruit_awaiting_class_roster.pas" ContainerId="" ModuleName="report_monthly_recruit_awaiting_class_roster" Parent="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx"/>
+      <File FileName="noninteractive\report_monthly_applicant_roster.pas" ContainerId="" ModuleName="report_monthly_applicant_roster" Parent="noninteractive\report_monthly_applicant_roster.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

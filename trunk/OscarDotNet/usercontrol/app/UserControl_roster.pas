@@ -139,6 +139,25 @@ begin
       p.enrollment_filter := STANDARD_OPS;
       DropDownList_enrollment_filter.selectedvalue := 'standard_ops';
       RadioButtonList_which_month.selectedvalue := '1'; // next month
+    end else if session['mode:report/monthly-in-class-roster'] <> nil then begin
+      p.enrollment_filter := CURRENT;
+      DropDownList_enrollment_filter.selectedvalue := 'current';
+      RadioButtonList_which_month.selectedvalue := '0'; // this month
+      p.med_release_level_filter := IN_CLASS;
+    end else if session['mode:report/monthly-trainee-roster'] <> nil then begin
+      p.enrollment_filter := CURRENT;
+      DropDownList_enrollment_filter.selectedvalue := 'current';
+      RadioButtonList_which_month.selectedvalue := '0'; // this month
+      p.med_release_level_filter := TRAINEE;
+    end else if session['mode:report/monthly-applicant-roster'] <> nil then begin
+      p.enrollment_filter := APPLICANT;
+      DropDownList_enrollment_filter.selectedvalue := 'current';
+      RadioButtonList_which_month.selectedvalue := '0'; // this month
+    end else if session['mode:report/monthly-recruit-awaiting-class-roster'] <> nil then begin
+      p.enrollment_filter := RECRUIT;
+      DropDownList_enrollment_filter.selectedvalue := 'current';
+      RadioButtonList_which_month.selectedvalue := '0'; // this month
+      p.med_release_level_filter := Class_biz_medical_release_levels.NONE;
     end else begin
       p.enrollment_filter := CURRENT;
       DropDownList_enrollment_filter.selectedvalue := 'current';
