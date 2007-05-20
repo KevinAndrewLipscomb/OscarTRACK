@@ -126,21 +126,36 @@ begin
       + ' (CAD # '
       + p.cad_num_string
       + ')';
+    //
     Label_leave_this_month.text := p.leave_this_month_description;
     Label_leave_next_month.text := p.leave_next_month_description;
+    LinkButton_leave_detail.text := ExpandTildePath(LinkButton_leave_detail.text);
+    //
     Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
     if Label_officership.Text = system.string.Empty then begin
       Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
     end;
+    LinkButton_officership_detail.text := ExpandTildePath(LinkButton_officership_detail.text);
+    //
     Label_section.text := p.biz_members.SectionOf(session['e_item']);
+    LinkButton_change_section.text := ExpandTildePath(LinkButton_change_section.text);
+    //
     Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
+    //
     Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
+    LinkButton_enrollment_detail.text := ExpandTildePath(LinkButton_enrollment_detail.text);
+    //
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
+    LinkButton_change_driver_qual.text := ExpandTildePath(LinkButton_change_driver_qual.text);
     //
     if p.biz_members.UserIdOf(p.biz_members.IdOf(session['e_item'])) = system.string.EMPTY then begin
       LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address');
     end;
+    LinkButton_change_member_email_address.text := ExpandTildePath(LinkButton_change_member_email_address.text);
+    //
     LinkButton_change_medical_release_level.visible := Has(string_array(session['privilege_array']),'change-med-release-level');
+    LinkButton_change_medical_release_level.text := ExpandTildePath(LinkButton_change_medical_release_level.text);
+    //
     LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual');
     LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section');
     //

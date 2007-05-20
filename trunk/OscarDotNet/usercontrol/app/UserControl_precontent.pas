@@ -36,6 +36,7 @@ type
 implementation
 
 uses
+  ki,
   system.configuration;
 
 procedure TWebUserControl_precontent.Page_Load(sender: System.Object; e: System.EventArgs);
@@ -45,15 +46,9 @@ begin
     //
     HyperLink_sponsor.text := configurationsettings.appsettings['sponsor'];
     Label_application_name.text := configurationsettings.appsettings['application_name'];
-    HtmlImage_sponsor_logoseal.src := HtmlImage_sponsor_logoseal.src
-      .Replace('\','/')
-      .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
-    HtmlImage_partner_logoseal.src := HtmlImage_partner_logoseal.src
-      .Replace('\','/')
-      .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
-    HtmlImage_sponsor_sponsor_logoseal.src := HtmlImage_sponsor_sponsor_logoseal.src
-      .Replace('\','/')
-      .Replace('~','/' + configurationsettings.appsettings['virtual_directory_name']);
+    HtmlImage_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_logoseal.src);
+    HtmlImage_partner_logoseal.src := ExpandTildePath(HtmlImage_partner_logoseal.src);
+    HtmlImage_sponsor_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_sponsor_logoseal.src);
     //
   end;
   //
