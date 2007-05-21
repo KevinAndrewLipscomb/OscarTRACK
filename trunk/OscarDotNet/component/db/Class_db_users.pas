@@ -87,20 +87,23 @@ begin
   if member_id_obj <> nil then begin
     bdpcommand.Create
       (
-      'START TRANSACTION'
-      + ';'
-      + ' insert user_member_map'
-      +   ' set user_id = ' + id
-      +   ' , member_id = ' + member_id_obj.tostring
-      +   ' on duplicate key update user_id = ' + id
-      + ';'
-      + ' update member'
-      +   ' join user_member_map on (user_member_map.member_id=member.id)'
-      +   ' join user on (user.id=user_member_map.user_id)'
-      +   ' set email_address = password_reset_email_address'
-      +   ' where member.id = ' + member_id_obj.tostring
-      + ';'
-      + ' COMMIT',
+      db_trail.Saved
+        (
+        'START TRANSACTION'
+        + ';'
+        + ' insert user_member_map'
+        +   ' set user_id = ' + id
+        +   ' , member_id = ' + member_id_obj.tostring
+        +   ' on duplicate key update user_id = ' + id
+        + ';'
+        + ' update member'
+        +   ' join user_member_map on (user_member_map.member_id=member.id)'
+        +   ' join user on (user.id=user_member_map.user_id)'
+        +   ' set email_address = password_reset_email_address'
+        +   ' where member.id = ' + member_id_obj.tostring
+        + ';'
+        + ' COMMIT'
+        ),
       connection
       )
       .ExecuteNonquery;
