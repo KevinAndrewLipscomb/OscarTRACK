@@ -107,6 +107,7 @@ type
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function OfficershipOf(member_id: string): string;
+    function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
       (
@@ -614,6 +615,11 @@ begin
     OfficershipOf := system.string.EMPTY;
   end;
   self.Close;
+end;
+
+function TClass_db_members.RetentionOf(e_item: system.object): string;
+begin
+  RetentionOf := Safe(DataGridItem(e_item).cells[TCCI_LENGTH_OF_SERVICE].text,REAL_NUM);
 end;
 
 function TClass_db_members.SectionOf(e_item: system.object): string;

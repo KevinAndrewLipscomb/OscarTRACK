@@ -77,6 +77,7 @@ type
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function OfficershipOf(member_id: string): string;
+    function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
     procedure SetDriverQualification
       (
@@ -297,6 +298,11 @@ end;
 function TClass_biz_members.OfficershipOf(member_id: string): string;
 begin
   OfficerShipOf := db_members.OfficershipOf(member_id);
+end;
+
+function TClass_biz_members.RetentionOf(e_item: system.object): string;
+begin
+  RetentionOf := db_members.RetentionOf(e_item);
 end;
 
 function TClass_biz_members.SectionOf(e_item: system.object): string;

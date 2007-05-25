@@ -17,8 +17,8 @@
 				<td>
 		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-										      [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-										      [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+										           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+										           [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -86,10 +86,14 @@
                                 <td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
 							<tr bgcolor="#dcdcdc">
-							  <td>Enrollment:</td>
-							  <td><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></td>
-							  <td><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                                <td></td>
+							  <td valign="top">
+                                  <p>Enrollment:</p>
+                                  <p>Years of service:</p></td>
+							  <td valign="top">
+                                  <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
+								  <p><ASP:Label id="Label_years_of_service" runat="server"></ASP:Label></p></td>
+							  <td valign="top"><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
+							  <td valign="top"></td>
 							</tr>
 							<tr>
 							  <td>Driver qualified:</td>
