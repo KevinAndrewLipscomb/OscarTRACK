@@ -15,8 +15,8 @@ uses
   system.web.ui.webcontrols;
 
 const
-  TCCI_ID                        =  0;
-  TCCI_DRILLDOWN_LINKBUTTON      =  1;
+  TCCI_DRILLDOWN_LINKBUTTON      =  0;
+  TCCI_ID                        =  1;
   TCCI_LAST_NAME                 =  2;
   TCCI_FIRST_NAME                =  3;
   TCCI_CAD_NUM                   =  4;
@@ -26,10 +26,12 @@ const
   TCCI_MEDICAL_RELEASE_LEVEL     =  8;
   TCCI_BE_DRIVER_QUALIFIED       =  9;
   TCCI_ENROLLMENT                = 10;
-  TCCI_ENROLLMENT_OBLIGATION     = 11;
-  TCCI_LEAVE                     = 12;
-  TCCI_OBLIGED_SHIFTS            = 13;
-  TCCI_EMAIL_ADDRESS             = 14;
+  TCCI_LENGTH_OF_SERVICE         = 11;
+  TCCI_COMMITMENT_LEVEL_CODE     = 12;
+  TCCI_ENROLLMENT_OBLIGATION     = 13;
+  TCCI_LEAVE                     = 14;
+  TCCI_OBLIGED_SHIFTS            = 15;
+  TCCI_EMAIL_ADDRESS             = 16;
 
 type
   TClass_db_members = class(TClass_db)
@@ -340,20 +342,23 @@ begin
   kind_of_leave_selection_clause := 'if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"")';
   //
   command_text :=
-  'select member.id as member_id'                                                        // column 0
-  + ' , last_name'                                                                       // column 1
-  + ' , first_name'                                                                      // column 2
-  + ' , cad_num'                                                                         // column 3
-  + ' , short_designator as agency'                                                      // column 4
-  + ' , section_num'                                                                     // column 5
-  + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 6
-  + ' , medical_release_code_description_map.description as medical_release_description' // column 7
-  + ' , if(be_driver_qualified,"Yes","No") as be_driver_qualified'                       // column 8
-  + ' , enrollment_level.description as enrollment'                                      // column 9
-  + ' , num_shifts as enrollment_obligation'                                             // column 10
-  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 11
-  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 12
-  + ' , email_address'                                                                   // column 13
+  'select member.id as member_id'                                                        // column 1
+  + ' , last_name'                                                                       // column 2
+  + ' , first_name'                                                                      // column 3
+  + ' , cad_num'                                                                         // column 4
+  + ' , short_designator as agency'                                                      // column 5
+  + ' , section_num'                                                                     // column 6
+  + ' , medical_release_code_description_map.pecking_order as medical_release_peck_code' // column 7
+  + ' , medical_release_code_description_map.description as medical_release_description' // column 8
+  + ' , if(be_driver_qualified,"Yes","No") as be_driver_qualified'                       // column 9
+  + ' , enrollment_level.description as enrollment'                                      // column 10
+  + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,18))))/365'
+  +     ' as length_of_service'                                                          // column 11
+  + ' , core_ops_commitment_level_code'                                                  // column 12
+  + ' , num_shifts as enrollment_obligation'                                             // column 13
+  + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                         // column 14
+  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'  // column 15
+  + ' , email_address'                                                                   // column 16
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'

@@ -11,6 +11,7 @@ uses
   Class_biz_sections,
   Class_biz_user,
   ki_web_ui,
+  system.collections,
   System.Data,
   System.Drawing,
   System.Web,
@@ -38,10 +39,13 @@ type
     leave_filter: Class_biz_leave.filter_type;
     med_release_level_filter: Class_biz_medical_release_levels.filter_type;
     num_cooked_shifts: cardinal;  // takes into account leaves
+    num_core_ops_members: cardinal;
     num_datagrid_rows: cardinal;
     num_raw_shifts: cardinal;  // does not take into account leaves
+    num_standard_commitments: cardinal;
     section_filter: Class_biz_sections.filter_type;
     sort_order: string;
+    years_of_service_array_list: arraylist;
     END;
   TWebUserControl_roster = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -77,12 +81,8 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     DropDownList_leave_filter: System.Web.UI.WebControls.DropDownList;
     DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
-    Label_num_rows: System.Web.UI.WebControls.Label;
     RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
-    Label_num_crew_shifts: System.Web.UI.WebControls.Label;
-    Label_utilization: System.Web.UI.WebControls.Label;
-    Label_utilization_caption: System.Web.UI.WebControls.Label;
     DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
     DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
     TableRow_data: System.Web.UI.HtmlControls.HtmlTableRow;
@@ -97,6 +97,16 @@ type
     DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
     Paragraph_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlGenericControl;
     TableData_section_filter: System.Web.UI.HtmlControls.HtmlTableCell;
+    Label_num_rows: System.Web.UI.WebControls.Label;
+    Label_core_ops_commitment_factor: System.Web.UI.WebControls.Label;
+    Label_core_ops_commitment_caption: System.Web.UI.WebControls.Label;
+    Label_utilization: System.Web.UI.WebControls.Label;
+    Label_utilization_caption: System.Web.UI.WebControls.Label;
+    Label_num_crew_shifts: System.Web.UI.WebControls.Label;
+    Label_median_value: System.Web.UI.WebControls.Label;
+    Label_percentile_25_value: System.Web.UI.WebControls.Label;
+    Label_percentile_75_value: System.Web.UI.WebControls.Label;
+    Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -110,7 +120,6 @@ uses
   appcommon,
   Class_db_members,
   ki,
-  System.Collections,
   system.configuration,
   system.security.principal;
 
@@ -223,9 +232,12 @@ begin
     p.med_release_level_filter := ALL;
     p.section_filter := 0;
     p.num_cooked_shifts := 0;
+    p.num_core_ops_members := 0;
     p.num_datagrid_rows := 0;
     p.num_raw_shifts := 0;
+    p.num_standard_commitments := 0;
     p.sort_order := 'last_name,first_name,cad_num';
+    p.years_of_service_array_list := arraylist.Create;
   end;
   //
 end;
@@ -391,6 +403,15 @@ begin
       if e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text <> '&nbsp;' then begin
         p.num_cooked_shifts := p.num_cooked_shifts + uint32.Parse(e.item.cells[Class_db_members.TCCI_OBLIGED_SHIFTS].text);
       end;
+      if e.item.cells[Class_db_members.TCCI_COMMITMENT_LEVEL_CODE].text > '1' then begin
+        p.num_core_ops_members := p.num_core_ops_members + 1;
+        if e.item.cells[Class_db_members.TCCI_LENGTH_OF_SERVICE].text <> '&nbsp;' then begin
+          p.years_of_service_array_list.Add(decimal.Parse(e.item.cells[Class_db_members.TCCI_LENGTH_OF_SERVICE].text));
+        end;
+        if e.item.cells[Class_db_members.TCCI_COMMITMENT_LEVEL_CODE].text = '3' then begin
+          p.num_standard_commitments := p.num_standard_commitments + 1;
+        end;
+      end;
     end;
     //
     if e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text <> '&nbsp;' then begin
@@ -449,13 +470,25 @@ begin
     );
   //
   be_raw_shifts_nonzero := (p.num_raw_shifts > 0);
+  Label_core_ops_commitment_factor.visible := be_raw_shifts_nonzero;
+  Label_core_ops_commitment_caption.visible := be_raw_shifts_nonzero;
   Label_utilization.visible := be_raw_shifts_nonzero;
   Label_utilization_caption.visible := be_raw_shifts_nonzero;
+  Label_num_crew_shifts.text := decimal(p.num_cooked_shifts/2).tostring;
+  Label_num_rows.text := p.num_datagrid_rows.tostring;
+  Table_years_of_service_percentiles.visible := (p.num_core_ops_members > 0);
+  //
   if be_raw_shifts_nonzero then begin
     Label_utilization.text := decimal(p.num_cooked_shifts/p.num_raw_shifts).tostring('P0');
   end;
-  Label_num_crew_shifts.text := decimal(p.num_cooked_shifts/2).tostring;
-  Label_num_rows.text := p.num_datagrid_rows.tostring;
+  //
+  if p.num_core_ops_members > 0 then begin
+    Label_core_ops_commitment_factor.text := decimal(p.num_standard_commitments/p.num_core_ops_members).tostring('P0');
+    //
+    Label_percentile_25_value.text := Percentile(25,p.years_of_service_array_list).tostring('F2');
+    Label_median_value.text := Median(p.years_of_service_array_list).tostring('F2');
+    Label_percentile_75_value.text := Percentile(75,p.years_of_service_array_list).tostring('F2');
+  end;
   //
   // Manage control visibilities.
   //
@@ -469,8 +502,11 @@ begin
   //
   p.distribution_list := system.string.EMPTY;
   p.num_cooked_shifts := 0;
+  p.num_core_ops_members := 0;
   p.num_datagrid_rows := 0;
   p.num_raw_shifts := 0;
+  p.num_standard_commitments := 0;
+  p.years_of_service_array_list.Clear;
   //
 end;
 
