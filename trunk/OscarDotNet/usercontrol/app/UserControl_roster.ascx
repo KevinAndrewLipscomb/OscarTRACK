@@ -111,8 +111,8 @@
 							<tr>
 							  <td align="center">
 								<small>
-								  <small>25th:</small><ASP:Label id="Label_percentile_25_value" runat="server"></ASP:Label>&nbsp;
-								  <small>50th:</small><ASP:Label id="Label_median_value" runat="server" font-bold="True"></ASP:Label>&nbsp;
+								  <small>25th:</small><ASP:Label id="Label_percentile_25_value" runat="server"></ASP:Label>&nbsp;&nbsp;
+								  <small>50th:</small><ASP:Label id="Label_median_value" runat="server" font-bold="True"></ASP:Label>&nbsp;&nbsp;
 								  <small>75th:</small><ASP:Label id="Label_percentile_75_value" runat="server"></ASP:Label>
 								  <br>years of service percentiles
 								</small>
@@ -134,12 +134,12 @@
 			</tr>
 			<tr id="TableRow_data" runat="server">
 			  <td>
-				<p id="Paragraph_quick_message_shortcut" runat="server" align="right">
-                    <table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
-                        <tr><td><small>Press Ctrl-F to search by name </small></td>
-                          <td align="right"><a href="http://localhost/OscarDotNet/usercontrol/app/#QuickMessage">QuickMessage</a></td>
-                        </tr>
-                    </table>
+					<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
+						<tr><td><small><em>Press Ctrl-F to search by name</em></small></td>
+						  <td align="right"><a id="Anchor_quick_message_shortcut" runat="server" href="http://localhost/OscarDotNet/usercontrol/app/#QuickMessage">QuickMessage</a></td>
+						</tr>
+					</table>
+				  <p></p>
 				<asp:datagrid id="DataGrid_roster" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" font-size="X-Small"><HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                       <Columns>
                         <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></ASP:ButtonColumn>
@@ -178,7 +178,7 @@
                         </ASP:BoundColumn>
                         <ASP:BoundColumn visible="False" datafield="email_address" readonly="True"></ASP:BoundColumn>
                       </Columns>
-				</asp:datagrid></p>
+				</asp:datagrid>
 			  </td>
 			</tr>
 		</table>

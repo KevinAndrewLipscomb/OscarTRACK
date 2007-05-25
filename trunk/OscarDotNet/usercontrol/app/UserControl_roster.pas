@@ -95,7 +95,6 @@ type
     Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
     TableData_agency_filter: System.Web.UI.HtmlControls.HtmlTableCell;
     DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
-    Paragraph_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlGenericControl;
     TableData_section_filter: System.Web.UI.HtmlControls.HtmlTableCell;
     Label_num_rows: System.Web.UI.WebControls.Label;
     Label_core_ops_commitment_factor: System.Web.UI.WebControls.Label;
@@ -107,6 +106,7 @@ type
     Label_percentile_25_value: System.Web.UI.WebControls.Label;
     Label_percentile_75_value: System.Web.UI.WebControls.Label;
     Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
+    Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -193,7 +193,7 @@ begin
     //
     Bind;
     //
-    Paragraph_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
   end;
