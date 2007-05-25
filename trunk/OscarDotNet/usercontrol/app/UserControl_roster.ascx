@@ -100,7 +100,7 @@
 							  <tr>
 								<td align="center" valign="middle"><small><asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label><br>members</small></td>
 								<td>&nbsp;&nbsp;&nbsp;</td>
-								<td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Tenured">standard enrollment</ASP:Label></small></td>
+								<td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Tenured"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Tenured">standard enrollment</ASP:Label></small></td>
 								<td>&nbsp;&nbsp;&nbsp;</td>
 								<td align="center" valign="middle"><small><ASP:Label id="Label_utilization" runat="server" font-bold="True"></ASP:Label><br><ASP:Label id="Label_utilization_caption" runat="server"> utilization</ASP:Label></small></td>
 								<td>&nbsp;&nbsp;&nbsp;</td>
@@ -111,9 +111,9 @@
 							<tr>
 							  <td align="center">
 								<small>
-								  <small>25th:</small><ASP:Label id="Label_percentile_25_value" runat="server" font-bold="True"></ASP:Label>&nbsp;
+								  <small>25th:</small><ASP:Label id="Label_percentile_25_value" runat="server"></ASP:Label>&nbsp;
 								  <small>50th:</small><ASP:Label id="Label_median_value" runat="server" font-bold="True"></ASP:Label>&nbsp;
-								  <small>75th:</small><ASP:Label id="Label_percentile_75_value" runat="server" font-bold="True"></ASP:Label>
+								  <small>75th:</small><ASP:Label id="Label_percentile_75_value" runat="server"></ASP:Label>
 								  <br>years of service percentiles
 								</small>
 							  </td>

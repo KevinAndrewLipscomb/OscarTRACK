@@ -73,6 +73,7 @@ type
     Label_section: System.Web.UI.WebControls.Label;
     LinkButton_change_section: System.Web.UI.WebControls.LinkButton;
     UserControl_print_div: TWebUserControl_print_div;
+    Label_years_of_service: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -96,12 +97,12 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
-  Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
-  Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_change_section.Click, Self.LinkButton_change_section_Click);
   Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
+  Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
   Include(Self.LinkButton_change_driver_qual.Click, Self.LinkButton_change_driver_qual_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_member_detail_PreRender);
@@ -143,6 +144,7 @@ begin
     Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
     //
     Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
+    Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
     LinkButton_enrollment_detail.text := ExpandTildePath(LinkButton_enrollment_detail.text);
     //
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));

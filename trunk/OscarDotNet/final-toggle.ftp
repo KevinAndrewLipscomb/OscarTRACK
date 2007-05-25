@@ -1,7 +1,0 @@
-kalipso
-{password}
-cd ssl
-rename OscarDotNet OscarDotNet_stage_temp
-rename OscarDotNet_stage OscarDotNet
-rename OscarDotNet_stage_temp OscarDotNet_stage
-bye
