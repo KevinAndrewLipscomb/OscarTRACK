@@ -660,9 +660,9 @@ begin
     (
     db_trail.Saved
       (
-      'UPDATE member '
-      + 'SET email_address = "' + email_address + '"'
-      + 'WHERE id = ' + id
+      'UPDATE member'
+      + ' SET email_address = "' + email_address + '"'
+      + ' WHERE id = ' + id
       ),
     connection
     )
