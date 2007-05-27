@@ -29,6 +29,9 @@
 						  <li><p>Make sure to assign the obliged number of shifts to all members, even if doing so means scheduling
 							members as Driver Only or scheduling them to staff units at other stations.</p></li>
 						  <li><p>Immediately advise the appropriate Squad Commander of any discrepancies in this report.</p></li>
+						  <li><p>Schedule the least available personnel first.</p></li>
+						  <li><p>Generally, you should favor personnel with longer lengths of service unless doing so would reduce
+							staffing.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_2" runat="server" font-bold="True"></asp:label>
 							website for additional features, such as advanced filtering, sorting, detail lookups, and
