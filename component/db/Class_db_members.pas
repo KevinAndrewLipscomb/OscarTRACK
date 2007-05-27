@@ -490,18 +490,14 @@ function TClass_db_members.IdOfFirstnameLastnameCadnum
   : string;
 var
   id_obj: system.object;
+  sql: string;
 begin
+  sql := 'select id from member where first_name = "' + first_name + '" and last_name = "' + last_name + '"';
+  if cad_num <> system.string.EMPTY then begin
+    sql := sql + ' and cad_num = "' + cad_num + '"';
+  end;
   self.Open;
-  id_obj := bdpcommand.Create
-    (
-    'select id'
-    + ' from member'
-    + ' where first_name = "' + first_name + '"'
-    +   ' and last_name = "' + last_name + '"'
-    +   ' and cad_num = "' + cad_num + '"',
-    connection
-    )
-    .ExecuteScalar;
+  id_obj := bdpcommand.Create(sql,connection).ExecuteScalar;
   self.Close;
   if id_obj <> nil then begin
     IdOfFirstnameLastnameCadnum := id_obj.tostring;
