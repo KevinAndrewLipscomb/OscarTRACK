@@ -134,7 +134,7 @@ begin
     if not p.be_user_privileged_to_see_all_squads then begin
       DropDownList_agency_filter.selectedvalue := p.agency_filter;
     end;
-    DropDownList_agency_filter.enabled := p.be_user_privileged_to_see_all_squads;
+//    DropDownList_agency_filter.enabled := p.be_user_privileged_to_see_all_squads;
     //
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
     TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
