@@ -47,6 +47,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\report_monthly_trainee_roster.aspx'}
 {%AspMarkupContainer 'noninteractive\report_monthly_recruit_awaiting_class_roster.aspx'}
 {%AspMarkupContainer 'noninteractive\report_monthly_applicant_roster.aspx'}
+{%AspMarkupContainer 'noninteractive\statement_member_status.aspx'}
 
 uses
   System.Reflection,
@@ -93,7 +94,7 @@ uses
   officership_detail in 'protected\officership_detail.pas' {officership_detail.TWebForm_officership_detail: ki_web_ui.page_class},
   profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
   milestone_sweep in 'noninteractive\milestone_sweep.pas' {milestone_sweep.TWebForm_milestone_sweep: system.web.ui.page},
-  daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm1: system.web.ui.page},
+  daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm_daily_tasks: system.web.ui.page},
   UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl},
   change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
   Class_biz_sections in 'component\biz\Class_biz_sections.pas',
@@ -119,7 +120,8 @@ uses
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas' {report_monthly_in_class_roster.TWebForm_report_monthly_in_class_roster: system.web.ui.page},
   report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas' {report_monthly_trainee_roster.TWebForm_report_monthly_trainee_roster: system.web.ui.page},
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas' {report_monthly_recruit_awaiting_class_roster.TWebForm_report_monthly_recruit_awaiting_class_roster: system.web.ui.page},
-  report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page};
+  report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page},
+  statement_member_status in 'noninteractive\statement_member_status.pas' {statement_member_status.TWebForm_statement_member_status: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following

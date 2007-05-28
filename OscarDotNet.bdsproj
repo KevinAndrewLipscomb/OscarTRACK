@@ -196,7 +196,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2697.27707" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" Version="1.0.2701.25775" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -236,6 +236,7 @@
       <File FileName="noninteractive\report_monthly_trainee_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_trainee_roster"/>
       <File FileName="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_recruit_awaiting_class_roster"/>
       <File FileName="noninteractive\report_monthly_applicant_roster.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_applicant_roster"/>
+      <File FileName="noninteractive\statement_member_status.aspx" ContainerId="AspMarkupContainer" ModuleName="statement_member_status"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -307,6 +308,7 @@
       <File FileName="noninteractive\report_monthly_trainee_roster.pas" ContainerId="" ModuleName="report_monthly_trainee_roster" Parent="noninteractive\report_monthly_trainee_roster.aspx"/>
       <File FileName="noninteractive\report_monthly_recruit_awaiting_class_roster.pas" ContainerId="" ModuleName="report_monthly_recruit_awaiting_class_roster" Parent="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx"/>
       <File FileName="noninteractive\report_monthly_applicant_roster.pas" ContainerId="" ModuleName="report_monthly_applicant_roster" Parent="noninteractive\report_monthly_applicant_roster.aspx"/>
+      <File FileName="noninteractive\statement_member_status.pas" ContainerId="" ModuleName="statement_member_status" Parent="noninteractive\statement_member_status.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
