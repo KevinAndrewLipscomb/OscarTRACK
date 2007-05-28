@@ -1,0 +1,33 @@
+Monthly member status statement
+This is an automatic notification from <application_name/>.
+
+Your status in <application_name/> is shown below.
+
+   First name:
+      <first_name/>
+   Last name:
+      <last_name/>
+   CAD #:
+      <cad_num/>
+   Agency:
+      <agency_name/>
+   Section:
+      <section_num/>
+   Medical release level:
+      <medical_release_level/>
+   Driver qualified:
+      <be_driver_qualified/>
+   Enrollment level:
+      <enrollment_level/>
+   Length of service:
+      <length_of_service/>
+   Kind of leave:
+      <kind_of_leave/>
+   OBLIGED SHIFTS:
+      <obliged_shifts/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
