@@ -1,4 +1,3 @@
-
 unit daily_tasks;
 
 interface
@@ -9,7 +8,7 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls;
 
 type
-  TWebForm1 = class(System.Web.UI.Page)
+  TWebForm_daily_tasks = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
@@ -34,18 +33,18 @@ uses
 /// Required method for Designer support -- do not modify
 /// the contents of this method with the code editor.
 /// </summary>
-procedure TWebForm1.InitializeComponent;
+procedure TWebForm_daily_tasks.InitializeComponent;
 begin    
   Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
-procedure TWebForm1.Page_Load(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_daily_tasks.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   TClass_biz_scheduled_tasks.Create.DoDailyChores;
 end;
 
-procedure TWebForm1.OnInit(e: EventArgs);
+procedure TWebForm_daily_tasks.OnInit(e: EventArgs);
 begin
   //
   // Required for Designer support

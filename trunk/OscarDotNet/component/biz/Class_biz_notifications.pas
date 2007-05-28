@@ -102,6 +102,21 @@ type
       client_host_name: string;
       temporary_password: string
       );
+    procedure IssueMemberStatusStatement
+      (
+      email_address: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      agency: string;
+      section_num: string;
+      medical_release_description: string;
+      be_driver_qualified: string;
+      enrollment: string;
+      length_of_service: string;
+      kind_of_leave: string;
+      obliged_shifts: string
+      );
   end;
 
 implementation
@@ -671,6 +686,60 @@ begin
     configurationsettings.appsettings['sender_email_address'],
     //to
     biz_users.PasswordResetEmailAddressOfUsername(username),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueMemberStatusStatement
+  (
+  email_address: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  agency: string;
+  section_num: string;
+  medical_release_description: string;
+  be_driver_qualified: string;
+  enrollment: string;
+  length_of_service: string;
+  kind_of_leave: string;
+  obliged_shifts: string
+  );
+var
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<agency/>',agency)
+      .Replace('<section_num/>',section_num)
+      .Replace('<medical_release_description/>',medical_release_description)
+      .Replace('<be_driver_qualified/>',be_driver_qualified)
+      .Replace('<enrollment/>',enrollment)
+      .Replace('<length_of_service/>',length_of_service)
+      .Replace('<kind_of_leave/>',kind_of_leave)
+      .Replace('<obliged_shifts/>',obliged_shifts);
+  END;
+  //
+begin
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_status_statement.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    email_address,
     //subject
     Merge(template_reader.ReadLine),
     //body

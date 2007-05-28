@@ -10,6 +10,7 @@ uses
   Class_biz_enrollment,
   Class_biz_medical_release_levels,
   Class_biz_leave,
+  Class_biz_notifications,
   Class_biz_sections,
   ki,
   system.web.ui.webcontrols;
@@ -36,6 +37,7 @@ const
 type
   TClass_db_members = class(TClass_db)
   private
+    biz_notifications: TClass_biz_notifications;
     db_medical_release_levels: TClass_db_medical_release_levels;
     db_trail: TClass_db_trail;
   public
@@ -105,6 +107,7 @@ type
     function IdOfUserId(user_id: string): string;
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
+    procedure MakeMemberStatusStatements;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function OfficershipOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
@@ -146,6 +149,7 @@ constructor TClass_db_members.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  biz_notifications := TClass_biz_notifications.Create;
   db_medical_release_levels := TClass_db_medical_release_levels.Create;
   db_trail := TClass_db_trail.Create;
 end;
@@ -583,6 +587,108 @@ function TClass_db_members.LastNameOfMemberId(member_id: string): string;
 begin
   self.Open;
   LastNameOfMemberId := bdpcommand.Create('select last_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+procedure TClass_db_members.MakeMemberStatusStatements;
+var
+  any_relevant_leave: string;
+  bdr: bdpdatareader;
+  kind_of_leave: string;
+  length_of_service: string;
+begin
+  //
+  any_relevant_leave :=
+  '(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))';
+  //
+  self.Open;
+  bdr := bdpcommand.Create
+    (
+    'select last_name'
+    + ' , first_name'
+    + ' , cad_num'
+    + ' , short_designator as agency'
+    + ' , section_num'
+    + ' , medical_release_code_description_map.description as medical_release_description'
+    + ' , if(be_driver_qualified,"Yes","No") as be_driver_qualified'
+    + ' , enrollment_level.description as enrollment'
+    + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,18))))/365'
+    +     ' as length_of_service'
+    + ' , if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"") as kind_of_leave'
+    + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'
+    + ' , email_address'
+    + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       ' enrollment_history.member_id=member.id'
+    +       ' and'
+    +         ' ('
+    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+    +         ' and'
+    +           ' ('
+    +             ' (enrollment_history.end_date is null)'
+    +           ' or'
+    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    +   ' left join leave_of_absence'
+    +     ' on'
+    +       ' ('
+    +       ' leave_of_absence.member_id=member.id'
+    +       ' and '
+    +         ' ('
+    +           ' (leave_of_absence.start_date is null)'
+    +         ' or'
+    +           ' ('
+    +             ' (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+    +           ' and'
+    +             ' (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' left join kind_of_leave_code_description_map'
+    +     ' on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where enrollment_level.description in ("Applicant","Operational","Associate","Regular","Life","Tenured","Atypical"'
+    +   ' , "Recruit","Admin","Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended")'
+    +   ' and email_address is not null'
+    +   ' and TRIM(email_address) <> ""'
+    + ' order by RAND()',
+    connection
+    )
+    .ExecuteReader;
+  while bdr.Read do begin
+    if bdr['length_of_service'] <> dbnull.Value then begin
+      length_of_service := decimal(bdr['length_of_service']).tostring('F2') + ' years';
+    end else begin
+      length_of_service := system.string.EMPTY;
+    end;
+    kind_of_leave := bdr['kind_of_leave'].tostring.ToUpper;
+    if kind_of_leave = system.string.EMPTY then begin
+      kind_of_leave := 'NONE';
+    end;
+    biz_notifications.IssueMemberStatusStatement
+      (
+      bdr['email_address'].tostring,
+      bdr['first_name'].tostring.ToUpper,
+      bdr['last_name'].tostring.ToUpper,
+      bdr['cad_num'].tostring,
+      bdr['agency'].tostring,
+      bdr['section_num'].tostring,
+      bdr['medical_release_description'].tostring.ToUpper,
+      bdr['be_driver_qualified'].tostring.ToUpper,
+      bdr['enrollment'].tostring.ToUpper,
+      length_of_service,
+      kind_of_leave,
+      bdr['obliged_shifts'].tostring
+      );
+  end;
+  bdr.Close;
   self.Close;
 end;
 
