@@ -55,6 +55,7 @@ type
       enrollment_code: cardinal = 17
       );
     function AgencyIdOfId(id: string): string;
+    function AllEmailAddresses: string;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeKnown
       (
@@ -208,6 +209,22 @@ begin
     )
     .ExecuteScalar.tostring;
   self.Close;
+end;
+
+function TClass_db_members.AllEmailAddresses: string;
+var
+  all_email_addresses: string;
+  bdr: bdpdatareader;
+begin
+  all_email_addresses := system.string.EMPTY;
+  self.Open;
+  bdr := bdpcommand.Create('select email_address from member',connection).ExecuteReader;
+  while bdr.Read do begin
+    all_email_addresses := all_email_addresses + bdr['email_address'].tostring + ', ';
+  end;
+  bdr.Close;
+  self.Close;
+  AllEmailAddresses := (all_email_addresses + SPACE).TrimEnd([',',' ']);
 end;
 
 function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): boolean;

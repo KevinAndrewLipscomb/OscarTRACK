@@ -38,6 +38,7 @@ type
       )
       : boolean;
     function AgencyIdOfId(id: string): string;
+    function AllEmailAddresses: string;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
@@ -171,6 +172,11 @@ end;
 function TClass_biz_members.AgencyIdOfId(id: string): string;
 begin
   AgencyIdOfId := db_members.AgencyIdOfId(id);
+end;
+
+function TClass_biz_members.AllEmailAddresses: string;
+begin
+  AllEmailAddresses := db_members.AllEmailAddresses;
 end;
 
 function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): boolean;
