@@ -48,6 +48,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'noninteractive\report_monthly_recruit_awaiting_class_roster.aspx'}
 {%AspMarkupContainer 'noninteractive\report_monthly_applicant_roster.aspx'}
 {%AspMarkupContainer 'noninteractive\statement_member_status.aspx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_ranked_core_ops_size.ascx'}
+{%AspMarkupContainer 'noninteractive\report_monthly_core_ops_dashboard.aspx'}
 
 uses
   System.Reflection,
@@ -121,7 +123,9 @@ uses
   report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas' {report_monthly_trainee_roster.TWebForm_report_monthly_trainee_roster: system.web.ui.page},
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas' {report_monthly_recruit_awaiting_class_roster.TWebForm_report_monthly_recruit_awaiting_class_roster: system.web.ui.page},
   report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page},
-  statement_member_status in 'noninteractive\statement_member_status.pas' {statement_member_status.TWebForm_statement_member_status: system.web.ui.page};
+  statement_member_status in 'noninteractive\statement_member_status.pas' {statement_member_status.TWebForm_statement_member_status: system.web.ui.page},
+  UserControl_ranked_core_ops_size in 'usercontrol\app\UserControl_ranked_core_ops_size.pas' {UserControl_ranked_core_ops_size.TWebUserControl_ranked_core_ops_size: ki_web_ui.usercontrol_class},
+  report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas' {report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following
