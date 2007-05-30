@@ -40,6 +40,7 @@ type
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
+    procedure BindRankedCoreOpsSize(target: system.object);
     procedure BindRoster
       (
       member_id: string;
@@ -180,6 +181,11 @@ end;
 function TClass_biz_members.BeValidProfile(id: string): boolean;
 begin
   BeValidProfile := db_members.BeValidProfile(id);
+end;
+
+procedure TClass_biz_members.BindRankedCoreOpsSize(target: system.object);
+begin
+  db_members.BindRankedCoreOpsSize(target);
 end;
 
 procedure TClass_biz_members.BindRoster
