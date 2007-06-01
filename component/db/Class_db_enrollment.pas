@@ -241,7 +241,7 @@ begin
         +   ' where member_id = ' + member_id
         +     ' and end_date is null'
         + ' ;'
-        + ' insert into enrollment_history'
+        + ' insert ignore enrollment_history'
         +   ' set member_id = ' + member_id
         +     ' , level_code = ' + new_level_code
         +     ' , start_date = "' + effective_date_string + '"'
