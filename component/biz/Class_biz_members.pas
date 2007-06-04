@@ -42,6 +42,7 @@ type
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
+    procedure BindRankedCrewShiftsForecast(target: system.object);
     procedure BindRoster
       (
       member_id: string;
@@ -192,6 +193,11 @@ end;
 procedure TClass_biz_members.BindRankedCoreOpsSize(target: system.object);
 begin
   db_members.BindRankedCoreOpsSize(target);
+end;
+
+procedure TClass_biz_members.BindRankedCrewShiftsForecast(target: system.object);
+begin
+  db_members.BindRankedCrewShiftsForecast(target);
 end;
 
 procedure TClass_biz_members.BindRoster
