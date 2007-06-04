@@ -239,6 +239,7 @@
       <File FileName="noninteractive\statement_member_status.aspx" ContainerId="AspMarkupContainer" ModuleName="statement_member_status"/>
       <File FileName="usercontrol\app\UserControl_ranked_core_ops_size.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_core_ops_size"/>
       <File FileName="noninteractive\report_monthly_core_ops_dashboard.aspx" ContainerId="AspMarkupContainer" ModuleName="report_monthly_core_ops_dashboard"/>
+      <File FileName="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_crew_shifts_forecast"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -313,6 +314,7 @@
       <File FileName="noninteractive\statement_member_status.pas" ContainerId="" ModuleName="statement_member_status" Parent="noninteractive\statement_member_status.aspx"/>
       <File FileName="usercontrol\app\UserControl_ranked_core_ops_size.pas" ContainerId="" ModuleName="UserControl_ranked_core_ops_size" Parent="usercontrol\app\UserControl_ranked_core_ops_size.ascx"/>
       <File FileName="noninteractive\report_monthly_core_ops_dashboard.pas" ContainerId="" ModuleName="report_monthly_core_ops_dashboard" Parent="noninteractive\report_monthly_core_ops_dashboard.aspx"/>
+      <File FileName="usercontrol\app\UserControl_ranked_crew_shifts_forecast.pas" ContainerId="" ModuleName="UserControl_ranked_crew_shifts_forecast" Parent="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
