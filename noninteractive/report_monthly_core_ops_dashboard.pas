@@ -8,7 +8,8 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
   Class_biz_members,
   UserControl_ranked_core_ops_size,
-  UserControl_ranked_crew_shifts_forecast;
+  UserControl_ranked_crew_shifts_forecast,
+  UserControl_ranked_utilization;
 
 type
   p_type =
@@ -31,6 +32,7 @@ type
     HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
     PlaceHolder_ranked_core_ops_size: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_crew_shifts_forecast: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_ranked_utilization: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
   private
@@ -91,6 +93,7 @@ begin
   //
   PlaceHolder_ranked_core_ops_size.controls.Add(TWebUserControl_ranked_core_ops_size(LoadControl('~/usercontrol/app/UserControl_ranked_core_ops_size.ascx')));
   PlaceHolder_ranked_crew_shifts_forecast.controls.Add(TWebUserControl_ranked_crew_shifts_forecast(LoadControl('~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx')));
+  PlaceHolder_ranked_utilization.controls.Add(TWebUserControl_ranked_utilization(LoadControl('~/usercontrol/app/UserControl_ranked_utilization.ascx')));
   //
 end;
 
