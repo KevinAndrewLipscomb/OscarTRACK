@@ -67,6 +67,7 @@ type
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
     procedure BindRankedCrewShiftsForecast(target: system.object);
+    procedure BindRankedStandardEnrollment(target: system.object);
     procedure BindRankedUtilization(target: system.object);
     procedure BindRoster
       (
@@ -362,6 +363,45 @@ begin
   self.Close;
 end;
 
+procedure TClass_db_members.BindRankedStandardEnrollment(target: system.object);
+begin
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select NULL as rank'
+    + ' , concat(medium_designator," - ",long_designator) as agency'
+    + ' , count(if((core_ops_commitment_level_code = 3),1,NULL)) as num_standard_enrollments'
+    + ' , count(*) as num_core_ops_members'
+    + ' , count(if((core_ops_commitment_level_code = 3),1,NULL))/count(*) as factor'
+    + ' from member'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       ' enrollment_history.member_id=member.id'
+    +       ' and'
+    +         ' ('
+    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+    +         ' and'
+    +           ' ('
+    +             ' (enrollment_history.end_date is null)'
+    +           ' or'
+    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
+    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' group by agency.id'
+    + ' order by factor desc, num_core_ops_members desc',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).DataBind;
+  self.Close;
+end;
+
 procedure TClass_db_members.BindRankedUtilization(target: system.object);
 begin
   self.Open;
@@ -376,7 +416,7 @@ begin
     +         ' num_obliged_shifts,'
     +         ' num_shifts'
     +       ' )'
-    +     ' )/2 as num_cooked_shifts'
+    +     ' ) as num_cooked_shifts'
     + ' , sum(num_shifts) as num_raw_shifts'
     + ' , sum('
     +     ' if'
