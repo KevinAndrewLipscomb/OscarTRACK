@@ -3,6 +3,7 @@
 <%@ Reference Control="~/usercontrol/app/UserControl_ranked_core_ops_size.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_ranked_utilization.ascx" %>
+<%@ Reference Control="~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -44,6 +45,7 @@
 	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_core_ops_size" runat="server"></ASP:PlaceHolder></p>
 	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_crew_shifts_forecast" runat="server"></ASP:PlaceHolder></p>
 	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_utilization" runat="server"></ASP:PlaceHolder></p>
+	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_standard_enrollment" runat="server"></ASP:PlaceHolder></p>
 	</form>
   </body>
 </html>

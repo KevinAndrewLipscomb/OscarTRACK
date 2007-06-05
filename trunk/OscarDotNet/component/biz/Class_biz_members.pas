@@ -43,6 +43,7 @@ type
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
     procedure BindRankedCrewShiftsForecast(target: system.object);
+    procedure BindRankedStandardEnrollment(target: system.object);
     procedure BindRankedUtilization(target: system.object);
     procedure BindRoster
       (
@@ -199,6 +200,11 @@ end;
 procedure TClass_biz_members.BindRankedCrewShiftsForecast(target: system.object);
 begin
   db_members.BindRankedCrewShiftsForecast(target);
+end;
+
+procedure TClass_biz_members.BindRankedStandardEnrollment(target: system.object);
+begin
+  db_members.BindRankedStandardEnrollment(target);
 end;
 
 procedure TClass_biz_members.BindRankedUtilization(target: system.object);
