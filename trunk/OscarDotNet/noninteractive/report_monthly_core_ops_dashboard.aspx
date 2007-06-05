@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_ranked_core_ops_size.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx" %>
+<%@ Reference Control="~/usercontrol/app/UserControl_ranked_utilization.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -42,6 +43,7 @@
 		</table></p>
 	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_core_ops_size" runat="server"></ASP:PlaceHolder></p>
 	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_crew_shifts_forecast" runat="server"></ASP:PlaceHolder></p>
+	  <p><ASP:PlaceHolder id="PlaceHolder_ranked_utilization" runat="server"></ASP:PlaceHolder></p>
 	</form>
   </body>
 </html>

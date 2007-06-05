@@ -67,6 +67,7 @@ type
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
     procedure BindRankedCrewShiftsForecast(target: system.object);
+    procedure BindRankedUtilization(target: system.object);
     procedure BindRoster
       (
       member_id: string;
@@ -354,6 +355,74 @@ begin
     +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
     + ' group by agency.id'
     + ' order by num_crew_shifts desc',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_members.BindRankedUtilization(target: system.object);
+begin
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select NULL as rank'
+    + ' , concat(medium_designator," - ",long_designator) as agency'
+    + ' , sum('
+    +     ' if'
+    +       ' ('
+    +         ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
+    +         ' num_obliged_shifts,'
+    +         ' num_shifts'
+    +       ' )'
+    +     ' )/2 as num_cooked_shifts'
+    + ' , sum(num_shifts) as num_raw_shifts'
+    + ' , sum('
+    +     ' if'
+    +       ' ('
+    +         ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
+    +         ' num_obliged_shifts,'
+    +         ' num_shifts'
+    +       ' )'
+    +     ' )/sum(num_shifts) as utilization'
+    + ' from member'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       ' enrollment_history.member_id=member.id'
+    +       ' and'
+    +         ' ('
+    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+    +         ' and'
+    +           ' ('
+    +             ' (enrollment_history.end_date is null)'
+    +           ' or'
+    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    +   ' left join leave_of_absence'
+    +     ' on'
+    +       ' ('
+    +       ' leave_of_absence.member_id=member.id'
+    +       ' and '
+    +         ' ('
+    +           ' (leave_of_absence.start_date is null)'
+    +         ' or'
+    +           ' ('
+    +             ' (leave_of_absence.start_date <= CURDATE())'
+    +           ' and'
+    +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
+    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' group by agency.id'
+    + ' order by utilization desc',
     connection
     )
     .ExecuteReader;
