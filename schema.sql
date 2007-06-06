@@ -427,7 +427,7 @@ INSERT INTO medical_release_code_description_map (code, description, pecking_ord
 (6, 'EMT-P', 70),
 (7, 'EMT-E', 40),
 (8, 'EMT-I', 60),
-(9, 'In class', 5);
+(9, 'EMT Intern', 5);
 
 -- --------------------------------------------------------
 
