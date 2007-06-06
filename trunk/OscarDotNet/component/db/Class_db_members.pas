@@ -550,9 +550,9 @@ begin
   if med_release_level_filter <> Class_biz_medical_release_levels.ALL then begin
     filter := filter + ' and medical_release_code_description_map.description ';
     case med_release_level_filter of
-    NOT_RELEASED: filter := filter + ' in ("None","In class","Trainee") ';
+    NOT_RELEASED: filter := filter + ' in ("None","EMT Intern","Trainee") ';
     Class_biz_medical_release_levels.NONE: filter := filter + ' = "none" ';
-    IN_CLASS: filter := filter + ' = "In class" ';
+    IN_CLASS: filter := filter + ' = "EMT Intern" ';
     TRAINEE: filter := filter + ' = "Trainee" ';
     RELEASED: filter := filter + ' in ("EMT-B","EMT-ST","EMT-E","EMT-CT","EMT-I","EMT-P") ';
     EMT_B: filter := filter + ' = "EMT-B" ';
