@@ -53,6 +53,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_utilization.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_standard_enrollment.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_ranked_length_of_service.ascx'}
 
 uses
   System.Reflection,
@@ -131,7 +132,8 @@ uses
   report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas' {report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard: system.web.ui.page},
   UserControl_ranked_crew_shifts_forecast in 'usercontrol\app\UserControl_ranked_crew_shifts_forecast.pas' {UserControl_ranked_crew_shifts_forecast.TWebUserControl_ranked_crew_shifts_forecast: ki_web_ui.usercontrol_class},
   UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas' {UserControl_ranked_utilization.TWebUserControl_ranked_utilization: ki_web_ui.usercontrol_class},
-  UserControl_ranked_standard_enrollment in 'usercontrol\app\UserControl_ranked_standard_enrollment.pas' {UserControl_ranked_standard_enrollment.TWebUserControl_ranked_standard_enrollment: ki_web_ui.usercontrol_class};
+  UserControl_ranked_standard_enrollment in 'usercontrol\app\UserControl_ranked_standard_enrollment.pas' {UserControl_ranked_standard_enrollment.TWebUserControl_ranked_standard_enrollment: ki_web_ui.usercontrol_class},
+  UserControl_ranked_length_of_service in 'usercontrol\app\UserControl_ranked_length_of_service.pas' {UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
