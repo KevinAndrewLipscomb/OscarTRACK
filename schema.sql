@@ -345,13 +345,12 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 
 DROP TABLE IF EXISTS indicator_median_length_of_service;
 CREATE TABLE IF NOT EXISTS indicator_median_length_of_service (
-  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   `year` INTEGER UNSIGNED NOT NULL,
   `month` TINYINT UNSIGNED NOT NULL,
-  `agency_id` INTEGER UNSIGNED,
+  `be_agency_id_applicable` BOOLEAN NOT NULL
+  `agency_id` INTEGER UNSIGNED NOT NULL DEFAULT 0,
   `m` FLOAT UNSIGNED NOT NULL,
-  PRIMARY KEY(`id`),
-  UNIQUE `year_month_agency_id`(`year`, `month`, `agency_id`)
+  PRIMARY KEY(`year`, `month`, `be_agency_id_applicable`, `agency_id`)
 ) ENGINE = InnoDB;
 
 
