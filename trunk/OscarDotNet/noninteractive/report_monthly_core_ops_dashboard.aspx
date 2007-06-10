@@ -20,13 +20,14 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Best practices</strong> - Monthly core operations dashboard</td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly core operations dashboard</strong></td>
 					</tr>
 					<tr>
 					  <td>
 						<small>
+						<p>Best practices</p>
 						<ul>
-						  <li><p>This report allows members to compare ther performance of their squad against that of others from
+						  <li><p>This report allows members to compare the performance of their squad against that of others, from
 							various perspectives.</p></li>
 						  <li><p>For each of these analyses, you can interpret agencies shown at the top of the list to be better
 							performers than agencies ranked at the bottom.</p></li>

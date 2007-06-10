@@ -5,8 +5,8 @@
       <table cellspacing="0" cellpadding="10" width="100%" border="0">
         <tr bgcolor="#f5f5f5">
           <td>
-                <p><strong>Number of crew-shifts forecast</strong><br>
-				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the potential number of ambulance crew-shifts that could be supplied.</small></p>
+                <p><strong>Number of potential crew-shifts</strong><br>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the potential number of ambulance crew-shifts that could be supplied on this month's schedule.</small></p>
           </td>
         </tr>
         <tr>
