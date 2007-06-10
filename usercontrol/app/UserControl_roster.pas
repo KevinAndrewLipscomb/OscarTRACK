@@ -485,6 +485,7 @@ begin
   if p.num_core_ops_members > 0 then begin
     Label_core_ops_commitment_factor.text := decimal(p.num_standard_commitments/p.num_core_ops_members).tostring('P0');
     //
+    p.years_of_service_array_list.Sort;
     Label_percentile_25_value.text := Percentile(25,p.years_of_service_array_list).tostring('F2');
     Label_median_value.text := Median(p.years_of_service_array_list).tostring('F2');
     Label_percentile_75_value.text := Percentile(75,p.years_of_service_array_list).tostring('F2');

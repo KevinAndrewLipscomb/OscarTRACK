@@ -27,10 +27,10 @@ Your status in <application_name/> for *next month* has been recorded as follows
       Note 1:  This is the level at which you are released to perform
       patient care in Virginia Beach.
 
-      Note 2:  If you are not released, you should be listed as a
-      "Trainee" (if you have finished EMT-B class), "In Class" (if you
-      are still in First Responder or EMT class), or "None" (if you have
-      not yet started a First Responder or EMT class).
+      Note 2:  If you are riding the ambulance while still attending EMT
+      class, you should be listed as an "EMT Intern".  If you are
+      certified but not released as an AIC, you should be listed as a
+      "Trainee".
 
    Driver qualified:
       <be_driver_qualified/>
@@ -41,8 +41,8 @@ Your status in <application_name/> for *next month* has been recorded as follows
    Enrollment level:
       <enrollment/>
 
-      Note 1:  Only members with red or yellow ID cards should be listed
-      as "Recruit".
+      Note 1:  Members with red or yellow ID cards should be listed as
+      "Recruit".
 
       Note 2:  Standard enrollment levels for members with white ID
       cards who ride on ambulances include "Regular", "Life", and
@@ -85,7 +85,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
 
-FINALLY, you must submit your availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
+FINALLY, personnel with obliged ambulance shifts must submit availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
 
    http://www.oscarsystem.com
 
@@ -95,3 +95,5 @@ Thanks for you continued service to Virginia Beach EMS!
 
 
 P.S.:  Have you joined the BeachEMS YahooGroup?  Participate in citywide conversations, share photos, files, etc.  Just follow this link and click "Join This Group!".  If you don't already have a Yahoo! ID, just "Sign Up".  It's free and easy to use.  When joining, please tell the moderator your full name and which squad you run with.
+
+   http://groups.yahoo.com/group/BeachEMS/join
