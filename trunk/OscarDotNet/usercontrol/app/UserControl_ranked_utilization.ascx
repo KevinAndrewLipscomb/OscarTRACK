@@ -5,7 +5,8 @@
       <table cellspacing="0" cellpadding="10" width="100%" border="0">
         <tr bgcolor="#f5f5f5">
           <td>
-                <p><strong>Roster utilization factor:&nbsp; <ASP:Label id="Label_total" runat="server" font-bold="True"></ASP:Label></strong></p><p><small>This block shows the degree to which core operations personnel are meeting their baseline duty obligations.&nbsp; The lower this factor, the more personnel have been granted partial or full leaves-of-absence.</small></p>
+				<p><strong>Roster utilization factor</strong><br>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the degree to which core operations personnel are meeting their baseline duty obligations.&nbsp; The lower this factor, the more personnel have been granted partial or full leaves-of-absence.</small></p>
           </td>
         </tr>
         <tr>

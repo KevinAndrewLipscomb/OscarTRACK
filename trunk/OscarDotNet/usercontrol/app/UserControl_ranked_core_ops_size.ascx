@@ -5,7 +5,8 @@
       <table cellspacing="0" cellpadding="10" width="100%" border="0">
         <tr bgcolor="#f5f5f5">
           <td>
-                <p><strong>Number of CORE OPS members:&nbsp; <ASP:Label id="Label_total" runat="server" font-bold="True"></ASP:Label></strong></p><p><small>This block shows the number of members who are scheduled to staff ambulances.</small></p>
+                <p><strong>Number of CORE OPS members</strong><br>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the number of members who are scheduled to staff ambulances.</small></p>
           </td>
         </tr>
         <tr>

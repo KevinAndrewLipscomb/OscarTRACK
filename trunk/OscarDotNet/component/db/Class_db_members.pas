@@ -82,6 +82,7 @@ type
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
       section_filter: Class_biz_sections.filter_type = 0
       );
+    procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
     function EmailAddressOf(member_id: string): string;
@@ -629,6 +630,47 @@ begin
   //
   self.Open;
   DataGrid(target).datasource := bdpcommand.Create(command_text,connection).ExecuteReader;
+  DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_members.BindSpecialForRankedLengthOfService(target: system.object);
+begin
+  //
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select agency.id as agency'
+    + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,18))))/365'
+    +     ' as length_of_service'
+    + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       ' enrollment_history.member_id=member.id'
+    +       ' and'
+    +         ' ('
+    +           ' (enrollment_history.start_date <= CURDATE())'
+    +         ' and'
+    +           ' ('
+    +             ' (enrollment_history.end_date is null)'
+    +           ' or'
+    +             ' (enrollment_history.end_date >= LAST_DAY(CURDATE()))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where enrollment_level.description in'
+    +     ' ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +   ' and'
+    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+    +   ' and'
+    +     ' core_ops_commitment_level_code > 1',
+    connection
+    )
+    .ExecuteReader;
   DataGrid(target).DataBind;
   self.Close;
 end;

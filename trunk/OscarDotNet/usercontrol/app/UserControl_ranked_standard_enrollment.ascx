@@ -5,7 +5,8 @@
       <table cellspacing="0" cellpadding="10" width="100%" border="0">
         <tr bgcolor="#f5f5f5">
           <td>
-                <p><strong>Core operations commitment factor:&nbsp; <ASP:Label id="Label_total" runat="server" font-bold="True"></ASP:Label></strong></p><p><small>This block shows the percentage of core operations personnel who the agency has enrolled at one of the standard levels (Regular, Life, Tenured).&nbsp; The lower this factor, the more personnel the agency has enrolled at liberal levels (Associate, Reduced, Atypical).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</small></p>
+                <p><strong>Core operations commitment factor</strong><br>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the percentage of core operations personnel who the agency has enrolled at one of the standard levels (Regular, Life, Tenured).&nbsp; The lower this factor, the more personnel the agency has enrolled at liberal levels (Associate, Reduced, Atypical).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</small></p>
           </td>
         </tr>
         <tr>

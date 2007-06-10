@@ -58,6 +58,7 @@ type
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
       section_filter: Class_biz_sections.filter_type = 0
       );
+    procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
     function EmailAddressOf(member_id: string): string;
@@ -239,6 +240,11 @@ begin
     med_release_level_filter,
     section_filter
     );
+end;
+
+procedure TClass_biz_members.BindSpecialForRankedLengthOfService(target: system.object);
+begin
+  db_members.BindSpecialForRankedLengthOfService(target);
 end;
 
 function TClass_biz_members.CadNumOf(e_item: system.object): string;
