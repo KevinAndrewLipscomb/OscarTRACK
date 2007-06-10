@@ -4,6 +4,7 @@ interface
 
 uses
   Class_biz_members,
+  Class_biz_indicator_median_length_of_service,
   ki_web_ui,
   system.collections,
   System.Data,
@@ -17,6 +18,7 @@ type
   p_type =
     RECORD
     biz_members: TClass_biz_members;
+    biz_indicator_median_length_of_service: TClass_biz_indicator_median_length_of_service;
     citywide_years_of_service_array_list: arraylist;
     ems_years_of_service_array_list: arraylist;
     r01_years_of_service_array_list: arraylist;
@@ -71,22 +73,22 @@ begin
     p.citywide_years_of_service_array_list.Sort;
     Label_overall.text := Median(p.citywide_years_of_service_array_list).tostring('F2');
     //
-//    p.biz_spc_length_of_service.Log
-//      (
-//      p.citywide_years_of_service_array_list,
-//      p.ems_years_of_service_array_list,
-//      p.r01_years_of_service_array_list,
-//      p.r02_years_of_service_array_list,
-//      p.r04_years_of_service_array_list,
-//      p.r05_years_of_service_array_list,
-//      p.r06_years_of_service_array_list,
-//      p.r09_years_of_service_array_list,
-//      p.r13_years_of_service_array_list,
-//      p.r14_years_of_service_array_list,
-//      p.r16_years_of_service_array_list,
-//      p.r17_years_of_service_array_list
-//      );
-//    p.biz_members.BindRankedYearsOfService(DataGrid_detail);
+    p.biz_indicator_median_length_of_service.Log
+      (
+      p.citywide_years_of_service_array_list,
+      p.ems_years_of_service_array_list,
+      p.r01_years_of_service_array_list,
+      p.r02_years_of_service_array_list,
+      p.r04_years_of_service_array_list,
+      p.r05_years_of_service_array_list,
+      p.r06_years_of_service_array_list,
+      p.r09_years_of_service_array_list,
+      p.r13_years_of_service_array_list,
+      p.r14_years_of_service_array_list,
+      p.r16_years_of_service_array_list,
+      p.r17_years_of_service_array_list
+      );
+    p.biz_indicator_median_length_of_service.BindLatestRankedYearsOfService(DataGrid_detail);
     //
   end;
   //
@@ -105,6 +107,7 @@ begin
   end else begin
     //
     p.biz_members := TClass_biz_members.Create;
+    p.biz_indicator_median_length_of_service := TClass_biz_indicator_median_length_of_service.Create;
     p.citywide_years_of_service_array_list := arraylist.Create;
     p.ems_years_of_service_array_list := arraylist.Create;
     p.r01_years_of_service_array_list := arraylist.Create;

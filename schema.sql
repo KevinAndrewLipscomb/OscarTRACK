@@ -340,6 +340,24 @@ INSERT INTO enrollment_transition (current_level_code, required_historical_level
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `indicator_median_length_of_service`
+--
+
+DROP TABLE IF EXISTS indicator_median_length_of_service;
+CREATE TABLE IF NOT EXISTS indicator_median_length_of_service (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `year` INTEGER UNSIGNED NOT NULL,
+  `month` TINYINT UNSIGNED NOT NULL,
+  `agency_id` INTEGER UNSIGNED,
+  `m` FLOAT UNSIGNED NOT NULL,
+  PRIMARY KEY(`id`),
+  UNIQUE `year_month_agency_id`(`year`, `month`, `agency_id`)
+) ENGINE = InnoDB;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `journal`
 --
 
@@ -830,6 +848,12 @@ ALTER TABLE enrollment_transition
   ADD CONSTRAINT enrollment_transition_ibfk_2 FOREIGN KEY (required_historical_level_code) REFERENCES enrollment_level (code),
   ADD CONSTRAINT enrollment_transition_ibfk_3 FOREIGN KEY (disallowed_historical_level_code) REFERENCES enrollment_level (code),
   ADD CONSTRAINT enrollment_transition_ibfk_4 FOREIGN KEY (valid_next_level_code) REFERENCES enrollment_level (code);
+
+--
+-- Constraints for table `indicator_median_length_of_service`
+--
+ALTER TABLE indicator_median_length_of_service
+  ADD CONSTRAINT agency_id FOREIGN KEY agency_id (agency_id) REFERENCES agency (id);
 
 --
 -- Constraints for table `leave_of_absence`
