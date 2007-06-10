@@ -17,7 +17,7 @@
                         <ItemStyle font-italic="True" horizontalalign="Right"></ItemStyle>
                       </ASP:BoundColumn>
                       <ASP:BoundColumn datafield="agency" readonly="True" headertext="Agency"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="years_of_service" readonly="True" dataformatstring="{0:0.00}">
+                      <ASP:BoundColumn datafield="m" readonly="True" dataformatstring="{0:0.00}">
                         <HeaderStyle font-italic="True"></HeaderStyle>
                         <ItemStyle font-bold="True" horizontalalign="Right"></ItemStyle>
                       </ASP:BoundColumn>
@@ -30,7 +30,7 @@
     </td>
   </tr>
 </table>
-				<asp:datagrid id="DataGrid_special" runat="server" autogeneratecolumns="False" cellpadding="0" gridlines="None" showheader="False">
+				<asp:datagrid id="DataGrid_special" runat="server" autogeneratecolumns="False" cellpadding="0" gridlines="None" showheader="False" visible="False">
   <Columns>
     <ASP:BoundColumn datafield="agency" readonly="True"></ASP:BoundColumn>
     <ASP:BoundColumn datafield="length_of_service" readonly="True"></ASP:BoundColumn>
