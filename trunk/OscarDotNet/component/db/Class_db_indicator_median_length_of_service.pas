@@ -55,6 +55,7 @@ begin
     +   ' join agency on (agency.id=indicator_median_length_of_service.agency_id)'
     + ' where year = YEAR(CURDATE())'
     +   ' and month = MONTH(CURDATE())'
+    +   ' and be_agency_id_applicable = TRUE'
     + ' order by m desc',
     connection
     )

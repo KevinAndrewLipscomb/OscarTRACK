@@ -6,7 +6,7 @@
         <tr bgcolor="#f5f5f5">
           <td>
                 <p><strong>Number of CORE OPS members</strong><br>
-				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the number of members who are scheduled to staff ambulances.</small></p>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the number of released members who are scheduled to staff ambulances.</small></p>
           </td>
         </tr>
         <tr>

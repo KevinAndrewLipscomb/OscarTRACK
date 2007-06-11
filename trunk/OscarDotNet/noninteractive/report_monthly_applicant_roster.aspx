@@ -16,12 +16,12 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Best practices</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of APPLICANTS</strong></td>
 					</tr>
 					<tr>
 					  <td>
-						<p>Monthly report of APPLICANTS</p>
 						<small>
+						<p>Best practices:</p>
 						<ul>
 						  <li><p>Use the <asp:label id="Label_application_name_2" runat="server"></asp:label> website's QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>

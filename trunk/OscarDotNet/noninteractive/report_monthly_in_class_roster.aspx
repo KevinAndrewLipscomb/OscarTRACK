@@ -16,12 +16,12 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Best practices</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of EMT Intern personnel</strong></td>
 					</tr>
 					<tr>
 					  <td>
-						<p>Monthly report of EMT Intern personnel</p>
 						<small>
+						<p>Best practices:</p>
 						<ul>
 						  <li><p>Schedule these personnel for no more than <strong>two (2) shifts</strong>.</p></li>
 						  <li><p>Use the <asp:label id="Label_application_name_2" runat="server"></asp:label> website's QuickMessage
