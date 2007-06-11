@@ -159,10 +159,20 @@ begin
   end;
 end;
 
-procedure TWebUserControl_ranked_length_of_service.DataGrid_detail_ItemDataBound(sender: System.Object; 
+procedure TWebUserControl_ranked_length_of_service.DataGrid_detail_ItemDataBound(sender: System.Object;
   e: System.Web.UI.WebControls.DataGridItemEventArgs);
 begin
-  
+  if (e.item.itemtype = listitemtype.alternatingitem)
+    or (e.item.itemtype = listitemtype.edititem)
+    or (e.item.itemtype = listitemtype.item)
+    or (e.item.itemtype = listitemtype.selecteditem)
+  then begin
+    //
+    // We are dealing with a data row, not a header or footer row.
+    //
+    p.rank := p.rank + 1;
+    e.item.cells[0].text := p.rank.tostring;
+  end;
 end;
 
 {$REGION 'Designer Managed Code'}
