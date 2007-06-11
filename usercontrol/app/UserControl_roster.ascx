@@ -136,7 +136,7 @@
 			  <td>
 					<table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
 						<tr><td><small><em>Press Ctrl-F to search by name</em></small></td>
-						  <td align="right"><a id="Anchor_quick_message_shortcut" runat="server" href="http://localhost/OscarDotNet/usercontrol/app/#QuickMessage">QuickMessage</a></td>
+						  <td align="right"><a id="Anchor_quick_message_shortcut" runat="server">QuickMessage</a></td>
 						</tr>
 					</table>
 				  <p></p>
@@ -194,8 +194,19 @@
 		  <tr><td bgcolor="#f5f5f5"><a id="QuickMessage"><strong>QuickMessage</strong></a></td>
 		  </tr>
 		  <tr>
-			<td><p>Send email to the people listed in the above filtered table.</p>
+			<td>
 			  <table cellspacing="0" cellpadding="10" width="100%" border="0">
+				  <tr>
+					<td>To:</td>
+					<td>The parties shown in the above filtered table (see below for resolution)</td>
+					<td></td>
+				  </tr>
+				  <tr>
+					<td>Bcc:</td>
+					<td>
+                        <ASP:Label id="Label_author_email_address" runat="server"></ASP:Label></td>
+					<td></td>
+				  </tr>
 				  <tr>
 					<td>Subject:</td>
 					<td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="72"></ASP:TextBox></td>
