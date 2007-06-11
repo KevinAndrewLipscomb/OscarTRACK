@@ -112,7 +112,7 @@ begin
   //
   sb := StringBuilder.Create;
   inherited Render(HtmlTextWriter.Create(StringWriter.Create(sb)));
-  //
+//  //
 //  writer.Write(sb.tostring);
   //
   // Send output stream as an email message.
@@ -122,13 +122,17 @@ begin
     //from
     configurationsettings.appsettings['sender_email_address'],
     //to
-    p.biz_members.AllEmailAddresses,
+    configurationsettings.appsettings['sender_email_address'],
     //subject
     'Report: Monthly Core Ops Dashboard',
     //body
     sb.tostring,
     //be_html
-    TRUE
+    TRUE,
+    //cc
+    system.string.EMPTY,
+    //bcc
+    p.biz_members.AllEmailAddresses
     );
   //
 end;

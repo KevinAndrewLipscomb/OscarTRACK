@@ -107,6 +107,7 @@ type
     Label_percentile_75_value: System.Web.UI.WebControls.Label;
     Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
     Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
+    Label_author_email_address: System.Web.UI.WebControls.Label;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -193,8 +194,10 @@ begin
     //
     Bind;
     //
+    Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    Label_author_email_address.text := p.biz_user.EmailAddress;
     //
   end;
   //
@@ -268,10 +271,16 @@ begin
     TextBox_quick_message_subject.text,
     // body
     '-- From ' + p.biz_user.Roles[0] + SPACE + p.biz_members.FirstNameOfMemberId(session['member_id'].tostring) + SPACE
-    + p.biz_members.LastNameOfMemberId(session['member_id'].tostring) + ' (via '
-    + configurationsettings.appsettings['application_name'] + ')' + NEW_LINE
+    + p.biz_members.LastNameOfMemberId(session['member_id'].tostring) + ' (' + p.biz_user.EmailAddress + ') [via '
+    + configurationsettings.appsettings['application_name'] + ']' + NEW_LINE
     + NEW_LINE
-    + TextBox_quick_message_body.text
+    + TextBox_quick_message_body.text,
+    // be_html
+    FALSE,
+    // cc
+    system.string.EMPTY,
+    // bcc
+    p.biz_user.EmailAddress
     );
   TextBox_quick_message_subject.text := system.string.EMPTY;
   TextBox_quick_message_body.text := system.string.EMPTY;
