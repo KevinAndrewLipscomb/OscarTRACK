@@ -222,7 +222,7 @@ var
 begin
   all_email_addresses := system.string.EMPTY;
   self.Open;
-  bdr := bdpcommand.Create('select email_address from member',connection).ExecuteReader;
+  bdr := bdpcommand.Create('select email_address from member where email_address is not null',connection).ExecuteReader;
   while bdr.Read do begin
     all_email_addresses := all_email_addresses + bdr['email_address'].tostring + ', ';
   end;
