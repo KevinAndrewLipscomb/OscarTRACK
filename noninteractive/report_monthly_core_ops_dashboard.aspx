@@ -25,14 +25,12 @@
 					<tr>
 					  <td>
 						<small>
-						<p>Best practices</p>
+						<p>Best practices:</p>
 						<ul>
-						  <li><p>This report allows members to compare the performance of their squad against that of others, from
-							various perspectives.</p></li>
-						  <li><p>For each of these analyses, you can interpret agencies shown at the top of the list to be better
-							performers than agencies ranked at the bottom.</p></li>
-						  <li><p>Although demographics may affect performance to some extent, you can assume that agency policies
-						    and practices tend to have the largest effect.</p></li>
+						  <li><p>This report allows members to compare squad-to-squad performance from various perspectives.</p></li>
+						  <li><p>Top performers are at the top of the lists.</p></li>
+						  <li><p>Although demographics have some effect, squad policies and practices tend to affect performance
+							the most.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server" font-bold="True"></asp:label>
 							website for additional features, such as advanced filtering, sorting, detail lookups, and

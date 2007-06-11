@@ -16,12 +16,12 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Best practices</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of CURRENT MEMBERS</strong></td>
 					</tr>
 					<tr>
 					  <td>
-					    <p>Monthly report of CURRENT MEMBERS</p>
 						<small>
+						<p>Best practices:</p>
 						<ul>
 						  <li><p>Your scheduler will use the data in
 							<asp:label id="Label_application_name_2" runat="server" font-bold="True"></asp:label> as the basis for

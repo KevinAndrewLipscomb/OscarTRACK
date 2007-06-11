@@ -7,7 +7,7 @@
           <td>
 				<p><strong>Median&nbsp;years of service</strong><br>
 				  <em>(Citywide = </em><ASP:Label id="Label_overall" runat="server" font-italic="True"></ASP:Label><em>)</em></p>
-				<p><small>This block shows the median length of service of core operations personnel, in years.&nbsp; Half of the members have given fewer years of service than indicated, half more.</small></p>
+				<p><small>This block shows the median length of service of released core operations personnel, in years.&nbsp; Half of such members have given fewer years of service than indicated, half more.</small></p>
           </td>
         </tr>
         <tr>

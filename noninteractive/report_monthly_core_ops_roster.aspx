@@ -16,12 +16,12 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Best practices</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of CORE OPERATIONS PERSONNEL</strong></td>
 					</tr>
 					<tr>
 					  <td>
-					    <p>Monthly report of CORE OPERATIONS PERSONNEL</p>
 						<small>
+						<p>Best practices:</p>
 						<ul>
 						  <li><p>Use this report along with any subsequent
 							<asp:label id="Label_application_name_1" runat="server"></asp:label> email notifications as the basis

@@ -277,6 +277,7 @@ begin
     + ' , concat(medium_designator," - ",long_designator) as agency'
     + ' , count(*) as count'
     + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
     +   ' join enrollment_history'
     +     ' on'
     +       ' ('
@@ -294,8 +295,10 @@ begin
     +       ' )'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
-    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
-    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' where'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +   ' and'
+    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
     + ' order by count desc',
     connection
@@ -321,6 +324,7 @@ begin
     +       ' )'
     +     ' )/2 as num_crew_shifts'
     + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
     +   ' join enrollment_history'
     +     ' on'
     +       ' ('
@@ -353,8 +357,10 @@ begin
     +         ' )'
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
-    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
-    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' where'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +   ' and'
+    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
     + ' order by num_crew_shifts desc',
     connection
@@ -375,6 +381,7 @@ begin
     + ' , count(*) as num_core_ops_members'
     + ' , count(if((core_ops_commitment_level_code = 3),1,NULL))/count(*) as factor'
     + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
     +   ' join enrollment_history'
     +     ' on'
     +       ' ('
@@ -392,8 +399,10 @@ begin
     +       ' )'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
-    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
-    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' where'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +   ' and'
+    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
     + ' order by factor desc, num_core_ops_members desc',
     connection
@@ -428,6 +437,7 @@ begin
     +       ' )'
     +     ' )/sum(num_shifts) as utilization'
     + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
     +   ' join enrollment_history'
     +     ' on'
     +       ' ('
@@ -460,8 +470,10 @@ begin
     +         ' )'
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
-    + ' where enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical"'
-    +   ' , "Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' where'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +   ' and'
+    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
     + ' order by utilization desc',
     connection
@@ -662,8 +674,8 @@ begin
     +       ' )'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
-    + ' where enrollment_level.description in'
-    +     ' ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    + ' where'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     +   ' and'
