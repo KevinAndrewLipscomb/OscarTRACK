@@ -113,23 +113,23 @@ begin
   sb := StringBuilder.Create;
   inherited Render(HtmlTextWriter.Create(StringWriter.Create(sb)));
   //
-  writer.Write(sb.tostring);
-//  //
-//  // Send output stream as an email message.
-//  //
-//  ki.SmtpMailSend
-//    (
-//    //from
-//    configurationsettings.appsettings['sender_email_address'],
-//    //to
-//    p.biz_members.AllEmailAddresses,
-//    //subject
-//    'Report: Monthly Core Ops Dashboard',
-//    //body
-//    sb.tostring,
-//    //be_html
-//    TRUE
-//    );
+//  writer.Write(sb.tostring);
+  //
+  // Send output stream as an email message.
+  //
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    p.biz_members.AllEmailAddresses,
+    //subject
+    'Report: Monthly Core Ops Dashboard',
+    //body
+    sb.tostring,
+    //be_html
+    TRUE
+    );
   //
 end;
 
