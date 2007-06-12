@@ -493,7 +493,8 @@ INSERT INTO notification (id,`name`) VALUES
 (5,'medical-release-level-change'),
 (6,'member-added'),
 (7,'new-enrollment-level'),
-(8,'section-change');
+(8,'section-change'),
+(9,'needs-enrollment-review');
 
 -- --------------------------------------------------------
 
@@ -651,7 +652,8 @@ INSERT role_notification_map (notification_id,role_id) VALUES
 (7,3),
 (7,6),
 (8,6),
-(8,7);
+(8,7),
+(9,6);
 
 --
 -- Table structure for table `role_privilege_map`
