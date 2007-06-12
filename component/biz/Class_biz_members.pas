@@ -102,7 +102,8 @@ type
       );
     procedure SetMedicalReleaseCode
       (
-      code: string;
+      old_level: string;
+      new_code: string;
       e_item: system.object
       );
     procedure SetProfile
@@ -395,11 +396,12 @@ end;
 
 procedure TClass_biz_members.SetMedicalReleaseCode
   (
-  code: string;
+  old_level: string;
+  new_code: string;
   e_item: system.object
   );
 begin
-  db_members.SetMedicalReleaseCode(code,e_item);
+  db_members.SetMedicalReleaseCode(new_code,e_item);
   biz_notifications.IssueForMedicalReleaseLevelChange
     (
     IdOf(e_item),
@@ -408,6 +410,19 @@ begin
     CadNumOf(e_item),
     MedicalReleaseLevelOf(e_item)
     );
+  if biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(old_level)
+    and not biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_code)
+  then begin
+    biz_notifications.IssueForNeedsEnrollmentReview
+      (
+      IdOf(e_item),
+      FirstNameOf(e_item),
+      LastNameOf(e_item),
+      CadNumOf(e_item),
+      old_level,
+      MedicalReleaseLevelOf(e_item)
+      );
+  end;
 end;
 
 procedure TClass_biz_members.SetProfile
