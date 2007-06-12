@@ -12,6 +12,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #
 # Monthly
 #
+00 02 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_dashboard.aspx
 01 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R01
 02 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R02
 04 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R04
