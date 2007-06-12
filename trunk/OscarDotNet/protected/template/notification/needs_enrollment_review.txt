@@ -1,0 +1,19 @@
+Enrollment review needed for <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+*** ACTION REQUIRED ***
+*** ACTION REQUIRED ***
+*** ACTION REQUIRED ***
+
+<actor/> (<actor_email_address/>) recently made the following change in <application_name/>:
+
+   <first_name/> <last_name/> (<cad_num/>) has been approved to function
+   in Virginia Beach as a(n):
+
+      <medical_release_level/>
+
+Therefore, an officer needs to change <first_name/>'s enrollment level.  Usually, personnel in this situation should be set to REGULAR enrollment, but other settings may apply.  The enrollment setting will affect how many shifts <first_name/> should run each month.
+
+*** PLEASE LOG INTO <application_name/> NOW TO MAKE THIS CHANGE ***
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

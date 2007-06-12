@@ -16,6 +16,7 @@ type
     RECORD
     biz_medical_release_levels: TClass_biz_medical_release_levels;
     biz_members: TClass_biz_members;
+    saved_level: string;
     END;
   TWebForm_change_member_medical_release_level = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -74,11 +75,11 @@ uses
 procedure TWebForm_change_member_medical_release_level.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_member_medical_release_level_PreRender);
 end;
@@ -100,16 +101,12 @@ begin
       Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_medical_release_level';
       Label_account_descriptor.text := session['username'].tostring;
       //
-      p.biz_members := TClass_biz_members.Create;
-      p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
-      //
       Label_member_name_1.text :=
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
       Label_member_name_2.text := Label_member_name_1.text;
       Label_member_name_3.text := Label_member_name_2.text;
       //
-      p.biz_medical_release_levels.BindDropDownList
-        (DropDownList_medical_release_level,p.biz_members.MedicalReleaseLevelOf(session['e_item']));
+      p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level,p.saved_level);
       //
     end;
   end;
@@ -122,6 +119,12 @@ begin
   //
   InitializeComponent;
   inherited OnInit(e);
+  //
+  p.biz_members := TClass_biz_members.Create;
+  p.biz_medical_release_levels := TClass_biz_medical_release_levels.Create;
+  //
+  p.saved_level := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
+  //
 end;
 
 procedure TWebForm_change_member_medical_release_level.Button_cancel_Click(sender: System.Object;
@@ -133,7 +136,7 @@ end;
 procedure TWebForm_change_member_medical_release_level.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_members.SetMedicalReleaseCode(Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
+  p.biz_members.SetMedicalReleaseCode(p.saved_level,Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 

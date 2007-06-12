@@ -27,6 +27,8 @@ type
   public
     constructor Create;
     function BeLeaf(filter: filter_type): boolean;
+    function BeRecruitAdminOrSpecOpsBoundByCode(level_code: string): boolean;
+    function BeRecruitAdminOrSpecOpsBoundByDescription(level_description: string): boolean;
     function BeReleased(peck_code: string): boolean;
     procedure BindDropDownList
       (
@@ -51,6 +53,20 @@ begin
   if not (filter in [ALL,NOT_RELEASED,RELEASED]) then begin
     BeLeaf := TRUE;
   end;
+end;
+
+function TClass_biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(level_code: string): boolean;
+begin
+  BeRecruitAdminOrSpecOpsBoundByCode := (level_code = '1') or (level_code = '9');
+end;
+
+function TClass_biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(level_description: string): boolean;
+var
+  lowercase_level_description: string;
+begin
+  lowercase_level_description := level_description.ToLower;
+  BeRecruitAdminOrSpecOpsBoundByDescription :=
+    (lowercase_level_description = 'none') or (lowercase_level_description = 'emt intern');
 end;
 
 function TClass_biz_medical_release_levels.BeReleased(peck_code: string): boolean;
