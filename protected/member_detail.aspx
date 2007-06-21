@@ -11,14 +11,14 @@
   </head>
 
   <body>
-     <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
+	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
 		  <table cellspacing="0" cellpadding="1" width="100%" border="0" bgcolor="#d3d3d3">
 			  <tr>
 				<td>
 		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-										           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-										           [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+										               [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+										               [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -86,20 +86,25 @@
                                 <td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
 							<tr bgcolor="#dcdcdc">
+							  <td valign="top">Enrollment:</td>
 							  <td valign="top">
-                                  <p>Enrollment:</p>
-                                  <p>Years of service:</p></td>
-							  <td valign="top">
-                                  <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
-								  <p><ASP:Label id="Label_years_of_service" runat="server"></ASP:Label></p></td>
+								  <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
+								  <blockquote><small><ASP:Label id="Label_elaboration" runat="server" font-italic="True"></ASP:Label></small></blockquote>
+							  </td>
 							  <td valign="top"><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							  <td valign="top"></td>
 							</tr>
 							<tr>
+							  <td valign="top">Years of service:</td>
+							  <td valign="top"><ASP:Label id="Label_years_of_service" runat="server"></ASP:Label></td>
+							  <td valign="top"></td>
+							  <td valign="top"></td>
+							</tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Driver qualified:</td>
 							  <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
 							  <td></td>
-                                <td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+								<td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
 						</table></td>
 					</tr>

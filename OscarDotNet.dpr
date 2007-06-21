@@ -101,7 +101,7 @@ uses
   profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
   milestone_sweep in 'noninteractive\milestone_sweep.pas' {milestone_sweep.TWebForm_milestone_sweep: system.web.ui.page},
   daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm_daily_tasks: system.web.ui.page},
-  UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: System.Windows.Forms.UserControl},
+  UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: ki_web_ui.usercontrol_class},
   change_member_section in 'protected\change_member_section.pas' {change_member_section.TWebForm_change_member_section: ki_web_ui.page_class},
   Class_biz_sections in 'component\biz\Class_biz_sections.pas',
   Class_biz_notifications in 'component\biz\Class_biz_notifications.pas',

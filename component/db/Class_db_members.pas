@@ -95,6 +95,7 @@ type
       out name: string;
       out be_valid_profile: boolean
       );
+    function HighestTierOf(id: string): string;
     function IdOf(e_item: system.object): string;
     function IdOfFirstnameLastnameCadnum
       (
@@ -296,7 +297,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -358,7 +359,7 @@ begin
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -400,7 +401,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -471,7 +472,7 @@ begin
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -523,12 +524,12 @@ begin
     filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin"'
-    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended") ';
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","Just released") ';
     APPLICANT: filter := filter + ' = "Applicant" ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
-    + ',"Reduced (3)","SpecOps") ';
+    + ',"Reduced (3)","SpecOps","Just released") ';
     STANDARD_OPS: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
-    + ',"Reduced (3)") ';
+    + ',"Reduced (3)","Just released") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
     REDUCED: filter := filter + ' in ("Reduced (1)","Reduced (2)","Reduced (3)") ';
     REGULAR: filter := filter + ' = "Regular" ';
@@ -547,6 +548,7 @@ begin
     DISABLED: filter := filter + ' = "Disabled" ';
     DISMISSED: filter := filter + ' = "Dismissed" ';
     DECEASED: filter := filter + ' = "Deceased" ';
+    JUST_RELEASED: filter := filter + ' = "Just released" ';
     end;
     //
     case enrollment_filter of
@@ -675,7 +677,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     +   ' and'
@@ -755,6 +757,32 @@ begin
   name := bdr['name'].tostring;
   be_valid_profile := (bdr['be_valid_profile'].tostring = '1');
   bdr.Close;
+  self.Close;
+end;
+
+function TClass_db_members.HighestTierOf(id: string): string;
+var
+  tier_id_obj: system.object;
+begin
+  //
+  // Note that tier_id=1 is the "highest" tier.
+  //
+  self.Open;
+  tier_id_obj := bdpcommand.Create
+    (
+    'select min(tier_id)'
+    + ' from member'
+    +   ' join role_member_map on (role_member_map.member_id=member.id)'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    + ' where member.id = ' + id,
+    connection
+    )
+    .ExecuteScalar;
+  if tier_id_obj <> nil then begin
+    HighestTierOf := tier_id_obj.tostring;
+  end else begin
+    HighestTierOf := MAXINT.tostring;
+  end;
   self.Close;
 end;
 
