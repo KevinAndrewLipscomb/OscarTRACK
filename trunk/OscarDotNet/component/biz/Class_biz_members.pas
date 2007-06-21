@@ -71,6 +71,7 @@ type
       out name: string;
       out be_valid_profile: boolean
       );
+    function HighestTierOf(id: string): string;
     function IdOf(e_item: system.object): string;
     function IdOfAppropriateRoleHolder
       (
@@ -293,6 +294,11 @@ begin
     );
 end;
 
+function TClass_biz_members.HighestTierOf(id: string): string;
+begin
+  HighestTierOf := db_members.HighestTierOf(id);
+end;
+
 function TClass_biz_members.IdOf(e_item: system.object): string;
 begin
   IdOf := db_members.IdOf(e_item);
@@ -413,6 +419,14 @@ begin
   if biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(old_level)
     and not biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_code)
   then begin
+    biz_enrollment.SetLevel
+      (
+      biz_enrollment.CodeOf('Just released'),
+      datetime.Today,
+      system.string.EMPTY,
+      IdOf(e_item),
+      e_item
+      );
     biz_notifications.IssueForNeedsEnrollmentReview
       (
       IdOf(e_item),

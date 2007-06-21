@@ -8,6 +8,7 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_enrollment,
   Class_biz_members,
+  Class_biz_user,
   ki_web_ui,
   UserControl_drop_down_date;
 
@@ -16,6 +17,7 @@ type
     RECORD
     biz_enrollment: TClass_biz_enrollment;
     biz_members: TClass_biz_members;
+    biz_user: TClass_biz_user;
     END;
   TWebForm_add_new_enrollment_status = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
@@ -57,6 +59,7 @@ type
     LinkButton_grant_leave: System.Web.UI.WebControls.LinkButton;
     UserControl_effective_date: TWebUserControl_drop_down_date;
     TextBox_note: System.Web.UI.WebControls.TextBox;
+    Label_no_transitions_available: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -108,6 +111,7 @@ begin
       //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
+      p.biz_user := TClass_biz_user.Create;
       //
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
       if cad_num_string = system.string.EMPTY then begin
@@ -121,8 +125,18 @@ begin
         + cad_num_string
         + ')';
       //
-      p.biz_enrollment.BindTransitionRadioButtonList(p.biz_members.IdOf(session['e_item']),RadioButtonList_disposition);
+      p.biz_enrollment.BindTransitionRadioButtonList
+        (
+        p.biz_members.IdOf(session['e_item']),
+        p.biz_members.HighestTierOf(p.biz_members.IdOfUserId(p.biz_user.IdNum)),
+        RadioButtonList_disposition
+        );
       UserControl_effective_date.selectedvalue := datetime.Today;
+      //
+      Label_no_transitions_available.visible := (RadioButtonList_disposition.items.count = 0);
+//      UserControl_effective_date. := (RadioButtonList_disposition.items.count > 0);
+      TextBox_note.enabled := (RadioButtonList_disposition.items.count > 0);
+      Button_submit.enabled := (RadioButtonList_disposition.items.count > 0);
       //
     end;
   end;

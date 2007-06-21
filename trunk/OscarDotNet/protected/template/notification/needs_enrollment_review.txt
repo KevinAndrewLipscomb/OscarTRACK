@@ -12,7 +12,11 @@ This is an automatic notification from <application_name/>.
 
       <medical_release_level/>
 
-Therefore, an officer needs to change <first_name/>'s enrollment level.  Usually, personnel in this situation should be set to REGULAR enrollment, but other settings may apply.  The enrollment setting will affect how many shifts <first_name/> should run each month.
+<application_name/> detected this change and automatically set <first_name/>'s enrollment level to "Just released".
+
+ACTION REQUIRED:  <first_name/>'s Squad Commander needs to change <first_name/>'s enrollment level.  Usually, personnel in this situation should be set to REGULAR enrollment, but other settings may apply.  The enrollment setting will affect how many shifts <first_name/> should run each month.
+
+Failure to take action on this constitutes mistreatment of <first_name/> <last_name/>; may result in production of a sub-optimal duty schedule; and may penalize <first_name/>'s squad on some performance metrics.
 
 *** PLEASE LOG INTO <application_name/> NOW TO MAKE THIS CHANGE ***
 

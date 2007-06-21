@@ -6,9 +6,10 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  Class_biz_users,
+  Class_biz_enrollment,
   Class_biz_leaves,
   Class_biz_members,
+  Class_biz_users,
   ki,
   ki_web_ui,
   UserControl_print_div;
@@ -16,9 +17,10 @@ uses
 type
   p_type =
     RECORD
-    biz_users: TClass_biz_users;
+    biz_enrollment: TClass_biz_enrollment;
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
+    biz_users: TClass_biz_users;
     cad_num_string: string;
     leave_next_month_description: string;
     leave_this_month_description: string;
@@ -74,6 +76,7 @@ type
     LinkButton_change_section: System.Web.UI.WebControls.LinkButton;
     UserControl_print_div: TWebUserControl_print_div;
     Label_years_of_service: System.Web.UI.WebControls.Label;
+    Label_elaboration: System.Web.UI.WebControls.Label;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -144,8 +147,10 @@ begin
     Label_medical_release_level.Text := p.biz_members.MedicalReleaseLevelOf(session['e_item']);
     //
     Label_enrollment.Text := p.biz_members.EnrollmentOf(session['e_item']);
-    Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
+    Label_elaboration.text := p.biz_enrollment.ELaborationOf(Label_enrollment.text);
     LinkButton_enrollment_detail.text := ExpandTildePath(LinkButton_enrollment_detail.text);
+    //
+    Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
     //
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
     LinkButton_change_driver_qual.text := ExpandTildePath(LinkButton_change_driver_qual.text);
@@ -183,9 +188,10 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      p.biz_users := TClass_biz_users.Create;
+      p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
+      p.biz_users := TClass_biz_users.Create;
       //
       p.raw_member_email_address := p.biz_members.EmailAddressOf(p.biz_members.IdOf(session['e_item']));
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);

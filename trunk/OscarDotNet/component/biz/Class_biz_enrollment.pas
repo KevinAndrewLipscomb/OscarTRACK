@@ -21,6 +21,7 @@ type
             REDUCED,
             ASSOCIATE,
             ATYPICAL,
+            JUST_RELEASED,
           SPECOPS,
         RECRUIT,
         ADMIN,
@@ -50,10 +51,13 @@ type
     procedure BindTransitionRadioButtonList
       (
       member_id: string;
+      tier_id: string;
       target: system.object
       );
     procedure BindUncontrolledDropDownList(target: system.object);
+    function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
+    function ElaborationOf(description: string): string;
     function SetLevel
       (
       new_level_code: string;
@@ -98,16 +102,27 @@ end;
 procedure TClass_biz_enrollment.BindTransitionRadioButtonList
   (
   member_id: string;
+  tier_id: string;
   target: system.object
   );
 begin
-  db_enrollment.BindTransitionRadioButtonList(member_id,target);
+  db_enrollment.BindTransitionRadioButtonList(member_id,tier_id,target);
 end;
 
 
 procedure TClass_biz_enrollment.BindUncontrolledDropDownList(target: system.object);
 begin
   db_enrollment.BindUncontrolledDropDownList(target);
+end;
+
+function TClass_biz_enrollment.ElaborationOf(description: string): string;
+begin
+  ElaborationOf := db_enrollment.ElaborationOf(description);
+end;
+
+function TClass_biz_enrollment.CodeOf(description: string): string;
+begin
+  CodeOf := db_enrollment.CodeOf(description);
 end;
 
 function TClass_biz_enrollment.DescriptionOf(level_code: string): string;
