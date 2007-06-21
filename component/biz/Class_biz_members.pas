@@ -421,7 +421,7 @@ begin
   then begin
     biz_enrollment.SetLevel
       (
-      biz_enrollment.CodeOf('Just released'),
+      biz_enrollment.CodeOf('New trainee'),
       datetime.Today,
       system.string.EMPTY,
       IdOf(e_item),

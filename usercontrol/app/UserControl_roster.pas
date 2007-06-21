@@ -298,13 +298,13 @@ begin
   Include(Self.DropDownList_agency_filter.SelectedIndexChanged, Self.DropDownList_agency_filter_SelectedIndexChanged);
   Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
   Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
   Include(Self.Button_send.Click, Self.Button_send_Click);
-  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
 end;

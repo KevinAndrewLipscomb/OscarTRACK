@@ -120,7 +120,7 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.',1),
 (19, 'Suspended', 0, 95, 'as described in Corrective Action Policy',1),
 (20, 'Transferring', 0, 81, 'In the process of switching affiliation WITHIN the system.  Temporarily relieves member from duty obligation.',1),
-(21, 'Just released', 0, 82, 'Has recently been released to function as a patient care provider, but next enrollment level has not yet been indicated.  Shift obligation set to zero in this system.',2);
+(21, 'New trainee', 0, 82, 'Has recently been issued a white ID card with a red stripe by Training Division.  Next enrollment level needs to be set by squad commander.  Shift obligation is set to zero in this system.',2);
 
 -- --------------------------------------------------------
 
