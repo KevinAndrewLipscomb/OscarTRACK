@@ -21,7 +21,7 @@ type
             REDUCED,
             ASSOCIATE,
             ATYPICAL,
-            JUST_RELEASED,
+            NEW_TRAINEE,
           SPECOPS,
         RECRUIT,
         ADMIN,

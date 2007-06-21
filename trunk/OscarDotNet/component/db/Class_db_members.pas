@@ -297,7 +297,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -359,7 +359,7 @@ begin
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -401,7 +401,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -472,7 +472,7 @@ begin
     +       ' )'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     + ' group by agency.id'
@@ -524,12 +524,12 @@ begin
     filter := filter + ' and enrollment_level.description ';
     case enrollment_filter of
     CURRENT: filter := filter + ' in ("Applicant","Operational","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin"'
-    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","Just released") ';
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","New trainee") ';
     APPLICANT: filter := filter + ' = "Applicant" ';
     OPERATIONAL: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
-    + ',"Reduced (3)","SpecOps","Just released") ';
+    + ',"Reduced (3)","SpecOps","New trainee") ';
     STANDARD_OPS: filter := filter + ' in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)"'
-    + ',"Reduced (3)","Just released") ';
+    + ',"Reduced (3)","New trainee") ';
     ASSOCIATE: filter := filter + ' = "Associate" ';
     REDUCED: filter := filter + ' in ("Reduced (1)","Reduced (2)","Reduced (3)") ';
     REGULAR: filter := filter + ' = "Regular" ';
@@ -548,7 +548,7 @@ begin
     DISABLED: filter := filter + ' = "Disabled" ';
     DISMISSED: filter := filter + ' = "Dismissed" ';
     DECEASED: filter := filter + ' = "Deceased" ';
-    JUST_RELEASED: filter := filter + ' = "Just released" ';
+    NEW_TRAINEE: filter := filter + ' = "New trainee" ';
     end;
     //
     case enrollment_filter of
@@ -677,7 +677,7 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","Just released")'
+    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
     +   ' and'
     +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
     +   ' and'

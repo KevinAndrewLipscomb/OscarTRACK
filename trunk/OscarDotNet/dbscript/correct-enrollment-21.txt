@@ -1,0 +1,4 @@
+update enrollment_level
+set description = 'New trainee',
+  elaboration = 'Has recently been issued a white ID card with a red stripe by Training Division.  Next enrollment level needs to be set by squad commander.  Shift obligation is set to zero in this system.'
+where code = 21
