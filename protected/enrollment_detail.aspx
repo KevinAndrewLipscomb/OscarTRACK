@@ -17,8 +17,8 @@
 				<td>
 				  <small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-							           [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-							          [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+							            [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+							           [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 				  </small>
@@ -38,7 +38,7 @@
 					<tr>
 					  <td bgcolor="#f5f5f5"><strong>
 						  <table cellspacing="0" cellpadding="5" width="100%" border="0">
-							  <tr><td><strong>Enrollment details for
+							  <tr><td><strong>Membership status details for
 									<ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td><td><ASP:LinkButton id="LinkButton_add_new_enrollment_status" runat="server">[Add&nbsp;a&nbsp;new&nbsp;status]</ASP:LinkButton></td>
 							  </tr>
 						  </table></strong></td>

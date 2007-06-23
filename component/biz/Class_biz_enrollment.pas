@@ -28,7 +28,7 @@ type
         TRANSFERRING,
         SUSPENDED,
       PAST,
-        DISENGAGED,
+        UNKNOWN,
         RESIGNED,
         RETIRED,
         DISABLED,
@@ -43,6 +43,7 @@ type
   public
     constructor Create;
     function BeLeaf(filter: filter_type): boolean;
+    function BePastDescription(description: string): boolean;
     procedure BindMemberHistory
       (
       member_id: string;
@@ -88,6 +89,16 @@ begin
   if not (filter in [ALL,CURRENT,OPERATIONAL,STANDARD_OPS,PAST]) then begin
     BeLeaf := TRUE;
   end;
+end;
+
+function TClass_biz_enrollment.BePastDescription(description: string): boolean;
+begin
+  BePastDescription := (description = 'Resigned')
+    or (description = 'Retired')
+    or (description = 'Disabled')
+    or (description = 'Unknown')
+    or (description = 'Dismissed')
+    or (description = 'Died');
 end;
 
 procedure TClass_biz_enrollment.BindMemberHistory

@@ -10,6 +10,7 @@ uses
   borland.data.provider,
   Class_biz_leaves,
   Class_biz_members,
+  Class_biz_user,
   ki,
   ki_web_ui,
   UserControl_print_div;
@@ -22,6 +23,7 @@ type
     be_user_privileged_to_grant_leave: boolean;
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
+    biz_user: TClass_biz_user;
     cad_num_string: string;
     num_datagrid_rows: cardinal;
     sort_order: string;
@@ -133,9 +135,11 @@ begin
       //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
+      p.biz_user := TClass_biz_user.Create;
       //
       p.be_sort_order_ascending := FALSE;
-      p.be_user_privileged_to_grant_leave := Has(string_array(session['privilege_array']),'grant-leave');
+      p.be_user_privileged_to_grant_leave := Has(string_array(session['privilege_array']),'grant-leave')
+        and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),p.biz_members.IdOf(session['e_item']));
       p.num_datagrid_rows := 0;
       p.sort_order := 'start_date%';
       //

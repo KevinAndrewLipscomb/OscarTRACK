@@ -17,9 +17,9 @@
 				<td>
 				  <small>
 					<asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;
-					  [&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-					  [&nbsp;<ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go&nbsp;back</ASP:LinkButton>&nbsp;]
-					  [&nbsp;Change&nbsp;<asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;|&nbsp;<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
+					    [&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
+					    [&nbsp;<ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go&nbsp;back</ASP:LinkButton>&nbsp;]
+					    [&nbsp;Change&nbsp;<asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;|&nbsp;<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 				  </small>
 				</td>
 				<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -65,7 +65,7 @@
 																																																																																																																																																																																																																																																																																																!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
-				<td valign="top">Num obligated shifts:</td>
+				<td valign="top">Num duties required:</td>
 				<td>
 				  <table cellspacing="0" cellpadding="0" border="0">
 					<tr>
@@ -78,8 +78,7 @@
 							<td>
 							  <small>For long-term purposes, consider changing
 								<ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>
-							  's <ASP:LinkButton id="LinkButton1" runat="server">
-																																																																																																																																																																																																																																																																enrollment level</ASP:LinkButton>
+							  's <ASP:LinkButton id="LinkButton1" runat="server">membership status</ASP:LinkButton>
 							  &nbsp;instead.
 							  </small></td>
 						  </tr>

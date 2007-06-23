@@ -541,8 +541,8 @@ begin
     ADMIN: filter := filter + ' = "Admin" ';
     TRANSFERRING: filter := filter + ' = "Transferring" ';
     SUSPENDED: filter := filter + ' = "Suspended" ';
-    PAST: filter := filter + '  in ("Disengaged","Resigned","Retired","Disabled","Dismissed") ';
-    DISENGAGED: filter := filter + ' = "Disengaged" ';
+    PAST: filter := filter + '  in ("Unknown","Resigned","Retired","Disabled","Dismissed") ';
+    UNKNOWN: filter := filter + ' = "Unknown" ';
     RESIGNED: filter := filter + ' = "Resigned" ';
     RETIRED: filter := filter + ' = "Retired" ';
     DISABLED: filter := filter + ' = "Disabled" ';
@@ -596,7 +596,7 @@ begin
   + ' , medical_release_code_description_map.description as medical_release_description' // column 8
   + ' , if(be_driver_qualified,"Yes","No") as be_driver_qualified'                       // column 9
   + ' , enrollment_level.description as enrollment'                                      // column 10
-  + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,18))))/365'
+  + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,10,18))))/365'
   +     ' as length_of_service'                                                          // column 11
   + ' , core_ops_commitment_level_code'                                                  // column 12
   + ' , num_shifts as enrollment_obligation'                                             // column 13

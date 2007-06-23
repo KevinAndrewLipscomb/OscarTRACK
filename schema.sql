@@ -110,17 +110,17 @@ INSERT INTO enrollment_level (code, description, num_shifts, pecking_order, elab
 (8, 'Reduced (2)', 2, 50, 'Only use when 2 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 2 shifts.',2),
 (9, 'Reduced (3)', 3, 40, 'Only use when 3 shifts per month is presumed to be a very long-term arrangement.  Otherwise, grant leave to the member instead, and specify an obligation of 3 shifts.',2),
 (10, 'Recruit', 0, 85, 'Has been issued a red or yellow ID card.',1),
-(11, 'Resigned', 0, 100, 'If the member did not clearly resign verbally or in writing, use "Disengaged" instead.  For Life or Tenured members, use "Retired" unless they have indicated a desire to "divorce" themselves from the organization.',1),
-(12, 'Retired', 0, 150, 'Life or Tenured member disengaged on own accord.  It is recommended to put member on leave for a while prior to using this level.',1),
+(11, 'Resigned', 0, 100, 'If the member did not clearly resign verbally or in writing, use "Unknown" instead.  For Life or Tenured members, use "Retired" unless they have indicated a desire to "divorce" themselves from the organization.',1),
+(12, 'Retired', 0, 150, 'Life or Tenured member left on own accord.  It is recommended to put member on leave for a while prior to using this status.',1),
 (13, 'Died', 0, 5555, 'Self-explanatory',1),
 (14, 'Dismissed', 0, 800, 'Forced out against own wishes',1),
 (15, 'Disabled', 0, 200, 'Suffered persistent injury or illness.  Should normally only be used after member has been on medical leave.',1),
-(16, 'Disengaged', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this level.',1),
+(16, 'Unknown', 0, 300, 'Stopped reporting to organization.  Only use if the member never gave a clear indication of their intentions.  It is recommended to put member on leave for a while prior to using this status.',1),
 (17, 'Applicant', 0, 88, 'Has submitted an application that has not yet been completely approved.  Has not been issued any kind of ID card.',1),
 (18, 'SpecOps', 0, 83, 'Only use for members who NEVER run ambulance duties and who are NOT members of one of the city''s ten original volunteer rescue squads.',1),
 (19, 'Suspended', 0, 95, 'as described in Corrective Action Policy',1),
 (20, 'Transferring', 0, 81, 'In the process of switching affiliation WITHIN the system.  Temporarily relieves member from duty obligation.',1),
-(21, 'New trainee', 0, 82, 'Has recently been issued a white ID card with a red stripe by Training Division.  Next enrollment level needs to be set by squad commander.  Shift obligation is set to zero in this system.',2);
+(21, 'New trainee', 0, 82, 'Has recently been issued a white ID card with a red stripe by Training Division.  Next membership status needs to be set by squad commander.  Shift obligation is set to zero in this system.',2);
 
 -- --------------------------------------------------------
 

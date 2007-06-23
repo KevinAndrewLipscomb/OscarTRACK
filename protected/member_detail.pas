@@ -9,7 +9,7 @@ uses
   Class_biz_enrollment,
   Class_biz_leaves,
   Class_biz_members,
-  Class_biz_users,
+  Class_biz_user,
   ki,
   ki_web_ui,
   UserControl_print_div;
@@ -20,7 +20,7 @@ type
     biz_enrollment: TClass_biz_enrollment;
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
-    biz_users: TClass_biz_users;
+    biz_user: TClass_biz_user;
     cad_num_string: string;
     leave_next_month_description: string;
     leave_this_month_description: string;
@@ -113,11 +113,15 @@ end;
 {$ENDREGION}
 
 procedure TWebForm_member_detail.Page_Load(sender: System.Object; e: System.EventArgs);
+var
+  target_member_id: string;
 begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
     Label_account_descriptor.text := session['username'].tostring;
+    //
+    target_member_id := p.biz_members.IdOf(session['e_item']);
     //
     if p.raw_member_email_address <> system.string.Empty then begin
       Label_email_address.Text := p.raw_member_email_address;
@@ -150,13 +154,18 @@ begin
     Label_elaboration.text := p.biz_enrollment.ELaborationOf(Label_enrollment.text);
     LinkButton_enrollment_detail.text := ExpandTildePath(LinkButton_enrollment_detail.text);
     //
-    Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
+    if p.biz_members.RetentionOf(session['e_item']) <> system.string.EMPTY then begin
+      Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
+    end else begin
+      Label_years_of_service.text := '(See membership status detail)';
+    end;
     //
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
     LinkButton_change_driver_qual.text := ExpandTildePath(LinkButton_change_driver_qual.text);
     //
-    if p.biz_members.UserIdOf(p.biz_members.IdOf(session['e_item'])) = system.string.EMPTY then begin
-      LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address');
+    if p.biz_members.UserIdOf(target_member_id) = system.string.EMPTY then begin
+      LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address')
+        and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     end;
     LinkButton_change_member_email_address.text := ExpandTildePath(LinkButton_change_member_email_address.text);
     //
@@ -164,7 +173,8 @@ begin
     LinkButton_change_medical_release_level.text := ExpandTildePath(LinkButton_change_medical_release_level.text);
     //
     LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual');
-    LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section');
+    LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     //
   end;
 end;
@@ -191,7 +201,7 @@ begin
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;
-      p.biz_users := TClass_biz_users.Create;
+      p.biz_user := TClass_biz_user.Create;
       //
       p.raw_member_email_address := p.biz_members.EmailAddressOf(p.biz_members.IdOf(session['e_item']));
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
