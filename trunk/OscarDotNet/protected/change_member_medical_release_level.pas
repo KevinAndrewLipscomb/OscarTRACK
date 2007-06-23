@@ -75,11 +75,11 @@ uses
 procedure TWebForm_change_member_medical_release_level.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
+  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_member_medical_release_level_PreRender);
 end;

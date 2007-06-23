@@ -39,6 +39,12 @@ type
       : boolean;
     function AgencyIdOfId(id: string): string;
     function AllEmailAddresses: string;
+    function BeAuthorizedTierOrSameAgency
+      (
+      subject_member_id: string;
+      object_member_id: string
+      )
+      : boolean;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
@@ -183,6 +189,17 @@ end;
 function TClass_biz_members.AllEmailAddresses: string;
 begin
   AllEmailAddresses := db_members.AllEmailAddresses;
+end;
+
+function TClass_biz_members.BeAuthorizedTierOrSameAgency
+  (
+  subject_member_id: string;
+  object_member_id: string
+  )
+  : boolean;
+begin
+  BeAuthorizedTierOrSameAgency := (HighestTierOf(subject_member_id) = '1')
+    or (AgencyIdOfId(subject_member_id) = AgencyIdOfId(object_member_id));
 end;
 
 function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): boolean;

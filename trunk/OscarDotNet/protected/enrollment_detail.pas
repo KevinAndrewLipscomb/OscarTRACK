@@ -10,6 +10,7 @@ uses
   borland.data.provider,
   Class_biz_enrollment,
   Class_biz_members,
+  Class_biz_user,
   ki,
   ki_web_ui,
   UserControl_print_div;
@@ -20,6 +21,7 @@ type
     be_datagrid_empty: boolean;
     biz_enrollment: TClass_biz_enrollment;
     biz_members: TClass_biz_members;
+    biz_user: TClass_biz_user;
     cad_num_string: string;
     num_datagrid_rows: cardinal;
     END;
@@ -98,7 +100,8 @@ begin
       + ' (CAD # '
       + p.cad_num_string
       + ')';
-    LinkButton_add_new_enrollment_status.visible := Has(string_array(session['privilege_array']),'edit-enrollments');
+    LinkButton_add_new_enrollment_status.visible := Has(string_array(session['privilege_array']),'edit-enrollments')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),p.biz_members.IdOf(session['e_item']));
     //
     Bind;
     //
@@ -126,6 +129,8 @@ begin
       //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
+      p.biz_user := TClass_biz_user.Create;
+      //
       p.num_datagrid_rows := 0;
       //
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
