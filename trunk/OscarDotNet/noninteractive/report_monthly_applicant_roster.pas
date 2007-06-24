@@ -135,6 +135,8 @@ begin
     TRUE
     );
   //
+  session.Abandon;
+  //
 end;
 
 end.

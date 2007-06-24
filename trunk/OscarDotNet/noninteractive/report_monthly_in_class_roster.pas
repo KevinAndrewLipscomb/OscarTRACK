@@ -89,7 +89,7 @@ begin
   // Set session objects referenced by UserControl_roster.
   //
   session.Add('mode:report',system.string.EMPTY);
-  session.Add('mode:report/monthly-in-class-roster',system.string.EMPTY);
+  session.Add('mode:report/monthly-emt-intern-roster',system.string.EMPTY);
   //
   if request['agency'] = 'EMS' then begin
     role_name := 'Department BLS ID Coordinator';
@@ -128,12 +128,14 @@ begin
     //to
     p.biz_members.EmailAddressOf(p.member_id),
     //subject
-    'Report: Monthly In-Class Roster',
+    'Report: Monthly EMT Intern Roster',
     //body
     sb.tostring,
     //be_html
     TRUE
     );
+  //
+  session.Abandon;
   //
 end;
 
