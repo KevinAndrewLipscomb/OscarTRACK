@@ -174,7 +174,9 @@ begin
       RadioButtonList_which_month.selectedvalue := '0'; // this month
     end;
     //
-    if session['mode:report'] <> nil then begin
+    if session['mode:report'] = nil then begin
+      Label_author_email_address.text := p.biz_user.EmailAddress;
+    end else begin
       DataGrid_roster.enabled := FALSE;
       DataGrid_roster.columns[TCCI_DRILLDOWN_LINKBUTTON].visible := FALSE;
       DataGrid_roster.allowsorting := FALSE;
@@ -197,7 +199,6 @@ begin
     Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
-    Label_author_email_address.text := p.biz_user.EmailAddress;
     //
   end;
   //
