@@ -27,6 +27,8 @@
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
 						  <li><p>Consider reminding these personnel that we are counting on them to complete their applications, and
 						    that we are looking forward to welcoming them aboard.</p></li>
+						  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
+							report entered into your squad's corporate minutes.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server"></asp:label>
 							website to use additional features, such as advanced filtering, sorting, detail lookups, and
