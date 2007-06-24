@@ -28,7 +28,8 @@
 						  <li><p>Make sure these personnel have been scheduled for a full set of duties this month.</p></li>
 						  <li><p>Consider checking with these personnel at this time to see how they are doing on their check-off
 						    sheets, and if it would be useful for you to arrange any special support for them.</p></li>
-						  <li>
+                                                  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
+                                                    report entered into your squad's corporate minutes.</p></li>						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server"></asp:label>
 							website to use additional features, such as advanced filtering, sorting, detail lookups, and
 							QuickMessaging:</p>
