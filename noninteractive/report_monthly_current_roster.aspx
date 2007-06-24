@@ -30,6 +30,8 @@
 							<asp:label id="Label_application_name_3" runat="server" font-bold="True"></asp:label> website.  Make
 							sure they are using the QuickMessage feature to maintain an appropriate dialog with personnel who are in
 							the pipeline for release.</p></li>
+                                                  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
+                                                    report entered into your squad's corporate minutes.</p></li>						  <li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server" font-bold="True"></asp:label>
 							website to make updates and to use additional features, such as advanced filtering, sorting, detail
