@@ -32,6 +32,8 @@
 						  <li><p>Schedule the least available personnel first.</p></li>
 						  <li><p>Generally, you should favor personnel with longer lengths of service unless doing so would reduce
 							staffing.</p></li>
+						  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
+							report entered into your squad's corporate minutes.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_2" runat="server" font-bold="True"></asp:label>
 							website for additional features, such as advanced filtering, sorting, detail lookups, and
