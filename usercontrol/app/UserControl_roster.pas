@@ -135,7 +135,6 @@ begin
     if not p.be_user_privileged_to_see_all_squads then begin
       DropDownList_agency_filter.selectedvalue := p.agency_filter;
     end;
-//    DropDownList_agency_filter.enabled := p.be_user_privileged_to_see_all_squads;
     //
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
     TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
@@ -147,11 +146,12 @@ begin
       p.enrollment_filter := STANDARD_OPS;
       DropDownList_enrollment_filter.selectedvalue := 'standard_ops';
       RadioButtonList_which_month.selectedvalue := '1'; // next month
-    end else if session['mode:report/monthly-in-class-roster'] <> nil then begin
+    end else if session['mode:report/monthly-emt-intern-roster'] <> nil then begin
       p.enrollment_filter := CURRENT;
       DropDownList_enrollment_filter.selectedvalue := 'current';
       RadioButtonList_which_month.selectedvalue := '0'; // this month
       p.med_release_level_filter := IN_CLASS;
+      DropDownList_med_release_filter.selectedvalue := 'in_class';
     end else if session['mode:report/monthly-trainee-roster'] <> nil then begin
       p.enrollment_filter := CURRENT;
       DropDownList_enrollment_filter.selectedvalue := 'current';

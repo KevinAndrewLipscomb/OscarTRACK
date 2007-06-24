@@ -135,6 +135,8 @@ begin
     p.biz_members.AllEmailAddresses
     );
   //
+  session.Abandon;
+  //
 end;
 
 end.
