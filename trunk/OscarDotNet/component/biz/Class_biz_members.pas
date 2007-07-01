@@ -40,8 +40,6 @@ type
       : boolean;
     function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
-    function AllEmailAddressesQueue: queue;  overload;
-    function AllEmailAddressesString: string; overload;
     function BeAuthorizedTierOrSameAgency
       (
       subject_member_id: string;
@@ -70,6 +68,8 @@ type
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
+    function CurrentMemberEmailAddressesQueue: queue;  overload;
+    function CurrentMemberEmailAddressesString: string; overload;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
@@ -203,25 +203,6 @@ begin
   AgencyIdOfId := db_members.AgencyIdOfId(id);
 end;
 
-function TClass_biz_members.AllEmailAddressesQueue: queue;
-begin
-  AllEmailAddressesQueue := db_members.AllEmailAddresses;
-end;
-
-function TClass_biz_members.AllEmailAddressesString: string;
-var
-  all_email_addresses: string;
-  i: cardinal;
-  q: queue;
-begin
-  all_email_addresses := system.string.EMPTY;
-  q := AllEmailAddressesQueue;
-  for i := 1 to q.Count do begin
-    all_email_addresses := all_email_addresses + q.Dequeue.tostring + ', ';
-  end;
-  AllEmailAddressesString := (all_email_addresses + SPACE).TrimEnd([',',' ']);
-end;
-
 function TClass_biz_members.BeAuthorizedTierOrSameAgency
   (
   subject_member_id: string;
@@ -305,6 +286,25 @@ end;
 function TClass_biz_members.CadNumOfMemberId(member_id: string): string;
 begin
   CadNumOfMemberId := db_members.CadNumOfMemberId(member_id);
+end;
+
+function TClass_biz_members.CurrentMemberEmailAddressesQueue: queue;
+begin
+  CurrentMemberEmailAddressesQueue := db_members.CurrentMemberEmailAddresses;
+end;
+
+function TClass_biz_members.CurrentMemberEmailAddressesString: string;
+var
+  current_member_email_addresses: string;
+  i: cardinal;
+  q: queue;
+begin
+  current_member_email_addresses := system.string.EMPTY;
+  q := CurrentMemberEmailAddressesQueue;
+  for i := 1 to q.Count do begin
+    current_member_email_addresses := current_member_email_addresses + q.Dequeue.tostring + ', ';
+  end;
+  CurrentMemberEmailAddressesString := (current_member_email_addresses + SPACE).TrimEnd([',',' ']);
 end;
 
 function TClass_biz_members.EmailAddressOf(member_id: string): string;
