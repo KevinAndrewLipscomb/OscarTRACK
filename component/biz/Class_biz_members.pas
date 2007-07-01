@@ -10,7 +10,8 @@ uses
   Class_biz_notifications,
   Class_biz_sections,
   Class_db_members,
-  Class_db_users;
+  Class_db_users,
+  system.collections;
 
 type
   TClass_biz_members = class
@@ -37,8 +38,10 @@ type
       enrollment_level: string = ''
       )
       : boolean;
+    function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
-    function AllEmailAddresses: string;
+    function AllEmailAddressesQueue: queue;  overload;
+    function AllEmailAddressesString: string; overload;
     function BeAuthorizedTierOrSameAgency
       (
       subject_member_id: string;
@@ -92,6 +95,12 @@ type
     function OfficershipOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
+    procedure SetAgency
+      (
+      old_agency_id: string;
+      new_agency_id: string;
+      e_item: system.object
+      );
     procedure SetDriverQualification
       (
       be_driver_qualified: boolean;
@@ -122,6 +131,9 @@ type
   end;
 
 implementation
+
+uses
+  ki;
 
 constructor TClass_biz_members.Create;
 begin
@@ -181,14 +193,33 @@ begin
   end;
 end;
 
+function TClass_biz_members.AgencyOf(e_item: system.object): string;
+begin
+  AgencyOf := db_members.AgencyOf(e_item);
+end;
+
 function TClass_biz_members.AgencyIdOfId(id: string): string;
 begin
   AgencyIdOfId := db_members.AgencyIdOfId(id);
 end;
 
-function TClass_biz_members.AllEmailAddresses: string;
+function TClass_biz_members.AllEmailAddressesQueue: queue;
 begin
-  AllEmailAddresses := db_members.AllEmailAddresses;
+  AllEmailAddressesQueue := db_members.AllEmailAddresses;
+end;
+
+function TClass_biz_members.AllEmailAddressesString: string;
+var
+  all_email_addresses: string;
+  i: cardinal;
+  q: queue;
+begin
+  all_email_addresses := system.string.EMPTY;
+  q := AllEmailAddressesQueue;
+  for i := 1 to q.Count do begin
+    all_email_addresses := all_email_addresses + q.Dequeue.tostring + ', ';
+  end;
+  AllEmailAddressesString := (all_email_addresses + SPACE).TrimEnd([',',' ']);
 end;
 
 function TClass_biz_members.BeAuthorizedTierOrSameAgency
@@ -368,6 +399,28 @@ end;
 function TClass_biz_members.SectionOf(e_item: system.object): string;
 begin
   SectionOf := db_members.SectionOf(e_item);
+end;
+
+procedure TClass_biz_members.SetAgency
+  (
+  old_agency_id: string;
+  new_agency_id: string;
+  e_item: system.object
+  );
+var
+  member_id: string;
+begin
+  db_members.SetAgency(new_agency_id,e_item);
+  member_id := IdOf(e_item);
+  biz_notifications.IssueForAgencyChange
+    (
+    member_id,
+    FirstNameOf(e_item),
+    LastNameOf(e_item),
+    CadNumOf(e_item),
+    biz_agencies.MediumDesignatorOf(old_agency_id),
+    biz_agencies.MediumDesignatorOf(new_agency_id)
+    );
 end;
 
 procedure TClass_biz_members.SetDriverQualification

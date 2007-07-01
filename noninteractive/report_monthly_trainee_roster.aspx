@@ -26,6 +26,8 @@
 						  <li><p>Use the <asp:label id="Label_application_name_2" runat="server"></asp:label> website's QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
 						  <li><p>Make sure these personnel have been scheduled for a full set of duties this month.</p></li>
+						  <li><p>It is critically important to place these people on the schedule prior to the citywide scheduling
+							meeting.</p></li>
 						  <li><p>Consider checking with these personnel at this time to see how they are doing on their check-off
 						    sheets, and if it would be useful for you to arrange any special support for them.</p></li>
                                                   <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this

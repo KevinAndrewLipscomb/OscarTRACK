@@ -23,7 +23,9 @@
 						<small>
 						<p>Best practices:</p>
 						<ul>
-						  <li><p>Schedule these personnel for no more than <strong>two (2) shifts</strong>.</p></li>
+						  <li><p>These people should be scheduled for no more than <strong>two (2) shifts</strong>.</p></li>
+						  <li><p>It is critically important to place these people on the schedule prior to the citywide scheduling
+							meeting.</p></li>
 						  <li><p>Use the <asp:label id="Label_application_name_2" runat="server"></asp:label> website's QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
 						  <li><p>Consider checking with these personnel at this time to see how they are doing in class, and if it

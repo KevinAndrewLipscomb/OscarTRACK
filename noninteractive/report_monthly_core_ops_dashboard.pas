@@ -105,6 +105,9 @@ end;
 
 procedure TWebForm_report_monthly_core_ops_dashboard.Render(writer: HtmlTextWriter);
 var
+  body: string;
+  i: cardinal;
+  recipient_q: queue;
   sb: StringBuilder;
 begin
   //
@@ -114,26 +117,33 @@ begin
   inherited Render(HtmlTextWriter.Create(StringWriter.Create(sb)));
 //  //
 //  writer.Write(sb.tostring);
+//  //
+  body := sb.tostring;
   //
   // Send output stream as an email message.
   //
-  ki.SmtpMailSend
-    (
-    //from
-    configurationsettings.appsettings['sender_email_address'],
-    //to
-    configurationsettings.appsettings['sender_email_address'],
-    //subject
-    'Report: Monthly Core Ops Dashboard',
-    //body
-    sb.tostring,
-    //be_html
-    TRUE,
-    //cc
-    system.string.EMPTY,
-    //bcc
-    p.biz_members.AllEmailAddresses
-    );
+  recipient_q := p.biz_members.AllEmailAddressesQueue;
+  //
+  for i := 1 to recipient_q.Count do begin
+    ki.SmtpMailSend
+      (
+      //from
+      configurationsettings.appsettings['sender_email_address'],
+      //to
+      configurationsettings.appsettings['sender_email_address'],
+      //subject
+      'Report: Monthly Core Ops Dashboard',
+      //body
+      body,
+      //be_html
+      TRUE,
+      //cc
+      system.string.EMPTY,
+      //bcc
+      recipient_q.Dequeue.tostring
+      );
+    //
+  end;
   //
   session.Abandon;
   //

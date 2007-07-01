@@ -545,7 +545,8 @@ INSERT INTO privilege (id,`name`) VALUES
 (15,'change-med-release-level'),
 (16,'change-driver-qual'),
 (17,'change-member-email-address'),
-(18,'change-section');
+(18,'change-section'),
+(19,'change-agency');
 
 -- --------------------------------------------------------
 
@@ -686,6 +687,7 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (1,16),
 (1,17),
 (1,18),
+(1,19),
 (2,1),
 (2,2),
 (2,3),
@@ -702,6 +704,7 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (2,15),
 (2,16),
 (2,17),
+(2,19),
 (3,2),
 (3,6),
 (3,7),
@@ -713,6 +716,7 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (3,15),
 (3,16),
 (3,17),
+(3,19),
 (4,3),
 (4,4),
 (4,6),

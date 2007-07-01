@@ -26,8 +26,10 @@
 						  <li><p>Use this report along with any subsequent
 							<asp:label id="Label_application_name_1" runat="server"></asp:label> email notifications as the basis
 							for writing	the upcoming schedule.</p></li>
-						  <li><p>Make sure to assign the required number of duties to all members, even if doing so means scheduling
-							members as Driver Only or scheduling them to staff units at other stations.</p></li>
+						  <li><p>Make sure to assign the required number of duties to all members, including "thirds", even if doing
+							so means scheduling	members as Driver Only or scheduling them to staff units at other stations.</p></li>
+						  <li><p>It is critically important to arrive at the citywide scheduling meeting with the most complete
+						    schedule possible.&nbsp; This includes placing "thirds" on the schedule.</p></li>  
 						  <li><p>Immediately advise the appropriate Squad Commander of any discrepancies in this report.</p></li>
 						  <li><p>Schedule the least available personnel first.</p></li>
 						  <li><p>Generally, you should favor personnel with longer lengths of service unless doing so would reduce

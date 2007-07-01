@@ -13,6 +13,15 @@ type
     host_domain_name: string;
   public
     constructor Create;
+    procedure IssueForAgencyChange
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      old_agency_medium_designator: string;
+      new_agency_medium_designator: string
+      );
     procedure IssueForDriverQualificationChange
       (
       member_id: string;
@@ -152,6 +161,62 @@ begin
   application_name := configurationsettings.appsettings['application_name'];
   db_notifications := TClass_db_notifications.Create;
   host_domain_name := configurationsettings.appsettings['host_domain_name'];
+end;
+
+procedure TClass_biz_notifications.IssueForAgencyChange
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  old_agency_medium_designator: string;
+  new_agency_medium_designator: string
+  );
+var
+  actor: string;
+  actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<actor/>',actor)
+      .Replace('<actor_email_address/>',actor_email_address)
+      .Replace('<host_domain_name/>',host_domain_name)
+      .Replace('<application_name/>',application_name)
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<old_agency_medium_designator/>',old_agency_medium_designator)
+      .Replace('<new_agency_medium_designator/>',new_agency_medium_designator);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/agency_change.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('agency-change',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
 end;
 
 procedure TClass_biz_notifications.IssueForDriverQualificationChange

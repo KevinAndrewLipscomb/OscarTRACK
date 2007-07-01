@@ -47,6 +47,7 @@ type
     procedure LinkButton_enrollment_detail_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_driver_qual_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_section_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_agency_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -77,6 +78,8 @@ type
     UserControl_print_div: TWebUserControl_print_div;
     Label_years_of_service: System.Web.UI.WebControls.Label;
     Label_elaboration: System.Web.UI.WebControls.Label;
+    Label_agency: System.Web.UI.WebControls.Label;
+    LinkButton_change_agency: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -103,6 +106,7 @@ begin
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
+  Include(Self.LinkButton_change_agency.Click, Self.LinkButton_change_agency_Click);
   Include(Self.LinkButton_change_section.Click, Self.LinkButton_change_section_Click);
   Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
   Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
@@ -145,6 +149,9 @@ begin
     end;
     LinkButton_officership_detail.text := ExpandTildePath(LinkButton_officership_detail.text);
     //
+    Label_agency.text := p.biz_members.AgencyOf(session['e_item']);
+    LinkButton_change_agency.text := ExpandTildePath(LinkButton_change_agency.text);
+    //
     Label_section.text := p.biz_members.SectionOf(session['e_item']);
     LinkButton_change_section.text := ExpandTildePath(LinkButton_change_section.text);
     //
@@ -173,6 +180,7 @@ begin
     LinkButton_change_medical_release_level.text := ExpandTildePath(LinkButton_change_medical_release_level.text);
     //
     LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual');
+    LinkButton_change_agency.visible := Has(string_array(session['privilege_array']),'change-agency');
     LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section')
       and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     //
@@ -218,6 +226,13 @@ begin
       //
     end;
   end;
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_agency_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_member_agency.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_section_Click(sender: System.Object;

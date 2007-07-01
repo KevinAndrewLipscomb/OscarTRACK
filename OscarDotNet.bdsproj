@@ -244,6 +244,7 @@
       <File FileName="usercontrol\app\UserControl_ranked_utilization.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_utilization"/>
       <File FileName="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_standard_enrollment"/>
       <File FileName="usercontrol\app\UserControl_ranked_length_of_service.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_length_of_service"/>
+      <File FileName="protected\change_member_agency.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_agency"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -324,6 +325,7 @@
       <File FileName="usercontrol\app\UserControl_ranked_length_of_service.pas" ContainerId="" ModuleName="UserControl_ranked_length_of_service" Parent="usercontrol\app\UserControl_ranked_length_of_service.ascx"/>
       <File FileName="component\biz\Class_biz_indicator_median_length_of_service.pas" ContainerId="" ModuleName="Class_biz_indicator_median_length_of_service"/>
       <File FileName="component\db\Class_db_indicator_median_length_of_service.pas" ContainerId="" ModuleName="Class_db_indicator_median_length_of_service"/>
+      <File FileName="protected\change_member_agency.pas" ContainerId="" ModuleName="change_member_agency" Parent="protected\change_member_agency.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
