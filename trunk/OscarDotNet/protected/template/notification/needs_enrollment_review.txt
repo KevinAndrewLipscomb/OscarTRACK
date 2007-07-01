@@ -12,9 +12,9 @@ This is an automatic notification from <application_name/>.
 
       <medical_release_level/>
 
-<application_name/> detected this change and automatically set <first_name/>'s enrollment level to "New trainee".
+<application_name/> detected this change and automatically set <first_name/>'s membership status to "New trainee".
 
-<first_name/>'s squad commander needs to change <first_name/>'s enrollment level.  Usually, personnel in this situation should immediately be set to REGULAR enrollment, but other settings may apply.  The enrollment setting will affect how many shifts <first_name/> should run each month.
+<first_name/>'s squad commander needs to change <first_name/>'s membership status.  Usually, personnel in this situation should immediately be set to REGULAR membership status, but other settings may apply.  The membership status setting will affect how many shifts <first_name/> should run each month.
 
 Failure to take action on this may deprive <first_name/> <last_name/> of shifts needed to achieve release.
 

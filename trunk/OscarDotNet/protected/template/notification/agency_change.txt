@@ -3,6 +3,8 @@ This is an automatic notification from <application_name/>.
 
 <actor/> has transferred <first_name/> <last_name/> (<cad_num/>) from <old_agency_medium_designator/> to <new_agency_medium_designator/>.  If not already done, <first_name/> <last_name/> and the <new_agency_medium_designator/> Squad Commander are encouraged to contact each other to discuss any agency-specific intake procedures.
 
+<new_agency_medium_designator/> SQUAD COMMANDER PLEASE NOTE:  <first_name/>'s previous attributes (leave status, membership status, section, etc) are still in effect.  If changes are required, please log into <application_name/> to make those changes now.
+
 You can reach <actor/> at:
 
    <actor_email_address/> (mailto:<actor_email_address/>)

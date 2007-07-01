@@ -5,6 +5,7 @@ interface
 uses
   borland.data.provider,
   Class_db,
+  Class_db_agencies,
   Class_db_medical_release_levels,
   Class_db_trail,
   Class_biz_enrollment,
@@ -13,6 +14,7 @@ uses
   Class_biz_notifications,
   Class_biz_sections,
   ki,
+  system.collections,
   system.web.ui.webcontrols;
 
 const
@@ -38,6 +40,7 @@ type
   TClass_db_members = class(TClass_db)
   private
     biz_notifications: TClass_biz_notifications;
+    db_agencies: TClass_db_agencies;
     db_medical_release_levels: TClass_db_medical_release_levels;
     db_trail: TClass_db_trail;
   public
@@ -54,8 +57,9 @@ type
       enrollment_date: datetime;
       enrollment_code: cardinal = 17
       );
+    function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
-    function AllEmailAddresses: string;
+    function AllEmailAddresses: queue; overload;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeKnown
       (
@@ -119,6 +123,11 @@ type
     function OfficershipOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
+    procedure SetAgency
+      (
+      agency_id: string;
+      e_item: system.object
+      );
     procedure SetDriverQualification
       (
       be_driver_qualified: boolean;
@@ -157,6 +166,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   biz_notifications := TClass_biz_notifications.Create;
+  db_agencies := TClass_db_agencies.Create;
   db_medical_release_levels := TClass_db_medical_release_levels.Create;
   db_trail := TClass_db_trail.Create;
 end;
@@ -204,6 +214,11 @@ begin
   self.Close;
 end;
 
+function TClass_db_members.AgencyOf(e_item: system.object): string;
+begin
+  AgencyOf := Safe(DataGridItem(e_item).cells[TCCI_AGENCY].text,ALPHANUM);
+end;
+
 function TClass_db_members.AgencyIdOfId(id: string): string;
 begin
   self.Open;
@@ -216,20 +231,20 @@ begin
   self.Close;
 end;
 
-function TClass_db_members.AllEmailAddresses: string;
+function TClass_db_members.AllEmailAddresses: queue;
 var
-  all_email_addresses: string;
+  all_email_addresses: queue;
   bdr: bdpdatareader;
 begin
-  all_email_addresses := system.string.EMPTY;
+  all_email_addresses := queue.Create;
   self.Open;
   bdr := bdpcommand.Create('select email_address from member where email_address is not null',connection).ExecuteReader;
   while bdr.Read do begin
-    all_email_addresses := all_email_addresses + bdr['email_address'].tostring + ', ';
+    all_email_addresses.Enqueue(bdr['email_address']);
   end;
   bdr.Close;
   self.Close;
-  AllEmailAddresses := (all_email_addresses + SPACE).TrimEnd([',',' ']);
+  AllEmailAddresses := all_email_addresses;
 end;
 
 function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): boolean;
@@ -1033,6 +1048,23 @@ end;
 function TClass_db_members.SectionOf(e_item: system.object): string;
 begin
   SectionOf := Safe(DataGridItem(e_item).cells[TCCI_SECTION_NUM].text,NUM);
+end;
+
+procedure TClass_db_members.SetAgency
+  (
+  agency_id: string;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    db_trail.Saved('UPDATE member SET agency_id = ' + agency_id + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_AGENCY].text := db_agencies.ShortDesignatorOf(agency_id);
+  self.Close;
 end;
 
 procedure TClass_db_members.SetDriverQualification
