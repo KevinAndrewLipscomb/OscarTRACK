@@ -122,7 +122,7 @@ begin
   //
   // Send output stream as an email message.
   //
-  recipient_q := p.biz_members.AllEmailAddressesQueue;
+  recipient_q := p.biz_members.CurrentMemberEmailAddressesQueue;
   //
   for i := 1 to recipient_q.Count do begin
     ki.SmtpMailSend

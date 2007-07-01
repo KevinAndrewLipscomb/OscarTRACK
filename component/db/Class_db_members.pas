@@ -59,7 +59,6 @@ type
       );
     function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
-    function AllEmailAddresses: queue; overload;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeKnown
       (
@@ -89,6 +88,7 @@ type
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
+    function CurrentMemberEmailAddresses: queue; overload;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function FirstNameOf(e_item: system.object): string;
@@ -229,22 +229,6 @@ begin
     )
     .ExecuteScalar.tostring;
   self.Close;
-end;
-
-function TClass_db_members.AllEmailAddresses: queue;
-var
-  all_email_addresses: queue;
-  bdr: bdpdatareader;
-begin
-  all_email_addresses := queue.Create;
-  self.Open;
-  bdr := bdpcommand.Create('select email_address from member where email_address is not null',connection).ExecuteReader;
-  while bdr.Read do begin
-    all_email_addresses.Enqueue(bdr['email_address']);
-  end;
-  bdr.Close;
-  self.Close;
-  AllEmailAddresses := all_email_addresses;
 end;
 
 function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): boolean;
@@ -714,6 +698,64 @@ begin
   self.Open;
   CadNumOfMemberId := bdpcommand.Create('select cad_num from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   self.Close;
+end;
+
+function TClass_db_members.CurrentMemberEmailAddresses: queue;
+var
+  current_member_email_addresses: queue;
+  bdr: bdpdatareader;
+begin
+  current_member_email_addresses := queue.Create;
+  self.Open;
+  bdr := bdpcommand.Create
+    (
+    'select email_address'
+    + ' from member'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       ' enrollment_history.member_id=member.id'
+    +       ' and'
+    +         ' ('
+    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+    +         ' and'
+    +           ' ('
+    +             ' (enrollment_history.end_date is null)'
+    +           ' or'
+    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+    +           ' )'
+    +         ' )'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    + ' where email_address is not null'
+    +   ' and email_address <> ""'
+    +   ' and enrollment_level.description in'
+    +     ' ('
+    +     ' "Applicant"'
+    +     ' , "Associate"'
+    +     ' , "Regular"'
+    +     ' , "Life"'
+    +     ' , "Tenured"'
+    +     ' , "Atypical"'
+    +     ' , "Recruit"'
+    +     ' , "Admin"'
+    +     ' , "Reduced (1)"'
+    +     ' , "Reduced (2)"'
+    +     ' , "Reduced (3)"'
+    +     ' , "SpecOps"'
+    +     ' , "Transferring"'
+    +     ' , "Suspended"'
+    +     ' , "New trainee"'
+    +     ' )',
+    connection
+    )
+    .ExecuteReader;
+  while bdr.Read do begin
+    current_member_email_addresses.Enqueue(bdr['email_address']);
+  end;
+  bdr.Close;
+  self.Close;
+  CurrentMemberEmailAddresses := current_member_email_addresses;
 end;
 
 function TClass_db_members.EmailAddressOf(member_id: string): string;
