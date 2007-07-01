@@ -130,17 +130,13 @@ begin
       //from
       configurationsettings.appsettings['sender_email_address'],
       //to
-      configurationsettings.appsettings['sender_email_address'],
+      recipient_q.Dequeue.tostring,
       //subject
       'Report: Monthly Core Ops Dashboard',
       //body
       body,
       //be_html
-      TRUE,
-      //cc
-      system.string.EMPTY,
-      //bcc
-      recipient_q.Dequeue.tostring
+      TRUE
       );
     //
   end;
