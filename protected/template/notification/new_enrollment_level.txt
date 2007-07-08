@@ -1,9 +1,9 @@
 <cad_num/> <last_name/>, <first_name/> => <new_level/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has changed <first_name/> <last_name/>'s enrollment level in <application_name/> as follows:
+<actor/> has changed <first_name/> <last_name/>'s membership status in <application_name/> as follows:
 
-   New level:
+   New status:
       <new_level/>
    Effective date (yyyy-mm-dd):
       <effective_date/>
