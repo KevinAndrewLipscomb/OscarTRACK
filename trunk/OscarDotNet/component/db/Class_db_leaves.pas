@@ -11,7 +11,8 @@ const
   TCCI_START_DATE = 1;
   TCCI_END_DATE = 2;
   TCCI_KIND_OF_LEAVE = 3;
-  TCCI_NOTE = 4;
+  TCCI_NUM_SHIFTS = 4;
+  TCCI_NOTE = 5;
 
 type
   TClass_db_leaves = class(TClass_db)
@@ -19,13 +20,34 @@ type
     db_trail: TClass_db_trail;
   public
     constructor Create;
-    procedure BindKindDropDownList(target: system.object);
+    function BeOverlap
+      (
+      member_id: string;
+      relative_start_month: string;
+      relative_end_month: string;
+      id: string = ''
+      )
+      : boolean;
+    procedure BindKindDropDownList
+      (
+      target: system.object;
+      use_select: boolean = TRUE
+      );
     procedure BindMemberRecords
       (
       member_id: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object
+      );
+    procedure Change
+      (
+      id: string;
+      new_relative_start_month: string;
+      new_relative_end_month: string;
+      new_kind_of_leave_code: string;
+      new_num_obligated_shifts: string;
+      new_note: string
       );
     procedure Delete(id: string);
     procedure DescribeThisAndNextMonthForMember
@@ -37,6 +59,7 @@ type
       );
     function DescriptionOf(code: string): string;
     function EndDateOf(id: string): datetime;
+    function EndMonthOf(leave_item: system.object): string;
     procedure Grant
       (
       member_id: string;
@@ -46,11 +69,16 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function IdOf(leave_item: system.object): string;
+    function KindOf(leave_item: system.object): string;
     function KindOfLeaveCodeOf(id: string): string;
     function MemberIdOf(id: string): string;
     function NoteOf(id: string): string;
+    function NoteOfTcc(leave_item: system.object): string;
     function NumObligedShiftsOf(id: string): cardinal;
+    function NumObligedShiftsOfTcc(leave_item: system.object): string;
     function StartDateOf(id: string): datetime;
+    function StartMonthOf(leave_item: system.object): string;
     function TcciOfId: cardinal;
   end;
 
@@ -58,6 +86,7 @@ implementation
 
 uses
   borland.data.provider,
+  ki,
   system.web.ui.webcontrols;
 
 constructor TClass_db_leaves.Create;
@@ -67,13 +96,57 @@ begin
   db_trail := TClass_db_trail.Create;
 end;
 
-procedure TClass_db_leaves.BindKindDropDownList(target: system.object);
+function TClass_db_leaves.BeOverlap
+  (
+  member_id: string;
+  relative_start_month: string;
+  relative_end_month: string;
+  id: string = ''
+  )
+  : boolean;
+var
+  cmdtext: string;
+begin
+  cmdtext := 'select 1'
+  + ' from leave_of_absence'
+  + ' where'
+  +     ' member_id = ' + member_id
+  +   ' and'
+  +   ' ('
+  +     ' ('
+  +       ' start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + relative_start_month + ' MONTH)'
+  +     ' and'
+  +       ' end_date >= DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + relative_start_month + ' MONTH)'
+  +     ' )'
+  +   ' or'
+  +     ' ('
+  +       ' start_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
+  +     ' and'
+  +       ' end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
+  +     ' )'
+  +   ' )';
+  if id <> system.string.EMPTY then begin
+    cmdtext := cmdtext + ' and id <> ' + id;
+  end;
+  cmdtext := cmdtext + ' limit 1';
+  self.Open;
+  BeOverlap := (bdpcommand.Create(cmdtext,connection).ExecuteScalar <> nil);
+  self.Close;
+end;
+
+procedure TClass_db_leaves.BindKindDropDownList
+  (
+  target: system.object;
+  use_select: boolean = TRUE
+  );
 var
   bdr: borland.data.provider.bdpdatareader;
 begin
   self.Open;
   DropDownList(target).Items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  if use_select then begin
+    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  end;
   //
   bdr := Borland.Data.Provider.BdpCommand.Create
     ('SELECT code,description FROM kind_of_leave_code_description_map ORDER BY description',connection).ExecuteReader;
@@ -115,6 +188,35 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_leaves.Change
+  (
+  id: string;
+  new_relative_start_month: string;
+  new_relative_end_month: string;
+  new_kind_of_leave_code: string;
+  new_num_obligated_shifts: string;
+  new_note: string
+  );
+begin
+  self.Open;
+  bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'update leave_of_absence'
+      + ' set start_date = DATE_ADD(DATE_FORMAT(CURDATE(),"%Y-%m-01"),INTERVAL ' + new_relative_start_month + ' MONTH)'
+      + ' , end_date = LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + new_relative_end_month + ' MONTH))'
+      + ' , kind_of_leave_code = ' + new_kind_of_leave_code
+      + ' , num_obliged_shifts = ' + new_num_obligated_shifts
+      + ' , note = "' + new_note + '"'
+      + ' where id = ' + id
+      ),
+    connection
+    )
+    .ExecuteNonQuery;
   self.Close;
 end;
 
@@ -187,6 +289,11 @@ begin
   self.Close;
 end;
 
+function TClass_db_leaves.EndMonthOf(leave_item: system.object): string;
+begin
+  EndMonthOf := Safe(DataGridItem(leave_item).cells[TCCI_END_DATE].text,HYPHENATED_ALPHANUM);
+end;
+
 procedure TClass_db_leaves.Grant
   (
   member_id: string;
@@ -216,6 +323,16 @@ begin
   self.Close;
 end;
 
+function TClass_db_leaves.IdOf(leave_item: system.object): string;
+begin
+  IdOf := Safe(DataGridItem(leave_item).cells[TCCI_ID].text,NUM);
+end;
+
+function TClass_db_leaves.KindOf(leave_item: system.object): string;
+begin
+  KindOf := Safe(DataGridItem(leave_item).cells[TCCI_KIND_OF_LEAVE].text,ALPHA);
+end;
+
 function TClass_db_leaves.KindOfLeaveCodeOf(id: string): string;
 begin
   self.Open;
@@ -238,6 +355,15 @@ begin
   self.Close;
 end;
 
+function TClass_db_leaves.NoteOfTcc(leave_item: system.object): string;
+begin
+  if DataGridItem(leave_item).cells[TCCI_NOTE].text = '&nbsp;' then begin
+    NoteOfTcc := system.string.EMPTY;
+  end else begin
+    NoteOfTcc := Safe(DataGridItem(leave_item).cells[TCCI_NOTE].text,NARRATIVE);
+  end;
+end;
+
 function TClass_db_leaves.NumObligedShiftsOf(id: string): cardinal;
 begin
   self.Open;
@@ -246,11 +372,21 @@ begin
   self.Close;
 end;
 
+function TClass_db_leaves.NumObligedShiftsOfTcc(leave_item: system.object): string;
+begin
+  NumObligedShiftsOfTcc := Safe(DataGridItem(leave_item).cells[TCCI_NUM_SHIFTS].text,NUM);
+end;
+
 function TClass_db_leaves.StartDateOf(id: string): datetime;
 begin
   self.Open;
   StartDateOf := datetime(bdpcommand.Create('select start_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
   self.Close;
+end;
+
+function TClass_db_leaves.StartMonthOf(leave_item: system.object): string;
+begin
+  StartMonthOf := Safe(DataGridItem(leave_item).cells[TCCI_START_DATE].text,HYPHENATED_ALPHANUM);
 end;
 
 function TClass_db_leaves.TcciOfId: cardinal;

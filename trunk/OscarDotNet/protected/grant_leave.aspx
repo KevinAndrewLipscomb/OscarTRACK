@@ -42,27 +42,23 @@
 				<td>Starting:</td>
 				<td>
 				  <ASP:DropDownList id="DropDownList_start_month" runat="server"></ASP:DropDownList></td>
-				<td>
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_start_month" runat="server" errormessage="Please select a starting month." font-bold="True" controltovalidate="DropDownList_start_month">
-																																																																																																																																																																																																																																																																																																!ERR!</ASP:RequiredFieldValidator></td>
+				<td nowrap="true">
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_start_month" runat="server" errormessage="Please select a starting month." font-bold="True" controltovalidate="DropDownList_start_month">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td>Ending:</td>
 				<td>
 				  <ASP:DropDownList id="DropDownList_end_month" runat="server"></ASP:DropDownList></td>
-				<td>
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month">
-																																																																																																																																																																																																																																																																																																!ERR!</ASP:RequiredFieldValidator>
-				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month">
-																																																																																																																																																																																																																																																																																																!ERR!</ASP:CustomValidator></td>
+				<td nowrap="true">
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month">!ERR!</ASP:RequiredFieldValidator>
+				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month">!ERR!</ASP:CustomValidator></td>
 			  </tr>
 			  <tr>
 				<td>Kind:</td>
 				<td>
 				  <ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
-				<td>
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">
-																																																																																																																																																																																																																																																																																																!ERR!</ASP:RequiredFieldValidator></td>
+				<td nowrap="true">
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td valign="top">Num duties required:</td>
@@ -91,8 +87,7 @@
 					</tr>
 				  </table></td>
 				<td valign="top" nowrap="true">
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">
-																																																																																																																																																																																																																																																																																																!ERR!</ASP:RequiredFieldValidator></td>
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td>Note:</td>
@@ -101,7 +96,7 @@
 				<td></td>
 			  </tr>
 			  <tr>
-				<td></td>
+				<td align="right"><ASP:CustomValidator id="CustomValidator_overlap" runat="server" errormessage="Please specify a leave that will not overlap an existing leave for this member." font-bold="True">!ERR!</ASP:CustomValidator></td>
 				<td>
 				  <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>
 				&nbsp;
