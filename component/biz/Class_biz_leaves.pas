@@ -8,6 +8,13 @@ uses
   Class_biz_notifications;
 
 type
+  relativity_type =
+    (
+    PAST,
+    FORMATIVE,
+    ESTABLISHED,
+    FUTURE
+    );
   TClass_biz_leaves = class
   private
     db_enrollment: TClass_db_enrollment;
@@ -15,6 +22,14 @@ type
     biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
+    function BeOverlap
+      (
+      member_id: string;
+      relative_start_month: string;
+      relative_end_month: string;
+      id: string = ''
+      )
+      : boolean;
     function BeValid
       (
       start_month: string;
@@ -28,14 +43,26 @@ type
       be_sort_order_ascending: boolean;
       target: system.object
       );
-    procedure BindKindDropDownList(target: system.object);
-    procedure BindEndMonthDropDownList(target: system.object);
+    procedure BindKindDropDownList
+      (
+      target: system.object;
+      use_select: boolean = TRUE
+      );
+    procedure BindEndMonthDropDownList
+      (
+      target: system.object;
+      use_select: boolean = TRUE
+      );
     procedure BindNumObligatedShiftsDropDownList
       (
       enrollment: string;
       target: system.object
       );
-    procedure BindStartMonthDropDownList(target: system.object);
+    procedure BindStartMonthDropDownList
+      (
+      target: system.object;
+      use_select: boolean = TRUE
+      );
     procedure Delete(id: string);
     procedure DescribeThisAndNextMonthForMember
       (
@@ -44,8 +71,24 @@ type
       out next_month_description: string;
       null_description: string
       );
+    procedure Change
+      (
+      id: string;
+      member_id: string;
+      old_start_month: string;
+      old_end_month: string;
+      old_kind_of_leave: string;
+      old_num_obliged_shifts: string;
+      old_note: string;
+      new_relative_start_month: string;
+      new_relative_end_month: string;
+      new_kind_of_leave_code: string;
+      new_num_obligated_shifts: string;
+      new_note: string
+      );
     function DescriptionOf(code: string): string;
     function EndDateOf(id: string): datetime;
+    function EndMonthOf(leave_item: system.object): string;
     procedure Grant
       (
       member_id: string;
@@ -55,11 +98,22 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    function IdOf(leave_item: system.object): string;
+    function KindOf(leave_item: system.object): string;
     function KindOfLeaveCodeOf(id: string): string;
     function MemberIdOf(id: string): string;
     function NoteOf(id: string): string;
+    function NoteOfTcc(leave_item: system.object): string;
     function NumObligedShiftsOf(id: string): cardinal;
+    function NumObligedShiftsOfTcc(leave_item: system.object): string;
+    function RelativityOf
+      (
+      start_month: string;
+      end_month: string
+      )
+      : relativity_type;
     function StartDateOf(id: string): datetime;
+    function StartMonthOf(leave_item: system.object): string;
     function TcciOfId: cardinal;
   end;
 
@@ -78,6 +132,18 @@ begin
   biz_notifications := TClass_biz_notifications.Create;
 end;
 
+function TClass_biz_leaves.BeOverlap
+  (
+  member_id: string;
+  relative_start_month: string;
+  relative_end_month: string;
+  id: string = ''
+  )
+  : boolean;
+begin
+  BeOverlap := db_leaves.BeOverlap(member_id,relative_start_month,relative_end_month,id);
+end;
+
 function TClass_biz_leaves.BeValid
   (
   start_month: string;
@@ -85,15 +151,24 @@ function TClass_biz_leaves.BeValid
   )
   : boolean;
 begin
-  BeValid := (uint32.Parse(start_month) <= uint32.Parse(end_month));
+  BeValid := (int32.Parse(start_month) <= uint16.Parse(end_month));
+    //
+    // The start month may be negative if we are editing a leave that started in a prior month.
+    //
 end;
 
-procedure TClass_biz_leaves.BindEndMonthDropDownList(target: system.object);
+procedure TClass_biz_leaves.BindEndMonthDropDownList
+  (
+  target: system.object;
+  use_select: boolean = TRUE
+  );
 var
   month_offset: cardinal;
 begin
   DropDownList(target).Items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  if use_select then begin
+    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  end;
   //
   for month_offset := 0 to 11 do begin
     DropDownList(target).Items.Add
@@ -101,9 +176,13 @@ begin
   end;
 end;
 
-procedure TClass_biz_leaves.BindKindDropDownList(target: system.object);
+procedure TClass_biz_leaves.BindKindDropDownList
+  (
+  target: system.object;
+  use_select: boolean = TRUE
+  );
 begin
-  db_leaves.BindKindDropDownList(target);
+  db_leaves.BindKindDropDownList(target,use_select);
 end;
 
 procedure TClass_biz_leaves.BindMemberRecords
@@ -134,16 +213,114 @@ begin
   end;
 end;
 
-procedure TClass_biz_leaves.BindStartMonthDropDownList(target: system.object);
+procedure TClass_biz_leaves.BindStartMonthDropDownList
+  (
+  target: system.object;
+  use_select: boolean = TRUE
+  );
 var
   month_offset: cardinal;
 begin
   DropDownList(target).Items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  if use_select then begin
+    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  end;
   //
   for month_offset := 0 to 11 do begin
     DropDownList(target).Items.Add(listitem.Create(datetime.today.AddMonths(month_offset).tostring('MMM yyyy'),month_offset.tostring));
   end;
+end;
+
+procedure TClass_biz_leaves.Change
+  (
+  id: string;
+  member_id: string;
+  old_start_month: string;
+  old_end_month: string;
+  old_kind_of_leave: string;
+  old_num_obliged_shifts: string;
+  old_note: string;
+  new_relative_start_month: string;
+  new_relative_end_month: string;
+  new_kind_of_leave_code: string;
+  new_num_obligated_shifts: string;
+  new_note: string
+  );
+const
+  AFFIRMATIVE_CHANGE_INDICATOR = '  <==';
+var
+  biz_members: TClass_biz_members;
+  change_indicator_end_month: string;
+  change_indicator_kind_of_leave: string;
+  change_indicator_note: string;
+  change_indicator_num_obliged_shifts: string;
+  change_indicator_start_month: string;
+  new_end_month: string;
+  new_kind_of_leave: string;
+  new_start_month: string;
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  //
+  db_leaves.Change
+    (
+    id,
+    new_relative_start_month,
+    new_relative_end_month,
+    new_kind_of_leave_code,
+    new_num_obligated_shifts,
+    new_note
+    );
+  //
+  new_start_month := datetime.today.AddMonths(int32.Parse(new_relative_start_month)).tostring('MMM yyyy');
+    // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
+  new_end_month := datetime.today.AddMonths(uint32.Parse(new_relative_end_month)).tostring('MMM yyyy');
+  new_kind_of_leave := DescriptionOf(new_kind_of_leave_code);
+  //
+  change_indicator_start_month := system.string.EMPTY;
+  change_indicator_end_month := system.string.EMPTY;
+  change_indicator_kind_of_leave := system.string.EMPTY;
+  change_indicator_num_obliged_shifts := system.string.EMPTY;
+  change_indicator_note := system.string.EMPTY;
+  if old_start_month <> new_start_month then begin
+    change_indicator_start_month := AFFIRMATIVE_CHANGE_INDICATOR;
+  end;
+  if old_end_month <> new_end_month then begin
+    change_indicator_end_month := AFFIRMATIVE_CHANGE_INDICATOR;
+  end;
+  if old_kind_of_leave <> new_kind_of_leave then begin
+    change_indicator_kind_of_leave := AFFIRMATIVE_CHANGE_INDICATOR;
+  end;
+  if old_num_obliged_shifts <> new_num_obligated_shifts then begin
+    change_indicator_num_obliged_shifts := AFFIRMATIVE_CHANGE_INDICATOR;
+  end;
+  if old_note <> new_note then begin
+    change_indicator_note := AFFIRMATIVE_CHANGE_INDICATOR;
+  end;
+  //
+  biz_notifications.IssueForLeaveChanged
+    (
+    member_id,
+    biz_members.FirstNameOfMemberId(member_id),
+    biz_members.LastNameOfMemberId(member_id),
+    biz_members.CadNumOfMemberId(member_id),
+    old_start_month,
+    old_end_month,
+    old_kind_of_leave,
+    old_num_obliged_shifts,
+    old_note,
+    new_start_month,
+    new_end_month,
+    new_kind_of_leave,
+    new_num_obligated_shifts,
+    new_note,
+    change_indicator_start_month,
+    change_indicator_end_month,
+    change_indicator_kind_of_leave,
+    change_indicator_num_obliged_shifts,
+    change_indicator_note
+    );
+  //
 end;
 
 procedure TClass_biz_leaves.Delete(id: string);
@@ -193,6 +370,11 @@ begin
   EndDateOf := db_leaves.EndDateOf(id);
 end;
 
+function TClass_biz_leaves.EndMonthOf(leave_item: system.object): string;
+begin
+  EndMonthOf := db_leaves.EndMonthOf(leave_item);
+end;
+
 procedure TClass_biz_leaves.Grant
   (
   member_id: string;
@@ -225,6 +407,16 @@ begin
   //
 end;
 
+function TClass_biz_leaves.IdOf(leave_item: system.object): string;
+begin
+  IdOf := db_leaves.IdOf(leave_item);
+end;
+
+function TClass_biz_leaves.KindOf(leave_item: system.object): string;
+begin
+  KindOf := db_leaves.KindOf(leave_item);
+end;
+
 function TClass_biz_leaves.KindOfLeaveCodeOf(id: string): string;
 begin
   KindOfLeaveCodeOf := db_leaves.KindOfLeaveCodeOf(id);
@@ -240,14 +432,50 @@ begin
   NoteOf := db_leaves.NoteOf(id);
 end;
 
+function TClass_biz_leaves.NoteOfTcc(leave_item: system.object): string;
+begin
+  NoteOfTcc := db_leaves.NoteOfTcc(leave_item);
+end;
+
 function TClass_biz_leaves.NumObligedShiftsOf(id: string): cardinal;
 begin
   NumObligedShiftsOf := db_leaves.NumObligedShiftsOf(id);
 end;
 
+function TClass_biz_leaves.NumObligedShiftsOfTcc(leave_item: system.object): string;
+begin
+  NumObligedShiftsOfTcc := db_leaves.NumObligedShiftsOfTcc(leave_item);
+end;
+
+function TClass_biz_leaves.RelativityOf
+  (
+  start_month: string;
+  end_month: string
+  )
+  : relativity_type;
+var
+  this_month: string;
+begin
+  this_month := datetime.Today.tostring('yyyy-MM');
+  if end_month < this_month then begin
+    RelativityOf := PAST;
+  end else if start_month > this_month then begin
+    RelativityOf := FUTURE;
+  end else if start_month = this_month then begin
+    RelativityOf := FORMATIVE;
+  end else begin
+    RelativityOf := ESTABLISHED;
+  end;
+end;
+
 function TClass_biz_leaves.StartDateOf(id: string): datetime;
 begin
   StartDateOf := db_leaves.StartDateOf(id);
+end;
+
+function TClass_biz_leaves.StartMonthOf(leave_item: system.object): string;
+begin
+  StartMonthOf := db_leaves.StartMonthOf(leave_item);
 end;
 
 function TClass_biz_leaves.TcciOfId: cardinal;

@@ -1,4 +1,4 @@
-<cad_num/> <last_name/> <first_name/> => <new_level/>
+<cad_num/> <last_name/>, <first_name/> => <new_level/>
 This is an automatic notification from <application_name/>.
 
 <actor/> has changed <first_name/> <last_name/>'s enrollment level in <application_name/> as follows:

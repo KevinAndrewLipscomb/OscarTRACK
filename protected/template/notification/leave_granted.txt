@@ -1,4 +1,4 @@
-Leave granted to <cad_num/> <last_name/> <first_name/>
+Leave granted to <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from <application_name/>.
 
 <actor/> has granted leave to <first_name/> <last_name/> in <application_name/> as follows:

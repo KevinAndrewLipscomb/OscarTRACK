@@ -36,6 +36,28 @@ type
       username: string;
       client_host_name: string
       );
+    procedure IssueForLeaveChanged
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      old_start_month: string;
+      old_end_month: string;
+      old_kind_of_leave: string;
+      old_num_obligated_shifts: string;
+      old_note: string ;
+      new_start_month: string;
+      new_end_month: string;
+      new_kind_of_leave: string;
+      new_num_obligated_shifts: string;
+      new_note: string;
+      change_indicator_start_month: string;
+      change_indicator_end_month: string;
+      change_indicator_kind_of_leave: string;
+      change_indicator_num_obliged_shifts: string;
+      change_indicator_note: string
+      );
     procedure IssueForLeaveDeleted
       (
       member_id: string;
@@ -319,6 +341,88 @@ begin
   template_reader.Close;
 end;
 
+procedure TClass_biz_notifications.IssueForLeaveChanged
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  old_start_month: string;
+  old_end_month: string;
+  old_kind_of_leave: string;
+  old_num_obligated_shifts: string;
+  old_note: string ;
+  new_start_month: string;
+  new_end_month: string;
+  new_kind_of_leave: string;
+  new_num_obligated_shifts: string;
+  new_note: string;
+  change_indicator_start_month: string;
+  change_indicator_end_month: string;
+  change_indicator_kind_of_leave: string;
+  change_indicator_num_obliged_shifts: string;
+  change_indicator_note: string
+  );
+var
+  actor: string;
+  actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<actor/>',actor)
+      .Replace('<actor_email_address/>',actor_email_address)
+      .Replace('<application_name/>',application_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<first_name/>',first_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<old_start_month/>',old_start_month)
+      .Replace('<old_end_month/>',old_end_month)
+      .Replace('<old_kind_of_leave/>',old_kind_of_leave)
+      .Replace('<old_num_obligated_shifts/>',old_num_obligated_shifts)
+      .Replace('<old_note/>',old_note)
+      .Replace('<new_start_month/>',new_start_month)
+      .Replace('<new_end_month/>',new_end_month)
+      .Replace('<new_kind_of_leave/>',new_kind_of_leave)
+      .Replace('<new_num_obligated_shifts/>',new_num_obligated_shifts)
+      .Replace('<new_note/>',new_note)
+      .Replace('<change_indicator_start_month/>',change_indicator_start_month)
+      .Replace('<change_indicator_end_month/>',change_indicator_end_month)
+      .Replace('<change_indicator_kind_of_leave/>',change_indicator_kind_of_leave)
+      .Replace('<change_indicator_num_obliged_shifts/>',change_indicator_num_obliged_shifts)
+      .Replace('<change_indicator_note/>',change_indicator_note);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_changed.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
 procedure TClass_biz_notifications.IssueForLeaveDeleted
   (
   member_id: string;
@@ -350,7 +454,6 @@ var
       .Replace('<first_name/>',first_name)
       .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
-      .Replace('<member_id/>',member_id)
       .Replace('<start_month/>',start_month)
       .Replace('<end_month/>',end_month)
       .Replace('<kind_of_leave/>',kind_of_leave)
@@ -413,7 +516,6 @@ var
       .Replace('<first_name/>',first_name)
       .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
-      .Replace('<member_id/>',member_id)
       .Replace('<start_month/>',start_month)
       .Replace('<end_month/>',end_month)
       .Replace('<kind_of_leave/>',kind_of_leave)

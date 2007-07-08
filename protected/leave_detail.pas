@@ -42,6 +42,7 @@ type
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
     procedure DataGrid_leaves_DeleteCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
+    procedure DataGrid_leaves_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -69,10 +70,12 @@ type
 implementation
 
 uses
-  appcommon;
+  appcommon,
+  Class_db_leaves;
 
 const
-  TCCI_DELETE = 6;
+  TCCI_EDIT = 6;
+  TCCI_DELETE = 7;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -86,6 +89,7 @@ begin
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
+  Include(Self.DataGrid_leaves.ItemCommand, Self.DataGrid_leaves_ItemCommand);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
   Include(Self.DataGrid_leaves.DeleteCommand, Self.DataGrid_leaves_DeleteCommand);
   Include(Self.DataGrid_leaves.ItemDataBound, Self.DataGrid_leaves_ItemDataBound);
@@ -152,6 +156,17 @@ begin
   end;
 end;
 
+procedure TWebForm_leave_detail.DataGrid_leaves_ItemCommand(source: System.Object;
+  e: System.Web.UI.WebControls.DataGridCommandEventArgs);
+begin
+  if e.commandname = 'Select' then begin
+    session.Remove('leave_item');
+    session.Add('leave_item',e.item);
+    stack(session['waypoint_stack']).Push('leave_detail.aspx');
+    server.Transfer('change_leave.aspx');
+  end;
+end;
+
 procedure TWebForm_leave_detail.DataGrid_leaves_DeleteCommand(source: System.Object;
   e: System.Web.UI.WebControls.DataGridCommandEventArgs);
 begin
@@ -196,8 +211,32 @@ begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
-    LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text :=
-      ExpandTildePath(LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text);
+    case p.biz_leaves.RelativityOf
+      (
+      e.item.cells[Class_db_leaves.TCCI_START_DATE].text,
+      e.item.cells[Class_db_leaves.TCCI_END_DATE].text
+      )
+    of
+    PAST:
+      BEGIN
+      LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).visible := FALSE;
+      LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).visible := FALSE;
+      END;
+    ESTABLISHED:
+      BEGIN
+      LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).visible := FALSE;
+      LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text :=
+        ExpandTildePath(LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text);
+      END;
+    FORMATIVE,
+    FUTURE:
+      BEGIN
+      LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text :=
+        ExpandTildePath(LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text);
+      LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text :=
+        ExpandTildePath(LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text);
+      END;
+    end;
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;

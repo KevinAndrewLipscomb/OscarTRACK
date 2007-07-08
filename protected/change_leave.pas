@@ -1,5 +1,4 @@
-
-unit grant_leave;
+unit change_leave;
 
 interface
 
@@ -12,20 +11,21 @@ uses
   ki,
   ki_web_ui;
 
-
-
 type
   p_type =
     RECORD
     biz_leaves: TClass_biz_leaves;
     biz_members: TClass_biz_members;
+    effective_start_month_offset: string;
+    saved_effective_start_month_offset: string;
+    saved_note: string;
     END;
-  TWebForm_grant_leave = class(ki_web_ui.page_class)
+  TWebForm_change_leave = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
-    procedure TWebForm_grant_leave_PreRender(sender: System.Object;
+    procedure TWebForm_change_leave_PreRender(sender: System.Object;
       e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object;
       e: System.EventArgs);
@@ -37,6 +37,10 @@ type
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
     procedure CustomValidator_overlap_ServerValidate(source: System.Object; args: System.Web.UI.WebControls.ServerValidateEventArgs);
+    procedure DropDownList_start_month_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
+    procedure CustomValidator_actual_change_ServerValidate(source: System.Object; 
+      args: System.Web.UI.WebControls.ServerValidateEventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -56,11 +60,8 @@ type
     LinkButton_back: System.Web.UI.WebControls.LinkButton;
     Label_member_designator: System.Web.UI.WebControls.Label;
     DropDownList_kind_of_leave: System.Web.UI.WebControls.DropDownList;
-    DropDownList_start_month: System.Web.UI.WebControls.DropDownList;
     DropDownList_end_month: System.Web.UI.WebControls.DropDownList;
     CustomValidator_end_month: System.Web.UI.WebControls.CustomValidator;
-    RequiredFieldValidator_start_month: System.Web.UI.WebControls.RequiredFieldValidator;
-    RequiredFieldValidator_end_month: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_kind_of_leave: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_num_obligated_shifts: System.Web.UI.WebControls.RequiredFieldValidator;
     TextBox_note: System.Web.UI.WebControls.TextBox;
@@ -70,6 +71,14 @@ type
     Label_member_first_name: System.Web.UI.WebControls.Label;
     LinkButton1: System.Web.UI.WebControls.LinkButton;
     CustomValidator_overlap: System.Web.UI.WebControls.CustomValidator;
+    DropDownList_start_month: System.Web.UI.WebControls.DropDownList;
+    RequiredFieldValidator_start_month: System.Web.UI.WebControls.RequiredFieldValidator;
+    RequiredFieldValidator_end_month: System.Web.UI.WebControls.RequiredFieldValidator;
+    Label_saved_start_month: System.Web.UI.WebControls.Label;
+    Label_saved_end_month: System.Web.UI.WebControls.Label;
+    Label_saved_num_obliged_shifts: System.Web.UI.WebControls.Label;
+    Label_saved_kind_of_leave: System.Web.UI.WebControls.Label;
+    CustomValidator_actual_change: System.Web.UI.WebControls.CustomValidator;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -87,24 +96,27 @@ uses
 /// Required method for Designer support -- do not modify
 /// the contents of this method with the code editor.
 /// </summary>
-procedure TWebForm_grant_leave.InitializeComponent;
+procedure TWebForm_change_leave.InitializeComponent;
 begin
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.DropDownList_start_month.SelectedIndexChanged, Self.DropDownList_start_month_SelectedIndexChanged);
   Include(Self.CustomValidator_end_month.ServerValidate, Self.CustomValidator_end_month_ServerValidate);
   Include(Self.CustomValidator_overlap.ServerValidate, Self.CustomValidator_overlap_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
+  Include(Self.CustomValidator_actual_change.ServerValidate, Self.CustomValidator_actual_change_ServerValidate);
   Include(Self.Load, Self.Page_Load);
-  Include(Self.PreRender, Self.TWebForm_grant_leave_PreRender);
+  Include(Self.PreRender, Self.TWebForm_change_leave_PreRender);
 end;
 {$ENDREGION}
 
-procedure TWebForm_grant_leave.Page_Load(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_change_leave.Page_Load(sender: System.Object; e: System.EventArgs);
 var
   cad_num_string: string;
+  i: cardinal;
 begin
   if IsPostback and (session['p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['p']);
@@ -117,7 +129,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - grant_leave';
+      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_leave';
       Label_account_descriptor.text := session['username'].tostring;
       //
       p.biz_leaves := TClass_biz_leaves.Create;
@@ -135,17 +147,61 @@ begin
         + cad_num_string
         + ')';
       //
-      p.biz_leaves.BindStartMonthDropDownList(DropDownList_start_month);
-      p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month);
-      p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave);
+      Label_saved_start_month.text := datetime.Parse(p.biz_leaves.StartMonthOf(session['leave_item']) + '-01').tostring('MMM yyyy');
+      Label_saved_end_month.text := datetime.Parse(p.biz_leaves.EndMonthOf(session['leave_item']) + '-01').tostring('MMM yyyy');
+      Label_saved_kind_of_leave.text := p.biz_leaves.KindOf(session['leave_item']);
+      Label_saved_num_obliged_shifts.text := p.biz_leaves.NumObligedShiftsOfTcc(session['leave_item']);
+      p.saved_note := p.biz_leaves.NoteOfTcc(session['leave_item']);
+      //
+      if p.biz_leaves.StartMonthOf(session['leave_item']) > datetime.Today.tostring('yyyy-MM') then begin
+        p.biz_leaves.BindStartMonthDropDownList(DropDownList_start_month,FALSE);
+        i := 0;
+        while DropDownList_start_month.items.item[i].text <> Label_saved_start_month.text do begin
+          i := i + 1;
+        end;
+        DropDownList_start_month.selectedindex := i;
+        p.saved_effective_start_month_offset := Safe(DropDownList_start_month.selectedvalue,NUM);
+      end else begin
+        DropDownList_start_month.visible := FALSE;
+        RequiredFieldValidator_start_month.enabled := FALSE;
+        p.saved_effective_start_month_offset := math.Round
+          (
+          timespan
+            (
+            datetime.Parse(p.biz_leaves.StartMonthOf(session['leave_item']) + '-01')
+            - datetime.Create(datetime.Today.Year,datetime.Today.Month,1)
+            )
+          .Days/30
+          )
+          .tostring('F0');
+      end;
+      p.effective_start_month_offset := p.saved_effective_start_month_offset;
+      //
+      p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month,FALSE);
+      i := 0;
+      while DropDownList_end_month.items.item[i].text <> Label_saved_end_month.text do begin
+        i := i + 1;
+      end;
+      DropDownList_end_month.selectedindex := i;
+      //
+      p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave,FALSE);
+      i := 0;
+      while DropDownList_kind_of_leave.items.item[i].text <> Label_saved_kind_of_leave.text do begin
+        i := i + 1;
+      end;
+      DropDownList_kind_of_leave.selectedindex := i;
+      //
       p.biz_leaves.BindNumObligatedShiftsDropDownList
         (p.biz_members.EnrollmentOf(session['e_item']),DropDownList_num_obligated_shifts);
+      DropDownList_num_obligated_shifts.selectedvalue := p.biz_leaves.NumObligedShiftsOfTcc(session['leave_item']);
+      //
+      TextBox_note.text := p.saved_note;
       //
     end;
   end;
 end;
 
-procedure TWebForm_grant_leave.OnInit(e: EventArgs);
+procedure TWebForm_change_leave.OnInit(e: EventArgs);
 begin
   //
   // Required for Designer support
@@ -154,29 +210,52 @@ begin
   inherited OnInit(e);
 end;
 
-procedure TWebForm_grant_leave.CustomValidator_overlap_ServerValidate(source: System.Object;
+procedure TWebForm_change_leave.CustomValidator_actual_change_ServerValidate(source: System.Object;
+  args: System.Web.UI.WebControls.ServerValidateEventArgs);
+begin
+  args.isvalid := (p.effective_start_month_offset <> p.saved_effective_start_month_offset)
+    or (DropDownList_end_month.selecteditem.text <> Label_saved_end_month.text)
+    or (DropDownList_kind_of_leave.selecteditem.text <> Label_saved_kind_of_leave.text)
+    or (DropDownList_num_obligated_shifts.selectedvalue <> Label_saved_num_obliged_shifts.text)
+    or (TextBox_note.text <> p.saved_note);
+end;
+
+procedure TWebForm_change_leave.DropDownList_start_month_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.effective_start_month_offset := Safe(DropDownList_start_month.selectedvalue,NUM);
+end;
+
+procedure TWebForm_change_leave.CustomValidator_overlap_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
   args.isvalid := not p.biz_leaves.BeOverlap
     (
     p.biz_members.IdOf(session['e_item']),
-    Safe(DropDownList_start_month.selectedvalue,NUM),
-    Safe(DropDownList_end_month.selectedvalue,NUM)
+    p.effective_start_month_offset,
+    Safe(DropDownList_end_month.selectedvalue,NUM),
+    p.biz_leaves.IdOf(session['leave_item'])
     );
 end;
 
-procedure TWebForm_grant_leave.Button_cancel_Click(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_change_leave.Button_cancel_Click(sender: System.Object; e: System.EventArgs);
 begin
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_grant_leave.Button_submit_Click(sender: System.Object; e: System.EventArgs);
+procedure TWebForm_change_leave.Button_submit_Click(sender: System.Object; e: System.EventArgs);
 begin
   if page.isvalid then begin
-    p.biz_leaves.Grant
+    p.biz_leaves.Change
       (
+      p.biz_leaves.IdOf(session['leave_item']),
       p.biz_members.IdOf(session['e_item']),
-      Safe(DropDownList_start_month.selectedvalue,NUM),
+      Label_saved_start_month.text,
+      Label_saved_end_month.text,
+      Label_saved_kind_of_leave.text,
+      Label_saved_num_obliged_shifts.text,
+      p.saved_note,
+      p.effective_start_month_offset,
       Safe(DropDownList_end_month.selectedvalue,NUM),
       Safe(DropDownList_kind_of_leave.selectedvalue,NUM),
       Safe(DropDownList_num_obligated_shifts.selectedvalue,NUM),
@@ -188,38 +267,38 @@ begin
   end;
 end;
 
-procedure TWebForm_grant_leave.CustomValidator_end_month_ServerValidate(source: System.Object;
+procedure TWebForm_change_leave.CustomValidator_end_month_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := p.biz_leaves.BeValid(DropDownList_start_month.selectedvalue,args.value);
+  args.isvalid := p.biz_leaves.BeValid(p.effective_start_month_offset,args.value);
 end;
 
-procedure TWebForm_grant_leave.LinkButton_change_email_address_Click(sender: System.Object;
+procedure TWebForm_change_leave.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer('change_email_address.aspx');
 end;
 
-procedure TWebForm_grant_leave.LinkButton_change_password_Click(sender: System.Object;
+procedure TWebForm_change_leave.LinkButton_change_password_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer('change_password.aspx');
 end;
 
-procedure TWebForm_grant_leave.LinkButton_back_Click(sender: System.Object;
+procedure TWebForm_change_leave.LinkButton_back_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_grant_leave.TWebForm_grant_leave_PreRender(sender: System.Object;
+procedure TWebForm_change_leave.TWebForm_change_leave_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
   session.Remove('p');
   session.Add('p',p);
 end;
 
-procedure TWebForm_grant_leave.LinkButton_logout_Click(sender: System.Object;
+procedure TWebForm_change_leave.LinkButton_logout_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   formsauthentication.SignOut;

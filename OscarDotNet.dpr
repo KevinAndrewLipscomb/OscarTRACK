@@ -55,6 +55,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_standard_enrollment.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_length_of_service.ascx'}
 {%AspMarkupContainer 'protected\change_member_agency.aspx'}
+{%AspMarkupContainer 'protected\change_leave.aspx'}
 
 uses
   System.Reflection,
@@ -137,7 +138,8 @@ uses
   UserControl_ranked_length_of_service in 'usercontrol\app\UserControl_ranked_length_of_service.pas' {UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service: ki_web_ui.usercontrol_class},
   Class_biz_indicator_median_length_of_service in 'component\biz\Class_biz_indicator_median_length_of_service.pas',
   Class_db_indicator_median_length_of_service in 'component\db\Class_db_indicator_median_length_of_service.pas',
-  change_member_agency in 'protected\change_member_agency.pas' {change_member_agency.TWebForm_change_member_agency: ki_web_ui.page_class};
+  change_member_agency in 'protected\change_member_agency.pas' {change_member_agency.TWebForm_change_member_agency: ki_web_ui.page_class},
+  change_leave in 'protected\change_leave.pas' {change_leave.TWebForm_change_leave: ki_web_ui.page_class};
 
 //
 // General Information about an assembly is controlled through the following

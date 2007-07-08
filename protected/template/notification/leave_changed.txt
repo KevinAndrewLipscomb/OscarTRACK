@@ -1,0 +1,26 @@
+Leave changed for <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed a leave for <first_name/> <last_name/> in <application_name/> as follows:
+
+   Period:
+      was:  <old_start_month/> - <old_end_month/>
+      now:  <new_start_month/> - <new_end_month/><change_indicator_start_month/><change_indicator_end_month/>
+
+   Kind of leave:
+      was:  <old_kind_of_leave/>
+      now:  <new_kind_of_leave/><change_indicator_kind_of_leave/>
+
+   Number of shifts that <first_name/> must run each month in this period:
+      was:  <old_num_obligated_shifts/>
+      now:  <new_num_obligated_shifts/><change_indicator_num_obliged_shifts/>
+
+   Note:
+      was:  <old_note/>
+      now:  <new_note/><change_indicator_note/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
