@@ -51,7 +51,8 @@ type
     procedure BindEndMonthDropDownList
       (
       target: system.object;
-      use_select: boolean = TRUE
+      use_select: boolean = TRUE;
+      include_last_month: boolean = FALSE
       );
     procedure BindNumObligatedShiftsDropDownList
       (
@@ -151,26 +152,34 @@ function TClass_biz_leaves.BeValid
   )
   : boolean;
 begin
-  BeValid := (int32.Parse(start_month) <= uint16.Parse(end_month));
+  BeValid := (int32.Parse(start_month) <= int32.Parse(end_month));
     //
-    // The start month may be negative if we are editing a leave that started in a prior month.
+    // The month values may be negative if we are editing a leave that started in a prior month and/or changing the end month to
+    // last month.
     //
 end;
 
 procedure TClass_biz_leaves.BindEndMonthDropDownList
   (
   target: system.object;
-  use_select: boolean = TRUE
+  use_select: boolean = TRUE;
+  include_last_month: boolean = FALSE
   );
 var
-  month_offset: cardinal;
+  lowest_offset: integer;
+  month_offset: integer;
 begin
   DropDownList(target).Items.Clear;
   if use_select then begin
     DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
   end;
   //
-  for month_offset := 0 to 11 do begin
+  if include_last_month then begin
+    lowest_offset := -1;
+  end else begin
+    lowest_offset := 0;
+  end;
+  for month_offset := lowest_offset to 11 do begin
     DropDownList(target).Items.Add
       (listitem.Create(datetime.today.AddMonths(month_offset).tostring('MMM yyyy'),month_offset.tostring));
   end;
@@ -274,7 +283,8 @@ begin
   //
   new_start_month := datetime.today.AddMonths(int32.Parse(new_relative_start_month)).tostring('MMM yyyy');
     // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
-  new_end_month := datetime.today.AddMonths(uint32.Parse(new_relative_end_month)).tostring('MMM yyyy');
+  new_end_month := datetime.today.AddMonths(int32.Parse(new_relative_end_month)).tostring('MMM yyyy');
+    // new_relative_end_month may be negative if we are changing the end month to last month
   new_kind_of_leave := DescriptionOf(new_kind_of_leave_code);
   //
   change_indicator_start_month := system.string.EMPTY;

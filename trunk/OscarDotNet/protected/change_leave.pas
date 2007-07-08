@@ -153,6 +153,8 @@ begin
       Label_saved_num_obliged_shifts.text := p.biz_leaves.NumObligedShiftsOfTcc(session['leave_item']);
       p.saved_note := p.biz_leaves.NoteOfTcc(session['leave_item']);
       //
+      // Start month
+      //
       if p.biz_leaves.StartMonthOf(session['leave_item']) > datetime.Today.tostring('yyyy-MM') then begin
         p.biz_leaves.BindStartMonthDropDownList(DropDownList_start_month,FALSE);
         i := 0;
@@ -177,12 +179,16 @@ begin
       end;
       p.effective_start_month_offset := p.saved_effective_start_month_offset;
       //
-      p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month,FALSE);
+      // End month
+      //
+      p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month,FALSE,(int16.Parse(p.saved_effective_start_month_offset) < 0));
       i := 0;
       while DropDownList_end_month.items.item[i].text <> Label_saved_end_month.text do begin
         i := i + 1;
       end;
       DropDownList_end_month.selectedindex := i;
+      //
+      // Kind of leave
       //
       p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave,FALSE);
       i := 0;
@@ -191,9 +197,13 @@ begin
       end;
       DropDownList_kind_of_leave.selectedindex := i;
       //
+      // Num obligated shifts
+      //
       p.biz_leaves.BindNumObligatedShiftsDropDownList
         (p.biz_members.EnrollmentOf(session['e_item']),DropDownList_num_obligated_shifts);
       DropDownList_num_obligated_shifts.selectedvalue := p.biz_leaves.NumObligedShiftsOfTcc(session['leave_item']);
+      //
+      // Note
       //
       TextBox_note.text := p.saved_note;
       //
@@ -256,7 +266,7 @@ begin
       Label_saved_num_obliged_shifts.text,
       p.saved_note,
       p.effective_start_month_offset,
-      Safe(DropDownList_end_month.selectedvalue,NUM),
+      Safe(DropDownList_end_month.selectedvalue,HYPHENATED_NUM),
       Safe(DropDownList_kind_of_leave.selectedvalue,NUM),
       Safe(DropDownList_num_obligated_shifts.selectedvalue,NUM),
       Safe(TextBox_note.text,NARRATIVE)
