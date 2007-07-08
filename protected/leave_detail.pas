@@ -272,6 +272,7 @@ end;
 procedure TWebForm_leave_detail.Bind;
 begin
   //
+  DataGrid_leaves.columns[TCCI_EDIT].visible := p.be_user_privileged_to_grant_leave;
   DataGrid_leaves.columns[TCCI_DELETE].visible := p.be_user_privileged_to_grant_leave;
   //
   p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(session['e_item']),p.sort_order,p.be_sort_order_ascending,DataGrid_leaves);
