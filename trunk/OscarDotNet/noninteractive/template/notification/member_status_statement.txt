@@ -3,7 +3,7 @@ Monthly member status statement
 
 This is an automatic statement from the Virginia Beach EMS <application_name/> system.  You are receiving this statement for a couple of reasons.
 
-FIRST, it's very important that all your details be recorded correctly in <application_name/>.  The correctness of these details can prevent errors on next month's schedule, and can help the department forecast next month's staffing conditions properly.  In particular, you should double check the OBLIGED AMBULANCE SHIFTS number shown below.
+FIRST, it's very important that all your details be recorded correctly in <application_name/>.  The correctness of these details can prevent errors on next month's schedule, and can help the department forecast next month's staffing conditions properly.  In particular, you should double check the REQUIRED DUTIES number shown below.
 
 Your status in <application_name/> for *next month* has been recorded as follows:
 
@@ -21,7 +21,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
       Note:  Not all squads utilize sections.
 
-   Medical release level:
+   Released cert level:
       <medical_release_description/>
 
       Note 1:  This is the level at which you are released to perform
@@ -38,22 +38,22 @@ Your status in <application_name/> for *next month* has been recorded as follows
       Note:  You must have Defensive Driving and EVOC to be driver
       qualified.
 
-   Enrollment level:
+   Membership status:
       <enrollment/>
 
       Note 1:  Members with red or yellow ID cards should be listed as
       "Recruit".
 
-      Note 2:  Standard enrollment levels for members with white ID
+      Note 2:  Standard membership statuses for members with white ID
       cards who ride on ambulances include "Regular", "Life", and
       "Tenured".
 
-      Note 3:  Liberal enrollment levels for members with white ID cards
-      who ride on ambulances include "Associate", "Reduced (#)", and
-      "Atypical".
+      Note 3:  Liberal membership statuses for members with white ID
+      cards who ride on ambulances include "Associate", "Reduced (#)",
+      and "Atypical".
 
-      Note 4:  The following enrollment levels are reserved for members
-      who do not ride on the ambulances:  "Applicant", "Admin",
+      Note 4:  The following membership statuses are reserved for
+      members who do not ride on the ambulances:  "Applicant", "Admin",
       "SpecOps", and "Suspended".
 
    Length of service:
@@ -62,7 +62,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
    Kind of leave:
       <kind_of_leave/>
 
-   OBLIGED AMBULANCE SHIFTS:
+   REQUIRED DUTIES:
       *<obliged_shifts/>*
 
       Note 1:  Unless otherwise advised by your squad commander or
@@ -73,19 +73,19 @@ Your status in <application_name/> for *next month* has been recorded as follows
       to the system -- but you must be dressed with safety in mind, and
       you must wear your ID card.
 
-      Note 2:  This value already takes into account your enrollment
-      level and any leave that may have been granted to you.
+      Note 2:  This value already takes into account your membership
+      status and any leave that may have been granted to you.
 
       Note 3:  This number assumes 12 hour shifts.  Any arrangement
       approved by your squad commander that results in an equivalent
       number of hours is also acceptable.
 
       Note 4:  This value will be blank for members with "Atypical"
-      enrollment.
+      membership status.
 
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
 
-FINALLY, personnel with obliged ambulance shifts must submit availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
+FINALLY, personnel with required ambulance duties must submit availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
 
    http://www.oscarsystem.com
 
@@ -94,6 +94,6 @@ Thanks for you continued service to Virginia Beach EMS!
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)
 
 
-P.S.:  Have you joined the BeachEMS YahooGroup?  Participate in citywide conversations, share photos, files, etc.  Just follow this link and click "Join This Group!".  If you don't already have a Yahoo! ID, just "Sign Up".  It's free and easy to use.  When joining, please tell the moderator your full name and which squad you run with.
+P.S.:  Have you joined the BeachEMS YahooGroup?  Participate in citywide conversations, share photos, files, etc.  Just follow this link and click "Join This Group!".  If you don't already have a Yahoo! ID, just "Sign Up".  It's free and easy to use.  When joining, please tell the moderator your full name and which squad you run with:
 
    http://groups.yahoo.com/group/BeachEMS/join
