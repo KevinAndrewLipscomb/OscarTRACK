@@ -43,12 +43,18 @@
 					  <td>
 						<table cellspacing="0" cellpadding="10" width="100%" border="0">
 							<tr>
+							  <td>CAD #:</td>
+							  <td><ASP:Label id="Label_cad_num" runat="server"></ASP:Label></td>
+							  <td></td>
+								<td><ASP:LinkButton id="LinkButton_change_cad_num" runat="server" visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+							</tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Email address:</td>
 							  <td><ASP:Label id="Label_email_address" runat="server"></ASP:Label></td>
 							  <td></td>
-                                <td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server" visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+								<td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server" visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Leave:</td>
 							  <td valign="middle">
 								<table cellspacing="0" cellpadding="1" border="0">
@@ -65,33 +71,33 @@
 								</table>
 								</td>
 							  <td><ASP:LinkButton id="LinkButton_leave_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                                <td></td>
+								<td></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Officership:</td>
 							  <td><ASP:Label id="Label_officership" runat="server"></ASP:Label></td>
 							  <td><ASP:LinkButton id="LinkButton_officership_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                                <td></td>
+								<td></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Agency:</td>
 							  <td><ASP:Label id="Label_agency" runat="server"></ASP:Label></td>
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_agency" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Section:</td>
 							  <td><ASP:Label id="Label_section" runat="server"></ASP:Label></td>
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_section" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Released cert level:</td>
 							  <td><ASP:Label id="Label_medical_release_level" runat="server"></ASP:Label></td>
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#dcdcdc">
 							  <td valign="top">Membership status:</td>
 							  <td valign="top">
 								  <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
@@ -100,13 +106,13 @@
 							  <td valign="top"><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							  <td valign="top"></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td valign="top">Years of service:</td>
 							  <td valign="top"><ASP:Label id="Label_years_of_service" runat="server"></ASP:Label></td>
 							  <td valign="top"></td>
 							  <td valign="top"></td>
 							</tr>
-							<tr>
+							<tr bgcolor="#dcdcdc">
 							  <td>Driver qualified:</td>
 							  <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
 							  <td></td>
