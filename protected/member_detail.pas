@@ -48,6 +48,7 @@ type
     procedure LinkButton_change_driver_qual_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_section_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_agency_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_cad_num_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -80,6 +81,8 @@ type
     Label_elaboration: System.Web.UI.WebControls.Label;
     Label_agency: System.Web.UI.WebControls.Label;
     LinkButton_change_agency: System.Web.UI.WebControls.LinkButton;
+    Label_cad_num: System.Web.UI.WebControls.Label;
+    LinkButton_change_cad_num: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -103,6 +106,7 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_change_cad_num.Click, Self.LinkButton_change_cad_num_Click);
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
@@ -134,10 +138,11 @@ begin
     end;
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '
-      + p.biz_members.LastNameOf(session['e_item'])
-      + ' (CAD # '
-      + p.cad_num_string
-      + ')';
+      + p.biz_members.LastNameOf(session['e_item']);
+    //
+    Label_cad_num.text := p.cad_num_string;
+    LinkButton_change_cad_num.visible := Has(string_array(session['privilege_array']),'change-cad-num');
+    LinkButton_change_cad_num.text := ExpandTildePath(LinkButton_change_cad_num.text);
     //
     Label_leave_this_month.text := p.leave_this_month_description;
     Label_leave_next_month.text := p.leave_next_month_description;
@@ -226,6 +231,13 @@ begin
       //
     end;
   end;
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_cad_num_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_cad_num.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_agency_Click(sender: System.Object;

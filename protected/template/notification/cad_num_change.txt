@@ -1,0 +1,16 @@
+Officer code change for <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed <first_name/> <last_name/>'s officer code in <application_name/>.
+
+<first_name/>'s new officer code is:
+
+   <cad_num/>
+
+This is the officer code that should appear on the back of <first_name/>'s VBDEMS ID card, and, for operations personnel, this is the code that <first_name/> should enter on the mobile data terminal logon form when marking on-duty.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

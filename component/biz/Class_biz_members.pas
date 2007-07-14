@@ -101,6 +101,12 @@ type
       new_agency_id: string;
       e_item: system.object
       );
+    function SetCadNum
+      (
+      cad_num: string;
+      e_item: system.object
+      )
+      : boolean;
     procedure SetDriverQualification
       (
       be_driver_qualified: boolean;
@@ -421,6 +427,27 @@ begin
     biz_agencies.MediumDesignatorOf(old_agency_id),
     biz_agencies.MediumDesignatorOf(new_agency_id)
     );
+end;
+
+function TClass_biz_members.SetCadNum
+  (
+  cad_num: string;
+  e_item: system.object
+  )
+  : boolean;
+begin
+  SetCadNum := FALSE;
+  if not db_members.BeKnown(cad_num) then begin
+    db_members.SetCadNum(cad_num,e_item);
+    biz_notifications.IssueForCadNumChange
+      (
+      db_members.IdOf(e_item),
+      db_members.FirstNameOf(e_item),
+      db_members.LastNameOf(e_item),
+      cad_num
+      );
+    SetCadNum := TRUE;
+  end;
 end;
 
 procedure TClass_biz_members.SetDriverQualification

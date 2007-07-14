@@ -60,13 +60,14 @@ type
     function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
+    function BeKnown(cad_num: string): boolean; overload;
     function BeKnown
       (
       first_name: string;
       last_name: string;
       cad_num: string
       )
-      : boolean;
+      : boolean; overload;
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize(target: system.object);
     procedure BindRankedCrewShiftsForecast(target: system.object);
@@ -126,6 +127,11 @@ type
     procedure SetAgency
       (
       agency_id: string;
+      e_item: system.object
+      );
+    procedure SetCadNum
+      (
+      cad_num: string;
       e_item: system.object
       );
     procedure SetDriverQualification
@@ -236,6 +242,13 @@ begin
   BeDriverQualifiedOf := BooleanOfYesNo(Safe(DataGridItem(e_item).cells[TCCI_BE_DRIVER_QUALIFIED].text,ALPHA));
 end;
 
+function TClass_db_members.BeKnown(cad_num: string): boolean;
+begin
+  self.Open;
+  BeKnown := (bdpcommand.Create('select 1 from member where cad_num = "' + cad_num + '"',connection).ExecuteScalar <> nil);
+  self.Close;
+end;
+
 function TClass_db_members.BeKnown
   (
   first_name: string;
@@ -253,7 +266,7 @@ begin
   if cad_num = '' then begin
     sql := sql + ')';
   end else begin
-    sql := sql + ' and (cad_num = "' + cad_num + '" or cad_num is null)) or (cad_num = "' + cad_num + '")';
+    sql := sql + ' and (cad_num = "' + cad_num + '" or cad_num is null or cad_num like "9%")) or (cad_num = "' + cad_num + '")';
   end;
   self.Open;
   BeKnown := (bdpcommand.Create(sql,connection).ExecuteScalar <> nil);
@@ -1106,6 +1119,28 @@ begin
     )
     .ExecuteNonQuery;
   DataGridItem(e_item).cells[TCCI_AGENCY].text := db_agencies.ShortDesignatorOf(agency_id);
+  self.Close;
+end;
+
+procedure TClass_db_members.SetCadNum
+  (
+  cad_num: string;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'UPDATE member'
+      + ' SET cad_num = "' + cad_num + '"'
+      + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text
+      ),
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_CAD_NUM].Text := cad_num;
   self.Close;
 end;
 

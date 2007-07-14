@@ -1,4 +1,4 @@
--- $Id$
+﻿-- $Id$
 --
 -- phpMyAdmin SQL Dump
 -- version 2.6.4-pl4
@@ -495,7 +495,9 @@ INSERT INTO notification (id,`name`) VALUES
 (6,'member-added'),
 (7,'new-enrollment-level'),
 (8,'section-change'),
-(9,'needs-enrollment-review');
+(9,'needs-enrollment-review'),
+(10,'cad-num-change'),
+(11,'member-name-change');
 
 -- --------------------------------------------------------
 
@@ -546,7 +548,9 @@ INSERT INTO privilege (id,`name`) VALUES
 (16,'change-driver-qual'),
 (17,'change-member-email-address'),
 (18,'change-section'),
-(19,'change-agency');
+(19,'change-agency'),
+(20,'change-cad-num'),
+(21,'change-member-name');
 
 -- --------------------------------------------------------
 
@@ -655,7 +659,12 @@ INSERT role_notification_map (notification_id,role_id) VALUES
 (7,6),
 (8,6),
 (8,7),
-(9,6);
+(9,6),
+(10,3),
+(11,3),
+(11,6),
+(11,13),
+(11,14);
 
 --
 -- Table structure for table `role_privilege_map`
