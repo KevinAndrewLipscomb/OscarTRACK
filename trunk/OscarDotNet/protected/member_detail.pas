@@ -49,6 +49,7 @@ type
     procedure LinkButton_change_section_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_agency_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_cad_num_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_name_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -83,6 +84,7 @@ type
     LinkButton_change_agency: System.Web.UI.WebControls.LinkButton;
     Label_cad_num: System.Web.UI.WebControls.Label;
     LinkButton_change_cad_num: System.Web.UI.WebControls.LinkButton;
+    LinkButton_change_name: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -106,6 +108,7 @@ begin
   Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
+  Include(Self.LinkButton_change_name.Click, Self.LinkButton_change_name_Click);
   Include(Self.LinkButton_change_cad_num.Click, Self.LinkButton_change_cad_num_Click);
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
@@ -139,6 +142,8 @@ begin
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '
       + p.biz_members.LastNameOf(session['e_item']);
+    LinkButton_change_name.visible := Has(string_array(session['privilege_array']),'change-member-name');
+    LinkButton_change_name.text := ExpandTildePath(LinkButton_change_name.text);
     //
     Label_cad_num.text := p.cad_num_string;
     LinkButton_change_cad_num.visible := Has(string_array(session['privilege_array']),'change-cad-num');
@@ -231,6 +236,13 @@ begin
       //
     end;
   end;
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_name_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
+  server.Transfer('change_name.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_cad_num_Click(sender: System.Object;

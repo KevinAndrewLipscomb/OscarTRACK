@@ -57,6 +57,7 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\change_member_agency.aspx'}
 {%AspMarkupContainer 'protected\change_leave.aspx'}
 {%AspMarkupContainer 'protected\change_cad_num.aspx'}
+{%AspMarkupContainer 'protected\change_name.aspx'}
 
 uses
   System.Reflection,
@@ -141,7 +142,8 @@ uses
   Class_db_indicator_median_length_of_service in 'component\db\Class_db_indicator_median_length_of_service.pas',
   change_member_agency in 'protected\change_member_agency.pas' {change_member_agency.TWebForm_change_member_agency: ki_web_ui.page_class},
   change_leave in 'protected\change_leave.pas' {change_leave.TWebForm_change_leave: ki_web_ui.page_class},
-  change_cad_num in 'protected\change_cad_num.pas' {change_cad_num.TWebForm_change_cad_num: ki_web_ui.page_class};
+  change_cad_num in 'protected\change_cad_num.pas' {change_cad_num.TWebForm_change_cad_num: ki_web_ui.page_class},
+  change_name in 'protected\change_name.pas' {change_name.TWebForm_change_name: ki_web_ui.page_class};
 
 //
 // General Information about an assembly is controlled through the following

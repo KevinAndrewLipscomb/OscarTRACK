@@ -247,6 +247,7 @@
       <File FileName="protected\change_member_agency.aspx" ContainerId="AspMarkupContainer" ModuleName="change_member_agency"/>
       <File FileName="protected\change_leave.aspx" ContainerId="AspMarkupContainer" ModuleName="change_leave"/>
       <File FileName="protected\change_cad_num.aspx" ContainerId="AspMarkupContainer" ModuleName="change_cad_num"/>
+      <File FileName="protected\change_name.aspx" ContainerId="AspMarkupContainer" ModuleName="change_name"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -330,6 +331,7 @@
       <File FileName="protected\change_member_agency.pas" ContainerId="" ModuleName="change_member_agency" Parent="protected\change_member_agency.aspx"/>
       <File FileName="protected\change_leave.pas" ContainerId="" ModuleName="change_leave" Parent="protected\change_leave.aspx"/>
       <File FileName="protected\change_cad_num.pas" ContainerId="" ModuleName="change_cad_num" Parent="protected\change_cad_num.aspx"/>
+      <File FileName="protected\change_name.pas" ContainerId="" ModuleName="change_name" Parent="protected\change_name.aspx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

@@ -110,6 +110,15 @@ type
       enrollment_date: string;
       enrollment_level: string
       );
+    procedure IssueForMemberNameChange
+      (
+      member_id: string;
+      cad_num: string;
+      old_first_name: string;
+      old_last_name: string;
+      new_first_name: string;
+      new_last_name: string
+      );
     procedure IssueForMembershipEstablishmentTrouble
       (
       full_name: string;
@@ -718,6 +727,61 @@ begin
     configurationsettings.appsettings['sender_email_address'],
     //to
     email_address + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-added',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForMemberNameChange
+  (
+  member_id: string;
+  cad_num: string;
+  old_first_name: string;
+  old_last_name: string;
+  new_first_name: string;
+  new_last_name: string
+  );
+var
+  actor: string;
+  actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<actor/>',actor)
+      .Replace('<actor_email_address/>',actor_email_address)
+      .Replace('<application_name/>',application_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<old_first_name/>',old_first_name)
+      .Replace('<old_last_name/>',old_last_name)
+      .Replace('<new_first_name/>',new_first_name)
+      .Replace('<new_last_name/>',new_last_name);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_name_change.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-name-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
