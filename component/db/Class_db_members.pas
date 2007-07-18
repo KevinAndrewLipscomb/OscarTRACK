@@ -144,6 +144,12 @@ type
       id: string;
       email_address: string
       );
+    procedure SetName
+      (
+      first: string;
+      last: string;
+      e_item: system.object
+      );
     procedure SetSection
       (
       section_num: string;
@@ -1184,6 +1190,31 @@ begin
     connection
     )
     .ExecuteNonQuery;
+  self.Close;
+end;
+
+procedure TClass_db_members.SetName
+  (
+  first: string;
+  last: string;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  borland.data.provider.bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'UPDATE member'
+      + ' SET first_name = "' + first + '"'
+      +   ' , last_name = "' + last + '"'
+      + '  WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text
+      ),
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_FIRST_NAME].Text := first;
+  DataGridItem(e_item).cells[TCCI_LAST_NAME].Text := last;
   self.Close;
 end;
 

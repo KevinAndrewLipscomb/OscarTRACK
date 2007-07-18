@@ -17,8 +17,8 @@
 				<td>
 		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
 		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-										                  [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-										                  [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
+										                   [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
+										                   [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
 			|
 			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
 		</small>
@@ -35,13 +35,16 @@
 			<tr>
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
-					<tr>
-					  <td bgcolor="#f5f5f5">
-	  <p>Member detail record for <ASP:Label id="Label_member_designator" runat="server" font-bold="True"></ASP:Label></p></td>
-					</tr>
+					<tr><td bgcolor="#f5f5f5"><strong>Member detail record</strong></td></tr>
 					<tr>
 					  <td>
 						<table cellspacing="0" cellpadding="10" width="100%" border="0">
+							<tr>
+							  <td>Name:</td>
+							  <td><ASP:Label id="Label_member_designator" runat="server" font-bold="True"></ASP:Label></td>
+							  <td></td>
+								<td><ASP:LinkButton id="LinkButton_change_name" runat="server" visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+							</tr>
 							<tr>
 							  <td>CAD #:</td>
 							  <td><ASP:Label id="Label_cad_num" runat="server"></ASP:Label></td>

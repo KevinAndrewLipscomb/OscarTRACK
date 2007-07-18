@@ -117,6 +117,14 @@ type
       id: string;
       email_address: string
       );
+    procedure SetName
+      (
+      old_first: string;
+      old_last: string;
+      new_first: string;
+      new_last: string;
+      e_item: system.object
+      );
     procedure SetSection
       (
       section_num: string;
@@ -474,6 +482,30 @@ procedure TClass_biz_members.SetEmailAddress
   );
 begin
   db_members.SetEmailAddress(id,email_address);
+end;
+
+procedure TClass_biz_members.SetName
+  (
+  old_first: string;
+  old_last: string;
+  new_first: string;
+  new_last: string;
+  e_item: system.object
+  );
+var
+  member_id: string;
+begin
+  db_members.SetName(new_first,new_last,e_item);
+  member_id := IdOf(e_item);
+  biz_notifications.IssueForMemberNameChange
+    (
+    member_id,
+    CadNumOf(e_item),
+    old_first,
+    old_last,
+    new_first,
+    new_last
+    );
 end;
 
 procedure TClass_biz_members.SetSection

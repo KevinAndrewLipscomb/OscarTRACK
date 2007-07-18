@@ -1,0 +1,15 @@
+<old_last_name/>, <old_first_name/> => <new_last_name/>, <new_first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following name change in <application_name/>:
+
+   Officer code:  <cad_num/>
+
+   Old name:  <old_last_name/>, <old_first_name/>
+   New name:  <new_last_name/>, <new_first_name/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
