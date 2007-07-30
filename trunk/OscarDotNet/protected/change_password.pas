@@ -84,6 +84,9 @@ begin
     p.biz_user := TClass_biz_user.Create;
     //
     Label_account_descriptor.Text := session['username'].ToString;
+    //
+    Focus(TextBox_nominal_password);
+    //
   end;
 end;
 

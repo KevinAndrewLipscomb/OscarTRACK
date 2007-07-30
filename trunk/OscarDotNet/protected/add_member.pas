@@ -132,6 +132,9 @@ begin
     UserControl_enrollment_date.minyear := '1940';
     UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
     p.biz_enrollment.BindUncontrolledDropDownList(DropDownList_enrollment_level);
+    //
+    Focus(TextBox_first_name);
+    //
   end;
 end;
 

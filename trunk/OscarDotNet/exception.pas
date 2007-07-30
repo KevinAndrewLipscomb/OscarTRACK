@@ -82,6 +82,7 @@ begin
       Table_oops.visible := FALSE;
     end else begin
       Table_db_down.visible := FALSE;
+      Focus(TextArea_user_comment);
       //
       if user.identity.name = system.string.EMPTY then begin
         user_designator := 'unknown';

@@ -559,7 +559,8 @@ begin
     ADMIN: filter := filter + ' = "Admin" ';
     TRANSFERRING: filter := filter + ' = "Transferring" ';
     SUSPENDED: filter := filter + ' = "Suspended" ';
-    PAST: filter := filter + '  in ("Unknown","Resigned","Retired","Disabled","Dismissed") ';
+    PAST: filter := filter + '  in ("Withdrew application","Unknown","Resigned","Retired","Disabled","Dismissed") ';
+    WITHDREW_APPLICATION: filter := filter + ' = "Withdrew application" ';
     UNKNOWN: filter := filter + ' = "Unknown" ';
     RESIGNED: filter := filter + ' = "Resigned" ';
     RETIRED: filter := filter + ' = "Retired" ';
