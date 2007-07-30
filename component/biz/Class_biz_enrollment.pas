@@ -28,6 +28,7 @@ type
         TRANSFERRING,
         SUSPENDED,
       PAST,
+        WITHDREW_APPLICATION,
         UNKNOWN,
         RESIGNED,
         RETIRED,
@@ -93,7 +94,8 @@ end;
 
 function TClass_biz_enrollment.BePastDescription(description: string): boolean;
 begin
-  BePastDescription := (description = 'Resigned')
+  BePastDescription := (description = 'Withdrew application')
+    or (description = 'Resigned')
     or (description = 'Retired')
     or (description = 'Disabled')
     or (description = 'Unknown')

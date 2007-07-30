@@ -82,6 +82,7 @@ begin
   end else begin
     Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - salogin';
     p.biz_users := TClass_biz_users.Create;
+    Focus(TextBox_username);
   end;
 end;
 

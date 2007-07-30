@@ -72,6 +72,8 @@ begin
     Label_sponsor_3.text := configurationsettings.appsettings['sponsor'];
     Label_shared_secret_description.text := configurationsettings.appsettings['shared_secret_description'];
     //
+    Focus(TextBox_shared_secret);
+    //
   end;
   //
 end;

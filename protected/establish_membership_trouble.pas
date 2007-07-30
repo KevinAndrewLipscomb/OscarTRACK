@@ -101,6 +101,8 @@ begin
     Label_application_name_2.text := configurationsettings.appsettings['application_name'];
     Label_application_name_3.text := configurationsettings.appsettings['application_name'];
     //
+    Focus(TextBox_full_name);
+    //
   end;
 end;
 

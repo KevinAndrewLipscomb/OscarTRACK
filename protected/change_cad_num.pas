@@ -99,6 +99,8 @@ begin
       p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
     Label_member_name_2.text := Label_member_name_1.text;
     //
+    Focus(TextBox_cad_num);
+    //
   end;
 end;
 

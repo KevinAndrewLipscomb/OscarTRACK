@@ -99,6 +99,8 @@ begin
     TextBox_first_name.text := p.saved_first_name;
     TextBox_last_name.text := p.saved_last_name;
     //
+    Focus(TextBox_first_name);
+    //
   end;
 end;
 

@@ -70,6 +70,7 @@
 									  <ASP:ListItem value="transferring">- - Transferring</ASP:ListItem>
 									  <ASP:ListItem value="suspended">- - Suspended</ASP:ListItem>
 									  <ASP:ListItem value="past">- Past</ASP:ListItem>
+									  <ASP:ListItem value="withdrew_application">- - Withdrew application</ASP:ListItem>
 									  <ASP:ListItem value="unknown">- - Unknown</ASP:ListItem>
 									  <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
 									  <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
