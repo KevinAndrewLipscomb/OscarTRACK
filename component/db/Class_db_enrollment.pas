@@ -106,7 +106,7 @@ begin
     + ' FROM enrollment_transition'
     +   ' join enrollment_level on (enrollment_level.code=enrollment_transition.valid_next_level_code)'
     + ' where current_level_code ='
-    +     ' (select level_code from enrollment_history where member_id = ' + member_id + ' order by start_date desc limit 1)'
+    +     ' (select level_code from enrollment_history where member_id = ' + member_id + ' order by start_date desc, end_date limit 1)'
     +   ' and'
     +     ' ('
     +       ' (required_historical_level_code is null)'
