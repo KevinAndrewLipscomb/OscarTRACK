@@ -246,36 +246,53 @@ function TClass_db_enrollment.SetLevel
 var
   effective_date_string: string;
   latest_start_date: datetime;
+  transaction: bdptransaction;
 begin
   SetLevel := FALSE;
   effective_date_string := effective_date.tostring('yyyy-MM-dd');
   self.Open;
-  latest_start_date := datetime
-    (bdpcommand.Create('select max(start_date) from enrollment_history where member_id = ' + member_id,connection).ExecuteScalar);
-  if effective_date >=  latest_start_date then begin
-    bdpcommand.Create
+  transaction := connection.BeginTransaction;
+  try
+    latest_start_date := datetime
       (
-      db_trail.Saved
+      bdpcommand.Create
+        ('select max(start_date) from enrollment_history where member_id = ' + member_id,connection,transaction)
+        .ExecuteScalar
+      );
+    if effective_date >=  latest_start_date then begin
+      bdpcommand.Create
         (
-        'START TRANSACTION;'
-        + ' update enrollment_history'
-        +   ' set end_date = "' + effective_date_string + '"'
-        +   ' where member_id = ' + member_id
-        +     ' and end_date is null'
-        + ' ;'
-        + ' insert ignore enrollment_history'
-        +   ' set member_id = ' + member_id
-        +     ' , level_code = ' + new_level_code
-        +     ' , start_date = "' + effective_date_string + '"'
-        +     ' , note = "' + note + '"'
-        + ' ;'
-        + ' COMMIT'
-        ),
-      connection
-      )
-      .ExecuteNonQuery;
-    DataGridItem(e_item).cells[Class_db_members.TCCI_ENROLLMENT].text := DescriptionOf(new_level_code);
-    SetLevel := TRUE;
+        db_trail.Saved
+          (
+          'update enrollment_history'
+          + ' set end_date = "' + effective_date_string + '"'
+          + ' where member_id = ' + member_id
+          +   ' and end_date is null'
+          ),
+        connection,
+        transaction
+        )
+        .ExecuteNonQuery;
+      bdpcommand.Create
+        (
+        db_trail.Saved
+          (
+          'insert enrollment_history'
+          + ' set member_id = ' + member_id
+          +   ' , level_code = ' + new_level_code
+          +   ' , start_date = "' + effective_date_string + '"'
+          +   ' , note = "' + note + '"'
+          ),
+        connection,
+        transaction
+        )
+        .ExecuteNonQuery;
+      transaction.Commit;
+      DataGridItem(e_item).cells[Class_db_members.TCCI_ENROLLMENT].text := DescriptionOf(new_level_code);
+      SetLevel := TRUE;
+    end;
+  except
+    transaction.Rollback;
   end;
   self.Close;
 end;

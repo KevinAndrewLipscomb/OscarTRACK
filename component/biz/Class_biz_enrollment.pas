@@ -156,20 +156,24 @@ var
   biz_members: TClass_biz_members;
 begin
   //
+  SetLevel := FALSE;
+  //
   biz_members := TClass_biz_members.Create;
   //
-  SetLevel := db_enrollment.SetLevel(new_level_code,effective_date,note,member_id,e_item);
-  //
-  biz_notifications.IssueForNewEnrollmentLevel
-    (
-    member_id,
-    biz_members.FirstNameOfMemberId(member_id),
-    biz_members.LastNameOfMemberId(member_id),
-    biz_members.CadNumOfMemberId(member_id),
-    db_enrollment.DescriptionOf(new_level_code),
-    effective_date.tostring('yyyy-MM-dd'),
-    note
-    );
+  if db_enrollment.SetLevel(new_level_code,effective_date,note,member_id,e_item) then begin
+    SetLevel := TRUE;
+    biz_notifications.IssueForNewEnrollmentLevel
+      (
+      member_id,
+      biz_members.FirstNameOfMemberId(member_id),
+      biz_members.LastNameOfMemberId(member_id),
+      biz_members.CadNumOfMemberId(member_id),
+      db_enrollment.DescriptionOf(new_level_code),
+      effective_date.tostring('yyyy-MM-dd'),
+      note
+      );
+    //
+  end;
   //
 end;
 
