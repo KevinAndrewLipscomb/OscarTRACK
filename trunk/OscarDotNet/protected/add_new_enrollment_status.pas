@@ -164,6 +164,9 @@ begin
     )
   then begin
     server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  end else begin
+    Alert
+      (ki.USER,FAILURE,'sysrestrict','The new enrollment status was NOT recorded.  One or more SYSTEM RESTRICTIONS were violated.');
   end;
 end;
 
