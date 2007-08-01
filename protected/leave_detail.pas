@@ -233,6 +233,11 @@ begin
       BEGIN
       LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text :=
         ExpandTildePath(LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]).text);
+      RequireConfirmation
+        (
+        LinkButton(e.item.cells[TCCI_DELETE].controls.item[0]),
+        'Are you sure you want to delete this leave-of-absence?'
+        );
       LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text :=
         ExpandTildePath(LinkButton(e.item.cells[TCCI_EDIT].controls.item[0]).text);
       END;
