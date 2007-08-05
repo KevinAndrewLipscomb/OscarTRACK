@@ -29,8 +29,7 @@
 						<ul>
 						  <li><p>This report allows members to compare squad-to-squad performance from various perspectives.</p></li>
 						  <li><p>Top performers are at the top of the lists.</p></li>
-						  <li><p>Although demographics have some effect, squad policies and practices tend to affect performance
-							the most.</p></li>
+						  <li><p>Factors affecting performance include demographics and squad policies and practices.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server" font-bold="True"></asp:label>
 							website for additional features, such as advanced filtering, sorting, detail lookups, and
