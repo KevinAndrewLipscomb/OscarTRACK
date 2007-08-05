@@ -60,6 +60,7 @@ type
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
+    procedure MakeSeniorityPromotions;
     function SetLevel
       (
       new_level_code: string;
@@ -74,7 +75,8 @@ type
 implementation
 
 uses
-  Class_biz_members;
+  Class_biz_members,
+  system.collections;
 
 constructor TClass_biz_enrollment.Create;
 begin
@@ -141,6 +143,31 @@ end;
 function TClass_biz_enrollment.DescriptionOf(level_code: string): string;
 begin
   DescriptionOf := db_enrollment.DescriptionOf(level_code);
+end;
+
+procedure TClass_biz_enrollment.MakeSeniorityPromotions;
+var
+  biz_members: TClass_biz_members;
+  i: cardinal;
+  member_id: string;
+  member_id_q: queue;
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  //
+  member_id_q := db_enrollment.SeniorityPromotionsSince(db_enrollment.MakeSeniorityPromotions);
+  for i := 1 to member_id_q.Count do begin
+    member_id := member_id_q.Dequeue.tostring;
+    biz_notifications.IssueForSeniorityPromotion
+      (
+      member_id,
+      biz_members.FirstNameOfMemberId(member_id),
+      biz_members.LastNameOfMemberId(member_id),
+      biz_members.CadNumOfMemberId(member_id),
+      biz_members.EnrollmentOfMemberId(member_id)
+      );
+    //
+  end;
 end;
 
 function TClass_biz_enrollment.SetLevel

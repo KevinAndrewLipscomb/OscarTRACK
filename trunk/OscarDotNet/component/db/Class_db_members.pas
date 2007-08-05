@@ -92,6 +92,7 @@ type
     function CurrentMemberEmailAddresses: queue; overload;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
+    function EnrollmentOfMemberId(member_id: string): string;
     function FirstNameOf(e_item: system.object): string;
     function FirstNameOfMemberId(member_id: string): string;
     procedure GetProfile
@@ -797,6 +798,26 @@ end;
 function TClass_db_members.EnrollmentOf(e_item: system.object): string;
 begin
   EnrollmentOf := Safe(DataGridItem(e_item).cells[TCCI_ENROLLMENT].text,NARRATIVE);
+end;
+
+function TClass_db_members.EnrollmentOfMemberId(member_id: string): string;
+begin
+  self.Open;
+  EnrollmentOfMemberId := bdpcommand.Create
+    (
+    'select description'
+    + ' from member'
+    +   ' join enrollment_history on (enrollment_history.member_id=member.id)'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    + ' where member.id = ' + member_id
+    +   ' and start_date <= CURDATE()'
+    +   ' and ((end_date >= CURDATE()) or (end_date is null))'
+    + ' order by enrollment_history.id desc'
+    + ' limit 1',
+    connection
+    )
+    .ExecuteScalar.tostring;
+  self.Close;
 end;
 
 function TClass_db_members.FirstNameOf(e_item: system.object): string;
