@@ -1,0 +1,12 @@
+<cad_num/> <last_name/>, <first_name/> => <new_level/>
+This is an automatic notification from <application_name/>.
+
+OscarTRACK has automatically changed <first_name/> <last_name/>'s membership status to:
+
+   <new_level/>
+
+CONGRATULATIONS, <first_name/>, and THANKS FOR YOUR DEDICATION AND SERVICE!
+
+OscarTRACK has automatically adjusted <first_name/>'s required duties accordingly and they will take effect in the next scheduling generation cycle.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

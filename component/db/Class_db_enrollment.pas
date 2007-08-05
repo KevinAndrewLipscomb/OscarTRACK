@@ -4,7 +4,8 @@ interface
 
 uses
   Class_db,
-  Class_db_trail;
+  Class_db_trail,
+  system.collections;
 
 const
   TCCI_ID = 0;
@@ -33,8 +34,9 @@ type
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
-    procedure MakeSeniorityPromotions;
+    function MakeSeniorityPromotions: string;
     function NumObligedShifts(description: string): cardinal;
+    function SeniorityPromotionsSince(watermark: string): queue;
     function SetLevel
       (
       new_level_code: string;
@@ -186,7 +188,7 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_enrollment.MakeSeniorityPromotions;
+function TClass_db_enrollment.MakeSeniorityPromotions: string;
 var
   watermark: string;
 begin
@@ -217,6 +219,7 @@ begin
     )
     .ExecuteNonQuery;
   self.Close;
+  MakeSeniorityPromotions := watermark;
 end;
 
 function TClass_db_enrollment.NumObligedShifts(description: string): cardinal;
@@ -232,6 +235,31 @@ begin
     NumObligedShifts := 0;
   end;
   self.Close;
+end;
+
+function TClass_db_enrollment.SeniorityPromotionsSince(watermark: string): queue;
+var
+  bdr: bdpdatareader;
+  member_id_q: queue;
+begin
+  member_id_q := queue.Create;
+  self.Open;
+  bdr := bdpcommand.Create
+    (
+    'select member_id'
+    + ' from enrollment_history'
+    + ' where id > ' + watermark
+    +   ' and level_code in (3,4)'
+    +   ' and end_date is null',
+    connection
+    )
+    .ExecuteReader;
+  while bdr.Read do begin
+    member_id_q.Enqueue(bdr['member_id']);
+  end;
+  bdr.Close;
+  self.Close;
+  SeniorityPromotionsSince := member_id_q;
 end;
 
 function TClass_db_enrollment.SetLevel

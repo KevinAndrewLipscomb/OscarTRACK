@@ -152,6 +152,14 @@ type
       agency_name: string;
       section_num: string
       );
+    procedure IssueForSeniorityPromotion
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      new_level: string
+      );
     procedure IssueForTemporaryPassword
       (
       username: string;
@@ -1003,6 +1011,53 @@ begin
     configurationsettings.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('section-change',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForSeniorityPromotion
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  new_level: string
+  );
+var
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<application_name/>',application_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<first_name/>',first_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<member_id/>',member_id)
+      .Replace('<new_level/>',new_level);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/seniority_promotion.txt'));
+  ki.SmtpMailSend
+    (
+    //from
+    configurationsettings.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + ',' + db_notifications.TargetOf('seniority-promotion',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body

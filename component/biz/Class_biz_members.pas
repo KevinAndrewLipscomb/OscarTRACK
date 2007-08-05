@@ -72,6 +72,7 @@ type
     function CurrentMemberEmailAddressesString: string; overload;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
+    function EnrollmentOfMemberId(member_id: string): string;
     function FirstNameOf(e_item: system.object): string;
     function FirstNameOfMemberId(member_id: string): string;
     procedure GetProfile
@@ -329,6 +330,11 @@ end;
 function TClass_biz_members.EnrollmentOf(e_item: system.object): string;
 begin
   EnrollmentOf := db_members.EnrollmentOf(e_item);
+end;
+
+function TClass_biz_members.EnrollmentOfMemberId(member_id: string): string;
+begin
+  EnrollmentOfMemberId := db_members.EnrollmentOfMemberId(member_id);
 end;
 
 function TClass_biz_members.FirstNameOf(e_item: system.object): string;
