@@ -289,36 +289,76 @@ begin
 end;
 
 procedure TClass_db_members.BindRankedCoreOpsSize(target: system.object);
+var
+  from_where_phrase: string;
+  metric_phrase: string;
 begin
+  //
+  metric_phrase := ' count(*)';
+  from_where_phrase := ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
+  +   ' and'
+  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
+  //
   self.Open;
+  bdpcommand.Create
+    (
+    'START TRANSACTION;'
+    //
+    // Log squad-by-squad indicators.
+    //
+    + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , TRUE'
+    +     ' , agency.id'
+    +     ' , ' + metric_phrase
+    + from_where_phrase
+    +   ' group by agency.id'
+    + ';'
+    //
+    // Log citywide indicator.
+    //
+    + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , FALSE'
+    +     ' , 0'
+    +     ' , ' + metric_phrase
+    + from_where_phrase
+    + ';'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  //
+  // Bind datagrid for display.
+  //
   DataGrid(target).datasource := bdpcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
-    + ' , count(*) as count'
-    + ' from member'
-    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-    +   ' join enrollment_history'
-    +     ' on'
-    +       ' ('
-    +       ' enrollment_history.member_id=member.id'
-    +       ' and'
-    +         ' ('
-    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
-    +         ' and'
-    +           ' ('
-    +             ' (enrollment_history.end_date is null)'
-    +           ' or'
-    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-    +   ' join agency on (agency.id=member.agency_id)'
-    + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
-    +   ' and'
-    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+    + ' , ' + metric_phrase + ' as count'
+    + from_where_phrase
     + ' group by agency.id'
     + ' order by count desc',
     connection
@@ -329,58 +369,98 @@ begin
 end;
 
 procedure TClass_db_members.BindRankedCrewShiftsForecast(target: system.object);
+var
+  from_where_phrase: string;
+  metric_phrase: string;
 begin
+  //
+  metric_phrase := ' sum('
+  +   ' if'
+  +     ' ('
+  +       ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
+  +       ' num_obliged_shifts,'
+  +       ' num_shifts'
+  +     ' )'
+  +   ' )/2 as num_crew_shifts';
+  from_where_phrase := ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' left join leave_of_absence'
+  +     ' on'
+  +       ' ('
+  +       ' leave_of_absence.member_id=member.id'
+  +       ' and '
+  +         ' ('
+  +           ' (leave_of_absence.start_date is null)'
+  +         ' or'
+  +           ' ('
+  +             ' (leave_of_absence.start_date <= CURDATE())'
+  +           ' and'
+  +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
+  +   ' and'
+  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
+  //
   self.Open;
+  bdpcommand.Create
+    (
+    'START TRANSACTION;'
+    //
+    // Log squad-by-squad indicators.
+    //
+    + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , TRUE'
+    +     ' , agency.id'
+    +     ' , ' + metric_phrase
+    + from_where_phrase
+    +   ' group by agency.id'
+    + ';'
+    //
+    // Log citywide indicator.
+    //
+    + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , FALSE'
+    +     ' , 0'
+    +     ' , ' + metric_phrase
+    + from_where_phrase
+    + ';'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  //
+  // Bind datagrid for display.
+  //
   DataGrid(target).datasource := bdpcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
-    + ' , sum('
-    +     ' if'
-    +       ' ('
-    +         ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
-    +         ' num_obliged_shifts,'
-    +         ' num_shifts'
-    +       ' )'
-    +     ' )/2 as num_crew_shifts'
-    + ' from member'
-    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-    +   ' join enrollment_history'
-    +     ' on'
-    +       ' ('
-    +       ' enrollment_history.member_id=member.id'
-    +       ' and'
-    +         ' ('
-    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
-    +         ' and'
-    +           ' ('
-    +             ' (enrollment_history.end_date is null)'
-    +           ' or'
-    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-    +   ' left join leave_of_absence'
-    +     ' on'
-    +       ' ('
-    +       ' leave_of_absence.member_id=member.id'
-    +       ' and '
-    +         ' ('
-    +           ' (leave_of_absence.start_date is null)'
-    +         ' or'
-    +           ' ('
-    +             ' (leave_of_absence.start_date <= CURDATE())'
-    +           ' and'
-    +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join agency on (agency.id=member.agency_id)'
-    + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
-    +   ' and'
-    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+    + ' , ' + metric_phrase
+    + from_where_phrase
     + ' group by agency.id'
     + ' order by num_crew_shifts desc',
     connection
@@ -391,38 +471,78 @@ begin
 end;
 
 procedure TClass_db_members.BindRankedStandardEnrollment(target: system.object);
+var
+  from_where_phrase: string;
+  metric_phrase: string;
 begin
+  //
+  metric_phrase := ' count(if((core_ops_commitment_level_code = 3),1,NULL))/count(*)';
+  from_where_phrase := ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
+  +   ' and'
+  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
+  //
   self.Open;
+  bdpcommand.Create
+    (
+    'START TRANSACTION;'
+    //
+    // Log squad-by-squad indicators.
+    //
+    + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , TRUE'
+    +     ' , agency.id'
+    +     ' , ' + metric_phrase + '*100'
+    + from_where_phrase
+    +   ' group by agency.id'
+    + ';'
+    //
+    // Log citywide indicator.
+    //
+    + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , FALSE'
+    +     ' , 0'
+    +     ' , ' + metric_phrase + '*100'
+    + from_where_phrase
+    + ';'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  //
+  // Bind datagrid for display.
+  //
   DataGrid(target).datasource := bdpcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
     + ' , count(if((core_ops_commitment_level_code = 3),1,NULL)) as num_standard_enrollments'
     + ' , count(*) as num_core_ops_members'
-    + ' , count(if((core_ops_commitment_level_code = 3),1,NULL))/count(*) as factor'
-    + ' from member'
-    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-    +   ' join enrollment_history'
-    +     ' on'
-    +       ' ('
-    +       ' enrollment_history.member_id=member.id'
-    +       ' and'
-    +         ' ('
-    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
-    +         ' and'
-    +           ' ('
-    +             ' (enrollment_history.end_date is null)'
-    +           ' or'
-    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-    +   ' join agency on (agency.id=member.agency_id)'
-    + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
-    +   ' and'
-    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+    + ' , ' + metric_phrase + ' as factor'
+    + from_where_phrase
     + ' group by agency.id'
     + ' order by factor desc, num_core_ops_members desc',
     connection
@@ -433,8 +553,92 @@ begin
 end;
 
 procedure TClass_db_members.BindRankedUtilization(target: system.object);
+var
+  from_where_phrase: string;
+  metric_phrase: string;
 begin
+  //
+  metric_phrase := ' sum('
+  +     ' if'
+  +       ' ('
+  +         ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
+  +         ' num_obliged_shifts,'
+  +         ' num_shifts'
+  +       ' )'
+  +     ' )/sum(num_shifts)';
+  from_where_phrase := ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' left join leave_of_absence'
+  +     ' on'
+  +       ' ('
+  +       ' leave_of_absence.member_id=member.id'
+  +       ' and '
+  +         ' ('
+  +           ' (leave_of_absence.start_date is null)'
+  +         ' or'
+  +           ' ('
+  +             ' (leave_of_absence.start_date <= CURDATE())'
+  +           ' and'
+  +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
+  +   ' and'
+  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
+  //
   self.Open;
+  bdpcommand.Create
+    (
+    'START TRANSACTION;'
+    //
+    // Log squad-by-squad indicators.
+    //
+    + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , TRUE'
+    +     ' , agency.id'
+    +     ' , ' + metric_phrase + '*100'
+    + from_where_phrase
+    +   ' group by agency.id'
+    + ';'
+    //
+    // Log citywide indicator.
+    //
+    + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
+    +   ' select YEAR(CURDATE())'
+    +     ' , MONTH(CURDATE())'
+    +     ' , FALSE'
+    +     ' , 0'
+    +     ' , ' + metric_phrase + '*100'
+    + from_where_phrase
+    + ';'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  //
+  // Bind datagrid for display.
+  //
   DataGrid(target).datasource := bdpcommand.Create
     (
     'select NULL as rank'
@@ -448,52 +652,8 @@ begin
     +       ' )'
     +     ' ) as num_cooked_shifts'
     + ' , sum(num_shifts) as num_raw_shifts'
-    + ' , sum('
-    +     ' if'
-    +       ' ('
-    +         ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
-    +         ' num_obliged_shifts,'
-    +         ' num_shifts'
-    +       ' )'
-    +     ' )/sum(num_shifts) as utilization'
-    + ' from member'
-    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-    +   ' join enrollment_history'
-    +     ' on'
-    +       ' ('
-    +       ' enrollment_history.member_id=member.id'
-    +       ' and'
-    +         ' ('
-    +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
-    +         ' and'
-    +           ' ('
-    +             ' (enrollment_history.end_date is null)'
-    +           ' or'
-    +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-    +   ' left join leave_of_absence'
-    +     ' on'
-    +       ' ('
-    +       ' leave_of_absence.member_id=member.id'
-    +       ' and '
-    +         ' ('
-    +           ' (leave_of_absence.start_date is null)'
-    +         ' or'
-    +           ' ('
-    +             ' (leave_of_absence.start_date <= CURDATE())'
-    +           ' and'
-    +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
-    +           ' )'
-    +         ' )'
-    +       ' )'
-    +   ' join agency on (agency.id=member.agency_id)'
-    + ' where'
-    +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
-    +   ' and'
-    +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+    + ' , ' + metric_phrase + ' as utilization'
+    + from_where_phrase
     + ' group by agency.id'
     + ' order by utilization desc',
     connection

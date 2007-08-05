@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `indicator_core_ops_size` (
 -- Constraints for table `indicator_core_ops_size`
 --
 ALTER TABLE `indicator_core_ops_size`
-  ADD CONSTRAINT `agency_id` FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
+  ADD CONSTRAINT FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
 
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `indicator_utilization` (
 -- Constraints for table `indicator_utilization`
 --
 ALTER TABLE `indicator_utilization`
-  ADD CONSTRAINT `agency_id` FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
+  ADD CONSTRAINT FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
 
 
 -- --------------------------------------------------------
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `indicator_crew_shifts_forecast` (
 -- Constraints for table `indicator_crew_shifts_forecast`
 --
 ALTER TABLE `indicator_crew_shifts_forecast`
-  ADD CONSTRAINT `agency_id` FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
+  ADD CONSTRAINT FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
 
 
 -- --------------------------------------------------------
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS `indicator_standard_enrollment` (
 -- Constraints for table `indicator_standard_enrollment`
 --
 ALTER TABLE `indicator_standard_enrollment`
-  ADD CONSTRAINT `agency_id` FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
+  ADD CONSTRAINT FOREIGN KEY (`agency_id`) REFERENCES `agency` (`id`);
 
 
 COMMIT
