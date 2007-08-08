@@ -57,6 +57,8 @@
 			<p><ASP:PlaceHolder id="PlaceHolder_ranked_crew_shifts_forecast" runat="server"></ASP:PlaceHolder></p>
 			<p><ASP:PlaceHolder id="PlaceHolder_ranked_standard_enrollment" runat="server"></ASP:PlaceHolder></p>
 		  </td>
+		</tr>
+	  </table>
 	</form>
   </body>
 </html>

@@ -123,8 +123,8 @@
 			<Directories Name="UnitOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDLLOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDCPOutputDir" Type="String"></Directories>
-			<Directories Name="SearchPath" Type="String">c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\oscardotnet\lib\ki</Directories>
-			<Directories Name="Packages" Type="String">ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
+			<Directories Name="SearchPath" Type="String">c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\oscardotnet\lib\ki;c:\inetpub\wwwroot\oscardotnet\bin</Directories>
+			<Directories Name="Packages" Type="String">c:\inetpub\wwwroot\oscardotnet\bin\Microsoft.Web.UI.WebControls.dll;ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
 			<Directories Name="Conditionals" Type="String"></Directories>
 			<Directories Name="DebugSourceDirs" Type="String"></Directories>
 			<Directories Name="UsePackages" Type="Boolean">True</Directories>
@@ -197,7 +197,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2738.23718" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2775.26524" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -248,6 +248,9 @@
       <File FileName="protected\change_leave.aspx" ContainerId="AspMarkupContainer" ModuleName="change_leave"/>
       <File FileName="protected\change_cad_num.aspx" ContainerId="AspMarkupContainer" ModuleName="change_cad_num"/>
       <File FileName="protected\change_name.aspx" ContainerId="AspMarkupContainer" ModuleName="change_name"/>
+      <File FileName="usercontrol\app\UserControl_member_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_member_binder"/>
+      <File FileName="bin\Microsoft.Web.UI.WebControls.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Microsoft.Web.UI.WebControls" AssemblyName="Microsoft.Web.UI.WebControls" Version="1.0.2.226" LinkUnits="False"/>
+      <File FileName="usercontrol\app\UserControl_dashboard_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_dashboard_binder"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -332,6 +335,8 @@
       <File FileName="protected\change_leave.pas" ContainerId="" ModuleName="change_leave" Parent="protected\change_leave.aspx"/>
       <File FileName="protected\change_cad_num.pas" ContainerId="" ModuleName="change_cad_num" Parent="protected\change_cad_num.aspx"/>
       <File FileName="protected\change_name.pas" ContainerId="" ModuleName="change_name" Parent="protected\change_name.aspx"/>
+      <File FileName="usercontrol\app\UserControl_member_binder.pas" ContainerId="" ModuleName="UserControl_member_binder" Parent="usercontrol\app\UserControl_member_binder.ascx"/>
+      <File FileName="usercontrol\app\UserControl_dashboard_binder.pas" ContainerId="" ModuleName="UserControl_dashboard_binder" Parent="usercontrol\app\UserControl_dashboard_binder.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
