@@ -13,7 +13,7 @@ uses
   Class_biz_users,
   UserControl_establish_membership,
   UserControl_print_div,
-  UserControl_roster;
+  UserControl_member_binder;
 
 type
   p_type =
@@ -42,8 +42,8 @@ type
     LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     UserControl_print_div: TWebUserControl_print_div;
     Label_username: System.Web.UI.WebControls.Label;
-    PlaceHolder_roster: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_establish_membership: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_member_binder: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -119,22 +119,16 @@ begin
     end;
   end;
   //
-  if session['privilege_array'] = nil then begin
+  if p.biz_members.IdOfUserId(p.biz_user.IdNum) = system.string.EMPTY then begin
     //
-    // Display controls appropriate ONLY to unprivileged users.
+    // Display controls appropriate ONLY to nonmembers.
     //
     PlaceHolder_establish_membership.controls.Add
       (TWebUserControl_establish_membership(LoadControl('~/usercontrol/app/UserControl_establish_membership.ascx')));
     //
   end else begin
     //
-    // Display controls appropriate to user's privileges.
-    //
-    if Has(string_array(session['privilege_array']),'see-roster') then begin
-      //
-      PlaceHolder_roster.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));
-      //
-    end;
+    PlaceHolder_member_binder.controls.Add(TWebUserControl_member_binder(LoadControl('~/usercontrol/app/UserControl_member_binder.ascx')));
     //
   end;
   //
