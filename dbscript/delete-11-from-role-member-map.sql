@@ -1,0 +1,1 @@
+delete from role_member_map where role_id = 11;

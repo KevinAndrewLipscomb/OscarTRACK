@@ -11,6 +11,7 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
+  UserControl_dashboard_binder,
   UserControl_roster;
 
 type
@@ -31,6 +32,7 @@ type
     TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
     MultiPage1: Microsoft.Web.UI.WebControls.MultiPage;
     UserControl_roster: TWebUserControl_roster;
+    UserControl_dashboard_binder: TWebUserControl_dashboard_binder;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -45,6 +47,12 @@ uses
   ki,
   System.Collections,
   system.configuration;
+
+const
+  TSSI_PERSONNEL = 0;
+  TSSI_DASHBOARD = 1;
+  TSSI_CONFIG = 2;
+  TSSI_ABOUT = 3;
 
 procedure TWebUserControl_member_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -88,8 +96,10 @@ end;
 procedure TWebUserControl_member_binder.TWebUserControl_member_binder_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
+  //
   session.Remove('UserControl_member_binder.p');
   session.Add('UserControl_member_binder.p',p);
+  //
 end;
 
 end.

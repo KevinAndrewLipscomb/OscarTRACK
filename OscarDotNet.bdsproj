@@ -251,6 +251,7 @@
       <File FileName="usercontrol\app\UserControl_member_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_member_binder"/>
       <File FileName="bin\Microsoft.Web.UI.WebControls.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Microsoft.Web.UI.WebControls" AssemblyName="Microsoft.Web.UI.WebControls" Version="1.0.2.226" LinkUnits="False"/>
       <File FileName="usercontrol\app\UserControl_dashboard_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_dashboard_binder"/>
+      <File FileName="usercontrol\app\UserControl_about.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_about"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -337,6 +338,7 @@
       <File FileName="protected\change_name.pas" ContainerId="" ModuleName="change_name" Parent="protected\change_name.aspx"/>
       <File FileName="usercontrol\app\UserControl_member_binder.pas" ContainerId="" ModuleName="UserControl_member_binder" Parent="usercontrol\app\UserControl_member_binder.ascx"/>
       <File FileName="usercontrol\app\UserControl_dashboard_binder.pas" ContainerId="" ModuleName="UserControl_dashboard_binder" Parent="usercontrol\app\UserControl_dashboard_binder.ascx"/>
+      <File FileName="usercontrol\app\UserControl_about.pas" ContainerId="" ModuleName="UserControl_about" Parent="usercontrol\app\UserControl_about.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
