@@ -113,10 +113,6 @@ begin
     //
     session.Remove('privilege_array');
     session.Add('privilege_array',p.biz_user.Privileges);
-    if (session['privilege_array'] <> nil) then begin
-      session.Remove('member_id');
-      session.Add('member_id',p.biz_members.IdOfUserId(session['user_id'].tostring));
-    end;
   end;
   //
   if p.biz_members.IdOfUserId(p.biz_user.IdNum) = system.string.EMPTY then begin
@@ -128,6 +124,8 @@ begin
     //
   end else begin
     //
+    session.Remove('member_id');
+    session.Add('member_id',p.biz_members.IdOfUserId(session['user_id'].tostring));
     PlaceHolder_member_binder.controls.Add(TWebUserControl_member_binder(LoadControl('~/usercontrol/app/UserControl_member_binder.ascx')));
     //
   end;

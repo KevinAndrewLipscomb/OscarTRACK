@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_dashboard_binder.pas" Inherits="UserControl_dashboard_binder.TWebUserControl_dashboard_binder"%>
+<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_dashboard_binder.pas" Inherits="UserControl_dashboard_binder.TWebUserControl_dashboard_binder" %>
 <%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
 <%@ Import namespace="Microsoft.Web.UI.WebControls"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_ranked_core_ops_size" Src="~/usercontrol/app/UserControl_ranked_core_ops_size.ascx" %>
@@ -12,7 +12,7 @@
 		  <iewc:TabStrip id="TabStrip1" runat="server" tabselectedstyle="padding:10;border-top:thin solid silver;border-left:thin solid silver;border-right:thin solid silver;background-color:white;font-weight:bold;"
 			   tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;" targetid="MultiPage1" forecolor="Blue" tabhoverstyle="background-color:gainsboro;" width="100%">
 		  <iewc:Tab text="Current"></iewc:Tab>
-		  <iewc:Tab text="Trend" enabled="False"></iewc:Tab>
+		  <iewc:Tab text="Serial" enabled="False"></iewc:Tab>
 		  </iewc:TabStrip>
 		</td>
 	  </tr>
