@@ -25,6 +25,7 @@ type
     RECORD
     agency_filter: string;
     be_datagrid_empty: boolean;
+    be_loaded: boolean;
     be_sort_order_ascending: boolean;
     be_user_privileged_to_see_all_squads: boolean;
     biz_agencies: TClass_biz_agencies;
@@ -113,6 +114,8 @@ type
     { Private Declarations }
   public
     { Public Declarations }
+  published
+    function Fresh: TWebUserControl_roster;
   end;
 
 implementation
@@ -127,7 +130,7 @@ uses
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
     LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-members');
     //
@@ -200,6 +203,8 @@ begin
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
+    p.be_loaded := TRUE;
+    //
   end;
   //
 end;
@@ -212,10 +217,14 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_roster.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_roster.p'] <> nil)
+    and (session['UserControl_roster.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_roster.p']);
   end else begin
     //
+    p.be_loaded := FALSE;
     p.biz_agencies := TClass_biz_agencies.Create;
     p.biz_enrollment := TClass_biz_enrollment.Create;
     p.biz_leave := TClass_biz_leave.Create;
@@ -523,6 +532,12 @@ begin
   p.num_standard_commitments := 0;
   p.years_of_service_array_list.Clear;
   //
+end;
+
+function TWebUserControl_roster.Fresh: TWebUserControl_roster;
+begin
+  session.Remove('UserControl_roster.p');
+  Fresh := self;
 end;
 
 end.

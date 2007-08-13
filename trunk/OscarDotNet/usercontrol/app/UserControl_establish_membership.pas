@@ -16,6 +16,7 @@ uses
 type
   p_type =
     RECORD
+    be_loaded: boolean;
     biz_user: TClass_biz_user;
     biz_users: TClass_biz_users;
     END;
@@ -51,6 +52,8 @@ type
     { Private Declarations }
   public
     { Public Declarations }
+  published
+    function Fresh: TWebUserControl_establish_membership;
   end;
 
 implementation
@@ -64,7 +67,7 @@ uses
 procedure TWebUserControl_establish_membership.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
     Label_application_name_1.text := configurationsettings.appsettings['application_name'];
     Label_sponsor_1.text := configurationsettings.appsettings['sponsor'];
@@ -86,10 +89,14 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_establish_membership.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_establish_membership.p'] <> nil)
+    and (session['UserControl_establish_membership.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_establish_membership.p']);
   end else begin
     //
+    p.be_loaded := FALSE;
     p.biz_user := TClass_biz_user.Create;
     p.biz_users := TClass_biz_users.Create;
     //
@@ -140,6 +147,12 @@ procedure TWebUserControl_establish_membership.TWebUserControl_establish_members
 begin
   session.Remove('UserControl_establish_membership.p');
   session.Add('UserControl_establish_membership.p',p);
+end;
+
+function TWebUserControl_establish_membership.Fresh: TWebUserControl_establish_membership;
+begin
+  session.Remove('UserControl_establish_membership.p');
+  Fresh := self;
 end;
 
 end.

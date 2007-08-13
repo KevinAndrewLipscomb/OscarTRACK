@@ -17,6 +17,7 @@ uses
 type
   p_type =
     RECORD
+    be_loaded: boolean;
     biz_members: TClass_biz_members;
     biz_indicator_median_length_of_service: TClass_biz_indicator_median_length_of_service;
     citywide_years_of_service_array_list: arraylist;
@@ -54,6 +55,8 @@ type
     { Private Declarations }
   public
     { Public Declarations }
+  published
+    function Fresh: TWebUserControl_ranked_length_of_service;
   end;
 
 implementation
@@ -64,17 +67,22 @@ uses
   system.configuration;
 
 procedure TWebUserControl_ranked_length_of_service.Page_Load(sender: System.Object; e: System.EventArgs);
+var
+  be_trendable: boolean;
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
     p.biz_members.BindSpecialForRankedLengthOfService(DataGrid_special);
     //
     p.citywide_years_of_service_array_list.Sort;
     Label_overall.text := Median(p.citywide_years_of_service_array_list).tostring('F2');
     //
+    be_trendable := (session['mode:report/monthly-core-ops-dashboard'] <> nil);
+    //
     p.biz_indicator_median_length_of_service.Log
       (
+      be_trendable,
       p.citywide_years_of_service_array_list,
       p.ems_years_of_service_array_list,
       p.r01_years_of_service_array_list,
@@ -88,7 +96,9 @@ begin
       p.r16_years_of_service_array_list,
       p.r17_years_of_service_array_list
       );
-    p.biz_indicator_median_length_of_service.BindLatestRankedYearsOfService(DataGrid_detail);
+    p.biz_indicator_median_length_of_service.BindLatestRankedYearsOfService(DataGrid_detail,be_trendable);
+    //
+    p.be_loaded := TRUE;
     //
   end;
   //
@@ -102,10 +112,14 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_ranked_length_of_service.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_ranked_length_of_service.p'] <> nil)
+    and (session['UserControl_ranked_length_of_service.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_ranked_length_of_service.p']);
   end else begin
     //
+    p.be_loaded := FALSE;
     p.biz_members := TClass_biz_members.Create;
     p.biz_indicator_median_length_of_service := TClass_biz_indicator_median_length_of_service.Create;
     p.citywide_years_of_service_array_list := arraylist.Create;
@@ -194,6 +208,12 @@ procedure TWebUserControl_ranked_length_of_service.TWebUserControl_ranked_length
 begin
   session.Remove('UserControl_ranked_length_of_service.p');
   session.Add('UserControl_ranked_length_of_service.p',p);
+end;
+
+function TWebUserControl_ranked_length_of_service.Fresh: TWebUserControl_ranked_length_of_service;
+begin
+  session.Remove('UserControl_ranked_length_of_service.p');
+  Fresh := self;
 end;
 
 end.

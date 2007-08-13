@@ -62,6 +62,7 @@ library OscarDotNet;
 {%DelphiDotNetAssemblyCompiler 'bin\Microsoft.Web.UI.WebControls.dll'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_dashboard_binder.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_about.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_current_indicators.ascx'}
 
 uses
   System.Reflection,
@@ -150,7 +151,8 @@ uses
   change_name in 'protected\change_name.pas' {change_name.TWebForm_change_name: ki_web_ui.page_class},
   UserControl_member_binder in 'usercontrol\app\UserControl_member_binder.pas' {UserControl_member_binder.TWebUserControl_member_binder: ki_web_ui.usercontrol_class},
   UserControl_dashboard_binder in 'usercontrol\app\UserControl_dashboard_binder.pas' {UserControl_dashboard_binder.TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class},
-  UserControl_about in 'usercontrol\app\UserControl_about.pas' {UserControl_about.TWebUserControl_about: ki_web_ui.usercontrol_class};
+  UserControl_about in 'usercontrol\app\UserControl_about.pas' {UserControl_about.TWebUserControl_about: ki_web_ui.usercontrol_class},
+  UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas' {UserControl_current_indicators.TWebUserControl_current_indicators: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

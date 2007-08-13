@@ -48,10 +48,26 @@ type
       : boolean;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
     function BeValidProfile(id: string): boolean;
-    procedure BindRankedCoreOpsSize(target: system.object);
-    procedure BindRankedCrewShiftsForecast(target: system.object);
-    procedure BindRankedStandardEnrollment(target: system.object);
-    procedure BindRankedUtilization(target: system.object);
+    procedure BindRankedCoreOpsSize
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedCrewShiftsForecast
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedStandardEnrollment
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedUtilization
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
     procedure BindRoster
       (
       member_id: string;
@@ -239,24 +255,40 @@ begin
   BeValidProfile := db_members.BeValidProfile(id);
 end;
 
-procedure TClass_biz_members.BindRankedCoreOpsSize(target: system.object);
+procedure TClass_biz_members.BindRankedCoreOpsSize
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 begin
-  db_members.BindRankedCoreOpsSize(target);
+  db_members.BindRankedCoreOpsSize(target,do_log);
 end;
 
-procedure TClass_biz_members.BindRankedCrewShiftsForecast(target: system.object);
+procedure TClass_biz_members.BindRankedCrewShiftsForecast
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 begin
-  db_members.BindRankedCrewShiftsForecast(target);
+  db_members.BindRankedCrewShiftsForecast(target,do_log);
 end;
 
-procedure TClass_biz_members.BindRankedStandardEnrollment(target: system.object);
+procedure TClass_biz_members.BindRankedStandardEnrollment
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 begin
-  db_members.BindRankedStandardEnrollment(target);
+  db_members.BindRankedStandardEnrollment(target,do_log);
 end;
 
-procedure TClass_biz_members.BindRankedUtilization(target: system.object);
+procedure TClass_biz_members.BindRankedUtilization
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 begin
-  db_members.BindRankedUtilization(target);
+  db_members.BindRankedUtilization(target,do_log);
 end;
 
 procedure TClass_biz_members.BindRoster

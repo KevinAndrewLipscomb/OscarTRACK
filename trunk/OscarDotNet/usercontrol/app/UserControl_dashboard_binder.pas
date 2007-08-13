@@ -11,15 +11,12 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
-  UserControl_ranked_core_ops_size,
-  UserControl_ranked_crew_shifts_forecast,
-  UserControl_ranked_utilization,
-  UserControl_ranked_standard_enrollment,
-  UserControl_ranked_length_of_service;
+  UserControl_current_indicators;
 
 type
   p_type =
     RECORD
+    be_loaded: boolean;
     END;
   TWebUserControl_dashboard_binder = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -27,23 +24,21 @@ type
     procedure InitializeComponent;
     procedure TWebUserControl_dashboard_binder_PreRender(sender: System.Object;
       e: System.EventArgs);
+    procedure TabStrip1_SelectedIndexChange(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
-    MultiPage1: Microsoft.Web.UI.WebControls.MultiPage;
-    UserControl_ranked_core_ops_size: TWebUserControl_ranked_core_ops_size;
-    UserControl_ranked_crew_shifts_forecast: TWebUserControl_ranked_crew_shifts_forecast;
-    UserControl_ranked_utilization: TWebUserControl_ranked_utilization;
-    UserControl_ranked_standard_enrollment: TWebUserControl_ranked_standard_enrollment;
-    UserControl_ranked_length_of_service: TWebUserControl_ranked_length_of_service;
+    PlaceHolder_current: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_serial: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
   public
-    { Public Declarations }
+  published
+    function Fresh: TWebUserControl_dashboard_binder;
   end;
 
 implementation
@@ -54,11 +49,17 @@ uses
   System.Collections,
   system.configuration;
 
+const
+  TSSI_CURRENT = 0;
+  TSSI_SERIAL = 1;
+
 procedure TWebUserControl_dashboard_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
+    //
+    p.be_loaded := TRUE;
     //
   end;
   //
@@ -72,13 +73,30 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_dashboard_binder.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_dashboard_binder.p'] <> nil)
+    and (session['UserControl_dashboard_binder.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_dashboard_binder.p']);
   end else begin
     //
+    p.be_loaded := FALSE;
+    //
+    PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh);
     //
   end;
   //
+end;
+
+procedure TWebUserControl_dashboard_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
+  e: System.EventArgs);
+begin
+  case TabStrip1.selectedindex of
+  TSSI_CURRENT:
+    PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh);
+  TSSI_SERIAL:
+    PlaceHolder_serial.controls.Clear;
+  end;
 end;
 
 {$REGION 'Designer Managed Code'}
@@ -88,6 +106,7 @@ end;
 /// </summary>
 procedure TWebUserControl_dashboard_binder.InitializeComponent;
 begin
+  Include(Self.TabStrip1.SelectedIndexChange, Self.TabStrip1_SelectedIndexChange);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_dashboard_binder_PreRender);
 end;
@@ -98,6 +117,12 @@ procedure TWebUserControl_dashboard_binder.TWebUserControl_dashboard_binder_PreR
 begin
   session.Remove('UserControl_dashboard_binder.p');
   session.Add('UserControl_dashboard_binder.p',p);
+end;
+
+function TWebUserControl_dashboard_binder.Fresh: TWebUserControl_dashboard_binder;
+begin
+  session.Remove('UserControl_dashboard_binder.p');
+  Fresh := self;
 end;
 
 end.

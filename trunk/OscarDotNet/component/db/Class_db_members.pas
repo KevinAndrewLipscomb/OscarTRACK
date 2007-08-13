@@ -69,10 +69,26 @@ type
       )
       : boolean; overload;
     function BeValidProfile(id: string): boolean;
-    procedure BindRankedCoreOpsSize(target: system.object);
-    procedure BindRankedCrewShiftsForecast(target: system.object);
-    procedure BindRankedStandardEnrollment(target: system.object);
-    procedure BindRankedUtilization(target: system.object);
+    procedure BindRankedCoreOpsSize
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedCrewShiftsForecast
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedStandardEnrollment
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
+    procedure BindRankedUtilization
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
     procedure BindRoster
       (
       member_id: string;
@@ -288,7 +304,11 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindRankedCoreOpsSize(target: system.object);
+procedure TClass_db_members.BindRankedCoreOpsSize
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 var
   from_where_phrase: string;
   metric_phrase: string;
@@ -320,36 +340,42 @@ begin
   +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
   //
   self.Open;
-  bdpcommand.Create
-    (
-    'START TRANSACTION;'
+  if do_log then begin
+    bdpcommand.Create
+      (
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        //
+        // Log squad-by-squad indicators.
+        //
+        + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , TRUE'
+        +     ' , agency.id'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        +   ' group by agency.id'
+        + ';'
+        //
+        // Log citywide indicator.
+        //
+        + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , FALSE'
+        +     ' , 0'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        + ';'
+        + ' COMMIT'
+        ),
+      connection
+      )
+      .ExecuteNonQuery;
     //
-    // Log squad-by-squad indicators.
-    //
-    + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , TRUE'
-    +     ' , agency.id'
-    +     ' , ' + metric_phrase
-    + from_where_phrase
-    +   ' group by agency.id'
-    + ';'
-    //
-    // Log citywide indicator.
-    //
-    + ' replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , FALSE'
-    +     ' , 0'
-    +     ' , ' + metric_phrase
-    + from_where_phrase
-    + ';'
-    + ' COMMIT',
-    connection
-    )
-    .ExecuteNonQuery;
+  end;
   //
   // Bind datagrid for display.
   //
@@ -368,7 +394,11 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindRankedCrewShiftsForecast(target: system.object);
+procedure TClass_db_members.BindRankedCrewShiftsForecast
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 var
   from_where_phrase: string;
   metric_phrase: string;
@@ -422,36 +452,42 @@ begin
   +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
   //
   self.Open;
-  bdpcommand.Create
-    (
-    'START TRANSACTION;'
+  if do_log then begin
+    bdpcommand.Create
+      (
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        //
+        // Log squad-by-squad indicators.
+        //
+        + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , TRUE'
+        +     ' , agency.id'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        +   ' group by agency.id'
+        + ';'
+        //
+        // Log citywide indicator.
+        //
+        + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , FALSE'
+        +     ' , 0'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        + ';'
+        + ' COMMIT'
+        ),
+      connection
+      )
+      .ExecuteNonQuery;
     //
-    // Log squad-by-squad indicators.
-    //
-    + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , TRUE'
-    +     ' , agency.id'
-    +     ' , ' + metric_phrase
-    + from_where_phrase
-    +   ' group by agency.id'
-    + ';'
-    //
-    // Log citywide indicator.
-    //
-    + ' replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , FALSE'
-    +     ' , 0'
-    +     ' , ' + metric_phrase
-    + from_where_phrase
-    + ';'
-    + ' COMMIT',
-    connection
-    )
-    .ExecuteNonQuery;
+  end;
   //
   // Bind datagrid for display.
   //
@@ -470,7 +506,11 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindRankedStandardEnrollment(target: system.object);
+procedure TClass_db_members.BindRankedStandardEnrollment
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 var
   from_where_phrase: string;
   metric_phrase: string;
@@ -502,36 +542,42 @@ begin
   +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
   //
   self.Open;
-  bdpcommand.Create
-    (
-    'START TRANSACTION;'
+  if do_log then begin
+    bdpcommand.Create
+      (
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        //
+        // Log squad-by-squad indicators.
+        //
+        + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , TRUE'
+        +     ' , agency.id'
+        +     ' , ' + metric_phrase + '*100'
+        + from_where_phrase
+        +   ' group by agency.id'
+        + ';'
+        //
+        // Log citywide indicator.
+        //
+        + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , FALSE'
+        +     ' , 0'
+        +     ' , ' + metric_phrase + '*100'
+        + from_where_phrase
+        + ';'
+        + ' COMMIT'
+        ),
+      connection
+      )
+      .ExecuteNonQuery;
     //
-    // Log squad-by-squad indicators.
-    //
-    + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , TRUE'
-    +     ' , agency.id'
-    +     ' , ' + metric_phrase + '*100'
-    + from_where_phrase
-    +   ' group by agency.id'
-    + ';'
-    //
-    // Log citywide indicator.
-    //
-    + ' replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , FALSE'
-    +     ' , 0'
-    +     ' , ' + metric_phrase + '*100'
-    + from_where_phrase
-    + ';'
-    + ' COMMIT',
-    connection
-    )
-    .ExecuteNonQuery;
+  end;
   //
   // Bind datagrid for display.
   //
@@ -552,7 +598,11 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_members.BindRankedUtilization(target: system.object);
+procedure TClass_db_members.BindRankedUtilization
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
 var
   from_where_phrase: string;
   metric_phrase: string;
@@ -606,36 +656,42 @@ begin
   +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
   //
   self.Open;
-  bdpcommand.Create
-    (
-    'START TRANSACTION;'
+  if do_log then begin
+    bdpcommand.Create
+      (
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        //
+        // Log squad-by-squad indicators.
+        //
+        + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , TRUE'
+        +     ' , agency.id'
+        +     ' , ' + metric_phrase + '*100'
+        + from_where_phrase
+        +   ' group by agency.id'
+        + ';'
+        //
+        // Log citywide indicator.
+        //
+        + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , FALSE'
+        +     ' , 0'
+        +     ' , ' + metric_phrase + '*100'
+        + from_where_phrase
+        + ';'
+        + ' COMMIT'
+        ),
+      connection
+      )
+      .ExecuteNonQuery;
     //
-    // Log squad-by-squad indicators.
-    //
-    + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , TRUE'
-    +     ' , agency.id'
-    +     ' , ' + metric_phrase + '*100'
-    + from_where_phrase
-    +   ' group by agency.id'
-    + ';'
-    //
-    // Log citywide indicator.
-    //
-    + ' replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)'
-    +   ' select YEAR(CURDATE())'
-    +     ' , MONTH(CURDATE())'
-    +     ' , FALSE'
-    +     ' , 0'
-    +     ' , ' + metric_phrase + '*100'
-    + from_where_phrase
-    + ';'
-    + ' COMMIT',
-    connection
-    )
-    .ExecuteNonQuery;
+  end;
   //
   // Bind datagrid for display.
   //
