@@ -1,10 +1,5 @@
 <%@ Page language="c#" Debug="true" Codebehind="report_monthly_core_ops_dashboard.pas" AutoEventWireup="false" Inherits="report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
-<%@ Reference Control="~/usercontrol/app/UserControl_ranked_core_ops_size.ascx" %>
-<%@ Reference Control="~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx" %>
-<%@ Reference Control="~/usercontrol/app/UserControl_ranked_utilization.ascx" %>
-<%@ Reference Control="~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx" %>
-<%@ Reference Control="~/usercontrol/app/UserControl_ranked_length_of_service.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -45,20 +40,7 @@
 				</table></td>
 			</tr>
 		</table></p>
-	  <table cellspacing="0" cellpadding="0" border="0" width="100%">
-		<tr>
-		  <td valign="top" width="50%">
-			<p><ASP:PlaceHolder id="PlaceHolder_ranked_core_ops_size" runat="server"></ASP:PlaceHolder></p>
-			<p><ASP:PlaceHolder id="PlaceHolder_ranked_utilization" runat="server"></ASP:PlaceHolder></p>
-			<p><ASP:PlaceHolder id="PlaceHolder_ranked_length_of_service" runat="server"></ASP:PlaceHolder></p>
-		  </td>
-		  <td>&nbsp;&nbsp;</td>
-		  <td valign="top" width="50%">
-			<p><ASP:PlaceHolder id="PlaceHolder_ranked_crew_shifts_forecast" runat="server"></ASP:PlaceHolder></p>
-			<p><ASP:PlaceHolder id="PlaceHolder_ranked_standard_enrollment" runat="server"></ASP:PlaceHolder></p>
-		  </td>
-		</tr>
-	  </table>
+        <ASP:PlaceHolder id="PlaceHolder_current" runat="server"></ASP:PlaceHolder>
 	</form>
   </body>
 </html>

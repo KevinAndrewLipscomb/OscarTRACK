@@ -7,11 +7,7 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
   Class_biz_members,
-  UserControl_ranked_core_ops_size,
-  UserControl_ranked_crew_shifts_forecast,
-  UserControl_ranked_length_of_service,
-  UserControl_ranked_standard_enrollment,
-  UserControl_ranked_utilization;
+  UserControl_current_indicators;
 
 type
   p_type =
@@ -32,11 +28,7 @@ type
     Label_application_name_1: System.Web.UI.WebControls.Label;
     Label_application_name_2: System.Web.UI.WebControls.Label;
     HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
-    PlaceHolder_ranked_core_ops_size: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_ranked_crew_shifts_forecast: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_ranked_length_of_service: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_ranked_standard_enrollment: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_ranked_utilization: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_current: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
   private
@@ -95,11 +87,7 @@ begin
   session.Add('mode:report',system.string.EMPTY);
   session.Add('mode:report/monthly-core-ops-dashboard',system.string.EMPTY);
   //
-  PlaceHolder_ranked_core_ops_size.controls.Add(TWebUserControl_ranked_core_ops_size(LoadControl('~/usercontrol/app/UserControl_ranked_core_ops_size.ascx')));
-  PlaceHolder_ranked_crew_shifts_forecast.controls.Add(TWebUserControl_ranked_crew_shifts_forecast(LoadControl('~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx')));
-  PlaceHolder_ranked_standard_enrollment.controls.Add(TWebUserControl_ranked_standard_enrollment(LoadControl('~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx')));
-  PlaceHolder_ranked_utilization.controls.Add(TWebUserControl_ranked_utilization(LoadControl('~/usercontrol/app/UserControl_ranked_utilization.ascx')));
-  PlaceHolder_ranked_length_of_service.controls.Add(TWebUserControl_ranked_length_of_service(LoadControl('~/usercontrol/app/UserControl_ranked_length_of_service.ascx')));
+  PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')));
   //
 end;
 

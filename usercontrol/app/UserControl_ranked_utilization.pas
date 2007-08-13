@@ -15,6 +15,7 @@ uses
 type
   p_type =
     RECORD
+    be_loaded: boolean;
     biz_members: TClass_biz_members;
     rank: cardinal;
     total_cooked: decimal;
@@ -39,6 +40,8 @@ type
     { Private Declarations }
   public
     { Public Declarations }
+  published
+    function Fresh: TWebUserControl_ranked_utilization;
   end;
 
 implementation
@@ -52,10 +55,12 @@ uses
 procedure TWebUserControl_ranked_utilization.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
-    p.biz_members.BindRankedUtilization(DataGrid_detail);
+    p.biz_members.BindRankedUtilization(DataGrid_detail,(session['mode:report/monthly-core-ops-dashboard'] <> nil));
     Label_total.text := (p.total_cooked/p.total_raw).tostring('P0');
+    //
+    p.be_loaded := TRUE;
     //
   end;
   //
@@ -69,10 +74,14 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_ranked_utilization.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_ranked_utilization.p'] <> nil)
+    and (session['UserControl_ranked_utilization.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_ranked_utilization.p']);
   end else begin
     //
+    p.be_loaded :=FALSE;
     p.biz_members := TClass_biz_members.Create;
     p.rank := 0;
     p.total_cooked := 0;
@@ -124,6 +133,12 @@ procedure TWebUserControl_ranked_utilization.TWebUserControl_ranked_utilization_
 begin
   session.Remove('UserControl_ranked_utilization.p');
   session.Add('UserControl_ranked_utilization.p',p);
+end;
+
+function TWebUserControl_ranked_utilization.Fresh: TWebUserControl_ranked_utilization;
+begin
+  session.Remove('UserControl_ranked_utilization.p');
+  Fresh := self;
 end;
 
 end.

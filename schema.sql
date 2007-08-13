@@ -385,12 +385,13 @@ CREATE TABLE IF NOT EXISTS `indicator_crew_shifts_forecast` (
 
 DROP TABLE IF EXISTS indicator_median_length_of_service;
 CREATE TABLE IF NOT EXISTS indicator_median_length_of_service (
+  be_trendable BOOLEAN NOT NULL DEFAULT 0,
   `year` INTEGER UNSIGNED NOT NULL,
   `month` TINYINT UNSIGNED NOT NULL,
   `be_agency_id_applicable` BOOLEAN NOT NULL
   `agency_id` INTEGER UNSIGNED NOT NULL DEFAULT 0,
   `m` FLOAT UNSIGNED NOT NULL,
-  PRIMARY KEY(`year`, `month`, `be_agency_id_applicable`, `agency_id`)
+  PRIMARY KEY(be_trendable, `year`, `month`, `be_agency_id_applicable`, `agency_id`)
 ) ENGINE = InnoDB;
 
 
@@ -441,7 +442,7 @@ CREATE TABLE IF NOT EXISTS journal (
   `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
   `timestamp` TIMESTAMP NOT NULL,
   actor VARCHAR(31) NOT NULL,
-  action VARCHAR(2047) NOT NULL,
+  action VARCHAR(4095) NOT NULL,
   PRIMARY KEY(`id`),
   INDEX actor (actor)
 ) ENGINE = InnoDB DEFAULT CHARSET=utf8;

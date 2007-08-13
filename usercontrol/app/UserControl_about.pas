@@ -14,6 +14,7 @@ uses
 type
   p_type =
     RECORD
+    be_loaded: boolean;
     END;
   TWebUserControl_about = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -32,6 +33,8 @@ type
     { Private Declarations }
   public
     { Public Declarations }
+  published
+    function Fresh: TWebUserControl_about;
   end;
 
 implementation
@@ -45,9 +48,11 @@ uses
 procedure TWebUserControl_about.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
-  if not IsPostback then begin
+  if not p.be_loaded then begin
     //
     Label_application_name.text := configurationsettings.appsettings['application_name'];
+    //
+    p.be_loaded := TRUE;
     //
   end;
   //
@@ -61,10 +66,14 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['UserControl_about.p'].GetType.namespace = p.GetType.namespace) then begin
+  if IsPostback
+    and (session['UserControl_about.p'] <> nil)
+    and (session['UserControl_about.p'].GetType.namespace = p.GetType.namespace)
+  then begin
     p := p_type(session['UserControl_about.p']);
   end else begin
     //
+    p.be_loaded := FALSE;
     //
   end;
   //
@@ -87,6 +96,12 @@ procedure TWebUserControl_about.TWebUserControl_about_PreRender(sender: System.O
 begin
   session.Remove('UserControl_about.p');
   session.Add('UserControl_about.p',p);
+end;
+
+function TWebUserControl_about.Fresh: TWebUserControl_about;
+begin
+  session.Remove('UserControl_about.p');
+  Fresh := self;
 end;
 
 end.

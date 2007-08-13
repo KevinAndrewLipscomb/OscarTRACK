@@ -12,9 +12,14 @@ type
     db_indicator_median_length_of_service: TClass_db_indicator_median_length_of_service;
   public
     constructor Create;
-    procedure BindLatestRankedYearsOfService(target: system.object);
+    procedure BindLatestRankedYearsOfService
+      (
+      target: system.object;
+      be_trendable: boolean
+      );
     procedure Log
       (
+      be_trendable: boolean;
       citywide_array_list: arraylist;
       ems_array_list: arraylist;
       r01_array_list: arraylist;
@@ -42,13 +47,18 @@ begin
   db_indicator_median_length_of_service := TClass_db_indicator_median_length_of_service.Create;
 end;
 
-procedure TClass_biz_indicator_median_length_of_service.BindLatestRankedYearsOfService(target: system.object);
+procedure TClass_biz_indicator_median_length_of_service.BindLatestRankedYearsOfService
+  (
+  target: system.object;
+  be_trendable: boolean
+  );
 begin
-  db_indicator_median_length_of_service.BindLatestRankedYearsOfService(target);
+  db_indicator_median_length_of_service.BindLatestRankedYearsOfService(target,be_trendable);
 end;
 
 procedure TClass_biz_indicator_median_length_of_service.Log
   (
+  be_trendable: boolean;
   citywide_array_list: arraylist;
   ems_array_list: arraylist;
   r01_array_list: arraylist;
@@ -78,6 +88,7 @@ begin
   //
   db_indicator_median_length_of_service.Log
     (
+    be_trendable,
     Median(citywide_array_list),
     Median(ems_array_list),
     Median(r01_array_list),
