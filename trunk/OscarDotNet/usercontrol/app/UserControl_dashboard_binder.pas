@@ -78,6 +78,16 @@ begin
     and (session['UserControl_dashboard_binder.p'].GetType.namespace = p.GetType.namespace)
   then begin
     p := p_type(session['UserControl_dashboard_binder.p']);
+    //
+    // Dynamic controls must be re-added on each postback.
+    //
+    case TabStrip1.selectedindex of
+    TSSI_CURRENT:
+      PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')));
+//    TSSI_SERIAL:
+//      PlaceHolder_serial.controls.Add(TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')));
+    end;
+    //
   end else begin
     //
     p.be_loaded := FALSE;
@@ -91,11 +101,13 @@ end;
 procedure TWebUserControl_dashboard_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
   e: System.EventArgs);
 begin
+  PlaceHolder_current.controls.Clear;
+  PlaceHolder_serial.controls.Clear;
   case TabStrip1.selectedindex of
   TSSI_CURRENT:
     PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh);
-  TSSI_SERIAL:
-    PlaceHolder_serial.controls.Clear;
+//  TSSI_SERIAL:
+//    PlaceHolder_serial.controls.Add(TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')).Fresh);
   end;
 end;
 

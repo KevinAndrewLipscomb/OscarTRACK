@@ -87,6 +87,22 @@ begin
     and (session['UserControl_member_binder.p'].GetType.namespace = p.GetType.namespace)
   then begin
     p := p_type(session['UserControl_member_binder.p']);
+    //
+    // Dynamic controls must be re-added on each postback.
+    //
+    case TabStrip1.selectedindex of
+    TSSI_RESOURCES:
+      PlaceHolder_resources.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));
+//    TSSI_RESULTS:
+//      PlaceHolder_results.controls.Add(TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')));
+    TSSI_DASHBOARD:
+      PlaceHolder_dashboard.controls.Add(TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')));
+//    TSSI_CONFIG:
+//      PlaceHolder_config.controls.Add(TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')));
+    TSSI_ABOUT:
+      PlaceHolder_about.controls.Add(TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')));
+    end;
+    //
   end else begin
     //
     p.be_loaded := FALSE;
@@ -100,15 +116,20 @@ end;
 procedure TWebUserControl_member_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
   e: System.EventArgs);
 begin
+  PlaceHolder_resources.controls.Clear;
+  PlaceHolder_results.controls.Clear;
+  PlaceHolder_dashboard.controls.Clear;
+  PlaceHolder_config.controls.Clear;
+  PlaceHolder_about.controls.Clear;
   case TabStrip1.selectedindex of
   TSSI_RESOURCES:
     PlaceHolder_resources.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')).Fresh);
-  TSSI_RESULTS:
-    PlaceHolder_results.controls.Clear;
+//  TSSI_RESULTS:
+//    PlaceHolder_results.controls.Add(TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')).Fresh);
   TSSI_DASHBOARD:
     PlaceHolder_dashboard.controls.Add(TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')).Fresh);
-  TSSI_CONFIG:
-    PlaceHolder_config.controls.Clear;
+//  TSSI_CONFIG:
+//    PlaceHolder_config.controls.Add(TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')).Fresh);
   TSSI_ABOUT:
     PlaceHolder_about.controls.Add(TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')).Fresh);
   end;
