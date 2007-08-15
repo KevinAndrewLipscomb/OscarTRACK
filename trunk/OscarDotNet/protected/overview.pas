@@ -119,14 +119,23 @@ begin
     //
     // Display controls appropriate ONLY to nonmembers.
     //
-    PlaceHolder_establish_membership.controls.Add
-      (TWebUserControl_establish_membership(LoadControl('~/usercontrol/app/UserControl_establish_membership.ascx')));
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_establish_membership(LoadControl('~/usercontrol/app/UserControl_establish_membership.ascx')),
+      'UserControl_establish_membership',
+      PlaceHolder_establish_membership
+      );
     //
   end else begin
     //
     session.Remove('member_id');
     session.Add('member_id',p.biz_members.IdOfUserId(session['user_id'].tostring));
-    PlaceHolder_member_binder.controls.Add(TWebUserControl_member_binder(LoadControl('~/usercontrol/app/UserControl_member_binder.ascx')));
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_member_binder(LoadControl('~/usercontrol/app/UserControl_member_binder.ascx')),
+      'UserControl_member_binder',
+      PlaceHolder_member_binder
+      );
     //
   end;
   //

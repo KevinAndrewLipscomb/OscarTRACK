@@ -19,6 +19,7 @@ type
   p_type =
     RECORD
     be_loaded: boolean;
+    tab_index: cardinal;
     END;
   TWebUserControl_member_binder = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -33,11 +34,7 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
-    PlaceHolder_resources: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_results: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_dashboard: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_config: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_about: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -90,24 +87,56 @@ begin
     //
     // Dynamic controls must be re-added on each postback.
     //
-    case TabStrip1.selectedindex of
+    case p.tab_index of
     TSSI_RESOURCES:
-      PlaceHolder_resources.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')),
+        'UserControl_roster',
+        PlaceHolder_content
+        );
 //    TSSI_RESULTS:
-//      PlaceHolder_results.controls.Add(TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')));
+//      AddIdentifiedControlToPlaceHolder
+//        (
+//        TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')),
+//        'UserControl_results',
+//        PlaceHolder_content
+//        );
     TSSI_DASHBOARD:
-      PlaceHolder_dashboard.controls.Add(TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')));
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')),
+        'UserControl_dashboard_binder',
+        PlaceHolder_content
+        );
 //    TSSI_CONFIG:
-//      PlaceHolder_config.controls.Add(TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')));
+//      AddIdentifiedControlToPlaceHolder
+//        (
+//        TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')),
+//        'UserControl_config',
+//        PlaceHolder_content
+//        );
     TSSI_ABOUT:
-      PlaceHolder_about.controls.Add(TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')));
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')),
+        'UserControl_about',
+        PlaceHolder_content
+        );
     end;
     //
   end else begin
     //
     p.be_loaded := FALSE;
     //
-    PlaceHolder_resources.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')).Fresh);
+    p.tab_index := 0;
+    //
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')).Fresh,
+      'UserControl_roster',
+      PlaceHolder_content
+      );
     //
   end;
   //
@@ -116,23 +145,49 @@ end;
 procedure TWebUserControl_member_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
   e: System.EventArgs);
 begin
-  PlaceHolder_resources.controls.Clear;
-  PlaceHolder_results.controls.Clear;
-  PlaceHolder_dashboard.controls.Clear;
-  PlaceHolder_config.controls.Clear;
-  PlaceHolder_about.controls.Clear;
-  case TabStrip1.selectedindex of
+  //
+  p.tab_index := TabStrip1.selectedindex;
+  //
+  PlaceHolder_content.controls.Clear;
+  //
+  case p.tab_index of
   TSSI_RESOURCES:
-    PlaceHolder_resources.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')).Fresh);
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')).Fresh,
+      'UserControl_roster',
+      PlaceHolder_content
+      );
 //  TSSI_RESULTS:
-//    PlaceHolder_results.controls.Add(TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')).Fresh);
+//    AddIdentifiedControlToPlaceHolder
+//      (
+//      TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')).Fresh,
+//      'UserControl_results',
+//      PlaceHolder_content
+//      );
   TSSI_DASHBOARD:
-    PlaceHolder_dashboard.controls.Add(TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')).Fresh);
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')).Fresh,
+      'UserControl_dashboard_binder',
+      PlaceHolder_content
+      );
 //  TSSI_CONFIG:
-//    PlaceHolder_config.controls.Add(TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')).Fresh);
+//    AddIdentifiedControlToPlaceHolder
+//      (
+//      TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')).Fresh,
+//      'UserControl_config',
+//      PlaceHolder_content
+//      );
   TSSI_ABOUT:
-    PlaceHolder_about.controls.Add(TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')).Fresh);
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_about(LoadControl('~/usercontrol/app/UserControl_about.ascx')).Fresh,
+      'UserControl_about',
+      PlaceHolder_content
+      );
   end;
+  //
 end;
 
 {$REGION 'Designer Managed Code'}
