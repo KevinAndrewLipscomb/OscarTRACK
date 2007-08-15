@@ -17,6 +17,7 @@ type
   p_type =
     RECORD
     be_loaded: boolean;
+    tab_index: cardinal;
     END;
   TWebUserControl_dashboard_binder = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -31,8 +32,7 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
-    PlaceHolder_current: System.Web.UI.WebControls.PlaceHolder;
-    PlaceHolder_serial: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -81,18 +81,35 @@ begin
     //
     // Dynamic controls must be re-added on each postback.
     //
-    case TabStrip1.selectedindex of
+    case p.tab_index of
     TSSI_CURRENT:
-      PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')));
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')),
+        'UserControl_current_indicators',
+        PlaceHolder_content
+        );
 //    TSSI_SERIAL:
-//      PlaceHolder_serial.controls.Add(TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')));
+//      AddIdentifiedControlToPlaceHolder
+//        (
+//        TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')),
+//        'UserControl_serial_indicators',
+//        PlaceHolder_content
+//        );
     end;
     //
   end else begin
     //
     p.be_loaded := FALSE;
     //
-    PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh);
+    p.tab_index := 0;
+    //
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh,
+      'UserControl_current_indicators',
+      PlaceHolder_content
+      );
     //
   end;
   //
@@ -101,13 +118,23 @@ end;
 procedure TWebUserControl_dashboard_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
   e: System.EventArgs);
 begin
-  PlaceHolder_current.controls.Clear;
-  PlaceHolder_serial.controls.Clear;
-  case TabStrip1.selectedindex of
+  p.tab_index := TabStrip1.selectedindex;
+  PlaceHolder_content.controls.Clear;
+  case p.tab_index of
   TSSI_CURRENT:
-    PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh);
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')).Fresh,
+      'UserControl_current_indicators',
+      PlaceHolder_content
+      );
 //  TSSI_SERIAL:
-//    PlaceHolder_serial.controls.Add(TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')).Fresh);
+//    AddIdentifiedControlToPlaceHolder
+//      (
+//      TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')).Fresh,
+//      'UserControl_serial_indicators',
+//      PlaceHolder_content
+//      );
   end;
 end;
 
