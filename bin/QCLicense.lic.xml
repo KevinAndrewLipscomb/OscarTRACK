@@ -1,0 +1,145 @@
+<?xml version="1.0" standalone="yes"?>
+<QCLicenseDataSet>
+  <xs:schema id="QCLicenseDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xs:element name="QCLicenseDataSet" msdata:IsDataSet="true" msdata:Locale="en">
+      <xs:complexType>
+        <xs:choice minOccurs="0" maxOccurs="unbounded">
+          <xs:element name="LicenseLongTable">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="Long" type="xs:long" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="LicenseStringTable">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="String" type="xs:string" minOccurs="0" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <LicenseLongTable>
+    <Long>2976304958903466</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>2976304958903467</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>16</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>5</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>0</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>11961483922145</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>89518290494186</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>5167757808308926</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>2646739148810103</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>15311190395011</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>2545356090764491</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>5042797927218436</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>5652833855036032</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>35656487365739</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>1569093181055015</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>191214231827474</Long>
+  </LicenseLongTable>
+  <LicenseLongTable>
+    <Long>852911443360166</Long>
+  </LicenseLongTable>
+  <LicenseStringTable>
+    <String>QCSPCChart SPC Control Chart Tools for .Net Developer Trial Version</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>Kevin Lipscomb</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>Kalips'o Infogistics LLC</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>(Name)</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>(Company)</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>sales@quinn-curtis.com</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>Tuesday, August 07, 2007</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>Sunday, September 16, 2007</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>2976304959026930</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>Quinn-Curtis, Inc.</String>
+  </LicenseStringTable>
+</QCLicenseDataSet>

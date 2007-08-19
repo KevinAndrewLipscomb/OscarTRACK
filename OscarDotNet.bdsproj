@@ -124,7 +124,7 @@
 			<Directories Name="PackageDLLOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDCPOutputDir" Type="String"></Directories>
 			<Directories Name="SearchPath" Type="String">c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\oscardotnet\lib\ki;c:\inetpub\wwwroot\oscardotnet\bin</Directories>
-			<Directories Name="Packages" Type="String">c:\inetpub\wwwroot\oscardotnet\bin\Microsoft.Web.UI.WebControls.dll;ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
+			<Directories Name="Packages" Type="String">c:\windows\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCSPCChartNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCChart2DNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\Microsoft.Web.UI.WebControls.dll;ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
 			<Directories Name="Conditionals" Type="String"></Directories>
 			<Directories Name="DebugSourceDirs" Type="String"></Directories>
 			<Directories Name="UsePackages" Type="Boolean">True</Directories>
@@ -196,7 +196,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2775.26524" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2782.37870" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -252,6 +252,16 @@
       <File FileName="usercontrol\app\UserControl_dashboard_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_dashboard_binder"/>
       <File FileName="usercontrol\app\UserControl_about.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_about"/>
       <File FileName="usercontrol\app\UserControl_current_indicators.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_current_indicators"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicators_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicators_binder"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_num_core_ops_members"/>
+      <File FileName="bin\QCChart2DNet.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="QCChart2DNet" AssemblyName="QCChart2DNet" Version="1.6.1.8" LinkUnits="False"/>
+      <File FileName="bin\QCSPCChartNet.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="QCSPCChartNet" AssemblyName="QCSPCChartNet" Version="1.6.1.9" LinkUnits="False"/>
+      <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Windows.Forms" AssemblyName="System.Windows.Forms" Version="1.0.5000.0" LinkUnits="False"/>
+      <File FileName="protected\image\dynamic\serial_indicator_control_chart.aspx" ContainerId="AspMarkupContainer" ModuleName="serial_indicator_control_chart"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_utilization.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_utilization"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_potential_crew_shifts"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_length_of_service"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_standard_enrollment"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -340,6 +350,13 @@
       <File FileName="usercontrol\app\UserControl_dashboard_binder.pas" ContainerId="" ModuleName="UserControl_dashboard_binder" Parent="usercontrol\app\UserControl_dashboard_binder.ascx"/>
       <File FileName="usercontrol\app\UserControl_about.pas" ContainerId="" ModuleName="UserControl_about" Parent="usercontrol\app\UserControl_about.ascx"/>
       <File FileName="usercontrol\app\UserControl_current_indicators.pas" ContainerId="" ModuleName="UserControl_current_indicators" Parent="usercontrol\app\UserControl_current_indicators.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicators_binder.pas" ContainerId="" ModuleName="UserControl_serial_indicators_binder" Parent="usercontrol\app\UserControl_serial_indicators_binder.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas" ContainerId="" ModuleName="UserControl_serial_indicator_num_core_ops_members" Parent="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx"/>
+      <File FileName="protected\image\dynamic\serial_indicator_control_chart.pas" ContainerId="" ModuleName="serial_indicator_control_chart" Parent="protected\image\dynamic\serial_indicator_control_chart.aspx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_utilization.pas" ContainerId="" ModuleName="UserControl_serial_indicator_utilization" Parent="usercontrol\app\UserControl_serial_indicator_utilization.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas" ContainerId="" ModuleName="UserControl_serial_indicator_potential_crew_shifts" Parent="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_length_of_service.pas" ContainerId="" ModuleName="UserControl_serial_indicator_length_of_service" Parent="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas" ContainerId="" ModuleName="UserControl_serial_indicator_standard_enrollment" Parent="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

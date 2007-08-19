@@ -31,6 +31,7 @@ implementation
 
 uses
   Class_biz_user,
+  com.quinncurtis.chart2dnet,
   system.web.security;
 
 {$REGION 'Designer Managed Code'}
@@ -58,7 +59,7 @@ end;
 
 procedure TGlobal.Application_Start(sender: System.Object; e: EventArgs);
 begin
-
+  chartview.SetLicensePath(server.MapPath('bin'));
 end;
 
 procedure TGlobal.Session_Start(sender: System.Object; e: EventArgs);

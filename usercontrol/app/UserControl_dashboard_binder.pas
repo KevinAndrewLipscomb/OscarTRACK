@@ -11,7 +11,8 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
-  UserControl_current_indicators;
+  UserControl_current_indicators,
+  UserControl_serial_indicators_binder;
 
 type
   p_type =
@@ -89,13 +90,13 @@ begin
         'UserControl_current_indicators',
         PlaceHolder_content
         );
-//    TSSI_SERIAL:
-//      AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')),
-//        'UserControl_serial_indicators',
-//        PlaceHolder_content
-//        );
+    TSSI_SERIAL:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_serial_indicators_binder(LoadControl('~/usercontrol/app/UserControl_serial_indicators_binder.ascx')),
+        'UserControl_serial_indicators_binder',
+        PlaceHolder_content
+        );
     end;
     //
   end else begin
@@ -128,13 +129,13 @@ begin
       'UserControl_current_indicators',
       PlaceHolder_content
       );
-//  TSSI_SERIAL:
-//    AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl_serial_indicators(LoadControl('~/usercontrol/app/UserControl_serial_indicators.ascx')).Fresh,
-//      'UserControl_serial_indicators',
-//      PlaceHolder_content
-//      );
+  TSSI_SERIAL:
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_serial_indicators_binder(LoadControl('~/usercontrol/app/UserControl_serial_indicators_binder.ascx')).Fresh,
+      'UserControl_serial_indicators_binder',
+      PlaceHolder_content
+      );
   end;
 end;
 
