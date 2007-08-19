@@ -63,6 +63,16 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_dashboard_binder.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_about.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_current_indicators.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicators_binder.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx'}
+{%DelphiDotNetAssemblyCompiler 'bin\QCChart2DNet.dll'}
+{%DelphiDotNetAssemblyCompiler 'bin\QCSPCChartNet.dll'}
+{%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll'}
+{%AspMarkupContainer 'protected\image\dynamic\serial_indicator_control_chart.aspx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_utilization.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_length_of_service.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx'}
 
 uses
   System.Reflection,
@@ -152,7 +162,14 @@ uses
   UserControl_member_binder in 'usercontrol\app\UserControl_member_binder.pas' {UserControl_member_binder.TWebUserControl_member_binder: ki_web_ui.usercontrol_class},
   UserControl_dashboard_binder in 'usercontrol\app\UserControl_dashboard_binder.pas' {UserControl_dashboard_binder.TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class},
   UserControl_about in 'usercontrol\app\UserControl_about.pas' {UserControl_about.TWebUserControl_about: ki_web_ui.usercontrol_class},
-  UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas' {UserControl_current_indicators.TWebUserControl_current_indicators: ki_web_ui.usercontrol_class};
+  UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas' {UserControl_current_indicators.TWebUserControl_current_indicators: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicators_binder in 'usercontrol\app\UserControl_serial_indicators_binder.pas' {UserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_num_core_ops_members in 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas' {UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members: ki_web_ui.usercontrol_class},
+  serial_indicator_control_chart in 'protected\image\dynamic\serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page},
+  UserControl_serial_indicator_utilization in 'usercontrol\app\UserControl_serial_indicator_utilization.pas' {UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_potential_crew_shifts in 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas' {UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas' {UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas' {UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
