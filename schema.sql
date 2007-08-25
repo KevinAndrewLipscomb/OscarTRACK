@@ -344,6 +344,24 @@ INSERT INTO `enrollment_transition` (`current_level_code`, `required_historical_
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `indicator_commensuration`
+--
+
+DROP TABLE IF EXISTS `indicator_commensuration`;
+CREATE TABLE IF NOT EXISTS `indicator_commensuration` (
+  `year` int(10) unsigned NOT NULL,
+  `month` tinyint(3) unsigned NOT NULL,
+  `be_agency_id_applicable` tinyint(1) NOT NULL,
+  `agency_id` int(10) unsigned NOT NULL default '0',
+  `value` FLOAT NOT NULL,
+  PRIMARY KEY  (`year`,`month`,`be_agency_id_applicable`,`agency_id`),
+  KEY `agency_id` (`agency_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `indicator_core_ops_size`
 --
 
@@ -626,13 +644,14 @@ INSERT INTO privilege (id,`name`) VALUES
 (18,'change-section'),
 (19,'change-agency'),
 (20,'change-cad-num'),
-(21,'change-member-name');
+(21,'change-member-name'),
+(22,'enter-actual-crew-shifts');
 
 -- --------------------------------------------------------
 
--- 
+--
 -- Table structure for table `rank`
--- 
+--
 
 DROP TABLE IF EXISTS rank;
 CREATE TABLE IF NOT EXISTS rank (
@@ -672,7 +691,7 @@ CREATE TABLE role (
   KEY tier_id (tier_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO role (id,`name`) VALUES
+INSERT INTO role (id,`name`,tier_id) VALUES
 (1,'Application Administrator',1),
 (2,'Department Authority',1),
 (3,'Department Human Resources Officer',1),
@@ -684,7 +703,8 @@ INSERT INTO role (id,`name`) VALUES
 (9,'Squad Membership Coordinator',2),
 (10,'Squad Analyst',2),
 (11,'Member'),
-(12,'Department ALS ID Coordinator',1);
+(12,'Department ALS ID Coordinator',1),
+(13,'Department Schedule Auditor',1);
 
 --
 -- table structure for table `role_member_map`
@@ -860,7 +880,8 @@ INSERT INTO role_privilege_map (role_id,privilege_id) VALUES
 (12,9),
 (12,12),
 (12,14),
-(12,15);
+(12,15),
+(13,22);
 
 -- --------------------------------------------------------
 

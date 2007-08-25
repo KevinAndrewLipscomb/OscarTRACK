@@ -10,6 +10,7 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
+  UserControl_ranked_commensuration,
   UserControl_ranked_core_ops_size,
   UserControl_ranked_crew_shifts_forecast,
   UserControl_ranked_length_of_service,
@@ -38,6 +39,7 @@ type
     PlaceHolder_ranked_length_of_service: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_crew_shifts_forecast: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_standard_enrollment: System.Web.UI.WebControls.PlaceHolder;
+    PlaceHolder_ranked_commensuration: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -89,6 +91,7 @@ begin
     PlaceHolder_ranked_standard_enrollment.controls.Add(TWebUserControl_ranked_standard_enrollment(LoadControl('~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx')).Fresh);
     PlaceHolder_ranked_utilization.controls.Add(TWebUserControl_ranked_utilization(LoadControl('~/usercontrol/app/UserControl_ranked_utilization.ascx')).Fresh);
     PlaceHolder_ranked_length_of_service.controls.Add(TWebUserControl_ranked_length_of_service(LoadControl('~/usercontrol/app/UserControl_ranked_length_of_service.ascx')).Fresh);
+    PlaceHolder_ranked_commensuration.controls.Add(TWebUserControl_ranked_commensuration(LoadControl('~/usercontrol/app/UserControl_ranked_commensuration.ascx')).Fresh);
     //
   end;
   //

@@ -6,6 +6,7 @@
 		<td>
 		  <iewc:TabStrip id="TabStrip1" runat="server" tabselectedstyle="padding:10;border-top:thin solid silver;border-left:thin solid silver;border-right:thin solid silver;background-color:white;font-weight:bold;"
 			   tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;" forecolor="Blue" tabhoverstyle="background-color:gainsboro;" width="100%" autopostback="True">
+		  <iewc:Tab text="Initial schedule completion"></iewc:Tab>
 		  <iewc:Tab text="# Core ops members"></iewc:Tab>
 		  <iewc:Tab text="# Potential crew shifts"></iewc:Tab>
 		  <iewc:Tab text="Roster utilization"></iewc:Tab>

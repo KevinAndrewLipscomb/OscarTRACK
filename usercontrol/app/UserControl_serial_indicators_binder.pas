@@ -11,6 +11,7 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
+  UserControl_serial_indicator_commensuration,
   UserControl_serial_indicator_length_of_service,
   UserControl_serial_indicator_num_core_ops_members,
   UserControl_serial_indicator_potential_crew_shifts,
@@ -55,11 +56,12 @@ uses
   system.configuration;
 
 const
-  TSSI_NUM_CORE_OPS_MEMBERS = 0;
-  TSSI_NUM_POTENTIAL_CREW_SHIFTS = 1;
-  TSSI_ROSTER_UTILIZATION = 2;
-  TSSI_CORE_OPS_COMMITMENT = 3;
-  TSSI_MEDIAN_YEARS_OF_SERVICE = 4;
+  TSSI_COMMENSURATION = 0;
+  TSSI_NUM_CORE_OPS_MEMBERS = 1;
+  TSSI_NUM_POTENTIAL_CREW_SHIFTS = 2;
+  TSSI_ROSTER_UTILIZATION = 3;
+  TSSI_CORE_OPS_COMMITMENT = 4;
+  TSSI_MEDIAN_YEARS_OF_SERVICE = 5;
 
 procedure TWebUserControl_serial_indicators_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -90,6 +92,13 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
+    TSSI_COMMENSURATION:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_serial_indicator_commensuration(LoadControl('~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx')),
+        'UserControl_serial_indicator_commensuration',
+        PlaceHolder_content
+        );
     TSSI_NUM_CORE_OPS_MEMBERS:
       AddIdentifiedControlToPlaceHolder
         (
@@ -134,8 +143,8 @@ begin
     //
     AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_serial_indicator_num_core_ops_members(LoadControl('~/usercontrol/app/UserControl_serial_indicator_num_core_ops_members.ascx')).Fresh,
-      'UserControl_serial_indicator_num_core_ops_members',
+      TWebUserControl_serial_indicator_commensuration(LoadControl('~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx')),
+      'UserControl_serial_indicator_commensuration',
       PlaceHolder_content
       );
     //
@@ -152,6 +161,13 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
+    TSSI_COMMENSURATION:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_serial_indicator_commensuration(LoadControl('~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx')).Fresh,
+        'UserControl_serial_indicator_commensuration',
+        PlaceHolder_content
+        );
     TSSI_NUM_CORE_OPS_MEMBERS:
       AddIdentifiedControlToPlaceHolder
         (

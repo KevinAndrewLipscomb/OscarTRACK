@@ -12,6 +12,7 @@ uses
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
   UserControl_about,
+  UserControl_commensuration,
   UserControl_dashboard_binder,
   UserControl_roster;
 
@@ -64,6 +65,9 @@ begin
   //
   if not p.be_loaded then begin
     //
+    if Has(string_array(session['privilege_array']),'enter-actual-crew-shifts') then begin
+      TabStrip1.items[TSSI_RESULTS].enabled := TRUE;
+    end;
     //
     p.be_loaded := TRUE;
     //
@@ -95,13 +99,13 @@ begin
         'UserControl_roster',
         PlaceHolder_content
         );
-//    TSSI_RESULTS:
-//      AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')),
-//        'UserControl_results',
-//        PlaceHolder_content
-//        );
+    TSSI_RESULTS:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_commensuration(LoadControl('~/usercontrol/app/UserControl_commensuration.ascx')),
+        'UserControl_commensuration',
+        PlaceHolder_content
+        );
     TSSI_DASHBOARD:
       AddIdentifiedControlToPlaceHolder
         (
@@ -158,13 +162,13 @@ begin
       'UserControl_roster',
       PlaceHolder_content
       );
-//  TSSI_RESULTS:
-//    AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl_results(LoadControl('~/usercontrol/app/UserControl_results.ascx')).Fresh,
-//      'UserControl_results',
-//      PlaceHolder_content
-//      );
+  TSSI_RESULTS:
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_commensuration(LoadControl('~/usercontrol/app/UserControl_commensuration.ascx')).Fresh,
+      'UserControl_commensuration',
+      PlaceHolder_content
+      );
   TSSI_DASHBOARD:
     AddIdentifiedControlToPlaceHolder
       (

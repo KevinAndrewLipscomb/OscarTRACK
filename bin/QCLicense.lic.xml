@@ -23,10 +23,10 @@
     </xs:element>
   </xs:schema>
   <LicenseLongTable>
-    <Long>2976304958903466</Long>
+    <Long>3124501781100000</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>2976304958903467</Long>
+    <Long>3124501781100004</Long>
   </LicenseLongTable>
   <LicenseLongTable>
     <Long>16</Long>
@@ -35,46 +35,46 @@
     <Long>5</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>0</Long>
+    <Long>5</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>11961483922145</Long>
+    <Long>784189285298470912</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>89518290494186</Long>
+    <Long>265137477435748</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>5167757808308926</Long>
+    <Long>4488804397807723</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>2646739148810103</Long>
+    <Long>3345597466476597</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>15311190395011</Long>
+    <Long>3688898218258891</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>2545356090764491</Long>
+    <Long>3811342042067230</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>5042797927218436</Long>
+    <Long>2277136191051961</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>5652833855036032</Long>
+    <Long>2349</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>35656487365739</Long>
+    <Long>21</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>1569093181055015</Long>
+    <Long>1171</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>191214231827474</Long>
+    <Long>5418374562136214</Long>
   </LicenseLongTable>
   <LicenseLongTable>
-    <Long>852911443360166</Long>
+    <Long>2959771955095510</Long>
   </LicenseLongTable>
   <LicenseStringTable>
-    <String>QCSPCChart SPC Control Chart Tools for .Net Developer Trial Version</String>
+    <String>QCSPCChart SPC Control Tools for .Net Developer Unlimited Subscription</String>
   </LicenseStringTable>
   <LicenseStringTable>
     <String />
@@ -87,6 +87,15 @@
   </LicenseStringTable>
   <LicenseStringTable>
     <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String />
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>c898f7ba-0547-4ac1-9cab-ed6b601b73c0</String>
   </LicenseStringTable>
   <LicenseStringTable>
     <String>Kevin Lipscomb</String>
@@ -95,49 +104,40 @@
     <String>Kalips'o Infogistics LLC</String>
   </LicenseStringTable>
   <LicenseStringTable>
-    <String />
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>(Name)</String>
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>(Company)</String>
+    <String>4325 Hudgins Drive</String>
   </LicenseStringTable>
   <LicenseStringTable>
     <String />
   </LicenseStringTable>
   <LicenseStringTable>
-    <String />
+    <String>Virginia Beach</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>VA</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>23455</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>USA</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>president@frompaper2web.com</String>
+  </LicenseStringTable>
+  <LicenseStringTable>
+    <String>+1-757-642-8668</String>
   </LicenseStringTable>
   <LicenseStringTable>
     <String />
   </LicenseStringTable>
   <LicenseStringTable>
-    <String />
+    <String>Sunday, August 19, 2007</String>
   </LicenseStringTable>
   <LicenseStringTable>
-    <String />
+    <String>Friday, August 19, 2107</String>
   </LicenseStringTable>
   <LicenseStringTable>
-    <String />
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>sales@quinn-curtis.com</String>
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String />
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String />
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>Tuesday, August 07, 2007</String>
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>Sunday, September 16, 2007</String>
-  </LicenseStringTable>
-  <LicenseStringTable>
-    <String>2976304959026930</String>
+    <String>3124501781223467</String>
   </LicenseStringTable>
   <LicenseStringTable>
     <String>Quinn-Curtis, Inc.</String>

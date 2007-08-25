@@ -262,6 +262,9 @@
       <File FileName="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_potential_crew_shifts"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_length_of_service"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_standard_enrollment"/>
+      <File FileName="usercontrol\app\UserControl_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_commensuration"/>
+      <File FileName="usercontrol\app\UserControl_ranked_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_commensuration"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_commensuration"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -357,6 +360,9 @@
       <File FileName="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas" ContainerId="" ModuleName="UserControl_serial_indicator_potential_crew_shifts" Parent="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_length_of_service.pas" ContainerId="" ModuleName="UserControl_serial_indicator_length_of_service" Parent="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas" ContainerId="" ModuleName="UserControl_serial_indicator_standard_enrollment" Parent="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx"/>
+      <File FileName="usercontrol\app\UserControl_commensuration.pas" ContainerId="" ModuleName="UserControl_commensuration" Parent="usercontrol\app\UserControl_commensuration.ascx"/>
+      <File FileName="usercontrol\app\UserControl_ranked_commensuration.pas" ContainerId="" ModuleName="UserControl_ranked_commensuration" Parent="usercontrol\app\UserControl_ranked_commensuration.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.pas" ContainerId="" ModuleName="UserControl_serial_indicator_commensuration" Parent="usercontrol\app\UserControl_serial_indicator_commensuration.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>
