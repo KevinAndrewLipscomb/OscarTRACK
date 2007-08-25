@@ -73,6 +73,9 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_length_of_service.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_commensuration.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_ranked_commensuration.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_commensuration.ascx'}
 
 uses
   System.Reflection,
@@ -169,7 +172,10 @@ uses
   UserControl_serial_indicator_utilization in 'usercontrol\app\UserControl_serial_indicator_utilization.pas' {UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_potential_crew_shifts in 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas' {UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas' {UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service: ki_web_ui.usercontrol_class},
-  UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas' {UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment: ki_web_ui.usercontrol_class};
+  UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas' {UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment: ki_web_ui.usercontrol_class},
+  UserControl_commensuration in 'usercontrol\app\UserControl_commensuration.pas' {UserControl_commensuration.TWebUserControl_commensuration: ki_web_ui.usercontrol_class},
+  UserControl_ranked_commensuration in 'usercontrol\app\UserControl_ranked_commensuration.pas' {UserControl_ranked_commensuration.TWebUserControl_ranked_commensuration: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas' {UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

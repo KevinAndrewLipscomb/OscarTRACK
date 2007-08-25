@@ -4,9 +4,16 @@ interface
 
 uses
   Class_db,
+  Class_db_trail,
   system.collections;
 
 type
+  commensuration_rec_type =
+    RECORD
+    agency_id: string;
+    commensuration_factor: decimal;
+    be_agency_id_applicable: boolean;
+    END;
   serial_indicator_rec_type =
     RECORD
     year: cardinal;
@@ -15,6 +22,7 @@ type
     END;
   TClass_db_agencies = class(TClass_db)
   private
+    db_trail: TClass_db_trail;
     procedure BindDropDownList
       (
       unselected_literal: string;
@@ -31,14 +39,17 @@ type
       be_available_option_all: boolean = TRUE
       );
     procedure BindDropDownListShortDashLong(target: system.object);
+    procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
       indicator: string;
       target: system.object
       );
+    procedure BindRankedCommensuration(target: system.object);
     function IdOfShortDesignator(short_designator: string): string;
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
+    function OverallCommensuration: string;
     function SerialIndicatorData
       (
       indicator: string;
@@ -46,6 +57,7 @@ type
       be_agency_id_applicable: string
       )
       : queue;
+    procedure SetCommensuration(commensuration_rec_q: queue);
     function ShortDesignatorOf(id: string): string;
   end;
 
@@ -53,12 +65,14 @@ implementation
 
 uses
   borland.data.provider,
+  Class_db_members,
   system.web.ui.webcontrols;
 
 constructor TClass_db_agencies.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  db_trail := TClass_db_trail.Create;
 end;
 
 procedure TClass_db_agencies.BindDropDownList
@@ -115,6 +129,26 @@ begin
   BindDropDownList('-- Select --','concat(short_designator," - ",long_designator)',target);
 end;
 
+procedure TClass_db_agencies.BindForCommensuration(target: system.object);
+begin
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select agency.id as agency_id'
+    + ' , concat(medium_designator," - ",long_designator) as designator'
+    + ' , '
+    + Class_db_members.CrewShiftsForecastMetricFromWhereClause('1')
+    +   ' and agency.id < 200'
+    +   ' and be_active'
+    + ' group by agency.id'
+    + ' order by agency.id',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).databind;
+  self.Close;
+end;
+
 procedure TClass_db_agencies.BindForControlCharts
   (
   indicator: string;
@@ -134,6 +168,27 @@ begin
     )
     .ExecuteReader;
   DataGrid(target).databind;
+  self.Close;
+end;
+
+procedure TClass_db_agencies.BindRankedCommensuration(target: system.object);
+begin
+  self.Open;
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select NULL as rank'
+    + ' , concat(medium_designator," - ",long_designator) as agency'
+    + ' , value'
+    + ' from indicator_commensuration'
+    +   ' join agency on (agency.id=indicator_commensuration.agency_id)'
+    + ' where year = YEAR(CURDATE())'
+    +   ' and month = MONTH(CURDATE())'
+    +   ' and be_agency_id_applicable = TRUE'
+    + ' order by value desc',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).DataBind;
   self.Close;
 end;
 
@@ -159,6 +214,28 @@ begin
   self.Open;
   MediumDesignatorOf :=
     bdpcommand.Create('select medium_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_agencies.OverallCommensuration: string;
+var
+  overall_commensuration_obj: system.object;
+begin
+  OverallCommensuration := system.string.EMPTY;
+  self.Open;
+  overall_commensuration_obj := bdpcommand.Create
+    (
+    'select FORMAT(value,0)'
+    + ' from indicator_commensuration'
+    + ' where year = YEAR(CURDATE())'
+    +   ' and month = MONTH(CURDATE())'
+    +   ' and not be_agency_id_applicable',
+    connection
+    )
+    .ExecuteScalar;
+  if overall_commensuration_obj <> nil then begin
+    OverallCommensuration := overall_commensuration_obj.tostring;
+  end;
   self.Close;
 end;
 
@@ -209,6 +286,41 @@ begin
   //
   SerialIndicatorData := serial_indicator_rec_q;
   //
+end;
+
+procedure TClass_db_agencies.SetCommensuration(commensuration_rec_q: queue);
+var
+  commensuration_rec: commensuration_rec_type;
+  i: cardinal;
+  month: string;
+  sql: string;
+  this_day_next_month: datetime;
+  year: string;
+begin
+  //
+  this_day_next_month := datetime.today.AddMonths(1);
+  year := this_day_next_month.year.tostring;
+  month := this_day_next_month.month.tostring;
+  sql := 'replace indicator_commensuration (year,month,be_agency_id_applicable,agency_id,value) values';
+  for i := 1 to commensuration_rec_q.Count do begin
+    commensuration_rec := commensuration_rec_type(commensuration_rec_q.Dequeue);
+    sql := sql
+    + ' ('
+    +   year
+    +   ','
+    +   month
+    +   ','
+    +   commensuration_rec.be_agency_id_applicable.tostring
+    +   ','
+    +   commensuration_rec.agency_id
+    +   ','
+    +   (commensuration_rec.commensuration_factor*100).tostring('F0')
+    + ' ),';
+  end;
+  //
+  self.Open;
+  bdpcommand.Create(db_trail.Saved(sql.Substring(0,sql.Length - 1)),connection).ExecuteNonquery;
+  self.Close;
 end;
 
 function TClass_db_agencies.ShortDesignatorOf(id: string): string;

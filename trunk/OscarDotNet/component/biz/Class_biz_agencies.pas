@@ -20,14 +20,17 @@ type
       be_available_option_all: boolean = TRUE
       );
     procedure BindDropDownListShortDashLong(target: system.object);
+    procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
       indicator: string;
       target: system.object
       );
+    procedure BindRankedCommensuration(target: system.object);
     function IdOfShortDesignator(short_designator: string): string;
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
+    function OverallCommensuration: string;
     function SerialIndicatorData
       (
       indicator: string;
@@ -35,6 +38,7 @@ type
       be_agency_id_applicable: string
       )
       : queue;
+    procedure SetCommensuration(commensuration_rec_q: queue);
     function ShortDesignatorOf(id: string): string;
   end;
 
@@ -62,6 +66,11 @@ begin
   db_agencies.BindDropDownListShortDashLong(target);
 end;
 
+procedure TClass_biz_agencies.BindForCommensuration(target: system.object);
+begin
+  db_agencies.BindForCommensuration(target);
+end;
+
 procedure TClass_biz_agencies.BindForControlCharts
   (
   indicator: string;
@@ -69,6 +78,11 @@ procedure TClass_biz_agencies.BindForControlCharts
   );
 begin
   db_agencies.BindForControlCharts(indicator,target);
+end;
+
+procedure TClass_biz_agencies.BindRankedCommensuration(target: system.object);
+begin
+  db_agencies.BindRankedCommensuration(target);
 end;
 
 function TClass_biz_agencies.IdOfShortDesignator(short_designator: string): string;
@@ -86,6 +100,11 @@ begin
   MediumDesignatorOf := db_agencies.MediumDesignatorOf(id);
 end;
 
+function TClass_biz_agencies.OverallCommensuration: string;
+begin
+  OverallCommensuration := db_agencies.OverallCommensuration;
+end;
+
 function TClass_biz_agencies.SerialIndicatorData
   (
   indicator: string;
@@ -95,6 +114,11 @@ function TClass_biz_agencies.SerialIndicatorData
   : queue;
 begin
   SerialIndicatorData := db_agencies.SerialIndicatorData(indicator,agency_id,be_agency_id_applicable);
+end;
+
+procedure TClass_biz_agencies.SetCommensuration(commensuration_rec_q: queue);
+begin
+  db_agencies.SetCommensuration(commensuration_rec_q);
 end;
 
 function TClass_biz_agencies.ShortDesignatorOf(id: string): string;

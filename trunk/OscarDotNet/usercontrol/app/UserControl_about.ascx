@@ -39,13 +39,17 @@
 </li>
 				  <li>CoreLab BDP.NET MySQL Provider
 </li>
+				  <li>Quinn-Curtis SPC Control Chart Tools for .Net with QCChart2D
+
+</li>
 				  <li>Subversion version control system
 </li>
 				  <li>TortoiseSVN
 </li>
 				  <li>Divlocsoft Actual Search &amp; Replace
 </li>
-				  <li>Michael Elsdoerfer's NTFS Link</li>
+				  <li>Michael Elsdoerfer's NTFS Link
+</li>
 				  <li>WinMerge
 </li>
 				  <li>SourceForge.net open source code repository</li>
@@ -64,8 +68,10 @@
 </li>
 				  <li>Palm software
 </li>
-				  <li>PDFCreator</li>
-				  <li>Peganza ICARUS</li>
+				  <li>PDFCreator
+</li>
+				  <li>Peganza ICARUS
+</li>
 				  <li>PGP
 </li>
 				  <li>Xemacs</li>

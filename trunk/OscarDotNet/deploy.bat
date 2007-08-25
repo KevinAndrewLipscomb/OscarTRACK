@@ -15,6 +15,7 @@
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected                                 ready-to-deploy\protected                            *.aspx                    /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected                                 ready-to-deploy\protected                            *.config                  /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected\image                           ready-to-deploy\protected\image                                                /m /np /ns /z | qgrep "New "
+@robocopy C:\Inetpub\wwwroot\OscarDotNet\protected\image\dynamic                   ready-to-deploy\protected\image\dynamic              *.aspx                    /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\protected\template\notification           ready-to-deploy\protected\template\notification                                /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\resource                                  ready-to-deploy\resource                                                       /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\template\notification                     ready-to-deploy\template\notification                                          /m /np /ns /z | qgrep "New "

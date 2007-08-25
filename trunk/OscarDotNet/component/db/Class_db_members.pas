@@ -185,6 +185,8 @@ type
     function UserIdOf(member_id: string): string;
   end;
 
+function CrewShiftsForecastMetricFromWhereClause(relative_month: string): string;
+
 implementation
 
 uses
@@ -400,57 +402,9 @@ procedure TClass_db_members.BindRankedCrewShiftsForecast
   do_log: boolean = TRUE
   );
 var
-  from_where_phrase: string;
-  metric_phrase: string;
+  metric_from_where_clause: string;
 begin
-  //
-  metric_phrase := ' sum('
-  +   ' if'
-  +     ' ('
-  +       ' (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),'
-  +       ' num_obliged_shifts,'
-  +       ' num_shifts'
-  +     ' )'
-  +   ' )/2 as num_crew_shifts';
-  from_where_phrase := ' from member'
-  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
-  +   ' join enrollment_history'
-  +     ' on'
-  +       ' ('
-  +       ' enrollment_history.member_id=member.id'
-  +       ' and'
-  +         ' ('
-  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
-  +         ' and'
-  +           ' ('
-  +             ' (enrollment_history.end_date is null)'
-  +           ' or'
-  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
-  +           ' )'
-  +         ' )'
-  +       ' )'
-  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
-  +   ' left join leave_of_absence'
-  +     ' on'
-  +       ' ('
-  +       ' leave_of_absence.member_id=member.id'
-  +       ' and '
-  +         ' ('
-  +           ' (leave_of_absence.start_date is null)'
-  +         ' or'
-  +           ' ('
-  +             ' (leave_of_absence.start_date <= CURDATE())'
-  +           ' and'
-  +             ' (leave_of_absence.end_date >= LAST_DAY(CURDATE()))'
-  +           ' )'
-  +         ' )'
-  +       ' )'
-  +   ' join agency on (agency.id=member.agency_id)'
-  + ' where'
-  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
-  +   ' and'
-  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
-  //
+  metric_from_where_clause := CrewShiftsForecastMetricFromWhereClause('0');
   self.Open;
   if do_log then begin
     bdpcommand.Create
@@ -466,8 +420,7 @@ begin
         +     ' , MONTH(CURDATE())'
         +     ' , TRUE'
         +     ' , agency.id'
-        +     ' , ' + metric_phrase
-        + from_where_phrase
+        +     ' , ' + metric_from_where_clause
         +   ' group by agency.id'
         + ';'
         //
@@ -478,8 +431,7 @@ begin
         +     ' , MONTH(CURDATE())'
         +     ' , FALSE'
         +     ' , 0'
-        +     ' , ' + metric_phrase
-        + from_where_phrase
+        +     ' , ' + metric_from_where_clause
         + ';'
         + ' COMMIT'
         ),
@@ -495,8 +447,7 @@ begin
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
-    + ' , ' + metric_phrase
-    + from_where_phrase
+    + ' , ' + metric_from_where_clause
     + ' group by agency.id'
     + ' order by num_crew_shifts desc',
     connection
@@ -1525,6 +1476,57 @@ begin
     UserIdOf := system.string.EMPTY;
   end;
   self.Close;
+end;
+
+function CrewShiftsForecastMetricFromWhereClause(relative_month: string): string;
+begin
+  CrewShiftsForecastMetricFromWhereClause := ' sum('
+  +   ' if'
+  +     ' ('
+  +       ' (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  +         ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))),'
+  +       ' num_obliged_shifts,'
+  +       ' num_shifts'
+  +     ' )'
+  +   ' )/2 as num_crew_shifts'
+  + ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' left join leave_of_absence'
+  +     ' on'
+  +       ' ('
+  +       ' leave_of_absence.member_id=member.id'
+  +       ' and '
+  +         ' ('
+  +           ' (leave_of_absence.start_date is null)'
+  +         ' or'
+  +           ' ('
+  +             ' (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH))'
+  +           ' and'
+  +             ' (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_month + ' MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' enrollment_level.description in ("Associate","Regular","Life","Tenured","Atypical","Reduced (1)","Reduced (2)","Reduced (3)","New trainee")'
+  +   ' and'
+  +     ' medical_release_code_description_map.pecking_order >= ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring;
 end;
 
 end.
