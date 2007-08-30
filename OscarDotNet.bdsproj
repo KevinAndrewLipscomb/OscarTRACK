@@ -196,7 +196,7 @@
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Web.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Web" AssemblyName="System.Web" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.XML.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.XML" AssemblyName="System.XML" Version="1.0.5000.0" LinkUnits="False"/>
       <File FileName="c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="Borland.Data.Provider" AssemblyName="Borland.Data.Provider" Version="2.5.0.0" LinkUnits="False"/>
-      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2782.37870" LinkUnits="False"/>
+      <File FileName="lib\ki\ki.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="ki" AssemblyName="ki" CopyLocal="True" Version="1.0.2796.27108" LinkUnits="False"/>
       <File FileName="Global.asax" ContainerId="AspMarkupContainer" ModuleName="Global"/>
       <File FileName="Default.aspx" ContainerId="AspMarkupContainer" ModuleName="Default"/>
       <File FileName="exception.aspx" ContainerId="AspMarkupContainer" ModuleName="exception"/>
@@ -265,6 +265,8 @@
       <File FileName="usercontrol\app\UserControl_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_commensuration"/>
       <File FileName="usercontrol\app\UserControl_ranked_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_commensuration"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_commensuration"/>
+      <File FileName="usercontrol\app\UserControl_config_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_config_binder"/>
+      <File FileName="usercontrol\app\UserControl_user.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_user"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -363,6 +365,8 @@
       <File FileName="usercontrol\app\UserControl_commensuration.pas" ContainerId="" ModuleName="UserControl_commensuration" Parent="usercontrol\app\UserControl_commensuration.ascx"/>
       <File FileName="usercontrol\app\UserControl_ranked_commensuration.pas" ContainerId="" ModuleName="UserControl_ranked_commensuration" Parent="usercontrol\app\UserControl_ranked_commensuration.ascx"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.pas" ContainerId="" ModuleName="UserControl_serial_indicator_commensuration" Parent="usercontrol\app\UserControl_serial_indicator_commensuration.ascx"/>
+      <File FileName="usercontrol\app\UserControl_config_binder.pas" ContainerId="" ModuleName="UserControl_config_binder" Parent="usercontrol\app\UserControl_config_binder.ascx"/>
+      <File FileName="usercontrol\app\UserControl_user.pas" ContainerId="" ModuleName="UserControl_user" Parent="usercontrol\app\UserControl_user.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

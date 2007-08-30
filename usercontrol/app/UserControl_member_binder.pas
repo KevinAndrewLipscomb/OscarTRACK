@@ -13,6 +13,7 @@ uses
   System.Web.UI.HtmlControls,
   UserControl_about,
   UserControl_commensuration,
+  UserControl_config_binder,
   UserControl_dashboard_binder,
   UserControl_roster;
 
@@ -68,6 +69,9 @@ begin
     if Has(string_array(session['privilege_array']),'enter-actual-crew-shifts') then begin
       TabStrip1.items[TSSI_RESULTS].enabled := TRUE;
     end;
+    if Has(string_array(session['privilege_array']),'config-users') then begin
+      TabStrip1.items[TSSI_CONFIG].enabled := TRUE;
+    end;
     //
     p.be_loaded := TRUE;
     //
@@ -113,13 +117,13 @@ begin
         'UserControl_dashboard_binder',
         PlaceHolder_content
         );
-//    TSSI_CONFIG:
-//      AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')),
-//        'UserControl_config',
-//        PlaceHolder_content
-//        );
+    TSSI_CONFIG:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_config_binder(LoadControl('~/usercontrol/app/UserControl_config_binder.ascx')),
+        'UserControl_config',
+        PlaceHolder_content
+        );
     TSSI_ABOUT:
       AddIdentifiedControlToPlaceHolder
         (
@@ -176,13 +180,13 @@ begin
       'UserControl_dashboard_binder',
       PlaceHolder_content
       );
-//  TSSI_CONFIG:
-//    AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl_config(LoadControl('~/usercontrol/app/UserControl_config.ascx')).Fresh,
-//      'UserControl_config',
-//      PlaceHolder_content
-//      );
+  TSSI_CONFIG:
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_config_binder(LoadControl('~/usercontrol/app/UserControl_config_binder.ascx')).Fresh,
+      'UserControl_config',
+      PlaceHolder_content
+      );
   TSSI_ABOUT:
     AddIdentifiedControlToPlaceHolder
       (

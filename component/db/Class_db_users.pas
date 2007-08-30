@@ -28,6 +28,24 @@ type
     function BeRegisteredEmailAddress(email_address: string): boolean;
     function BeRegisteredUsername(username: string): boolean;
     function BeStalePassword(id: string): boolean;
+    function Bind
+      (
+      partial_username: string;
+      target: system.object
+      )
+      : boolean;
+    procedure Delete(username: string);
+    function Get
+      (
+      username: string;
+      out encoded_password: string;
+      out be_stale_password: boolean;
+      out password_reset_email_address: string;
+      out be_active: boolean;
+      out num_unsuccessful_login_attempts: uint32;
+      out last_login: datetime
+      )
+      : boolean;
     function IdOf(username: string): string;
     function NumUnsuccessfulLoginAttemptsOf(username: string): cardinal;
     function PasswordResetEmailAddressOfId(id: string): string;
@@ -40,6 +58,16 @@ type
       username: string;
       encoded_password: string;
       email_address: string
+      );
+    procedure &Set
+      (
+      username: string;
+      encoded_password: string;
+      be_stale_password: boolean;
+      password_reset_email_address: string;
+      be_active: boolean;
+      num_unsuccessful_login_attempts: uint32;
+      last_login: datetime
       );
     procedure SetEmailAddress
       (
@@ -62,7 +90,8 @@ type
 implementation
 
 uses
-  borland.data.provider;
+  borland.data.provider,
+  system.web.ui.webcontrols;
 
 constructor TClass_db_users.Create;
 begin
@@ -156,6 +185,74 @@ begin
     connection
     )
     .ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_users.Bind
+  (
+  partial_username: string;
+  target: system.object
+  )
+  : boolean;
+var
+  bdr: bdpdatareader;
+begin
+  self.Open;
+  DropDownList(target).items.Clear;
+  //
+  bdr := bdpcommand.Create
+    (
+    'SELECT username FROM user WHERE username like "' + partial_username + '%" order by username',
+    connection
+    )
+    .ExecuteReader;
+  while bdr.Read do begin
+    DropDownList(target).Items.Add
+      (listitem.Create(bdr['username'].tostring,bdr['username'].tostring));
+  end;
+  bdr.Close;
+  self.Close;
+  Bind := DropDownList(target).items.count > 0;
+end;
+
+procedure TClass_db_users.Delete(username: string);
+begin
+  self.Open;
+  bdpcommand.Create(db_trail.Saved('delete from user where username = ' + username),connection).ExecuteNonquery;
+  self.Close;
+end;
+
+function TClass_db_users.Get
+  (
+      username: string;
+      out encoded_password: string;
+      out be_stale_password: boolean;
+      out password_reset_email_address: string;
+      out be_active: boolean;
+      out num_unsuccessful_login_attempts: uint32;
+      out last_login: datetime
+  )
+  : boolean;
+var
+  bdr: bdpdatareader;
+begin
+  Get := FALSE;
+  self.Open;
+  bdr := bdpcommand.Create('select * from user where username = "' + username + '"',connection).ExecuteReader;
+  if bdr.Read then begin
+    //
+    username := bdr['username'].tostring;
+    encoded_password := bdr['encoded_password'].tostring;
+    be_stale_password := (bdr['be_stale_password'].tostring = '1');
+    password_reset_email_address := bdr['password_reset_email_address'].tostring;
+    be_active := (bdr['be_active'].tostring = '1');
+    num_unsuccessful_login_attempts := uint32.Parse(bdr['num_unsuccessful_login_attempts'].tostring);
+    last_login := datetime.Parse(bdr['last_login'].tostring);
+    //
+    Get := TRUE;
+    //
+  end;
+  bdr.Close;
   self.Close;
 end;
 
@@ -283,6 +380,37 @@ begin
     connection
     )
     .ExecuteNonQuery;
+  self.Close;
+end;
+
+procedure TClass_db_users.&Set
+  (
+      username: string;
+      encoded_password: string;
+      be_stale_password: boolean;
+      password_reset_email_address: string;
+      be_active: boolean;
+      num_unsuccessful_login_attempts: uint32;
+      last_login: datetime
+  );
+begin
+  self.Open;
+  bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'replace user'
+      + ' set username = "' + username + '"'
+//      + ' , encoded_password = "' + encoded_password + '"'
+      + ' , be_stale_password = ' + be_stale_password.tostring
+      + ' , password_reset_email_address = "' + password_reset_email_address + '"'
+      + ' , be_active = ' + be_active.tostring
+//      + ' , num_unsuccessful_login_attempts = ' + num_unsuccessful_login_attempts.tostring
+//      + ' , last_login = ' + last_login.tostring
+      ),
+    connection
+    )
+    .ExecuteNonquery;
   self.Close;
 end;
 
