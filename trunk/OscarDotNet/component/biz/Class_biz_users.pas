@@ -32,6 +32,24 @@ type
     function BeRegisteredEmailAddress(email_address: string): boolean;
     function BeRegisteredUsername(username: string): boolean;
     function BeStalePassword(id: string): boolean;
+    function Bind
+      (
+      partial_username: string;
+      target: system.object
+      )
+      : boolean;
+    procedure Delete(username: string);
+    function Get
+      (
+      username: string;
+      out encoded_password: string;
+      out be_stale_password: boolean;
+      out password_reset_email_address: string;
+      out be_active: boolean;
+      out num_unsuccessful_login_attempts: uint32;
+      out last_login: datetime
+      )
+      : boolean;
     function IdOf(username: string): string;
     procedure IssueTemporaryPassword
       (
@@ -56,6 +74,16 @@ type
       email_address: string
       );
     function SelfEmailAddress: string;
+    procedure &Set
+      (
+      username: string;
+      encoded_password: string;
+      be_stale_password: boolean;
+      password_reset_email_address: string;
+      be_active: boolean;
+      num_unsuccessful_login_attempts: uint32;
+      last_login: datetime
+      );
     procedure SetEmailAddress
       (
       id: string;
@@ -121,6 +149,47 @@ end;
 function TClass_biz_users.BeStalePassword(id: string): boolean;
 begin
   BeStalePassword := db_users.BeStalePassword(id);
+end;
+
+function TClass_biz_users.Bind
+  (
+  partial_username: string;
+  target: system.object
+  )
+  : boolean;
+begin
+  Bind := db_users.Bind(partial_username,target);
+end;
+
+procedure TClass_biz_users.Delete(username: string);
+begin
+  db_users.Delete(username);
+end;
+
+function TClass_biz_users.Get
+  (
+      username: string;
+      out encoded_password: string;
+      out be_stale_password: boolean;
+      out password_reset_email_address: string;
+      out be_active: boolean;
+      out num_unsuccessful_login_attempts: uint32;
+      out last_login: datetime
+  )
+  : boolean;
+begin
+  //
+  Get := db_users.Get
+    (
+    username,
+    encoded_password,
+    be_stale_password,
+    password_reset_email_address,
+    be_active,
+    num_unsuccessful_login_attempts,
+    last_login
+    );
+  //
 end;
 
 function TClass_biz_users.IdOf(username: string): string;
@@ -203,6 +272,31 @@ end;
 function TClass_biz_users.SelfEmailAddress: string;
 begin
   SelfEmailAddress := PasswordResetEmailAddressOfId(TClass_biz_user.Create.IdNum);
+end;
+
+procedure TClass_biz_users.&Set
+  (
+      username: string;
+      encoded_password: string;
+      be_stale_password: boolean;
+      password_reset_email_address: string;
+      be_active: boolean;
+      num_unsuccessful_login_attempts: uint32;
+      last_login: datetime
+  );
+begin
+  //
+  db_users.&Set
+    (
+    username,
+    encoded_password,
+    be_stale_password,
+    password_reset_email_address,
+    be_active,
+    num_unsuccessful_login_attempts,
+    last_login
+    );
+  //
 end;
 
 procedure TClass_biz_users.SetEmailAddress
