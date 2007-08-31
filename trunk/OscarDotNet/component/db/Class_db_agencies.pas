@@ -32,6 +32,12 @@ type
       );
   public
     constructor Create;
+    function Bind
+      (
+      partial_short_designator: string;
+      target: system.object
+      )
+      : boolean;
     procedure BindDropDownListShort
       (
       target: system.object;
@@ -46,6 +52,15 @@ type
       target: system.object
       );
     procedure BindRankedCommensuration(target: system.object);
+    procedure Delete(short_designator: string);
+    function Get
+      (
+      short_designator: string;
+      out medium_designator: string;
+      out long_designator: string;
+      out be_active: boolean
+      )
+      : boolean;
     function IdOfShortDesignator(short_designator: string): string;
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
@@ -57,6 +72,13 @@ type
       be_agency_id_applicable: string
       )
       : queue;
+    procedure &Set
+      (
+      short_designator: string;
+      medium_designator: string;
+      long_designator: string;
+      be_active: boolean
+      );
     procedure SetCommensuration(commensuration_rec_q: queue);
     function ShortDesignatorOf(id: string): string;
   end;
@@ -73,6 +95,33 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_trail := TClass_db_trail.Create;
+end;
+
+function TClass_db_agencies.Bind
+  (
+  partial_short_designator: string;
+  target: system.object
+  )
+  : boolean;
+var
+  bdr: bdpdatareader;
+begin
+  self.Open;
+  DropDownList(target).items.Clear;
+  //
+  bdr := bdpcommand.Create
+    (
+    'SELECT short_designator FROM agency WHERE short_designator like "' + partial_short_designator + '%" order by short_designator',
+    connection
+    )
+    .ExecuteReader;
+  while bdr.Read do begin
+    DropDownList(target).Items.Add
+      (listitem.Create(bdr['short_designator'].tostring,bdr['short_designator'].tostring));
+  end;
+  bdr.Close;
+  self.Close;
+  Bind := DropDownList(target).items.count > 0;
 end;
 
 procedure TClass_db_agencies.BindDropDownList
@@ -192,6 +241,41 @@ begin
   self.Close;
 end;
 
+procedure TClass_db_agencies.Delete(short_designator: string);
+begin
+  self.Open;
+  bdpcommand.Create(db_trail.Saved('delete from agency where short_designator = ' + short_designator),connection).ExecuteNonquery;
+  self.Close;
+end;
+
+function TClass_db_agencies.Get
+  (
+      short_designator: string;
+      out medium_designator: string;
+      out long_designator: string;
+      out be_active: boolean
+  )
+  : boolean;
+var
+  bdr: bdpdatareader;
+begin
+  Get := FALSE;
+  self.Open;
+  bdr := bdpcommand.Create('select * from agency where short_designator = "' + short_designator + '"',connection).ExecuteReader;
+  if bdr.Read then begin
+    //
+    short_designator := bdr['short_designator'].tostring;
+    medium_designator := bdr['medium_designator'].tostring;
+    long_designator := bdr['long_designator'].tostring;
+    be_active := (bdr['be_active'].tostring = '1');
+    //
+    Get := TRUE;
+    //
+  end;
+  bdr.Close;
+  self.Close;
+end;
+
 function TClass_db_agencies.IdOfShortDesignator(short_designator: string): string;
 begin
   self.Open;
@@ -286,6 +370,31 @@ begin
   //
   SerialIndicatorData := serial_indicator_rec_q;
   //
+end;
+
+procedure TClass_db_agencies.&Set
+  (
+      short_designator: string;
+      medium_designator: string;
+      long_designator: string;
+      be_active: boolean
+  );
+begin
+  self.Open;
+  bdpcommand.Create
+    (
+    db_trail.Saved
+      (
+      'replace agency'
+      + ' set short_designator = ' + short_designator + ''
+      + ' , medium_designator = ' + medium_designator + ''
+      + ' , long_designator = ' + long_designator + ''
+      + ' , be_active = ' + be_active.tostring
+      ),
+    connection
+    )
+    .ExecuteNonquery;
+  self.Close;
 end;
 
 procedure TClass_db_agencies.SetCommensuration(commensuration_rec_q: queue);

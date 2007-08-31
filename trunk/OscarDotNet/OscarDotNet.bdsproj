@@ -267,6 +267,8 @@
       <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_commensuration"/>
       <File FileName="usercontrol\app\UserControl_config_binder.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_config_binder"/>
       <File FileName="usercontrol\app\UserControl_user.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_user"/>
+      <File FileName="usercontrol\app\UserControl_agency.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_agency"/>
+      <File FileName="usercontrol\ki\UserControl_config_welcome.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_config_welcome"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -367,6 +369,8 @@
       <File FileName="usercontrol\app\UserControl_serial_indicator_commensuration.pas" ContainerId="" ModuleName="UserControl_serial_indicator_commensuration" Parent="usercontrol\app\UserControl_serial_indicator_commensuration.ascx"/>
       <File FileName="usercontrol\app\UserControl_config_binder.pas" ContainerId="" ModuleName="UserControl_config_binder" Parent="usercontrol\app\UserControl_config_binder.ascx"/>
       <File FileName="usercontrol\app\UserControl_user.pas" ContainerId="" ModuleName="UserControl_user" Parent="usercontrol\app\UserControl_user.ascx"/>
+      <File FileName="usercontrol\app\UserControl_agency.pas" ContainerId="" ModuleName="UserControl_agency" Parent="usercontrol\app\UserControl_agency.ascx"/>
+      <File FileName="usercontrol\ki\UserControl_config_welcome.pas" ContainerId="" ModuleName="UserControl_config_welcome" Parent="usercontrol\ki\UserControl_config_welcome.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

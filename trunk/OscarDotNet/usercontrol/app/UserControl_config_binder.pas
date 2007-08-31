@@ -11,8 +11,9 @@ uses
   System.Web.UI,
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
-//  UserControl_agency,
-  UserControl_user;
+  UserControl_agency,
+  UserControl_user,
+  UserControl_config_welcome;
 
 type
   p_type =
@@ -33,7 +34,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
-    MultiPage1: Microsoft.Web.UI.WebControls.MultiPage;
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -53,14 +53,18 @@ uses
   system.configuration;
 
 const
-//  TSSI_AGENCIES = 0;
-  TSSI_USERS = 0;
+  TSSI_WELCOME = 0;
+  TSSI_AGENCIES = 1;
+  TSSI_USERS = 2;
 
 procedure TWebUserControl_config_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
   if not p.be_loaded then begin
     //
+    if Has(string_array(session['privilege_array']),'config-agencies') then begin
+      TabStrip1.items[TSSI_AGENCIES].enabled := TRUE;
+    end;
     if Has(string_array(session['privilege_array']),'config-users') then begin
       TabStrip1.items[TSSI_USERS].enabled := TRUE;
     end;
@@ -88,6 +92,20 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
+    TSSI_WELCOME:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')),
+        'UserControl_config_welcome',
+        PlaceHolder_content
+        );
+    TSSI_AGENCIES:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_agency(LoadControl('~/usercontrol/app/UserControl_agency.ascx')),
+        'UserControl_agency',
+        PlaceHolder_content
+        );
     TSSI_USERS:
       AddIdentifiedControlToPlaceHolder
         (
@@ -95,20 +113,6 @@ begin
         'UserControl_user',
         PlaceHolder_content
         );
-//    TSSI_1:
-//      AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl2(LoadControl('~/usercontrol/app/UserControl2.ascx')),
-//        'UserControl2',
-//        PlaceHolder_content
-//        );
-//    TSSI_2:
-//      AddIdentifiedControlToPlaceHolder
-//        (
-//        TWebUserControl3(LoadControl('~/usercontrol/app/UserControl3.ascx')),
-//        'UserControl3',
-//        PlaceHolder_content
-//        );
     end;
   end else begin
     //
@@ -118,8 +122,8 @@ begin
     //
     AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_user(LoadControl('~/usercontrol/app/UserControl_user.ascx')).Fresh,
-      'UserControl_user',
+      TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')).Fresh,
+      'UserControl_config_welcome',
       PlaceHolder_content
       );
     //
@@ -136,6 +140,20 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
+  TSSI_WELCOME:
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')).Fresh,
+      'UserControl_config_welcome',
+      PlaceHolder_content
+      );
+  TSSI_AGENCIES:
+    AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_agency(LoadControl('~/usercontrol/app/UserControl_agency.ascx')).Fresh,
+      'UserControl_agency',
+      PlaceHolder_content
+      );
   TSSI_USERS:
     AddIdentifiedControlToPlaceHolder
       (
@@ -143,20 +161,6 @@ begin
       'UserControl_user',
       PlaceHolder_content
       );
-//  TSSI_1:
-//    AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl2(LoadControl('~/usercontrol/app/UserControl2.ascx')).Fresh,
-//      'UserControl2',
-//      PlaceHolder_content
-//      );
-//  TSSI_2:
-//    AddIdentifiedControlToPlaceHolder
-//      (
-//      TWebUserControl3(LoadControl('~/usercontrol/app/UserControl3.ascx')).Fresh,
-//      'UserControl3',
-//      PlaceHolder_content
-//      );
   end;
 end;
 
