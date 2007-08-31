@@ -13,6 +13,12 @@ type
     db_agencies: TClass_db_agencies;
   public
     constructor Create;
+    function Bind
+      (
+      partial_username: string;
+      target: system.object
+      )
+      : boolean;
     procedure BindDropDownListShort
       (
       target: system.object;
@@ -27,6 +33,15 @@ type
       target: system.object
       );
     procedure BindRankedCommensuration(target: system.object);
+    procedure Delete(username: string);
+    function Get
+      (
+      short_designator: string;
+      out medium_designator: string;
+      out long_designator: string;
+      out be_active: boolean
+      )
+      : boolean;
     function IdOfShortDesignator(short_designator: string): string;
     function LongDesignatorOf(id: string): string;
     function MediumDesignatorOf(id: string): string;
@@ -38,6 +53,13 @@ type
       be_agency_id_applicable: string
       )
       : queue;
+    procedure &Set
+      (
+      short_designator: string;
+      medium_designator: string;
+      long_designator: string;
+      be_active: boolean
+      );
     procedure SetCommensuration(commensuration_rec_q: queue);
     function ShortDesignatorOf(id: string): string;
   end;
@@ -49,6 +71,16 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_agencies := TClass_db_agencies.Create;
+end;
+
+function TClass_biz_agencies.Bind
+  (
+  partial_username: string;
+  target: system.object
+  )
+  : boolean;
+begin
+  Bind := db_agencies.Bind(partial_username,target);
 end;
 
 procedure TClass_biz_agencies.BindDropDownListShort
@@ -85,6 +117,31 @@ begin
   db_agencies.BindRankedCommensuration(target);
 end;
 
+procedure TClass_biz_agencies.Delete(username: string);
+begin
+  db_agencies.Delete(username);
+end;
+
+function TClass_biz_agencies.Get
+  (
+      short_designator: string;
+      out medium_designator: string;
+      out long_designator: string;
+      out be_active: boolean
+  )
+  : boolean;
+begin
+  //
+  Get := db_agencies.Get
+    (
+    short_designator,
+    medium_designator,
+    long_designator,
+    be_active
+    );
+  //
+end;
+
 function TClass_biz_agencies.IdOfShortDesignator(short_designator: string): string;
 begin
   IdOfShortDesignator := db_agencies.IdOfShortDesignator(short_designator);
@@ -114,6 +171,25 @@ function TClass_biz_agencies.SerialIndicatorData
   : queue;
 begin
   SerialIndicatorData := db_agencies.SerialIndicatorData(indicator,agency_id,be_agency_id_applicable);
+end;
+
+procedure TClass_biz_agencies.&Set
+  (
+      short_designator: string;
+      medium_designator: string;
+      long_designator: string;
+      be_active: boolean
+  );
+begin
+  //
+  db_agencies.&Set
+    (
+    short_designator,
+    medium_designator,
+    long_designator,
+    be_active
+    );
+  //
 end;
 
 procedure TClass_biz_agencies.SetCommensuration(commensuration_rec_q: queue);

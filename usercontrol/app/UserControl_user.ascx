@@ -1,17 +1,15 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_user.pas" Inherits="UserControl_user.TWebUserControl_user"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
-
-
 <div id="Div_print_area">
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">
-      <table cellspacing="0" cellpadding="0" border="0">
+      <table cellspacing="0" cellpadding="5" border="0">
   <tr>
     <td valign="top">Username:</td>
     <td valign="top">
-      <ASP:TextBox id="TextBox_username" runat="server"></ASP:TextBox>
+      <ASP:TextBox id="TextBox_username" runat="server" maxlength="40" columns="40"></ASP:TextBox>
       &nbsp;&nbsp;&nbsp;
       <ASP:LinkButton id="LinkButton_search" runat="server" causesvalidation="False">Lookup</ASP:LinkButton>
       &nbsp;&nbsp;&nbsp;
@@ -25,7 +23,7 @@
   <tr>
     <td>Encoded password:</td>
     <td>
-      <ASP:TextBox id="TextBox_encoded_password" runat="server" enabled="False"></ASP:TextBox>
+      <ASP:TextBox id="TextBox_encoded_password" runat="server" enabled="False" maxlength="40" columns="40"></ASP:TextBox>
     </td>
     <td>
     </td>
@@ -41,7 +39,7 @@
   <tr>
     <td>Password reset email address:</td>
     <td>
-      <ASP:TextBox id="TextBox_password_reset_email_address" runat="server"></ASP:TextBox>
+      <ASP:TextBox id="TextBox_password_reset_email_address" runat="server" maxlength="255" columns="60"></ASP:TextBox>
     </td>
     <td>
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_password_reset_email_address" runat="server" errormessage="Please enter Password reset email address." font-bold="True" controltovalidate="TextBox_password_reset_email_address">!ERR!</ASP:RequiredFieldValidator>

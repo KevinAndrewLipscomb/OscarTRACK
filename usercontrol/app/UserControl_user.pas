@@ -130,7 +130,7 @@ begin
     TextBox_password_reset_email_address.text := password_reset_email_address;
     CheckBox_be_active.checked := be_active;
     TextBox_num_unsuccessful_login_attempts.text := num_unsuccessful_login_attempts.tostring;
-    TextBox_last_login.text := last_login.tostring;
+    TextBox_last_login.text := last_login.tostring('s');
     //
     TextBox_username.enabled := FALSE;
     Button_delete.enabled := TRUE;

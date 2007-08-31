@@ -78,6 +78,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_commensuration.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_config_binder.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_user.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_agency.ascx'}
+{%AspMarkupContainer 'usercontrol\ki\UserControl_config_welcome.ascx'}
 
 uses
   System.Reflection,
@@ -179,7 +181,9 @@ uses
   UserControl_ranked_commensuration in 'usercontrol\app\UserControl_ranked_commensuration.pas' {UserControl_ranked_commensuration.TWebUserControl_ranked_commensuration: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas' {UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration: ki_web_ui.usercontrol_class},
   UserControl_config_binder in 'usercontrol\app\UserControl_config_binder.pas' {UserControl_config_binder.TWebUserControl_config_binder: ki_web_ui.usercontrol_class},
-  UserControl_user in 'usercontrol\app\UserControl_user.pas' {UserControl_user.TWebUserControl_user: ki_web_ui.usercontrol_class};
+  UserControl_user in 'usercontrol\app\UserControl_user.pas' {UserControl_user.TWebUserControl_user: ki_web_ui.usercontrol_class},
+  UserControl_agency in 'usercontrol\app\UserControl_agency.pas' {UserControl_agency.TWebUserControl_agency: ki_web_ui.usercontrol_class},
+  UserControl_config_welcome in 'usercontrol\ki\UserControl_config_welcome.pas';
 
 //
 // General Information about an assembly is controlled through the following

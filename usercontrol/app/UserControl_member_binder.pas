@@ -69,7 +69,9 @@ begin
     if Has(string_array(session['privilege_array']),'enter-actual-crew-shifts') then begin
       TabStrip1.items[TSSI_RESULTS].enabled := TRUE;
     end;
-    if Has(string_array(session['privilege_array']),'config-users') then begin
+    if Has(string_array(session['privilege_array']),'config-users')
+      or Has(string_array(session['privilege_array']),'config-agencies')
+    then begin
       TabStrip1.items[TSSI_CONFIG].enabled := TRUE;
     end;
     //
