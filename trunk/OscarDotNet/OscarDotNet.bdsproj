@@ -371,6 +371,7 @@
       <File FileName="usercontrol\app\UserControl_user.pas" ContainerId="" ModuleName="UserControl_user" Parent="usercontrol\app\UserControl_user.ascx"/>
       <File FileName="usercontrol\app\UserControl_agency.pas" ContainerId="" ModuleName="UserControl_agency" Parent="usercontrol\app\UserControl_agency.ascx"/>
       <File FileName="usercontrol\ki\UserControl_config_welcome.pas" ContainerId="" ModuleName="UserControl_config_welcome" Parent="usercontrol\ki\UserControl_config_welcome.ascx"/>
+      <File FileName="component\biz\Class_biz_data_conditions.pas" ContainerId="" ModuleName="Class_biz_data_conditions"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

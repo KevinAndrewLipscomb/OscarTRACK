@@ -183,7 +183,8 @@ uses
   UserControl_config_binder in 'usercontrol\app\UserControl_config_binder.pas' {UserControl_config_binder.TWebUserControl_config_binder: ki_web_ui.usercontrol_class},
   UserControl_user in 'usercontrol\app\UserControl_user.pas' {UserControl_user.TWebUserControl_user: ki_web_ui.usercontrol_class},
   UserControl_agency in 'usercontrol\app\UserControl_agency.pas' {UserControl_agency.TWebUserControl_agency: ki_web_ui.usercontrol_class},
-  UserControl_config_welcome in 'usercontrol\ki\UserControl_config_welcome.pas';
+  UserControl_config_welcome in 'usercontrol\ki\UserControl_config_welcome.pas',
+  Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas';
 
 //
 // General Information about an assembly is controlled through the following

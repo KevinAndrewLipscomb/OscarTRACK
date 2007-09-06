@@ -109,6 +109,7 @@ type
     function LastNameOf(e_item: system.object): string;
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
+    function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
@@ -436,6 +437,11 @@ end;
 function TClass_biz_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
   MedicalReleaseLevelOf := db_members.MedicalReleaseLevelOf(e_item);
+end;
+
+function TClass_biz_members.MedicalReleaseLevelOfMemberId(member_id: string): string;
+begin
+  MedicalReleaseLevelOfMemberId := db_members.MedicalReleaseLevelOfMemberId(member_id);
 end;
 
 function TClass_biz_members.OfficershipOf(member_id: string): string;

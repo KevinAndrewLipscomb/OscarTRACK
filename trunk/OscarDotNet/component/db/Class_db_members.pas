@@ -138,6 +138,7 @@ type
     function LastNameOfMemberId(member_id: string): string;
     procedure MakeMemberStatusStatements;
     function MedicalReleaseLevelOf(e_item: system.object): string;
+    function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
@@ -1266,6 +1267,21 @@ end;
 function TClass_db_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
   MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,NARRATIVE);
+end;
+
+function TClass_db_members.MedicalReleaseLevelOfMemberId(member_id: string): string;
+begin
+  self.Open;
+  MedicalReleaseLevelOfMemberId := bdpcommand.Create
+    (
+    'select description'
+    + ' from member'
+    +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+    + ' where id = ' + member_id,
+    connection
+    )
+    .ExecuteScalar.tostring;
+  self.Close;
 end;
 
 function TClass_db_members.OfficershipOf(member_id: string): string;
