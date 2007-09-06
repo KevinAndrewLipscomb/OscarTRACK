@@ -3,11 +3,13 @@ unit Class_db_notifications;
 interface
 
 uses
+  Class_biz_data_conditions,
   Class_db;
 
 type
   TClass_db_notifications = class(TClass_db)
   private
+    biz_data_conditions: TClass_biz_data_conditions;
     tier_2_match_field: string;
     tier_3_match_field: string;
   public
@@ -30,6 +32,7 @@ constructor TClass_db_notifications.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
+  biz_data_conditions := TClass_biz_data_conditions.Create;
   tier_2_match_field := configurationsettings.appsettings['tier_2_match_field'];
   tier_3_match_field := configurationsettings.appsettings['tier_3_match_field'];
 end;
@@ -63,11 +66,13 @@ begin
   bdr := bdpcommand.Create
     (
     'select email_address'
+    + ' , data_condition.name as data_condition_name'
     + ' from member'
     +   ' join role_member_map on (role_member_map.member_id=member.id)'
     +   ' join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)'
     +   ' join role on (role.id=role_member_map.role_id)'
     +   ' join notification on (notification.id=role_notification_map.notification_id)'
+    +   ' join data_condition on (data_condition.id=role_notification_map.data_condition_id)'
     + ' where tier_id = 1'
     +   ' and notification.name = "' + name + '"',
     connection
@@ -75,7 +80,11 @@ begin
     .ExecuteReader;
   if bdr <> nil then begin
     while bdr.Read do begin
-      target_of := target_of + bdr['email_address'].tostring + ',';
+      if (bdr['data_condition_name'].tostring = 'none')
+        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+      then begin
+        target_of := target_of + bdr['email_address'].tostring + ',';
+      end;
     end;
   end;
   bdr.Close;
@@ -85,11 +94,13 @@ begin
   bdr := bdpcommand.Create
     (
     'select email_address'
+    + ' , data_condition.name as data_condition_name'
     + ' from member'
     +   ' join role_member_map on (role_member_map.member_id=member.id)'
     +   ' join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)'
     +   ' join role on (role.id=role_member_map.role_id)'
     +   ' join notification on (notification.id=role_notification_map.notification_id)'
+    +   ' join data_condition on (data_condition.id=role_notification_map.data_condition_id)'
     + ' where tier_id = 2'
     +   ' and ' + tier_2_match_field + ' = ' + tier_2_match_value
     +   ' and notification.name = "' + name + '"',
@@ -98,7 +109,11 @@ begin
     .ExecuteReader;
   if bdr <> nil then begin
     while bdr.Read do begin
-      target_of := target_of + bdr['email_address'].tostring + ',';
+      if (bdr['data_condition_name'].tostring = 'none')
+        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+      then begin
+        target_of := target_of + bdr['email_address'].tostring + ',';
+      end;
     end;
   end;
   bdr.Close;
@@ -108,11 +123,13 @@ begin
   bdr := bdpcommand.Create
     (
     'select email_address'
+    + ' , data_condition.name as data_condition_name'
     + ' from member'
     +   ' join role_member_map on (role_member_map.member_id=member.id)'
     +   ' join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)'
     +   ' join role on (role.id=role_member_map.role_id)'
     +   ' join notification on (notification.id=role_notification_map.notification_id)'
+    +   ' join data_condition on (data_condition.id=role_notification_map.data_condition_id)'
     + ' where tier_id = 3'
     +   ' and ' + tier_2_match_field + ' = ' + tier_2_match_value
     +   ' and ' + tier_3_match_field + ' = ' + tier_3_match_value
@@ -122,7 +139,11 @@ begin
     .ExecuteReader;
   if bdr <> nil then begin
     while bdr.Read do begin
-      target_of := target_of + bdr['email_address'].tostring + ',';
+      if (bdr['data_condition_name'].tostring = 'none')
+        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+      then begin
+        target_of := target_of + bdr['email_address'].tostring + ',';
+      end;
     end;
   end;
   bdr.Close;

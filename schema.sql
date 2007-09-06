@@ -62,6 +62,26 @@ insert core_ops_commitment_level (`name`) values
 -- Table structure for table `enrollment_history`
 --
 
+DROP TABLE IF EXISTS data_condition;
+CREATE TABLE IF NOT EXISTS data_condition
+  (
+  `id` INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(31) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX name(`name`)
+  )
+ENGINE = InnoDB;
+
+insert data_condition (name) values
+("none"),
+("BeMemberTrainee");
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `enrollment_history`
+--
+
 DROP TABLE IF EXISTS enrollment_history;
 CREATE TABLE IF NOT EXISTS enrollment_history (
   id int(10) unsigned NOT NULL auto_increment,
@@ -745,43 +765,55 @@ DROP TABLE IF EXISTS role_notification_map;
 CREATE TABLE role_notification_map (
   role_id int unsigned NOT NULL,
   notification_id int unsigned NOT NULL,
-  PRIMARY KEY  (role_id,notification_id),
+  data_condition_id INTEGER UNSIGNED NOT NULL DEFAULT 1,
+  PRIMARY KEY  (role_id,notification_id,data_condition_id),
   KEY privilege_id (notification_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT role_notification_map (notification_id,role_id) VALUES
-(1,3),
-(1,4),
-(1,6),
-(1,7),
-(1,8),
-(2,3),
-(2,6),
-(2,7),
-(3,3),
-(3,6),
-(3,7),
-(4,3),
-(4,6),
-(4,7),
-(5,3),
-(5,4),
-(5,6),
-(5,7),
-(5,8),
-(6,3),
-(6,6),
-(6,9),
-(7,3),
-(7,6),
-(8,6),
-(8,7),
-(9,6),
-(10,3),
-(11,3),
-(11,6),
-(11,13),
-(11,14);
+INSERT role_notification_map (notification_id,role_id,data_condition_id) VALUES
+(1,3,1),
+(1,4,1),
+(1,6,1),
+(1,7,1),
+(1,8,1),
+(2,3,1),
+(2,6,1),
+(2,7,1),
+(3,3,1),
+(3,6,1),
+(3,7,1),
+(4,3,1),
+(4,6,1),
+(4,7,1),
+(5,3,1),
+(5,4,1),
+(5,6,1),
+(5,7,1),
+(5,8,1),
+(6,3,1),
+(6,6,1),
+(6,9,1),
+(7,3,1),
+(7,6,1),
+(8,6,1),
+(8,7,1),
+(9,6,1),
+(10,3,1),
+(11,3,1),
+(11,6,1),
+(11,13,1),
+(11,14,1),
+insert role_notification_map (role_id,notification_id,data_condition_id) values
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "leave-deleted"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "leave-granted"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "leave-modified"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "member-name-change"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "new-enrollment-level"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "leave-deleted"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "leave-granted"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "leave-modified"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "member-name-change"),(select id from data_condition where name = "BeMemberTrainee")),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "new-enrollment-level"),(select id from data_condition where name = "BeMemberTrainee"));
 
 --
 -- Table structure for table `role_privilege_map`
