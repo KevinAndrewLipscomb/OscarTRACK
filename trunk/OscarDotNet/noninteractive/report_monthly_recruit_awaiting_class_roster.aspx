@@ -16,7 +16,7 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Monthly report of RECRUITS AWAITING CLASS</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of RECRUITS WHO ARE NOT YET EMT INTERNS</strong></td>
 					</tr>
 					<tr>
 					  <td>
@@ -25,10 +25,11 @@
 						<ul>
 						  <li><p>Use the <asp:label id="Label_application_name_2" runat="server"></asp:label> website's QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
-						  <li><p>Consider reminding these personnel that we are counting on them to enroll in class, and that
-						    we all found the difficult class schedule to ultimately be extremely rewarding.</p></li>
-                                                  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
-                                                    report entered into your squad's corporate minutes.</p></li>						  <li>
+						  <li><p>Consider reminding these personnel that we are counting on them to enroll in class and/or achieve
+							EMT Internship, and that we all found the difficult class schedule to ultimately be extremely
+							rewarding.</p></li>
+						  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
+                            report entered into your squad's corporate minutes.</p></li>
 						  <li>
 							<p>Visit the <asp:label id="Label_application_name_1" runat="server"></asp:label>
 							website to use additional features, such as advanced filtering, sorting, detail lookups, and
