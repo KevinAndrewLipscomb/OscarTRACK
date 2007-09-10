@@ -269,6 +269,8 @@
       <File FileName="usercontrol\app\UserControl_user.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_user"/>
       <File FileName="usercontrol\app\UserControl_agency.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_agency"/>
       <File FileName="usercontrol\ki\UserControl_config_welcome.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_config_welcome"/>
+      <File FileName="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_num_members_in_pipeline"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_num_members_in_pipeline"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -372,6 +374,8 @@
       <File FileName="usercontrol\app\UserControl_agency.pas" ContainerId="" ModuleName="UserControl_agency" Parent="usercontrol\app\UserControl_agency.ascx"/>
       <File FileName="usercontrol\ki\UserControl_config_welcome.pas" ContainerId="" ModuleName="UserControl_config_welcome" Parent="usercontrol\ki\UserControl_config_welcome.ascx"/>
       <File FileName="component\biz\Class_biz_data_conditions.pas" ContainerId="" ModuleName="Class_biz_data_conditions"/>
+      <File FileName="usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas" ContainerId="" ModuleName="UserControl_ranked_num_members_in_pipeline" Parent="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx"/>
+      <File FileName="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas" ContainerId="" ModuleName="UserControl_serial_indicator_num_members_in_pipeline" Parent="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

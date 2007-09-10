@@ -58,6 +58,11 @@ type
       target: system.object;
       do_log: boolean = TRUE
       );
+    procedure BindRankedNumMembersInPipeline
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
     procedure BindRankedStandardEnrollment
       (
       target: system.object;
@@ -272,6 +277,15 @@ procedure TClass_biz_members.BindRankedCrewShiftsForecast
   );
 begin
   db_members.BindRankedCrewShiftsForecast(target,do_log);
+end;
+
+procedure TClass_biz_members.BindRankedNumMembersInPipeline
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
+begin
+  db_members.BindRankedNumMembersInPipeline(target,do_log);
 end;
 
 procedure TClass_biz_members.BindRankedStandardEnrollment

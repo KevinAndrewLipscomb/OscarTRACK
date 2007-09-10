@@ -79,6 +79,11 @@ type
       target: system.object;
       do_log: boolean = TRUE
       );
+    procedure BindRankedNumMembersInPipeline
+      (
+      target: system.object;
+      do_log: boolean = TRUE
+      );
     procedure BindRankedStandardEnrollment
       (
       target: system.object;
@@ -451,6 +456,100 @@ begin
     + ' , ' + metric_from_where_clause
     + ' group by agency.id'
     + ' order by num_crew_shifts desc',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(target).DataBind;
+  self.Close;
+end;
+
+procedure TClass_db_members.BindRankedNumMembersInPipeline
+  (
+  target: system.object;
+  do_log: boolean = TRUE
+  );
+var
+  from_where_phrase: string;
+  metric_phrase: string;
+begin
+  //
+  metric_phrase := ' count(*)';
+  from_where_phrase := ' from member'
+  +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
+  +   ' join enrollment_history'
+  +     ' on'
+  +       ' ('
+  +       ' enrollment_history.member_id=member.id'
+  +       ' and'
+  +         ' ('
+  +           ' (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))'
+  +         ' and'
+  +           ' ('
+  +             ' (enrollment_history.end_date is null)'
+  +           ' or'
+  +             ' (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))'
+  +           ' )'
+  +         ' )'
+  +       ' )'
+  +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+  +   ' join agency on (agency.id=member.agency_id)'
+  + ' where'
+  +     ' (enrollment_level.description in ("Recruit","New trainee"))'
+  +   ' or'
+  +     ' ('
+  +       ' enrollment_level.description in ("Regular")'
+  +     ' and'
+  +       ' medical_release_code_description_map.pecking_order < ' + uint32(Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE).tostring
+  +     ' )';
+  //
+  self.Open;
+  if do_log then begin
+    bdpcommand.Create
+      (
+      db_trail.Saved
+        (
+        'START TRANSACTION;'
+        //
+        // Log squad-by-squad indicators.
+        //
+        + ' replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , TRUE'
+        +     ' , agency.id'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        +   ' group by agency.id'
+        + ';'
+        //
+        // Log citywide indicator.
+        //
+        + ' replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)'
+        +   ' select YEAR(CURDATE())'
+        +     ' , MONTH(CURDATE())'
+        +     ' , FALSE'
+        +     ' , 0'
+        +     ' , ' + metric_phrase
+        + from_where_phrase
+        + ';'
+        + ' COMMIT'
+        ),
+      connection
+      )
+      .ExecuteNonQuery;
+    //
+  end;
+  //
+  // Bind datagrid for display.
+  //
+  DataGrid(target).datasource := bdpcommand.Create
+    (
+    'select NULL as rank'
+    + ' , concat(medium_designator," - ",long_designator) as agency'
+    + ' , ' + metric_phrase + ' as count'
+    + from_where_phrase
+    + ' group by agency.id'
+    + ' order by count desc',
     connection
     )
     .ExecuteReader;

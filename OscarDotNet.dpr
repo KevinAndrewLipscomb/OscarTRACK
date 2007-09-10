@@ -80,6 +80,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\app\UserControl_user.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_agency.ascx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_config_welcome.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx'}
+{%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx'}
 
 uses
   System.Reflection,
@@ -184,7 +186,9 @@ uses
   UserControl_user in 'usercontrol\app\UserControl_user.pas' {UserControl_user.TWebUserControl_user: ki_web_ui.usercontrol_class},
   UserControl_agency in 'usercontrol\app\UserControl_agency.pas' {UserControl_agency.TWebUserControl_agency: ki_web_ui.usercontrol_class},
   UserControl_config_welcome in 'usercontrol\ki\UserControl_config_welcome.pas',
-  Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas';
+  Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas',
+  UserControl_ranked_num_members_in_pipeline in 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas' {UserControl_ranked_num_members_in_pipeline.TWebUserControl_ranked_num_members_in_pipeline: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas' {UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

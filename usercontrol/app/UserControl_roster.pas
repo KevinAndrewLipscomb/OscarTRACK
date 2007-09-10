@@ -165,7 +165,7 @@ begin
       p.enrollment_filter := APPLICANT;
       DropDownList_enrollment_filter.selectedvalue := 'applicant';
       RadioButtonList_which_month.selectedvalue := '0'; // this month
-    end else if session['mode:report/monthly-recruit-awaiting-class-roster'] <> nil then begin
+    end else if session['mode:report/monthly-recruits-who-are-not-yet-emt-interns-roster'] <> nil then begin
       p.enrollment_filter := RECRUIT;
       DropDownList_enrollment_filter.selectedvalue := 'recruit';
       RadioButtonList_which_month.selectedvalue := '0'; // this month

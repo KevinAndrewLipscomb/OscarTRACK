@@ -8,6 +8,7 @@
 			   tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;" forecolor="Blue" tabhoverstyle="background-color:gainsboro;" width="100%" autopostback="True">
 		  <iewc:Tab text="Initial schedule completion"></iewc:Tab>
 		  <iewc:Tab text="# Core ops members"></iewc:Tab>
+		  <iewc:Tab text="# Members in pipeline"></iewc:Tab>
 		  <iewc:Tab text="# Potential crew shifts"></iewc:Tab>
 		  <iewc:Tab text="Roster utilization"></iewc:Tab>
 		  <iewc:Tab text="Core ops commitment"></iewc:Tab>

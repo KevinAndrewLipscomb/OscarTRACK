@@ -14,6 +14,7 @@ uses
   UserControl_serial_indicator_commensuration,
   UserControl_serial_indicator_length_of_service,
   UserControl_serial_indicator_num_core_ops_members,
+  UserControl_serial_indicator_num_members_in_pipeline,
   UserControl_serial_indicator_potential_crew_shifts,
   UserControl_serial_indicator_standard_enrollment,
   UserControl_serial_indicator_utilization;
@@ -58,10 +59,11 @@ uses
 const
   TSSI_COMMENSURATION = 0;
   TSSI_NUM_CORE_OPS_MEMBERS = 1;
-  TSSI_NUM_POTENTIAL_CREW_SHIFTS = 2;
-  TSSI_ROSTER_UTILIZATION = 3;
-  TSSI_CORE_OPS_COMMITMENT = 4;
-  TSSI_MEDIAN_YEARS_OF_SERVICE = 5;
+  TSSI_NUM_MEMBERS_IN_PIPELINE = 2;
+  TSSI_NUM_POTENTIAL_CREW_SHIFTS = 3;
+  TSSI_ROSTER_UTILIZATION = 4;
+  TSSI_CORE_OPS_COMMITMENT = 5;
+  TSSI_MEDIAN_YEARS_OF_SERVICE = 6;
 
 procedure TWebUserControl_serial_indicators_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -104,6 +106,13 @@ begin
         (
         TWebUserControl_serial_indicator_num_core_ops_members(LoadControl('~/usercontrol/app/UserControl_serial_indicator_num_core_ops_members.ascx')),
         'UserControl_serial_indicator_num_core_ops_members',
+        PlaceHolder_content
+        );
+    TSSI_NUM_MEMBERS_IN_PIPELINE:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_serial_indicator_num_members_in_pipeline(LoadControl('~/usercontrol/app/UserControl_serial_indicator_num_members_in_pipeline.ascx')),
+        'UserControl_serial_indicator_num_members_in_pipeline',
         PlaceHolder_content
         );
     TSSI_NUM_POTENTIAL_CREW_SHIFTS:
@@ -173,6 +182,13 @@ begin
         (
         TWebUserControl_serial_indicator_num_core_ops_members(LoadControl('~/usercontrol/app/UserControl_serial_indicator_num_core_ops_members.ascx')).Fresh,
         'UserControl_serial_indicator_num_core_ops_members',
+        PlaceHolder_content
+        );
+    TSSI_NUM_MEMBERS_IN_PIPELINE:
+      AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_serial_indicator_num_members_in_pipeline(LoadControl('~/usercontrol/app/UserControl_serial_indicator_num_members_in_pipeline.ascx')).Fresh,
+        'UserControl_serial_indicator_num_members_in_pipeline',
         PlaceHolder_content
         );
     TSSI_NUM_POTENTIAL_CREW_SHIFTS:
