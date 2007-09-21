@@ -1,4 +1,5 @@
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="add_new_enrollment_status.pas" AutoEventWireup="false" Inherits="add_new_enrollment_status.TWebForm_add_new_enrollment_status" %>
+<%@ Page language="c#" Debug="true" Codebehind="add_new_enrollment_status.pas" AutoEventWireup="false" Inherits="add_new_enrollment_status.TWebForm_add_new_enrollment_status" %>
+<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
@@ -46,7 +47,7 @@ new status be?&nbsp; Please consider carefully.
 								<p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small">Grant leave instead</ASP:LinkButton></p>
 								<p>&nbsp;</p>
 								<p>OSCAR may notify EMS Admin about membership status changes.</p>
-								</td><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><sstchur:SmartScroller runat="server" />
+								</td>
 							</tr>
 						</table>
 					  </td>
