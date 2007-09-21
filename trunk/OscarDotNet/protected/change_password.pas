@@ -22,8 +22,6 @@ type
   strict private
     procedure InitializeComponent;
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_overview_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure TWebForm_change_password_PreRender(sender: System.Object;
       e: System.EventArgs);
   {$ENDREGION}
@@ -32,7 +30,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_nominal_password: System.Web.UI.WebControls.TextBox;
     TextBox_confirmation_password: System.Web.UI.WebControls.TextBox;
@@ -40,8 +37,6 @@ type
     RequiredFieldValidator_confirmation_password: System.Web.UI.WebControls.RequiredFieldValidator;
     CompareValidator1: System.Web.UI.WebControls.CompareValidator;
     RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
-    LinkButton_back_to_overview: System.Web.UI.WebControls.LinkButton;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -61,8 +56,6 @@ uses
 /// </summary>
 procedure TWebForm_change_password.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back_to_overview.Click, Self.LinkButton_overview_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_password_PreRender);
@@ -83,8 +76,6 @@ begin
     p.biz_users := TClass_biz_users.Create;
     p.biz_user := TClass_biz_user.Create;
     //
-    Label_account_descriptor.Text := session['username'].ToString;
-    //
     Focus(TextBox_nominal_password);
     //
   end;
@@ -104,20 +95,6 @@ procedure TWebForm_change_password.TWebForm_change_password_PreRender(sender: Sy
 begin
   session.Remove('change_password.p');
   session.Add('change_password.p',p);
-end;
-
-procedure TWebForm_change_password.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
-end;
-
-procedure TWebForm_change_password.LinkButton_overview_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('overview.aspx');
 end;
 
 procedure TWebForm_change_password.Button_submit_Click(sender: System.Object;

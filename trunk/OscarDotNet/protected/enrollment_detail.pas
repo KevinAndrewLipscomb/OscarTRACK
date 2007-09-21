@@ -29,14 +29,10 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure DataGrid_member_history_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
     procedure DataGrid_member_history_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
     procedure TWebForm_enrollment_detail_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_add_new_enrollment_status_Click(sender: System.Object; 
       e: System.EventArgs);
   {$ENDREGION}
@@ -46,11 +42,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
-    LinkButton_back: System.Web.UI.WebControls.LinkButton;
     DataGrid_member_history: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
@@ -76,10 +67,6 @@ uses
 /// </summary>
 procedure TWebForm_enrollment_detail.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_add_new_enrollment_status.Click, Self.LinkButton_add_new_enrollment_status_Click);
   Include(Self.DataGrid_member_history.ItemCommand, Self.DataGrid_member_history_ItemCommand);
   Include(Self.DataGrid_member_history.ItemDataBound, Self.DataGrid_member_history_ItemDataBound);
@@ -93,7 +80,6 @@ begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - enrollment_detail';
-    Label_account_descriptor.text := session['username'].tostring;
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '
       + p.biz_members.LastNameOf(session['e_item'])
@@ -149,18 +135,6 @@ begin
   server.Transfer('add_new_enrollment_status.aspx');
 end;
 
-procedure TWebForm_enrollment_detail.LinkButton_change_email_address_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_email_address.aspx');
-end;
-
-procedure TWebForm_enrollment_detail.LinkButton_change_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_password.aspx');
-end;
-
 procedure TWebForm_enrollment_detail.TWebForm_enrollment_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -200,20 +174,6 @@ begin
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
   end;
-end;
-
-procedure TWebForm_enrollment_detail.LinkButton_back_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
-end;
-
-procedure TWebForm_enrollment_detail.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
 end;
 
 procedure TWebForm_enrollment_detail.Bind;

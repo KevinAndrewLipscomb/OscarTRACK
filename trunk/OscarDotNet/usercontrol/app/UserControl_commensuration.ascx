@@ -1,5 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_commensuration.pas" Inherits="UserControl_commensuration.TWebUserControl_commensuration"%>
-  <table cellspacing="0" cellpadding="5" border="0">
+<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<div id="Div_print_area">
+<table cellspacing="0" cellpadding="5" border="0">
 	  <tr><td valign="top">•</td>
 		<td valign="top">This form will only be enabled from the 10th day through the last day of each month.</td>
 	  </tr>
@@ -21,19 +23,21 @@
 <p><ASP:DataGrid id="DataGrid_commensuration" runat="server" autogeneratecolumns="False" cellpadding="5" gridlines="None">
   <HeaderStyle font-bold="True" horizontalalign="Center"></HeaderStyle>
   <Columns>
-    <ASP:BoundColumn visible="False" datafield="agency_id" readonly="True" headertext="ID"></ASP:BoundColumn>
-    <ASP:BoundColumn datafield="designator" readonly="True" headertext="Agency"></ASP:BoundColumn>
+	<ASP:BoundColumn visible="False" datafield="agency_id" readonly="True" headertext="ID"></ASP:BoundColumn>
+	<ASP:BoundColumn datafield="designator" readonly="True" headertext="Agency"></ASP:BoundColumn>
 	<ASP:BoundColumn datafield="num_crew_shifts" readonly="True" headertext="Forecast">
 	  <ItemStyle horizontalalign="Right"></ItemStyle>
 	</ASP:BoundColumn>
 	<ASP:TemplateColumn headertext="Actual">
 	  <ItemTemplate><ASP:TextBox id="TextBox_quantity" runat="server"></ASP:TextBox>
 	  </ItemTemplate>
-    </ASP:TemplateColumn>
-    <ASP:TemplateColumn>
-      <ItemTemplate><ASP:RequiredFieldValidator id="RequiredFieldValidator_quantity" runat="server" errormessage="Please enter a quantity." font-bold="True" display="Dynamic" controltovalidate="TextBox_quantity">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_quantity" runat="server" errormessage="Please enter a valid quantity." font-bold="True" display="Dynamic" controltovalidate="TextBox_quantity" validationexpression="\d+(\.\d+)?">!ERR!</ASP:RegularExpressionValidator>
-      </ItemTemplate>
-    </ASP:TemplateColumn>
+	</ASP:TemplateColumn>
+	<ASP:TemplateColumn>
+	  <ItemTemplate><ASP:RequiredFieldValidator id="RequiredFieldValidator_quantity" runat="server" errormessage="Please enter a quantity." font-bold="True" display="Dynamic" controltovalidate="TextBox_quantity">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_quantity" runat="server" errormessage="Please enter a valid quantity." font-bold="True" display="Dynamic" controltovalidate="TextBox_quantity" validationexpression="\d+(\.\d+)?">!ERR!</ASP:RegularExpressionValidator>
+	  </ItemTemplate>
+	</ASP:TemplateColumn>
   </Columns>
 </ASP:DataGrid></p>
-<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button></p>
+</div>
+<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
+  <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></p>

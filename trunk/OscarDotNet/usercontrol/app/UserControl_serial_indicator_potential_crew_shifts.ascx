@@ -1,4 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_potential_crew_shifts.pas" Inherits="UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts"%>
+<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<div id="Div_print_area">
+<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
 <p>These control charts show the potential number of ambulance crew-shifts that could have been supplied on the schedule.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
@@ -12,3 +15,4 @@
   </Columns>
 </ASP:DataGrid>
 </p>
+</div>

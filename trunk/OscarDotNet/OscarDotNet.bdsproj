@@ -124,7 +124,7 @@
 			<Directories Name="PackageDLLOutputDir" Type="String"></Directories>
 			<Directories Name="PackageDCPOutputDir" Type="String"></Directories>
 			<Directories Name="SearchPath" Type="String">c:\windows\microsoft.net\framework\v1.1.4322;c:\program files\common files\borland shared\bds\shared assemblies\4.0;c:\inetpub\wwwroot\oscardotnet\lib\ki;c:\inetpub\wwwroot\oscardotnet\bin</Directories>
-			<Directories Name="Packages" Type="String">c:\windows\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCSPCChartNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCChart2DNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\Microsoft.Web.UI.WebControls.dll;ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
+			<Directories Name="Packages" Type="String">c:\windows\microsoft.net\framework\v1.1.4322\System.Design.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Windows.Forms.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCSPCChartNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\QCChart2DNet.dll;c:\inetpub\wwwroot\oscardotnet\bin\Microsoft.Web.UI.WebControls.dll;ki;c:\program files\common files\borland shared\bds\shared assemblies\4.0\Borland.Data.Provider.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.XML.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Web.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Drawing.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.Data.dll;c:\windows\microsoft.net\framework\v1.1.4322\System.dll</Directories>
 			<Directories Name="Conditionals" Type="String"></Directories>
 			<Directories Name="DebugSourceDirs" Type="String"></Directories>
 			<Directories Name="UsePackages" Type="Boolean">True</Directories>
@@ -219,7 +219,6 @@
       <File FileName="protected\member_detail.aspx" ContainerId="AspMarkupContainer" ModuleName="member_detail"/>
       <File FileName="protected\officership_detail.aspx" ContainerId="AspMarkupContainer" ModuleName="officership_detail"/>
       <File FileName="protected\overview.aspx" ContainerId="AspMarkupContainer" ModuleName="overview"/>
-      <File FileName="protected\profile.aspx" ContainerId="AspMarkupContainer" ModuleName="profile"/>
       <File FileName="noninteractive\milestone_sweep.aspx" ContainerId="AspMarkupContainer" ModuleName="milestone_sweep"/>
       <File FileName="noninteractive\daily_tasks.aspx" ContainerId="AspMarkupContainer" ModuleName="daily_tasks"/>
       <File FileName="usercontrol\ki\UserControl_drop_down_date.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_drop_down_date"/>
@@ -271,6 +270,8 @@
       <File FileName="usercontrol\ki\UserControl_config_welcome.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_config_welcome"/>
       <File FileName="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_ranked_num_members_in_pipeline"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_serial_indicator_num_members_in_pipeline"/>
+      <File FileName="$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Design.dll" ContainerId="DelphiDotNetAssemblyCompiler" ModuleName="System.Design" AssemblyName="System.Design" Version="1.0.5000.0" LinkUnits="False"/>
+      <File FileName="usercontrol\ki\UserControl_bread_crumb_trail.ascx" ContainerId="AspMarkupContainer" ModuleName="UserControl_bread_crumb_trail"/>
       <File FileName="" ContainerId="" ModuleName="System.Reflection"/>
       <File FileName="" ContainerId="" ModuleName="System.Runtime.CompilerServices"/>
       <File FileName="Global.pas" ContainerId="" ModuleName="Global" Parent="Global.asax"/>
@@ -313,7 +314,6 @@
       <File FileName="protected\leave_detail.pas" ContainerId="" ModuleName="leave_detail" Parent="protected\leave_detail.aspx"/>
       <File FileName="protected\member_detail.pas" ContainerId="" ModuleName="member_detail" Parent="protected\member_detail.aspx"/>
       <File FileName="protected\officership_detail.pas" ContainerId="" ModuleName="officership_detail" Parent="protected\officership_detail.aspx"/>
-      <File FileName="protected\profile.pas" ContainerId="" ModuleName="profile" Parent="protected\profile.aspx"/>
       <File FileName="noninteractive\milestone_sweep.pas" ContainerId="" ModuleName="milestone_sweep" Parent="noninteractive\milestone_sweep.aspx"/>
       <File FileName="noninteractive\daily_tasks.pas" ContainerId="" ModuleName="daily_tasks" Parent="noninteractive\daily_tasks.aspx"/>
       <File FileName="usercontrol\ki\UserControl_drop_down_date.pas" ContainerId="" ModuleName="UserControl_drop_down_date" Parent="usercontrol\ki\UserControl_drop_down_date.ascx"/>
@@ -376,6 +376,7 @@
       <File FileName="component\biz\Class_biz_data_conditions.pas" ContainerId="" ModuleName="Class_biz_data_conditions"/>
       <File FileName="usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas" ContainerId="" ModuleName="UserControl_ranked_num_members_in_pipeline" Parent="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx"/>
       <File FileName="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas" ContainerId="" ModuleName="UserControl_serial_indicator_num_members_in_pipeline" Parent="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx"/>
+      <File FileName="usercontrol\ki\UserControl_bread_crumb_trail.pas" ContainerId="" ModuleName="UserControl_bread_crumb_trail" Parent="usercontrol\ki\UserControl_bread_crumb_trail.ascx"/>
     </FileList>
   </DelphiDotNet.Personality>
 </BorlandProject>

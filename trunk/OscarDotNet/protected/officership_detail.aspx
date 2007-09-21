@@ -11,32 +11,15 @@
   </head>
 
   <body>
-     <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
-		  <table cellspacing="0" cellpadding="0" width="100%" border="0">
-			  <tr>
-				<td>
-		<small>[
-		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-			                 [ Back to <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-			                 [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
-			|
-			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
-		</small>
-				</td>
-				<td align="right"><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
-				</td>
-			  </tr>
-		  </table>
-	  </p>
+	 <form runat="server">
+	   <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 <div id="Div_print_area">
-	  <p><asp:label id="Label_account_descriptor" runat="server" font-bold="True" font-size="Large"></asp:label></p>
-	  <p>
-        <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
-            <tr>
-              <td>
-                <table cellspacing="0" cellpadding="10" border="0">
-                    <tr>
-                      <td bgcolor="#f5f5f5"><strong>Officership detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
+		<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
+			<tr>
+			  <td>
+				<table cellspacing="0" cellpadding="10" border="0">
+					<tr>
+                      <td bgcolor="#f5f5f5"><strong>Officership detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label>&nbsp;&nbsp;&nbsp;&nbsp; </strong><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
 					</tr>
 					<tr id="TableRow_none" runat="server">
 					  <td><em>--&nbsp;NONE&nbsp;--</em></td>
@@ -60,9 +43,10 @@
                     </tr>
                 </table></td>
             </tr>
-		</table></p>
-</div>
+		</table>
 	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
-	 <sstchur:SmartScroller runat="server" /></form>
+      <p></p></div>
+      <p>
+	 <sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>

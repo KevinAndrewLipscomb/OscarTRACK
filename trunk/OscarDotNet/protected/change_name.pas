@@ -23,14 +23,8 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure TWebForm_change_name_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_change_password_Click(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_change_email_address_Click(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
@@ -45,11 +39,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
-    LinkButton_back: System.Web.UI.WebControls.LinkButton;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
     RequiredFieldValidator_name: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -76,10 +65,6 @@ uses
 /// </summary>
 procedure TWebForm_change_name.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.Load, Self.Page_Load);
@@ -92,7 +77,6 @@ begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_name';
-    Label_account_descriptor.text := session['username'].tostring;
     //
     Label_member_name.text := p.saved_first_name + SPACE + p.saved_last_name;
     //
@@ -154,37 +138,11 @@ begin
   server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
 end;
 
-procedure TWebForm_change_name.LinkButton_change_email_address_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_email_address.aspx');
-end;
-
-procedure TWebForm_change_name.LinkButton_change_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_password.aspx');
-end;
-
-procedure TWebForm_change_name.LinkButton_back_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
-end;
-
 procedure TWebForm_change_name.TWebForm_change_name_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
   session.Remove('change_name.p');
   session.Add('change_name.p',p);
-end;
-
-procedure TWebForm_change_name.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
 end;
 
 end.

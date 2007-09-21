@@ -21,15 +21,9 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure TWebForm_change_member_email_address_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_change_password_Click(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_change_email_address_Click(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
-    procedure CustomValidator_member_email_address_ServerValidate(source: System.Object; 
+    procedure CustomValidator_member_email_address_ServerValidate(source: System.Object;
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
@@ -45,19 +39,14 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
-    LinkButton_back: System.Web.UI.WebControls.LinkButton;
     Label_member_name_1: System.Web.UI.WebControls.Label;
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Label_member_name_3: System.Web.UI.WebControls.Label;
-    TextBox_member_email_address: System.Web.UI.WebControls.TextBox;
-    Button_submit: System.Web.UI.WebControls.Button;
-    CustomValidator_member_email_address: System.Web.UI.WebControls.CustomValidator;
-    RegularExpressionValidator_member_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     TextBox_noop_ie_behavior_workaround: System.Web.UI.WebControls.TextBox;
+    TextBox_member_email_address: System.Web.UI.WebControls.TextBox;
+    RegularExpressionValidator_member_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
+    CustomValidator_member_email_address: System.Web.UI.WebControls.CustomValidator;
+    Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
     procedure OnInit(e: EventArgs); override;
   private
@@ -78,10 +67,6 @@ uses
 /// </summary>
 procedure TWebForm_change_member_email_address.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.CustomValidator_member_email_address.ServerValidate, Self.CustomValidator_member_email_address_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
@@ -95,7 +80,6 @@ begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_email_address';
-    Label_account_descriptor.text := session['username'].tostring;
     //
     Label_member_name_1.text :=
       p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
@@ -154,37 +138,11 @@ begin
   args.isvalid := (args.value = system.string.EMPTY) or ki.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
-procedure TWebForm_change_member_email_address.LinkButton_change_email_address_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_email_address.aspx');
-end;
-
-procedure TWebForm_change_member_email_address.LinkButton_change_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_password.aspx');
-end;
-
-procedure TWebForm_change_member_email_address.LinkButton_back_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
-end;
-
 procedure TWebForm_change_member_email_address.TWebForm_change_member_email_address_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
   session.Remove('change_member_email_address.p');
   session.Add('change_member_email_address.p',p);
-end;
-
-procedure TWebForm_change_member_email_address.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
 end;
 
 end.

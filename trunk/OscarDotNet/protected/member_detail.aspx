@@ -11,31 +11,14 @@
   </head>
 
   <body>
-	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
-		  <table cellspacing="0" cellpadding="1" width="100%" border="0" bgcolor="#d3d3d3">
-			  <tr>
-				<td>
-		<small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
-		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-										                   [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>&nbsp;]&nbsp;
-										                   [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
-			|
-			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
-		</small>
-				</td>
-				<td align="right">
-				<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
-				</td>
-			  </tr>
-		  </table>
-	  </p>
+	 <form runat="server">
+	   <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 <div id="Div_print_area">
-	  <p>
 		<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 			<tr>
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
-					<tr><td bgcolor="#f5f5f5"><strong>Member detail record</strong></td></tr>
+					<tr><td bgcolor="#f5f5f5"><strong>Member detail record&nbsp;&nbsp;&nbsp;&nbsp; </strong><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td></tr>
 					<tr>
 					  <td>
 						<table cellspacing="0" cellpadding="10" width="100%" border="0">
@@ -51,7 +34,7 @@
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_cad_num" runat="server" visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Email address:</td>
 							  <td><ASP:Label id="Label_email_address" runat="server"></ASP:Label></td>
 							  <td></td>
@@ -76,7 +59,7 @@
 							  <td><ASP:LinkButton id="LinkButton_leave_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
 								<td></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Officership:</td>
 							  <td><ASP:Label id="Label_officership" runat="server"></ASP:Label></td>
 							  <td><ASP:LinkButton id="LinkButton_officership_detail" runat="server"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
@@ -88,7 +71,7 @@
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_agency" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Section:</td>
 							  <td><ASP:Label id="Label_section" runat="server"></ASP:Label></td>
 							  <td></td>
@@ -100,7 +83,7 @@
 							  <td></td>
 								<td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td valign="top">Membership status:</td>
 							  <td valign="top">
 								  <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
@@ -115,7 +98,7 @@
 							  <td valign="top"></td>
 							  <td valign="top"></td>
 							</tr>
-							<tr bgcolor="#dcdcdc">
+							<tr>
 							  <td>Driver qualified:</td>
 							  <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
 							  <td></td>
@@ -125,7 +108,6 @@
 					</tr>
 				</table></td>
 			</tr>
-		</table></p>
-</div><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p><sstchur:SmartScroller runat="server" /></p></form>
+		</table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></div><p><sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>
