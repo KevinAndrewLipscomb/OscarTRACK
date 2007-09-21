@@ -125,6 +125,7 @@ uses
   Class_db_members,
   ki,
   system.configuration,
+  system.io,
   system.security.principal;
 
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
@@ -391,7 +392,7 @@ begin
     //
     session.Remove('e_item');
     session.Add('e_item',e.item);
-    system.collections.stack(session['waypoint_stack']).Push('overview.aspx');
+    stack(session['waypoint_stack']).Push(path.GetFileName(request.CurrentExecutionFilePath));
     server.Transfer('member_detail.aspx');
     //
   end;

@@ -32,14 +32,10 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
     procedure DataGrid_leaves_SortCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridSortCommandEventArgs);
     procedure DataGrid_leaves_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
     procedure TWebForm_leave_detail_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
     procedure DataGrid_leaves_DeleteCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
     procedure DataGrid_leaves_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
@@ -50,11 +46,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
-    LinkButton_back: System.Web.UI.WebControls.LinkButton;
     DataGrid_leaves: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
@@ -84,10 +75,6 @@ const
 /// </summary>
 procedure TWebForm_leave_detail.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_new.Click, Self.LinkButton_new_Click);
   Include(Self.DataGrid_leaves.ItemCommand, Self.DataGrid_leaves_ItemCommand);
   Include(Self.DataGrid_leaves.SortCommand, Self.DataGrid_leaves_SortCommand);
@@ -103,7 +90,6 @@ begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - leave_detail';
-    Label_account_descriptor.text := session['username'].tostring;
     //
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '
@@ -181,18 +167,6 @@ begin
   server.Transfer('grant_leave.aspx');
 end;
 
-procedure TWebForm_leave_detail.LinkButton_change_email_address_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_email_address.aspx');
-end;
-
-procedure TWebForm_leave_detail.LinkButton_change_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_password.aspx');
-end;
-
 procedure TWebForm_leave_detail.TWebForm_leave_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -258,20 +232,6 @@ begin
   end;
   DataGrid_leaves.EditItemIndex := -1;
   Bind;
-end;
-
-procedure TWebForm_leave_detail.LinkButton_back_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
-end;
-
-procedure TWebForm_leave_detail.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
 end;
 
 procedure TWebForm_leave_detail.Bind;

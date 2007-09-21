@@ -1,4 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_standard_enrollment.pas" Inherits="UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment"%>
+<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<div id="Div_print_area">
+<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
 <p>These control charts show the percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Tenured).&nbsp; The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Atypical).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
@@ -12,3 +15,4 @@
   </Columns>
 </ASP:DataGrid>
 </p>
+</div>

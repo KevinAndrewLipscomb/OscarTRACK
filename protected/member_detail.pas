@@ -30,13 +30,7 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure TWebForm_member_detail_PreRender(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_back_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_change_password_Click(sender: System.Object;
-      e: System.EventArgs);
-    procedure LinkButton_change_email_address_Click(sender: System.Object;
       e: System.EventArgs);
     procedure LinkButton_change_member_email_address_Click(sender: System.Object;
       e: System.EventArgs);
@@ -56,11 +50,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
-    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
-    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
-    Label_account_descriptor: System.Web.UI.WebControls.Label;
-    LinkButton_back: System.Web.UI.WebControls.LinkButton;
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_change_medical_release_level: System.Web.UI.WebControls.LinkButton;
     Label_medical_release_level: System.Web.UI.WebControls.Label;
@@ -104,10 +93,6 @@ uses
 /// </summary>
 procedure TWebForm_member_detail.InitializeComponent;
 begin
-  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
-  Include(Self.LinkButton_back.Click, Self.LinkButton_back_Click);
-  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
-  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.LinkButton_change_name.Click, Self.LinkButton_change_name_Click);
   Include(Self.LinkButton_change_cad_num.Click, Self.LinkButton_change_cad_num_Click);
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
@@ -130,7 +115,6 @@ begin
   if not IsPostback then begin
     //
     Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
-    Label_account_descriptor.text := session['username'].tostring;
     //
     target_member_id := p.biz_members.IdOf(session['e_item']);
     //
@@ -310,37 +294,11 @@ begin
   server.Transfer('change_member_email_address.aspx');
 end;
 
-procedure TWebForm_member_detail.LinkButton_change_email_address_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_email_address.aspx');
-end;
-
-procedure TWebForm_member_detail.LinkButton_change_password_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer('change_password.aspx');
-end;
-
-procedure TWebForm_member_detail.LinkButton_back_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
-end;
-
 procedure TWebForm_member_detail.TWebForm_member_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
   session.Remove('member_detail.p');
   session.Add('member_detail.p',p);
-end;
-
-procedure TWebForm_member_detail.LinkButton_logout_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  formsauthentication.SignOut;
-  session.Clear;
-  server.Transfer('../Default.aspx');
 end;
 
 end.

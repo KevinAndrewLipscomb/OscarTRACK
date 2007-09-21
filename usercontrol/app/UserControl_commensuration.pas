@@ -108,8 +108,8 @@ end;
 /// </summary>
 procedure TWebUserControl_commensuration.InitializeComponent;
 begin
-  Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.DataGrid_commensuration.ItemDataBound, Self.DataGrid_commensuration_ItemDataBound);
+  Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_commensuration_PreRender);
 end;

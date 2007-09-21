@@ -1,10 +1,12 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_about.pas" Inherits="UserControl_about.TWebUserControl_about"%>
+<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<div id="Div_print_area">
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>
       <table cellspacing="0" cellpadding="10" width="100%" border="0">
         <tr bgcolor="#f5f5f5">
-		  <td><strong>About <ASP:Label id="Label_application_name" runat="server"></ASP:Label></strong></td>
+		  <td><strong>About <ASP:Label id="Label_application_name" runat="server"></ASP:Label>&nbsp;&nbsp;&nbsp;&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></strong></td>
         </tr>
         <tr>
           <td>
@@ -39,7 +41,7 @@
 </li>
 				  <li>CoreLab BDP.NET MySQL Provider
 </li>
-				  <li>Quinn-Curtis SPC Control Chart Tools for .Net with QCChart2D
+				  <li>Quinn-Curtis SPC Control Chart Tools for .Net with QCChart2D 
 
 </li>
 				  <li>Subversion version control system
@@ -82,3 +84,4 @@
     </td>
   </tr>
 </table>
+</div>

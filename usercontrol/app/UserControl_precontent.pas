@@ -16,15 +16,20 @@ type
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
+    procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    HtmlImage_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
-    HtmlImage_sponsor_sponsor_logoseal: System.Web.UI.HtmlControls.HtmlImage;
-    ValidationSummary1: System.Web.UI.WebControls.ValidationSummary;
-    HyperLink_sponsor: System.Web.UI.WebControls.HyperLink;
-    HtmlImage_partner_logoseal: System.Web.UI.HtmlControls.HtmlImage;
+    Label_application_name: System.Web.UI.WebControls.Label;
+    Label_username: System.Web.UI.WebControls.Label;
+    LinkButton_logout: System.Web.UI.WebControls.LinkButton;
+    LinkButton_change_password: System.Web.UI.WebControls.LinkButton;
+    LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
+    TableRow_account_control: System.Web.UI.HtmlControls.HtmlTableRow;
+    ValidationSummary_control: System.Web.UI.WebControls.ValidationSummary;
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -36,17 +41,22 @@ implementation
 
 uses
   ki,
-  system.configuration;
+  system.configuration,
+  system.io,
+  system.web,
+  system.web.security;
 
 procedure TWebUserControl_precontent.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
   if not IsPostback then begin
     //
-    HyperLink_sponsor.text := configurationsettings.appsettings['sponsor'];
-    HtmlImage_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_logoseal.src);
-    HtmlImage_partner_logoseal.src := ExpandTildePath(HtmlImage_partner_logoseal.src);
-    HtmlImage_sponsor_sponsor_logoseal.src := ExpandTildePath(HtmlImage_sponsor_sponsor_logoseal.src);
+    Label_application_name.text := configurationsettings.appsettings['application_name'];
+    if session['username'] = nil then begin
+      TableRow_account_control.visible := FALSE;
+    end else begin
+      Label_username.text := session['username'].tostring;
+    end;
     //
   end;
   //
@@ -62,6 +72,26 @@ begin
   //
 end;
 
+procedure TWebUserControl_precontent.LinkButton_change_email_address_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer(ExpandTildePath('~/protected/change_email_address.aspx'));
+end;
+
+procedure TWebUserControl_precontent.LinkButton_change_password_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  server.Transfer(ExpandTildePath('~/protected/change_password.aspx'));
+end;
+
+procedure TWebUserControl_precontent.LinkButton_logout_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  formsauthentication.SignOut;
+  session.Clear;
+  server.Transfer(ExpandTildePath('~/Default.aspx'));
+end;
+
 {$REGION 'Designer Managed Code'}
 /// <summary>
 /// Required method for Designer support -- do not modify
@@ -69,6 +99,9 @@ end;
 /// </summary>
 procedure TWebUserControl_precontent.InitializeComponent;
 begin
+  Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
+  Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
+  Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);
   Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}

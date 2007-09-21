@@ -10,23 +10,8 @@
   </head>
 
   <body>
-     <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
-		<small>
-          <table cellspacing="0" cellpadding="0" width="100%" bgcolor="#d3d3d3" border="0">
-              <tr>
-				<td><small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
-		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-				               [ Back to <ASP:LinkButton id="LinkButton_back" runat="server">previous</ASP:LinkButton>&nbsp;form ]&nbsp;
-				               [ Change your <asp:LinkButton id="LinkButton_change_password" runat="server">password</asp:LinkButton>&nbsp;
-			|
-			<asp:LinkButton id="LinkButton_change_email_address" runat="server">email address</asp:LinkButton>&nbsp;]</small></td>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td></td>
-              </tr>
-          </table>
-		</small>
-	  </p>
-	  <p>
+	 <form runat="server">
+	   <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
         <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
             <tr>
               <td>
@@ -58,6 +43,6 @@
                     </tr>
                 </table></td>
             </tr>
-        </table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p><sstchur:SmartScroller runat="server" /></p></form>
+		</table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p><sstchur:SmartScroller runat="server" /></p></form>
   </body>
 </html>

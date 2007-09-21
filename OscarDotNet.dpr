@@ -30,7 +30,6 @@ library OscarDotNet;
 {%AspMarkupContainer 'protected\member_detail.aspx'}
 {%AspMarkupContainer 'protected\officership_detail.aspx'}
 {%AspMarkupContainer 'protected\overview.aspx'}
-{%AspMarkupContainer 'protected\profile.aspx'}
 {%AspMarkupContainer 'noninteractive\milestone_sweep.aspx'}
 {%AspMarkupContainer 'noninteractive\daily_tasks.aspx'}
 {%AspMarkupContainer 'usercontrol\ki\UserControl_drop_down_date.ascx'}
@@ -82,6 +81,8 @@ library OscarDotNet;
 {%AspMarkupContainer 'usercontrol\ki\UserControl_config_welcome.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx'}
 {%AspMarkupContainer 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx'}
+{%DelphiDotNetAssemblyCompiler '$(SystemRoot)\microsoft.net\framework\v1.1.4322\System.Design.dll'}
+{%AspMarkupContainer 'usercontrol\ki\UserControl_bread_crumb_trail.ascx'}
 
 uses
   System.Reflection,
@@ -126,7 +127,6 @@ uses
   leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   officership_detail in 'protected\officership_detail.pas' {officership_detail.TWebForm_officership_detail: ki_web_ui.page_class},
-  profile in 'protected\profile.pas' {profile.TWebForm_profile: ki_web_ui.page_class},
   milestone_sweep in 'noninteractive\milestone_sweep.pas' {milestone_sweep.TWebForm_milestone_sweep: system.web.ui.page},
   daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm_daily_tasks: system.web.ui.page},
   UserControl_drop_down_date in 'usercontrol\ki\UserControl_drop_down_date.pas' {UserControl_drop_down_date.TWebUserControl_drop_down_date: ki_web_ui.usercontrol_class},
@@ -188,7 +188,8 @@ uses
   UserControl_config_welcome in 'usercontrol\ki\UserControl_config_welcome.pas',
   Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas',
   UserControl_ranked_num_members_in_pipeline in 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas' {UserControl_ranked_num_members_in_pipeline.TWebUserControl_ranked_num_members_in_pipeline: ki_web_ui.usercontrol_class},
-  UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas' {UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline: ki_web_ui.usercontrol_class};
+  UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas' {UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline: ki_web_ui.usercontrol_class},
+  UserControl_bread_crumb_trail in 'usercontrol\ki\UserControl_bread_crumb_trail.pas' {UserControl_bread_crumb_trail.TWebUserControl_bread_crumb_trail: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

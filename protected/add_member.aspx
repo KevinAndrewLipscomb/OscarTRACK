@@ -12,37 +12,22 @@
   </head>
 
   <body>
-	 <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-	  <p>
-		<table cellspacing="0" cellpadding="1" width="100%" bgcolor="#d3d3d3" border="0">
-			<tr>
-			  <td><small><asp:label id="Label_account_descriptor" runat="server"></asp:label>:&nbsp;[
-		  <ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">Logout</ASP:LinkButton>&nbsp;]
-															              [ <ASP:LinkButton id="LinkButton_back" runat="server" causesvalidation="False">Go back</ASP:LinkButton>]&nbsp;
-															              [ Change <asp:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</asp:LinkButton>&nbsp;
-			|
-			<asp:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</asp:LinkButton>&nbsp;]
-					</small></td>
-			  <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-			  <td align="right"><uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
-			</tr>
-		</table>
-	  </p>
+	 <form runat="server">
+	   <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 <div id="Div_print_area">
-	  <p>
-        <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
-            <tr>
-              <td>
-                <table cellspacing="0" cellpadding="10" width="100%" border="0">
-                    <tr>
-                      <td bgcolor="#f5f5f5"><strong>Add member to roster</strong></td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <table cellspacing="0" cellpadding="5" border="0">
-                            <tr>
-                              <td>First name:</td>
-                              <td><ASP:TextBox id="TextBox_first_name" runat="server" maxlength="31" columns="20"></ASP:TextBox></td>
+		<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
+			<tr>
+			  <td>
+				<table cellspacing="0" cellpadding="10" width="100%" border="0">
+					<tr>
+					  <td bgcolor="#f5f5f5"><strong>Add member to roster&nbsp;&nbsp;&nbsp;&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></strong></td>
+					</tr>
+					<tr>
+					  <td>
+						<table cellspacing="0" cellpadding="5" border="0">
+							<tr>
+							  <td>First name:</td>
+							  <td><ASP:TextBox id="TextBox_first_name" runat="server" maxlength="31" columns="20"></ASP:TextBox></td>
 							  <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_first_name" runat="server" errormessage="Please enter a first name." font-bold="True" controltovalidate="TextBox_first_name">!ERR!</ASP:RequiredFieldValidator></td>
 							</tr>
 							<tr>
@@ -96,7 +81,7 @@
 								</div></td>
 							  <td nowrap="true"><ASP:Button id="Button_add_and_stop" runat="server" text="Add and stop"></ASP:Button>&nbsp; <ASP:Button id="Button_add_and_repeat" runat="server" text="Add and repeat"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
 							  <td></td>
-							</tr></table></td></tr></table></td></tr></table></p>
+							</tr></table></td></tr></table></td></tr></table>
 </div>
 <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
 <p><sstchur:SmartScroller runat="server" /></p></form></body></html>
