@@ -113,6 +113,7 @@ end;
 
 procedure TWebForm_report_monthly_current_roster.Render(writer: HtmlTextWriter);
 var
+  body: string;
   sb: StringBuilder;
 begin
   //
@@ -120,6 +121,10 @@ begin
   //
   sb := StringBuilder.Create;
   inherited Render(HtmlTextWriter.Create(StringWriter.Create(sb)));
+//  //
+//  writer.Write(sb.tostring);
+//  //
+  body := sb.tostring;
   //
   // Send output stream as an email message.
   //
@@ -132,7 +137,7 @@ begin
     //subject
     'Report: Monthly Current Roster',
     //body
-    sb.tostring,
+    body,
     //be_html
     TRUE
     );

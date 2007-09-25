@@ -22,6 +22,8 @@
 			|
 			<ASP:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</ASP:LinkButton>
 		  </small>
+		  <hr align="center" noshade="true" width="100%" size="1">
+		  <small><i><uc1:UserControl_bread_crumb_trail id="UserControl_bread_crumb_trail" runat="server"></uc1:UserControl_bread_crumb_trail></i></small>
 		</td>
 	  </tr>
 	</table>
@@ -31,5 +33,4 @@
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
   <tr>
 	<td valign="top">
-		<small><i><uc1:UserControl_bread_crumb_trail id="UserControl_bread_crumb_trail" runat="server"></uc1:UserControl_bread_crumb_trail></i></small>
 		<ASP:ValidationSummary id="ValidationSummary_control" runat="server"></ASP:ValidationSummary>

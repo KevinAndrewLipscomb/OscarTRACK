@@ -176,7 +176,7 @@
                       <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%, last_name, first_name, cad_num" readonly="True" headertext="Leave status">
                         <ItemStyle horizontalalign="Center"></ItemStyle>
                       </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts" readonly="True" headertext="Duties required">
+                      <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts%" readonly="True" headertext="Duties required">
                         <ItemStyle horizontalalign="Center"></ItemStyle>
                       </ASP:BoundColumn>
                       <ASP:BoundColumn visible="False" datafield="email_address" readonly="True"></ASP:BoundColumn>
