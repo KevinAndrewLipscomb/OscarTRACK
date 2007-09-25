@@ -44,6 +44,7 @@ type
     num_datagrid_rows: cardinal;
     num_raw_shifts: cardinal;  // does not take into account leaves
     num_standard_commitments: cardinal;
+    relative_month: cardinal;
     section_filter: Class_biz_sections.filter_type;
     sort_order: string;
     years_of_service_array_list: arraylist;
@@ -136,47 +137,16 @@ begin
     LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-members');
     //
     p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
-    if not p.be_user_privileged_to_see_all_squads then begin
-      DropDownList_agency_filter.selectedvalue := p.agency_filter;
-    end;
+    DropDownList_agency_filter.selectedvalue := p.agency_filter;
     //
     p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
+    DropDownList_section_filter.selectedvalue := uint32(p.section_filter).tostring;
     TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
     //
-    if httpcontext.current.user.IsInRole('Squad Scheduler')
-      or httpcontext.current.user.IsInRole('Department Scheduler')
-      or (session['mode:report/monthly-core-ops-roster'] <> nil)
-    then begin
-      p.enrollment_filter := STANDARD_OPS;
-      DropDownList_enrollment_filter.selectedvalue := 'standard_ops';
-      RadioButtonList_which_month.selectedvalue := '1'; // next month
-    end else if session['mode:report/monthly-emt-intern-roster'] <> nil then begin
-      p.enrollment_filter := CURRENT;
-      DropDownList_enrollment_filter.selectedvalue := 'current';
-      RadioButtonList_which_month.selectedvalue := '0'; // this month
-      p.med_release_level_filter := IN_CLASS;
-      DropDownList_med_release_filter.selectedvalue := 'in_class';
-    end else if session['mode:report/monthly-trainee-roster'] <> nil then begin
-      p.enrollment_filter := CURRENT;
-      DropDownList_enrollment_filter.selectedvalue := 'current';
-      RadioButtonList_which_month.selectedvalue := '0'; // this month
-      p.med_release_level_filter := TRAINEE;
-      DropDownList_med_release_filter.selectedvalue := 'trainee';
-    end else if session['mode:report/monthly-applicant-roster'] <> nil then begin
-      p.enrollment_filter := APPLICANT;
-      DropDownList_enrollment_filter.selectedvalue := 'applicant';
-      RadioButtonList_which_month.selectedvalue := '0'; // this month
-    end else if session['mode:report/monthly-recruits-who-are-not-yet-emt-interns-roster'] <> nil then begin
-      p.enrollment_filter := RECRUIT;
-      DropDownList_enrollment_filter.selectedvalue := 'recruit';
-      RadioButtonList_which_month.selectedvalue := '0'; // this month
-      p.med_release_level_filter := Class_biz_medical_release_levels.NONE;
-      DropDownList_med_release_filter.selectedvalue := 'none';
-    end else begin
-      p.enrollment_filter := CURRENT;
-      DropDownList_enrollment_filter.selectedvalue := 'current';
-      RadioButtonList_which_month.selectedvalue := '0'; // this month
-    end;
+    DropDownList_med_release_filter.selectedvalue := enum(p.med_release_level_filter).tostring.tolower;
+    DropDownList_enrollment_filter.selectedvalue := enum(p.enrollment_filter).tostring.tolower;
+    RadioButtonList_which_month.selectedvalue := p.relative_month.tostring;
+    DropDownList_leave_filter.selectedvalue := enum(p.leave_filter).tostring.tolower;
     //
     if session['mode:report'] = nil then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
@@ -218,11 +188,9 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback
-    and (session['UserControl_roster.p'] <> nil)
-    and (session['UserControl_roster.p'].GetType.namespace = p.GetType.namespace)
-  then begin
+  if session['UserControl_roster.p'] <> nil then begin
     p := p_type(session['UserControl_roster.p']);
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder:PlaceHolder_content']) = 'UserControl_roster');
   end else begin
     //
     p.be_loaded := FALSE;
@@ -241,8 +209,9 @@ begin
       p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
     end;
     p.be_sort_order_ascending := TRUE;
+    p.enrollment_filter := CURRENT;
     p.distribution_list := system.string.EMPTY;
-    p.leave_filter := Class_biz_leave.NONE;
+    p.leave_filter := Class_biz_leave.BOTH;
     p.med_release_level_filter := ALL;
     p.section_filter := 0;
     p.num_cooked_shifts := 0;
@@ -250,8 +219,33 @@ begin
     p.num_datagrid_rows := 0;
     p.num_raw_shifts := 0;
     p.num_standard_commitments := 0;
+    p.relative_month := 0;
     p.sort_order := 'last_name,first_name,cad_num';
     p.years_of_service_array_list := arraylist.Create;
+    //
+    if httpcontext.current.user.IsInRole('Squad Scheduler')
+      or httpcontext.current.user.IsInRole('Department Scheduler')
+      or (session['mode:report/monthly-core-ops-roster'] <> nil)
+    then begin
+      p.enrollment_filter := STANDARD_OPS;
+      p.relative_month := 1;
+    end else if session['mode:report/monthly-emt-intern-roster'] <> nil then begin
+      p.enrollment_filter := CURRENT;
+      p.relative_month := 0;
+      p.med_release_level_filter := IN_CLASS;
+    end else if session['mode:report/monthly-trainee-roster'] <> nil then begin
+      p.enrollment_filter := CURRENT;
+      p.relative_month := 0;
+      p.med_release_level_filter := TRAINEE;
+    end else if session['mode:report/monthly-applicant-roster'] <> nil then begin
+      p.enrollment_filter := APPLICANT;
+      p.relative_month := 0;
+    end else if session['mode:report/monthly-recruits-who-are-not-yet-emt-interns-roster'] <> nil then begin
+      p.enrollment_filter := RECRUIT;
+      p.relative_month := 0;
+      p.med_release_level_filter := Class_biz_medical_release_levels.NONE;
+    end;
+    //
   end;
   //
 end;
@@ -309,13 +303,13 @@ begin
   Include(Self.DropDownList_agency_filter.SelectedIndexChanged, Self.DropDownList_agency_filter_SelectedIndexChanged);
   Include(Self.DropDownList_section_filter.SelectedIndexChanged, Self.DropDownList_section_filter_SelectedIndexChanged);
   Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
   Include(Self.Button_send.Click, Self.Button_send_Click);
-  Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
 end;
@@ -341,6 +335,7 @@ end;
 procedure TWebUserControl_roster.LinkButton_add_member_Click(sender: System.Object;
   e: System.EventArgs);
 begin
+  stack(session['waypoint_stack']).Push(path.GetFileName(request.CurrentExecutionFilePath));
   server.Transfer('add_member.aspx');
 end;
 
@@ -485,7 +480,7 @@ begin
     p.sort_order,
     p.be_sort_order_ascending,
     DataGrid_roster,
-    RadioButtonList_which_month.selectedvalue,
+    p.relative_month.tostring,
     p.agency_filter,
     p.enrollment_filter,
     p.leave_filter,
