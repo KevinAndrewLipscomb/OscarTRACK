@@ -342,6 +342,7 @@ end;
 procedure TWebUserControl_roster.RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object;
   e: System.EventArgs);
 begin
+  p.relative_month := uint32.Parse(RadioButtonList_which_month.selectedvalue);
   Bind;
 end;
 
