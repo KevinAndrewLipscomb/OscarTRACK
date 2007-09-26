@@ -127,7 +127,8 @@ uses
   ki,
   system.configuration,
   system.io,
-  system.security.principal;
+  system.security.principal,
+  system.web.sessionstate;
 
 procedure TWebUserControl_roster.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -190,7 +191,7 @@ begin
   //
   if session['UserControl_roster.p'] <> nil then begin
     p := p_type(session['UserControl_roster.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder:PlaceHolder_content']) = 'UserControl_roster');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_roster');
   end else begin
     //
     p.be_loaded := FALSE;
