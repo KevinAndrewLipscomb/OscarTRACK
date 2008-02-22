@@ -47,6 +47,7 @@ type
     LinkButton_trouble_handler: System.Web.UI.WebControls.LinkButton;
     LinkButton_proceed: System.Web.UI.WebControls.LinkButton;
     Table_proceed: System.Web.UI.HtmlControls.HtmlTable;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -60,7 +61,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 
@@ -69,11 +70,11 @@ begin
   //
   if not p.be_loaded then begin
     //
-    Label_application_name_1.text := configurationsettings.appsettings['application_name'];
-    Label_sponsor_1.text := configurationsettings.appsettings['sponsor'];
-    Label_sponsor_2.text := configurationsettings.appsettings['sponsor'];
-    Label_sponsor_3.text := configurationsettings.appsettings['sponsor'];
-    Label_shared_secret_description.text := configurationsettings.appsettings['shared_secret_description'];
+    Label_application_name_1.text := configurationmanager.appsettings['application_name'];
+    Label_sponsor_1.text := configurationmanager.appsettings['sponsor'];
+    Label_sponsor_2.text := configurationmanager.appsettings['sponsor'];
+    Label_sponsor_3.text := configurationmanager.appsettings['sponsor'];
+    Label_shared_secret_description.text := configurationmanager.appsettings['shared_secret_description'];
     //
     Focus(TextBox_shared_secret);
     //
@@ -120,10 +121,10 @@ procedure TWebUserControl_establish_membership.Button_submit_Click(sender: Syste
   e: System.EventArgs);
 begin
   if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,NUM),p.biz_user.IdNum) then begin
-    Alert(ki.USER,ki.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.');
+    Alert(kix.USER,kix.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.');
     Table_proceed.visible := TRUE;
   end else begin
-    Alert(ki.USER,ki.FAILURE,'nosuchmem','No such membership record could be located.  Please check your submission for accuracy.');
+    Alert(kix.USER,kix.FAILURE,'nosuchmem','No such membership record could be located.  Please check your submission for accuracy.');
   end;
 end;
 

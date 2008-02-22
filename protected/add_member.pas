@@ -72,6 +72,7 @@ type
     Label_invalid_enrollment_date: System.Web.UI.WebControls.Label;
     RadioButtonList_driver_qualified_yes_no: System.Web.UI.WebControls.RadioButtonList;
     RequiredFieldValidator_qualified_driver_yes_no: System.Web.UI.WebControls.RequiredFieldValidator;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -82,7 +83,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -104,7 +105,7 @@ procedure TWebForm_add_member.Page_Load(sender: System.Object; e: System.EventAr
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - add_member';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - add_member';
     //
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       TableRow_agency.visible := TRUE;
@@ -186,7 +187,7 @@ end;
 procedure TWebForm_add_member.CustomValidator_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := (args.value = system.string.EMPTY) or ki.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := (args.value = system.string.EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_add_member.TWebForm_add_member_PreRender(sender: System.Object;
@@ -223,7 +224,7 @@ begin
       then begin
         Add := TRUE;
       end else begin
-        Alert(ki.USER,ki.FAILURE,'alreadinsys','NOT ADDED:  The specified name and/or CAD# is already in the system.');
+        Alert(kix.USER,kix.FAILURE,'alreadinsys','NOT ADDED:  The specified name and/or CAD# is already in the system.');
       end;
       //
     end else begin

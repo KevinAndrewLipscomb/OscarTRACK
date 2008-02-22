@@ -5,6 +5,7 @@ interface
 uses
   Class_db_enrollment,
   Class_db_leaves,
+  Class_biz_members,
   Class_biz_notifications;
 
 type
@@ -19,6 +20,7 @@ type
   private
     db_enrollment: TClass_db_enrollment;
     db_leaves: TClass_db_leaves;
+    biz_members: TClass_biz_members;
     biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
@@ -102,6 +104,7 @@ type
     function IdOf(leave_item: system.object): string;
     function KindOf(leave_item: system.object): string;
     function KindOfLeaveCodeOf(id: string): string;
+    procedure MakeLeaveExpirationNotifications;
     function MemberIdOf(id: string): string;
     function NoteOf(id: string): string;
     function NoteOfTcc(leave_item: system.object): string;
@@ -121,7 +124,7 @@ type
 implementation
 
 uses
-  Class_biz_members,
+  system.collections,
   system.web.ui.webcontrols;
 
 constructor TClass_biz_leaves.Create;
@@ -130,6 +133,7 @@ begin
   // TODO: Add any constructor code here
   db_enrollment := TClass_db_enrollment.Create;
   db_leaves := TClass_db_leaves.Create;
+  biz_members := TClass_biz_members.Create;
   biz_notifications := TClass_biz_notifications.Create;
 end;
 
@@ -258,7 +262,6 @@ procedure TClass_biz_leaves.Change
 const
   AFFIRMATIVE_CHANGE_INDICATOR = '  <==';
 var
-  biz_members: TClass_biz_members;
   change_indicator_end_month: string;
   change_indicator_kind_of_leave: string;
   change_indicator_note: string;
@@ -268,8 +271,6 @@ var
   new_kind_of_leave: string;
   new_start_month: string;
 begin
-  //
-  biz_members := TClass_biz_members.Create;
   //
   db_leaves.Change
     (
@@ -335,11 +336,8 @@ end;
 
 procedure TClass_biz_leaves.Delete(id: string);
 var
-  biz_members: TClass_biz_members;
   member_id: string;
 begin
-  //
-  biz_members := TClass_biz_members.Create;
   //
   member_id := MemberIdOf(id);
   biz_notifications.IssueForLeaveDeleted
@@ -394,11 +392,7 @@ procedure TClass_biz_leaves.Grant
   num_obligated_shifts: string;
   note: string
   );
-var
-  biz_members: TClass_biz_members;
 begin
-  //
-  biz_members := TClass_biz_members.Create;
   //
   db_leaves.Grant(member_id,relative_start_month,relative_end_month,kind_of_leave_code,num_obligated_shifts,note);
   //
@@ -430,6 +424,33 @@ end;
 function TClass_biz_leaves.KindOfLeaveCodeOf(id: string): string;
 begin
   KindOfLeaveCodeOf := db_leaves.KindOfLeaveCodeOf(id);
+end;
+
+procedure TClass_biz_leaves.MakeLeaveExpirationNotifications;
+var
+  i: cardinal;
+  member_id: string;
+  member_id_q: queue;
+begin
+  //
+  member_id_q := db_leaves.ExpiredYesterday;
+  for i := 1 to member_id_q.Count do begin
+    member_id := member_id_q.Dequeue.tostring;
+    if not BeOverlap(member_id,'0','0') then begin
+      //
+      // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has
+      // expired.
+      //
+      biz_notifications.IssueForLeaveExpiredYesterday
+        (
+        member_id,
+        biz_members.FirstNameOfMemberId(member_id),
+        biz_members.LastNameOfMemberId(member_id),
+        biz_members.CadNumOfMemberId(member_id)
+        );
+    end;
+    //
+  end;
 end;
 
 function TClass_biz_leaves.MemberIdOf(id: string): string;

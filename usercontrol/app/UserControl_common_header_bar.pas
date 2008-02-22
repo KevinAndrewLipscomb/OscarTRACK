@@ -19,6 +19,7 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -33,7 +34,7 @@ uses
  
 procedure TWebUserControl_common_header_bar.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  Label_application_name.text := configurationsettings.appsettings['application_name'];
+  Label_application_name.text := configurationmanager.appsettings['application_name'];
 end;
 
 procedure TWebUserControl_common_header_bar.OnInit(e: System.EventArgs);

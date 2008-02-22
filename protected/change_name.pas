@@ -46,6 +46,7 @@ type
     TextBox_first_name: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_last_name: System.Web.UI.WebControls.RequiredFieldValidator;
     Label_member_name: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -56,7 +57,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -76,7 +77,7 @@ procedure TWebForm_change_name.Page_Load(sender: System.Object; e: System.EventA
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_name';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_name';
     //
     Label_member_name.text := p.saved_first_name + SPACE + p.saved_last_name;
     //

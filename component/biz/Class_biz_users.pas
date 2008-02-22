@@ -6,7 +6,7 @@ uses
   Class_biz_notifications,
   Class_db_members,
   Class_db_users,
-  ki;
+  kix;
 
 type
   TClass_biz_users = class
@@ -64,7 +64,7 @@ type
     function NumUnsuccessfulLoginAttemptsOf(username: string): cardinal;
     function PasswordResetEmailAddressOfId(id: string): string;
     function PasswordResetEmailAddressOfUsername(username: string): string;
-    function PrivilegesOf(id: string): ki.string_array;
+    function PrivilegesOf(id: string): kix.string_array;
     procedure RecordSuccessfulLogin(id: string);
     procedure RecordUnsuccessfulLoginAttempt(username: string);
     procedure RegisterNew
@@ -133,7 +133,7 @@ end;
 
 function TClass_biz_users.BeAuthorizedSysAdmin(encoded_password: string): boolean;
 begin
-  BeAuthorizedSysAdmin := (encoded_password = configurationsettings.appsettings['sysadmin_encoded_password']);
+  BeAuthorizedSysAdmin := (encoded_password = configurationmanager.appsettings['sysadmin_encoded_password']);
 end;
 
 function TClass_biz_users.BeRegisteredEmailAddress(email_address: string): boolean;
@@ -209,7 +209,7 @@ begin
   // Build a suitably-random password string.
   //
   temporary_password :=
-    System.Guid.NewGuid.ToString.Substring(0,uint32.Parse(configurationsettings.appsettings['temp_password_len']));
+    System.Guid.NewGuid.ToString.Substring(0,uint32.Parse(configurationmanager.appsettings['temp_password_len']));
   //
   // Make the password string the user's new temporary password, and set the stale flag to force an immediate password change.
   //
@@ -244,7 +244,7 @@ begin
   PasswordResetEmailAddressOfUsername := db_users.PasswordResetEmailAddressOfUsername(username);
 end;
 
-function TClass_biz_users.PrivilegesOf(id: string): ki.string_array;
+function TClass_biz_users.PrivilegesOf(id: string): kix.string_array;
 begin
   PrivilegesOf := db_users.PrivilegesOf(id);
 end;

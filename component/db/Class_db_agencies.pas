@@ -86,7 +86,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_db_members,
   system.web.ui.webcontrols;
 
@@ -104,22 +104,22 @@ function TClass_db_agencies.Bind
   )
   : boolean;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT short_designator FROM agency WHERE short_designator like "' + partial_short_designator + '%" order by short_designator',
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
+  while dr.Read do begin
     DropDownList(target).Items.Add
-      (listitem.Create(bdr['short_designator'].tostring,bdr['short_designator'].tostring));
+      (listitem.Create(dr['short_designator'].tostring,dr['short_designator'].tostring));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   Bind := DropDownList(target).items.count > 0;
 end;
@@ -132,14 +132,14 @@ procedure TClass_db_agencies.BindDropDownList
   selected_id: string = ''
   );
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   if unselected_literal <> system.string.EMPTY then begin
     DropDownList(target).Items.Add(listitem.Create(unselected_literal,''));
   end;
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT id'
     + ' , ' + designator_clause + ' as designator'
@@ -149,10 +149,10 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['designator'].tostring,bdr['id'].ToString));
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['designator'].tostring,dr['id'].ToString));
   end;
-  bdr.Close;
+  dr.Close;
   if selected_id <> system.string.EMPTY then begin
     DropDownList(target).selectedvalue := selected_id;
   end;
@@ -181,7 +181,7 @@ end;
 procedure TClass_db_agencies.BindForCommensuration(target: system.object);
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select agency.id as agency_id'
     + ' , concat(medium_designator," - ",long_designator) as designator'
@@ -205,7 +205,7 @@ procedure TClass_db_agencies.BindForControlCharts
   );
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select distinct if(be_agency_id_applicable,concat(medium_designator," - ",long_designator),"CITYWIDE") as designator'
     + ' , id'
@@ -223,7 +223,7 @@ end;
 procedure TClass_db_agencies.BindRankedCommensuration(target: system.object);
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -244,7 +244,7 @@ end;
 procedure TClass_db_agencies.Delete(short_designator: string);
 begin
   self.Open;
-  bdpcommand.Create(db_trail.Saved('delete from agency where short_designator = ' + short_designator),connection).ExecuteNonquery;
+  mysqlcommand.Create(db_trail.Saved('delete from agency where short_designator = ' + short_designator),connection).ExecuteNonquery;
   self.Close;
 end;
 
@@ -257,29 +257,29 @@ function TClass_db_agencies.Get
   )
   : boolean;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   Get := FALSE;
   self.Open;
-  bdr := bdpcommand.Create('select * from agency where short_designator = "' + short_designator + '"',connection).ExecuteReader;
-  if bdr.Read then begin
+  dr := mysqlcommand.Create('select * from agency where short_designator = "' + short_designator + '"',connection).ExecuteReader;
+  if dr.Read then begin
     //
-    short_designator := bdr['short_designator'].tostring;
-    medium_designator := bdr['medium_designator'].tostring;
-    long_designator := bdr['long_designator'].tostring;
-    be_active := (bdr['be_active'].tostring = '1');
+    short_designator := dr['short_designator'].tostring;
+    medium_designator := dr['medium_designator'].tostring;
+    long_designator := dr['long_designator'].tostring;
+    be_active := (dr['be_active'].tostring = '1');
     //
     Get := TRUE;
     //
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 function TClass_db_agencies.IdOfShortDesignator(short_designator: string): string;
 begin
   self.Open;
-  IdOfShortDesignator := bdpcommand.Create
+  IdOfShortDesignator := mysqlcommand.Create
     ('select id from agency where short_designator = "' + short_designator + '"',connection)
     .ExecuteScalar.tostring;
   self.Close;
@@ -289,7 +289,7 @@ function TClass_db_agencies.LongDesignatorOf(id: string): string;
 begin
   self.Open;
   LongDesignatorOf :=
-    bdpcommand.Create('select long_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+    mysqlcommand.Create('select long_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
@@ -297,7 +297,7 @@ function TClass_db_agencies.MediumDesignatorOf(id: string): string;
 begin
   self.Open;
   MediumDesignatorOf :=
-    bdpcommand.Create('select medium_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+    mysqlcommand.Create('select medium_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
@@ -307,7 +307,7 @@ var
 begin
   OverallCommensuration := system.string.EMPTY;
   self.Open;
-  overall_commensuration_obj := bdpcommand.Create
+  overall_commensuration_obj := mysqlcommand.Create
     (
     'select FORMAT(value,0)'
     + ' from indicator_commensuration'
@@ -332,7 +332,7 @@ function TClass_db_agencies.SerialIndicatorData
   : queue;
 var
   additional_where_clause: string;
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   dependent_parameter_name: string;
   serial_indicator_rec: serial_indicator_rec_type;
   serial_indicator_rec_q: queue;
@@ -349,7 +349,7 @@ begin
   serial_indicator_rec_q := queue.Create;
   //
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select year,month,' + dependent_parameter_name
     + ' from indicator_' + indicator
@@ -357,15 +357,15 @@ begin
     ,connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
+  while dr.Read do begin
     with serial_indicator_rec do begin
-      year := uint32.Parse(bdr['year'].tostring);
-      month := uint32.Parse(bdr['month'].tostring);
-      value := system.double.Parse(bdr[dependent_parameter_name].tostring);
+      year := uint32.Parse(dr['year'].tostring);
+      month := uint32.Parse(dr['month'].tostring);
+      value := system.double.Parse(dr[dependent_parameter_name].tostring);
     end;
     serial_indicator_rec_q.Enqueue(serial_indicator_rec);
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   //
   SerialIndicatorData := serial_indicator_rec_q;
@@ -381,7 +381,7 @@ procedure TClass_db_agencies.&Set
   );
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -428,7 +428,7 @@ begin
   end;
   //
   self.Open;
-  bdpcommand.Create(db_trail.Saved(sql.Substring(0,sql.Length - 1)),connection).ExecuteNonquery;
+  mysqlcommand.Create(db_trail.Saved(sql.Substring(0,sql.Length - 1)),connection).ExecuteNonquery;
   self.Close;
 end;
 
@@ -436,7 +436,7 @@ function TClass_db_agencies.ShortDesignatorOf(id: string): string;
 begin
   self.Open;
   ShortDesignatorOf :=
-    bdpcommand.Create('select short_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
+    mysqlcommand.Create('select short_designator from agency where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 

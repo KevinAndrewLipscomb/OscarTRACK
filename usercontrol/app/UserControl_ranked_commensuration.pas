@@ -35,6 +35,7 @@ type
     DataGrid_detail: System.Web.UI.WebControls.DataGrid;
     Label_overall: System.Web.UI.WebControls.Label;
     Label_no_data: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -48,7 +49,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   system.configuration;
 
 procedure TWebUserControl_ranked_commensuration.Page_Load(sender: System.Object; e: System.EventArgs);

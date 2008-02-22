@@ -35,6 +35,7 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     DataGrid_commensuration: System.Web.UI.WebControls.DataGrid;
     Label_month: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -49,7 +50,7 @@ implementation
 uses
   appcommon,
   Class_db_agencies,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 
@@ -182,7 +183,7 @@ begin
   //
   p.biz_agencies.SetCommensuration(commensuration_rec_q);
   //
-  Alert(ki.USER,SUCCESS,'subaccept','Submission accepted');
+  Alert(kix.USER,SUCCESS,'subaccept','Submission accepted');
   //
 end;
 

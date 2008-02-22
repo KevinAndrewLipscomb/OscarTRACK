@@ -5,7 +5,7 @@ interface
 uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
-  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration,
+  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, kix, system.configuration,
   Class_biz_user,
   system.text.regularexpressions,
   system.web.mail;
@@ -34,6 +34,7 @@ type
     TextArea_user_comment: System.Web.UI.HtmlControls.HtmlTextArea;
     Table_oops: System.Web.UI.HtmlControls.HtmlTable;
     Table_db_down: System.Web.UI.HtmlControls.HtmlTable;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -71,7 +72,7 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end;
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - exception';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - exception';
     p.biz_user := TClass_biz_user.Create;
     //
     p.exception := server.GetLastError.GetBaseException;
@@ -104,17 +105,17 @@ begin
         p.notification_message := p.notification_message + session.keys[lcv].tostring + ' = ' + session.item[lcv].tostring + NEW_LINE;
       end;
       //
-      ki.SmtpMailSend
+      kix.SmtpMailSend
         (
-        configurationsettings.appsettings['sender_email_address'],
-        configurationsettings.appsettings['sender_email_address'],
+        configurationmanager.appsettings['sender_email_address'],
+        configurationmanager.appsettings['sender_email_address'],
         'EXCEPTION REPORT',
         p.notification_message
         );
-      ki.SmtpMailSend
+      kix.SmtpMailSend
         (
-        configurationsettings.appsettings['sender_email_address'],
-        configurationsettings.appsettings['sysadmin_sms_address'],
+        configurationmanager.appsettings['sender_email_address'],
+        configurationmanager.appsettings['sysadmin_sms_address'],
         'CRASH',
         user_designator
         );
@@ -140,10 +141,10 @@ var
 begin
   comment := Safe(TextArea_user_comment.value,NARRATIVE);
   if comment <> system.string.EMPTY then begin
-    ki.SmtpMailSend
+    kix.SmtpMailSend
       (
-      configurationsettings.appsettings['sender_email_address'],
-      configurationsettings.appsettings['sender_email_address'],
+      configurationmanager.appsettings['sender_email_address'],
+      configurationmanager.appsettings['sender_email_address'],
       'EXCEPTION REPORT with user comment',
       '[USER COMMENT]' + NEW_LINE
       + comment + NEW_LINE

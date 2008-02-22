@@ -29,6 +29,7 @@ type
     Label_application_name_2: System.Web.UI.WebControls.Label;
     HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
     PlaceHolder_current: System.Web.UI.WebControls.PlaceHolder;
+  protected
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
   private
@@ -41,7 +42,7 @@ implementation
 
 uses
   Class_biz_agencies,
-  ki,
+  kix,
   system.configuration,
   system.io,
   system.text;
@@ -62,11 +63,11 @@ var
   url: string;
 begin
   //
-  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_core_ops_dashboard';
-  Label_application_name_1.text := configurationsettings.appsettings['application_name'];
+  Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - report_monthly_core_ops_dashboard';
+  Label_application_name_1.text := configurationmanager.appsettings['application_name'];
   //
   url :=
-    'http://' + configurationsettings.appsettings['host_domain_name'] + '/' + configurationsettings.appsettings['application_name'];
+    'http://' + configurationmanager.appsettings['host_domain_name'] + '/' + configurationmanager.appsettings['application_name'];
   HyperLink_web_site.text := url;
   HyperLink_web_site.navigateurl := url;
   //
@@ -113,10 +114,10 @@ begin
   recipient_q := p.biz_members.CurrentMemberEmailAddressesQueue;
   //
   for i := 1 to recipient_q.Count do begin
-    ki.SmtpMailSend
+    kix.SmtpMailSend
       (
       //from
-      configurationsettings.appsettings['sender_email_address'],
+      configurationmanager.appsettings['sender_email_address'],
       //to
       recipient_q.Dequeue.tostring,
       //subject

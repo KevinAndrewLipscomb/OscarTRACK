@@ -10,7 +10,7 @@ uses
   Class_biz_leaves,
   Class_biz_members,
   Class_biz_user,
-  ki,
+  kix,
   ki_web_ui,
   UserControl_print_div;
 
@@ -74,6 +74,7 @@ type
     Label_cad_num: System.Web.UI.WebControls.Label;
     LinkButton_change_cad_num: System.Web.UI.WebControls.LinkButton;
     LinkButton_change_name: System.Web.UI.WebControls.LinkButton;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -114,7 +115,7 @@ var
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - member_detail';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - member_detail';
     //
     target_member_id := p.biz_members.IdOf(session['e_item']);
     //

@@ -3,7 +3,7 @@ unit Class_db_accounts;
 interface
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_db,
   Class_db_trail;
 
@@ -83,7 +83,7 @@ function TClass_db_accounts.BeStalePassword
   : boolean;
 begin
   self.Open;
-  BeStalePassword := '1' = Borland.Data.Provider.BdpCommand.Create
+  BeStalePassword := '1' = mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT be_stale_password FROM ' + user_kind + '_user where id=' + user_id,
     connection
@@ -94,12 +94,12 @@ end;
 
 procedure TClass_db_accounts.BindSquadCommanders(target: system.object);
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT squad_commander_user.id,concat(squad_commander_user.id,"50") as name'
     + ' FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)'
@@ -109,21 +109,21 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'squad_commander_' + bdr['id'].ToString));
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['name'].tostring,'squad_commander_' + dr['id'].ToString));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 procedure TClass_db_accounts.BindDepartmentStaffers(target: system.object);
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT id,name '
     + 'FROM department_staffer_user JOIN department_staffer using (id) '
@@ -132,22 +132,22 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
+  while dr.Read do begin
     DropDownList(target).Items.Add
-      (listitem.Create(bdr['name'].tostring,'department_staffer_' + bdr['id'].ToString));
+      (listitem.Create(dr['name'].tostring,'department_staffer_' + dr['id'].ToString));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 procedure TClass_db_accounts.BindMembers(target: system.object);
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT id'
     + ' , concat(last_name,", ",first_name,ifnull(concat(", ",cad_num),"")) as name'
@@ -157,10 +157,10 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['name'].tostring,'member_' + bdr['id'].ToString));
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['name'].tostring,'member_' + dr['id'].ToString));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
@@ -172,10 +172,10 @@ procedure TClass_db_accounts.Check
   out email_address: string
   );
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT be_stale_password'
     + ' , password_reset_email_address'
@@ -184,18 +184,18 @@ begin
     connection
     )
     .ExecuteReader;
-  bdr.Read;
-  if bdr['be_stale_password'].tostring = '0' then begin
+  dr.Read;
+  if dr['be_stale_password'].tostring = '0' then begin
     be_stale_password := FALSE;
     if be_stale_password then begin
-      email_address := bdr['password_reset_email_address'].tostring;
+      email_address := dr['password_reset_email_address'].tostring;
     end else begin
       email_address := system.string.EMPTY;
     end;
   end else begin
     be_stale_password := TRUE;
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
@@ -207,7 +207,7 @@ function TClass_db_accounts.EmailAddressByKindId
   : string;
 begin
   self.Open;
-  EmailAddressByKindId := borland.data.provider.bdpcommand.Create
+  EmailAddressByKindId := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'select password_reset_email_address from ' + user_kind + '_user where id = ' + user_id,
     connection
@@ -222,12 +222,12 @@ function TClass_db_accounts.EmailTargetByRole
   )
   : string;
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
   email_target: string;
 begin
   email_target := system.string.EMPTY;
   self.Open;
-  bdr := borland.data.provider.bdpcommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'select password_reset_email_address'
     + ' from department_staffer_user'
@@ -237,10 +237,10 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    email_target := email_target + bdr['password_reset_email_address'].tostring + ',';
+  while dr.Read do begin
+    email_target := email_target + dr['password_reset_email_address'].tostring + ',';
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   EmailTargetByRole := email_target.Substring(0,email_target.Length - 1);
 end;
@@ -254,7 +254,7 @@ function TClass_db_accounts.Exists
   : boolean;
 begin
   self.Open;
-  Exists := nil <> borland.data.provider.bdpcommand.Create
+  Exists := nil <> mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT 1 FROM ' + user_kind + '_user'
     +  ' where id = ' + user_id
@@ -273,7 +273,7 @@ procedure TClass_db_accounts.SetEmailAddress
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -295,7 +295,7 @@ procedure TClass_db_accounts.SetPassword
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -318,7 +318,7 @@ procedure TClass_db_accounts.SetTemporaryPassword
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (

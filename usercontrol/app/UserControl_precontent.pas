@@ -30,6 +30,7 @@ type
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
     TableRow_account_control: System.Web.UI.HtmlControls.HtmlTableRow;
     ValidationSummary_control: System.Web.UI.WebControls.ValidationSummary;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -40,7 +41,7 @@ type
 implementation
 
 uses
-  ki,
+  kix,
   system.configuration,
   system.io,
   system.web,
@@ -51,7 +52,7 @@ begin
   //
   if not IsPostback then begin
     //
-    Label_application_name.text := configurationsettings.appsettings['application_name'];
+    Label_application_name.text := configurationmanager.appsettings['application_name'];
     if session['username'] = nil then begin
       TableRow_account_control.visible := FALSE;
     end else begin

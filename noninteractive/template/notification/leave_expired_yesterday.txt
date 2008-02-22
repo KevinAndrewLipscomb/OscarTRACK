@@ -1,0 +1,6 @@
+Leave has expired: <first_name/> <last_name/> (<cad_num/>)
+This is an automatic notification from <application_name/>.
+
+<application_name/> has detected that effective today, <first_name/> <last_name/> (<cad_num/>) is no longer on leave.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

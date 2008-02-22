@@ -7,11 +7,11 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_biz_leaves,
   Class_biz_members,
   Class_biz_user,
-  ki,
+  kix,
   ki_web_ui,
   UserControl_print_div;
 
@@ -51,6 +51,7 @@ type
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_new: System.Web.UI.WebControls.LinkButton;
     UserControl_print_div: TWebUserControl_print_div;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -89,7 +90,7 @@ procedure TWebForm_leave_detail.Page_Load(sender: System.Object; e: System.Event
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - leave_detail';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - leave_detail';
     //
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '

@@ -38,7 +38,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 constructor TClass_biz_indicator_median_length_of_service.Create;
 begin

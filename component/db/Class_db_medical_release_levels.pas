@@ -25,7 +25,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   system.web.ui.webcontrols;
 
 constructor TClass_db_medical_release_levels.Create;
@@ -40,33 +40,33 @@ procedure TClass_db_medical_release_levels.BindDropDownList
   selected_description: string = ''
   );
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   if selected_description = system.string.EMPTY then begin
     DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
   end;
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT code, description from medical_release_code_description_map order by pecking_order',
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].ToString));
-    if bdr['description'].tostring = selected_description then begin
-      DropDownList(target).selectedvalue := bdr['code'].tostring;
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
+    if dr['description'].tostring = selected_description then begin
+      DropDownList(target).selectedvalue := dr['code'].tostring;
     end;
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 function TClass_db_medical_release_levels.DescriptionOf(code: string): string;
 begin
   self.Open;
-  DescriptionOf := bdpcommand.Create
+  DescriptionOf := mysqlcommand.Create
     ('select description from medical_release_code_description_map where code = ' + code,connection).ExecuteScalar.tostring;
   self.Close;
 end;

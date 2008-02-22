@@ -89,6 +89,13 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    procedure IssueForLeaveExpiredYesterday
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string
+      );
     procedure IssueForMedicalReleaseLevelChange
       (
       member_id: string;
@@ -190,7 +197,7 @@ uses
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
-  ki,
+  kix,
   system.configuration,
   system.io,
   system.text.regularexpressions,
@@ -204,9 +211,9 @@ constructor TClass_biz_notifications.Create;
 begin
   inherited Create;
   // TODO: Add any constructor code here
-  application_name := configurationsettings.appsettings['application_name'];
+  application_name := configurationmanager.appsettings['application_name'];
   db_notifications := TClass_db_notifications.Create;
-  host_domain_name := configurationsettings.appsettings['host_domain_name'];
+  host_domain_name := configurationmanager.appsettings['host_domain_name'];
 end;
 
 procedure TClass_biz_notifications.IssueForAgencyChange
@@ -251,10 +258,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/agency_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('agency-change',member_id),
     //subject
@@ -303,10 +310,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/cad_num_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('cad-num-change',member_id),
     //subject
@@ -358,10 +365,10 @@ begin
   + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/driver_qualification_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
     + ',' + actor_email_address
@@ -403,10 +410,10 @@ begin
   biz_users := TClass_biz_users.Create;
   //
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/username_reminder.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     email_address,
     //subject
@@ -485,10 +492,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_changed.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
     //subject
@@ -547,10 +554,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_deleted.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-deleted',member_id),
     //subject
@@ -609,12 +616,57 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_granted.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForLeaveExpiredYesterday
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string
+  );
+var
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      .Replace('<application_name/>',application_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<first_name/>',first_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<member_id/>',member_id);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_expired_yesterday.txt'));
+  kix.SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + ',' + db_notifications.TargetOf('leave-expired',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -663,10 +715,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/medical_release_level_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
     + ',' + actor_email_address
@@ -729,10 +781,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_added.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     email_address + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-added',member_id),
     //subject
@@ -784,10 +836,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_name_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-name-change',member_id),
     //subject
@@ -818,7 +870,7 @@ var
         (
         '<explanation/>',
         WrapText
-          (explanation,(NEW_LINE + '   '),BreakChars,int16.Parse(configurationsettings.AppSettings['email_blockquote_maxcol']))
+          (explanation,(NEW_LINE + '   '),BreakChars,int16.Parse(configurationmanager.AppSettings['email_blockquote_maxcol']))
         )
       .Replace('<host_domain_name/>',host_domain_name);
   END;
@@ -829,13 +881,13 @@ begin
   //
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/membership_establishment_trouble.txt'));
   user_email_address := biz_user.EmailAddress;
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     // to
-    configurationsettings.appsettings['membership_establishment_liaison'] + ','
-    + configurationsettings.appsettings['application_name'] + '-appadmin@' + host_domain_name,
+    configurationmanager.appsettings['membership_establishment_liaison'] + ','
+    + configurationmanager.appsettings['application_name'] + '-appadmin@' + host_domain_name,
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -886,10 +938,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/needs_enrollment_review.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
     + ',' + actor_email_address
@@ -947,10 +999,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/new_enrollment_level.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
     + ',' + actor_email_address
@@ -1005,10 +1057,10 @@ begin
   actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
   actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/section_change.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('section-change',member_id),
     //subject
@@ -1052,10 +1104,10 @@ begin
   biz_users := TClass_biz_users.Create;
   //
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/seniority_promotion.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + ',' + db_notifications.TargetOf('seniority-promotion',member_id),
     //subject
@@ -1092,10 +1144,10 @@ begin
   biz_user := TClass_biz_user.Create;
   biz_users := TClass_biz_users.Create;
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/temporary_password.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     biz_users.PasswordResetEmailAddressOfUsername(username),
     //subject
@@ -1146,10 +1198,10 @@ var
   //
 begin
   template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/member_status_statement.txt'));
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     email_address,
     //subject
@@ -1161,7 +1213,7 @@ begin
 end;
 
 begin
-  BreakChars[1] := ki.SPACE;
-  BreakChars[2] := ki.TAB;
+  BreakChars[1] := kix.SPACE;
+  BreakChars[2] := kix.TAB;
   BreakChars[3] := '-';
 end.

@@ -29,6 +29,7 @@ type
     Label_application_name_2: System.Web.UI.WebControls.Label;
     HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
     PlaceHolder_roster: System.Web.UI.WebControls.PlaceHolder;
+  protected
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
   private
@@ -41,7 +42,7 @@ implementation
 
 uses
   Class_biz_agencies,
-  ki,
+  kix,
   system.configuration,
   system.io,
   system.text;
@@ -62,12 +63,12 @@ var
   url: string;
 begin
   //
-  Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - report_monthly_applicant_roster';
-  Label_application_name_1.text := configurationsettings.appsettings['application_name'];
-  Label_application_name_2.text := configurationsettings.appsettings['application_name'];
+  Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - report_monthly_applicant_roster';
+  Label_application_name_1.text := configurationmanager.appsettings['application_name'];
+  Label_application_name_2.text := configurationmanager.appsettings['application_name'];
   //
   url :=
-    'http://' + configurationsettings.appsettings['host_domain_name'] + '/' + configurationsettings.appsettings['application_name'];
+    'http://' + configurationmanager.appsettings['host_domain_name'] + '/' + configurationmanager.appsettings['application_name'];
   HyperLink_web_site.text := url;
   HyperLink_web_site.navigateurl := url;
   //
@@ -75,7 +76,7 @@ end;
 
 procedure TWebForm_report_monthly_applicant_roster.OnInit(e: EventArgs);
 var
-  privilege_array: ki.string_array;
+  privilege_array: kix.string_array;
   role_name: string;
 begin
   //
@@ -126,10 +127,10 @@ begin
   //
   // Send output stream as an email message.
   //
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     //from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     //to
     p.biz_members.EmailAddressOf(p.member_id),
     //subject

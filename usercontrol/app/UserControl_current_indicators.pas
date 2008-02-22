@@ -42,6 +42,7 @@ type
     PlaceHolder_ranked_standard_enrollment: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_commensuration: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_num_members_in_pipeline: System.Web.UI.WebControls.PlaceHolder;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -55,7 +56,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 

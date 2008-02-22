@@ -7,10 +7,10 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_biz_members,
   Class_biz_officerships,
-  ki,
+  kix,
   ki_web_ui,
   UserControl_print_div;
 
@@ -41,6 +41,7 @@ type
     Label_member_designator: System.Web.UI.WebControls.Label;
     DataGrid_officerships: System.Web.UI.WebControls.DataGrid;
     UserControl_print_div: TWebUserControl_print_div;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -83,7 +84,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - officership_detail';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - officership_detail';
       //
       // Initialize implementation-wide vars.
       //

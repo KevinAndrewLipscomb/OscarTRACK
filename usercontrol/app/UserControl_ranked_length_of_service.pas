@@ -50,6 +50,7 @@ type
     DataGrid_detail: System.Web.UI.WebControls.DataGrid;
     Label_overall: System.Web.UI.WebControls.Label;
     DataGrid_special: System.Web.UI.WebControls.DataGrid;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -63,7 +64,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   system.configuration;
 
 procedure TWebUserControl_ranked_length_of_service.Page_Load(sender: System.Object; e: System.EventArgs);

@@ -16,6 +16,7 @@ type
   strict private
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -29,7 +30,7 @@ uses
   Class_biz_agencies,
   com.quinncurtis.chart2dnet,
   com.quinncurtis.spcchartnet,
-  ki,
+  kix,
   system.drawing.imaging,
   system.drawing.text;
 

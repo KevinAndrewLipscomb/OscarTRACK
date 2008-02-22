@@ -4,7 +4,8 @@ interface
 
 uses
   Class_db,
-  Class_db_trail;
+  Class_db_trail,
+  system.collections;
 
 const
   TCCI_ID = 0;
@@ -60,6 +61,7 @@ type
     function DescriptionOf(code: string): string;
     function EndDateOf(id: string): datetime;
     function EndMonthOf(leave_item: system.object): string;
+    function ExpiredYesterday: queue;
     procedure Grant
       (
       member_id: string;
@@ -85,8 +87,8 @@ type
 implementation
 
 uses
-  borland.data.provider,
-  ki,
+  mysql.data.mysqlclient,
+  kix,
   system.web.ui.webcontrols;
 
 constructor TClass_db_leaves.Create;
@@ -130,7 +132,7 @@ begin
   end;
   cmdtext := cmdtext + ' limit 1';
   self.Open;
-  BeOverlap := (bdpcommand.Create(cmdtext,connection).ExecuteScalar <> nil);
+  BeOverlap := (mysqlcommand.Create(cmdtext,connection).ExecuteScalar <> nil);
   self.Close;
 end;
 
@@ -140,7 +142,7 @@ procedure TClass_db_leaves.BindKindDropDownList
   use_select: boolean = TRUE
   );
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
 begin
   self.Open;
   DropDownList(target).Items.Clear;
@@ -148,12 +150,12 @@ begin
     DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
   end;
   //
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     ('SELECT code,description FROM kind_of_leave_code_description_map ORDER BY description',connection).ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].tostring));
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].tostring));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
@@ -171,7 +173,7 @@ begin
   end else begin
     sort_order := sort_order.Replace('%',' desc');
   end;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select leave_of_absence.id as id'                                     // column 0
     + ' , date_format(start_date,"%Y-%m") as start_date'                   // column 1
@@ -202,7 +204,7 @@ procedure TClass_db_leaves.Change
   );
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -223,7 +225,7 @@ end;
 procedure TClass_db_leaves.Delete(id: string);
 begin
   self.Open;
-  bdpcommand.Create(db_trail.Saved('delete from leave_of_absence where id = ' + id),connection).ExecuteNonQuery;
+  mysqlcommand.Create(db_trail.Saved('delete from leave_of_absence where id = ' + id),connection).ExecuteNonQuery;
   self.Close;
 end;
 
@@ -239,7 +241,7 @@ var
   next_month_description_obj: system.object;
 begin
   self.Open;
-  this_month_description_obj := bdpcommand.Create
+  this_month_description_obj := mysqlcommand.Create
     (
     'select description'
     + ' from leave_of_absence'
@@ -255,7 +257,7 @@ begin
   end else begin
     this_month_description := this_month_description_obj.tostring;
   end;
-  next_month_description_obj := bdpcommand.Create
+  next_month_description_obj := mysqlcommand.Create
     (
     'select description'
     + ' from leave_of_absence'
@@ -277,7 +279,7 @@ end;
 function TClass_db_leaves.DescriptionOf(code: string): string;
 begin
   self.Open;
-  DescriptionOf :=bdpcommand.Create
+  DescriptionOf :=mysqlcommand.Create
     ('SELECT description FROM kind_of_leave_code_description_map WHERE code = ' + code,connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -285,13 +287,30 @@ end;
 function TClass_db_leaves.EndDateOf(id: string): datetime;
 begin
   self.Open;
-  EndDateOf := datetime(bdpcommand.Create('select end_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
+  EndDateOf := datetime(mysqlcommand.Create('select end_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
   self.Close;
 end;
 
 function TClass_db_leaves.EndMonthOf(leave_item: system.object): string;
 begin
   EndMonthOf := Safe(DataGridItem(leave_item).cells[TCCI_END_DATE].text,HYPHENATED_ALPHANUM);
+end;
+
+function TClass_db_leaves.ExpiredYesterday: queue;
+var
+  dr: mysqldatareader;
+  member_id_q: queue;
+begin
+  member_id_q := queue.Create;
+  self.Open;
+  dr := mysqlcommand.Create
+    ('select member_id from leave_of_absence where end_date = (CURDATE() - INTERVAL 1 DAY)',connection).ExecuteReader;
+  while dr.Read do begin
+    member_id_q.Enqueue(dr['member_id']);
+  end;
+  dr.Close;
+  self.Close;
+  ExpiredYesterday := member_id_q;
 end;
 
 procedure TClass_db_leaves.Grant
@@ -305,7 +324,7 @@ procedure TClass_db_leaves.Grant
   );
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -336,7 +355,7 @@ end;
 function TClass_db_leaves.KindOfLeaveCodeOf(id: string): string;
 begin
   self.Open;
-  KindOfLeaveCodeOf := bdpcommand.Create
+  KindOfLeaveCodeOf := mysqlcommand.Create
     ('select kind_of_leave_code from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -344,14 +363,14 @@ end;
 function TClass_db_leaves.MemberIdOf(id: string): string;
 begin
   self.Open;
-  MemberIdOf := bdpcommand.Create('select member_id from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
+  MemberIdOf := mysqlcommand.Create('select member_id from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
 function TClass_db_leaves.NoteOf(id: string): string;
 begin
   self.Open;
-  NoteOf := bdpcommand.Create('select note from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
+  NoteOf := mysqlcommand.Create('select note from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
@@ -368,7 +387,7 @@ function TClass_db_leaves.NumObligedShiftsOf(id: string): cardinal;
 begin
   self.Open;
   NumObligedShiftsOf := uint32.Parse
-    (bdpcommand.Create('select num_obliged_shifts from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring);
+    (mysqlcommand.Create('select num_obliged_shifts from leave_of_absence where id = ' + id,connection).ExecuteScalar.tostring);
   self.Close;
 end;
 
@@ -380,7 +399,7 @@ end;
 function TClass_db_leaves.StartDateOf(id: string): datetime;
 begin
   self.Open;
-  StartDateOf := datetime(bdpcommand.Create('select start_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
+  StartDateOf := datetime(mysqlcommand.Create('select start_date from leave_of_absence where id = ' + id,connection).ExecuteScalar);
   self.Close;
 end;
 

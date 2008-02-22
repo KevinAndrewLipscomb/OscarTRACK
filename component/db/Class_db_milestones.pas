@@ -25,7 +25,7 @@ type
 implementation
 
 uses
-  borland.data.provider;
+  mysql.data.mysqlclient;
 
 constructor TClass_db_milestones.Create;
 begin
@@ -41,10 +41,10 @@ procedure TClass_db_milestones.Check
   var value: datetime
   );
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  bdr := borland.data.provider.bdpcommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'select be_processed,value'
     + ' from fy_calendar'
@@ -53,10 +53,10 @@ begin
     connection
     )
     .ExecuteReader;
-  bdr.Read;
-  be_processed := (bdr['be_processed'].tostring = '1');
-  value := datetime.Parse(bdr['value'].tostring);
-  bdr.Close;
+  dr.Read;
+  be_processed := (dr['be_processed'].tostring = '1');
+  value := datetime.Parse(dr['value'].tostring);
+  dr.Close;
   self.Close;
 end;
 
@@ -69,7 +69,7 @@ begin
     + ' where fiscal_year_id = ' //+ biz_fiscal_years.IdOfCurrent
     +   ' and milestone_code = ' + code.tostring;
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved(cmdText),
     connection

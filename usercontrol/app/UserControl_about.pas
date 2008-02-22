@@ -28,6 +28,7 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -41,7 +42,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 
@@ -50,7 +51,7 @@ begin
   //
   if not p.be_loaded then begin
     //
-    Label_application_name.text := configurationsettings.appsettings['application_name'];
+    Label_application_name.text := configurationmanager.appsettings['application_name'];
     //
     p.be_loaded := TRUE;
     //

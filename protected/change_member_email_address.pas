@@ -48,6 +48,7 @@ type
     CustomValidator_member_email_address: System.Web.UI.WebControls.CustomValidator;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -58,7 +59,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -79,7 +80,7 @@ procedure TWebForm_change_member_email_address.Page_Load(sender: System.Object; 
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_email_address';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_email_address';
     //
     Label_member_name_1.text :=
       p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
@@ -135,7 +136,7 @@ end;
 procedure TWebForm_change_member_email_address.CustomValidator_member_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := (args.value = system.string.EMPTY) or ki.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := (args.value = system.string.EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_change_member_email_address.TWebForm_change_member_email_address_PreRender(sender: System.Object;

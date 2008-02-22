@@ -3,8 +3,8 @@ unit Class_db_user;
 interface
 
 uses
-  ki,
-  borland.data.provider,
+  kix,
+  mysql.data.mysqlclient,
   Class_db,
   system.collections;
 
@@ -14,7 +14,7 @@ type
     { Private Declarations }
   public
     constructor Create;
-    function RolesOf(id: string): ki.string_array;
+    function RolesOf(id: string): kix.string_array;
   end;
 
 implementation
@@ -25,14 +25,14 @@ begin
   // TODO: Add any constructor code here
 end;
 
-function TClass_db_user.RolesOf(id: string): ki.string_array;
+function TClass_db_user.RolesOf(id: string): kix.string_array;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   num_roles: cardinal;
-  roles_of: ki.string_array;
+  roles_of: kix.string_array;
 begin
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select name'
     + ' from role'
@@ -43,12 +43,12 @@ begin
     )
     .ExecuteReader;
   num_roles := 0;
-  while bdr.Read do begin
+  while dr.Read do begin
     num_roles := num_roles + 1;
     SetLength(roles_of,num_roles);
-    roles_of[num_roles - 1] := bdr['name'].tostring;
+    roles_of[num_roles - 1] := dr['name'].tostring;
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   RolesOf := roles_of;
 end;

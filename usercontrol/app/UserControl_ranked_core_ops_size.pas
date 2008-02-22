@@ -34,6 +34,7 @@ type
   strict protected
     Label_total: System.Web.UI.WebControls.Label;
     DataGrid_detail: System.Web.UI.WebControls.DataGrid;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -45,7 +46,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 

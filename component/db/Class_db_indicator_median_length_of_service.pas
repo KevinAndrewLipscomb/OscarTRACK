@@ -39,7 +39,7 @@ type
 implementation
 
 uses
-  borland.data.provider;
+  mysql.data.mysqlclient;
 
 constructor TClass_db_indicator_median_length_of_service.Create;
 begin
@@ -54,13 +54,13 @@ procedure TClass_db_indicator_median_length_of_service.BindLatestRankedYearsOfSe
   be_trendable: boolean
   );
 var
-  transaction: bdptransaction;
+  transaction: mysqltransaction;
 begin
   //
   self.Open;
   transaction := connection.BeginTransaction;
   try
-    DataGrid(target).datasource := bdpcommand.Create
+    DataGrid(target).datasource := mysqlcommand.Create
       (
       'select NULL as rank'
       + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -78,7 +78,7 @@ begin
       .ExecuteReader;
     DataGrid(target).DataBind;
     if be_trendable then begin
-      bdpcommand.Create
+      mysqlcommand.Create
         ('delete from indicator_median_length_of_service where not be_trendable',connection,transaction).ExecuteNonquery;
     end;
     transaction.Commit;
@@ -210,7 +210,7 @@ begin
     sql := db_trail.Saved(sql);
   end;
   self.Open;
-  bdpcommand.Create(sql,connection).ExecuteNonQuery;
+  mysqlcommand.Create(sql,connection).ExecuteNonQuery;
   self.Close;
 end;
 
