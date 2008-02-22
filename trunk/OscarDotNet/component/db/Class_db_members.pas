@@ -3,7 +3,7 @@ unit Class_db_members;
 interface
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_db,
   Class_db_agencies,
   Class_db_medical_release_levels,
@@ -13,7 +13,7 @@ uses
   Class_biz_leave,
   Class_biz_notifications,
   Class_biz_sections,
-  ki,
+  kix,
   system.collections,
   system.web.ui.webcontrols;
 
@@ -247,7 +247,7 @@ begin
   + ';'
   + ' COMMIT';
   self.Open;
-  bdpcommand.Create(db_trail.Saved(sql),connection).ExecuteNonQuery;
+  mysqlcommand.Create(db_trail.Saved(sql),connection).ExecuteNonQuery;
   self.Close;
 end;
 
@@ -259,7 +259,7 @@ end;
 function TClass_db_members.AgencyIdOfId(id: string): string;
 begin
   self.Open;
-  AgencyIdOfId := borland.data.provider.BdpCommand.Create
+  AgencyIdOfId := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT agency_id FROM member WHERE id = ' + id,
     connection
@@ -276,7 +276,7 @@ end;
 function TClass_db_members.BeKnown(cad_num: string): boolean;
 begin
   self.Open;
-  BeKnown := (bdpcommand.Create('select 1 from member where cad_num = "' + cad_num + '"',connection).ExecuteScalar <> nil);
+  BeKnown := (mysqlcommand.Create('select 1 from member where cad_num = "' + cad_num + '"',connection).ExecuteScalar <> nil);
   self.Close;
 end;
 
@@ -300,7 +300,7 @@ begin
     sql := sql + ' and (cad_num = "' + cad_num + '" or cad_num is null or cad_num like "9%")) or (cad_num = "' + cad_num + '")';
   end;
   self.Open;
-  BeKnown := (bdpcommand.Create(sql,connection).ExecuteScalar <> nil);
+  BeKnown := (mysqlcommand.Create(sql,connection).ExecuteScalar <> nil);
   self.Close;
 end;
 
@@ -308,7 +308,7 @@ function TClass_db_members.BeValidProfile(id: string): boolean;
 begin
   self.Open;
   BeValidProfile :=
-    ('1' = bdpCommand.Create('select be_valid_profile from member where id = ' + id,connection).ExecuteScalar.tostring);
+    ('1' = mysqlcommand.Create('select be_valid_profile from member where id = ' + id,connection).ExecuteScalar.tostring);
   self.Close;
 end;
 
@@ -349,7 +349,7 @@ begin
   //
   self.Open;
   if do_log then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -387,7 +387,7 @@ begin
   //
   // Bind datagrid for display.
   //
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -413,7 +413,7 @@ begin
   metric_from_where_clause := CrewShiftsForecastMetricFromWhereClause('0');
   self.Open;
   if do_log then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -449,7 +449,7 @@ begin
   //
   // Bind datagrid for display.
   //
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -504,7 +504,7 @@ begin
   //
   self.Open;
   if do_log then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -542,7 +542,7 @@ begin
   //
   // Bind datagrid for display.
   //
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -594,7 +594,7 @@ begin
   //
   self.Open;
   if do_log then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -632,7 +632,7 @@ begin
   //
   // Bind datagrid for display.
   //
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -708,7 +708,7 @@ begin
   //
   self.Open;
   if do_log then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -746,7 +746,7 @@ begin
   //
   // Bind datagrid for display.
   //
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select NULL as rank'
     + ' , concat(medium_designator," - ",long_designator) as agency'
@@ -930,7 +930,7 @@ begin
   + ' order by ' + sort_order;
   //
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create(command_text,connection).ExecuteReader;
+  DataGrid(target).datasource := mysqlcommand.Create(command_text,connection).ExecuteReader;
   DataGrid(target).DataBind;
   self.Close;
 end;
@@ -939,7 +939,7 @@ procedure TClass_db_members.BindSpecialForRankedLengthOfService(target: system.o
 begin
   //
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select agency.id as agency'
     + ' , (TO_DAYS(CURDATE()) - TO_DAYS((select min(start_date) from enrollment_history where member_id = member.id and level_code in (1,2,3,4,5,6,7,8,9,18))))/365'
@@ -984,18 +984,18 @@ end;
 function TClass_db_members.CadNumOfMemberId(member_id: string): string;
 begin
   self.Open;
-  CadNumOfMemberId := bdpcommand.Create('select cad_num from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  CadNumOfMemberId := mysqlcommand.Create('select cad_num from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
 function TClass_db_members.CurrentMemberEmailAddresses: queue;
 var
   current_member_email_addresses: queue;
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   current_member_email_addresses := queue.Create;
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select email_address'
     + ' from member'
@@ -1038,10 +1038,10 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    current_member_email_addresses.Enqueue(bdr['email_address']);
+  while dr.Read do begin
+    current_member_email_addresses.Enqueue(dr['email_address']);
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   CurrentMemberEmailAddresses := current_member_email_addresses;
 end;
@@ -1053,7 +1053,7 @@ begin
   //
   self.Open;
   email_address_obj :=
-    bdpcommand.Create('select email_address from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+    mysqlcommand.Create('select email_address from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   if email_address_obj <> nil then begin
     EmailAddressOf := email_address_obj.tostring;
   end else begin
@@ -1070,7 +1070,7 @@ end;
 function TClass_db_members.EnrollmentOfMemberId(member_id: string): string;
 begin
   self.Open;
-  EnrollmentOfMemberId := bdpcommand.Create
+  EnrollmentOfMemberId := mysqlcommand.Create
     (
     'select description'
     + ' from member'
@@ -1095,7 +1095,7 @@ end;
 function TClass_db_members.FirstNameOfMemberId(member_id: string): string;
 begin
   self.Open;
-  FirstNameOfMemberId := bdpcommand.Create('select first_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  FirstNameOfMemberId := mysqlcommand.Create('select first_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
@@ -1106,10 +1106,10 @@ procedure TClass_db_members.GetProfile
   out be_valid_profile: boolean
   );
 var
-  bdr: borland.data.provider.BdpDataReader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
 begin
   self.Open;
-  bdr := borland.data.provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT name,'
     + 'be_valid_profile '
@@ -1118,10 +1118,10 @@ begin
     connection
     )
     .ExecuteReader;
-  bdr.Read;
-  name := bdr['name'].tostring;
-  be_valid_profile := (bdr['be_valid_profile'].tostring = '1');
-  bdr.Close;
+  dr.Read;
+  name := dr['name'].tostring;
+  be_valid_profile := (dr['be_valid_profile'].tostring = '1');
+  dr.Close;
   self.Close;
 end;
 
@@ -1133,7 +1133,7 @@ begin
   // Note that tier_id=1 is the "highest" tier.
   //
   self.Open;
-  tier_id_obj := bdpcommand.Create
+  tier_id_obj := mysqlcommand.Create
     (
     'select min(tier_id)'
     + ' from member'
@@ -1172,7 +1172,7 @@ begin
     sql := sql + ' and cad_num = "' + cad_num + '"';
   end;
   self.Open;
-  id_obj := bdpcommand.Create(sql,connection).ExecuteScalar;
+  id_obj := mysqlcommand.Create(sql,connection).ExecuteScalar;
   self.Close;
   if id_obj <> nil then begin
     IdOfFirstnameLastnameCadnum := id_obj.tostring;
@@ -1186,7 +1186,7 @@ var
   member_id_obj: system.object;
 begin
   self.Open;
-  member_id_obj := bdpcommand.Create
+  member_id_obj := mysqlcommand.Create
     (
     'select member.id'
     + ' from member'
@@ -1215,7 +1215,7 @@ var
   member_id_obj: system.object;
 begin
   self.Open;
-  member_id_obj := bdpcommand.Create
+  member_id_obj := mysqlcommand.Create
     (
     'select member.id'
     + ' from member'
@@ -1240,7 +1240,7 @@ var
   member_id_obj: system.object;
 begin
   self.Open;
-  member_id_obj := bdpcommand.Create('select member_id from user_member_map where user_id = ' + user_id,connection).ExecuteScalar;
+  member_id_obj := mysqlcommand.Create('select member_id from user_member_map where user_id = ' + user_id,connection).ExecuteScalar;
   if member_id_obj <> nil then begin
     IdOfUserId := member_id_obj.tostring;
   end else begin
@@ -1257,14 +1257,14 @@ end;
 function TClass_db_members.LastNameOfMemberId(member_id: string): string;
 begin
   self.Open;
-  LastNameOfMemberId := bdpcommand.Create('select last_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+  LastNameOfMemberId := mysqlcommand.Create('select last_name from member where id = ' + member_id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
 procedure TClass_db_members.MakeMemberStatusStatements;
 var
   any_relevant_leave: string;
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   kind_of_leave: string;
   length_of_service: string;
 begin
@@ -1274,7 +1274,7 @@ begin
   + ' and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))';
   //
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select last_name'
     + ' , first_name'
@@ -1333,33 +1333,33 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    if bdr['length_of_service'] <> dbnull.Value then begin
-      length_of_service := decimal(bdr['length_of_service']).tostring('F2') + ' years';
+  while dr.Read do begin
+    if dr['length_of_service'] <> dbnull.Value then begin
+      length_of_service := decimal(dr['length_of_service']).tostring('F2') + ' years';
     end else begin
       length_of_service := system.string.EMPTY;
     end;
-    kind_of_leave := bdr['kind_of_leave'].tostring.ToUpper;
+    kind_of_leave := dr['kind_of_leave'].tostring.ToUpper;
     if kind_of_leave = system.string.EMPTY then begin
       kind_of_leave := 'NONE';
     end;
     biz_notifications.IssueMemberStatusStatement
       (
-      bdr['email_address'].tostring,
-      bdr['first_name'].tostring.ToUpper,
-      bdr['last_name'].tostring.ToUpper,
-      bdr['cad_num'].tostring,
-      bdr['agency'].tostring,
-      bdr['section_num'].tostring,
-      bdr['medical_release_description'].tostring.ToUpper,
-      bdr['be_driver_qualified'].tostring.ToUpper,
-      bdr['enrollment'].tostring.ToUpper,
+      dr['email_address'].tostring,
+      dr['first_name'].tostring.ToUpper,
+      dr['last_name'].tostring.ToUpper,
+      dr['cad_num'].tostring,
+      dr['agency'].tostring,
+      dr['section_num'].tostring,
+      dr['medical_release_description'].tostring.ToUpper,
+      dr['be_driver_qualified'].tostring.ToUpper,
+      dr['enrollment'].tostring.ToUpper,
       length_of_service,
       kind_of_leave,
-      bdr['obliged_shifts'].tostring
+      dr['obliged_shifts'].tostring
       );
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
@@ -1371,7 +1371,7 @@ end;
 function TClass_db_members.MedicalReleaseLevelOfMemberId(member_id: string): string;
 begin
   self.Open;
-  MedicalReleaseLevelOfMemberId := bdpcommand.Create
+  MedicalReleaseLevelOfMemberId := mysqlcommand.Create
     (
     'select description'
     + ' from member'
@@ -1388,7 +1388,7 @@ var
   rank_name_obj: system.object;
 begin
   self.Open;
-  rank_name_obj := bdpcommand.Create
+  rank_name_obj := mysqlcommand.Create
     (
     'select rank.name'
     + ' from member join officership on (officership.member_id=member.id)'
@@ -1422,7 +1422,7 @@ procedure TClass_db_members.SetAgency
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET agency_id = ' + agency_id + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1439,7 +1439,7 @@ procedure TClass_db_members.SetCadNum
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1461,7 +1461,7 @@ procedure TClass_db_members.SetDriverQualification
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1483,7 +1483,7 @@ procedure TClass_db_members.SetEmailAddress
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1505,7 +1505,7 @@ procedure TClass_db_members.SetName
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1529,7 +1529,7 @@ procedure TClass_db_members.SetSection
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET section_num = ' + section_num + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1546,7 +1546,7 @@ procedure TClass_db_members.SetMedicalReleaseCode
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1563,7 +1563,7 @@ procedure TClass_db_members.SetProfile
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1584,7 +1584,7 @@ var
 begin
   //
   self.Open;
-  user_id_obj := bdpcommand.Create('select user_id from user_member_map where member_id = ' + member_id,connection).ExecuteScalar;
+  user_id_obj := mysqlcommand.Create('select user_id from user_member_map where member_id = ' + member_id,connection).ExecuteScalar;
   if user_id_obj <> nil then begin
     UserIdOf := user_id_obj.tostring;
   end else begin

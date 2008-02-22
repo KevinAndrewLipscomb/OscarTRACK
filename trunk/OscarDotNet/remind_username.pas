@@ -7,7 +7,7 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration,
   Class_biz_users,
-  ki,
+  kix,
   ki_web_ui;
 
 type
@@ -43,6 +43,7 @@ type
     Table_return: System.Web.UI.HtmlControls.HtmlTable;
     Label_application_name_1: System.Web.UI.WebControls.Label;
     Button_cancel: System.Web.UI.WebControls.Button;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -83,13 +84,13 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end else begin
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - remind_username';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - remind_username';
       //
       p.biz_users := TClass_biz_users.Create;
       //
-      Label_application_name_1.text := configurationsettings.appsettings['application_name'];
-      Label_application_name_2.text := configurationsettings.appsettings['application_name'];
-      Label_application_name_3.text := configurationsettings.appsettings['application_name'];
+      Label_application_name_1.text := configurationmanager.appsettings['application_name'];
+      Label_application_name_2.text := configurationmanager.appsettings['application_name'];
+      Label_application_name_3.text := configurationmanager.appsettings['application_name'];
       //
       Focus(TextBox_email_address);
       //
@@ -123,20 +124,20 @@ procedure TWebForm_remind_username.Button_submit_Click(sender: System.Object;
 var
   email_address: string;
 begin
-  email_address := Safe(TextBox_email_address.Text.trim,ki.EMAIL_ADDRESS);
+  email_address := Safe(TextBox_email_address.Text.trim,kix.EMAIL_ADDRESS);
   if p.biz_users.BeRegisteredEmailAddress(email_address) then begin
     p.biz_users.IssueUsernameReminder(email_address,Safe(request.userhostname,HOSTNAME));
     Alert
       (
-      ki.LOGIC,
-      ki.NORMAL,
+      kix.LOGIC,
+      kix.NORMAL,
       'usrnamsnt',
-      'The associated ' + configurationsettings.appsettings['application_name'] + ' username has been sent to '
+      'The associated ' + configurationmanager.appsettings['application_name'] + ' username has been sent to '
       + email_address + '.'
       );
     Table_return.visible := TRUE;
   end else begin
-    Alert(ki.USER,ki.FAILURE,'nosucheml','No such email address registered');
+    Alert(kix.USER,kix.FAILURE,'nosucheml','No such email address registered');
   end;
 end;
 

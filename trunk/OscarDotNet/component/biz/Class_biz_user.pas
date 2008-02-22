@@ -5,7 +5,7 @@ interface
 uses
   Class_db_user,
   Class_db_users,
-  ki,
+  kix,
   system.web;
 
 type
@@ -17,8 +17,8 @@ type
     constructor Create;
     function EmailAddress: string;
     function IdNum: string;
-    function Privileges: ki.string_array;
-    function Roles: ki.string_array;
+    function Privileges: kix.string_array;
+    function Roles: kix.string_array;
   end;
 
 implementation
@@ -41,12 +41,12 @@ begin
   IdNum := db_users.IdOf(httpcontext.current.user.identity.name);
 end;
 
-function TClass_biz_user.Privileges: ki.string_array;
+function TClass_biz_user.Privileges: kix.string_array;
 begin
   Privileges := db_users.PrivilegesOf(IdNum);
 end;
 
-function TClass_biz_user.Roles: ki.string_array;
+function TClass_biz_user.Roles: kix.string_array;
 begin
   Roles := db_user.RolesOf(IdNum);
 end;

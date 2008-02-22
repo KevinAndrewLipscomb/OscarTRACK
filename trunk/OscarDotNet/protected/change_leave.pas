@@ -8,7 +8,7 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_leaves,
   Class_biz_members,
-  ki,
+  kix,
   ki_web_ui;
 
 type
@@ -68,6 +68,7 @@ type
     Label_saved_num_obliged_shifts: System.Web.UI.WebControls.Label;
     Label_saved_kind_of_leave: System.Web.UI.WebControls.Label;
     CustomValidator_actual_change: System.Web.UI.WebControls.CustomValidator;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -114,7 +115,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_leave';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_leave';
       //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;

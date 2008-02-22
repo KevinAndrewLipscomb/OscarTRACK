@@ -1,0 +1,427 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{6b10fcaf-681f-4774-91ba-54a8a32f39e6}</ProjectGuid>
+    <MainSource>OscarDotNet.dpr</MainSource>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
+    <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
+    <DCC_EnabledPackages>true</DCC_EnabledPackages>
+    <DCC_UsePackage>"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
+    <DCC_DebugVN>True</DCC_DebugVN>
+    <DCC_Define>RELEASE</DCC_Define>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <Version>7.0</Version>
+    <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
+    <DCC_DebugVN>True</DCC_DebugVN>
+    <DCC_Define>DEBUG</DCC_Define>
+    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Inetpub\wwwroot\OscarDotNet\bin</DCC_UnitSearchPath>
+    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Inetpub\wwwroot\OscarDotNet\bin</DCC_ResourcePath>
+    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Inetpub\wwwroot\OscarDotNet\bin</DCC_IncludePath>
+    <DCC_ExeOutput>.\bin</DCC_ExeOutput>
+    <DCC_Optimize>False</DCC_Optimize>
+    <DCC_OpenStringParams>False</DCC_OpenStringParams>
+    <DCC_IntegerOverflowCheck>True</DCC_IntegerOverflowCheck>
+    <DCC_RangeChecking>True</DCC_RangeChecking>
+    <DCC_TypedAtParameter>True</DCC_TypedAtParameter>
+    <DCC_StrictVarStrings>False</DCC_StrictVarStrings>
+  </PropertyGroup>
+  <ProjectExtensions>
+    <Borland.Personality>DelphiDotNet.Personality</Borland.Personality>
+    <Borland.ProjectType>AspProject</Borland.ProjectType>
+    <BorlandProject>
+<BorlandProject><DelphiDotNet.Personality><Parameters><Parameters Name="UseLauncher">True</Parameters><Parameters Name="LoadAllSymbols">True</Parameters><Parameters Name="LoadUnspecifiedSymbols">False</Parameters><Parameters Name="HostApplication">http://localhost/OscarDotNet/login.aspx</Parameters><Parameters Name="Launcher">"C:\Program Files\Internet Explorer\IEXPLORE.EXE"</Parameters></Parameters><VersionInfo><VersionInfo Name="IncludeVerInfo">False</VersionInfo><VersionInfo Name="AutoIncBuild">False</VersionInfo><VersionInfo Name="MajorVer">1</VersionInfo><VersionInfo Name="MinorVer">0</VersionInfo><VersionInfo Name="Release">0</VersionInfo><VersionInfo Name="Build">0</VersionInfo><VersionInfo Name="Debug">False</VersionInfo><VersionInfo Name="PreRelease">False</VersionInfo><VersionInfo Name="Special">False</VersionInfo><VersionInfo Name="Private">False</VersionInfo><VersionInfo Name="DLL">False</VersionInfo><VersionInfo Name="Locale">1033</VersionInfo><VersionInfo Name="CodePage">1252</VersionInfo></VersionInfo><VersionInfoKeys><VersionInfoKeys Name="CompanyName"></VersionInfoKeys><VersionInfoKeys Name="FileDescription"></VersionInfoKeys><VersionInfoKeys Name="FileVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="InternalName"></VersionInfoKeys><VersionInfoKeys Name="LegalCopyright"></VersionInfoKeys><VersionInfoKeys Name="LegalTrademarks"></VersionInfoKeys><VersionInfoKeys Name="OriginalFilename"></VersionInfoKeys><VersionInfoKeys Name="ProductName"></VersionInfoKeys><VersionInfoKeys Name="ProductVersion">1.0.0.0</VersionInfoKeys><VersionInfoKeys Name="Comments"></VersionInfoKeys></VersionInfoKeys><Source><Source Name="MainSource">OscarDotNet.dpr</Source></Source><Options><Options Name="AspNetUseHostServer">True</Options><Options Name="AspNetLaunchBrowser">True</Options><Options Name="AspNetStartPage">login.aspx</Options><Options Name="AspNetHostServer">IIS</Options><Options Name="AspNetCassiniPortIndex">0</Options><Options Name="AspNetCassiniStartup">ProjectRun</Options><Options Name="AspNetIISVirtualDirectory">OscarDotNet</Options><Options Name="AspNetHTTPAddress"></Options><Options Name="AspNetCassiniHTTPAddress"></Options></Options></DelphiDotNet.Personality></BorlandProject></BorlandProject>
+  </ProjectExtensions>
+  <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
+  <ItemGroup>
+    <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll">
+      <AssemblyName>System.Drawing</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Web.dll">
+      <AssemblyName>System.Web</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="bin\Microsoft.Web.UI.WebControls.dll">
+      <AssemblyName>Microsoft.Web.UI.WebControls</AssemblyName>
+      <Version>1.0.2.226</Version>
+      <HintPath>bin\Microsoft.Web.UI.WebControls.dll</HintPath>
+      <AssemblyTag>bin\Microsoft.Web.UI.WebControls.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="bin\QCChart2DNet.dll">
+      <AssemblyName>QCChart2DNet</AssemblyName>
+      <Version>1.6.1.8</Version>
+      <HintPath>bin\QCChart2DNet.dll</HintPath>
+      <AssemblyTag>bin\QCChart2DNet.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="bin\QCSPCChartNet.dll">
+      <AssemblyName>QCSPCChartNet</AssemblyName>
+      <Version>1.6.1.9</Version>
+      <HintPath>bin\QCSPCChartNet.dll</HintPath>
+      <AssemblyTag>bin\QCSPCChartNet.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="bin\sstchur.web.SmartNav.dll">
+      <AssemblyName>sstchur.web.SmartNav</AssemblyName>
+      <Version>1.0.1782.13333</Version>
+      <HintPath>bin\sstchur.web.SmartNav.dll</HintPath>
+      <AssemblyTag>bin\sstchur.web.SmartNav.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll">
+      <AssemblyName>MySql.Data</AssemblyName>
+      <CopyLocal>True</CopyLocal>
+      <Version>5.0.8.1</Version>
+      <HintPath>C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
+      <AssemblyTag>C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <DelphiCompile Include="OscarDotNet.dpr">
+      <MainSource>MainSource</MainSource>
+    </DelphiCompile>
+    <DCCReference Include="appcommon.pas" />
+    <DCCReference Include="component\biz\Class_biz_accounts.pas" />
+    <DCCReference Include="component\biz\Class_biz_agencies.pas" />
+    <DCCReference Include="component\biz\Class_biz_data_conditions.pas" />
+    <DCCReference Include="component\biz\Class_biz_department_staffers.pas" />
+    <DCCReference Include="component\biz\Class_biz_enrollment.pas" />
+    <DCCReference Include="component\biz\Class_biz_indicator_median_length_of_service.pas" />
+    <DCCReference Include="component\biz\Class_biz_leave.pas" />
+    <DCCReference Include="component\biz\Class_biz_leaves.pas" />
+    <DCCReference Include="component\biz\Class_biz_medical_release_levels.pas" />
+    <DCCReference Include="component\biz\Class_biz_members.pas" />
+    <DCCReference Include="component\biz\Class_biz_milestones.pas" />
+    <DCCReference Include="component\biz\Class_biz_notifications.pas" />
+    <DCCReference Include="component\biz\Class_biz_officerships.pas" />
+    <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
+    <DCCReference Include="component\biz\Class_biz_sections.pas" />
+    <DCCReference Include="component\biz\Class_biz_user.pas" />
+    <DCCReference Include="component\biz\Class_biz_users.pas" />
+    <DCCReference Include="component\db\Class_db.pas" />
+    <DCCReference Include="component\db\Class_db_accounts.pas" />
+    <DCCReference Include="component\db\Class_db_agencies.pas" />
+    <DCCReference Include="component\db\Class_db_department_staffers.pas" />
+    <DCCReference Include="component\db\Class_db_enrollment.pas" />
+    <DCCReference Include="component\db\Class_db_indicator_median_length_of_service.pas" />
+    <DCCReference Include="component\db\Class_db_leaves.pas" />
+    <DCCReference Include="component\db\Class_db_medical_release_levels.pas" />
+    <DCCReference Include="component\db\Class_db_members.pas" />
+    <DCCReference Include="component\db\Class_db_milestones.pas" />
+    <DCCReference Include="component\db\Class_db_notifications.pas" />
+    <DCCReference Include="component\db\Class_db_officerships.pas" />
+    <DCCReference Include="component\db\Class_db_trail.pas" />
+    <DCCReference Include="component\db\Class_db_user.pas" />
+    <DCCReference Include="component\db\Class_db_users.pas" />
+    <DCCReference Include="Default.pas">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="exception.pas">
+      <DependentUpon>exception.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="Global.pas">
+      <DependentUpon>Global.asax</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="login.pas">
+      <DependentUpon>login.aspx</DependentUpon>
+      <Form>login.TWebForm_login</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="new_user_registration.pas">
+      <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\daily_tasks.pas">
+      <DependentUpon>noninteractive\daily_tasks.aspx</DependentUpon>
+      <Form>daily_tasks.TWebForm_daily_tasks</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
+    </DCCReference>
+    <DCCReference Include="noninteractive\milestone_sweep.pas">
+      <DependentUpon>noninteractive\milestone_sweep.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_applicant_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_applicant_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_core_ops_dashboard.pas">
+      <DependentUpon>noninteractive\report_monthly_core_ops_dashboard.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_core_ops_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_core_ops_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_current_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_current_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_in_class_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_in_class_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_recruit_awaiting_class_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_recruit_awaiting_class_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_trainee_roster.pas">
+      <DependentUpon>noninteractive\report_monthly_trainee_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\statement_member_status.pas">
+      <DependentUpon>noninteractive\statement_member_status.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\add_member.pas">
+      <DependentUpon>protected\add_member.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\add_new_enrollment_status.pas">
+      <DependentUpon>protected\add_new_enrollment_status.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_cad_num.pas">
+      <DependentUpon>protected\change_cad_num.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_email_address.pas">
+      <DependentUpon>protected\change_email_address.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_leave.pas">
+      <DependentUpon>protected\change_leave.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_member_agency.pas">
+      <DependentUpon>protected\change_member_agency.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_member_driver_qualification.pas">
+      <DependentUpon>protected\change_member_driver_qualification.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_member_email_address.pas">
+      <DependentUpon>protected\change_member_email_address.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_member_medical_release_level.pas">
+      <DependentUpon>protected\change_member_medical_release_level.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_member_section.pas">
+      <DependentUpon>protected\change_member_section.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_name.pas">
+      <DependentUpon>protected\change_name.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\change_password.pas">
+      <DependentUpon>protected\change_password.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\enrollment_detail.pas">
+      <DependentUpon>protected\enrollment_detail.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\establish_membership_trouble.pas">
+      <DependentUpon>protected\establish_membership_trouble.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\grant_leave.pas">
+      <DependentUpon>protected\grant_leave.aspx</DependentUpon>
+      <Form>grant_leave.TWebForm_grant_leave</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="protected\image\dynamic\serial_indicator_control_chart.pas">
+      <Form>serial_indicator_control_chart.TWebForm1</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
+    </DCCReference>
+    <DCCReference Include="protected\leave_detail.pas">
+      <DependentUpon>protected\leave_detail.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\member_detail.pas">
+      <DependentUpon>protected\member_detail.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\officership_detail.pas">
+      <DependentUpon>protected\officership_detail.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="protected\overview.pas">
+      <DependentUpon>protected\overview.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="remind_username.pas">
+      <DependentUpon>remind_username.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="salogin.pas">
+      <DependentUpon>salogin.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="timeout.pas">
+      <DependentUpon>timeout.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_about.pas">
+      <DependentUpon>usercontrol\app\UserControl_about.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_agency.pas">
+      <DependentUpon>usercontrol\app\UserControl_agency.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_commensuration.pas">
+      <DependentUpon>usercontrol\app\UserControl_commensuration.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_common_header_bar.pas">
+      <DependentUpon>usercontrol\app\UserControl_common_header_bar.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_config_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_config_binder.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_current_indicators.pas">
+      <DependentUpon>usercontrol\app\UserControl_current_indicators.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_dashboard_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_dashboard_binder.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_establish_membership.pas">
+      <DependentUpon>usercontrol\app\UserControl_establish_membership.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
+      <DependentUpon>usercontrol\app\UserControl_postcontent.ascx</DependentUpon>
+      <Form>UserControl_postcontent.TWebUserControl_postcontent</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_precontent.pas">
+      <DependentUpon>usercontrol\app\UserControl_precontent.ascx</DependentUpon>
+      <Form>UserControl_precontent.TWebUserControl_precontent</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_commensuration.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_commensuration.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_core_ops_size.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_core_ops_size.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_length_of_service.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_length_of_service.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_standard_enrollment.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_standard_enrollment.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_ranked_utilization.pas">
+      <DependentUpon>usercontrol\app\UserControl_ranked_utilization.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_roster.pas">
+      <DependentUpon>usercontrol\app\UserControl_roster.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicators_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicators_binder.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_commensuration.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_commensuration.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_length_of_service.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_serial_indicator_utilization.pas">
+      <DependentUpon>usercontrol\app\UserControl_serial_indicator_utilization.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_user.pas">
+      <DependentUpon>usercontrol\app\UserControl_user.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_bread_crumb_trail.pas">
+      <DependentUpon>usercontrol\ki\UserControl_bread_crumb_trail.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_config_welcome.pas">
+      <DependentUpon>usercontrol\ki\UserControl_config_welcome.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_drop_down_date.pas">
+      <DependentUpon>usercontrol\ki\UserControl_drop_down_date.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_print_div.pas">
+      <DependentUpon>usercontrol\ki\UserControl_print_div.ascx</DependentUpon>
+      <Form>UserControl_print_div.TWebUserControl_print_div</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <None Include="Default.aspx" />
+    <None Include="exception.aspx" />
+    <None Include="Global.asax" />
+    <None Include="login.aspx" />
+    <None Include="new_user_registration.aspx" />
+    <None Include="noninteractive\daily_tasks.aspx" />
+    <None Include="noninteractive\milestone_sweep.aspx" />
+    <None Include="noninteractive\report_monthly_applicant_roster.aspx" />
+    <None Include="noninteractive\report_monthly_core_ops_dashboard.aspx" />
+    <None Include="noninteractive\report_monthly_core_ops_roster.aspx" />
+    <None Include="noninteractive\report_monthly_current_roster.aspx" />
+    <None Include="noninteractive\report_monthly_in_class_roster.aspx" />
+    <None Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" />
+    <None Include="noninteractive\report_monthly_trainee_roster.aspx" />
+    <None Include="noninteractive\statement_member_status.aspx" />
+    <None Include="protected\add_member.aspx" />
+    <None Include="protected\add_new_enrollment_status.aspx" />
+    <None Include="protected\change_cad_num.aspx" />
+    <None Include="protected\change_email_address.aspx" />
+    <None Include="protected\change_leave.aspx" />
+    <None Include="protected\change_member_agency.aspx" />
+    <None Include="protected\change_member_driver_qualification.aspx" />
+    <None Include="protected\change_member_email_address.aspx" />
+    <None Include="protected\change_member_medical_release_level.aspx" />
+    <None Include="protected\change_member_section.aspx" />
+    <None Include="protected\change_name.aspx" />
+    <None Include="protected\change_password.aspx" />
+    <None Include="protected\enrollment_detail.aspx" />
+    <None Include="protected\establish_membership_trouble.aspx" />
+    <None Include="protected\grant_leave.aspx" />
+    <None Include="protected\leave_detail.aspx" />
+    <None Include="protected\member_detail.aspx" />
+    <None Include="protected\officership_detail.aspx" />
+    <None Include="protected\overview.aspx" />
+    <None Include="remind_username.aspx" />
+    <None Include="salogin.aspx" />
+    <None Include="timeout.aspx" />
+    <None Include="usercontrol\app\UserControl_about.ascx" />
+    <None Include="usercontrol\app\UserControl_agency.ascx" />
+    <None Include="usercontrol\app\UserControl_commensuration.ascx" />
+    <None Include="usercontrol\app\UserControl_common_header_bar.ascx" />
+    <None Include="usercontrol\app\UserControl_config_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_current_indicators.ascx" />
+    <None Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
+    <None Include="usercontrol\app\UserControl_member_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_postcontent.ascx" />
+    <None Include="usercontrol\app\UserControl_precontent.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_core_ops_size.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_length_of_service.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
+    <None Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
+    <None Include="usercontrol\app\UserControl_roster.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" />
+    <None Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx" />
+    <None Include="usercontrol\app\UserControl_user.ascx" />
+    <None Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
+    <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
+    <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
+    <None Include="usercontrol\ki\UserControl_print_div.ascx" />
+  </ItemGroup>
+</Project>

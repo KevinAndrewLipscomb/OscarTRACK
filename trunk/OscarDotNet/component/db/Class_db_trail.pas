@@ -17,8 +17,8 @@ type
 implementation
 
 uses
-  borland.data.provider,
-  ki,
+  mysql.data.mysqlclient,
+  kix,
   system.configuration,
   system.Text.regularexpressions,
   system.web;
@@ -35,7 +35,7 @@ begin
   // Make a local journal entry for convenient review.
   //
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     'insert into journal'
     + ' set timestamp = null'
@@ -48,10 +48,10 @@ begin
   //
   // Send a representation of the action offsite as a contingency.
   //
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
-    configurationsettings.appsettings['sender_email_address'],
-    configurationsettings.appsettings['failsafe_recipient_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
+    configurationmanager.appsettings['failsafe_recipient_email_address'],
     'DB action by ' + httpcontext.current.user.identity.name,
     action
     );

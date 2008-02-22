@@ -170,7 +170,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 constructor TClass_biz_members.Create;
 begin

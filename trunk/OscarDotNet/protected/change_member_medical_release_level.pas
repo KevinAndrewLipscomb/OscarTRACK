@@ -44,6 +44,7 @@ type
     DropDownList_medical_release_level: System.Web.UI.WebControls.DropDownList;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -54,7 +55,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -83,7 +84,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_medical_release_level';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_medical_release_level';
       //
       Label_member_name_1.text :=
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);

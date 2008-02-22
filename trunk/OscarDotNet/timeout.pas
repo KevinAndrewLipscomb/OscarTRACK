@@ -6,7 +6,7 @@ interface
 uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
-  system.web.ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, system.configuration,
+  system.web.ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, kix, system.configuration,
   system.web.mail;
 
 
@@ -28,6 +28,7 @@ type
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
     HyperLink_login: System.Web.UI.WebControls.HyperLink;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -68,7 +69,7 @@ begin
       response.Redirect('~/login.aspx');
       //
     end;
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - timeout';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - timeout';
   end;
 end;
 

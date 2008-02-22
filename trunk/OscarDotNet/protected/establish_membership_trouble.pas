@@ -48,6 +48,7 @@ type
     Label_application_name_2: System.Web.UI.WebControls.Label;
     TextBox_explanation: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_explanation: System.Web.UI.WebControls.RequiredFieldValidator;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -58,7 +59,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -77,13 +78,13 @@ procedure TWebForm_establish_membership_trouble.Page_Load(sender: System.Object;
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - establish_membership_trouble';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - establish_membership_trouble';
     //
-    Label_sponsor_1.text := configurationsettings.appsettings['sponsor'];
-    Label_sponsor_2.text := configurationsettings.appsettings['sponsor'];
-    Label_application_name_1.text := configurationsettings.appsettings['application_name'];
-    Label_application_name_2.text := configurationsettings.appsettings['application_name'];
-    Label_application_name_3.text := configurationsettings.appsettings['application_name'];
+    Label_sponsor_1.text := configurationmanager.appsettings['sponsor'];
+    Label_sponsor_2.text := configurationmanager.appsettings['sponsor'];
+    Label_application_name_1.text := configurationmanager.appsettings['application_name'];
+    Label_application_name_2.text := configurationmanager.appsettings['application_name'];
+    Label_application_name_3.text := configurationmanager.appsettings['application_name'];
     //
     Focus(TextBox_full_name);
     //

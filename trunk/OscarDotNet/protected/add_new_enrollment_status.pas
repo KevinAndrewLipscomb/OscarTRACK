@@ -49,6 +49,7 @@ type
     UserControl_effective_date: TWebUserControl_drop_down_date;
     TextBox_note: System.Web.UI.WebControls.TextBox;
     Label_no_transitions_available: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -60,7 +61,7 @@ implementation
 
 uses
   appcommon,
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -91,7 +92,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - add_new_enrollment_status';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - add_new_enrollment_status';
       //
       p.biz_enrollment := TClass_biz_enrollment.Create;
       p.biz_members := TClass_biz_members.Create;
@@ -151,7 +152,7 @@ begin
   end else begin
     Alert
       (
-      ki.USER,
+      kix.USER,
       FAILURE,
       'inveffdat',
       'The new enrollment status was NOT recorded.  Possible reasons are:  (1) The new membership status cannot take effect on a'

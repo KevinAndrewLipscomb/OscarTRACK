@@ -51,6 +51,7 @@ type
     RequiredFieldValidator_short_designator: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_medium_designator: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_long_designator: System.Web.UI.WebControls.RequiredFieldValidator;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -64,7 +65,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 

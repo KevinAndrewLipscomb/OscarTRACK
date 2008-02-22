@@ -53,6 +53,7 @@ type
     CheckBox_be_active: System.Web.UI.WebControls.CheckBox;
     TextBox_num_unsuccessful_login_attempts: System.Web.UI.WebControls.TextBox;
     TextBox_last_login: System.Web.UI.WebControls.TextBox;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -66,7 +67,7 @@ implementation
 
 uses
   appcommon,
-  ki,
+  kix,
   System.Collections,
   system.configuration;
 

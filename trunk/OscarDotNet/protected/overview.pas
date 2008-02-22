@@ -5,9 +5,9 @@ interface
 uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
-  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki,
-  System.Data.Common, Borland.Data.Provider, System.Globalization,
-  Borland.Data.Common, system.configuration, system.web.security,
+  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, kix,
+  System.Data.Common, mysql.data.mysqlclient, System.Globalization,
+  system.configuration, system.web.security,
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
@@ -36,6 +36,7 @@ type
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
     PlaceHolder_establish_membership: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_member_binder: System.Web.UI.WebControls.PlaceHolder;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -63,7 +64,7 @@ procedure TWebForm_overview.Page_Load(sender: System.Object; e: System.EventArgs
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - overview';
+    Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - overview';
     //
   end;
 end;

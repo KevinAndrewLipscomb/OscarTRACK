@@ -27,7 +27,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   system.web.ui.webcontrols;
 
 constructor TClass_db_officerships.Create;
@@ -43,7 +43,7 @@ procedure TClass_db_officerships.Bind
   );
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select officership.id as id'                           // column 0
     + ' , date_format(start_date,"%Y-%m-%d") as start_date' // column 1

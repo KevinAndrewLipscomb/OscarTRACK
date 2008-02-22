@@ -25,7 +25,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   system.configuration;
 
 constructor TClass_db_notifications.Create;
@@ -33,8 +33,8 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   biz_data_conditions := TClass_biz_data_conditions.Create;
-  tier_2_match_field := configurationsettings.appsettings['tier_2_match_field'];
-  tier_3_match_field := configurationsettings.appsettings['tier_3_match_field'];
+  tier_2_match_field := configurationmanager.appsettings['tier_2_match_field'];
+  tier_3_match_field := configurationmanager.appsettings['tier_3_match_field'];
 end;
 
 function TClass_db_notifications.TargetOf
@@ -44,7 +44,7 @@ function TClass_db_notifications.TargetOf
   )
   : string;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   target_of: string;
   tier_2_match_value: string;
   tier_3_match_value: string;
@@ -54,16 +54,16 @@ begin
   //
   // Get tier 2 and 3 associations of target member.
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     ('select ' + tier_2_match_field + ',' + tier_3_match_field + ' from member where id = ' + member_id,connection).ExecuteReader;
-  bdr.Read;
-  tier_2_match_value := bdr[tier_2_match_field].tostring;
-  tier_3_match_value := bdr[tier_3_match_field].tostring;
-  bdr.Close;
+  dr.Read;
+  tier_2_match_value := dr[tier_2_match_field].tostring;
+  tier_3_match_value := dr[tier_3_match_field].tostring;
+  dr.Close;
   //
   // Tier 1 stakeholders
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select email_address'
     + ' , data_condition.name as data_condition_name'
@@ -78,20 +78,20 @@ begin
     connection
     )
     .ExecuteReader;
-  if bdr <> nil then begin
-    while bdr.Read do begin
-      if (bdr['data_condition_name'].tostring = 'none')
-        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+  if dr <> nil then begin
+    while dr.Read do begin
+      if (dr['data_condition_name'].tostring = 'none')
+        or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + bdr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + ',';
       end;
     end;
   end;
-  bdr.Close;
+  dr.Close;
   //
   // Tier 2 stakeholders
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select email_address'
     + ' , data_condition.name as data_condition_name'
@@ -107,20 +107,20 @@ begin
     connection
     )
     .ExecuteReader;
-  if bdr <> nil then begin
-    while bdr.Read do begin
-      if (bdr['data_condition_name'].tostring = 'none')
-        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+  if dr <> nil then begin
+    while dr.Read do begin
+      if (dr['data_condition_name'].tostring = 'none')
+        or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + bdr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + ',';
       end;
     end;
   end;
-  bdr.Close;
+  dr.Close;
   //
   // Tier 3 stakeholders
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select email_address'
     + ' , data_condition.name as data_condition_name'
@@ -137,16 +137,16 @@ begin
     connection
     )
     .ExecuteReader;
-  if bdr <> nil then begin
-    while bdr.Read do begin
-      if (bdr['data_condition_name'].tostring = 'none')
-        or ((bdr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
+  if dr <> nil then begin
+    while dr.Read do begin
+      if (dr['data_condition_name'].tostring = 'none')
+        or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + bdr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + ',';
       end;
     end;
   end;
-  bdr.Close;
+  dr.Close;
   //
   self.Close;
   if target_of <> system.string.EMPTY then begin

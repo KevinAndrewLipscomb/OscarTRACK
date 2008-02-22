@@ -6,7 +6,7 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
-  ki,
+  kix,
   system.configuration,
   system.security.principal;
 
@@ -22,6 +22,7 @@ type
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
     Label_application_name: System.Web.UI.WebControls.Label;
     HyperLink_login: System.Web.UI.WebControls.HyperLink;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -46,8 +47,8 @@ end;
 procedure TWebForm_Default.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   if not IsPostback then begin
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - Default';
-    Label_application_name.text := ConfigurationSettings.AppSettings['application_name'];
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - Default';
+    Label_application_name.text := configurationmanager.AppSettings['application_name'];
     //
     response.Redirect('~/protected/overview.aspx');
     //

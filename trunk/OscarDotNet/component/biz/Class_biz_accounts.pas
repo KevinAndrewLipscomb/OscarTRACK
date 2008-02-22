@@ -7,7 +7,7 @@ uses
   Class_biz_milestones,
   Class_biz_user,
   Class_db_accounts,
-  ki,
+  kix,
   borland.vcl.sysutils,
   system.configuration,
   system.web.mail;
@@ -96,7 +96,7 @@ end;
 
 function TClass_biz_accounts.BeValidSysAdminCredentials(encoded_password: string): boolean;
 begin
-  BeValidSysAdminCredentials := (encoded_password = configurationsettings.appsettings['sysadmin_encoded_password']);
+  BeValidSysAdminCredentials := (encoded_password = configurationmanager.appsettings['sysadmin_encoded_password']);
 end;
 
 procedure TClass_biz_accounts.BindSquadCommanders(target: system.object);

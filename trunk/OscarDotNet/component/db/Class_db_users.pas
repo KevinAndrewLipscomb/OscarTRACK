@@ -5,7 +5,7 @@ interface
 uses
   Class_db,
   Class_db_trail,
-  ki;
+  kix;
 
 type
   TClass_db_users = class(TClass_db)
@@ -50,7 +50,7 @@ type
     function NumUnsuccessfulLoginAttemptsOf(username: string): cardinal;
     function PasswordResetEmailAddressOfId(id: string): string;
     function PasswordResetEmailAddressOfUsername(username: string): string;
-    function PrivilegesOf(id: string): ki.string_array;
+    function PrivilegesOf(id: string): kix.string_array;
     procedure RecordSuccessfulLogin(id: string);
     procedure RecordUnsuccessfulLoginAttempt(username: string);
     procedure RegisterNew
@@ -90,7 +90,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   system.web.ui.webcontrols;
 
 constructor TClass_db_users.Create;
@@ -112,9 +112,9 @@ var
 begin
   accept_as_member := FALSE;
   self.Open;
-  member_id_obj := bdpcommand.Create('select id from member where cad_num = "' + shared_secret + '"',connection).ExecuteScalar;
+  member_id_obj := mysqlcommand.Create('select id from member where cad_num = "' + shared_secret + '"',connection).ExecuteScalar;
   if member_id_obj <> nil then begin
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       db_trail.Saved
         (
@@ -150,7 +150,7 @@ function TClass_db_users.BeAuthorized
   : boolean;
 begin
   self.Open;
-  BeAuthorized := nil <> bdpcommand.Create
+  BeAuthorized := nil <> mysqlcommand.Create
     (
     'SELECT 1 FROM user'
     + ' where username = "' + username + '"'
@@ -164,7 +164,7 @@ end;
 function TClass_db_users.BeRegisteredEmailAddress(email_address: string): boolean;
 begin
   self.Open;
-  BeRegisteredEmailAddress := nil <> bdpcommand.Create
+  BeRegisteredEmailAddress := nil <> mysqlcommand.Create
     ('SELECT 1 FROM user where password_reset_email_address = "' + email_address + '"',connection).ExecuteScalar;
   self.Close;
 end;
@@ -172,14 +172,14 @@ end;
 function TClass_db_users.BeRegisteredUsername(username: string): boolean;
 begin
   self.Open;
-  BeRegisteredUsername := nil <> bdpcommand.Create('SELECT 1 FROM user where username = "' + username + '"',connection).ExecuteScalar;
+  BeRegisteredUsername := nil <> mysqlcommand.Create('SELECT 1 FROM user where username = "' + username + '"',connection).ExecuteScalar;
   self.Close;
 end;
 
 function TClass_db_users.BeStalePassword(id: string): boolean;
 begin
   self.Open;
-  BeStalePassword := '1' = bdpcommand.Create
+  BeStalePassword := '1' = mysqlcommand.Create
     (
     'SELECT be_stale_password FROM user where id=' + id,
     connection
@@ -195,22 +195,22 @@ function TClass_db_users.Bind
   )
   : boolean;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   //
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT username FROM user WHERE username like "' + partial_username + '%" order by username',
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
+  while dr.Read do begin
     DropDownList(target).Items.Add
-      (listitem.Create(bdr['username'].tostring,bdr['username'].tostring));
+      (listitem.Create(dr['username'].tostring,dr['username'].tostring));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   Bind := DropDownList(target).items.count > 0;
 end;
@@ -218,7 +218,7 @@ end;
 procedure TClass_db_users.Delete(username: string);
 begin
   self.Open;
-  bdpcommand.Create(db_trail.Saved('delete from user where username = ' + username),connection).ExecuteNonquery;
+  mysqlcommand.Create(db_trail.Saved('delete from user where username = ' + username),connection).ExecuteNonquery;
   self.Close;
 end;
 
@@ -234,32 +234,32 @@ function TClass_db_users.Get
   )
   : boolean;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   Get := FALSE;
   self.Open;
-  bdr := bdpcommand.Create('select * from user where username = "' + username + '"',connection).ExecuteReader;
-  if bdr.Read then begin
+  dr := mysqlcommand.Create('select * from user where username = "' + username + '"',connection).ExecuteReader;
+  if dr.Read then begin
     //
-    username := bdr['username'].tostring;
-    encoded_password := bdr['encoded_password'].tostring;
-    be_stale_password := (bdr['be_stale_password'].tostring = '1');
-    password_reset_email_address := bdr['password_reset_email_address'].tostring;
-    be_active := (bdr['be_active'].tostring = '1');
-    num_unsuccessful_login_attempts := uint32.Parse(bdr['num_unsuccessful_login_attempts'].tostring);
-    last_login := datetime.Parse(bdr['last_login'].tostring);
+    username := dr['username'].tostring;
+    encoded_password := dr['encoded_password'].tostring;
+    be_stale_password := (dr['be_stale_password'].tostring = '1');
+    password_reset_email_address := dr['password_reset_email_address'].tostring;
+    be_active := (dr['be_active'].tostring = '1');
+    num_unsuccessful_login_attempts := uint32.Parse(dr['num_unsuccessful_login_attempts'].tostring);
+    last_login := datetime.Parse(dr['last_login'].tostring);
     //
     Get := TRUE;
     //
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 function TClass_db_users.IdOf(username: string): string;
 begin
   self.Open;
-  IdOf := bdpcommand.Create('select id from user where username = "' + username + '"',connection).ExecuteScalar.tostring;
+  IdOf := mysqlcommand.Create('select id from user where username = "' + username + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
@@ -268,7 +268,7 @@ begin
   self.Open;
   NumUnsuccessfulLoginAttemptsOf := uint32.Parse
     (
-    bdpcommand.Create
+    mysqlcommand.Create
       (
       'select num_unsuccessful_login_attempts from user where username = "' + username + '"',
       connection
@@ -281,7 +281,7 @@ end;
 function TClass_db_users.PasswordResetEmailAddressOfId(id: string): string;
 begin
   self.Open;
-  PasswordResetEmailAddressOfId := bdpcommand.Create
+  PasswordResetEmailAddressOfId := mysqlcommand.Create
     ('select password_reset_email_address from user where id = ' + id,connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -289,19 +289,19 @@ end;
 function TClass_db_users.PasswordResetEmailAddressOfUsername(username: string): string;
 begin
   self.Open;
-  PasswordResetEmailAddressOfUsername := bdpcommand.Create
+  PasswordResetEmailAddressOfUsername := mysqlcommand.Create
     ('select password_reset_email_address from user where username = "' + username + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;
 
-function TClass_db_users.PrivilegesOf(id: string): ki.string_array;
+function TClass_db_users.PrivilegesOf(id: string): kix.string_array;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   num_privileges: cardinal;
-  privileges_of: ki.string_array;
+  privileges_of: kix.string_array;
 begin
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select distinct name'
     + ' from user_member_map'
@@ -313,12 +313,12 @@ begin
     )
     .ExecuteReader;
   num_privileges := 0;
-  while bdr.Read do begin
+  while dr.Read do begin
     num_privileges := num_privileges + 1;
     SetLength(privileges_of,num_privileges);
-    privileges_of[num_privileges - 1] := bdr['name'].tostring;
+    privileges_of[num_privileges - 1] := dr['name'].tostring;
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   PrivilegesOf := privileges_of;
 end;
@@ -326,7 +326,7 @@ end;
 procedure TClass_db_users.RecordSuccessfulLogin(id: string);
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -344,7 +344,7 @@ end;
 procedure TClass_db_users.RecordUnsuccessfulLoginAttempt(username: string);
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -366,7 +366,7 @@ procedure TClass_db_users.RegisterNew
   );
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -395,7 +395,7 @@ procedure TClass_db_users.&Set
   );
 begin
   self.Open;
-  bdpcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -421,7 +421,7 @@ procedure TClass_db_users.SetEmailAddress
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -442,7 +442,7 @@ procedure TClass_db_users.SetPassword
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -464,7 +464,7 @@ procedure TClass_db_users.SetTemporaryPassword
   );
 begin
   self.Open;
-  borland.data.provider.bdpcommand.Create
+  mysql.data.mysqlclient.mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -482,7 +482,7 @@ end;
 function TClass_db_users.UsernameOfEmailAddress(email_address: string): string;
 begin
   self.Open;
-  UsernameOfEmailAddress := bdpcommand.Create
+  UsernameOfEmailAddress := mysqlcommand.Create
     ('select username from user where password_reset_email_address = "' + email_address + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;

@@ -7,7 +7,7 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration,
   Class_biz_users,
-  ki,
+  kix,
   ki_web_ui;
 
 type
@@ -53,6 +53,7 @@ type
     CustomValidator_email_address_domain: System.Web.UI.WebControls.CustomValidator;
     CompareValidator_confirmation_password: System.Web.UI.WebControls.CompareValidator;
     Button_cancel: System.Web.UI.WebControls.Button;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -95,11 +96,11 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end else begin
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - new_user_registration';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - new_user_registration';
       //
       p.biz_users := TClass_biz_users.Create;
       //
-      Label_application_name.text := configurationsettings.appsettings['application_name'];
+      Label_application_name.text := configurationmanager.appsettings['application_name'];
       //
       Focus(TextBox_username);
       //
@@ -154,7 +155,7 @@ end;
 procedure TWebForm_new_user_registration.CustomValidator_email_address_domain_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_new_user_registration.CustomValidator_username_ServerValidate(source: System.Object;

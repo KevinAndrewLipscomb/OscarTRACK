@@ -51,7 +51,7 @@ type
 implementation
 
 uses
-  borland.data.provider,
+  mysql.data.mysqlclient,
   Class_db_members,
   system.web.ui.webcontrols;
 
@@ -69,7 +69,7 @@ procedure TClass_db_enrollment.BindMemberHistory
   );
 begin
   self.Open;
-  DataGrid(target).datasource := bdpcommand.Create
+  DataGrid(target).datasource := mysqlcommand.Create
     (
     'select enrollment_history.id as id'                    // column 0
     + ' , date_format(start_date,"%Y-%m-%d") as start_date' // column 1
@@ -94,13 +94,13 @@ procedure TClass_db_enrollment.BindTransitionRadioButtonList
   target: system.object
   );
 var
-  bdr: borland.data.provider.bdpdatareader;
+  dr: mysql.data.mysqlclient.mysqldatareader;
   display_html: string;
 begin
   self.Open;
   RadioButtonList(target).Items.Clear;
   //
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT valid_next_level_code'
     + ' , description'
@@ -127,47 +127,47 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    display_html := '<b>' + bdr['description'].tostring + '</b>';
-    if bdr['elaboration'].tostring <> system.string.EMPTY then begin
+  while dr.Read do begin
+    display_html := '<b>' + dr['description'].tostring + '</b>';
+    if dr['elaboration'].tostring <> system.string.EMPTY then begin
       display_html := display_html
       + '<table>'
       +   '<tr>'
       +     '<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>'
-      +     '<td><small><i>' + bdr['elaboration'].tostring + '</i></small></td>'
+      +     '<td><small><i>' + dr['elaboration'].tostring + '</i></small></td>'
       +   '</tr>'
       + '</table>';
     end;
-    RadioButtonList(target).Items.Add(listitem.Create(display_html,bdr['valid_next_level_code'].tostring));
+    RadioButtonList(target).Items.Add(listitem.Create(display_html,dr['valid_next_level_code'].tostring));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 procedure TClass_db_enrollment.BindUncontrolledDropDownList(target: system.object);
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
   DropDownList(target).items.Clear;
   DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
-  bdr := Borland.Data.Provider.BdpCommand.Create
+  dr := mysql.data.mysqlclient.mysqlcommand.Create
     (
     'SELECT code, description from enrollment_level order by pecking_order',
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(bdr['description'].tostring,bdr['code'].ToString));
+  while dr.Read do begin
+    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
 end;
 
 function TClass_db_enrollment.ElaborationOf(description: string): string;
 begin
   self.Open;
-  ElaborationOf := bdpcommand.Create
+  ElaborationOf := mysqlcommand.Create
     ('select elaboration from enrollment_level where description = "' + description + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -175,7 +175,7 @@ end;
 function TClass_db_enrollment.CodeOf(description: string): string;
 begin
   self.Open;
-  CodeOf := bdpcommand.Create
+  CodeOf := mysqlcommand.Create
     ('select code from enrollment_level where description = "' + description + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -183,7 +183,7 @@ end;
 function TClass_db_enrollment.DescriptionOf(level_code: string): string;
 begin
   self.Open;
-  DescriptionOf := bdpcommand.Create
+  DescriptionOf := mysqlcommand.Create
     ('select description from enrollment_level where code = ' + level_code,connection).ExecuteScalar.tostring;
   self.Close;
 end;
@@ -193,8 +193,8 @@ var
   watermark: string;
 begin
   self.Open;
-  watermark := bdpcommand.Create('select max(id) from enrollment_history',connection).ExecuteScalar.tostring;
-  bdpcommand.Create
+  watermark := mysqlcommand.Create('select max(id) from enrollment_history',connection).ExecuteScalar.tostring;
+  mysqlcommand.Create
     (
     //
     // Deliberately not db_trail.Saved.
@@ -227,7 +227,7 @@ var
   num_obliged_shifts_obj: system.object;
 begin
   self.Open;
-  num_obliged_shifts_obj := bdpcommand.Create
+  num_obliged_shifts_obj := mysqlcommand.Create
     ('select num_shifts from enrollment_level where description = "' + description + '"',connection).ExecuteScalar;
   if num_obliged_shifts_obj <> dbnull.value then begin
     NumObligedShifts := uint32.Parse(num_obliged_shifts_obj.tostring);
@@ -239,12 +239,12 @@ end;
 
 function TClass_db_enrollment.SeniorityPromotionsSince(watermark: string): queue;
 var
-  bdr: bdpdatareader;
+  dr: mysqldatareader;
   member_id_q: queue;
 begin
   member_id_q := queue.Create;
   self.Open;
-  bdr := bdpcommand.Create
+  dr := mysqlcommand.Create
     (
     'select member_id'
     + ' from enrollment_history'
@@ -254,10 +254,10 @@ begin
     connection
     )
     .ExecuteReader;
-  while bdr.Read do begin
-    member_id_q.Enqueue(bdr['member_id']);
+  while dr.Read do begin
+    member_id_q.Enqueue(dr['member_id']);
   end;
-  bdr.Close;
+  dr.Close;
   self.Close;
   SeniorityPromotionsSince := member_id_q;
 end;
@@ -274,7 +274,7 @@ function TClass_db_enrollment.SetLevel
 var
   effective_date_string: string;
   latest_start_date: datetime;
-  transaction: bdptransaction;
+  transaction: mysqltransaction;
 begin
   SetLevel := FALSE;
   effective_date_string := effective_date.tostring('yyyy-MM-dd');
@@ -283,12 +283,12 @@ begin
   try
     latest_start_date := datetime
       (
-      bdpcommand.Create
+      mysqlcommand.Create
         ('select max(start_date) from enrollment_history where member_id = ' + member_id,connection,transaction)
         .ExecuteScalar
       );
     if effective_date >=  latest_start_date then begin
-      bdpcommand.Create
+      mysqlcommand.Create
         (
         db_trail.Saved
           (
@@ -301,7 +301,7 @@ begin
         transaction
         )
         .ExecuteNonQuery;
-      bdpcommand.Create
+      mysqlcommand.Create
         (
         db_trail.Saved
           (

@@ -46,6 +46,7 @@ type
     RequiredFieldValidator_cad_num: System.Web.UI.WebControls.RequiredFieldValidator;
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Label_old_cad_num: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -56,7 +57,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -76,7 +77,7 @@ procedure TWebForm_change_cad_num.Page_Load(sender: System.Object; e: System.Eve
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_cad_num';
+    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_cad_num';
     //
     Label_old_cad_num.text := p.biz_members.CadNumOf(session['e_item']);
     Label_member_name_1.text :=
@@ -127,7 +128,7 @@ begin
   if p.biz_members.SetCadNum(Safe(Textbox_cad_num.text,NUM),session['e_item']) then begin
     server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
   end else begin
-    Alert(ki.USER,ki.FAILURE,'cadnumtakn','NOT CHANGED:  The specified CAD # is already in the system.');
+    Alert(kix.USER,kix.FAILURE,'cadnumtakn','NOT CHANGED:  The specified CAD # is already in the system.');
   end;
 end;
 

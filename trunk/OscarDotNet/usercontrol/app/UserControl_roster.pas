@@ -110,6 +110,7 @@ type
     Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
     Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
     Label_author_email_address: System.Web.UI.WebControls.Label;
+  protected
     procedure OnInit(e: System.EventArgs); override;
   private
     { Private Declarations }
@@ -124,7 +125,7 @@ implementation
 uses
   appcommon,
   Class_db_members,
-  ki,
+  kix,
   system.configuration,
   system.io,
   system.security.principal,
@@ -267,10 +268,10 @@ end;
 
 procedure TWebUserControl_roster.Button_send_Click(sender: System.Object; e: System.EventArgs);
 begin
-  ki.SmtpMailSend
+  kix.SmtpMailSend
     (
     // from
-    configurationsettings.appsettings['sender_email_address'],
+    configurationmanager.appsettings['sender_email_address'],
     // to
     Label_distribution_list.text,
     // subject
@@ -278,7 +279,7 @@ begin
     // body
     '-- From ' + p.biz_user.Roles[0] + SPACE + p.biz_members.FirstNameOfMemberId(session['member_id'].tostring) + SPACE
     + p.biz_members.LastNameOfMemberId(session['member_id'].tostring) + ' (' + p.biz_user.EmailAddress + ') [via '
-    + configurationsettings.appsettings['application_name'] + ']' + NEW_LINE
+    + configurationmanager.appsettings['application_name'] + ']' + NEW_LINE
     + NEW_LINE
     + TextBox_quick_message_body.text,
     // be_html
@@ -290,7 +291,7 @@ begin
     );
   TextBox_quick_message_subject.text := system.string.EMPTY;
   TextBox_quick_message_body.text := system.string.EMPTY;
-  Alert(ki.LOGIC,ki.NORMAL,'messagsnt','Message sent');
+  Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent');
 end;
 
 {$REGION 'Designer Managed Code'}

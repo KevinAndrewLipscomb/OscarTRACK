@@ -44,6 +44,7 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
     RadioButtonList_driver_qualified_yes_no: System.Web.UI.WebControls.RadioButtonList;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -54,7 +55,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -83,7 +84,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_driver_qualification';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_driver_qualification';
       //
       p.biz_members := TClass_biz_members.Create;
       //

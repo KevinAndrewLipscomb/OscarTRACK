@@ -5,7 +5,7 @@ interface
 uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
-  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, ki, borland.data.provider, system.configuration,
+  system.web.ui, ki_web_ui, System.Web.UI.WebControls, System.Web.UI.HtmlControls, kix, mysql.data.mysqlclient, system.configuration,
   system.net, system.web.security,
   Class_biz_user,
   Class_biz_users;
@@ -38,6 +38,7 @@ type
     RegularExpressionValidator_nominal_email_address: System.Web.UI.WebControls.RegularExpressionValidator;
     CustomValidator_nominal_email_address: System.Web.UI.WebControls.CustomValidator;
     CompareValidator1: System.Web.UI.WebControls.CompareValidator;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -74,7 +75,7 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end;
-    Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - change_email_address';
+    Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - change_email_address';
     p.biz_user:= TClass_biz_user.Create;
     p.biz_users := TClass_biz_users.Create;
     //
@@ -107,7 +108,7 @@ end;
 procedure TWebForm_change_email_address.CustomValidator_nominal_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := ki.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_change_email_address.Button_submit_Click(sender: System.Object;

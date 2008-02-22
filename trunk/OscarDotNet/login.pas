@@ -10,7 +10,7 @@ uses
   System.Data.SqlClient, System.Data.Common, system.configuration,
   system.text.regularexpressions, system.web.security, system.io,
   Class_biz_users,
-  ki,
+  kix,
   ki_web_ui,
   system.Web.ui;
 
@@ -48,6 +48,7 @@ type
     Button_log_in: System.Web.UI.WebControls.Button;
     RequiredFieldValidator_username: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_password: System.Web.UI.WebControls.RequiredFieldValidator;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -80,7 +81,7 @@ begin
   if IsPostback and (session['login.p'].GetType.namespace = p.GetType.namespace) then begin
     p := p_type(session['login.p']);
   end else begin
-    Title.InnerText := ConfigurationSettings.AppSettings['application_name'] + ' - login';
+    Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - login';
     p.biz_users := TClass_biz_users.Create;
     //
     Focus(TextBox_username);
@@ -114,22 +115,22 @@ var
   username: string;
 begin
   if TextBox_username.text = system.string.EMPTY then begin
-    Alert(ki.USER,ki.FAILURE,'misusrnam','Please enter your username.');
+    Alert(kix.USER,kix.FAILURE,'misusrnam','Please enter your username.');
   end else begin
     username := Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM);
     if p.biz_users.BeRegisteredUsername(username) then begin
       p.biz_users.IssueTemporaryPassword(username,Safe(request.userhostname,HOSTNAME));
       Alert
         (
-        ki.LOGIC,
-        ki.NORMAL,
+        kix.LOGIC,
+        kix.NORMAL,
         'tmpassent',
-        'A temporary password has been sent to the email address that ' + configurationsettings.appsettings['application_name']
+        'A temporary password has been sent to the email address that ' + configurationmanager.appsettings['application_name']
         + ' has on file for ' + username + '.  Please log in after you receive it.  You will receive further instructions at that'
         + ' time.'
         );
     end else begin
-      Alert(ki.USER,ki.FAILURE,'nosuchusr','No such user registered');
+      Alert(kix.USER,kix.FAILURE,'nosuchusr','No such user registered');
     end;
   end;
 end;

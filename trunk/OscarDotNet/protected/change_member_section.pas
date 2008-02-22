@@ -42,6 +42,7 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     DropDownList_section: System.Web.UI.WebControls.DropDownList;
     Button_cancel: System.Web.UI.WebControls.Button;
+  protected
     procedure OnInit(e: EventArgs); override;
   private
     { Private Declarations }
@@ -52,7 +53,7 @@ type
 implementation
 
 uses
-  ki;
+  kix;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -81,7 +82,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(ConfigurationSettings.AppSettings['application_name']) + ' - change_member_section';
+      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_section';
       //
       p.biz_members := TClass_biz_members.Create;
       p.biz_sections := TClass_biz_sections.Create;
