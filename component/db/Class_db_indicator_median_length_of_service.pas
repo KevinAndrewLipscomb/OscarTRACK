@@ -77,6 +77,7 @@ begin
       )
       .ExecuteReader;
     DataGrid(target).DataBind;
+    mysqldatareader(DataGrid(target).datasource).Close;
     if be_trendable then begin
       mysqlcommand.Create
         ('delete from indicator_median_length_of_service where not be_trendable',connection,transaction).ExecuteNonquery;

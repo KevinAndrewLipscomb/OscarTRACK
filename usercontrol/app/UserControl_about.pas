@@ -87,8 +87,8 @@ end;
 /// </summary>
 procedure TWebUserControl_about.InitializeComponent;
 begin
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_about_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 

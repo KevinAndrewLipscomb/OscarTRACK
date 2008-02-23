@@ -254,6 +254,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_about.pas">
       <DependentUpon>usercontrol\app\UserControl_about.ascx</DependentUpon>
+      <Form>UserControl_about.TWebUserControl_about</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_agency.pas">
       <DependentUpon>usercontrol\app\UserControl_agency.ascx</DependentUpon>
@@ -278,6 +280,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>
+      <Form>UserControl_member_binder.TWebUserControl_member_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
       <DependentUpon>usercontrol\app\UserControl_postcontent.ascx</DependentUpon>
@@ -300,6 +304,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_length_of_service.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_length_of_service.ascx</DependentUpon>
+      <Form>UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx</DependentUpon>
