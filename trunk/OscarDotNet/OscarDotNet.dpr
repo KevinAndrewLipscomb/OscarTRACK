@@ -61,7 +61,7 @@ uses
   enrollment_detail in 'protected\enrollment_detail.pas',
   establish_membership_trouble in 'protected\establish_membership_trouble.pas',
   grant_leave in 'protected\grant_leave.pas' {grant_leave.TWebForm_grant_leave: ki_web_ui.page_class},
-  leave_detail in 'protected\leave_detail.pas',
+  leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   member_detail in 'protected\member_detail.pas',
   officership_detail in 'protected\officership_detail.pas',
   UserControl_user in 'usercontrol\app\UserControl_user.pas',
@@ -70,8 +70,8 @@ uses
   UserControl_commensuration in 'usercontrol\app\UserControl_commensuration.pas',
   UserControl_common_header_bar in 'usercontrol\app\UserControl_common_header_bar.pas',
   UserControl_config_binder in 'usercontrol\app\UserControl_config_binder.pas',
-  UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas',
-  UserControl_dashboard_binder in 'usercontrol\app\UserControl_dashboard_binder.pas',
+  UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas' {UserControl_current_indicators.TWebUserControl_current_indicators: ki_web_ui.usercontrol_class},
+  UserControl_dashboard_binder in 'usercontrol\app\UserControl_dashboard_binder.pas' {UserControl_dashboard_binder.TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class},
   UserControl_establish_membership in 'usercontrol\app\UserControl_establish_membership.pas',
   UserControl_member_binder in 'usercontrol\app\UserControl_member_binder.pas' {UserControl_member_binder.TWebUserControl_member_binder: ki_web_ui.usercontrol_class},
   UserControl_postcontent in 'usercontrol\app\UserControl_postcontent.pas' {UserControl_postcontent.TWebUserControl_postcontent: ki_web_ui.usercontrol_class},
@@ -83,7 +83,7 @@ uses
   UserControl_ranked_num_members_in_pipeline in 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas',
   UserControl_ranked_standard_enrollment in 'usercontrol\app\UserControl_ranked_standard_enrollment.pas',
   UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas',
-  UserControl_roster in 'usercontrol\app\UserControl_roster.pas',
+  UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas',
   UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas',
   UserControl_serial_indicator_num_core_ops_members in 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas',
@@ -100,12 +100,13 @@ uses
   daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm_daily_tasks: system.web.ui.page},
   milestone_sweep in 'noninteractive\milestone_sweep.pas',
   report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas',
-  report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas',
+  report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas' {report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard: system.web.ui.page},
   report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas',
   report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas',
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas',
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas',
-  report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas';
+  report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas',
+  UserControl_member_role_matrix in 'usercontrol\app\UserControl_member_role_matrix.pas' {UserControl_member_role_matrix.TWebUserControl_member_role_matrix: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

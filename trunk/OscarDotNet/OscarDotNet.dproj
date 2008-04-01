@@ -161,6 +161,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_core_ops_dashboard.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_dashboard.aspx</DependentUpon>
+      <Form>report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_core_ops_roster.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_roster.aspx</DependentUpon>
@@ -233,6 +235,8 @@
     </DCCReference>
     <DCCReference Include="protected\leave_detail.pas">
       <DependentUpon>protected\leave_detail.aspx</DependentUpon>
+      <Form>leave_detail.TWebForm_leave_detail</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\member_detail.pas">
       <DependentUpon>protected\member_detail.aspx</DependentUpon>
@@ -271,9 +275,13 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_current_indicators.pas">
       <DependentUpon>usercontrol\app\UserControl_current_indicators.ascx</DependentUpon>
+      <Form>UserControl_current_indicators.TWebUserControl_current_indicators</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_dashboard_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_dashboard_binder.ascx</DependentUpon>
+      <Form>UserControl_dashboard_binder.TWebUserControl_dashboard_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_establish_membership.pas">
       <DependentUpon>usercontrol\app\UserControl_establish_membership.ascx</DependentUpon>
@@ -281,6 +289,11 @@
     <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>
       <Form>UserControl_member_binder.TWebUserControl_member_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_member_role_matrix.pas">
+      <DependentUpon>usercontrol\app\UserControl_member_role_matrix.ascx</DependentUpon>
+      <Form>UserControl_member_role_matrix.TWebUserControl_member_role_matrix</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
@@ -318,6 +331,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_roster.pas">
       <DependentUpon>usercontrol\app\UserControl_roster.ascx</DependentUpon>
+      <Form>UserControl_roster.TWebUserControl_roster</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicators_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicators_binder.ascx</DependentUpon>
@@ -406,6 +421,7 @@
     <None Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <None Include="usercontrol\app\UserControl_member_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_member_role_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_postcontent.ascx" />
     <None Include="usercontrol\app\UserControl_precontent.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />
