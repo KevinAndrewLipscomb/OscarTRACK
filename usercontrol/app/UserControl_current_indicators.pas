@@ -42,6 +42,7 @@ type
     PlaceHolder_ranked_standard_enrollment: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_commensuration: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_num_members_in_pipeline: System.Web.UI.WebControls.PlaceHolder;
+    UserControl_print_div: UserControl;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -65,6 +66,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    UserControl_print_div.visible := (session['mode:report'] = nil);
     //
     p.be_loaded := TRUE;
     //
