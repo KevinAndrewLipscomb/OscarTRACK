@@ -112,7 +112,11 @@ begin
     num_raw_shifts := decimal.Parse(e.item.cells[3].text);
     p.total_cooked := p.total_cooked + num_cooked_shifts;
     p.total_raw := p.total_raw + num_raw_shifts;
-    e.item.cells[3].text := (num_cooked_shifts/num_raw_shifts).tostring('P0');
+    if num_raw_shifts <> 0 then begin
+      e.item.cells[3].text := (num_cooked_shifts/num_raw_shifts).tostring('P0');
+    end else begin
+      e.item.cells[3].text := 'NAN';
+    end;
   end;
 end;
 

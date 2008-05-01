@@ -82,7 +82,7 @@ uses
   UserControl_ranked_length_of_service in 'usercontrol\app\UserControl_ranked_length_of_service.pas' {UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service: ki_web_ui.usercontrol_class},
   UserControl_ranked_num_members_in_pipeline in 'usercontrol\app\UserControl_ranked_num_members_in_pipeline.pas',
   UserControl_ranked_standard_enrollment in 'usercontrol\app\UserControl_ranked_standard_enrollment.pas',
-  UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas',
+  UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas' {UserControl_ranked_utilization.TWebUserControl_ranked_utilization: ki_web_ui.usercontrol_class},
   UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas',
   UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas',
