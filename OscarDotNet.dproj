@@ -328,6 +328,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_utilization.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_utilization.ascx</DependentUpon>
+      <Form>UserControl_ranked_utilization.TWebUserControl_ranked_utilization</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_roster.pas">
       <DependentUpon>usercontrol\app\UserControl_roster.ascx</DependentUpon>
