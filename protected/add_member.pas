@@ -207,7 +207,7 @@ begin
       if Has(string_array(session['privilege_array']),'see-all-squads') then begin
         agency_id := Safe(DropDownList_agency.selectedvalue,NUM);
       end else begin
-        agency_id := p.biz_user.IdNum;
+        agency_id := p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum));
       end;
       if p.biz_members.Add
         (

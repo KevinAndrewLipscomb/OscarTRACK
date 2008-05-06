@@ -184,6 +184,8 @@
     </DCCReference>
     <DCCReference Include="protected\add_member.pas">
       <DependentUpon>protected\add_member.aspx</DependentUpon>
+      <Form>add_member.TWebForm_add_member</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\add_new_enrollment_status.pas">
       <DependentUpon>protected\add_new_enrollment_status.aspx</DependentUpon>
@@ -377,6 +379,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_drop_down_date.pas">
       <DependentUpon>usercontrol\ki\UserControl_drop_down_date.ascx</DependentUpon>
+      <Form>UserControl_drop_down_date.TWebUserControl_drop_down_date</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_print_div.pas">
       <DependentUpon>usercontrol\ki\UserControl_print_div.ascx</DependentUpon>
