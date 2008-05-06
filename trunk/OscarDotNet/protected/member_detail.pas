@@ -127,11 +127,13 @@ begin
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + ' '
       + p.biz_members.LastNameOf(session['e_item']);
-    LinkButton_change_name.visible := Has(string_array(session['privilege_array']),'change-member-name');
+    LinkButton_change_name.visible := Has(string_array(session['privilege_array']),'change-member-name')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     LinkButton_change_name.text := ExpandTildePath(LinkButton_change_name.text);
     //
     Label_cad_num.text := p.cad_num_string;
-    LinkButton_change_cad_num.visible := Has(string_array(session['privilege_array']),'change-cad-num');
+    LinkButton_change_cad_num.visible := Has(string_array(session['privilege_array']),'change-cad-num')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     LinkButton_change_cad_num.text := ExpandTildePath(LinkButton_change_cad_num.text);
     //
     Label_leave_this_month.text := p.leave_this_month_description;
@@ -171,11 +173,15 @@ begin
     end;
     LinkButton_change_member_email_address.text := ExpandTildePath(LinkButton_change_member_email_address.text);
     //
-    LinkButton_change_medical_release_level.visible := Has(string_array(session['privilege_array']),'change-med-release-level');
+    LinkButton_change_medical_release_level.visible := Has(string_array(session['privilege_array']),'change-med-release-level')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
+
     LinkButton_change_medical_release_level.text := ExpandTildePath(LinkButton_change_medical_release_level.text);
     //
-    LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual');
-    LinkButton_change_agency.visible := Has(string_array(session['privilege_array']),'change-agency');
+    LinkButton_change_driver_qual.visible := Has(string_array(session['privilege_array']),'change-driver-qual')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
+    LinkButton_change_agency.visible := Has(string_array(session['privilege_array']),'change-agency')
+      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     LinkButton_change_section.visible := Has(string_array(session['privilege_array']),'change-section')
       and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     //
