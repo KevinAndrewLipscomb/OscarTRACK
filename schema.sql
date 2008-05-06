@@ -1016,7 +1016,17 @@ insert role_privilege_map (role_id,privilege_id) values
 ((select id from role where name = "Squad Membership Coordinator"),(select id from privilege where name = "change-cad-num")),
 ((select id from role where name = "Squad Membership Coordinator"),(select id from privilege where name = "change-med-release-level")),
 ((select id from role where name = "Squad Membership Coordinator"),(select id from privilege where name = "change-member-name")),
-((select id from role where name = "Squad Membership Coordinator"),(select id from privilege where name = "release-trainees"));
+((select id from role where name = "Squad Membership Coordinator"),(select id from privilege where name = "release-trainees")),
+((select id from role where name = "Squad Commander"),(select id from privilege where name = "change-driver-qual"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-driver-qual"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "add-members"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-agency"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-cad-num"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-med-release-level"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-member-name"));
+((select id from role where name = "Squad Manager"),(select id from privilege where name = "release-trainees"));
+((select id from role where name = "Squad Training Officer"),(select id from privilege where name = "release-trainees"));
+((select id from role where name = "Squad Training Officer"),(select id from privilege where name = "change-med-release-level"));
 
 -- --------------------------------------------------------
 

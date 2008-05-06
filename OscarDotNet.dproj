@@ -220,6 +220,8 @@
     </DCCReference>
     <DCCReference Include="protected\enrollment_detail.pas">
       <DependentUpon>protected\enrollment_detail.aspx</DependentUpon>
+      <Form>enrollment_detail.TWebForm_enrollment_detail</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\establish_membership_trouble.pas">
       <DependentUpon>protected\establish_membership_trouble.aspx</DependentUpon>
@@ -240,9 +242,13 @@
     </DCCReference>
     <DCCReference Include="protected\member_detail.pas">
       <DependentUpon>protected\member_detail.aspx</DependentUpon>
+      <Form>member_detail.TWebForm_member_detail</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\officership_detail.pas">
       <DependentUpon>protected\officership_detail.aspx</DependentUpon>
+      <Form>officership_detail.TWebForm_officership_detail</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\overview.pas">
       <DependentUpon>protected\overview.aspx</DependentUpon>
