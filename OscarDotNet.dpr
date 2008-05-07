@@ -54,7 +54,7 @@ uses
   change_member_agency in 'protected\change_member_agency.pas',
   change_member_driver_qualification in 'protected\change_member_driver_qualification.pas',
   change_member_email_address in 'protected\change_member_email_address.pas',
-  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas',
+  change_member_medical_release_level in 'protected\change_member_medical_release_level.pas' {change_member_medical_release_level.TWebForm_change_member_medical_release_level: ki_web_ui.page_class},
   change_member_section in 'protected\change_member_section.pas',
   change_name in 'protected\change_name.pas',
   change_password in 'protected\change_password.pas',

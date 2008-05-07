@@ -210,6 +210,8 @@
     </DCCReference>
     <DCCReference Include="protected\change_member_medical_release_level.pas">
       <DependentUpon>protected\change_member_medical_release_level.aspx</DependentUpon>
+      <Form>change_member_medical_release_level.TWebForm_change_member_medical_release_level</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_member_section.pas">
       <DependentUpon>protected\change_member_section.aspx</DependentUpon>

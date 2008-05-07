@@ -44,6 +44,7 @@ type
     DropDownList_medical_release_level: System.Web.UI.WebControls.DropDownList;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
+    HtmlTable_proper_release_reminder: System.Web.UI.HtmlControls.HtmlTable;
   protected
     procedure OnInit(e: EventArgs); override;
   private
@@ -66,8 +67,8 @@ procedure TWebForm_change_member_medical_release_level.InitializeComponent;
 begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_change_member_medical_release_level_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
@@ -90,6 +91,8 @@ begin
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
       Label_member_name_2.text := Label_member_name_1.text;
       Label_member_name_3.text := Label_member_name_2.text;
+      //
+      HtmlTable_proper_release_reminder.visible := not Has(string_array(session['privilege_array']),'release-trainees');
       //
       p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level,p.saved_level);
       //
