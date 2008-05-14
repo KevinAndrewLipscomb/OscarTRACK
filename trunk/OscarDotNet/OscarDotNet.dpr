@@ -35,7 +35,6 @@ uses
   Class_db_notifications in 'component\db\Class_db_notifications.pas',
   Class_biz_indicator_median_length_of_service in 'component\biz\Class_biz_indicator_median_length_of_service.pas',
   Class_db_indicator_median_length_of_service in 'component\db\Class_db_indicator_median_length_of_service.pas',
-  serial_indicator_control_chart in 'protected\image\dynamic\serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page},
   Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas',
   timeout in 'timeout.pas',
   Default in 'Default.pas',
@@ -84,9 +83,9 @@ uses
   UserControl_ranked_standard_enrollment in 'usercontrol\app\UserControl_ranked_standard_enrollment.pas',
   UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas' {UserControl_ranked_utilization.TWebUserControl_ranked_utilization: ki_web_ui.usercontrol_class},
   UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
-  UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas',
+  UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas' {UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas',
-  UserControl_serial_indicator_num_core_ops_members in 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas',
+  UserControl_serial_indicator_num_core_ops_members in 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas' {UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas',
   UserControl_serial_indicator_potential_crew_shifts in 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas',
   UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas',
@@ -99,14 +98,16 @@ uses
   statement_member_status in 'noninteractive\statement_member_status.pas',
   daily_tasks in 'noninteractive\daily_tasks.pas' {daily_tasks.TWebForm_daily_tasks: system.web.ui.page},
   milestone_sweep in 'noninteractive\milestone_sweep.pas',
-  report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas',
+  report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page},
   report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas' {report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard: system.web.ui.page},
-  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas',
+  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_per_agency_ir_charts.TWebForm_report_monthly_per_agency_ir_charts: system.web.ui.page},
   report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas',
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas',
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas',
   report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas',
-  UserControl_member_role_matrix in 'usercontrol\app\UserControl_member_role_matrix.pas' {UserControl_member_role_matrix.TWebUserControl_member_role_matrix: ki_web_ui.usercontrol_class};
+  UserControl_member_role_matrix in 'usercontrol\app\UserControl_member_role_matrix.pas' {UserControl_member_role_matrix.TWebUserControl_member_role_matrix: ki_web_ui.usercontrol_class},
+  report_monthly_per_agency_serial_indicators in 'noninteractive\report_monthly_per_agency_serial_indicators.pas' {report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators: system.web.ui.page},
+  serial_indicator_control_chart in 'serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following

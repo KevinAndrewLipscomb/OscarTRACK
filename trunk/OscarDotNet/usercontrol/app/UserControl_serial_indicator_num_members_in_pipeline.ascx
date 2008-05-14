@@ -8,7 +8,7 @@
 	<ASP:TemplateColumn>
 	  <ItemTemplate>
 		<p><b><%# DataBinder.Eval(Container.DataItem, "designator") %></b></p>
-		<p><img width="781" height="417" src='image/dynamic/serial_indicator_control_chart.aspx?indicator=num_members_in_pipeline&agency=<%# DataBinder.Eval(Container.DataItem, "id") %>&be_agency_applicable=<%# DataBinder.Eval(Container.DataItem, "be_agency_id_applicable") %>' /></p>
+		<p><img width="781" height="417" src='../serial_indicator_control_chart.aspx?indicator=num_members_in_pipeline&agency=<%# DataBinder.Eval(Container.DataItem, "id") %>&be_agency_applicable=<%# DataBinder.Eval(Container.DataItem, "be_agency_id_applicable") %>' /></p>
 	  </ItemTemplate>
 	</ASP:TemplateColumn>
   </Columns>
