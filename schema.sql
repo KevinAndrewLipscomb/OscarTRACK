@@ -178,7 +178,7 @@ INSERT INTO `enrollment_transition` (`current_level_code`, `required_historical_
 (1, 2, NULL, 7, 2),
 (1, 2, 3, 9, 2),
 (1, 2, 4, 8, 2),
-(1, 3, NULL, 12, 2),
+(1, NULL, NULL, 12, 2),
 (1, 3, 4, 3, 2),
 (1, 4, NULL, 4, 2),
 (1, 5, NULL, 7, 2),
