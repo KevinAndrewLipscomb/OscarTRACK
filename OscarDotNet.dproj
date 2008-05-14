@@ -158,6 +158,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_applicant_roster.pas">
       <DependentUpon>noninteractive\report_monthly_applicant_roster.aspx</DependentUpon>
+      <Form>report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_core_ops_dashboard.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_dashboard.aspx</DependentUpon>
@@ -166,12 +168,19 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_core_ops_roster.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_roster.aspx</DependentUpon>
+      <Form>report_monthly_per_agency_ir_charts.TWebForm_report_monthly_per_agency_ir_charts</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_current_roster.pas">
       <DependentUpon>noninteractive\report_monthly_current_roster.aspx</DependentUpon>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_in_class_roster.pas">
       <DependentUpon>noninteractive\report_monthly_in_class_roster.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_per_agency_serial_indicators.pas">
+      <DependentUpon>noninteractive\report_monthly_per_agency_serial_indicators.aspx</DependentUpon>
+      <Form>report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_recruit_awaiting_class_roster.pas">
       <DependentUpon>noninteractive\report_monthly_recruit_awaiting_class_roster.aspx</DependentUpon>
@@ -235,10 +244,6 @@
       <Form>grant_leave.TWebForm_grant_leave</Form>
       <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
-    <DCCReference Include="protected\image\dynamic\serial_indicator_control_chart.pas">
-      <Form>serial_indicator_control_chart.TWebForm1</Form>
-      <DesignClass>system.web.ui.page</DesignClass>
-    </DCCReference>
     <DCCReference Include="protected\leave_detail.pas">
       <DependentUpon>protected\leave_detail.aspx</DependentUpon>
       <Form>leave_detail.TWebForm_leave_detail</Form>
@@ -262,6 +267,11 @@
     </DCCReference>
     <DCCReference Include="salogin.pas">
       <DependentUpon>salogin.aspx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="serial_indicator_control_chart.pas">
+      <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
+      <Form>serial_indicator_control_chart.TWebForm1</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="timeout.pas">
       <DependentUpon>timeout.aspx</DependentUpon>
@@ -351,12 +361,16 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_commensuration.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_length_of_service.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx</DependentUpon>
@@ -401,6 +415,7 @@
     <None Include="noninteractive\report_monthly_core_ops_roster.aspx" />
     <None Include="noninteractive\report_monthly_current_roster.aspx" />
     <None Include="noninteractive\report_monthly_in_class_roster.aspx" />
+    <None Include="noninteractive\report_monthly_per_agency_serial_indicators.aspx" />
     <None Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" />
     <None Include="noninteractive\report_monthly_trainee_roster.aspx" />
     <None Include="noninteractive\statement_member_status.aspx" />
@@ -425,6 +440,7 @@
     <None Include="protected\overview.aspx" />
     <None Include="remind_username.aspx" />
     <None Include="salogin.aspx" />
+    <None Include="serial_indicator_control_chart.aspx" />
     <None Include="timeout.aspx" />
     <None Include="usercontrol\app\UserControl_about.ascx" />
     <None Include="usercontrol\app\UserControl_agency.ascx" />
