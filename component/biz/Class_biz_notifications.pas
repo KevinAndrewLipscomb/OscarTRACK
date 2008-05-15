@@ -188,6 +188,12 @@ type
       kind_of_leave: string;
       obliged_shifts: string
       );
+    function TargetOfAboutAgency
+      (
+      name: string;
+      agency_id: string
+      )
+      : string;
   end;
 
 implementation
@@ -1210,6 +1216,16 @@ begin
     Merge(template_reader.ReadToEnd)
     );
   template_reader.Close;
+end;
+
+function TClass_biz_notifications.TargetOfAboutAgency
+  (
+  name: string;
+  agency_id: string
+  )
+  : string;
+begin
+  TargetOfAboutAgency := db_notifications.TargetOfAboutAgency(name,agency_id);
 end;
 
 begin

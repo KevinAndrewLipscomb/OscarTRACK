@@ -20,6 +20,12 @@ type
       member_id: string
       )
       : string;
+    function TargetOfAboutAgency
+      (
+      name: string;
+      agency_id: string
+      )
+      : string;
   end;
 
 implementation
@@ -154,6 +160,56 @@ begin
   end else begin
     TargetOf := system.string.EMPTY;
   end;
+end;
+
+function TClass_db_notifications.TargetOfAboutAgency
+  (
+  name: string;
+  agency_id: string
+  )
+  : string;
+var
+  dr: mysqldatareader;
+  variant_condition: string;
+  target_of_about_agency: string;
+begin
+  target_of_about_agency := system.string.EMPTY;
+  self.Open;
+  //
+  if agency_id = '0' then begin // EMS is tier 1
+    variant_condition := ' where (tier_id = 1)';
+  end else begin // All other agencies are tier 2
+    variant_condition := ' where (tier_id = 2) and (agency_id = "' + agency_id + '")';
+  end;
+  //
+  dr := mysqlcommand.Create
+    (
+    'select email_address'
+    + ' from member'
+    +   ' join role_member_map on (role_member_map.member_id=member.id)'
+    +   ' join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    +   ' join notification on (notification.id=role_notification_map.notification_id)'
+    + variant_condition
+    +   ' and notification.name = "' + name + '"',
+    connection
+    )
+    .ExecuteReader;
+  if dr <> nil then begin
+    while dr.Read do begin
+      target_of_about_agency := target_of_about_agency + dr['email_address'].tostring + ',';
+    end;
+  end;
+  dr.Close;
+  //
+  self.Close;
+  //
+  if target_of_about_agency <> system.string.EMPTY then begin
+    TargetOfAboutAgency := target_of_about_agency.Substring(0,target_of_about_agency.Length - 1);
+  end else begin
+    TargetOfAboutAgency := system.string.EMPTY;
+  end;
+  //
 end;
 
 end.

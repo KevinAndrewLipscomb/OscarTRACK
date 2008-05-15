@@ -650,7 +650,8 @@ INSERT INTO notification (id,`name`) VALUES
 (10,'cad-num-change'),
 (11,'member-name-change'),
 (12,'seniority-promotion'),
-(13,'leave-expired');
+(13,'leave-expired'),
+(14,'report-monthly-per-agency-serial-indicators');
 
 -- --------------------------------------------------------
 
@@ -765,7 +766,8 @@ INSERT INTO role (id,`name`,tier_id) VALUES
 (10,'Squad Analyst',2),
 (11,'Member'),
 (12,'Department ALS ID Coordinator',1),
-(13,'Department Schedule Auditor',1);
+(13,'Department Schedule Auditor',1),
+(14,'All-Squad NGO Leader',1);
 
 --
 -- table structure for table `role_member_map`
@@ -873,6 +875,18 @@ insert role_notification_map (notification_id,role_id,data_condition_id) values
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Commander"),1),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Section Sergeant"),1),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Training Officer"),2);
+insert ignore role_notification_map (role_id,notification_id,data_condition_id) values
+((select id from role where name = "Application Administrator"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Department Authority"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Department Human Resources Officer"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Department BLS ID Coordinator"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Squad Commander"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Squad Training Officer"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Squad Membership Coordinator"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Squad Scheduler"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Squad Manager"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "Department Schedule Auditor"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
+((select id from role where name = "All-Squad NGO Leader"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1);
 
 --
 -- Table structure for table `role_privilege_map`

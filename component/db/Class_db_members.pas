@@ -110,7 +110,7 @@ type
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
-    function CurrentMemberEmailAddresses: queue; overload;
+    function CurrentMemberEmailAddresses: queue;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function EnrollmentOfMemberId(member_id: string): string;

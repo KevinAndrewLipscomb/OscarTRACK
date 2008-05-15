@@ -7,15 +7,15 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
   Class_biz_agencies,
-  Class_biz_members,
+  Class_biz_notifications,
   UserControl_roster;
 
 type
   p_type =
     RECORD
+    agency_id: string;
     biz_agencies: TClass_biz_agencies;
-    biz_members: TClass_biz_members;
-    member_id: string;
+    biz_notifications: TClass_biz_notifications;
     END;
   TWebForm_report_monthly_per_agency_serial_indicators = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
@@ -67,7 +67,6 @@ end;
 
 procedure TWebForm_report_monthly_per_agency_serial_indicators.Page_Load(sender: System.Object; e: System.EventArgs);
 var
-  agency_id: string;
   passthrough_parms: string;
   url: string;
 begin
@@ -82,11 +81,11 @@ begin
   //
   Label_agency.text := request['agency'];
   //
-  agency_id := p.biz_agencies.IdOfShortDesignator(request['agency']);
+  p.agency_id := p.biz_agencies.IdOfShortDesignator(request['agency']);
   if request['agency'] = 'EMS' then begin
-    passthrough_parms := '&agency=' + agency_id + '&be_agency_applicable=0';
+    passthrough_parms := '&agency=' + p.agency_id + '&be_agency_applicable=0';
   end else begin
-    passthrough_parms := '&agency=' + agency_id + '&be_agency_applicable=1';
+    passthrough_parms := '&agency=' + p.agency_id + '&be_agency_applicable=1';
   end;
   Img_core_ops_size.attributes['src'] := Img_core_ops_size.attributes['src'] + passthrough_parms;
   Img_num_members_in_pipeline.attributes['src'] := Img_num_members_in_pipeline.attributes['src'] + passthrough_parms;
@@ -110,7 +109,7 @@ begin
   inherited OnInit(e);
   //
   p.biz_agencies := TClass_biz_agencies.Create;
-  p.biz_members := TClass_biz_members.Create;
+  p.biz_notifications := TClass_biz_notifications.Create;
   //
   // Set session objects referenced by UserControl_roster.
   //
@@ -127,8 +126,6 @@ begin
     SetLength(privilege_array,0);
     session.Add('privilege_array',privilege_array);
   end;
-  //
-  p.member_id := p.biz_members.IdOfAppropriateRoleHolder(role_name,request['agency']);
   //
 end;
 
@@ -154,9 +151,9 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    p.biz_members.EmailAddressOf(p.member_id),
+    p.biz_notifications.TargetOfAboutAgency('report-monthly-per-agency-serial-indicators',p.agency_id),
     //subject
-    'Report: Monthly Per-Agency Serial Indicators',
+    'Report: Monthly ' + request['agency'] + ' Serial Indicators',
     //body
     body,
     //be_html
