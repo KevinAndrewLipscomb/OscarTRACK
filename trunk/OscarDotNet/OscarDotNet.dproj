@@ -168,7 +168,7 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_core_ops_roster.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_roster.aspx</DependentUpon>
-      <Form>report_monthly_per_agency_ir_charts.TWebForm_report_monthly_per_agency_ir_charts</Form>
+      <Form>report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster</Form>
       <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_current_roster.pas">

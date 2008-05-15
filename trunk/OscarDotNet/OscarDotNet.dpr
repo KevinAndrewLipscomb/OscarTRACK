@@ -100,7 +100,7 @@ uses
   milestone_sweep in 'noninteractive\milestone_sweep.pas',
   report_monthly_applicant_roster in 'noninteractive\report_monthly_applicant_roster.pas' {report_monthly_applicant_roster.TWebForm_report_monthly_applicant_roster: system.web.ui.page},
   report_monthly_core_ops_dashboard in 'noninteractive\report_monthly_core_ops_dashboard.pas' {report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard: system.web.ui.page},
-  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_per_agency_ir_charts.TWebForm_report_monthly_per_agency_ir_charts: system.web.ui.page},
+  report_monthly_core_ops_roster in 'noninteractive\report_monthly_core_ops_roster.pas' {report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster: system.web.ui.page},
   report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas',
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas',
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas',
