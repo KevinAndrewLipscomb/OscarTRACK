@@ -133,7 +133,7 @@ begin
       kix.NORMAL,
       'usrnamsnt',
       'The associated ' + configurationmanager.appsettings['application_name'] + ' username has been sent to '
-      + email_address + '.'
+      + email_address + PERIOD
       );
     Table_return.visible := TRUE;
   end else begin
@@ -150,8 +150,7 @@ end;
 procedure TWebForm_remind_username.TWebForm_remind_username_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('remind_username.p');
-  session.Add('remind_username.p',p);
+  SessionSet('remind_username.p',p);
 end;
 
 end.

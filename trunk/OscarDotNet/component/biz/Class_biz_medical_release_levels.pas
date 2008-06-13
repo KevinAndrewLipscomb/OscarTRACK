@@ -30,7 +30,7 @@ type
     function BeRecruitAdminOrSpecOpsBoundByCode(level_code: string): boolean;
     function BeRecruitAdminOrSpecOpsBoundByDescription(level_description: string): boolean;
     function BeReleased(peck_code: string): boolean;
-    procedure BindDropDownList
+    procedure BindListControl
       (
       target: system.object;
       selected_description: string = ''
@@ -74,13 +74,13 @@ begin
   BeReleased := (uint32.Parse(peck_code) >= Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE);
 end;
 
-procedure TClass_biz_medical_release_levels.BindDropDownList
+procedure TClass_biz_medical_release_levels.BindListControl
   (
   target: system.object;
   selected_description: string = ''
   );
 begin
-  db_medical_release_levels.BindDropDownList(target,selected_description);
+  db_medical_release_levels.BindListControl(target,selected_description);
 end;
 
 function TClass_biz_medical_release_levels.DescriptionOf(code: string): string;

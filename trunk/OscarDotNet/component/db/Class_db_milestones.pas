@@ -44,7 +44,7 @@ var
   dr: mysqldatareader;
 begin
   self.Open;
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'select be_processed,value'
     + ' from fy_calendar'
@@ -69,7 +69,7 @@ begin
     + ' where fiscal_year_id = ' //+ biz_fiscal_years.IdOfCurrent
     +   ' and milestone_code = ' + code.tostring;
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved(cmdText),
     connection

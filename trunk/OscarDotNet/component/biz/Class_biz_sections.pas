@@ -9,7 +9,7 @@ type
     { Private Declarations }
   public
     constructor Create;
-    procedure BindDropDownList
+    procedure BindListControl
       (
       target: system.object;
       selected_description: string = ''
@@ -28,7 +28,7 @@ begin
   // TODO: Add any constructor code here
 end;
 
-procedure TClass_biz_sections.BindDropDownList
+procedure TClass_biz_sections.BindListControl
   (
   target: system.object;
   selected_description: string = ''
@@ -37,7 +37,7 @@ var
   i: cardinal;
 begin
   DropDownList(target).items.Clear;
-  if selected_description = system.string.EMPTY then begin
+  if selected_description = EMPTY then begin
     DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
   end;
   DropDownList(target).Items.Add(listitem.Create('*','0'));

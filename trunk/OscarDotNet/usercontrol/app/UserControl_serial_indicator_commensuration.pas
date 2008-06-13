@@ -101,8 +101,7 @@ end;
 procedure TWebUserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicator_commensuration.p');
-  session.Add('UserControl_serial_indicator_commensuration.p',p);
+  SessionSet('UserControl_serial_indicator_commensuration.p',p);
 end;
 
 function TWebUserControl_serial_indicator_commensuration.Fresh: TWebUserControl_serial_indicator_commensuration;

@@ -85,8 +85,8 @@ begin
   //
   // Set session objects referenced by UserControl_roster.
   //
-  session.Add('mode:report',system.string.EMPTY);
-  session.Add('mode:report/monthly-core-ops-dashboard',system.string.EMPTY);
+  session.Add('mode:report',EMPTY);
+  session.Add('mode:report/monthly-core-ops-dashboard',EMPTY);
   //
   PlaceHolder_current.controls.Add(TWebUserControl_current_indicators(LoadControl('~/usercontrol/app/UserControl_current_indicators.ascx')));
   //

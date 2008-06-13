@@ -136,8 +136,7 @@ end;
 procedure TWebUserControl_ranked_utilization.TWebUserControl_ranked_utilization_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_utilization.p');
-  session.Add('UserControl_ranked_utilization.p',p);
+  SessionSet('UserControl_ranked_utilization.p',p);
 end;
 
 function TWebUserControl_ranked_utilization.Fresh: TWebUserControl_ranked_utilization;

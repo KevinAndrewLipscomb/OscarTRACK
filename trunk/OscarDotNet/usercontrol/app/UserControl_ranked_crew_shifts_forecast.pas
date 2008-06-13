@@ -123,8 +123,7 @@ end;
 procedure TWebUserControl_ranked_crew_shifts_forecast.TWebUserControl_ranked_crew_shifts_forecast_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_crew_shifts_forecast.p');
-  session.Add('UserControl_ranked_crew_shifts_forecast.p',p);
+  SessionSet('UserControl_ranked_crew_shifts_forecast.p',p);
 end;
 
 function TWebUserControl_ranked_crew_shifts_forecast.Fresh: TWebUserControl_ranked_crew_shifts_forecast;

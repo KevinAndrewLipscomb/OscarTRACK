@@ -221,7 +221,7 @@ begin
       cad_num,
       biz_medical_release_levels.DescriptionOf(medical_release_code),
       be_driver_qualified,
-      biz_agencies.MediumDesignatorOf(agency_id) + ' - ' + biz_agencies.LongDesignatorOf(agency_id),
+      biz_agencies.MediumDesignatorOf(agency_id) + SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id),
       email_address,
       enrollment_date.tostring('dd MMMM yyyy'),
       biz_enrollment.DescriptionOf(enrollment_level)
@@ -361,10 +361,10 @@ var
   i: cardinal;
   q: queue;
 begin
-  current_member_email_addresses := system.string.EMPTY;
+  current_member_email_addresses := EMPTY;
   q := CurrentMemberEmailAddressesQueue;
   for i := 1 to q.Count do begin
-    current_member_email_addresses := current_member_email_addresses + q.Dequeue.tostring + ', ';
+    current_member_email_addresses := current_member_email_addresses + q.Dequeue.tostring + COMMA_SPACE;
   end;
   CurrentMemberEmailAddressesString := (current_member_email_addresses + SPACE).TrimEnd([',',' ']);
 end;
@@ -610,7 +610,7 @@ begin
       (
       biz_enrollment.CodeOf('New trainee'),
       datetime.Today,
-      system.string.EMPTY,
+      EMPTY,
       IdOf(e_item),
       e_item
       );

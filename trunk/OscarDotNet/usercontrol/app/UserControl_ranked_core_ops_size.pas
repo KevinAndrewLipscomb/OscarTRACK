@@ -121,8 +121,7 @@ end;
 procedure TWebUserControl_ranked_core_ops_size.TWebUserControl_ranked_core_ops_size_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_core_ops_size.p');
-  session.Add('UserControl_ranked_core_ops_size.p',p);
+  SessionSet('UserControl_ranked_core_ops_size.p',p);
 end;
 
 function TWebUserControl_ranked_core_ops_size.Fresh: TWebUserControl_ranked_core_ops_size;

@@ -119,13 +119,13 @@ begin
     //
     target_member_id := p.biz_members.IdOf(session['e_item']);
     //
-    if p.raw_member_email_address <> system.string.Empty then begin
+    if p.raw_member_email_address <> EMPTY then begin
       Label_email_address.Text := p.raw_member_email_address;
     end else begin
       Label_email_address.Text := NOT_APPLICABLE_INDICATION_HTML;
     end;
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-      + ' '
+      + SPACE
       + p.biz_members.LastNameOf(session['e_item']);
     LinkButton_change_name.visible := Has(string_array(session['privilege_array']),'change-member-name')
       and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
@@ -141,7 +141,7 @@ begin
     LinkButton_leave_detail.text := ExpandTildePath(LinkButton_leave_detail.text);
     //
     Label_officership.Text := p.biz_members.OfficershipOf(p.biz_members.IdOf(session['e_item']));
-    if Label_officership.Text = system.string.Empty then begin
+    if Label_officership.Text = EMPTY then begin
       Label_officership.Text := NOT_APPLICABLE_INDICATION_HTML;
     end;
     LinkButton_officership_detail.text := ExpandTildePath(LinkButton_officership_detail.text);
@@ -158,7 +158,7 @@ begin
     Label_elaboration.text := p.biz_enrollment.ELaborationOf(Label_enrollment.text);
     LinkButton_enrollment_detail.text := ExpandTildePath(LinkButton_enrollment_detail.text);
     //
-    if p.biz_members.RetentionOf(session['e_item']) <> system.string.EMPTY then begin
+    if p.biz_members.RetentionOf(session['e_item']) <> EMPTY then begin
       Label_years_of_service.text := p.biz_members.RetentionOf(session['e_item']);
     end else begin
       Label_years_of_service.text := '(See membership status detail)';
@@ -167,7 +167,7 @@ begin
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
     LinkButton_change_driver_qual.text := ExpandTildePath(LinkButton_change_driver_qual.text);
     //
-    if p.biz_members.UserIdOf(target_member_id) = system.string.EMPTY then begin
+    if p.biz_members.UserIdOf(target_member_id) = EMPTY then begin
       LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address')
         and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id);
     end;
@@ -214,7 +214,7 @@ begin
       //
       p.raw_member_email_address := p.biz_members.EmailAddressOf(p.biz_members.IdOf(session['e_item']));
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if p.cad_num_string = system.string.EMPTY then begin
+      if p.cad_num_string = EMPTY then begin
         p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       p.biz_leaves.DescribeThisAndNextMonthForMember
@@ -232,80 +232,68 @@ end;
 procedure TWebForm_member_detail.LinkButton_change_name_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_name.aspx');
+  DropCrumbAndTransferTo('change_name.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_cad_num_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_cad_num.aspx');
+  DropCrumbAndTransferTo('change_cad_num.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_agency_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_member_agency.aspx');
+  DropCrumbAndTransferTo('change_member_agency.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_section_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_member_section.aspx');
+  DropCrumbAndTransferTo('change_member_section.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_driver_qual_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_member_driver_qualification.aspx');
+  DropCrumbAndTransferTo('change_member_driver_qualification.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_enrollment_detail_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('enrollment_detail.aspx');
+  DropCrumbAndTransferTo('enrollment_detail.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_medical_release_level_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_member_medical_release_level.aspx');
+  DropCrumbAndTransferTo('change_member_medical_release_level.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_officership_detail_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('officership_detail.aspx');
+  DropCrumbAndTransferTo('officership_detail.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_leave_detail_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('leave_detail.aspx');
+  DropCrumbAndTransferTo('leave_detail.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_member_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('member_email_address');
-  session.Add('member_email_address',p.raw_member_email_address);
-  system.collections.stack(session['waypoint_stack']).Push('member_detail.aspx');
-  server.Transfer('change_member_email_address.aspx');
+  SessionSet('member_email_address',p.raw_member_email_address);
+  DropCrumbAndTransferTo('change_member_email_address.aspx');
 end;
 
 procedure TWebForm_member_detail.TWebForm_member_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('member_detail.p');
-  session.Add('member_detail.p',p);
+  SessionSet('member_detail.p',p);
 end;
 
 end.

@@ -109,11 +109,11 @@ begin
     //
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       TableRow_agency.visible := TRUE;
-      p.biz_agencies.BindDropDownListShortDashLong(DropDownList_agency);
+      p.biz_agencies.BindListControlShortDashLong(DropDownList_agency);
     end else begin
       TableRow_agency.visible := FALSE;
     end;
-    p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level);
+    p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
     UserControl_enrollment_date.minyear := '1940';
     UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
     p.biz_enrollment.BindUncontrolledDropDownList(DropDownList_enrollment_level);
@@ -156,15 +156,15 @@ procedure TWebForm_add_member.Button_add_and_repeat_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if Add then begin
-    TextBox_first_name.text := system.string.EMPTY;
-    TextBox_last_name.text := system.string.EMPTY;
-    TextBox_cad_num.text := system.string.EMPTY;
+    TextBox_first_name.text := EMPTY;
+    TextBox_last_name.text := EMPTY;
+    TextBox_cad_num.text := EMPTY;
     DropDownList_medical_release_level.selectedindex := 0;
     RadioButtonList_driver_qualified_yes_no.selectedindex := -1;
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       DropDownList_agency.selectedindex := 0;
     end;
-    TextBox_email_address.text := system.string.EMPTY;
+    TextBox_email_address.text := EMPTY;
     UserControl_enrollment_date.Clear;
     Label_invalid_enrollment_date.visible := FALSE;
     DropDownList_enrollment_level.selectedindex := -1;
@@ -187,14 +187,13 @@ end;
 procedure TWebForm_add_member.CustomValidator_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := (args.value = system.string.EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := (args.value = EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_add_member.TWebForm_add_member_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('add_member.p');
-  session.Add('add_member.p',p);
+  SessionSet('add_member.p',p);
 end;
 
 function TWebForm_add_member.Add: boolean;

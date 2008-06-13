@@ -269,7 +269,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('agency-change',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('agency-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -321,7 +321,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('cad-num-change',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('cad-num-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -377,8 +377,8 @@ begin
     configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
-    + ',' + actor_email_address
-    + ',' + db_notifications.TargetOf('driver-qualification-change',member_id),
+    + COMMA + actor_email_address
+    + COMMA + db_notifications.TargetOf('driver-qualification-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -503,7 +503,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('leave-granted',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -565,7 +565,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-deleted',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('leave-deleted',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -627,7 +627,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('leave-granted',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('leave-granted',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -672,7 +672,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + db_notifications.TargetOf('leave-expired',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + db_notifications.TargetOf('leave-expired',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -727,8 +727,8 @@ begin
     configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
-    + ',' + actor_email_address
-    + ',' + db_notifications.TargetOf('medical-release-level-change',member_id),
+    + COMMA + actor_email_address
+    + COMMA + db_notifications.TargetOf('medical-release-level-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -792,7 +792,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    email_address + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-added',member_id),
+    email_address + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('member-added',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -847,7 +847,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('member-name-change',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('member-name-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -892,7 +892,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     // to
-    configurationmanager.appsettings['membership_establishment_liaison'] + ','
+    configurationmanager.appsettings['membership_establishment_liaison'] + COMMA
     + configurationmanager.appsettings['application_name'] + '-appadmin@' + host_domain_name,
     //subject
     Merge(template_reader.ReadLine),
@@ -950,8 +950,8 @@ begin
     configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
-    + ',' + actor_email_address
-    + ',' + db_notifications.TargetOf('needs-enrollment-review',member_id),
+    + COMMA + actor_email_address
+    + COMMA + db_notifications.TargetOf('needs-enrollment-review',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -1011,8 +1011,8 @@ begin
     configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id)
-    + ',' + actor_email_address
-    + ',' + db_notifications.TargetOf('new-enrollment-level',member_id),
+    + COMMA + actor_email_address
+    + COMMA + db_notifications.TargetOf('new-enrollment-level',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -1068,7 +1068,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + actor_email_address + ',' + db_notifications.TargetOf('section-change',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('section-change',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -1115,7 +1115,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    biz_members.EmailAddressOf(member_id) + ',' + db_notifications.TargetOf('seniority-promotion',member_id),
+    biz_members.EmailAddressOf(member_id) + COMMA + db_notifications.TargetOf('seniority-promotion',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
@@ -1231,5 +1231,5 @@ end;
 begin
   BreakChars[1] := kix.SPACE;
   BreakChars[2] := kix.TAB;
-  BreakChars[3] := '-';
+  BreakChars[3] := HYPHEN;
 end.

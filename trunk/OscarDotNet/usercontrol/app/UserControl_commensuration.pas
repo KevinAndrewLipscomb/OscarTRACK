@@ -119,8 +119,7 @@ end;
 procedure TWebUserControl_commensuration.TWebUserControl_commensuration_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_commensuration.p');
-  session.Add('UserControl_commensuration.p',p);
+  SessionSet('UserControl_commensuration.p',p);
 end;
 
 function TWebUserControl_commensuration.Fresh: TWebUserControl_commensuration;

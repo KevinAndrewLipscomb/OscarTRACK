@@ -181,8 +181,7 @@ end;
 procedure TWebUserControl_config_binder.TWebUserControl_config_binder_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_config_binder.p');
-  session.Add('UserControl_config_binder.p',p);
+  SessionSet('UserControl_config_binder.p',p);
 end;
 
 function TWebUserControl_config_binder.Fresh: TWebUserControl_config_binder;

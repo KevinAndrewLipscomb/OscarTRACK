@@ -87,6 +87,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   kix,
   system.web.ui.webcontrols;
@@ -127,7 +128,7 @@ begin
   +       ' end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL ' + relative_end_month + ' MONTH))'
   +     ' )'
   +   ' )';
-  if id <> system.string.EMPTY then begin
+  if id <> EMPTY then begin
     cmdtext := cmdtext + ' and id <> ' + id;
   end;
   cmdtext := cmdtext + ' limit 1';
@@ -142,18 +143,18 @@ procedure TClass_db_leaves.BindKindDropDownList
   use_select: boolean = TRUE
   );
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).Items.Clear;
+  ListControl(target).Items.Clear;
   if use_select then begin
-    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+    ListControl(target).Items.Add(listitem.Create('-- Select --',''));
   end;
   //
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     ('SELECT code,description FROM kind_of_leave_code_description_map ORDER BY description',connection).ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].tostring));
+    ListControl(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].tostring));
   end;
   dr.Close;
   self.Close;
@@ -377,9 +378,9 @@ end;
 function TClass_db_leaves.NoteOfTcc(leave_item: system.object): string;
 begin
   if DataGridItem(leave_item).cells[TCCI_NOTE].text = '&nbsp;' then begin
-    NoteOfTcc := system.string.EMPTY;
+    NoteOfTcc := EMPTY;
   end else begin
-    NoteOfTcc := Safe(DataGridItem(leave_item).cells[TCCI_NOTE].text,NARRATIVE);
+    NoteOfTcc := Safe(DataGridItem(leave_item).cells[TCCI_NOTE].text,PUNCTUATED);
   end;
 end;
 

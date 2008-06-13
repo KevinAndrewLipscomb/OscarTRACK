@@ -136,10 +136,8 @@ begin
       Digest(Safe(TextBox_nominal_password.text,HYPHENATED_UNDERSCORED_ALPHANUM)),
       Safe(TextBox_email_address.text,EMAIL_ADDRESS)
       );
-    session.Remove('username');
-    session.Add('username',username);
-    session.Remove('user_id');
-    session.Add('user_id',p.biz_users.IdOf(username));
+    SessionSet('username',username);
+    SessionSet('user_id',p.biz_users.IdOf(username));
     formsauthentication.RedirectFromLoginPage(username,FALSE);
   end else begin
     ValidationAlert;
@@ -167,8 +165,7 @@ end;
 procedure TWebForm_new_user_registration.TWebForm_new_user_registration_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('new_user_registration.p');
-  session.Add('new_user_registration.p',p);
+  SessionSet('new_user_registration.p',p);
 end;
 
 end.

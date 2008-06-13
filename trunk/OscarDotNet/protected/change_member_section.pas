@@ -91,7 +91,7 @@ begin
         p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);
       Label_member_name_2.text := Label_member_name_1.text;
       //
-      p.biz_sections.BindDropDownList
+      p.biz_sections.BindListControl
         (DropDownList_section,p.biz_members.SectionOf(session['e_item']));
       //
     end;
@@ -123,8 +123,7 @@ end;
 procedure TWebForm_change_member_section.TWebForm_change_member_section_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

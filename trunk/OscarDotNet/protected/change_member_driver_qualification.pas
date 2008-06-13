@@ -128,8 +128,7 @@ end;
 procedure TWebForm_change_member_driver_qualification.TWebForm_change_member_driver_qualification_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

@@ -101,8 +101,7 @@ end;
 procedure TWebForm_change_email_address.TWebForm_change_email_address_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('change_email_password.p');
-  session.Add('change_email_password.p',p);
+  SessionSet('change_email_password.p',p);
 end;
 
 procedure TWebForm_change_email_address.CustomValidator_nominal_email_address_ServerValidate(source: System.Object;

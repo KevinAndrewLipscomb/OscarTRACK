@@ -23,7 +23,7 @@ type
   TClass_db_agencies = class(TClass_db)
   private
     db_trail: TClass_db_trail;
-    procedure BindDropDownList
+    procedure BindListControl
       (
       unselected_literal: string;
       designator_clause: string;
@@ -38,13 +38,13 @@ type
       target: system.object
       )
       : boolean;
-    procedure BindDropDownListShort
+    procedure BindListControlShort
       (
       target: system.object;
       selected_id: string = '';
       be_available_option_all: boolean = TRUE
       );
-    procedure BindDropDownListShortDashLong(target: system.object);
+    procedure BindListControlShortDashLong(target: system.object);
     procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
@@ -86,6 +86,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   Class_db_members,
   system.web.ui.webcontrols;
@@ -107,7 +108,7 @@ var
   dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
+  ListControl(target).items.Clear;
   //
   dr := mysqlcommand.Create
     (
@@ -116,15 +117,15 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add
+    ListControl(target).Items.Add
       (listitem.Create(dr['short_designator'].tostring,dr['short_designator'].tostring));
   end;
   dr.Close;
   self.Close;
-  Bind := DropDownList(target).items.count > 0;
+  Bind := ListControl(target).items.count > 0;
 end;
 
-procedure TClass_db_agencies.BindDropDownList
+procedure TClass_db_agencies.BindListControl
   (
   unselected_literal: string;
   designator_clause: string;
@@ -135,11 +136,11 @@ var
   dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  if unselected_literal <> system.string.EMPTY then begin
-    DropDownList(target).Items.Add(listitem.Create(unselected_literal,''));
+  ListControl(target).items.Clear;
+  if unselected_literal <> EMPTY then begin
+    ListControl(target).Items.Add(listitem.Create(unselected_literal,''));
   end;
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT id'
     + ' , ' + designator_clause + ' as designator'
@@ -150,16 +151,16 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['designator'].tostring,dr['id'].ToString));
+    ListControl(target).Items.Add(listitem.Create(dr['designator'].tostring,dr['id'].ToString));
   end;
   dr.Close;
-  if selected_id <> system.string.EMPTY then begin
-    DropDownList(target).selectedvalue := selected_id;
+  if selected_id <> EMPTY then begin
+    ListControl(target).selectedvalue := selected_id;
   end;
   self.Close;
 end;
 
-procedure TClass_db_agencies.BindDropDownListShort
+procedure TClass_db_agencies.BindListControlShort
   (
   target: system.object;
   selected_id: string = '';
@@ -167,15 +168,15 @@ procedure TClass_db_agencies.BindDropDownListShort
   );
 begin
   if be_available_option_all then begin
-    BindDropDownList('All','short_designator',target,selected_id);
+    BindListControl('All','short_designator',target,selected_id);
   end else begin
-    BindDropDownList(system.string.EMPTY,'short_designator',target,selected_id);
+    BindListControl(EMPTY,'short_designator',target,selected_id);
   end;
 end;
 
-procedure TClass_db_agencies.BindDropDownListShortDashLong(target: system.object);
+procedure TClass_db_agencies.BindListControlShortDashLong(target: system.object);
 begin
-  BindDropDownList('-- Select --','concat(short_designator," - ",long_designator)',target);
+  BindListControl('-- Select --','concat(short_designator," - ",long_designator)',target);
 end;
 
 procedure TClass_db_agencies.BindForCommensuration(target: system.object);
@@ -305,7 +306,7 @@ function TClass_db_agencies.OverallCommensuration: string;
 var
   overall_commensuration_obj: system.object;
 begin
-  OverallCommensuration := system.string.EMPTY;
+  OverallCommensuration := EMPTY;
   self.Open;
   overall_commensuration_obj := mysqlcommand.Create
     (
@@ -343,7 +344,7 @@ begin
     additional_where_clause := ' and be_trendable';
   end else begin
     dependent_parameter_name := 'value';
-    additional_where_clause := system.string.EMPTY;
+    additional_where_clause := EMPTY;
   end;
   //
   serial_indicator_rec_q := queue.Create;
@@ -416,13 +417,13 @@ begin
     sql := sql
     + ' ('
     +   year
-    +   ','
+    +   COMMA
     +   month
-    +   ','
+    +   COMMA
     +   commensuration_rec.be_agency_id_applicable.tostring
-    +   ','
+    +   COMMA
     +   commensuration_rec.agency_id
-    +   ','
+    +   COMMA
     +   (commensuration_rec.commensuration_factor*100).tostring('F0')
     + ' ),';
   end;

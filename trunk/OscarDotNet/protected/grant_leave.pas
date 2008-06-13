@@ -109,12 +109,12 @@ begin
       p.biz_members := TClass_biz_members.Create;
       //
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
+      if cad_num_string = EMPTY then begin
         cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       Label_member_first_name.Text := p.biz_members.FirstNameOf(session['e_item']);
       Label_member_designator.Text := Label_member_first_name.Text
-        + ' '
+        + SPACE
         + p.biz_members.LastNameOf(session['e_item'])
         + ' (CAD # '
         + cad_num_string
@@ -165,7 +165,7 @@ begin
       Safe(DropDownList_end_month.selectedvalue,NUM),
       Safe(DropDownList_kind_of_leave.selectedvalue,NUM),
       Safe(DropDownList_num_obligated_shifts.selectedvalue,NUM),
-      Safe(TextBox_note.text,NARRATIVE)
+      Safe(TextBox_note.text,PUNCTUATED)
       );
     server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
   end else begin
@@ -182,8 +182,7 @@ end;
 procedure TWebForm_grant_leave.TWebForm_grant_leave_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

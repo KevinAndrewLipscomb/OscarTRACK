@@ -85,7 +85,7 @@ begin
       Table_db_down.visible := FALSE;
       Focus(TextArea_user_comment);
       //
-      if user.identity.name = system.string.EMPTY then begin
+      if user.identity.name = EMPTY then begin
         user_designator := 'unknown';
       end else begin
         user_designator := user.identity.name;
@@ -139,8 +139,8 @@ procedure TWebForm_exception.Button_submit_Click(sender: System.Object; e: Syste
 var
   comment: string;
 begin
-  comment := Safe(TextArea_user_comment.value,NARRATIVE);
-  if comment <> system.string.EMPTY then begin
+  comment := Safe(TextArea_user_comment.value,PUNCTUATED);
+  if comment <> EMPTY then begin
     kix.SmtpMailSend
       (
       configurationmanager.appsettings['sender_email_address'],
@@ -158,8 +158,7 @@ end;
 procedure TWebForm_exception.TWebForm_exception_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

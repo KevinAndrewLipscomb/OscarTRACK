@@ -142,8 +142,7 @@ end;
 procedure TWebForm_change_name.TWebForm_change_name_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('change_name.p');
-  session.Add('change_name.p',p);
+  SessionSet('change_name.p',p);
 end;
 
 end.

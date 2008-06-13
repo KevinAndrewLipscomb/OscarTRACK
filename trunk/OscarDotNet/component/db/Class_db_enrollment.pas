@@ -30,7 +30,7 @@ type
       tier_id: string;
       target: system.object
       );
-    procedure BindUncontrolledDropDownList(target: system.object);
+    procedure BindUncontrolledListControl(target: system.object);
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
@@ -51,6 +51,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   Class_db_members,
   system.web.ui.webcontrols;
@@ -94,13 +95,13 @@ procedure TClass_db_enrollment.BindTransitionRadioButtonList
   target: system.object
   );
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
   display_html: string;
 begin
   self.Open;
   RadioButtonList(target).Items.Clear;
   //
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT valid_next_level_code'
     + ' , description'
@@ -129,7 +130,7 @@ begin
     .ExecuteReader;
   while dr.Read do begin
     display_html := '<b>' + dr['description'].tostring + '</b>';
-    if dr['elaboration'].tostring <> system.string.EMPTY then begin
+    if dr['elaboration'].tostring <> EMPTY then begin
       display_html := display_html
       + '<table>'
       +   '<tr>'
@@ -144,21 +145,21 @@ begin
   self.Close;
 end;
 
-procedure TClass_db_enrollment.BindUncontrolledDropDownList(target: system.object);
+procedure TClass_db_enrollment.BindUncontrolledListControl(target: system.object);
 var
   dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  ListControl(target).items.Clear;
+  ListControl(target).Items.Add(listitem.Create('-- Select --',''));
+  dr := mysqlcommand.Create
     (
     'SELECT code, description from enrollment_level order by pecking_order',
     connection
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
+    ListControl(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
   end;
   dr.Close;
   self.Close;

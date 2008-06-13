@@ -101,8 +101,7 @@ end;
 procedure TWebUserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicator_utilization.p');
-  session.Add('UserControl_serial_indicator_utilization.p',p);
+  SessionSet('UserControl_serial_indicator_utilization.p',p);
 end;
 
 function TWebUserControl_serial_indicator_utilization.Fresh: TWebUserControl_serial_indicator_utilization;

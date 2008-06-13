@@ -93,11 +93,11 @@ begin
       p.num_datagrid_rows := 0;
       //
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
+      if cad_num_string = EMPTY then begin
         cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-        + ' '
+        + SPACE
         + p.biz_members.LastNameOf(session['e_item'])
         + ' (CAD # '
         + cad_num_string
@@ -121,8 +121,7 @@ end;
 procedure TWebForm_officership_detail.TWebForm_officership_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 procedure TWebForm_officership_detail.DataGrid_officerships_ItemCommand(source: System.Object;

@@ -101,8 +101,7 @@ end;
 procedure TWebUserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicator_num_core_ops_members.p');
-  session.Add('UserControl_serial_indicator_num_core_ops_members.p',p);
+  SessionSet('UserControl_serial_indicator_num_core_ops_members.p',p);
 end;
 
 function TWebUserControl_serial_indicator_num_core_ops_members.Fresh: TWebUserControl_serial_indicator_num_core_ops_members;

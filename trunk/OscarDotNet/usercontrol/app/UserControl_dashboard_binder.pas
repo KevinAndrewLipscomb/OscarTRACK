@@ -156,8 +156,7 @@ end;
 procedure TWebUserControl_dashboard_binder.TWebUserControl_dashboard_binder_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_dashboard_binder.p');
-  session.Add('UserControl_dashboard_binder.p',p);
+  SessionSet('UserControl_dashboard_binder.p',p);
 end;
 
 function TWebUserControl_dashboard_binder.Fresh: TWebUserControl_dashboard_binder;

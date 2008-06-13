@@ -288,11 +288,11 @@ begin
     // new_relative_end_month may be negative if we are changing the end month to last month
   new_kind_of_leave := DescriptionOf(new_kind_of_leave_code);
   //
-  change_indicator_start_month := system.string.EMPTY;
-  change_indicator_end_month := system.string.EMPTY;
-  change_indicator_kind_of_leave := system.string.EMPTY;
-  change_indicator_num_obliged_shifts := system.string.EMPTY;
-  change_indicator_note := system.string.EMPTY;
+  change_indicator_start_month := EMPTY;
+  change_indicator_end_month := EMPTY;
+  change_indicator_kind_of_leave := EMPTY;
+  change_indicator_num_obliged_shifts := EMPTY;
+  change_indicator_note := EMPTY;
   if old_start_month <> new_start_month then begin
     change_indicator_start_month := AFFIRMATIVE_CHANGE_INDICATOR;
   end;

@@ -101,8 +101,7 @@ end;
 procedure TWebUserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicator_num_members_in_pipeline.p');
-  session.Add('UserControl_serial_indicator_num_members_in_pipeline.p',p);
+  SessionSet('UserControl_serial_indicator_num_members_in_pipeline.p',p);
 end;
 
 function TWebUserControl_serial_indicator_num_members_in_pipeline.Fresh: TWebUserControl_serial_indicator_num_members_in_pipeline;
