@@ -66,6 +66,7 @@ type
 implementation
 
 uses
+  kix,
   system.web.ui.webcontrols;
 
 constructor TClass_db_accounts.Create;
@@ -83,7 +84,7 @@ function TClass_db_accounts.BeStalePassword
   : boolean;
 begin
   self.Open;
-  BeStalePassword := '1' = mysql.data.mysqlclient.mysqlcommand.Create
+  BeStalePassword := '1' = mysqlcommand.Create
     (
     'SELECT be_stale_password FROM ' + user_kind + '_user where id=' + user_id,
     connection
@@ -94,12 +95,12 @@ end;
 
 procedure TClass_db_accounts.BindSquadCommanders(target: system.object);
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  ListControl(target).items.Clear;
+  ListControl(target).items.Add(listitem.Create('-- Select --','0'));
+  dr := mysqlcommand.Create
     (
     'SELECT squad_commander_user.id,concat(squad_commander_user.id,"50") as name'
     + ' FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)'
@@ -110,7 +111,7 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['name'].tostring,'squad_commander_' + dr['id'].ToString));
+    ListControl(target).Items.Add(listitem.Create(dr['name'].tostring,'squad_commander_' + dr['id'].ToString));
   end;
   dr.Close;
   self.Close;
@@ -118,12 +119,12 @@ end;
 
 procedure TClass_db_accounts.BindDepartmentStaffers(target: system.object);
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  ListControl(target).items.Clear;
+  ListControl(target).items.Add(listitem.Create('-- Select --','0'));
+  dr := mysqlcommand.Create
     (
     'SELECT id,name '
     + 'FROM department_staffer_user JOIN department_staffer using (id) '
@@ -133,7 +134,7 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add
+    ListControl(target).Items.Add
       (listitem.Create(dr['name'].tostring,'department_staffer_' + dr['id'].ToString));
   end;
   dr.Close;
@@ -142,12 +143,12 @@ end;
 
 procedure TClass_db_accounts.BindMembers(target: system.object);
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  DropDownList(target).items.Add(listitem.Create('-- Select --','0'));
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  ListControl(target).items.Clear;
+  ListControl(target).items.Add(listitem.Create('-- Select --','0'));
+  dr := mysqlcommand.Create
     (
     'SELECT id'
     + ' , concat(last_name,", ",first_name,ifnull(concat(", ",cad_num),"")) as name'
@@ -158,7 +159,7 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['name'].tostring,'member_' + dr['id'].ToString));
+    ListControl(target).Items.Add(listitem.Create(dr['name'].tostring,'member_' + dr['id'].ToString));
   end;
   dr.Close;
   self.Close;
@@ -190,7 +191,7 @@ begin
     if be_stale_password then begin
       email_address := dr['password_reset_email_address'].tostring;
     end else begin
-      email_address := system.string.EMPTY;
+      email_address := EMPTY;
     end;
   end else begin
     be_stale_password := TRUE;
@@ -207,7 +208,7 @@ function TClass_db_accounts.EmailAddressByKindId
   : string;
 begin
   self.Open;
-  EmailAddressByKindId := mysql.data.mysqlclient.mysqlcommand.Create
+  EmailAddressByKindId := mysqlcommand.Create
     (
     'select password_reset_email_address from ' + user_kind + '_user where id = ' + user_id,
     connection
@@ -222,12 +223,12 @@ function TClass_db_accounts.EmailTargetByRole
   )
   : string;
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
   email_target: string;
 begin
-  email_target := system.string.EMPTY;
+  email_target := EMPTY;
   self.Open;
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'select password_reset_email_address'
     + ' from department_staffer_user'
@@ -238,7 +239,7 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    email_target := email_target + dr['password_reset_email_address'].tostring + ',';
+    email_target := email_target + dr['password_reset_email_address'].tostring + COMMA;
   end;
   dr.Close;
   self.Close;
@@ -254,7 +255,7 @@ function TClass_db_accounts.Exists
   : boolean;
 begin
   self.Open;
-  Exists := nil <> mysql.data.mysqlclient.mysqlcommand.Create
+  Exists := nil <> mysqlcommand.Create
     (
     'SELECT 1 FROM ' + user_kind + '_user'
     +  ' where id = ' + user_id
@@ -273,7 +274,7 @@ procedure TClass_db_accounts.SetEmailAddress
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -295,7 +296,7 @@ procedure TClass_db_accounts.SetPassword
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -318,7 +319,7 @@ procedure TClass_db_accounts.SetTemporaryPassword
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (

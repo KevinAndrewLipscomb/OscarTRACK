@@ -198,7 +198,7 @@ var
   dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
+  ListControl(target).items.Clear;
   //
   dr := mysqlcommand.Create
     (
@@ -207,12 +207,12 @@ begin
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add
+    ListControl(target).Items.Add
       (listitem.Create(dr['username'].tostring,dr['username'].tostring));
   end;
   dr.Close;
   self.Close;
-  Bind := DropDownList(target).items.count > 0;
+  Bind := ListControl(target).items.count > 0;
 end;
 
 procedure TClass_db_users.Delete(username: string);
@@ -421,7 +421,7 @@ procedure TClass_db_users.SetEmailAddress
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -442,7 +442,7 @@ procedure TClass_db_users.SetPassword
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -464,7 +464,7 @@ procedure TClass_db_users.SetTemporaryPassword
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (

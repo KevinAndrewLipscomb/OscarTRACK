@@ -99,11 +99,10 @@ begin
     waypoint_stack := system.collections.stack.Create;
     session.Add('waypoint_stack',waypoint_stack);
     //
-    session.Remove('privilege_array');
-    session.Add('privilege_array',p.biz_user.Privileges);
+    SessionSet('privilege_array',p.biz_user.Privileges);
   end;
   //
-  if p.biz_members.IdOfUserId(p.biz_user.IdNum) = system.string.EMPTY then begin
+  if p.biz_members.IdOfUserId(p.biz_user.IdNum) = EMPTY then begin
     //
     // Display controls appropriate ONLY to nonmembers.
     //
@@ -116,8 +115,7 @@ begin
     //
   end else begin
     //
-    session.Remove('member_id');
-    session.Add('member_id',p.biz_members.IdOfUserId(session['user_id'].tostring));
+    SessionSet('member_id',p.biz_members.IdOfUserId(session['user_id'].tostring));
     AddIdentifiedControlToPlaceHolder
       (
       TWebUserControl_member_binder(LoadControl('~/usercontrol/app/UserControl_member_binder.ascx')),
@@ -132,8 +130,7 @@ end;
 procedure TWebForm_overview.TWebForm_overview_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('overview.p');
-  session.Add('overview.p',p);
+  SessionSet('overview.p',p);
 end;
 
 end.

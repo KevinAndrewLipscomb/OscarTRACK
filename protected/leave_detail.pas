@@ -93,7 +93,7 @@ begin
     Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - leave_detail';
     //
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-      + ' '
+      + SPACE
       + p.biz_members.LastNameOf(session['e_item'])
       + ' (CAD # '
       + p.cad_num_string
@@ -135,7 +135,7 @@ begin
       p.sort_order := 'start_date%';
       //
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if p.cad_num_string = system.string.EMPTY then begin
+      if p.cad_num_string = EMPTY then begin
         p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       //
@@ -147,8 +147,7 @@ procedure TWebForm_leave_detail.DataGrid_leaves_ItemCommand(source: System.Objec
   e: System.Web.UI.WebControls.DataGridCommandEventArgs);
 begin
   if e.commandname = 'Select' then begin
-    session.Remove('leave_item');
-    session.Add('leave_item',e.item);
+    SessionSet('leave_item',e.item);
     stack(session['waypoint_stack']).Push('leave_detail.aspx');
     server.Transfer('change_leave.aspx');
   end;
@@ -164,15 +163,13 @@ end;
 
 procedure TWebForm_leave_detail.LinkButton_new_Click(sender: System.Object; e: System.EventArgs);
 begin
-  stack(session['waypoint_stack']).Push('leave_detail.aspx');
-  server.Transfer('grant_leave.aspx');
+  DropCrumbAndTransferTo('grant_leave.aspx');
 end;
 
 procedure TWebForm_leave_detail.TWebForm_leave_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 procedure TWebForm_leave_detail.DataGrid_leaves_ItemDataBound(sender: System.Object;

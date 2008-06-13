@@ -135,8 +135,7 @@ end;
 procedure TWebForm_change_cad_num.TWebForm_change_cad_num_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('change_cad_num.p');
-  session.Add('change_cad_num.p',p);
+  SessionSet('change_cad_num.p',p);
 end;
 
 end.

@@ -196,6 +196,7 @@ function CrewShiftsForecastMetricFromWhereClause(relative_month: string): string
 implementation
 
 uses
+  kix,
   system.web.ui.HtmlControls;
 
 constructor TClass_db_members.Create;
@@ -227,7 +228,7 @@ begin
   + ' insert into member'
   +   ' set first_name = "' + first_name.ToUpper + '"'
   +     ' , last_name = "' + last_name.ToUpper + '"';
-  if cad_num <> system.string.EMPTY then begin
+  if cad_num <> EMPTY then begin
     sql := sql + ' , cad_num = "' + cad_num + '"';
   end;
   sql := sql
@@ -259,7 +260,7 @@ end;
 function TClass_db_members.AgencyIdOfId(id: string): string;
 begin
   self.Open;
-  AgencyIdOfId := mysql.data.mysqlclient.mysqlcommand.Create
+  AgencyIdOfId := mysqlcommand.Create
     (
     'SELECT agency_id FROM member WHERE id = ' + id,
     connection
@@ -802,8 +803,8 @@ begin
   //
   filter := ' where 1=1 ';
   //
-  if agency_filter <> system.string.EMPTY then begin
-    filter := filter + ' and agency_id = ' + agency_filter + ' ';
+  if agency_filter <> EMPTY then begin
+    filter := filter + ' and agency_id = ' + agency_filter + SPACE;
   end;
   //
   if enrollment_filter <> Class_biz_enrollment.ALL then begin
@@ -843,7 +844,7 @@ begin
       BEGIN
       case leave_filter of
       OBLIGATED: filter := filter + ' and (not(' + any_relevant_leave + ') or (leave_of_absence.start_date is null)) ';
-      ON_LEAVE: filter := filter + ' and ' + any_relevant_leave + ' ';
+      ON_LEAVE: filter := filter + ' and ' + any_relevant_leave + SPACE;
       end;
       END;
     end;
@@ -867,7 +868,7 @@ begin
   end;
   //
   if section_filter > 0 then begin
-    filter := filter + ' and section_num = ' + uint32(section_filter).tostring + ' ';
+    filter := filter + ' and section_num = ' + uint32(section_filter).tostring + SPACE;
   end;
   //
   kind_of_leave_selection_clause := 'if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"")';
@@ -1057,14 +1058,14 @@ begin
   if email_address_obj <> nil then begin
     EmailAddressOf := email_address_obj.tostring;
   end else begin
-    EmailAddressOf := system.string.EMPTY;
+    EmailAddressOf := EMPTY;
   end;
   self.Close;
 end;
 
 function TClass_db_members.EnrollmentOf(e_item: system.object): string;
 begin
-  EnrollmentOf := Safe(DataGridItem(e_item).cells[TCCI_ENROLLMENT].text,NARRATIVE);
+  EnrollmentOf := Safe(DataGridItem(e_item).cells[TCCI_ENROLLMENT].text,PUNCTUATED);
 end;
 
 function TClass_db_members.EnrollmentOfMemberId(member_id: string): string;
@@ -1106,10 +1107,10 @@ procedure TClass_db_members.GetProfile
   out be_valid_profile: boolean
   );
 var
-  dr: mysql.data.mysqlclient.mysqldatareader;
+  dr: mysqldatareader;
 begin
   self.Open;
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT name,'
     + 'be_valid_profile '
@@ -1168,7 +1169,7 @@ var
   sql: string;
 begin
   sql := 'select id from member where first_name = "' + first_name + '" and last_name = "' + last_name + '"';
-  if cad_num <> system.string.EMPTY then begin
+  if cad_num <> EMPTY then begin
     sql := sql + ' and cad_num = "' + cad_num + '"';
   end;
   self.Open;
@@ -1177,7 +1178,7 @@ begin
   if id_obj <> nil then begin
     IdOfFirstnameLastnameCadnum := id_obj.tostring;
   end else begin
-    IdOfFirstnameLastnameCadnum := system.string.EMPTY;
+    IdOfFirstnameLastnameCadnum := EMPTY;
   end;
 end;
 
@@ -1200,7 +1201,7 @@ begin
   if member_id_obj <> nil then begin
     IdOfRoleHolder := member_id_obj.tostring;
   end else begin
-    IdOfRoleHolder := system.string.EMPTY;
+    IdOfRoleHolder := EMPTY;
   end;
   self.Close;
 end;
@@ -1230,7 +1231,7 @@ begin
   if member_id_obj <> nil then begin
     IdOfRoleHolderAtAgency := member_id_obj.tostring;
   end else begin
-    IdOfRoleHolderAtAgency := system.string.EMPTY;
+    IdOfRoleHolderAtAgency := EMPTY;
   end;
   self.Close;
 end;
@@ -1244,7 +1245,7 @@ begin
   if member_id_obj <> nil then begin
     IdOfUserId := member_id_obj.tostring;
   end else begin
-    IdOfUserId := system.string.EMPTY;
+    IdOfUserId := EMPTY;
   end;
   self.Close;
 end;
@@ -1337,10 +1338,10 @@ begin
     if dr['length_of_service'] <> dbnull.Value then begin
       length_of_service := decimal(dr['length_of_service']).tostring('F2') + ' years';
     end else begin
-      length_of_service := system.string.EMPTY;
+      length_of_service := EMPTY;
     end;
     kind_of_leave := dr['kind_of_leave'].tostring.ToUpper;
-    if kind_of_leave = system.string.EMPTY then begin
+    if kind_of_leave = EMPTY then begin
       kind_of_leave := 'NONE';
     end;
     biz_notifications.IssueMemberStatusStatement
@@ -1365,7 +1366,7 @@ end;
 
 function TClass_db_members.MedicalReleaseLevelOf(e_item: system.object): string;
 begin
-  MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,NARRATIVE);
+  MedicalReleaseLevelOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].text,PUNCTUATED);
 end;
 
 function TClass_db_members.MedicalReleaseLevelOfMemberId(member_id: string): string;
@@ -1400,7 +1401,7 @@ begin
   if rank_name_obj <> nil then begin
     OfficershipOf := rank_name_obj.tostring;
   end else begin
-    OfficershipOf := system.string.EMPTY;
+    OfficershipOf := EMPTY;
   end;
   self.Close;
 end;
@@ -1422,7 +1423,7 @@ procedure TClass_db_members.SetAgency
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET agency_id = ' + agency_id + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1439,7 +1440,7 @@ procedure TClass_db_members.SetCadNum
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1461,7 +1462,7 @@ procedure TClass_db_members.SetDriverQualification
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1483,7 +1484,7 @@ procedure TClass_db_members.SetEmailAddress
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1505,7 +1506,7 @@ procedure TClass_db_members.SetName
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1529,7 +1530,7 @@ procedure TClass_db_members.SetSection
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET section_num = ' + section_num + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1546,7 +1547,7 @@ procedure TClass_db_members.SetMedicalReleaseCode
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved('UPDATE member SET medical_release_code = ' + code + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
     connection
@@ -1563,7 +1564,7 @@ procedure TClass_db_members.SetProfile
   );
 begin
   self.Open;
-  mysql.data.mysqlclient.mysqlcommand.Create
+  mysqlcommand.Create
     (
     db_trail.Saved
       (
@@ -1588,7 +1589,7 @@ begin
   if user_id_obj <> nil then begin
     UserIdOf := user_id_obj.tostring;
   end else begin
-    UserIdOf := system.string.EMPTY;
+    UserIdOf := EMPTY;
   end;
   self.Close;
 end;

@@ -58,7 +58,7 @@ begin
   if not p.be_loaded then begin
     //
     Label_overall.text := p.biz_agencies.OverallCommensuration;
-    if Label_overall.text <> system.string.EMPTY then begin
+    if Label_overall.text <> EMPTY then begin
       Label_overall.text := Label_overall.text + ' %';
       p.biz_agencies.BindRankedCommensuration(DataGrid_detail);
       DataGrid_detail.visible := TRUE;
@@ -114,8 +114,7 @@ end;
 procedure TWebUserControl_ranked_commensuration.TWebUserControl_ranked_commensuration_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_commensuration.p');
-  session.Add('UserControl_ranked_commensuration.p',p);
+  SessionSet('UserControl_ranked_commensuration.p',p);
 end;
 
 function TWebUserControl_ranked_commensuration.Fresh: TWebUserControl_ranked_commensuration;

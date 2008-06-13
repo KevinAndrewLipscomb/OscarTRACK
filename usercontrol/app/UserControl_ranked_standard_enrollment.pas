@@ -132,8 +132,7 @@ end;
 procedure TWebUserControl_ranked_standard_enrollment.TWebUserControl_ranked_standard_enrollment_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_standard_enrollment.p');
-  session.Add('UserControl_ranked_standard_enrollment.p',p);
+  SessionSet('UserControl_ranked_standard_enrollment.p',p);
 end;
 
 function TWebUserControl_ranked_standard_enrollment.Fresh: TWebUserControl_ranked_standard_enrollment;

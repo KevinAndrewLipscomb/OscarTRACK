@@ -99,7 +99,7 @@ begin
       p.biz_user := TClass_biz_user.Create;
       //
       cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if cad_num_string = system.string.EMPTY then begin
+      if cad_num_string = EMPTY then begin
         cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       Label_member_first_name.text := p.biz_members.FirstNameOf(session['e_item']);
@@ -143,7 +143,7 @@ begin
     (
     Safe(RadioButtonList_disposition.selectedvalue,NUM),
     UserControl_effective_date.selectedvalue,
-    Safe(TextBox_note.text,NARRATIVE),
+    Safe(TextBox_note.text,PUNCTUATED),
     p.biz_members.IdOf(session['e_item']),
     session['e_item']
     )
@@ -171,8 +171,7 @@ end;
 procedure TWebForm_add_new_enrollment_status.TWebForm_add_new_enrollment_status_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

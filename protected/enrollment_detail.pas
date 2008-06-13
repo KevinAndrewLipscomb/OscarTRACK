@@ -82,7 +82,7 @@ begin
     //
     Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - enrollment_detail';
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
-      + ' '
+      + SPACE
       + p.biz_members.LastNameOf(session['e_item'])
       + ' (CAD # '
       + p.cad_num_string
@@ -121,7 +121,7 @@ begin
       p.num_datagrid_rows := 0;
       //
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
-      if p.cad_num_string = system.string.EMPTY then begin
+      if p.cad_num_string = EMPTY then begin
         p.cad_num_string := NOT_APPLICABLE_INDICATION_HTML;
       end;
       //
@@ -132,15 +132,13 @@ end;
 procedure TWebForm_enrollment_detail.LinkButton_add_new_enrollment_status_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  stack(session['waypoint_stack']).Push('enrollment_detail.aspx');
-  server.Transfer('add_new_enrollment_status.aspx');
+  DropCrumbAndTransferTo('add_new_enrollment_status.aspx');
 end;
 
 procedure TWebForm_enrollment_detail.TWebForm_enrollment_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 procedure TWebForm_enrollment_detail.DataGrid_member_history_ItemCommand(source: System.Object;

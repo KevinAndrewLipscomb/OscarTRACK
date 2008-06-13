@@ -146,8 +146,7 @@ end;
 procedure TWebUserControl_establish_membership.TWebUserControl_establish_membership_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_establish_membership.p');
-  session.Add('UserControl_establish_membership.p',p);
+  SessionSet('UserControl_establish_membership.p',p);
 end;
 
 function TWebUserControl_establish_membership.Fresh: TWebUserControl_establish_membership;

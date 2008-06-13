@@ -94,7 +94,7 @@ begin
       //
       p.saved_agency_id := p.biz_agencies.IdOfShortDesignator(p.biz_members.AgencyOf(session['e_item']));
       //
-      p.biz_agencies.BindDropDownListShort(DropDownList_agency,p.saved_agency_id,FALSE);
+      p.biz_agencies.BindListControlShort(DropDownList_agency,p.saved_agency_id,FALSE);
       //
     end;
   end;
@@ -125,8 +125,7 @@ end;
 procedure TWebForm_change_member_agency.TWebForm_change_member_agency_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

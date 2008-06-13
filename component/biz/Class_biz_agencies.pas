@@ -19,13 +19,13 @@ type
       target: system.object
       )
       : boolean;
-    procedure BindDropDownListShort
+    procedure BindListControlShort
       (
       target: system.object;
       selected_id: string = '';
       be_available_option_all: boolean = TRUE
       );
-    procedure BindDropDownListShortDashLong(target: system.object);
+    procedure BindListControlShortDashLong(target: system.object);
     procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
@@ -83,19 +83,19 @@ begin
   Bind := db_agencies.Bind(partial_username,target);
 end;
 
-procedure TClass_biz_agencies.BindDropDownListShort
+procedure TClass_biz_agencies.BindListControlShort
   (
   target: system.object;
   selected_id: string = '';
   be_available_option_all: boolean = TRUE
   );
 begin
-  db_agencies.BindDropDownListShort(target,selected_id,be_available_option_all);
+  db_agencies.BindListControlShort(target,selected_id,be_available_option_all);
 end;
 
-procedure TClass_biz_agencies.BindDropDownListShortDashLong(target: system.object);
+procedure TClass_biz_agencies.BindListControlShortDashLong(target: system.object);
 begin
-  db_agencies.BindDropDownListShortDashLong(target);
+  db_agencies.BindListControlShortDashLong(target);
 end;
 
 procedure TClass_biz_agencies.BindForCommensuration(target: system.object);

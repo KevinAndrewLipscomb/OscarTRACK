@@ -14,7 +14,7 @@ type
     { Private Declarations }
   public
     constructor Create;
-    procedure BindDropDownList
+    procedure BindListControl
       (
       target: system.object;
       selected_description: string = ''
@@ -25,6 +25,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   system.web.ui.webcontrols;
 
@@ -34,7 +35,7 @@ begin
   // TODO: Add any constructor code here
 end;
 
-procedure TClass_db_medical_release_levels.BindDropDownList
+procedure TClass_db_medical_release_levels.BindListControl
   (
   target: system.object;
   selected_description: string = ''
@@ -43,20 +44,20 @@ var
   dr: mysqldatareader;
 begin
   self.Open;
-  DropDownList(target).items.Clear;
-  if selected_description = system.string.EMPTY then begin
-    DropDownList(target).Items.Add(listitem.Create('-- Select --',''));
+  ListControl(target).items.Clear;
+  if selected_description = EMPTY then begin
+    ListControl(target).Items.Add(listitem.Create('-- Select --',''));
   end;
-  dr := mysql.data.mysqlclient.mysqlcommand.Create
+  dr := mysqlcommand.Create
     (
     'SELECT code, description from medical_release_code_description_map order by pecking_order',
     connection
     )
     .ExecuteReader;
   while dr.Read do begin
-    DropDownList(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
+    ListControl(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
     if dr['description'].tostring = selected_description then begin
-      DropDownList(target).selectedvalue := dr['code'].tostring;
+      ListControl(target).selectedvalue := dr['code'].tostring;
     end;
   end;
   dr.Close;

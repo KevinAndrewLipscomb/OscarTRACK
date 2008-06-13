@@ -27,7 +27,7 @@ end;
 function TClass_db_department_staffers.RegionCodeOf(id: string): string;
 begin
   self.Open;
-  RegionCodeOf := mysql.data.mysqlclient.mysqlcommand.Create
+  RegionCodeOf := mysqlcommand.Create
     (
     'SELECT region_code FROM department_staffer WHERE id = ' + id,
     connection
@@ -39,7 +39,7 @@ end;
 function TClass_db_department_staffers.RegionNameOf(id: string): string;
 begin
   self.Open;
-  RegionNameOf := mysql.data.mysqlclient.mysqlcommand.Create
+  RegionNameOf := mysqlcommand.Create
     (
     'SELECT name'
     + ' FROM department_staffer join region_code_name_map on (region_code_name_map.code=department_staffer.region_code)'

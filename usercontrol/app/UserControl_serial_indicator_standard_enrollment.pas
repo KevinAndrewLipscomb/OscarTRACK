@@ -101,8 +101,7 @@ end;
 procedure TWebUserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicator_standard_enrollment.p');
-  session.Add('UserControl_serial_indicator_standard_enrollment.p',p);
+  SessionSet('UserControl_serial_indicator_standard_enrollment.p',p);
 end;
 
 function TWebUserControl_serial_indicator_standard_enrollment.Fresh: TWebUserControl_serial_indicator_standard_enrollment;

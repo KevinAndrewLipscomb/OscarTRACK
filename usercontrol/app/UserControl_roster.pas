@@ -138,12 +138,12 @@ begin
     //
     LinkButton_add_member.visible := Has(string_array(session['privilege_array']),'add-members');
     //
-    p.biz_agencies.BindDropDownListShort(DropDownList_agency_filter);
+    p.biz_agencies.BindListControlShort(DropDownList_agency_filter);
     DropDownList_agency_filter.selectedvalue := p.agency_filter;
     //
-    p.biz_sections.BindDropDownList(DropDownList_section_filter,'0*');
+    p.biz_sections.BindListControl(DropDownList_section_filter,'0*');
     DropDownList_section_filter.selectedvalue := uint32(p.section_filter).tostring;
-    TableData_section_filter.visible := p.agency_filter <> system.string.EMPTY;
+    TableData_section_filter.visible := p.agency_filter <> EMPTY;
     //
     DropDownList_med_release_filter.selectedvalue := enum(p.med_release_level_filter).tostring.tolower;
     DropDownList_enrollment_filter.selectedvalue := enum(p.enrollment_filter).tostring.tolower;
@@ -206,13 +206,13 @@ begin
     //
     p.be_user_privileged_to_see_all_squads := Has(string_array(session['privilege_array']),'see-all-squads');
     if p.be_user_privileged_to_see_all_squads then begin
-      p.agency_filter := system.string.EMPTY;
+      p.agency_filter := EMPTY;
     end else begin
       p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
     end;
     p.be_sort_order_ascending := TRUE;
     p.enrollment_filter := CURRENT;
-    p.distribution_list := system.string.EMPTY;
+    p.distribution_list := EMPTY;
     p.leave_filter := Class_biz_leave.BOTH;
     p.med_release_level_filter := ALL;
     p.section_filter := 0;
@@ -256,7 +256,7 @@ procedure TWebUserControl_roster.DropDownList_agency_filter_SelectedIndexChanged
   e: System.EventArgs);
 begin
   p.agency_filter := Safe(DropDownList_agency_filter.selectedvalue,NUM);
-  TableData_section_filter.visible := (p.agency_filter <> system.string.EMPTY);
+  TableData_section_filter.visible := (p.agency_filter <> EMPTY);
   //
   // Always reset section filter when agency filter changes.
   //
@@ -285,12 +285,12 @@ begin
     // be_html
     FALSE,
     // cc
-    system.string.EMPTY,
+    EMPTY,
     // bcc
     p.biz_user.EmailAddress
     );
-  TextBox_quick_message_subject.text := system.string.EMPTY;
-  TextBox_quick_message_body.text := system.string.EMPTY;
+  TextBox_quick_message_subject.text := EMPTY;
+  TextBox_quick_message_body.text := EMPTY;
   Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent');
 end;
 
@@ -337,8 +337,7 @@ end;
 procedure TWebUserControl_roster.LinkButton_add_member_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  stack(session['waypoint_stack']).Push(path.GetFileName(request.CurrentExecutionFilePath));
-  server.Transfer('add_member.aspx');
+  DropCrumbAndTransferTo('add_member.aspx');
 end;
 
 procedure TWebUserControl_roster.RadioButtonList_which_month_SelectedIndexChanged(sender: System.Object;
@@ -388,8 +387,7 @@ begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
-    session.Remove('e_item');
-    session.Add('e_item',e.item);
+    SessionSet('e_item',e.item);
     stack(session['waypoint_stack']).Push(path.GetFileName(request.CurrentExecutionFilePath));
     server.Transfer('member_detail.aspx');
     //
@@ -437,7 +435,7 @@ begin
     end;
     //
     if e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text <> '&nbsp;' then begin
-       p.distribution_list := p.distribution_list + e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text + ', ';
+       p.distribution_list := p.distribution_list + e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text + COMMA_SPACE;
     end;
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
@@ -447,8 +445,7 @@ end;
 procedure TWebUserControl_roster.TWebUserControl_roster_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_roster.p');
-  session.Add('UserControl_roster.p',p);
+  SessionSet('UserControl_roster.p',p);
 end;
 
 procedure TWebUserControl_roster.DataGrid_roster_SortCommand(source: System.Object;
@@ -469,8 +466,8 @@ var
   be_raw_shifts_nonzero: boolean;
 begin
   //
-  DataGrid_roster.columns[TCCI_AGENCY].visible := (p.agency_filter = system.string.EMPTY);
-  DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.agency_filter <> system.string.EMPTY) and (p.section_filter = 0);
+  DataGrid_roster.columns[TCCI_AGENCY].visible := (p.agency_filter = EMPTY);
+  DataGrid_roster.columns[TCCI_SECTION_NUM].visible := (p.agency_filter <> EMPTY) and (p.section_filter = 0);
   DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter)
     and (not (p.enrollment_filter = ADMIN));
   DataGrid_roster.columns[TCCI_ENROLLMENT].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
@@ -523,7 +520,7 @@ begin
   //
   // Clear aggregation vars for next bind, if any.
   //
-  p.distribution_list := system.string.EMPTY;
+  p.distribution_list := EMPTY;
   p.num_cooked_shifts := 0;
   p.num_core_ops_members := 0;
   p.num_datagrid_rows := 0;

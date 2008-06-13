@@ -31,6 +31,7 @@ type
 implementation
 
 uses
+  kix,
   mysql.data.mysqlclient,
   system.configuration;
 
@@ -55,13 +56,13 @@ var
   tier_2_match_value: string;
   tier_3_match_value: string;
 begin
-  target_of := system.string.EMPTY;
+  target_of := EMPTY;
   self.Open;
   //
   // Get tier 2 and 3 associations of target member.
   //
   dr := mysqlcommand.Create
-    ('select ' + tier_2_match_field + ',' + tier_3_match_field + ' from member where id = ' + member_id,connection).ExecuteReader;
+    ('select ' + tier_2_match_field + COMMA + tier_3_match_field + ' from member where id = ' + member_id,connection).ExecuteReader;
   dr.Read;
   tier_2_match_value := dr[tier_2_match_field].tostring;
   tier_3_match_value := dr[tier_3_match_field].tostring;
@@ -89,7 +90,7 @@ begin
       if (dr['data_condition_name'].tostring = 'none')
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + dr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + COMMA;
       end;
     end;
   end;
@@ -118,7 +119,7 @@ begin
       if (dr['data_condition_name'].tostring = 'none')
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + dr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + COMMA;
       end;
     end;
   end;
@@ -148,17 +149,17 @@ begin
       if (dr['data_condition_name'].tostring = 'none')
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
-        target_of := target_of + dr['email_address'].tostring + ',';
+        target_of := target_of + dr['email_address'].tostring + COMMA;
       end;
     end;
   end;
   dr.Close;
   //
   self.Close;
-  if target_of <> system.string.EMPTY then begin
+  if target_of <> EMPTY then begin
     TargetOf := target_of.Substring(0,target_of.Length - 1);
   end else begin
-    TargetOf := system.string.EMPTY;
+    TargetOf := EMPTY;
   end;
 end;
 
@@ -173,7 +174,7 @@ var
   variant_condition: string;
   target_of_about_agency: string;
 begin
-  target_of_about_agency := system.string.EMPTY;
+  target_of_about_agency := EMPTY;
   self.Open;
   //
   if agency_id = '0' then begin // EMS is tier 1
@@ -197,17 +198,17 @@ begin
     .ExecuteReader;
   if dr <> nil then begin
     while dr.Read do begin
-      target_of_about_agency := target_of_about_agency + dr['email_address'].tostring + ',';
+      target_of_about_agency := target_of_about_agency + dr['email_address'].tostring + COMMA;
     end;
   end;
   dr.Close;
   //
   self.Close;
   //
-  if target_of_about_agency <> system.string.EMPTY then begin
+  if target_of_about_agency <> EMPTY then begin
     TargetOfAboutAgency := target_of_about_agency.Substring(0,target_of_about_agency.Length - 1);
   end else begin
-    TargetOfAboutAgency := system.string.EMPTY;
+    TargetOfAboutAgency := EMPTY;
   end;
   //
 end;

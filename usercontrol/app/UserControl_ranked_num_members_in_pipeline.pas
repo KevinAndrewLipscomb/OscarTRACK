@@ -121,8 +121,7 @@ end;
 procedure TWebUserControl_ranked_num_members_in_pipeline.TWebUserControl_ranked_num_members_in_pipeline_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_num_members_in_pipeline.p');
-  session.Add('UserControl_ranked_num_members_in_pipeline.p',p);
+  SessionSet('UserControl_ranked_num_members_in_pipeline.p',p);
 end;
 
 function TWebUserControl_ranked_num_members_in_pipeline.Fresh: TWebUserControl_ranked_num_members_in_pipeline;

@@ -89,8 +89,8 @@ begin
   //
   // Set session objects referenced by UserControl_roster.
   //
-  session.Add('mode:report',system.string.EMPTY);
-  session.Add('mode:report/monthly-emt-intern-roster',system.string.EMPTY);
+  session.Add('mode:report',EMPTY);
+  session.Add('mode:report/monthly-emt-intern-roster',EMPTY);
   //
   if request['agency'] = 'EMS' then begin
     role_name := 'Department BLS ID Coordinator';

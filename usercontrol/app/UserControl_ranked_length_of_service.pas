@@ -207,8 +207,7 @@ end;
 procedure TWebUserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_ranked_length_of_service.p');
-  session.Add('UserControl_ranked_length_of_service.p',p);
+  SessionSet('UserControl_ranked_length_of_service.p',p);
 end;
 
 function TWebUserControl_ranked_length_of_service.Fresh: TWebUserControl_ranked_length_of_service;

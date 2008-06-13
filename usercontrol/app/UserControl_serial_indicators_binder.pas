@@ -239,8 +239,7 @@ end;
 procedure TWebUserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_serial_indicators_binder.p');
-  session.Add('UserControl_serial_indicators_binder.p',p);
+  SessionSet('UserControl_serial_indicators_binder.p',p);
 end;
 
 function TWebUserControl_serial_indicators_binder.Fresh: TWebUserControl_serial_indicators_binder;

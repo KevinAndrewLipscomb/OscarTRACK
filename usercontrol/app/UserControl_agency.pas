@@ -72,10 +72,10 @@ uses
 procedure TWebUserControl_agency.Clear;
 begin
   //
-  TextBox_short_designator.text := system.string.EMPTY;
+  TextBox_short_designator.text := EMPTY;
   DropDownList_short_designator.visible := FALSE;
-  TextBox_medium_designator.text := system.string.EMPTY;
-  TextBox_long_designator.text := system.string.EMPTY;
+  TextBox_medium_designator.text := EMPTY;
+  TextBox_long_designator.text := EMPTY;
   CheckBox_be_active.checked := FALSE;
   //
   Button_delete.enabled := FALSE;
@@ -170,8 +170,7 @@ end;
 procedure TWebUserControl_agency.TWebUserControl_agency_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_agency.p');
-  session.Add('UserControl_agency.p',p);
+  SessionSet('UserControl_agency.p',p);
 end;
 
 function TWebUserControl_agency.Fresh: TWebUserControl_agency;
@@ -188,9 +187,9 @@ begin
     //
     p.biz_agencies.&Set
       (
-      Safe(TextBox_short_designator.text,NARRATIVE),
-      Safe(TextBox_medium_designator.text,NARRATIVE),
-      Safe(TextBox_long_designator.text,NARRATIVE),
+      Safe(TextBox_short_designator.text,PUNCTUATED),
+      Safe(TextBox_medium_designator.text,PUNCTUATED),
+      Safe(TextBox_long_designator.text,PUNCTUATED),
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
@@ -237,7 +236,7 @@ begin
       if num_matches = 1 then begin
         PresentRecord(DropDownList_short_designator.selectedvalue);
       end else begin
-        DropDownList_short_designator.items.Insert(0,listitem.Create('-- Select --',system.string.EMPTY));
+        DropDownList_short_designator.items.Insert(0,listitem.Create('-- Select --',EMPTY));
       end;
     end;
   end;

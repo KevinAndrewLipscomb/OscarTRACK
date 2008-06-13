@@ -94,7 +94,7 @@ begin
       //
       HtmlTable_proper_release_reminder.visible := not Has(string_array(session['privilege_array']),'release-trainees');
       //
-      p.biz_medical_release_levels.BindDropDownList(DropDownList_medical_release_level,p.saved_level);
+      p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level,p.saved_level);
       //
     end;
   end;
@@ -131,8 +131,7 @@ end;
 procedure TWebForm_change_member_medical_release_level.TWebForm_change_member_medical_release_level_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

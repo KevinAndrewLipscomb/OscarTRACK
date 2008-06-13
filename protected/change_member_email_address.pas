@@ -136,14 +136,13 @@ end;
 procedure TWebForm_change_member_email_address.CustomValidator_member_email_address_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
-  args.isvalid := (args.value = system.string.EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
+  args.isvalid := (args.value = EMPTY) or kix.BeValidDomainPartOfEmailAddress(args.value);
 end;
 
 procedure TWebForm_change_member_email_address.TWebForm_change_member_email_address_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('change_member_email_address.p');
-  session.Add('change_member_email_address.p',p);
+  SessionSet('change_member_email_address.p',p);
 end;
 
 end.

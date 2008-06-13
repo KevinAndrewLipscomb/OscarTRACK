@@ -95,8 +95,7 @@ end;
 procedure TWebUserControl_about.TWebUserControl_about_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_about.p');
-  session.Add('UserControl_about.p',p);
+  SessionSet('UserControl_about.p',p);
 end;
 
 function TWebUserControl_about.Fresh: TWebUserControl_about;

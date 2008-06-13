@@ -85,8 +85,7 @@ end;
 procedure TWebForm_timeout.TWebForm_timeout_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('p');
-  session.Add('p',p);
+  SessionSet('p',p);
 end;
 
 end.

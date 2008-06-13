@@ -118,8 +118,7 @@ end;
 procedure TWebUserControl_current_indicators.TWebUserControl_current_indicators_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  session.Remove('UserControl_current_indicators.p');
-  session.Add('UserControl_current_indicators.p',p);
+  SessionSet('UserControl_current_indicators.p',p);
 end;
 
 function TWebUserControl_current_indicators.Fresh: TWebUserControl_current_indicators;
