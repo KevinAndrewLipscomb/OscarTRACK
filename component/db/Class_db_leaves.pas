@@ -89,7 +89,6 @@ implementation
 uses
   kix,
   mysql.data.mysqlclient,
-  kix,
   system.web.ui.webcontrols;
 
 constructor TClass_db_leaves.Create;

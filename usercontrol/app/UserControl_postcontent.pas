@@ -1,8 +1,4 @@
 unit UserControl_postcontent;
-//
-// UserControl_postcontent must not attempt to access session state because UserControl_postcontent is invoked on the timeout page
-// and session state is by definition nonexistent in a timeout situation.
-//
 
 interface
 

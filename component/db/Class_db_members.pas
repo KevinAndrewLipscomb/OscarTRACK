@@ -13,7 +13,6 @@ uses
   Class_biz_leave,
   Class_biz_notifications,
   Class_biz_sections,
-  kix,
   system.collections,
   system.web.ui.webcontrols;
 

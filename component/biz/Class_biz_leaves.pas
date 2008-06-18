@@ -124,6 +124,7 @@ type
 implementation
 
 uses
+  kix,
   system.collections,
   system.web.ui.webcontrols;
 
