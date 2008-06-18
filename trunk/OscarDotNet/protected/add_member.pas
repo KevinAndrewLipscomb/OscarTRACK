@@ -116,7 +116,7 @@ begin
     p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
     UserControl_enrollment_date.minyear := '1940';
     UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
-    p.biz_enrollment.BindUncontrolledDropDownList(DropDownList_enrollment_level);
+    p.biz_enrollment.BindUncontrolledListControl(DropDownList_enrollment_level);
     //
     Focus(TextBox_first_name);
     //

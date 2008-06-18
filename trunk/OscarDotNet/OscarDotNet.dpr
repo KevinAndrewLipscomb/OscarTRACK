@@ -36,7 +36,6 @@ uses
   Class_biz_indicator_median_length_of_service in 'component\biz\Class_biz_indicator_median_length_of_service.pas',
   Class_db_indicator_median_length_of_service in 'component\db\Class_db_indicator_median_length_of_service.pas',
   Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas',
-  timeout in 'timeout.pas',
   Default in 'Default.pas',
   exception in 'exception.pas',
   Global in 'Global.pas',

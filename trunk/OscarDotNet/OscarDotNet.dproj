@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
+    <DCC_UsePackage>""C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll"";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -273,9 +273,6 @@
       <Form>serial_indicator_control_chart.TWebForm1</Form>
       <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
-    <DCCReference Include="timeout.pas">
-      <DependentUpon>timeout.aspx</DependentUpon>
-    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_about.pas">
       <DependentUpon>usercontrol\app\UserControl_about.ascx</DependentUpon>
       <Form>UserControl_about.TWebUserControl_about</Form>
@@ -441,7 +438,6 @@
     <None Include="remind_username.aspx" />
     <None Include="salogin.aspx" />
     <None Include="serial_indicator_control_chart.aspx" />
-    <None Include="timeout.aspx" />
     <None Include="usercontrol\app\UserControl_about.ascx" />
     <None Include="usercontrol\app\UserControl_agency.ascx" />
     <None Include="usercontrol\app\UserControl_commensuration.ascx" />

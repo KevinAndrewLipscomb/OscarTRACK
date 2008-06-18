@@ -56,7 +56,7 @@ type
       tier_id: string;
       target: system.object
       );
-    procedure BindUncontrolledDropDownList(target: system.object);
+    procedure BindUncontrolledListControl(target: system.object);
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
@@ -125,9 +125,9 @@ begin
 end;
 
 
-procedure TClass_biz_enrollment.BindUncontrolledDropDownList(target: system.object);
+procedure TClass_biz_enrollment.BindUncontrolledListControl(target: system.object);
 begin
-  db_enrollment.BindUncontrolledDropDownList(target);
+  db_enrollment.BindUncontrolledListControl(target);
 end;
 
 function TClass_biz_enrollment.ElaborationOf(description: string): string;

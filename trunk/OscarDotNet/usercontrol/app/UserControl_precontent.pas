@@ -1,8 +1,4 @@
 unit UserControl_precontent;
-//
-// UserControl_precontent must not attempt to access session state because UserControl_precontent is invoked on the timeout page
-// and session state is by definition nonexistent in a timeout situation.
-//
 
 interface
 
