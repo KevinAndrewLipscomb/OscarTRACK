@@ -8,7 +8,7 @@
 	<!-- $Id$ -->
     <script type="text/javascript" src="../js/gradient.js"></script>
   </head>
-  <body>
+  <body bgcolor="white">
 	<form runat="server">
       <uc1:UserControl_common_header_bar id="UserControl_common_header_bar" runat="server"></uc1:UserControl_common_header_bar>
 	  <p>

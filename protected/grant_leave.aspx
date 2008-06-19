@@ -10,7 +10,7 @@
     <title id="Title" runat="server"></title><!-- $Id$ -->
     <script type="text/javascript" src="../js/gradient.js"></script>
   </head>
-  <body>
+  <body bgcolor="white">
 	<form runat="server">
 	  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 <div id="Div_print_area">

@@ -7,7 +7,7 @@
     <script type="text/javascript" src="../js/gradient.js"></script>
   </head>
 
-  <body>
+  <body bgcolor="white">
      <form runat="server">
      </form>
   </body>
