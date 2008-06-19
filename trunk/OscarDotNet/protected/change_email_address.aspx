@@ -10,7 +10,7 @@
     <script type="text/javascript" src="../js/gradient.js"></script>
   </head>
 
-  <body>
+  <body bgcolor="white">
 	 <form runat="server">
 	   <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 		<table cellspacing="0" cellpadding="0" width="%" border="1" bordercolor="#dcdcdc">

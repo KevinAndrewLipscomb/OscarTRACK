@@ -11,7 +11,7 @@
     <script type="text/javascript" src="js/gradient.js"></script>
   </head>
 
-  <body>
+  <body bgcolor="white">
      <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>Welcome to 
         <ASP:Label id="Label_application_name" runat="server"></ASP:Label>!</p>
 <p>Please <ASP:HyperLink

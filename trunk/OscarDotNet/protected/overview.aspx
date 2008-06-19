@@ -9,7 +9,7 @@
 	<!-- $Id$ -->
     <script type="text/javascript" src="../js/gradient.js"></script>
   </head>
-  <body>
+  <body bgcolor="white">
 	<form runat="server">
 	  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
       <ASP:PlaceHolder id="PlaceHolder_establish_membership" runat="server"></ASP:PlaceHolder><ASP:PlaceHolder id="PlaceHolder_member_binder" runat="server"></ASP:PlaceHolder>
