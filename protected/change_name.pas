@@ -122,7 +122,7 @@ end;
 procedure TWebForm_change_name.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_name.Button_submit_Click(sender: System.Object;
@@ -136,7 +136,7 @@ begin
     Safe(TextBox_last_name.text,HUMAN_NAME).toupper,
     session['e_item']
     );
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_name.TWebForm_change_name_PreRender(sender: System.Object;

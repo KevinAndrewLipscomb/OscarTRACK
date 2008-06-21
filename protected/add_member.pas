@@ -175,13 +175,13 @@ procedure TWebForm_add_member.Button_add_and_stop_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if Add then begin
-    server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+    BackTrack;
   end;
 end;
 
 procedure TWebForm_add_member.Button_cancel_Click(sender: System.Object; e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_add_member.CustomValidator_email_address_ServerValidate(source: System.Object;

@@ -118,14 +118,14 @@ end;
 procedure TWebForm_change_member_medical_release_level.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_medical_release_level.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_members.SetMedicalReleaseCode(p.saved_level,Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_medical_release_level.TWebForm_change_member_medical_release_level_PreRender(sender: System.Object;

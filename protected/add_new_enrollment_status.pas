@@ -148,7 +148,7 @@ begin
     session['e_item']
     )
   then begin
-    server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+    BackTrack;
   end else begin
     Alert
       (
@@ -165,7 +165,7 @@ end;
 procedure TWebForm_add_new_enrollment_status.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_add_new_enrollment_status.TWebForm_add_new_enrollment_status_PreRender(sender: System.Object;

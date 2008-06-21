@@ -235,7 +235,7 @@ end;
 
 procedure TWebForm_change_leave.Button_cancel_Click(sender: System.Object; e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_leave.Button_submit_Click(sender: System.Object; e: System.EventArgs);
@@ -256,7 +256,7 @@ begin
       Safe(DropDownList_num_obligated_shifts.selectedvalue,NUM),
       Safe(TextBox_note.text,PUNCTUATED)
       );
-    server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+    BackTrack;
   end else begin
     ValidationAlert;
   end;

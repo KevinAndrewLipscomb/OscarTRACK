@@ -110,7 +110,7 @@ end;
 procedure TWebForm_change_member_driver_qualification.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_driver_qualification.Button_submit_Click(sender: System.Object;
@@ -122,7 +122,7 @@ begin
   if be_driver_qualified <> p.be_driver_initially_qualified then begin
     p.biz_members.SetDriverQualification(be_driver_qualified,session['e_item']);
   end;
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_driver_qualification.TWebForm_change_member_driver_qualification_PreRender(sender: System.Object;
