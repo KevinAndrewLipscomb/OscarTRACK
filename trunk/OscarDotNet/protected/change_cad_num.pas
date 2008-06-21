@@ -119,14 +119,14 @@ end;
 procedure TWebForm_change_cad_num.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_cad_num.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if p.biz_members.SetCadNum(Safe(Textbox_cad_num.text,NUM),session['e_item']) then begin
-    server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+    BackTrack;
   end else begin
     Alert(kix.USER,kix.FAILURE,'cadnumtakn','NOT CHANGED:  The specified CAD # is already in the system.');
   end;

@@ -112,14 +112,14 @@ end;
 procedure TWebForm_change_member_agency.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_agency.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_members.SetAgency(p.saved_agency_id,Safe(DropDownList_agency.selectedvalue,NUM),session['e_item']);
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_agency.TWebForm_change_member_agency_PreRender(sender: System.Object;

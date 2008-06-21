@@ -123,14 +123,14 @@ end;
 procedure TWebForm_change_member_email_address.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_email_address.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_members.SetEmailAddress(p.biz_members.IdOf(session['e_item']),Safe(Textbox_member_email_address.text,EMAIL_ADDRESS));
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_email_address.CustomValidator_member_email_address_ServerValidate(source: System.Object;

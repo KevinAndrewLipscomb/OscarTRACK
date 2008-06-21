@@ -110,14 +110,14 @@ end;
 procedure TWebForm_change_member_section.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_section.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_members.SetSection(Safe(DropDownList_section.selectedvalue,NUM),session['e_item']);
-  server.Transfer(stack(session['waypoint_stack']).Pop.tostring);
+  BackTrack;
 end;
 
 procedure TWebForm_change_member_section.TWebForm_change_member_section_PreRender(sender: System.Object;
