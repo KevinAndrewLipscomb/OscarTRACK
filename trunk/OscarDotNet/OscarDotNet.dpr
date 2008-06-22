@@ -43,7 +43,7 @@ uses
   new_user_registration in 'new_user_registration.pas',
   remind_username in 'remind_username.pas',
   salogin in 'salogin.pas',
-  overview in 'protected\overview.pas',
+  overview in 'protected\overview.pas' {overview.TWebForm_overview: ki_web_ui.page_class},
   add_member in 'protected\add_member.pas' {add_member.TWebForm_add_member: ki_web_ui.page_class},
   add_new_enrollment_status in 'protected\add_new_enrollment_status.pas',
   change_cad_num in 'protected\change_cad_num.pas',
@@ -104,7 +104,6 @@ uses
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas',
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas',
   report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas',
-  UserControl_member_role_matrix in 'usercontrol\app\UserControl_member_role_matrix.pas' {UserControl_member_role_matrix.TWebUserControl_member_role_matrix: ki_web_ui.usercontrol_class},
   report_monthly_per_agency_serial_indicators in 'noninteractive\report_monthly_per_agency_serial_indicators.pas' {report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators: system.web.ui.page},
   serial_indicator_control_chart in 'serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page};
 

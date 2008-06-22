@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>""C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll"";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
+    <DCC_UsePackage>"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -34,6 +34,9 @@
     <DCC_RangeChecking>True</DCC_RangeChecking>
     <DCC_TypedAtParameter>True</DCC_TypedAtParameter>
     <DCC_StrictVarStrings>False</DCC_StrictVarStrings>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
+    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>DelphiDotNet.Personality</Borland.Personality>
@@ -261,6 +264,8 @@
     </DCCReference>
     <DCCReference Include="protected\overview.pas">
       <DependentUpon>protected\overview.aspx</DependentUpon>
+      <Form>overview.TWebForm_overview</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="remind_username.pas">
       <DependentUpon>remind_username.aspx</DependentUpon>
@@ -306,11 +311,6 @@
     <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>
       <Form>UserControl_member_binder.TWebUserControl_member_binder</Form>
-      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
-    </DCCReference>
-    <DCCReference Include="usercontrol\app\UserControl_member_role_matrix.pas">
-      <DependentUpon>usercontrol\app\UserControl_member_role_matrix.ascx</DependentUpon>
-      <Form>UserControl_member_role_matrix.TWebUserControl_member_role_matrix</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
@@ -447,7 +447,6 @@
     <None Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <None Include="usercontrol\app\UserControl_member_binder.ascx" />
-    <None Include="usercontrol\app\UserControl_member_role_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_postcontent.ascx" />
     <None Include="usercontrol\app\UserControl_precontent.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />
