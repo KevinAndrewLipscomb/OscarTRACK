@@ -7,7 +7,6 @@
   <head>
 	<title id="Title" runat="server"></title>
 	  <!-- $Id$ -->
-    <script type="text/javascript" src="js/gradient.js"></script>
   </head>
 
   <body bgcolor="white">
