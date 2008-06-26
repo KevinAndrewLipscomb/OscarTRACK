@@ -4,6 +4,223 @@
         <name>QCSPCChartNet</name>
     </assembly>
     <members>
+        <member name="T:com.quinncurtis.spcchartnet.AlarmStatusToolTip">
+            <summary>
+              The AlarmStatusToolTip class extends the MouseListener class, providing additional methods  that allow the 
+              user to move chart objects using the mouse.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.MOUSEDOWN_TOOLTIP">
+            <summary>
+            NotesTooTip mode constant: Notes tooltip visible as long as mouse button down.
+            </summary>
+            
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.MOUSETOGGLE_TOOLTIP">
+            <summary>
+            NotesTooTip mode constant: Notes tooltip toggles on/off with sucessive mouse clicks.
+            </summary>
+            
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.startMouseLocation">
+            <summary>
+              Specifies the starting position of the move object in window device coordinates. 
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.endMouseLocation">
+            <summary>
+              Specifies the ending position of the move object in window device coordinates. 
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.selectedObj">
+            <summary>
+             Specifies the currently selected chart object.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.alarmList">
+            <summary>
+             An internal list of NotesLabel objects to check.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.alarmStringTextBox">
+            <summary>
+             The Label  use to display the notes string.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.defaultTextBoxSize">
+            <summary>
+             The default size in device coordinates of the notes Label.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.toolTipMode">
+            <summary>
+            NotesTooTip mode: Use one of the AlarmStatusToolTip mode constants: MOUSEDOWN_TOOLTIP, MOUSETOGGLE_TOOLTIP.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.alarmString">
+            <summary>
+            Stores a reference to the underlying strings, allowing strings to be updated from rich text box.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.defaultShortStringNo">
+            <summary>
+            Stores a reference to the default short string used to signify that the notes string is empty.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.defaultShortStringYes">
+            <summary>
+            Stores a reference to the default short string used to signify that the notes string is not empty.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.AlarmStatusToolTip.tooTipNudge">
+            <summary>
+             The tool tip position can be moved relative (nudged), using window device coordinates,  relative to the 
+             specified location of the tool tip.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.ErrorCheck(System.Int32)">
+            <summary>
+              Checks the current object for common errors. 
+            </summary>
+            <param name="nerror"> Current error state </param>
+            <returns> Returns an error code.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.InitDefaults">
+            <summary>
+              Initialized default values. 
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.Copy(com.quinncurtis.spcchartnet.AlarmStatusToolTip)">
+            <summary>
+              Copies the source AlarmStatusToolTip. 
+            </summary>
+            <param name="source"> The source AlarmStatusToolTip object.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.Clone">
+            <summary>
+             Returns an object that is a clone of this AlarmStatusToolTip object. 
+            </summary>
+            <returns> Returns a clone of this AlarmStatusToolTip object.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.#ctor">
+            <summary>
+              The default AlarmStatusToolTip constructor.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.#ctor(com.quinncurtis.chart2dnet.ChartView)">
+            <summary>
+              This constructor creates a new AlarmStatusToolTip object using the specified  component. 
+            </summary>
+            <param name="component"> A reference to the ChartView object that the chart is placed in.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.#ctor(com.quinncurtis.chart2dnet.ChartView,System.Windows.Forms.MouseButtons)">
+            <summary>
+              This constructor creates a new AlarmStatusToolTip object using the specified  component. 
+            </summary>
+            <param name="component"> A reference to the ChartView object that the chart is placed in. </param>
+            <param name="buttonmask"> Specifies the mouse button that is trapped to invoke a move.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.ShowAlarmStatusToolTip(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+              The mousePressed event listener for this object. When the specified mouse  button is pressed, the 
+              nearest movable chart object is located. A bounding  box is drawn around the object and tracks the 
+              mouse cursor from that point on. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.OnMouseDown(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+              The mousePressed event listener for this object. When the specified mouse  button is pressed, the 
+              nearest movable chart object is located. A bounding  box is drawn around the object and tracks the 
+              mouse cursor from that point on. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.OnClick(System.EventArgs)">
+            <summary>
+              The OnClick event listener for this object. Once the specified mouse  button is pressed, then 
+              released, the zoom rectangle tracking the mouse cursor  disappears. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.OnDoubleClick(System.EventArgs)">
+            <summary>
+              The OnDoubleClick event listener for this object. Once the specified mouse  button is pressed, 
+              then released, the zoom rectangle tracking the mouse cursor  disappears. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.OnMouseMove(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+              The mouseDragged event listener for this object. The bounding box of  the selected chart object tracks 
+              the mouse cursor as the mouse is dragged. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.CloseAlarmStatusToolTip(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+              The mouseReleased event listener for this object. When the specified mouse  button is pressed, then 
+              released, the selected objects bounding box stops tracking the  mouse cursor and disappears. The 
+              position of the selected object is updated  to reflect the ending position of the mouse. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.OnMouseUp(System.Windows.Forms.MouseEventArgs)">
+            <summary>
+              The mouseReleased event listener for this object. When the specified mouse  button is pressed, then 
+              released, the selected objects bounding box stops tracking the  mouse cursor and disappears. The 
+              position of the selected object is updated  to reflect the ending position of the mouse. 
+            </summary>
+            <param name="mouseevent"> The mouse event contains status information about1 the mouse.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.AlarmStatusToolTip.AddAlarmStatusObject(com.quinncurtis.chart2dnet.ChartLabel)">
+            <summary>
+              Adds a NotesLabel object to the internal array list.
+            </summary>
+            <param name="notes"> The NotesLabel object that is added to the interval list.</param>
+            <return> Returns the count of the array list.</return>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.AlarmList">
+            <summary>
+             Set/Get internal list of NotesLabel objects to check.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.AlarmStringTextBox">
+            <summary>
+             Get the Label  use to display the notes string.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.DefaultTextBoxSize">
+            <summary>
+             Set/Get the default size in device coordinates of the notes Label.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.TooTipNudge">
+            <summary>
+             Set/Get the tooltip position. It can be moved relative (nudged), using window device coordinates,  relative to the 
+             specified location of the tool tip.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.ToolTipMode">
+            <summary>
+            Set/Get the NotesTooTip mode: Use one of the AlarmStatusToolTip mode constants: MOUSEDOWN_TOOLTIP, MOUSETOGGLE_TOOLTIP.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.AlarmString">
+            <summary>
+            Set/Get the  underlying strings, allowing strings to be updated from rich text box..
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.DefaultShortStringNo">
+            <summary>
+            Set/Get the default short string used to signify that the notes string is empty.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.AlarmStatusToolTip.DefaultShortStringYes">
+            <summary>
+            Set/Get the default short string used to signify that the notes string is not empty.
+            </summary>
+        </member>
         <member name="T:com.quinncurtis.spcchartnet.FrequencyHistogramChart">
             <summary>
             Frequency Histogram chart template. The class includes all of the objects needed to draw a complete
@@ -171,6 +388,26 @@
             True  the ChartView object list is cleared with each redraw
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.FrequencyHistogramChart.limitLineValues">
+            <summary>
+            An array of the  limit lines for the histogram.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.FrequencyHistogramChart.limitLineAttributes">
+            <summary>
+            Limit line attributes
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.FrequencyHistogramChart.normalCurveAttribute">
+            <summary>
+            normal line attributes
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.FrequencyHistogramChart.autoNormalCurve">
+            <summary>
+            Set to true and the normal curve is automatically drawn
+            </summary>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.Copy(com.quinncurtis.spcchartnet.FrequencyHistogramChart)">
             <summary>
               Copies the source FrequencyHistogramChart object. 
@@ -215,6 +452,37 @@
             <summary>
              Builds the histogram using the passed in ChartView object.
              <param name= "chartVu"> A ChartView object that the histogram is to be drawn in. </param>
+             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.AddFrequencyHistogramControlLine(System.Double,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+             Add a control limit line to the frequency histogram.
+             <param name= "xvalue"> The x-value for the limit line. </param>
+             <param name= "attrib"> The attribute of the limit line. </param>
+             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.AutoDrawNormalCurve(com.quinncurtis.chart2dnet.ChartView)">
+            <summary>
+             Draw a normal distribution curve based on frequency data.
+             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.DrawNormalCurve(com.quinncurtis.chart2dnet.ChartView,System.Double,System.Double,System.Double,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+             Add a normal curve to the histogram.
+             <param name= "chartvu"> The ChartView object the normal curve is added to. </param>
+             <param name= "mean"> The mean of the normal curve. </param>
+             <param name= "stddev"> The std dev of the normal curve. </param>
+             <param name= "amp"> The amplitude of the normal curve. </param>
+             <param name= "attrib"> The attribute of the curve. </param>
+             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.DrawFrequencyHistogramControlLines(com.quinncurtis.chart2dnet.ChartView,System.Double,com.quinncurtis.chart2dnet.ChartAttribute,System.Boolean)">
+            <summary>
+             Add a control limit line to the frequency histogram.
+             <param name= "chartvu"> The ChartView object the normal curve is added to. </param>
+             <param name= "xvalue"> The x-value for the limit line. </param>
+             <param name= "attrib"> The attribute of the limit line. </param>
+             <param name= "text"> Set to true and the line is labeled with its numeric value. </param>
              </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.FrequencyHistogramChart.Draw(System.Drawing.Graphics)">
@@ -403,6 +671,26 @@
         <member name="P:com.quinncurtis.spcchartnet.FrequencyHistogramChart.DefaultChartFontString">
             <summary>
                Set/Get the default font used in the chart. This is a string specifiying the name of the font.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.FrequencyHistogramChart.GetMean">
+            <summary>
+            Get the mean of the frequencyValues
+             </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.FrequencyHistogramChart.GetStandardDeviation">
+            <summary>
+            Get the standard deviation of the frequencyValues
+             </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.FrequencyHistogramChart.AutoNormalCurve">
+            <summary>
+            Set to true and the normal curve is automatically drawn
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.FrequencyHistogramChart.NormalCurveAttribute">
+            <summary>
+            Set to true and the normal curve is automatically drawn
             </summary>
         </member>
         <member name="T:com.quinncurtis.spcchartnet.MultiMouseListener">
@@ -2669,6 +2957,94 @@
             <param name="np"> Nearest point information for data based objects. </param>
             <returns> Returns true if the test point intersects the object.</returns>
         </member>
+        <member name="T:com.quinncurtis.spcchartnet.SimpleMultiPlot">
+            <summary>
+            Summary description for SimpleMultiPlot.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.InitDefaults">
+            <summary>
+              Initializes default values for the SimpleMultiPlot object.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.Copy(com.quinncurtis.spcchartnet.SimpleMultiPlot)">
+            <summary>
+              Copies the source SimpleMultiPlot object. 
+            </summary>
+            <param name="source"> The source SimpleMultiPlot object.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.Clone">
+            <summary>
+             Returns an object that is a clone of this SimpleMultiPlot object. 
+            </summary>
+            <returns> Returns a clone of this SimpleMultiPlot object.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor">
+            <summary>
+              This default constructor for SimpleMultiPlot.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates)">
+            <summary>
+              This constructor creates a new SimpleMultiPlot object that will reside in  the specified coordinate system. 
+            </summary>
+            <param name="transform"> The coordinate system for the new SimpleMultiPlot object.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,com.quinncurtis.chart2dnet.SimpleDataset,System.Int32,com.quinncurtis.chart2dnet.ChartAttribute,com.quinncurtis.chart2dnet.ChartAttribute,System.Double)">
+            <summary>
+              This constructor creates a new SimpleMultiPlot object that will reside in  the specified coordinate system. 
+            </summary>
+            <param name="transform"> The coordinate system for the new SimpleMultiPlot object. </param>
+            <param name="dataset"> The scatter plot will represent the values in this data set. </param>
+            <param name="symtype"> The symbol used in the scatter plot. Use one of  the scatter plot symbol 
+            constants: NOSYMBOL,  SQUARE, TRIANGLE, DIAMOND, CROSS, PLUS, STAR, LINE, HBAR, VBAR, BAR3D, CIRCLE. </param>
+            <param name="lineattrib"> Specifies the attributes (size, line and fill color ) for the line plot. </param>
+            <param name="symbolattrib"> Specifies the attributes (size, line and fill color ) for the scatter plot. </param>
+            <param name="barwidth"> Specifies the width of the bar. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,com.quinncurtis.chart2dnet.SimpleDataset,System.Double,System.Double,com.quinncurtis.chart2dnet.ChartAttribute,System.Int32)">
+            <summary>
+              This constructor creates a new SimpleMultiPlot object that will reside in  the specified coordinate system. 
+            </summary>
+            <param name="transform"> The coordinate system for the new SimpleMultiPlot object. </param>
+            <param name="dataset"> The scatter plot will represent the values in this data set. </param>
+            <param name="barwidth"> The width of the bars in physical coordinates. </param>
+            <param name="barbase"> The base value for bars in physical coordinates. </param>
+            <param name="attrib"> Specifies the attributes (line color and fill color) of the bars. </param>
+            <param name="barjust"> Specifies the justification with respect to the independent data value.  
+            Use one of the justification constants: JUSTIFY_MIN, JUSTIFY_CENTER, JUSTIFY_MAX.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,com.quinncurtis.chart2dnet.SimpleDataset,System.Int32,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+              This constructor creates a new SimpleMultiPlot object that will reside in  the specified coordinate system. 
+            </summary>
+            <param name="transform"> The coordinate system for the new SimpleMultiPlot object. </param>
+            <param name="dataset"> The scatter plot will represent the values in this data set. </param>
+            <param name="symtype"> The symbol used in the scatter plot. Use one of  the scatter plot symbol 
+            constants: NOSYMBOL,  SQUARE, TRIANGLE, DIAMOND, CROSS, PLUS, STAR, LINE, HBAR, VBAR, BAR3D, CIRCLE. </param>
+            <param name="symbolattrib"> Specifies the attributes (size, line and fill color ) for the scatter plot. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,com.quinncurtis.chart2dnet.SimpleDataset,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+              This constructor creates a new SimpleMultiPlot object that will reside in  the specified coordinate system. 
+            </summary>
+            <param name="transform"> The coordinate system for the new SimpleMultiPlot object. </param>
+            <param name="dataset"> The line plot will represent the values in this data set. </param>
+            <param name="lineattrib"> Specifies the attributes (size, line and fill color ) for the line plot. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.DrawMultiPlot(System.Drawing.Graphics)">
+            <summary>
+              Draws a scatter plot using the current scatter plot properties. 
+            </summary>
+            <param name="g2"> The current graphics context.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SimpleMultiPlot.Draw(System.Drawing.Graphics)">
+            <summary>
+              The draw method for this class. A GraphicsPath  object is created and the group plot object  
+              is drawn in the path. Once the path is complete  the it is drawn to the graphics context. 
+            </summary>
+            <param name="g2"> The graphics context.</param>
+        </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCArrayStatistics">
             <summary>
             Statistical routines for SPC analysis. It includes routines for the calculations of sums, means,
@@ -2759,11 +3135,43 @@
             <param name="r"> An array that contains the data values to check. </param>
             <returns> Returns the standard deviation of an array, r.</returns>
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetStandardDeviation(com.quinncurtis.chart2dnet.DoubleArray,System.Boolean)">
+            <summary>
+              This method returns the standard deviation of an array. 
+            </summary>
+            <param name="r"> An array that contains the data values to check. </param>
+            <param name="useN"> True and a divisor of N is used in calculation, otherwise N-1 . </param>
+            <returns> Returns the deviation of an array, r.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetStandardDeviation(System.Double[],System.Boolean)">
+            <summary>
+              This method returns the standard deviation of an array. 
+            </summary>
+            <param name="r"> An array that contains the data values to check. </param>
+            <param name="useN"> True and a divisor of N is used in calculation, otherwise N-1 . </param>
+            <returns> Returns the standard deviation of an array, r.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetVariance(com.quinncurtis.chart2dnet.DoubleArray,System.Boolean)">
+            <summary>
+              This method returns the variance of an array. 
+            </summary>
+            <param name="r"> An array that contains the data values to check. </param>
+            <param name="useN"> True and a divisor of N is used in calculation, otherwise N-1 . </param>
+            <returns> Returns the variance of an array, r.</returns>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetVariance(com.quinncurtis.chart2dnet.DoubleArray)">
             <summary>
               This method returns the variance of an array. 
             </summary>
             <param name="r"> An array that contains the data values to check. </param>
+            <returns> Returns the variance of an array, r.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetVariance(System.Double[],System.Boolean)">
+            <summary>
+              This method returns the variance of an array. 
+            </summary>
+            <param name="r"> An array that contains the data values to check. </param>
+            <param name="useN"> True and a divisor of N is used in calculation, otherwise N-1 . </param>
             <returns> Returns the variance of an array, r.</returns>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCArrayStatistics.GetVariance(System.Double[])">
@@ -2888,17 +3296,52 @@
             <returns> THE  CUMULATIVE DISTRIBUTION FUNCTION VALUE.</returns>
             
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCArrayStatistics.VarUseN">
+            <summary>
+               Set/Get true to use N in variance (and standard deviation calculations) or N-1 otherwisw
+            </summary>
+        </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCBatchAttributeControlChart">
             <summary>
             A Batch Attribute Control Chart class that uses a CartesianCoordinate system with a numeric X-Axis. This class can be used
             to create PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-            NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART SPC chart types.
+            NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS SPC chart types.
             </summary>	
         </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCChartBase">
             <summary>
             The base class for all SPC Charts. The varaible control charts and attribute control charts are both
             derived from this base class. It contains objects for the SPC data, chart table, two charts and two histograms.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_NO_HIGHLIGHT_SYMBOL">
+            <summary>
+            Chart alarm emphasis mode for scatter plot symbol
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_HIGHLIGHT_SYMBOL">
+            <summary>
+            Chart alarm emphasis mode for scatter plot symbol
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_HIGHLIGHT_NONE">
+            <summary>
+            Alarm highlight constant: No alarm highlight
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_HIGHLIGHT_TEXT">
+            <summary>
+            Alarm highlight constant: Text alarm highlight
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_HIGHLIGHT_OUTLINE">
+            <summary>
+            Alarm highlight constant: Outline alarm highlight
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.ALARM_HIGHLIGHT_BAR">
+            <summary>
+            Alarm highlight constant: Bar alarm highlight
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.defaultChartFontString">
@@ -3001,6 +3444,11 @@
             If true enables notes tooltips
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.enableAlarmStatusToolTip">
+            <summary>
+            If true enables alarm status tooltip
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.enableInputStringsDisplay">
             <summary>
             If true enables the input string rows of the data table
@@ -3036,6 +3484,11 @@
             If true enables the notes row of the data table
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.enableAlarmStatusValues">
+            <summary>
+            If true enables the alarm status row of the data table
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.headerStringsLevel">
             <summary>
             Specifies the level of header strings to include in the chart. Use one of the SPCControlChartData header strings
@@ -3044,9 +3497,9 @@
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.spcChartType">
             <summary>
-            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
             CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART .
+            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART .
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.chartInitialized">
@@ -3089,6 +3542,61 @@
             The MultiMouseListener for the SPC chart 
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.initDllListFlag">
+            <summary>
+            Used to trigger InitDLLList on initialization
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.highAlarmStatusString">
+            <summary>
+            Used as the indicator of a high alarm in the alarm status field of the table.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.lowAlarmStatusString">
+            <summary>
+            Used as the indicator of a low alarm in the alarm status field of the table.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.primaryChartStatusString">
+            <summary>
+            Used as the indicator of a high alarm in the alarm status field of the table.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.secondaryChartStatusString">
+            <summary>
+            Used as the indicator of a low alarm in the alarm status field of the table.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.trialVersion">
+            <summary>
+            Trial version flag
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.tableAlarmEmphasisMode">
+            <summary>
+            Table alarm emphasis mode
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.chartAlarmEmphasisMode">
+            <summary>
+            Chart alarm emphasis mode
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.oldBGMode">
+            <summary>
+            Saves a tabe cell background mode across method calls
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.oldBgColor1">
+            <summary>
+            Saves a tabe cell background background color across method calls
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartBase.oldBgColor2">
+            <summary>
+            Saves a tabe cell background background color across method calls
+            </summary>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.Copy(com.quinncurtis.spcchartnet.SPCChartBase)">
             <summary>
               Copies the source object. 
@@ -3115,15 +3623,15 @@
              The default class constructor.
              </summary>
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.InitSPCChartBase(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.InitSPCChartBase(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This initialization method initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
              CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART . </param>
+             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numsamplespersubgroup">  In Variable Control charts this value is the same as numcategories, it represents
@@ -3133,15 +3641,15 @@
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
              
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This constructor initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
              CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART . </param>
+             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numsamplespersubgroup">  In Variable Control charts this value is the same as numcategories, it represents
@@ -3151,17 +3659,17 @@
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
              
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This constructor initializes the most important values in the creattion of an SPC chart.
              </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent form the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
              CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART . </param>
+             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numsamplespersubgroup">  In Variable Control charts this value is the same as numcategories, it represents
@@ -3171,17 +3679,17 @@
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
             
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This constructor initializes the most important values in the creattion of an SPC chart.
              </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent form the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
              CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART . </param>
+             <param name= "numcategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numsamplespersubgroup">  In Variable Control charts this value is the same as numcategories, it represents
@@ -3194,7 +3702,7 @@
         <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.DisplayTableData">
             <summary>
              Display the data table of the SPC chart, taking into account the enableInputStringsDisplay,	enableTimeValues, 
-             enableCategoryValues,	enableCalculatedValues,	enableTotalSamplesValues, and enableNotes flags.
+             enableCategoryValues,	enableCalculatedValues,	enableTotalSamplesValues, alarmStatusValues and enableNotes flags.
              </summary>
              
         </member>
@@ -3249,6 +3757,21 @@
              <param name= "xjust"> Specifies the x-justification of the control limit label. </param>
              <param name= "yjust"> Specifies the y-justification of the control limit label. </param>
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.PreAdjustTextForAlarmEmphasis(System.Int32,System.Int32)">
+            <summary>
+             Display the sample data (Variable Control Chart) or defect data (Attribute Control Chart), as rows in the data table.
+             </summary>		
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.CheckAlarmDisplayStatus(System.Int32,com.quinncurtis.spcchartnet.NotesLabel,com.quinncurtis.spcchartnet.NotesLabel)">
+            <summary>
+             Check to see if there are any alarm conditions in the current sample record. Return
+             </summary>		
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.PostAdjustTextForAlarmEmphasis(com.quinncurtis.chart2dnet.ChartLabel,System.Int32,System.Int32)">
+            <summary>
+             Display the sample data (Variable Control Chart) or defect data (Attribute Control Chart), as rows in the data table.
+             </summary>		
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.DisplayCategoryValues">
             <summary>
              Display the sample data (Variable Control Chart) or defect data (Attribute Control Chart), as rows in the data table.
@@ -3260,6 +3783,11 @@
              </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.DisplayTimeValues">
+            <summary>
+             Display the time stamp values as a row in the data table.
+             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.DisplayAlarmStatusValues">
             <summary>
              Display the time stamp values as a row in the data table.
              </summary>
@@ -3296,6 +3824,21 @@
              Using the current sampled data values, high, target and low control limits are calculated for both primary
              and secondary charts using an algorithim appropriate to the SPC chart type.
              </summary>		
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.AssignLimitValue(com.quinncurtis.spcchartnet.SPCControlPlotObjectData,System.Double,System.Double[],System.Double[])">
+            <summary>
+             Assign the proper value to the LimitValue of a SPCControlPlotObjectData object.
+             </summary>	
+             <param name= "pobjdata"> A SPCControlPlotObjectData object </param>
+             <param name= "target"> Target value </param>
+             <param name= "lcl"> An array[3] of low limit control values </param>
+             <param name= "ucl"> An array[3] of highlimit limit control values </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.IsVariableSampleSizeControlChart">
+            <summary>
+             Returns true if the control chart is one of the Variable Sample Size control charts: MEAN_SIGMA_CHART_VSS,
+             FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART.
+             </summary>	
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.AutoCalculatePrimaryControlLimits">
             <summary>
@@ -3508,6 +4051,28 @@
              <param name= "g"> The graphics context the chart is drawn to. </param>
              </summary>	
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.UseNoTable(System.Boolean,System.Boolean,System.Boolean,System.String)">
+            <summary>
+             Skip the table part and just have a title. Allow for primary and/or secondary charts
+             
+             <param name= "primary"> Specify true for primary chart. </param>
+             <param name= "secondary"> Specify true for secondary chart. </param>
+             <param name= "histograms"> Specify true for chart histograms. </param>
+             <param name= "title"> Chart title string. </param>
+             </summary>	
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartBase.GetCalculatedValueHistoryStatistic(System.Int32,System.Int32)">
+            <summary>
+             Calculate a process statistic.
+             </summary>	
+             <param name= "index"> Specifies the index of the calculated value statistic you want. </param>
+             <param name= "stattype"> Specifies which statistic you want. User one of the SPCCalculatedValueRecord constants: 				 
+             SPC_SUM_CALC,	 SPC_MEAN_CALC,  SPC_MEAN_VSS_CALC, SPC_MEAN_N_MINUS_1_CALC, SPC_MEDIAN_CALC ,	 SPC_RANGE_CALC, 
+             SPC_STD_DEVIATION_CALC, SPC_STD_DEVIATION_VSS_CALC,  SPC_VARIANCE_CALC,  SPC_MIN_CALC, SPC_MAX_CALC, SPC_PERCENT_DEFECTIVE_PARTS_CALC, SPC_FRACTION_DEFECTIVE_PARTS_CALC,
+             SPC_FRACTION_DEFECTIVE_PARTS_VSS_CALC, SPC_PERCENT_DEFECTIVE_PARTS_VSS_CALC, SPC_TOTAL_DEFECTIVE_PARTS_CALC,
+             SPC_PERCENT_DEFECTS_CALC, SPC_FRACTION_DEFECTS_CALC, SPC_FRACTION_DEFECTS_VSS_CALC, SPC_TOTAL_DEFECTS_CALC: </param>
+            <returns> Returns the process statistic.</returns>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.ChartData">
             <summary>
             Get the object that holds the descriptive text, sampled and calculated values associated with the control chart.
@@ -3604,6 +4169,11 @@
             If set true enables data tooltips
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.EnableAlarmStatusToolTip">
+            <summary>
+            If set true enables data tooltips
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.EnableInputStringsDisplay">
             <summary>
             If set true enables the input string rows of the data table
@@ -3634,6 +4204,11 @@
             If set true enables the process capability values rows of the data table
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.EnableAlarmStatusValues">
+            <summary>
+            If set true enables the time row of the data table
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.EnableNotes">
             <summary>
             If set true enables the notes row of the data table
@@ -3647,9 +4222,9 @@
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.SPCChartType">
             <summary>
-            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART,
+            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, INDIVIDUAL_RANGE_CHART,
             CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART .
+            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS, EWMA_CHART .
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.ChartInitialized">
@@ -3687,6 +4262,31 @@
                Set/Get the default font used in the table display.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.TableAlarmEmphasisMode">
+            <summary>
+            Set/Get the table alarm emphasis mode
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.ChartAlarmEmphasisMode">
+            <summary>
+            Set/Get the chart alarm emphasis mode
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.AutoLogAlarmsAsNotes">
+            <summary>
+            Set/Get true to automatically log alarm conditions to the samples intervals notes object.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.HighAlarmStatusString">
+            <summary>
+            Set/Get the indicator of a high alarm in the alarm status field of the table.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartBase.LowAlarmStatusString">
+            <summary>
+            Set/Get  the indicator of a low alarm in the alarm status field of the table.
+            </summary>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCBatchAttributeControlChart.InitDefaults">
             <summary>
               Initialize default values for the class. 
@@ -3698,7 +4298,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCBatchAttributeControlChart.#ctor">
@@ -3712,7 +4312,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              
         </member>
@@ -3722,7 +4322,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              
         </member>
@@ -3732,7 +4332,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3746,7 +4346,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3762,7 +4362,7 @@
             <param name="parent"> The parent form the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3778,7 +4378,7 @@
             <param name="parent"> The parent control the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3794,7 +4394,7 @@
             <param name="parent"> The parent Panel the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3810,7 +4410,7 @@
             <param name="parent"> The parent TabPage the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -3832,7 +4432,7 @@
         <member name="T:com.quinncurtis.spcchartnet.SPCBatchVariableControlChart">
             <summary>
             A Batch Variable Control Chart class that uses a CartesianCoordinate system with a numeric based X-Axis. This class can be used
-            to create MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART chart types.
+            to create MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART chart types.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCBatchVariableControlChart.InitDefaults">
@@ -3845,7 +4445,7 @@
               Set SPC chart values specific to the SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART .
              </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCBatchVariableControlChart.#ctor">
@@ -3858,7 +4458,7 @@
               A constructor for this chart. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART .
              </param>
              
         </member>
@@ -3867,7 +4467,7 @@
               Initialize the class for a specific SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART .
              </param>
              		
         </member>
@@ -3876,17 +4476,29 @@
              This initialization method initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCBatchVariableControlChart.InitSPCBatchCusumControlChart(System.Int32,System.Int32,System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+             This initialization method initializes the most important values in the creattion of an SPC chart.
+             </summary>
+             <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
+             <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
+             <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
+             <param name= "mean">  The process mean. </param>
+             <param name= "kvalue"> Th k-value needed for the Cusum chart. </param>/// 
+             <param name= "hvalue"> The h-value needed for the Cusum chart. </param>///  
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCBatchVariableControlChart.#ctor(System.Int32,System.Int32,System.Int32)">
             <summary>
              This constructor initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              
@@ -3898,7 +4510,7 @@
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent form the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
         </member>
@@ -3909,7 +4521,7 @@
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent control the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
         </member>
@@ -3920,7 +4532,7 @@
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent Panel the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
         </member>
@@ -3931,7 +4543,7 @@
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent TabPage the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART . </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
         </member>
@@ -3997,6 +4609,36 @@
             Constant value for a maximum SPC calculation.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_MEAN_VSS_CALC">
+            <summary>
+            Constant value for a mean variable sample size SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_STD_DEVIATION_VSS_CALC">
+            <summary>
+            Constant value for a standard deviation variable sample size SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_EWMA_CALC">
+            <summary>
+            Constant value for a EWMA stead state SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_MA_CALC">
+            <summary>
+            Constant value for a EWMA stead state SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_CUSUM_CPLUS_CALC">
+            <summary>
+            Constant value for a CUSUM + SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_CUSUM_CMINUS_CALC">
+            <summary>
+            Constant value for a CUSUM - SPC calculation.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_INDIVIDUAL_COPY_VALUE">
             <summary>
             Constant value for INDIVIDUAL RANGE .
@@ -4047,6 +4689,21 @@
             Constant value for a mean SPC calculation using N-1, rather than N.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_FRACTION_DEFECTIVE_PARTS_VSS_CALC">
+            <summary>
+            Constant value for a percent defective parts SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_PERCENT_DEFECTIVE_PARTS_VSS_CALC">
+            <summary>
+            Constant value for a percent defective parts SPC calculation.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SPC_FRACTION_DEFECTS_VSS_CALC">
+            <summary>
+            Constant value for a fraction defects SPC calculation.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.valueDescription">
             <summary>
             Description of calculation value record.
@@ -4067,6 +4724,11 @@
             Array of historical values for this calculated value record.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.samplesPerGroup">
+            <summary>
+            Array of the number of samples in each sample group.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.validValueFlags">
             <summary>
             Array of valid value flags, one for each value in the calculatedValues array, designating whether the
@@ -4076,6 +4738,21 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.calculatedValue">
             <summary>
             Current calculated value for this calculated value record.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.ewma_Lambda">
+            <summary>
+            Weighting factor (lambda)) for SPC_EWMA_CALC calculation
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.ewma_StartingValue">
+            <summary>
+            The starting value for the EWMA calculation, usually set to the estimated mean of the process variable
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.ma_w">
+            <summary>
+            The starting value for the EWMA calculation, usually set to the estimated mean of the process variable
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.Copy(com.quinncurtis.spcchartnet.SPCCalculatedValueRecord)">
@@ -4117,6 +4794,15 @@
             <returns> Returns the value calculation.</returns>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.CalculateHistoryStatistic(com.quinncurtis.chart2dnet.DoubleArray,System.Int32)">
+            <summary>
+             Calculate the calculated value value based on the data in the source array and the specified calculation type. 
+            </summary>
+            <param name="v"> The source array for the calculation. </param>
+            <param name="calctype"> The calculation type for the calculation. </param>
+            <returns> Returns the value calculation.</returns>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.CalculateHistoryStatisticStatic(com.quinncurtis.chart2dnet.DoubleArray,System.Int32)">
             <summary>
              Calculate the calculated value value based on the data in the source array and the specified calculation type. 
             </summary>
@@ -4171,6 +4857,11 @@
             Get the reference to the calculatedValue array.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.SamplesPerGroup">
+            <summary>
+            Get the reference to the calculatedValue array.
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.ValidValueFlags">
             <summary>
             Get the reference to the validValueFlags array.
@@ -4179,6 +4870,21 @@
         <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.MostRecentSampledValues">
             <summary>
             Get/Set an array holding the values of the most recent sampled, or measured values used in calculating the records calculateValue value.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.EWMA_Lambda">
+            <summary>
+            Set/Get the lambda value for EWMA calculations.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.EWMA_StartingValue">
+            <summary>
+            Set/Get the lambda value for EWMA calculations.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCCalculatedValueRecord.MA_w">
+            <summary>
+            Set/Get the lambda value for EWMA calculations.
             </summary>
         </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCChartObjects">
@@ -4247,6 +4953,16 @@
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.SPC_UPPER_CONTROL_LIMIT_1">
+            <summary>
+            Index of upper control limit in controlLimitData array.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.SPC_LOWER_CONTROL_LIMIT_0">
+            <summary>
+            Index of lower control limit in controlLimitData array.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.SPC_UPPER_CONTROL_LIMIT_0">
             <summary>
             Index of upper control limit in controlLimitData array.
             </summary>
@@ -4496,6 +5212,16 @@
             Holds a reference to an object encapsulating the plot object data associated with the main variable of the chart.
             </summary> 
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.enableProcessVariableData2">
+            <summary>
+            Holds a reference to an object encapsulating  plot object data #2 associated with the main variable of the chart.
+            </summary> 
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.processVariableData2">
+            <summary>
+            Holds a reference to an object encapsulating the plot object data associated with the a secondary variable of the chart.
+            </summary> 
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCChartObjects.controlLimitData">
             <summary>
             An array of the plot objects associated with control limits.
@@ -4644,6 +5370,13 @@
             <summary>
             Initialize the class
             </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCChartObjects.EnableControlLimitItem(System.Int32,System.Boolean)">
+            <summary>
+              Enable/Disable a specific control limit item. 
+            </summary>
+            <param name="item"> The control limit item.</param>
+            <param name="enable"> Set to true to enable.</param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCChartObjects.#ctor">
             <summary>
@@ -4863,6 +5596,11 @@
             Holds a reference to an object encapsulating the plot object data associated with the main variable of the chart.
             </summary> 
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCChartObjects.ProcessVariableData2">
+            <summary>
+            Holds a reference to an object encapsulating the plot object data associated with the secondary variable of the chart.
+            </summary> 
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCChartObjects.ControlLimitData">
             <summary>
             Get the array of the plot objects associated with control limits.
@@ -5012,6 +5750,29 @@
             </summary>
             
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.MEAN_SIGMA_CHART_VSS">
+            <summary>
+            Chart type constant: Mean and Sigma (X-Bar Sigma) SPC Variable Control Chart 
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.EWMA_CHART">
+            <summary>
+            Chart type constant: Exponential weighted moving average chart  
+            </summary>
+            
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.MA_CHART">
+            <summary>
+            Chart type constant:  moving average chart  
+            </summary>
+            
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.TABCUSUM_CHART">
+            <summary>
+            Chart type constant: Tabular Cusum chart  
+            </summary>
+            
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.CUSTOM_ATTRIBUTE_CONTROL_CHART">
             <summary>
             Chart type constant: Custom SPC Attribute Control Chart  (unused)
@@ -5041,6 +5802,21 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.NUMBER_DEFECTS_PERUNIT_CHART">
             <summary>
             Chart type constant: Number Defects per Unit (u-chart) Control Chart
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.FRACTION_DEFECTIVE_PARTS_CHART_VSS">
+            <summary>
+            Chart type constant: Fraction Defective Parts (p-chart) Control Chart variable sample size
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.NUMBER_DEFECTS_PERUNIT_CHART_VSS">
+            <summary>
+            Chart type constant: Number Defects per Unit (u-chart) Control Chart variable sample size
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.PERCENT_DEFECTIVE_PARTS_CHART_VSS">
+            <summary>
+            Chart type constant: Percentage Defective Parts (p-chart) Control Chart variable sample size
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.SPC_PRIMARY_CONTROL_TARGET">
@@ -5195,6 +5971,11 @@
             The number of samples in a sample sub group for a Variable Control chart.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.sampleSubgroupSize_VSS">
+            <summary>
+            The number of samples in a sample sub group for a Variable Control chart with variable sample size.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.numSampleCategories">
             <summary>
             The number of categories in an Attribute Control chart.
@@ -5214,6 +5995,11 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.numControlLimitValues">
             <summary>
             The number of control limits for the chart.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.numControlCharts">
+            <summary>
+            The number of control charts for the chart.
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.timeIncrementMinutes">
@@ -5316,6 +6102,11 @@
             The data table time value row header.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.alarmStatusValueRowHeader">
+            <summary>
+            The data table time value row header.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.numberSamplesValueRowHeader">
             <summary>
             The data table  number of samples row header.
@@ -5324,6 +6115,16 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.defectiveDecimalPrecision">
             <summary>
             The default value to use for the decimal precision used to display defective item counts, -1 = auto.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.processCapabilityDecimalPrecision">
+            <summary>
+            The default value to use for the decimal precision used to display process capability values, -1 = auto.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.calculatedValueDecimalPrecision">
+            <summary>
+            The default value to use for the decimal precision used to display caclulated values, -1 = auto.
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.notesString">
@@ -5389,9 +6190,9 @@
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.spcChartType">
             <summary>
-            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART,
+            Specifies the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART,
             CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART .
+            NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS .
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.primaryCalculatedVariableIndex">
@@ -5467,6 +6268,11 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.notesToolTips">
             <summary>
             Tool tip for notes strings.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.alarmStatusToolTips">
+            <summary>
+            Tool tip for alarm status strings.
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.dataLogEnable">
@@ -5626,10 +6432,85 @@
             Upper Control Limit Specification.
             </summary>		
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.ewma_Lambda">
+            <summary>
+            Weighting factor (lambda)) for SPC_EWMA_CALC calculation
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.ewma_UseSSLimits">
+            <summary>
+            Set to true to just use stead-state EWMA limits
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.ewma_StartingValue">
+            <summary>
+            The starting value for the EWMA calculation, usually set to the estimated mean of the process variable
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.updateIndex">
+            <summary>
+            The index of the update, used in EWMA calcuations (0, 1, 2...). The value 10000 should produce the steadystate update value
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.ma_w">
+            <summary>
+            The number previous values used in moving average chart
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.processMean">
+            <summary>
+            The process mean
+            </summary>		
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.processMeanOverride">
+            <summary>
+            Use the processMean rather than calculate from data
+            </summary>		
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.processSigma">
+            <summary>
+            The process sigma
+            </summary>	
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.processSigmaOverride">
+            <summary>
+            Use the processSigma rather than calculate from data
+            </summary>	
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.alarmReportMode">
             <summary>
             Specifies whether only first alarm reported, or all alarms.
             </summary>	
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.cusumKValue">
+            <summary>
+            The cuSum K value
+            </summary>		
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.cusumHValue">
+            <summary>
+            The cuSum H value
+            </summary>		
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.primaryControlLimitAlarms">
+            <summary>
+             A historical record of the primary control limit alarms.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.secondaryControlLimitAlarms">
+            <summary>
+             A historical record of the secondary control limit alarms.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.autoLogAlarmsAsNotes">
+            <summary>
+            Set to true and alarm conditions are automatically appended to the sample intervals note object.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlChartData.trainingMode">
+            <summary>
+            Set to true to force training mode, i.e. no alarms are checked.
+            </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitDefaults">
             <summary>
@@ -5705,6 +6586,15 @@
             </summary>
              <returns> Returns the index of the alarm in the controlLimitValues if any of the alarm
              conditions are true. Otherwise a -1 is returned.</returns>
+             	
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.CheckAllAlarms">
+            <summary>
+             Checks to see if an alarm exists and returns the index of the alarm in the controlLimitValues if any of the alarm
+             conditions are true. Otherwise a -1 is returned.
+            </summary>
+             <returns> Returns the index of the alarm in the controlLimitValues if any of the alarm
+             conditions are true. Otherwise a -1 is returned.</returns>
              		
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeRangeChart(System.Int32)">
@@ -5712,8 +6602,16 @@
              Initialize the class for range chart data for one of the Variable Control Chart types.
             </summary>
              <param name="charttype"> The SPC Control chart type. Use one of the SPCControlChartData  SPC 
-             Control chart constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART or 
+             Control chart constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART or 
              INDIVIDUAL_RANGE_CHART.
+             </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeMiscCharts(System.Int32)">
+            <summary>
+             Initialize the class  for one of the misc. (EWMA, etc.) Variable Control Chart types.
+            </summary>
+             <param name="charttype"> The SPC Control chart type. Use one of the SPCControlChartData  SPC 
+             Control chart constants: EWMA.
              </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeDefectiveChart(System.Int32)">
@@ -5721,9 +6619,9 @@
              Initialize the class for chart data for one of the Attribute Control Chart types.
             </summary>
              <param name="charttype"> The Attribute Control chart type. Use one of the SPCControlChartData  SPC Attribute
-             Control chart constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART or INDIVIDUAL_RANGE_CHART,
+             Control chart constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART or INDIVIDUAL_RANGE_CHART,
              CUSTOM_ATTRIBUTE_CONTROL_CHART, PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART.
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeSPCChart(System.Int32)">
@@ -5732,18 +6630,18 @@
             </summary>
              <param name="charttype"> The Attribute Control chart type. Use one of the SPCControlChartData  SPC Attribute
              Control chart constants: PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART.
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeSPCChart(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.InitializeSPCChart(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              Initialize the class for chart data for one of the SPC Control Chart types.
             </summary>
              <param name="charttype"> The Attribute Control chart type. Use one of the SPCControlChartData  SPC Attribute
              Control chart constants: PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART.
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
-             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
+             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numrecordsperchart"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
@@ -5761,22 +6659,22 @@
              Constructor for a Variable Control chart SPCControlChartData class.
             </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART </param>
-             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART </param>
+             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numrecordsperchart"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
             
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.#ctor(System.Int32,System.Int32,System.Int32,com.quinncurtis.chart2dnet.StringArray,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.#ctor(System.Int32,System.Int32,System.Int32,com.quinncurtis.chart2dnet.StringArray,System.Int32,System.Double)">
             <summary>
              Constructor for an Attribute Control chart SPCControlChartData class.
             </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
              PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART_VSS, PERCENT_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS. </param>
+             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numrecordsperchart"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
@@ -5785,14 +6683,14 @@
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
             
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              Constructor for an Attribute Control chart SPCControlChartData class.
             </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
              PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
-             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART . </param>
-             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
+             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART, FRACTION_DEFECTIVE_PARTS_CHART. </param>
+             <param name= "numsamplecategories"> For Variable Control Charts (MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART) this
              value specifies the number of samples that make up a sample subgroup. In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
              <param name= "numrecordsperchart"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
@@ -5844,10 +6742,15 @@
                result[i] = (0.5 + (totaldefectiveparts/(numSampleCategories-1)) *  2.5 * ChartSupport.GetRandomDouble());
               </param>
              <param name= "type"> The Attribute Control chart type, PERCENT_DEFECTIVE_PARTS_CHART,
-              FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,  NUMBER_DEFECTS_CHART 
+              FRACTION_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,  NUMBER_DEFECTS_CHART 
               and NUMBER_DEFECTS_PERUNIT_CHART charts.
               </param>  
             <returns> Returns an array, size numSampleCategories, of double, holding the simulated defect data.</returns>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.CalculateControlLimits(com.quinncurtis.chart2dnet.DoubleArray)">
+            <summary>
+             Calculate the control limits
+            </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.AddNewSampleRecord(com.quinncurtis.chart2dnet.ChartCalendar,com.quinncurtis.chart2dnet.DoubleArray,com.quinncurtis.chart2dnet.DoubleArray,System.String)">
             <summary>
@@ -5868,6 +6771,14 @@
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.AppendNotesString(System.String,System.Boolean)">
             <summary>
              Append the specified string to the current the notes string for the current record.
+             <param name= "notes"> A string specifying any notes associated with this sample subgroup	///  </param>  
+             <param name= "after"> Set to true and the notes string is appended after the current notes string///  </param>  
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.AppendNotesString(System.Int32,System.String,System.Boolean)">
+            <summary>
+             Append the specified string to the current the notes string for the specified record record.
+             <param name= "index"> Sample interval index	///  </param>  
              <param name= "notes"> A string specifying any notes associated with this sample subgroup	///  </param>  
              <param name= "after"> Set to true and the notes string is appended after the current notes string///  </param>  
             </summary>
@@ -6367,6 +7278,24 @@
              <param name= "lcl"> Returns the low control limit for the chart. 	///  </param>
              <param name= "ucl"> Returns the high control limit for the chart. 	///  </param>
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetPrimaryControlLimits_VSS(System.Int32,System.Int32,System.Double,System.Double@,System.Double@,System.Double@,System.Double[],System.Double[],System.Int32,System.Boolean)">
+            <summary>
+             Using the current sampled data values, high, target and low control limits are calculated for the primary
+             chart using an algorithim appropriate to the SPC chart type.
+             </summary>	
+             <param name= "primaryindex"> The calculated value index for the primary chart control data. 	///  </param>
+             <param name= "secondaryindex"> The calculated value index for the secondary chart control data. 	///  </param>
+             <param name= "sigmalevel"> The sigma level of the control chart calculations. 	///  </param>
+             <param name= "target"> Returns the target value value for the chart. 	///  </param>
+             <param name= "xbar"> Sets and returns the target value value for the chart. 	///  </param>
+             <param name= "rbar"> Sets and returns the xbvar value value for the chart. 	///  </param>
+             <param name= "lcl"> Returns the low control limit for the chart. 	///  </param>
+             <param name= "ucl"> Returns the high control limit for the chart. 	///  </param>
+             <param name= "samplesubgroupsize"> Specifies the sample subgroup size. 	///  </param>
+             <param name= "reinit"> If true, reinitialize controls limits using all current data, otherwise uses the
+             target, xbar and rbar values passed in. 	
+             ///  </param>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetSecondaryControlLimits(System.Int32,System.Int32,System.Double,System.Double@,System.Double@,System.Double@)">
             <summary>
              Using the current sampled data values, high, target and low control limits are calculated for the primary
@@ -6393,6 +7322,24 @@
              <param name= "ucl"> Returns the high control limit for the chart. 	///  </param>
              
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetSecondaryControlLimits_VSS(System.Int32,System.Int32,System.Double,System.Double@,System.Double@,System.Double@,System.Double[],System.Double[],System.Int32,System.Boolean)">
+            <summary>
+             Using the current sampled data values, high, target and low control limits are calculated for the primary
+             chart using an algorithim appropriate to the SPC chart type.
+             </summary>	
+             <param name= "primaryindex"> The calculated value index for the primary chart control data. 	///  </param>
+             <param name= "secondaryindex"> The calculated value index for the secondary chart control data. 	///  </param>
+             <param name= "sigmalevel"> The sigma level of the control chart calculations. 	///  </param>
+             <param name= "target"> Returns the target value value for the chart. 	///  </param>
+             <param name= "xbar"> Sets and returns the target value value for the chart. 	///  </param>
+             <param name= "rbar"> Sets and returns the xbvar value value for the chart. 	///  </param>
+             <param name= "lcl"> Returns the low control limit for the chart. 	///  </param>
+             <param name= "ucl"> Returns the high control limit for the chart. 	///  </param>
+             <param name= "samplesubgroupsize"> Specifies the sample subgroup size. 	///  </param>
+             <param name= "reinit"> If true, reinitialize controls limits using all current data, otherwise uses the
+             target, xbar and rbar values passed in. ///  </param>
+             
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetYAxisTitle(System.Int32,System.Int32)">
             <summary>
              Get the y-axis title or a specific index, based description of the item in the SPCCalculatedValueRecord or
@@ -6413,6 +7360,16 @@
               </param>
             <returns> Returns the sampled value record at the specified index.</returns>
             
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.IsSampledValueValid(System.Int32,System.Int32)">
+            <summary>
+             Returns true if the row and col index are valid, in the case of variable sample sizes..
+            </summary>
+             <param name= "row"> The index of the item in the sampledValues array.
+              </param>
+             <param name= "col"> The time index of the item in the SPCSampledValueRecord.SampledValues array..
+              </param>
+            <returns> Returns true if the row and col index are valid, in the case of variable sample sizes.</returns>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetSampledValue(System.Int32,System.Int32)">
             <summary>
@@ -6605,6 +7562,13 @@
             <returns> Returns  true if the control limit record at the index is initiated.</returns>
             
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetControlLimitValue(System.Int32)">
+            <summary>
+             Get a control limit value (for charts with variable control limits) at a specific row (index) and column (time).
+            </summary>
+             <param name= "row"> The index of the SPCControlLimitRecord record in the in the controlLimitValues array.
+              </param>
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetControlLimitValue(System.Int32,System.Int32)">
             <summary>
              Get a control limit value (for charts with variable control limits) at a specific row (index) and column (time).
@@ -6618,20 +7582,33 @@
             <summary>
              Get the control limit text at the specified index.
             </summary>
-             <param name= "item"> The index of the desired SPCControlLimitRecord in the controlLimitValues array.
-              </param>
+             <param name= "item"> The index of the desired SPCControlLimitRecord in the controlLimitValues array.</param>
             <returns> Returns the control limit text at the specified index.</returns>
             
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.ExcludeRecordFromControlLimitCalculations(System.Int32,System.Boolean)">
-            <summary>
-             Exclude the specified record from the SOC control limit calculations.
+            <summary> 
+              Exclude the specified record from the SOC control limit calculations.
             </summary>
              <param name= "item"> The index of the item to exclude.
               </param>
              <param name= "exclude"> Set true and the item is excluded. Set false and it is included.
               </param>
             
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.UpdateCusumParams(System.Double,System.Double,System.Double)">
+            <summary>
+             Update the CuSum specific parameters in all associated records
+             </summary>
+             <param name= "mean">  The process mean. </param>
+             <param name= "kvalue"> Th k-value needed for the Cusum chart. </param> 
+             <param name= "hvalue"> The h-value needed for the Cusum chart. </param> 
+             
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.AssumeTrainingMode">
+            <summary>
+            If all alarm limit values are 0.0, assume alarms have not been set, therefore training mode.
+            </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlChartData.GetSampleRowHeaderString(System.Int32)">
              <summary>
@@ -6666,6 +7643,11 @@
             <summary>
             Delegate for notification each time the check of an process variable produces a change of state in alarm 
             state condition.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.TrainingMode">
+            <summary>
+            Set/Get the maximum number of records displayable at one time in the chart.
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.NumRecordsPerChart">
@@ -6773,6 +7755,11 @@
             The data table time value row header.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.AlarmStatusValueRowHeader">
+            <summary>
+            The data table time value row header.
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.NumberSamplesValueRowHeader">
             <summary>
             Get/Set the data table number of samples row header.
@@ -6781,6 +7768,16 @@
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.DefectiveDecimalPrecision">
             <summary>
             Set/Get the default value to use for the decimal precision used to display defective item counts, -1 = auto.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.ProcessCapabilityDecimalPrecision">
+            <summary>
+            Set/Get the default value to use for the decimal precision used to display process capability values, -1 = auto.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.CalculatedValueDecimalPrecision">
+            <summary>
+            Set/Get the default value to use for the decimal precision used to display calculated values, -1 = auto.
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.AlarmStateEventEnable">
@@ -6795,7 +7792,7 @@
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.SPCChartType">
             <summary>
-            Set/Get the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART,
+            Set/Get the control chart type: use one of the SPCControlChartData chart type constants: MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, MEAN_VARIANCE_CHART, INDIVIDUAL_RANGE_CHART,
             CUSTOM_ATTRIBUTE_CONTROL_CHART,	PERCENT_DEFECTIVE_PARTS_CHART,	FRACTION_DEFECTIVE_PARTS_CHART,	NUMBER_DEFECTIVE_PARTS_CHART, 
             NUMBER_DEFECTS_CHART, NUMBER_DEFECTS_PERUNIT_CHART .
             </summary>
@@ -6803,6 +7800,11 @@
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.SampleSubgroupSize">
             <summary>
             Set/Get the number of samples in a sample sub group for a Variable Control chart.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.SampleSubgroupSize_VSS">
+            <summary>
+            Set/Get the number of samples in a sample sub group for a Variable Control chart that used a variable sample size.
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.NumSampleCategories">
@@ -6887,6 +7889,11 @@
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.NotesToolTips">
+            <summary>
+            Set/Get the notes tool tip.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.AlarmStatusToolTips">
             <summary>
             Set/Get the notes tool tip.
             </summary>
@@ -7050,6 +8057,66 @@
             Get the USL value for this record.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.EWMA_Lambda">
+            <summary>
+            Set/Get the lambda value for EWMA calculations.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.EWMA_StartingValue">
+            <summary>
+            Set/Get the lambda value for EWMA calculations.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.EWMA_UseSSLimits">
+            <summary>
+            Set/Get  EWMA steady-state limits
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.UpdateIndex">
+            <summary>
+            Set/Get the EWMA index value
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.MA_w">
+            <summary>
+            Set/Get the MA length value for MA calculations.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.ProcessMean">
+            <summary>
+            The process mean
+            </summary>	
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.ProcessMeanOverride">
+            <summary>
+            Use the processMean rather than calculate from data
+            </summary>		
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.ProcessSigma">
+            <summary>
+            The process sigma
+            </summary>	
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.ProcessSigmaOverride">
+            <summary>
+            Use the processSigma rather than calculate from data
+            </summary>	
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.CusumKValue">
+            <summary>
+            The cuSum K value
+            </summary>		
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.CusumHValue">
+            <summary>
+            The cuSum H value
+            </summary>		
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlChartData.AutoLogAlarmsAsNotes">
+            <summary>
+            Set/Get true to automatically log alarm conditions to the samples intervals notes object.
+            </summary>
+        </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCControlChartData.AlarmSort">
             <summary>
             A local class used to sort the alarm objects by the alarm limit value.
@@ -7166,12 +8233,12 @@
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPC_WE_3">
             <summary>
-             Specifies Western Electric control rule 1 (4 out of 5 outside 1-sigma limit).
+             Specifies Western Electric control rule 3 (4 out of 5 outside 1-sigma limit).
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPC_WE_4">
             <summary>
-             Specifies Western Electric control rule 1 (8 out of 8 on one side of center line).
+             Specifies Western Electric control rule 4 (8 out of 8 on one side of center line).
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPC_CUSTOM_CONTROL_RULE">
@@ -7248,6 +8315,21 @@
              Specifies process variable associated with the alarm.
             </summary>		
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.spcChartObject">
+            <summary>
+             Specifies which SPCChartObjects the alarm is displayed in.
+            </summary>		
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.spcPlotObjectData">
+            <summary>
+             Specifies which SPCControlPlotObjectData the alarm is displayed in.
+            </summary>	
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.spcControlLimitIndex">
+            <summary>
+             Specifies the index of this record in the controlLimitValues array.
+            </summary>	
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.calculatedValueIndex">
             <summary>
              Specifies the index of the calculated value record associated with this control limit.
@@ -7273,6 +8355,12 @@
             <summary>
              
              Specifies the rule used to determine if value in alarm or not.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlLimitRecord.comparisonOperator">
+            <summary>
+             
+             Set to true to use less than or equal (or greater than or equal)  in comparison of process value to low alarm limit value, otherwise less than (or greater than) is used.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.Clone">
@@ -7376,9 +8464,16 @@
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.WEControlRuleCheck">
             <summary>
-              Check the current value against an alarm that is a WE Runtime Rule.
+              Check the current value against the parameterValue.
             </summary>
-            <return> Returns true if the WE alarm condition is met. </return>
+            <return> Returns true if the alarm condition is met. Hysteresis values are used in the alarm checking </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.WEControlRuleCheck(System.Int32)">
+            <summary>
+              Check the current value against the parameterValue.
+            </summary>
+            <return> Returns true if the alarm condition is met. Hysteresis values are used in the alarm checking </return>
             
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.CheckAlarm">
@@ -7396,9 +8491,23 @@
             <return> Returns true if the alarm condition is met. Hysteresis values are used in the alarm checking </return>
             
         </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.CheckAlarm(System.Double,System.Int32)">
+            <summary>
+              Check the current value against the parameterValue.
+            </summary>
+            <param name="newvalue"> The value to check against the alarms.</param>
+            <param name="index"> Specifies the history index of the alarm value to use in the calculation.</param>
+            <return> Returns true if the alarm condition is met. Hysteresis values are used in the alarm checking </return>
+            
+        </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.GetAlarm(System.Double)">
             <summary>
               Returns the current alarm state based on the passed in value.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SetControlLimitValueAndHistory(System.Double)">
+            <summary>
+              Set current value of the control limit and adds that value to the controlLimitValues historical array.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SetControlLimitValue(System.Double)">
@@ -7412,6 +8521,11 @@
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SetControlLimitHistoryValue(System.Int32,System.Double)">
+            <summary>
+              Set a values for the controlLimitsValues historical buffer.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlLimitRecord.AddControlLimitHistoryValue(System.Double)">
             <summary>
               Set a values for the controlLimitsValues historical buffer.
             </summary>
@@ -7474,6 +8588,21 @@
               Get/Set the spcDataVar object.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPCChartObject">
+            <summary>
+              Get/Set the chart object that displays this alarm
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPCPlotObjectData">
+            <summary>
+              Get/Set the chart object that displays this alarm
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlLimitRecord.SPCControlLimitIndex">
+            <summary>
+              Get/Set index of this record in the controlLimitValues array
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlLimitRecord.TextColor">
             <summary>
                Get/Set the alarm text color.
@@ -7510,6 +8639,13 @@
              
              Specifies the rule used to determine if value in alarm or not.
              User one of the WE rule values: Specifies one of the WE values:SPC_WE_1 ... SPC_WE_4.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlLimitRecord.ComparisonOperator">
+            <summary>
+             Set to true if a low alarm limit is 0.0, and the process value is 0.0, returns an alarm. This
+             property is set to false for attribute control charts, where the lower limit is often 0, and
+             the process value is 0, signifying no defects. No need to return alarm in that case.
             </summary>
         </member>
         <member name="T:com.quinncurtis.spcchartnet.SPCControlParameters">
@@ -7814,6 +8950,138 @@
             <param name="xbar"> The mean of the subgroup means.</param>
             <param name="sigma"> The mean of the subgroup standard deviations.</param>
             <return> Returns the lower control limit for the X-Bar part of an X-Bar S chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.EWMASSCalculateUCL(System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+             Calculate and return the upper control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="lambda"> The lambda (weighting factor) value of the EWMA chart.</param>
+            <return> Returns the upper control limit for an EWMA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.EWMASSCalculateLCL(System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+             Calculate and return the lower control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="lambda"> The lambda (weighting factor) value of the EWMA chart.</param>
+            <return> Returns the lower control limit for an EWMA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.EWMACalculateUCL(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+             Calculate and return the upper control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="lambda"> The lambda (weighting factor) value of the EWMA chart.</param>
+            <param name="index"> The index of the value of the EWMA chart.</param>
+            <return> Returns the upper control limit for an EWMA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.EWMACalculateLCL(System.Int32,System.Double,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+             Calculate and return the lower control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="lambda"> The lambda (weighting factor) value of the EWMA chart.</param>
+            <param name="index"> The index of the value of the EWMA chart.</param>
+            <return> Returns the lower control limit for an EWMA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.MASSCalculateUCL(System.Int32,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+             Calculate and return the upper control limit for an MA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="w"> The length of the moving average calculation.</param>
+            <return> Returns the upper control limit for an MA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.MASSCalculateLCL(System.Int32,System.Double,System.Double,System.Double,System.Int32)">
+            <summary>
+             Calculate and return the lower control limit for an MA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="w"> The length of the moving average calculation.</param>
+            <return> Returns the lower control limit for an MA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.MACalculateUCL(System.Int32,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+             Calculate and return the upper control limit for an MA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="index"> The index of the value of the MA chart.</param>
+            <param name="w"> The length of the moving average calculation.</param>
+            <return> Returns the upper control limit for an MA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.MACalculateLCL(System.Int32,System.Double,System.Double,System.Double,System.Int32,System.Int32)">
+            <summary>
+             Calculate and return the lower control limit for an MA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <param name="index"> The index of the value of the MA chart.</param>
+            <param name="w"> The length of the moving average calculation.</param>
+            <return> Returns the lower control limit for an MA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.CuSumCalculateUCL(System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+             Calculate and return the upper control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <return> Returns the upper control limit for an EWMA chart. </return>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.CuSumCalculateLCL(System.Int32,System.Double,System.Double,System.Double)">
+            <summary>
+             Calculate and return the lower control limit for an EWMA chart.
+            </summary>
+            <param name="samplesize"> The subgroup sample size. </param>
+            <param name="u"> The mean of the subgroup means.</param>
+            <param name="sigma"> The mean of the subgroup standard deviations.</param>
+            <param name="clsigma"> The sigma level (3.0 is the level used by default in most control charts)
+             to use in calculating the control limit.</param>			
+            <return> Returns the lower control limit for an EWMA chart. </return>
             
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlParameters.XBarSigmaCalculateXBarLCL(System.Int32,System.Double,System.Double,System.Double)">
@@ -8247,17 +9515,12 @@
              Holds a reference to the SimpleDataset used to plot the data.
             </summary>
         </member>
-        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.linePlot">
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.plotType">
             <summary>
-             Holds a reference to the SimpleLinePlot used to plot the data.
+             Holds a reference to the SimpleDataset used to plot the data.
             </summary>
         </member>
-        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.scatterPlot">
-            <summary>
-             Holds a reference to the SimpleScatterPlot used to plot the data.
-            </summary>
-        </member>
-        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.lineMarkerPlot">
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.spcPlotObj">
             <summary>
              Holds a reference to the SimpleLineMarkerPlot used to plot the data.
             </summary>
@@ -8300,6 +9563,11 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.controlLimitRecord">
             <summary>
              Holds a reference to the associated SPCControlLimitRecord object. 
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.enable">
+            <summary>
+             True secifies that the plot object is enabled. 
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.Copy(com.quinncurtis.spcchartnet.SPCControlPlotObjectData)">
@@ -8473,10 +9741,20 @@
              Holds a reference to the SimpleLinePlot used to plot the data.
             </summary>
         </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.BarPlot">
+            <summary>
+             Holds a reference to the SimpleLinePlot used to plot the data.
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.ScatterPlot">
             <summary>
              Holds a reference to the SimpleScatterPlot used to plot the data.
             </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.SPCPlotObj">
+            <summary>
+             Holds a reference to the SimpleLineMarkerPlot used to plot the data.
+            </summary>	
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.LineMarkerPlot">
             <summary>
@@ -8511,6 +9789,11 @@
         <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.ControlLimitSigmaLevel">
             <summary>
              Sigma level for the plotted limit. 
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.Enable">
+            <summary>
+             Enable flag for object. 
             </summary>
         </member>
         <member name="P:com.quinncurtis.spcchartnet.SPCControlPlotObjectData.ControlLimitRecord">
@@ -8686,6 +9969,11 @@
              Constant specifies that the table uses horizontal stripes of color for the background (backgroundColor1 and backgroundColor2).
             </summary>
         </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.TABLE_SINGLE_COLOR_BACKGROUND_GRIDCELL">
+            <summary>
+             Constant specifies that the table uses a grid cell of color for the background (backgroundColor1 and backgroundColor2).
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.defaultTableFont">
             <summary>
              The default font used in the display of all strings in the table.
@@ -8828,7 +10116,7 @@
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.tableBackgroundMode">
             <summary>
-             The first of two colors used in the alternating background colors used to delineate the table rows.
+             The second of two colors used in the alternating background colors used to delineate the table rows.
             </summary>
         </member>
         <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.defaultCoordinates">
@@ -8845,6 +10133,11 @@
         <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.backgroundBarXOffset">
             <summary>
              Background bar left offset.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.backgroundLineWidth">
+            <summary>
+             The line width used for grid cells.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.Copy(com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay)">
@@ -8872,6 +10165,16 @@
             <param name="starty"> The starting y-position, in normalized coordinates, of the bar.</param>
             <param name="stopx"> The ending x-position, in normalized coordinates, of the bar.</param>
             <param name="stopy"> The ending y-position, in normalized coordinates, of the bar.</param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddHorizontalBar(System.Double,System.Double,System.Double,System.Double,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+              Add a horizontal bar as a row background for the table. 
+            </summary>
+            <param name="startx"> The starting x-position, in normalized coordinates, of the bar.</param>
+            <param name="starty"> The starting y-position, in normalized coordinates, of the bar.</param>
+            <param name="stopx"> The ending x-position, in normalized coordinates, of the bar.</param>
+            <param name="stopy"> The ending y-position, in normalized coordinates, of the bar.</param>
+            <param name="attrib1"> The attribute of the horizontal bar.</param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.#ctor">
             <summary>
@@ -9078,6 +10381,58 @@
             </summary>
             <param name="numericvalue"> Specifies the numeric value that is to be added to the table. </param>
             <param name="decs"> Specifies the decimal precision to use when converting the numeric value to a string. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddProcessCapabilityItem(System.Double)">
+            <summary>
+              Add a process capability numeric item to the table, using the numericColumnSpacing spacing increment and decimal precision. 
+            </summary>
+            <param name="numericvalue"> Specifies the numeric value that is to be added to the table. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(com.quinncurtis.chart2dnet.StringLabel,System.Double)">
+            <summary>
+              Add an alarm status item to the table, using the specified column spacing increment. 
+            </summary>
+            <param name="columnlabel"> Specifies the StringLabel object that is to be added to the table. </param>
+            <param name="spacing"> Specifies the column spacing increment in normalized coordinates. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(System.String,System.Double)">
+            <summary>
+              Add an column string item to the table, using the specified column spacing increment. 
+            </summary>
+            <param name="columnstring"> Specifies the string object that is to be added to the table. </param>
+            <param name="spacing"> Specifies the column spacing increment in normalized coordinates. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(System.String,System.Double,System.Int32)">
+            <summary>
+              Add an column string item to the table, using the specified column spacing increment and justification. 
+            </summary>
+            <param name="columnstring"> Specifies the string object that is to be added to the table. </param>
+            <param name="spacing"> Specifies the column spacing increment in normalized coordinates. </param>
+            <param name="xjust"> Specifies the x-justification to use in positioning the time item in the table </param>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(System.String,System.Double,System.Int32,System.Int32)">
+            <summary>
+              Add an column string item to the table, using the specified column spacing increment, justification and format. 
+            </summary>
+            <param name="columnstring"> Specifies the string object that is to be added to the table. </param>
+            <param name="spacing"> Specifies the column spacing increment in normalized coordinates. </param>
+            <param name="xjust"> Specifies the x-justification to use in positioning the time item in the table </param>
+            <param name="format"> Specifies the format. </param>
+            
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(System.String)">
+            <summary>
+              Add an column string item item to the table, using timeColumnSpacing as the column increment. 
+            </summary>
+            <param name="columnstring"> Specifies the string object that is to be added to the table. </param>
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.AddColumnStringItem(System.String,System.Int32)">
+            <summary>
+              Add an column string item to the table using the specified format, using timeColumnSpacing as the column increment. 
+            </summary>
+            <param name="columnstring"> Specifies the string object that is to be added to the table. </param>
+            <param name="format"> Specifies the  format to use. </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCGeneralizedTableDisplay.GetChartLabel(System.Int32)">
             <summary>
@@ -9544,7 +10899,7 @@
             <summary>
             An Attribute Control Chart class that uses a TimeCoordinate system with a time based X-Axis. This class can be used
             to create PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-            NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART SPC chart types.
+            NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS SPC chart types.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.InitDefaults">
@@ -9572,7 +10927,7 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
             
         </member>
@@ -9582,17 +10937,17 @@
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS .
              </param>
              
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.InitSPCTimeAttributeControlChart(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.InitSPCTimeAttributeControlChart(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Initialize the class for a specific SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS .
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9601,13 +10956,13 @@
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS .
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9616,7 +10971,7 @@
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
@@ -9624,7 +10979,7 @@
             <param name="parent"> The parent form the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9633,7 +10988,7 @@
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
@@ -9641,7 +10996,7 @@
             <param name="parent"> The parent control the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9650,7 +11005,7 @@
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Panel,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Panel,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
@@ -9658,7 +11013,7 @@
             <param name="parent"> The parent Panel the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9667,7 +11022,7 @@
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.TabPage,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeAttributeControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.TabPage,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
@@ -9675,7 +11030,7 @@
             <param name="parent"> The parent TabPage the ChartView is placed in. </param>
             <param name="charttype"> Specifies the chart type. Use one of the SPC Attribute Control chart types:
              PERCENT_DEFECTIVE_PARTS_CHART, FRACTION_DEFECTIVE_PARTS_CHART, NUMBER_DEFECTIVE_PARTS_CHART,
-             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART.
+             NUMBER_DEFECTS_PERUNIT_CHART, NUMBER_DEFECTS_CHART, PERCENT_DEFECTIVE_PARTS_CHART_VSS, FRACTION_DEFECTIVE_PARTS_CHART_VSS, NUMBER_DEFECTS_PERUNIT_CHART_VSS.
              </param>
              <param name= "numcategories"> In Attribute Control Charts this value represents the number
              of defect categories used to determine defect counts. </param>
@@ -9698,7 +11053,7 @@
         <member name="T:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart">
             <summary>
             A Variable Control Chart class that uses a TimeCoordinate system with a time based X-Axis. This class can be used
-            to create MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART chart types.
+            to create MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART chart types.
             </summary>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.InitDefaults">
@@ -9711,7 +11066,7 @@
               Set SPC chart values specific to the SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART.
              </param>
         </member>
         <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor">
@@ -9724,7 +11079,7 @@
               A constructor for this chart. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART.
              </param>
              
         </member>
@@ -9733,76 +11088,89 @@
               Initialize the class for a specific SPC chart type. 
             </summary>
             <param name="charttype"> Specifies the chart type. Use one of the SPCControlChartData SPC Varaible Control chart types:
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART.
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART.
              </param>
              
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.InitSPCTimeVariableControlChart(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.InitSPCTimeVariableControlChart(System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This initialization method initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
              
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.InitSPCTimeCusumControlChart(System.Int32,System.Int32,System.Int32,System.Double,System.Double,System.Double,System.Double)">
+            <summary>
+             This initialization method initializes the most important values in the creattion of an SPC chart.
+             </summary>
+             <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
+             <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
+             <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
+             <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
+             <param name= "mean">  The process mean. </param>
+             <param name= "kvalue"> Th k-value needed for the Cusum chart. </param>/// 
+             <param name= "hvalue"> The h-value needed for the Cusum chart. </param>/// 
+        </member>
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
              This constructor initializes the most important values in the creattion of an SPC chart.
              </summary>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART,. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
             
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Form,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent form the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Control,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent control the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Panel,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.Panel,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent Panel the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHAR, MEAN_SIGMA_CHART_VSS, EWMA_CHARTT. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 
         </member>
-        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.TabPage,System.Int32,System.Int32,System.Int32,System.Int32)">
+        <member name="M:com.quinncurtis.spcchartnet.SPCTimeVariableControlChart.#ctor(System.Drawing.Rectangle,System.Windows.Forms.TabPage,System.Int32,System.Int32,System.Int32,System.Double)">
             <summary>
               Primary constructor initializes the chart for a specific SPC chart type. 
             </summary>
             <param name="positionRect"> Specifies the position of ChartView in the parent Form. </param>
             <param name="parent"> The parent TabPage the ChartView is placed in. </param>
              <param name= "charttype">  The SPC chart type parameter. Use one of the SPCControlChartData SPC chart types: 
-             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART. </param>
+             MEAN_RANGE_CHART, MEDIAN_RANGE_CHART, MEAN_SIGMA_CHART, INDIVIDUAL_RANGE_CHART, MEAN_SIGMA_CHART_VSS, EWMA_CHART. </param>
              <param name= "numsamplespersubgroup">  The number of samples that make up a sample subgroup. </param>
              <param name= "numdatapointsinview"> Specifies the number of sample subgroups displayed in the graph at one time. </param>/// 
              <param name= "timeincrementminutes"> Specifies the normal time increment between adjacent subgroup samples. </param>/// 

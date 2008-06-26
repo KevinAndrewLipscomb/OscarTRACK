@@ -56,6 +56,7 @@ var
   i: cardinal;
   image: bufferedimage;
 begin
+  //
   chart := spctimevariablecontrolchart.Create
     (
     spccontrolchartdata.INDIVIDUAL_RANGE_CHART,
@@ -65,11 +66,17 @@ begin
     );
   chart.autoscroll := TRUE;
   chart.bounds := rectangle.Create(0,0,781,417);
-  chart.headerstringslevel := spccontrolchartdata.HEADER_STRINGS_LEVEL0;
+  chart.chartdata.defaultsamplevaluestring := EMPTY;
+  chart.chartdata.defectivedecimalprecision := 0;
+  chart.enablealarmstatusvalues := FALSE;
   chart.enablecalculatedvalues := FALSE;
   chart.enablenotes := FALSE;
   chart.enabletimevalues := FALSE;
   chart.enabletotalsamplesvalues := FALSE;
+  chart.headerstringslevel := spccontrolchartdata.HEADER_STRINGS_LEVEL0;
+  chart.primarychart.displaychart := TRUE;
+  chart.textrenderinghint := textrenderinghint.CLEARTYPEGRIDFIT;
+  //
   history := TClass_biz_agencies.Create.SerialIndicatorData
     (
     Safe(request['indicator'],ECMASCRIPT_WORD),
@@ -86,8 +93,8 @@ begin
   end;
   chart.AutoCalculatePrimaryControlLimits;
   chart.AutoScalePrimaryChartYRange;
-  chart.secondarychart.displaychart := FALSE;
-  chart.textrenderinghint := textrenderinghint.CLEARTYPEGRIDFIT;
+  chart.chartdata.SetSampleRowHeaderString(0,EMPTY);
+  //
   chart.RebuildChartUsingCurrentData;
   //
   image := bufferedimage.Create(chart,imageformat.JPEG);
