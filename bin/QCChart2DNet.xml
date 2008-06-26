@@ -1004,6 +1004,11 @@
              Background for the graph area of the chart
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.CHARTATTRIBUTE_BGMODE">
+            <summary> 
+             Chart Attribute background mode
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.chart2dnet.ChartObj.ALTBARMODE">
             <summary> 
              Use user-defined texture for background texture
@@ -3905,6 +3910,31 @@
         <member name="F:com.quinncurtis.chart2dnet.ChartObj.PRE_RENDER_ZORDER_CHANGE">
             <summary>
             Pre-render objects if the z-order of any objects has changed.
+            </summary>>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.GRADIENT_NONE">
+            <summary>
+            No Gradient
+            </summary>>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.GRADIENT_MAPTO_OBJECT">
+            <summary>
+            Map the gradient breakpoints to the associated object.
+            </summary>>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES">
+            <summary>
+            Map the gradient breakpoints to the physical coordinate system of the plot
+            </summary>>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES">
+            <summary>
+            Map the gradient breakpoints to the plot normalized coordinate system of the plot.
+            </summary>>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartObj.GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES">
+            <summary>
+            Map the gradient breakpoints to the plot normalized coordinate system of the plot.
             </summary>>
         </member>
         <member name="F:com.quinncurtis.chart2dnet.ChartObj.ERROR_FILEREAD">
@@ -7721,6 +7751,18 @@
             <param name="barwidth"> Specifies the bar width of the background bars. </param>
             <param name="dir"> Specifies the direction of the gradient.</param>
         </member>
+        <member name="M:com.quinncurtis.chart2dnet.Background.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,System.Int32,com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+              This constructor creates a  Background object based on the specified ChartAttribute object. If a gradient is
+              attached to the ChartAttribute, the gradient is used. The gradient breakpoints should be specified using GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES or
+              GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES.
+            </summary>
+            <param name="transform"> The scale associated with the chart background. </param>
+            <param name="bgtype"> The chart background type. Use one of the chart background type constants:  
+            PLOT_BACKGROUND or GRAPH_BACKGROUND. Specifying the PLOT_BACKGROUND type fills the plotting  area 
+            of the chart, while specifying the GRAPH_BACKGROUND type fills the entire  graph area of the chart. </param>
+            <param name="attrib"> The background attribute.</param>
+        </member>
         <member name="M:com.quinncurtis.chart2dnet.Background.AltBarDraw(System.Drawing.Graphics,com.quinncurtis.chart2dnet.Rectangle2D,System.Drawing.Brush,System.Drawing.Brush)">
             <summary>
               The draw method the ALTBARMODE background mode. The background is drawn as
@@ -9850,6 +9892,11 @@
              A local GraphicsPath used for drawing
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.UserCoordinates.autoGradientDirection">
+            <summary>
+             The direction of an auto-gradients applied to objects in this coordinate system.
+            </summary>		
+        </member>
         <member name="M:com.quinncurtis.chart2dnet.UserCoordinates.InitDefaults">
             <summary>
               Initializes default values for the object.
@@ -10027,6 +10074,20 @@
             <param name="p"> An array, size numdat, of points defining the endpoints of the line segments  
             that are added to the specified path. </param>
             <param name="numdat"> The number of points in the array.</param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.UserCoordinates.CalcShadowColor(System.Drawing.Color)">
+            <summary>
+               Returns RGB color code which is darker than rgbColor and is appropriate for shading
+            </summary>
+            <param name="rgbcolor"> Specifies the source color. </param>
+            <return> Returns RGB color code which is darker than rgbColor and is appropriate for shading </return>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.UserCoordinates.CalcHighlightColor(System.Drawing.Color)">
+            <summary>
+               Returns RGB color code which is lighter than rgbColor and is appropriate for shading
+            </summary>
+            <param name="rgbcolor"> Specifies the source color. </param>
+            <return> Returns RGB color code which is lighter than rgbColor and is appropriate for shading </return>
         </member>
         <member name="M:com.quinncurtis.chart2dnet.UserCoordinates.DrawFillPath(System.Drawing.Graphics,System.Drawing.Drawing2D.GraphicsPath)">
             <summary>
@@ -10252,6 +10313,11 @@
             <summary>
              Set/Get the current user viewport. 
             </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.UserCoordinates.AutoGradientDirection">
+            <summary>
+             The direction of an auto-gradients applied to objects in this coordinate system.
+            </summary>		
         </member>
         <member name="F:com.quinncurtis.chart2dnet.WorldCoordinates.worldScale">
             <summary>
@@ -12019,6 +12085,16 @@
              Minimum line width
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartAttribute.gradient">
+            <summary>
+             The ChartGradient object controls the simple (2-color) and complex (multi-color) gradients.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartAttribute.autoGradient">
+            <summary>
+             True and a mild gradient is applied to area fills.
+            </summary>
+        </member>
         <member name="M:com.quinncurtis.chart2dnet.ChartAttribute.InitDefaults">
             <summary>
               Initializes default values for the  ChartAttributes class.
@@ -12375,6 +12451,16 @@
         <member name="P:com.quinncurtis.chart2dnet.ChartAttribute.CurrentPen">
             <summary>
              Set/Get the current pen object. 
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartAttribute.Gradient">
+            <summary>
+             The ChartGradient object controls the simple (2-color) and complex (multi-color) gradients.
+            </summary>	 
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartAttribute.AutoGradient">
+            <summary>
+             Set/Get the auto gradient mode for filled objects. 
             </summary>
         </member>
         <member name="T:com.quinncurtis.chart2dnet.ChartBrushes">
@@ -13191,6 +13277,16 @@
              datapoint (two  for the DATACOMPRESS_MINMAX compression type) in the compressed dataset.
             </summary>		
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartDataset.lastFastClipStartIndex">
+            <summary>
+             Remembers last starting position of fast clipping for faster access.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartDataset.lastFastClipStopIndex">
+            <summary>
+             Remembers last ending position of fast clipping for faster access.
+            </summary>
+        </member>
         <member name="M:com.quinncurtis.chart2dnet.ChartDataset.ErrorCheck(System.Int32)">
             <summary>
               Checks the current dataset object for common errors. 
@@ -13561,6 +13657,16 @@
              datapoint (two  for the DATACOMPRESS_MINMAX compression type) in the compressed dataset.
             </summary>		
         </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartDataset.LastFastClipStartIndex">
+            <summary>
+             Get/Set last starting position of fast clipping for faster access.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartDataset.LastFastClipStopIndex">
+            <summary>
+             Get/Set  last ending position of fast clipping for faster access.
+            </summary>
+        </member>
         <member name="P:com.quinncurtis.chart2dnet.ChartDataset.Item(System.Int32)">
             <summary>
               This accessor is the indexer for the class and get/sets the value of an individual x 
@@ -13623,6 +13729,198 @@
              Returns the error exception string. 
             </summary>
             <returns> Returns the error exception string.</returns>
+        </member>
+        <member name="T:com.quinncurtis.chart2dnet.ChartGradient">
+            <summary>
+              This class consolidates the chart gradient options into a single class.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.gradientDirection">
+            <summary>
+             Specifies the gradient direction to use if CustomBrush set to LinearGradientBrush.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.gradientColors">
+            <summary>
+             An array of gradient colors used to define the gradient
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.gradientBreakpoints">
+            <summary>
+             An array of gradient breakpoints, one for each color.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.currentGradientBrush">
+            <summary>
+             The current LinearGradientBrush.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.gradientRectangle">
+            <summary>
+             The rectangle, in device coordinates, that the gradient is applied too..
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.gradientMode">
+            <summary>
+            The gradient mapping mode. Use one of the gradient mapping mode constants: GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, and GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES.
+            </summary>
+        </member>
+        <member name="F:com.quinncurtis.chart2dnet.ChartGradient.chartObjScale">
+            <summary> The coordinate system of the object the ChartGradient is to apply to. This is needed only if you use the
+             GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES gradient mode.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor">
+            <summary>
+             Default constructor for the ChartGradient class. 
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(System.Drawing.Color[])">
+            <summary>
+             Constructor for the ChartGradient class. A gradient direction of -90 (pointing up) is assumed.
+            </summary>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient. The colors are spread equally across
+            the range of the target gradient. </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(System.Drawing.Color[],System.Int32)">
+            <summary>
+             Constructor for the ChartGradient classt. 
+            </summary>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient. The colors are spread equally across
+            the range of the target gradient. </param>
+            <param name="graddir"> The direction of the gradient in degrees. The value of 0 points along at the x-axis and increasing values rotate clockwise.
+             If you use the GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, always specify a value that is a multiple of 90 (0, 90, 180, 270, 360). For the other 
+             gradient modes you can specify any value between +- 360.
+            </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(System.Drawing.Color[],System.Double[],System.Int32)">
+            <summary>
+             Constructor for the ChartGradient classt. 
+            </summary>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient.</param>
+            <param name="gradbreak"> An array of double, same size as gradcolors, specifying the breakpoints of the gradient colors. For
+            the GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, and GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES modes, the
+            first value of the array should always be 0.0 and the last value should always be 1.0. The other values should be in the range 0.0 to 1.0.
+             In the case of GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES,
+            the first values should be the scale minimum and the last value should be the scale maximum. The other values should be between this range.
+            </param>
+            <param name="graddir"> The direction of the gradient in degrees. The value of 0 points along at the x-axis and increasing values rotate clockwise.
+             If you use the GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, always specify a value that is a multiple of 90 (0, 90, 180, 270, 360). For the other 
+             gradient modes you can specify any value between +- 360.
+            </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,System.Drawing.Color[],System.Double[],System.Int32)">
+            <summary>
+             Constructor for the ChartGradient classt. 
+            </summary>
+            <param name="transform"> The coordinate system of the object the ChartGradient is to apply to. This is needed only if you use the
+             GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES gradient mode.</param>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient.</param>
+            <param name="gradbreak"> An array of double, same size as gradcolors, specifying the breakpoints of the gradient colors. For
+            the GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, and GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES modes, the
+            first value of the array should always be 0.0 and the last value should always be 1.0. The other values should be in the range 0.0 to 1.0.
+             In the case of GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES,
+            the first values should be the scale minimum and the last value should be the scale maximum. The other values should be between this range.
+            </param>
+            <param name="graddir"> The direction of the gradient in degrees. The value of 0 points along at the x-axis and increasing values rotate clockwise.
+             If you use the GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, always specify a value that is a multiple of 90 (0, 90, 180, 270, 360). For the other 
+             gradient modes you can specify any value between +- 360.
+            </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(System.Int32,System.Drawing.Color[],System.Double[],System.Int32)">
+            <summary>
+             Constructor for the ChartGradient classt. 
+            </summary>
+            <param name="gradmode"> The gradient mode, use one of the gradient mode constants: 
+            GRADIENT_MAPTO_OBJECT,  GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, 
+            or GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES. </param>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient.</param>
+            <param name="gradbreak"> An array of double, same size as gradcolors, specifying the breakpoints of the gradient colors. For
+            the GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, and GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES modes, the
+            first value of the array should always be 0.0 and the last value should always be 1.0. The other values should be in the range 0.0 to 1.0.
+             In the case of GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES,
+            the first values should be the scale minimum and the last value should be the scale maximum. The other values should be between this range.
+            </param>
+            <param name="graddir"> The direction of the gradient in degrees. The value of 0 points along at the x-axis and increasing values rotate clockwise.
+             If you use the GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, always specify a value that is a multiple of 90 (0, 90, 180, 270, 360). For the other 
+             gradient modes you can specify any value between +- 360.
+            </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.#ctor(com.quinncurtis.chart2dnet.PhysicalCoordinates,System.Int32,System.Drawing.Color[],System.Double[],System.Int32)">
+            <summary>
+             Constructor for the ChartGradient classt. 
+            </summary>
+            <param name="transform"> The coordinate system of the object the ChartGradient is to apply to. This is needed only if you use the
+             GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES gradient mode. </param>
+            <param name="gradmode"> The gradient mode, use one of the gradient mode constants: 
+            GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, 
+            or GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES. </param>
+            <param name="gradcolors"> An array of gradient colors, one for each color in the gradient.</param>
+            <param name="gradbreak"> An array of double, same size as gradcolors, specifying the breakpoints of the gradient colors. For
+            the GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, and GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES modes, the
+            first value of the array should always be 0.0 and the last value should always be 1.0. The other values should be in the range 0.0 to 1.0.
+             In the case of GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES,
+            the first values should be the scale minimum and the last value should be the scale maximum. The other values should be between this range.
+            </param>
+            <param name="graddir"> The direction of the gradient in degrees. The value of 0 points along at the x-axis and increasing values rotate clockwise.
+             If you use the GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, always specify a value that is a multiple of 90 (0, 90, 180, 270, 360). For the other 
+             gradient modes you can specify any value between +- 360.
+            </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.Copy(com.quinncurtis.chart2dnet.ChartGradient)">
+            <summary>
+             Copies the source ChartGradient object. 
+            </summary>
+            <param name="source"> The source object.</param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.MakeGradientBrush">
+            <summary>
+             Makes a LinearGradientBrush using the current properties. 
+            </summary>
+             <return> Returns a LinearGradientBrush using the current properties. </return>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartGradient.Clone">
+            <summary>
+             Returns an object that is a clone of this ChartGradient object. 
+            </summary>
+            <returns> Returns a clone of this ChartGradient object.</returns>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientDirection">
+            <summary>
+             Get/Set the gradient direction in degrees (+- 360), with 0 pointing to the right along the x-axis.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientColors">
+            <summary>
+             Get/Set the gradient colors for the color blend of the LinearGradientBrush.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientBreakpoints">
+            <summary>
+             Get/Set the gradient breakpoints for the color blend of the LinearGradientBrush.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientBrush">
+            <summary>
+             Returns the most recent LinearGradientBrush, without remaking it.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientRectangle">
+            <summary>
+             Get/Set the gradient rectangle for the color blend of the LinearGradientBrush.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.ChartObjScale">
+            <summary>
+             Get/Set the physical coordinate system associated with the gradient.
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.ChartGradient.GradientMode">
+            <summary>
+             Get/Set the gradient mode. Use one of the gradient mode constants: 
+            GRADIENT_MAPTO_OBJECT, GRADIENT_MAPTO_PLOT_PHYSICAL_COORDINATES, GRADIENT_MAPTO_PLOT_NORMALIZED_COORDINATES, 
+            or GRADIENT_MAPTO_GRAPH_NORMALIZED_COORDINATES. 
+            </summary>
         </member>
         <member name="T:com.quinncurtis.chart2dnet.ChartImage">
             <summary>
@@ -15784,10 +16082,29 @@
             </summary>
             <param name="size"> Returns the minimum allowable size for the component.</param>
         </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartView.AddDLL(System.String)">
+            <summary>
+              Add a dll to the dll file list.
+            </summary>
+            <param name="dllfile"> Fully qualified path to the dll file. </param>
+        </member>
         <member name="M:com.quinncurtis.chart2dnet.ChartView.InitDefaults">
             <summary>
               Initializes default values for the class.
             </summary>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartView.CheckMode">
+            <summary>
+              Checks the operating mode of the specified file.
+            </summary>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.ChartView.DrawExpirationMessage(System.Drawing.Graphics,com.quinncurtis.chart2dnet.Rectangle2D,System.Drawing.Color)">
+            <summary>
+              The clear method for this class. 
+            </summary>
+            <param name="g2"> The graphics context. </param>
+            <param name="rect"> The rectangle that gets cleared to the specified color. </param>
+            <param name="xcolor"> The color that is used to fill the clear rectangle.</param>
         </member>
         <member name="M:com.quinncurtis.chart2dnet.ChartView.SetViewport(System.Double,System.Double,System.Double,System.Double)">
             <summary>
@@ -15965,13 +16282,6 @@
             <param name="g2"> The graphics context.</param>
             <param name="drect"> The drawing rectangle.</param>
             <param name="message"> The string displayed in the message.</param>
-        </member>
-        <member name="M:com.quinncurtis.chart2dnet.ChartView.DrawLicenseMessages(System.Drawing.Graphics,com.quinncurtis.chart2dnet.Rectangle2D)">
-            <summary>
-              Displays the license ID as a watermark in the graph window.
-            </summary>
-            <param name="g2"> The graphics context.</param>
-            <param name="drect"> The drawing rectangle.</param>
         </member>
         <member name="M:com.quinncurtis.chart2dnet.ChartView.EnabledNoDraw(System.Drawing.Graphics)">
             <summary>
@@ -16249,18 +16559,6 @@
         <member name="P:com.quinncurtis.chart2dnet.ChartView.PreferredSize">
             <summary>
              Get/Set the preferred size of the control:
-              
-            </summary>
-        </member>
-        <member name="P:com.quinncurtis.chart2dnet.ChartView.LS">
-            <summary>
-             Get the the mode.
-              
-            </summary>
-        </member>
-        <member name="P:com.quinncurtis.chart2dnet.ChartView.DL">
-            <summary>
-             Get the the mode.
               
             </summary>
         </member>
@@ -26528,6 +26826,11 @@
              Line marker plots require an extra attributes object
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.lineAttributes">
+            <summary>
+             Line marker plots require an extra attributes object
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.customChartSymbol">
             <summary>
              A custom scatter plot symbol can be used in scatter plots and line marker plots.
@@ -26666,6 +26969,18 @@
             </summary>
             <returns> Returns a copy of the attributes for the filling the scatter plot symbols.</returns>
         </member>
+        <member name="M:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.SetLineAttributes(com.quinncurtis.chart2dnet.ChartAttribute)">
+            <summary>
+             Sets the attributes for the filling the scatter plot symbols. 
+            </summary>
+            <param name="attrib"> Sets the attributes for the filling the scatter plot symbols.</param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.GetLineAttributes">
+            <summary>
+             Returns a copy of the attributes for the filling the scatter plot symbols. 
+            </summary>
+            <returns> Returns a copy of the attributes for the filling the scatter plot symbols.</returns>
+        </member>
         <member name="P:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.SymbolStart">
             <summary>
               Set/Get the symbol start value for line marker plots. 
@@ -26682,6 +26997,11 @@
             </summary>
         </member>
         <member name="P:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.SymbolAttributes">
+            <summary>
+             Sets the attributes for the filling the scatter plot symbols. 
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.SimpleLineMarkerPlot.LineAttributes">
             <summary>
              Sets the attributes for the filling the scatter plot symbols. 
             </summary>
@@ -29401,6 +29721,11 @@
              The programmer uses this string to custom format time axis labels.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.TimeAxisLabels.customTimeCrossoverFormatString">
+            <summary>
+             The programmer uses this string to custom format crossover time axis labels.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.chart2dnet.TimeAxisLabels.axisLabelsDecimalPos">
             <summary>
              Used when a time axis label requires a decimal. Not supported at this time.
@@ -29598,6 +29923,18 @@
             </summary>
             <returns> Returns the time format string when custom labels are used for time values. </returns>
         </member>
+        <member name="M:com.quinncurtis.chart2dnet.TimeAxisLabels.SetCustomTimeCrossoverFormatString(System.String)">
+            <summary>
+             Sets the crossover time format string when custom labels are used for time values.
+            </summary>
+            <param name="timeformatstring"> Sets the crossover time format string when custom labels are used for time values. </param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.TimeAxisLabels.GetCustomTimeCrossoverFormatString">
+            <summary>
+             Returns the crossover time format string when custom labels are used for time values.
+            </summary>
+            <returns> Returns the crossover  time format string when custom labels are used for time values. </returns>
+        </member>
         <member name="P:com.quinncurtis.chart2dnet.TimeAxisLabels.DateCrossoverCondition">
             <summary>
               Set/Get the crossover label condition for time axis labels. 
@@ -29616,6 +29953,11 @@
         <member name="P:com.quinncurtis.chart2dnet.TimeAxisLabels.CustomTimeFormatString">
             <summary>
               Set/Get the time format string when custom labels are used for time values. 
+            </summary>
+        </member>
+        <member name="P:com.quinncurtis.chart2dnet.TimeAxisLabels.CustomTimeCrossoverFormatString">
+            <summary>
+              Set/Get the crossover time format string when custom labels are used for time values. 
             </summary>
         </member>
         <member name="P:com.quinncurtis.chart2dnet.TimeAxisLabels.EuroAutoFormatMonthDay">
@@ -30636,6 +30978,11 @@
              The programmer uses this string to custom format time axis labels.
             </summary>
         </member>
+        <member name="F:com.quinncurtis.chart2dnet.TimeLabel.customTimeCrossoverFormatString">
+            <summary>
+             The programmer uses this string to custom crossover format time axis labels.
+            </summary>
+        </member>
         <member name="F:com.quinncurtis.chart2dnet.TimeLabel.timeFormatStrings">
             <summary>
              An array of format strings, one for each timeFormat constant, used to  convert the time 
@@ -30838,6 +31185,22 @@
         <member name="M:com.quinncurtis.chart2dnet.TimeLabel.GetCustomTimeFormatStrings">
             <summary>
              This methods returns the custom format string for converting ChartCalendar  dates to text strings. 
+             If the custom format string is not empty, it  is overrides the timeFormat value and the custom string 
+             is used to format  the calendar values. 
+            </summary>
+            <returns> Returns the custom time/date format string.</returns>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.TimeLabel.SetCustomTimeCrossoverFormatString(System.String)">
+            <summary>
+             This methods sets the crossover custom format string for converting ChartCalendar  dates to text strings. 
+             If the custom format string is not empty, it  is overrides the timeFormat value and the custom string 
+             is used to format  the calendar values. 
+            </summary>
+            <param name="formatstring1"> Specifies the custom time/date format string.</param>
+        </member>
+        <member name="M:com.quinncurtis.chart2dnet.TimeLabel.GetCustomTimeCrossoverFormatStrings">
+            <summary>
+             This methods returns the crossover custom format string for converting ChartCalendar  dates to text strings. 
              If the custom format string is not empty, it  is overrides the timeFormat value and the custom string 
              is used to format  the calendar values. 
             </summary>
