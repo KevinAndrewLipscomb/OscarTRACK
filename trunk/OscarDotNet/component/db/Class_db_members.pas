@@ -144,6 +144,7 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    function PeckCodeOf(e_item: system.object): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
     procedure SetAgency
@@ -1403,6 +1404,11 @@ begin
     OfficershipOf := EMPTY;
   end;
   self.Close;
+end;
+
+function TClass_db_members.PeckCodeOf(e_item: system.object): string;
+begin
+  PeckCodeOf := Safe(DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_PECK_CODE].text,NUM);
 end;
 
 function TClass_db_members.RetentionOf(e_item: system.object): string;
