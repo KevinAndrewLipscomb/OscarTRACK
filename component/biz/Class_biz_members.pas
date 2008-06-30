@@ -47,6 +47,14 @@ type
       )
       : boolean;
     function BeDriverQualifiedOf(e_item: system.object): boolean;
+    function BeUserAuthorizedToEditEnrollments
+      (
+      subject_member_id: string;
+      e_item: system.object;
+      has_edit_enrollments: boolean;
+      has_edit_enrollments_nonreleased_ops_members_only: boolean
+      )
+      : boolean;
     function BeValidProfile(id: string): boolean;
     procedure BindRankedCoreOpsSize
       (
@@ -116,6 +124,7 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    function PeckCodeOf(e_item: system.object): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
     procedure SetAgency
@@ -254,6 +263,33 @@ end;
 function TClass_biz_members.BeDriverQualifiedOf(e_item: system.object): boolean;
 begin
   BeDriverQualifiedOf := db_members.BeDriverQualifiedOf(e_item);
+end;
+
+function TClass_biz_members.BeUserAuthorizedToEditEnrollments
+  (
+  subject_member_id: string;
+  e_item: system.object;
+  has_edit_enrollments: boolean;
+  has_edit_enrollments_nonreleased_ops_members_only: boolean
+  )
+  : boolean;
+begin
+  BeUserAuthorizedToEditEnrollments := BeAuthorizedTierOrSameAgency(subject_member_id,IdOf(e_item))
+    and
+      (
+        has_edit_enrollments
+      or
+        (
+          has_edit_enrollments_nonreleased_ops_members_only
+        and
+          (
+            not BeDriverQualifiedOf(e_item)
+          or
+            not biz_medical_release_levels.BeReleased(PeckCodeOf(e_item))
+          )
+        )
+      )
+    ;
 end;
 
 function TClass_biz_members.BeValidProfile(id: string): boolean;
@@ -461,6 +497,11 @@ end;
 function TClass_biz_members.OfficershipOf(member_id: string): string;
 begin
   OfficerShipOf := db_members.OfficershipOf(member_id);
+end;
+
+function TClass_biz_members.PeckCodeOf(e_item: system.object): string;
+begin
+  PeckCodeOf := db_members.PeckCodeOf(e_item);
 end;
 
 function TClass_biz_members.RetentionOf(e_item: system.object): string;

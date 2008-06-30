@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>ki;"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
+    <DCC_UsePackage>ki;""C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll"";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -21,19 +21,22 @@
     <DCC_RangeChecking>True</DCC_RangeChecking>
     <DCC_TypedAtParameter>True</DCC_TypedAtParameter>
     <DCC_StrictVarStrings>False</DCC_StrictVarStrings>
-    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_UnitSearchPath>
-    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_ResourcePath>
-    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_IncludePath>
+    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_UnitSearchPath>
+    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_ResourcePath>
+    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_IncludePath>
     <DCC_ExeOutput>.\bin</DCC_ExeOutput>
+    <DCC_AssertionsAtRuntime>False</DCC_AssertionsAtRuntime>
+    <DCC_DebugInformation>False</DCC_DebugInformation>
+    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <Version>7.0</Version>
     <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
     <DCC_DebugVN>True</DCC_DebugVN>
     <DCC_Define>DEBUG</DCC_Define>
-    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_UnitSearchPath>
-    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_ResourcePath>
-    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727</DCC_IncludePath>
+    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_UnitSearchPath>
+    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_ResourcePath>
+    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_IncludePath>
     <DCC_ExeOutput>.\bin</DCC_ExeOutput>
     <DCC_Optimize>False</DCC_Optimize>
     <DCC_OpenStringParams>False</DCC_OpenStringParams>
@@ -41,9 +44,7 @@
     <DCC_RangeChecking>True</DCC_RangeChecking>
     <DCC_TypedAtParameter>True</DCC_TypedAtParameter>
     <DCC_StrictVarStrings>False</DCC_StrictVarStrings>
-    <DCC_DebugInformation>False</DCC_DebugInformation>
-    <DCC_LocalDebugSymbols>False</DCC_LocalDebugSymbols>
-    <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
+    <DCC_SymbolReferenceInfo>2</DCC_SymbolReferenceInfo>
   </PropertyGroup>
   <ProjectExtensions>
     <Borland.Personality>DelphiDotNet.Personality</Borland.Personality>
@@ -105,7 +106,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3098.30011</Version>
+      <Version>1.0.3100.22858</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>

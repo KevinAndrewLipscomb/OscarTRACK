@@ -87,8 +87,13 @@ begin
       + ' (CAD # '
       + p.cad_num_string
       + ')';
-    LinkButton_add_new_enrollment_status.visible := Has(string_array(session['privilege_array']),'edit-enrollments')
-      and p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),p.biz_members.IdOf(session['e_item']));
+    LinkButton_add_new_enrollment_status.visible := p.biz_members.BeUserAuthorizedToEditEnrollments
+      (
+      p.biz_members.IdOfUserId(p.biz_user.IdNum),
+      session['e_item'],
+      Has(string_array(session['privilege_array']),'edit-enrollments'),
+      Has(string_array(session['privilege_array']),'edit-enrollments-of-trainees-only')
+      );
     //
     Bind;
     //
