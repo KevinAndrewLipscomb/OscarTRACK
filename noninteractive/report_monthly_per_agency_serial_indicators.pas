@@ -87,13 +87,13 @@ begin
   end else begin
     passthrough_parms := '&agency=' + p.agency_id + '&be_agency_applicable=1';
   end;
-  Img_core_ops_size.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_core_ops_size.attributes['src'])) + passthrough_parms;
-  Img_num_members_in_pipeline.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_num_members_in_pipeline.attributes['src'])) + passthrough_parms;
-  Img_crew_shifts_forecast.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_crew_shifts_forecast.attributes['src'])) + passthrough_parms;
-  Img_utilization.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_utilization.attributes['src'])) + passthrough_parms;
-  Img_standard_enrollment.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_standard_enrollment.attributes['src'])) + passthrough_parms;
-  Img_median_length_of_service.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_median_length_of_service.attributes['src'])) + passthrough_parms;
-  Img_commensuration.attributes['src'] := ExpandAsperandBase(ExpandTildePath(Img_commensuration.attributes['src'])) + passthrough_parms;
+  Img_core_ops_size.attributes['src'] := ExpandAsperand(Img_core_ops_size.attributes['src']) + passthrough_parms;
+  Img_num_members_in_pipeline.attributes['src'] := ExpandAsperand(Img_num_members_in_pipeline.attributes['src']) + passthrough_parms;
+  Img_crew_shifts_forecast.attributes['src'] := ExpandAsperand(Img_crew_shifts_forecast.attributes['src']) + passthrough_parms;
+  Img_utilization.attributes['src'] := ExpandAsperand(Img_utilization.attributes['src']) + passthrough_parms;
+  Img_standard_enrollment.attributes['src'] := ExpandAsperand(Img_standard_enrollment.attributes['src']) + passthrough_parms;
+  Img_median_length_of_service.attributes['src'] := ExpandAsperand(Img_median_length_of_service.attributes['src']) + passthrough_parms;
+  Img_commensuration.attributes['src'] := ExpandAsperand(Img_commensuration.attributes['src']) + passthrough_parms;
   //
 end;
 
