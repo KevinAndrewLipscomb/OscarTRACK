@@ -222,8 +222,7 @@ begin
   // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
   // not it is already loaded in the user's browser.
   //
-  session.Remove(PlaceHolder_content.clientid);
-  session.Add(PlaceHolder_content.clientid,p.content_id);
+  SessionSet(PlaceHolder_content.clientid,p.content_id);
   //
   SessionSet('UserControl_member_binder.p',p);
   //

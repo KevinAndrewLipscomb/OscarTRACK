@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>ki;"""""C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll""""";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll</DCC_UsePackage>
+    <DCC_UsePackage>ki;"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -54,6 +54,20 @@
   </ProjectExtensions>
   <Import Project="$(MSBuildBinPath)\Borland.Delphi.Targets" />
   <ItemGroup>
+    <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Data.dll">
+      <AssemblyName>System.Data</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.dll">
+      <AssemblyName>System</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
     <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll">
       <AssemblyName>System.Drawing</AssemblyName>
       <Version>2.0.0.0</Version>
@@ -66,6 +80,13 @@
       <Version>2.0.0.0</Version>
       <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</HintPath>
       <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.Web.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.XML.dll">
+      <AssemblyName>System.XML</AssemblyName>
+      <Version>2.0.0.0</Version>
+      <HintPath>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.XML.dll</HintPath>
+      <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.XML.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
     <Reference Include="bin\Microsoft.Web.UI.WebControls.dll">
@@ -106,7 +127,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3100.22858</Version>
+      <Version>1.0.3114.28969</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -120,7 +141,6 @@
     <DCCReference Include="component\biz\Class_biz_accounts.pas" />
     <DCCReference Include="component\biz\Class_biz_agencies.pas" />
     <DCCReference Include="component\biz\Class_biz_data_conditions.pas" />
-    <DCCReference Include="component\biz\Class_biz_department_staffers.pas" />
     <DCCReference Include="component\biz\Class_biz_enrollment.pas" />
     <DCCReference Include="component\biz\Class_biz_indicator_median_length_of_service.pas" />
     <DCCReference Include="component\biz\Class_biz_leave.pas" />
@@ -130,6 +150,11 @@
     <DCCReference Include="component\biz\Class_biz_milestones.pas" />
     <DCCReference Include="component\biz\Class_biz_notifications.pas" />
     <DCCReference Include="component\biz\Class_biz_officerships.pas" />
+    <DCCReference Include="component\biz\Class_biz_privileges.pas" />
+    <DCCReference Include="component\biz\Class_biz_roles.pas" />
+    <DCCReference Include="component\biz\Class_biz_role_member_map.pas" />
+    <DCCReference Include="component\biz\Class_biz_role_notification_map.pas" />
+    <DCCReference Include="component\biz\Class_biz_role_privilege_map.pas" />
     <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
     <DCCReference Include="component\biz\Class_biz_sections.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
@@ -137,7 +162,6 @@
     <DCCReference Include="component\db\Class_db.pas" />
     <DCCReference Include="component\db\Class_db_accounts.pas" />
     <DCCReference Include="component\db\Class_db_agencies.pas" />
-    <DCCReference Include="component\db\Class_db_department_staffers.pas" />
     <DCCReference Include="component\db\Class_db_enrollment.pas" />
     <DCCReference Include="component\db\Class_db_indicator_median_length_of_service.pas" />
     <DCCReference Include="component\db\Class_db_leaves.pas" />
@@ -146,6 +170,11 @@
     <DCCReference Include="component\db\Class_db_milestones.pas" />
     <DCCReference Include="component\db\Class_db_notifications.pas" />
     <DCCReference Include="component\db\Class_db_officerships.pas" />
+    <DCCReference Include="component\db\Class_db_privileges.pas" />
+    <DCCReference Include="component\db\Class_db_roles.pas" />
+    <DCCReference Include="component\db\Class_db_role_member_map.pas" />
+    <DCCReference Include="component\db\Class_db_role_notification_map.pas" />
+    <DCCReference Include="component\db\Class_db_role_privilege_map.pas" />
     <DCCReference Include="component\db\Class_db_trail.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />
@@ -300,6 +329,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_agency.pas">
       <DependentUpon>usercontrol\app\UserControl_agency.ascx</DependentUpon>
+      <Form>UserControl_agency.TWebUserControl_agency</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_commensuration.ascx</DependentUpon>
@@ -309,6 +340,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_config_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_config_binder.ascx</DependentUpon>
+      <Form>UserControl_config_binder.TWebUserControl_config_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_current_indicators.pas">
       <DependentUpon>usercontrol\app\UserControl_current_indicators.ascx</DependentUpon>
@@ -363,6 +396,9 @@
       <Form>UserControl_ranked_utilization.TWebUserControl_ranked_utilization</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_role_member_matrix.pas">
+      <DependentUpon>usercontrol\app\UserControl_role_member_matrix.ascx</DependentUpon>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_roster.pas">
       <DependentUpon>usercontrol\app\UserControl_roster.ascx</DependentUpon>
       <Form>UserControl_roster.TWebUserControl_roster</Form>
@@ -404,6 +440,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_config_welcome.pas">
       <DependentUpon>usercontrol\ki\UserControl_config_welcome.ascx</DependentUpon>
+      <Form>UserControl_config_welcome.TWebUserControl_config_welcome</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_drop_down_date.pas">
       <DependentUpon>usercontrol\ki\UserControl_drop_down_date.ascx</DependentUpon>
@@ -414,6 +452,22 @@
       <DependentUpon>usercontrol\ki\UserControl_print_div.ascx</DependentUpon>
       <Form>UserControl_print_div.TWebUserControl_print_div</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_role.pas">
+      <DependentUpon>usercontrol\ki\UserControl_role.ascx</DependentUpon>
+      <Form>UserControl_role.TWebUserControl_role</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_roles_and_matrices_binder.pas">
+      <DependentUpon>usercontrol\ki\UserControl_roles_and_matrices_binder.ascx</DependentUpon>
+      <Form>UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_role_notification_matrix.pas">
+      <DependentUpon>usercontrol\ki\UserControl_role_notification_matrix.ascx</DependentUpon>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_role_privilege_matrix.pas">
+      <DependentUpon>usercontrol\ki\UserControl_role_privilege_matrix.ascx</DependentUpon>
     </DCCReference>
     <None Include="Default.aspx" />
     <None Include="exception.aspx" />
@@ -471,6 +525,7 @@
     <None Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
+    <None Include="usercontrol\app\UserControl_role_member_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_roster.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
@@ -485,5 +540,9 @@
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
     <None Include="usercontrol\ki\UserControl_print_div.ascx" />
+    <None Include="usercontrol\ki\UserControl_role.ascx" />
+    <None Include="usercontrol\ki\UserControl_roles_and_matrices_binder.ascx" />
+    <None Include="usercontrol\ki\UserControl_role_notification_matrix.ascx" />
+    <None Include="usercontrol\ki\UserControl_role_privilege_matrix.ascx" />
   </ItemGroup>
 </Project>
