@@ -11,6 +11,7 @@ const
   CI_MEMBER_ID = 0;
   CI_MEMBER_NAME = 1;
   CI_FIRST_CROSSTAB = 2;
+  ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
 
   type
   crosstab_metadata_rec_type =
@@ -155,12 +156,13 @@ begin
   self.Open;
   GridView(target).datasource := mysqlcommand.Create
     (
-    'select concat(last_name," ",first_name) as member_name'
+    'select concat(last_name,", ",first_name) as member_name'
     + ' , short_designator as agency_designator'
+    + ' , email_address'
     + ' from role_member_map'
-    +   ' join member on (member.id=role_member_map.id)'
+    +   ' join member on (member.id=role_member_map.member_id)'
     +   ' join agency on (agency.id=member.agency_id)'
-    +   ' join role on (role.id=role_member_map.id)'
+    +   ' join role on (role.id=role_member_map.role_id)'
     + ' where role.name = "' + role_name + '"',
     connection
     )

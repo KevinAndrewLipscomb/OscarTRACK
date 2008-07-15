@@ -388,8 +388,7 @@ begin
     // We are dealing with a data row, not a header or footer row.
     //
     SessionSet('e_item',e.item);
-    stack(session['waypoint_stack']).Push(path.GetFileName(request.CurrentExecutionFilePath));
-    server.Transfer('member_detail.aspx');
+    DropCrumbAndTransferTo('member_detail.aspx');
     //
   end;
 end;
