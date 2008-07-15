@@ -36,6 +36,11 @@ const
       target: system.object;
       out crosstab_metadata_rec_arraylist: arraylist
       );
+    procedure BindHolders
+      (
+      role_name: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -139,6 +144,29 @@ begin
   GridView(target).DataBind;
   self.Close;
   //
+end;
+
+procedure TClass_db_role_member_map.BindHolders
+  (
+  role_name: string;
+  target: system.object
+  );
+begin
+  self.Open;
+  GridView(target).datasource := mysqlcommand.Create
+    (
+    'select concat(last_name," ",first_name) as member_name'
+    + ' , short_designator as agency_designator'
+    + ' from role_member_map'
+    +   ' join member on (member.id=role_member_map.id)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    +   ' join role on (role.id=role_member_map.id)'
+    + ' where role.name = "' + role_name + '"',
+    connection
+    )
+    .ExecuteReader;
+  GridView(target).DataBind;
+  self.Close;
 end;
 
 procedure TClass_db_role_member_map.Save

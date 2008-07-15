@@ -30,6 +30,11 @@ type
       target: system.object;
       out crosstab_metadata: arraylist
       );
+    procedure BindHolders
+      (
+      role_name: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -82,6 +87,15 @@ procedure TClass_biz_role_member_map.Bind
   );
 begin
   db_role_member_map.Bind(tier_filter,agency_filter,sort_order,be_sort_order_ascending,target,crosstab_metadata);
+end;
+
+procedure TClass_biz_role_member_map.BindHolders
+  (
+  role_name: string;
+  target: system.object
+  );
+begin
+  db_role_member_map.BindHolders(role_name,target);
 end;
 
 procedure TClass_biz_role_member_map.Save
