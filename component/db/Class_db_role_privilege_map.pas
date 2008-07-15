@@ -28,7 +28,7 @@ const
     constructor Create;
     procedure Bind
       (
-      filter: string;
+      tier_filter: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
@@ -57,7 +57,7 @@ end;
 
 procedure TClass_db_role_privilege_map.Bind
   (
-  filter: string;
+  tier_filter: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
@@ -66,17 +66,30 @@ procedure TClass_db_role_privilege_map.Bind
 var
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   crosstab_sql: string;
+  crosstab_where_clause: string;
   dr: mysqldatareader;
-  where_clause: string;
 begin
   //
   crosstab_metadata_rec.index := 1;  // init to index of last non-dependent column
   crosstab_metadata_rec_arraylist := arraylist.Create;
   crosstab_sql := EMPTY;
+  if tier_filter = EMPTY then begin
+    crosstab_where_clause := EMPTY;
+  end else begin
+    crosstab_where_clause := ' and tier_id = "' + tier_filter + '"';
+  end;
   //
   self.Open;
   //
-  dr := mysqlcommand.Create('select id,name,soft_hyphenation_text from role where name <> "Member"',connection).ExecuteReader;
+  dr := mysqlcommand.Create
+    (
+    'select id,name,soft_hyphenation_text'
+    + ' from role'
+    + ' where name <> "Member"'
+    + crosstab_where_clause,
+    connection
+    )
+    .ExecuteReader;
   while dr.Read do begin
     crosstab_metadata_rec.index := crosstab_metadata_rec.index + 1;
     crosstab_metadata_rec.id := dr['id'].tostring;
@@ -92,12 +105,6 @@ begin
   end;
   dr.Close;
   //
-  if filter = EMPTY then begin
-    where_clause := EMPTY;
-  end else begin
-    // where_clause := ' where agency_id = "' + filter + '"';
-  end;
-  //
   if be_sort_order_ascending then begin
     sort_order := sort_order.Replace('%',' asc');
   end else begin
@@ -112,7 +119,6 @@ begin
     + ' from privilege'
     +   ' left outer join role_privilege_map on (role_privilege_map.privilege_id=privilege.id)'
     +   ' left outer join role on (role.id=role_privilege_map.role_id)'
-    + where_clause
     + ' group by privilege.id'
     + ' order by ' + sort_order,
     connection

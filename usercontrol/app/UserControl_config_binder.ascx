@@ -6,9 +6,8 @@
 		<td>
 		  <iewc:TabStrip id="TabStrip_control" runat="server" tabselectedstyle="padding:10;border-top:thin solid silver;border-left:thin solid silver;border-right:thin solid silver;background-color:white;font-weight:bold;"
 			   tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;" forecolor="Blue" tabhoverstyle="background-color:gainsboro;" width="100%" autopostback="True">
-		  <iewc:Tab text="Welcome"></iewc:Tab>
+		  <iewc:Tab text="Roles & matrices"></iewc:Tab>
 		  <iewc:Tab text="Users" enabled="False"></iewc:Tab>
-		  <iewc:Tab text="Roles & matrices" enabled="False"></iewc:Tab>
 		  <iewc:Tab text="Agencies" enabled="False"></iewc:Tab>
 		  </iewc:TabStrip>
 		</td>

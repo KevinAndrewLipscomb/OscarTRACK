@@ -56,10 +56,9 @@ uses
   system.configuration;
 
 const
-  TSSI_WELCOME = 0;
+  TSSI_ROLES_AND_MATRICES = 0;
   TSSI_USERS = 1;
-  TSSI_ROLES_AND_MATRICES = 2;
-  TSSI_AGENCIES = 3;
+  TSSI_AGENCIES = 2;
 
 procedure TWebUserControl_config_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -68,9 +67,6 @@ begin
     //
     if Has(string_array(session['privilege_array']),'config-users') then begin
       TabStrip_control.items[TSSI_USERS].enabled := TRUE;
-    end;
-    if Has(string_array(session['privilege_array']),'config-roles-and-matrices') then begin
-      TabStrip_control.items[TSSI_ROLES_AND_MATRICES].enabled := TRUE;
     end;
     if Has(string_array(session['privilege_array']),'config-agencies') then begin
       TabStrip_control.items[TSSI_AGENCIES].enabled := TRUE;
@@ -99,11 +95,11 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
-    TSSI_WELCOME:
+    TSSI_ROLES_AND_MATRICES:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')),
-        'UserControl_config_welcome',
+        TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')),
+        'UserControl_roles_and_matrices_binder',
         PlaceHolder_content
         );
     TSSI_USERS:
@@ -111,13 +107,6 @@ begin
         (
         TWebUserControl_user(LoadControl('~/usercontrol/app/UserControl_user.ascx')),
         'UserControl_user',
-        PlaceHolder_content
-        );
-    TSSI_ROLES_AND_MATRICES:
-      p.content_id := AddIdentifiedControlToPlaceHolder
-        (
-        TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')),
-        'UserControl_roles_and_matrices_binder',
         PlaceHolder_content
         );
     TSSI_AGENCIES:
@@ -132,12 +121,12 @@ begin
     //
     p.be_loaded := FALSE;
     //
-    p.tab_index := TSSI_WELCOME;
+    p.tab_index := TSSI_ROLES_AND_MATRICES;
     //
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')).Fresh,
-      'UserControl_config_welcome',
+      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')).Fresh,
+      'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );
     //
@@ -154,11 +143,11 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
-  TSSI_WELCOME:
+  TSSI_ROLES_AND_MATRICES:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_config_welcome(LoadControl('~/usercontrol/ki/UserControl_config_welcome.ascx')).Fresh,
-      'UserControl_config_welcome',
+      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')).Fresh,
+      'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );
   TSSI_USERS:
@@ -166,13 +155,6 @@ begin
       (
       TWebUserControl_user(LoadControl('~/usercontrol/app/UserControl_user.ascx')).Fresh,
       'UserControl_user',
-      PlaceHolder_content
-      );
-  TSSI_ROLES_AND_MATRICES:
-    p.content_id := AddIdentifiedControlToPlaceHolder
-      (
-      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')).Fresh,
-      'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );
   TSSI_AGENCIES:
