@@ -28,7 +28,7 @@ const
     constructor Create;
     procedure Bind
       (
-      filter: string;
+      tier_filter: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
@@ -57,7 +57,7 @@ end;
 
 procedure TClass_db_role_notification_map.Bind
   (
-  filter: string;
+  tier_filter: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
@@ -66,6 +66,7 @@ procedure TClass_db_role_notification_map.Bind
 var
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   crosstab_sql: string;
+  crosstab_where_clause: string;
   dr: mysqldatareader;
   where_clause: string;
 begin
@@ -73,10 +74,23 @@ begin
   crosstab_metadata_rec.index := 1;  // init to index of last non-dependent column
   crosstab_metadata_rec_arraylist := arraylist.Create;
   crosstab_sql := EMPTY;
+  if tier_filter = EMPTY then begin
+    crosstab_where_clause := EMPTY;
+  end else begin
+    crosstab_where_clause := ' and tier_id = "' + tier_filter + '"';
+  end;
   //
   self.Open;
   //
-  dr := mysqlcommand.Create('select id,name,soft_hyphenation_text from role where name <> "Member"',connection).ExecuteReader;
+  dr := mysqlcommand.Create
+    (
+    'select id,name,soft_hyphenation_text'
+    + ' from role'
+    + ' where name <> "Member"'
+    + crosstab_where_clause,
+    connection
+    )
+    .ExecuteReader;
   while dr.Read do begin
     crosstab_metadata_rec.index := crosstab_metadata_rec.index + 1;
     crosstab_metadata_rec.id := dr['id'].tostring;
@@ -92,7 +106,7 @@ begin
   end;
   dr.Close;
   //
-  if filter = EMPTY then begin
+  if tier_filter = EMPTY then begin
     where_clause := EMPTY;
   end else begin
     // where_clause := ' where agency_id = "' + filter + '"';

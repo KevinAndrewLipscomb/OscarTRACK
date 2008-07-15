@@ -42,9 +42,16 @@ type
       (
       target: system.object;
       selected_id: string = '';
-      be_available_option_all: boolean = TRUE
+      be_available_option_all: boolean = TRUE;
+      unselected_literal: string = 'All'
       );
-    procedure BindListControlShortDashLong(target: system.object);
+    procedure BindListControlShortDashLong
+      (
+      target: system.object;
+      selected_id: string = '';
+      be_available_option_all: boolean = TRUE;
+      option_all_text: string = '-- Select --'
+      );
     procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
@@ -164,19 +171,30 @@ procedure TClass_db_agencies.BindListControlShort
   (
   target: system.object;
   selected_id: string = '';
-  be_available_option_all: boolean = TRUE
+  be_available_option_all: boolean = TRUE;
+  unselected_literal: string = 'All'
   );
 begin
   if be_available_option_all then begin
-    BindListControl('All','short_designator',target,selected_id);
+    BindListControl(unselected_literal,'short_designator',target,selected_id);
   end else begin
     BindListControl(EMPTY,'short_designator',target,selected_id);
   end;
 end;
 
-procedure TClass_db_agencies.BindListControlShortDashLong(target: system.object);
+procedure TClass_db_agencies.BindListControlShortDashLong
+  (
+  target: system.object;
+  selected_id: string = '';
+  be_available_option_all: boolean = TRUE;
+  option_all_text: string = '-- Select --'
+  );
 begin
-  BindListControl('-- Select --','concat(short_designator," - ",long_designator)',target);
+  if be_available_option_all then begin
+    BindListControl(option_all_text,'concat(short_designator," - ",long_designator)',target,selected_id);
+  end else begin
+    BindListControl(EMPTY,'concat(short_designator," - ",long_designator)',target,selected_id);
+  end;
 end;
 
 procedure TClass_db_agencies.BindForCommensuration(target: system.object);

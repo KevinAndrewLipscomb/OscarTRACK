@@ -4,7 +4,9 @@ interface
 
 uses
   Class_biz_agencies,
+  Class_biz_members,
   Class_biz_role_member_map,
+  Class_biz_tiers,
   ki_web_ui,
   System.Collections,
   System.Data,
@@ -17,14 +19,18 @@ uses
 type
   p_type =
     RECORD
+    agency_filter: string;
     be_interactive: boolean;
     be_loaded: boolean;
     be_sort_order_ascending: boolean;
+    be_user_privileged_to_see_all_squads: boolean;
     biz_agencies: TClass_biz_agencies;
+    biz_members: TClass_biz_members;
     biz_role_member_map: TClass_biz_role_member_map;
+    biz_tiers: TClass_biz_tiers;
     crosstab_metadata_rec_arraylist: arraylist;
-    filter: string;
     sort_order: string;
+    tier_filter: string;
     END;
   TWebUserControl_role_member_matrix = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
@@ -32,11 +38,13 @@ type
     procedure InitializeComponent;
     procedure TWebUserControl_role_member_matrix_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure DropDownList_filter_SelectedIndexChanged(sender: System.Object; 
+    procedure DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure GridView_control_Sorting(sender: System.Object; e: System.Web.UI.WebControls.GridViewSortEventArgs);
     procedure GridView_control_RowDataBound(sender: System.Object; e: System.Web.UI.WebControls.GridViewRowEventArgs);
     procedure Changed(sender: System.Object; e: System.EventArgs);
+    procedure DropDownList_tier_filter_SelectedIndexChanged(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -46,7 +54,8 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     GridView_control: System.Web.UI.WebControls.GridView;
-    DropDownList_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_tier_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -73,16 +82,24 @@ type
   crosstab_index_type = CI_FIRST_CROSSTAB..MAXINT;
 var
   check_box: CheckBox;
+  crosstab_metadata_rec: crosstab_metadata_rec_type;
   i: crosstab_index_type;
 begin
   for i := CI_FIRST_CROSSTAB to (row.cells.count - 1) do begin
     if row.rowtype = datacontrolrowtype.datarow then begin
       row.cells.item[i].horizontalalign := horizontalalign.CENTER;
+      crosstab_metadata_rec := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]);
       check_box := CheckBox.Create;
       check_box.autopostback := TRUE;
+      check_box.enabled := p.biz_role_member_map.BePrivilegedToModifyTuple
+        (
+        Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
+        Has(string_array(session['privilege_array']),'assign-squad-roles-to-members'),
+        crosstab_metadata_rec.tier_id
+        );
       check_box.id := EMPTY
       + CHECKBOX_ID_PREFIX_MEMBER_ID + row.cells.item[CI_MEMBER_ID].text
-      + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]).id;
+      + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
       check_box.checked := (row.cells.item[i].text = '1');
       Include(check_box.checkedchanged,Changed);
       row.cells.item[i].controls.Add(check_box);
@@ -181,11 +198,14 @@ begin
   //
   if not p.be_loaded then begin
     //
-    p.biz_agencies.BindListControlShortDashLong(DropDownList_filter);
-    p.filter := Safe(DropDownList_filter.selectedvalue,NUM);
+    p.biz_tiers.BindListControl(DropDownList_tier_filter,EMPTY,TRUE,'All');
+    DropDownList_tier_filter.selectedvalue := p.tier_filter;
+    //
+    p.biz_agencies.BindListControlShortDashLong(DropDownList_agency_filter,EMPTY,TRUE,'All');
+    DropDownList_agency_filter.selectedvalue := p.agency_filter;
     //
     if not p.be_interactive then begin
-      DropDownList_filter.enabled := FALSE;
+      DropDownList_agency_filter.enabled := FALSE;
       GridView_control.allowsorting := FALSE;
     end;
     //
@@ -217,12 +237,23 @@ begin
   if session['UserControl_role_member_matrix.p'] <> nil then begin
     //
     p := p_type(session['UserControl_role_member_matrix.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_config_PlaceHolder_content']) = 'UserControl_role_member_matrix');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content']) = 'UserControl_role_member_matrix');
     //
   end else begin
     //
     p.biz_agencies := TClass_biz_agencies.Create;
+    p.biz_members := TClass_biz_members.Create;
     p.biz_role_member_map := TClass_biz_role_member_map.Create;
+    p.biz_tiers := TClass_biz_tiers.Create;
+    //
+    p.be_user_privileged_to_see_all_squads := Has(string_array(session['privilege_array']),'see-all-squads');
+    if p.be_user_privileged_to_see_all_squads then begin
+      p.tier_filter := p.biz_tiers.IdOfName('Department');
+      p.agency_filter := EMPTY;
+    end else begin
+      p.tier_filter := p.biz_tiers.IdOfName('Squad');
+      p.agency_filter := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
+    end;
     //
     p.be_interactive := not assigned(session['mode:report']);
     p.be_loaded := FALSE;
@@ -240,7 +271,8 @@ end;
 /// </summary>
 procedure TWebUserControl_role_member_matrix.InitializeComponent;
 begin
-  Include(Self.DropDownList_filter.SelectedIndexChanged, Self.DropDownList_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_tier_filter.SelectedIndexChanged, Self.DropDownList_tier_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_agency_filter.SelectedIndexChanged, Self.DropDownList_agency_filter_SelectedIndexChanged);
   Include(Self.GridView_control.Sorting, Self.GridView_control_Sorting);
   Include(Self.GridView_control.RowDataBound, Self.GridView_control_RowDataBound);
   Include(Self.PreRender, Self.TWebUserControl_role_member_matrix_PreRender);
@@ -258,6 +290,13 @@ function TWebUserControl_role_member_matrix.Fresh: TWebUserControl_role_member_m
 begin
   session.Remove('UserControl_role_member_matrix.p');
   Fresh := self;
+end;
+
+procedure TWebUserControl_role_member_matrix.DropDownList_tier_filter_SelectedIndexChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.tier_filter := Safe(DropDownList_tier_filter.selectedvalue,NUM);
+  Bind;
 end;
 
 procedure TWebUserControl_role_member_matrix.Changed(sender: System.Object;
@@ -298,10 +337,10 @@ begin
   Bind;
 end;
 
-procedure TWebUserControl_role_member_matrix.DropDownList_filter_SelectedIndexChanged(sender: System.Object;
+procedure TWebUserControl_role_member_matrix.DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.filter := Safe(DropDownList_filter.selectedvalue,NUM);
+  p.agency_filter := Safe(DropDownList_agency_filter.selectedvalue,NUM);
   Bind;
 end;
 
@@ -310,7 +349,7 @@ var
   metadata: crosstab_metadata_rec_type;
   i: cardinal;
 begin
-  p.biz_role_member_map.Bind(p.filter,p.sort_order,p.be_sort_order_ascending,GridView_control,p.crosstab_metadata_rec_arraylist);
+  p.biz_role_member_map.Bind(p.tier_filter,p.agency_filter,p.sort_order,p.be_sort_order_ascending,GridView_control,p.crosstab_metadata_rec_arraylist);
   LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Member';
   for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
     metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);

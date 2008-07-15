@@ -708,7 +708,8 @@ INSERT INTO privilege (id,`name`) VALUES
 (22,'enter-actual-crew-shifts'),
 (23,'config-users'),
 (24,'config-agencies'),
-(25,'edit-enrollments-of-trainees-only');
+(25,'edit-enrollments-of-trainees-only'),
+(26,'config-roles-and-matrices');
 
 -- --------------------------------------------------------
 
@@ -749,26 +750,31 @@ CREATE TABLE role (
   id int unsigned NOT NULL auto_increment,
   `name` varchar(63) NOT NULL,
   tier_id TINYINT UNSIGNED,
+  `soft_hyphenation_text` VARCHAR(127) NOT NULL,
   PRIMARY KEY id (id),
   UNIQUE KEY name (`name`),
   KEY tier_id (tier_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO role (id,`name`,tier_id) VALUES
-(1,'Application Administrator',1),
-(2,'Department Authority',1),
-(3,'Department Human Resources Officer',1),
-(4,'Department BLS ID Coordinator',1),
-(5,'Department Analyst',1),
-(6,'Squad Commander',2),
-(7,'Squad Section Sergeant',3),
-(8,'Squad Training Officer',2),
-(9,'Squad Membership Coordinator',2),
-(10,'Squad Analyst',2),
-(11,'Member'),
-(12,'Department ALS ID Coordinator',1),
-(13,'Department Schedule Auditor',1),
-(14,'All-Squad NGO Leader',1);
+INSERT INTO role (id,`name`,tier_id,`soft_hyphenation_text`) VALUES
+(1,'Application Administrator',1,"Ap&shy;pli&shy;ca&shy;tion Ad&shy;min&shy;is&shy;tra&shy;tor"),
+(2,'Department Authority',1,"De&shy;part&shy;ment Au&shy;thor&shy;i&shy;ty"),
+(3,'Department Human Resources Officer',1,"De&shy;part&shy;ment Hu&shy;man Re&shy;sourc&shy;es Of&shy;fi&shy;cer"),
+(4,'Department BLS ID Coordinator',1,"De&shy;part&shy;ment BLS ID Co&shy;or&shy;di&shy;na&shy;tor"),
+(5,'Department Analyst',1,"De&shy;part&shy;ment An&shy;a&shy;lyst"),
+(6,'Squad Commander',2,"Squad Com&shy;mand&shy;er"),
+(7,'Squad Section Sergeant',3,"Squad Sec&shy;tion Ser&shy;geant"),
+(8,'Squad Training Officer',2,"Squad Train&shy;ing Of&shy;fi&shy;cer"),
+(9,'Squad Membership Coordinator',2,"Squad Mem&shy;ber&shy;ship Co&shy;or&shy;di&shy;na&shy;tor"),
+(10,'Squad Analyst',2,"Squad An&shy;a&shy;lyst"),
+(11,'Member',"Mem&shy;ber"),
+(12,'Department ALS ID Coordinator',1,"De&shy;part&shy;ment ALS ID Co&shy;or&shy;di&shy;na&shy;tor"),
+(13,'Squad Scheduler',2,"Squad Sched&shy;ul&shy;er"),
+(14,'Department Scheduler',1,"De&shy;part&shy;ment Sched&shy;ul&shy;er"),
+(15,'Squad Manager',2,"Squad Man&shy;ag&shy;er"),
+(16,'Association Newsletter Editor',1,"As&shy;so&shy;ci&shy;a&shy;tion News&shy;let&shy;ter Ed&shy;i&shy;tor"),
+(17,'Department Schedule Auditor',1,"De&shy;part&shy;ment Sched&shy;ule Au&shy;di&shy;tor"),
+(18,'All-Squad NGO Leader',1,"All-Squad NGO Lead&shy;er");
 
 --
 -- table structure for table `role_member_map`
@@ -1038,7 +1044,8 @@ insert role_privilege_map (role_id,privilege_id) values
 ((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-med-release-level")),
 ((select id from role where name = "Squad Manager"),(select id from privilege where name = "change-member-name")),
 ((select id from role where name = "Squad Training Officer"),(select id from privilege where name = "change-med-release-level")),
-((select id from role where name = "Squad Training Officer"),(select id from privilege where name = "edit-enrollments-of-trainees-only"));
+((select id from role where name = "Squad Training Officer"),(select id from privilege where name = "edit-enrollments-of-trainees-only")),
+((select id from role where name = "Application Administrator"),(select id from privilege where name = "config-roles-and-matrices"));
 
 -- --------------------------------------------------------
 

@@ -8,7 +8,7 @@
 		  <iewc:Tab text="Resources"></iewc:Tab>
 		  <iewc:Tab text="Results" enabled="False"></iewc:Tab>
 		  <iewc:Tab text="Dashboard"></iewc:Tab>
-		  <iewc:Tab text="Config" enabled="False"></iewc:Tab>
+		  <iewc:Tab text="Config"></iewc:Tab>
 		  <iewc:Tab text="About"></iewc:Tab>
 		  </iewc:TabStrip>
 		</td>

@@ -23,9 +23,16 @@ type
       (
       target: system.object;
       selected_id: string = '';
-      be_available_option_all: boolean = TRUE
+      be_available_option_all: boolean = TRUE;
+      unselected_literal: string = 'All'
       );
-    procedure BindListControlShortDashLong(target: system.object);
+    procedure BindListControlShortDashLong
+      (
+      target: system.object;
+      selected_id: string = '';
+      be_available_option_all: boolean = TRUE;
+      option_all_text: string = '-- Select --'
+      );
     procedure BindForCommensuration(target: system.object);
     procedure BindForControlCharts
       (
@@ -87,15 +94,22 @@ procedure TClass_biz_agencies.BindListControlShort
   (
   target: system.object;
   selected_id: string = '';
-  be_available_option_all: boolean = TRUE
+  be_available_option_all: boolean = TRUE;
+  unselected_literal: string = 'All'
   );
 begin
-  db_agencies.BindListControlShort(target,selected_id,be_available_option_all);
+  db_agencies.BindListControlShort(target,selected_id,be_available_option_all,unselected_literal);
 end;
 
-procedure TClass_biz_agencies.BindListControlShortDashLong(target: system.object);
+procedure TClass_biz_agencies.BindListControlShortDashLong
+  (
+  target: system.object;
+  selected_id: string = '';
+  be_available_option_all: boolean = TRUE;
+  option_all_text: string = '-- Select --'
+  );
 begin
-  db_agencies.BindListControlShortDashLong(target);
+  db_agencies.BindListControlShortDashLong(target,selected_id,be_available_option_all,option_all_text);
 end;
 
 procedure TClass_biz_agencies.BindForCommensuration(target: system.object);

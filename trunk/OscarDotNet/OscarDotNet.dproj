@@ -157,6 +157,7 @@
     <DCCReference Include="component\biz\Class_biz_role_privilege_map.pas" />
     <DCCReference Include="component\biz\Class_biz_scheduled_tasks.pas" />
     <DCCReference Include="component\biz\Class_biz_sections.pas" />
+    <DCCReference Include="component\biz\Class_biz_tiers.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
     <DCCReference Include="component\biz\Class_biz_users.pas" />
     <DCCReference Include="component\db\Class_db.pas" />
@@ -175,6 +176,7 @@
     <DCCReference Include="component\db\Class_db_role_member_map.pas" />
     <DCCReference Include="component\db\Class_db_role_notification_map.pas" />
     <DCCReference Include="component\db\Class_db_role_privilege_map.pas" />
+    <DCCReference Include="component\db\Class_db_tiers.pas" />
     <DCCReference Include="component\db\Class_db_trail.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />
@@ -398,6 +400,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_role_member_matrix.pas">
       <DependentUpon>usercontrol\app\UserControl_role_member_matrix.ascx</DependentUpon>
+      <Form>UserControl_role_member_matrix.TWebUserControl_role_member_matrix</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_roster.pas">
       <DependentUpon>usercontrol\app\UserControl_roster.ascx</DependentUpon>
@@ -465,9 +469,13 @@
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_role_notification_matrix.pas">
       <DependentUpon>usercontrol\ki\UserControl_role_notification_matrix.ascx</DependentUpon>
+      <Form>UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_role_privilege_matrix.pas">
       <DependentUpon>usercontrol\ki\UserControl_role_privilege_matrix.ascx</DependentUpon>
+      <Form>UserControl_role_privilege_matrix.TWebUserControl_role_privilege_matrix</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <None Include="Default.aspx" />
     <None Include="exception.aspx" />

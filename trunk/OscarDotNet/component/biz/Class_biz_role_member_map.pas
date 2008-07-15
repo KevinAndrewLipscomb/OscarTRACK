@@ -14,9 +14,17 @@ type
     biz_notifications: TClass_biz_notifications;
   public
     constructor Create;
+    function BePrivilegedToModifyTuple
+      (
+      has_assign_department_roles_to_members: boolean;
+      has_assign_squad_roles_to_members: boolean;
+      role_tier_id: string
+      )
+      : boolean;
     procedure Bind
       (
-      filter: string;
+      tier_filter: string;
+      agency_filter: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
@@ -39,16 +47,41 @@ begin
   biz_notifications := TClass_biz_notifications.Create;
 end;
 
+function TClass_biz_role_member_map.BePrivilegedToModifyTuple
+  (
+  has_assign_department_roles_to_members: boolean;
+  has_assign_squad_roles_to_members: boolean;
+  role_tier_id: string
+  )
+  : boolean;
+begin
+  BePrivilegedToModifyTuple :=
+    (
+      (
+        has_assign_department_roles_to_members
+      and
+        (role_tier_id >= '1')
+      )
+    or
+      (
+        has_assign_squad_roles_to_members
+      and
+        (role_tier_id >= '2')
+      )
+    );
+end;
+
 procedure TClass_biz_role_member_map.Bind
   (
-  filter: string;
+  tier_filter: string;
+  agency_filter: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
   out crosstab_metadata: arraylist
   );
 begin
-  db_role_member_map.Bind(filter,sort_order,be_sort_order_ascending,target,crosstab_metadata);
+  db_role_member_map.Bind(tier_filter,agency_filter,sort_order,be_sort_order_ascending,target,crosstab_metadata);
 end;
 
 procedure TClass_biz_role_member_map.Save

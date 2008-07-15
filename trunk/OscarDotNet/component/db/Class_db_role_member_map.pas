@@ -20,6 +20,7 @@ const
     id: string;
     natural_text: string;
     soft_hyphenation_text: string;
+    tier_id: string;
     END;
   TClass_db_role_member_map = class(TClass_db)
   private
@@ -28,7 +29,8 @@ const
     constructor Create;
     procedure Bind
       (
-      filter: string;
+      tier_filter: string;
+      agency_filter: string;
       sort_order: string;
       be_sort_order_ascending: boolean;
       target: system.object;
@@ -57,7 +59,8 @@ end;
 
 procedure TClass_db_role_member_map.Bind
   (
-  filter: string;
+  tier_filter: string;
+  agency_filter: string;
   sort_order: string;
   be_sort_order_ascending: boolean;
   target: system.object;
@@ -66,6 +69,7 @@ procedure TClass_db_role_member_map.Bind
 var
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   crosstab_sql: string;
+  crosstab_where_clause: string;
   dr: mysqldatareader;
   where_clause: string;
 begin
@@ -73,16 +77,30 @@ begin
   crosstab_metadata_rec.index := 1;  // init to index of last non-dependent column
   crosstab_metadata_rec_arraylist := arraylist.Create;
   crosstab_sql := EMPTY;
+  if tier_filter = EMPTY then begin
+    crosstab_where_clause := EMPTY;
+  end else begin
+    crosstab_where_clause := ' and tier_id = "' + tier_filter + '"';
+  end;
   //
   self.Open;
   //
-  dr := mysqlcommand.Create('select id,name,soft_hyphenation_text from role where name <> "Member"',connection).ExecuteReader;
+  dr := mysqlcommand.Create
+    (
+    'select id,name,soft_hyphenation_text,tier_id'
+    + ' from role'
+    + ' where name <> "Member"'
+    + crosstab_where_clause,
+    connection
+    )
+    .ExecuteReader;
   while dr.Read do begin
     crosstab_metadata_rec.index := crosstab_metadata_rec.index + 1;
     crosstab_metadata_rec.id := dr['id'].tostring;
     crosstab_metadata_rec.natural_text := dr['name'].tostring;
     crosstab_metadata_rec.soft_hyphenation_text := dr['soft_hyphenation_text'].tostring;
     crosstab_metadata_rec.sql_name := Safe(crosstab_metadata_rec.natural_text,ECMASCRIPT_WORD);
+    crosstab_metadata_rec.tier_id := dr['tier_id'].tostring;
     crosstab_sql := crosstab_sql
     + COMMA_SPACE
     + 'IFNULL((select 1 from role_member_map where role_id = "'
@@ -92,10 +110,10 @@ begin
   end;
   dr.Close;
   //
-  if filter = EMPTY then begin
+  if agency_filter = EMPTY then begin
     where_clause := EMPTY;
   end else begin
-    where_clause := ' where agency_id = "' + filter + '"';
+    where_clause := ' where agency_id = "' + agency_filter + '"';
   end;
   //
   if be_sort_order_ascending then begin
