@@ -40,7 +40,9 @@ const
     procedure BindHolders
       (
       role_name: string;
-      target: system.object
+      target: system.object;
+      sort_order: string;
+      be_sort_order_ascending: boolean
       );
     procedure Save
       (
@@ -150,10 +152,20 @@ end;
 procedure TClass_db_role_member_map.BindHolders
   (
   role_name: string;
-  target: system.object
+  target: system.object;
+  sort_order: string;
+  be_sort_order_ascending: boolean
   );
 begin
+  //
   self.Open;
+  //
+  if be_sort_order_ascending then begin
+    sort_order := sort_order.Replace('%',' asc');
+  end else begin
+    sort_order := sort_order.Replace('%',' desc');
+  end;
+  //
   GridView(target).datasource := mysqlcommand.Create
     (
     'select concat(last_name,", ",first_name) as member_name'
@@ -163,12 +175,15 @@ begin
     +   ' join member on (member.id=role_member_map.member_id)'
     +   ' join agency on (agency.id=member.agency_id)'
     +   ' join role on (role.id=role_member_map.role_id)'
-    + ' where role.name = "' + role_name + '"',
+    + ' where role.name = "' + role_name + '"'
+    + ' order by ' + sort_order,
     connection
     )
     .ExecuteReader;
   GridView(target).DataBind;
+  //
   self.Close;
+  //
 end;
 
 procedure TClass_db_role_member_map.Save

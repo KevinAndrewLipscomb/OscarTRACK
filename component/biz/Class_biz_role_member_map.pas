@@ -33,7 +33,9 @@ type
     procedure BindHolders
       (
       role_name: string;
-      target: system.object
+      target: system.object;
+      sort_order: string;
+      be_sort_order_ascending: boolean
       );
     procedure Save
       (
@@ -92,10 +94,12 @@ end;
 procedure TClass_biz_role_member_map.BindHolders
   (
   role_name: string;
-  target: system.object
+  target: system.object;
+  sort_order: string;
+  be_sort_order_ascending: boolean
   );
 begin
-  db_role_member_map.BindHolders(role_name,target);
+  db_role_member_map.BindHolders(role_name,target,sort_order,be_sort_order_ascending);
 end;
 
 procedure TClass_biz_role_member_map.Save

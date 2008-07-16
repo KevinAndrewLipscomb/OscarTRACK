@@ -398,6 +398,11 @@
       <Form>UserControl_ranked_utilization.TWebUserControl_ranked_utilization</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_role.pas">
+      <DependentUpon>usercontrol\app\UserControl_role.ascx</DependentUpon>
+      <Form>UserControl_role.TWebUserControl_role</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_role_member_matrix.pas">
       <DependentUpon>usercontrol\app\UserControl_role_member_matrix.ascx</DependentUpon>
       <Form>UserControl_role_member_matrix.TWebUserControl_role_member_matrix</Form>
@@ -455,11 +460,6 @@
     <DCCReference Include="usercontrol\ki\UserControl_print_div.pas">
       <DependentUpon>usercontrol\ki\UserControl_print_div.ascx</DependentUpon>
       <Form>UserControl_print_div.TWebUserControl_print_div</Form>
-      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
-    </DCCReference>
-    <DCCReference Include="usercontrol\ki\UserControl_role.pas">
-      <DependentUpon>usercontrol\ki\UserControl_role.ascx</DependentUpon>
-      <Form>UserControl_role.TWebUserControl_role</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_roles_and_matrices_binder.pas">
@@ -533,6 +533,7 @@
     <None Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
+    <None Include="usercontrol\app\UserControl_role.ascx" />
     <None Include="usercontrol\app\UserControl_role_member_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_roster.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
@@ -548,7 +549,6 @@
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
     <None Include="usercontrol\ki\UserControl_print_div.ascx" />
-    <None Include="usercontrol\ki\UserControl_role.ascx" />
     <None Include="usercontrol\ki\UserControl_roles_and_matrices_binder.ascx" />
     <None Include="usercontrol\ki\UserControl_role_notification_matrix.ascx" />
     <None Include="usercontrol\ki\UserControl_role_privilege_matrix.ascx" />
