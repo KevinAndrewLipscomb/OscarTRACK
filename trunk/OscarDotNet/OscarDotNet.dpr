@@ -107,7 +107,6 @@ uses
   Class_biz_role_member_map in 'component\biz\Class_biz_role_member_map.pas',
   Class_db_role_member_map in 'component\db\Class_db_role_member_map.pas',
   UserControl_roles_and_matrices_binder in 'usercontrol\ki\UserControl_roles_and_matrices_binder.pas' {UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class},
-  UserControl_role in 'usercontrol\ki\UserControl_role.pas' {UserControl_role.TWebUserControl_role: ki_web_ui.usercontrol_class},
   Class_biz_roles in 'component\biz\Class_biz_roles.pas',
   Class_db_roles in 'component\db\Class_db_roles.pas',
   UserControl_role_member_matrix in 'usercontrol\app\UserControl_role_member_matrix.pas' {UserControl_role_member_matrix.TWebUserControl_role_member_matrix: ki_web_ui.usercontrol_class},
@@ -120,7 +119,8 @@ uses
   Class_db_role_privilege_map in 'component\db\Class_db_role_privilege_map.pas',
   Class_db_privileges in 'component\db\Class_db_privileges.pas',
   Class_biz_tiers in 'component\biz\Class_biz_tiers.pas',
-  Class_db_tiers in 'component\db\Class_db_tiers.pas';
+  Class_db_tiers in 'component\db\Class_db_tiers.pas',
+  UserControl_role in 'usercontrol\app\UserControl_role.pas' {UserControl_role.TWebUserControl_role: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

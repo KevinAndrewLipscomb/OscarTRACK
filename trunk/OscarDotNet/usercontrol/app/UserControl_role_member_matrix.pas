@@ -91,6 +91,7 @@ begin
       crosstab_metadata_rec := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]);
       check_box := CheckBox.Create;
       check_box.autopostback := TRUE;
+      check_box.checked := (row.cells.item[i].text = '1');
       check_box.enabled := p.biz_role_member_map.BePrivilegedToModifyTuple
         (
         Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
@@ -100,7 +101,7 @@ begin
       check_box.id := EMPTY
       + CHECKBOX_ID_PREFIX_MEMBER_ID + row.cells.item[CI_MEMBER_ID].text
       + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
-      check_box.checked := (row.cells.item[i].text = '1');
+      check_box.tooltip := crosstab_metadata_rec.natural_text;
       Include(check_box.checkedchanged,Changed);
       row.cells.item[i].controls.Add(check_box);
       if not p.be_interactive then begin
