@@ -94,9 +94,11 @@ begin
       check_box.checked := (row.cells.item[i].text = '1');
       check_box.enabled := p.biz_role_member_map.BePrivilegedToModifyTuple
         (
+        Has(string_array(session['privilege_array']),'config-roles-and-matrices'),
         Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
         Has(string_array(session['privilege_array']),'assign-squad-roles-to-members'),
-        crosstab_metadata_rec.tier_id
+        crosstab_metadata_rec.tier_id,
+        crosstab_metadata_rec.natural_text
         );
       check_box.id := EMPTY
       + CHECKBOX_ID_PREFIX_MEMBER_ID + row.cells.item[CI_MEMBER_ID].text
