@@ -6,6 +6,7 @@ uses
   Class_biz_members,
   Class_biz_role_member_map,
   Class_biz_roles,
+  Class_biz_tiers,
   Class_biz_user,
   ki_web_ui,
   System.Data,
@@ -25,6 +26,7 @@ type
     biz_members: TClass_biz_members;
     biz_role_member_map: TClass_biz_role_member_map;
     biz_roles: TClass_biz_roles;
+    biz_tiers: TClass_biz_tiers;
     biz_user: TClass_biz_user;
     distribution_list: string;
     num_gridview_rows: cardinal;
@@ -62,10 +64,8 @@ type
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_name: System.Web.UI.WebControls.TextBox;
     DropDownList_name: System.Web.UI.WebControls.DropDownList;
-    TextBox_tier_id: System.Web.UI.WebControls.TextBox;
     TextBox_soft_hyphenation_text: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_name: System.Web.UI.WebControls.RequiredFieldValidator;
-    RegularExpressionValidator_tier_id: System.Web.UI.WebControls.RegularExpressionValidator;
     RequiredFieldValidator_soft_hyphenation_text: System.Web.UI.WebControls.RequiredFieldValidator;
     GridView_holders: System.Web.UI.WebControls.GridView;
     Label_num_rows: System.Web.UI.WebControls.Label;
@@ -78,6 +78,9 @@ type
     Label_author_email_address: System.Web.UI.WebControls.Label;
     Label_distribution_list: System.Web.UI.WebControls.Label;
     TableRow_soft_hyphenation_text: System.Web.UI.HtmlControls.HtmlTableRow;
+    DropDownList_tier: System.Web.UI.WebControls.DropDownList;
+    RequiredFieldValidator_tier: System.Web.UI.WebControls.RequiredFieldValidator;
+    Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -102,14 +105,14 @@ begin
   //
   TextBox_name.text := EMPTY;
   DropDownList_name.visible := FALSE;
-  TextBox_tier_id.text := EMPTY;
-  TextBox_soft_hyphenation_text.text := EMPTY;
-  TextBox_name.text := EMPTY;
-  DropDownList_name.visible := FALSE;
-  TextBox_tier_id.text := EMPTY;
+  DropDownList_tier.ClearSelection;
   TextBox_soft_hyphenation_text.text := EMPTY;
   //
   Button_delete.enabled := FALSE;
+  Anchor_quick_message_shortcut.visible := FALSE;
+  //
+  Table_holders.visible := FALSE;
+  Table_quick_message.visible := FALSE;
   //
 end;
 
@@ -199,9 +202,16 @@ begin
   //
   if not p.be_loaded then begin
     //
-    if session['mode:report'] = nil then begin
+    p.biz_tiers.BindListControl(DropDownList_tier,EMPTY,FALSE,'Unselected');
+    Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
+    //
+    if not assigned(session['mode:report']) then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
-      TableRow_soft_hyphenation_text.visible := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
+      if Has(string_array(session['privilege_array']),'config-roles-and-matrices') then begin
+        DropDownList_tier.enabled := TRUE;
+        TableRow_soft_hyphenation_text.visible := TRUE;
+        Button_submit.enabled := TRUE;
+      end;
     end else begin
       TextBox_quick_message_subject.enabled := FALSE;
       TextBox_quick_message_body.enabled := FALSE;
@@ -236,11 +246,11 @@ begin
   then begin
     //
     TextBox_name.text := name;
-    TextBox_tier_id.text := tier_id;
+    DropDownList_tier.selectedvalue := tier_id;
     TextBox_soft_hyphenation_text.text := soft_hyphenation_text;
     //
     TextBox_name.enabled := FALSE;
-    Button_delete.enabled := TRUE;
+    Button_delete.enabled := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
     //
     BindHolders(name);
     //
@@ -273,6 +283,7 @@ begin
     p.biz_members := TClass_biz_members.Create;
     p.biz_role_member_map := TClass_biz_role_member_map.Create;
     p.biz_roles := TClass_biz_roles.Create;
+    p.biz_tiers := TClass_biz_tiers.Create;
     p.biz_user := TClass_biz_user.Create;
     //
   end;
@@ -379,7 +390,7 @@ begin
     p.biz_roles.&Set
       (
       Safe(TextBox_name.text,HUMAN_NAME).trim,
-      Safe(TextBox_tier_id.text,NUM).trim,
+      Safe(DropDownList_tier.selectedvalue,NUM).trim,
       Safe(TextBox_soft_hyphenation_text.text,PUNCTUATED).trim
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
@@ -398,7 +409,7 @@ end;
 procedure TWebUserControl_role.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  if p.biz_roles.Delete(Safe(TextBox_name.text,ALPHANUM)) then begin
+  if p.biz_roles.Delete(Safe(TextBox_name.text,HUMAN_NAME)) then begin
     Clear;
   end else begin
     Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.');
@@ -437,15 +448,21 @@ begin
 end;
 
 procedure TWebUserControl_role.BindHolders(role_name: string);
+var
+  be_user_authorized_to_send_quickmessages: boolean;
 begin
   //
   p.biz_role_member_map.BindHolders(role_name,GridView_holders,p.sort_order,p.be_sort_order_ascending);
   //
   p.be_gridview_empty := (p.num_gridview_rows = 0);
   Table_holders.visible := not p.be_gridview_empty;
-  Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages') and not p.be_gridview_empty;
   Label_distribution_list.text := (p.distribution_list + SPACE).TrimEnd([',',' ']);
   Label_num_rows.text := p.num_gridview_rows.tostring;
+  //
+  be_user_authorized_to_send_quickmessages := Has(string_array(session['privilege_array']),'send-quickmessages')
+    and not p.be_gridview_empty;
+  Anchor_quick_message_shortcut.visible := be_user_authorized_to_send_quickmessages;
+  Table_quick_message.visible := be_user_authorized_to_send_quickmessages;
   //
   // Clear aggregation vars for next bind, if any.
   //

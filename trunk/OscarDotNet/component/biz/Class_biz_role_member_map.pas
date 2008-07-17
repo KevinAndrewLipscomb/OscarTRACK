@@ -5,6 +5,7 @@ interface
 uses
   Class_db_role_member_map,
   Class_biz_notifications,
+  Class_biz_user,
   system.collections;
 
 type
@@ -12,13 +13,16 @@ type
   private
     db_role_member_map: TClass_db_role_member_map;
     biz_notifications: TClass_biz_notifications;
+    biz_user: TClass_biz_user;
   public
     constructor Create;
     function BePrivilegedToModifyTuple
       (
+      has_config_roles_and_matrices: boolean;
       has_assign_department_roles_to_members: boolean;
       has_assign_squad_roles_to_members: boolean;
-      role_tier_id: string
+      role_tier_id: string;
+      role_natural_text: string
       )
       : boolean;
     procedure Bind
@@ -52,28 +56,37 @@ begin
   inherited Create;
   db_role_member_map := TClass_db_role_member_map.Create;
   biz_notifications := TClass_biz_notifications.Create;
+  biz_user := TClass_biz_user.Create;
 end;
 
 function TClass_biz_role_member_map.BePrivilegedToModifyTuple
   (
+  has_config_roles_and_matrices: boolean;
   has_assign_department_roles_to_members: boolean;
   has_assign_squad_roles_to_members: boolean;
-  role_tier_id: string
+  role_tier_id: string;
+  role_natural_text: string
   )
   : boolean;
 begin
   BePrivilegedToModifyTuple :=
-    (
-      (
-        has_assign_department_roles_to_members
-      and
-        (role_tier_id >= '1')
-      )
+    has_config_roles_and_matrices
     or
-      (
-        has_assign_squad_roles_to_members
+    (
+      (role_natural_text <> 'Application Administrator')
       and
-        (role_tier_id >= '2')
+      (
+        (
+          has_assign_department_roles_to_members
+        and
+          (role_tier_id >= '1')
+        )
+      or
+        (
+          has_assign_squad_roles_to_members
+        and
+          (role_tier_id >= '2')
+        )
       )
     );
 end;

@@ -18,10 +18,11 @@
             </td>
           </tr>
           <tr>
-            <td><font class="">Tier id:</font></td>
-            <td><font class=""><ASP:TextBox id="TextBox_tier_id" runat="server"  cssclass="" columns="1"></ASP:TextBox></font></td>
+            <td><font class="">Tier:</font></td>
+            <td><font class="">
+                    <asp:DropDownList id="DropDownList_tier" runat="server" enabled="False"></asp:DropDownList></font></td>
             <td>
-              <ASP:RegularExpressionValidator id="RegularExpressionValidator_tier_id" runat="server" errormessage="Please enter a valid Tier id." font-bold="True" controltovalidate="TextBox_tier_id" validationexpression="\d*" display="Dynamic">!ERR!</ASP:RegularExpressionValidator>
+                  <asp:RequiredFieldValidator id="RequiredFieldValidator_tier" runat="server" errormessage="Please select a Tier." display="Dynamic" font-bold="True" controltovalidate="DropDownList_tier">!ERR!</asp:RequiredFieldValidator>
             </td>
           </tr>
           <tr id="TableRow_soft_hyphenation_text" runat="server" visible="False">
@@ -35,85 +36,77 @@
       </td>
     </tr>
   </table>
-</div>
-<ASP:Button id="Button_submit" text="Submit" runat="server"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
+<ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage</a>
 <p>
-  <table cellspacing="0" cellpadding="10" border="0">
-      <tr>
-        <td valign="top">
-          <table id="Table_holders" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="False">
-            <tr>
-              <td>
-                <table cellspacing="0" cellpadding="10" border="0">
-                  <tr><td bgcolor="whitesmoke"><strong>Holders&nbsp;(<asp:Label id="Label_num_rows" runat="server"></asp:Label>)</strong></td></tr>
-                  <tr>
-                    <td>
-                      <asp:GridView id="GridView_holders" runat="server" autogeneratecolumns="False" gridlines="None" allowsorting="True" cellpadding="5" borderstyle="None">
-                            <Columns>
-                              <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
-                                <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
-                              </asp:BoundField>
-                              <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
-                                <ItemStyle font-size="X-Small"></ItemStyle>
-                              </asp:BoundField>
-                              <asp:BoundField datafield="email_address"></asp:BoundField>
-                            </Columns>
-                      </asp:GridView>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-          </table>
-        </td>
-        <td valign="top">
-          <p>
-            <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1" visible="False">
-              <tr>
-                <td>
-                  <table cellspacing="0" cellpadding="10" width="100%" border="0">
-                    <tr><td bgcolor="#f5f5f5"><strong>QuickMessage</strong></td></tr>
-                    <tr>
-                      <td>
-                        <table cellspacing="0" cellpadding="10" width="100%" border="0">
-                          <tr>
-                            <td>To:</td>
-                            <td>The parties shown in the adjacent table (see below for resolution)</td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td>Bcc:</td>
-                            <td><ASP:Label id="Label_author_email_address" runat="server"></ASP:Label></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td>Subject:</td>
-                            <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td valign="top">Body:</td>
-                            <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="54" rows="18" textmode="MultiLine"></ASP:TextBox></td>
-                            <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body">!ERR!</ASP:RequiredFieldValidator></td>
-                          </tr>
-                          <tr>
-                            <td></td>
-                            <td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button></td>
-                            <td></td>
-                          </tr>
-                          <tr>
-                            <td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td>
-                            <td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>
-                            <td></td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </p>
+  <table id="Table_holders" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="False">
+    <tr>
+      <td>
+        <table cellspacing="0" cellpadding="10" border="0">
+          <tr><td bgcolor="whitesmoke"><strong>Holders&nbsp;(<asp:Label id="Label_num_rows" runat="server"></asp:Label>)</strong></td></tr>
+          <tr>
+            <td>
+              <asp:GridView id="GridView_holders" runat="server" autogeneratecolumns="False" gridlines="None" allowsorting="True" cellpadding="5" borderstyle="None">
+                    <Columns>
+                      <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
+                        <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
+                      </asp:BoundField>
+                      <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
+                        <ItemStyle font-size="X-Small"></ItemStyle>
+                      </asp:BoundField>
+                      <asp:BoundField datafield="email_address"></asp:BoundField>
+                    </Columns>
+              </asp:GridView>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+</p>
+</div>
+<p>
+  <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1" visible="False">
+    <tr>
+      <td>
+        <table cellspacing="0" cellpadding="10" width="100%" border="0">
+          <tr><td bgcolor="#f5f5f5"><a id="QuickMessage"><strong>QuickMessage</strong></a></td></tr>
+          <tr>
+            <td>
+              <table cellspacing="0" cellpadding="10" width="100%" border="0">
+                <tr>
+                  <td>To:</td>
+                  <td>The parties shown in the adjacent table (see below for resolution)</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Bcc:</td>
+                  <td><ASP:Label id="Label_author_email_address" runat="server"></ASP:Label></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Subject:</td>
+                  <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td valign="top">Body:</td>
+                  <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="54" rows="18" textmode="MultiLine"></ASP:TextBox></td>
+                  <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td>
+                  <td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>
+                  <td></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
       </td>
     </tr>
   </table>
