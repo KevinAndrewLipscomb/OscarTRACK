@@ -26,12 +26,14 @@ type
       out soft_hyphenation_text: string
       )
       : boolean;
+    function NameOfId(id: string): string;
     procedure &Set
       (
       name: string;
       tier_id: string;
       soft_hyphenation_text: string
       );
+    function TierOfId(id: string): string;
   end;
 
 implementation
@@ -81,6 +83,11 @@ begin
   //
 end;
 
+function TClass_biz_roles.NameOfId(id: string): string;
+begin
+  NameOfId := db_roles.NameOfId(id);
+end;
+
 procedure TClass_biz_roles.&Set
   (
   name: string;
@@ -96,6 +103,11 @@ begin
     soft_hyphenation_text
     );
   //
+end;
+
+function TClass_biz_roles.TierOfId(id: string): string;
+begin
+  TierOfId := db_roles.TierOfId(id);
 end;
 
 end.

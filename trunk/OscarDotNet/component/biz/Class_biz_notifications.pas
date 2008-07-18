@@ -150,6 +150,12 @@ type
       effective_date: string;
       note: string
       );
+    procedure IssueForRoleChange
+      (
+      member_id: string;
+      role_id: string;
+      be_granted: boolean
+      );
     procedure IssueForSectionChange
       (
       member_id: string;
@@ -200,7 +206,9 @@ implementation
 
 uses
   borland.vcl.sysutils,
+  Class_biz_agencies,
   Class_biz_members,
+  Class_biz_roles,
   Class_biz_user,
   Class_biz_users,
   kix,
@@ -243,10 +251,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -297,10 +307,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num);
@@ -350,10 +362,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -464,12 +478,14 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<old_start_month/>',old_start_month)
       .Replace('<old_end_month/>',old_end_month)
@@ -536,12 +552,14 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<start_month/>',start_month)
       .Replace('<end_month/>',end_month)
@@ -598,12 +616,14 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<start_month/>',start_month)
       .Replace('<end_month/>',end_month)
@@ -652,10 +672,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
       .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<cad_num/>',cad_num)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<member_id/>',member_id);
   END;
@@ -701,10 +723,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -762,9 +786,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -773,8 +800,7 @@ var
       .Replace('<agency_name/>',agency_name)
       .Replace('<email_address/>',email_address)
       .Replace('<enrollment_date/>',enrollment_date)
-      .Replace('<enrollment_level/>',enrollment_level)
-      .Replace('<host_domain_name/>',host_domain_name);
+      .Replace('<enrollment_level/>',enrollment_level);
   END;
   //
 begin
@@ -822,9 +848,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<old_first_name/>',old_first_name)
       .Replace('<old_last_name/>',old_last_name)
@@ -869,16 +898,18 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<full_name/>',full_name.toupper)
       .Replace('<user_email_address/>',user_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace
         (
         '<explanation/>',
         WrapText
           (explanation,(NEW_LINE + '   '),BreakChars,int16.Parse(configurationmanager.AppSettings['email_blockquote_maxcol']))
-        )
-      .Replace('<host_domain_name/>',host_domain_name);
+        );
   END;
   //
 begin
@@ -923,10 +954,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -982,13 +1015,15 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<application_name/>',application_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<effective_date/>',effective_date)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<member_id/>',member_id)
       .Replace('<new_level/>',new_level)
@@ -1021,6 +1056,87 @@ begin
   template_reader.Close;
 end;
 
+procedure TClass_biz_notifications.IssueForRoleChange
+  (
+  member_id: string;
+  role_id: string;
+  be_granted: boolean
+  );
+var
+  actor: string;
+  actor_email_address: string;
+  actor_member_id: string;
+  agency_name: string;
+  biz_agencies: TClass_biz_agencies;
+  biz_members: TClass_biz_members;
+  biz_roles: TClass_biz_roles;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  cad_num: string;
+  changed: string;
+  first_name: string;
+  last_name: string;
+  role_name: string;
+  template_reader: streamreader;
+  to_or_from: string;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<actor/>',actor)
+      .Replace('<actor_email_address/>',actor_email_address)
+      .Replace('<changed/>',changed)
+      .Replace('<to_or_from/>',to_or_from)
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<agency_name/>',agency_name)
+      .Replace('<role_name/>',role_name);
+  END;
+  //
+begin
+  //
+  biz_agencies := TClass_biz_agencies.Create;
+  biz_members := TClass_biz_members.Create;
+  biz_roles := TClass_biz_roles.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
+  agency_name := biz_agencies.MediumDesignatorOf(biz_members.AgencyIdOfId(member_id));
+  cad_num := biz_members.CadNumOfMemberId(member_id);
+  if be_granted then begin
+    changed := 'granted';
+    to_or_from := 'to';
+  end else begin
+    changed := 'removed';
+    to_or_from := 'from';
+  end;
+  first_name := biz_members.FirstNameOfMemberId(member_id);
+  last_name := biz_members.LastNameOfMemberId(member_id);
+  role_name := biz_roles.NameOfId(role_id);
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/role_change.txt'));
+  //
+  kix.SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('role-change',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
 procedure TClass_biz_notifications.IssueForSectionChange
   (
   member_id: string;
@@ -1042,10 +1158,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<actor/>',actor)
       .Replace('<actor_email_address/>',actor_email_address)
-      .Replace('<host_domain_name/>',host_domain_name)
-      .Replace('<application_name/>',application_name)
       .Replace('<first_name/>',first_name)
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
@@ -1094,10 +1212,12 @@ var
   FUNCTION Merge(s: string): string;
   BEGIN
     Merge := s
+      // always needed
       .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
       .Replace('<cad_num/>',cad_num)
       .Replace('<first_name/>',first_name)
-      .Replace('<host_domain_name/>',host_domain_name)
       .Replace('<last_name/>',last_name)
       .Replace('<member_id/>',member_id)
       .Replace('<new_level/>',new_level);

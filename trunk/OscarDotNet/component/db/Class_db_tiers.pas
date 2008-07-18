@@ -18,6 +18,7 @@ type
       selected_id: string = ''
       );
     function IdOfName(name: string): string;
+    function NameOfId(id: string): string;
   end;
 
 implementation
@@ -62,6 +63,13 @@ function TClass_db_tiers.IdOfName(name: string): string;
 begin
   self.Open;
   IdOfName := mysqlcommand.Create('select id from tier where name = "' + name + '"',connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
+function TClass_db_tiers.NameOfId(id: string): string;
+begin
+  self.Open;
+  NameOfId := mysqlcommand.Create('select name from tier where id = "' + id + '"',connection).ExecuteScalar.tostring;
   self.Close;
 end;
 

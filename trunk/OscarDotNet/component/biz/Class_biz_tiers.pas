@@ -20,6 +20,7 @@ type
       unselected_literal: string = 'All'
       );
     function IdOfName(name: string): string;
+    function NameOfId(id: string): string;
   end;
 
 implementation
@@ -45,6 +46,11 @@ end;
 function TClass_biz_tiers.IdOfName(name: string): string;
 begin
   IdOfName := db_tiers.IdOfName(name);
+end;
+
+function TClass_biz_tiers.NameOfId(id: string): string;
+begin
+  NameOfId := db_tiers.NameOfId(id);
 end;
 
 end.

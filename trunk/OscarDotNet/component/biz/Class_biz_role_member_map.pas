@@ -123,6 +123,7 @@ procedure TClass_biz_role_member_map.Save
   );
 begin
   db_role_member_map.Save(member_id,role_id,be_granted);
+  biz_notifications.IssueForRoleChange(member_id,role_id,be_granted);
 end;
 
 end.
