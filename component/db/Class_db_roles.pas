@@ -27,12 +27,14 @@ type
       out soft_hyphenation_text: string
       )
       : boolean;
+    function NameOfId(id: string): string;
     procedure &Set
       (
       name: string;
       tier_id: string;
       soft_hyphenation_text: string
       );
+    function TierOfId(id: string): string;
   end;
 
 implementation
@@ -135,6 +137,13 @@ begin
   self.Close;
 end;
 
+function TClass_db_roles.NameOfId(id: string): string;
+begin
+  self.Open;
+  NameOfId := mysqlcommand.Create('select name from role where id = "' + id + '"',connection).ExecuteScalar.tostring;
+  self.Close;
+end;
+
 procedure TClass_db_roles.&Set
   (
   name: string;
@@ -172,6 +181,13 @@ begin
     .ExecuteNonquery;
   self.Close;
   //
+end;
+
+function TClass_db_roles.TierOfId(id: string): string;
+begin
+  self.Open;
+  TierOfId := mysqlcommand.Create('select tier_id from role where id = "' + id + '"',connection).ExecuteScalar.tostring;
+  self.Close;
 end;
 
 end.

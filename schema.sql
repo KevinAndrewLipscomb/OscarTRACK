@@ -651,7 +651,8 @@ INSERT INTO notification (id,`name`) VALUES
 (11,'member-name-change'),
 (12,'seniority-promotion'),
 (13,'leave-expired'),
-(14,'report-monthly-per-agency-serial-indicators');
+(14,'report-monthly-per-agency-serial-indicators'),
+(15,'role-change');
 
 -- --------------------------------------------------------
 
@@ -881,7 +882,12 @@ insert role_notification_map (notification_id,role_id,data_condition_id) values
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Department BLS ID Coordinator"),2),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Commander"),1),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Section Sergeant"),1),
-((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Training Officer"),2);
+((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Training Officer"),2),
+((select id from notification where name = "role-change"),(select id from role where name = "Application Administrator")),
+((select id from notification where name = "role-change"),(select id from role where name = "Department Human Resources Officer")),
+((select id from notification where name = "role-change"),(select id from role where name = "Department BLS ID Coordinator")),
+((select id from notification where name = "role-change"),(select id from role where name = "Squad Commander")),
+((select id from notification where name = "role-change"),(select id from role where name = "Squad Manager"));
 insert ignore role_notification_map (role_id,notification_id,data_condition_id) values
 ((select id from role where name = "Application Administrator"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),
 ((select id from role where name = "Department Authority"),(select id from notification where name = "report-monthly-per-agency-serial-indicators"),1),

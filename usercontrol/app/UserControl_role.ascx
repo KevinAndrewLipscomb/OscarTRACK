@@ -85,12 +85,12 @@
                 </tr>
                 <tr>
                   <td>Subject:</td>
-                  <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
+                  <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="72"></ASP:TextBox></td>
                   <td></td>
                 </tr>
                 <tr>
                   <td valign="top">Body:</td>
-                  <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="54" rows="18" textmode="MultiLine"></ASP:TextBox></td>
+                  <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="72" rows="18" textmode="MultiLine"></ASP:TextBox></td>
                   <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
                 </tr>
                 <tr>
