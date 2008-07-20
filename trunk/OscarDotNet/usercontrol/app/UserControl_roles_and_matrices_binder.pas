@@ -114,14 +114,14 @@ begin
     TSSI_ROLE_PRIVILEGE_MATRIX:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/ki/UserControl_role_privilege_matrix.ascx')),
+        TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/app/UserControl_role_privilege_matrix.ascx')),
         'UserControl_role_privilege_matrix',
         PlaceHolder_content
         );
     TSSI_ROLE_NOTIFICATION_MATRIX:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/ki/UserControl_role_notification_matrix.ascx')),
+        TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/app/UserControl_role_notification_matrix.ascx')),
         'UserControl_role_notification_matrix',
         PlaceHolder_content
         );
@@ -169,14 +169,14 @@ begin
   TSSI_ROLE_PRIVILEGE_MATRIX:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/ki/UserControl_role_privilege_matrix.ascx')).Fresh,
+      TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/app/UserControl_role_privilege_matrix.ascx')).Fresh,
       'UserControl_role_privilege_matrix',
       PlaceHolder_content
       );
   TSSI_ROLE_NOTIFICATION_MATRIX:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/ki/UserControl_role_notification_matrix.ascx')).Fresh,
+      TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/app/UserControl_role_notification_matrix.ascx')).Fresh,
       'UserControl_role_notification_matrix',
       PlaceHolder_content
       );

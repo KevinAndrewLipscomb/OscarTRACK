@@ -112,8 +112,6 @@ uses
   Class_biz_role_privilege_map in 'component\biz\Class_biz_role_privilege_map.pas',
   Class_biz_privileges in 'component\biz\Class_biz_privileges.pas',
   Class_biz_role_notification_map in 'component\biz\Class_biz_role_notification_map.pas',
-  UserControl_role_privilege_matrix in 'usercontrol\ki\UserControl_role_privilege_matrix.pas' {UserControl_role_privilege_matrix.TWebUserControl_role_privilege_matrix: ki_web_ui.usercontrol_class},
-  UserControl_role_notification_matrix in 'usercontrol\ki\UserControl_role_notification_matrix.pas' {UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix: ki_web_ui.usercontrol_class},
   Class_db_role_notification_map in 'component\db\Class_db_role_notification_map.pas',
   Class_db_role_privilege_map in 'component\db\Class_db_role_privilege_map.pas',
   Class_db_privileges in 'component\db\Class_db_privileges.pas',
@@ -122,7 +120,9 @@ uses
   UserControl_role in 'usercontrol\app\UserControl_role.pas' {UserControl_role.TWebUserControl_role: ki_web_ui.usercontrol_class},
   UserControl_role_help in 'usercontrol\app\UserControl_role_help.pas' {UserControl_role_help.TWebUserControl_role_help: ki_web_ui.usercontrol_class},
   UserControl_roles_and_matrices_binder in 'usercontrol\app\UserControl_roles_and_matrices_binder.pas' {UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class},
-  roles in 'doc\roles.pas' {roles.TWebForm_roles: ki_web_ui.page_class};
+  roles in 'doc\roles.pas' {roles.TWebForm_roles: ki_web_ui.page_class},
+  UserControl_role_privilege_matrix in 'usercontrol\app\UserControl_role_privilege_matrix.pas' {UserControl_role_privilege_matrix.TWebUserControl_role_privilege_matrix: ki_web_ui.usercontrol_class},
+  UserControl_role_notification_matrix in 'usercontrol\app\UserControl_role_notification_matrix.pas' {UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
