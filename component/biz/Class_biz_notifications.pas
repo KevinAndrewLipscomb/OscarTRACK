@@ -11,6 +11,7 @@ type
     application_name: string;
     db_notifications: TClass_db_notifications;
     host_domain_name: string;
+    ssl_base_path: string;
   public
     constructor Create;
     procedure IssueForAgencyChange
@@ -228,6 +229,7 @@ begin
   application_name := configurationmanager.appsettings['application_name'];
   db_notifications := TClass_db_notifications.Create;
   host_domain_name := configurationmanager.appsettings['host_domain_name'];
+  ssl_base_path := configurationmanager.appsettings['host_domain_name'];
 end;
 
 procedure TClass_biz_notifications.IssueForAgencyChange
@@ -1095,7 +1097,8 @@ var
       .Replace('<last_name/>',last_name)
       .Replace('<cad_num/>',cad_num)
       .Replace('<agency_name/>',agency_name)
-      .Replace('<role_name/>',role_name);
+      .Replace('<role_name/>',role_name)
+      .Replace('<ssl_base_path/>',ssl_base_path);
   END;
   //
 begin

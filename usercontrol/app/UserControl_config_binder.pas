@@ -98,7 +98,7 @@ begin
     TSSI_ROLES_AND_MATRICES:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')),
+        TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/app/UserControl_roles_and_matrices_binder.ascx')),
         'UserControl_roles_and_matrices_binder',
         PlaceHolder_content
         );
@@ -125,7 +125,7 @@ begin
     //
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')).Fresh,
+      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/app/UserControl_roles_and_matrices_binder.ascx')).Fresh,
       'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );
@@ -146,7 +146,7 @@ begin
   TSSI_ROLES_AND_MATRICES:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/ki/UserControl_roles_and_matrices_binder.ascx')).Fresh,
+      TWebUserControl_roles_and_matrices_binder(LoadControl('~/usercontrol/app/UserControl_roles_and_matrices_binder.ascx')).Fresh,
       'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );

@@ -183,11 +183,18 @@
     <DCCReference Include="Default.pas">
       <DependentUpon>Default.aspx</DependentUpon>
     </DCCReference>
+    <DCCReference Include="doc\roles.pas">
+      <DependentUpon>doc\roles.aspx</DependentUpon>
+      <Form>roles.TWebForm_roles</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="exception.pas">
       <DependentUpon>exception.aspx</DependentUpon>
     </DCCReference>
     <DCCReference Include="Global.pas">
       <DependentUpon>Global.asax</DependentUpon>
+      <Form>Global.TGlobal</Form>
+      <DesignClass>System.Web.HttpApplication</DesignClass>
     </DCCReference>
     <DCCReference Include="login.pas">
       <DependentUpon>login.aspx</DependentUpon>
@@ -339,6 +346,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_common_header_bar.pas">
       <DependentUpon>usercontrol\app\UserControl_common_header_bar.ascx</DependentUpon>
+      <Form>UserControl_common_header_bar.TWebUserControl_common_header_bar</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_config_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_config_binder.ascx</DependentUpon>
@@ -403,6 +412,16 @@
       <Form>UserControl_role.TWebUserControl_role</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_roles_and_matrices_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_roles_and_matrices_binder.ascx</DependentUpon>
+      <Form>UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_role_help.pas">
+      <DependentUpon>usercontrol\app\UserControl_role_help.ascx</DependentUpon>
+      <Form>UserControl_role_help.TWebUserControl_role_help</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_role_member_matrix.pas">
       <DependentUpon>usercontrol\app\UserControl_role_member_matrix.ascx</DependentUpon>
       <Form>UserControl_role_member_matrix.TWebUserControl_role_member_matrix</Form>
@@ -462,11 +481,6 @@
       <Form>UserControl_print_div.TWebUserControl_print_div</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
-    <DCCReference Include="usercontrol\ki\UserControl_roles_and_matrices_binder.pas">
-      <DependentUpon>usercontrol\ki\UserControl_roles_and_matrices_binder.ascx</DependentUpon>
-      <Form>UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder</Form>
-      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
-    </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_role_notification_matrix.pas">
       <DependentUpon>usercontrol\ki\UserControl_role_notification_matrix.ascx</DependentUpon>
       <Form>UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix</Form>
@@ -478,6 +492,7 @@
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <None Include="Default.aspx" />
+    <None Include="doc\roles.aspx" />
     <None Include="exception.aspx" />
     <None Include="Global.asax" />
     <None Include="login.aspx" />
@@ -534,6 +549,8 @@
     <None Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
     <None Include="usercontrol\app\UserControl_role.ascx" />
+    <None Include="usercontrol\app\UserControl_roles_and_matrices_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_role_help.ascx" />
     <None Include="usercontrol\app\UserControl_role_member_matrix.ascx" />
     <None Include="usercontrol\app\UserControl_roster.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
@@ -549,7 +566,6 @@
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
     <None Include="usercontrol\ki\UserControl_print_div.ascx" />
-    <None Include="usercontrol\ki\UserControl_roles_and_matrices_binder.ascx" />
     <None Include="usercontrol\ki\UserControl_role_notification_matrix.ascx" />
     <None Include="usercontrol\ki\UserControl_role_privilege_matrix.ascx" />
   </ItemGroup>
