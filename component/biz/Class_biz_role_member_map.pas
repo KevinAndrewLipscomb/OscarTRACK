@@ -30,7 +30,7 @@ type
       tier_filter: string;
       agency_filter: string;
       sort_order: string;
-      be_sort_order_ascending: boolean;
+      be_sort_order_descending: boolean;
       target: system.object;
       out crosstab_metadata: arraylist
       );
@@ -99,7 +99,7 @@ procedure TClass_biz_role_member_map.Bind
   tier_filter: string;
   agency_filter: string;
   sort_order: string;
-  be_sort_order_ascending: boolean;
+  be_sort_order_descending: boolean;
   target: system.object;
   out crosstab_metadata: arraylist
   );
@@ -112,7 +112,7 @@ begin
     tier_quoted_value_list := tier_filter;
   end;
   tier_quoted_value_list := QUOTE + tier_quoted_value_list + QUOTE;
-  db_role_member_map.Bind(tier_quoted_value_list,agency_filter,sort_order,be_sort_order_ascending,target,crosstab_metadata);
+  db_role_member_map.Bind(tier_quoted_value_list,agency_filter,sort_order,be_sort_order_descending,target,crosstab_metadata);
 end;
 
 procedure TClass_biz_role_member_map.BindHolders

@@ -33,7 +33,7 @@ const
       tier_quoted_value_list: string;
       agency_filter: string;
       sort_order: string;
-      be_sort_order_ascending: boolean;
+      be_sort_order_descending: boolean;
       target: system.object;
       out crosstab_metadata_rec_arraylist: arraylist
       );
@@ -70,7 +70,7 @@ procedure TClass_db_role_member_map.Bind
   tier_quoted_value_list: string;
   agency_filter: string;
   sort_order: string;
-  be_sort_order_ascending: boolean;
+  be_sort_order_descending: boolean;
   target: system.object;
   out crosstab_metadata_rec_arraylist: arraylist
   );
@@ -118,26 +118,34 @@ begin
   end;
   dr.Close;
   //
-  if agency_filter = EMPTY then begin
-    where_clause := EMPTY;
-  end else begin
-    where_clause := ' where agency_id = "' + agency_filter + '"';
+  where_clause := ' where enrollment_level.description in ("Applicant","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin"'
+    + ',"Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","New trainee") ';
+  if agency_filter <> EMPTY then begin
+    where_clause := where_clause + ' and agency_id = "' + agency_filter + '"';
   end;
   //
-  if be_sort_order_ascending then begin
-    sort_order := sort_order.Replace('%',' asc');
-  end else begin
+  if be_sort_order_descending then begin
     sort_order := sort_order.Replace('%',' desc');
+  end else begin
+    sort_order := sort_order.Replace('%',' asc');
   end;
   //
   GridView(target).datasource := mysqlcommand.Create
     (
     'select member.id as member_id'
-    + ' , concat(last_name,"' + COMMA_SPACE + '",first_name) as member_name'
+    + ' , concat(last_name,"' + COMMA_SPACE + '",first_name," (",IFNULL(cad_num,""),")") as member_name'
     + crosstab_sql
     + ' from member'
     +   ' left outer join role_member_map on (role_member_map.member_id=member.id)'
     +   ' left outer join role on (role.id=role_member_map.role_id)'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       '   enrollment_history.member_id=member.id'
+    +       ' and'
+    +       '   (enrollment_history.end_date is null)'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     + where_clause
     + ' group by member.id'
     + ' order by ' + sort_order,

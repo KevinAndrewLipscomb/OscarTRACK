@@ -5,7 +5,7 @@ This is an automatic notification from <application_name/>.
 
 More information about roles is available here:
 
-   https://<ssl_base_path/>/<application_name/>/doc/roles.aspx
+   <runtime_root_fullspec/>doc/roles.aspx
 
 You can reach <actor/> at:
 
