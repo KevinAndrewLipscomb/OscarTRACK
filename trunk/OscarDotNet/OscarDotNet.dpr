@@ -36,7 +36,7 @@ uses
   Class_biz_data_conditions in 'component\biz\Class_biz_data_conditions.pas',
   Default in 'Default.pas',
   exception in 'exception.pas',
-  Global in 'Global.pas',
+  Global in 'Global.pas' {Global.TGlobal: System.Web.HttpApplication},
   login in 'login.pas' {login.TWebForm_login: ki_web_ui.page_class},
   new_user_registration in 'new_user_registration.pas',
   remind_username in 'remind_username.pas',
@@ -64,7 +64,7 @@ uses
   UserControl_about in 'usercontrol\app\UserControl_about.pas' {UserControl_about.TWebUserControl_about: ki_web_ui.usercontrol_class},
   UserControl_agency in 'usercontrol\app\UserControl_agency.pas' {UserControl_agency.TWebUserControl_agency: ki_web_ui.usercontrol_class},
   UserControl_commensuration in 'usercontrol\app\UserControl_commensuration.pas',
-  UserControl_common_header_bar in 'usercontrol\app\UserControl_common_header_bar.pas',
+  UserControl_common_header_bar in 'usercontrol\app\UserControl_common_header_bar.pas' {UserControl_common_header_bar.TWebUserControl_common_header_bar: ki_web_ui.usercontrol_class},
   UserControl_config_binder in 'usercontrol\app\UserControl_config_binder.pas' {UserControl_config_binder.TWebUserControl_config_binder: ki_web_ui.usercontrol_class},
   UserControl_current_indicators in 'usercontrol\app\UserControl_current_indicators.pas' {UserControl_current_indicators.TWebUserControl_current_indicators: ki_web_ui.usercontrol_class},
   UserControl_dashboard_binder in 'usercontrol\app\UserControl_dashboard_binder.pas' {UserControl_dashboard_binder.TWebUserControl_dashboard_binder: ki_web_ui.usercontrol_class},
@@ -106,7 +106,6 @@ uses
   serial_indicator_control_chart in 'serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page},
   Class_biz_role_member_map in 'component\biz\Class_biz_role_member_map.pas',
   Class_db_role_member_map in 'component\db\Class_db_role_member_map.pas',
-  UserControl_roles_and_matrices_binder in 'usercontrol\ki\UserControl_roles_and_matrices_binder.pas' {UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class},
   Class_biz_roles in 'component\biz\Class_biz_roles.pas',
   Class_db_roles in 'component\db\Class_db_roles.pas',
   UserControl_role_member_matrix in 'usercontrol\app\UserControl_role_member_matrix.pas' {UserControl_role_member_matrix.TWebUserControl_role_member_matrix: ki_web_ui.usercontrol_class},
@@ -120,7 +119,10 @@ uses
   Class_db_privileges in 'component\db\Class_db_privileges.pas',
   Class_biz_tiers in 'component\biz\Class_biz_tiers.pas',
   Class_db_tiers in 'component\db\Class_db_tiers.pas',
-  UserControl_role in 'usercontrol\app\UserControl_role.pas' {UserControl_role.TWebUserControl_role: ki_web_ui.usercontrol_class};
+  UserControl_role in 'usercontrol\app\UserControl_role.pas' {UserControl_role.TWebUserControl_role: ki_web_ui.usercontrol_class},
+  UserControl_role_help in 'usercontrol\app\UserControl_role_help.pas' {UserControl_role_help.TWebUserControl_role_help: ki_web_ui.usercontrol_class},
+  UserControl_roles_and_matrices_binder in 'usercontrol\app\UserControl_roles_and_matrices_binder.pas' {UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class},
+  roles in 'doc\roles.pas' {roles.TWebForm_roles: ki_web_ui.page_class};
 
 //
 // General Information about an assembly is controlled through the following

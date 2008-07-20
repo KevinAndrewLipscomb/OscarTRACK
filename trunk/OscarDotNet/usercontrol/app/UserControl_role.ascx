@@ -7,7 +7,7 @@
       <td valign="top">
         <table cellspacing="0" cellpadding="5" border="0">
           <tr>
-            <td valign="top"><font class="">Name:</font></td>
+            <td valign="top"><font class="">Title:</font></td>
             <td valign="top">
               <font class="">
                 <ASP:TextBox id="TextBox_name" runat="server" columns="63" maxlength="63" cssclass=""></ASP:TextBox>&nbsp;&nbsp;&nbsp;&nbsp; <ASP:LinkButton id="LinkButton_search" runat="server" causesvalidation="False" font-bold="True">Lookup</ASP:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp; <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False">Reset</ASP:LinkButton><br>
@@ -36,33 +36,34 @@
       </td>
     </tr>
   </table>
-<ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage</a>
-<p>
-  <table id="Table_holders" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="False">
-    <tr>
-      <td>
-        <table cellspacing="0" cellpadding="10" border="0">
-          <tr><td bgcolor="whitesmoke"><strong>Holders&nbsp;(<asp:Label id="Label_num_rows" runat="server"></asp:Label>)</strong></td></tr>
-          <tr>
-            <td>
-              <asp:GridView id="GridView_holders" runat="server" autogeneratecolumns="False" gridlines="None" allowsorting="True" cellpadding="5" borderstyle="None">
-                    <Columns>
-                      <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
-                        <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
-                      </asp:BoundField>
-                      <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
-                        <ItemStyle font-size="X-Small"></ItemStyle>
-                      </asp:BoundField>
-                      <asp:BoundField datafield="email_address"></asp:BoundField>
-                    </Columns>
-              </asp:GridView>
-            </td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  </table>
-</p>
+  <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage
+  </a>
+  <p>
+    <table id="Table_holders" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="False">
+      <tr>
+        <td>
+          <table cellspacing="0" cellpadding="10" border="0">
+            <tr><td bgcolor="whitesmoke"><strong>Holders&nbsp;(<asp:Label id="Label_num_rows" runat="server"></asp:Label>)</strong></td></tr>
+            <tr>
+              <td>
+                <asp:GridView id="GridView_holders" runat="server" autogeneratecolumns="False" gridlines="None" allowsorting="True" cellpadding="5" borderstyle="None">
+                      <Columns>
+                        <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
+                          <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
+                        </asp:BoundField>
+                        <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
+                          <ItemStyle font-size="X-Small"></ItemStyle>
+                        </asp:BoundField>
+                        <asp:BoundField datafield="email_address"></asp:BoundField>
+                      </Columns>
+                </asp:GridView>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </p>
 </div>
 <p>
   <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1" visible="False">
