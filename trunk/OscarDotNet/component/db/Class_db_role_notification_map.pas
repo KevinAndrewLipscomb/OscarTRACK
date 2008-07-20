@@ -30,7 +30,7 @@ const
       (
       tier_filter: string;
       sort_order: string;
-      be_sort_order_ascending: boolean;
+      be_sort_order_descending: boolean;
       target: system.object;
       out crosstab_metadata_rec_arraylist: arraylist
       );
@@ -59,7 +59,7 @@ procedure TClass_db_role_notification_map.Bind
   (
   tier_filter: string;
   sort_order: string;
-  be_sort_order_ascending: boolean;
+  be_sort_order_descending: boolean;
   target: system.object;
   out crosstab_metadata_rec_arraylist: arraylist
   );
@@ -112,10 +112,10 @@ begin
     // where_clause := ' where agency_id = "' + filter + '"';
   end;
   //
-  if be_sort_order_ascending then begin
-    sort_order := sort_order.Replace('%',' asc');
-  end else begin
+  if be_sort_order_descending then begin
     sort_order := sort_order.Replace('%',' desc');
+  end else begin
+    sort_order := sort_order.Replace('%',' asc');
   end;
   //
   GridView(target).datasource := mysqlcommand.Create

@@ -22,7 +22,7 @@ type
     agency_filter: string;
     be_interactive: boolean;
     be_loaded: boolean;
-    be_sort_order_ascending: boolean;
+    be_sort_order_descending: boolean;
     be_user_privileged_to_see_all_squads: boolean;
     biz_agencies: TClass_biz_agencies;
     biz_members: TClass_biz_members;
@@ -260,7 +260,7 @@ begin
     //
     p.be_interactive := not assigned(session['mode:report']);
     p.be_loaded := FALSE;
-    p.be_sort_order_ascending := TRUE;
+    p.be_sort_order_descending := FALSE;
     p.sort_order := 'member_name%';
     //
   end;
@@ -331,10 +331,10 @@ procedure TWebUserControl_role_member_matrix.GridView_control_Sorting(sender: Sy
   e: System.Web.UI.WebControls.GridViewSortEventArgs);
 begin
   if (e.SortExpression + '%,member_name') = p.sort_order then begin
-    p.be_sort_order_ascending := not p.be_sort_order_ascending;
+    p.be_sort_order_descending := not p.be_sort_order_descending;
   end else begin
     p.sort_order := e.SortExpression + '%,member_name';
-    p.be_sort_order_ascending := TRUE;
+    p.be_sort_order_descending := TRUE;
   end;
   GridView_control.editindex := -1;
   Bind;
@@ -352,7 +352,7 @@ var
   metadata: crosstab_metadata_rec_type;
   i: cardinal;
 begin
-  p.biz_role_member_map.Bind(p.tier_filter,p.agency_filter,p.sort_order,p.be_sort_order_ascending,GridView_control,p.crosstab_metadata_rec_arraylist);
+  p.biz_role_member_map.Bind(p.tier_filter,p.agency_filter,p.sort_order,p.be_sort_order_descending,GridView_control,p.crosstab_metadata_rec_arraylist);
   LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Member';
   for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
     metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);

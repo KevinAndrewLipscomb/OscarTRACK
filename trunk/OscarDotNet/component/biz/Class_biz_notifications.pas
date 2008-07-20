@@ -11,7 +11,7 @@ type
     application_name: string;
     db_notifications: TClass_db_notifications;
     host_domain_name: string;
-    ssl_base_path: string;
+    runtime_root_fullspec: string;
   public
     constructor Create;
     procedure IssueForAgencyChange
@@ -229,7 +229,7 @@ begin
   application_name := configurationmanager.appsettings['application_name'];
   db_notifications := TClass_db_notifications.Create;
   host_domain_name := configurationmanager.appsettings['host_domain_name'];
-  ssl_base_path := configurationmanager.appsettings['host_domain_name'];
+  runtime_root_fullspec := configurationmanager.appsettings['runtime_root_fullspec'];
 end;
 
 procedure TClass_biz_notifications.IssueForAgencyChange
@@ -1098,7 +1098,7 @@ var
       .Replace('<cad_num/>',cad_num)
       .Replace('<agency_name/>',agency_name)
       .Replace('<role_name/>',role_name)
-      .Replace('<ssl_base_path/>',ssl_base_path);
+      .Replace('<runtime_root_fullspec/>',runtime_root_fullspec);
   END;
   //
 begin

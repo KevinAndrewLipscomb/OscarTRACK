@@ -38,7 +38,7 @@
                   <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
                   <tr>
                     <td align="right" valign="top"><strong>Squad Manager</strong></td>
-                    <td valign="top"><p>Someone who is (or might as well be) hired by a squad to execute many or most of the Squad Commander's responsibilities.&nbsp; <asp:Label id="Label_application_name_4" runat="server"></asp:Label>&nbsp;copies Squad Managers on all notifications and reports sent to Squad Commanders.&nbsp; Squad Managers&nbsp;get many of the&nbsp; <asp:Label id="Label_application_name_5" runat="server"></asp:Label>&nbsp;privileges that a Squad Commander has.</p></td>
+                    <td valign="top"><p>Someone who is (or might as well be) hired by a squad to execute many or most of the Squad Commander's responsibilities.&nbsp; <asp:Label id="Label_application_name_4" runat="server"></asp:Label>&nbsp;copies Squad Managers on all notifications and reports sent to Squad Commanders.&nbsp; Squad Managers&nbsp;get many of the <asp:Label id="Label_application_name_5" runat="server"></asp:Label>&nbsp;privileges that a Squad Commander has.</p></td>
                   </tr>
                 </table>
               </p>
