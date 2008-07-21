@@ -68,6 +68,7 @@ uses
 const
   CHECKBOX_ID_PREFIX_NOTIFICATION_ID = 'CheckBox_notification_';
   CHECKBOX_ID_PREFIX_ROLE_ID = '_role_';
+  INITIAL_SORT_ORDER = 'notification_name%';
 
 procedure TWebUserControl_role_notification_matrix.Checkboxify(row: gridviewrow);
 type
@@ -239,7 +240,7 @@ begin
     p.be_interactive := not assigned(session['mode:report']);
     p.be_loaded := FALSE;
     p.be_sort_order_descending := FALSE;
-    p.sort_order := 'notification_name%';
+    p.sort_order := INITIAL_SORT_ORDER;
     //
   end;
   //
@@ -314,6 +315,8 @@ procedure TWebUserControl_role_notification_matrix.DropDownList_tier_filter_Sele
   e: System.EventArgs);
 begin
   p.tier_filter := Safe(DropDownList_tier_filter.selectedvalue,NUM);
+  p.sort_order := INITIAL_SORT_ORDER;
+  p.be_sort_order_descending := FALSE;
   Bind;
 end;
 
