@@ -13,14 +13,6 @@ const
   CI_FIRST_CROSSTAB = 2;
 
   type
-  crosstab_metadata_rec_type =
-    RECORD
-    index: cardinal;
-    sql_name: string;
-    id: string;
-    natural_text: string;
-    soft_hyphenation_text: string;
-    END;
   TClass_db_role_privilege_map = class(TClass_db)
   private
     db_trail: TClass_db_trail;
@@ -45,6 +37,7 @@ const
 implementation
 
 uses
+  Class_db_roles,
   kix,
   mysql.data.mysqlclient,
   system.web.ui.webcontrols;

@@ -61,6 +61,7 @@ type
 implementation
 
 uses
+  Class_db_roles,
   Class_db_role_privilege_map,
   kix,
   system.configuration;
