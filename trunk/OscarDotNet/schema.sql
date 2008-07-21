@@ -652,7 +652,8 @@ INSERT INTO notification (id,`name`) VALUES
 (12,'seniority-promotion'),
 (13,'leave-expired'),
 (14,'report-monthly-per-agency-serial-indicators'),
-(15,'role-change');
+(15,'role-change'),
+(16,'agency-change');
 
 -- --------------------------------------------------------
 

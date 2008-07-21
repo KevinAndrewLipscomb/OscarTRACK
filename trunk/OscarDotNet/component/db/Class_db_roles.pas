@@ -7,6 +7,15 @@ uses
   Class_db_trail;
 
 type
+  crosstab_metadata_rec_type =
+    RECORD
+    index: cardinal;
+    sql_name: string;
+    id: string;
+    natural_text: string;
+    soft_hyphenation_text: string;
+    tier_id: string;
+    END;
   TClass_db_roles = class(TClass_db)
   private
     db_trail: TClass_db_trail;
