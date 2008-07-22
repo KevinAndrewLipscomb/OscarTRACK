@@ -266,6 +266,8 @@
     </DCCReference>
     <DCCReference Include="protected\change_member_agency.pas">
       <DependentUpon>protected\change_member_agency.aspx</DependentUpon>
+      <Form>change_member_agency.TWebForm_change_member_agency</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_member_driver_qualification.pas">
       <DependentUpon>protected\change_member_driver_qualification.aspx</DependentUpon>
@@ -475,6 +477,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_bread_crumb_trail.pas">
       <DependentUpon>usercontrol\ki\UserControl_bread_crumb_trail.ascx</DependentUpon>
+      <Form>UserControl_bread_crumb_trail.TWebUserControl_bread_crumb_trail</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_config_welcome.pas">
       <DependentUpon>usercontrol\ki\UserControl_config_welcome.ascx</DependentUpon>
