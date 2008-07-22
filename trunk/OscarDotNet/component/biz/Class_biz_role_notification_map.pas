@@ -32,6 +32,9 @@ type
 
 implementation
 
+uses
+  kix;
+
 constructor TClass_biz_role_notification_map.Create;
 begin
   inherited Create;
@@ -47,8 +50,16 @@ procedure TClass_biz_role_notification_map.Bind
   target: system.object;
   out crosstab_metadata: arraylist
   );
+var
+  tier_quoted_value_list: string;
 begin
-  db_role_notification_map.Bind(tier_filter,sort_order,be_sort_order_descending,target,crosstab_metadata);
+  if tier_filter = '2' then begin
+    tier_quoted_value_list := '2' + QUOTE + COMMA + QUOTE + '3';
+  end else begin
+    tier_quoted_value_list := tier_filter;
+  end;
+  tier_quoted_value_list := QUOTE + tier_quoted_value_list + QUOTE;
+  db_role_notification_map.Bind(tier_quoted_value_list,sort_order,be_sort_order_descending,target,crosstab_metadata);
 end;
 
 procedure TClass_biz_role_notification_map.Save

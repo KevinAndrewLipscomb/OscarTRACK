@@ -20,7 +20,7 @@ const
     constructor Create;
     procedure Bind
       (
-      tier_filter: string;
+      tier_quoted_value_list: string;
       sort_order: string;
       be_sort_order_descending: boolean;
       target: system.object;
@@ -50,7 +50,7 @@ end;
 
 procedure TClass_db_role_notification_map.Bind
   (
-  tier_filter: string;
+  tier_quoted_value_list: string;
   sort_order: string;
   be_sort_order_descending: boolean;
   target: system.object;
@@ -61,16 +61,15 @@ var
   crosstab_sql: string;
   crosstab_where_clause: string;
   dr: mysqldatareader;
-  where_clause: string;
 begin
   //
   crosstab_metadata_rec.index := 1;  // init to index of last non-dependent column
   crosstab_metadata_rec_arraylist := arraylist.Create;
   crosstab_sql := EMPTY;
-  if tier_filter = EMPTY then begin
+  if tier_quoted_value_list = DOUBLE_QUOTE then begin
     crosstab_where_clause := EMPTY;
   end else begin
-    crosstab_where_clause := ' and tier_id = "' + tier_filter + '"';
+    crosstab_where_clause := ' and tier_id in (' + tier_quoted_value_list + ')';
   end;
   //
   self.Open;
@@ -99,12 +98,6 @@ begin
   end;
   dr.Close;
   //
-  if tier_filter = EMPTY then begin
-    where_clause := EMPTY;
-  end else begin
-    // where_clause := ' where agency_id = "' + filter + '"';
-  end;
-  //
   if be_sort_order_descending then begin
     sort_order := sort_order.Replace('%',' desc');
   end else begin
@@ -119,7 +112,6 @@ begin
     + ' from notification'
     +   ' left outer join role_notification_map on (role_notification_map.notification_id=notification.id)'
     +   ' left outer join role on (role.id=role_notification_map.role_id)'
-    + where_clause
     + ' group by notification.id'
     + ' order by ' + sort_order,
     connection
