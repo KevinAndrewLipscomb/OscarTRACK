@@ -13,16 +13,9 @@
         <tr id="TableRow_account_control" runat="server">
           <td align="left" colspan="3">
             <hr align="center" noshade="true" width="100%" size="1">
-            <table width="100%" cellspacing="0" cellpadding="0">
-              <tr>
-                <td align="left">
-                  <small>
-                    <ASP:Label id="Label_username" runat="server"></ASP:Label>:&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">logout</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</ASP:LinkButton>
-                  </small>
-                </td>
-                <td align="right"><div id="prepage"><img id="Image_processing_indicator" runat="server" src="~/protected/image/processing-indicator.gif" height="19" width="220" /></div></td>
-              </tr>
-            </table>
+            <small>
+              <ASP:Label id="Label_username" runat="server"></ASP:Label>:&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False">logout</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False">password</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False">email address</ASP:LinkButton>
+            </small>
             <hr align="center" noshade="true" width="100%" size="1">
             <small><i><uc1:UserControl_bread_crumb_trail id="UserControl_bread_crumb_trail" runat="server"></uc1:UserControl_bread_crumb_trail></i></small>
           </td>
