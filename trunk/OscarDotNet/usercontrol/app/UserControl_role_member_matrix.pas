@@ -358,7 +358,7 @@ var
 begin
   p.biz_role_member_map.Bind(p.tier_filter,p.agency_filter,p.sort_order,p.be_sort_order_descending,GridView_control,p.crosstab_metadata_rec_arraylist);
   LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Member';
-  for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
+  for i := 0 to (p.crosstab_metadata_rec_arraylist.count - 1) do begin
     metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);
     LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).text := metadata.soft_hyphenation_text;
     LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.bold := FALSE;

@@ -26,7 +26,6 @@ type
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
     TableRow_account_control: System.Web.UI.HtmlControls.HtmlTableRow;
     ValidationSummary_control: System.Web.UI.WebControls.ValidationSummary;
-    Image_processing_indicator: HtmlImage;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -54,7 +53,6 @@ begin
       TableRow_account_control.visible := FALSE;
     end else begin
       Label_username.text := session['username'].tostring;
-      Image_processing_indicator.src := ExpandTildePath(Image_processing_indicator.src);
     end;
     //
   end;

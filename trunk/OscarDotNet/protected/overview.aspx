@@ -15,22 +15,5 @@
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
       <p><sstchur:SmartScroller runat="server" /></p>
     </form>
-    <script type="text/javascript" defer>
-      if (document.getElementById)
-        {
-        document.getElementById('prepage').style.visibility='hidden';
-        }
-      else
-        {
-        if (document.layers)
-          {
-          document.prepage.visibility = 'hidden';
-          }
-        else
-          {
-          document.all.prepage.style.visibility = 'hidden';
-          }
-        }
-    </script>
   </body>
 </html>

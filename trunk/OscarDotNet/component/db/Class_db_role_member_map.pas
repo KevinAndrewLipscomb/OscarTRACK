@@ -77,7 +77,7 @@ begin
   crosstab_metadata_rec.index := 1;  // init to index of last non-dependent column
   crosstab_metadata_rec_arraylist := arraylist.Create;
   crosstab_sql := EMPTY;
-  if tier_quoted_value_list = EMPTY then begin
+  if tier_quoted_value_list = DOUBLE_QUOTE then begin
     crosstab_where_clause := EMPTY;
   end else begin
     crosstab_where_clause := ' and tier_id in (' + tier_quoted_value_list + ')';
