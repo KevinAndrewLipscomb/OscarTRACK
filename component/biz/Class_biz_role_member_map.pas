@@ -41,6 +41,11 @@ type
       sort_order: string;
       be_sort_order_ascending: boolean
       );
+    procedure BindHoldersPerAgency
+      (
+      agency_id: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -124,6 +129,15 @@ procedure TClass_biz_role_member_map.BindHolders
   );
 begin
   db_role_member_map.BindHolders(role_name,target,sort_order,be_sort_order_ascending);
+end;
+
+procedure TClass_biz_role_member_map.BindHoldersPerAgency
+  (
+  agency_id: string;
+  target: system.object
+  );
+begin
+  db_role_member_map.BindHoldersPerAgency(agency_id,target);
 end;
 
 procedure TClass_biz_role_member_map.Save

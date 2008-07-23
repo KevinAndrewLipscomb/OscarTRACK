@@ -46,7 +46,7 @@
 				</table></td>
 			</tr>
 		</table></p>
-	  <p<ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
+	  <p><ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
 	</form>
   </body>
 </html>
