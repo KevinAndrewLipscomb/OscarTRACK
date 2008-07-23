@@ -46,6 +46,11 @@ type
       agency_id: string;
       target: system.object
       );
+    procedure BindUnassignedPerAgency
+      (
+      agency_id: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -138,6 +143,15 @@ procedure TClass_biz_role_member_map.BindHoldersPerAgency
   );
 begin
   db_role_member_map.BindHoldersPerAgency(agency_id,target);
+end;
+
+procedure TClass_biz_role_member_map.BindUnassignedPerAgency
+  (
+  agency_id: string;
+  target: system.object
+  );
+begin
+  db_role_member_map.BindUnassignedPerAgency(agency_id,target);
 end;
 
 procedure TClass_biz_role_member_map.Save
