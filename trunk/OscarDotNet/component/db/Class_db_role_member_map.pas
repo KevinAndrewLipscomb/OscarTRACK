@@ -35,6 +35,11 @@ const
       sort_order: string;
       be_sort_order_ascending: boolean
       );
+    procedure BindHoldersPerAgency
+      (
+      agency_id: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -182,6 +187,53 @@ begin
     .ExecuteReader;
   GridView(target).DataBind;
   //
+  self.Close;
+  //
+end;
+
+procedure TClass_db_role_member_map.BindHoldersPerAgency
+  (
+  agency_id: string;
+  target: system.object
+  );
+var
+  role_name_construction_clause: string;
+  tier_specific_sort_hint_column: string;
+  tier_specific_where_conditions: string;
+begin
+  //
+  if agency_id = '0' then begin
+    role_name_construction_clause := 'IF(role.name = "Squad Commander",concat(agency.short_designator," ",role.name),role.name)';
+    tier_specific_sort_hint_column := ' , IF(role.name = "Squad Commander",agency.short_designator,role.name) as sort_hint';
+    tier_specific_where_conditions := EMPTY
+    + ' and tier_id is null'
+    + ' or tier_id = "1"'
+    + ' or role.name = "Squad Commander"';
+  end else begin
+    role_name_construction_clause := 'role.name';
+    tier_specific_sort_hint_column := ' , role.name as sort_hint';
+    tier_specific_where_conditions := EMPTY
+    + ' and agency_id = "' + agency_id + '"'
+    + ' and tier_id > "1"';
+  end;
+  //
+  self.Open;
+  GridView(target).datasource := mysqlcommand.Create
+    (
+    'select ' + role_name_construction_clause + ' as role_name'
+    + ' , concat(first_name," ",last_name," (",IFNULL(cad_num,""),")") as member_name'
+    + tier_specific_sort_hint_column
+    + ' from role_member_map'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    +   ' join member on (member.id=role_member_map.member_id)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where role.name <> "Member"'
+    + tier_specific_where_conditions
+    + ' order by sort_hint',
+    connection
+    )
+    .ExecuteReader;
+  GridView(target).DataBind;
   self.Close;
   //
 end;

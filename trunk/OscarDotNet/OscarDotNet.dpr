@@ -101,7 +101,7 @@ uses
   report_monthly_current_roster in 'noninteractive\report_monthly_current_roster.pas',
   report_monthly_in_class_roster in 'noninteractive\report_monthly_in_class_roster.pas',
   report_monthly_recruit_awaiting_class_roster in 'noninteractive\report_monthly_recruit_awaiting_class_roster.pas',
-  report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas',
+  report_monthly_trainee_roster in 'noninteractive\report_monthly_trainee_roster.pas' {report_monthly_trainee_roster.TWebForm_report_monthly_trainee_roster: system.web.ui.page},
   report_monthly_per_agency_serial_indicators in 'noninteractive\report_monthly_per_agency_serial_indicators.pas' {report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators: system.web.ui.page},
   serial_indicator_control_chart in 'serial_indicator_control_chart.pas' {serial_indicator_control_chart.TWebForm1: system.web.ui.page},
   Class_biz_role_member_map in 'component\biz\Class_biz_role_member_map.pas',
@@ -122,7 +122,9 @@ uses
   UserControl_roles_and_matrices_binder in 'usercontrol\app\UserControl_roles_and_matrices_binder.pas' {UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class},
   roles in 'doc\roles.pas' {roles.TWebForm_roles: ki_web_ui.page_class},
   UserControl_role_privilege_matrix in 'usercontrol\app\UserControl_role_privilege_matrix.pas' {UserControl_role_privilege_matrix.TWebUserControl_role_privilege_matrix: ki_web_ui.usercontrol_class},
-  UserControl_role_notification_matrix in 'usercontrol\app\UserControl_role_notification_matrix.pas' {UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix: ki_web_ui.usercontrol_class};
+  UserControl_role_notification_matrix in 'usercontrol\app\UserControl_role_notification_matrix.pas' {UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix: ki_web_ui.usercontrol_class},
+  report_monthly_role_holders in 'noninteractive\report_monthly_role_holders.pas' {report_monthly_role_holders.TWebForm_report_monthly_role_holders: system.web.ui.page},
+  UserControl_role_holders_per_agency in 'usercontrol\app\UserControl_role_holders_per_agency.pas' {UserControl_role_holders_per_agency.TWebUserControl_role_holders_per_agency: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
