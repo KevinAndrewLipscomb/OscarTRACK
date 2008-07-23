@@ -35,7 +35,8 @@ type
     procedure InjectPersistentClientSideScript;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    GridView_control: System.Web.UI.WebControls.GridView;
+    GridView_role_holders: System.Web.UI.WebControls.GridView;
+    GridView_unassigned_roles: System.Web.UI.WebControls.GridView;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -199,7 +200,8 @@ end;
 
 procedure TWebUserControl_role_holders_per_agency.Bind;
 begin
-  p.biz_role_member_map.BindHoldersPerAgency(p.agency_id,GridView_control);
+  p.biz_role_member_map.BindHoldersPerAgency(p.agency_id,GridView_role_holders);
+  p.biz_role_member_map.BindUnassignedPerAgency(p.agency_id,GridView_unassigned_roles);
 end;
 
 end.

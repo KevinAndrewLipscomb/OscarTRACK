@@ -40,6 +40,11 @@ const
       agency_id: string;
       target: system.object
       );
+    procedure BindUnassignedPerAgency
+      (
+      agency_id: string;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -207,8 +212,7 @@ begin
     role_name_construction_clause := 'IF(role.name = "Squad Commander",concat(agency.short_designator," ",role.name),role.name)';
     tier_specific_sort_hint_column := ' , IF(role.name = "Squad Commander",agency.short_designator,"") as sort_hint';
     tier_specific_where_conditions := EMPTY
-    + ' and tier_id is null'
-    + ' or tier_id = "1"'
+    + ' and (tier_id is null or tier_id = "1")'
     + ' or role.name = "Squad Commander"';
   end else begin
     role_name_construction_clause := 'role.name';
@@ -234,6 +238,79 @@ begin
     connection
     )
     .ExecuteReader;
+  GridView(target).DataBind;
+  self.Close;
+  //
+end;
+
+procedure TClass_db_role_member_map.BindUnassignedPerAgency
+  (
+  agency_id: string;
+  target: system.object
+  );
+var
+  sql: string;
+begin
+  //
+  if agency_id = '0' then begin
+    sql := EMPTY
+    +   ' select role.name as role_name'
+    +   ' , pecking_order'
+    +   ' , "" as sort_hint'
+    +   ' from role'
+    +   ' where role.name not in'
+    +    ' ('
+    +    ' select distinct role.name'
+    +    ' from role_member_map'
+    +      ' join role on (role.id=role_member_map.role_id)'
+    +    ' where role.name <> "Member"'
+    +      ' and (tier_id is null or tier_id = "1")'
+    +    ' )'
+    +    ' and (name <> "Member")'
+    +    ' and (tier_id is null or tier_id = "1")'
+    + ' UNION'
+    +   ' select concat(agency.short_designator," ",role.name) as role_name'
+    +   ' , pecking_order'
+    +   ' , agency.short_designator as sort_hint'
+    +   ' from role,agency'
+    +   ' where be_active'
+    +    ' and short_designator like "R%"'
+    +    ' and concat(agency.short_designator," ",role.name) not in'
+    +      ' ('
+    +      ' select distinct concat(agency.short_designator," ",role.name)'
+    +      ' from role_member_map'
+    +        ' join role on (role.id=role_member_map.role_id)'
+    +        ' join member on (member.id=role_member_map.member_id)'
+    +        ' join agency on (agency.id=member.agency_id)'
+    +      ' where role.name = "Squad Commander"'
+    +      ' )'
+    +    ' and name = "Squad Commander"'
+    + ' ORDER BY pecking_order,sort_hint';
+  end else begin
+    sql := EMPTY
+    + 'select distinct role.name as role_name'
+    + ' , "" as sort_hint'
+    + ' from role_member_map'
+    + '   join role on (role.id=role_member_map.role_id)'
+    + '   join member on (member.id=role_member_map.member_id)'
+    + '   join agency on (agency.id=member.agency_id)'
+    + ' where role.name not in'
+    + '   ('
+    + '   select distinct role.name'
+    + '   from role_member_map'
+    + '     join role on (role.id=role_member_map.role_id)'
+    + '     join member on (member.id=role_member_map.member_id)'
+    + '     join agency on (agency.id=member.agency_id)'
+    + '   where role.name <> "Member"'
+    + '     and tier_id > "1"'
+    + '     and agency_id = "' + agency_id + '"'
+    + '   )'
+    + '   and tier_id > "1"'
+    + ' order by role.pecking_order,sort_hint'
+  end;
+  //
+  self.Open;
+  GridView(target).datasource := mysqlcommand.Create(sql,connection).ExecuteReader;
   GridView(target).DataBind;
   self.Close;
   //
