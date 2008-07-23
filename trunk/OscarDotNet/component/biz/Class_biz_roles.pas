@@ -23,7 +23,8 @@ type
       (
       name: string;
       out tier_id: string;
-      out soft_hyphenation_text: string
+      out soft_hyphenation_text: string;
+      out pecking_order: string
       )
       : boolean;
     function NameOfId(id: string): string;
@@ -31,7 +32,8 @@ type
       (
       name: string;
       tier_id: string;
-      soft_hyphenation_text: string
+      soft_hyphenation_text: string;
+      pecking_order: string
       );
     function TierOfId(id: string): string;
   end;
@@ -69,7 +71,8 @@ function TClass_biz_roles.Get
   (
   name: string;
   out tier_id: string;
-  out soft_hyphenation_text: string
+  out soft_hyphenation_text: string;
+  out pecking_order: string
   )
   : boolean;
 begin
@@ -78,7 +81,8 @@ begin
     (
     name,
     tier_id,
-    soft_hyphenation_text
+    soft_hyphenation_text,
+    pecking_order
     );
   //
 end;
@@ -92,7 +96,8 @@ procedure TClass_biz_roles.&Set
   (
   name: string;
   tier_id: string;
-  soft_hyphenation_text: string
+  soft_hyphenation_text: string;
+  pecking_order: string
   );
 begin
   //
@@ -100,7 +105,8 @@ begin
     (
     name,
     tier_id,
-    soft_hyphenation_text
+    soft_hyphenation_text,
+    pecking_order
     );
   //
 end;

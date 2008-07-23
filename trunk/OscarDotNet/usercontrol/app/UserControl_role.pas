@@ -64,8 +64,11 @@ type
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_name: System.Web.UI.WebControls.TextBox;
     DropDownList_name: System.Web.UI.WebControls.DropDownList;
+    TextBox_pecking_order: System.Web.UI.WebControls.TextBox;
     TextBox_soft_hyphenation_text: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_name: System.Web.UI.WebControls.RequiredFieldValidator;
+    RequiredFieldValidator_pecking_order: System.Web.UI.WebControls.RequiredFieldValidator;
+    RegularExpressionValidator_pecking_order: System.Web.UI.WebControls.RegularExpressionValidator;
     RequiredFieldValidator_soft_hyphenation_text: System.Web.UI.WebControls.RequiredFieldValidator;
     GridView_holders: System.Web.UI.WebControls.GridView;
     Label_num_rows: System.Web.UI.WebControls.Label;
@@ -77,6 +80,7 @@ type
     Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
     Label_author_email_address: System.Web.UI.WebControls.Label;
     Label_distribution_list: System.Web.UI.WebControls.Label;
+    TableRow_pecking_order: System.Web.UI.HtmlControls.HtmlTableRow;
     TableRow_soft_hyphenation_text: System.Web.UI.HtmlControls.HtmlTableRow;
     DropDownList_tier: System.Web.UI.WebControls.DropDownList;
     RequiredFieldValidator_tier: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -106,6 +110,7 @@ begin
   TextBox_name.text := EMPTY;
   DropDownList_name.visible := FALSE;
   DropDownList_tier.ClearSelection;
+  TextBox_pecking_order.text := EMPTY;
   TextBox_soft_hyphenation_text.text := EMPTY;
   //
   Button_delete.enabled := FALSE;
@@ -209,6 +214,7 @@ begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
       if Has(string_array(session['privilege_array']),'config-roles-and-matrices') then begin
         DropDownList_tier.enabled := TRUE;
+        TableRow_pecking_order.visible := TRUE;
         TableRow_soft_hyphenation_text.visible := TRUE;
         Button_submit.enabled := TRUE;
       end;
@@ -235,18 +241,21 @@ function TWebUserControl_role.PresentRecord(name: string): boolean;
 var
   tier_id: string;
   soft_hyphenation_text: string;
+  pecking_order: string;
 begin
   PresentRecord := FALSE;
   if p.biz_roles.Get
     (
     name,
     tier_id,
-    soft_hyphenation_text
+    soft_hyphenation_text,
+    pecking_order
     )
   then begin
     //
     TextBox_name.text := name;
     DropDownList_tier.selectedvalue := tier_id;
+    TextBox_pecking_order.text := pecking_order;
     TextBox_soft_hyphenation_text.text := soft_hyphenation_text;
     //
     TextBox_name.enabled := FALSE;
@@ -391,6 +400,7 @@ begin
       (
       Safe(TextBox_name.text,HUMAN_NAME).trim,
       Safe(DropDownList_tier.selectedvalue,NUM).trim,
+      Safe(TextBox_pecking_order.text,NUM).trim,
       Safe(TextBox_soft_hyphenation_text.text,PUNCTUATED).trim
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');

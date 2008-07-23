@@ -3,7 +3,7 @@ unit UserControl_role_holders_per_agency;
 interface
 
 uses
-  Class_biz_members,
+  Class_biz_agencies,
   Class_biz_role_member_map,
   ki_web_ui,
   System.Data,
@@ -19,7 +19,7 @@ type
     agency_id: string;
     be_interactive: boolean;
     be_loaded: boolean;
-    biz_members: TClass_biz_members;
+    biz_agencies: TClass_biz_agencies;
     biz_role_member_map: TClass_biz_role_member_map;
     END;
   TWebUserControl_role_holders_per_agency = class(ki_web_ui.usercontrol_class)
@@ -162,10 +162,10 @@ begin
     p.be_loaded := IsPostBack and (string(session['parent_PlaceHolder_content']) = 'UserControl_role_holders_per_agency');
   end else begin
     //
-    p.biz_members := TClass_biz_members.Create;
+    p.biz_agencies := TClass_biz_agencies.Create;
     p.biz_role_member_map := TClass_biz_role_member_map.Create;
     //
-    p.agency_id := p.biz_members.AgencyIdOfId(session['member_id'].tostring);
+    p.agency_id := p.biz_agencies.IdOfShortDesignator(session['agency_short_designator'].tostring);
     p.be_interactive := not assigned(session['mode:report']);
     p.be_loaded := FALSE;
     //

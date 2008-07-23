@@ -23,26 +23,24 @@
                     <small>
                       <p>Best practices:</p>
                       <ul>
+                        <li><p>In <asp:label id="Label_application_name_1" runat="server"></asp:label>, this material is managed
+                          under the <em>Config / Roles&nbsp;&amp;&nbsp;Matrices</em> area.</p></li>
                         <li>
-                          <p>In <asp:label id="Label_application_name_1" runat="server"></asp:label>, it is <u>critical</u> to keep
-                            this list current (see the <em>Role-Member Matrix</em>), because these settings tell the
-                            application:</p>
+                          <p>It is <u>critical</u> to maintain the roles properly (using the <em>Role-Member Matrix</em>), because
+                            these settings tell the application:</p>
                           <p>
                             <ul>
-                              <li>Who is allowed to make certain changes (see the <em>Role-Privilege Matrix</em>);</li>
+                              <li>Who is allowed to use certain features (see the <em>Role-Privilege Matrix</em>);</li>
                               <li>Who gets notified when certain changes get made (see the <em>Role-Notification Matrix</em>);</li>
                               <li>Who receives certain monthly reports.</li>
                             </ul>
                           </p>
                         </li>
-                        <li><p>The accuracy of the Role Holders list has a major impact on recruitment & retention.</p></li>
-                        <li><p>Access the <asp:label id="Label_application_name_2" runat="server"></asp:label> Config / Roles &
-                          Matrices area here:</p>
-                          <blockquote>
-                            <ASP:HyperLink id="HyperLink_web_site" runat="server" font-bold="True"></ASP:HyperLink>
-                          </blockquote>
-                        </li>
-                        <li><p>Read the <ASP:HyperLink id="HyperLink_roles_help" runat="server">Important Information About Roles</ASP:HyperLink>.</p></li>
+                        <li><p>The accuracy and completeness of the Role Holders list has a major impact on recruitment &
+                          retention.</p></li>
+                        <li><p>Read the <ASP:HyperLink id="HyperLink_roles_help" runat="server" font-bold="True">Important Information About Roles</ASP:HyperLink>.</p></li>
+                        <li><p>Access <asp:label id="Label_application_name_2" runat="server"></asp:label> here:&nbsp;
+                          <ASP:HyperLink id="HyperLink_web_site" runat="server" font-bold="True"></ASP:HyperLink></p></li>
                       </ul>
                     </small>
                   </td>

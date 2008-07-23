@@ -12,8 +12,7 @@ uses
 type
   p_type =
     RECORD
-    biz_members: TClass_biz_members;
-    member_id: string;
+    role_name: string;
     END;
   TWebForm_report_monthly_role_holders = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
@@ -77,9 +76,6 @@ begin
 end;
 
 procedure TWebForm_report_monthly_role_holders.OnInit(e: EventArgs);
-var
-  privilege_array: string_array;
-  role_name: string;
 begin
   //
   // Required for Designer support
@@ -87,24 +83,18 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  p.biz_members := TClass_biz_members.Create;
-  //
   // Set session objects referenced by UserControl_roster.
   //
   session.Add('mode:report',EMPTY);
   session.Add('mode:report/monthly-role-holders-per-agency',EMPTY);
   //
   if request['agency'] = 'EMS' then begin
-    role_name := 'Department Authority';
+    p.role_name := 'Department Authority';
   end else begin
-    role_name := 'Squad Commander';
+    p.role_name := 'Squad Commander';
   end;
   //
-  SetLength(privilege_array,0);
-  session.Add('privilege_array',privilege_array);
-  //
-  p.member_id := p.biz_members.IdOfAppropriateRoleHolder(role_name,request['agency']);
-  session.Add('member_id',p.member_id);
+  session.Add('agency_short_designator',request['agency']);
   //
   PlaceHolder_control.controls.Add(TWebUserControl_role_holders_per_agency(LoadControl('~/usercontrol/app/UserControl_role_holders_per_agency.ascx')));
   //
@@ -132,7 +122,7 @@ begin
 //    //from
 //    configurationmanager.appsettings['sender_email_address'],
 //    //to
-//    p.biz_members.EmailAddressOf(p.member_id),
+//    p.biz_role_member_map.EmailTargetOf(p.role_name),
 //    //subject
 //    'Report: Monthly Role Holders',
 //    //body
