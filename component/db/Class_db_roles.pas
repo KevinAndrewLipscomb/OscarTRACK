@@ -33,7 +33,8 @@ type
       (
       name: string;
       out tier_id: string;
-      out soft_hyphenation_text: string
+      out soft_hyphenation_text: string;
+      out pecking_order: string
       )
       : boolean;
     function NameOfId(id: string): string;
@@ -41,7 +42,8 @@ type
       (
       name: string;
       tier_id: string;
-      soft_hyphenation_text: string
+      soft_hyphenation_text: string;
+      pecking_order: string
       );
     function TierOfId(id: string): string;
   end;
@@ -73,7 +75,7 @@ begin
   //
   dr := mysqlcommand.Create
     (
-    'SELECT name FROM role WHERE name like "' + partial_name + '%" order by name',
+    'SELECT name FROM role WHERE name like "' + partial_name + '%" order by pecking_order',
     connection
     )
     .ExecuteReader;
@@ -93,7 +95,7 @@ begin
   self.Open;
   ListControl(target).items.Clear;
   //
-  dr := mysqlcommand.Create('SELECT id,name FROM role order by name',connection).ExecuteReader;
+  dr := mysqlcommand.Create('SELECT id,name FROM role order by pecking_order',connection).ExecuteReader;
   while dr.Read do begin
     ListControl(target).Items.Add
       (listitem.Create(dr['name'].tostring,dr['id'].tostring));
@@ -124,7 +126,8 @@ function TClass_db_roles.Get
   (
   name: string;
   out tier_id: string;
-  out soft_hyphenation_text: string
+  out soft_hyphenation_text: string;
+  out pecking_order: string
   )
   : boolean;
 var
@@ -138,6 +141,7 @@ begin
     name := dr['name'].tostring;
     tier_id := dr['tier_id'].tostring;
     soft_hyphenation_text := dr['soft_hyphenation_text'].tostring;
+    pecking_order := dr['pecking_order'].tostring;
     //
     Get := TRUE;
     //
@@ -157,7 +161,8 @@ procedure TClass_db_roles.&Set
   (
   name: string;
   tier_id: string;
-  soft_hyphenation_text: string
+  soft_hyphenation_text: string;
+  pecking_order: string
   );
 //
 // If any fields in this table are foreign keys for a subordinate table:
@@ -184,6 +189,7 @@ begin
       + ' set name = NULLIF("' + name + '","")'
       + ' , tier_id = NULLIF("' + tier_id + '","")'
       + ' , soft_hyphenation_text = NULLIF("' + soft_hyphenation_text + '","")'
+      + ' , pecking_order = NULLIF("' + pecking_order + '","")'
       ),
     connection
     )

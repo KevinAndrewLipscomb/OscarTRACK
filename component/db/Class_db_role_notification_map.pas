@@ -79,7 +79,8 @@ begin
     'select id,name,soft_hyphenation_text'
     + ' from role'
     + ' where name <> "Member"'
-    + crosstab_where_clause,
+    + crosstab_where_clause
+    + ' order by pecking_order',
     connection
     )
     .ExecuteReader;

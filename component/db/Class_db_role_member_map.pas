@@ -95,7 +95,8 @@ begin
     'select id,name,soft_hyphenation_text,tier_id'
     + ' from role'
     + ' where name <> "Member"'
-    + crosstab_where_clause,
+    + crosstab_where_clause
+    + ' order by pecking_order',
     connection
     )
     .ExecuteReader;
@@ -204,14 +205,14 @@ begin
   //
   if agency_id = '0' then begin
     role_name_construction_clause := 'IF(role.name = "Squad Commander",concat(agency.short_designator," ",role.name),role.name)';
-    tier_specific_sort_hint_column := ' , IF(role.name = "Squad Commander",agency.short_designator,role.name) as sort_hint';
+    tier_specific_sort_hint_column := ' , IF(role.name = "Squad Commander",agency.short_designator,"") as sort_hint';
     tier_specific_where_conditions := EMPTY
     + ' and tier_id is null'
     + ' or tier_id = "1"'
     + ' or role.name = "Squad Commander"';
   end else begin
     role_name_construction_clause := 'role.name';
-    tier_specific_sort_hint_column := ' , role.name as sort_hint';
+    tier_specific_sort_hint_column := ' , "" as sort_hint';
     tier_specific_where_conditions := EMPTY
     + ' and agency_id = "' + agency_id + '"'
     + ' and tier_id > "1"';
@@ -229,7 +230,7 @@ begin
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where role.name <> "Member"'
     + tier_specific_where_conditions
-    + ' order by sort_hint',
+    + ' order by role.pecking_order,sort_hint',
     connection
     )
     .ExecuteReader;

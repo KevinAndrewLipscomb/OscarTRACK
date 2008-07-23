@@ -752,31 +752,33 @@ CREATE TABLE role (
   id int unsigned NOT NULL auto_increment,
   `name` varchar(63) NOT NULL,
   tier_id TINYINT UNSIGNED,
+  `pecking_order` INTEGER UNSIGNED NOT NULL,
   `soft_hyphenation_text` VARCHAR(127) NOT NULL,
   PRIMARY KEY id (id),
   UNIQUE KEY name (`name`),
+  UNIQUE KEY pecking_order (`pecking_order`),
   KEY tier_id (tier_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO role (id,`name`,tier_id,`soft_hyphenation_text`) VALUES
-(1,'Application Administrator',1,"Ap&shy;pli&shy;ca&shy;tion Ad&shy;min&shy;is&shy;tra&shy;tor"),
-(2,'Department Authority',1,"De&shy;part&shy;ment Au&shy;thor&shy;i&shy;ty"),
-(3,'Department Human Resources Officer',1,"De&shy;part&shy;ment Hu&shy;man Re&shy;sourc&shy;es Of&shy;fi&shy;cer"),
-(4,'Department BLS ID Coordinator',1,"De&shy;part&shy;ment BLS ID Co&shy;or&shy;di&shy;na&shy;tor"),
-(5,'Department Analyst',1,"De&shy;part&shy;ment An&shy;a&shy;lyst"),
-(6,'Squad Commander',2,"Squad Com&shy;mand&shy;er"),
-(7,'Squad Section Sergeant',3,"Squad Sec&shy;tion Ser&shy;geant"),
-(8,'Squad Training Officer',2,"Squad Train&shy;ing Of&shy;fi&shy;cer"),
-(9,'Squad Membership Coordinator',2,"Squad Mem&shy;ber&shy;ship Co&shy;or&shy;di&shy;na&shy;tor"),
-(10,'Squad Analyst',2,"Squad An&shy;a&shy;lyst"),
-(11,'Member',"Mem&shy;ber"),
-(12,'Department ALS ID Coordinator',1,"De&shy;part&shy;ment ALS ID Co&shy;or&shy;di&shy;na&shy;tor"),
-(13,'Squad Scheduler',2,"Squad Sched&shy;ul&shy;er"),
-(14,'Department Scheduler',1,"De&shy;part&shy;ment Sched&shy;ul&shy;er"),
-(15,'Squad Manager',2,"Squad Man&shy;ag&shy;er"),
-(16,'Association Newsletter Editor',1,"As&shy;so&shy;ci&shy;a&shy;tion News&shy;let&shy;ter Ed&shy;i&shy;tor"),
-(17,'Department Schedule Auditor',1,"De&shy;part&shy;ment Sched&shy;ule Au&shy;di&shy;tor"),
-(18,'All-Squad NGO Leader',1,"All-Squad NGO Lead&shy;er");
+INSERT INTO role (id,`name`,tier_id,pecking_order,`soft_hyphenation_text`) VALUES
+(1,'Application Administrator',1,11000,"Ap&shy;pli&shy;ca&shy;tion Ad&shy;min&shy;is&shy;tra&shy;tor"),
+(2,'Department Authority',1,10100,"De&shy;part&shy;ment Au&shy;thor&shy;i&shy;ty"),
+(3,'Department Human Resources Officer',1,10300,"De&shy;part&shy;ment Hu&shy;man Re&shy;sourc&shy;es Of&shy;fi&shy;cer"),
+(4,'Department BLS ID Coordinator',1,10400,"De&shy;part&shy;ment BLS ID Co&shy;or&shy;di&shy;na&shy;tor"),
+(5,'Department Analyst',1,10800,"De&shy;part&shy;ment An&shy;a&shy;lyst"),
+(6,'Squad Commander',2,21100,"Squad Com&shy;mand&shy;er"),
+(7,'Squad Section Sergeant',3,31700,"Squad Sec&shy;tion Ser&shy;geant"),
+(8,'Squad Training Officer',2,21500,"Squad Train&shy;ing Of&shy;fi&shy;cer"),
+(9,'Squad Membership Coordinator',2,21300,"Squad Mem&shy;ber&shy;ship Co&shy;or&shy;di&shy;na&shy;tor"),
+(10,'Squad Analyst',2,21600,"Squad An&shy;a&shy;lyst"),
+(11,'Member',91800,"Mem&shy;ber"),
+(12,'Department ALS ID Coordinator',1,10500,"De&shy;part&shy;ment ALS ID Co&shy;or&shy;di&shy;na&shy;tor"),
+(13,'Squad Scheduler',2,21400,"Squad Sched&shy;ul&shy;er"),
+(14,'Department Scheduler',1,10600,"De&shy;part&shy;ment Sched&shy;ul&shy;er"),
+(15,'Squad Manager',2,21200,"Squad Man&shy;ag&shy;er"),
+(16,'Foundation Newsletter Liaison',1,10900,"Foun&shy;da&shy;tion News&shy;let&shy;ter Li&shy;ai&shy;son"),
+(17,'Department Schedule Auditor',1,10700,"De&shy;part&shy;ment Sched&shy;ule Au&shy;di&shy;tor"),
+(18,'All-Squad NGO Leader',1,10200,"All-Squad NGO Lead&shy;er");
 
 --
 -- table structure for table `role_member_map`

@@ -229,6 +229,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_current_roster.pas">
       <DependentUpon>noninteractive\report_monthly_current_roster.aspx</DependentUpon>
+      <Form>report_monthly_current_roster.TWebForm_report_monthly_current_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_in_class_roster.pas">
       <DependentUpon>noninteractive\report_monthly_in_class_roster.aspx</DependentUpon>
@@ -253,6 +255,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\statement_member_status.pas">
       <DependentUpon>noninteractive\statement_member_status.aspx</DependentUpon>
+      <Form>statement_member_status.TWebForm_statement_member_status</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\add_member.pas">
       <DependentUpon>protected\add_member.aspx</DependentUpon>

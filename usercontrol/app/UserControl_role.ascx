@@ -13,24 +13,25 @@
                 <ASP:TextBox id="TextBox_name" runat="server" columns="63" maxlength="63" cssclass=""></ASP:TextBox>&nbsp;&nbsp;&nbsp;&nbsp; <ASP:LinkButton id="LinkButton_search" runat="server" causesvalidation="False" font-bold="True">Lookup</ASP:LinkButton>&nbsp;&nbsp;&nbsp;&nbsp; <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False">Reset</ASP:LinkButton><br>
                 <ASP:DropDownList id="DropDownList_name" runat="server" visible="False" autopostback="True"></ASP:DropDownList><br></font>
             </td>
-            <td valign="top">
-              <ASP:RequiredFieldValidator id="RequiredFieldValidator_name" runat="server" errormessage="Please enter Name." font-bold="True" controltovalidate="TextBox_name" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
-            </td>
+            <td valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_name" runat="server" errormessage="Please enter Name." font-bold="True" controltovalidate="TextBox_name" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
           </tr>
           <tr>
             <td><font class="">Tier:</font></td>
-            <td><font class="">
-                    <asp:DropDownList id="DropDownList_tier" runat="server" enabled="False"></asp:DropDownList></font></td>
+            <td><font class=""><asp:DropDownList id="DropDownList_tier" runat="server" enabled="False"></asp:DropDownList></font></td>
+            <td><asp:RequiredFieldValidator id="RequiredFieldValidator_tier" runat="server" errormessage="Please select a Tier." display="Dynamic" font-bold="True" controltovalidate="DropDownList_tier">!ERR!</asp:RequiredFieldValidator></td>
+          </tr>
+          <tr id="TableRow_pecking_order" runat="server" visible="False">
+            <td><font class="">Pecking order:</font></td>
+            <td><font class=""><ASP:TextBox id="TextBox_pecking_order" runat="server" columns="10" maxlength="10" cssclass=""></ASP:TextBox></font></td>
             <td>
-                  <asp:RequiredFieldValidator id="RequiredFieldValidator_tier" runat="server" errormessage="Please select a Tier." display="Dynamic" font-bold="True" controltovalidate="DropDownList_tier">!ERR!</asp:RequiredFieldValidator>
+              <asp:RequiredFieldValidator id="RequiredFieldValidator_pecking_order" runat="server" errormessage="Please enter Pecking order." display="Dynamic" font-bold="True" controltovalidate="TextBox_pecking_order">!ERR!</asp:RequiredFieldValidator>
+              <asp:RegularExpressionValidator id="RegularExpressionValidator_pecking_order" runat="server" errormessage="Please enter a valid Pecking order." display="Dynamic" font-bold="True" controltovalidate="TextBox_pecking_order" validationexpression="\d{1,10}">!ERR!</asp:RegularExpressionValidator>
             </td>
           </tr>
           <tr id="TableRow_soft_hyphenation_text" runat="server" visible="False">
             <td><font class="">Soft hyphenation text:</font></td>
             <td><font class=""><ASP:TextBox id="TextBox_soft_hyphenation_text" runat="server" columns="72" maxlength="127" cssclass=""></ASP:TextBox></font></td>
-            <td>
-              <ASP:RequiredFieldValidator id="RequiredFieldValidator_soft_hyphenation_text" runat="server" errormessage="Please enter Soft hyphenation text." font-bold="True" controltovalidate="TextBox_soft_hyphenation_text" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
-            </td>
+            <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_soft_hyphenation_text" runat="server" errormessage="Please enter Soft hyphenation text." font-bold="True" controltovalidate="TextBox_soft_hyphenation_text" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
           </tr>
         </table>
       </td>
