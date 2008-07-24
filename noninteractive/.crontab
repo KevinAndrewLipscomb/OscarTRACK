@@ -12,6 +12,17 @@ MAILTO=kevin.lipscomb@kvrs.org
 #
 # Monthly
 #
+01 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R01
+02 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R02
+04 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R04
+05 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R05
+06 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R06
+09 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R09
+13 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R13
+14 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R14
+16 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R16
+17 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=R17
+20 01 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_role_holders.aspx?agency=EMS
 00 02 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_dashboard.aspx
 01 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R01
 02 03 01 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_applicant_roster.aspx?agency=R02
