@@ -51,6 +51,12 @@ type
       agency_id: string;
       target: system.object
       );
+    function EmailTargetOf
+      (
+      role_name: string;
+      agency_short_designator: string
+      )
+      : string;
     procedure Save
       (
       member_id: string;
@@ -152,6 +158,16 @@ procedure TClass_biz_role_member_map.BindUnassignedPerAgency
   );
 begin
   db_role_member_map.BindUnassignedPerAgency(agency_id,target);
+end;
+
+function TClass_biz_role_member_map.EmailTargetOf
+  (
+  role_name: string;
+  agency_short_designator: string
+  )
+  : string;
+begin
+  EmailTargetOf := db_role_member_map.EmailTargetOf(role_name,agency_short_designator);
 end;
 
 procedure TClass_biz_role_member_map.Save

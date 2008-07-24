@@ -7,11 +7,13 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
   Class_biz_members,
+  Class_biz_role_member_map,
   UserControl_role_holders_per_agency;
 
 type
   p_type =
     RECORD
+    biz_role_member_map: TClass_biz_role_member_map;
     role_name: string;
     END;
   TWebForm_report_monthly_role_holders = class(System.Web.UI.Page)
@@ -88,6 +90,8 @@ begin
   session.Add('mode:report',EMPTY);
   session.Add('mode:report/monthly-role-holders-per-agency',EMPTY);
   //
+  p.biz_role_member_map := TClass_biz_role_member_map.Create;
+  //
   if request['agency'] = 'EMS' then begin
     p.role_name := 'Department Authority';
   end else begin
@@ -110,26 +114,28 @@ begin
   //
   sb := StringBuilder.Create;
   inherited Render(HtmlTextWriter.Create(StringWriter.Create(sb)));
-  //
-  writer.Write(sb.tostring);
-  //
-//  body := sb.tostring;
 //  //
-//  // Send output stream as an email message.
+//  writer.Write(sb.tostring);
 //  //
-//  kix.SmtpMailSend
-//    (
-//    //from
-//    configurationmanager.appsettings['sender_email_address'],
-//    //to
-//    p.biz_role_member_map.EmailTargetOf(p.role_name),
-//    //subject
-//    'Report: Monthly Role Holders',
-//    //body
-//    body,
-//    //be_html
-//    TRUE
-//    );
+  body := sb.tostring;
+  //
+  // Send output stream as an email message.
+  //
+  SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    p.biz_role_member_map.EmailTargetOf(p.role_name,request['agency']),
+    //subject
+    'Report: Monthly Role Holders',
+    //body
+    body,
+    //be_html
+    TRUE,
+    //cc
+    configurationmanager.appsettings['sender_email_address']
+    );
   //
   session.Abandon;
   //

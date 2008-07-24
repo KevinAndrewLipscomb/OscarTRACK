@@ -45,6 +45,12 @@ const
       agency_id: string;
       target: system.object
       );
+    function EmailTargetOf
+      (
+      role_name: string;
+      agency_short_designator: string
+      )
+      : string;
     procedure Save
       (
       member_id: string;
@@ -227,6 +233,7 @@ begin
     (
     'select ' + role_name_construction_clause + ' as role_name'
     + ' , concat(first_name," ",last_name," (",IFNULL(cad_num,""),")") as member_name'
+    + ' , cad_num'
     + tier_specific_sort_hint_column
     + ' from role_member_map'
     +   ' join role on (role.id=role_member_map.role_id)'
@@ -234,7 +241,7 @@ begin
     +   ' join agency on (agency.id=member.agency_id)'
     + ' where role.name <> "Member"'
     + tier_specific_where_conditions
-    + ' order by role.pecking_order,sort_hint',
+    + ' order by role.pecking_order,sort_hint,cad_num',
     connection
     )
     .ExecuteReader;
@@ -313,6 +320,44 @@ begin
   GridView(target).datasource := mysqlcommand.Create(sql,connection).ExecuteReader;
   GridView(target).DataBind;
   self.Close;
+  //
+end;
+
+function TClass_db_role_member_map.EmailTargetOf
+  (
+  role_name: string;
+  agency_short_designator: string
+  )
+  : string;
+var
+  dr: mysqldatareader;
+  email_target_of: string;
+begin
+  //
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select email_address'
+    + ' from role_member_map'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    +   ' join member on (member.id=role_member_map.member_id)'
+    +   ' join agency on (agency.id=member.agency_id)'
+    + ' where role.name = "' + role_name + '"'
+    +   ' and agency.short_designator = "' + agency_short_designator + '"',
+    connection
+    )
+    .ExecuteReader;
+  while dr.Read do begin
+    email_target_of := email_target_of + dr['email_address'].tostring + COMMA;
+  end;
+  dr.Close;
+  self.Close;
+  //
+  if email_target_of <> EMPTY then begin
+    EmailTargetOf := email_target_of.Substring(0,email_target_of.Length - 1);
+  end else begin
+    EmailTargetOf := EMPTY;
+  end;
   //
 end;
 
