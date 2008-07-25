@@ -90,7 +90,7 @@
 								  </asp:dropdownlist>
 									  </p>
 						</td>
-						<td nowrap="true" align="center" colspan="2">
+						<td nowrap="true" align="left" colspan="2">
 						  <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True">
 							<ASP:ListItem value="0" selected="True">This&nbsp;month</ASP:ListItem>
 							<ASP:ListItem value="1">Next&nbsp;month</ASP:ListItem>
