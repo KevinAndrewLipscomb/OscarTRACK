@@ -1,0 +1,13 @@
+body { height: 100%; }
+
+#Div_progress_indicator_outer
+  {
+  position:absolute;
+  height: expression(document.body.clientHeight + "px");
+  width: expression(document.body.clientWidth + "px");
+  }
+#Div_progress_indicator_inner
+  {
+  position:absolute; 
+  top: expression((document.body.clientHeight * .35) + "px")
+  }

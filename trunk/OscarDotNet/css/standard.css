@@ -1,0 +1,25 @@
+#Div_progress_indicator_outer
+  {
+  position:fixed;
+  top:0px;
+  bottom:0px;
+  left:0px;
+  right:0px;
+  overflow:hidden;
+  padding:0;
+  margin:0;
+  background-color:#000;
+  filter:alpha(opacity=85);
+  opacity:0.85;
+  z-index:1000;
+  }
+#Div_progress_indicator_inner
+  {
+  position:fixed;
+  top:35%;
+  left:32%;
+  padding:50px;
+  z-index:1001;
+  background-color:#fff;
+  border:solid 1px black;
+  }
