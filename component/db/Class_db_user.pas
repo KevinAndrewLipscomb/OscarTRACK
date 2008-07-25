@@ -38,7 +38,8 @@ begin
     + ' from role'
     +   ' join role_member_map on (role_member_map.role_id=role.id)'
     +   ' join user_member_map on (user_member_map.member_id=role_member_map.member_id)'
-    + ' where user_member_map.user_id = ' + id,
+    + ' where user_member_map.user_id = "' + id + '"'
+    + ' order by pecking_order',
     connection
     )
     .ExecuteReader;

@@ -11,6 +11,7 @@ uses
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
+  sstchur.web.SmartNav,
   UserControl_establish_membership,
   UserControl_print_div,
   UserControl_member_binder;
@@ -34,8 +35,10 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    ScriptManager_control: System.Web.UI.ScriptManager;
     PlaceHolder_establish_membership: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_member_binder: System.Web.UI.WebControls.PlaceHolder;
+    SmartScroller_control: sstchur.web.SmartNav.SmartScroller;
   protected
     procedure OnInit(e: EventArgs); override;
   private
@@ -55,8 +58,8 @@ uses
 /// </summary>
 procedure TWebForm_overview.InitializeComponent;
 begin
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_overview_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
