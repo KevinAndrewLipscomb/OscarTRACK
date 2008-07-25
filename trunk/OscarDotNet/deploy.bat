@@ -8,6 +8,7 @@
 @robocopy C:\Inetpub\wwwroot\OscarDotNet                                      ready-to-deploy                                      *.config                  /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet                                      ready-to-deploy                                      *.pdf                     /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\bin                                  ready-to-deploy\bin                                                            /m /np /ns /z | qgrep "New "
+@robocopy C:\Inetpub\wwwroot\OscarDotNet\css                                  ready-to-deploy\css                                                            /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\doc                                  ready-to-deploy\doc                                  *.aspx                    /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\noninteractive                       ready-to-deploy\noninteractive                       *.crontab                 /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\noninteractive                       ready-to-deploy\noninteractive                       *.aspx                    /m /np /ns /z | qgrep "New "
