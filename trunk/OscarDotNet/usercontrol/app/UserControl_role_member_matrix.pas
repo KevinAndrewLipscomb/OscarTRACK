@@ -86,6 +86,7 @@ var
   check_box: CheckBox;
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   i: crosstab_index_type;
+  update_panel: UpdatePanel;
 begin
   for i := CI_FIRST_CROSSTAB to (row.cells.count - 1) do begin
     if row.rowtype = datacontrolrowtype.datarow then begin
@@ -94,23 +95,25 @@ begin
       check_box := CheckBox.Create;
       check_box.autopostback := TRUE;
       check_box.checked := (row.cells.item[i].text = '1');
-      check_box.enabled := p.biz_role_member_map.BePrivilegedToModifyTuple
-        (
-        Has(string_array(session['privilege_array']),'config-roles-and-matrices'),
-        Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
-        Has(string_array(session['privilege_array']),'assign-squad-roles-to-members'),
-        crosstab_metadata_rec.tier_id,
-        crosstab_metadata_rec.natural_text
-        );
+      check_box.enabled := p.be_interactive
+        and
+          p.biz_role_member_map.BePrivilegedToModifyTuple
+            (
+            Has(string_array(session['privilege_array']),'config-roles-and-matrices'),
+            Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
+            Has(string_array(session['privilege_array']),'assign-squad-roles-to-members'),
+            crosstab_metadata_rec.tier_id,
+            crosstab_metadata_rec.natural_text
+            );
       check_box.id := EMPTY
       + CHECKBOX_ID_PREFIX_MEMBER_ID + row.cells.item[CI_MEMBER_ID].text
       + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
       check_box.tooltip := crosstab_metadata_rec.natural_text;
       Include(check_box.checkedchanged,Changed);
-      row.cells.item[i].controls.Add(check_box);
-      if not p.be_interactive then begin
-        CheckBox(row.cells.item[i].controls[0]).enabled := FALSE;
-      end;
+      update_panel := UpdatePanel.Create;
+      update_panel.updatemode := updatepanelupdatemode.CONDITIONAL;
+      update_panel.contenttemplatecontainer.controls.Add(check_box);
+      row.cells.item[i].controls.Add(update_panel);
     end;
   end;
 end;
@@ -276,8 +279,8 @@ end;
 /// </summary>
 procedure TWebUserControl_role_member_matrix.InitializeComponent;
 begin
-  Include(Self.DropDownList_tier_filter.SelectedIndexChanged, Self.DropDownList_tier_filter_SelectedIndexChanged);
   Include(Self.DropDownList_agency_filter.SelectedIndexChanged, Self.DropDownList_agency_filter_SelectedIndexChanged);
+  Include(Self.DropDownList_tier_filter.SelectedIndexChanged, Self.DropDownList_tier_filter_SelectedIndexChanged);
   Include(Self.GridView_control.Sorting, Self.GridView_control_Sorting);
   Include(Self.GridView_control.RowDataBound, Self.GridView_control_RowDataBound);
   Include(Self.PreRender, Self.TWebUserControl_role_member_matrix_PreRender);

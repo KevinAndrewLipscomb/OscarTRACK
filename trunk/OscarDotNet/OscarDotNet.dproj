@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>ki;"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
+    <DCC_UsePackage>ki;"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";"C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -34,9 +34,9 @@
     <DCC_DebugInfoInExe>True</DCC_DebugInfoInExe>
     <DCC_DebugVN>True</DCC_DebugVN>
     <DCC_Define>DEBUG</DCC_Define>
-    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_UnitSearchPath>
-    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_ResourcePath>
-    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0</DCC_IncludePath>
+    <DCC_UnitSearchPath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025</DCC_UnitSearchPath>
+    <DCC_ResourcePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025</DCC_ResourcePath>
+    <DCC_IncludePath>C:\Inetpub\wwwroot\OscarDotNet\lib\ki;C:\Inetpub\wwwroot\OscarDotNet\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0;C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025</DCC_IncludePath>
     <DCC_ExeOutput>.\bin</DCC_ExeOutput>
     <DCC_Optimize>False</DCC_Optimize>
     <DCC_OpenStringParams>False</DCC_OpenStringParams>
@@ -117,6 +117,13 @@
       <AssemblyTag>bin\sstchur.web.SmartNav.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
+    <Reference Include="C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll">
+      <AssemblyName>System.Web.Extensions</AssemblyName>
+      <Version>1.0.61025.0</Version>
+      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll</HintPath>
+      <AssemblyTag>C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
     <Reference Include="C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll">
       <AssemblyName>MySql.Data</AssemblyName>
       <CopyLocal>True</CopyLocal>
@@ -127,7 +134,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3124.38234</Version>
+      <Version>1.0.3127.27981</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -488,6 +495,11 @@
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_utilization.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_utilization.ascx</DependentUpon>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_update_progress_blocker.pas">
+      <DependentUpon>usercontrol\app\UserControl_update_progress_blocker.ascx</DependentUpon>
+      <Form>UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_user.pas">
       <DependentUpon>usercontrol\app\UserControl_user.ascx</DependentUpon>
     </DCCReference>
@@ -585,6 +597,7 @@
     <None Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" />
     <None Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx" />
+    <None Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
     <None Include="usercontrol\app\UserControl_user.ascx" />
     <None Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
