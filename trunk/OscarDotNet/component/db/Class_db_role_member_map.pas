@@ -28,6 +28,14 @@ const
       target: system.object;
       out crosstab_metadata_rec_arraylist: arraylist
       );
+    procedure BindActuals
+      (
+      tier_quoted_value_list: string;
+      agency_filter: string;
+      sort_order: string;
+      be_sort_order_ascending: boolean;
+      target: system.object
+      );
     procedure BindHolders
       (
       role_name: string;
@@ -157,6 +165,56 @@ begin
     +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
     + where_clause
     + ' group by member.id'
+    + ' order by ' + sort_order,
+    connection
+    )
+    .ExecuteReader;
+  GridView(target).DataBind;
+  self.Close;
+  //
+end;
+
+procedure TClass_db_role_member_map.BindActuals
+  (
+  tier_quoted_value_list: string;
+  agency_filter: string;
+  sort_order: string;
+  be_sort_order_ascending: boolean;
+  target: system.object
+  );
+var
+  where_clause: string;
+begin
+  //
+  where_clause := ' where role.name <> "Member"';
+  if tier_quoted_value_list <> DOUBLE_QUOTE then begin
+    where_clause := where_clause + ' and (tier_id in (' + tier_quoted_value_list + '))';
+  end;
+  if agency_filter <> EMPTY then begin
+    where_clause := where_clause + ' and (agency_id = "' + agency_filter + '")';
+  end;
+  //
+  if be_sort_order_ascending then begin
+    sort_order := sort_order.Replace('%',' asc');
+  end else begin
+    sort_order := sort_order.Replace('%',' desc');
+  end;
+  //
+  self.Open;
+  GridView(target).datasource := mysqlcommand.Create
+    (
+    'select role_id'
+    + ' , tier_id as role_tier_id'
+    + ' , pecking_order as role_pecking_order'
+    + ' , role.name as role_name'
+    + ' , concat(member.last_name,", ",first_name," (",IFNULL(cad_num,""),")") as member_designator'
+    + ' , member_id'
+    + ' , cad_num'
+    + ' , agency_id'
+    + ' from role_member_map'
+    +   ' join member on (member.id=role_member_map.member_id)'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    + where_clause
     + ' order by ' + sort_order,
     connection
     )

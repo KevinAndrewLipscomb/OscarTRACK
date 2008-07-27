@@ -11,6 +11,7 @@ uses
   Class_biz_sections,
   Class_db_members,
   Class_db_users,
+  kix,
   system.collections;
 
 type
@@ -56,6 +57,13 @@ type
       )
       : boolean;
     function BeValidProfile(id: string): boolean;
+    procedure BindCurrentDirectToListControl
+      (
+      target: system.object;
+      agency_filter: string = EMPTY;
+      unselected_literal: string = '-- Member --';
+      selected_value: string = EMPTY
+      );
     procedure BindRankedCoreOpsSize
       (
       target: system.object;
@@ -178,9 +186,6 @@ type
 
 implementation
 
-uses
-  kix;
-
 constructor TClass_biz_members.Create;
 begin
   inherited Create;
@@ -295,6 +300,17 @@ end;
 function TClass_biz_members.BeValidProfile(id: string): boolean;
 begin
   BeValidProfile := db_members.BeValidProfile(id);
+end;
+
+procedure TClass_biz_members.BindCurrentDirectToListControl
+  (
+  target: system.object;
+  agency_filter: string = EMPTY;
+  unselected_literal: string = '-- Member --';
+  selected_value: string = EMPTY
+  );
+begin
+  db_members.BindCurrentDirectToListControl(target,agency_filter,unselected_literal,selected_value);
 end;
 
 procedure TClass_biz_members.BindRankedCoreOpsSize

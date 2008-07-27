@@ -4,7 +4,8 @@ interface
 
 uses
   Class_db,
-  Class_db_trail;
+  Class_db_trail,
+  kix;
 
 type
   crosstab_metadata_rec_type =
@@ -27,7 +28,14 @@ type
       target: system.object
       )
       : boolean;
-    procedure BindDirectToListControl(target: system.object);
+    procedure BindDirectToListControl
+      (
+      target: system.object;
+      has_config_roles_and_matrices: boolean;
+      tier_quoted_value_list: string = DOUBLE_QUOTE;
+      unselected_literal: string = '-- Role --';
+      selected_value: string = EMPTY
+      );
     function Delete(name: string): boolean;
     function Get
       (
@@ -88,20 +96,44 @@ begin
   Bind := ListControl(target).items.count > 0;
 end;
 
-procedure TClass_db_roles.BindDirectToListControl(target: system.object);
+procedure TClass_db_roles.BindDirectToListControl
+  (
+  target: system.object;
+  has_config_roles_and_matrices: boolean;
+  tier_quoted_value_list: string = DOUBLE_QUOTE;
+  unselected_literal: string = '-- Role --';
+  selected_value: string = EMPTY
+  );
 var
   dr: mysqldatareader;
+  where_clause: string;
 begin
-  self.Open;
-  ListControl(target).items.Clear;
   //
-  dr := mysqlcommand.Create('SELECT id,name FROM role order by pecking_order',connection).ExecuteReader;
+  ListControl(target).items.Clear;
+  if unselected_literal <> EMPTY then begin
+    ListControl(target).items.Add(listitem.Create(unselected_literal,EMPTY));
+  end;
+  //
+  where_clause := ' where name <> "Member"';
+  if tier_quoted_value_list <> DOUBLE_QUOTE then begin
+    where_clause := where_clause + ' and (tier_id in (' + tier_quoted_value_list + '))';
+  end;
+  if not has_config_roles_and_matrices then begin
+    where_clause := where_clause + ' and (name <> "Application Administrator")';
+  end;
+  //
+  self.Open;
+  dr := mysqlcommand.Create('SELECT id,name FROM role' + where_clause + ' order by pecking_order',connection).ExecuteReader;
   while dr.Read do begin
-    ListControl(target).Items.Add
-      (listitem.Create(dr['name'].tostring,dr['id'].tostring));
+    ListControl(target).items.Add(listitem.Create(dr['name'].tostring,dr['id'].tostring));
   end;
   dr.Close;
   self.Close;
+  //
+  if selected_value <> EMPTY then begin
+    ListControl(target).selectedvalue := selected_value;
+  end;
+  //
 end;
 
 function TClass_db_roles.Delete(name: string): boolean;

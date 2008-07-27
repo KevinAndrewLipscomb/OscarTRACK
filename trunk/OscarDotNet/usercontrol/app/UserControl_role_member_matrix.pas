@@ -86,12 +86,14 @@ var
   check_box: CheckBox;
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   i: crosstab_index_type;
+  subject_member_id: string;
   update_panel: UpdatePanel;
 begin
   for i := CI_FIRST_CROSSTAB to (row.cells.count - 1) do begin
     if row.rowtype = datacontrolrowtype.datarow then begin
       row.cells.item[i].horizontalalign := horizontalalign.CENTER;
       crosstab_metadata_rec := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]);
+      subject_member_id := row.cells.item[CI_MEMBER_ID].text;
       check_box := CheckBox.Create;
       check_box.autopostback := TRUE;
       check_box.checked := (row.cells.item[i].text = '1');
@@ -103,10 +105,11 @@ begin
             Has(string_array(session['privilege_array']),'assign-department-roles-to-members'),
             Has(string_array(session['privilege_array']),'assign-squad-roles-to-members'),
             crosstab_metadata_rec.tier_id,
-            crosstab_metadata_rec.natural_text
+            crosstab_metadata_rec.natural_text,
+            p.biz_members.AgencyIdOfId(subject_member_id)
             );
       check_box.id := EMPTY
-      + CHECKBOX_ID_PREFIX_MEMBER_ID + row.cells.item[CI_MEMBER_ID].text
+      + CHECKBOX_ID_PREFIX_MEMBER_ID + subject_member_id
       + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
       check_box.tooltip := crosstab_metadata_rec.natural_text;
       Include(check_box.checkedchanged,Changed);

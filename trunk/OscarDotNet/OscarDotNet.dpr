@@ -125,7 +125,8 @@ uses
   UserControl_role_notification_matrix in 'usercontrol\app\UserControl_role_notification_matrix.pas' {UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix: ki_web_ui.usercontrol_class},
   report_monthly_role_holders in 'noninteractive\report_monthly_role_holders.pas' {report_monthly_role_holders.TWebForm_report_monthly_role_holders: system.web.ui.page},
   UserControl_role_holders_per_agency in 'usercontrol\app\UserControl_role_holders_per_agency.pas' {UserControl_role_holders_per_agency.TWebUserControl_role_holders_per_agency: ki_web_ui.usercontrol_class},
-  UserControl_update_progress_blocker in 'usercontrol\app\UserControl_update_progress_blocker.pas' {UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker: ki_web_ui.usercontrol_class};
+  UserControl_update_progress_blocker in 'usercontrol\app\UserControl_update_progress_blocker.pas' {UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker: ki_web_ui.usercontrol_class},
+  UserControl_role_member_mapping in 'usercontrol\app\UserControl_role_member_mapping.pas' {UserControl_role_member_mapping.TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
