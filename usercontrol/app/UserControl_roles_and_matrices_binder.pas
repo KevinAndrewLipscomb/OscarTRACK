@@ -12,7 +12,7 @@ uses
   System.Web.UI.WebControls,
   System.Web.UI.HtmlControls,
   UserControl_role,
-  UserControl_role_member_matrix,
+  UserControl_role_member_mapping,
   UserControl_role_notification_matrix,
   UserControl_role_privilege_matrix;
 
@@ -56,7 +56,7 @@ uses
 
 const
   TSSI_ROLES = 0;
-  TSSI_ROLE_MEMBER_MATRIX = 1;
+  TSSI_ROLE_MEMBER_MAPPING = 1;
   TSSI_ROLE_PRIVILEGE_MATRIX = 2;
   TSSI_ROLE_NOTIFICATION_MATRIX = 3;
 
@@ -104,11 +104,11 @@ begin
         'UserControl_role',
         PlaceHolder_content
         );
-    TSSI_ROLE_MEMBER_MATRIX:
+    TSSI_ROLE_MEMBER_MAPPING:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_role_member_matrix(LoadControl('~/usercontrol/app/UserControl_role_member_matrix.ascx')),
-        'UserControl_role_member_matrix',
+        TWebUserControl_role_member_mapping(LoadControl('~/usercontrol/app/UserControl_role_member_mapping.ascx')),
+        'UserControl_role_member_mapping',
         PlaceHolder_content
         );
     TSSI_ROLE_PRIVILEGE_MATRIX:
@@ -159,11 +159,11 @@ begin
       'UserControl_role',
       PlaceHolder_content
       );
-  TSSI_ROLE_MEMBER_MATRIX:
+  TSSI_ROLE_MEMBER_MAPPING:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_role_member_matrix(LoadControl('~/usercontrol/app/UserControl_role_member_matrix.ascx')).Fresh,
-      'UserControl_role_member_matrix',
+      TWebUserControl_role_member_mapping(LoadControl('~/usercontrol/app/UserControl_role_member_mapping.ascx')).Fresh,
+      'UserControl_role_member_mapping',
       PlaceHolder_content
       );
   TSSI_ROLE_PRIVILEGE_MATRIX:

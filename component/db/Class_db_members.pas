@@ -13,6 +13,7 @@ uses
   Class_biz_leave,
   Class_biz_notifications,
   Class_biz_sections,
+  kix,
   system.collections,
   system.web.ui.webcontrols;
 
@@ -68,6 +69,13 @@ type
       )
       : boolean; overload;
     function BeValidProfile(id: string): boolean;
+    procedure BindCurrentDirectToListControl
+      (
+      target: system.object;
+      agency_filter: string = EMPTY;
+      unselected_literal: string = '-- Member --';
+      selected_value: string = EMPTY
+      );
     procedure BindRankedCoreOpsSize
       (
       target: system.object;
@@ -196,7 +204,6 @@ function CrewShiftsForecastMetricFromWhereClause(relative_month: string): string
 implementation
 
 uses
-  kix,
   system.web.ui.HtmlControls;
 
 constructor TClass_db_members.Create;
@@ -311,6 +318,60 @@ begin
   BeValidProfile :=
     ('1' = mysqlcommand.Create('select be_valid_profile from member where id = ' + id,connection).ExecuteScalar.tostring);
   self.Close;
+end;
+
+procedure TClass_db_members.BindCurrentDirectToListControl
+  (
+  target: system.object;
+  agency_filter: string = EMPTY;
+  unselected_literal: string = '-- Member --';
+  selected_value: string = EMPTY
+  );
+var
+  dr: mysqldatareader;
+  where_clause: string;
+begin
+  //
+  ListControl(target).items.Clear;
+  if unselected_literal <> EMPTY then begin
+    ListControl(target).items.Add(listitem.Create(unselected_literal,EMPTY));
+  end;
+  //
+  where_clause := ' where (enrollment_level.description in ("Applicant","Associate","Regular","Life","Tenured","Atypical",'
+  + '"Recruit","Admin","Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","New trainee"))';
+  if agency_filter <> EMPTY then begin
+    where_clause := where_clause + ' and (agency_id = "' + agency_filter + '")';
+  end;
+  //
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select member.id as member_id'
+    + ' , concat(last_name,", ",first_name," (",IFNULL(cad_num,""),")") as member_designator'
+    + ' from member'
+    +   ' join enrollment_history'
+    +     ' on'
+    +       ' ('
+    +       '   enrollment_history.member_id=member.id'
+    +       ' and'
+    +       '   (enrollment_history.end_date is null)'
+    +       ' )'
+    +   ' join enrollment_level on (enrollment_level.code=enrollment_history.level_code)'
+    + where_clause
+    + ' order by member_designator',
+    connection
+    )
+    .ExecuteReader;
+  while dr.Read do begin
+    ListControl(target).items.Add(listitem.Create(dr['member_designator'].tostring,dr['member_id'].tostring));
+  end;
+  dr.Close;
+  self.Close;
+  //
+  if selected_value <> EMPTY then begin
+    ListControl(target).selectedvalue := selected_value;
+  end;
+  //
 end;
 
 procedure TClass_db_members.BindRankedCoreOpsSize
