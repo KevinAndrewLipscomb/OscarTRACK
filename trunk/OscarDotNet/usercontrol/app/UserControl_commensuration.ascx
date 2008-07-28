@@ -1,5 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_commensuration.pas" Inherits="UserControl_commensuration.TWebUserControl_commensuration"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
+<asp:UpdatePanel id="UpdatePanel_control" runat="server">
+  <ContentTemplate>
 <div id="Div_print_area">
 <table cellspacing="0" cellpadding="5" border="0">
 	  <tr><td valign="top">•</td>
@@ -39,5 +41,7 @@
   </Columns>
 </ASP:DataGrid></p>
 </div>
-<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
-  <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></p>
+<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></p>
+  </ContentTemplate>
+</asp:UpdatePanel>
+
