@@ -35,7 +35,6 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     DataGrid_commensuration: System.Web.UI.WebControls.DataGrid;
     Label_month: System.Web.UI.WebControls.Label;
-    UpdatePanel1: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
