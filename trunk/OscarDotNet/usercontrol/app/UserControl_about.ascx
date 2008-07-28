@@ -58,4 +58,3 @@
 </table>
     </ContentTemplate>
   </asp:UpdatePanel>
-<div></div>

@@ -1,7 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_roster.pas" Inherits="UserControl_roster.TWebUserControl_roster"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<asp:UpdatePanel id="UpdatePanel_control" runat="server">
-  <ContentTemplate>
 <div id="Div_print_area">
   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 	<tr>
@@ -232,6 +230,3 @@
 	  </table></td>
   </tr>
 </table>
-  </ContentTemplate>
-</asp:UpdatePanel>
-
