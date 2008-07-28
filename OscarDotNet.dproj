@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3127.27981</Version>
+      <Version>1.0.3130.28239</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -364,6 +364,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_commensuration.ascx</DependentUpon>
+      <Form>UserControl_commensuration.TWebUserControl_commensuration</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_common_header_bar.pas">
       <DependentUpon>usercontrol\app\UserControl_common_header_bar.ascx</DependentUpon>
@@ -475,6 +477,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicators_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicators_binder.ascx</DependentUpon>
+      <Form>UserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_commensuration.ascx</DependentUpon>

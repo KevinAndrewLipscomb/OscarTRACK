@@ -35,6 +35,7 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     DataGrid_commensuration: System.Web.UI.WebControls.DataGrid;
     Label_month: System.Web.UI.WebControls.Label;
+    UpdatePanel1: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -111,8 +112,8 @@ procedure TWebUserControl_commensuration.InitializeComponent;
 begin
   Include(Self.DataGrid_commensuration.ItemDataBound, Self.DataGrid_commensuration_ItemDataBound);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_commensuration_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 

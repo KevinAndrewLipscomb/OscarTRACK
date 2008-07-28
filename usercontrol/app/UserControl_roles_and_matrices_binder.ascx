@@ -1,6 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_roles_and_matrices_binder.pas" Inherits="UserControl_roles_and_matrices_binder.TWebUserControl_roles_and_matrices_binder"%>
 <%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
-<%@ Import namespace="Microsoft.Web.UI.WebControls"%>
 <table cellspacing="0" cellpadding="0" border="0">
   <tr>
     <td>
