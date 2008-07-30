@@ -60,7 +60,7 @@ uses
   leave_detail in 'protected\leave_detail.pas' {leave_detail.TWebForm_leave_detail: ki_web_ui.page_class},
   member_detail in 'protected\member_detail.pas' {member_detail.TWebForm_member_detail: ki_web_ui.page_class},
   officership_detail in 'protected\officership_detail.pas' {officership_detail.TWebForm_officership_detail: ki_web_ui.page_class},
-  UserControl_user in 'usercontrol\app\UserControl_user.pas',
+  UserControl_user in 'usercontrol\app\UserControl_user.pas' {UserControl_user.TWebUserControl_user: ki_web_ui.usercontrol_class},
   UserControl_about in 'usercontrol\app\UserControl_about.pas' {UserControl_about.TWebUserControl_about: ki_web_ui.usercontrol_class},
   UserControl_agency in 'usercontrol\app\UserControl_agency.pas' {UserControl_agency.TWebUserControl_agency: ki_web_ui.usercontrol_class},
   UserControl_commensuration in 'usercontrol\app\UserControl_commensuration.pas' {UserControl_commensuration.TWebUserControl_commensuration: ki_web_ui.usercontrol_class},

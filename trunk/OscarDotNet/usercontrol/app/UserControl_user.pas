@@ -110,7 +110,7 @@ var
   password_reset_email_address: string;
   be_active: boolean;
   num_unsuccessful_login_attempts: uint32;
-  last_login: datetime;
+  last_login: string;
 begin
   PresentRecord := FALSE;
   if p.biz_users.Get
@@ -131,7 +131,7 @@ begin
     TextBox_password_reset_email_address.text := password_reset_email_address;
     CheckBox_be_active.checked := be_active;
     TextBox_num_unsuccessful_login_attempts.text := num_unsuccessful_login_attempts.tostring;
-    TextBox_last_login.text := last_login.tostring('s');
+    TextBox_last_login.text := last_login;
     //
     TextBox_username.enabled := FALSE;
     Button_delete.enabled := TRUE;
@@ -195,29 +195,14 @@ end;
 
 procedure TWebUserControl_user.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
-var
-  num_unsuccessful_login_attempts: uint32;
-  last_login: datetime;
 begin
   if page.IsValid then begin
-    //
-    num_unsuccessful_login_attempts := 0;
-    if TextBox_num_unsuccessful_login_attempts.text <> EMPTY then begin
-      num_unsuccessful_login_attempts := uint32.Parse(Safe(TextBox_num_unsuccessful_login_attempts.text,NUM));
-    end;
-    if TextBox_last_login.text <> EMPTY then begin
-      last_login := datetime.Parse(Safe(TextBox_last_login.text,DATE_TIME));
-    end;
-    //
     p.biz_users.&Set
       (
       Safe(TextBox_username.text,PUNCTUATED),
-      Safe(TextBox_encoded_password.text,PUNCTUATED),
       CheckBox_be_stale_password.checked,
       Safe(TextBox_password_reset_email_address.text,PUNCTUATED),
-      CheckBox_be_active.checked,
-      num_unsuccessful_login_attempts,
-      last_login
+      CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.');
   end else begin

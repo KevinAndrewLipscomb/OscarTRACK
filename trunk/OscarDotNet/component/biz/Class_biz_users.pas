@@ -47,7 +47,7 @@ type
       out password_reset_email_address: string;
       out be_active: boolean;
       out num_unsuccessful_login_attempts: uint32;
-      out last_login: datetime
+      out last_login: string
       )
       : boolean;
     function IdOf(username: string): string;
@@ -77,12 +77,9 @@ type
     procedure &Set
       (
       username: string;
-      encoded_password: string;
       be_stale_password: boolean;
       password_reset_email_address: string;
-      be_active: boolean;
-      num_unsuccessful_login_attempts: uint32;
-      last_login: datetime
+      be_active: boolean
       );
     procedure SetEmailAddress
       (
@@ -168,13 +165,13 @@ end;
 
 function TClass_biz_users.Get
   (
-      username: string;
-      out encoded_password: string;
-      out be_stale_password: boolean;
-      out password_reset_email_address: string;
-      out be_active: boolean;
-      out num_unsuccessful_login_attempts: uint32;
-      out last_login: datetime
+  username: string;
+  out encoded_password: string;
+  out be_stale_password: boolean;
+  out password_reset_email_address: string;
+  out be_active: boolean;
+  out num_unsuccessful_login_attempts: uint32;
+  out last_login: string
   )
   : boolean;
 begin
@@ -276,25 +273,19 @@ end;
 
 procedure TClass_biz_users.&Set
   (
-      username: string;
-      encoded_password: string;
-      be_stale_password: boolean;
-      password_reset_email_address: string;
-      be_active: boolean;
-      num_unsuccessful_login_attempts: uint32;
-      last_login: datetime
+  username: string;
+  be_stale_password: boolean;
+  password_reset_email_address: string;
+  be_active: boolean
   );
 begin
   //
   db_users.&Set
     (
     username,
-    encoded_password,
     be_stale_password,
     password_reset_email_address,
-    be_active,
-    num_unsuccessful_login_attempts,
-    last_login
+    be_active
     );
   //
 end;

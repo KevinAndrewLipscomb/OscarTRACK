@@ -292,10 +292,11 @@ procedure TWebUserControl_role_privilege_matrix.GridView_control_RowDataBound(se
   e: System.Web.UI.WebControls.GridViewRowEventArgs);
 begin
   //
-  e.row.cells.item[CI_PRIVILEGE_ID].visible := FALSE;
-  e.row.cells.item[CI_PRIVILEGE_NAME].wrap := FALSE;
-  //
-  Checkboxify(e.row);
+  if e.row.rowtype <> datacontrolrowtype.EMPTYDATAROW then begin
+    e.row.cells.item[CI_PRIVILEGE_ID].visible := FALSE;
+    e.row.cells.item[CI_PRIVILEGE_NAME].wrap := FALSE;
+    Checkboxify(e.row);
+  end;
   //
 end;
 
@@ -327,12 +328,14 @@ var
   i: cardinal;
 begin
   p.biz_role_privilege_map.Bind(p.tier_filter,p.sort_order,p.be_sort_order_descending,GridView_control,p.crosstab_metadata_rec_arraylist);
-  LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Privilege';
-  for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
-    metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);
-    LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).text := metadata.soft_hyphenation_text;
-    LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.bold := FALSE;
-    LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.size := fontunit.SMALLER;
+  if assigned(GridView_control.headerrow) then begin
+    LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Privilege';
+    for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
+      metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);
+      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).text := metadata.soft_hyphenation_text;
+      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.bold := FALSE;
+      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.size := fontunit.SMALLER;
+    end;
   end;
 end;
 

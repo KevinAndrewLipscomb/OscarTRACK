@@ -43,7 +43,7 @@ type
       out password_reset_email_address: string;
       out be_active: boolean;
       out num_unsuccessful_login_attempts: uint32;
-      out last_login: datetime
+      out last_login: string
       )
       : boolean;
     function IdOf(username: string): string;
@@ -62,12 +62,9 @@ type
     procedure &Set
       (
       username: string;
-      encoded_password: string;
       be_stale_password: boolean;
       password_reset_email_address: string;
-      be_active: boolean;
-      num_unsuccessful_login_attempts: uint32;
-      last_login: datetime
+      be_active: boolean
       );
     procedure SetEmailAddress
       (
@@ -224,13 +221,13 @@ end;
 
 function TClass_db_users.Get
   (
-      username: string;
-      out encoded_password: string;
-      out be_stale_password: boolean;
-      out password_reset_email_address: string;
-      out be_active: boolean;
-      out num_unsuccessful_login_attempts: uint32;
-      out last_login: datetime
+  username: string;
+  out encoded_password: string;
+  out be_stale_password: boolean;
+  out password_reset_email_address: string;
+  out be_active: boolean;
+  out num_unsuccessful_login_attempts: uint32;
+  out last_login: string
   )
   : boolean;
 var
@@ -238,7 +235,19 @@ var
 begin
   Get := FALSE;
   self.Open;
-  dr := mysqlcommand.Create('select * from user where username = "' + username + '"',connection).ExecuteReader;
+  dr := mysqlcommand.Create
+    (
+    'select username'
+    + ' , IFNULL(encoded_password,"") as encoded_password'
+    + ' , be_stale_password'
+    + ' , password_reset_email_address'
+    + ' , be_active'
+    + ' , num_unsuccessful_login_attempts'
+    + ' , IFNULL(last_login,"") as last_login'
+    + ' from user'
+    + ' where username = "' + username + '"',connection
+    )
+    .ExecuteReader;
   if dr.Read then begin
     //
     username := dr['username'].tostring;
@@ -247,7 +256,7 @@ begin
     password_reset_email_address := dr['password_reset_email_address'].tostring;
     be_active := (dr['be_active'].tostring = '1');
     num_unsuccessful_login_attempts := uint32.Parse(dr['num_unsuccessful_login_attempts'].tostring);
-    last_login := datetime.Parse(dr['last_login'].tostring);
+    last_login := dr['last_login'].tostring;
     //
     Get := TRUE;
     //
@@ -385,28 +394,29 @@ end;
 
 procedure TClass_db_users.&Set
   (
-      username: string;
-      encoded_password: string;
-      be_stale_password: boolean;
-      password_reset_email_address: string;
-      be_active: boolean;
-      num_unsuccessful_login_attempts: uint32;
-      last_login: datetime
+  username: string;
+  be_stale_password: boolean;
+  password_reset_email_address: string;
+  be_active: boolean
   );
+var
+  childless_field_assignments_clause: string;
 begin
+  //
+  childless_field_assignments_clause := ' be_stale_password = ' + be_stale_password.tostring
+  + ' , password_reset_email_address = "' + password_reset_email_address + '"'
+  + ' , be_active = ' + be_active.tostring;
+  //
   self.Open;
   mysqlcommand.Create
     (
     db_trail.Saved
       (
-      'replace user'
+      'insert user'
       + ' set username = "' + username + '"'
-//      + ' , encoded_password = "' + encoded_password + '"'
-      + ' , be_stale_password = ' + be_stale_password.tostring
-      + ' , password_reset_email_address = "' + password_reset_email_address + '"'
-      + ' , be_active = ' + be_active.tostring
-//      + ' , num_unsuccessful_login_attempts = ' + num_unsuccessful_login_attempts.tostring
-//      + ' , last_login = ' + last_login.tostring
+      + ' , ' + childless_field_assignments_clause
+      + ' on duplicate key update '
+      + childless_field_assignments_clause
       ),
     connection
     )

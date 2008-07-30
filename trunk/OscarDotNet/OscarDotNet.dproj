@@ -512,6 +512,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_user.pas">
       <DependentUpon>usercontrol\app\UserControl_user.ascx</DependentUpon>
+      <Form>UserControl_user.TWebUserControl_user</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_bread_crumb_trail.pas">
       <DependentUpon>usercontrol\ki\UserControl_bread_crumb_trail.ascx</DependentUpon>

@@ -618,6 +618,8 @@ create table if not exists member
   section_num tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (id),
   UNIQUE KEY cad_num (cad_num),
+  KEY `last_name`(`last_name`),
+  KEY `first_name`(`first_name`),
   KEY agency_id (agency_id),
   KEY medical_release_code (medical_release_code),
   KEY section_num (section_num)
@@ -1089,7 +1091,7 @@ CREATE TABLE user (
   password_reset_email_address varchar(255) NOT NULL,
   be_active boolean NOT NULL default 1,
   num_unsuccessful_login_attempts int unsigned NOT NULL default 0,
-  last_login datetime NOT NULL,
+  last_login datetime default NULL,
   PRIMARY KEY (id),
   UNIQUE KEY (username),
   UNIQUE KEY (password_reset_email_address)
