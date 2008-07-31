@@ -223,15 +223,15 @@ begin
       then begin
         Add := TRUE;
       end else begin
-        Alert(kix.USER,kix.FAILURE,'alreadinsys','NOT ADDED:  The specified name and/or CAD# is already in the system.');
+        Alert(kix.USER,kix.FAILURE,'alreadinsys','NOT ADDED:  The specified name and/or CAD# is already in the system.',TRUE);
       end;
       //
     end else begin
-      ValidationAlert;
+      ValidationAlert(TRUE);
     end;
   end else begin
     Label_invalid_enrollment_date.visible := TRUE;
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 

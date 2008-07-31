@@ -83,13 +83,15 @@ begin
     Safe(request['agency'],NUM),
     Safe(request['be_agency_applicable'],NUM)
     );
-  for i := 0 to (history.Count - 1) do begin
-    datum := serial_indicator_rec_type(history.Dequeue);
-    chart.chartdata.AddNewSampleRecord
-      (
-      chartcalendar.Create(datum.year,datum.month,1),
-      doublearray.Create([datum.value])
-      );
+  if history.count > 0 then begin
+    for i := 0 to (history.count - 1) do begin
+      datum := serial_indicator_rec_type(history.Dequeue);
+      chart.chartdata.AddNewSampleRecord
+        (
+        chartcalendar.Create(datum.year,datum.month,1),
+        doublearray.Create([datum.value])
+        );
+    end;
   end;
   chart.AutoCalculatePrimaryControlLimits;
   chart.AutoScalePrimaryChartYRange;

@@ -192,9 +192,9 @@ begin
       Safe(TextBox_long_designator.text,PUNCTUATED),
       CheckBox_be_active.checked
       );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 

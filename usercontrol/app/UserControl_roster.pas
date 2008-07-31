@@ -291,7 +291,7 @@ begin
     );
   TextBox_quick_message_subject.text := EMPTY;
   TextBox_quick_message_body.text := EMPTY;
-  Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent');
+  Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent',TRUE);
 end;
 
 {$REGION 'Designer Managed Code'}

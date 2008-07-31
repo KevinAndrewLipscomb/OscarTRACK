@@ -1,17 +1,20 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%@ Page language="c#" Debug="true" Codebehind="salogin.pas" AutoEventWireup="false" Inherits="salogin.TWebForm_salogin" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-
 <html>
   <head>
 	<title id="Title" runat="server"></title>
 	<!-- $Id$ -->
+    <link href="../css/standard.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
 
   <body ms_positioning="FlowLayout" bgcolor="white">
-  <form runat="server"><uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
+  <form runat="server">
+      <asp:ScriptManager id="ScriptManager_control" runat="server"></asp:ScriptManager>
+  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 			  <tr>
 				<td>
 				  <table cellspacing="0" cellpadding="5" border="0">

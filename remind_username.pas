@@ -133,11 +133,12 @@ begin
       kix.NORMAL,
       'usrnamsnt',
       'The associated ' + configurationmanager.appsettings['application_name'] + ' username has been sent to '
-      + email_address + PERIOD
+      + email_address + PERIOD,
+      TRUE
       );
     Table_return.visible := TRUE;
   end else begin
-    Alert(kix.USER,kix.FAILURE,'nosucheml','No such email address registered');
+    Alert(kix.USER,kix.FAILURE,'nosucheml','No such email address registered',TRUE);
   end;
 end;
 

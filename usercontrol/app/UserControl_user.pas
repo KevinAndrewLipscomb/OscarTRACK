@@ -204,9 +204,9 @@ begin
       Safe(TextBox_password_reset_email_address.text,PUNCTUATED),
       CheckBox_be_active.checked
       );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 

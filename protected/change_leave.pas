@@ -258,7 +258,7 @@ begin
       );
     BackTrack;
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 

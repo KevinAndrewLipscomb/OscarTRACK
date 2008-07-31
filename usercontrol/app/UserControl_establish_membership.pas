@@ -121,10 +121,10 @@ procedure TWebUserControl_establish_membership.Button_submit_Click(sender: Syste
   e: System.EventArgs);
 begin
   if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,NUM),p.biz_user.IdNum) then begin
-    Alert(kix.USER,kix.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.');
+    Alert(kix.USER,kix.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.',TRUE);
     Table_proceed.visible := TRUE;
   end else begin
-    Alert(kix.USER,kix.FAILURE,'nosuchmem','No such membership record could be located.  Please check your submission for accuracy.');
+    Alert(kix.USER,kix.FAILURE,'nosuchmem','No such membership record could be located.  Please check your submission for accuracy.',TRUE);
   end;
 end;
 

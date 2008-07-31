@@ -101,8 +101,10 @@ begin
       + p.exception.stacktrace + NEW_LINE
       + NEW_LINE
       + '[SESSION]' + NEW_LINE;
-      for lcv := 0 to (session.count - 1) do begin
-        p.notification_message := p.notification_message + session.keys[lcv].tostring + ' = ' + session.item[lcv].tostring + NEW_LINE;
+      if session.count > 0 then begin
+        for lcv := 0 to (session.count - 1) do begin
+          p.notification_message := p.notification_message + session.keys[lcv].tostring + ' = ' + session.item[lcv].tostring + NEW_LINE;
+        end;
       end;
       //
       kix.SmtpMailSend

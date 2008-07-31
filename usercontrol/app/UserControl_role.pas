@@ -387,7 +387,7 @@ begin
     );
   TextBox_quick_message_subject.text := EMPTY;
   TextBox_quick_message_body.text := EMPTY;
-  Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent');
+  Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent',TRUE);
 end;
 
 procedure TWebUserControl_role.Button_submit_Click(sender: System.Object;
@@ -403,9 +403,9 @@ begin
       Safe(TextBox_pecking_order.text,NUM).trim,
       Safe(TextBox_soft_hyphenation_text.text,PUNCTUATED).trim
       );
-    Alert(USER,SUCCESS,'recsaved','Record saved.');
+    Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 
@@ -422,7 +422,7 @@ begin
   if p.biz_roles.Delete(Safe(TextBox_name.text,HUMAN_NAME)) then begin
     Clear;
   end else begin
-    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.');
+    Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
 end;
 

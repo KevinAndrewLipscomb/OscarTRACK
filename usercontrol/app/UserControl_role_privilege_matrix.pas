@@ -79,22 +79,24 @@ var
   crosstab_metadata_rec: crosstab_metadata_rec_type;
   i: crosstab_index_type;
 begin
-  for i := CI_FIRST_CROSSTAB to (row.cells.count - 1) do begin
-    if row.rowtype = datacontrolrowtype.datarow then begin
-      row.cells.item[i].horizontalalign := horizontalalign.CENTER;
-      crosstab_metadata_rec := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]);
-      check_box := CheckBox.Create;
-      check_box.autopostback := TRUE;
-      check_box.checked := (row.cells.item[i].text = '1');
-      check_box.enabled := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
-      check_box.id := EMPTY
-      + CHECKBOX_ID_PREFIX_PRIVILEGE_ID + row.cells.item[CI_PRIVILEGE_ID].text
-      + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
-      check_box.tooltip := crosstab_metadata_rec.natural_text;
-      Include(check_box.checkedchanged,Changed);
-      row.cells.item[i].controls.Add(check_box);
-      if not p.be_interactive then begin
-        CheckBox(row.cells.item[i].controls[0]).enabled := FALSE;
+  if row.cells.count > CI_FIRST_CROSSTAB then begin
+    for i := CI_FIRST_CROSSTAB to (row.cells.count - 1) do begin
+      if row.rowtype = datacontrolrowtype.datarow then begin
+        row.cells.item[i].horizontalalign := horizontalalign.CENTER;
+        crosstab_metadata_rec := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i - CI_FIRST_CROSSTAB]);
+        check_box := CheckBox.Create;
+        check_box.autopostback := TRUE;
+        check_box.checked := (row.cells.item[i].text = '1');
+        check_box.enabled := Has(string_array(session['privilege_array']),'config-roles-and-matrices');
+        check_box.id := EMPTY
+        + CHECKBOX_ID_PREFIX_PRIVILEGE_ID + row.cells.item[CI_PRIVILEGE_ID].text
+        + CHECKBOX_ID_PREFIX_ROLE_ID + crosstab_metadata_rec.id;
+        check_box.tooltip := crosstab_metadata_rec.natural_text;
+        Include(check_box.checkedchanged,Changed);
+        row.cells.item[i].controls.Add(check_box);
+        if not p.be_interactive then begin
+          CheckBox(row.cells.item[i].controls[0]).enabled := FALSE;
+        end;
       end;
     end;
   end;
@@ -204,8 +206,10 @@ begin
     //
     // Dynamic controls must be re-added on each postback.
     //
-    for row_index := 0 to (GridView_control.rows.count - 1) do begin
-      Checkboxify(GridView_control.rows.item[row_index]);
+    if GridView_control.rows.count > 0 then begin
+      for row_index := 0 to (GridView_control.rows.count - 1) do begin
+        Checkboxify(GridView_control.rows.item[row_index]);
+      end;
     end;
   end;
   //
@@ -330,11 +334,13 @@ begin
   p.biz_role_privilege_map.Bind(p.tier_filter,p.sort_order,p.be_sort_order_descending,GridView_control,p.crosstab_metadata_rec_arraylist);
   if assigned(GridView_control.headerrow) then begin
     LinkButton(GridView_control.headerrow.cells.item[1].controls.item[0]).text := 'Privilege';
-    for i := 0 to (p.crosstab_metadata_rec_arraylist.Count - 1) do begin
-      metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);
-      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).text := metadata.soft_hyphenation_text;
-      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.bold := FALSE;
-      LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.size := fontunit.SMALLER;
+    if p.crosstab_metadata_rec_arraylist.count > 0 then begin
+      for i := 0 to (p.crosstab_metadata_rec_arraylist.count - 1) do begin
+        metadata := crosstab_metadata_rec_type(p.crosstab_metadata_rec_arraylist[i]);
+        LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).text := metadata.soft_hyphenation_text;
+        LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.bold := FALSE;
+        LinkButton(GridView_control.headerrow.cells.item[metadata.index].controls.item[0]).font.size := fontunit.SMALLER;
+      end;
     end;
   end;
 end;

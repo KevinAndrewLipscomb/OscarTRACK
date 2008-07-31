@@ -113,7 +113,7 @@ var
   username: string;
 begin
   if TextBox_username.text = EMPTY then begin
-    Alert(kix.USER,kix.FAILURE,'misusrnam','Please enter your username.');
+    Alert(kix.USER,kix.FAILURE,'misusrnam','Please enter your username.',TRUE);
   end else begin
     username := Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM);
     if p.biz_users.BeRegisteredUsername(username) then begin
@@ -125,10 +125,11 @@ begin
         'tmpassent',
         'A temporary password has been sent to the email address that ' + configurationmanager.appsettings['application_name']
         + ' has on file for ' + username + '.  Please log in after you receive it.  You will receive further instructions at that'
-        + ' time.'
+        + ' time.',
+        TRUE
         );
     end else begin
-      Alert(kix.USER,kix.FAILURE,'nosuchusr','No such user registered');
+      Alert(kix.USER,kix.FAILURE,'nosuchusr','No such user registered',TRUE);
     end;
   end;
 end;
