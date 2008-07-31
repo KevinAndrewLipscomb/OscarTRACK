@@ -13,8 +13,8 @@ uses
   System.Web.UI.HtmlControls,
   UserControl_role,
   UserControl_role_member_mapping,
-  UserControl_role_notification_matrix,
-  UserControl_role_privilege_matrix;
+  UserControl_role_notification_mapping,
+  UserControl_role_privilege_mapping;
 
 type
   p_type =
@@ -57,8 +57,8 @@ uses
 const
   TSSI_ROLES = 0;
   TSSI_ROLE_MEMBER_MAPPING = 1;
-  TSSI_ROLE_PRIVILEGE_MATRIX = 2;
-  TSSI_ROLE_NOTIFICATION_MATRIX = 3;
+  TSSI_ROLE_PRIVILEGE_MAPPING = 2;
+  TSSI_ROLE_NOTIFICATION_MAPPING = 3;
 
 procedure TWebUserControl_roles_and_matrices_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -111,18 +111,18 @@ begin
         'UserControl_role_member_mapping',
         PlaceHolder_content
         );
-    TSSI_ROLE_PRIVILEGE_MATRIX:
+    TSSI_ROLE_PRIVILEGE_MAPPING:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/app/UserControl_role_privilege_matrix.ascx')),
-        'UserControl_role_privilege_matrix',
+        TWebUserControl_role_privilege_mapping(LoadControl('~/usercontrol/app/UserControl_role_privilege_mapping.ascx')),
+        'UserControl_role_privilege_mapping',
         PlaceHolder_content
         );
-    TSSI_ROLE_NOTIFICATION_MATRIX:
+    TSSI_ROLE_NOTIFICATION_MAPPING:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/app/UserControl_role_notification_matrix.ascx')),
-        'UserControl_role_notification_matrix',
+        TWebUserControl_role_notification_mapping(LoadControl('~/usercontrol/app/UserControl_role_notification_mapping.ascx')),
+        'UserControl_role_notification_mapping',
         PlaceHolder_content
         );
     end;
@@ -166,18 +166,18 @@ begin
       'UserControl_role_member_mapping',
       PlaceHolder_content
       );
-  TSSI_ROLE_PRIVILEGE_MATRIX:
+  TSSI_ROLE_PRIVILEGE_MAPPING:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_role_privilege_matrix(LoadControl('~/usercontrol/app/UserControl_role_privilege_matrix.ascx')).Fresh,
-      'UserControl_role_privilege_matrix',
+      TWebUserControl_role_privilege_mapping(LoadControl('~/usercontrol/app/UserControl_role_privilege_mapping.ascx')).Fresh,
+      'UserControl_role_privilege_mapping',
       PlaceHolder_content
       );
-  TSSI_ROLE_NOTIFICATION_MATRIX:
+  TSSI_ROLE_NOTIFICATION_MAPPING:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_role_notification_matrix(LoadControl('~/usercontrol/app/UserControl_role_notification_matrix.ascx')).Fresh,
-      'UserControl_role_notification_matrix',
+      TWebUserControl_role_notification_mapping(LoadControl('~/usercontrol/app/UserControl_role_notification_mapping.ascx')).Fresh,
+      'UserControl_role_notification_mapping',
       PlaceHolder_content
       );
   end;

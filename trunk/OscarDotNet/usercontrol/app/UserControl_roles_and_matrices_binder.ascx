@@ -7,8 +7,8 @@
         tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;" forecolor="Blue" tabhoverstyle="background-color:gainsboro;" width="100%" autopostback="True">
         <iewc:Tab text="Roles"></iewc:Tab>
         <iewc:Tab text="Role-Member mappings"></iewc:Tab>
-        <iewc:Tab text="Role-Privilege matrix"></iewc:Tab>
-        <iewc:Tab text="Role-Notification matrix"></iewc:Tab>
+        <iewc:Tab text="Role-Privilege mappings"></iewc:Tab>
+        <iewc:Tab text="Role-Notification mappings"></iewc:Tab>
       </iewc:TabStrip>
     </td>
   </tr>

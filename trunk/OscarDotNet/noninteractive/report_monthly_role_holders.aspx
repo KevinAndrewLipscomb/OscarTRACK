@@ -24,14 +24,14 @@
                       <p>Best practices:</p>
                       <ul>
                         <li><p>In <asp:label id="Label_application_name_1" runat="server"></asp:label>, this material is managed
-                          under the <em>Config / Roles&nbsp;&amp;&nbsp;Matrices</em> area.</p></li>
+                          under the <em>Config / Roles&nbsp;&amp;&nbsp;Mappings</em> area.</p></li>
                         <li>
-                          <p>It is <u>critical</u> to maintain the roles properly (using the <em>Role-Member Matrix</em>), because
+                          <p>It is <u>critical</u> to maintain the roles properly (using the <em>Role-Member Mappings</em>), because
                             these settings tell the application:</p>
                           <p>
                             <ul>
-                              <li>Who is allowed to use certain features (see the <em>Role-Privilege Matrix</em>);</li>
-                              <li>Who gets notified when certain changes get made (see the <em>Role-Notification Matrix</em>);</li>
+                              <li>Who is allowed to use certain features (see the <em>Role-Privilege Mappings</em>);</li>
+                              <li>Who gets notified when certain changes get made (see the <em>Role-Notification Mappings</em>);</li>
                               <li>Who receives certain monthly reports.</li>
                             </ul>
                           </p>

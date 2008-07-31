@@ -3,7 +3,8 @@ unit Class_biz_privileges;
 interface
 
 uses
-  Class_db_privileges;
+  Class_db_privileges,
+  kix;
 
 type
   TClass_biz_privileges = class
@@ -17,7 +18,12 @@ type
       target: system.object
       )
       : boolean;
-    procedure BindDirectToListControl(target: system.object);
+    procedure BindDirectToListControl
+      (
+      target: system.object;
+      unselected_literal: string = '-- Privilege --';
+      selected_value: string = EMPTY
+      );
     function Get
       (
       name: string;
@@ -45,9 +51,14 @@ begin
   Bind := db_privileges.Bind(partial_name,target);
 end;
 
-procedure TClass_biz_privileges.BindDirectToListControl(target: system.object);
+procedure TClass_biz_privileges.BindDirectToListControl
+  (
+  target: system.object;
+  unselected_literal: string = '-- Privilege --';
+  selected_value: string = EMPTY
+  );
 begin
-  db_privileges.BindDirectToListControl(target);
+  db_privileges.BindDirectToListControl(target,unselected_literal,selected_value);
 end;
 
 function TClass_biz_privileges.Get

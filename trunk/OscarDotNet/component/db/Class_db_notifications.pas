@@ -4,7 +4,8 @@ interface
 
 uses
   Class_biz_data_conditions,
-  Class_db;
+  Class_db,
+  kix;
 
 type
   TClass_db_notifications = class(TClass_db)
@@ -14,6 +15,12 @@ type
     tier_3_match_field: string;
   public
     constructor Create;
+    procedure BindDirectToListControl
+      (
+      target: system.object;
+      unselected_literal: string = '-- Notification --';
+      selected_value: string = EMPTY
+      );
     function TargetOf
       (
       name: string;
@@ -31,9 +38,9 @@ type
 implementation
 
 uses
-  kix,
   mysql.data.mysqlclient,
-  system.configuration;
+  system.configuration,
+  system.web.ui.webcontrols;
 
 constructor TClass_db_notifications.Create;
 begin
@@ -42,6 +49,43 @@ begin
   biz_data_conditions := TClass_biz_data_conditions.Create;
   tier_2_match_field := configurationmanager.appsettings['tier_2_match_field'];
   tier_3_match_field := configurationmanager.appsettings['tier_3_match_field'];
+end;
+
+procedure TClass_db_notifications.BindDirectToListControl
+  (
+  target: system.object;
+  unselected_literal: string = '-- Notification --';
+  selected_value: string = EMPTY
+  );
+var
+  dr: mysqldatareader;
+begin
+  //
+  ListControl(target).items.Clear;
+  if unselected_literal <> EMPTY then begin
+    ListControl(target).items.Add(listitem.Create(unselected_literal,EMPTY));
+  end;
+  //
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select notification.id as notification_id'
+    + ' , name as notification_name'
+    + ' from notification'
+    + ' order by notification_name',
+    connection
+    )
+    .ExecuteReader;
+  while dr.Read do begin
+    ListControl(target).items.Add(listitem.Create(dr['notification_name'].tostring,dr['notification_id'].tostring));
+  end;
+  dr.Close;
+  self.Close;
+  //
+  if selected_value <> EMPTY then begin
+    ListControl(target).selectedvalue := selected_value;
+  end;
+  //
 end;
 
 function TClass_db_notifications.TargetOf

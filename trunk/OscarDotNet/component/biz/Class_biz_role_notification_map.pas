@@ -22,6 +22,13 @@ type
       target: system.object;
       out crosstab_metadata: arraylist
       );
+    procedure BindActuals
+      (
+      tier_filter: string;
+      sort_order: string;
+      be_sort_order_ascending: boolean;
+      target: system.object
+      );
     procedure Save
       (
       member_id: string;
@@ -60,6 +67,25 @@ begin
   end;
   tier_quoted_value_list := QUOTE + tier_quoted_value_list + QUOTE;
   db_role_notification_map.Bind(tier_quoted_value_list,sort_order,be_sort_order_descending,target,crosstab_metadata);
+end;
+
+procedure TClass_biz_role_notification_map.BindActuals
+  (
+  tier_filter: string;
+  sort_order: string;
+  be_sort_order_ascending: boolean;
+  target: system.object
+  );
+var
+  tier_quoted_value_list: string;
+begin
+  if tier_filter = '2' then begin
+    tier_quoted_value_list := '2' + QUOTE + COMMA + QUOTE + '3';
+  end else begin
+    tier_quoted_value_list := tier_filter;
+  end;
+  tier_quoted_value_list := QUOTE + tier_quoted_value_list + QUOTE;
+  db_role_notification_map.BindActuals(tier_quoted_value_list,sort_order,be_sort_order_ascending,target);
 end;
 
 procedure TClass_biz_role_notification_map.Save
