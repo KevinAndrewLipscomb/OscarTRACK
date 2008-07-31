@@ -4,7 +4,8 @@ interface
 
 uses
   Class_db,
-  Class_db_trail;
+  Class_db_trail,
+  kix;
 
 type
   TClass_db_privileges = class(TClass_db)
@@ -18,7 +19,12 @@ type
       target: system.object
       )
       : boolean;
-    procedure BindDirectToListControl(target: system.object);
+    procedure BindDirectToListControl
+      (
+      target: system.object;
+      unselected_literal: string = '-- Privilege --';
+      selected_value: string = EMPTY
+      );
     function Get
       (
       name: string;
@@ -67,20 +73,41 @@ begin
   Bind := ListControl(target).items.count > 0;
 end;
 
-procedure TClass_db_privileges.BindDirectToListControl(target: system.object);
+procedure TClass_db_privileges.BindDirectToListControl
+  (
+  target: system.object;
+  unselected_literal: string = '-- Privilege --';
+  selected_value: string = EMPTY
+  );
 var
   dr: mysqldatareader;
 begin
-  self.Open;
-  ListControl(target).items.Clear;
   //
-  dr := mysqlcommand.Create('SELECT id,name FROM privilege order by name',connection).ExecuteReader;
+  ListControl(target).items.Clear;
+  if unselected_literal <> EMPTY then begin
+    ListControl(target).items.Add(listitem.Create(unselected_literal,EMPTY));
+  end;
+  //
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select privilege.id as privilege_id'
+    + ' , name as privilege_name'
+    + ' from privilege'
+    + ' order by privilege_name',
+    connection
+    )
+    .ExecuteReader;
   while dr.Read do begin
-    ListControl(target).Items.Add
-      (listitem.Create(dr['name'].tostring,dr['id'].tostring));
+    ListControl(target).items.Add(listitem.Create(dr['privilege_name'].tostring,dr['privilege_id'].tostring));
   end;
   dr.Close;
   self.Close;
+  //
+  if selected_value <> EMPTY then begin
+    ListControl(target).selectedvalue := selected_value;
+  end;
+  //
 end;
 
 function TClass_db_privileges.Get

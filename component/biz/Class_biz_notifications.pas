@@ -3,7 +3,8 @@ unit Class_biz_notifications;
 interface
 
 uses
-  Class_db_notifications;
+  Class_db_notifications,
+  kix;
 
 type
   TClass_biz_notifications = class
@@ -14,6 +15,12 @@ type
     runtime_root_fullspec: string;
   public
     constructor Create;
+    procedure BindDirectToListControl
+      (
+      target: system.object;
+      unselected_literal: string = '-- Notification --';
+      selected_value: string = EMPTY
+      );
     procedure IssueForAgencyChange
       (
       member_id: string;
@@ -212,7 +219,6 @@ uses
   Class_biz_roles,
   Class_biz_user,
   Class_biz_users,
-  kix,
   system.configuration,
   system.io,
   system.text.regularexpressions,
@@ -230,6 +236,16 @@ begin
   db_notifications := TClass_db_notifications.Create;
   host_domain_name := configurationmanager.appsettings['host_domain_name'];
   runtime_root_fullspec := configurationmanager.appsettings['runtime_root_fullspec'];
+end;
+
+procedure TClass_biz_notifications.BindDirectToListControl
+  (
+  target: system.object;
+  unselected_literal: string = '-- Notification --';
+  selected_value: string = EMPTY
+  );
+begin
+  db_notifications.BindDirectToListControl(target,unselected_literal,selected_value);
 end;
 
 procedure TClass_biz_notifications.IssueForAgencyChange

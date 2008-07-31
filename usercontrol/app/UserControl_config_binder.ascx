@@ -8,7 +8,7 @@
             <iewc:TabStrip id="TabStrip_control" autopostback="True" width="100%" tabhoverstyle="background-color:gainsboro;" forecolor="Blue"
                            tabdefaultstyle="padding:10;border-top:thin solid white;border-left:thin solid white;border-right:thin solid white;background-color:silver;"
                            tabselectedstyle="padding:10;border-top:thin solid silver;border-left:thin solid silver;border-right:thin solid silver;background-color:white;font-weight:bold;" runat="server">
-              <iewc:Tab text="Roles & matrices"></iewc:Tab>
+              <iewc:Tab text="Roles & mappings"></iewc:Tab>
               <iewc:Tab text="Users" enabled="False"></iewc:Tab>
               <iewc:Tab text="Agencies" enabled="False"></iewc:Tab>
             </iewc:TabStrip></td>
