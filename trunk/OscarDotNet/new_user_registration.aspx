@@ -13,7 +13,7 @@
 
   <body bgcolor="white">
      <form runat="server">
-      <asp:ScriptManager id="ScriptManager_control" runat="server"></asp:ScriptManager>
+
      <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
         <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
             <tr>
