@@ -117,7 +117,7 @@ begin
     p.biz_users.SetEmailAddress(p.biz_user.IdNum,Safe(TextBox_nominal_email_address.Text.Trim,EMAIL_ADDRESS));
     server.Transfer('overview.aspx');
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 

@@ -128,7 +128,7 @@ begin
   if p.biz_members.SetCadNum(Safe(Textbox_cad_num.text,NUM),session['e_item']) then begin
     BackTrack;
   end else begin
-    Alert(kix.USER,kix.FAILURE,'cadnumtakn','NOT CHANGED:  The specified CAD # is already in the system.');
+    Alert(kix.USER,kix.FAILURE,'cadnumtakn','NOT CHANGED:  The specified CAD # is already in the system.',TRUE);
   end;
 end;
 

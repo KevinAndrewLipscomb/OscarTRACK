@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3130.28239</Version>
+      <Version>1.0.3133.33428</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -198,6 +198,8 @@
     </DCCReference>
     <DCCReference Include="exception.pas">
       <DependentUpon>exception.aspx</DependentUpon>
+      <Form>exception.TWebForm_exception</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="Global.pas">
       <DependentUpon>Global.asax</DependentUpon>
@@ -211,6 +213,8 @@
     </DCCReference>
     <DCCReference Include="new_user_registration.pas">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
+      <Form>new_user_registration.TWebForm_new_user_registration</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\daily_tasks.pas">
       <DependentUpon>noninteractive\daily_tasks.aspx</DependentUpon>
@@ -273,15 +277,23 @@
     </DCCReference>
     <DCCReference Include="protected\add_new_enrollment_status.pas">
       <DependentUpon>protected\add_new_enrollment_status.aspx</DependentUpon>
+      <Form>add_new_enrollment_status.TWebForm_add_new_enrollment_status</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_cad_num.pas">
       <DependentUpon>protected\change_cad_num.aspx</DependentUpon>
+      <Form>change_cad_num.TWebForm_change_cad_num</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_email_address.pas">
       <DependentUpon>protected\change_email_address.aspx</DependentUpon>
+      <Form>change_email_address.TWebForm_change_email_address</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_leave.pas">
       <DependentUpon>protected\change_leave.aspx</DependentUpon>
+      <Form>change_leave.TWebForm_change_leave</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_member_agency.pas">
       <DependentUpon>protected\change_member_agency.aspx</DependentUpon>
@@ -343,9 +355,13 @@
     </DCCReference>
     <DCCReference Include="remind_username.pas">
       <DependentUpon>remind_username.aspx</DependentUpon>
+      <Form>remind_username.TWebForm_remind_username</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="salogin.pas">
       <DependentUpon>salogin.aspx</DependentUpon>
+      <Form>salogin.TWebForm_salogin</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="serial_indicator_control_chart.pas">
       <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
@@ -389,6 +405,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_establish_membership.pas">
       <DependentUpon>usercontrol\app\UserControl_establish_membership.ascx</DependentUpon>
+      <Form>UserControl_establish_membership.TWebUserControl_establish_membership</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>

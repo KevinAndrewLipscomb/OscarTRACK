@@ -151,21 +151,23 @@ begin
   //
   // Enqueue individual agency records
   //
-  for i := 0 to (data_grid_item_collection.Count - 1) do begin
-    data_grid_item := data_grid_item_collection.item[i];
-    item_type := data_grid_item.itemtype;
-    if item_type in [listitemtype.item,listitemtype.alternatingitem,listitemtype.edititem,listitemtype.selecteditem] then begin
-      table_cell_collection := data_grid_item.cells;
-      num_forecast := decimal.Parse(Safe(table_cell_collection[TCCI_FORECAST].text,REAL_NUM));
-      num_actual := decimal.Parse(Safe(TextBox(table_cell_collection[TCCI_ACTUAL].controls[0]).text,REAL_NUM));
-      total_num_forecast := total_num_forecast + num_forecast;
-      total_num_actual := total_num_actual + num_actual;
-      with commensuration_rec do begin
-        agency_id := Safe(table_cell_collection[TCCI_AGENCY_ID].text,NUM);
-        commensuration_factor := num_actual/num_forecast;
-        be_agency_id_applicable := TRUE;
+  if data_grid_item_collection.count > 0 then begin
+    for i := 0 to (data_grid_item_collection.count - 1) do begin
+      data_grid_item := data_grid_item_collection.item[i];
+      item_type := data_grid_item.itemtype;
+      if item_type in [listitemtype.item,listitemtype.alternatingitem,listitemtype.edititem,listitemtype.selecteditem] then begin
+        table_cell_collection := data_grid_item.cells;
+        num_forecast := decimal.Parse(Safe(table_cell_collection[TCCI_FORECAST].text,REAL_NUM));
+        num_actual := decimal.Parse(Safe(TextBox(table_cell_collection[TCCI_ACTUAL].controls[0]).text,REAL_NUM));
+        total_num_forecast := total_num_forecast + num_forecast;
+        total_num_actual := total_num_actual + num_actual;
+        with commensuration_rec do begin
+          agency_id := Safe(table_cell_collection[TCCI_AGENCY_ID].text,NUM);
+          commensuration_factor := num_actual/num_forecast;
+          be_agency_id_applicable := TRUE;
+        end;
+        commensuration_rec_q.Enqueue(commensuration_rec);
       end;
-      commensuration_rec_q.Enqueue(commensuration_rec);
     end;
   end;
   //
@@ -182,7 +184,7 @@ begin
   //
   p.biz_agencies.SetCommensuration(commensuration_rec_q);
   //
-  Alert(kix.USER,SUCCESS,'subaccept','Submission accepted');
+  Alert(kix.USER,SUCCESS,'subaccept','Submission accepted',TRUE);
   //
 end;
 

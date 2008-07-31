@@ -140,7 +140,7 @@ begin
     SessionSet('user_id',p.biz_users.IdOf(username));
     formsauthentication.RedirectFromLoginPage(username,FALSE);
   end else begin
-    ValidationAlert;
+    ValidationAlert(TRUE);
   end;
 end;
 
