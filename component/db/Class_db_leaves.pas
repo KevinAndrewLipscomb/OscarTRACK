@@ -61,7 +61,7 @@ type
     function DescriptionOf(code: string): string;
     function EndDateOf(id: string): datetime;
     function EndMonthOf(leave_item: system.object): string;
-    function ExpiredYesterday: queue;
+    function ExpireAfterDays(n: integer): queue;
     procedure Grant
       (
       member_id: string;
@@ -296,7 +296,7 @@ begin
   EndMonthOf := Safe(DataGridItem(leave_item).cells[TCCI_END_DATE].text,HYPHENATED_ALPHANUM);
 end;
 
-function TClass_db_leaves.ExpiredYesterday: queue;
+function TClass_db_leaves.ExpireAfterDays(n: integer): queue;
 var
   dr: mysqldatareader;
   member_id_q: queue;
@@ -304,13 +304,17 @@ begin
   member_id_q := queue.Create;
   self.Open;
   dr := mysqlcommand.Create
-    ('select member_id from leave_of_absence where end_date = (CURDATE() - INTERVAL 1 DAY)',connection).ExecuteReader;
+    (
+    'select member_id from leave_of_absence where end_date = (CURDATE() + INTERVAL ' + n.tostring + ' DAY)',
+    connection
+    )
+    .ExecuteReader;
   while dr.Read do begin
     member_id_q.Enqueue(dr['member_id']);
   end;
   dr.Close;
   self.Close;
-  ExpiredYesterday := member_id_q;
+  ExpireAfterDays := member_id_q;
 end;
 
 procedure TClass_db_leaves.Grant

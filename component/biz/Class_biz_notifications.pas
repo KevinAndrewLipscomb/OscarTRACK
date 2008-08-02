@@ -97,6 +97,13 @@ type
       num_obligated_shifts: string;
       note: string
       );
+    procedure IssueForLeaveEndingSoon
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string
+      );
     procedure IssueForLeaveExpiredYesterday
       (
       member_id: string;
@@ -666,6 +673,53 @@ begin
     configurationmanager.appsettings['sender_email_address'],
     //to
     biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('leave-granted',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForLeaveEndingSoon
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string
+  );
+var
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<member_id/>',member_id);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/leave_ending_soon.txt'));
+  kix.SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + COMMA + db_notifications.TargetOf('leave-ending-soon',member_id),
     //subject
     Merge(template_reader.ReadLine),
     //body
