@@ -104,6 +104,7 @@ type
     function IdOf(leave_item: system.object): string;
     function KindOf(leave_item: system.object): string;
     function KindOfLeaveCodeOf(id: string): string;
+    procedure MakeLeaveEndingSoonNotifications;
     procedure MakeLeaveExpirationNotifications;
     function MemberIdOf(id: string): string;
     function NoteOf(id: string): string;
@@ -126,6 +127,7 @@ implementation
 uses
   kix,
   system.collections,
+  system.configuration,
   system.web.ui.webcontrols;
 
 constructor TClass_biz_leaves.Create;
@@ -427,6 +429,33 @@ begin
   KindOfLeaveCodeOf := db_leaves.KindOfLeaveCodeOf(id);
 end;
 
+procedure TClass_biz_leaves.MakeLeaveEndingSoonNotifications;
+var
+  i: cardinal;
+  member_id: string;
+  member_id_q: queue;
+begin
+  //
+  member_id_q := db_leaves.ExpireAfterDays(int32.Parse(configurationmanager.appsettings['days_advance_notice_for_leaves_ending']));
+  for i := 1 to member_id_q.Count do begin
+    member_id := member_id_q.Dequeue.tostring;
+    if not BeOverlap(member_id,'1','1') then begin
+      //
+      // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has
+      // expired.
+      //
+      biz_notifications.IssueForLeaveEndingSoon
+        (
+        member_id,
+        biz_members.FirstNameOfMemberId(member_id),
+        biz_members.LastNameOfMemberId(member_id),
+        biz_members.CadNumOfMemberId(member_id)
+        );
+    end;
+    //
+  end;
+end;
+
 procedure TClass_biz_leaves.MakeLeaveExpirationNotifications;
 var
   i: cardinal;
@@ -434,7 +463,7 @@ var
   member_id_q: queue;
 begin
   //
-  member_id_q := db_leaves.ExpiredYesterday;
+  member_id_q := db_leaves.ExpireAfterDays(-1);
   for i := 1 to member_id_q.Count do begin
     member_id := member_id_q.Dequeue.tostring;
     if not BeOverlap(member_id,'0','0') then begin

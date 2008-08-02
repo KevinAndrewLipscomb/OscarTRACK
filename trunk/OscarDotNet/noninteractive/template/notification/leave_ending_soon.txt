@@ -1,0 +1,12 @@
+Leave ending soon: <first_name/> <last_name/> (<cad_num/>)
+This is an automatic notification from <application_name/>.
+
+<application_name/> has detected that effective the first of *next* month, <first_name/> <last_name/> (<cad_num/>) will no longer be on leave.
+
+If <first_name/> *can* run a full set of duties next month, <first_name/> should submit availabilities by the 10th of this month using http://oscarsystem.com.
+
+If <first_name/> can *not* run a full set of duties next month, <first_name/> should contact his or her squad commander.  The leave should be extended or <first_name/>'s membership status should be adjusted.
+
+<first_name/>, we hope you can return to duty soon!
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

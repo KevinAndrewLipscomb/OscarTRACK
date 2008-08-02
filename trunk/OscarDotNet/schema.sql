@@ -655,7 +655,8 @@ INSERT INTO notification (id,`name`) VALUES
 (13,'leave-expired'),
 (14,'report-monthly-per-agency-serial-indicators'),
 (15,'role-change'),
-(16,'agency-change');
+(16,'agency-change'),
+(17,'leave-ending-soon');
 
 -- --------------------------------------------------------
 
@@ -883,6 +884,11 @@ INSERT INTO `role_notification_map` (`role_id`, `notification_id`, `data_conditi
 (15, 12, 1),
 (16, 12, 1);
 insert role_notification_map (notification_id,role_id,data_condition_id) values
+((select id from notification where name = "leave-ending-soon"),(select id from role where name = "Squad Commander"),1),
+((select id from notification where name = "leave-ending-soon"),(select id from role where name = "Squad Section Sergeant"),1),
+((select id from notification where name = "leave-ending-soon"),(select id from role where name = "Squad Scheduler"),1),
+((select id from notification where name = "leave-ending-soon"),(select id from role where name = "Squad Training Officer"),2),
+((select id from notification where name = "leave-ending-soon"),(select id from role where name = "Department BLS ID Coordinator"),2),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Department Human Resources Officer"),1),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Department BLS ID Coordinator"),2),
 ((select id from notification where name = "leave-expired"),(select id from role where name = "Squad Commander"),1),

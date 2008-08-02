@@ -33,6 +33,7 @@ end;
 procedure TClass_biz_scheduled_tasks.DoDailyChores;
 begin
   biz_enrollment.MakeSeniorityPromotions;
+  biz_leaves.MakeLeaveEndingSoonNotifications;
   biz_leaves.MakeLeaveExpirationNotifications;
 end;
 
