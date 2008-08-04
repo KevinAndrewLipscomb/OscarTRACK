@@ -91,14 +91,15 @@ begin
         user_designator := user.identity.name;
       end;
       //
-      p.notification_message := '[USER]' + NEW_LINE
+      p.notification_message := EMPTY
+      + '[EXCEPTION]' + NEW_LINE
+      + p.exception.tostring + NEW_LINE
+      + NEW_LINE
+      + '[HRESULT]' + NEW_LINE
+      + HresultAnalysis(p.exception) + NEW_LINE
+      + NEW_LINE
+      + '[USER]' + NEW_LINE
       + user_designator + NEW_LINE
-      + NEW_LINE
-      + '[MESSAGE]' + NEW_LINE
-      + p.exception.message + NEW_LINE
-      + NEW_LINE
-      + '[STACKTRACE]' + NEW_LINE
-      + p.exception.stacktrace + NEW_LINE
       + NEW_LINE
       + '[SESSION]' + NEW_LINE;
       if session.count > 0 then begin
