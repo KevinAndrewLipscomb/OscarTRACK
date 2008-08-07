@@ -53,6 +53,7 @@ type
     CheckBox_be_active: System.Web.UI.WebControls.CheckBox;
     TextBox_num_unsuccessful_login_attempts: System.Web.UI.WebControls.TextBox;
     TextBox_last_login: System.Web.UI.WebControls.TextBox;
+    UpdatePanel_control: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -176,8 +177,8 @@ begin
   Include(Self.DropDownList_username.SelectedIndexChanged, Self.DropDownList_username_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_user_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 

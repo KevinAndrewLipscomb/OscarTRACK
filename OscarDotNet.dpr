@@ -128,7 +128,11 @@ uses
   UserControl_update_progress_blocker in 'usercontrol\app\UserControl_update_progress_blocker.pas' {UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker: ki_web_ui.usercontrol_class},
   UserControl_role_member_mapping in 'usercontrol\app\UserControl_role_member_mapping.pas' {UserControl_role_member_mapping.TWebUserControl_role_member_mapping: ki_web_ui.usercontrol_class},
   UserControl_role_notification_mapping in 'usercontrol\app\UserControl_role_notification_mapping.pas' {UserControl_role_notification_mapping.TWebUserControl_role_notification_mapping: ki_web_ui.usercontrol_class},
-  UserControl_role_privilege_mapping in 'usercontrol\app\UserControl_role_privilege_mapping.pas' {UserControl_role_privilege_mapping.TWebUserControl_role_privilege_mapping: ki_web_ui.usercontrol_class};
+  UserControl_role_privilege_mapping in 'usercontrol\app\UserControl_role_privilege_mapping.pas' {UserControl_role_privilege_mapping.TWebUserControl_role_privilege_mapping: ki_web_ui.usercontrol_class},
+  UserControl_users_and_mapping_binder in 'usercontrol\app\UserControl_users_and_mapping_binder.pas' {UserControl_users_and_mapping_binder.TWebUserControl_users_and_mapping_binder: ki_web_ui.usercontrol_class},
+  UserControl_user_member_mapping in 'usercontrol\app\UserControl_user_member_mapping.pas' {UserControl_user_member_mapping.TWebUserControl_user_member_mapping: ki_web_ui.usercontrol_class},
+  Class_biz_user_member_map in 'component\biz\Class_biz_user_member_map.pas',
+  Class_db_user_member_map in 'component\db\Class_db_user_member_map.pas';
 
 //
 // General Information about an assembly is controlled through the following

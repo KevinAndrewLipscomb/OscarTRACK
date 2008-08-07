@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3133.34105</Version>
+      <Version>1.0.3138.29999</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -168,6 +168,7 @@
     <DCCReference Include="component\biz\Class_biz_tiers.pas" />
     <DCCReference Include="component\biz\Class_biz_user.pas" />
     <DCCReference Include="component\biz\Class_biz_users.pas" />
+    <DCCReference Include="component\biz\Class_biz_user_member_map.pas" />
     <DCCReference Include="component\db\Class_db.pas" />
     <DCCReference Include="component\db\Class_db_accounts.pas" />
     <DCCReference Include="component\db\Class_db_agencies.pas" />
@@ -188,6 +189,7 @@
     <DCCReference Include="component\db\Class_db_trail.pas" />
     <DCCReference Include="component\db\Class_db_user.pas" />
     <DCCReference Include="component\db\Class_db_users.pas" />
+    <DCCReference Include="component\db\Class_db_user_member_map.pas" />
     <DCCReference Include="Default.pas">
       <DependentUpon>Default.aspx</DependentUpon>
     </DCCReference>
@@ -543,6 +545,16 @@
       <Form>UserControl_user.TWebUserControl_user</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_users_and_mapping_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_users_and_mapping_binder.ascx</DependentUpon>
+      <Form>UserControl_users_and_mapping_binder.TWebUserControl_users_and_mapping_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_user_member_mapping.pas">
+      <DependentUpon>usercontrol\app\UserControl_user_member_mapping.ascx</DependentUpon>
+      <Form>UserControl_user_member_mapping.TWebUserControl_user_member_mapping</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_bread_crumb_trail.pas">
       <DependentUpon>usercontrol\ki\UserControl_bread_crumb_trail.ascx</DependentUpon>
       <Form>UserControl_bread_crumb_trail.TWebUserControl_bread_crumb_trail</Form>
@@ -642,6 +654,8 @@
     <None Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx" />
     <None Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
     <None Include="usercontrol\app\UserControl_user.ascx" />
+    <None Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_user_member_mapping.ascx" />
     <None Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />

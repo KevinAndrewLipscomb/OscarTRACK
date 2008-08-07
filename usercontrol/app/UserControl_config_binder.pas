@@ -14,7 +14,7 @@ uses
   UserControl_agency,
   UserControl_config_welcome,
   UserControl_roles_and_matrices_binder,
-  UserControl_user;
+  UserControl_users_and_mapping_binder;
 
 type
   p_type =
@@ -58,7 +58,7 @@ uses
 
 const
   TSSI_ROLES_AND_MATRICES = 0;
-  TSSI_USERS = 1;
+  TSSI_USERS_AND_MAPPING = 1;
   TSSI_AGENCIES = 2;
 
 procedure TWebUserControl_config_binder.Page_Load(sender: System.Object; e: System.EventArgs);
@@ -67,7 +67,7 @@ begin
   if not p.be_loaded then begin
     //
     if Has(string_array(session['privilege_array']),'config-users') then begin
-      TabStrip_control.items[TSSI_USERS].enabled := TRUE;
+      TabStrip_control.items[TSSI_USERS_AND_MAPPING].enabled := TRUE;
     end;
     if Has(string_array(session['privilege_array']),'config-agencies') then begin
       TabStrip_control.items[TSSI_AGENCIES].enabled := TRUE;
@@ -103,11 +103,11 @@ begin
         'UserControl_roles_and_matrices_binder',
         PlaceHolder_content
         );
-    TSSI_USERS:
+    TSSI_USERS_AND_MAPPING:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_user(LoadControl('~/usercontrol/app/UserControl_user.ascx')),
-        'UserControl_user',
+        TWebUserControl_users_and_mapping_binder(LoadControl('~/usercontrol/app/UserControl_users_and_mapping_binder.ascx')),
+        'UserControl_users_and_mapping_binder',
         PlaceHolder_content
         );
     TSSI_AGENCIES:
@@ -151,11 +151,11 @@ begin
       'UserControl_roles_and_matrices_binder',
       PlaceHolder_content
       );
-  TSSI_USERS:
+  TSSI_USERS_AND_MAPPING:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_user(LoadControl('~/usercontrol/app/UserControl_user.ascx')).Fresh,
-      'UserControl_user',
+      TWebUserControl_users_and_mapping_binder(LoadControl('~/usercontrol/app/UserControl_users_and_mapping_binder.ascx')).Fresh,
+      'UserControl_users_and_mapping_binder',
       PlaceHolder_content
       );
   TSSI_AGENCIES:
