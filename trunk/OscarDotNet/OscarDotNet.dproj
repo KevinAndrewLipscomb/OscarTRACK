@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3138.29999</Version>
+      <Version>1.0.3145.18069</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -369,6 +369,11 @@
       <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
       <Form>serial_indicator_control_chart.TWebForm1</Form>
       <DesignClass>system.web.ui.page</DesignClass>
+    </DCCReference>
+    <DCCReference Include="timeout.pas">
+      <DependentUpon>timeout.aspx</DependentUpon>
+      <Form>timeout.TWebForm_timeout</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_about.pas">
       <DependentUpon>usercontrol\app\UserControl_about.ascx</DependentUpon>
@@ -615,6 +620,7 @@
     <None Include="remind_username.aspx" />
     <None Include="salogin.aspx" />
     <None Include="serial_indicator_control_chart.aspx" />
+    <None Include="timeout.aspx" />
     <None Include="usercontrol\app\UserControl_about.ascx" />
     <None Include="usercontrol\app\UserControl_agency.ascx" />
     <None Include="usercontrol\app\UserControl_commensuration.ascx" />

@@ -68,8 +68,12 @@ procedure TWebForm_change_email_address.Page_Load(sender: System.Object; e: Syst
 var
   email_address: string;
 begin
-  if IsPostback and (session['change_email_password.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['change_email_password.p']);
+  if IsPostback then begin
+    if assigned(session['change_email_password.p']) then begin
+      p := p_type(session['change_email_password.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       session.Clear;

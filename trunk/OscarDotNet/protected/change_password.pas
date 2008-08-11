@@ -65,8 +65,12 @@ end;
 
 procedure TWebForm_change_password.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  if IsPostback and (session['change_password.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['change_password.p']);
+  if IsPostback then begin
+    if assigned(session['change_password.p']) then begin
+      p := p_type(session['change_password.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       session.Clear;

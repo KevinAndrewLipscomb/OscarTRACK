@@ -74,8 +74,12 @@ end;
 
 procedure TWebForm_remind_username.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  if IsPostback and (session['remind_username.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['remind_username.p']);
+  if IsPostback then begin
+    if assigned(session['remind_username.p']) then begin
+      p := p_type(session['remind_username.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       //
