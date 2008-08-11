@@ -86,8 +86,12 @@ end;
 
 procedure TWebForm_new_user_registration.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  if IsPostback and (session['new_user_registration.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['new_user_registration.p']);
+  if IsPostback then begin
+    if assigned(session['new_user_registration.p']) then begin
+      p := p_type(session['new_user_registration.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       //

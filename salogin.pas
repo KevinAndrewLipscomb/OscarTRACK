@@ -78,8 +78,12 @@ end;
 
 procedure TWebForm_salogin.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
-  if IsPostback and (session['salogin.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['salogin.p']);
+  if IsPostback then begin
+    if assigned(session['salogin.p']) then begin
+      p := p_type(session['salogin.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - salogin';
     p.biz_users := TClass_biz_users.Create;

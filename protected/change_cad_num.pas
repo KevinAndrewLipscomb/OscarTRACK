@@ -97,8 +97,12 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['change_cad_num.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['change_cad_num.p']);
+  if IsPostback then begin
+    if assigned(session['change_cad_num.p']) then begin
+      p := p_type(session['change_cad_num.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     if request.servervariables['URL'] = request.currentexecutionfilepath then begin
       //

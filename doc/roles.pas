@@ -65,8 +65,12 @@ begin
   InitializeComponent;
   inherited OnInit(e);
   //
-  if IsPostback and (session['roles.p'].GetType.namespace = p.GetType.namespace) then begin
-    p := p_type(session['roles.p']);
+  if IsPostback then begin
+    if assigned(session['roles.p']) then begin
+      p := p_type(session['roles.p']);
+    end else begin
+      server.Transfer('~/timeout.aspx');
+    end;
   end else begin
     //
     //
