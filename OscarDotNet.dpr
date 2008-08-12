@@ -133,7 +133,8 @@ uses
   UserControl_user_member_mapping in 'usercontrol\app\UserControl_user_member_mapping.pas' {UserControl_user_member_mapping.TWebUserControl_user_member_mapping: ki_web_ui.usercontrol_class},
   Class_biz_user_member_map in 'component\biz\Class_biz_user_member_map.pas',
   Class_db_user_member_map in 'component\db\Class_db_user_member_map.pas',
-  timeout in 'timeout.pas' {timeout.TWebForm_timeout: ki_web_ui.page_class};
+  timeout in 'timeout.pas' {timeout.TWebForm_timeout: ki_web_ui.page_class},
+  UserControl_session_interrupted in 'usercontrol\ki\UserControl_session_interrupted.pas' {UserControl_session_interrupted.TWebUserControl_session_interrupted: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
