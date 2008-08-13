@@ -58,8 +58,7 @@ type
 implementation
 
 uses
-  appcommon,
-  Class_db_enrollment;
+  appcommon;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
@@ -109,8 +108,8 @@ begin
   inherited OnInit(e);
   //
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['enrollment_detail.p']) then begin
+      p := p_type(session['enrollment_detail.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -147,7 +146,7 @@ end;
 procedure TWebForm_enrollment_detail.TWebForm_enrollment_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('enrollment_detail.p',p);
 end;
 
 procedure TWebForm_enrollment_detail.DataGrid_member_history_ItemCommand(source: System.Object;

@@ -1,4 +1,3 @@
-
 unit change_password;
 
 interface
@@ -46,9 +45,6 @@ type
   end;
 
 implementation
-
-uses
-  appcommon;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>

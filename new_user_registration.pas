@@ -64,7 +64,6 @@ type
 implementation
 
 uses
-  appcommon,
   system.web.security;
 
 {$REGION 'Designer Managed Code'}

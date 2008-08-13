@@ -4,15 +4,12 @@ interface
 
 uses
   Class_biz_agencies,
-  Class_biz_milestones,
   Class_biz_user,
   Class_db_accounts,
   kix,
   borland.vcl.sysutils,
   system.configuration,
   system.web.mail;
-
-
 
 type
   TClass_biz_accounts = class

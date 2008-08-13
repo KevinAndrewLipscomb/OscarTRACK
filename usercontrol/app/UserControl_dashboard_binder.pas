@@ -10,9 +10,7 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls,
-  UserControl_current_indicators,
-  UserControl_serial_indicators_binder;
+  System.Web.UI.HtmlControls;
 
 type
   p_type =
@@ -47,10 +45,11 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   System.Collections,
-  system.configuration;
+  system.configuration,
+  UserControl_current_indicators,
+  UserControl_serial_indicators_binder;
 
 const
   TSSI_CURRENT = 0;

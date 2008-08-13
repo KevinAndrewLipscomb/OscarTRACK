@@ -44,9 +44,6 @@ type
 
 implementation
 
-uses
-  appcommon;
-
 {$REGION 'Designer Managed Code'}
 /// <summary>
 /// Required method for Designer support -- do not modify
@@ -66,8 +63,8 @@ var
   user_designator: string;
 begin
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['exception.p']) then begin
+      p := p_type(session['exception.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -165,7 +162,7 @@ end;
 procedure TWebForm_exception.TWebForm_exception_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('exception.p',p);
 end;
 
 end.

@@ -82,8 +82,8 @@ var
   cad_num_string: string;
 begin
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['add_new_enrollment_status.p']) then begin
+      p := p_type(session['add_new_enrollment_status.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -176,7 +176,7 @@ end;
 procedure TWebForm_add_new_enrollment_status.TWebForm_add_new_enrollment_status_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('add_new_enrollment_status.p',p);
 end;
 
 end.

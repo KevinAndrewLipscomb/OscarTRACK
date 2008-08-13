@@ -9,14 +9,7 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls,
-  UserControl_ranked_commensuration,
-  UserControl_ranked_core_ops_size,
-  UserControl_ranked_crew_shifts_forecast,
-  UserControl_ranked_length_of_service,
-  UserControl_ranked_num_members_in_pipeline,
-  UserControl_ranked_standard_enrollment,
-  UserControl_ranked_utilization;
+  System.Web.UI.HtmlControls;
 
 type
   p_type =
@@ -56,10 +49,16 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   System.Collections,
-  system.configuration;
+  system.configuration,
+  UserControl_ranked_commensuration,
+  UserControl_ranked_core_ops_size,
+  UserControl_ranked_crew_shifts_forecast,
+  UserControl_ranked_length_of_service,
+  UserControl_ranked_num_members_in_pipeline,
+  UserControl_ranked_standard_enrollment,
+  UserControl_ranked_utilization;
 
 procedure TWebUserControl_current_indicators.Page_Load(sender: System.Object; e: System.EventArgs);
 begin

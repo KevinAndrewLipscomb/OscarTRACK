@@ -42,7 +42,6 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   System.Collections,
   system.configuration;
