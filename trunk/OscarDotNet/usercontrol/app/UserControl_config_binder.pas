@@ -10,11 +10,7 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls,
-  UserControl_agency,
-  UserControl_config_welcome,
-  UserControl_roles_and_matrices_binder,
-  UserControl_users_and_mapping_binder;
+  System.Web.UI.HtmlControls;
 
 type
   p_type =
@@ -51,10 +47,12 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   System.Collections,
-  system.configuration;
+  system.configuration,
+  UserControl_agency,
+  UserControl_roles_and_matrices_binder,
+  UserControl_users_and_mapping_binder;
 
 const
   TSSI_ROLES_AND_MATRICES = 0;

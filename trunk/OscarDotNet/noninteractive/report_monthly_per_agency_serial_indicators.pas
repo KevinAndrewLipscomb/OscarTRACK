@@ -7,8 +7,7 @@ uses
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
   Class_biz_agencies,
-  Class_biz_notifications,
-  UserControl_roster;
+  Class_biz_notifications;
 
 type
   p_type =

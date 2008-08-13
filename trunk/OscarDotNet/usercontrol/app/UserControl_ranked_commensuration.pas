@@ -48,7 +48,6 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   system.configuration;
 

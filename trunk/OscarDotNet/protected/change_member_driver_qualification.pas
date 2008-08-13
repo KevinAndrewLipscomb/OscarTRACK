@@ -7,11 +7,8 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  appcommon,
   Class_biz_members,
   ki_web_ui;
-
-
 
 type
   p_type =
@@ -28,12 +25,6 @@ type
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
-  //
-  // Expected session objects:
-  //
-  //   waypoint_stack: system.collections.stack;
-  //
-  //
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -74,8 +65,8 @@ end;
 procedure TWebForm_change_member_driver_qualification.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['change_member_driver_qualification.p']) then begin
+      p := p_type(session['change_member_driver_qualification.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -132,7 +123,7 @@ end;
 procedure TWebForm_change_member_driver_qualification.TWebForm_change_member_driver_qualification_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('change_member_driver_qualification.p',p);
 end;
 
 end.

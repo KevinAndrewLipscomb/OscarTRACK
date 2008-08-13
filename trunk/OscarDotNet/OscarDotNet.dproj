@@ -135,7 +135,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3145.27804</Version>
+      <Version>1.0.3145.35855</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -192,6 +192,8 @@
     <DCCReference Include="component\db\Class_db_user_member_map.pas" />
     <DCCReference Include="Default.pas">
       <DependentUpon>Default.aspx</DependentUpon>
+      <Form>Default.TWebForm_Default</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="doc\roles.pas">
       <DependentUpon>doc\roles.aspx</DependentUpon>
@@ -248,6 +250,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_in_class_roster.pas">
       <DependentUpon>noninteractive\report_monthly_in_class_roster.aspx</DependentUpon>
+      <Form>report_monthly_in_class_roster.TWebForm_report_monthly_in_class_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_per_agency_serial_indicators.pas">
       <DependentUpon>noninteractive\report_monthly_per_agency_serial_indicators.aspx</DependentUpon>
@@ -256,6 +260,8 @@
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_recruit_awaiting_class_roster.pas">
       <DependentUpon>noninteractive\report_monthly_recruit_awaiting_class_roster.aspx</DependentUpon>
+      <Form>report_monthly_recruit_awaiting_class_roster.TWebForm_report_monthly_recruit_awaiting_class_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_role_holders.pas">
       <DependentUpon>noninteractive\report_monthly_role_holders.aspx</DependentUpon>
@@ -304,9 +310,13 @@
     </DCCReference>
     <DCCReference Include="protected\change_member_driver_qualification.pas">
       <DependentUpon>protected\change_member_driver_qualification.aspx</DependentUpon>
+      <Form>change_member_driver_qualification.TWebForm_change_member_driver_qualification</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_member_email_address.pas">
       <DependentUpon>protected\change_member_email_address.aspx</DependentUpon>
+      <Form>change_member_email_address.TWebForm_change_member_email_address</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_member_medical_release_level.pas">
       <DependentUpon>protected\change_member_medical_release_level.aspx</DependentUpon>
@@ -315,12 +325,18 @@
     </DCCReference>
     <DCCReference Include="protected\change_member_section.pas">
       <DependentUpon>protected\change_member_section.aspx</DependentUpon>
+      <Form>change_member_section.TWebForm_change_member_section</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_name.pas">
       <DependentUpon>protected\change_name.aspx</DependentUpon>
+      <Form>change_name.TWebForm_change_name</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\change_password.pas">
       <DependentUpon>protected\change_password.aspx</DependentUpon>
+      <Form>change_password.TWebForm_change_password</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\enrollment_detail.pas">
       <DependentUpon>protected\enrollment_detail.aspx</DependentUpon>
@@ -329,6 +345,8 @@
     </DCCReference>
     <DCCReference Include="protected\establish_membership_trouble.pas">
       <DependentUpon>protected\establish_membership_trouble.aspx</DependentUpon>
+      <Form>establish_membership_trouble.TWebForm_establish_membership_trouble</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\grant_leave.pas">
       <DependentUpon>protected\grant_leave.aspx</DependentUpon>
@@ -432,12 +450,18 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_commensuration.ascx</DependentUpon>
+      <Form>UserControl_ranked_commensuration.TWebUserControl_ranked_commensuration</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_core_ops_size.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_core_ops_size.ascx</DependentUpon>
+      <Form>UserControl_ranked_core_ops_size.TWebUserControl_ranked_core_ops_size</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx</DependentUpon>
+      <Form>UserControl_ranked_crew_shifts_forecast.TWebUserControl_ranked_crew_shifts_forecast</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_ranked_length_of_service.pas">
       <DependentUpon>usercontrol\app\UserControl_ranked_length_of_service.ascx</DependentUpon>

@@ -35,7 +35,6 @@ const
 implementation
 
 uses
-  Class_db_users,
   kix,
   mysql.data.mysqlclient,
   system.web.ui.webcontrols;

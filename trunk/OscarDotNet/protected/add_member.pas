@@ -7,7 +7,6 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
-  appcommon,
   Class_biz_agencies,
   Class_biz_enrollment,
   Class_biz_medical_release_levels,

@@ -10,8 +10,7 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls,
-  UserControl_drop_down_date;
+  System.Web.UI.HtmlControls;
 
 type
   p_type =
@@ -64,7 +63,6 @@ type
 implementation
 
 uses
-  appcommon,
   kix,
   System.Collections,
   system.configuration;

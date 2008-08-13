@@ -93,8 +93,8 @@ var
   cad_num_string: string;
 begin
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['grant_leave.p']) then begin
+      p := p_type(session['grant_leave.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -186,7 +186,7 @@ end;
 procedure TWebForm_grant_leave.TWebForm_grant_leave_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('grant_leave.p',p);
 end;
 
 end.

@@ -11,10 +11,7 @@ uses
   Class_biz_members,
   Class_biz_user,
   Class_biz_users,
-  sstchur.web.SmartNav,
-  UserControl_establish_membership,
-  UserControl_print_div,
-  UserControl_member_binder;
+  sstchur.web.SmartNav;
 
 type
   p_type =
@@ -49,7 +46,8 @@ type
 implementation
 
 uses
-  appcommon;
+  UserControl_establish_membership,
+  UserControl_member_binder;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>

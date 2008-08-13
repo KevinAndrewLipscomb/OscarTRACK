@@ -114,8 +114,8 @@ begin
   inherited OnInit(e);
   //
   if IsPostback then begin
-    if assigned(session['p']) then begin
-      p := p_type(session['p']);
+    if assigned(session['leave_detail.p']) then begin
+      p := p_type(session['leave_detail.p']);
     end else begin
       server.Transfer('~/timeout.aspx');
     end;
@@ -173,7 +173,7 @@ end;
 procedure TWebForm_leave_detail.TWebForm_leave_detail_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('p',p);
+  SessionSet('leave_detail.p',p);
 end;
 
 procedure TWebForm_leave_detail.DataGrid_leaves_ItemDataBound(sender: System.Object;

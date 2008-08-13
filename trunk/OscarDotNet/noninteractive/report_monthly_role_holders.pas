@@ -6,9 +6,7 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
-  Class_biz_members,
-  Class_biz_role_member_map,
-  UserControl_role_holders_per_agency;
+  Class_biz_role_member_map;
 
 type
   p_type =
@@ -43,11 +41,11 @@ type
 implementation
 
 uses
-  Class_biz_agencies,
   kix,
   system.configuration,
   system.io,
-  system.text;
+  system.text,
+  UserControl_role_holders_per_agency;
 
 {$REGION 'Designer Managed Code'}
 /// <summary>
