@@ -215,7 +215,7 @@ end;
 procedure TClass_db_users.Delete(username: string);
 begin
   self.Open;
-  mysqlcommand.Create(db_trail.Saved('delete from user where username = ' + username),connection).ExecuteNonquery;
+  mysqlcommand.Create(db_trail.Saved('delete from user where username = "' + username + '"'),connection).ExecuteNonquery;
   self.Close;
 end;
 

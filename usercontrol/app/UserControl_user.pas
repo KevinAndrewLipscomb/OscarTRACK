@@ -53,7 +53,6 @@ type
     CheckBox_be_active: System.Web.UI.WebControls.CheckBox;
     TextBox_num_unsuccessful_login_attempts: System.Web.UI.WebControls.TextBox;
     TextBox_last_login: System.Web.UI.WebControls.TextBox;
-    UpdatePanel_control: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -96,7 +95,7 @@ begin
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
-    Focus(TextBox_username);
+    Focus(TextBox_username,TRUE);
     //
     p.be_loaded := TRUE;
     //
@@ -229,7 +228,7 @@ procedure TWebUserControl_user.LinkButton_reset_Click(sender: System.Object;
 begin
   Clear;
   TextBox_username.enabled := TRUE;
-  Focus(TextBox_username);
+  Focus(TextBox_username,TRUE);
 end;
 
 procedure TWebUserControl_user.LinkButton_search_Click(sender: System.Object;

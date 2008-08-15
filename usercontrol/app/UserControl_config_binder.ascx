@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_config_binder.pas" Inherits="UserControl_config_binder.TWebUserControl_config_binder"%>
 <%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
-<table cellspacing="0" cellpadding="0" border="0">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
     <tr>
       <td>
         <iewc:TabStrip id="TabStrip_control" autopostback="True" width="100%" tabhoverstyle="background-color:gainsboro;" forecolor="Blue"

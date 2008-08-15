@@ -86,7 +86,7 @@ begin
     TextBox_nominal_email_address.Text := email_address;
     TextBox_confirmation_email_address.Text := email_address;
     //
-    Focus(TextBox_nominal_email_address);
+    Focus(TextBox_nominal_email_address,TRUE);
     end;
 end;
 

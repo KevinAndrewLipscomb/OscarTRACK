@@ -93,7 +93,7 @@ begin
       Label_application_name_2.text := configurationmanager.appsettings['application_name'];
       Label_application_name_3.text := configurationmanager.appsettings['application_name'];
       //
-      Focus(TextBox_email_address);
+      Focus(TextBox_email_address,TRUE);
       //
     end;
   end;

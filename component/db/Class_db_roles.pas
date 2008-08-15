@@ -196,32 +196,24 @@ procedure TClass_db_roles.&Set
   soft_hyphenation_text: string;
   pecking_order: string
   );
-//
-// If any fields in this table are foreign keys for a subordinate table:
-// a. Uncomment the "//1" lines.
-// b. Customize the SQL as indicated by {bracketed comments}.
-//
-//1 var
-//1   childless_field_assignments_clause: string;
+var
+  childless_field_assignments_clause: string;
 begin
   //
-//1  childless_field_assignments_clause := // {Move childless field assignments here.}
+  childless_field_assignments_clause := ' tier_id = NULLIF("' + tier_id + '","")'
+  + ' , soft_hyphenation_text = NULLIF("' + soft_hyphenation_text + '","")'
+  + ' , pecking_order = NULLIF("' + pecking_order + '","")';
   //
   self.Open;
   mysqlcommand.Create
     (
     db_trail.Saved
       (
-//1      'insert role'
-//1      + ' set // {Move parent field assignments here.}
-//1      + ' , ' + childless_field_assignments_clause
-//1      + ' on duplicate key update '
-//1      + childless_field_assignments_clause
-      'replace role'
+      'insert role'
       + ' set name = NULLIF("' + name + '","")'
-      + ' , tier_id = NULLIF("' + tier_id + '","")'
-      + ' , soft_hyphenation_text = NULLIF("' + soft_hyphenation_text + '","")'
-      + ' , pecking_order = NULLIF("' + pecking_order + '","")'
+      + ' , ' + childless_field_assignments_clause
+      + ' on duplicate key update '
+      + childless_field_assignments_clause
       ),
     connection
     )

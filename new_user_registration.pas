@@ -105,7 +105,7 @@ begin
       //
       Label_application_name.text := configurationmanager.appsettings['application_name'];
       //
-      Focus(TextBox_username);
+      Focus(TextBox_username,TRUE);
       //
     end;
   end;
