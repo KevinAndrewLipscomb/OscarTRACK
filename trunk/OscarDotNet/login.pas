@@ -85,7 +85,7 @@ begin
     Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - login';
     p.biz_users := TClass_biz_users.Create;
     //
-    Focus(TextBox_username);
+    Focus(TextBox_username,TRUE);
     //
   end;
 end;

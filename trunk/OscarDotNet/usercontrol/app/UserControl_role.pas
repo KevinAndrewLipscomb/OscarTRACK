@@ -227,7 +227,7 @@ begin
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
-    Focus(TextBox_name);
+    Focus(TextBox_name,TRUE);
     //
     p.be_loaded := TRUE;
     //
@@ -400,8 +400,8 @@ begin
       (
       Safe(TextBox_name.text,HUMAN_NAME).trim,
       Safe(DropDownList_tier.selectedvalue,NUM).trim,
-      Safe(TextBox_pecking_order.text,NUM).trim,
-      Safe(TextBox_soft_hyphenation_text.text,PUNCTUATED).trim
+      Safe(TextBox_soft_hyphenation_text.text,PUNCTUATED).trim,
+      Safe(TextBox_pecking_order.text,NUM).trim
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
   end else begin
@@ -431,7 +431,7 @@ procedure TWebUserControl_role.LinkButton_reset_Click(sender: System.Object;
 begin
   Clear;
   TextBox_name.enabled := TRUE;
-  Focus(TextBox_name);
+  Focus(TextBox_name,TRUE);
 end;
 
 procedure TWebUserControl_role.LinkButton_search_Click(sender: System.Object;

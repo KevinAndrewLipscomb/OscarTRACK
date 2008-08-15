@@ -117,7 +117,7 @@ begin
     UserControl_enrollment_date.maxyear := datetime.Today.Year.tostring;
     p.biz_enrollment.BindUncontrolledListControl(DropDownList_enrollment_level);
     //
-    Focus(TextBox_first_name);
+    Focus(TextBox_first_name,TRUE);
     //
   end;
 end;

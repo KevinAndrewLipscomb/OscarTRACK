@@ -88,7 +88,7 @@ begin
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
-    Focus(TextBox_short_designator);
+    Focus(TextBox_short_designator,TRUE);
     //
     p.be_loaded := TRUE;
     //
@@ -214,7 +214,7 @@ procedure TWebUserControl_agency.LinkButton_reset_Click(sender: System.Object;
 begin
   Clear;
   TextBox_short_designator.enabled := TRUE;
-  Focus(TextBox_short_designator);
+  Focus(TextBox_short_designator,TRUE);
 end;
 
 procedure TWebUserControl_agency.LinkButton_search_Click(sender: System.Object;

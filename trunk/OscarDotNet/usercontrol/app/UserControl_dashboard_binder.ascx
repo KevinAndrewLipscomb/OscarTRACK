@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_dashboard_binder.pas" Inherits="UserControl_dashboard_binder.TWebUserControl_dashboard_binder" %>
 <%@ Register TagPrefix="iewc" Namespace="Microsoft.Web.UI.WebControls" Assembly="Microsoft.Web.UI.WebControls, Version=1.0.2.226, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
-<table cellspacing="0" cellpadding="0" border="0">
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
     <td>
       <iewc:TabStrip id="TabStrip1" runat="server" tabselectedstyle="padding:10;border-top:thin solid silver;border-left:thin solid silver;border-right:thin solid silver;background-color:white;font-weight:bold;"
@@ -8,14 +8,16 @@
         autopostback="True">
         <iewc:Tab text="Current"></iewc:Tab>
         <iewc:Tab text="Serial"></iewc:Tab>
-      </iewc:TabStrip></td>
+      </iewc:TabStrip>
+    </td>
   </tr>
   <tr>
     <td style="BORDER-RIGHT: silver thin solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: silver thin solid; PADDING-TOP: 10px; BORDER-BOTTOM: silver thin solid">
-      <asp:UpdatePanel id="UpdatePanel_control" runat="server">
+      <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
         <ContentTemplate>
           <ASP:PlaceHolder id="PlaceHolder_content" runat="server"></ASP:PlaceHolder>
         </ContentTemplate>
-      </asp:UpdatePanel></td>
+      </asp:UpdatePanel>
+    </td>
   </tr>
 </table>

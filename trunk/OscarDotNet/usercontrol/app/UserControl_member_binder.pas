@@ -204,8 +204,8 @@ end;
 procedure TWebUserControl_member_binder.InitializeComponent;
 begin
   Include(Self.TabStrip1.SelectedIndexChange, Self.TabStrip1_SelectedIndexChange);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_member_binder_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 

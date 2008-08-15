@@ -77,7 +77,7 @@ begin
     p.biz_users := TClass_biz_users.Create;
     p.biz_user := TClass_biz_user.Create;
     //
-    Focus(TextBox_nominal_password);
+    Focus(TextBox_nominal_password,TRUE);
     //
   end;
 end;

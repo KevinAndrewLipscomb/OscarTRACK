@@ -37,8 +37,7 @@
       </td>
     </tr>
   </table>
-  <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage
-  </a>
+  <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="Anchor_quick_message_shortcut" runat="server" visible="False">QuickMessage</a>
   <p>
     <table id="Table_holders" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="False">
       <tr>
@@ -48,15 +47,15 @@
             <tr>
               <td>
                 <asp:GridView id="GridView_holders" runat="server" autogeneratecolumns="False" gridlines="None" allowsorting="True" cellpadding="5" borderstyle="None">
-                      <Columns>
-                        <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
-                          <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
-                        </asp:BoundField>
-                        <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
-                          <ItemStyle font-size="X-Small"></ItemStyle>
-                        </asp:BoundField>
-                        <asp:BoundField datafield="email_address"></asp:BoundField>
-                      </Columns>
+                  <Columns>
+                    <asp:BoundField datafield="member_name" headertext="Name" sortexpression="member_name%">
+                      <ItemStyle wrap="False" font-size="X-Small"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField datafield="agency_designator" headertext="Agen&#173;cy" sortexpression="agency_designator%">
+                      <ItemStyle font-size="X-Small"></ItemStyle>
+                    </asp:BoundField>
+                    <asp:BoundField datafield="email_address"></asp:BoundField>
+                  </Columns>
                 </asp:GridView>
               </td>
             </tr>
@@ -93,11 +92,11 @@
                 <tr>
                   <td valign="top">Body:</td>
                   <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="72" rows="18" textmode="MultiLine"></ASP:TextBox></td>
-                  <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+                  <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic" validationgroup="QuickMessage">!ERR!</ASP:RequiredFieldValidator></td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button></td>
+                  <td><ASP:Button id="Button_send" runat="server" text="Send" validationgroup="QuickMessage"></ASP:Button></td>
                   <td></td>
                 </tr>
                 <tr>

@@ -81,7 +81,7 @@ begin
     Label_member_name_3.text := Label_member_name_2.text;
     Textbox_member_email_address.text := session['member_email_address'].tostring;
     //
-    Focus(TextBox_member_email_address);
+    Focus(TextBox_member_email_address,TRUE);
     //
   end;
 end;
