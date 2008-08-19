@@ -46,7 +46,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Label_member_designator: System.Web.UI.WebControls.Label;
     DropDownList_kind_of_leave: System.Web.UI.WebControls.DropDownList;
     DropDownList_end_month: System.Web.UI.WebControls.DropDownList;
@@ -119,7 +119,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_leave';
+      Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_leave';
       //
       p.biz_leaves := TClass_biz_leaves.Create;
       p.biz_members := TClass_biz_members.Create;

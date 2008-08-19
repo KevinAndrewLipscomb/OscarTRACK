@@ -47,7 +47,7 @@ type
     function Add: boolean;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Button_cancel: System.Web.UI.WebControls.Button;
     TextBox_first_name: System.Web.UI.WebControls.TextBox;
     TextBox_last_name: System.Web.UI.WebControls.TextBox;
@@ -104,7 +104,7 @@ procedure TWebForm_add_member.Page_Load(sender: System.Object; e: System.EventAr
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - add_member';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - add_member';
     //
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       TableRow_agency.visible := TRUE;

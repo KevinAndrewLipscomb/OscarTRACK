@@ -29,7 +29,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     UserControl_print_div: TWebUserControl_print_div;
     TextBox_full_name: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_full_name: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -71,7 +71,7 @@ procedure TWebForm_establish_membership_trouble.Page_Load(sender: System.Object;
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - establish_membership_trouble';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - establish_membership_trouble';
     //
     Label_sponsor_1.text := configurationmanager.appsettings['sponsor'];
     Label_sponsor_2.text := configurationmanager.appsettings['sponsor'];

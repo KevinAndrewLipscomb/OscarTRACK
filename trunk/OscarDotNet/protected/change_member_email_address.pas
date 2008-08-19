@@ -31,7 +31,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Label_member_name_1: System.Web.UI.WebControls.Label;
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Label_member_name_3: System.Web.UI.WebControls.Label;
@@ -73,7 +73,7 @@ procedure TWebForm_change_member_email_address.Page_Load(sender: System.Object; 
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_email_address';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_email_address';
     //
     Label_member_name_1.text :=
       p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);

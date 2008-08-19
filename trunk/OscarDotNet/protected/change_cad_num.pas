@@ -29,7 +29,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Label_member_name_1: System.Web.UI.WebControls.Label;
     TextBox_cad_num: System.Web.UI.WebControls.TextBox;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -70,7 +70,7 @@ procedure TWebForm_change_cad_num.Page_Load(sender: System.Object; e: System.Eve
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_cad_num';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_cad_num';
     //
     Label_old_cad_num.text := p.biz_members.CadNumOf(session['e_item']);
     Label_member_name_1.text :=

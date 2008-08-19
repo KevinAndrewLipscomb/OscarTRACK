@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <html>
-  <head>
+  <head runat="server">
 	<title id="Title" runat="server"></title>
       <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />

@@ -36,7 +36,7 @@ type
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
     DataGrid_officerships: System.Web.UI.WebControls.DataGrid;
@@ -88,7 +88,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - officership_detail';
+      Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - officership_detail';
       //
       // Initialize implementation-wide vars.
       //

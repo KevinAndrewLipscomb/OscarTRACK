@@ -29,7 +29,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Label_member_name_1: System.Web.UI.WebControls.Label;
     Label_member_name_2: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -79,7 +79,7 @@ begin
       server.Transfer('~/login.aspx');
     end else begin
       //
-      Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_section';
+      Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_member_section';
       //
       p.biz_members := TClass_biz_members.Create;
       p.biz_sections := TClass_biz_sections.Create;
