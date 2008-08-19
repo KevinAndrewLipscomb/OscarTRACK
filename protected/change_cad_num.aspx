@@ -3,7 +3,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
-  <head>
+  <head runat="server">
 	<title id="Title" runat="server"></title>
       <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />

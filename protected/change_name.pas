@@ -31,7 +31,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
     RequiredFieldValidator_name: System.Web.UI.WebControls.RequiredFieldValidator;
@@ -70,7 +70,7 @@ procedure TWebForm_change_name.Page_Load(sender: System.Object; e: System.EventA
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_name';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - change_name';
     //
     Label_member_name.text := p.saved_first_name + SPACE + p.saved_last_name;
     //

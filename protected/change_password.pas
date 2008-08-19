@@ -28,7 +28,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_nominal_password: System.Web.UI.WebControls.TextBox;
     TextBox_confirmation_password: System.Web.UI.WebControls.TextBox;
@@ -72,7 +72,7 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end;
-    Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - change_password';
+    Title.text := configurationmanager.AppSettings['application_name'] + ' - change_password';
     //
     p.biz_users := TClass_biz_users.Create;
     p.biz_user := TClass_biz_user.Create;

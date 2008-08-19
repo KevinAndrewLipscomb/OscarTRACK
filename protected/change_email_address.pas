@@ -29,7 +29,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Button_submit: System.Web.UI.WebControls.Button;
     TextBox_nominal_email_address: System.Web.UI.WebControls.TextBox;
     TextBox_confirmation_email_address: System.Web.UI.WebControls.TextBox;
@@ -76,7 +76,7 @@ begin
       session.Clear;
       server.Transfer('~/login.aspx');
     end;
-    Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - change_email_address';
+    Title.text := configurationmanager.AppSettings['application_name'] + ' - change_email_address';
     p.biz_user:= TClass_biz_user.Create;
     p.biz_users := TClass_biz_users.Create;
     //

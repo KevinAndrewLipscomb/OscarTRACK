@@ -41,7 +41,7 @@ type
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     DataGrid_member_history: System.Web.UI.WebControls.DataGrid;
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
@@ -79,7 +79,7 @@ procedure TWebForm_enrollment_detail.Page_Load(sender: System.Object; e: System.
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - enrollment_detail';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - enrollment_detail';
     Label_member_designator.Text := p.biz_members.FirstNameOf(session['e_item'])
       + SPACE
       + p.biz_members.LastNameOf(session['e_item'])

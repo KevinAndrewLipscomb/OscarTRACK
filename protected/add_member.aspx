@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
 <%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <html>
-  <head>
+  <head runat="server">
 	<title id="Title" runat="server"></title>
 	  <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />

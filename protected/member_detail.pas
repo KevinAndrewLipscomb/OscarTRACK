@@ -49,7 +49,7 @@ type
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Title: System.Web.UI.HtmlControls.HtmlGenericControl;
+    Title: System.Web.UI.HtmlControls.HtmlTitle;
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_change_medical_release_level: System.Web.UI.WebControls.LinkButton;
     Label_medical_release_level: System.Web.UI.WebControls.Label;
@@ -115,7 +115,7 @@ var
 begin
   if not IsPostback then begin
     //
-    Title.InnerText := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - member_detail';
+    Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - member_detail';
     //
     target_member_id := p.biz_members.IdOf(session['e_item']);
     //

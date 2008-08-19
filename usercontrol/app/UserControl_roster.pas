@@ -172,9 +172,12 @@ begin
     //
     Bind;
     //
+    {$MESSAGE HINT 'Known bug: The following page.request.rawurl value may be leftover from pre-server.Transfer-time.'}
     Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
+    //
+    scriptmanager.GetCurrent(page).RegisterPostBackControl(LinkButton_add_member);
     //
     p.be_loaded := TRUE;
     //
@@ -308,12 +311,12 @@ begin
   Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
-  Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
-  Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
+  Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
+  Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.Button_send.Click, Self.Button_send_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
@@ -406,6 +409,8 @@ begin
     //
     LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text :=
       ExpandTildePath(LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text);
+    scriptmanager.GetCurrent(page).RegisterPostBackControl
+      (LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]));
     //
     if e.item.cells[Class_db_members.TCCI_CAD_NUM].text = '&nbsp;' then begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;

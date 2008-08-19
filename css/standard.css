@@ -1,3 +1,6 @@
+/*
+** PROGRESS INDICATOR
+*/
 #Div_progress_indicator_outer
   {
   position:fixed;
@@ -22,4 +25,79 @@
   z-index:1001;
   background-color:#fff;
   border:solid 1px black;
+  }
+
+/*
+** AJAX__TAB_KI and KI_TAB_BODY (horizontal)
+*/
+.ajax__tab_ki .ajax__tab_header {}
+.ajax__tab_ki .ajax__tab_outer
+  {
+  border-right:thin solid white;
+  }
+.ajax__tab_ki .ajax__tab_inner {}
+.ajax__tab_ki .ajax__tab_tab
+  {
+  color:blue;
+  background-color:silver;
+  padding:8px;
+  }
+.ajax__tab_ki .ajax__tab_hover .ajax__tab_outer {}
+.ajax__tab_ki .ajax__tab_hover .ajax__tab_inner {}
+.ajax__tab_ki .ajax__tab_hover .ajax__tab_tab
+  {
+  background-color:gainsboro;
+  }
+.ajax__tab_ki .ajax__tab_active .ajax__tab_outer {}
+.ajax__tab_ki .ajax__tab_active .ajax__tab_inner
+  {
+  border-top:thin solid silver;
+  border-left:thin solid silver;
+  border-right:thin solid silver;
+  }
+.ajax__tab_ki .ajax__tab_active .ajax__tab_tab
+  {
+  background-color:white;
+  font-weight:bold;
+  }
+
+/*
+** AJAX__TAB_KI_VERTICAL and KI_TAB_BODY_VERTICAL
+*/
+.ajax__tab_ki_vertical .ajax__tab_header
+  {
+  float:left;
+  }
+.ajax__tab_ki_vertical .ajax__tab_outer
+  {
+  display:block !important;
+  border-bottom:thin solid white;
+  }
+.ajax__tab_ki_vertical .ajax__tab_inner {}
+.ajax__tab_ki_vertical .ajax__tab_tab
+  {
+  /* min-width:200px; */
+  width:100px;
+  height:auto !important;
+  color:blue;
+  background-color:silver;
+  padding:8px;
+  }
+.ajax__tab_ki_vertical .ajax__tab_hover .ajax__tab_outer {}
+.ajax__tab_ki_vertical .ajax__tab_hover .ajax__tab_inner {}
+.ajax__tab_ki_vertical .ajax__tab_hover .ajax__tab_tab
+  {
+  background-color:gainsboro;
+  }
+.ajax__tab_ki_vertical .ajax__tab_active .ajax__tab_outer {}
+.ajax__tab_ki_vertical .ajax__tab_active .ajax__tab_inner
+  {
+  border-top:thin solid silver;
+  border-bottom:thin solid silver;
+  border-left:thin solid silver;
+  }
+.ajax__tab_ki_vertical .ajax__tab_active .ajax__tab_tab
+  {
+  background-color:white;
+  font-weight:bold;
   }

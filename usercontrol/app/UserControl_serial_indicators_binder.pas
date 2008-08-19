@@ -3,8 +3,8 @@ unit UserControl_serial_indicators_binder;
 interface
 
 uses
+  AjaxControlToolkit,
   ki_web_ui,
-  Microsoft.Web.UI.WebControls,
   System.Data,
   System.Drawing,
   System.Web,
@@ -31,14 +31,14 @@ type
     procedure InitializeComponent;
     procedure TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure TabStrip1_SelectedIndexChange(sender: System.Object; e: System.EventArgs);
+    procedure TabContainer_control_ActiveTabChanged(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    TabStrip1: Microsoft.Web.UI.WebControls.TabStrip;
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
+    TabContainer_control: AjaxControlToolkit.TabContainer;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -149,7 +149,7 @@ begin
     //
     p.be_loaded := FALSE;
     //
-    p.tab_index := 0;
+    p.tab_index := TSSI_COMMENSURATION;
     //
     AddIdentifiedControlToPlaceHolder
       (
@@ -162,11 +162,36 @@ begin
   //
 end;
 
-procedure TWebUserControl_serial_indicators_binder.TabStrip1_SelectedIndexChange(sender: System.Object;
+{$REGION 'Designer Managed Code'}
+/// <summary>
+/// Required method for Designer support -- do not modify
+/// the contents of this method with the code editor.
+/// </summary>
+procedure TWebUserControl_serial_indicators_binder.InitializeComponent;
+begin
+  Include(Self.TabContainer_control.ActiveTabChanged, Self.TabContainer_control_ActiveTabChanged);
+  Include(Self.PreRender, Self.TWebUserControl_serial_indicators_binder_PreRender);
+  Include(Self.Load, Self.Page_Load);
+end;
+{$ENDREGION}
+
+procedure TWebUserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
+  e: System.EventArgs);
+begin
+  SessionSet('UserControl_serial_indicators_binder.p',p);
+end;
+
+function TWebUserControl_serial_indicators_binder.Fresh: TWebUserControl_serial_indicators_binder;
+begin
+  session.Remove('UserControl_serial_indicators_binder.p');
+  Fresh := self;
+end;
+
+procedure TWebUserControl_serial_indicators_binder.TabContainer_control_ActiveTabChanged(sender: System.Object;
   e: System.EventArgs);
 begin
   //
-  p.tab_index := TabStrip1.selectedindex;
+  p.tab_index := TabContainer_control.activetabindex;
   //
   PlaceHolder_content.controls.Clear;
   //
@@ -221,31 +246,6 @@ begin
         PlaceHolder_content
         );
   end;
-end;
-
-{$REGION 'Designer Managed Code'}
-/// <summary>
-/// Required method for Designer support -- do not modify
-/// the contents of this method with the code editor.
-/// </summary>
-procedure TWebUserControl_serial_indicators_binder.InitializeComponent;
-begin
-  Include(Self.TabStrip1.SelectedIndexChange, Self.TabStrip1_SelectedIndexChange);
-  Include(Self.Load, Self.Page_Load);
-  Include(Self.PreRender, Self.TWebUserControl_serial_indicators_binder_PreRender);
-end;
-{$ENDREGION}
-
-procedure TWebUserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
-  e: System.EventArgs);
-begin
-  SessionSet('UserControl_serial_indicators_binder.p',p);
-end;
-
-function TWebUserControl_serial_indicators_binder.Fresh: TWebUserControl_serial_indicators_binder;
-begin
-  session.Remove('UserControl_serial_indicators_binder.p');
-  Fresh := self;
 end;
 
 end.
