@@ -134,7 +134,9 @@ uses
   Class_biz_user_member_map in 'component\biz\Class_biz_user_member_map.pas',
   Class_db_user_member_map in 'component\db\Class_db_user_member_map.pas',
   timeout in 'timeout.pas' {timeout.TWebForm_timeout: ki_web_ui.page_class},
-  UserControl_session_interrupted in 'usercontrol\ki\UserControl_session_interrupted.pas' {UserControl_session_interrupted.TWebUserControl_session_interrupted: ki_web_ui.usercontrol_class};
+  UserControl_session_interrupted in 'usercontrol\ki\UserControl_session_interrupted.pas' {UserControl_session_interrupted.TWebUserControl_session_interrupted: ki_web_ui.usercontrol_class},
+  UserControl_about_tools in 'usercontrol\ki\UserControl_about_tools.pas' {UserControl_about_tools.TWebUserControl_about_tools: ki_web_ui.usercontrol_class},
+  UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

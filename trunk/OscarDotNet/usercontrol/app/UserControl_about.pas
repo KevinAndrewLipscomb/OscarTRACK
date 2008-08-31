@@ -28,7 +28,6 @@ type
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
-    UpdatePanel_control: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private

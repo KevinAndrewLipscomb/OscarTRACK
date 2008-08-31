@@ -142,7 +142,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3148.18314</Version>
+      <Version>1.0.3155.33423</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -591,6 +591,16 @@
       <Form>UserControl_user_member_mapping.TWebUserControl_user_member_mapping</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_about_by.pas">
+      <DependentUpon>usercontrol\ki\UserControl_about_by.ascx</DependentUpon>
+      <Form>UserControl_about_by.TWebUserControl_about_by</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\ki\UserControl_about_tools.pas">
+      <DependentUpon>usercontrol\ki\UserControl_about_tools.ascx</DependentUpon>
+      <Form>UserControl_about_tools.TWebUserControl_about_tools</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\ki\UserControl_bread_crumb_trail.pas">
       <DependentUpon>usercontrol\ki\UserControl_bread_crumb_trail.ascx</DependentUpon>
       <Form>UserControl_bread_crumb_trail.TWebUserControl_bread_crumb_trail</Form>
@@ -698,6 +708,8 @@
     <None Include="usercontrol\app\UserControl_user.ascx" />
     <None Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx" />
     <None Include="usercontrol\app\UserControl_user_member_mapping.ascx" />
+    <None Include="usercontrol\ki\UserControl_about_by.ascx" />
+    <None Include="usercontrol\ki\UserControl_about_tools.ascx" />
     <None Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
     <None Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <None Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
