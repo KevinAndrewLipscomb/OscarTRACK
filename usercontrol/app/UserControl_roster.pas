@@ -152,6 +152,7 @@ begin
     //
     if session['mode:report'] = nil then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
+      scriptmanager.GetCurrent(page).RegisterPostBackControl(LinkButton_add_member);
     end else begin
       DataGrid_roster.enabled := FALSE;
       DataGrid_roster.columns[TCCI_DRILLDOWN_LINKBUTTON].visible := FALSE;
@@ -176,8 +177,6 @@ begin
     Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
-    //
-    scriptmanager.GetCurrent(page).RegisterPostBackControl(LinkButton_add_member);
     //
     p.be_loaded := TRUE;
     //
@@ -409,8 +408,11 @@ begin
     //
     LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text :=
       ExpandTildePath(LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]).text);
-    scriptmanager.GetCurrent(page).RegisterPostBackControl
-      (LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]));
+    //
+    if not assigned(session['mode:report']) then begin
+      scriptmanager.GetCurrent(page).RegisterPostBackControl
+        (LinkButton(e.item.cells[Class_db_members.TCCI_DRILLDOWN_LINKBUTTON].controls.item[0]));
+    end;
     //
     if e.item.cells[Class_db_members.TCCI_CAD_NUM].text = '&nbsp;' then begin
       e.item.cells[Class_db_members.TCCI_CAD_NUM].text := NOT_APPLICABLE_INDICATION_HTML;
@@ -443,6 +445,7 @@ begin
     end;
     //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
+    //
   end;
 end;
 
