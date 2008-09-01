@@ -72,13 +72,13 @@ end;
 procedure TWebUserControl_precontent.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(ExpandTildePath('~/protected/change_email_address.aspx'));
+  DropCrumbAndTransferTo(ExpandTildePath('~/protected/change_email_address.aspx'));
 end;
 
 procedure TWebUserControl_precontent.LinkButton_change_password_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer(ExpandTildePath('~/protected/change_password.aspx'));
+  DropCrumbAndTransferTo(ExpandTildePath('~/protected/change_password.aspx'));
 end;
 
 procedure TWebUserControl_precontent.LinkButton_logout_Click(sender: System.Object;
