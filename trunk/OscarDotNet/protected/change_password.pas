@@ -23,6 +23,7 @@ type
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure TWebForm_change_password_PreRender(sender: System.Object;
       e: System.EventArgs);
+    procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -36,6 +37,7 @@ type
     RequiredFieldValidator_confirmation_password: System.Web.UI.WebControls.RequiredFieldValidator;
     CompareValidator1: System.Web.UI.WebControls.CompareValidator;
     RegularExpressionValidator_password: System.Web.UI.WebControls.RegularExpressionValidator;
+    Button_cancel: System.Web.UI.WebControls.Button;
   protected
     procedure OnInit(e: EventArgs); override;
   private
@@ -54,8 +56,9 @@ implementation
 procedure TWebForm_change_password.InitializeComponent;
 begin
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
-  Include(Self.Load, Self.Page_Load);
+  Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.PreRender, Self.TWebForm_change_password_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
@@ -91,6 +94,12 @@ begin
   inherited OnInit(e);
 end;
 
+procedure TWebForm_change_password.Button_cancel_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  BackTrack;
+end;
+
 procedure TWebForm_change_password.TWebForm_change_password_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -101,7 +110,7 @@ procedure TWebForm_change_password.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_users.SetPassword(p.biz_user.IdNum,kix.Digest(Safe(TextBox_nominal_password.Text.trim,ALPHANUM)));
-  server.Transfer('overview.aspx');
+  BackTrack;
 end;
 
 end.
