@@ -68,6 +68,7 @@ type
       agency_short_designator: string
       )
       : string;
+    function HolderOf(role_name: string): string;
     procedure Save
       (
       member_id: string;
@@ -203,6 +204,11 @@ function TClass_biz_role_member_map.EmailTargetOf
   : string;
 begin
   EmailTargetOf := db_role_member_map.EmailTargetOf(role_name,agency_short_designator);
+end;
+
+function TClass_biz_role_member_map.HolderOf(role_name: string): string;
+begin
+  HolderOf := db_role_member_map.HolderOf(role_name);
 end;
 
 procedure TClass_biz_role_member_map.Save

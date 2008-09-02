@@ -4,6 +4,7 @@ interface
 
 uses
   Class_biz_agencies,
+  Class_biz_role_member_map,
   ki_web_ui,
   system.collections,
   System.Data,
@@ -18,6 +19,7 @@ type
     RECORD
     be_loaded: boolean;
     biz_agencies: TClass_biz_agencies;
+    biz_role_member_map: TClass_biz_role_member_map;
     rank: cardinal;
     END;
   TWebUserControl_ranked_commensuration = class(ki_web_ui.usercontrol_class)
@@ -35,6 +37,7 @@ type
     DataGrid_detail: System.Web.UI.WebControls.DataGrid;
     Label_overall: System.Web.UI.WebControls.Label;
     Label_no_data: System.Web.UI.WebControls.Label;
+    Label_auditor_name: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -63,7 +66,7 @@ begin
       DataGrid_detail.visible := TRUE;
       Label_no_data.visible := FALSE;
     end else begin
-//      Label_no_data.text := Label_no_data.text + p.biz_members.
+      Label_no_data.text := Label_no_data.text + SPACE + p.biz_role_member_map.HolderOf('Department Schedule Auditor').toupper;
       Label_no_data.visible := TRUE;
       DataGrid_detail.visible := FALSE;
     end;
@@ -91,6 +94,7 @@ begin
     //
     p.be_loaded := FALSE;
     p.biz_agencies := TClass_biz_agencies.Create;
+    p.biz_role_member_map := TClass_biz_role_member_map.Create;
     p.rank := 0;
     //
   end;
@@ -105,8 +109,8 @@ end;
 procedure TWebUserControl_ranked_commensuration.InitializeComponent;
 begin
   Include(Self.DataGrid_detail.ItemDataBound, Self.DataGrid_detail_ItemDataBound);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebUserControl_ranked_commensuration_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 

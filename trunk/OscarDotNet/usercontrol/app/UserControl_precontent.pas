@@ -5,7 +5,7 @@ interface
 uses
   ki_web_ui,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls;
+  System.Web.UI.HtmlControls, System.Web.UI;
 
 type
   TWebUserControl_precontent = class(ki_web_ui.usercontrol_class)
@@ -15,6 +15,8 @@ type
     procedure LinkButton_logout_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_password_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_email_address_Click(sender: System.Object; e: System.EventArgs);
+    procedure ScriptManager_control_AsyncPostBackError(sender: System.Object; 
+      e: System.Web.UI.AsyncPostBackErrorEventArgs);
   {$ENDREGION}
   strict private
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -26,6 +28,7 @@ type
     LinkButton_change_email_address: System.Web.UI.WebControls.LinkButton;
     TableRow_account_control: System.Web.UI.HtmlControls.HtmlTableRow;
     ValidationSummary_control: System.Web.UI.WebControls.ValidationSummary;
+    ScriptManager_control: System.Web.UI.ScriptManager;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -69,6 +72,24 @@ begin
   //
 end;
 
+procedure TWebUserControl_precontent.ScriptManager_control_AsyncPostBackError(sender: System.Object;
+  e: System.Web.UI.AsyncPostBackErrorEventArgs);
+begin
+  EscalatedException(e.exception,httpcontext.current.user.identity.name,session);
+  ScriptManager_control.asyncpostbackerrormessage := AlertMessage
+    (
+    LOGIC,
+    FAILURE,
+    'xparposbac',
+    'OOPS!' + NEW_LINE
+    + NEW_LINE
+    + 'The application encountered an unexpected error.' + NEW_LINE
+    + NEW_LINE
+    + 'The Application Administrator has been notified by pager and email.'
+    );
+  //
+end;
+
 procedure TWebUserControl_precontent.LinkButton_change_email_address_Click(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -96,6 +117,7 @@ end;
 /// </summary>
 procedure TWebUserControl_precontent.InitializeComponent;
 begin
+  Include(Self.ScriptManager_control.AsyncPostBackError, Self.ScriptManager_control_AsyncPostBackError);
   Include(Self.LinkButton_logout.Click, Self.LinkButton_logout_Click);
   Include(Self.LinkButton_change_password.Click, Self.LinkButton_change_password_Click);
   Include(Self.LinkButton_change_email_address.Click, Self.LinkButton_change_email_address_Click);

@@ -1,6 +1,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="report_monthly_per_agency_serial_indicators.pas" AutoEventWireup="false" Inherits="report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
 	<title id="Title" runat="server"></title>

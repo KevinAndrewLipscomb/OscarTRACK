@@ -59,6 +59,7 @@ const
       agency_short_designator: string
       )
       : string;
+    function HolderOf(role_name: string): string;
     procedure Save
       (
       member_id: string;
@@ -417,6 +418,23 @@ begin
     EmailTargetOf := EMPTY;
   end;
   //
+end;
+
+function TClass_db_role_member_map.HolderOf(role_name: string): string;
+begin
+  self.Open;
+  HolderOf := mysqlcommand.Create
+    (
+    'select concat(first_name," ",last_name)'
+    + ' from role_member_map'
+    +   ' join role on (role.id=role_member_map.role_id)'
+    +   ' join member on (member.id=role_member_map.member_id)'
+    + ' where role.name = "' + role_name + '"'
+    + ' limit 1',
+    connection
+    )
+    .ExecuteScalar.tostring;
+  self.Close;
 end;
 
 procedure TClass_db_role_member_map.Save

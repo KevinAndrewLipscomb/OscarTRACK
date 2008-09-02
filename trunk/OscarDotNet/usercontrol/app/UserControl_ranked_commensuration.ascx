@@ -21,7 +21,7 @@
       <ItemStyle font-bold="True" horizontalalign="Right"></ItemStyle>
     </ASP:BoundColumn>
   </Columns>
-</ASP:DataGrid><ASP:Label id="Label_no_data" runat="server" font-bold="True" font-size="Large">DATA NOT PROVIDED BY DEPARTMENT SCHEDULE AUDITOR</ASP:Label>
+</ASP:DataGrid><ASP:Label id="Label_no_data" runat="server" font-bold="True" font-size="Larger">DATA NOT PROVIDED BY DEPARTMENT SCHEDULE AUDITOR</ASP:Label>
 </p>
           </td>
         </tr>
