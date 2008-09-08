@@ -113,13 +113,14 @@ end;
 procedure TWebUserControl_establish_membership.LinkButton_trouble_handler_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  server.Transfer('establish_membership_trouble.aspx');
+  DropCrumbAndTransferTo('establish_membership_trouble.aspx');
 end;
 
 procedure TWebUserControl_establish_membership.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if p.biz_users.AcceptAsMember(Safe(TextBox_shared_secret.text,NUM),p.biz_user.IdNum) then begin
+    SessionSet('privilege_array',p.biz_user.Privileges);  // User was an unprivileged user until now, so reset privs.
     Alert(kix.USER,kix.SUCCESS,'memaccept','Link to membership record established.  Membership privileges granted.',TRUE);
     Table_proceed.visible := TRUE;
   end else begin

@@ -50,7 +50,8 @@
 							<p>The <ASP:Label id="Label_application_name_2" runat="server"></ASP:Label>&nbsp;Application Administrator will advise you when to log into <ASP:Label id="Label_application_name_3" runat="server"></ASP:Label>&nbsp;again.</p>
 						  </li>
 						</ul>
-						<p><ASP:Button id="Button_submit" runat="server" text="Send message and LOG OUT"></ASP:Button></p></td>
+						<p><ASP:Button id="Button_submit" runat="server" text="Send message and LOG OUT"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                  <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></asp:Button></p></td>
                                 <td></td>
                               </tr>
                           </table></p>
