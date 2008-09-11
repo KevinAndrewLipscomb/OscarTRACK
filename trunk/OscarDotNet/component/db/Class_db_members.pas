@@ -38,11 +38,6 @@ const
 
 type
   TClass_db_members = class(TClass_db)
-  private
-    biz_notifications: TClass_biz_notifications;
-    db_agencies: TClass_db_agencies;
-    db_medical_release_levels: TClass_db_medical_release_levels;
-    db_trail: TClass_db_trail;
   public
     constructor Create;
     procedure Add
@@ -197,6 +192,11 @@ type
       name: string
       );
     function UserIdOf(member_id: string): string;
+  strict private
+    biz_notifications: TClass_biz_notifications;
+    db_agencies: TClass_db_agencies;
+    db_medical_release_levels: TClass_db_medical_release_levels;
+    db_trail: TClass_db_trail;
   end;
 
 function CrewShiftsForecastMetricFromWhereClause(relative_month: string): string;
@@ -265,15 +265,17 @@ begin
 end;
 
 function TClass_db_members.AgencyIdOfId(id: string): string;
+var
+  agency_id_of_id_obj: system.object;
 begin
   self.Open;
-  AgencyIdOfId := mysqlcommand.Create
-    (
-    'SELECT agency_id FROM member WHERE id = ' + id,
-    connection
-    )
-    .ExecuteScalar.tostring;
+  agency_id_of_id_obj := mysqlcommand.Create('SELECT agency_id FROM member WHERE id = "' + id + '"',connection).ExecuteScalar;
   self.Close;
+  if assigned(agency_id_of_id_obj) then begin
+    AgencyIdOfId := agency_id_of_id_obj.tostring;
+  end else begin
+    AgencyIdOfId := EMPTY;
+  end;
 end;
 
 function TClass_db_members.BeDriverQualifiedOf(e_item: system.object): boolean;
@@ -1115,7 +1117,7 @@ begin
   //
   self.Open;
   email_address_obj :=
-    mysqlcommand.Create('select email_address from member where id = ' + member_id,connection).ExecuteScalar.tostring;
+    mysqlcommand.Create('select email_address from member where id = "' + member_id + '"',connection).ExecuteScalar;
   if email_address_obj <> nil then begin
     EmailAddressOf := email_address_obj.tostring;
   end else begin
