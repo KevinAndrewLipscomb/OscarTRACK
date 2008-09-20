@@ -2,7 +2,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="new_user_registration.pas" AutoEventWireup="false" Inherits="new_user_registration.TWebForm_new_user_registration" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <html>
   <head>
 	<title id="Title" runat="server"></title>
@@ -65,6 +64,6 @@
                     </tr>
                 </table></td>
             </tr>
-        </table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p><sstchur:SmartScroller runat="server" /></p></form>
+        </table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p></p></form>
   </body>
 </html>

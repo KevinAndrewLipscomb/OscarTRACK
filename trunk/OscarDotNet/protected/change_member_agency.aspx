@@ -1,4 +1,4 @@
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %><%@ Page language="c#" Debug="true" Codebehind="change_member_agency.pas" AutoEventWireup="false" Inherits="change_member_agency.TWebForm_change_member_agency" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_member_agency.pas" AutoEventWireup="false" Inherits="change_member_agency.TWebForm_change_member_agency" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
@@ -29,6 +29,6 @@
 				</table></td>
 			</tr>
 		</table></div><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></div>
-      <p><sstchur:SmartScroller runat="server" /></p></form>
+    </form>
   </body>
 </html>

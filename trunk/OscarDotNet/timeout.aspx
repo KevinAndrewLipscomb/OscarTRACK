@@ -2,7 +2,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="timeout.pas" AutoEventWireup="false" Inherits="timeout.TWebForm_timeout" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <%@ Register TagPrefix="uc2" TagName="UserControl_session_interrupted" Src="~/usercontrol/ki/UserControl_session_interrupted.ascx" %>
 <html>
   <head>
@@ -16,7 +15,6 @@
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
       <uc2:UserControl_session_interrupted id="UserControl_session_interrupted_control" runat="server"></uc2:UserControl_session_interrupted>
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
-      <p><sstchur:SmartScroller id="SmartScroller_control" runat="server" /></p>
     </form>
   </body>
 </html>
