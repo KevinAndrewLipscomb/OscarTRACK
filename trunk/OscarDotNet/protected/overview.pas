@@ -69,8 +69,6 @@ begin
 end;
 
 procedure TWebForm_overview.OnInit(e: EventArgs);
-var
-  waypoint_stack: stack;
 begin
   //
   // Required for Designer support
@@ -94,15 +92,14 @@ begin
     p.biz_users := TClass_biz_users.Create;
     p.biz_members := TClass_biz_members.Create;
     //
+    BeginBreadCrumbTrail;
+    //
     if p.biz_users.BeStalePassword(p.biz_user.IdNum) then begin
-      server.Transfer('change_password.aspx');
+      DropCrumbAndTransferTo('change_password.aspx');
     end;
     //
-    session.Remove('waypoint_stack');
-    waypoint_stack := system.collections.stack.Create;
-    session.Add('waypoint_stack',waypoint_stack);
-    //
     SessionSet('privilege_array',p.biz_user.Privileges);
+    //
   end;
   //
   if p.biz_members.IdOfUserId(p.biz_user.IdNum) = EMPTY then begin
