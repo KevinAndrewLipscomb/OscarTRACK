@@ -10,8 +10,7 @@ uses
   system.configuration, system.web.security,
   Class_biz_members,
   Class_biz_user,
-  Class_biz_users,
-  sstchur.web.SmartNav;
+  Class_biz_users;
 
 type
   p_type =
@@ -35,7 +34,6 @@ type
     ScriptManager_control: System.Web.UI.ScriptManager;
     PlaceHolder_establish_membership: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_member_binder: System.Web.UI.WebControls.PlaceHolder;
-    SmartScroller_control: sstchur.web.SmartNav.SmartScroller;
   protected
     procedure OnInit(e: EventArgs); override;
   private

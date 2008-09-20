@@ -4,7 +4,6 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <html>
   <head runat="server">
 	<title id="Title" runat="server"></title>
@@ -87,4 +86,4 @@
 							</tr></table></td></tr></table></td></tr></table>
 </div>
 <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
-<p><sstchur:SmartScroller runat="server" /></p></form></body></html>
+</form></body></html>

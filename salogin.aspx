@@ -2,7 +2,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="salogin.pas" AutoEventWireup="false" Inherits="salogin.TWebForm_salogin" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <html>
   <head>
 	<title id="Title" runat="server"></title>
@@ -93,6 +92,6 @@
 				  </table>
 				</td>
 			  </tr>
-		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p><sstchur:SmartScroller runat="server" /></p></form>
+		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></form>
 </body>
 </html>

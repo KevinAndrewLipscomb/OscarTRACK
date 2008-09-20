@@ -2,7 +2,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="change_password.pas" AutoEventWireup="false" Inherits="change_password.TWebForm_change_password" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="sstchur" Namespace="sstchur.web.SmartNav" Assembly="sstchur.web.smartnav" %>
 <html>
   <head runat="server">
     <title id="Title"></title>
@@ -51,7 +50,6 @@
         </tr>
       </table>
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
-      <p><sstchur:SmartScroller runat="server" id="SmartScroller_control" /></p>
     </form>
   </body>
 </html>
