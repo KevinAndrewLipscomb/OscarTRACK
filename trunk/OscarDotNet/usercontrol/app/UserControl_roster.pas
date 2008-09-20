@@ -294,6 +294,11 @@ begin
   TextBox_quick_message_subject.text := EMPTY;
   TextBox_quick_message_body.text := EMPTY;
   Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent',TRUE);
+  //
+  // Apparently we must call RegisterPostBackControl on all the DataGrid's drill-down linkbuttons again.
+  //
+  Bind;
+  //
 end;
 
 {$REGION 'Designer Managed Code'}
