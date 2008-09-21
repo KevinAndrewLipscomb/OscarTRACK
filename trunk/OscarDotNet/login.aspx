@@ -92,6 +92,6 @@
 				  </table>
 				</td>
 			  </tr>
-		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p></p></form>
+		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></form>
 </body>
 </html>

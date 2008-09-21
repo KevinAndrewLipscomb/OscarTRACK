@@ -64,6 +64,6 @@
                     </tr>
                 </table></td>
             </tr>
-        </table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent><p></p></form>
+        </table></p><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></form>
   </body>
 </html>
