@@ -31,7 +31,7 @@
                       <td><ASP:TextBox id="TextBox_confirmation_password" runat="server" textmode="Password"></ASP:TextBox></td>
                       <td>
                         <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_password" runat="server" font-bold="True" errormessage="Please enter a confirmation password." controltovalidate="TextBox_confirmation_password">!ERR!</ASP:RequiredFieldValidator>
-                        <ASP:CompareValidator id="CompareValidator1" runat="server" font-bold="True" errormessage="Nominal and confirmation passwords must match.  Please try again." controltovalidate="TextBox_confirmation_password" controltocompare="TextBox_nominal_password">!ERR!</ASP:CompareValidator>
+                        <ASP:CustomValidator id="CustomValidator_confirmation_password" runat="server" errormessage="Nominal and confirmation passwords must match.  Please try again." font-bold="True">!ERR!</ASP:CustomValidator>
                       </td>
                     </tr>
                     <tr>
