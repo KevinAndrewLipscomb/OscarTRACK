@@ -30,7 +30,7 @@
                   <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server"></ASP:TextBox></td>
                   <td>
                     <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address">!ERR!</ASP:RequiredFieldValidator>
-                    <ASP:CompareValidator id="CompareValidator1" runat="server" font-bold="True" errormessage="Nominal and confirmation email addresss must match.  Please try again." controltovalidate="TextBox_confirmation_email_address" controltocompare="TextBox_nominal_email_address">!ERR!</ASP:CompareValidator>
+                    <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True">!ERR!</ASP:CustomValidator>
                   </td>
                 </tr>
                 <tr>
