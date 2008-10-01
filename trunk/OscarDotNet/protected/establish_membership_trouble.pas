@@ -8,15 +8,9 @@ uses
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls, system.configuration, system.web.security,
   Class_biz_notifications,
   Class_biz_user,
-  ki_web_ui,
-  UserControl_print_div;
+  ki_web_ui;
 
 type
-  p_type =
-    RECORD
-    biz_notifications: TClass_biz_notifications;
-    biz_user: TClass_biz_user;
-    END;
   TWebForm_establish_membership_trouble = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -27,11 +21,17 @@ type
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
+    type
+      p_type =
+        RECORD
+        biz_notifications: TClass_biz_notifications;
+        biz_user: TClass_biz_user;
+        END;
+  strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
     Title: System.Web.UI.HtmlControls.HtmlTitle;
-    UserControl_print_div: TWebUserControl_print_div;
     TextBox_full_name: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_full_name: System.Web.UI.WebControls.RequiredFieldValidator;
     Label_sponsor_1: System.Web.UI.WebControls.Label;
@@ -45,10 +45,6 @@ type
     Button_cancel: System.Web.UI.WebControls.Button;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation

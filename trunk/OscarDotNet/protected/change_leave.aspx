@@ -2,7 +2,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="change_leave.pas" AutoEventWireup="false" Inherits="change_leave.TWebForm_change_leave"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
 <html>
   <head runat="server">
     <title id="Title" runat="server"></title><!-- $Id$ -->
@@ -13,7 +12,6 @@
 	<form runat="server">
 
 	  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-<div id="Div_print_area">
 	  <table cellspacing="0" cellpadding="0" width="100%" border="1" bordercolor="#dcdcdc"><tr><td>
 		<table cellspacing="0" cellpadding="10" border="0">
 		<tr>
@@ -105,7 +103,6 @@
 		</table>
 		</td></tr>
 	  </table>
-</div>
 	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
 	</form>
   </body>

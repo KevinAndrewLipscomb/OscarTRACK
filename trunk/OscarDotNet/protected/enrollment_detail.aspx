@@ -1,19 +1,15 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <%@ Page language="c#" Debug="true" Codebehind="enrollment_detail.pas" AutoEventWireup="false" Inherits="enrollment_detail.TWebForm_enrollment_detail" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-
 <html>
   <head runat="server">
 	<title id="Title" runat="server"></title>
       <!-- $Id$ -->
   </head>
-
   <body bgcolor="white">
 	 <form runat="server">
 	 <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-<div id="Div_print_area">
 		<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 			<tr>
 			  <td>
@@ -23,7 +19,7 @@
 						  <table cellspacing="0" cellpadding="5" width="100%" border="0">
 							  <tr><td>
 <strong>Membership status details for
-									<ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td><td>	 <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
+									<ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td><td>	</td>
 							  </tr>
 						  </table></strong></td>
 					</tr>
@@ -53,7 +49,7 @@
 				</table></td>
 			</tr>
 		</table>
-	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></div>
+	  <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
 	</form>
   </body>
 </html>

@@ -11,21 +11,9 @@ uses
   Class_biz_members,
   Class_biz_user,
   kix,
-  ki_web_ui,
-  UserControl_print_div;
+  ki_web_ui;
 
 type
-  p_type =
-    RECORD
-    biz_enrollment: TClass_biz_enrollment;
-    biz_leaves: TClass_biz_leaves;
-    biz_members: TClass_biz_members;
-    biz_user: TClass_biz_user;
-    cad_num_string: string;
-    leave_next_month_description: string;
-    leave_this_month_description: string;
-    raw_member_email_address: string;
-    END;
   TWebForm_member_detail = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -45,6 +33,19 @@ type
     procedure LinkButton_change_cad_num_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_name_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        biz_enrollment: TClass_biz_enrollment;
+        biz_leaves: TClass_biz_leaves;
+        biz_members: TClass_biz_members;
+        biz_user: TClass_biz_user;
+        cad_num_string: string;
+        leave_next_month_description: string;
+        leave_this_month_description: string;
+        raw_member_email_address: string;
+        END;
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -66,7 +67,6 @@ type
     Label_leave_next_month: System.Web.UI.WebControls.Label;
     Label_section: System.Web.UI.WebControls.Label;
     LinkButton_change_section: System.Web.UI.WebControls.LinkButton;
-    UserControl_print_div: TWebUserControl_print_div;
     Label_years_of_service: System.Web.UI.WebControls.Label;
     Label_elaboration: System.Web.UI.WebControls.Label;
     Label_agency: System.Web.UI.WebControls.Label;
@@ -76,10 +76,6 @@ type
     LinkButton_change_name: System.Web.UI.WebControls.LinkButton;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation

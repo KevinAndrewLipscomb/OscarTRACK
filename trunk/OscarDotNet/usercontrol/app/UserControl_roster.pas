@@ -17,38 +17,9 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls,
-  UserControl_print_div;
+  System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    agency_filter: string;
-    be_datagrid_empty: boolean;
-    be_loaded: boolean;
-    be_sort_order_ascending: boolean;
-    be_user_privileged_to_see_all_squads: boolean;
-    biz_agencies: TClass_biz_agencies;
-    biz_enrollment: TClass_biz_enrollment;
-    biz_leave: TClass_biz_leave;
-    biz_medical_release_levels: TClass_biz_medical_release_levels;
-    biz_members: TClass_biz_members;
-    biz_sections: TClass_biz_sections;
-    biz_user: TClass_biz_user;
-    distribution_list: string;
-    enrollment_filter: Class_biz_enrollment.filter_type;
-    leave_filter: Class_biz_leave.filter_type;
-    med_release_level_filter: Class_biz_medical_release_levels.filter_type;
-    num_cooked_shifts: cardinal;  // takes into account leaves
-    num_core_ops_members: cardinal;
-    num_datagrid_rows: cardinal;
-    num_raw_shifts: cardinal;  // does not take into account leaves
-    num_standard_commitments: cardinal;
-    relative_month: cardinal;
-    section_filter: Class_biz_sections.filter_type;
-    sort_order: string;
-    years_of_service_array_list: arraylist;
-    END;
   TWebUserControl_roster = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -74,6 +45,36 @@ type
       e: System.EventArgs);
   {$ENDREGION}
   strict private
+    type
+      p_type =
+        RECORD
+        agency_filter: string;
+        be_datagrid_empty: boolean;
+        be_loaded: boolean;
+        be_sort_order_ascending: boolean;
+        be_user_privileged_to_see_all_squads: boolean;
+        biz_agencies: TClass_biz_agencies;
+        biz_enrollment: TClass_biz_enrollment;
+        biz_leave: TClass_biz_leave;
+        biz_medical_release_levels: TClass_biz_medical_release_levels;
+        biz_members: TClass_biz_members;
+        biz_sections: TClass_biz_sections;
+        biz_user: TClass_biz_user;
+        distribution_list: string;
+        enrollment_filter: Class_biz_enrollment.filter_type;
+        leave_filter: Class_biz_leave.filter_type;
+        med_release_level_filter: Class_biz_medical_release_levels.filter_type;
+        num_cooked_shifts: cardinal;  // takes into account leaves
+        num_core_ops_members: cardinal;
+        num_datagrid_rows: cardinal;
+        num_raw_shifts: cardinal;  // does not take into account leaves
+        num_standard_commitments: cardinal;
+        relative_month: cardinal;
+        section_filter: Class_biz_sections.filter_type;
+        sort_order: string;
+        years_of_service_array_list: arraylist;
+        END;
+  strict private
     p: p_type;
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -88,7 +89,6 @@ type
     DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
     DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
     TableRow_data: System.Web.UI.HtmlControls.HtmlTableRow;
-    UserControl_print_div: TWebUserControl_print_div;
     Label_distribution_list: System.Web.UI.WebControls.Label;
     TextBox_quick_message_subject: System.Web.UI.WebControls.TextBox;
     TextBox_quick_message_body: System.Web.UI.WebControls.TextBox;
@@ -112,10 +112,6 @@ type
     Label_author_email_address: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_roster;
   end;
@@ -163,7 +159,6 @@ begin
       LinkButton_add_member.enabled := FALSE;
       DropDownList_med_release_filter.enabled := FALSE;
       DropDownList_section_filter.enabled := FALSE;
-      UserControl_print_div.visible := FALSE;
       TextBox_quick_message_subject.enabled := FALSE;
       TextBox_quick_message_body.enabled := FALSE;
       RequiredFieldValidator_quick_message_body.enabled := FALSE;

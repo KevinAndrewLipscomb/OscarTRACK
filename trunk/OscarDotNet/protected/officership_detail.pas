@@ -1,4 +1,3 @@
-
 unit officership_detail;
 
 interface
@@ -11,17 +10,9 @@ uses
   Class_biz_members,
   Class_biz_officerships,
   kix,
-  ki_web_ui,
-  UserControl_print_div;
+  ki_web_ui;
 
 type
-  p_type =
-    RECORD
-    be_datagrid_empty: boolean;
-    biz_members: TClass_biz_members;
-    biz_officerships: TClass_biz_officerships;
-    num_datagrid_rows: cardinal;
-    END;
   TWebForm_officership_detail = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -32,6 +23,15 @@ type
       e: System.EventArgs);
   {$ENDREGION}
   strict private
+    type
+      p_type =
+        RECORD
+        be_datagrid_empty: boolean;
+        biz_members: TClass_biz_members;
+        biz_officerships: TClass_biz_officerships;
+        num_datagrid_rows: cardinal;
+        END;
+  strict private
     p: p_type;
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -40,13 +40,8 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
     DataGrid_officerships: System.Web.UI.WebControls.DataGrid;
-    UserControl_print_div: TWebUserControl_print_div;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation

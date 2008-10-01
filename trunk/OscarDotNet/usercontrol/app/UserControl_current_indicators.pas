@@ -12,10 +12,6 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    END;
   TWebUserControl_current_indicators = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -23,6 +19,12 @@ type
     procedure TWebUserControl_current_indicators_PreRender(sender: System.Object;
       e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        END;
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -35,13 +37,8 @@ type
     PlaceHolder_ranked_standard_enrollment: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_commensuration: System.Web.UI.WebControls.PlaceHolder;
     PlaceHolder_ranked_num_members_in_pipeline: System.Web.UI.WebControls.PlaceHolder;
-    UserControl_print_div: UserControl;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_current_indicators;
   end;
@@ -64,8 +61,6 @@ procedure TWebUserControl_current_indicators.Page_Load(sender: System.Object; e:
 begin
   //
   if not p.be_loaded then begin
-    //
-    UserControl_print_div.visible := (session['mode:report'] = nil);
     //
     p.be_loaded := TRUE;
     //

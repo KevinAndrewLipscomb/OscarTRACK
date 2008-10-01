@@ -1,7 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_num_members_in_pipeline.pas" Inherits="UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline"%>
-<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<div id="Div_print_area">
-<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div><p>These control charts show the number of recruits and trainees.</p>
+<p>These control charts show the number of recruits and trainees.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
   <Columns>
@@ -14,4 +12,3 @@
   </Columns>
 </ASP:DataGrid>
 </p>
-</div>

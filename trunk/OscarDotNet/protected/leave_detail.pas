@@ -12,22 +12,9 @@ uses
   Class_biz_members,
   Class_biz_user,
   kix,
-  ki_web_ui,
-  UserControl_print_div;
+  ki_web_ui;
 
 type
-  p_type =
-    RECORD
-    be_datagrid_empty: boolean;
-    be_sort_order_ascending: boolean;
-    be_user_privileged_to_grant_leave: boolean;
-    biz_leaves: TClass_biz_leaves;
-    biz_members: TClass_biz_members;
-    biz_user: TClass_biz_user;
-    cad_num_string: string;
-    num_datagrid_rows: cardinal;
-    sort_order: string;
-    END;
   TWebForm_leave_detail = class(ki_web_ui.page_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -41,6 +28,20 @@ type
     procedure DataGrid_leaves_ItemCommand(source: System.Object; e: System.Web.UI.WebControls.DataGridCommandEventArgs);
   {$ENDREGION}
   strict private
+    type
+      p_type =
+        RECORD
+        be_datagrid_empty: boolean;
+        be_sort_order_ascending: boolean;
+        be_user_privileged_to_grant_leave: boolean;
+        biz_leaves: TClass_biz_leaves;
+        biz_members: TClass_biz_members;
+        biz_user: TClass_biz_user;
+        cad_num_string: string;
+        num_datagrid_rows: cardinal;
+        sort_order: string;
+        END;
+  strict private
     p: p_type;
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -50,13 +51,8 @@ type
     TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
     Label_member_designator: System.Web.UI.WebControls.Label;
     LinkButton_new: System.Web.UI.WebControls.LinkButton;
-    UserControl_print_div: TWebUserControl_print_div;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
