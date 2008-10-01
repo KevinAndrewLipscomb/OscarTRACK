@@ -1,6 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_roster.pas" Inherits="UserControl_roster.TWebUserControl_roster"%>
-<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<div id="Div_print_area">
   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 	<tr>
 	  <td>
@@ -12,7 +10,7 @@
 				  <td>
 					<table cellspacing="0" cellpadding="0" width="100%" border="0">
 						<tr>
-						  <td><strong>Roster</strong>&nbsp; <uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div></td>
+						  <td><strong>Roster</strong></td>
 						  <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False">Add member(s)</ASP:LinkButton></td>
 						</tr>
 					</table>
@@ -185,7 +183,6 @@
 	  </td>
 	</tr>
   </table>
-</div>
 <p></p>
 <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">
   <tr>

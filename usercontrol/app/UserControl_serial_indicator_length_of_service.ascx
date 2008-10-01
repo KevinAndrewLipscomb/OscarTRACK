@@ -1,7 +1,4 @@
 <%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_length_of_service.pas" Inherits="UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service"%>
-<%@ Register TagPrefix="uc1" TagName="UserControl_print_div" Src="~/usercontrol/ki/UserControl_print_div.ascx" %>
-<div id="Div_print_area">
-<uc1:UserControl_print_div id="UserControl_print_div" runat="server"></uc1:UserControl_print_div>
 <p>These control charts show the median length of service of released core operations personnel, in years.&nbsp; For each data point, half of such members have given fewer years of service than indicated, half more.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
@@ -15,4 +12,3 @@
   </Columns>
 </ASP:DataGrid>
 </p>
-</div>

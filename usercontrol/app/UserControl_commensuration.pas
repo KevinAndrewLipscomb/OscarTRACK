@@ -35,6 +35,7 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     DataGrid_commensuration: System.Web.UI.WebControls.DataGrid;
     Label_month: System.Web.UI.WebControls.Label;
+    UpdatePanel_control: System.Web.UI.UpdatePanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
   private
@@ -108,8 +109,8 @@ end;
 /// </summary>
 procedure TWebUserControl_commensuration.InitializeComponent;
 begin
-  Include(Self.DataGrid_commensuration.ItemDataBound, Self.DataGrid_commensuration_ItemDataBound);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
+  Include(Self.DataGrid_commensuration.ItemDataBound, Self.DataGrid_commensuration_ItemDataBound);
   Include(Self.PreRender, Self.TWebUserControl_commensuration_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
@@ -152,12 +153,12 @@ begin
   //
   if data_grid_item_collection.count > 0 then begin
     for i := 0 to (data_grid_item_collection.count - 1) do begin
-      data_grid_item := data_grid_item_collection.item[i];
+      data_grid_item := data_grid_item_collection[i];
       item_type := data_grid_item.itemtype;
       if item_type in [listitemtype.item,listitemtype.alternatingitem,listitemtype.edititem,listitemtype.selecteditem] then begin
         table_cell_collection := data_grid_item.cells;
         num_forecast := decimal.Parse(Safe(table_cell_collection[TCCI_FORECAST].text,REAL_NUM));
-        num_actual := decimal.Parse(Safe(TextBox(table_cell_collection[TCCI_ACTUAL].controls[0]).text,REAL_NUM));
+        num_actual := decimal.Parse(Safe(TextBox(table_cell_collection[TCCI_ACTUAL].FindControl('TextBox_quantity')).text,REAL_NUM));
         total_num_forecast := total_num_forecast + num_forecast;
         total_num_actual := total_num_actual + num_actual;
         with commensuration_rec do begin
