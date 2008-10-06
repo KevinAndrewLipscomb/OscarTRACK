@@ -28,4 +28,8 @@
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
   <tr>
     <td valign="top">
-      <ASP:ValidationSummary id="ValidationSummary_control" runat="server"></ASP:ValidationSummary>
+      <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Always">
+        <ContentTemplate>
+          <ASP:ValidationSummary id="ValidationSummary_control" runat="server"></ASP:ValidationSummary>
+        </ContentTemplate>
+      </asp:UpdatePanel>
