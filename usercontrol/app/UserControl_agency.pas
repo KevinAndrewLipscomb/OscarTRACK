@@ -13,24 +13,28 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    biz_agencies: TClass_biz_agencies;
-    END;
   TWebUserControl_agency = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure TWebUserControl_agency_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_short_designator_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        be_ok_to_config_agencies: boolean;
+        biz_agencies: TClass_biz_agencies;
+        END;
   strict private
     p: p_type;
     procedure Clear;
@@ -40,7 +44,10 @@ type
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_short_designator: System.Web.UI.WebControls.TextBox;
     DropDownList_short_designator: System.Web.UI.WebControls.DropDownList;
@@ -52,10 +59,6 @@ type
     RequiredFieldValidator_long_designator: System.Web.UI.WebControls.RequiredFieldValidator;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_agency;
   end;
@@ -76,6 +79,7 @@ begin
   TextBox_long_designator.text := EMPTY;
   CheckBox_be_active.checked := FALSE;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
 end;
@@ -85,6 +89,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+//    LinkButton_new_record.visible := p.be_ok_to_config_agencies;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -118,7 +123,15 @@ begin
     CheckBox_be_active.checked := be_active;
     //
     TextBox_short_designator.enabled := FALSE;
-    Button_delete.enabled := TRUE;
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
+    TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
+    CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
+    Button_submit.enabled := p.be_ok_to_config_agencies;
+    Button_delete.enabled := p.be_ok_to_config_agencies;
     //
     PresentRecord := TRUE;
     //
@@ -144,6 +157,8 @@ begin
     //
     p.biz_agencies := TClass_biz_agencies.Create;
     //
+    p.be_ok_to_config_agencies := Has(string_array(session['privilege_array']),'config-agencies');
+    //
   end;
   //
 end;
@@ -155,8 +170,9 @@ end;
 /// </summary>
 procedure TWebUserControl_agency.InitializeComponent;
 begin
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_short_designator.SelectedIndexChanged, Self.DropDownList_short_designator_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -209,15 +225,41 @@ begin
   Clear;
 end;
 
+procedure TWebUserControl_agency.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  TextBox_short_designator.enabled := Has(string_array(session['privilege_array']),'config-agencies');
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
+  TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
+  CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
+  Button_submit.enabled := p.be_ok_to_config_agencies;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_short_designator,TRUE);
+end;
+
 procedure TWebUserControl_agency.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_short_designator.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_agencies;
+  TextBox_medium_designator.enabled := FALSE;
+  TextBox_long_designator.enabled := FALSE;
+  CheckBox_be_active.enabled := FALSE;
   Focus(TextBox_short_designator,TRUE);
 end;
 
-procedure TWebUserControl_agency.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_agency.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;

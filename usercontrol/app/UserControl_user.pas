@@ -14,24 +14,28 @@ uses
   UserControl_drop_down_date;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    biz_users: TClass_biz_users;
-    END;
   TWebUserControl_user = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
     procedure TWebUserControl_user_PreRender(sender: System.Object;
       e: System.EventArgs);
-    procedure LinkButton_search_Click(sender: System.Object; e: System.EventArgs);
+    procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_username_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        be_ok_to_config_users: boolean;
+        biz_users: TClass_biz_users;
+        END;
   strict private
     p: p_type;
     procedure Clear;
@@ -41,7 +45,10 @@ type
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
-    LinkButton_search: System.Web.UI.WebControls.LinkButton;
+    Button_lookup: System.Web.UI.WebControls.Button;
+    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
+    Label_lookup_arrow: &label;
+    Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_username: System.Web.UI.WebControls.TextBox;
     DropDownList_username: System.Web.UI.WebControls.DropDownList;
@@ -55,10 +62,6 @@ type
     TextBox_last_login: System.Web.UI.WebControls.TextBox;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_user;
   end;
@@ -83,6 +86,7 @@ begin
   TextBox_num_unsuccessful_login_attempts.text := EMPTY;
   TextBox_last_login.text := EMPTY;
   //
+  Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
 end;
@@ -92,6 +96,7 @@ begin
   //
   if not p.be_loaded then begin
     //
+    LinkButton_new_record.visible := p.be_ok_to_config_users;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -134,7 +139,15 @@ begin
     TextBox_last_login.text := last_login;
     //
     TextBox_username.enabled := FALSE;
-    Button_delete.enabled := TRUE;
+    Button_lookup.enabled := FALSE;
+    Label_lookup_arrow.enabled := FALSE;
+    Label_lookup_hint.enabled := FALSE;
+    LinkButton_reset.enabled := TRUE;
+    CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
+    TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
+    CheckBox_be_active.enabled := p.be_ok_to_config_users;
+    Button_submit.enabled := p.be_ok_to_config_users;
+    Button_delete.enabled := p.be_ok_to_config_users;
     //
     PresentRecord := TRUE;
     //
@@ -160,6 +173,8 @@ begin
     //
     p.biz_users := TClass_biz_users.Create;
     //
+    p.be_ok_to_config_users := Has(string_array(session['privilege_array']),'config-users');
+    //
   end;
   //
 end;
@@ -171,8 +186,9 @@ end;
 /// </summary>
 procedure TWebUserControl_user.InitializeComponent;
 begin
-  Include(Self.LinkButton_search.Click, Self.LinkButton_search_Click);
+  Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_username.SelectedIndexChanged, Self.DropDownList_username_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -205,6 +221,7 @@ begin
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    Clear;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -223,15 +240,41 @@ begin
   Clear;
 end;
 
+procedure TWebUserControl_user.LinkButton_new_record_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  Clear;
+  TextBox_username.enabled := p.be_ok_to_config_users;
+  Button_lookup.enabled := FALSE;
+  Label_lookup_arrow.enabled := FALSE;
+  Label_lookup_hint.enabled := FALSE;
+  LinkButton_reset.enabled := TRUE;
+  LinkButton_new_record.enabled := FALSE;
+  CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
+  TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
+  CheckBox_be_active.enabled := p.be_ok_to_config_users;
+  Button_submit.enabled := p.be_ok_to_config_users;
+  Button_delete.enabled := FALSE;
+  Focus(TextBox_username,TRUE);
+end;
+
 procedure TWebUserControl_user.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   Clear;
   TextBox_username.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_users;
+  CheckBox_be_stale_password.enabled := FALSE;
+  TextBox_password_reset_email_address.enabled := FALSE;
+  CheckBox_be_active.enabled := FALSE;
   Focus(TextBox_username,TRUE);
 end;
 
-procedure TWebUserControl_user.LinkButton_search_Click(sender: System.Object;
+procedure TWebUserControl_user.Button_lookup_Click(sender: System.Object;
   e: System.EventArgs);
 var
   num_matches: cardinal;
