@@ -143,7 +143,7 @@ begin
   //
   self.Open;
   try
-    mysqlcommand.Create(db_trail.Saved('delete from role where name = ' + name),connection).ExecuteNonquery;
+    mysqlcommand.Create(db_trail.Saved('delete from role where name = "' + name + '"'),connection).ExecuteNonquery;
   except on e: exception do
     if e.message.StartsWith('Cannot delete or update a parent row: a foreign key constraint fails',TRUE,nil) then begin
       Delete := FALSE;

@@ -405,9 +405,9 @@ begin
     db_trail.Saved
       (
       'replace agency'
-      + ' set short_designator = ' + short_designator + ''
-      + ' , medium_designator = ' + medium_designator + ''
-      + ' , long_designator = ' + long_designator + ''
+      + ' set short_designator = "' + short_designator + '"'
+      + ' , medium_designator = "' + medium_designator + '"'
+      + ' , long_designator = "' + long_designator + '"'
       + ' , be_active = ' + be_active.tostring
       ),
     connection
