@@ -38,8 +38,10 @@ type
   strict private
     p: p_type;
     procedure Clear;
+    procedure ManageDependentFieldEnablements;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(short_designator: string): boolean;
+    procedure SetLookupMode;
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -78,6 +80,12 @@ begin
   TextBox_medium_designator.text := EMPTY;
   TextBox_long_designator.text := EMPTY;
   CheckBox_be_active.checked := FALSE;
+  //
+  // Disable dependent fields.
+  //
+  TextBox_medium_designator.enabled := FALSE;
+  TextBox_long_designator.enabled := FALSE;
+  CheckBox_be_active.enabled := FALSE;
   //
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
@@ -127,15 +135,25 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
-    TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
-    CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
+    ManageDependentFieldEnablements;
     Button_submit.enabled := p.be_ok_to_config_agencies;
     Button_delete.enabled := p.be_ok_to_config_agencies;
     //
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_agency.SetLookupMode;
+begin
+  Clear;
+  TextBox_short_designator.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_agencies;
+  Focus(TextBox_short_designator,TRUE);
 end;
 
 procedure TWebUserControl_agency.OnInit(e: System.EventArgs);
@@ -207,6 +225,7 @@ begin
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    SetLookupMode;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -222,7 +241,7 @@ procedure TWebUserControl_agency.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_agencies.Delete(Safe(TextBox_short_designator.text,ALPHANUM));
-  Clear;
+  SetLookupMode;
 end;
 
 procedure TWebUserControl_agency.LinkButton_new_record_Click(sender: System.Object;
@@ -235,9 +254,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
-  TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
-  CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
+  ManageDependentFieldEnablements;
   Button_submit.enabled := p.be_ok_to_config_agencies;
   Button_delete.enabled := FALSE;
   Focus(TextBox_short_designator,TRUE);
@@ -246,17 +263,14 @@ end;
 procedure TWebUserControl_agency.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  Clear;
-  TextBox_short_designator.enabled := TRUE;
-  Button_lookup.enabled := TRUE;
-  Label_lookup_arrow.enabled := TRUE;
-  Label_lookup_hint.enabled := TRUE;
-  LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_agencies;
-  TextBox_medium_designator.enabled := FALSE;
-  TextBox_long_designator.enabled := FALSE;
-  CheckBox_be_active.enabled := FALSE;
-  Focus(TextBox_short_designator,TRUE);
+  SetLookupMode;
+end;
+
+procedure TWebUserControl_agency.ManageDependentFieldEnablements;
+begin
+  TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
+  TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
+  CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
 end;
 
 procedure TWebUserControl_agency.Button_lookup_Click(sender: System.Object;

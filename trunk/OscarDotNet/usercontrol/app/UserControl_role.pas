@@ -59,8 +59,10 @@ type
     procedure BindHolders(role_name: string);
     procedure Clear;
     procedure InjectPersistentClientSideScript;
+    procedure ManageDependentFieldEnablements;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(name: string): boolean;
+    procedure SetLookupMode;
   strict protected
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
@@ -115,6 +117,12 @@ begin
   DropDownList_tier.ClearSelection;
   TextBox_pecking_order.text := EMPTY;
   TextBox_soft_hyphenation_text.text := EMPTY;
+  //
+  // Disable dependent fields.
+  //
+  DropDownList_tier.enabled := FALSE;
+  TextBox_pecking_order.enabled := FALSE;
+  TextBox_soft_hyphenation_text.enabled := FALSE;
   //
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
@@ -267,9 +275,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    DropDownList_tier.enabled := p.be_ok_to_config_roles;
-    TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
-    TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
+    ManageDependentFieldEnablements;
     Button_submit.enabled := p.be_ok_to_config_roles;
     Button_delete.enabled := p.be_ok_to_config_roles;
     //
@@ -278,6 +284,18 @@ begin
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_role.SetLookupMode;
+begin
+  Clear;
+  TextBox_name.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_roles;
+  Focus(TextBox_name,TRUE);
 end;
 
 procedure TWebUserControl_role.OnInit(e: System.EventArgs);
@@ -418,6 +436,7 @@ begin
       Safe(TextBox_pecking_order.text,NUM).trim
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
+    SetLookupMode;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -434,7 +453,7 @@ procedure TWebUserControl_role.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if p.biz_roles.Delete(Safe(TextBox_name.text,HUMAN_NAME)) then begin
-    Clear;
+    SetLookupMode;
   end else begin
     Alert(kix.APPDATA,kix.FAILURE,'dependency',' Cannot delete this record because another record depends on it.',TRUE);
   end;
@@ -450,9 +469,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  DropDownList_tier.enabled := p.be_ok_to_config_roles;
-  TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
-  TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
+  ManageDependentFieldEnablements;
   Button_submit.enabled := p.be_ok_to_config_roles;
   Button_delete.enabled := FALSE;
   Focus(TextBox_name,TRUE);
@@ -461,17 +478,14 @@ end;
 procedure TWebUserControl_role.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  Clear;
-  TextBox_name.enabled := TRUE;
-  Button_lookup.enabled := TRUE;
-  Label_lookup_arrow.enabled := TRUE;
-  Label_lookup_hint.enabled := TRUE;
-  LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_roles;
-  DropDownList_tier.enabled := FALSE;
-  TextBox_pecking_order.enabled := FALSE;
-  TextBox_soft_hyphenation_text.enabled := FALSE;
-  Focus(TextBox_name,TRUE);
+  SetLookupMode;
+end;
+
+procedure TWebUserControl_role.ManageDependentFieldEnablements;
+begin
+  DropDownList_tier.enabled := p.be_ok_to_config_roles;
+  TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
+  TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
 end;
 
 procedure TWebUserControl_role.Button_lookup_Click(sender: System.Object;

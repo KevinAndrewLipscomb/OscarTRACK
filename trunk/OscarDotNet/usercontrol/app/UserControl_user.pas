@@ -39,8 +39,10 @@ type
   strict private
     p: p_type;
     procedure Clear;
+    procedure ManageDependentFieldEnablements;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(username: string): boolean;
+    procedure SetLookupMode;
   strict protected
     Label_application_name: System.Web.UI.WebControls.Label;
     Button_submit: System.Web.UI.WebControls.Button;
@@ -85,6 +87,12 @@ begin
   CheckBox_be_active.checked := FALSE;
   TextBox_num_unsuccessful_login_attempts.text := EMPTY;
   TextBox_last_login.text := EMPTY;
+  //
+  // Disable dependent fields.
+  //
+  CheckBox_be_stale_password.enabled := FALSE;
+  TextBox_password_reset_email_address.enabled := FALSE;
+  CheckBox_be_active.enabled := FALSE;
   //
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
@@ -143,15 +151,25 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
-    TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
-    CheckBox_be_active.enabled := p.be_ok_to_config_users;
+    ManageDependentFieldEnablements;
     Button_submit.enabled := p.be_ok_to_config_users;
     Button_delete.enabled := p.be_ok_to_config_users;
     //
     PresentRecord := TRUE;
     //
   end;
+end;
+
+procedure TWebUserControl_user.SetLookupMode;
+begin
+  Clear;
+  TextBox_username.enabled := TRUE;
+  Button_lookup.enabled := TRUE;
+  Label_lookup_arrow.enabled := TRUE;
+  Label_lookup_hint.enabled := TRUE;
+  LinkButton_reset.enabled := FALSE;
+  LinkButton_new_record.enabled := p.be_ok_to_config_users;
+  Focus(TextBox_username,TRUE);
 end;
 
 procedure TWebUserControl_user.OnInit(e: System.EventArgs);
@@ -221,7 +239,7 @@ begin
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
-    Clear;
+    SetLookupMode;
   end else begin
     ValidationAlert(TRUE);
   end;
@@ -237,7 +255,7 @@ procedure TWebUserControl_user.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   p.biz_users.Delete(Safe(TextBox_username.text,ALPHANUM));
-  Clear;
+  SetLookupMode;
 end;
 
 procedure TWebUserControl_user.LinkButton_new_record_Click(sender: System.Object;
@@ -250,9 +268,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
-  TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
-  CheckBox_be_active.enabled := p.be_ok_to_config_users;
+  ManageDependentFieldEnablements;
   Button_submit.enabled := p.be_ok_to_config_users;
   Button_delete.enabled := FALSE;
   Focus(TextBox_username,TRUE);
@@ -261,17 +277,14 @@ end;
 procedure TWebUserControl_user.LinkButton_reset_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  Clear;
-  TextBox_username.enabled := TRUE;
-  Button_lookup.enabled := TRUE;
-  Label_lookup_arrow.enabled := TRUE;
-  Label_lookup_hint.enabled := TRUE;
-  LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_users;
-  CheckBox_be_stale_password.enabled := FALSE;
-  TextBox_password_reset_email_address.enabled := FALSE;
-  CheckBox_be_active.enabled := FALSE;
-  Focus(TextBox_username,TRUE);
+  SetLookupMode;
+end;
+
+procedure TWebUserControl_user.ManageDependentFieldEnablements;
+begin
+  CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
+  TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
+  CheckBox_be_active.enabled := p.be_ok_to_config_users;
 end;
 
 procedure TWebUserControl_user.Button_lookup_Click(sender: System.Object;
