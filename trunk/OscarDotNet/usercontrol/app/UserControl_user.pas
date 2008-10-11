@@ -22,7 +22,6 @@ type
       e: System.EventArgs);
     procedure Button_lookup_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_reset_Click(sender: System.Object; e: System.EventArgs);
-    procedure LinkButton_new_record_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_delete_Click(sender: System.Object; e: System.EventArgs);
     procedure DropDownList_username_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
@@ -48,7 +47,6 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
     Button_lookup: System.Web.UI.WebControls.Button;
-    LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
     Label_lookup_arrow: &label;
     Label_lookup_hint: &label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
@@ -99,7 +97,6 @@ begin
   //
   if not p.be_loaded then begin
     //
-    LinkButton_new_record.visible := p.be_ok_to_config_users;
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -163,7 +160,6 @@ begin
   Label_lookup_arrow.enabled := TRUE;
   Label_lookup_hint.enabled := TRUE;
   LinkButton_reset.enabled := FALSE;
-  LinkButton_new_record.enabled := p.be_ok_to_config_users;
   Focus(TextBox_username,TRUE);
 end;
 
@@ -201,7 +197,6 @@ procedure TWebUserControl_user.InitializeComponent;
 begin
   Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
-  Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_username.SelectedIndexChanged, Self.DropDownList_username_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -251,22 +246,6 @@ procedure TWebUserControl_user.Button_delete_Click(sender: System.Object;
 begin
   p.biz_users.Delete(Safe(TextBox_username.text,ALPHANUM));
   SetLookupMode;
-end;
-
-procedure TWebUserControl_user.LinkButton_new_record_Click(sender: System.Object;
-  e: System.EventArgs);
-begin
-  Clear;
-  TextBox_username.enabled := p.be_ok_to_config_users;
-  Button_lookup.enabled := FALSE;
-  Label_lookup_arrow.enabled := FALSE;
-  Label_lookup_hint.enabled := FALSE;
-  LinkButton_reset.enabled := TRUE;
-  LinkButton_new_record.enabled := FALSE;
-  SetDependentFieldAblements(p.be_ok_to_config_users);
-  Button_submit.enabled := p.be_ok_to_config_users;
-  Button_delete.enabled := FALSE;
-  Focus(TextBox_username,TRUE);
 end;
 
 procedure TWebUserControl_user.LinkButton_reset_Click(sender: System.Object;
