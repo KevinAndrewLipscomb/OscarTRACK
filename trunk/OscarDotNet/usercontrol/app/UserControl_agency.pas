@@ -38,7 +38,7 @@ type
   strict private
     p: p_type;
     procedure Clear;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(short_designator: string): boolean;
     procedure SetLookupMode;
@@ -81,12 +81,7 @@ begin
   TextBox_long_designator.text := EMPTY;
   CheckBox_be_active.checked := FALSE;
   //
-  // Disable dependent fields.
-  //
-  TextBox_medium_designator.enabled := FALSE;
-  TextBox_long_designator.enabled := FALSE;
-  CheckBox_be_active.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
@@ -135,7 +130,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_agencies);
     Button_submit.enabled := p.be_ok_to_config_agencies;
     Button_delete.enabled := p.be_ok_to_config_agencies;
     //
@@ -254,7 +249,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_agencies);
   Button_submit.enabled := p.be_ok_to_config_agencies;
   Button_delete.enabled := FALSE;
   Focus(TextBox_short_designator,TRUE);
@@ -266,11 +261,11 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_agency.ManageDependentFieldEnablements;
+procedure TWebUserControl_agency.SetDependentFieldAblements(ablement: boolean);
 begin
-  TextBox_medium_designator.enabled := p.be_ok_to_config_agencies;
-  TextBox_long_designator.enabled := p.be_ok_to_config_agencies;
-  CheckBox_be_active.enabled := p.be_ok_to_config_agencies;
+  TextBox_medium_designator.enabled := ablement;
+  TextBox_long_designator.enabled := ablement;
+  CheckBox_be_active.enabled := ablement;
 end;
 
 procedure TWebUserControl_agency.Button_lookup_Click(sender: System.Object;
