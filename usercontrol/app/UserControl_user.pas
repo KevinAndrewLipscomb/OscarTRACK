@@ -39,7 +39,7 @@ type
   strict private
     p: p_type;
     procedure Clear;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(username: string): boolean;
     procedure SetLookupMode;
@@ -88,12 +88,7 @@ begin
   TextBox_num_unsuccessful_login_attempts.text := EMPTY;
   TextBox_last_login.text := EMPTY;
   //
-  // Disable dependent fields.
-  //
-  CheckBox_be_stale_password.enabled := FALSE;
-  TextBox_password_reset_email_address.enabled := FALSE;
-  CheckBox_be_active.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   //
@@ -151,7 +146,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_users);
     Button_submit.enabled := p.be_ok_to_config_users;
     Button_delete.enabled := p.be_ok_to_config_users;
     //
@@ -268,7 +263,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_users);
   Button_submit.enabled := p.be_ok_to_config_users;
   Button_delete.enabled := FALSE;
   Focus(TextBox_username,TRUE);
@@ -280,11 +275,11 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_user.ManageDependentFieldEnablements;
+procedure TWebUserControl_user.SetDependentFieldAblements(ablement: boolean);
 begin
-  CheckBox_be_stale_password.enabled := p.be_ok_to_config_users;
-  TextBox_password_reset_email_address.enabled := p.be_ok_to_config_users;
-  CheckBox_be_active.enabled := p.be_ok_to_config_users;
+  CheckBox_be_stale_password.enabled := ablement;
+  TextBox_password_reset_email_address.enabled := ablement;
+  CheckBox_be_active.enabled := ablement;
 end;
 
 procedure TWebUserControl_user.Button_lookup_Click(sender: System.Object;

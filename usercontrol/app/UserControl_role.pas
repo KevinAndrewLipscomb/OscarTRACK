@@ -59,7 +59,7 @@ type
     procedure BindHolders(role_name: string);
     procedure Clear;
     procedure InjectPersistentClientSideScript;
-    procedure ManageDependentFieldEnablements;
+    procedure SetDependentFieldAblements(ablement: boolean);
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
     function PresentRecord(name: string): boolean;
     procedure SetLookupMode;
@@ -118,12 +118,7 @@ begin
   TextBox_pecking_order.text := EMPTY;
   TextBox_soft_hyphenation_text.text := EMPTY;
   //
-  // Disable dependent fields.
-  //
-  DropDownList_tier.enabled := FALSE;
-  TextBox_pecking_order.enabled := FALSE;
-  TextBox_soft_hyphenation_text.enabled := FALSE;
-  //
+  SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
   Button_delete.enabled := FALSE;
   Anchor_quick_message_shortcut.visible := FALSE;
@@ -275,7 +270,7 @@ begin
     Label_lookup_arrow.enabled := FALSE;
     Label_lookup_hint.enabled := FALSE;
     LinkButton_reset.enabled := TRUE;
-    ManageDependentFieldEnablements;
+    SetDependentFieldAblements(p.be_ok_to_config_roles);
     Button_submit.enabled := p.be_ok_to_config_roles;
     Button_delete.enabled := p.be_ok_to_config_roles;
     //
@@ -469,7 +464,7 @@ begin
   Label_lookup_hint.enabled := FALSE;
   LinkButton_reset.enabled := TRUE;
   LinkButton_new_record.enabled := FALSE;
-  ManageDependentFieldEnablements;
+  SetDependentFieldAblements(p.be_ok_to_config_roles);
   Button_submit.enabled := p.be_ok_to_config_roles;
   Button_delete.enabled := FALSE;
   Focus(TextBox_name,TRUE);
@@ -481,11 +476,11 @@ begin
   SetLookupMode;
 end;
 
-procedure TWebUserControl_role.ManageDependentFieldEnablements;
+procedure TWebUserControl_role.SetDependentFieldAblements(ablement: boolean);
 begin
-  DropDownList_tier.enabled := p.be_ok_to_config_roles;
-  TextBox_pecking_order.enabled := p.be_ok_to_config_roles;
-  TextBox_soft_hyphenation_text.enabled := p.be_ok_to_config_roles;
+  DropDownList_tier.enabled := ablement;
+  TextBox_pecking_order.enabled := ablement;
+  TextBox_soft_hyphenation_text.enabled := ablement;
 end;
 
 procedure TWebUserControl_role.Button_lookup_Click(sender: System.Object;
