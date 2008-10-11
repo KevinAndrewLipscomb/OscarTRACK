@@ -30,7 +30,7 @@
                   <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                   <td valign="middle">
                     <small>
-                      <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False">Enter brand new record</ASP:LinkButton>
+                      <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False">Enter brand new Role</ASP:LinkButton>
                     </small>
                   </td>
                 </tr>
