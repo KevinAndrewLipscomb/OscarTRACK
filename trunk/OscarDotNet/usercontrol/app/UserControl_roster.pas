@@ -290,7 +290,7 @@ begin
   TextBox_quick_message_body.text := EMPTY;
   Alert(kix.LOGIC,kix.NORMAL,'messagsnt','Message sent',TRUE);
   //
-  // Apparently we must call RegisterPostBackControl on all the DataGrid's drill-down linkbuttons again.
+  // Apparently we must call RegisterPostBackControl on all the linkbuttons again.
   //
   Bind;
   //
@@ -534,6 +534,10 @@ begin
   p.num_raw_shifts := 0;
   p.num_standard_commitments := 0;
   p.years_of_service_array_list.Clear;
+  //
+  if not assigned(session['mode:report']) then begin
+    scriptmanager.GetCurrent(page).RegisterPostBackControl(LinkButton_add_member);
+  end;
   //
 end;
 
