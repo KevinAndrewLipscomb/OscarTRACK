@@ -221,7 +221,6 @@ begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
       if p.be_ok_to_config_roles then begin
         LinkButton_new_record.visible := TRUE;
-        DropDownList_tier.enabled := TRUE;
         TableRow_pecking_order.visible := TRUE;
         TableRow_soft_hyphenation_text.visible := TRUE;
       end;

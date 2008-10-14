@@ -12,10 +12,6 @@ uses
   System.Web.UI.HtmlControls;
 
 type
-  p_type =
-    RECORD
-    be_loaded: boolean;
-    END;
   TWebUserControl_role_help = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
@@ -23,6 +19,12 @@ type
     procedure TWebUserControl_role_help_PreRender(sender: System.Object;
       e: System.EventArgs);
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        be_loaded: boolean;
+        END;
   strict private
     p: p_type;
     procedure InjectPersistentClientSideScript;
@@ -33,12 +35,9 @@ type
     Label_application_name_2: System.Web.UI.WebControls.Label;
     Label_application_name_4: System.Web.UI.WebControls.Label;
     Label_application_name_5: System.Web.UI.WebControls.Label;
+    Label_application_name_6: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_role_help;
   end;
@@ -142,6 +141,7 @@ begin
     Label_application_name_3.text := configurationmanager.appsettings['application_name'];
     Label_application_name_4.text := configurationmanager.appsettings['application_name'];
     Label_application_name_5.text := configurationmanager.appsettings['application_name'];
+    Label_application_name_6.text := configurationmanager.appsettings['application_name'];
     //
     p.be_loaded := TRUE;
     //

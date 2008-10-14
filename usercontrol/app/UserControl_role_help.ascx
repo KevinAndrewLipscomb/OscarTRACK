@@ -32,6 +32,11 @@
                   </tr>
                   <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
                   <tr>
+                    <td align="right" valign="top"><strong>Department New Membership Clerk</strong></td>
+                    <td valign="top">Someone tasked with adding new members into the <asp:Label id="Label_application_name_6" runat="server"></asp:Label> system on the basis of information received from a Department Human Resources Officer.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
                     <td align="right" valign="top"><strong>Analyst</strong> (<strong>Department</strong> or <strong>Squad</strong>)</td>
                     <td valign="top">Someone who examines (but does not change) data, and who is allowed to use the QuickMessage feature to send email broadcasts to filtered groups of members.&nbsp; Often includes Presidents, Lieutenants, Quality Coordinators, etc.</td>
                   </tr>
