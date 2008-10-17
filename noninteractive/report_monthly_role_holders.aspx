@@ -16,7 +16,7 @@
             <td>
               <table cellspacing="0" cellpadding="10" width="100%" border="0">
                 <tr>
-                  <td bgcolor="#f5f5f5"><strong>Monthly report of Role Holders</strong></td>
+                  <td bgcolor="#f5f5f5"><strong>Monthly report of <asp:label id="Label_agency" runat="server"></asp:label> Role Holders</strong></td>
                 </tr>
                 <tr>
                   <td>

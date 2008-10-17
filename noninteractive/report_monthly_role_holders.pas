@@ -9,16 +9,18 @@ uses
   Class_biz_role_member_map;
 
 type
-  p_type =
-    RECORD
-    biz_role_member_map: TClass_biz_role_member_map;
-    role_name: string;
-    END;
   TWebForm_report_monthly_role_holders = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
   {$ENDREGION}
+  strict private
+    type
+      p_type =
+        RECORD
+        biz_role_member_map: TClass_biz_role_member_map;
+        role_name: string;
+        END;
   strict private
     p: p_type;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
@@ -29,13 +31,10 @@ type
     HyperLink_roles_help: System.Web.UI.WebControls.HyperLink;
     HyperLink_web_site: System.Web.UI.WebControls.HyperLink;
     PlaceHolder_control: System.Web.UI.WebControls.PlaceHolder;
+    Label_agency: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
@@ -64,6 +63,7 @@ var
 begin
   //
   Title.InnerText := configurationmanager.AppSettings['application_name'] + ' - report_monthly_role_holders';
+  Label_agency.text := request['agency'];
   Label_application_name_1.text := configurationmanager.appsettings['application_name'];
   Label_application_name_2.text := configurationmanager.appsettings['application_name'];
   //
