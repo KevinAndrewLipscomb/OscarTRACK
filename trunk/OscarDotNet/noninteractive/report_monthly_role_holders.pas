@@ -126,7 +126,7 @@ begin
     //to
     p.biz_role_member_map.EmailTargetOf(p.role_name,request['agency']),
     //subject
-    'Report: Monthly Role Holders',
+    'Report: Monthly ' + request['agency'] + ' Role Holders',
     //body
     body,
     //be_html
