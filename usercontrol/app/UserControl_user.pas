@@ -26,6 +26,10 @@ type
     procedure DropDownList_username_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_first_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_prior_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_next_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_last_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     type
@@ -47,8 +51,8 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     Button_delete: System.Web.UI.WebControls.Button;
     Button_lookup: System.Web.UI.WebControls.Button;
-    Label_lookup_arrow: &label;
-    Label_lookup_hint: &label;
+    Label_lookup_arrow: System.Web.UI.WebControls.Label;
+    Label_lookup_hint: System.Web.UI.WebControls.Label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_username: System.Web.UI.WebControls.TextBox;
     DropDownList_username: System.Web.UI.WebControls.DropDownList;
@@ -60,6 +64,10 @@ type
     CheckBox_be_active: System.Web.UI.WebControls.CheckBox;
     TextBox_num_unsuccessful_login_attempts: System.Web.UI.WebControls.TextBox;
     TextBox_last_login: System.Web.UI.WebControls.TextBox;
+    LinkButton_go_to_match_prior: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_next: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_last: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_first: System.Web.UI.WebControls.LinkButton;
   protected
     procedure OnInit(e: System.EventArgs); override;
   published
@@ -78,6 +86,10 @@ procedure TWebUserControl_user.Clear;
 begin
   //
   TextBox_username.text := EMPTY;
+  LinkButton_go_to_match_prior.visible := FALSE;
+  LinkButton_go_to_match_next.visible := FALSE;
+  LinkButton_go_to_match_last.visible := FALSE;
+  LinkButton_go_to_match_first.visible := FALSE;
   DropDownList_username.visible := FALSE;
   TextBox_encoded_password.text := EMPTY;
   CheckBox_be_stale_password.checked := FALSE;
@@ -97,6 +109,10 @@ begin
   //
   if not p.be_loaded then begin
     //
+    LinkButton_go_to_match_first.text := ExpandTildePath(LinkButton_go_to_match_first.text);
+    LinkButton_go_to_match_prior.text := ExpandTildePath(LinkButton_go_to_match_prior.text);
+    LinkButton_go_to_match_next.text := ExpandTildePath(LinkButton_go_to_match_next.text);
+    LinkButton_go_to_match_last.text := ExpandTildePath(LinkButton_go_to_match_last.text);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -197,6 +213,10 @@ procedure TWebUserControl_user.InitializeComponent;
 begin
   Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
+  Include(Self.LinkButton_go_to_match_first.Click, Self.LinkButton_go_to_match_first_Click);
+  Include(Self.LinkButton_go_to_match_prior.Click, Self.LinkButton_go_to_match_prior_Click);
+  Include(Self.LinkButton_go_to_match_next.Click, Self.LinkButton_go_to_match_next_Click);
+  Include(Self.LinkButton_go_to_match_last.Click, Self.LinkButton_go_to_match_last_Click);
   Include(Self.DropDownList_username.SelectedIndexChanged, Self.DropDownList_username_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -217,15 +237,43 @@ begin
   Fresh := self;
 end;
 
+procedure TWebUserControl_user.LinkButton_go_to_match_first_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_username.selectedindex := 1;
+  PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
+end;
+
+procedure TWebUserControl_user.LinkButton_go_to_match_prior_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_username.selectedindex := math.Max(1,(DropDownList_username.selectedindex - 1));
+  PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
+end;
+
+procedure TWebUserControl_user.LinkButton_go_to_match_next_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_username.selectedindex := math.Min((DropDownList_username.selectedindex + 1),(DropDownList_username.items.count - 1));
+  PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
+end;
+
+procedure TWebUserControl_user.LinkButton_go_to_match_last_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_username.selectedindex := DropDownList_username.items.count - 1;
+  PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
+end;
+
 procedure TWebUserControl_user.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
   if page.IsValid then begin
     p.biz_users.&Set
       (
-      Safe(TextBox_username.text,PUNCTUATED),
+      Safe(TextBox_username.text,HYPHENATED_UNDERSCORED_ALPHANUM),
       CheckBox_be_stale_password.checked,
-      Safe(TextBox_password_reset_email_address.text,PUNCTUATED),
+      Safe(TextBox_password_reset_email_address.text,EMAIL_ADDRESS),
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
@@ -238,13 +286,13 @@ end;
 procedure TWebUserControl_user.DropDownList_username_SelectedIndexChanged(sender: System.Object;
   e: System.EventArgs);
 begin
-  PresentRecord(DropDownList_username.selectedvalue);
+  PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
 end;
 
 procedure TWebUserControl_user.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_users.Delete(Safe(TextBox_username.text,ALPHANUM));
+  p.biz_users.Delete(Safe(TextBox_username.text,HYPHENATED_UNDERSCORED_ALPHANUM));
   SetLookupMode;
 end;
 
@@ -274,9 +322,13 @@ begin
     p.biz_users.Bind(saved_username,DropDownList_username);
     num_matches := DropDownList_username.items.count;
     if num_matches > 0 then begin
+      LinkButton_go_to_match_prior.visible := TRUE;
+      LinkButton_go_to_match_next.visible := TRUE;
+      LinkButton_go_to_match_last.visible := TRUE;
+      LinkButton_go_to_match_first.visible := TRUE;
       DropDownList_username.visible := TRUE;
       if num_matches = 1 then begin
-        PresentRecord(DropDownList_username.selectedvalue);
+        PresentRecord(Safe(DropDownList_username.selectedvalue,HYPHENATED_UNDERSCORED_ALPHANUM));
       end else begin
         DropDownList_username.items.Insert(0,listitem.Create('-- Select --',EMPTY));
       end;
