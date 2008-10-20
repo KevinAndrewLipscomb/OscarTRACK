@@ -39,7 +39,8 @@ type
     procedure LinkButton_go_to_match_prior_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_go_to_match_next_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_go_to_match_last_Click(sender: System.Object; e: System.EventArgs);
-  {$ENDREGION}  strict private
+  {$ENDREGION}
+  strict private
     type
       p_type =
         RECORD
