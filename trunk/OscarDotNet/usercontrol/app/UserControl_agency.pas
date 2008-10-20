@@ -26,8 +26,11 @@ type
     procedure DropDownList_short_designator_SelectedIndexChanged(sender: System.Object; 
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
-  {$ENDREGION}
-  strict private
+    procedure LinkButton_go_to_match_first_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_prior_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_next_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_last_Click(sender: System.Object; e: System.EventArgs);
+  {$ENDREGION}  strict private
     type
       p_type =
         RECORD
@@ -59,6 +62,10 @@ type
     RequiredFieldValidator_short_designator: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_medium_designator: System.Web.UI.WebControls.RequiredFieldValidator;
     RequiredFieldValidator_long_designator: System.Web.UI.WebControls.RequiredFieldValidator;
+    LinkButton_go_to_match_prior: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_next: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_last: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_first: System.Web.UI.WebControls.LinkButton;
   protected
     procedure OnInit(e: System.EventArgs); override;
   published
@@ -80,6 +87,10 @@ begin
   TextBox_medium_designator.text := EMPTY;
   TextBox_long_designator.text := EMPTY;
   CheckBox_be_active.checked := FALSE;
+  LinkButton_go_to_match_prior.visible := FALSE;
+  LinkButton_go_to_match_next.visible := FALSE;
+  LinkButton_go_to_match_last.visible := FALSE;
+  LinkButton_go_to_match_first.visible := FALSE;
   //
   SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
@@ -93,6 +104,10 @@ begin
   if not p.be_loaded then begin
     //
 //    LinkButton_new_record.visible := p.be_ok_to_config_agencies;
+    LinkButton_go_to_match_first.text := ExpandTildePath(LinkButton_go_to_match_first.text);
+    LinkButton_go_to_match_prior.text := ExpandTildePath(LinkButton_go_to_match_prior.text);
+    LinkButton_go_to_match_next.text := ExpandTildePath(LinkButton_go_to_match_next.text);
+    LinkButton_go_to_match_last.text := ExpandTildePath(LinkButton_go_to_match_last.text);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -184,6 +199,10 @@ end;
 procedure TWebUserControl_agency.InitializeComponent;
 begin
   Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
+  Include(Self.LinkButton_go_to_match_first.Click, Self.LinkButton_go_to_match_first_Click);
+  Include(Self.LinkButton_go_to_match_prior.Click, Self.LinkButton_go_to_match_prior_Click);
+  Include(Self.LinkButton_go_to_match_next.Click, Self.LinkButton_go_to_match_next_Click);
+  Include(Self.LinkButton_go_to_match_last.Click, Self.LinkButton_go_to_match_last_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
   Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
   Include(Self.DropDownList_short_designator.SelectedIndexChanged, Self.DropDownList_short_designator_SelectedIndexChanged);
@@ -214,9 +233,9 @@ begin
     //
     p.biz_agencies.&Set
       (
-      Safe(TextBox_short_designator.text,PUNCTUATED),
-      Safe(TextBox_medium_designator.text,PUNCTUATED),
-      Safe(TextBox_long_designator.text,PUNCTUATED),
+      Safe(TextBox_short_designator.text,ALPHANUM),
+      Safe(TextBox_medium_designator.text,ORG_NAME),
+      Safe(TextBox_long_designator.text,ORG_NAME),
       CheckBox_be_active.checked
       );
     Alert(USER,SUCCESS,'recsaved','Record saved.',TRUE);
@@ -229,7 +248,35 @@ end;
 procedure TWebUserControl_agency.DropDownList_short_designator_SelectedIndexChanged(sender: System.Object;
   e: System.EventArgs);
 begin
-  PresentRecord(DropDownList_short_designator.selectedvalue);
+  PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
+end;
+
+procedure TWebUserControl_agency.LinkButton_go_to_match_first_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_short_designator.selectedindex := 1;
+  PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
+end;
+
+procedure TWebUserControl_agency.LinkButton_go_to_match_prior_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_short_designator.selectedindex := math.Max(1,(DropDownList_short_designator.selectedindex - 1));
+  PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
+end;
+
+procedure TWebUserControl_agency.LinkButton_go_to_match_next_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_short_designator.selectedindex := math.Min((DropDownList_short_designator.selectedindex + 1),(DropDownList_short_designator.items.count - 1));
+  PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
+end;
+
+procedure TWebUserControl_agency.LinkButton_go_to_match_last_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_short_designator.selectedindex := DropDownList_short_designator.items.count - 1;
+  PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
 end;
 
 procedure TWebUserControl_agency.Button_delete_Click(sender: System.Object;
@@ -281,9 +328,13 @@ begin
     p.biz_agencies.Bind(saved_short_designator,DropDownList_short_designator);
     num_matches := DropDownList_short_designator.items.count;
     if num_matches > 0 then begin
+      LinkButton_go_to_match_prior.visible := TRUE;
+      LinkButton_go_to_match_next.visible := TRUE;
+      LinkButton_go_to_match_last.visible := TRUE;
+      LinkButton_go_to_match_first.visible := TRUE;
       DropDownList_short_designator.visible := TRUE;
       if num_matches = 1 then begin
-        PresentRecord(DropDownList_short_designator.selectedvalue);
+        PresentRecord(Safe(DropDownList_short_designator.selectedvalue,ALPHANUM));
       end else begin
         DropDownList_short_designator.items.Insert(0,listitem.Create('-- Select --',EMPTY));
       end;

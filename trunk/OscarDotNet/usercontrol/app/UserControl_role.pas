@@ -35,8 +35,11 @@ type
     procedure GridView_holders_RowDataBound(sender: System.Object; e: System.Web.UI.WebControls.GridViewRowEventArgs);
     procedure GridView_holders_RowCreated(sender: System.Object; e: System.Web.UI.WebControls.GridViewRowEventArgs);
     procedure GridView_holders_Sorting(sender: System.Object; e: System.Web.UI.WebControls.GridViewSortEventArgs);
-  {$ENDREGION}
-  strict private
+    procedure LinkButton_go_to_match_first_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_prior_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_next_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_go_to_match_last_Click(sender: System.Object; e: System.EventArgs);
+  {$ENDREGION}  strict private
     type
       p_type =
         RECORD
@@ -68,8 +71,8 @@ type
     Button_delete: System.Web.UI.WebControls.Button;
     Button_lookup: System.Web.UI.WebControls.Button;
     LinkButton_new_record: System.Web.UI.WebControls.LinkButton;
-    Label_lookup_arrow: &label;
-    Label_lookup_hint: &label;
+    Label_lookup_arrow: System.Web.UI.WebControls.Label;
+    Label_lookup_hint: System.Web.UI.WebControls.Label;
     LinkButton_reset: System.Web.UI.WebControls.LinkButton;
     TextBox_name: System.Web.UI.WebControls.TextBox;
     DropDownList_name: System.Web.UI.WebControls.DropDownList;
@@ -94,6 +97,11 @@ type
     DropDownList_tier: System.Web.UI.WebControls.DropDownList;
     RequiredFieldValidator_tier: System.Web.UI.WebControls.RequiredFieldValidator;
     Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
+    LinkButton_go_to_match_prior: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_next: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_last: System.Web.UI.WebControls.LinkButton;
+    LinkButton_go_to_match_first: System.Web.UI.WebControls.LinkButton;
+    RegularExpressionValidator_name: System.Web.UI.WebControls.RegularExpressionValidator;
   protected
     procedure OnInit(e: System.EventArgs); override;
   published
@@ -117,6 +125,10 @@ begin
   DropDownList_tier.ClearSelection;
   TextBox_pecking_order.text := EMPTY;
   TextBox_soft_hyphenation_text.text := EMPTY;
+  LinkButton_go_to_match_prior.visible := FALSE;
+  LinkButton_go_to_match_next.visible := FALSE;
+  LinkButton_go_to_match_last.visible := FALSE;
+  LinkButton_go_to_match_first.visible := FALSE;
   //
   SetDependentFieldAblements(FALSE);
   Button_submit.enabled := FALSE;
@@ -230,6 +242,10 @@ begin
       RequiredFieldValidator_quick_message_body.enabled := FALSE;
       Button_send.enabled := FALSE;
     end;
+    LinkButton_go_to_match_first.text := ExpandTildePath(LinkButton_go_to_match_first.text);
+    LinkButton_go_to_match_prior.text := ExpandTildePath(LinkButton_go_to_match_prior.text);
+    LinkButton_go_to_match_next.text := ExpandTildePath(LinkButton_go_to_match_next.text);
+    LinkButton_go_to_match_last.text := ExpandTildePath(LinkButton_go_to_match_last.text);
     //
     RequireConfirmation(Button_delete,'Are you sure you want to delete this record?');
     //
@@ -334,6 +350,10 @@ begin
   Include(Self.Button_lookup.Click, Self.Button_lookup_Click);
   Include(Self.LinkButton_reset.Click, Self.LinkButton_reset_Click);
   Include(Self.LinkButton_new_record.Click, Self.LinkButton_new_record_Click);
+  Include(Self.LinkButton_go_to_match_first.Click, Self.LinkButton_go_to_match_first_Click);
+  Include(Self.LinkButton_go_to_match_prior.Click, Self.LinkButton_go_to_match_prior_Click);
+  Include(Self.LinkButton_go_to_match_next.Click, Self.LinkButton_go_to_match_next_Click);
+  Include(Self.LinkButton_go_to_match_last.Click, Self.LinkButton_go_to_match_last_Click);
   Include(Self.DropDownList_name.SelectedIndexChanged, Self.DropDownList_name_SelectedIndexChanged);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_delete.Click, Self.Button_delete_Click);
@@ -443,6 +463,34 @@ begin
   PresentRecord(p.role_name);
 end;
 
+procedure TWebUserControl_role.LinkButton_go_to_match_first_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_name.selectedindex := 1;
+  PresentRecord(Safe(DropDownList_name.selectedvalue,HUMAN_NAME));
+end;
+
+procedure TWebUserControl_role.LinkButton_go_to_match_prior_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_name.selectedindex := math.Max(1,(DropDownList_name.selectedindex - 1));
+  PresentRecord(Safe(DropDownList_name.selectedvalue,HUMAN_NAME));
+end;
+
+procedure TWebUserControl_role.LinkButton_go_to_match_next_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_name.selectedindex := math.Min((DropDownList_name.selectedindex + 1),(DropDownList_name.items.count - 1));
+  PresentRecord(Safe(DropDownList_name.selectedvalue,HUMAN_NAME));
+end;
+
+procedure TWebUserControl_role.LinkButton_go_to_match_last_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  DropDownList_name.selectedindex := DropDownList_name.items.count - 1;
+  PresentRecord(Safe(DropDownList_name.selectedvalue,HUMAN_NAME));
+end;
+
 procedure TWebUserControl_role.Button_delete_Click(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -495,9 +543,13 @@ begin
     p.biz_roles.Bind(saved_name,DropDownList_name);
     num_matches := DropDownList_name.items.count;
     if num_matches > 0 then begin
+      LinkButton_go_to_match_prior.visible := TRUE;
+      LinkButton_go_to_match_next.visible := TRUE;
+      LinkButton_go_to_match_last.visible := TRUE;
+      LinkButton_go_to_match_first.visible := TRUE;
       DropDownList_name.visible := TRUE;
       if num_matches = 1 then begin
-        PresentRecord(DropDownList_name.selectedvalue);
+        PresentRecord(Safe(DropDownList_name.selectedvalue,HUMAN_NAME));
       end else begin
         DropDownList_name.items.Insert(0,listitem.Create('-- Select --',EMPTY));
       end;
