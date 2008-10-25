@@ -665,20 +665,11 @@ begin
   then begin
     biz_enrollment.SetLevel
       (
-      biz_enrollment.CodeOf('New trainee'),
+      biz_enrollment.CodeOf('Regular'),
       datetime.Today,
       EMPTY,
       IdOf(e_item),
       e_item
-      );
-    biz_notifications.IssueForNeedsEnrollmentReview
-      (
-      IdOf(e_item),
-      FirstNameOf(e_item),
-      LastNameOf(e_item),
-      CadNumOf(e_item),
-      old_level,
-      MedicalReleaseLevelOf(e_item)
       );
   end;
 end;
