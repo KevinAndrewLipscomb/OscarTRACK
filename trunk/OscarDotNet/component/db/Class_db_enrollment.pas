@@ -273,6 +273,8 @@ function TClass_db_enrollment.SetLevel
   )
   : boolean;
 var
+  current_level_code: cardinal;
+  dr: mysqldatareader;
   effective_date_string: string;
   latest_start_date: datetime;
   transaction: mysqltransaction;
@@ -282,13 +284,37 @@ begin
   self.Open;
   transaction := connection.BeginTransaction;
   try
-    latest_start_date := datetime
+    //
+    dr := mysqlcommand.Create
       (
-      mysqlcommand.Create
-        ('select max(start_date) from enrollment_history where member_id = ' + member_id,connection,transaction)
-        .ExecuteScalar
-      );
-    if effective_date >=  latest_start_date then begin
+      'select start_date,level_code from enrollment_history where member_id = "' + member_id + '" and end_date is null limit 1',
+      connection,
+      transaction
+      )
+      .ExecuteReader;
+    dr.Read;
+    latest_start_date := datetime(dr['start_date']);
+    current_level_code := uint32.Parse(dr['level_code'].tostring);
+    dr.Close;
+    //
+    if effective_date >= latest_start_date then begin
+      //
+      if current_level_code in [11,12,13,14,15,16,22] then begin // advance the member's equivalent_los_start_date
+        mysqlcommand.Create
+          (
+          db_trail.Saved
+            (
+            'update member'
+            + ' set equivalent_los_start_date ='
+            +   ' ADDDATE(equivalent_los_start_date,DATEDIFF("' + effective_date_string + '","' + latest_start_date.tostring('yyyy-MM-dd') + '"))'
+            + ' where id = "' + member_id + '"'
+            ),
+          connection,
+          transaction
+          )
+          .ExecuteNonquery;
+      end;
+      //
       mysqlcommand.Create
         (
         db_trail.Saved
