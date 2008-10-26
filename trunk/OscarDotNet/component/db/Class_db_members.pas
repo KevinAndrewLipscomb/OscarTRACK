@@ -229,8 +229,12 @@ procedure TClass_db_members.Add
   enrollment_code: cardinal = 17
   );
 var
+  enrollment_date_string: string;
   sql: string;
 begin
+  //
+  enrollment_date_string := enrollment_date.tostring('yyyy-MM-dd');
+  //
   sql := 'START TRANSACTION;'
   + ' insert into member'
   +   ' set first_name = "' + first_name.ToUpper + '"'
@@ -242,16 +246,16 @@ begin
   +     ' , email_address = "' + email_address + '"'
   +     ' , medical_release_code = ' + medical_release_code.tostring
   +     ' , be_driver_qualified = ' + be_driver_qualified.tostring
-  +     ' , agency_id = ' + agency_id.tostring
+  +     ' , agency_id = ' + agency_id.tostring;
+  if enrollment_code in [1,2,3,4,5,6,7,8,9,10,18,21] then begin
+    sql := sql + ' , equivalent_los_start_date = "' + enrollment_date_string + '"';
+  end;
+  sql := sql
   + ';'
   + ' insert into enrollment_history'
   +   ' set member_id = (select max(id) from member)'
   +     ' , level_code = ' + enrollment_code.tostring
-  +     ' , start_date = "' + enrollment_date.tostring('yyyy-MM-dd') + '"'
-  + ';'
-  + ' insert into role_member_map'
-  +   ' set member_id = (select max(id) from member)'
-  +     ' , role_id = (select id from role where name = "Member")'
+  +     ' , start_date = "' + enrollment_date_string + '"'
   + ';'
   + ' COMMIT';
   self.Open;

@@ -202,18 +202,38 @@ begin
     //
     'START TRANSACTION;'
     + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
-    +   ' SELECT member_id,(level_code + 1),date_add(start_date,interval 10 year),NULL'
+    +   ' SELECT member_id,3,date_add(equivalent_los_start_date,interval 10 year),NULL'
     +     ' FROM enrollment_history'
-    +     ' where end_date is null'
-    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-    +       ' and level_code in (2,3)'
+    +       ' join member on (member.id=enrollment_history.member_id)'
+    +     ' where level_code = 2'
+    +       ' and end_date is null'
+    +       ' and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)'
+    +       ' and enrollment_history.id <= ' + watermark
     + ' ;'
     + ' update enrollment_history'
-    +   ' set end_date = date_add(start_date,interval 10 year)'
-    +     ' where end_date is null'
-    +       ' and start_date <= date_sub(curdate(),interval 10 year)'
-    +       ' and level_code in (2,3)'
-    +       ' and id <= ' + watermark
+    +   ' join member on (member.id=enrollment_history.member_id)'
+    + ' set end_date = date_add(equivalent_los_start_date,interval 10 year)'
+    +   ' where level_code = 2'
+    +     ' and end_date is null'
+    +     ' and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)'
+    +     ' and enrollment_history.id <= ' + watermark
+    + ' ;'
+    + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
+    +   ' SELECT member_id,4,date_add(equivalent_los_start_date,interval 20 year),NULL'
+    +     ' FROM enrollment_history'
+    +       ' join member on (member.id=enrollment_history.member_id)'
+    +     ' where level_code = 3'
+    +       ' and end_date is null'
+    +       ' and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)'
+    +       ' and enrollment_history.id <= ' + watermark
+    + ' ;'
+    + ' update enrollment_history'
+    +   ' join member on (member.id=enrollment_history.member_id)'
+    + ' set end_date = date_add(equivalent_los_start_date,interval 20 year)'
+    +   ' where level_code = 3'
+    +     ' and end_date is null'
+    +     ' and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)'
+    +     ' and enrollment_history.id <= ' + watermark
     + ' ;'
     + ' COMMIT',
     connection
@@ -285,6 +305,9 @@ begin
   transaction := connection.BeginTransaction;
   try
     //
+    // No matter what, we need to know the latest start date of the member's enrollment history because we must make sure the new
+    // status does not take effect prior.  We might also need to know the current level.  Just retrieve both values.
+    //
     dr := mysqlcommand.Create
       (
       'select start_date,level_code from enrollment_history where member_id = "' + member_id + '" and end_date is null limit 1',
@@ -299,7 +322,29 @@ begin
     //
     if effective_date >= latest_start_date then begin
       //
-      if current_level_code in [11,12,13,14,15,16,22] then begin // advance the member's equivalent_los_start_date
+      if (uint32.Parse(new_level_code) in [1,2,3,4,5,6,7,8,9,10,18,21])
+        and
+          (
+          dbnull.Value = mysqlcommand.Create
+            ('select equivalent_los_start_date from member where id = "' + member_id + '"',connection,transaction).ExecuteScalar
+          )
+      then begin
+        //
+        // This member's new status counts toward length-of-service, and the member has never had such a status before.
+        //
+        mysqlcommand.Create
+          (
+          db_trail.Saved
+            ('update member set equivalent_los_start_date = "' + effective_date_string + '" where id = "' + member_id + '"'),
+          connection,
+          transaction
+          )
+          .ExecuteNonquery;
+      end else if current_level_code in [11,12,13,14,15,16,22] then begin
+        //
+        // The member has been spending time in a status that does not count toward length-of-service, so advance the member's
+        // equivalent_los_start_date.
+        //
         mysqlcommand.Create
           (
           db_trail.Saved
