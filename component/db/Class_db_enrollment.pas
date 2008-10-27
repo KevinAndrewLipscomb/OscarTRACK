@@ -103,7 +103,7 @@ begin
   //
   dr := mysqlcommand.Create
     (
-    'SELECT valid_next_level_code'
+    'SELECT DISTINCT valid_next_level_code'
     + ' , description'
     + ' , elaboration'
     + ' FROM enrollment_transition'
