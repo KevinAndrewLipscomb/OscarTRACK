@@ -337,13 +337,13 @@ begin
   self.Open;
   mysqlcommand.Create
     (
-    db_trail.Saved
-      (
-      'update user'
-      + ' set num_unsuccessful_login_attempts = 0'
-      +   ' , last_login = NOW()'
-      + ' where id = ' + id
-      ),
+    //
+    // Deliberately not db_trail.Saved.
+    //
+    'update user'
+    + ' set num_unsuccessful_login_attempts = 0'
+    +   ' , last_login = NOW()'
+    + ' where id = ' + id,
     connection
     )
     .ExecuteNonquery;
