@@ -18,10 +18,6 @@ type
   strict protected
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
@@ -31,6 +27,7 @@ uses
   com.quinncurtis.chart2dnet,
   com.quinncurtis.spcchartnet,
   kix,
+  system.configuration,
   system.drawing.imaging,
   system.drawing.text;
 
@@ -61,9 +58,9 @@ begin
   chart := spctimevariablecontrolchart.Create
     (
     spccontrolchartdata.INDIVIDUAL_RANGE_CHART,
-    1,                             // One data point per month
-    15,                            // months wide
-    AVERAGE_NUM_MINUTES_PER_MONTH  // time distance between data points
+    1,                                                                                                // One data point per month
+    uint32.Parse(configurationmanager.appsettings['serial_indicator_control_chart_width_in_months']), // months wide
+    AVERAGE_NUM_MINUTES_PER_MONTH                                                                     // time distance between data points
     );
   chart.autoscroll := TRUE;
   chart.bounds := rectangle.Create(0,0,781,417);
