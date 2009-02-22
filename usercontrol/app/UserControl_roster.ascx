@@ -60,7 +60,6 @@
 									  <ASP:ListItem value="reduced">- - - - Reduced</ASP:ListItem>
 									  <ASP:ListItem value="associate">- - - - Associate</ASP:ListItem>
 									  <ASP:ListItem value="atypical">- - - - Atypical</ASP:ListItem>
-									  <ASP:ListItem value="new_trainee">- - - - New trainee</ASP:ListItem>
 									  <ASP:ListItem value="specops">- - - Special ops</ASP:ListItem>
 									  <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
 									  <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
