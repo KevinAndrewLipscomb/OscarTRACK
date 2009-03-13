@@ -21,6 +21,11 @@ type
       unselected_literal: string = '-- Notification --';
       selected_value: string = EMPTY
       );
+    procedure IncrementTallies
+      (
+      name: string;
+      num_addressees: cardinal
+      );
     function TargetOf
       (
       name: string;
@@ -88,6 +93,27 @@ begin
   //
 end;
 
+procedure TClass_db_notifications.IncrementTallies
+  (
+  name: string;
+  num_addressees: cardinal
+  );
+begin
+  self.Open;
+  mysqlcommand.Create
+    (
+    'update notification'
+    + ' set tally_of_messages_for_cycle = tally_of_messages_for_cycle + ' + num_addressees.tostring
+    +   ' , tally_of_events_for_cycle = tally_of_events_for_cycle + 1'
+    +   ' , tally_of_messages_for_lifetime = tally_of_messages_for_lifetime + ' + num_addressees.tostring
+    +   ' , tally_of_events_for_lifetime = tally_of_events_for_lifetime + 1'
+    + ' where name = "' + name + '"',
+    connection
+    )
+    .ExecuteNonquery;
+  self.Close;
+end;
+
 function TClass_db_notifications.TargetOf
   (
   name: string;
@@ -96,11 +122,13 @@ function TClass_db_notifications.TargetOf
   : string;
 var
   dr: mysqldatareader;
+  num_addressees: cardinal;
   target_of: string;
   tier_2_match_value: string;
   tier_3_match_value: string;
 begin
   target_of := EMPTY;
+  num_addressees := 0;
   self.Open;
   //
   // Get tier 2 and 3 associations of target member.
@@ -135,6 +163,7 @@ begin
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
         target_of := target_of + dr['email_address'].tostring + COMMA;
+        num_addressees := num_addressees + 1;
       end;
     end;
   end;
@@ -164,6 +193,7 @@ begin
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
         target_of := target_of + dr['email_address'].tostring + COMMA;
+        num_addressees := num_addressees + 1;
       end;
     end;
   end;
@@ -194,10 +224,13 @@ begin
         or ((dr['data_condition_name'].tostring = 'BeMemberTrainee') and biz_data_conditions.BeMemberTrainee(member_id))
       then begin
         target_of := target_of + dr['email_address'].tostring + COMMA;
+        num_addressees := num_addressees + 1;
       end;
     end;
   end;
   dr.Close;
+  //
+  IncrementTallies(name,num_addressees);
   //
   self.Close;
   if target_of <> EMPTY then begin
@@ -215,10 +248,12 @@ function TClass_db_notifications.TargetOfAboutAgency
   : string;
 var
   dr: mysqldatareader;
-  variant_condition: string;
+  num_addressees: cardinal;
   target_of_about_agency: string;
+  variant_condition: string;
 begin
   target_of_about_agency := EMPTY;
+  num_addressees := 0;
   self.Open;
   //
   if agency_id = '0' then begin // EMS is tier 1
@@ -243,9 +278,12 @@ begin
   if dr <> nil then begin
     while dr.Read do begin
       target_of_about_agency := target_of_about_agency + dr['email_address'].tostring + COMMA;
+      num_addressees := num_addressees + 1;
     end;
   end;
   dr.Close;
+  //
+  IncrementTallies(name,num_addressees);
   //
   self.Close;
   //
