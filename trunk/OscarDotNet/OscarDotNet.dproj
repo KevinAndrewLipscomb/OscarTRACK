@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>ki;"C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll";"C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll";"C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\AjaxControlToolkit\SampleWebSite\Bin\AjaxControlToolkit.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
+    <DCC_UsePackage>ki;"C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\MySql.Data.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\AjaxControlToolkit.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -89,11 +89,26 @@
       <AssemblyTag>$(SystemRoot)\Microsoft.NET\Framework\v2.0.50727\System.XML.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
+    <Reference Include="bin\AjaxControlToolkit.dll">
+      <AssemblyName>AjaxControlToolkit</AssemblyName>
+      <Version>1.0.20229.20821</Version>
+      <HintPath>bin\AjaxControlToolkit.dll</HintPath>
+      <AssemblyTag>bin\AjaxControlToolkit.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
     <Reference Include="bin\Microsoft.Web.UI.WebControls.dll">
       <AssemblyName>Microsoft.Web.UI.WebControls</AssemblyName>
       <Version>1.0.2.226</Version>
       <HintPath>bin\Microsoft.Web.UI.WebControls.dll</HintPath>
       <AssemblyTag>bin\Microsoft.Web.UI.WebControls.dll</AssemblyTag>
+      <LinkUnits>False</LinkUnits>
+    </Reference>
+    <Reference Include="bin\MySql.Data.dll">
+      <AssemblyName>MySql.Data</AssemblyName>
+      <CopyLocal>True</CopyLocal>
+      <Version>5.0.8.1</Version>
+      <HintPath>bin\MySql.Data.dll</HintPath>
+      <AssemblyTag>bin\MySql.Data.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
     <Reference Include="bin\QCChart2DNet.dll">
@@ -117,13 +132,6 @@
       <AssemblyTag>bin\sstchur.web.SmartNav.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
-    <Reference Include="C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\AjaxControlToolkit\SampleWebSite\Bin\AjaxControlToolkit.dll">
-      <AssemblyName>AjaxControlToolkit</AssemblyName>
-      <Version>1.0.20229.20821</Version>
-      <HintPath>C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\AjaxControlToolkit\SampleWebSite\Bin\AjaxControlToolkit.dll</HintPath>
-      <AssemblyTag>C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\AjaxControlToolkit\SampleWebSite\Bin\AjaxControlToolkit.dll</AssemblyTag>
-      <LinkUnits>False</LinkUnits>
-    </Reference>
     <Reference Include="C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll">
       <AssemblyName>System.Web.Extensions</AssemblyName>
       <CopyLocal>True</CopyLocal>
@@ -132,17 +140,9 @@
       <AssemblyTag>C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
     </Reference>
-    <Reference Include="C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll">
-      <AssemblyName>MySql.Data</AssemblyName>
-      <CopyLocal>True</CopyLocal>
-      <Version>5.0.8.1</Version>
-      <HintPath>C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</HintPath>
-      <AssemblyTag>C:\Program Files\MySQL\MySQL Connector Net 5.0.8.1\Binaries\.NET 2.0\MySql.Data.dll</AssemblyTag>
-      <LinkUnits>False</LinkUnits>
-    </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3155.33423</Version>
+      <Version>1.0.3252.31843</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -278,6 +278,11 @@
     <DCCReference Include="noninteractive\report_monthly_trainee_roster.pas">
       <DependentUpon>noninteractive\report_monthly_trainee_roster.aspx</DependentUpon>
       <Form>report_monthly_trainee_roster.TWebForm_report_monthly_trainee_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_quarterly_activity.pas">
+      <DependentUpon>noninteractive\report_quarterly_activity.aspx</DependentUpon>
+      <Form>report_quarterly_activity.TWebForm_report_quarterly_activity</Form>
       <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\statement_member_status.pas">
@@ -643,6 +648,7 @@
     <None Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" />
     <None Include="noninteractive\report_monthly_role_holders.aspx" />
     <None Include="noninteractive\report_monthly_trainee_roster.aspx" />
+    <None Include="noninteractive\report_quarterly_activity.aspx" />
     <None Include="noninteractive\statement_member_status.aspx" />
     <None Include="protected\add_member.aspx" />
     <None Include="protected\add_new_enrollment_status.aspx" />
