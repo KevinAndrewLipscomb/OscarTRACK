@@ -5,12 +5,14 @@ interface
 uses
   Class_biz_data_conditions,
   Class_db,
+  Class_db_trail,
   kix;
 
 type
   TClass_db_notifications = class(TClass_db)
   private
     biz_data_conditions: TClass_biz_data_conditions;
+    db_trail: TClass_db_trail;
     tier_2_match_field: string;
     tier_3_match_field: string;
   public
@@ -52,6 +54,7 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   biz_data_conditions := TClass_biz_data_conditions.Create;
+  db_trail := TClass_db_trail.Create;
   tier_2_match_field := configurationmanager.appsettings['tier_2_match_field'];
   tier_3_match_field := configurationmanager.appsettings['tier_3_match_field'];
 end;
@@ -102,12 +105,15 @@ begin
   self.Open;
   mysqlcommand.Create
     (
-    'update notification'
-    + ' set tally_of_messages_for_cycle = tally_of_messages_for_cycle + ' + num_addressees.tostring
-    +   ' , tally_of_events_for_cycle = tally_of_events_for_cycle + 1'
-    +   ' , tally_of_messages_for_lifetime = tally_of_messages_for_lifetime + ' + num_addressees.tostring
-    +   ' , tally_of_events_for_lifetime = tally_of_events_for_lifetime + 1'
-    + ' where name = "' + name + '"',
+    db_trail.Saved
+      (
+      'update notification'
+      + ' set tally_of_messages_for_cycle = tally_of_messages_for_cycle + ' + num_addressees.tostring
+      +   ' , tally_of_events_for_cycle = tally_of_events_for_cycle + 1'
+      +   ' , tally_of_messages_for_lifetime = tally_of_messages_for_lifetime + ' + num_addressees.tostring
+      +   ' , tally_of_events_for_lifetime = tally_of_events_for_lifetime + 1'
+      + ' where name = "' + name + '"'
+      ),
     connection
     )
     .ExecuteNonquery;

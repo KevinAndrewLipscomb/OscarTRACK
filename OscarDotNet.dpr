@@ -136,7 +136,8 @@ uses
   timeout in 'timeout.pas' {timeout.TWebForm_timeout: ki_web_ui.page_class},
   UserControl_session_interrupted in 'usercontrol\ki\UserControl_session_interrupted.pas' {UserControl_session_interrupted.TWebUserControl_session_interrupted: ki_web_ui.usercontrol_class},
   UserControl_about_tools in 'usercontrol\ki\UserControl_about_tools.pas' {UserControl_about_tools.TWebUserControl_about_tools: ki_web_ui.usercontrol_class},
-  UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class};
+  UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class},
+  report_quarterly_activity in 'noninteractive\report_quarterly_activity.pas' {report_quarterly_activity.TWebForm_report_quarterly_activity: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following
