@@ -20,6 +20,8 @@ type
     procedure InitializeComponent;
     procedure TWebUserControl_behind_the_scenes_activity_PreRender(sender: System.Object;
       e: System.EventArgs);
+    procedure DataGrid_for_cycle_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
+    procedure DataGrid_for_lifetime_ItemDataBound(sender: System.Object; e: System.Web.UI.WebControls.DataGridItemEventArgs);
   {$ENDREGION}
   strict private
     type
@@ -28,6 +30,10 @@ type
         be_interactive: boolean;
         be_loaded: boolean;
         biz_notifications: TClass_biz_notifications;
+        total_events_for_cycle: cardinal;
+        total_messages_for_cycle: cardinal;
+        total_events_for_lifetime: cardinal;
+        total_messages_for_lifetime: cardinal;
         END;
   strict private
     p: p_type;
@@ -51,6 +57,13 @@ uses
   kix,
   System.Collections,
   system.configuration;
+
+const
+  TCCI_NAME = 0;
+  TCCI_TALLY_OF_EVENTS = 1;
+  TCCI_ACTIVITY_DESCRIPTION = 2;
+  TCCI_SPACER = 3;
+  TCCI_TALLY_OF_MESSAGES = 4;
 
 procedure TWebUserControl_behind_the_scenes_activity.InjectPersistentClientSideScript;
 begin
@@ -180,6 +193,8 @@ end;
 /// </summary>
 procedure TWebUserControl_behind_the_scenes_activity.InitializeComponent;
 begin
+  Include(Self.DataGrid_for_cycle.ItemDataBound, Self.DataGrid_for_cycle_ItemDataBound);
+  Include(Self.DataGrid_for_lifetime.ItemDataBound, Self.DataGrid_for_lifetime_ItemDataBound);
   Include(Self.PreRender, Self.TWebUserControl_behind_the_scenes_activity_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
@@ -197,6 +212,42 @@ begin
   Fresh := self;
 end;
 
+procedure TWebUserControl_behind_the_scenes_activity.DataGrid_for_cycle_ItemDataBound(sender: System.Object;
+  e: System.Web.UI.WebControls.DataGridItemEventArgs);
+begin
+  case e.item.itemtype of
+  listitemtype.ITEM,
+  listitemtype.ALTERNATINGITEM:
+    BEGIN
+    p.total_events_for_cycle := p.total_events_for_cycle + uint32.Parse(e.item.cells[TCCI_TALLY_OF_EVENTS].text);
+    p.total_messages_for_cycle := p.total_messages_for_cycle + uint32.Parse(e.item.cells[TCCI_TALLY_OF_MESSAGES].text);
+    END;
+  listitemtype.FOOTER:
+    BEGIN
+    e.item.cells[TCCI_TALLY_OF_EVENTS].text := p.total_events_for_cycle.tostring;
+    e.item.cells[TCCI_TALLY_OF_MESSAGES].text := p.total_messages_for_cycle.tostring;
+    END;
+  end;
+end;
+
+procedure TWebUserControl_behind_the_scenes_activity.DataGrid_for_lifetime_ItemDataBound(sender: System.Object;
+  e: System.Web.UI.WebControls.DataGridItemEventArgs);
+begin
+  case e.item.itemtype of
+  listitemtype.ITEM,
+  listitemtype.ALTERNATINGITEM:
+    BEGIN
+    p.total_events_for_lifetime := p.total_events_for_lifetime + uint32.Parse(e.item.cells[TCCI_TALLY_OF_EVENTS].text);
+    p.total_messages_for_lifetime := p.total_messages_for_lifetime + uint32.Parse(e.item.cells[TCCI_TALLY_OF_MESSAGES].text);
+    END;
+  listitemtype.FOOTER:
+    BEGIN
+    e.item.cells[TCCI_TALLY_OF_EVENTS].text := p.total_events_for_lifetime.tostring;
+    e.item.cells[TCCI_TALLY_OF_MESSAGES].text := p.total_messages_for_lifetime.tostring;
+    END;
+  end;
+end;
+
 procedure TWebUserControl_behind_the_scenes_activity.Bind;
 begin
   p.biz_notifications.BindTallies
@@ -204,6 +255,10 @@ begin
     DataGrid_for_cycle,
     DataGrid_for_lifetime
     );
+  p.total_events_for_cycle := 0;
+  p.total_messages_for_cycle := 0;
+  p.total_events_for_lifetime := 0;
+  p.total_messages_for_lifetime := 0;
 end;
 
 end.
