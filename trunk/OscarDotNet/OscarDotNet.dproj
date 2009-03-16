@@ -8,7 +8,7 @@
     <DCC_DCCCompiler>DCCIL</DCC_DCCCompiler>
     <DCC_DependencyCheckOutputName>bin\OscarDotNet.dll</DCC_DependencyCheckOutputName>
     <DCC_EnabledPackages>true</DCC_EnabledPackages>
-    <DCC_UsePackage>ki;"C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\MySql.Data.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\AjaxControlToolkit.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
+    <DCC_UsePackage>ki;""C:\Program Files\Microsoft ASP.NET\ASP.NET 2.0 AJAX Extensions\v1.0.61025\System.Web.Extensions.dll"";C:\Inetpub\wwwroot\OscarDotNet\bin\sstchur.web.SmartNav.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCSPCChartNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\QCChart2DNet.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\MySql.Data.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\Microsoft.Web.UI.WebControls.dll;C:\Inetpub\wwwroot\OscarDotNet\bin\AjaxControlToolkit.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.XML.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Web.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Drawing.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.dll;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\System.Data.dll</DCC_UsePackage>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Version>7.0</Version>
@@ -415,6 +415,11 @@
       <Form>UserControl_agency.TWebUserControl_agency</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_behind_the_scenes_activity.pas">
+      <DependentUpon>usercontrol\app\UserControl_behind_the_scenes_activity.ascx</DependentUpon>
+      <Form>UserControl_behind_the_scenes_activity.TWebUserControl_behind_the_scenes_activity</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_commensuration.pas">
       <DependentUpon>usercontrol\app\UserControl_commensuration.ascx</DependentUpon>
       <Form>UserControl_commensuration.TWebUserControl_commensuration</Form>
@@ -675,6 +680,7 @@
     <None Include="timeout.aspx" />
     <None Include="usercontrol\app\UserControl_about.ascx" />
     <None Include="usercontrol\app\UserControl_agency.ascx" />
+    <None Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx" />
     <None Include="usercontrol\app\UserControl_commensuration.ascx" />
     <None Include="usercontrol\app\UserControl_common_header_bar.ascx" />
     <None Include="usercontrol\app\UserControl_config_binder.ascx" />

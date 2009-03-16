@@ -21,6 +21,12 @@ type
       unselected_literal: string = '-- Notification --';
       selected_value: string = EMPTY
       );
+    procedure BindTallies
+      (
+      DataGrid_for_cycle: system.object;
+      DataGrid_for_lifetime: system.object
+      );
+    procedure CycleTallies;
     procedure IssueForAgencyChange
       (
       member_id: string;
@@ -253,6 +259,20 @@ procedure TClass_biz_notifications.BindDirectToListControl
   );
 begin
   db_notifications.BindDirectToListControl(target,unselected_literal,selected_value);
+end;
+
+procedure TClass_biz_notifications.BindTallies
+  (
+  DataGrid_for_cycle: system.object;
+  DataGrid_for_lifetime: system.object
+  );
+begin
+  db_notifications.BindTallies(DataGrid_for_cycle,DataGrid_for_lifetime);
+end;
+
+procedure TClass_biz_notifications.CycleTallies;
+begin
+  db_notifications.CycleTallies;
 end;
 
 procedure TClass_biz_notifications.IssueForAgencyChange
