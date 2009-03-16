@@ -23,6 +23,12 @@ type
       unselected_literal: string = '-- Notification --';
       selected_value: string = EMPTY
       );
+    procedure BindTallies
+      (
+      DataGrid_for_cycle: system.object;
+      DataGrid_for_lifetime: system.object
+      );
+    procedure CycleTallies;
     procedure IncrementTallies
       (
       name: string;
@@ -94,6 +100,59 @@ begin
     ListControl(target).selectedvalue := selected_value;
   end;
   //
+end;
+
+procedure TClass_db_notifications.BindTallies
+  (
+  DataGrid_for_cycle: system.object;
+  DataGrid_for_lifetime: system.object
+  );
+begin
+  self.Open;
+  //
+  DataGrid(DataGrid_for_cycle).datasource := mysqlcommand.Create
+    (
+    'select name'
+    + ' , tally_of_events_for_cycle'
+    + ' , activity_description'
+    + ' , tally_of_messages_for_cycle'
+    + ' from notification'
+    + ' where name <> "needs-enrollment-review"'
+    + ' order by activity_pecking_order',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(DataGrid_for_cycle).DataBind;
+  mysqldatareader(DataGrid(DataGrid_for_cycle).datasource).Close;
+  //
+  DataGrid(DataGrid_for_lifetime).datasource := mysqlcommand.Create
+    (
+    'select name'
+    + ' , tally_of_events_for_lifetime'
+    + ' , activity_description'
+    + ' , tally_of_messages_for_lifetime'
+    + ' from notification'
+    + ' where name <> "needs-enrollment-review"'
+    + ' order by activity_pecking_order',
+    connection
+    )
+    .ExecuteReader;
+  DataGrid(DataGrid_for_lifetime).DataBind;
+  mysqldatareader(DataGrid(DataGrid_for_lifetime).datasource).Close;
+  //
+  self.Close;
+end;
+
+procedure TClass_db_notifications.CycleTallies;
+begin
+  self.Open;
+  mysqlcommand.Create
+    (
+    db_trail.Saved('update notification set tally_of_messages_for_cycle = 0, tally_of_events_for_cycle = 0'),
+    connection
+    )
+    .ExecuteNonquery;
+  self.Close;
 end;
 
 procedure TClass_db_notifications.IncrementTallies
