@@ -32,7 +32,7 @@ type
     procedure IncrementTallies
       (
       name: string;
-      num_addressees: cardinal
+      num_addressees: cardinal = 0
       );
     function TargetOf
       (
@@ -158,7 +158,7 @@ end;
 procedure TClass_db_notifications.IncrementTallies
   (
   name: string;
-  num_addressees: cardinal
+  num_addressees: cardinal = 0
   );
 begin
   self.Open;

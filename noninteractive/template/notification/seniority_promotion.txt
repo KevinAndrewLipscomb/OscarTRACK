@@ -1,7 +1,7 @@
 <cad_num/> <last_name/>, <first_name/> => <new_level/>
 This is an automatic notification from <application_name/>.
 
-OscarTRACK has automatically changed <first_name/> <last_name/>'s membership status to:
+<application_name/> has automatically changed <first_name/> <last_name/>'s membership status to:
 
    <new_level/>
 

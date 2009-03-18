@@ -1,0 +1,14 @@
+<cad_num/> <last_name/>, <first_name/> => Unknown
+This is an automatic notification from the Virginia Beach EMS <application_name/> system.
+
+<application_name/> has detected that <first_name/> <last_name/> (<cad_num/>) has lingered in the Applicant membership status for one full year.  Consequently, <application_name/> has automatically changed <first_name/>'s membership status to:
+
+   Unknown
+
+This moves <first_name/> from the Current roster to the Past roster.
+
+<first_name/>, unless we have notified you otherwise, we are still recruiting, and we would still like to have you as a member.  To reapply, please contact:
+
+   <department_member_status_coordinator/> (mailto:<department_member_status_coordinator/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
