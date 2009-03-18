@@ -51,6 +51,13 @@ type
       cad_num: string;
       be_driver_qualified: boolean
       );
+    procedure IssueForFailureToThriveDemotion
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string
+      );
     procedure IssueForForgottenUsername
       (
       email_address: string;
@@ -466,6 +473,54 @@ begin
     EMPTY,
     //reply_to
     actor_email_address
+    );
+  template_reader.Close;
+end;
+
+procedure TClass_biz_notifications.IssueForFailureToThriveDemotion
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string
+  );
+var
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<member_id/>',member_id)
+      .Replace('<department_member_status_coordinator/>',configurationmanager.appsettings['department_member_status_coordinator']);
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/failure_to_thrive_demotion.txt'));
+  kix.SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + COMMA + db_notifications.TargetOf('failure-to-thrive-demotion',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd)
     );
   template_reader.Close;
 end;

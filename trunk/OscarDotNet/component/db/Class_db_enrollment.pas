@@ -34,6 +34,8 @@ type
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
+    function FailureToThriveDemotionsSince(watermark: string): queue;
+    function MakeFailureToThriveDemotions: string;
     function MakeSeniorityPromotions: string;
     function NumObligedShifts(description: string): cardinal;
     function SeniorityPromotionsSince(watermark: string): queue;
@@ -187,6 +189,68 @@ begin
   DescriptionOf := mysqlcommand.Create
     ('select description from enrollment_level where code = ' + level_code,connection).ExecuteScalar.tostring;
   self.Close;
+end;
+
+function TClass_db_enrollment.FailureToThriveDemotionsSince(watermark: string): queue;
+var
+  dr: mysqldatareader;
+  member_id_q: queue;
+begin
+  member_id_q := queue.Create;
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select member_id'
+    + ' from enrollment_history'
+    + ' where id > ' + watermark
+    +   ' and level_code = 16'
+    +   ' and end_date is null',
+    connection
+    )
+    .ExecuteReader;
+  while dr.Read do begin
+    member_id_q.Enqueue(dr['member_id']);
+  end;
+  dr.Close;
+  self.Close;
+  FailureToThriveDemotionsSince := member_id_q;
+end;
+
+function TClass_db_enrollment.MakeFailureToThriveDemotions: string;
+var
+  watermark: string;
+begin
+  self.Open;
+  watermark := mysqlcommand.Create('select max(id) from enrollment_history',connection).ExecuteScalar.tostring;
+  mysqlcommand.Create
+    (
+    //
+    // Deliberately not db_trail.Saved.
+    //
+    'START TRANSACTION;'
+    + ' insert into enrollment_history (member_id,level_code,start_date,end_date)'
+    +   ' SELECT member_id,16,curdate(),NULL'
+    +     ' FROM enrollment_history'
+    +       ' join member on (member.id=enrollment_history.member_id)'
+    +     ' where level_code = 17'
+    +       ' and end_date is null'
+    +       ' and start_date <= date_sub(curdate(),interval 1 year)'
+    +       ' and enrollment_history.id <= ' + watermark
+    + ' ;'
+    + ' update enrollment_history'
+    +   ' join member on (member.id=enrollment_history.member_id)'
+    + ' set end_date = curdate()'
+    +   ' where level_code = 17'
+    +     ' and end_date is null'
+    +     ' and start_date <= date_sub(curdate(),interval 1 year)'
+    +     ' and enrollment_history.id <= ' + watermark
+    + ' ;'
+    + ' COMMIT',
+    connection
+    )
+    .ExecuteNonQuery;
+  self.Close;
+  MakeFailureToThriveDemotions := watermark;
 end;
 
 function TClass_db_enrollment.MakeSeniorityPromotions: string;

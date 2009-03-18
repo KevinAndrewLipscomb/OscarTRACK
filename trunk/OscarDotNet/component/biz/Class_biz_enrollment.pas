@@ -60,6 +60,7 @@ type
     function CodeOf(description: string): string;
     function DescriptionOf(level_code: string): string;
     function ElaborationOf(description: string): string;
+    procedure MakeFailureToThriveDemotions;
     procedure MakeSeniorityPromotions;
     function SetLevel
       (
@@ -124,7 +125,6 @@ begin
   db_enrollment.BindTransitionRadioButtonList(member_id,tier_id,target);
 end;
 
-
 procedure TClass_biz_enrollment.BindUncontrolledListControl(target: system.object);
 begin
   db_enrollment.BindUncontrolledListControl(target);
@@ -143,6 +143,30 @@ end;
 function TClass_biz_enrollment.DescriptionOf(level_code: string): string;
 begin
   DescriptionOf := db_enrollment.DescriptionOf(level_code);
+end;
+
+procedure TClass_biz_enrollment.MakeFailureToThriveDemotions;
+var
+  biz_members: TClass_biz_members;
+  i: cardinal;
+  member_id: string;
+  member_id_q: queue;
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  //
+  member_id_q := db_enrollment.FailureToThriveDemotionsSince(db_enrollment.MakeFailureToThriveDemotions);
+  for i := 1 to member_id_q.Count do begin
+    member_id := member_id_q.Dequeue.tostring;
+    biz_notifications.IssueForFailureToThriveDemotion
+      (
+      member_id,
+      biz_members.FirstNameOfMemberId(member_id),
+      biz_members.LastNameOfMemberId(member_id),
+      biz_members.CadNumOfMemberId(member_id)
+      );
+    //
+  end;
 end;
 
 procedure TClass_biz_enrollment.MakeSeniorityPromotions;
