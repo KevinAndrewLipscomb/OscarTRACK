@@ -107,7 +107,8 @@ type
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = BOTH;
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
-      section_filter: Class_biz_sections.filter_type = 0
+      section_filter: Class_biz_sections.filter_type = 0;
+      running_only_filter: boolean = FALSE
       );
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
@@ -849,13 +850,15 @@ procedure TClass_db_members.BindRoster
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = BOTH;
   med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
-  section_filter: Class_biz_sections.filter_type = 0
+  section_filter: Class_biz_sections.filter_type = 0;
+  running_only_filter: boolean = FALSE
   );
 var
   any_relevant_leave: string;
   command_text: string;
   filter: string;
   kind_of_leave_selection_clause: string;
+  obliged_shifts_selection_clause: string;
 begin
   //
   any_relevant_leave :=
@@ -939,6 +942,11 @@ begin
   end;
   //
   kind_of_leave_selection_clause := 'if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"")';
+  obliged_shifts_selection_clause := 'if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts)';
+  //
+  if running_only_filter then begin
+    filter := filter + ' and ' + obliged_shifts_selection_clause + ' > 0 ';
+  end;
   //
   command_text :=
   'select member.id as member_id'                                                           // column 1
@@ -955,7 +963,7 @@ begin
   + ' , core_ops_commitment_level_code'                                                     // column 12
   + ' , num_shifts as enrollment_obligation'                                                // column 13
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                            // column 14
-  + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'     // column 15
+  + ' , ' + obliged_shifts_selection_clause + ' as obliged_shifts'                          // column 15
   + ' , email_address'                                                                      // column 16
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'

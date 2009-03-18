@@ -41,8 +41,9 @@ type
     procedure DropDownList_section_filter_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
     procedure Button_send_Click(sender: System.Object; e: System.EventArgs);
-    procedure DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object; 
+    procedure DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
+    procedure CheckBox_running_only_CheckedChanged(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     type
@@ -70,6 +71,7 @@ type
         num_raw_shifts: cardinal;  // does not take into account leaves
         num_standard_commitments: cardinal;
         relative_month: cardinal;
+        running_only_filter: boolean;
         section_filter: Class_biz_sections.filter_type;
         sort_order: string;
         years_of_service_array_list: arraylist;
@@ -79,37 +81,39 @@ type
     procedure Bind;
     procedure Page_Load(sender: System.Object; e: System.EventArgs);
   strict protected
-    Label_leave_filter: System.Web.UI.WebControls.Label;
-    DataGrid_roster: System.Web.UI.WebControls.DataGrid;
-    TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
-    DropDownList_leave_filter: System.Web.UI.WebControls.DropDownList;
-    DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
-    RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     LinkButton_add_member: System.Web.UI.WebControls.LinkButton;
-    DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
-    DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
-    TableRow_data: System.Web.UI.HtmlControls.HtmlTableRow;
-    Label_distribution_list: System.Web.UI.WebControls.Label;
-    TextBox_quick_message_subject: System.Web.UI.WebControls.TextBox;
-    TextBox_quick_message_body: System.Web.UI.WebControls.TextBox;
-    RequiredFieldValidator_quick_message_body: System.Web.UI.WebControls.RequiredFieldValidator;
-    Button_send: System.Web.UI.WebControls.Button;
-    Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
-    TableData_agency_filter: System.Web.UI.HtmlControls.HtmlTableCell;
     DropDownList_agency_filter: System.Web.UI.WebControls.DropDownList;
-    TableData_section_filter: System.Web.UI.HtmlControls.HtmlTableCell;
+    DropDownList_section_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_med_release_filter: System.Web.UI.WebControls.DropDownList;
+    DropDownList_enrollment_filter: System.Web.UI.WebControls.DropDownList;
+    Label_leave_filter: System.Web.UI.WebControls.Label;
+    DropDownList_leave_filter: System.Web.UI.WebControls.DropDownList;
+    Label_running_only: System.Web.UI.WebControls.Label;
+    RadioButtonList_which_month: System.Web.UI.WebControls.RadioButtonList;
     Label_num_rows: System.Web.UI.WebControls.Label;
     Label_core_ops_commitment_factor: System.Web.UI.WebControls.Label;
     Label_core_ops_commitment_caption: System.Web.UI.WebControls.Label;
     Label_utilization: System.Web.UI.WebControls.Label;
     Label_utilization_caption: System.Web.UI.WebControls.Label;
     Label_num_crew_shifts: System.Web.UI.WebControls.Label;
-    Label_median_value: System.Web.UI.WebControls.Label;
     Label_percentile_25_value: System.Web.UI.WebControls.Label;
+    Label_median_value: System.Web.UI.WebControls.Label;
     Label_percentile_75_value: System.Web.UI.WebControls.Label;
-    Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
-    Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
+    DataGrid_roster: System.Web.UI.WebControls.DataGrid;
     Label_author_email_address: System.Web.UI.WebControls.Label;
+    TextBox_quick_message_subject: System.Web.UI.WebControls.TextBox;
+    TextBox_quick_message_body: System.Web.UI.WebControls.TextBox;
+    RequiredFieldValidator_quick_message_body: System.Web.UI.WebControls.RequiredFieldValidator;
+    Button_send: System.Web.UI.WebControls.Button;
+    Label_distribution_list: System.Web.UI.WebControls.Label;
+    TableData_agency_filter: System.Web.UI.HtmlControls.HtmlTableCell;
+    TableData_section_filter: System.Web.UI.HtmlControls.HtmlTableCell;
+    Table_years_of_service_percentiles: System.Web.UI.HtmlControls.HtmlTable;
+    TableRow_none: System.Web.UI.HtmlControls.HtmlTableRow;
+    TableRow_data: System.Web.UI.HtmlControls.HtmlTableRow;
+    Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
+    Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
+    CheckBox_running_only: System.Web.UI.WebControls.CheckBox;
   protected
     procedure OnInit(e: System.EventArgs); override;
   published
@@ -145,6 +149,7 @@ begin
     DropDownList_enrollment_filter.selectedvalue := enum(p.enrollment_filter).tostring.tolower;
     RadioButtonList_which_month.selectedvalue := p.relative_month.tostring;
     DropDownList_leave_filter.selectedvalue := enum(p.leave_filter).tostring.tolower;
+    CheckBox_running_only.checked := p.running_only_filter;
     //
     if session['mode:report'] = nil then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
@@ -164,6 +169,7 @@ begin
       RequiredFieldValidator_quick_message_body.enabled := FALSE;
       Button_send.enabled := FALSE;
       DropDownList_agency_filter.enabled := FALSE;
+      CheckBox_running_only.checked := FALSE;
     end;
     //
     Bind;
@@ -219,6 +225,7 @@ begin
     p.num_raw_shifts := 0;
     p.num_standard_commitments := 0;
     p.relative_month := 0;
+    p.running_only_filter := FALSE;
     p.sort_order := 'last_name,first_name,cad_num';
     p.years_of_service_array_list := arraylist.Create;
     //
@@ -228,6 +235,7 @@ begin
     then begin
       p.enrollment_filter := STANDARD_OPS;
       p.relative_month := 1;
+      p.running_only_filter := TRUE;
     end else if session['mode:report/monthly-emt-intern-roster'] <> nil then begin
       p.enrollment_filter := CURRENT;
       p.relative_month := 0;
@@ -316,6 +324,7 @@ begin
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.Button_send.Click, Self.Button_send_Click);
+  Include(Self.CheckBox_running_only.CheckedChanged, Self.CheckBox_running_only_CheckedChanged);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
@@ -494,7 +503,8 @@ begin
     p.enrollment_filter,
     p.leave_filter,
     p.med_release_level_filter,
-    p.section_filter
+    p.section_filter,
+    p.running_only_filter
     );
   //
   be_raw_shifts_nonzero := (p.num_raw_shifts > 0);
@@ -547,6 +557,13 @@ function TWebUserControl_roster.Fresh: TWebUserControl_roster;
 begin
   session.Remove('UserControl_roster.p');
   Fresh := self;
+end;
+
+procedure TWebUserControl_roster.CheckBox_running_only_CheckedChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.running_only_filter := CheckBox_running_only.checked;
+  Bind;
 end;
 
 end.

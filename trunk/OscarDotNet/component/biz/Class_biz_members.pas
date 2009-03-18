@@ -100,7 +100,8 @@ type
       enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
       leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
       med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
-      section_filter: Class_biz_sections.filter_type = 0
+      section_filter: Class_biz_sections.filter_type = 0;
+      running_only_filter: boolean = FALSE
       );
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
@@ -369,7 +370,8 @@ procedure TClass_biz_members.BindRoster
   enrollment_filter: Class_biz_enrollment.filter_type = CURRENT;
   leave_filter: Class_biz_leave.filter_type = Class_biz_leave.NONE;
   med_release_level_filter: Class_biz_medical_release_levels.filter_type = ALL;
-  section_filter: Class_biz_sections.filter_type = 0
+  section_filter: Class_biz_sections.filter_type = 0;
+  running_only_filter: boolean = FALSE
   );
 begin
   db_members.BindRoster
@@ -383,7 +385,8 @@ begin
     enrollment_filter,
     leave_filter,
     med_release_level_filter,
-    section_filter
+    section_filter,
+    running_only_filter
     );
 end;
 
