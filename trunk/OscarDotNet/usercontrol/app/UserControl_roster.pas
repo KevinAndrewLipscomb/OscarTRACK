@@ -235,7 +235,6 @@ begin
     then begin
       p.enrollment_filter := STANDARD_OPS;
       p.relative_month := 1;
-      p.running_only_filter := TRUE;
     end else if session['mode:report/monthly-emt-intern-roster'] <> nil then begin
       p.enrollment_filter := CURRENT;
       p.relative_month := 0;
