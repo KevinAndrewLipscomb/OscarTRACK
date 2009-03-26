@@ -22,6 +22,8 @@ This is an automatic notification from <application_name/>.
    Enrollment level:
       <enrollment_level/>
 
+STANDARD DISCLAIMER:  The Agency assignment shown above may be *preliminary -- for OscarTRACK purposes only*.  Although the agency hopes to recruit <first_name/> as a valuable member, it may choose to perform its own processing of <first_name/>'s application before enscribing <first_name/> onto its corporate roll.  <first_name/> may also request a different Agency assignment by re-contacting the Virginia Beach Department of EMS.
+
 You can reach <actor/> at:
 
    <actor_email_address/> (mailto:<actor_email_address/>)
