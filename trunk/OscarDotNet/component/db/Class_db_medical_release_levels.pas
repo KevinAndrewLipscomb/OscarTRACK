@@ -14,11 +14,7 @@ type
     { Private Declarations }
   public
     constructor Create;
-    procedure BindListControl
-      (
-      target: system.object;
-      selected_description: string = ''
-      );
+    procedure BindListControl(target: system.object);
     function DescriptionOf(code: string): string;
   end;
 
@@ -35,30 +31,21 @@ begin
   // TODO: Add any constructor code here
 end;
 
-procedure TClass_db_medical_release_levels.BindListControl
-  (
-  target: system.object;
-  selected_description: string = ''
-  );
+procedure TClass_db_medical_release_levels.BindListControl(target: system.object);
 var
   dr: mysqldatareader;
 begin
   self.Open;
   ListControl(target).items.Clear;
-  if selected_description = EMPTY then begin
-    ListControl(target).Items.Add(listitem.Create('-- Select --',''));
-  end;
+  ListControl(target).Items.Add(listitem.Create('-- Select --',''));
   dr := mysqlcommand.Create
     (
-    'SELECT code, description from medical_release_code_description_map order by pecking_order',
+    'SELECT code, description from medical_release_code_description_map where be_hereafter_valid order by pecking_order',
     connection
     )
     .ExecuteReader;
   while dr.Read do begin
     ListControl(target).Items.Add(listitem.Create(dr['description'].tostring,dr['code'].ToString));
-    if dr['description'].tostring = selected_description then begin
-      ListControl(target).selectedvalue := dr['code'].tostring;
-    end;
   end;
   dr.Close;
   self.Close;
