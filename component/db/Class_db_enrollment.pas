@@ -156,7 +156,7 @@ begin
   ListControl(target).Items.Add(listitem.Create('-- Select --',''));
   dr := mysqlcommand.Create
     (
-    'SELECT code, description from enrollment_level order by pecking_order',
+    'SELECT code, description from enrollment_level where be_hereafter_valid order by pecking_order',
     connection
     )
     .ExecuteReader;

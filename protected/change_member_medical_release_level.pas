@@ -38,12 +38,10 @@ type
     Button_submit: System.Web.UI.WebControls.Button;
     Button_cancel: System.Web.UI.WebControls.Button;
     HtmlTable_proper_release_reminder: System.Web.UI.HtmlControls.HtmlTable;
+    Label_current_medical_release_level: System.Web.UI.WebControls.Label;
+    RequiredFieldValidator_medical_release_level: System.Web.UI.WebControls.RequiredFieldValidator;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
@@ -91,7 +89,8 @@ begin
       //
       HtmlTable_proper_release_reminder.visible := not Has(string_array(session['privilege_array']),'release-trainees');
       //
-      p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level,p.saved_level);
+      Label_current_medical_release_level.text := p.saved_level;
+      p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
       //
     end;
   end;
