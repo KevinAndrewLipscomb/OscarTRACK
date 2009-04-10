@@ -120,6 +120,8 @@ begin
         p.biz_members.HighestTierOf(p.biz_members.IdOfUserId(p.biz_user.IdNum)),
         RadioButtonList_disposition
         );
+      UserControl_effective_date.minyear := '1940';
+      UserControl_effective_date.maxyear := uint32(datetime.Today.Year + 1).tostring;
       UserControl_effective_date.selectedvalue := datetime.Today;
       //
       Label_no_transitions_available.visible := (RadioButtonList_disposition.items.count = 0);
