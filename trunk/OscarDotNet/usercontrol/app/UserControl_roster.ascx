@@ -7,14 +7,7 @@
           <td>
             <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
               <tr>
-                <td>
-                  <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                      <tr>
-                        <td><strong>Roster</strong></td>
-                        <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False">Add member(s)</ASP:LinkButton></td>
-                      </tr>
-                  </table>
-                </td>
+                <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False">Add member(s)</ASP:LinkButton></td>
               </tr>
               <tr>
                 <td align="right">
