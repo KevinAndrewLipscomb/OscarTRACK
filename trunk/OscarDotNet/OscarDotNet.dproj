@@ -142,7 +142,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3252.31843</Version>
+      <Version>1.0.3418.18628</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -177,6 +177,7 @@
     <DCCReference Include="component\biz\Class_biz_users.pas" />
     <DCCReference Include="component\biz\Class_biz_user_member_map.pas" />
     <DCCReference Include="component\db\Class_db.pas" />
+    <DCCReference Include="component\db\Class_dbkeyclick.pas" />
     <DCCReference Include="component\db\Class_db_accounts.pas" />
     <DCCReference Include="component\db\Class_db_agencies.pas" />
     <DCCReference Include="component\db\Class_db_enrollment.pas" />
@@ -450,9 +451,24 @@
       <Form>UserControl_establish_membership.TWebUserControl_establish_membership</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_funddrive_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_funddrive_binder.ascx</DependentUpon>
+      <Form>UserControl_funddrive_binder.TWebUserControl_funddrive_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_log_new_donation.pas">
+      <DependentUpon>usercontrol\app\UserControl_log_new_donation.ascx</DependentUpon>
+      <Form>UserControl_log_new_donation.TWebUserControl_log_new_donation</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_member_binder.pas">
       <DependentUpon>usercontrol\app\UserControl_member_binder.ascx</DependentUpon>
       <Form>UserControl_member_binder.TWebUserControl_member_binder</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="usercontrol\app\UserControl_personnel_binder.pas">
+      <DependentUpon>usercontrol\app\UserControl_personnel_binder.ascx</DependentUpon>
+      <Form>UserControl_personnel_binder.TWebUserControl_personnel_binder</Form>
       <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_postcontent.pas">
@@ -563,6 +579,8 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_length_of_service.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx</DependentUpon>
@@ -571,15 +589,23 @@
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_serial_indicator_utilization.pas">
       <DependentUpon>usercontrol\app\UserControl_serial_indicator_utilization.ascx</DependentUpon>
+      <Form>UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization</Form>
+      <DesignClass>ki_web_ui.usercontrol_class</DesignClass>
     </DCCReference>
     <DCCReference Include="usercontrol\app\UserControl_update_progress_blocker.pas">
       <DependentUpon>usercontrol\app\UserControl_update_progress_blocker.ascx</DependentUpon>
@@ -687,7 +713,10 @@
     <None Include="usercontrol\app\UserControl_current_indicators.ascx" />
     <None Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
     <None Include="usercontrol\app\UserControl_establish_membership.ascx" />
+    <None Include="usercontrol\app\UserControl_funddrive_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_log_new_donation.ascx" />
     <None Include="usercontrol\app\UserControl_member_binder.ascx" />
+    <None Include="usercontrol\app\UserControl_personnel_binder.ascx" />
     <None Include="usercontrol\app\UserControl_postcontent.ascx" />
     <None Include="usercontrol\app\UserControl_precontent.ascx" />
     <None Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />

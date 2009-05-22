@@ -142,11 +142,28 @@ end;
 
 procedure TWebForm_salogin.CustomValidator_account_exists_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
+var
+  dummy_boolean: boolean;
+  dummy_cardinal: cardinal;
+  dummy_string: string;
 begin
-  args.isvalid := p.biz_users.BeAuthorizedSysadmin
-    (
-    Digest(Safe(TextBox_password.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM))
-    );
+  args.isvalid := TRUE
+    and p.biz_users.Get
+      (
+      Safe(TextBox_username.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM),
+      dummy_string,
+      dummy_boolean,
+      dummy_string,
+      dummy_boolean,
+      dummy_cardinal,
+      dummy_string
+      )
+    and p.biz_users.BeAuthorizedSysadmin
+      (
+      Digest(Safe(TextBox_password.Text.trim,HYPHENATED_UNDERSCORED_ALPHANUM))
+      );
+    //
+  //
 end;
 
 procedure TWebForm_salogin.Button_log_in_Click(sender: System.Object; e: System.EventArgs);
