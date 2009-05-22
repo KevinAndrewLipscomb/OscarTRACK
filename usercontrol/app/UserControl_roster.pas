@@ -195,7 +195,7 @@ begin
   //
   if session['UserControl_roster.p'] <> nil then begin
     p := p_type(session['UserControl_roster.p']);
-    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_PlaceHolder_content']) = 'UserControl_roster');
+    p.be_loaded := IsPostBack and (string(session['UserControl_member_binder_UserControl_personnel_binder_PlaceHolder_content']) = 'UserControl_roster');
   end else begin
     //
     p.be_loaded := FALSE;

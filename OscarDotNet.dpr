@@ -81,12 +81,12 @@ uses
   UserControl_ranked_utilization in 'usercontrol\app\UserControl_ranked_utilization.pas' {UserControl_ranked_utilization.TWebUserControl_ranked_utilization: ki_web_ui.usercontrol_class},
   UserControl_roster in 'usercontrol\app\UserControl_roster.pas' {UserControl_roster.TWebUserControl_roster: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_commensuration in 'usercontrol\app\UserControl_serial_indicator_commensuration.pas' {UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration: ki_web_ui.usercontrol_class},
-  UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas',
+  UserControl_serial_indicator_length_of_service in 'usercontrol\app\UserControl_serial_indicator_length_of_service.pas' {UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service: ki_web_ui.usercontrol_class},
   UserControl_serial_indicator_num_core_ops_members in 'usercontrol\app\UserControl_serial_indicator_num_core_ops_members.pas' {UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members: ki_web_ui.usercontrol_class},
-  UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas',
-  UserControl_serial_indicator_potential_crew_shifts in 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas',
-  UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas',
-  UserControl_serial_indicator_utilization in 'usercontrol\app\UserControl_serial_indicator_utilization.pas',
+  UserControl_serial_indicator_num_members_in_pipeline in 'usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.pas' {UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_potential_crew_shifts in 'usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.pas' {UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_standard_enrollment in 'usercontrol\app\UserControl_serial_indicator_standard_enrollment.pas' {UserControl_serial_indicator_standard_enrollment.TWebUserControl_serial_indicator_standard_enrollment: ki_web_ui.usercontrol_class},
+  UserControl_serial_indicator_utilization in 'usercontrol\app\UserControl_serial_indicator_utilization.pas' {UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization: ki_web_ui.usercontrol_class},
   UserControl_serial_indicators_binder in 'usercontrol\app\UserControl_serial_indicators_binder.pas' {UserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder: ki_web_ui.usercontrol_class},
   UserControl_print_div in 'usercontrol\ki\UserControl_print_div.pas' {UserControl_print_div.TWebUserControl_print_div: ki_web_ui.usercontrol_class},
   UserControl_bread_crumb_trail in 'usercontrol\ki\UserControl_bread_crumb_trail.pas' {UserControl_bread_crumb_trail.TWebUserControl_bread_crumb_trail: ki_web_ui.usercontrol_class},
@@ -138,7 +138,11 @@ uses
   UserControl_about_tools in 'usercontrol\ki\UserControl_about_tools.pas' {UserControl_about_tools.TWebUserControl_about_tools: ki_web_ui.usercontrol_class},
   UserControl_about_by in 'usercontrol\ki\UserControl_about_by.pas' {UserControl_about_by.TWebUserControl_about_by: ki_web_ui.usercontrol_class},
   report_quarterly_activity in 'noninteractive\report_quarterly_activity.pas' {report_quarterly_activity.TWebForm_report_quarterly_activity: system.web.ui.page},
-  UserControl_behind_the_scenes_activity in 'usercontrol\app\UserControl_behind_the_scenes_activity.pas' {UserControl_behind_the_scenes_activity.TWebUserControl_behind_the_scenes_activity: ki_web_ui.usercontrol_class};
+  UserControl_behind_the_scenes_activity in 'usercontrol\app\UserControl_behind_the_scenes_activity.pas' {UserControl_behind_the_scenes_activity.TWebUserControl_behind_the_scenes_activity: ki_web_ui.usercontrol_class},
+  Class_dbkeyclick in 'component\db\Class_dbkeyclick.pas',
+  UserControl_funddrive_binder in 'usercontrol\app\UserControl_funddrive_binder.pas' {UserControl_funddrive_binder.TWebUserControl_funddrive_binder: ki_web_ui.usercontrol_class},
+  UserControl_personnel_binder in 'usercontrol\app\UserControl_personnel_binder.pas' {UserControl_personnel_binder.TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class},
+  UserControl_log_new_donation in 'usercontrol\app\UserControl_log_new_donation.pas' {UserControl_log_new_donation.TWebUserControl_log_new_donation: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following

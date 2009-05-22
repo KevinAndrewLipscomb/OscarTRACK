@@ -10,7 +10,7 @@ uses
   System.Web,
   System.Web.UI,
   System.Web.UI.WebControls,
-  System.Web.UI.HtmlControls, Microsoft.Web.UI.WebControls;
+  System.Web.UI.HtmlControls;
 
 type
   p_type =
@@ -33,13 +33,8 @@ type
   strict protected
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
     TabContainer_control: AjaxControlToolkit.TabContainer;
-    TabPanel_results: AjaxControlToolkit.TabPanel;
   protected
     procedure OnInit(e: System.EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   published
     function Fresh: TWebUserControl_member_binder;
   end;
@@ -51,26 +46,21 @@ uses
   System.Collections,
   system.configuration,
   UserControl_about,
-  UserControl_commensuration,
   UserControl_config_binder,
-  UserControl_dashboard_binder,
-  UserControl_roster;
+  UserControl_funddrive_binder,
+  UserControl_personnel_binder;
 
 const
-  TSSI_RESOURCES = 0;
-  TSSI_RESULTS = 1;
-  TSSI_DASHBOARD = 2;
-  TSSI_CONFIG = 3;
-  TSSI_ABOUT = 4;
+  TSSI_PERSONNEL = 0;
+  TSSI_FUNDDRIVE = 1;
+  TSSI_CONFIG = 2;
+  TSSI_ABOUT = 3;
 
 procedure TWebUserControl_member_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
   if not p.be_loaded then begin
     //
-    if Has(string_array(session['privilege_array']),'enter-actual-crew-shifts') then begin
-      TabPanel_results.enabled := TRUE;
-    end;
     //
     p.be_loaded := TRUE;
     //
@@ -95,25 +85,18 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
-    TSSI_RESOURCES:
+    TSSI_PERSONNEL:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')),
-        'UserControl_roster',
+        TWebUserControl_personnel_binder(LoadControl('~/usercontrol/app/UserControl_personnel_binder.ascx')),
+        'UserControl_personnel_binder',
         PlaceHolder_content
         );
-    TSSI_RESULTS:
+    TSSI_FUNDDRIVE:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
-        TWebUserControl_commensuration(LoadControl('~/usercontrol/app/UserControl_commensuration.ascx')),
-        'UserControl_commensuration',
-        PlaceHolder_content
-        );
-    TSSI_DASHBOARD:
-      p.content_id := AddIdentifiedControlToPlaceHolder
-        (
-        TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')),
-        'UserControl_dashboard_binder',
+        TWebUserControl_funddrive_binder(LoadControl('~/usercontrol/app/UserControl_funddrive_binder.ascx')),
+        'UserControl_funddrive_binder',
         PlaceHolder_content
         );
     TSSI_CONFIG:
@@ -136,12 +119,12 @@ begin
     //
     p.be_loaded := FALSE;
     //
-    p.tab_index := TSSI_RESOURCES;
+    p.tab_index := TSSI_PERSONNEL;
     //
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')),
-      'UserControl_roster',
+      TWebUserControl_personnel_binder(LoadControl('~/usercontrol/app/UserControl_personnel_binder.ascx')).Fresh,
+      'UserControl_personnel_binder',
       PlaceHolder_content
       );
     //
@@ -190,25 +173,18 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
-  TSSI_RESOURCES:
+  TSSI_PERSONNEL:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')),
-      'UserControl_roster',
+      TWebUserControl_personnel_binder(LoadControl('~/usercontrol/app/UserControl_personnel_binder.ascx')).Fresh,
+      'UserControl_personnel_binder',
       PlaceHolder_content
       );
-  TSSI_RESULTS:
+  TSSI_FUNDDRIVE:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_commensuration(LoadControl('~/usercontrol/app/UserControl_commensuration.ascx')).Fresh,
-      'UserControl_commensuration',
-      PlaceHolder_content
-      );
-  TSSI_DASHBOARD:
-    p.content_id := AddIdentifiedControlToPlaceHolder
-      (
-      TWebUserControl_dashboard_binder(LoadControl('~/usercontrol/app/UserControl_dashboard_binder.ascx')).Fresh,
-      'UserControl_dashboard_binder',
+      TWebUserControl_funddrive_binder(LoadControl('~/usercontrol/app/UserControl_funddrive_binder.ascx')).Fresh,
+      'UserControl_funddrive_binder',
       PlaceHolder_content
       );
   TSSI_CONFIG:
