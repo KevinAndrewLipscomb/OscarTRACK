@@ -153,7 +153,7 @@ begin
     //
     AddIdentifiedControlToPlaceHolder
       (
-      TWebUserControl_serial_indicator_commensuration(LoadControl('~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx')),
+      TWebUserControl_serial_indicator_commensuration(LoadControl('~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx')).Fresh,
       'UserControl_serial_indicator_commensuration',
       PlaceHolder_content
       );
