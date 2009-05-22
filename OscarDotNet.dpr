@@ -142,7 +142,8 @@ uses
   Class_dbkeyclick in 'component\db\Class_dbkeyclick.pas',
   UserControl_funddrive_binder in 'usercontrol\app\UserControl_funddrive_binder.pas' {UserControl_funddrive_binder.TWebUserControl_funddrive_binder: ki_web_ui.usercontrol_class},
   UserControl_personnel_binder in 'usercontrol\app\UserControl_personnel_binder.pas' {UserControl_personnel_binder.TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class},
-  UserControl_log_new_donation in 'usercontrol\app\UserControl_log_new_donation.pas' {UserControl_log_new_donation.TWebUserControl_log_new_donation: ki_web_ui.usercontrol_class};
+  UserControl_log_new_donation in 'usercontrol\app\UserControl_log_new_donation.pas' {UserControl_log_new_donation.TWebUserControl_log_new_donation: ki_web_ui.usercontrol_class},
+  UserControl_funddrive_teaser in 'usercontrol\app\UserControl_funddrive_teaser.pas' {UserControl_funddrive_teaser.TWebUserControl_funddrive_teaser: ki_web_ui.usercontrol_class};
 
 //
 // General Information about an assembly is controlled through the following
