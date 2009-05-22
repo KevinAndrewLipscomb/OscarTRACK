@@ -36,6 +36,7 @@ type
   strict protected
     TabContainer_control: AjaxControlToolkit.TabContainer;
     PlaceHolder_content: System.Web.UI.WebControls.PlaceHolder;
+    TabPanel_about: tabpanel;
     TabPanel_new_donation: tabpanel;
     TabPanel_old_donation: tabpanel;
   protected
@@ -50,13 +51,15 @@ uses
   kix,
   System.Collections,
   system.configuration,
+  UserControl_funddrive_teaser,
   UserControl_log_new_donation
 //  ,UserControl_log_old_donation
   ;
 
 const
-  TSSI_NEW_DONATION = 0;
-//  TSSI_OLD_DONATION = 1;
+  TSSI_TEASER = 0;
+  TSSI_NEW_DONATION = 1;
+//  TSSI_OLD_DONATION = 2;
 
 procedure TWebUserControl_funddrive_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
@@ -66,9 +69,8 @@ begin
     TabContainer_control.activetabindex := p.tab_index;
     //
     if Has(string_array(session['privilege_array']),'log-donations') then begin
+      TabPanel_about.enabled := FALSE;
       TabPanel_new_donation.enabled := TRUE;
-    end;
-    if Has(string_array(session['privilege_array']),'log-donations') then begin
       TabPanel_old_donation.enabled := TRUE;
     end;
     //
@@ -98,6 +100,13 @@ begin
     // Dynamic controls must be re-added on each postback.
     //
     case p.tab_index of
+    TSSI_TEASER:
+      p.content_id := AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_funddrive_teaser(LoadControl('~/usercontrol/app/UserControl_funddrive_teaser.ascx')),
+        'UserControl_funddrive_teaser',
+        PlaceHolder_content
+        );
     TSSI_NEW_DONATION:
       p.content_id := AddIdentifiedControlToPlaceHolder
         (
@@ -124,14 +133,23 @@ begin
     //
     p.be_loaded := FALSE;
     //
-    p.tab_index := TSSI_NEW_DONATION;
-    //
-    p.content_id := AddIdentifiedControlToPlaceHolder
-      (
-      TWebUserControl_log_new_donation(LoadControl('~/usercontrol/app/UserControl_log_new_donation.ascx')).Fresh,
-      'UserControl_log_new_donation',
-      PlaceHolder_content
-      );
+    if Has(string_array(session['privilege_array']),'log-donations') then begin
+      p.tab_index := TSSI_NEW_DONATION;
+      p.content_id := AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_log_new_donation(LoadControl('~/usercontrol/app/UserControl_log_new_donation.ascx')).Fresh,
+        'UserControl_log_new_donation',
+        PlaceHolder_content
+        );
+    end else begin
+      p.tab_index := TSSI_TEASER;
+      p.content_id := AddIdentifiedControlToPlaceHolder
+        (
+        TWebUserControl_funddrive_teaser(LoadControl('~/usercontrol/app/UserControl_funddrive_teaser.ascx')).Fresh,
+        'UserControl_funddrive_teaser',
+        PlaceHolder_content
+        );
+    end;
     //
   end;
   //
@@ -146,6 +164,13 @@ begin
   PlaceHolder_content.controls.Clear;
   //
   case p.tab_index of
+  TSSI_TEASER:
+    p.content_id := AddIdentifiedControlToPlaceHolder
+      (
+      TWebUserControl_funddrive_teaser(LoadControl('~/usercontrol/app/UserControl_funddrive_teaser.ascx')).Fresh,
+      'UserControl_funddrive_teaser',
+      PlaceHolder_content
+      );
   TSSI_NEW_DONATION:
     p.content_id := AddIdentifiedControlToPlaceHolder
       (
