@@ -36,9 +36,6 @@ type
     PlaceHolder_member_binder: System.Web.UI.WebControls.PlaceHolder;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
   end;
 
 implementation

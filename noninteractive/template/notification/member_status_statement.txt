@@ -21,6 +21,9 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
       Note:  Not all squads utilize sections.
 
+   Primary phone number:
+      <phone_num/>
+
    Released cert level:
       <medical_release_description/>
 

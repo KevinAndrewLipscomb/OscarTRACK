@@ -35,6 +35,8 @@ type
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_add_and_stop_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_add_and_repeat_Click(sender: System.Object; e: System.EventArgs);
+    procedure CustomValidator_phone_num_ServerValidate(source: System.Object; 
+      args: System.Web.UI.WebControls.ServerValidateEventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -71,12 +73,10 @@ type
     Label_invalid_enrollment_date: System.Web.UI.WebControls.Label;
     RadioButtonList_driver_qualified_yes_no: System.Web.UI.WebControls.RadioButtonList;
     RequiredFieldValidator_qualified_driver_yes_no: System.Web.UI.WebControls.RequiredFieldValidator;
+    TextBox_phone_num: System.Web.UI.WebControls.TextBox;
+    CustomValidator_phone_num: System.Web.UI.WebControls.CustomValidator;
   protected
     procedure OnInit(e: EventArgs); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
@@ -91,12 +91,13 @@ uses
 /// </summary>
 procedure TWebForm_add_member.InitializeComponent;
 begin
+  Include(Self.CustomValidator_phone_num.ServerValidate, Self.CustomValidator_phone_num_ServerValidate);
   Include(Self.CustomValidator_email_address.ServerValidate, Self.CustomValidator_email_address_ServerValidate);
   Include(Self.Button_add_and_stop.Click, Self.Button_add_and_stop_Click);
   Include(Self.Button_add_and_repeat.Click, Self.Button_add_and_repeat_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_add_member_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
@@ -153,6 +154,12 @@ begin
       //
     end;
   end;
+end;
+
+procedure TWebForm_add_member.CustomValidator_phone_num_ServerValidate(source: System.Object;
+  args: System.Web.UI.WebControls.ServerValidateEventArgs);
+begin
+  args.isvalid := BeValidNanpNumber(Safe(TextBox_phone_num.text,NUM));
 end;
 
 procedure TWebForm_add_member.Button_add_and_repeat_Click(sender: System.Object;
@@ -221,7 +228,8 @@ begin
         agency_id,
         Safe(TextBox_email_address.text,EMAIL_ADDRESS),
         UserControl_enrollment_date.selectedvalue,
-        Safe(DropDownList_enrollment_level.selectedvalue,NUM)
+        Safe(DropDownList_enrollment_level.selectedvalue,NUM),
+        Safe(TextBox_phone_num.text,NUM)
         )
       then begin
         Add := TRUE;

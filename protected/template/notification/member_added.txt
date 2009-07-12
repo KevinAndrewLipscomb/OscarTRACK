@@ -9,6 +9,8 @@ This is an automatic notification from <application_name/>.
       <last_name/>
    CAD #:
       <cad_num/>
+   Phone #:
+      <phone_num/>
    Email address:
       <email_address/>
    Agency:

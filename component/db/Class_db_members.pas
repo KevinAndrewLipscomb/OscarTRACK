@@ -35,6 +35,7 @@ const
   TCCI_LEAVE                     = 14;
   TCCI_OBLIGED_SHIFTS            = 15;
   TCCI_EMAIL_ADDRESS             = 16;
+  TCCI_PHONE_NUM                 = 17;
 
 type
   TClass_db_members = class(TClass_db)
@@ -50,7 +51,8 @@ type
       agency_id: cardinal;
       email_address: string;
       enrollment_date: datetime;
-      enrollment_code: cardinal = 17
+      enrollment_code: cardinal = 17;
+      phone_num: string = ''
       );
     function AgencyOf(e_item: system.object): string;
     function AgencyIdOfId(id: string): string;
@@ -148,6 +150,7 @@ type
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
+    function PhoneNumOf(member_id: string): string;
     function PeckCodeOf(e_item: system.object): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
@@ -185,6 +188,11 @@ type
     procedure SetMedicalReleaseCode
       (
       code: string;
+      e_item: system.object
+      );
+    procedure SetPhoneNum
+      (
+      phone_num: string;
       e_item: system.object
       );
     procedure SetProfile
@@ -227,7 +235,8 @@ procedure TClass_db_members.Add
   agency_id: cardinal;
   email_address: string;
   enrollment_date: datetime;
-  enrollment_code: cardinal = 17
+  enrollment_code: cardinal = 17;
+  phone_num: string = ''
   );
 var
   enrollment_date_string: string;
@@ -247,7 +256,8 @@ begin
   +     ' , email_address = "' + email_address + '"'
   +     ' , medical_release_code = ' + medical_release_code.tostring
   +     ' , be_driver_qualified = ' + be_driver_qualified.tostring
-  +     ' , agency_id = ' + agency_id.tostring;
+  +     ' , agency_id = ' + agency_id.tostring
+  +     ' , phone_num = "' + phone_num + '"';
   if enrollment_code in [1,2,3,4,5,6,7,8,9,10,18,21] then begin
     sql := sql + ' , equivalent_los_start_date = "' + enrollment_date_string + '"';
   end;
@@ -965,6 +975,7 @@ begin
   + ' , ' + kind_of_leave_selection_clause + ' as kind_of_leave'                            // column 14
   + ' , ' + obliged_shifts_selection_clause + ' as obliged_shifts'                          // column 15
   + ' , email_address'                                                                      // column 16
+  + ' , phone_num'                                                                          // column 17
   + ' from member'
   +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
   +   ' join enrollment_history'
@@ -1364,6 +1375,7 @@ begin
     + ' , if(' + any_relevant_leave + ',kind_of_leave_code_description_map.description,"") as kind_of_leave'
     + ' , if(' + any_relevant_leave + ',num_obliged_shifts,num_shifts) as obliged_shifts'
     + ' , email_address'
+    + ' , phone_num'
     + ' from member'
     +   ' join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)'
     +   ' join enrollment_history'
@@ -1431,7 +1443,8 @@ begin
       dr['enrollment'].tostring.ToUpper,
       length_of_service,
       kind_of_leave,
-      dr['obliged_shifts'].tostring
+      dr['obliged_shifts'].tostring,
+      dr['phone_num'].tostring
       );
   end;
   dr.Close;
@@ -1476,6 +1489,22 @@ begin
     OfficershipOf := rank_name_obj.tostring;
   end else begin
     OfficershipOf := EMPTY;
+  end;
+  self.Close;
+end;
+
+function TClass_db_members.PhoneNumOf(member_id: string): string;
+var
+  phone_num_obj: system.object;
+begin
+  //
+  self.Open;
+  phone_num_obj :=
+    mysqlcommand.Create('select phone_num from member where id = "' + member_id + '"',connection).ExecuteScalar;
+  if phone_num_obj <> nil then begin
+    PhoneNumOf := phone_num_obj.tostring;
+  end else begin
+    PhoneNumOf := EMPTY;
   end;
   self.Close;
 end;
@@ -1633,6 +1662,23 @@ begin
     )
     .ExecuteNonQuery;
   DataGridItem(e_item).cells[TCCI_MEDICAL_RELEASE_LEVEL].Text := db_medical_release_levels.DescriptionOf(code);
+  self.Close;
+end;
+
+procedure TClass_db_members.SetPhoneNum
+  (
+  phone_num: string;
+  e_item: system.object
+  );
+begin
+  self.Open;
+  mysqlcommand.Create
+    (
+    db_trail.Saved('UPDATE member SET phone_num = ' + phone_num + ' WHERE id = ' + DataGridItem(e_item).cells[TCCI_ID].text),
+    connection
+    )
+    .ExecuteNonQuery;
+  DataGridItem(e_item).cells[TCCI_PHONE_NUM].text := FormatAsNanpPhoneNum(phone_num);
   self.Close;
 end;
 
