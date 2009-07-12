@@ -32,6 +32,8 @@ type
     procedure LinkButton_change_agency_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_cad_num_Click(sender: System.Object; e: System.EventArgs);
     procedure LinkButton_change_name_Click(sender: System.Object; e: System.EventArgs);
+    procedure LinkButton_change_member_phone_num_Click(sender: System.Object; 
+      e: System.EventArgs);
   {$ENDREGION}
   strict private
     type
@@ -45,6 +47,7 @@ type
         leave_next_month_description: string;
         leave_this_month_description: string;
         raw_member_email_address: string;
+        raw_member_phone_num: string;
         END;
   strict private
     p: p_type;
@@ -61,6 +64,8 @@ type
     LinkButton_leave_detail: System.Web.UI.WebControls.LinkButton;
     Label_officership: System.Web.UI.WebControls.Label;
     LinkButton_officership_detail: System.Web.UI.WebControls.LinkButton;
+    Label_phone_num: System.Web.UI.WebControls.Label;
+    LinkButton_change_member_phone_num: System.Web.UI.WebControls.LinkButton;
     Label_email_address: System.Web.UI.WebControls.Label;
     LinkButton_change_member_email_address: System.Web.UI.WebControls.LinkButton;
     Label_leave_this_month: System.Web.UI.WebControls.Label;
@@ -92,6 +97,7 @@ procedure TWebForm_member_detail.InitializeComponent;
 begin
   Include(Self.LinkButton_change_name.Click, Self.LinkButton_change_name_Click);
   Include(Self.LinkButton_change_cad_num.Click, Self.LinkButton_change_cad_num_Click);
+  Include(Self.LinkButton_change_member_phone_num.Click, Self.LinkButton_change_member_phone_num_Click);
   Include(Self.LinkButton_change_member_email_address.Click, Self.LinkButton_change_member_email_address_Click);
   Include(Self.LinkButton_leave_detail.Click, Self.LinkButton_leave_detail_Click);
   Include(Self.LinkButton_officership_detail.Click, Self.LinkButton_officership_detail_Click);
@@ -100,8 +106,8 @@ begin
   Include(Self.LinkButton_change_medical_release_level.Click, Self.LinkButton_change_medical_release_level_Click);
   Include(Self.LinkButton_enrollment_detail.Click, Self.LinkButton_enrollment_detail_Click);
   Include(Self.LinkButton_change_driver_qual.Click, Self.LinkButton_change_driver_qual_Click);
-  Include(Self.Load, Self.Page_Load);
   Include(Self.PreRender, Self.TWebForm_member_detail_PreRender);
+  Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
@@ -114,6 +120,12 @@ begin
     Title.text := server.HtmlEncode(configurationmanager.AppSettings['application_name']) + ' - member_detail';
     //
     target_member_id := p.biz_members.IdOf(session['e_item']);
+    //
+    if p.raw_member_phone_num <> EMPTY then begin
+      Label_phone_num.text := FormatAsNanpPhoneNum(p.raw_member_phone_num);
+    end else begin
+      Label_phone_num.text := NOT_APPLICABLE_INDICATION_HTML;
+    end;
     //
     if p.raw_member_email_address <> EMPTY then begin
       Label_email_address.Text := p.raw_member_email_address;
@@ -162,6 +174,15 @@ begin
     //
     Label_be_driver_qualified.text := YesNoOf(p.biz_members.BeDriverQualifiedOf(session['e_item']));
     LinkButton_change_driver_qual.text := ExpandTildePath(LinkButton_change_driver_qual.text);
+    //
+    LinkButton_change_member_phone_num.visible := (target_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum))
+      or
+        (
+          Has(string_array(session['privilege_array']),'change-member-phone-num')
+        and
+          p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum),target_member_id)
+        );
+    LinkButton_change_member_phone_num.text := ExpandTildePath(LinkButton_change_member_phone_num.text);
     //
     if p.biz_members.UserIdOf(target_member_id) = EMPTY then begin
       LinkButton_change_member_email_address.visible := Has(string_array(session['privilege_array']),'change-member-email-address')
@@ -212,6 +233,7 @@ begin
       p.biz_members := TClass_biz_members.Create;
       p.biz_user := TClass_biz_user.Create;
       //
+      p.raw_member_phone_num := p.biz_members.PhoneNumOf(p.biz_members.IdOf(session['e_item']));
       p.raw_member_email_address := p.biz_members.EmailAddressOf(p.biz_members.IdOf(session['e_item']));
       p.cad_num_string := p.biz_members.CadNumOf(session['e_item']);
       if p.cad_num_string = EMPTY then begin
@@ -227,6 +249,13 @@ begin
       //
     end;
   end;
+end;
+
+procedure TWebForm_member_detail.LinkButton_change_member_phone_num_Click(sender: System.Object;
+  e: System.EventArgs);
+begin
+  SessionSet('member_phone_num',p.raw_member_phone_num);
+  DropCrumbAndTransferTo('change_phone_num.aspx');
 end;
 
 procedure TWebForm_member_detail.LinkButton_change_name_Click(sender: System.Object;

@@ -143,7 +143,8 @@ type
       agency_name: string;
       email_address: string;
       enrollment_date: string;
-      enrollment_level: string
+      enrollment_level: string;
+      phone_num: string
       );
     procedure IssueForMemberNameChange
       (
@@ -177,6 +178,15 @@ type
       new_level: string;
       effective_date: string;
       note: string
+      );
+    procedure IssueForPhoneNumChange
+      (
+      member_id: string;
+      first_name: string;
+      last_name: string;
+      cad_num: string;
+      agency_name: string;
+      phone_num: string
       );
     procedure IssueForRoleChange
       (
@@ -220,7 +230,8 @@ type
       enrollment: string;
       length_of_service: string;
       kind_of_leave: string;
-      obliged_shifts: string
+      obliged_shifts: string;
+      phone_num: string
       );
     function TargetOfAboutAgency
       (
@@ -975,7 +986,8 @@ procedure TClass_biz_notifications.IssueForMemberAdded
   agency_name: string;
   email_address: string;
   enrollment_date: string;
-  enrollment_level: string
+  enrollment_level: string;
+  phone_num: string
   );
 var
   actor: string;
@@ -1003,7 +1015,8 @@ var
       .Replace('<agency_name/>',agency_name)
       .Replace('<email_address/>',email_address)
       .Replace('<enrollment_date/>',enrollment_date)
-      .Replace('<enrollment_level/>',enrollment_level);
+      .Replace('<enrollment_level/>',enrollment_level)
+      .Replace('<phone_num/>',FormatAsNanpPhoneNum(phone_num));
   END;
   //
 begin
@@ -1291,6 +1304,72 @@ begin
   template_reader.Close;
 end;
 
+procedure TClass_biz_notifications.IssueForPhoneNumChange
+  (
+  member_id: string;
+  first_name: string;
+  last_name: string;
+  cad_num: string;
+  agency_name: string;
+  phone_num: string
+  );
+var
+  actor: string;
+  actor_email_address: string;
+  actor_member_id: string;
+  biz_members: TClass_biz_members;
+  biz_user: TClass_biz_user;
+  biz_users: TClass_biz_users;
+  template_reader: streamreader;
+  //
+  FUNCTION Merge(s: string): string;
+  BEGIN
+    Merge := s
+      // always needed
+      .Replace('<application_name/>',application_name)
+      .Replace('<host_domain_name/>',host_domain_name)
+      // message-dependent
+      .Replace('<actor/>',actor)
+      .Replace('<actor_email_address/>',actor_email_address)
+      .Replace('<first_name/>',first_name)
+      .Replace('<last_name/>',last_name)
+      .Replace('<cad_num/>',cad_num)
+      .Replace('<agency_name/>',agency_name)
+      .Replace('<phone_num/>',FormatAsNanpPhoneNum(phone_num));
+  END;
+  //
+begin
+  //
+  biz_members := TClass_biz_members.Create;
+  biz_user := TClass_biz_user.Create;
+  biz_users := TClass_biz_users.Create;
+  //
+  actor_member_id := biz_members.IdOfUserId(biz_user.IdNum);
+  actor := biz_user.Roles[0] + SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+  actor_email_address := biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum);
+  template_reader := &file.OpenText(httpcontext.current.server.MapPath('template/notification/phone_num_change.txt'));
+  kix.SmtpMailSend
+    (
+    //from
+    configurationmanager.appsettings['sender_email_address'],
+    //to
+    biz_members.EmailAddressOf(member_id) + COMMA + actor_email_address + COMMA + db_notifications.TargetOf('phone-num-change',member_id),
+    //subject
+    Merge(template_reader.ReadLine),
+    //body
+    Merge(template_reader.ReadToEnd),
+    //be_html
+    FALSE,
+    //cc
+    EMPTY,
+    //bcc
+    EMPTY,
+    //reply_to
+    actor_email_address
+    );
+  template_reader.Close;
+end;
+
 procedure TClass_biz_notifications.IssueForRoleChange
   (
   member_id: string;
@@ -1549,7 +1628,8 @@ procedure TClass_biz_notifications.IssueMemberStatusStatement
   enrollment: string;
   length_of_service: string;
   kind_of_leave: string;
-  obliged_shifts: string
+  obliged_shifts: string;
+  phone_num: string
   );
 var
   template_reader: streamreader;
@@ -1571,7 +1651,8 @@ var
       .Replace('<enrollment/>',enrollment)
       .Replace('<length_of_service/>',length_of_service)
       .Replace('<kind_of_leave/>',kind_of_leave)
-      .Replace('<obliged_shifts/>',obliged_shifts);
+      .Replace('<obliged_shifts/>',obliged_shifts)
+      .Replace('<phone_num/>',FormatAsNanpPhoneNum(phone_num));
   END;
   //
 begin

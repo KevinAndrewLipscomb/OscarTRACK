@@ -39,10 +39,6 @@ type
   protected
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation

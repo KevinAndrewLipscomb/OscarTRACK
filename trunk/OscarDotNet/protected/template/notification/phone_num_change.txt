@@ -1,0 +1,12 @@
+Phone # change to <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed the phone number for <agency_name/> member <first_name/> <last_name/> (<cad_num/>) to:
+
+   <phone_num/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

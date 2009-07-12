@@ -143,7 +143,11 @@ uses
   UserControl_funddrive_binder in 'usercontrol\app\UserControl_funddrive_binder.pas' {UserControl_funddrive_binder.TWebUserControl_funddrive_binder: ki_web_ui.usercontrol_class},
   UserControl_personnel_binder in 'usercontrol\app\UserControl_personnel_binder.pas' {UserControl_personnel_binder.TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class},
   UserControl_log_new_donation in 'usercontrol\app\UserControl_log_new_donation.pas' {UserControl_log_new_donation.TWebUserControl_log_new_donation: ki_web_ui.usercontrol_class},
-  UserControl_funddrive_teaser in 'usercontrol\app\UserControl_funddrive_teaser.pas' {UserControl_funddrive_teaser.TWebUserControl_funddrive_teaser: ki_web_ui.usercontrol_class};
+  UserControl_funddrive_teaser in 'usercontrol\app\UserControl_funddrive_teaser.pas' {UserControl_funddrive_teaser.TWebUserControl_funddrive_teaser: ki_web_ui.usercontrol_class},
+  Class_biz_residents in 'component\biz\Class_biz_residents.pas',
+  Class_db_residents in 'component\db\Class_db_residents.pas',
+  change_phone_num in 'protected\change_phone_num.pas' {change_phone_num.TWebForm_change_phone_num: ki_web_ui.page_class},
+  report_monthly_current_phone_list in 'noninteractive\report_monthly_current_phone_list.pas' {report_monthly_current_phone_list.TWebForm_report_monthly_current_phone_list: system.web.ui.page};
 
 //
 // General Information about an assembly is controlled through the following

@@ -142,7 +142,7 @@
     </Reference>
     <Reference Include="lib\ki\ki.dll">
       <AssemblyName>ki</AssemblyName>
-      <Version>1.0.3418.18628</Version>
+      <Version>1.0.3479.31527</Version>
       <HintPath>lib\ki\ki.dll</HintPath>
       <AssemblyTag>lib\ki\ki.dll</AssemblyTag>
       <LinkUnits>False</LinkUnits>
@@ -166,6 +166,7 @@
     <DCCReference Include="component\biz\Class_biz_notifications.pas" />
     <DCCReference Include="component\biz\Class_biz_officerships.pas" />
     <DCCReference Include="component\biz\Class_biz_privileges.pas" />
+    <DCCReference Include="component\biz\Class_biz_residents.pas" />
     <DCCReference Include="component\biz\Class_biz_roles.pas" />
     <DCCReference Include="component\biz\Class_biz_role_member_map.pas" />
     <DCCReference Include="component\biz\Class_biz_role_notification_map.pas" />
@@ -189,6 +190,7 @@
     <DCCReference Include="component\db\Class_db_notifications.pas" />
     <DCCReference Include="component\db\Class_db_officerships.pas" />
     <DCCReference Include="component\db\Class_db_privileges.pas" />
+    <DCCReference Include="component\db\Class_db_residents.pas" />
     <DCCReference Include="component\db\Class_db_roles.pas" />
     <DCCReference Include="component\db\Class_db_role_member_map.pas" />
     <DCCReference Include="component\db\Class_db_role_notification_map.pas" />
@@ -249,6 +251,11 @@
     <DCCReference Include="noninteractive\report_monthly_core_ops_roster.pas">
       <DependentUpon>noninteractive\report_monthly_core_ops_roster.aspx</DependentUpon>
       <Form>report_monthly_core_ops_roster.TWebForm_report_monthly_core_ops_roster</Form>
+      <DesignClass>system.web.ui.page</DesignClass>
+    </DCCReference>
+    <DCCReference Include="noninteractive\report_monthly_current_phone_list.pas">
+      <DependentUpon>noninteractive\report_monthly_current_phone_list.aspx</DependentUpon>
+      <Form>report_monthly_current_phone_list.TWebForm_report_monthly_current_phone_list</Form>
       <DesignClass>system.web.ui.page</DesignClass>
     </DCCReference>
     <DCCReference Include="noninteractive\report_monthly_current_roster.pas">
@@ -349,6 +356,11 @@
     <DCCReference Include="protected\change_password.pas">
       <DependentUpon>protected\change_password.aspx</DependentUpon>
       <Form>change_password.TWebForm_change_password</Form>
+      <DesignClass>ki_web_ui.page_class</DesignClass>
+    </DCCReference>
+    <DCCReference Include="protected\change_phone_num.pas">
+      <DependentUpon>protected\change_phone_num.aspx</DependentUpon>
+      <Form>change_phone_num.TWebForm_change_phone_num</Form>
       <DesignClass>ki_web_ui.page_class</DesignClass>
     </DCCReference>
     <DCCReference Include="protected\enrollment_detail.pas">
@@ -678,6 +690,7 @@
     <None Include="noninteractive\report_monthly_applicant_roster.aspx" />
     <None Include="noninteractive\report_monthly_core_ops_dashboard.aspx" />
     <None Include="noninteractive\report_monthly_core_ops_roster.aspx" />
+    <None Include="noninteractive\report_monthly_current_phone_list.aspx" />
     <None Include="noninteractive\report_monthly_current_roster.aspx" />
     <None Include="noninteractive\report_monthly_in_class_roster.aspx" />
     <None Include="noninteractive\report_monthly_per_agency_serial_indicators.aspx" />
@@ -698,6 +711,7 @@
     <None Include="protected\change_member_section.aspx" />
     <None Include="protected\change_name.aspx" />
     <None Include="protected\change_password.aspx" />
+    <None Include="protected\change_phone_num.aspx" />
     <None Include="protected\enrollment_detail.aspx" />
     <None Include="protected\establish_membership_trouble.aspx" />
     <None Include="protected\grant_leave.aspx" />

@@ -36,7 +36,8 @@ type
       agency_id: string;
       email_address: string;
       enrollment_date: datetime;
-      enrollment_level: string = ''
+      enrollment_level: string = '';
+      phone_num: string = ''
       )
       : boolean;
     function AgencyOf(e_item: system.object): string;
@@ -134,6 +135,7 @@ type
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
     function OfficershipOf(member_id: string): string;
     function PeckCodeOf(e_item: system.object): string;
+    function PhoneNumOf(member_id: string): string;
     function RetentionOf(e_item: system.object): string;
     function SectionOf(e_item: system.object): string;
     procedure SetAgency
@@ -177,6 +179,11 @@ type
       new_code: string;
       e_item: system.object
       );
+    procedure SetPhoneNum
+      (
+      phone_num: string;
+      e_item: system.object
+      );
     procedure SetProfile
       (
       id: string;
@@ -210,12 +217,16 @@ function TClass_biz_members.Add
   agency_id: string;
   email_address: string;
   enrollment_date: datetime;
-  enrollment_level: string = ''
+  enrollment_level: string = '';
+  phone_num: string = ''
   )
   : boolean;
 begin
   Add := FALSE;
   if not db_members.BeKnown(first_name,last_name,cad_num) then begin
+    if phone_num.Length = 7 then begin
+      phone_num := '757' + phone_num;
+    end;
     db_members.Add
       (
       first_name,
@@ -226,7 +237,8 @@ begin
       uint32.Parse(agency_id),
       email_address,
       enrollment_date,
-      uint32.Parse(enrollment_level)
+      uint32.Parse(enrollment_level),
+      phone_num
       );
     biz_notifications.IssueForMemberAdded
       (
@@ -239,7 +251,8 @@ begin
       biz_agencies.MediumDesignatorOf(agency_id) + SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id),
       email_address,
       enrollment_date.tostring('dd MMMM yyyy'),
-      biz_enrollment.DescriptionOf(enrollment_level)
+      biz_enrollment.DescriptionOf(enrollment_level),
+      phone_num
       );
     Add := TRUE;
   end;
@@ -518,6 +531,11 @@ begin
   OfficerShipOf := db_members.OfficershipOf(member_id);
 end;
 
+function TClass_biz_members.PhoneNumOf(member_id: string): string;
+begin
+  PhoneNumOf := db_members.PhoneNumOf(member_id);
+end;
+
 function TClass_biz_members.PeckCodeOf(e_item: system.object): string;
 begin
   PeckCodeOf := db_members.PeckCodeOf(e_item);
@@ -675,6 +693,30 @@ begin
       e_item
       );
   end;
+end;
+
+procedure TClass_biz_members.SetPhoneNum
+  (
+  phone_num: string;
+  e_item: system.object
+  );
+var
+  member_id: string;
+begin
+  if phone_num.Length = 7 then begin
+    phone_num := '757' + phone_num;
+  end;
+  db_members.SetPhoneNum(phone_num,e_item);
+  member_id := IdOf(e_item);
+  biz_notifications.IssueForPhoneNumChange
+    (
+    member_id,
+    FirstNameOf(e_item),
+    LastNameOf(e_item),
+    CadNumOf(e_item),
+    biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)),
+    phone_num
+    );
 end;
 
 procedure TClass_biz_members.SetProfile

@@ -44,6 +44,7 @@ type
     procedure DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object;
       e: System.EventArgs);
     procedure CheckBox_running_only_CheckedChanged(sender: System.Object; e: System.EventArgs);
+    procedure CheckBox_phone_list_CheckedChanged(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   strict private
     type
@@ -52,6 +53,7 @@ type
         agency_filter: string;
         be_datagrid_empty: boolean;
         be_loaded: boolean;
+        be_phone_list: boolean;
         be_sort_order_ascending: boolean;
         be_user_privileged_to_see_all_squads: boolean;
         biz_agencies: TClass_biz_agencies;
@@ -70,6 +72,7 @@ type
         num_datagrid_rows: cardinal;
         num_raw_shifts: cardinal;  // does not take into account leaves
         num_standard_commitments: cardinal;
+        page_request_rawurl: string;
         relative_month: cardinal;
         running_only_filter: boolean;
         section_filter: Class_biz_sections.filter_type;
@@ -114,6 +117,7 @@ type
     Anchor_quick_message_shortcut: System.Web.UI.HtmlControls.HtmlAnchor;
     Table_quick_message: System.Web.UI.HtmlControls.HtmlTable;
     CheckBox_running_only: System.Web.UI.WebControls.CheckBox;
+    CheckBox_phone_list: System.Web.UI.WebControls.CheckBox;
   protected
     procedure OnInit(e: System.EventArgs); override;
   published
@@ -150,6 +154,7 @@ begin
     RadioButtonList_which_month.selectedvalue := p.relative_month.tostring;
     DropDownList_leave_filter.selectedvalue := enum(p.leave_filter).tostring.tolower;
     CheckBox_running_only.checked := p.running_only_filter;
+    CheckBox_phone_list.checked := p.be_phone_list;
     //
     if session['mode:report'] = nil then begin
       Label_author_email_address.text := p.biz_user.EmailAddress;
@@ -170,12 +175,12 @@ begin
       Button_send.enabled := FALSE;
       DropDownList_agency_filter.enabled := FALSE;
       CheckBox_running_only.checked := FALSE;
+      CheckBox_phone_list.enabled := FALSE;
     end;
     //
     Bind;
     //
-    {$MESSAGE HINT 'Known bug: The following page.request.rawurl value may be leftover from pre-server.Transfer-time.'}
-    Anchor_quick_message_shortcut.href := page.request.rawurl + '#QuickMessage';
+    Anchor_quick_message_shortcut.href := p.page_request_rawurl + '#QuickMessage';
     Anchor_quick_message_shortcut.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages');
     //
@@ -221,12 +226,14 @@ begin
     p.distribution_list := EMPTY;
     p.leave_filter := Class_biz_leave.BOTH;
     p.med_release_level_filter := ALL;
+    p.be_phone_list := (session['mode:report/monthly-current-phone-list'] <> nil);
     p.section_filter := 0;
     p.num_cooked_shifts := 0;
     p.num_core_ops_members := 0;
     p.num_datagrid_rows := 0;
     p.num_raw_shifts := 0;
     p.num_standard_commitments := 0;
+    p.page_request_rawurl := page.request.rawurl;
     p.relative_month := 0;
     p.running_only_filter := FALSE;
     p.sort_order := 'last_name,first_name,cad_num';
@@ -321,12 +328,13 @@ begin
   Include(Self.DropDownList_med_release_filter.SelectedIndexChanged, Self.DropDownList_med_release_filter_SelectedIndexChanged);
   Include(Self.DropDownList_enrollment_filter.SelectedIndexChanged, Self.DropDownList_enrollment_filter_SelectedIndexChanged);
   Include(Self.DropDownList_leave_filter.SelectedIndexChanged, Self.DropDownList_leave_filter_SelectedIndexChanged);
+  Include(Self.CheckBox_running_only.CheckedChanged, Self.CheckBox_running_only_CheckedChanged);
   Include(Self.RadioButtonList_which_month.SelectedIndexChanged, Self.RadioButtonList_which_month_SelectedIndexChanged);
+  Include(Self.CheckBox_phone_list.CheckedChanged, Self.CheckBox_phone_list_CheckedChanged);
   Include(Self.DataGrid_roster.ItemDataBound, Self.DataGrid_roster_ItemDataBound);
   Include(Self.DataGrid_roster.SortCommand, Self.DataGrid_roster_SortCommand);
   Include(Self.DataGrid_roster.ItemCommand, Self.DataGrid_roster_ItemCommand);
   Include(Self.Button_send.Click, Self.Button_send_Click);
-  Include(Self.CheckBox_running_only.CheckedChanged, Self.CheckBox_running_only_CheckedChanged);
   Include(Self.PreRender, Self.TWebUserControl_roster_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
@@ -394,11 +402,7 @@ end;
 procedure TWebUserControl_roster.DataGrid_roster_ItemCommand(source: System.Object;
   e: System.Web.UI.WebControls.DataGridCommandEventArgs);
 begin
-  if (e.item.itemtype = listitemtype.alternatingitem)
-    or (e.item.itemtype = listitemtype.edititem)
-    or (e.item.itemtype = listitemtype.item)
-    or (e.item.itemtype = listitemtype.selecteditem)
-  then begin
+  if e.item.itemtype in [listitemtype.ALTERNATINGITEM,listitemtype.EDITITEM,listitemtype.ITEM,listitemtype.SELECTEDITEM] then begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
@@ -411,11 +415,8 @@ end;
 procedure TWebUserControl_roster.DataGrid_roster_ItemDataBound(sender: System.Object;
   e: System.Web.UI.WebControls.DataGridItemEventArgs);
 begin
-  if (e.item.itemtype = listitemtype.alternatingitem)
-    or (e.item.itemtype = listitemtype.edititem)
-    or (e.item.itemtype = listitemtype.item)
-    or (e.item.itemtype = listitemtype.selecteditem)
-  then begin
+  //
+  if e.item.itemtype in [listitemtype.ALTERNATINGITEM,listitemtype.EDITITEM,listitemtype.ITEM,listitemtype.SELECTEDITEM] then begin
     //
     // We are dealing with a data row, not a header or footer row.
     //
@@ -457,9 +458,15 @@ begin
        p.distribution_list := p.distribution_list + e.item.cells[Class_db_members.TCCI_EMAIL_ADDRESS].text + COMMA_SPACE;
     end;
     //
+    if e.item.cells[Class_db_members.TCCI_PHONE_NUM].text <> EMPTY then begin
+      e.item.cells[Class_db_members.TCCI_PHONE_NUM].text :=
+        FormatAsNanpPhoneNum(e.item.cells[Class_db_members.TCCI_PHONE_NUM].text);
+    end;
+    //
     p.num_datagrid_rows := p.num_datagrid_rows + 1;
     //
   end;
+  //
 end;
 
 procedure TWebUserControl_roster.TWebUserControl_roster_PreRender(sender: System.Object;
@@ -491,8 +498,10 @@ begin
   DataGrid_roster.columns[TCCI_MEDICAL_RELEASE_LEVEL].visible := not p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter)
     and (not (p.enrollment_filter = ADMIN));
   DataGrid_roster.columns[TCCI_ENROLLMENT].visible := not p.biz_enrollment.BeLeaf(p.enrollment_filter);
+  DataGrid_roster.columns[TCCI_LENGTH_OF_SERVICE].visible := not p.be_phone_list;
   DataGrid_roster.columns[TCCI_LEAVE].visible := (p.leave_filter <> OBLIGATED);
   DataGrid_roster.columns[TCCI_OBLIGED_SHIFTS].visible := not (p.enrollment_filter = ADMIN);
+  DataGrid_roster.columns[TCCI_PHONE_NUM].visible := p.be_phone_list;
   //
   p.biz_members.BindRoster
     (
@@ -536,7 +545,9 @@ begin
   p.be_datagrid_empty := (p.num_datagrid_rows = 0);
   TableRow_none.visible := p.be_datagrid_empty;
   TableRow_data.visible := not p.be_datagrid_empty;
-  Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages') and not p.be_datagrid_empty;
+  Table_quick_message.visible := Has(string_array(session['privilege_array']),'send-quickmessages')
+    and not p.be_datagrid_empty
+    and not p.be_phone_list;
   Label_distribution_list.text := (p.distribution_list + SPACE).TrimEnd([',',' ']);
   //
   // Clear aggregation vars for next bind, if any.
@@ -559,6 +570,15 @@ function TWebUserControl_roster.Fresh: TWebUserControl_roster;
 begin
   session.Remove('UserControl_roster.p');
   Fresh := self;
+end;
+
+procedure TWebUserControl_roster.CheckBox_phone_list_CheckedChanged(sender: System.Object;
+  e: System.EventArgs);
+begin
+  p.be_phone_list := CheckBox_phone_list.checked;
+  Anchor_quick_message_shortcut.visible := not p.be_phone_list;
+  Table_quick_message.visible := not p.be_phone_list;
+  Bind;
 end;
 
 procedure TWebUserControl_roster.CheckBox_running_only_CheckedChanged(sender: System.Object;
