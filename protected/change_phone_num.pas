@@ -34,6 +34,7 @@ type
     TextBox_phone_num: System.Web.UI.WebControls.TextBox;
     RequiredFieldValidator_phone_num: System.Web.UI.WebControls.RequiredFieldValidator;
     CustomValidator_phone_num: System.Web.UI.WebControls.CustomValidator;
+    Label_name: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: EventArgs); override;
   end;
@@ -47,11 +48,11 @@ implementation
 /// </summary>
 procedure TWebForm_change_phone_num.InitializeComponent;
 begin
+  Include(Self.CustomValidator_phone_num.ServerValidate, Self.CustomValidator_phone_num_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.PreRender, Self.TWebForm_change_phone_num_PreRender);
   Include(Self.Load, Self.Page_Load);
-  Include(Self.CustomValidator_phone_num.ServerValidate, Self.CustomValidator_phone_num_ServerValidate);
 end;
 {$ENDREGION}
 
@@ -71,6 +72,7 @@ begin
     Title.text := configurationmanager.AppSettings['application_name'] + ' - change_phone_num';
     p.biz_members := TClass_biz_members.Create;
     //
+    Label_name.text := p.biz_members.FirstNameOf(session['e_item']) + SPACE + p.biz_members.LastNameOf(session['e_item']);;
     TextBox_phone_num.text := FormatAsNanpPhoneNum(session['member_phone_num'].tostring);
     //
     Focus(TextBox_phone_num,TRUE);
