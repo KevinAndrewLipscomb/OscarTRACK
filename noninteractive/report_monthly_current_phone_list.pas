@@ -108,6 +108,8 @@ end;
 procedure TWebForm_report_monthly_current_phone_list.Render(writer: HtmlTextWriter);
 var
   body: string;
+  i: cardinal;
+  recipient_q: queue;
   sb: StringBuilder;
 begin
   //
@@ -122,19 +124,24 @@ begin
   //
   // Send output stream as an email message.
   //
-  kix.SmtpMailSend
-    (
-    //from
-    configurationmanager.appsettings['sender_email_address'],
-    //to
-    p.biz_members.EmailAddressOf(p.member_id),
-    //subject
-    'Report: Monthly Current Phone List',
-    //body
-    body,
-    //be_html
-    TRUE
-    );
+  recipient_q := p.biz_members.CurrentMemberEmailAddressesQueue(request['agency']);
+  //
+  for i := 1 to recipient_q.Count do begin
+    kix.SmtpMailSend
+      (
+      //from
+      configurationmanager.appsettings['sender_email_address'],
+      //to
+      recipient_q.Dequeue.tostring,
+      //subject
+      'Report: Monthly Current Phone List',
+      //body
+      body,
+      //be_html
+      TRUE
+      );
+    //
+  end;
   //
   session.Abandon;
   //

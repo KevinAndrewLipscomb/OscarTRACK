@@ -107,8 +107,8 @@ type
     procedure BindSpecialForRankedLengthOfService(target: system.object);
     function CadNumOf(e_item: system.object): string;
     function CadNumOfMemberId(member_id: string): string;
-    function CurrentMemberEmailAddressesQueue: queue;  overload;
-    function CurrentMemberEmailAddressesString: string; overload;
+    function CurrentMemberEmailAddressesQueue(agency_short_designator: string = ''): queue;  overload;
+    function CurrentMemberEmailAddressesString(agency_short_designator: string = ''): string; overload;
     function EmailAddressOf(member_id: string): string;
     function EnrollmentOf(e_item: system.object): string;
     function EnrollmentOfMemberId(member_id: string): string;
@@ -418,19 +418,19 @@ begin
   CadNumOfMemberId := db_members.CadNumOfMemberId(member_id);
 end;
 
-function TClass_biz_members.CurrentMemberEmailAddressesQueue: queue;
+function TClass_biz_members.CurrentMemberEmailAddressesQueue(agency_short_designator: string = ''): queue;
 begin
-  CurrentMemberEmailAddressesQueue := db_members.CurrentMemberEmailAddresses;
+  CurrentMemberEmailAddressesQueue := db_members.CurrentMemberEmailAddresses(agency_short_designator);
 end;
 
-function TClass_biz_members.CurrentMemberEmailAddressesString: string;
+function TClass_biz_members.CurrentMemberEmailAddressesString(agency_short_designator: string = ''): string;
 var
   current_member_email_addresses: string;
   i: cardinal;
   q: queue;
 begin
   current_member_email_addresses := EMPTY;
-  q := CurrentMemberEmailAddressesQueue;
+  q := CurrentMemberEmailAddressesQueue(agency_short_designator);
   for i := 1 to q.Count do begin
     current_member_email_addresses := current_member_email_addresses + q.Dequeue.tostring + COMMA_SPACE;
   end;

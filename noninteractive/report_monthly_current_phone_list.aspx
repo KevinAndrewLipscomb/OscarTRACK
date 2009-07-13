@@ -23,11 +23,13 @@
                     <small>
                     <p>Best practices:</p>
                     <ul>
-                      <li><p>Keeping the units staffed as scheduled is a team effort.&nbsp; This report shows who's on the
-                        team.&nbsp; When seeking coverage for a duty, do not hesitate to call members you don't know well.&nbsp The
-                        worst they can say is no.</p></li>
+                      <li><p>It's a team effort to keep the units staffed as scheduled.&nbsp; This report shows who's on the
+                        team.</p></li>
                       <li><p>Except in cases of immediate personal emergencies, you are expected to stand, or arrange coverage for,
                         all slots on the schedule where your name appears.</p></li>
+                      <li><p>Drivers must be covered by drivers.</p></li>
+                      <li><p>When seeking coverage for a duty, do not hesitate to call members you don't know well.&nbsp The
+                        worst they can say is no.</p></li>
                       <li><p>If unable to find coverage from within your section, call members of other sections.&nbsp; If unable
                         to find coverage from within your squad, call members of other squads.&nbsp; (Log into
                         <asp:label id="Label_application_name_1" runat="server" font-bold="True"></asp:label> to access other
