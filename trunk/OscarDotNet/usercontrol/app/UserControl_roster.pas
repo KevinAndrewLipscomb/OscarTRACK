@@ -174,7 +174,7 @@ begin
       RequiredFieldValidator_quick_message_body.enabled := FALSE;
       Button_send.enabled := FALSE;
       DropDownList_agency_filter.enabled := FALSE;
-      CheckBox_running_only.checked := FALSE;
+      CheckBox_running_only.enabled := FALSE;
       CheckBox_phone_list.enabled := FALSE;
     end;
     //
