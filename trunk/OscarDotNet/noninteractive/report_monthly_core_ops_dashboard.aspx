@@ -23,7 +23,6 @@
 						<p>Best practices:</p>
 						<ul>
 						  <li><p>This report allows members to compare squad-to-squad metrics from various perspectives.</p></li>
-						  <li><p>Rankings are not indicators of performance or quality.</p></li>
               <li><p>Changes in one metric can have direct or inverse affects on other metrics.</p></li>
 						  <li><p>Factors affecting these metrics include demographics and squad policies and practices.</p></li>
 						  <li>
