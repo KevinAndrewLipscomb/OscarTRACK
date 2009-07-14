@@ -82,10 +82,41 @@
                       <td><ASP:DropDownList id="DropDownList_enrollment_level" runat="server"></ASP:DropDownList></td>
                       <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_enrollment_level" runat="server" errormessage="Please select a membership status." font-bold="True" controltovalidate="DropDownList_enrollment_level">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
+                  </table>
+                  <hr size="1">
+                  <table cellspacing="0" cellpadding="5" border="0">
+                    <tr>
+                      <td colspan="4"><i>Adding a member is now a 3-step process...</i></td>
+                    </tr>
+                    <tr>
+                      <td>STEP&nbsp;1</td>
+                      <td>&rarr;</td>
+                      <td>Check for similar names already in the system:</td>
+                      <td><ASP:Button id="Button_check_for_similarities" runat="server" text="Check"></ASP:Button></td>
+                    </tr>
+                    <tr>
+                      <td valign="top">STEP&nbsp;2</td>
+                      <td valign="top">&rarr;</td>
+                      <td valign="top">Review these possible matches:</td>
+                      <td valign="top"><ASP:Label id="Label_similars" runat="server"></ASP:Label></td>
+                    </tr>
+                    <tr>
+                      <td>STEP&nbsp;3</td>
+                      <td>&rarr;</td>
+                      <td>
+                        If
+                        <ASP:Label id="Label_first_name" runat="server" font-bold="True">(the</ASP:Label>&nbsp;<ASP:Label id="Label_last_name" runat="server" font-bold="True">member)</ASP:Label>
+                        is already in the system:
+                      </td>
+                      <td><ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+                    </tr>
                     <tr>
                       <td></td>
-                      <td nowrap="true"><ASP:Button id="Button_add_and_stop" runat="server" text="Add and stop"></ASP:Button>&nbsp; <ASP:Button id="Button_add_and_repeat" runat="server" text="Add and repeat"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
                       <td></td>
+                      <td align="right">Otherwise:</td>
+                      <td>
+                        <ASP:Button id="Button_add_and_stop" runat="server" text="Add and stop" enabled="False"></ASP:Button>&nbsp;or&nbsp;<ASP:Button id="Button_add_and_repeat" runat="server" text="Add and repeat" enabled="False"></ASP:Button>
+                      </td>
                     </tr>
                   </table>
                 </td>

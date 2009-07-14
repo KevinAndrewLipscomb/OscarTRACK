@@ -149,6 +149,13 @@ type
     procedure MakeMemberStatusStatements;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
+    function NamesSimilarTo
+      (
+      first_name: string;
+      last_name: string;
+      separator: string
+      )
+      : string;
     function OfficershipOf(member_id: string): string;
     function PhoneNumOf(member_id: string): string;
     function PeckCodeOf(e_item: system.object): string;
@@ -1478,6 +1485,45 @@ begin
     )
     .ExecuteScalar.tostring;
   self.Close;
+end;
+
+function TClass_db_members.NamesSimilarTo
+  (
+  first_name: string;
+  last_name: string;
+  separator: string
+  )
+  : string;
+var
+  dr: mysqldatareader;
+  names_similar_to: string;
+begin
+  names_similar_to := EMPTY;
+  self.Open;
+  dr := mysqlcommand.Create
+    (
+    'select concat(first_name," ",last_name," (",IFNULL(cad_num,""),")") as hit'
+    + ' from member'
+    + ' where SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),";",1) in'
+    +     ' ('
+    +     ' SUBSTRING_INDEX(DOUBLE_METAPHONE("' + last_name + '"),";",1)'
+    +     ' ,'
+    +     ' SUBSTRING_INDEX(DOUBLE_METAPHONE("' + last_name + '"),";",-1)'
+    +     ' )'
+    +   ' or SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),";",-1) in'
+    +     ' ('
+    +     ' SUBSTRING_INDEX(DOUBLE_METAPHONE("' + first_name + '"),";",1)'
+    +     ' ,'
+    +     ' SUBSTRING_INDEX(DOUBLE_METAPHONE("' + first_name + '"),";",-1)'
+    +     ' )',
+    connection
+    )
+    .ExecuteReader;
+  while dr.Read do begin
+    names_similar_to := names_similar_to + dr['hit'].tostring + separator;
+  end;
+  self.Close;
+  NamesSimilarTo := names_similar_to;
 end;
 
 function TClass_db_members.OfficershipOf(member_id: string): string;

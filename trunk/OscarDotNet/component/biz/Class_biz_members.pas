@@ -133,6 +133,13 @@ type
     function LastNameOfMemberId(member_id: string): string;
     function MedicalReleaseLevelOf(e_item: system.object): string;
     function MedicalReleaseLevelOfMemberId(member_id: string): string;
+    function NamesSimilarTo
+      (
+      first_name: string;
+      last_name: string;
+      separator: string
+      )
+      : string;
     function OfficershipOf(member_id: string): string;
     function PeckCodeOf(e_item: system.object): string;
     function PhoneNumOf(member_id: string): string;
@@ -524,6 +531,17 @@ end;
 function TClass_biz_members.MedicalReleaseLevelOfMemberId(member_id: string): string;
 begin
   MedicalReleaseLevelOfMemberId := db_members.MedicalReleaseLevelOfMemberId(member_id);
+end;
+
+function TClass_biz_members.NamesSimilarTo
+  (
+  first_name: string;
+  last_name: string;
+  separator: string
+  )
+  : string;
+begin
+  NamesSimilarTo := db_members.NamesSimilarTo(first_name,last_name,separator);
 end;
 
 function TClass_biz_members.OfficershipOf(member_id: string): string;
