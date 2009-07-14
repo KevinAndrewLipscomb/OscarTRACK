@@ -37,6 +37,7 @@ type
     procedure Button_add_and_repeat_Click(sender: System.Object; e: System.EventArgs);
     procedure CustomValidator_phone_num_ServerValidate(source: System.Object; 
       args: System.Web.UI.WebControls.ServerValidateEventArgs);
+    procedure Button_check_for_similarities_Click(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
   //
   // Expected session objects:
@@ -75,6 +76,10 @@ type
     RequiredFieldValidator_qualified_driver_yes_no: System.Web.UI.WebControls.RequiredFieldValidator;
     TextBox_phone_num: System.Web.UI.WebControls.TextBox;
     CustomValidator_phone_num: System.Web.UI.WebControls.CustomValidator;
+    Button_check_for_similarities: System.Web.UI.WebControls.Button;
+    Label_similars: System.Web.UI.WebControls.Label;
+    Label_first_name: System.Web.UI.WebControls.Label;
+    Label_last_name: System.Web.UI.WebControls.Label;
   protected
     procedure OnInit(e: EventArgs); override;
   end;
@@ -93,6 +98,7 @@ procedure TWebForm_add_member.InitializeComponent;
 begin
   Include(Self.CustomValidator_phone_num.ServerValidate, Self.CustomValidator_phone_num_ServerValidate);
   Include(Self.CustomValidator_email_address.ServerValidate, Self.CustomValidator_email_address_ServerValidate);
+  Include(Self.Button_check_for_similarities.Click, Self.Button_check_for_similarities_Click);
   Include(Self.Button_add_and_stop.Click, Self.Button_add_and_stop_Click);
   Include(Self.Button_add_and_repeat.Click, Self.Button_add_and_repeat_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
@@ -156,6 +162,27 @@ begin
   end;
 end;
 
+procedure TWebForm_add_member.Button_check_for_similarities_Click(sender: System.Object;
+  e: System.EventArgs);
+var
+  first_name: string;
+  last_name: string;
+  similars: string;
+begin
+  first_name := Safe(TextBox_first_name.text,HUMAN_NAME);
+  last_name := Safe(TextBox_last_name.text,HUMAN_NAME);
+  similars := p.biz_members.NamesSimilarTo(first_name,last_name,'<br>');
+  if similars <> EMPTY then begin
+    Label_similars.text := similars;
+  end else begin
+    Label_similars.text := '(None)';
+  end;
+  Label_first_name.text := first_name;
+  Label_last_name.text := last_name;
+  Button_add_and_repeat.enabled := TRUE;
+  Button_add_and_stop.enabled := TRUE;
+end;
+
 procedure TWebForm_add_member.CustomValidator_phone_num_ServerValidate(source: System.Object;
   args: System.Web.UI.WebControls.ServerValidateEventArgs);
 begin
@@ -178,6 +205,8 @@ begin
     UserControl_enrollment_date.Clear;
     Label_invalid_enrollment_date.visible := FALSE;
     DropDownList_enrollment_level.selectedindex := -1;
+    Button_add_and_repeat.enabled := FALSE;
+    Button_add_and_stop.enabled := FALSE;
   end;
 end;
 
