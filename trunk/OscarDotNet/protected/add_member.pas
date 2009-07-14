@@ -201,10 +201,14 @@ begin
     if Has(string_array(session['privilege_array']),'see-all-squads') then begin
       DropDownList_agency.selectedindex := 0;
     end;
+    TextBox_phone_num.text := EMPTY;
     TextBox_email_address.text := EMPTY;
     UserControl_enrollment_date.Clear;
     Label_invalid_enrollment_date.visible := FALSE;
     DropDownList_enrollment_level.selectedindex := -1;
+    Label_similars.text := EMPTY;
+    Label_first_name.text := '(the';
+    Label_last_name.text := 'member)';
     Button_add_and_repeat.enabled := FALSE;
     Button_add_and_stop.enabled := FALSE;
   end;
