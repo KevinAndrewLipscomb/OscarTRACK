@@ -102,7 +102,8 @@ MAILTO=kevin.lipscomb@kvrs.org
 16 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R16
 17 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=R17
 20 02 11 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_core_ops_roster.aspx?agency=EMS
-00 04 20 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R09
+30 02 20 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R09
+00 03 20 * * wget --output-document=/dev/null https://sslws010.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R14
 #
 # Quarterly
 #
