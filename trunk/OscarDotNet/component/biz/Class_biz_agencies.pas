@@ -13,6 +13,7 @@ type
     db_agencies: TClass_db_agencies;
   public
     constructor Create;
+    function BeOkToSharePhoneListWithSiblings(id: string): boolean;
     function Bind
       (
       partial_username: string;
@@ -78,6 +79,11 @@ begin
   inherited Create;
   // TODO: Add any constructor code here
   db_agencies := TClass_db_agencies.Create;
+end;
+
+function TClass_biz_agencies.BeOkToSharePhoneListWithSiblings(id: string): boolean;
+begin
+  BeOkToSharePhoneListWithSiblings := (id <> '14');
 end;
 
 function TClass_biz_agencies.Bind

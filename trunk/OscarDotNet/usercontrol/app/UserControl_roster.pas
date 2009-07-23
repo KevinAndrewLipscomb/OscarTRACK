@@ -268,6 +268,8 @@ end;
 
 procedure TWebUserControl_roster.DropDownList_agency_filter_SelectedIndexChanged(sender: System.Object;
   e: System.EventArgs);
+var
+  saved_checkbox_phone_list_enabled: boolean;
 begin
   p.agency_filter := Safe(DropDownList_agency_filter.selectedvalue,NUM);
   TableData_section_filter.visible := (p.agency_filter <> EMPTY);
@@ -276,6 +278,15 @@ begin
   //
   DropDownList_section_filter.selectedindex := 0;
   p.section_filter := 0;
+  //
+  saved_checkbox_phone_list_enabled := CheckBox_phone_list.enabled;
+  CheckBox_phone_list.enabled := (p.agency_filter = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum)))
+    or p.be_user_privileged_to_see_all_squads
+    or p.biz_agencies.BeOkToSharePhoneListWithSiblings(p.agency_filter);
+  if CheckBox_phone_list.enabled <> saved_checkbox_phone_list_enabled then begin
+    CheckBox_phone_list.checked := FALSE;
+    p.be_phone_list := FALSE;
+  end;
   //
   Bind;
 end;
