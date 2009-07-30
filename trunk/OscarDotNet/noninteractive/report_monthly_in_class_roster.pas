@@ -6,13 +6,16 @@ uses
   System.Collections, System.ComponentModel,
   System.Data, System.Drawing, System.Web, System.Web.SessionState,
   System.Web.UI, System.Web.UI.WebControls, System.Web.UI.HtmlControls,
-  Class_biz_members;
+  Class_biz_members,
+  Class_biz_role_member_map;
 
 type
   p_type =
     RECORD
+    agency_short_designator: string;
     biz_members: TClass_biz_members;
-    member_id: string;
+    biz_role_member_map: TClass_biz_role_member_map;
+    role_name: string;
     END;
   TWebForm_report_monthly_in_class_roster = class(System.Web.UI.Page)
   {$REGION 'Designer Managed Code'}
@@ -31,10 +34,6 @@ type
   protected
     procedure OnInit(e: EventArgs); override;
     procedure Render(writer: HtmlTextWriter); override;
-  private
-    { Private Declarations }
-  public
-    { Public Declarations }
   end;
 
 implementation
@@ -76,7 +75,6 @@ end;
 procedure TWebForm_report_monthly_in_class_roster.OnInit(e: EventArgs);
 var
   privilege_array: kix.string_array;
-  role_name: string;
 begin
   //
   // Required for Designer support
@@ -85,25 +83,26 @@ begin
   inherited OnInit(e);
   //
   p.biz_members := TClass_biz_members.Create;
+  p.biz_role_member_map := TClass_biz_role_member_map.Create;
   //
   // Set session objects referenced by UserControl_roster.
   //
   session.Add('mode:report',EMPTY);
   session.Add('mode:report/monthly-emt-intern-roster',EMPTY);
   //
-  if request['agency'] = 'EMS' then begin
-    role_name := 'Department BLS ID Coordinator';
+  p.agency_short_designator := request['agency'];
+  if p.agency_short_designator = 'EMS' then begin
+    p.role_name := 'Department BLS ID Coordinator';
     SetLength(privilege_array,1);
     privilege_array[0] := 'see-all-squads';
     session.Add('privilege_array',privilege_array);
   end else begin
-    role_name := 'Squad Training Officer';
+    p.role_name := 'Squad Training Officer';
     SetLength(privilege_array,0);
     session.Add('privilege_array',privilege_array);
   end;
   //
-  p.member_id := p.biz_members.IdOfAppropriateRoleHolder(role_name,request['agency']);
-  session.Add('member_id',p.member_id);
+  session.Add('member_id',p.biz_members.IdOfAppropriateRoleHolder(p.role_name,p.agency_short_designator));
   //
   PlaceHolder_roster.controls.Add(TWebUserControl_roster(LoadControl('~/usercontrol/app/UserControl_roster.ascx')));
   //
@@ -131,7 +130,7 @@ begin
     //from
     configurationmanager.appsettings['sender_email_address'],
     //to
-    p.biz_members.EmailAddressOf(p.member_id),
+    p.biz_role_member_map.EmailTargetOf(p.role_name,p.agency_short_designator),
     //subject
     'Report: Monthly EMT Intern Roster',
     //body
