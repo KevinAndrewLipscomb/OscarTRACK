@@ -25,6 +25,7 @@ type
       e: System.EventArgs);
     procedure Button_submit_Click(sender: System.Object; e: System.EventArgs);
     procedure Button_cancel_Click(sender: System.Object; e: System.EventArgs);
+    procedure CustomValidator_control_ServerValidate(source: System.Object; args: System.Web.UI.WebControls.ServerValidateEventArgs);
   {$ENDREGION}
   strict private
     p: p_type;
@@ -40,6 +41,7 @@ type
     HtmlTable_proper_release_reminder: System.Web.UI.HtmlControls.HtmlTable;
     Label_current_medical_release_level: System.Web.UI.WebControls.Label;
     RequiredFieldValidator_medical_release_level: System.Web.UI.WebControls.RequiredFieldValidator;
+    CustomValidator_control: System.Web.UI.WebControls.CustomValidator;
   protected
     procedure OnInit(e: EventArgs); override;
   end;
@@ -56,6 +58,7 @@ uses
 /// </summary>
 procedure TWebForm_change_member_medical_release_level.InitializeComponent;
 begin
+  Include(Self.CustomValidator_control.ServerValidate, Self.CustomValidator_control_ServerValidate);
   Include(Self.Button_submit.Click, Self.Button_submit_Click);
   Include(Self.Button_cancel.Click, Self.Button_cancel_Click);
   Include(Self.PreRender, Self.TWebForm_change_member_medical_release_level_PreRender);
@@ -111,6 +114,27 @@ begin
   //
 end;
 
+procedure TWebForm_change_member_medical_release_level.CustomValidator_control_ServerValidate(source: System.Object;
+  args: System.Web.UI.WebControls.ServerValidateEventArgs);
+var
+  current_enrollment_level: string;
+  first_name: string;
+begin
+  args.isvalid := FALSE;
+  current_enrollment_level := p.biz_members.EnrollmentOf(session['e_item']);
+  first_name := p.biz_members.FirstNameOf(session['e_item']);
+  if p.biz_medical_release_levels.BeValidForCurrentEnrollmentLevel
+    (Safe(DropDownList_medical_release_level.selectedvalue,NUM),current_enrollment_level)
+  then begin
+    args.isvalid := TRUE;
+  end else begin
+    CustomValidator_control.errormessage := first_name + ' is currently a(n) ' + current_enrollment_level + ' member, and '
+    + current_enrollment_level + ' members must remain certified.  If ' + first_name + ' is no longer certified, please go back to '
+    + first_name + APOSTROPHE + 's member_detail page and give ' + first_name + ' a Membership status that does not require '
+    + 'certification.  Then perform your current action again.';
+  end;
+end;
+
 procedure TWebForm_change_member_medical_release_level.Button_cancel_Click(sender: System.Object;
   e: System.EventArgs);
 begin
@@ -120,8 +144,10 @@ end;
 procedure TWebForm_change_member_medical_release_level.Button_submit_Click(sender: System.Object;
   e: System.EventArgs);
 begin
-  p.biz_members.SetMedicalReleaseCode(p.saved_level,Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
-  BackTrack;
+  if page.isvalid then begin
+    p.biz_members.SetMedicalReleaseCode(p.saved_level,Safe(DropDownList_medical_release_level.selectedvalue,NUM),session['e_item']);
+    BackTrack;
+  end;
 end;
 
 procedure TWebForm_change_member_medical_release_level.TWebForm_change_member_medical_release_level_PreRender(sender: System.Object;

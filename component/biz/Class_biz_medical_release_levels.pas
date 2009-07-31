@@ -30,6 +30,12 @@ type
     function BeRecruitAdminOrSpecOpsBoundByCode(level_code: string): boolean;
     function BeRecruitAdminOrSpecOpsBoundByDescription(level_description: string): boolean;
     function BeReleased(peck_code: string): boolean;
+    function BeValidForCurrentEnrollmentLevel
+      (
+      code: string;
+      enrollment_level_description: string
+      )
+      : boolean;
     procedure BindListControl(target: system.object);
     function DescriptionOf(code: string): string;
   end;
@@ -68,6 +74,16 @@ end;
 function TClass_biz_medical_release_levels.BeReleased(peck_code: string): boolean;
 begin
   BeReleased := (uint32.Parse(peck_code) >= Class_db_medical_release_levels.LOWEST_RELEASED_PECK_CODE);
+end;
+
+function TClass_biz_medical_release_levels.BeValidForCurrentEnrollmentLevel
+  (
+  code: string;
+  enrollment_level_description: string
+  )
+  : boolean;
+begin
+  BeValidForCurrentEnrollmentLevel := db_medical_release_levels.BeValidForCurrentEnrollmentLevel(code,enrollment_level_description);
 end;
 
 procedure TClass_biz_medical_release_levels.BindListControl(target: system.object);
