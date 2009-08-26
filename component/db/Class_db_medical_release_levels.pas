@@ -59,7 +59,7 @@ begin
     +   ' select TRUE'
     +   ' from medical_release_code_description_map'
     +   ' where code = "' + code + '"'
-    +     ' and pecking_order >= ' + uint32(LOWEST_RELEASED_PECK_CODE).tostring
+    +     ' and pecking_order >= (select pecking_order from medical_release_code_description_map where description = "Trainee")'
     + ' )',
     connection
     )
