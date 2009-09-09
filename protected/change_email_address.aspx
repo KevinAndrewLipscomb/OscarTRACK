@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="change_email_address.pas" AutoEventWireup="false" Inherits="change_email_address.TWebForm_change_email_address" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_email_address.aspx.cs" AutoEventWireup="True" Inherits="change_email_address.TWebForm_change_email_address" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -22,7 +22,7 @@
                   <td><ASP:TextBox id="TextBox_nominal_email_address" runat="server"></ASP:TextBox></td>
                   <td>
                     <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_email_address" runat="server" font-bold="True" errormessage="Please enter a nominal email address." controltovalidate="TextBox_nominal_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_nominal_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator>
-                    <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True">!ERR!</ASP:CustomValidator>
+                    <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True" onservervalidate="CustomValidator_nominal_email_address_ServerValidate">!ERR!</ASP:CustomValidator>
                   </td>
                 </tr>
                 <tr>
@@ -30,14 +30,14 @@
                   <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server"></ASP:TextBox></td>
                   <td>
                     <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address">!ERR!</ASP:RequiredFieldValidator>
-                    <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True">!ERR!</ASP:CustomValidator>
+                    <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_email_address_ServerValidate">!ERR!</ASP:CustomValidator>
                   </td>
                 </tr>
                 <tr>
                   <td></td>
                   <td>
-                    <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></asp:Button>
+                    <ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></asp:Button>
                   </td>
                   <td></td>
                 </tr>

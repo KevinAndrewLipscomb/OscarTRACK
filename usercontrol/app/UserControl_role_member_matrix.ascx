@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_role_member_matrix.pas" Inherits="UserControl_role_member_matrix.TWebUserControl_role_member_matrix"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_role_member_matrix.ascx.cs" Inherits="UserControl_role_member_matrix.TWebUserControl_role_member_matrix"%>
 <%@ Register TagPrefix="asp" Namespace="System.Web.UI" Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
   <tr>
@@ -10,8 +10,8 @@
             <table cellspacing="0" cellpadding="5" border="0">
               <tr>
                 <td><b><small>Filters:</small></b></td>
-                <td><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
-                <td><p align="center"><small>Role level</small><br><ASP:DropDownList id="DropDownList_tier_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
+                <td><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_agency_filter_SelectedIndexChanged"></ASP:DropDownList></td>
+                <td><p align="center"><small>Role level</small><br><ASP:DropDownList id="DropDownList_tier_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_tier_filter_SelectedIndexChanged"></ASP:DropDownList></td>
               </tr>
             </table>
           </td>

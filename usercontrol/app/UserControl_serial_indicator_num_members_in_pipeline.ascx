@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_num_members_in_pipeline.pas" Inherits="UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_num_members_in_pipeline.ascx.cs" Inherits="UserControl_serial_indicator_num_members_in_pipeline.TWebUserControl_serial_indicator_num_members_in_pipeline"%>
 <p>These control charts show the number of recruits and trainees.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

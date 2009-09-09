@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_role_notification_matrix.pas" Inherits="UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_role_notification_matrix.ascx.cs" Inherits="UserControl_role_notification_matrix.TWebUserControl_role_notification_matrix"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
   <tr>
     <td>
@@ -9,7 +9,7 @@
             <table cellspacing="0" cellpadding="5" border="0">
               <tr>
                 <td><b><small>Filters:</small></b></td>
-                <td><p align="center"><small>Role level</small><br><ASP:DropDownList id="DropDownList_tier_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
+                <td><p align="center"><small>Role level</small><br><ASP:DropDownList id="DropDownList_tier_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_tier_filter_SelectedIndexChanged"></ASP:DropDownList></td>
               </tr>
             </table>
           </td>

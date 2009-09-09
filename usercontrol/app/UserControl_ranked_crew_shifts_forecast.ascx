@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_crew_shifts_forecast.pas" Inherits="UserControl_ranked_crew_shifts_forecast.TWebUserControl_ranked_crew_shifts_forecast"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_crew_shifts_forecast.ascx.cs" Inherits="UserControl_ranked_crew_shifts_forecast.TWebUserControl_ranked_crew_shifts_forecast"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_funddrive_teaser.pas" Inherits="UserControl_funddrive_teaser.TWebUserControl_funddrive_teaser"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_funddrive_teaser.ascx.cs" Inherits="UserControl_funddrive_teaser.TWebUserControl_funddrive_teaser"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <p>Designated fund drive stakeholders at participating squads can use this module to access the following:</p>
 <ul>

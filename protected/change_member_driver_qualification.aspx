@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_member_driver_qualification.pas" AutoEventWireup="false" Inherits="change_member_driver_qualification.TWebForm_change_member_driver_qualification" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_member_driver_qualification.aspx.cs" AutoEventWireup="True" Inherits="change_member_driver_qualification.TWebForm_change_member_driver_qualification" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -29,7 +29,7 @@
 							  <ASP:ListItem value="No">No</ASP:ListItem>
 							</ASP:RadioButtonList>
 						  </p>
-						  <p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button>
+						  <p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button>
 						  </p>
 						</blockquote></td>
 					</tr>

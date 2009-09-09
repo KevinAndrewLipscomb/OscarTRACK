@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_commensuration.pas" Inherits="UserControl_commensuration.TWebUserControl_commensuration"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_commensuration.ascx.cs" Inherits="UserControl_commensuration.TWebUserControl_commensuration"%>
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
     <table cellspacing="0" cellpadding="5" border="0">
@@ -50,7 +50,7 @@
       </ASP:DataGrid>
     </p>
     <p>
-      <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
+      <ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
     </p>
   </ContentTemplate>
 </asp:UpdatePanel>

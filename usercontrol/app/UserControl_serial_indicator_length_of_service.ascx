@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_length_of_service.pas" Inherits="UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_length_of_service.ascx.cs" Inherits="UserControl_serial_indicator_length_of_service.TWebUserControl_serial_indicator_length_of_service"%>
 <p>These control charts show the median length of service of released core operations personnel, in years.&nbsp; For each data point, half of such members have given fewer years of service than indicated, half more.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

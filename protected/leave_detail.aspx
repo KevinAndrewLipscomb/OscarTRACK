@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="leave_detail.pas" AutoEventWireup="false" Inherits="leave_detail.TWebForm_leave_detail" %>
+<%@ Page language="c#" Debug="true" Codebehind="leave_detail.aspx.cs" AutoEventWireup="True" Inherits="leave_detail.TWebForm_leave_detail" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -29,7 +29,7 @@
 					</tr>
                     <tr>
                       <td>
-                          <p align="left"><ASP:LinkButton id="LinkButton_new" runat="server">Grant&nbsp;new</ASP:LinkButton></p>
+                          <p align="left"><ASP:LinkButton id="LinkButton_new" runat="server" onclick="LinkButton_new_Click">Grant&nbsp;new</ASP:LinkButton></p>
                         <ASP:DataGrid id="DataGrid_leaves" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
                             <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                             <Columns>

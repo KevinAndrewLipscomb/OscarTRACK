@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_member_medical_release_level.pas" AutoEventWireup="false" Inherits="change_member_medical_release_level.TWebForm_change_member_medical_release_level" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_member_medical_release_level.aspx.cs" AutoEventWireup="True" Inherits="change_member_medical_release_level.TWebForm_change_member_medical_release_level" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -41,12 +41,12 @@
                       <td><ASP:DropDownList id="DropDownList_medical_release_level" runat="server"></ASP:DropDownList></td>
                       <td>
                         <asp:RequiredFieldValidator id="RequiredFieldValidator_medical_release_level" runat="server" errormessage="Please select a new released certification level." font-bold="True" controltovalidate="DropDownList_medical_release_level" display="Dynamic">!ERR!</asp:RequiredFieldValidator>
-                        <asp:CustomValidator id="CustomValidator_control" runat="server" display="Dynamic" font-bold="True">!ERR!</asp:CustomValidator>
+                        <asp:CustomValidator id="CustomValidator_control" runat="server" display="Dynamic" font-bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
                       </td>
                     </tr>
                     <tr>
                       <td></td>
-                      <td><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+                      <td><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></td>
                       <td></td>
                     </tr>
                   </table>

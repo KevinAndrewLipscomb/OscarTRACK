@@ -1,0 +1,943 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OscarDotNet</RootNamespace>
+    <AssemblyName>OscarDotNet</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AjaxControlToolkit, Version=1.0.20229.20821, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL" />
+    <Reference Include="ki, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\ki\ki.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=5.0.8.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
+    <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Extensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default.aspx" />
+    <Content Include="exception.aspx" />
+    <Content Include="Global.asax" />
+    <Content Include="login.aspx" />
+    <Content Include="new_user_registration.aspx" />
+    <Content Include="remind_username.aspx" />
+    <Content Include="salogin.aspx" />
+    <Content Include="serial_indicator_control_chart.aspx" />
+    <Content Include="timeout.aspx" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="appcommon.cs" />
+    <Compile Include="component\biz\Class_biz_accounts.cs" />
+    <Compile Include="component\biz\Class_biz_agencies.cs" />
+    <Compile Include="component\biz\Class_biz_data_conditions.cs" />
+    <Compile Include="component\biz\Class_biz_enrollment.cs" />
+    <Compile Include="component\biz\Class_biz_indicator_median_length_of_service.cs" />
+    <Compile Include="component\biz\Class_biz_leave.cs" />
+    <Compile Include="component\biz\Class_biz_leaves.cs" />
+    <Compile Include="component\biz\Class_biz_medical_release_levels.cs" />
+    <Compile Include="component\biz\Class_biz_members.cs" />
+    <Compile Include="component\biz\Class_biz_milestones.cs" />
+    <Compile Include="component\biz\Class_biz_notifications.cs" />
+    <Compile Include="component\biz\Class_biz_officerships.cs" />
+    <Compile Include="component\biz\Class_biz_privileges.cs" />
+    <Compile Include="component\biz\Class_biz_residents.cs" />
+    <Compile Include="component\biz\Class_biz_roles.cs" />
+    <Compile Include="component\biz\Class_biz_role_member_map.cs" />
+    <Compile Include="component\biz\Class_biz_role_notification_map.cs" />
+    <Compile Include="component\biz\Class_biz_role_privilege_map.cs" />
+    <Compile Include="component\biz\Class_biz_scheduled_tasks.cs" />
+    <Compile Include="component\biz\Class_biz_sections.cs" />
+    <Compile Include="component\biz\Class_biz_tiers.cs" />
+    <Compile Include="component\biz\Class_biz_user.cs" />
+    <Compile Include="component\biz\Class_biz_users.cs" />
+    <Compile Include="component\biz\Class_biz_user_member_map.cs" />
+    <Compile Include="component\db\Class_db.cs" />
+    <Compile Include="component\db\Class_dbkeyclick.cs" />
+    <Compile Include="component\db\Class_db_accounts.cs" />
+    <Compile Include="component\db\Class_db_agencies.cs" />
+    <Compile Include="component\db\Class_db_enrollment.cs" />
+    <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
+    <Compile Include="component\db\Class_db_leaves.cs" />
+    <Compile Include="component\db\Class_db_medical_release_levels.cs" />
+    <Compile Include="component\db\Class_db_members.cs" />
+    <Compile Include="component\db\Class_db_milestones.cs" />
+    <Compile Include="component\db\Class_db_notifications.cs" />
+    <Compile Include="component\db\Class_db_officerships.cs" />
+    <Compile Include="component\db\Class_db_privileges.cs" />
+    <Compile Include="component\db\Class_db_residents.cs" />
+    <Compile Include="component\db\Class_db_roles.cs" />
+    <Compile Include="component\db\Class_db_role_member_map.cs" />
+    <Compile Include="component\db\Class_db_role_notification_map.cs" />
+    <Compile Include="component\db\Class_db_role_privilege_map.cs" />
+    <Compile Include="component\db\Class_db_tiers.cs" />
+    <Compile Include="component\db\Class_db_trail.cs" />
+    <Compile Include="component\db\Class_db_user.cs" />
+    <Compile Include="component\db\Class_db_users.cs" />
+    <Compile Include="component\db\Class_db_user_member_map.cs" />
+    <Compile Include="Default.aspx.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Default.aspx.designer.cs">
+      <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="doc\roles.aspx.cs">
+      <DependentUpon>roles.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="exception.aspx.cs">
+      <DependentUpon>exception.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="exception.aspx.designer.cs">
+      <DependentUpon>exception.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="new_user_registration.aspx.cs">
+      <DependentUpon>new_user_registration.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="new_user_registration.aspx.designer.cs">
+      <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\daily_tasks.aspx.cs">
+      <DependentUpon>daily_tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\daily_tasks.aspx.designer.cs">
+      <DependentUpon>daily_tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\milestone_sweep.aspx.cs">
+      <DependentUpon>milestone_sweep.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\milestone_sweep.aspx.designer.cs">
+      <DependentUpon>milestone_sweep.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_applicant_roster.aspx.cs">
+      <DependentUpon>report_monthly_applicant_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_applicant_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_applicant_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_core_ops_dashboard.aspx.cs">
+      <DependentUpon>report_monthly_core_ops_dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_core_ops_dashboard.aspx.designer.cs">
+      <DependentUpon>report_monthly_core_ops_dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_core_ops_roster.aspx.cs">
+      <DependentUpon>report_monthly_core_ops_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_core_ops_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_core_ops_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_current_phone_list.aspx.cs">
+      <DependentUpon>report_monthly_current_phone_list.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_current_phone_list.aspx.designer.cs">
+      <DependentUpon>report_monthly_current_phone_list.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_current_roster.aspx.cs">
+      <DependentUpon>report_monthly_current_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_current_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_current_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_in_class_roster.aspx.cs">
+      <DependentUpon>report_monthly_in_class_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_in_class_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_in_class_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_per_agency_serial_indicators.aspx.cs">
+      <DependentUpon>report_monthly_per_agency_serial_indicators.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_per_agency_serial_indicators.aspx.designer.cs">
+      <DependentUpon>report_monthly_per_agency_serial_indicators.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx.cs">
+      <DependentUpon>report_monthly_recruit_awaiting_class_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_recruit_awaiting_class_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_role_holders.aspx.cs">
+      <DependentUpon>report_monthly_role_holders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_role_holders.aspx.designer.cs">
+      <DependentUpon>report_monthly_role_holders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_trainee_roster.aspx.cs">
+      <DependentUpon>report_monthly_trainee_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_trainee_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_trainee_roster.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_quarterly_activity.aspx.cs">
+      <DependentUpon>report_quarterly_activity.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_quarterly_activity.aspx.designer.cs">
+      <DependentUpon>report_quarterly_activity.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\statement_member_status.aspx.cs">
+      <DependentUpon>statement_member_status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\statement_member_status.aspx.designer.cs">
+      <DependentUpon>statement_member_status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="protected\add_member.aspx.cs">
+      <DependentUpon>add_member.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\add_member.aspx.designer.cs">
+      <DependentUpon>add_member.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\add_new_enrollment_status.aspx.cs">
+      <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\add_new_enrollment_status.aspx.designer.cs">
+      <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_cad_num.aspx.cs">
+      <DependentUpon>change_cad_num.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_cad_num.aspx.designer.cs">
+      <DependentUpon>change_cad_num.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_email_address.aspx.cs">
+      <DependentUpon>change_email_address.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_email_address.aspx.designer.cs">
+      <DependentUpon>change_email_address.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_leave.aspx.cs">
+      <DependentUpon>change_leave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_leave.aspx.designer.cs">
+      <DependentUpon>change_leave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_agency.aspx.cs">
+      <DependentUpon>change_member_agency.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_agency.aspx.designer.cs">
+      <DependentUpon>change_member_agency.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_driver_qualification.aspx.cs">
+      <DependentUpon>change_member_driver_qualification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_driver_qualification.aspx.designer.cs">
+      <DependentUpon>change_member_driver_qualification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_email_address.aspx.cs">
+      <DependentUpon>change_member_email_address.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_email_address.aspx.designer.cs">
+      <DependentUpon>change_member_email_address.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_medical_release_level.aspx.cs">
+      <DependentUpon>change_member_medical_release_level.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_medical_release_level.aspx.designer.cs">
+      <DependentUpon>change_member_medical_release_level.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_section.aspx.cs">
+      <DependentUpon>change_member_section.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_section.aspx.designer.cs">
+      <DependentUpon>change_member_section.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_name.aspx.cs">
+      <DependentUpon>change_name.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_name.aspx.designer.cs">
+      <DependentUpon>change_name.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_password.aspx.cs">
+      <DependentUpon>change_password.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_password.aspx.designer.cs">
+      <DependentUpon>change_password.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_phone_num.aspx.cs">
+      <DependentUpon>change_phone_num.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_phone_num.aspx.designer.cs">
+      <DependentUpon>change_phone_num.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\enrollment_detail.aspx.cs">
+      <DependentUpon>enrollment_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\enrollment_detail.aspx.designer.cs">
+      <DependentUpon>enrollment_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\establish_membership_trouble.aspx.cs">
+      <DependentUpon>establish_membership_trouble.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\establish_membership_trouble.aspx.designer.cs">
+      <DependentUpon>establish_membership_trouble.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\grant_leave.aspx.cs">
+      <DependentUpon>grant_leave.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\grant_leave.aspx.designer.cs">
+      <DependentUpon>grant_leave.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\leave_detail.aspx.cs">
+      <DependentUpon>leave_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\leave_detail.aspx.designer.cs">
+      <DependentUpon>leave_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\member_detail.aspx.cs">
+      <DependentUpon>member_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\member_detail.aspx.designer.cs">
+      <DependentUpon>member_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\officership_detail.aspx.cs">
+      <DependentUpon>officership_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\officership_detail.aspx.designer.cs">
+      <DependentUpon>officership_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\overview.aspx.cs">
+      <DependentUpon>overview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\overview.aspx.designer.cs">
+      <DependentUpon>overview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="remind_username.aspx.cs">
+      <DependentUpon>remind_username.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="remind_username.aspx.designer.cs">
+      <DependentUpon>remind_username.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="salogin.aspx.cs">
+      <DependentUpon>salogin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="salogin.aspx.designer.cs">
+      <DependentUpon>salogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="serial_indicator_control_chart.aspx.cs">
+      <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="serial_indicator_control_chart.aspx.designer.cs">
+      <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="timeout.aspx.cs">
+      <DependentUpon>timeout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="timeout.aspx.designer.cs">
+      <DependentUpon>timeout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_about.ascx.cs">
+      <DependentUpon>UserControl_about.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_about.ascx.designer.cs">
+      <DependentUpon>UserControl_about.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_agency.ascx.cs">
+      <DependentUpon>UserControl_agency.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_agency.ascx.designer.cs">
+      <DependentUpon>UserControl_agency.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx.cs">
+      <DependentUpon>UserControl_behind_the_scenes_activity.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx.designer.cs">
+      <DependentUpon>UserControl_behind_the_scenes_activity.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_commensuration.ascx.cs">
+      <DependentUpon>UserControl_commensuration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_commensuration.ascx.designer.cs">
+      <DependentUpon>UserControl_commensuration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_common_header_bar.ascx.cs">
+      <DependentUpon>UserControl_common_header_bar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_common_header_bar.ascx.designer.cs">
+      <DependentUpon>UserControl_common_header_bar.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_config_binder.ascx.cs">
+      <DependentUpon>UserControl_config_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.cs">
+      <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.designer.cs">
+      <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_dashboard_binder.ascx.cs">
+      <DependentUpon>UserControl_dashboard_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.cs">
+      <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.designer.cs">
+      <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_funddrive_binder.ascx.cs">
+      <DependentUpon>UserControl_funddrive_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_funddrive_teaser.ascx.cs">
+      <DependentUpon>UserControl_funddrive_teaser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_funddrive_teaser.ascx.designer.cs">
+      <DependentUpon>UserControl_funddrive_teaser.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_log_new_donation.ascx.cs">
+      <DependentUpon>UserControl_log_new_donation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_log_new_donation.ascx.designer.cs">
+      <DependentUpon>UserControl_log_new_donation.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_binder.ascx.cs">
+      <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.cs">
+      <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_postcontent.ascx.cs">
+      <DependentUpon>UserControl_postcontent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_postcontent.ascx.designer.cs">
+      <DependentUpon>UserControl_postcontent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_precontent.ascx.cs">
+      <DependentUpon>UserControl_precontent.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_precontent.ascx.designer.cs">
+      <DependentUpon>UserControl_precontent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_commensuration.ascx.cs">
+      <DependentUpon>UserControl_ranked_commensuration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_commensuration.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_commensuration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_core_ops_size.ascx.cs">
+      <DependentUpon>UserControl_ranked_core_ops_size.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_core_ops_size.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_core_ops_size.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx.cs">
+      <DependentUpon>UserControl_ranked_crew_shifts_forecast.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_crew_shifts_forecast.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_length_of_service.ascx.cs">
+      <DependentUpon>UserControl_ranked_length_of_service.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_length_of_service.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_length_of_service.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx.cs">
+      <DependentUpon>UserControl_ranked_num_members_in_pipeline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_num_members_in_pipeline.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx.cs">
+      <DependentUpon>UserControl_ranked_standard_enrollment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_standard_enrollment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_utilization.ascx.cs">
+      <DependentUpon>UserControl_ranked_utilization.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_utilization.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_utilization.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role.ascx.cs">
+      <DependentUpon>UserControl_role.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role.ascx.designer.cs">
+      <DependentUpon>UserControl_role.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_roles_and_matrices_binder.ascx.cs">
+      <DependentUpon>UserControl_roles_and_matrices_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_help.ascx.cs">
+      <DependentUpon>UserControl_role_help.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_help.ascx.designer.cs">
+      <DependentUpon>UserControl_role_help.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_holders_per_agency.ascx.cs">
+      <DependentUpon>UserControl_role_holders_per_agency.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_holders_per_agency.ascx.designer.cs">
+      <DependentUpon>UserControl_role_holders_per_agency.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_member_mapping.ascx.cs">
+      <DependentUpon>UserControl_role_member_mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_member_mapping.ascx.designer.cs">
+      <DependentUpon>UserControl_role_member_mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_member_matrix.ascx.cs">
+      <DependentUpon>UserControl_role_member_matrix.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_member_matrix.ascx.designer.cs">
+      <DependentUpon>UserControl_role_member_matrix.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_notification_mapping.ascx.cs">
+      <DependentUpon>UserControl_role_notification_mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_notification_mapping.ascx.designer.cs">
+      <DependentUpon>UserControl_role_notification_mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_notification_matrix.ascx.cs">
+      <DependentUpon>UserControl_role_notification_matrix.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_notification_matrix.ascx.designer.cs">
+      <DependentUpon>UserControl_role_notification_matrix.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_privilege_mapping.ascx.cs">
+      <DependentUpon>UserControl_role_privilege_mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_privilege_mapping.ascx.designer.cs">
+      <DependentUpon>UserControl_role_privilege_mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_privilege_matrix.ascx.cs">
+      <DependentUpon>UserControl_role_privilege_matrix.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_role_privilege_matrix.ascx.designer.cs">
+      <DependentUpon>UserControl_role_privilege_matrix.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_roster.ascx.cs">
+      <DependentUpon>UserControl_roster.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_roster.ascx.designer.cs">
+      <DependentUpon>UserControl_roster.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicators_binder.ascx.cs">
+      <DependentUpon>UserControl_serial_indicators_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_num_core_ops_members.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_num_core_ops_members.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_num_members_in_pipeline.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_num_members_in_pipeline.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_potential_crew_shifts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_potential_crew_shifts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_utilization.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_utilization.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.cs">
+      <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.designer.cs">
+      <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_user.ascx.cs">
+      <DependentUpon>UserControl_user.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_user.ascx.designer.cs">
+      <DependentUpon>UserControl_user.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx.cs">
+      <DependentUpon>UserControl_users_and_mapping_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_user_member_mapping.ascx.cs">
+      <DependentUpon>UserControl_user_member_mapping.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_user_member_mapping.ascx.designer.cs">
+      <DependentUpon>UserControl_user_member_mapping.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_by.ascx.cs">
+      <DependentUpon>UserControl_about_by.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_by.ascx.designer.cs">
+      <DependentUpon>UserControl_about_by.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_tools.ascx.cs">
+      <DependentUpon>UserControl_about_tools.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_about_tools.ascx.designer.cs">
+      <DependentUpon>UserControl_about_tools.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.cs">
+      <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx.cs">
+      <DependentUpon>UserControl_bread_crumb_trail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx.designer.cs">
+      <DependentUpon>UserControl_bread_crumb_trail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_config_welcome.ascx.cs">
+      <DependentUpon>UserControl_config_welcome.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_config_welcome.ascx.designer.cs">
+      <DependentUpon>UserControl_config_welcome.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.cs">
+      <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_print_div.ascx.cs">
+      <DependentUpon>UserControl_print_div.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_print_div.ascx.designer.cs">
+      <DependentUpon>UserControl_print_div.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_session_interrupted.ascx.cs">
+      <DependentUpon>UserControl_session_interrupted.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_session_interrupted.ascx.designer.cs">
+      <DependentUpon>UserControl_session_interrupted.ascx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="css\standard-overrides-for-ie6.css" />
+    <Content Include="css\standard.css" />
+    <Content Include="doc\roles.aspx" />
+    <Content Include="js\gradient.js" />
+    <Content Include="noninteractive\daily_tasks.aspx" />
+    <Content Include="noninteractive\milestone_sweep.aspx" />
+    <Content Include="noninteractive\report_monthly_applicant_roster.aspx" />
+    <Content Include="noninteractive\report_monthly_core_ops_dashboard.aspx" />
+    <Content Include="noninteractive\report_monthly_core_ops_roster.aspx" />
+    <Content Include="noninteractive\report_monthly_current_phone_list.aspx" />
+    <Content Include="noninteractive\report_monthly_current_roster.aspx" />
+    <Content Include="noninteractive\report_monthly_in_class_roster.aspx" />
+    <Content Include="noninteractive\report_monthly_per_agency_serial_indicators.aspx" />
+    <Content Include="noninteractive\report_monthly_recruit_awaiting_class_roster.aspx" />
+    <Content Include="noninteractive\report_monthly_role_holders.aspx" />
+    <Content Include="noninteractive\report_monthly_trainee_roster.aspx" />
+    <Content Include="noninteractive\report_quarterly_activity.aspx" />
+    <Content Include="noninteractive\statement_member_status.aspx" />
+    <Content Include="noninteractive\template\notification\failure_to_thrive_demotion.txt" />
+    <Content Include="noninteractive\template\notification\leave_ending_soon.txt" />
+    <Content Include="noninteractive\template\notification\leave_expired_yesterday.txt" />
+    <Content Include="noninteractive\template\notification\member_status_statement.txt" />
+    <Content Include="noninteractive\template\notification\seniority_promotion.txt" />
+    <Content Include="protected\add_member.aspx" />
+    <Content Include="protected\add_new_enrollment_status.aspx" />
+    <Content Include="protected\change_cad_num.aspx" />
+    <Content Include="protected\change_email_address.aspx" />
+    <Content Include="protected\change_leave.aspx" />
+    <Content Include="protected\change_member_agency.aspx" />
+    <Content Include="protected\change_member_driver_qualification.aspx" />
+    <Content Include="protected\change_member_email_address.aspx" />
+    <Content Include="protected\change_member_medical_release_level.aspx" />
+    <Content Include="protected\change_member_section.aspx" />
+    <Content Include="protected\change_name.aspx" />
+    <Content Include="protected\change_password.aspx" />
+    <Content Include="protected\change_phone_num.aspx" />
+    <Content Include="protected\enrollment_detail.aspx" />
+    <Content Include="protected\establish_membership_trouble.aspx" />
+    <Content Include="protected\grant_leave.aspx" />
+    <Content Include="protected\image\cityseal150.jpg" />
+    <Content Include="protected\image\delete_x16_h.png" />
+    <Content Include="protected\image\draw_freehand_16_h.png" />
+    <Content Include="protected\image\excel.gif" />
+    <Content Include="protected\image\first_track_blue16_h.png" />
+    <Content Include="protected\image\last_track_blue16_h.png" />
+    <Content Include="protected\image\open_document16_h.png" />
+    <Content Include="protected\image\play_blue16_h-flipped.PNG" />
+    <Content Include="protected\image\play_blue16_h.png" />
+    <Content Include="protected\image\print16_h.png" />
+    <Content Include="protected\image\processing-indicator.gif" />
+    <Content Include="protected\image\rc-logo.jpg" />
+    <Content Include="protected\image\vbemslogosmall.jpg" />
+    <Content Include="protected\image\vbemspatch150.jpg" />
+    <Content Include="protected\leave_detail.aspx" />
+    <Content Include="protected\member_detail.aspx" />
+    <Content Include="protected\officership_detail.aspx" />
+    <Content Include="protected\overview.aspx" />
+    <Content Include="protected\template\notification\agency_change.txt" />
+    <Content Include="protected\template\notification\cad_num_change.txt" />
+    <Content Include="protected\template\notification\driver_qualification_change.txt" />
+    <Content Include="protected\template\notification\leave_changed.txt" />
+    <Content Include="protected\template\notification\leave_deleted.txt" />
+    <Content Include="protected\template\notification\leave_granted.txt" />
+    <Content Include="protected\template\notification\medical_release_level_change.txt" />
+    <Content Include="protected\template\notification\membership_establishment_trouble.txt" />
+    <Content Include="protected\template\notification\member_added.txt" />
+    <Content Include="protected\template\notification\member_name_change.txt" />
+    <Content Include="protected\template\notification\needs_enrollment_review.txt" />
+    <Content Include="protected\template\notification\new_enrollment_level.txt" />
+    <Content Include="protected\template\notification\phone_num_change.txt" />
+    <Content Include="protected\template\notification\role_change.txt" />
+    <Content Include="protected\template\notification\section_change.txt" />
+    <Content Include="template\notification\temporary_password.txt" />
+    <Content Include="template\notification\username_reminder.txt" />
+    <Content Include="unpublished.config" />
+    <None Include="deploy.bat" />
+    <None Include="noninteractive\.crontab" />
+    <Content Include="protected\Web.config" />
+    <Content Include="usercontrol\app\UserControl_about.ascx" />
+    <Content Include="usercontrol\app\UserControl_agency.ascx" />
+    <Content Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx" />
+    <Content Include="usercontrol\app\UserControl_commensuration.ascx" />
+    <Content Include="usercontrol\app\UserControl_common_header_bar.ascx" />
+    <Content Include="usercontrol\app\UserControl_config_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_current_indicators.ascx" />
+    <Content Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_establish_membership.ascx" />
+    <Content Include="usercontrol\app\UserControl_funddrive_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_funddrive_teaser.ascx" />
+    <Content Include="usercontrol\app\UserControl_log_new_donation.ascx" />
+    <Content Include="usercontrol\app\UserControl_member_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_personnel_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_postcontent.ascx" />
+    <Content Include="usercontrol\app\UserControl_precontent.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_core_ops_size.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_length_of_service.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
+    <Content Include="usercontrol\app\UserControl_role.ascx" />
+    <Content Include="usercontrol\app\UserControl_roles_and_matrices_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_help.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_holders_per_agency.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_member_mapping.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_member_matrix.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_notification_mapping.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_notification_matrix.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_privilege_mapping.ascx" />
+    <Content Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
+    <Content Include="usercontrol\app\UserControl_roster.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx" />
+    <Content Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
+    <Content Include="usercontrol\app\UserControl_user.ascx" />
+    <Content Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_user_member_mapping.ascx" />
+    <Content Include="usercontrol\ki\image\delete_x16_h.png" />
+    <Content Include="usercontrol\ki\image\paperclip_16x16.gif" />
+    <Content Include="usercontrol\ki\UserControl_about_by.ascx" />
+    <Content Include="usercontrol\ki\UserControl_about_tools.ascx" />
+    <Content Include="usercontrol\ki\UserControl_attachment_explorer.ascx" />
+    <Content Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
+    <Content Include="usercontrol\ki\UserControl_config_welcome.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
+    <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
+    <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
+    <None Include="work.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>1377</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

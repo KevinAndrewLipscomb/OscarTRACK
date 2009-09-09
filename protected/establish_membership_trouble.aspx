@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="establish_membership_trouble.pas" AutoEventWireup="false" Inherits="establish_membership_trouble.TWebForm_establish_membership_trouble" %>
+<%@ Page language="c#" Debug="true" Codebehind="establish_membership_trouble.aspx.cs" AutoEventWireup="True" Inherits="establish_membership_trouble.TWebForm_establish_membership_trouble" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -49,8 +49,8 @@
 							<p>The <ASP:Label id="Label_application_name_2" runat="server"></ASP:Label>&nbsp;Application Administrator will advise you when to log into <ASP:Label id="Label_application_name_3" runat="server"></ASP:Label>&nbsp;again.</p>
 						  </li>
 						</ul>
-						<p><ASP:Button id="Button_submit" runat="server" text="Send message and LOG OUT"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
-                                  <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></asp:Button></p></td>
+						<p><ASP:Button id="Button_submit" runat="server" text="Send message and LOG OUT" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;&nbsp;&nbsp; 
+                                  <asp:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></asp:Button></p></td>
                                 <td></td>
                               </tr>
                           </table></p>

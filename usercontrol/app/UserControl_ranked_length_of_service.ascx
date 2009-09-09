@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_length_of_service.pas" Inherits="UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_length_of_service.ascx.cs" Inherits="UserControl_ranked_length_of_service.TWebUserControl_ranked_length_of_service"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>

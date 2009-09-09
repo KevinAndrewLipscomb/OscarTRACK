@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_about.pas" Inherits="UserControl_about.TWebUserControl_about"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_about.ascx.cs" Inherits="UserControl_about.TWebUserControl_about"%>
 <%@ Register TagPrefix="uc2" TagName="UserControl_about_by" Src="~/usercontrol/ki/UserControl_about_by.ascx" %>
 <%@ Register TagPrefix="uc3" TagName="UserControl_about_tools" Src="~/usercontrol/ki/UserControl_about_tools.ascx" %>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">

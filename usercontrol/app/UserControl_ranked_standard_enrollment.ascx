@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_standard_enrollment.pas" Inherits="UserControl_ranked_standard_enrollment.TWebUserControl_ranked_standard_enrollment"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_standard_enrollment.ascx.cs" Inherits="UserControl_ranked_standard_enrollment.TWebUserControl_ranked_standard_enrollment"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>

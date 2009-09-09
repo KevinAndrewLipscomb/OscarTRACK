@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_core_ops_size.pas" Inherits="UserControl_ranked_core_ops_size.TWebUserControl_ranked_core_ops_size"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_core_ops_size.ascx.cs" Inherits="UserControl_ranked_core_ops_size.TWebUserControl_ranked_core_ops_size"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>

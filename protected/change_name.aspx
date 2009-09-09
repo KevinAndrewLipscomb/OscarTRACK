@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_name.pas" AutoEventWireup="false" Inherits="change_name.TWebForm_change_name" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_name.aspx.cs" AutoEventWireup="True" Inherits="change_name.TWebForm_change_name" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -35,7 +35,7 @@
 							  </tr>
 							  <tr>
 								<td></td>
-                                <td><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+                                <td><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></td>
                                 <td></td>
                               </tr>
                           </table>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_role_holders_per_agency.pas" Inherits="UserControl_role_holders_per_agency.TWebUserControl_role_holders_per_agency"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_role_holders_per_agency.ascx.cs" Inherits="UserControl_role_holders_per_agency.TWebUserControl_role_holders_per_agency"%>
 <table cellspacing="0" cellpadding="10" border="0">
   <tr>
     <td valign="top">

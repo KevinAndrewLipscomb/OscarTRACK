@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_potential_crew_shifts.pas" Inherits="UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_potential_crew_shifts.ascx.cs" Inherits="UserControl_serial_indicator_potential_crew_shifts.TWebUserControl_serial_indicator_potential_crew_shifts"%>
 <p>These control charts show the potential number of ambulance crew-shifts that could have been supplied on the schedule.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

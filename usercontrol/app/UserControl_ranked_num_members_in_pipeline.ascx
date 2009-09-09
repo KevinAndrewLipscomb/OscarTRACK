@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_num_members_in_pipeline.pas" Inherits="UserControl_ranked_num_members_in_pipeline.TWebUserControl_ranked_num_members_in_pipeline"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_num_members_in_pipeline.ascx.cs" Inherits="UserControl_ranked_num_members_in_pipeline.TWebUserControl_ranked_num_members_in_pipeline"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>
