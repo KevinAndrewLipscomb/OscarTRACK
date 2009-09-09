@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="enrollment_detail.pas" AutoEventWireup="false" Inherits="enrollment_detail.TWebForm_enrollment_detail" %>
+<%@ Page language="c#" Debug="true" Codebehind="enrollment_detail.aspx.cs" AutoEventWireup="True" Inherits="enrollment_detail.TWebForm_enrollment_detail" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -28,7 +28,7 @@
 					</tr>
 					<tr>
 					  <td>
-                          <p><ASP:LinkButton id="LinkButton_add_new_enrollment_status" runat="server">[Add&nbsp;a&nbsp;new&nbsp;status]</ASP:LinkButton></p>
+                          <p><ASP:LinkButton id="LinkButton_add_new_enrollment_status" runat="server" onclick="LinkButton_add_new_enrollment_status_Click">[Add&nbsp;a&nbsp;new&nbsp;status]</ASP:LinkButton></p>
                           <p>
 						<ASP:DataGrid id="DataGrid_member_history" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
 						  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>

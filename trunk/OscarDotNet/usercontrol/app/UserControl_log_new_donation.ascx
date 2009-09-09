@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_log_new_donation.pas" Inherits="UserControl_log_new_donation.TWebUserControl_log_new_donation"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_log_new_donation.ascx.cs" Inherits="UserControl_log_new_donation.TWebUserControl_log_new_donation"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <table border="0" cellspacing="0" cellpadding="10">
   <tr>
@@ -45,7 +45,7 @@
           <td>
             <asp:RequiredFieldValidator id="RequiredFieldValidator_rod_num" runat="server" errormessage="Please enter a ROD#." font-bold="True" controltovalidate="TextBox_rod_num" display="Dynamic">!ERR!</asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator id="RegularExpressionValidator_rod_num" runat="server" errormessage="Please enter a valid ROD#." font-bold="True" controltovalidate="TextBox_rod_num" display="Dynamic" validationexpression="\d{1,5}">!ERR!</asp:RegularExpressionValidator>
-            <asp:CustomValidator id="CustomValidator_rod_num" runat="server" errormessage="No such resident found by that ROD#." font-bold="True" display="Dynamic">!ERR!</asp:CustomValidator>
+            <asp:CustomValidator id="CustomValidator_rod_num" runat="server" errormessage="No such resident found by that ROD#." font-bold="True" display="Dynamic" onservervalidate="CustomValidator_rod_num_ServerValidate">!ERR!</asp:CustomValidator>
           </td>
         </tr>
         <tr>
@@ -80,7 +80,7 @@
         <tr>
           <td align="right">&nbsp;</td>
           <td>
-            <asp:Button id="Button_submit" runat="server" text="Submit"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button id="Button_reset" runat="server" text="Reset"></asp:Button>
+            <asp:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></asp:Button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<asp:Button id="Button_reset" runat="server" text="Reset" onclick="Button_reset_Click"></asp:Button>
           </td>
           <td></td>
         </tr>

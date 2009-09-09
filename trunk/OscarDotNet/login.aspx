@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="login.pas" AutoEventWireup="false" Inherits="login.TWebForm_login" %>
+<%@ Page language="c#" Debug="true" Codebehind="login.aspx.cs" AutoEventWireup="True" Inherits="login.TWebForm_login" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -24,7 +24,7 @@
 							  <td><strong>Log in</strong></td>
 							  <td>
 								<div align="right">
-							  <ASP:CustomValidator id="CustomValidator_account_exists" runat="server" errormessage="Invalid user/password combination. Please try again." font-bold="True">!ERR!</ASP:CustomValidator>
+							  <ASP:CustomValidator id="CustomValidator_account_exists" runat="server" errormessage="Invalid user/password combination. Please try again." font-bold="True" onservervalidate="CustomValidator_account_exists_ServerValidate">!ERR!</ASP:CustomValidator>
 								</div></td>
 							</tr>
 						</table></strong></td>
@@ -43,8 +43,8 @@
 				  <td>
 					<p>
 					  <small>
-						<ASP:LinkButton id="LinkButton_new_user" runat="server" causesvalidation="False" tabindex="5">New user?</ASP:LinkButton><br>
-						<ASP:LinkButton id="LinkButton_forgot_username" runat="server" causesvalidation="False" tabindex="6">Forgot username?</ASP:LinkButton>
+						<ASP:LinkButton id="LinkButton_new_user" runat="server" causesvalidation="False" tabindex="5" onclick="LinkButton_new_user_Click">New user?</ASP:LinkButton><br>
+						<ASP:LinkButton id="LinkButton_forgot_username" runat="server" causesvalidation="False" tabindex="6" onclick="LinkButton_forgot_username_Click">Forgot username?</ASP:LinkButton>
 					  </small>
 					</p>
 				  </td>
@@ -59,7 +59,7 @@
 				  <td>
 					<asp:textbox id="TextBox_password" runat="server" textmode="Password" tabindex="2"></asp:textbox>
 				  </td>
-                            <td><small><ASP:LinkButton id="LinkButton_forgot_password" runat="server" causesvalidation="False" tabindex="7">Forgot password?</ASP:LinkButton></small></td>
+                            <td><small><ASP:LinkButton id="LinkButton_forgot_password" runat="server" causesvalidation="False" tabindex="7" onclick="LinkButton_forgot_password_Click">Forgot password?</ASP:LinkButton></small></td>
                             <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_password" runat="server" errormessage="Please enter a password." font-bold="True" controltovalidate="TextBox_password">!ERR!</ASP:RequiredFieldValidator>
 					<ASP:RegularExpressionValidator id="RegularExpressionValidator_password" runat="server" errormessage='Please use only letter, number, hyphen ("-"), and underscore ("_") characters (or local equivalents) in your password.' font-bold="True" controltovalidate="TextBox_password" validationexpression="[\w-]+">!ERR!</ASP:RegularExpressionValidator></td>
 				</tr>
@@ -79,7 +79,7 @@
 				  <td valign="top">
 				  </td>
 				  <td><asp:button id="Button_log_in"
-								runat="server" text="Log in" font-bold="True" tabindex="4">
+								runat="server" text="Log in" font-bold="True" tabindex="4" onclick="Button_log_in_Click">
 					</asp:button>
 				  </td>
                             <td></td>

@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="exception.pas" AutoEventWireup="false" Inherits="exception.TWebForm_exception" %>
+<%@ Page language="c#" Debug="true" Codebehind="exception.aspx.cs" AutoEventWireup="True" Inherits="exception.TWebForm_exception" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -41,7 +41,7 @@
 	  <p>It would be a tremendous help if you could describe what you were doing when this problem occurred:</p>
 	  <blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
 <p><textarea id="TextArea_user_comment" rows="5" cols="60" runat="server"></textarea></p>
-<p><ASP:Button id="Button_submit" runat="server" text="Submit and return to Login page"></ASP:Button></p>
+<p><ASP:Button id="Button_submit" runat="server" text="Submit and return to Login page" onclick="Button_submit_Click"></ASP:Button></p>
 	  </blockquote>
 					  </td>
 					</tr>

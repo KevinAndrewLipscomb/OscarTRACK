@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_ranked_utilization.pas" Inherits="UserControl_ranked_utilization.TWebUserControl_ranked_utilization"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ranked_utilization.ascx.cs" Inherits="UserControl_ranked_utilization.TWebUserControl_ranked_utilization"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_utilization.pas" Inherits="UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_utilization.ascx.cs" Inherits="UserControl_serial_indicator_utilization.TWebUserControl_serial_indicator_utilization"%>
 <p>These control charts show the degree to which released core operations personnel were meeting their baseline duty requirements.&nbsp; The lower the data point, the more personnel were granted partial or full leaves-of-absence.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

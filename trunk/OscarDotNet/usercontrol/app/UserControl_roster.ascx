@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_roster.pas" Inherits="UserControl_roster.TWebUserControl_roster"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_roster.ascx.cs" Inherits="UserControl_roster.TWebUserControl_roster"%>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
   <tr>
     <td>
@@ -7,7 +7,7 @@
           <td>
             <table cellspacing="0" cellpadding="5" width="100%" align="right" border="0">
               <tr>
-                <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False">Add member(s)</ASP:LinkButton></td>
+                <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False" onclick="LinkButton_add_member_Click">Add member(s)</ASP:LinkButton></td>
               </tr>
               <tr>
                 <td align="right">
@@ -17,16 +17,16 @@
                         <table cellspacing="0" cellpadding="5" border="0" align="center">
                     <tr>
                       <td><b><small>Filters:</small></b></td>
-                      <td id="TableData_agency_filter" runat="server"><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True"></ASP:DropDownList></td>
+                      <td id="TableData_agency_filter" runat="server"><p align="center"><small>Agency</small><br><ASP:DropDownList id="DropDownList_agency_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_agency_filter_SelectedIndexChanged"></ASP:DropDownList></td>
                       <td id="TableData_section_filter" runat="server" nowrap="true">
                                     <p align="center"><small>Section</small><br>
-                                      <ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True">
+                                      <ASP:DropDownList id="DropDownList_section_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_section_filter_SelectedIndexChanged">
                                       </ASP:DropDownList>
                                     </p>
                       </td>
                       <td nowrap="true">
                                     <p align="center">
-                        <small>Released cert level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True">
+                        <small>Released cert level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_med_release_filter_SelectedIndexChanged">
                                     <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
                                     <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
                                     <ASP:ListItem value="none">- - None</ASP:ListItem>
@@ -42,7 +42,7 @@
                                     </p>							</td>
                       <td>
                                     <p align="center"><small>Membership status</small><br>
-                        <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px">
+                        <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px" onselectedindexchanged="DropDownList_enrollment_filter_SelectedIndexChanged">
                                     <ASP:ListItem value="all">All</ASP:ListItem>
                                     <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
                                     <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
@@ -73,7 +73,7 @@
                       <td>
                                     <p align="center">
                         <asp:label id="Label_leave_filter" runat="server"><small>Leave</small></asp:label><br>
-                                <asp:dropdownlist id="DropDownList_leave_filter" runat="server" autopostback="True">
+                                <asp:dropdownlist id="DropDownList_leave_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_leave_filter_SelectedIndexChanged">
                                   <asp:listitem value="both" selected="true">Both</asp:listitem>
                                   <asp:listitem value="obligated">- Not on leave</asp:listitem>
                                   <asp:listitem value="on_leave">- On leave</asp:listitem>
@@ -83,11 +83,11 @@
                       <td>
                         <p align="center">
                           <asp:Label id="Label_running_only" runat="server"><small>Hide 0 duties</small></asp:Label><br>
-                          <asp:CheckBox id="CheckBox_running_only" runat="server" autopostback="True"></asp:CheckBox>
+                          <asp:CheckBox id="CheckBox_running_only" runat="server" autopostback="True" oncheckedchanged="CheckBox_running_only_CheckedChanged"></asp:CheckBox>
                         </p>
                       </td>
                       <td nowrap="true" align="left" colspan="2">
-                        <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True">
+                        <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True" onselectedindexchanged="RadioButtonList_which_month_SelectedIndexChanged">
                           <ASP:ListItem value="0" selected="True">This&nbsp;month</ASP:ListItem>
                           <ASP:ListItem value="1">Next&nbsp;month</ASP:ListItem>
                         </asp:radiobuttonlist>
@@ -132,7 +132,7 @@
               <table cellspacing="0" cellpadding="0" width="100%" align="center" border="0">
                 <tr>
                   <td><small><em>Press Ctrl-F to search by name</em></small></td>
-                  <td><asp:CheckBox id="CheckBox_phone_list" runat="server" autopostback="True" text="&lt;small&gt;Phone list&lt;/small&gt;"></asp:CheckBox></td>
+                  <td><asp:CheckBox id="CheckBox_phone_list" runat="server" autopostback="True" text="&lt;small&gt;Phone list&lt;/small&gt;" oncheckedchanged="CheckBox_phone_list_CheckedChanged"></asp:CheckBox></td>
                   <td align="right"><small><a id="Anchor_quick_message_shortcut" runat="server">QuickMessage</a></small></td>
                 </tr>
               </table>
@@ -218,7 +218,7 @@
 				  </tr>
 				  <tr>
 					<td></td>
-					<td><ASP:Button id="Button_send" runat="server" text="Send"></ASP:Button></td>
+					<td><ASP:Button id="Button_send" runat="server" text="Send" onclick="Button_send_Click"></ASP:Button></td>
 					<td></td>
 				  </tr>
 				  <tr><td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td><td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_postcontent.pas" Inherits="UserControl_postcontent.TWebUserControl_postcontent"%><html>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_postcontent.ascx.cs" Inherits="UserControl_postcontent.TWebUserControl_postcontent"%><html>
   <head></td></tr></table>
   </head>
   <body>

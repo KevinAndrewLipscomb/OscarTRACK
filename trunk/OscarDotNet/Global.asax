@@ -1,2 +1,2 @@
-<%@ Application Codebehind="Global.pas" Inherits="Global.TGlobal" %>
+<%@ Application Codebehind="Global.asax.cs" Inherits="Global.TGlobal" %>
 

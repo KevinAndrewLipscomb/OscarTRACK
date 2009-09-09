@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_num_core_ops_members.pas" Inherits="UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_num_core_ops_members.ascx.cs" Inherits="UserControl_serial_indicator_num_core_ops_members.TWebUserControl_serial_indicator_num_core_ops_members"%>
 <p>These control charts show the number of released members scheduled to staff ambulances.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

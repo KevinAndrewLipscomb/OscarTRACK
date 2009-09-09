@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="change_leave.pas" AutoEventWireup="false" Inherits="change_leave.TWebForm_change_leave"%>
+<%@ Page language="c#" Debug="true" Codebehind="change_leave.aspx.cs" AutoEventWireup="True" Inherits="change_leave.TWebForm_change_leave"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -33,7 +33,7 @@
 				<td>Starting:</td>
 				<td nowrap="true"><ASP:Label id="Label_saved_start_month" runat="server"></ASP:Label>
 				  </td>
-				<td><ASP:DropDownList id="DropDownList_start_month" runat="server"></ASP:DropDownList></td>
+				<td><ASP:DropDownList id="DropDownList_start_month" runat="server" onselectedindexchanged="DropDownList_start_month_SelectedIndexChanged"></ASP:DropDownList></td>
 				<td nowrap="true">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_start_month" runat="server" errormessage="Please select a starting month." font-bold="True" controltovalidate="DropDownList_start_month" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
@@ -43,7 +43,7 @@
 				<td><ASP:DropDownList id="DropDownList_end_month" runat="server"></ASP:DropDownList></td>
 				<td nowrap="true">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
-				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month" display="Dynamic">!ERR!</ASP:CustomValidator></td>
+				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month" display="Dynamic" onservervalidate="CustomValidator_end_month_ServerValidate">!ERR!</ASP:CustomValidator></td>
 			  </tr>
 			  <tr>
 				<td>Kind:</td>
@@ -90,11 +90,11 @@
 				<td></td>
 			  </tr>
 			  <tr>
-				<td align="right"><ASP:CustomValidator id="CustomValidator_overlap" runat="server" errormessage="Please specify a leave that will not overlap an existing leave for this member." font-bold="True" display="Dynamic">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_actual_change" runat="server" errormessage="Please make one or more changes before pressing Submit." display="Dynamic" font-bold="True">!ERR!</ASP:CustomValidator></td>
+				<td align="right"><ASP:CustomValidator id="CustomValidator_overlap" runat="server" errormessage="Please specify a leave that will not overlap an existing leave for this member." font-bold="True" display="Dynamic" onservervalidate="CustomValidator_overlap_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_actual_change" runat="server" errormessage="Please make one or more changes before pressing Submit." display="Dynamic" font-bold="True" onservervalidate="CustomValidator_actual_change_ServerValidate">!ERR!</ASP:CustomValidator></td>
 				<td colspan="2">
-				  <ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>
+				  <ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>
 				&nbsp;
-				  <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+				  <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></td>
 				<td></td>
 				<td></td>
 			  </tr>

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="change_member_agency.pas" AutoEventWireup="false" Inherits="change_member_agency.TWebForm_change_member_agency" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_member_agency.aspx.cs" AutoEventWireup="True" Inherits="change_member_agency.TWebForm_change_member_agency" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
@@ -20,7 +20,7 @@
 					<tr>
 					  <td>
 						<p><ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;is a member of <ASP:DropDownList id="DropDownList_agency" runat="server"></ASP:DropDownList>.</p>
-						<p><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></p></td>
+						<p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p></td>
 					</tr>
 				</table></td>
 			</tr>

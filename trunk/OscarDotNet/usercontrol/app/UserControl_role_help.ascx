@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_role_help.pas" Inherits="UserControl_role_help.TWebUserControl_role_help"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_role_help.ascx.cs" Inherits="UserControl_role_help.TWebUserControl_role_help"%>
 <p>
   <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
     <tr>

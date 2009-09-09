@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_serial_indicator_commensuration.pas" Inherits="UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_commensuration.ascx.cs" Inherits="UserControl_serial_indicator_commensuration.TWebUserControl_serial_indicator_commensuration"%>
 <p>These control charts show the degree to which the agency produced a complete initial schedule.&nbsp; A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave statuses.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">

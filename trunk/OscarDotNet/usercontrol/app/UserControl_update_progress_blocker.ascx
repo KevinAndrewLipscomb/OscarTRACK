@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_update_progress_blocker.pas" Inherits="UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_update_progress_blocker.ascx.cs" Inherits="UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker"%>
 <asp:UpdateProgress id="UpdateProgress_control" runat="server">
   <ProgressTemplate>
     <div id="Div_progress_indicator_outer"></div>

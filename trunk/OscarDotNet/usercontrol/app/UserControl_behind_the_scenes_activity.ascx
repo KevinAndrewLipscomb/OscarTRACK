@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_behind_the_scenes_activity.pas" Inherits="UserControl_behind_the_scenes_activity.TWebUserControl_behind_the_scenes_activity"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_behind_the_scenes_activity.ascx.cs" Inherits="UserControl_behind_the_scenes_activity.TWebUserControl_behind_the_scenes_activity"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <p><strong>In this reporting period, <asp:Label id="Label_application_name" runat="server"></asp:Label>&nbsp;processed...
 </strong></p>

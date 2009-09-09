@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="roles.pas" AutoEventWireup="false" Inherits="roles.TWebForm_roles" %>
+<%@ Page language="c#" Debug="true" Codebehind="roles.aspx.cs" AutoEventWireup="false" Inherits="roles.TWebForm_roles" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc2" TagName="UserControl_role_help" Src="~/usercontrol/app/UserControl_role_help.ascx" %>

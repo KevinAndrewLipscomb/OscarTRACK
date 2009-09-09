@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_member_email_address.pas" AutoEventWireup="false" Inherits="change_member_email_address.TWebForm_change_member_email_address" %>
+<%@ Page language="c#" Debug="true" Codebehind="change_member_email_address.aspx.cs" AutoEventWireup="True" Inherits="change_member_email_address.TWebForm_change_member_email_address" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -31,11 +31,11 @@
 								  <ASP:TextBox id="TextBox_member_email_address" runat="server" columns="40"></ASP:TextBox></td><td>
                                   <ASP:RegularExpressionValidator id="RegularExpressionValidator_member_email_address" runat="server" font-bold="True" errormessage="Please enter a valid email address." validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
                                                                   controltovalidate="TextBox_member_email_address">!ERR!</ASP:RegularExpressionValidator>
-                        <ASP:CustomValidator id="CustomValidator_member_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_member_email_address" font-bold="True">!ERR!</ASP:CustomValidator></td>
+                        <ASP:CustomValidator id="CustomValidator_member_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_member_email_address" font-bold="True" onservervalidate="CustomValidator_member_email_address_ServerValidate">!ERR!</ASP:CustomValidator></td>
                               </tr>
                               <tr>
                                 <td></td>
-                                <td><ASP:Button id="Button_submit" runat="server" text="Submit"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False"></ASP:Button></td>
+                                <td><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></td>
                                 <td></td>
                               </tr>
                           </table>
