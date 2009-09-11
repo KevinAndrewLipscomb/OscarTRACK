@@ -28,7 +28,7 @@ namespace remind_username
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_remind_username_PreRender;
         }
 

@@ -32,7 +32,7 @@ namespace leave_detail
             this.DataGrid_leaves.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_leaves_SortCommand);
             this.DataGrid_leaves.DeleteCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_leaves_DeleteCommand);
             this.DataGrid_leaves.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_leaves_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_leave_detail_PreRender;
         }
 

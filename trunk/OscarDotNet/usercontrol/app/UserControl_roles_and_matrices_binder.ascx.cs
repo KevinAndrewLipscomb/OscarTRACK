@@ -83,7 +83,7 @@ namespace UserControl_roles_and_matrices_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_roles_and_matrices_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_roles_and_matrices_binder_PreRender(object sender, System.EventArgs e)

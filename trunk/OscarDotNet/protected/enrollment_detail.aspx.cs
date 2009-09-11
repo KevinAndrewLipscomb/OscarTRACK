@@ -29,7 +29,7 @@ namespace enrollment_detail
         {
             this.DataGrid_member_history.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_member_history_ItemCommand);
             this.DataGrid_member_history.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_member_history_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_enrollment_detail_PreRender;
         }
 

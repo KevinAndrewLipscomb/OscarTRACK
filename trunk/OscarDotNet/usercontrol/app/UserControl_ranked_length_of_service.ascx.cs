@@ -149,7 +149,7 @@ namespace UserControl_ranked_length_of_service
         {
             this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
             this.DataGrid_special.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_special_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_ranked_length_of_service_PreRender;
         }
 

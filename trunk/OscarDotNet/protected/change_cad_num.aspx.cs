@@ -31,7 +31,7 @@ namespace change_cad_num
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_change_cad_num_PreRender;
         }
 

@@ -67,7 +67,7 @@ namespace UserControl_ranked_crew_shifts_forecast
         private void InitializeComponent()
         {
             this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_ranked_crew_shifts_forecast_PreRender;
         }
 

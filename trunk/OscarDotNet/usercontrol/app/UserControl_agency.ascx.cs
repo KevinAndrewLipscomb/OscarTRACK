@@ -108,7 +108,7 @@ namespace UserControl_agency
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_agency_PreRender;
         }
 

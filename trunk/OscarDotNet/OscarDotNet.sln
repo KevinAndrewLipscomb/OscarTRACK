@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Web Developer Express 2008
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarDotNet", "OscarDotNet.csproj", "{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ki", "lib\ki\ki.csproj", "{A20C347B-5154-47B9-A275-36157BF73352}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A20C347B-5154-47B9-A275-36157BF73352}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

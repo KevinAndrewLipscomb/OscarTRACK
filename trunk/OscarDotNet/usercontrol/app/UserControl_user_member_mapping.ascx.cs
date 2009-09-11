@@ -164,7 +164,7 @@ namespace UserControl_user_member_mapping
             this.GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_control_Sorting);
             this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
             this.PreRender += this.TWebUserControl_user_member_mapping_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_user_member_mapping_PreRender(object sender, System.EventArgs e)

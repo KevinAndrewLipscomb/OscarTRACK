@@ -53,7 +53,7 @@ namespace UserControl_serial_indicator_length_of_service
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_serial_indicator_length_of_service_PreRender;
         }
 

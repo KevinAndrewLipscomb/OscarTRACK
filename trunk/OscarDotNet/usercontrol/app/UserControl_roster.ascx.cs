@@ -237,7 +237,7 @@ namespace UserControl_roster
             this.DataGrid_roster.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_roster_SortCommand);
             this.DataGrid_roster.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_roster_ItemCommand);
             this.PreRender += this.TWebUserControl_roster_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void DropDownList_section_filter_SelectedIndexChanged(object sender, System.EventArgs e)

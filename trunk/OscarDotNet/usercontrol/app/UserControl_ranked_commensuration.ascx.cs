@@ -73,7 +73,7 @@ namespace UserControl_ranked_commensuration
         {
             this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
             this.PreRender += this.TWebUserControl_ranked_commensuration_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_ranked_commensuration_PreRender(object sender, System.EventArgs e)

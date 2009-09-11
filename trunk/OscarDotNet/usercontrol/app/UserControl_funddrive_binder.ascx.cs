@@ -131,7 +131,7 @@ namespace UserControl_funddrive_binder
         private void InitializeComponent()
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_funddrive_binder_PreRender;
         }
 

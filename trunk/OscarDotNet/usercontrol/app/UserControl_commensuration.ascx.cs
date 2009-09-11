@@ -61,7 +61,7 @@ namespace UserControl_commensuration
         {
             this.DataGrid_commensuration.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_commensuration_ItemDataBound);
             this.PreRender += this.TWebUserControl_commensuration_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_commensuration_PreRender(object sender, System.EventArgs e)

@@ -67,7 +67,7 @@ namespace UserControl_ranked_core_ops_size
         private void InitializeComponent()
         {
             this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_ranked_core_ops_size_PreRender;
         }
 

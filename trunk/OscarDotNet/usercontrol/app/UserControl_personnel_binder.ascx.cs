@@ -101,7 +101,7 @@ namespace UserControl_personnel_binder
         private void InitializeComponent()
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_personnel_binder_PreRender;
         }
 

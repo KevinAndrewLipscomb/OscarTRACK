@@ -39,7 +39,7 @@ namespace overview
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_overview_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

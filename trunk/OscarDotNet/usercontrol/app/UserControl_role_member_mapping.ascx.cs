@@ -196,7 +196,7 @@ namespace UserControl_role_member_mapping
             this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
             this.GridView_control.RowDeleting += new System.Web.UI.WebControls.GridViewDeleteEventHandler(this.GridView_control_RowDeleting);
             this.PreRender += this.TWebUserControl_role_member_mapping_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_role_member_mapping_PreRender(object sender, System.EventArgs e)

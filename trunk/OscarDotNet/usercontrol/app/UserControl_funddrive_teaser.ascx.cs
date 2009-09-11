@@ -126,7 +126,7 @@ namespace UserControl_funddrive_teaser
         private void InitializeComponent()
         {
             this.PreRender += this.TWebUserControl_funddrive_teaser_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_funddrive_teaser_PreRender(object sender, System.EventArgs e)
