@@ -74,7 +74,7 @@ namespace UserControl_users_and_mapping_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_users_and_mapping_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_users_and_mapping_binder_PreRender(object sender, System.EventArgs e)

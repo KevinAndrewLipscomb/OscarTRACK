@@ -59,7 +59,7 @@ procedure TWebForm_exception.Page_Load(sender: System.Object; e: System.EventArg
 var
   the_exception: system.exception;
 begin
-  case NatureOfVisit('p') of
+  case natureofvisit('exception.p') of
   VISIT_INITIAL:
     BEGIN
     Title.InnerText := server.HtmlEncode(configurationmanager.appsettings['application_name']) + ' - exception';

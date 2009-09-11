@@ -35,7 +35,7 @@ namespace change_leave
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_change_leave_PreRender;
         }
 

@@ -221,7 +221,7 @@ namespace UserControl_role_member_matrix
             this.GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_control_Sorting);
             this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
             this.PreRender += this.TWebUserControl_role_member_matrix_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_role_member_matrix_PreRender(object sender, System.EventArgs e)

@@ -138,7 +138,7 @@ namespace UserControl_behind_the_scenes_activity
             this.DataGrid_for_cycle.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_for_cycle_ItemDataBound);
             this.DataGrid_for_lifetime.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_for_lifetime_ItemDataBound);
             this.PreRender += this.TWebUserControl_behind_the_scenes_activity_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_behind_the_scenes_activity_PreRender(object sender, System.EventArgs e)

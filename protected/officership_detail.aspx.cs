@@ -29,7 +29,7 @@ namespace officership_detail
         {
             this.DataGrid_officerships.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_officerships_ItemCommand);
             this.DataGrid_officerships.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_officerships_ItemDataBound);
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_officership_detail_PreRender;
         }
 

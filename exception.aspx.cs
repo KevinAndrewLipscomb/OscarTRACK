@@ -1,21 +1,15 @@
-using MySql.Data.MySqlClient;
-using System.Configuration;
-
+using Class_biz_user;
 using kix;
-
 using System;
 using System.Collections;
 using System.ComponentModel;
+using System.Configuration;
 using System.Web;
 using System.Web.SessionState;
-
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-
-
-
 using System.Text.RegularExpressions;
-using Class_biz_user;
+
 namespace exception
 {
     public struct p_type
@@ -32,18 +26,17 @@ namespace exception
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebForm_exception_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            System.Exception the_exception;
-            switch(NatureOfVisit("p"))
+            switch(NatureOfVisit("exception.p"))
             {
                 case nature_of_visit_type.VISIT_INITIAL:
                     Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
-                    the_exception = Server.GetLastError().GetBaseException();
+                    System.Exception the_exception = Server.GetLastError().GetBaseException();
                     if (Regex.IsMatch(the_exception.Message, "Connection.*to MySQL server", RegexOptions.IgnoreCase) || (the_exception.Message == "Connection open failed. Too many connections"))
                     {
                         Table_oops.Visible = false;

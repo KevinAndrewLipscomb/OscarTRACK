@@ -56,7 +56,7 @@ namespace UserControl_current_indicators
         // / </summary>
         private void InitializeComponent()
         {
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
             this.PreRender += this.TWebUserControl_current_indicators_PreRender;
         }
 

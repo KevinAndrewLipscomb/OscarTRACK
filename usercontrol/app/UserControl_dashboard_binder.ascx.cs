@@ -66,7 +66,7 @@ namespace UserControl_dashboard_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_dashboard_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_dashboard_binder_PreRender(object sender, System.EventArgs e)

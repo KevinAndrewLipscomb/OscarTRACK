@@ -138,7 +138,7 @@ namespace UserControl_log_new_donation
         private void InitializeComponent()
         {
             this.PreRender += this.TWebUserControl_log_new_donation_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_log_new_donation_PreRender(object sender, System.EventArgs e)
