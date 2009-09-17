@@ -12,7 +12,7 @@ using System.Web.UI.HtmlControls;
 
 namespace roles
 {
-    struct p_type
+    public struct p_type
     {
     } // end p_type
 

@@ -415,7 +415,7 @@ namespace UserControl_role
             p.biz_role_member_map.BindHolders(role_name, GridView_holders, p.sort_order, p.be_sort_order_ascending);
             p.be_gridview_empty = (p.num_gridview_rows == 0);
             Table_holders.Visible = !p.be_gridview_empty;
-            Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] {k.COMMA, k.SPACE});
+            Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
             Label_num_rows.Text = p.num_gridview_rows.ToString();
             be_user_authorized_to_send_quickmessages = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_gridview_empty;
             Anchor_quick_message_shortcut.Visible = be_user_authorized_to_send_quickmessages;

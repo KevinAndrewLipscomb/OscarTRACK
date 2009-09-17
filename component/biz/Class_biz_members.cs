@@ -245,7 +245,7 @@ namespace Class_biz_members
             {
                 current_member_email_addresses = current_member_email_addresses + q.Dequeue().ToString() + k.COMMA_SPACE;
             }
-            result = (current_member_email_addresses + k.SPACE).TrimEnd(new char[] {k.COMMA, k.SPACE});
+            result = (current_member_email_addresses + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
             return result;
         }
 
