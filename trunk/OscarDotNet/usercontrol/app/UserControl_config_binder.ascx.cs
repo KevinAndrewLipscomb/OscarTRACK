@@ -21,14 +21,10 @@ namespace UserControl_config_binder
         public uint tab_index;
     } // end p_type
 
-    public class TWebUserControl_config_binder: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_config_binder: ki_web_ui.usercontrol_class
     {
         private p_type p;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected TabContainer TabContainer_control = null;
-        protected TabPanel TabPanel_users_and_mappings = null;
-        protected TabPanel TabPanel_agencies = null;
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {
@@ -84,7 +80,7 @@ namespace UserControl_config_binder
         {
             this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
             this.PreRender += this.TWebUserControl_config_binder_PreRender;
-            this.Load += this.Page_Load;
+            //this.Load += this.Page_Load;
         }
 
         private void TWebUserControl_config_binder_PreRender(object sender, System.EventArgs e)

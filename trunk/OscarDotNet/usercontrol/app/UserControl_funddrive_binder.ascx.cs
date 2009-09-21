@@ -14,16 +14,11 @@ using UserControl_log_new_donation;
 namespace UserControl_funddrive_binder
 {
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~funddrive~binder.pas
-    public class TWebUserControl_funddrive_binder: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_funddrive_binder: ki_web_ui.usercontrol_class
     {
         private p_type p;
-        protected TabContainer TabContainer_control = null;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected TabPanel TabPanel_about = null;
-        protected TabPanel TabPanel_new_donation = null;
-        protected TabPanel TabPanel_old_donation = null;
         // TSSI_OLD_DONATION = 2;
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {

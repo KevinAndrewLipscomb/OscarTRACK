@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_funddrive_binder.ascx.cs" Inherits="UserControl_funddrive_binder.TWebUserControl_funddrive_binder"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_funddrive_binder.ascx.cs" Inherits="UserControl_funddrive_binder.TWebUserControl_funddrive_binder"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~funddrive~binder.ascx-funddrive -->
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">

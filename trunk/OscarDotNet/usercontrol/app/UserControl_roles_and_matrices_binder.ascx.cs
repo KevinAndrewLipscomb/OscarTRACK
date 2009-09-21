@@ -19,13 +19,10 @@ namespace UserControl_roles_and_matrices_binder
         public uint tab_index;
     } // end p_type
 
-    public class TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_roles_and_matrices_binder: ki_web_ui.usercontrol_class
     {
         private p_type p;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected System.Web.UI.UpdatePanel UpdatePanel_control = null;
-        protected TabContainer TabContainer_control = null;
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {

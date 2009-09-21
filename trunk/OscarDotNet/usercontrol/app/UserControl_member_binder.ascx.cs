@@ -5,11 +5,11 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Collections;
-
 using UserControl_about;
 using UserControl_config_binder;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
+
 namespace UserControl_member_binder
 {
     public struct p_type
@@ -19,12 +19,10 @@ namespace UserControl_member_binder
         public uint tab_index;
     } // end p_type
 
-    public class TWebUserControl_member_binder: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_member_binder: ki_web_ui.usercontrol_class
     {
         private p_type p;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected TabContainer TabContainer_control = null;
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {

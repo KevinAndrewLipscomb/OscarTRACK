@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="false" Codebehind="UserControl_users_and_mapping_binder.ascx.cs" Inherits="UserControl_users_and_mapping_binder.TWebUserControl_users_and_mapping_binder"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_users_and_mapping_binder.ascx.cs" Inherits="UserControl_users_and_mapping_binder.TWebUserControl_users_and_mapping_binder"%>
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
