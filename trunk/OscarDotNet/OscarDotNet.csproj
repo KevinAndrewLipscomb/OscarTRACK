@@ -816,6 +816,7 @@
     <Content Include="css\standard.css" />
     <Content Include="doc\roles.aspx" />
     <Content Include="js\gradient.js" />
+    <Content Include="js\ErrorHandler.js" />
     <Content Include="noninteractive\daily_tasks.aspx" />
     <Content Include="noninteractive\milestone_sweep.aspx" />
     <Content Include="noninteractive\report_monthly_applicant_roster.aspx" />
