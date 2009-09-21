@@ -457,6 +457,9 @@
       <DependentUpon>UserControl_config_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_config_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_config_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.cs">
       <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -468,6 +471,9 @@
       <DependentUpon>UserControl_dashboard_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_dashboard_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_dashboard_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -478,6 +484,9 @@
     <Compile Include="usercontrol\app\UserControl_funddrive_binder.ascx.cs">
       <DependentUpon>UserControl_funddrive_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_funddrive_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_funddrive_binder.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_funddrive_teaser.ascx.cs">
       <DependentUpon>UserControl_funddrive_teaser.ascx</DependentUpon>
@@ -497,9 +506,15 @@
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.cs">
       <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_postcontent.ascx.cs">
       <DependentUpon>UserControl_postcontent.ascx</DependentUpon>
@@ -575,6 +590,9 @@
       <DependentUpon>UserControl_roles_and_matrices_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_roles_and_matrices_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_roles_and_matrices_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_role_help.ascx.cs">
       <DependentUpon>UserControl_role_help.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -641,6 +659,9 @@
     <Compile Include="usercontrol\app\UserControl_serial_indicators_binder.ascx.cs">
       <DependentUpon>UserControl_serial_indicators_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicators_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicators_binder.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>
@@ -709,6 +730,9 @@
       <DependentUpon>UserControl_users_and_mapping_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_users_and_mapping_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_user_member_mapping.ascx.cs">
       <DependentUpon>UserControl_user_member_mapping.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -734,6 +758,9 @@
       <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.designer.cs">
+      <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx.cs">
       <DependentUpon>UserControl_bread_crumb_trail.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -751,6 +778,9 @@
     <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.cs">
       <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_print_div.ascx.cs">
       <DependentUpon>UserControl_print_div.ascx</DependentUpon>

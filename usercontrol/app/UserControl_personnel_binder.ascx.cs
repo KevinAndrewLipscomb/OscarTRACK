@@ -15,15 +15,10 @@ using UserControl_dashboard_binder;
 namespace UserControl_personnel_binder
 {
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~personnel~binder.pas
-    public class TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class
     {
         private p_type p;
-        protected TabContainer TabContainer_control = null;
-        protected System.Web.UI.WebControls.PlaceHolder PlaceHolder_content = null;
-        protected TabPanel TabPanel_roster = null;
-        protected TabPanel TabPanel_results = null;
-        protected TabPanel TabPanel_dashboard = null;
-        private void Page_Load(object sender, System.EventArgs e)
+        protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
             {
