@@ -45,7 +45,7 @@ namespace UserControl_precontent
         {
             k.EscalatedException(e.Exception, HttpContext.Current.User.Identity.Name, Session);
             ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage(k.alert_cause_type.LOGIC, k.alert_state_type.FAILURE, "xparposbac", "OOPS!" + k.NEW_LINE + k.NEW_LINE + "The application encountered an unexpected error." + k.NEW_LINE + k.NEW_LINE + "The Application Administrator has been notified by pager and email.");
-
+            Server.ClearError();
         }
 
         protected void LinkButton_change_email_address_Click(object sender, System.EventArgs e)
