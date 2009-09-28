@@ -390,16 +390,16 @@ namespace UserControl_roster
             Label_core_ops_commitment_caption.Visible = be_raw_shifts_nonzero;
             Label_utilization.Visible = be_raw_shifts_nonzero;
             Label_utilization_caption.Visible = be_raw_shifts_nonzero;
-            Label_num_crew_shifts.Text = ((decimal)(p.num_cooked_shifts / 2)).ToString();
+            Label_num_crew_shifts.Text = decimal.Divide(Convert.ToDecimal(p.num_cooked_shifts),2).ToString();
             Label_num_rows.Text = p.num_datagrid_rows.ToString();
             Table_years_of_service_percentiles.Visible = (p.num_core_ops_members > 0);
             if (be_raw_shifts_nonzero)
             {
-                Label_utilization.Text = ((decimal)(p.num_cooked_shifts / p.num_raw_shifts)).ToString("P0");
+                Label_utilization.Text = decimal.Divide(Convert.ToDecimal(p.num_cooked_shifts),Convert.ToDecimal(p.num_raw_shifts)).ToString("P0");
             }
             if (p.num_core_ops_members > 0)
             {
-                Label_core_ops_commitment_factor.Text = ((decimal)(p.num_standard_commitments / p.num_core_ops_members)).ToString("P0");
+                Label_core_ops_commitment_factor.Text = decimal.Divide(Convert.ToDecimal(p.num_standard_commitments),Convert.ToDecimal(p.num_core_ops_members)).ToString("P0");
                 p.years_of_service_array_list.Sort();
                 Label_percentile_25_value.Text = k.Percentile(25, p.years_of_service_array_list).ToString("F2");
                 Label_median_value.Text = k.Median(p.years_of_service_array_list).ToString("F2");
