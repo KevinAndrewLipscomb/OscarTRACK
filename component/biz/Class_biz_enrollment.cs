@@ -79,7 +79,8 @@ namespace Class_biz_enrollment
             Queue member_id_q;
             biz_members = new TClass_biz_members();
             member_id_q = db_enrollment.FailureToThriveDemotionsSince(db_enrollment.MakeFailureToThriveDemotions());
-            for (i = 1; i <= member_id_q.Count; i ++ )
+            uint member_id_q_count = (uint)(member_id_q.Count);
+            for (i = 1; i <= member_id_q_count; i ++ )
             {
                 member_id = member_id_q.Dequeue().ToString();
                 biz_notifications.IssueForFailureToThriveDemotion(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id));
@@ -94,7 +95,8 @@ namespace Class_biz_enrollment
             Queue member_id_q;
             biz_members = new TClass_biz_members();
             member_id_q = db_enrollment.SeniorityPromotionsSince(db_enrollment.MakeSeniorityPromotions());
-            for (i = 1; i <= member_id_q.Count; i ++ )
+            uint member_id_q_count = (uint)(member_id_q.Count);
+            for (i = 1; i <= member_id_q_count; i ++ )
             {
                 member_id = member_id_q.Dequeue().ToString();
                 biz_notifications.IssueForSeniorityPromotion(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), biz_members.EnrollmentOfMemberId(member_id));

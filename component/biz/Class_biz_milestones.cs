@@ -45,7 +45,8 @@ namespace Class_biz_milestones
                                 break;
                         // Not application-enforceable
                         }
-                        for (i = 1; i <= master_id_q.Count; i ++ )
+                        uint master_id_q_count = (uint)(master_id_q.Count);
+                        for (i = 1; i <= master_id_q_count; i ++ )
                         {
                             master_id = master_id_q.Dequeue().ToString();
                         // biz_users.MakeDeadlineFailureNotification;
