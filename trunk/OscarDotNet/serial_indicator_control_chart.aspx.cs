@@ -58,7 +58,8 @@ namespace serial_indicator_control_chart
             history = new TClass_biz_agencies().SerialIndicatorData(k.Safe(this.Request["indicator"], k.safe_hint_type.ECMASCRIPT_WORD), k.Safe(this.Request["agency"], k.safe_hint_type.NUM), k.Safe(this.Request["be_agency_applicable"], k.safe_hint_type.NUM));
             if (history.Count > 0)
             {
-                for (i = 0; i <= (history.Count - 1); i ++ )
+                uint history_count = (uint)(history.Count);
+                for (i = 0; i <= (history_count - 1); i ++ )
                 {
                     datum = ((serial_indicator_rec_type)(history.Dequeue()));
                     chart.ChartData.AddNewSampleRecord(new ChartCalendar((int)(datum.year), (int)(datum.month), 1), new DoubleArray(new double[] {datum.value}));
