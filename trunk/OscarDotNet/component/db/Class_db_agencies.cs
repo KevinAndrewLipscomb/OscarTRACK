@@ -282,7 +282,8 @@ namespace Class_db_agencies
             year = this_day_next_month.Year.ToString();
             month = this_day_next_month.Month.ToString();
             sql = "replace indicator_commensuration (year,month,be_agency_id_applicable,agency_id,value) values";
-            for (i = 1; i <= commensuration_rec_q.Count; i ++ )
+            uint commensuration_rec_q_count = (uint)(commensuration_rec_q.Count);
+            for (i = 1; i <= commensuration_rec_q_count; i ++ )
             {
                 commensuration_rec = (commensuration_rec_type)(commensuration_rec_q.Dequeue());
                 sql = sql + " (" + year + k.COMMA + month + k.COMMA + commensuration_rec.be_agency_id_applicable.ToString() + k.COMMA + commensuration_rec.agency_id + k.COMMA + (commensuration_rec.commensuration_factor * 100).ToString("F0") + " ),";

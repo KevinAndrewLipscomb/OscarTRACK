@@ -104,7 +104,8 @@ namespace Class_biz_leaves
             uint num_obliged_shifts;
             ((target) as DropDownList).Items.Clear();
             ((target) as DropDownList).Items.Add(new ListItem("-- Select --", ""));
-            for (num_obliged_shifts = 0; num_obliged_shifts <= Math.Max(0, (((int)db_enrollment.NumObligedShifts(enrollment)) - 1)); num_obliged_shifts ++ )
+            uint limit = (uint)(Math.Max(0, (((int)db_enrollment.NumObligedShifts(enrollment)) - 1)));
+            for (num_obliged_shifts = 0; num_obliged_shifts <= limit; num_obliged_shifts ++ )
             {
                 // The integer() cast and the use of Math.Max are workarounds to what I suspect should be a runtime overflow bug.
                 ((target) as DropDownList).Items.Add(new ListItem(num_obliged_shifts.ToString(), num_obliged_shifts.ToString()));
@@ -245,7 +246,8 @@ namespace Class_biz_leaves
             string member_id;
             Queue member_id_q;
             member_id_q = db_leaves.ExpireAfterDays(int.Parse(ConfigurationManager.AppSettings["days_advance_notice_for_leaves_ending"]));
-            for (i = 1; i <= member_id_q.Count; i ++ )
+            uint member_id_q_count = (uint)(member_id_q.Count);
+            for (i = 1; i <= member_id_q_count; i ++ )
             {
                 member_id = member_id_q.Dequeue().ToString();
                 if (!BeOverlap(member_id, "1", "1"))
@@ -263,7 +265,8 @@ namespace Class_biz_leaves
             string member_id;
             Queue member_id_q;
             member_id_q = db_leaves.ExpireAfterDays( -1);
-            for (i = 1; i <= member_id_q.Count; i ++ )
+            uint member_id_q_count = (uint)(member_id_q.Count);
+            for (i = 1; i <= member_id_q_count; i ++ )
             {
                 member_id = member_id_q.Dequeue().ToString();
                 if (!BeOverlap(member_id, "0", "0"))

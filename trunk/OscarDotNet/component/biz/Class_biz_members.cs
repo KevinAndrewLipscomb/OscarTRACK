@@ -241,7 +241,8 @@ namespace Class_biz_members
             Queue q;
             current_member_email_addresses = k.EMPTY;
             q = CurrentMemberEmailAddressesQueue(agency_short_designator);
-            for (i = 1; i <= q.Count; i ++ )
+            uint q_count = (uint)(q.Count);
+            for (i = 1; i <= q_count; i ++ )
             {
                 current_member_email_addresses = current_member_email_addresses + q.Dequeue().ToString() + k.COMMA_SPACE;
             }

@@ -76,7 +76,8 @@ namespace report_monthly_core_ops_dashboard
             body = sb.ToString();
             // Send output stream as an email message.
             recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue();
-            for (i = 1; i <= recipient_q.Count; i ++ )
+            uint recipient_q_count = (uint)(recipient_q.Count);
+            for (i = 1; i <= recipient_q_count; i ++ )
             {
                 // from
                 // to
