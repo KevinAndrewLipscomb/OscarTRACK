@@ -37,7 +37,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>lib\ki\ki.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=5.0.8.1, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySql.Data, Version=6.1.2.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
     <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
     <Reference Include="System" />
