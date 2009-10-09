@@ -91,7 +91,7 @@ namespace overview
             else
             {
                 SessionSet("member_id", p.biz_members.IdOfUserId(Session["user_id"].ToString()));
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx"))), "UserControl_member_binder", PlaceHolder_member_binder);
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx"))), "M", PlaceHolder_member_binder);
             }
 
         }

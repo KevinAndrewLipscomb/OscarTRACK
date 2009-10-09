@@ -40,7 +40,7 @@ namespace UserControl_personnel_binder
             if (Session["UserControl_personnel_binder.p"] != null)
             {
                 p = (p_type)(Session["UserControl_personnel_binder.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_personnel_binder");
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "P");
                 if ((Session["UserControl_personnel_binder_selected_tab"] != null))
                 {
                     p.tab_index = (uint)(Session["UserControl_personnel_binder_selected_tab"].GetHashCode());
@@ -50,7 +50,7 @@ namespace UserControl_personnel_binder
                 {
                     case Units.UserControl_personnel_binder.TSSI_ROSTER:
                         // Dynamic controls must be re-added on each postback.
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "UserControl_roster", PlaceHolder_content);
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                         break;
                     case Units.UserControl_personnel_binder.TSSI_RESULTS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))), "UserControl_commensuration", PlaceHolder_content);
@@ -65,7 +65,7 @@ namespace UserControl_personnel_binder
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_personnel_binder.TSSI_ROSTER;
                 // NO .Fresh call -- special treatment
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "UserControl_roster", PlaceHolder_content);
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
             }
 
         }
@@ -78,7 +78,7 @@ namespace UserControl_personnel_binder
             {
                 case Units.UserControl_personnel_binder.TSSI_ROSTER:
                     // NO .Fresh call -- special treatment
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "UserControl_roster", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                     break;
                 case Units.UserControl_personnel_binder.TSSI_RESULTS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))).Fresh(), "UserControl_commensuration", PlaceHolder_content);

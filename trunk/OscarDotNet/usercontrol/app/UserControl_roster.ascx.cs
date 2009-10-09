@@ -85,9 +85,9 @@ namespace UserControl_roster
                 }
                 else
                 {
-                    DataGrid_roster.Enabled = false;
-                    DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_DRILLDOWN_LINKBUTTON].Visible = false;
-                    DataGrid_roster.AllowSorting = false;
+                    R.Enabled = false;
+                    R.Columns[Class_db_members.Class_db_members_Static.TCCI_DRILLDOWN_LINKBUTTON].Visible = false;
+                    R.AllowSorting = false;
                     DropDownList_leave_filter.Enabled = false;
                     DropDownList_enrollment_filter.Enabled = false;
                     RadioButtonList_which_month.Enabled = false;
@@ -120,7 +120,7 @@ namespace UserControl_roster
             {
                 p = (p_type)(Session["UserControl_roster.p"]);
                 // only necessary because the roster is a special case that is deliberately not always freshened by its parent binder
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_personnel_binder") && ((Session["UserControl_member_binder_UserControl_personnel_binder_PlaceHolder_content"] as string) == "UserControl_roster");
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "P") && ((Session["M_P_PlaceHolder_content"] as string) == "R");
             }
             else
             {
@@ -233,9 +233,9 @@ namespace UserControl_roster
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_roster.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_roster_ItemDataBound);
-            this.DataGrid_roster.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_roster_SortCommand);
-            this.DataGrid_roster.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_roster_ItemCommand);
+            this.R.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.R_ItemDataBound);
+            this.R.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.R_SortCommand);
+            this.R.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.R_ItemCommand);
             this.PreRender += this.TWebUserControl_roster_PreRender;
             //this.Load += this.Page_Load;
         }
@@ -289,7 +289,7 @@ namespace UserControl_roster
             Bind();
         }
 
-        private void DataGrid_roster_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+        private void R_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
         {
             if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.Item, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
             {
@@ -299,7 +299,7 @@ namespace UserControl_roster
             }
         }
 
-        private void DataGrid_roster_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+        private void R_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
         {
             if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.Item, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
             {
@@ -348,6 +348,12 @@ namespace UserControl_roster
                 {
                     e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text = k.FormatAsNanpPhoneNum(e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text);
                 }
+                e.Item.Cells[Class_db_members_Static.TCCI_COMMITMENT_LEVEL_CODE].EnableViewState = false;
+                e.Item.Cells[Class_db_members_Static.TCCI_DRILLDOWN_LINKBUTTON].EnableViewState = false;
+                e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].EnableViewState = false;
+                e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].EnableViewState = false;
+                e.Item.Cells[Class_db_members_Static.TCCI_LEAVE].EnableViewState = false;
+                e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].EnableViewState = false;
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
             }
 
@@ -358,7 +364,7 @@ namespace UserControl_roster
             SessionSet("UserControl_roster.p", p);
         }
 
-        private void DataGrid_roster_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+        private void R_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
         {
             if (e.SortExpression == p.sort_order)
             {
@@ -369,22 +375,22 @@ namespace UserControl_roster
                 p.sort_order = k.Safe(e.SortExpression, k.safe_hint_type.KI_SORT_EXPRESSION);
                 p.be_sort_order_ascending = true;
             }
-            DataGrid_roster.EditItemIndex =  -1;
+            R.EditItemIndex =  -1;
             Bind();
         }
 
         private void Bind()
         {
             bool be_raw_shifts_nonzero;
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0);
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED);
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN);
-            DataGrid_roster.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list;
-            p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, DataGrid_roster, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list;
+            p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, R, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
             be_raw_shifts_nonzero = (p.num_raw_shifts > 0);
             Label_core_ops_commitment_factor.Visible = be_raw_shifts_nonzero;
             Label_core_ops_commitment_caption.Visible = be_raw_shifts_nonzero;
