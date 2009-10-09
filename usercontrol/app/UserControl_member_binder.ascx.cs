@@ -43,7 +43,7 @@ namespace UserControl_member_binder
                 {
                     case Units.UserControl_member_binder.TSSI_PERSONNEL:
                         // Dynamic controls must be re-added on each postback.
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))), "UserControl_personnel_binder", PlaceHolder_content);
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))), "P", PlaceHolder_content);
                         break;
                     case Units.UserControl_member_binder.TSSI_FUNDDRIVE:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))), "UserControl_funddrive_binder", PlaceHolder_content);
@@ -60,7 +60,7 @@ namespace UserControl_member_binder
             {
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_member_binder.TSSI_PERSONNEL;
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "UserControl_personnel_binder", PlaceHolder_content);
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);
             }
 
         }
@@ -100,7 +100,7 @@ namespace UserControl_member_binder
             switch(p.tab_index)
             {
                 case Units.UserControl_member_binder.TSSI_PERSONNEL:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "UserControl_personnel_binder", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);
                     break;
                 case Units.UserControl_member_binder.TSSI_FUNDDRIVE:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))).Fresh(), "UserControl_funddrive_binder", PlaceHolder_content);

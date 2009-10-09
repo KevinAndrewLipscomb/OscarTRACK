@@ -248,13 +248,13 @@ namespace UserControl_roster {
         protected global::System.Web.UI.HtmlControls.HtmlAnchor Anchor_quick_message_shortcut;
         
         /// <summary>
-        /// DataGrid_roster control.
+        /// R control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid DataGrid_roster;
+        protected global::System.Web.UI.WebControls.DataGrid R;
         
         /// <summary>
         /// Table_quick_message control.
