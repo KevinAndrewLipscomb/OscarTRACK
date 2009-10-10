@@ -38,7 +38,7 @@ namespace member_detail
             if (!IsPostBack)
             {
                 Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_detail";
-                target_member_id = p.biz_members.IdOf(Session["e_item"]);
+                target_member_id = p.biz_members.IdOf(Session["member_summary"]);
                 if (p.raw_member_phone_num != k.EMPTY)
                 {
                     Label_phone_num.Text = k.FormatAsNanpPhoneNum(p.raw_member_phone_num);
@@ -55,7 +55,7 @@ namespace member_detail
                 {
                     Label_email_address.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
-                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 LinkButton_change_name.Visible = k.Has((string[])(Session["privilege_array"]), "change-member-name") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
                 LinkButton_change_name.Text = k.ExpandTildePath(LinkButton_change_name.Text);
                 Label_cad_num.Text = p.cad_num_string;
@@ -64,29 +64,29 @@ namespace member_detail
                 Label_leave_this_month.Text = p.leave_this_month_description;
                 Label_leave_next_month.Text = p.leave_next_month_description;
                 LinkButton_leave_detail.Text = k.ExpandTildePath(LinkButton_leave_detail.Text);
-                Label_officership.Text = p.biz_members.OfficershipOf(p.biz_members.IdOf(Session["e_item"]));
+                Label_officership.Text = p.biz_members.OfficershipOf(p.biz_members.IdOf(Session["member_summary"]));
                 if (Label_officership.Text == k.EMPTY)
                 {
                     Label_officership.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
                 LinkButton_officership_detail.Text = k.ExpandTildePath(LinkButton_officership_detail.Text);
-                Label_agency.Text = p.biz_members.AgencyOf(Session["e_item"]);
+                Label_agency.Text = p.biz_members.AgencyOf(Session["member_summary"]);
                 LinkButton_change_agency.Text = k.ExpandTildePath(LinkButton_change_agency.Text);
-                Label_section.Text = p.biz_members.SectionOf(Session["e_item"]);
+                Label_section.Text = p.biz_members.SectionOf(Session["member_summary"]);
                 LinkButton_change_section.Text = k.ExpandTildePath(LinkButton_change_section.Text);
-                Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(Session["e_item"]);
-                Label_enrollment.Text = p.biz_members.EnrollmentOf(Session["e_item"]);
+                Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
+                Label_enrollment.Text = p.biz_members.EnrollmentOf(Session["member_summary"]);
                 Label_elaboration.Text = p.biz_enrollment.ElaborationOf(Label_enrollment.Text);
                 LinkButton_enrollment_detail.Text = k.ExpandTildePath(LinkButton_enrollment_detail.Text);
-                if (p.biz_members.RetentionOf(Session["e_item"]) != k.EMPTY)
+                if (p.biz_members.RetentionOf(Session["member_summary"]) != k.EMPTY)
                 {
-                    Label_years_of_service.Text = p.biz_members.RetentionOf(Session["e_item"]);
+                    Label_years_of_service.Text = p.biz_members.RetentionOf(Session["member_summary"]);
                 }
                 else
                 {
                     Label_years_of_service.Text = "(See membership status detail)";
                 }
-                Label_be_driver_qualified.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(Session["e_item"]));
+                Label_be_driver_qualified.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(Session["member_summary"]));
                 LinkButton_change_driver_qual.Text = k.ExpandTildePath(LinkButton_change_driver_qual.Text);
                 LinkButton_change_member_phone_num.Visible = (target_member_id == p.biz_members.IdOfUserId(p.biz_user.IdNum())) || (k.Has((string[])(Session["privilege_array"]), "change-member-phone-num") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id));
                 LinkButton_change_member_phone_num.Text = k.ExpandTildePath(LinkButton_change_member_phone_num.Text);
@@ -134,14 +134,14 @@ namespace member_detail
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
-                    p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.biz_members.IdOf(Session["e_item"]));
-                    p.raw_member_email_address = p.biz_members.EmailAddressOf(p.biz_members.IdOf(Session["e_item"]));
-                    p.cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.biz_members.IdOf(Session["member_summary"]));
+                    p.raw_member_email_address = p.biz_members.EmailAddressOf(p.biz_members.IdOf(Session["member_summary"]));
+                    p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(Session["e_item"]), out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+                    p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(Session["member_summary"]), out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
                 }
             }
         }

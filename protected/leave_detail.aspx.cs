@@ -41,7 +41,7 @@ namespace leave_detail
             if (!IsPostBack)
             {
                 Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - leave_detail";
-                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]) + " (CAD # " + p.cad_num_string + ")";
+                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
                 LinkButton_new.Visible = p.be_user_privileged_to_grant_leave;
                 Bind();
             }
@@ -77,10 +77,10 @@ namespace leave_detail
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
                     p.be_sort_order_ascending = false;
-                    p.be_user_privileged_to_grant_leave = k.Has((string[])(Session["privilege_array"]), "grant-leave") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["e_item"]));
+                    p.be_user_privileged_to_grant_leave = k.Has((string[])(Session["privilege_array"]), "grant-leave") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
                     p.num_datagrid_rows = 0;
                     p.sort_order = "start_date%";
-                    p.cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
@@ -161,7 +161,7 @@ namespace leave_detail
         {
             DataGrid_leaves.Columns[Units.leave_detail.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
             DataGrid_leaves.Columns[Units.leave_detail.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
-            p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(Session["e_item"]), p.sort_order, p.be_sort_order_ascending, DataGrid_leaves);
+            p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(Session["member_summary"]), p.sort_order, p.be_sort_order_ascending, DataGrid_leaves);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
             TableRow_none.Visible = p.be_datagrid_empty;

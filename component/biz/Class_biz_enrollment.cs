@@ -103,13 +103,13 @@ namespace Class_biz_enrollment
             }
         }
 
-        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object e_item)
+        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
         {
             bool result;
             TClass_biz_members biz_members;
             result = false;
             biz_members = new TClass_biz_members();
-            if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, e_item))
+            if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary))
             {
                 result = true;
                 biz_notifications.IssueForNewEnrollmentLevel(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), db_enrollment.DescriptionOf(new_level_code), effective_date.ToString("yyyy-MM-dd"), note);

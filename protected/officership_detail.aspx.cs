@@ -62,12 +62,12 @@ namespace officership_detail
                     p.biz_members = new TClass_biz_members();
                     p.biz_officerships = new TClass_biz_officerships();
                     p.num_datagrid_rows = 0;
-                    cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (cad_num_string == k.EMPTY)
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    Label_member_designator.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]) + " (CAD # " + cad_num_string + ")";
+                    Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     Bind();
                 }
             }
@@ -113,7 +113,7 @@ namespace officership_detail
 
         private void Bind()
         {
-            p.biz_officerships.Bind(p.biz_members.IdOf(Session["e_item"]), DataGrid_officerships);
+            p.biz_officerships.Bind(p.biz_members.IdOf(Session["member_summary"]), DataGrid_officerships);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
             TableRow_none.Visible = p.be_datagrid_empty;

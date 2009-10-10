@@ -173,7 +173,7 @@ namespace Class_db_enrollment
             return result;
         }
 
-        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object e_item)
+        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
         {
             bool result;
             uint current_level_code;
@@ -209,7 +209,7 @@ namespace Class_db_enrollment
                     new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), this.connection, transaction).ExecuteNonQuery();
                     new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), this.connection, transaction).ExecuteNonQuery();
                     transaction.Commit();
-                    ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text = DescriptionOf(new_level_code);
+                    (summary as member_summary).enrollment = DescriptionOf(new_level_code);
                     result = true;
                 }
             }

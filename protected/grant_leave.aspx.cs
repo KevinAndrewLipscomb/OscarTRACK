@@ -63,17 +63,17 @@ namespace grant_leave
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - grant_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
-                    cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (cad_num_string == k.EMPTY)
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["e_item"]);
-                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]) + " (CAD # " + cad_num_string + ")";
+                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]);
+                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     p.biz_leaves.BindStartMonthDropDownList(DropDownList_start_month);
                     p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month);
                     p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave);
-                    p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["e_item"]), DropDownList_num_obligated_shifts);
+                    p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
                 }
             }
         }
@@ -87,7 +87,7 @@ namespace grant_leave
 
         protected void CustomValidator_overlap_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = !p.biz_leaves.BeOverlap(p.biz_members.IdOf(Session["e_item"]), k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM));
+            args.IsValid = !p.biz_leaves.BeOverlap(p.biz_members.IdOf(Session["member_summary"]), k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM));
         }
 
         protected void Button_cancel_Click(object sender, System.EventArgs e)
@@ -99,7 +99,7 @@ namespace grant_leave
         {
             if (Page.IsValid)
             {
-                p.biz_leaves.Grant(p.biz_members.IdOf(Session["e_item"]), k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_kind_of_leave.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_num_obligated_shifts.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_note.Text, k.safe_hint_type.PUNCTUATED));
+                p.biz_leaves.Grant(p.biz_members.IdOf(Session["member_summary"]), k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_kind_of_leave.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_num_obligated_shifts.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_note.Text, k.safe_hint_type.PUNCTUATED));
                 BackTrack();
             }
             else

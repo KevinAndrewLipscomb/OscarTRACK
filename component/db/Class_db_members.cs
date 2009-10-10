@@ -42,7 +42,23 @@ namespace Class_db_members
             return result;
         }
 
-    } // end Class_db_members
+    }
+
+    public class member_summary
+      {
+      public string agency;
+      public bool be_driver_qualified;
+      public string cad_num;
+      public string enrollment;
+      public string first_name;
+      public string id;
+      public string last_name;
+      public string medical_release_level;
+      public string length_of_service;
+      public string peck_code;
+      public string phone_num;
+      public string section;
+      }
 
     public class TClass_db_members: TClass_db
     {
@@ -90,11 +106,9 @@ namespace Class_db_members
             Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, "");
         }
 
-        public string AgencyOf(object e_item)
+        public string AgencyOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_AGENCY].Text, k.safe_hint_type.ALPHANUM);
-            return result;
+            return (summary as member_summary).agency;
         }
 
         public string AgencyIdOfId(string id)
@@ -115,11 +129,9 @@ namespace Class_db_members
             return result;
         }
 
-        public bool BeDriverQualifiedOf(object e_item)
+        public bool BeDriverQualifiedOf(object summary)
         {
-            bool result;
-            result = k.BooleanOfYesNo(k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_BE_DRIVER_QUALIFIED].Text, k.safe_hint_type.ALPHA));
-            return result;
+            return (summary as member_summary).be_driver_qualified;
         }
 
         public bool BeKnown(string cad_num)
@@ -503,7 +515,58 @@ namespace Class_db_members
             // column 15
             // column 16
             // column 17
-            command_text = "select member.id as member_id" + " , last_name" + " , first_name" + " , cad_num" + " , short_designator as agency" + " , section_num" + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" + " , medical_release_code_description_map.description as medical_release_description" + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" + " , enrollment_level.description as enrollment" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service" + " , core_ops_commitment_level_code" + " , num_shifts as enrollment_obligation" + " , " + kind_of_leave_selection_clause + " as kind_of_leave" + " , " + obliged_shifts_selection_clause + " as obliged_shifts" + " , email_address" + " , phone_num" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" + " )" + " )" + " )" + " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " join agency on (agency.id=member.agency_id)" + filter + " order by " + sort_order;
+            command_text = "select member.id as member_id"
+            + " , last_name" 
+            + " , first_name" 
+            + " , cad_num" 
+            + " , short_designator as agency" 
+            + " , section_num" 
+            + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
+            + " , medical_release_code_description_map.description as medical_release_description" 
+            + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" 
+            + " , enrollment_level.description as enrollment" 
+            + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+            + " , core_ops_commitment_level_code" 
+            + " , num_shifts as enrollment_obligation"
+            + " , " + kind_of_leave_selection_clause + " as kind_of_leave" 
+            + " , " + obliged_shifts_selection_clause + " as obliged_shifts" 
+            + " , email_address" 
+            + " , phone_num" 
+            + " from member" 
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
+            +   " join enrollment_history on" 
+            +     " (" 
+            +       " enrollment_history.member_id=member.id" 
+            +     " and" 
+            +       " (" 
+            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +       " and" 
+            +         " (" 
+            +           " (enrollment_history.end_date is null)" 
+            +         " or" 
+            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+            +   " left join leave_of_absence on" 
+            +     " (" 
+            +       " leave_of_absence.member_id=member.id" 
+            +     " and " 
+            +       " (" 
+            +         " (leave_of_absence.start_date is null)" 
+            +       " or" 
+            +         " (" 
+            +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +         " and" 
+            +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " left join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" 
+            +   " join agency on (agency.id=member.agency_id)" 
+            + filter 
+            + " order by " + sort_order;
             this.Open();
             ((target) as DataGrid).DataSource = new MySqlCommand(command_text, this.connection).ExecuteReader();
             ((target) as DataGrid).DataBind();
@@ -543,11 +606,9 @@ namespace Class_db_members
             this.Close();
         }
 
-        public string CadNumOf(object e_item)
+        public string CadNumOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_CAD_NUM].Text, k.safe_hint_type.NUM);
-            return result;
+            return (summary as member_summary).cad_num;
         }
 
         public string CadNumOfMemberId(string member_id)
@@ -612,11 +673,9 @@ namespace Class_db_members
             return result;
         }
 
-        public string EnrollmentOf(object e_item)
+        public string EnrollmentOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text, k.safe_hint_type.PUNCTUATED);
-            return result;
+            return (summary as member_summary).enrollment;
         }
 
         public string EnrollmentOfMemberId(string member_id)
@@ -628,11 +687,9 @@ namespace Class_db_members
             return result;
         }
 
-        public string FirstNameOf(object e_item)
+        public string FirstNameOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_FIRST_NAME].Text, k.safe_hint_type.HUMAN_NAME);
-            return result;
+            return (summary as member_summary).first_name;
         }
 
         public string FirstNameOfMemberId(string member_id)
@@ -675,11 +732,9 @@ namespace Class_db_members
             return result;
         }
 
-        public string IdOf(object e_item)
+        public string IdOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text, k.safe_hint_type.NUM);
-            return result;
+            return (summary as member_summary).id;
         }
 
         public string IdOfFirstnameLastnameCadnum(string first_name, string last_name, string cad_num)
@@ -760,11 +815,9 @@ namespace Class_db_members
             return result;
         }
 
-        public string LastNameOf(object e_item)
+        public string LastNameOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_LAST_NAME].Text, k.safe_hint_type.HUMAN_NAME);
-            return result;
+            return (summary as member_summary).last_name;
         }
 
         public string LastNameOfMemberId(string member_id)
@@ -806,11 +859,9 @@ namespace Class_db_members
             this.Close();
         }
 
-        public string MedicalReleaseLevelOf(object e_item)
+        public string MedicalReleaseLevelOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Text, k.safe_hint_type.PUNCTUATED);
-            return result;
+            return (summary as member_summary).medical_release_level;
         }
 
         public string MedicalReleaseLevelOfMemberId(string member_id)
@@ -875,49 +926,43 @@ namespace Class_db_members
             return result;
         }
 
-        public string PeckCodeOf(object e_item)
+        public string PeckCodeOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_MEDICAL_RELEASE_PECK_CODE].Text, k.safe_hint_type.NUM);
-            return result;
+            return (summary as member_summary).peck_code;
         }
 
-        public string RetentionOf(object e_item)
+        public string RetentionOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Text, k.safe_hint_type.REAL_NUM);
-            return result;
+            return (summary as member_summary).length_of_service;
         }
 
-        public string SectionOf(object e_item)
+        public string SectionOf(object summary)
         {
-            string result;
-            result = k.Safe(((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_SECTION_NUM].Text, k.safe_hint_type.NUM);
-            return result;
+            return (summary as member_summary).section;
         }
 
-        public void SetAgency(string agency_id, object e_item)
+        public void SetAgency(string agency_id, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET agency_id = " + agency_id + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_AGENCY].Text = db_agencies.ShortDesignatorOf(agency_id);
+            new MySqlCommand(db_trail.Saved("UPDATE member SET agency_id = " + agency_id + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).agency = db_agencies.ShortDesignatorOf(agency_id);
         }
 
-        public void SetCadNum(string cad_num, object e_item)
+        public void SetCadNum(string cad_num, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET cad_num = \"" + cad_num + "\"" + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_CAD_NUM].Text = cad_num;
+            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET cad_num = \"" + cad_num + "\"" + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).cad_num = cad_num;
         }
 
-        public void SetDriverQualification(bool be_driver_qualified, object e_item)
+        public void SetDriverQualification(bool be_driver_qualified, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET be_driver_qualified = " + be_driver_qualified.ToString() + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_BE_DRIVER_QUALIFIED].Text = k.YesNoOf(be_driver_qualified);
+            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET be_driver_qualified = " + be_driver_qualified.ToString() + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).be_driver_qualified = be_driver_qualified;
         }
 
         public void SetEmailAddress(string id, string email_address)
@@ -927,37 +972,37 @@ namespace Class_db_members
             this.Close();
         }
 
-        public void SetName(string first, string last, object e_item)
+        public void SetName(string first, string last, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET first_name = \"" + first + "\"" + " , last_name = \"" + last + "\"" + "  WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_FIRST_NAME].Text = first;
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_LAST_NAME].Text = last;
+            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET first_name = \"" + first + "\"" + " , last_name = \"" + last + "\"" + "  WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).first_name = first;
+            (summary as member_summary).last_name = last;
         }
 
-        public void SetSection(string section_num, object e_item)
+        public void SetSection(string section_num, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = " + section_num + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_SECTION_NUM].Text = section_num;
+            new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = " + section_num + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).section = section_num;
         }
 
-        public void SetMedicalReleaseCode(string code, object e_item)
+        public void SetMedicalReleaseCode(string code, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET medical_release_code = " + code + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Text = db_medical_release_levels.DescriptionOf(code);
+            new MySqlCommand(db_trail.Saved("UPDATE member SET medical_release_code = " + code + " WHERE id = '" + (summary as member_summary).id + "'"), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
         }
 
-        public void SetPhoneNum(string phone_num, object e_item)
+        public void SetPhoneNum(string phone_num, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = " + phone_num + " WHERE id = " + ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_ID].Text), this.connection).ExecuteNonQuery();
-            ((e_item) as DataGridItem).Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text = k.FormatAsNanpPhoneNum(phone_num);
+            new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = " + phone_num + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
             this.Close();
+            (summary as member_summary).phone_num = k.FormatAsNanpPhoneNum(phone_num);
         }
 
         public void SetProfile(string id, string name)
@@ -966,6 +1011,68 @@ namespace Class_db_members
             new MySqlCommand(db_trail.Saved("UPDATE member " + "SET name = \"" + name + "\"" + ", be_valid_profile = TRUE " + "WHERE id = \"" + id + "\""), this.connection).ExecuteNonQuery();
             this.Close();
         }
+
+        public object Summary(string member_id)
+          {
+          this.Open();
+          var dr =
+            (
+            new MySqlCommand
+              (
+              "select last_name" 
+              + " , first_name" 
+              + " , cad_num" 
+              + " , short_designator as agency" 
+              + " , section_num" 
+              + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
+              + " , medical_release_code_description_map.description as medical_release_description" 
+              + " , be_driver_qualified" 
+              + " , enrollment_level.description as enrollment" 
+              + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+              + " , phone_num" 
+              + " from member" 
+              +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
+              +   " join enrollment_history on" 
+              +     " (" 
+              +       " enrollment_history.member_id=member.id" 
+              +     " and" 
+              +       " (" 
+              +         " (enrollment_history.start_date <= CURDATE())" 
+              +       " and" 
+              +         " (" 
+              +           " (enrollment_history.end_date is null)" 
+              +         " or" 
+              +           " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" 
+              +         " )" 
+              +       " )" 
+              +     " )" 
+              +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+              +   " join agency on (agency.id=member.agency_id)"
+              + " where member.id = '" + member_id + "'",
+              connection
+              )
+              .ExecuteReader()
+            );
+          dr.Read();
+          var the_summary = new member_summary()
+            {
+            agency = dr["agency"].ToString(),
+            be_driver_qualified = (dr["be_driver_qualified"].ToString() == "1"),
+            cad_num = dr["cad_num"].ToString(),
+            enrollment = dr["enrollment"].ToString(),
+            first_name = dr["first_name"].ToString(),
+            id = member_id,
+            last_name = dr["last_name"].ToString(),
+            medical_release_level = dr["medical_release_description"].ToString(),
+            length_of_service = dr["length_of_service"].ToString(),
+            peck_code = dr["medical_release_peck_code"].ToString(),
+            phone_num = dr["phone_num"].ToString(),
+            section = dr["section_num"].ToString()
+            };
+          dr.Close();
+          this.Close();
+          return the_summary;
+          }
 
         public string UserIdOf(string member_id)
         {

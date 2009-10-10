@@ -77,8 +77,8 @@ namespace change_name
                 {
                     p.biz_members = new TClass_biz_members();
                     p.biz_users = new TClass_biz_users();
-                    p.saved_first_name = p.biz_members.FirstNameOf(Session["e_item"]);
-                    p.saved_last_name = p.biz_members.LastNameOf(Session["e_item"]);
+                    p.saved_first_name = p.biz_members.FirstNameOf(Session["member_summary"]);
+                    p.saved_last_name = p.biz_members.LastNameOf(Session["member_summary"]);
                 }
             }
 
@@ -91,7 +91,7 @@ namespace change_name
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            p.biz_members.SetName(p.saved_first_name, p.saved_last_name, k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME).ToUpper(), k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME).ToUpper(), Session["e_item"]);
+            p.biz_members.SetName(p.saved_first_name, p.saved_last_name, k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME).ToUpper(), k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME).ToUpper(), Session["member_summary"]);
             BackTrack();
         }
 
