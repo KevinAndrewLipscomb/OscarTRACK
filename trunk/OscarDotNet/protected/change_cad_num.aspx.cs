@@ -40,8 +40,8 @@ namespace change_cad_num
             if (!IsPostBack)
             {
                 Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_cad_num";
-                Label_old_cad_num.Text = p.biz_members.CadNumOf(Session["e_item"]);
-                Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                Label_old_cad_num.Text = p.biz_members.CadNumOf(Session["member_summary"]);
+                Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 Label_member_name_2.Text = Label_member_name_1.Text;
                 Focus(TextBox_cad_num, true);
             }
@@ -87,7 +87,7 @@ namespace change_cad_num
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            if (p.biz_members.SetCadNum(k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM), Session["e_item"]))
+            if (p.biz_members.SetCadNum(k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM), Session["member_summary"]))
             {
                 BackTrack();
             }

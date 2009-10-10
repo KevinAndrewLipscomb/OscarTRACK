@@ -62,9 +62,9 @@ namespace change_member_agency
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_agency";
                     p.biz_members = new TClass_biz_members();
                     p.biz_agencies = new TClass_biz_agencies();
-                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
-                    p.saved_agency_id = p.biz_agencies.IdOfShortDesignator(p.biz_members.AgencyOf(Session["e_item"]));
+                    p.saved_agency_id = p.biz_agencies.IdOfShortDesignator(p.biz_members.AgencyOf(Session["member_summary"]));
                     p.biz_agencies.BindListControlShort(DropDownList_agency, p.saved_agency_id, false);
                 }
             }
@@ -84,7 +84,7 @@ namespace change_member_agency
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            p.biz_members.SetAgency(p.saved_agency_id, k.Safe(DropDownList_agency.SelectedValue, k.safe_hint_type.NUM), Session["e_item"]);
+            p.biz_members.SetAgency(p.saved_agency_id, k.Safe(DropDownList_agency.SelectedValue, k.safe_hint_type.NUM), Session["member_summary"]);
             BackTrack();
         }
 

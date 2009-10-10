@@ -60,10 +60,10 @@ namespace Class_biz_members
             return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_level, "");
         }
 
-        public string AgencyOf(object e_item)
+        public string AgencyOf(object summary)
         {
             string result;
-            result = db_members.AgencyOf(e_item);
+            result = db_members.AgencyOf(summary);
             return result;
         }
 
@@ -81,17 +81,17 @@ namespace Class_biz_members
             return result;
         }
 
-        public bool BeDriverQualifiedOf(object e_item)
+        public bool BeDriverQualifiedOf(object summary)
         {
             bool result;
-            result = db_members.BeDriverQualifiedOf(e_item);
+            result = db_members.BeDriverQualifiedOf(summary);
             return result;
         }
 
-        public bool BeUserAuthorizedToEditEnrollments(string subject_member_id, object e_item, bool has_edit_enrollments, bool has_edit_enrollments_nonreleased_ops_members_only)
+        public bool BeUserAuthorizedToEditEnrollments(string subject_member_id, object summary, bool has_edit_enrollments, bool has_edit_enrollments_nonreleased_ops_members_only)
         {
             bool result;
-            result = BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(e_item)) && (has_edit_enrollments || (has_edit_enrollments_nonreleased_ops_members_only && (!BeDriverQualifiedOf(e_item) || !biz_medical_release_levels.BeReleased(PeckCodeOf(e_item)))));
+            result = BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(summary)) && (has_edit_enrollments || (has_edit_enrollments_nonreleased_ops_members_only && (!BeDriverQualifiedOf(summary) || !biz_medical_release_levels.BeReleased(PeckCodeOf(summary)))));
             return result;
         }
 
@@ -207,10 +207,10 @@ namespace Class_biz_members
             db_members.BindSpecialForRankedLengthOfService(target);
         }
 
-        public string CadNumOf(object e_item)
+        public string CadNumOf(object summary)
         {
             string result;
-            result = db_members.CadNumOf(e_item);
+            result = db_members.CadNumOf(summary);
             return result;
         }
 
@@ -262,10 +262,10 @@ namespace Class_biz_members
             return result;
         }
 
-        public string EnrollmentOf(object e_item)
+        public string EnrollmentOf(object summary)
         {
             string result;
-            result = db_members.EnrollmentOf(e_item);
+            result = db_members.EnrollmentOf(summary);
             return result;
         }
 
@@ -276,10 +276,10 @@ namespace Class_biz_members
             return result;
         }
 
-        public string FirstNameOf(object e_item)
+        public string FirstNameOf(object summary)
         {
             string result;
-            result = db_members.FirstNameOf(e_item);
+            result = db_members.FirstNameOf(summary);
             return result;
         }
 
@@ -302,10 +302,10 @@ namespace Class_biz_members
             return result;
         }
 
-        public string IdOf(object e_item)
+        public string IdOf(object summary)
         {
             string result;
-            result = db_members.IdOf(e_item);
+            result = db_members.IdOf(summary);
             return result;
         }
 
@@ -330,10 +330,10 @@ namespace Class_biz_members
             return result;
         }
 
-        public string LastNameOf(object e_item)
+        public string LastNameOf(object summary)
         {
             string result;
-            result = db_members.LastNameOf(e_item);
+            result = db_members.LastNameOf(summary);
             return result;
         }
 
@@ -344,10 +344,10 @@ namespace Class_biz_members
             return result;
         }
 
-        public string MedicalReleaseLevelOf(object e_item)
+        public string MedicalReleaseLevelOf(object summary)
         {
             string result;
-            result = db_members.MedicalReleaseLevelOf(e_item);
+            result = db_members.MedicalReleaseLevelOf(summary);
             return result;
         }
 
@@ -379,52 +379,52 @@ namespace Class_biz_members
             return result;
         }
 
-        public string PeckCodeOf(object e_item)
+        public string PeckCodeOf(object summary)
         {
             string result;
-            result = db_members.PeckCodeOf(e_item);
+            result = db_members.PeckCodeOf(summary);
             return result;
         }
 
-        public string RetentionOf(object e_item)
+        public string RetentionOf(object summary)
         {
             string result;
-            result = db_members.RetentionOf(e_item);
+            result = db_members.RetentionOf(summary);
             return result;
         }
 
-        public string SectionOf(object e_item)
+        public string SectionOf(object summary)
         {
             string result;
-            result = db_members.SectionOf(e_item);
+            result = db_members.SectionOf(summary);
             return result;
         }
 
-        public void SetAgency(string old_agency_id, string new_agency_id, object e_item)
+        public void SetAgency(string old_agency_id, string new_agency_id, object summary)
         {
             string member_id;
-            db_members.SetAgency(new_agency_id, e_item);
-            member_id = IdOf(e_item);
-            biz_notifications.IssueForAgencyChange(member_id, FirstNameOf(e_item), LastNameOf(e_item), CadNumOf(e_item), biz_agencies.MediumDesignatorOf(old_agency_id), biz_agencies.MediumDesignatorOf(new_agency_id));
+            db_members.SetAgency(new_agency_id, summary);
+            member_id = IdOf(summary);
+            biz_notifications.IssueForAgencyChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(old_agency_id), biz_agencies.MediumDesignatorOf(new_agency_id));
         }
 
-        public bool SetCadNum(string cad_num, object e_item)
+        public bool SetCadNum(string cad_num, object summary)
         {
             bool result;
             result = false;
             if (!db_members.BeKnown(cad_num))
             {
-                db_members.SetCadNum(cad_num, e_item);
-                biz_notifications.IssueForCadNumChange(db_members.IdOf(e_item), db_members.FirstNameOf(e_item), db_members.LastNameOf(e_item), cad_num);
+                db_members.SetCadNum(cad_num, summary);
+                biz_notifications.IssueForCadNumChange(db_members.IdOf(summary), db_members.FirstNameOf(summary), db_members.LastNameOf(summary), cad_num);
                 result = true;
             }
             return result;
         }
 
-        public void SetDriverQualification(bool be_driver_qualified, object e_item)
+        public void SetDriverQualification(bool be_driver_qualified, object summary)
         {
-            db_members.SetDriverQualification(be_driver_qualified, e_item);
-            biz_notifications.IssueForDriverQualificationChange(IdOf(e_item), FirstNameOf(e_item), LastNameOf(e_item), CadNumOf(e_item), be_driver_qualified);
+            db_members.SetDriverQualification(be_driver_qualified, summary);
+            biz_notifications.IssueForDriverQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_driver_qualified);
         }
 
         public void SetEmailAddress(string id, string email_address)
@@ -432,48 +432,53 @@ namespace Class_biz_members
             db_members.SetEmailAddress(id, email_address);
         }
 
-        public void SetName(string old_first, string old_last, string new_first, string new_last, object e_item)
+        public void SetName(string old_first, string old_last, string new_first, string new_last, object summary)
         {
             string member_id;
-            db_members.SetName(new_first, new_last, e_item);
-            member_id = IdOf(e_item);
-            biz_notifications.IssueForMemberNameChange(member_id, CadNumOf(e_item), old_first, old_last, new_first, new_last);
+            db_members.SetName(new_first, new_last, summary);
+            member_id = IdOf(summary);
+            biz_notifications.IssueForMemberNameChange(member_id, CadNumOf(summary), old_first, old_last, new_first, new_last);
         }
 
-        public void SetSection(string section_num, object e_item)
+        public void SetSection(string section_num, object summary)
         {
             string member_id;
-            db_members.SetSection(section_num, e_item);
-            member_id = IdOf(e_item);
-            biz_notifications.IssueForSectionChange(member_id, FirstNameOf(e_item), LastNameOf(e_item), CadNumOf(e_item), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), section_num);
+            db_members.SetSection(section_num, summary);
+            member_id = IdOf(summary);
+            biz_notifications.IssueForSectionChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), section_num);
         }
 
-        public void SetMedicalReleaseCode(string old_level, string new_code, object e_item)
+        public void SetMedicalReleaseCode(string old_level, string new_code, object summary)
         {
-            db_members.SetMedicalReleaseCode(new_code, e_item);
-            biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(e_item), FirstNameOf(e_item), LastNameOf(e_item), CadNumOf(e_item), MedicalReleaseLevelOf(e_item));
+            db_members.SetMedicalReleaseCode(new_code, summary);
+            biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
             if (biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(old_level) && !biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_code))
             {
-                biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), DateTime.Today, k.EMPTY, IdOf(e_item), e_item);
+                biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), DateTime.Today, k.EMPTY, IdOf(summary), summary);
             }
         }
 
-        public void SetPhoneNum(string phone_num, object e_item)
+        public void SetPhoneNum(string phone_num, object summary)
         {
             string member_id;
             if (phone_num.Length == 7)
             {
                 phone_num = "757" + phone_num;
             }
-            db_members.SetPhoneNum(phone_num, e_item);
-            member_id = IdOf(e_item);
-            biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(e_item), LastNameOf(e_item), CadNumOf(e_item), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
+            db_members.SetPhoneNum(phone_num, summary);
+            member_id = IdOf(summary);
+            biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
         }
 
         public void SetProfile(string id, string name)
         {
             db_members.SetProfile(id, name);
         }
+
+        public object Summary(string member_id)
+          {
+          return db_members.Summary(member_id);
+          }
 
         public string UserIdOf(string member_id)
         {

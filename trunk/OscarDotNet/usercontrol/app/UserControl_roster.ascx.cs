@@ -294,7 +294,7 @@ namespace UserControl_roster
             if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.Item, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
             {
                 // We are dealing with a data row, not a header or footer row.
-                SessionSet("e_item", e.Item);
+                SessionSet("member_summary",p.biz_members.Summary(k.Safe(e.Item.Cells[Class_db_members_Static.TCCI_ID].Text,k.safe_hint_type.NUM)));
                 DropCrumbAndTransferTo("member_detail.aspx");
             }
         }
@@ -348,12 +348,15 @@ namespace UserControl_roster
                 {
                     e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text = k.FormatAsNanpPhoneNum(e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text);
                 }
-                e.Item.Cells[Class_db_members_Static.TCCI_COMMITMENT_LEVEL_CODE].EnableViewState = false;
-                e.Item.Cells[Class_db_members_Static.TCCI_DRILLDOWN_LINKBUTTON].EnableViewState = false;
-                e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].EnableViewState = false;
-                e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].EnableViewState = false;
-                e.Item.Cells[Class_db_members_Static.TCCI_LEAVE].EnableViewState = false;
-                e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].EnableViewState = false;
+                //
+                // Remove all cell controls from viewstate except for the one at TCCI_ID.
+                //
+                foreach (TableCell cell in e.Item.Cells)
+                  {
+                  cell.EnableViewState = false;
+                  }
+                e.Item.Cells[Class_db_members_Static.TCCI_ID].EnableViewState = true;
+                //
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
             }
 

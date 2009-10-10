@@ -58,7 +58,7 @@ namespace change_phone_num
                 }
                 Title.Text = ConfigurationManager.AppSettings["application_name"] + " - change_phone_num";
                 p.biz_members = new TClass_biz_members();
-                Label_name.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                Label_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 TextBox_phone_num.Text = k.FormatAsNanpPhoneNum(Session["member_phone_num"].ToString());
                 Focus(TextBox_phone_num, true);
             }
@@ -90,7 +90,7 @@ namespace change_phone_num
         {
             if (Page.IsValid)
             {
-                p.biz_members.SetPhoneNum(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM), Session["e_item"]);
+                p.biz_members.SetPhoneNum(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM), Session["member_summary"]);
                 BackTrack();
             }
             else

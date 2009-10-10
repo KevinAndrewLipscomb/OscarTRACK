@@ -61,9 +61,9 @@ namespace change_member_section
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_section";
                     p.biz_members = new TClass_biz_members();
                     p.biz_sections = new TClass_biz_sections();
-                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
-                    p.biz_sections.BindListControl(DropDownList_section, p.biz_members.SectionOf(Session["e_item"]));
+                    p.biz_sections.BindListControl(DropDownList_section, p.biz_members.SectionOf(Session["member_summary"]));
                 }
             }
         }
@@ -82,7 +82,7 @@ namespace change_member_section
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            p.biz_members.SetSection(k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM), Session["e_item"]);
+            p.biz_members.SetSection(k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM), Session["member_summary"]);
             BackTrack();
         }
 

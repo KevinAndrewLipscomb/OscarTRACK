@@ -38,8 +38,8 @@ namespace enrollment_detail
             if (!IsPostBack)
             {
                 Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
-                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]) + " (CAD # " + p.cad_num_string + ")";
-                LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["e_item"], k.Has((string[])(Session["privilege_array"]), "edit-enrollments"), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"));
+                Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
+                LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["member_summary"], k.Has((string[])(Session["privilege_array"]), "edit-enrollments"), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"));
                 Bind();
             }
         }
@@ -74,7 +74,7 @@ namespace enrollment_detail
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
                     p.num_datagrid_rows = 0;
-                    p.cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
@@ -117,7 +117,7 @@ namespace enrollment_detail
 
         private void Bind()
         {
-            p.biz_enrollment.BindMemberHistory(p.biz_members.IdOf(Session["e_item"]), DataGrid_member_history);
+            p.biz_enrollment.BindMemberHistory(p.biz_members.IdOf(Session["member_summary"]), DataGrid_member_history);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
             TableRow_none.Visible = p.be_datagrid_empty;

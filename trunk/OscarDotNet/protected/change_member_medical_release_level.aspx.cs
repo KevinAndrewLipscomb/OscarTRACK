@@ -61,7 +61,7 @@ namespace change_member_medical_release_level
                 else
                 {
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_medical_release_level";
-                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
                     Label_member_name_3.Text = Label_member_name_2.Text;
                     HtmlTable_proper_release_reminder.Visible = !k.Has((string[])(Session["privilege_array"]), "release-trainees");
@@ -78,7 +78,7 @@ namespace change_member_medical_release_level
             base.OnInit(e);
             p.biz_members = new TClass_biz_members();
             p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
-            p.saved_level = p.biz_members.MedicalReleaseLevelOf(Session["e_item"]);
+            p.saved_level = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
 
         }
 
@@ -87,8 +87,8 @@ namespace change_member_medical_release_level
             string current_enrollment_level;
             string first_name;
             args.IsValid = false;
-            current_enrollment_level = p.biz_members.EnrollmentOf(Session["e_item"]);
-            first_name = p.biz_members.FirstNameOf(Session["e_item"]);
+            current_enrollment_level = p.biz_members.EnrollmentOf(Session["member_summary"]);
+            first_name = p.biz_members.FirstNameOf(Session["member_summary"]);
             if (p.biz_medical_release_levels.BeValidForCurrentEnrollmentLevel(k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), current_enrollment_level))
             {
                 args.IsValid = true;
@@ -108,7 +108,7 @@ namespace change_member_medical_release_level
         {
             if (Page.IsValid)
             {
-                p.biz_members.SetMedicalReleaseCode(p.saved_level, k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), Session["e_item"]);
+                p.biz_members.SetMedicalReleaseCode(p.saved_level, k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), Session["member_summary"]);
                 BackTrack();
             }
         }

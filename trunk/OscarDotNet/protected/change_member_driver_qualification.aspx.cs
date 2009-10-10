@@ -59,9 +59,9 @@ namespace change_member_driver_qualification
                 {
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_driver_qualification";
                     p.biz_members = new TClass_biz_members();
-                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                    Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
-                    p.be_driver_initially_qualified = p.biz_members.BeDriverQualifiedOf(Session["e_item"]);
+                    p.be_driver_initially_qualified = p.biz_members.BeDriverQualifiedOf(Session["member_summary"]);
                     RadioButtonList_driver_qualified_yes_no.SelectedValue = k.YesNoOf(p.be_driver_initially_qualified);
                 }
             }
@@ -85,7 +85,7 @@ namespace change_member_driver_qualification
             be_driver_qualified = k.BooleanOfYesNo(RadioButtonList_driver_qualified_yes_no.SelectedValue);
             if (be_driver_qualified != p.be_driver_initially_qualified)
             {
-                p.biz_members.SetDriverQualification(be_driver_qualified, Session["e_item"]);
+                p.biz_members.SetDriverQualification(be_driver_qualified, Session["member_summary"]);
             }
             BackTrack();
         }

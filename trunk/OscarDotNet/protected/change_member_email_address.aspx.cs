@@ -40,7 +40,7 @@ namespace change_member_email_address
             if (!IsPostBack)
             {
                 Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_email_address";
-                Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["e_item"]) + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]);
+                Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 Label_member_name_2.Text = Label_member_name_1.Text;
                 Label_member_name_3.Text = Label_member_name_2.Text;
                 TextBox_member_email_address.Text = Session["member_email_address"].ToString();
@@ -88,7 +88,7 @@ namespace change_member_email_address
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
         {
-            p.biz_members.SetEmailAddress(p.biz_members.IdOf(Session["e_item"]), k.Safe(TextBox_member_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS));
+            p.biz_members.SetEmailAddress(p.biz_members.IdOf(Session["member_summary"]), k.Safe(TextBox_member_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS));
             BackTrack();
         }
 

@@ -67,13 +67,13 @@ namespace change_leave
                     Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
-                    cad_num_string = p.biz_members.CadNumOf(Session["e_item"]);
+                    cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (cad_num_string == k.EMPTY)
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["e_item"]);
-                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["e_item"]) + " (CAD # " + cad_num_string + ")";
+                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]);
+                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     Label_saved_start_month.Text = DateTime.Parse(p.biz_leaves.StartMonthOf(Session["leave_item"]) + "-01").ToString("MMM yyyy");
                     Label_saved_end_month.Text = DateTime.Parse(p.biz_leaves.EndMonthOf(Session["leave_item"]) + "-01").ToString("MMM yyyy");
                     Label_saved_kind_of_leave.Text = p.biz_leaves.KindOf(Session["leave_item"]);
@@ -115,7 +115,7 @@ namespace change_leave
                     }
                     DropDownList_kind_of_leave.SelectedIndex = (int)i;
                     // Num obligated shifts
-                    p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["e_item"]), DropDownList_num_obligated_shifts);
+                    p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
                     DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
                     // Note
                     TextBox_note.Text = p.saved_note;
@@ -142,7 +142,7 @@ namespace change_leave
 
         protected void CustomValidator_overlap_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = !p.biz_leaves.BeOverlap(p.biz_members.IdOf(Session["e_item"]), p.effective_start_month_offset, k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM), p.biz_leaves.IdOf(Session["leave_item"]));
+            args.IsValid = !p.biz_leaves.BeOverlap(p.biz_members.IdOf(Session["member_summary"]), p.effective_start_month_offset, k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM), p.biz_leaves.IdOf(Session["leave_item"]));
         }
 
         protected void Button_cancel_Click(object sender, System.EventArgs e)
@@ -154,7 +154,7 @@ namespace change_leave
         {
             if (Page.IsValid)
             {
-                p.biz_leaves.Change(p.biz_leaves.IdOf(Session["leave_item"]), p.biz_members.IdOf(Session["e_item"]), Label_saved_start_month.Text, Label_saved_end_month.Text, Label_saved_kind_of_leave.Text, Label_saved_num_obliged_shifts.Text, p.saved_note, p.effective_start_month_offset, k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.HYPHENATED_NUM), k.Safe(DropDownList_kind_of_leave.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_num_obligated_shifts.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_note.Text, k.safe_hint_type.PUNCTUATED));
+                p.biz_leaves.Change(p.biz_leaves.IdOf(Session["leave_item"]), p.biz_members.IdOf(Session["member_summary"]), Label_saved_start_month.Text, Label_saved_end_month.Text, Label_saved_kind_of_leave.Text, Label_saved_num_obliged_shifts.Text, p.saved_note, p.effective_start_month_offset, k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.HYPHENATED_NUM), k.Safe(DropDownList_kind_of_leave.SelectedValue, k.safe_hint_type.NUM), k.Safe(DropDownList_num_obligated_shifts.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_note.Text, k.safe_hint_type.PUNCTUATED));
                 BackTrack();
             }
             else
