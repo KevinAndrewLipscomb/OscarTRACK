@@ -42,7 +42,7 @@ namespace UserControl_funddrive_binder
             if (Session["UserControl_funddrive_binder.p"] != null)
             {
                 p = (p_type)(Session["UserControl_funddrive_binder.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_funddrive_binder");
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_funddrive_binder");
                 if ((Session["UserControl_funddrive_binder_selected_tab"] != null))
                 {
                     p.tab_index = (uint)(Session["UserControl_funddrive_binder_selected_tab"].GetHashCode());

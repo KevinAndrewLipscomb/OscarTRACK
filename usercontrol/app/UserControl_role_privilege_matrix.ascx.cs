@@ -176,7 +176,7 @@ namespace UserControl_role_privilege_matrix
             if (Session["UserControl_role_privilege_matrix.p"] != null)
             {
                 p = (p_type)(Session["UserControl_role_privilege_matrix.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_role_privilege_matrix");
+                p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_role_privilege_matrix");
             }
             else
             {

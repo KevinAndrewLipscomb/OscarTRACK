@@ -153,7 +153,7 @@ namespace UserControl_role_member_mapping
             if (Session["UserControl_role_member_mapping.p"] != null)
             {
                 p = (p_type)(Session["UserControl_role_member_mapping.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_role_member_mapping");
+                p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_role_member_mapping");
             }
             else
             {

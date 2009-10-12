@@ -119,7 +119,7 @@ namespace UserControl_role_help
             if (Session["UserControl_role_help.p"] != null)
             {
                 p = (p_type)(Session["UserControl_role_help.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_role_help");
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_role_help");
             }
             else
             {
