@@ -40,7 +40,7 @@ namespace UserControl_roles_and_matrices_binder
             if (Session["UserControl_roles_and_matrices_binder.p"] != null)
             {
                 p = (p_type)(Session["UserControl_roles_and_matrices_binder.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_config_PlaceHolder_content"] as string) == "UserControl_roles_and_matrices_binder");
+                p.be_loaded = IsPostBack && ((Session["M_UserControl_config_PlaceHolder_content"] as string) == "UserControl_roles_and_matrices_binder");
                 if ((Session["UserControl_roles_and_matrices_binder_selected_tab"] != null))
                 {
                     p.tab_index = (uint)(Session["UserControl_roles_and_matrices_binder_selected_tab"].GetHashCode());

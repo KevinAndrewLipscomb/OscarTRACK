@@ -121,7 +121,7 @@ namespace UserControl_log_new_donation
             if (Session["UserControl_log_new_donation.p"] != null)
             {
                 p = (p_type)(Session["UserControl_log_new_donation.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_log_new_donation");
+                p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_log_new_donation");
             }
             else
             {

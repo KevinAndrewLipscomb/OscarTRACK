@@ -110,7 +110,7 @@ namespace UserControl_funddrive_teaser
             if (Session["UserControl_funddrive_teaser.p"] != null)
             {
                 p = (p_type)(Session["UserControl_funddrive_teaser.p"]);
-                p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_funddrive_teaser");
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_funddrive_teaser");
             }
             else
             {
