@@ -1,13 +1,6 @@
-using AjaxControlToolkit;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using UserControl_current_indicators;
-using UserControl_serial_indicators_binder;
+using UserControl_dashboard_serial_aspects_binder;
+
 namespace UserControl_dashboard_binder
 {
     public struct p_type
@@ -43,7 +36,7 @@ namespace UserControl_dashboard_binder
                         AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))), "UserControl_current_indicators", PlaceHolder_content);
                         break;
                     case Units.UserControl_dashboard_binder.TSSI_SERIAL:
-                        AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_indicators_binder.ascx"))), "UserControl_serial_indicators_binder", PlaceHolder_content);
+                        AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_serial_aspects_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_serial_aspects_binder.ascx"))), "UserControl_dashboard_serial_aspects_binder", PlaceHolder_content);
                         break;
                 }
             }
@@ -90,7 +83,7 @@ namespace UserControl_dashboard_binder
                     AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))).Fresh(), "UserControl_current_indicators", PlaceHolder_content);
                     break;
                 case Units.UserControl_dashboard_binder.TSSI_SERIAL:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_indicators_binder.ascx"))).Fresh(), "UserControl_serial_indicators_binder", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_serial_aspects_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_serial_aspects_binder.ascx"))).Fresh(), "UserControl_dashboard_serial_aspects_binder", PlaceHolder_content);
                     break;
             }
         }
