@@ -493,6 +493,13 @@
     <Compile Include="usercontrol\app\UserControl_dashboard_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_binder.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.cs">
+      <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -681,6 +688,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicators_binder.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicators_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx.cs">
+      <DependentUpon>UserControl_serial_indicators_per_agency.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicators_per_agency.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>
@@ -904,6 +918,7 @@
     <Content Include="usercontrol\app\UserControl_config_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_current_indicators.ascx" />
     <Content Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_establish_membership.ascx" />
     <Content Include="usercontrol\app\UserControl_funddrive_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_funddrive_teaser.ascx" />
@@ -931,6 +946,7 @@
     <Content Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
     <Content Include="usercontrol\app\UserControl_roster.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx" />

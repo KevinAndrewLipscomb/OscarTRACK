@@ -8,45 +8,54 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace report_monthly_per_agency_serial_indicators {
+namespace UserControl_dashboard_serial_aspects_binder {
     
     
-    public partial class TWebForm_report_monthly_per_agency_serial_indicators {
+    public partial class TWebUserControl_dashboard_serial_aspects_binder {
         
         /// <summary>
-        /// UserControl_common_header_bar control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_common_header_bar.TWebUserControl_common_header_bar UserControl_common_header_bar;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// Label_application_name control.
+        /// TabContainer_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_application_name;
+        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// HyperLink_web_site control.
+        /// TabPanel_by_agency control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_web_site;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_by_agency;
         
         /// <summary>
-        /// UserControl_serial_indicators_per_agency_control control.
+        /// TabPanel_by_metric control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_serial_indicators_per_agency.TWebUserControl_serial_indicators_per_agency UserControl_serial_indicators_per_agency_control;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_by_metric;
+        
+        /// <summary>
+        /// PlaceHolder_content control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
     }
 }
