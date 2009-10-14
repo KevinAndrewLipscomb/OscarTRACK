@@ -966,6 +966,10 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+        public string TargetOfAboutAgency(string name)
+          {
+          return TargetOfAboutAgency(name,k.EMPTY);
+          }
         public string TargetOfAboutAgency(string name, string agency_id)
         {
             string result;
