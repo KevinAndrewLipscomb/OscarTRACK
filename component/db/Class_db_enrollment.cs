@@ -1,22 +1,25 @@
-using MySql.Data.MySqlClient;
-using kix;
-using System;
-
-
-using System.Collections;
-using System.Web.UI.WebControls;
 using Class_db;
-using Class_db_trail;
+using Class_db_agencies;
 using Class_db_members;
+using Class_db_trail;
+using kix;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Web.UI.WebControls;
+
 namespace Class_db_enrollment
 {
     public class TClass_db_enrollment: TClass_db
     {
+        private TClass_db_agencies db_agencies = null;
         private TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_enrollment() : base()
         {
             // TODO: Add any constructor code here
+            db_agencies = new TClass_db_agencies();
             db_trail = new TClass_db_trail();
         }
         public void BindMemberHistory(string member_id, object target)
@@ -83,6 +86,34 @@ namespace Class_db_enrollment
             this.Close();
             return result;
         }
+
+        public void CurrentDescriptionAndEffectiveDateForMember
+          (
+          string member_id,
+          out string description,
+          out DateTime effective_date
+          )
+          {
+          this.Open();
+          var dr =
+            (
+            new MySqlCommand
+              (
+              "select description,start_date"
+              + " from enrollment_history"
+              +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+              + " where member_id = '" + member_id + "'"
+              + " order by start_date desc"
+              + " limit 1",
+              this.connection
+              )
+              .ExecuteReader()
+            );
+          dr.Read();
+          description = dr["description"].ToString();
+          effective_date = DateTime.Parse(dr["start_date"].ToString());
+          this.Close();
+          }
 
         public string DescriptionOf(string level_code)
         {
@@ -174,6 +205,10 @@ namespace Class_db_enrollment
         }
 
         public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
+          {
+          return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
+          }
+        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
         {
             bool result;
             uint current_level_code;
@@ -208,9 +243,45 @@ namespace Class_db_enrollment
                     }
                     new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), this.connection, transaction).ExecuteNonQuery();
                     new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), this.connection, transaction).ExecuteNonQuery();
-                    transaction.Commit();
-                    (summary as member_summary).enrollment = DescriptionOf(new_level_code);
-                    result = true;
+                    var ok_so_far = true;
+                    if (current_level_code == 20)
+                      {
+                      //
+                      // A transfer is being completed.
+                      //
+                      ok_so_far = (target_agency_id != k.EMPTY);
+                      new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), this.connection, transaction).ExecuteNonQuery();
+                      }
+                    if (new_level_code == "20")
+                      {
+                      //
+                      // A transfer is being initiated.  Curtail any existing leave and cancel any future ones.
+                      //
+                      new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),this.connection,transaction).ExecuteNonQuery();
+                      new MySqlCommand
+                        (
+                        db_trail.Saved
+                          (
+                          "update leave_of_absence"
+                          + " set end_date = LAST_DAY(DATE_SUB('" + effective_date.ToString("yyyy-MM-dd") + "',INTERVAL 1 MONTH))"
+                          +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to initiation of transfer.]')"
+                          + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
+                          ),
+                        this.connection,
+                        transaction
+                        )
+                        .ExecuteNonQuery();
+                      }
+                    if (ok_so_far)
+                      {
+                      transaction.Commit();
+                      (summary as member_summary).enrollment = DescriptionOf(new_level_code);
+                      if (current_level_code == 20)
+                        {
+                        (summary as member_summary).agency = db_agencies.ShortDesignatorOf(target_agency_id);
+                        }
+                      result = true;
+                      }
                 }
             }
             catch {

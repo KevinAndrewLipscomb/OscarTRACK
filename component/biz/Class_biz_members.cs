@@ -1,30 +1,32 @@
-using kix;
-using System;
-
-using System.Collections;
 using Class_biz_agencies;
 using Class_biz_enrollment;
-using Class_biz_leave;
 using Class_biz_medical_release_levels;
 using Class_biz_notifications;
 using Class_biz_sections;
+using Class_db_leaves;
 using Class_db_members;
 using Class_db_users;
+using kix;
+using System;
+using System.Collections;
+
 namespace Class_biz_members
 {
     public class TClass_biz_members
     {
-        private TClass_db_members db_members = null;
-        private TClass_db_users db_users = null;
         private TClass_biz_agencies biz_agencies = null;
         private TClass_biz_enrollment biz_enrollment = null;
         private TClass_biz_medical_release_levels biz_medical_release_levels = null;
         private TClass_biz_notifications biz_notifications = null;
         private TClass_biz_sections biz_sections = null;
+        private TClass_db_leaves db_leaves = null;
+        private TClass_db_members db_members = null;
+        private TClass_db_users db_users = null;
         //Constructor  Create()
         public TClass_biz_members() : base()
         {
             // TODO: Add any constructor code here
+            db_leaves = new TClass_db_leaves();
             db_members = new TClass_db_members();
             db_users = new TClass_db_users();
             biz_agencies = new TClass_biz_agencies();
@@ -88,12 +90,18 @@ namespace Class_biz_members
             return result;
         }
 
+        public bool BeTransferring(object summary)
+          {
+          return (EnrollmentOf(summary) == "Transferring");
+          }
+
         public bool BeUserAuthorizedToEditEnrollments(string subject_member_id, object summary, bool has_edit_enrollments, bool has_edit_enrollments_nonreleased_ops_members_only)
-        {
-            bool result;
-            result = BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(summary)) && (has_edit_enrollments || (has_edit_enrollments_nonreleased_ops_members_only && (!BeDriverQualifiedOf(summary) || !biz_medical_release_levels.BeReleased(PeckCodeOf(summary)))));
-            return result;
-        }
+          {
+          return
+              (BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(summary)) || BeTransferring(summary))
+            &&
+              (has_edit_enrollments || (has_edit_enrollments_nonreleased_ops_members_only && (!BeDriverQualifiedOf(summary) || !biz_medical_release_levels.BeReleased(PeckCodeOf(summary)))));
+          }
 
         public bool BeValidProfile(string id)
         {
@@ -329,6 +337,23 @@ namespace Class_biz_members
             result = db_members.IdOfUserId(user_id);
             return result;
         }
+
+        public bool InitiateTransfer
+          (
+          string current_agency_id,
+          DateTime effective_date,
+          string note,
+          object summary
+          )
+          {
+          var be_transfer_initiated = false;
+          if (biz_enrollment.SetLevel(biz_enrollment.CodeOf("Transferring"),effective_date,note,IdOf(summary),summary))
+            {
+            db_leaves.CurtailOnEffectiveDate(IdOf(summary),effective_date);
+            be_transfer_initiated = true;
+            }
+          return be_transfer_initiated;
+          }
 
         public string LastNameOf(object summary)
         {

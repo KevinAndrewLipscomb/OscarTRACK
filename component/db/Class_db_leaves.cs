@@ -4,6 +4,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace Class_db_leaves
@@ -106,6 +107,33 @@ namespace Class_db_leaves
             new MySqlCommand(db_trail.Saved("delete from leave_of_absence where id = " + id), this.connection).ExecuteNonQuery();
             this.Close();
         }
+
+        public void CurtailOnEffectiveDate
+          (
+          string member_id,
+          DateTime effective_date
+          )
+          {
+          this.Open();
+          new MySqlCommand
+            (
+            db_trail.Saved
+              (
+              "START TRANSACTION;"
+              + " delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
+              + "; "
+              + " update leave_of_absence"
+              + " set end_date = LAST_DAY(DATE_SUB('" + effective_date.ToString("yyyy-MM-dd") + "',INTERVAL 1 MONTH))"
+              +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to initiation of transfer.]')"
+              + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
+              + "; "
+              + "COMMIT"
+              ),
+            this.connection
+            )
+            .ExecuteNonQuery();
+          this.Close();
+          }
 
         public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
         {

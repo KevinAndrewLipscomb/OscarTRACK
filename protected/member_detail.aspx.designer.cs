@@ -14,15 +14,6 @@ namespace member_detail {
     public partial class TWebForm_member_detail {
         
         /// <summary>
-        /// Title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected new global::System.Web.UI.HtmlControls.HtmlTitle Title;
-        
-        /// <summary>
         /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
@@ -219,6 +210,15 @@ namespace member_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label_enrollment;
+        
+        /// <summary>
+        /// Label_effective_date_clause control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_effective_date_clause;
         
         /// <summary>
         /// Label_elaboration control.

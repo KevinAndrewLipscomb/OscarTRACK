@@ -3,10 +3,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
-  <head runat="server">
-    <title id="Title" runat="server"></title>
-    <!-- $Id$ -->
-  </head>
+  <head runat="server" />
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
@@ -80,7 +77,7 @@
                         <td valign="top">Membership status:</td>
                         <td valign="top"><ASP:LinkButton id="LinkButton_enrollment_detail" runat="server" onclick="LinkButton_enrollment_detail_Click"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td valign="top">
-                          <p><ASP:Label id="Label_enrollment" runat="server"></ASP:Label></p>
+                          <ASP:Label id="Label_enrollment" runat="server"></ASP:Label> <ASP:Label id="Label_effective_date_clause" runat="server"></ASP:Label>
                           <blockquote>
                             <small><ASP:Label id="Label_elaboration" runat="server" font-italic="True"></ASP:Label></small>
                           </blockquote>

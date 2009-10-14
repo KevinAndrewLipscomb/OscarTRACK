@@ -1,26 +1,34 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
+using appcommon;
+using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_user;
-using appcommon;
+using kix;
+using System;
+using System.Configuration;
+
 namespace member_detail
 {
     public partial class TWebForm_member_detail: ki_web_ui.page_class
     {
+        private struct p_type
+          {
+          public string agency;
+          public TClass_biz_agencies biz_agencies;
+          public TClass_biz_enrollment biz_enrollment;
+          public TClass_biz_leaves biz_leaves;
+          public TClass_biz_members biz_members;
+          public TClass_biz_user biz_user;
+          public string cad_num_string;
+          public string enrollment_description;
+          public DateTime enrollment_effective_date;
+          public string leave_next_month_description;
+          public string leave_this_month_description;
+          public string raw_member_email_address;
+          public string raw_member_phone_num;
+          } // end p_type
+
         private p_type p;
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -37,7 +45,7 @@ namespace member_detail
             string target_member_id;
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_detail";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_detail";
                 target_member_id = p.biz_members.IdOf(Session["member_summary"]);
                 if (p.raw_member_phone_num != k.EMPTY)
                 {
@@ -70,13 +78,14 @@ namespace member_detail
                     Label_officership.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
                 LinkButton_officership_detail.Text = k.ExpandTildePath(LinkButton_officership_detail.Text);
-                Label_agency.Text = p.biz_members.AgencyOf(Session["member_summary"]);
+                Label_agency.Text = p.agency;
                 LinkButton_change_agency.Text = k.ExpandTildePath(LinkButton_change_agency.Text);
                 Label_section.Text = p.biz_members.SectionOf(Session["member_summary"]);
                 LinkButton_change_section.Text = k.ExpandTildePath(LinkButton_change_section.Text);
                 Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
-                Label_enrollment.Text = p.biz_members.EnrollmentOf(Session["member_summary"]);
-                Label_elaboration.Text = p.biz_enrollment.ElaborationOf(Label_enrollment.Text);
+                Label_enrollment.Text = p.enrollment_description;
+                Label_effective_date_clause.Text = (p.enrollment_effective_date < DateTime.Today ? "since" : "effective") + k.SPACE + p.enrollment_effective_date.ToString("yyyy-MM-dd");
+                Label_elaboration.Text = p.biz_enrollment.ElaborationOf(p.enrollment_description);
                 LinkButton_enrollment_detail.Text = k.ExpandTildePath(LinkButton_enrollment_detail.Text);
                 if (p.biz_members.RetentionOf(Session["member_summary"]) != k.EMPTY)
                 {
@@ -98,7 +107,7 @@ namespace member_detail
                 LinkButton_change_medical_release_level.Visible = k.Has((string[])(Session["privilege_array"]), "change-med-release-level") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
                 LinkButton_change_medical_release_level.Text = k.ExpandTildePath(LinkButton_change_medical_release_level.Text);
                 LinkButton_change_driver_qual.Visible = k.Has((string[])(Session["privilege_array"]), "change-driver-qual") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
-                LinkButton_change_agency.Visible = k.Has((string[])(Session["privilege_array"]), "change-agency") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+                LinkButton_change_agency.Visible = k.Has((string[])(Session["privilege_array"]), "change-agency") && p.biz_agencies.BeImmediateOutTransfersAllowed(p.agency);
                 LinkButton_change_section.Visible = k.Has((string[])(Session["privilege_array"]), "change-section") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
             }
         }
@@ -130,18 +139,22 @@ namespace member_detail
                 }
                 else
                 {
+                    p.biz_agencies = new TClass_biz_agencies();
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
-                    p.raw_member_phone_num = p.biz_members.PhoneNumOf(p.biz_members.IdOf(Session["member_summary"]));
-                    p.raw_member_email_address = p.biz_members.EmailAddressOf(p.biz_members.IdOf(Session["member_summary"]));
+                    var member_id = p.biz_members.IdOf(Session["member_summary"]);
+                    p.raw_member_phone_num = p.biz_members.PhoneNumOf(member_id);
+                    p.raw_member_email_address = p.biz_members.EmailAddressOf(member_id);
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(Session["member_summary"]), out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+                    p.biz_leaves.DescribeThisAndNextMonthForMember(member_id, out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+                    p.biz_enrollment.CurrentDescriptionAndEffectiveDateForMember(member_id, out p.enrollment_description, out p.enrollment_effective_date);
+                    p.agency = p.biz_members.AgencyOf(Session["member_summary"]);
                 }
             }
         }
@@ -207,19 +220,6 @@ namespace member_detail
         {
             SessionSet("member_detail.p", p);
         }
-
-        private struct p_type
-        {
-            public TClass_biz_enrollment biz_enrollment;
-            public TClass_biz_leaves biz_leaves;
-            public TClass_biz_members biz_members;
-            public TClass_biz_user biz_user;
-            public string cad_num_string;
-            public string leave_next_month_description;
-            public string leave_this_month_description;
-            public string raw_member_email_address;
-            public string raw_member_phone_num;
-        } // end p_type
 
     } // end TWebForm_member_detail
 
