@@ -1,18 +1,4 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-
-using System.Collections;
+using appcommon;
 using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_leave;
@@ -20,8 +6,15 @@ using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_sections;
 using Class_biz_user;
-using appcommon;
 using Class_db_members;
+using kix;
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
 namespace UserControl_roster
 {
     public partial class TWebUserControl_roster: ki_web_ui.usercontrol_class
@@ -35,6 +28,7 @@ namespace UserControl_roster
             public bool be_loaded;
             public bool be_phone_list;
             public bool be_sort_order_ascending;
+            public bool be_transferee_report;
             public bool be_user_privileged_to_see_all_squads;
             public TClass_biz_agencies biz_agencies;
             public TClass_biz_enrollment biz_enrollment;
@@ -147,6 +141,7 @@ namespace UserControl_roster
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
                 p.be_phone_list = (Session["mode:report/monthly-current-phone-list"] != null);
+                p.be_transferee_report = (Session["mode:report/monthly-transferees"] != null);
                 p.section_filter = 0;
                 p.num_cooked_shifts = 0;
                 p.num_core_ops_members = 0;
@@ -185,6 +180,11 @@ namespace UserControl_roster
                     p.enrollment_filter = Class_biz_enrollment.filter_type.RECRUIT;
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.NONE;
+                }
+                else if (p.be_transferee_report)
+                {
+                    p.enrollment_filter = Class_biz_enrollment.filter_type.TRANSFERRING;
+                    p.relative_month = 0;
                 }
             }
 
@@ -386,12 +386,12 @@ namespace UserControl_roster
         {
             bool be_raw_shifts_nonzero;
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0) && (!p.be_transferee_report);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list;
             p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, R, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
             be_raw_shifts_nonzero = (p.num_raw_shifts > 0);

@@ -170,6 +170,13 @@
     <Compile Include="new_user_registration.aspx.designer.cs">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
     </Compile>
+    <Compile Include="noninteractive\report_monthly_transferees.aspx.cs">
+      <DependentUpon>report_monthly_transferees.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_transferees.aspx.designer.cs">
+      <DependentUpon>report_monthly_transferees.aspx</DependentUpon>
+    </Compile>
     <Compile Include="noninteractive\daily_tasks.aspx.cs">
       <DependentUpon>daily_tasks.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -836,6 +843,7 @@
     <Content Include="doc\roles.aspx" />
     <Content Include="js\gradient.js" />
     <Content Include="js\ErrorHandler.js" />
+    <Content Include="noninteractive\report_monthly_transferees.aspx" />
     <Content Include="noninteractive\daily_tasks.aspx" />
     <Content Include="noninteractive\milestone_sweep.aspx" />
     <Content Include="noninteractive\report_monthly_applicant_roster.aspx" />

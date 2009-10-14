@@ -165,13 +165,17 @@ namespace Class_db_notifications
             return result;
         }
 
+        public string TargetOfAboutAgency(string name)
+          {
+          return TargetOfAboutAgency(name,k.EMPTY);
+          }
         public string TargetOfAboutAgency(string name, string agency_id)
         {
             string result;
             MySqlDataReader dr;
             uint num_addressees;
             string target_of_about_agency;
-            string variant_condition;
+            var variant_condition = k.EMPTY;
             target_of_about_agency = k.EMPTY;
             num_addressees = 0;
             this.Open();
@@ -180,7 +184,7 @@ namespace Class_db_notifications
                 // EMS is tier 1
                 variant_condition = " where (tier_id = 1)";
             }
-            else
+            else if (agency_id != k.EMPTY)
             {
                 // All other agencies are tier 2
                 variant_condition = " where (tier_id = 2) and (agency_id = \"" + agency_id + "\")";
