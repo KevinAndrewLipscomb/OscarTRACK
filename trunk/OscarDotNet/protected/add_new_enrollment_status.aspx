@@ -5,8 +5,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <html>
   <head runat="server">
-	<title id="Title" runat="server"></title>
-      <!-- $Id$ -->
+    <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
@@ -35,19 +34,24 @@ new status be?&nbsp; Please consider carefully.
 								  <small><ASP:Label id="Label_no_transitions_available" runat="server" visible="False" font-italic="True">No transitions are available in this situation.</ASP:Label></small>
 								</blockquote>
 							  <td valign="top">
-								<p>When&nbsp;does the change take effect?</p>
-								<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
-								  <p><uc1:UserControl_drop_down_date id="UserControl_effective_date" runat="server"></uc1:UserControl_drop_down_date></p>
-								</blockquote>
-								<p>Note (optional):</p>
-								<blockquote><ASP:TextBox id="TextBox_note" runat="server" maxlength="127" columns="40" textmode="MultiLine"></ASP:TextBox>
-								  </blockquote>
-								<p><ASP:RequiredFieldValidator id="RequiredFieldValidator_new_status" runat="server" errormessage="Please select a new membership status." font-bold="True" controltovalidate="RadioButtonList_disposition">!ERR!</ASP:RequiredFieldValidator></p>
-								<p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p>
-								<p>&nbsp;</p>
-								<p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small">Grant leave instead</ASP:LinkButton></p>
-								<p>&nbsp;</p>
-								<p>OSCAR may notify EMS Admin about membership status changes.</p>
+							    <asp:Panel ID="Panel_target_agency" runat="server" Visible="False">
+                    <asp:Literal ID="Literal_member_first_name_2" runat="server"></asp:Literal>
+                    &nbsp;is currently in the &quot;Transferring&quot; status.&nbsp; What agency has <asp:Literal ID="Literal_member_first_name_3" runat="server"></asp:Literal> &nbsp;joined?
+                    <blockquote>
+                      <p>
+                        <asp:DropDownList ID="DropDownList_target_agency" runat="server" Enabled="False"></asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_target_agency" runat="server" ErrorMessage="Please select an accepting agency." Font-Bold="True" ControlToValidate="DropDownList_target_agency">!ERR!</asp:RequiredFieldValidator>
+                      </p>
+                    </blockquote>
+                  </asp:Panel>
+								  <p>When&nbsp;does the change take effect?</p>
+								  <blockquote><p><uc1:UserControl_drop_down_date id="UserControl_effective_date" runat="server"></uc1:UserControl_drop_down_date></p></blockquote>
+								  <p>Note (optional):</p>
+								  <blockquote><ASP:TextBox id="TextBox_note" runat="server" maxlength="127" columns="40" textmode="MultiLine"></ASP:TextBox></blockquote>
+								  <p><ASP:RequiredFieldValidator id="RequiredFieldValidator_new_status" runat="server" errormessage="Please select a new membership status." font-bold="True" controltovalidate="RadioButtonList_disposition">!ERR!</ASP:RequiredFieldValidator></p>
+								  <p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p>
+								  <p>&nbsp;</p>
+								  <p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small">Grant leave instead</ASP:LinkButton></p>
 								</td>
 							</tr>
 						</table>

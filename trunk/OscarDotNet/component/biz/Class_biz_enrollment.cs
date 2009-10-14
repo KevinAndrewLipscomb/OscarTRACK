@@ -1,20 +1,24 @@
-using System;
-
-using System.Collections;
-using Class_db_enrollment;
-using Class_biz_notifications;
+using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_notifications;
+using Class_db_enrollment;
+using kix;
+using System;
+using System.Collections;
+
 namespace Class_biz_enrollment
 {
     public class TClass_biz_enrollment
     {
         private TClass_db_enrollment db_enrollment = null;
+        private TClass_biz_agencies biz_agencies = null;
         private TClass_biz_notifications biz_notifications = null;
         //Constructor  Create()
         public TClass_biz_enrollment() : base()
         {
             // TODO: Add any constructor code here
             db_enrollment = new TClass_db_enrollment();
+            biz_agencies = new TClass_biz_agencies();
             biz_notifications = new TClass_biz_notifications();
         }
         public bool BeLeaf(filter_type filter)
@@ -64,6 +68,16 @@ namespace Class_biz_enrollment
             return result;
         }
 
+        public void CurrentDescriptionAndEffectiveDateForMember
+          (
+          string member_id,
+          out string description,
+          out DateTime effective_date
+          )
+          {
+          db_enrollment.CurrentDescriptionAndEffectiveDateForMember(member_id, out description, out effective_date);
+          }
+
         public string DescriptionOf(string level_code)
         {
             string result;
@@ -104,19 +118,32 @@ namespace Class_biz_enrollment
         }
 
         public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
+          {
+          return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
+          }
+        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
         {
             bool result;
             TClass_biz_members biz_members;
             result = false;
             biz_members = new TClass_biz_members();
-            if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary))
+            var first_name = biz_members.FirstNameOfMemberId(member_id);
+            var last_name = biz_members.LastNameOfMemberId(member_id);
+            var cad_num = biz_members.CadNumOfMemberId(member_id);
+            var old_agency_short_designator = biz_members.AgencyOf(summary);
+            if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary, target_agency_id))
             {
                 result = true;
-                biz_notifications.IssueForNewEnrollmentLevel(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), db_enrollment.DescriptionOf(new_level_code), effective_date.ToString("yyyy-MM-dd"), note);
+                if (target_agency_id != k.EMPTY)
+                  {
+                  biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator)),biz_agencies.MediumDesignatorOf(target_agency_id));
+                  }
+                biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, db_enrollment.DescriptionOf(new_level_code), effective_date.ToString("yyyy-MM-dd"), note);
             }
 
             return result;
         }
+
 
     } // end TClass_biz_enrollment
 

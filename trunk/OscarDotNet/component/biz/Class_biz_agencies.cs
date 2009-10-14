@@ -7,12 +7,19 @@ namespace Class_biz_agencies
     public class TClass_biz_agencies
     {
         private TClass_db_agencies db_agencies = null;
+
         //Constructor  Create()
         public TClass_biz_agencies() : base()
         {
             // TODO: Add any constructor code here
             db_agencies = new TClass_db_agencies();
         }
+
+        public bool BeImmediateOutTransfersAllowed(string agency)
+          {
+          return (agency == "EMS");
+          }
+
         public bool BeOkToSharePhoneListWithSiblings(string id)
         {
             bool result;
