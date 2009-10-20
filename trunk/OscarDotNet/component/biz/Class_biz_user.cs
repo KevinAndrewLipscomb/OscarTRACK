@@ -38,11 +38,14 @@ namespace Class_biz_user
         }
 
         public string[] Roles()
-        {
-            string[] result;
-            result = db_user.RolesOf(IdNum());
-            return result;
-        }
+          {
+          var role_array = db_user.RolesOf(IdNum());
+          if (role_array.Length == 0)
+            {
+            role_array = (new string[] {"Member"});
+            }
+          return role_array;
+          }
 
     } // end TClass_biz_user
 
