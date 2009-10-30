@@ -29,14 +29,13 @@ namespace UserControl_member_binder
     {
         private p_type p;
         protected void Page_Load(object sender, System.EventArgs e)
-        {
-            if (!p.be_loaded)
+          {
+          if (!p.be_loaded)
             {
-                TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-                p.be_loaded = true;
+            p.be_loaded = true;
             }
-
-        }
+          TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
+          }
 
         protected override void OnInit(System.EventArgs e)
         {

@@ -995,7 +995,7 @@ namespace Class_biz_notifications
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
@@ -1034,7 +1034,7 @@ namespace Class_biz_notifications
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
@@ -1075,7 +1075,7 @@ namespace Class_biz_notifications
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-quarters-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-quarters-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-quarters-change","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
