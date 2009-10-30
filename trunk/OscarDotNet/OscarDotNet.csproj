@@ -87,8 +87,13 @@
     <Compile Include="appcommon.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
     <Compile Include="component\biz\Class_biz_agencies.cs" />
+    <Compile Include="component\biz\Class_biz_chassis_makes.cs" />
+    <Compile Include="component\biz\Class_biz_chassis_models.cs" />
+    <Compile Include="component\biz\Class_biz_custom_makes.cs" />
+    <Compile Include="component\biz\Class_biz_custom_models.cs" />
     <Compile Include="component\biz\Class_biz_data_conditions.cs" />
     <Compile Include="component\biz\Class_biz_enrollment.cs" />
+    <Compile Include="component\biz\Class_biz_fuels.cs" />
     <Compile Include="component\biz\Class_biz_indicator_median_length_of_service.cs" />
     <Compile Include="component\biz\Class_biz_leave.cs" />
     <Compile Include="component\biz\Class_biz_leaves.cs" />
@@ -109,11 +114,22 @@
     <Compile Include="component\biz\Class_biz_user.cs" />
     <Compile Include="component\biz\Class_biz_users.cs" />
     <Compile Include="component\biz\Class_biz_user_member_map.cs" />
+    <Compile Include="component\biz\Class_biz_vehicles.cs" />
+    <Compile Include="component\biz\Class_biz_vehicle_down_natures.cs" />
+    <Compile Include="component\biz\Class_biz_vehicle_kinds.cs" />
+    <Compile Include="component\biz\Class_biz_vehicle_quarters.cs" />
+    <Compile Include="component\biz\Class_biz_vehicle_quarters_history.cs" />
+    <Compile Include="component\biz\Class_biz_vehicle_usability_history.cs" />
     <Compile Include="component\db\Class_db.cs" />
     <Compile Include="component\db\Class_dbkeyclick.cs" />
     <Compile Include="component\db\Class_db_accounts.cs" />
     <Compile Include="component\db\Class_db_agencies.cs" />
+    <Compile Include="component\db\Class_db_chassis_makes.cs" />
+    <Compile Include="component\db\Class_db_chassis_models.cs" />
+    <Compile Include="component\db\Class_db_custom_makes.cs" />
+    <Compile Include="component\db\Class_db_custom_models.cs" />
     <Compile Include="component\db\Class_db_enrollment.cs" />
+    <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
     <Compile Include="component\db\Class_db_leaves.cs" />
     <Compile Include="component\db\Class_db_medical_release_levels.cs" />
@@ -132,6 +148,12 @@
     <Compile Include="component\db\Class_db_user.cs" />
     <Compile Include="component\db\Class_db_users.cs" />
     <Compile Include="component\db\Class_db_user_member_map.cs" />
+    <Compile Include="component\db\Class_db_vehicles.cs" />
+    <Compile Include="component\db\Class_db_vehicle_down_natures.cs" />
+    <Compile Include="component\db\Class_db_vehicle_kinds.cs" />
+    <Compile Include="component\db\Class_db_vehicle_quarters.cs" />
+    <Compile Include="component\db\Class_db_vehicle_quarters_history.cs" />
+    <Compile Include="component\db\Class_db_vehicle_usability_history.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -268,6 +290,13 @@
     <Compile Include="noninteractive\report_quarterly_activity.aspx.designer.cs">
       <DependentUpon>report_quarterly_activity.aspx</DependentUpon>
     </Compile>
+    <Compile Include="noninteractive\report_shift_fleet_status.aspx.cs">
+      <DependentUpon>report_shift_fleet_status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_shift_fleet_status.aspx.designer.cs">
+      <DependentUpon>report_shift_fleet_status.aspx</DependentUpon>
+    </Compile>
     <Compile Include="noninteractive\statement_member_status.aspx.cs">
       <DependentUpon>statement_member_status.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -367,6 +396,13 @@
     <Compile Include="protected\change_phone_num.aspx.designer.cs">
       <DependentUpon>change_phone_num.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\change_vehicle_quarters.aspx.cs">
+      <DependentUpon>change_vehicle_quarters.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_vehicle_quarters.aspx.designer.cs">
+      <DependentUpon>change_vehicle_quarters.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\enrollment_detail.aspx.cs">
       <DependentUpon>enrollment_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -395,6 +431,13 @@
     <Compile Include="protected\leave_detail.aspx.designer.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\mark_vehicle_up.aspx.cs">
+      <DependentUpon>mark_vehicle_up.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\mark_vehicle_up.aspx.designer.cs">
+      <DependentUpon>mark_vehicle_up.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\member_detail.aspx.cs">
       <DependentUpon>member_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -415,6 +458,13 @@
     </Compile>
     <Compile Include="protected\overview.aspx.designer.cs">
       <DependentUpon>overview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\mark_vehicle_down.aspx.cs">
+      <DependentUpon>mark_vehicle_down.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\mark_vehicle_down.aspx.designer.cs">
+      <DependentUpon>mark_vehicle_down.aspx</DependentUpon>
     </Compile>
     <Compile Include="remind_username.aspx.cs">
       <DependentUpon>remind_username.aspx</DependentUpon>
@@ -465,6 +515,27 @@
     <Compile Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx.designer.cs">
       <DependentUpon>UserControl_behind_the_scenes_activity.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_business_objects_binder.ascx.cs">
+      <DependentUpon>UserControl_business_objects_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_business_objects_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_business_objects_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_chassis_make.ascx.cs">
+      <DependentUpon>UserControl_chassis_make.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_chassis_make.ascx.designer.cs">
+      <DependentUpon>UserControl_chassis_make.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_chassis_model.ascx.cs">
+      <DependentUpon>UserControl_chassis_model.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_chassis_model.ascx.designer.cs">
+      <DependentUpon>UserControl_chassis_model.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_commensuration.ascx.cs">
       <DependentUpon>UserControl_commensuration.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -493,6 +564,20 @@
     <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.designer.cs">
       <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_custom_make.ascx.cs">
+      <DependentUpon>UserControl_custom_make.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_custom_make.ascx.designer.cs">
+      <DependentUpon>UserControl_custom_make.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_custom_model.ascx.cs">
+      <DependentUpon>UserControl_custom_model.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_custom_model.ascx.designer.cs">
+      <DependentUpon>UserControl_custom_model.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_dashboard_binder.ascx.cs">
       <DependentUpon>UserControl_dashboard_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -513,6 +598,20 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.designer.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_fleet.ascx.cs">
+      <DependentUpon>UserControl_fleet.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_fleet.ascx.designer.cs">
+      <DependentUpon>UserControl_fleet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_fuel.ascx.cs">
+      <DependentUpon>UserControl_fuel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_fuel.ascx.designer.cs">
+      <DependentUpon>UserControl_fuel.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_funddrive_binder.ascx.cs">
       <DependentUpon>UserControl_funddrive_binder.ascx</DependentUpon>
@@ -780,6 +879,27 @@
     <Compile Include="usercontrol\app\UserControl_user_member_mapping.ascx.designer.cs">
       <DependentUpon>UserControl_user_member_mapping.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle.ascx.cs">
+      <DependentUpon>UserControl_vehicle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle.ascx.designer.cs">
+      <DependentUpon>UserControl_vehicle.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_down_nature.ascx.cs">
+      <DependentUpon>UserControl_vehicle_down_nature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_down_nature.ascx.designer.cs">
+      <DependentUpon>UserControl_vehicle_down_nature.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_kind.ascx.cs">
+      <DependentUpon>UserControl_vehicle_kind.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_kind.ascx.designer.cs">
+      <DependentUpon>UserControl_vehicle_kind.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\ki\UserControl_about_by.ascx.cs">
       <DependentUpon>UserControl_about_by.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -822,6 +942,20 @@
     <Compile Include="usercontrol\ki\UserControl_drop_down_date.ascx.designer.cs">
       <DependentUpon>UserControl_drop_down_date.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_datetime.ascx.cs">
+      <DependentUpon>UserControl_drop_down_datetime.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_datetime.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_datetime.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.cs">
+      <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.designer.cs">
+      <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\ki\UserControl_print_div.ascx.cs">
       <DependentUpon>UserControl_print_div.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -857,6 +991,7 @@
     <Content Include="noninteractive\report_monthly_role_holders.aspx" />
     <Content Include="noninteractive\report_monthly_trainee_roster.aspx" />
     <Content Include="noninteractive\report_quarterly_activity.aspx" />
+    <Content Include="noninteractive\report_shift_fleet_status.aspx" />
     <Content Include="noninteractive\statement_member_status.aspx" />
     <Content Include="noninteractive\template\notification\failure_to_thrive_demotion.txt" />
     <Content Include="noninteractive\template\notification\leave_ending_soon.txt" />
@@ -876,6 +1011,7 @@
     <Content Include="protected\change_name.aspx" />
     <Content Include="protected\change_password.aspx" />
     <Content Include="protected\change_phone_num.aspx" />
+    <Content Include="protected\change_vehicle_quarters.aspx" />
     <Content Include="protected\enrollment_detail.aspx" />
     <Content Include="protected\establish_membership_trouble.aspx" />
     <Content Include="protected\grant_leave.aspx" />
@@ -894,10 +1030,15 @@
     <Content Include="protected\image\vbemslogosmall.jpg" />
     <Content Include="protected\image\vbemspatch150.jpg" />
     <Content Include="protected\leave_detail.aspx" />
+    <Content Include="protected\mark_vehicle_up.aspx" />
     <Content Include="protected\member_detail.aspx" />
     <Content Include="protected\officership_detail.aspx" />
     <Content Include="protected\overview.aspx" />
     <Content Include="protected\template\notification\agency_change.txt" />
+    <Content Include="protected\template\notification\ambulance_fleet_condition_alarm_off.txt" />
+    <Content Include="protected\template\notification\ambulance_fleet_condition_alarm_on.txt" />
+    <Content Include="protected\template\notification\ambulance_fleet_condition_alert_off.txt" />
+    <Content Include="protected\template\notification\ambulance_fleet_condition_alert_on.txt" />
     <Content Include="protected\template\notification\cad_num_change.txt" />
     <Content Include="protected\template\notification\driver_qualification_change.txt" />
     <Content Include="protected\template\notification\leave_changed.txt" />
@@ -912,6 +1053,10 @@
     <Content Include="protected\template\notification\phone_num_change.txt" />
     <Content Include="protected\template\notification\role_change.txt" />
     <Content Include="protected\template\notification\section_change.txt" />
+    <Content Include="protected\mark_vehicle_down.aspx" />
+    <Content Include="protected\template\notification\vehicle_marked_down.txt" />
+    <Content Include="protected\template\notification\vehicle_marked_up.txt" />
+    <Content Include="protected\template\notification\vehicle_quarters_change.txt" />
     <Content Include="template\notification\temporary_password.txt" />
     <Content Include="template\notification\username_reminder.txt" />
     <Content Include="unpublished.config" />
@@ -921,13 +1066,20 @@
     <Content Include="usercontrol\app\UserControl_about.ascx" />
     <Content Include="usercontrol\app\UserControl_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx" />
+    <Content Include="usercontrol\app\UserControl_business_objects_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_chassis_make.ascx" />
+    <Content Include="usercontrol\app\UserControl_chassis_model.ascx" />
     <Content Include="usercontrol\app\UserControl_commensuration.ascx" />
     <Content Include="usercontrol\app\UserControl_common_header_bar.ascx" />
     <Content Include="usercontrol\app\UserControl_config_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_current_indicators.ascx" />
+    <Content Include="usercontrol\app\UserControl_custom_make.ascx" />
+    <Content Include="usercontrol\app\UserControl_custom_model.ascx" />
     <Content Include="usercontrol\app\UserControl_dashboard_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_establish_membership.ascx" />
+    <Content Include="usercontrol\app\UserControl_fleet.ascx" />
+    <Content Include="usercontrol\app\UserControl_fuel.ascx" />
     <Content Include="usercontrol\app\UserControl_funddrive_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_funddrive_teaser.ascx" />
     <Content Include="usercontrol\app\UserControl_log_new_donation.ascx" />
@@ -966,6 +1118,9 @@
     <Content Include="usercontrol\app\UserControl_user.ascx" />
     <Content Include="usercontrol\app\UserControl_users_and_mapping_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_user_member_mapping.ascx" />
+    <Content Include="usercontrol\app\UserControl_vehicle.ascx" />
+    <Content Include="usercontrol\app\UserControl_vehicle_down_nature.ascx" />
+    <Content Include="usercontrol\app\UserControl_vehicle_kind.ascx" />
     <Content Include="usercontrol\ki\image\delete_x16_h.png" />
     <Content Include="usercontrol\ki\image\paperclip_16x16.gif" />
     <Content Include="usercontrol\ki\UserControl_about_by.ascx" />
@@ -974,6 +1129,8 @@
     <Content Include="usercontrol\ki\UserControl_bread_crumb_trail.ascx" />
     <Content Include="usercontrol\ki\UserControl_config_welcome.ascx" />
     <Content Include="usercontrol\ki\UserControl_drop_down_date.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_datetime.ascx" />
+    <Content Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx" />
     <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
     <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
     <None Include="work.bat" />

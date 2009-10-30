@@ -1,0 +1,19 @@
+Change of quarters for vehicle <vehicle_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed vehicle <vehicle_name/>'s quarters as follows:
+
+   New quarters:
+      <quarters_designator/>
+   Effective time (yyyy-mm-dd 24:mm):
+      <effective_datetime/>
+   Mileage:
+      <mileage/>
+   Note:
+      <note/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -1,0 +1,17 @@
+Vehicle <vehicle_name/> has come UP
+This is an automatic notification from <application_name/>.
+
+<actor/> has marked vehicle <vehicle_name/> UP as follows:
+
+   Time came up (yyyy-mm-dd 24:mm):
+      <time_came_up/>
+   Comment entered when the unit went down:
+      <down_comment/>
+   Comment when the unit came up:
+      <up_comment/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

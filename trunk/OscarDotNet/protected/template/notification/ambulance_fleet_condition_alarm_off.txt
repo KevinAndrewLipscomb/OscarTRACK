@@ -1,0 +1,8 @@
+*Citywide Ambulance Fleet is no longer Condition Red*
+This is an automatic notification from <application_name/>.
+
+** Citywide Ambulance Fleet is no longer Condition Red
+
+The condition of the citywide ambulance fleet has improved, and is now Condition YELLOW.  Please continue to encourage repair/maintenance/upgrade/etc personnel to place a high priority on completing their work so that more ambulances can be brought back UP.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

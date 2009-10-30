@@ -1,6 +1,4 @@
 using AjaxControlToolkit;
-
-
 using kix;
 using System;
 using System.Web;
@@ -8,10 +6,10 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Collections;
-
-using UserControl_agency;
+using UserControl_business_objects_binder;
 using UserControl_roles_and_matrices_binder;
 using UserControl_users_and_mapping_binder;
+
 namespace UserControl_config_binder
 {
     public struct p_type
@@ -32,9 +30,9 @@ namespace UserControl_config_binder
                 {
                     TabPanel_users_and_mappings.Enabled = true;
                 }
-                if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
+                if (k.Has((string[])(Session["privilege_array"]), "config-business-objects"))
                 {
-                    TabPanel_agencies.Enabled = true;
+                    TabPanel_business_objects.Enabled = true;
                 }
                 p.be_loaded = true;
             }
@@ -58,8 +56,8 @@ namespace UserControl_config_binder
                     case Units.UserControl_config_binder.TSSI_USERS_AND_MAPPING:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_users_and_mapping_binder)(LoadControl("~/usercontrol/app/UserControl_users_and_mapping_binder.ascx"))), "UserControl_users_and_mapping_binder", PlaceHolder_content);
                         break;
-                    case Units.UserControl_config_binder.TSSI_AGENCIES:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))), "UserControl_agency", PlaceHolder_content);
+                    case Units.UserControl_config_binder.TSSI_BUSINESS_OBJECTS:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_business_objects_binder)(LoadControl("~/usercontrol/app/UserControl_business_objects_binder.ascx"))), "UserControl_business_objects_binder", PlaceHolder_content);
                         break;
                 }
             }
@@ -112,8 +110,8 @@ namespace UserControl_config_binder
                 case Units.UserControl_config_binder.TSSI_USERS_AND_MAPPING:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_users_and_mapping_binder)(LoadControl("~/usercontrol/app/UserControl_users_and_mapping_binder.ascx"))).Fresh(), "UserControl_users_and_mapping_binder", PlaceHolder_content);
                     break;
-                case Units.UserControl_config_binder.TSSI_AGENCIES:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))).Fresh(), "UserControl_agency", PlaceHolder_content);
+                case Units.UserControl_config_binder.TSSI_BUSINESS_OBJECTS:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_business_objects_binder)(LoadControl("~/usercontrol/app/UserControl_business_objects_binder.ascx"))).Fresh(), "UserControl_business_objects_binder", PlaceHolder_content);
                     break;
             }
         }
@@ -128,7 +126,7 @@ namespace UserControl_config_binder.Units
     {
         public const int TSSI_ROLES_AND_MATRICES = 0;
         public const int TSSI_USERS_AND_MAPPING = 1;
-        public const int TSSI_AGENCIES = 2;
+        public const int TSSI_BUSINESS_OBJECTS = 2;
     } // end UserControl_config_binder
 
 }

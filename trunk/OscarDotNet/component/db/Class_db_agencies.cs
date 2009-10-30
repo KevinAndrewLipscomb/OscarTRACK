@@ -50,86 +50,80 @@ namespace Class_db_agencies
             return result;
         }
 
-        private void BindListControl(string unselected_literal, string designator_clause, object target, string selected_id)
-        {
-            MySqlDataReader dr;
-            this.Open();
-            ((target) as ListControl).Items.Clear();
-            if (unselected_literal != k.EMPTY)
+        private void BindListControl(string unselected_literal,string designator_clause,object target,string selected_id)
+          {
+          this.Open();
+          (target as ListControl).Items.Clear();
+          if (unselected_literal != k.EMPTY)
             {
-                ((target) as ListControl).Items.Add(new ListItem(unselected_literal, ""));
+            (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-            dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection).ExecuteReader();
-            while (dr.Read())
+          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          while (dr.Read())
             {
-                ((target) as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
+            (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
             }
-            dr.Close();
-            if (selected_id != k.EMPTY)
+          dr.Close();
+          if (selected_id != k.EMPTY)
             {
-                ((target) as ListControl).SelectedValue = selected_id;
+            (target as ListControl).SelectedValue = selected_id;
             }
-            this.Close();
-        }
+          this.Close();
+          }
+        private void BindListControl(string unselected_literal,string designator_clause,object target)
+          {
+          BindListControl(unselected_literal, designator_clause, target, k.EMPTY);
+          }
 
-        private void BindListControl(string unselected_literal, string designator_clause, object target)
-        {
-            BindListControl(unselected_literal, designator_clause, target, "");
-        }
-
-        public void BindListControlShort(object target, string selected_id, bool be_available_option_all, string unselected_literal)
-        {
-            if (be_available_option_all)
+        public void BindListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
+          {
+          if (be_available_option_all)
             {
-                BindListControl(unselected_literal, "short_designator", target, selected_id);
+            BindListControl(unselected_literal, "short_designator", target, selected_id);
             }
-            else
+          else
             {
-                BindListControl(k.EMPTY, "short_designator", target, selected_id);
+            BindListControl(k.EMPTY, "short_designator", target, selected_id);
             }
-        }
-
+          }
+        public void BindListControlShort(object target,string selected_id,bool be_available_option_all)
+          {
+          BindListControlShort(target, selected_id, be_available_option_all, "All");
+          }
+        public void BindListControlShort(object target,string selected_id)
+          {
+          BindListControlShort(target, selected_id, true);
+          }
         public void BindListControlShort(object target)
-        {
-            BindListControlShort(target, "");
-        }
-
-        public void BindListControlShort(object target, string selected_id)
-        {
-            BindListControlShort(target, selected_id, true);
-        }
-
-        public void BindListControlShort(object target, string selected_id, bool be_available_option_all)
-        {
-            BindListControlShort(target, selected_id, be_available_option_all, "All");
-        }
+          {
+          BindListControlShort(target, "");
+          }
 
         public void BindListControlShortDashLong(object target, string selected_id, bool be_available_option_all, string option_all_text)
-        {
-            if (be_available_option_all)
+          {
+          if (be_available_option_all)
             {
-                BindListControl(option_all_text, "concat(short_designator,\" - \",long_designator)", target, selected_id);
+            BindListControl(option_all_text, "concat(short_designator,\" - \",long_designator)", target, selected_id);
             }
-            else
+          else
             {
-                BindListControl(k.EMPTY, "concat(short_designator,\" - \",long_designator)", target, selected_id);
+            BindListControl(k.EMPTY, "concat(short_designator,\" - \",long_designator)", target, selected_id);
             }
-        }
-
-        public void BindListControlShortDashLong(object target)
-        {
-            BindListControlShortDashLong(target, "");
-        }
-
-        public void BindListControlShortDashLong(object target, string selected_id)
-        {
-            BindListControlShortDashLong(target, selected_id, true);
-        }
-
+          }
         public void BindListControlShortDashLong(object target, string selected_id, bool be_available_option_all)
-        {
-            BindListControlShortDashLong(target, selected_id, be_available_option_all, "-- Select --");
-        }
+          {
+          BindListControlShortDashLong(target, selected_id, be_available_option_all, "-- Select --");
+          }
+        public void BindListControlShortDashLong(object target, string selected_id)
+          {
+          BindListControlShortDashLong(target, selected_id, true);
+          }
+        public void BindListControlShortDashLong(object target)
+          {
+          BindListControlShortDashLong(target, "");
+          }
+
+
 
         public void BindForCommensuration(object target)
         {

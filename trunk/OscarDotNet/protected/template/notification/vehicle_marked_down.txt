@@ -1,0 +1,19 @@
+Vehicle <vehicle_name/> has gone DOWN
+This is an automatic notification from <application_name/>.
+
+<actor/> has marked vehicle <vehicle_name/> DOWN as follows:
+
+   Time went down (yyyy-mm-dd 24:mm):
+      <time_went_down/>
+   Severity:
+      <nature/>
+   Mileage:
+      <mileage/>
+   Comment:
+      <down_comment/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

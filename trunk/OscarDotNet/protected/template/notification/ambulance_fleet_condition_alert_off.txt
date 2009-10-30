@@ -1,0 +1,6 @@
+Citywide ambulance fleet is no longer Condition Yellow
+This is an automatic notification from <application_name/>.
+
+The condition of the citywide ambulance fleet has improved, and is now Condition Green.  Please continue to use <application_name/> to mark status and quarters changes when they occur.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
