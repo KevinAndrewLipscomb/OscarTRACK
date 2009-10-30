@@ -3,6 +3,10 @@ using Class_biz_members;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_biz_users;
+using Class_biz_vehicle_down_natures;
+using Class_biz_vehicle_quarters;
+using Class_biz_vehicle_usability_history;
+using Class_biz_vehicles;
 using Class_db_notifications;
 using kix;
 using System;
@@ -100,6 +104,34 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("agency-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
         }
+
+        private delegate string IssueAmbulanceFleetConditionAlarm_Merge(string s);
+        public void IssueAmbulanceFleetConditionAlarm()
+          {
+          IssueAmbulanceFleetConditionAlarm_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name);
+            };
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/ambulance_fleet_condition_alarm_on.txt"));
+          k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], db_notifications.TargetOfAboutAgency("ambulance-fleet-condition-change"), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+          template_reader.Close();
+          }
+
+        private delegate string IssueAmbulanceFleetConditionAlert_Merge(string s);
+        public void IssueAmbulanceFleetConditionAlert()
+          {
+          IssueAmbulanceFleetConditionAlert_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name);
+            };
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/ambulance_fleet_condition_alert_on.txt"));
+          k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], db_notifications.TargetOfAboutAgency("ambulance-fleet-condition-change"), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+          template_reader.Close();
+          }
 
         private delegate string IssueForCadNumChange_Merge(string s);
         public void IssueForCadNumChange(string member_id, string first_name, string last_name, string cad_num)
@@ -933,6 +965,127 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+        private delegate string IssueForVehicleMarkedDown_Merge(string s);
+        public void IssueForVehicleMarkedDown(string vehicle_id, DateTime time_went_down, string nature_id, string mileage, string down_comment)
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicle_down_natures = new TClass_biz_vehicle_down_natures();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForVehicleMarkedDown_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<time_went_down/>", time_went_down.ToString("yyyy-MM-dd HH:mm"))
+              .Replace("<nature/>", biz_vehicle_down_natures.ElaborationOf(nature_id))
+              .Replace("<mileage/>", mileage)
+              .Replace("<down_comment/>", down_comment);
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_down.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForVehicleMarkedUp_Merge(string s);
+        public void IssueForVehicleMarkedUp(string vehicle_id, DateTime time_came_up, string down_comment, string up_comment)
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForVehicleMarkedDown_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<time_came_up/>", time_came_up.ToString("yyyy-MM-dd HH:mm"))
+              .Replace("<down_comment/>", down_comment)
+              .Replace("<up_comment/>", up_comment);
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_up.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForVehicleQuartersChange_Merge(string s);
+        public void IssueForVehicleQuartersChange(string vehicle_id, string quarters_id, DateTime effective_datetime, string mileage, string note)
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicle_quarters = new TClass_biz_vehicle_quarters();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForVehicleMarkedDown_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<quarters_designator/>", biz_vehicle_quarters.MediumDashLongDesignatorOfId(quarters_id))
+              .Replace("<effective_datetime/>", effective_datetime.ToString("yyyy-MM-dd HH:mm"))
+              .Replace("<mileage/>", mileage)
+              .Replace("<note/>", note);
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_quarters_change.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-quarters-change", biz_vehicles.AgencyIdOfId(vehicle_id)),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueMemberStatusStatement_Merge(string s);
         public void IssueMemberStatusStatement(string email_address, string first_name, string last_name, string cad_num, string agency, string section_num, string medical_release_description, string be_driver_qualified, string enrollment, string length_of_service, string kind_of_leave, string obliged_shifts, string phone_num)
         {
@@ -965,6 +1118,34 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], email_address, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
         }
+
+        private delegate string RetractAmbulanceFleetConditionAlarm_Merge(string s);
+        public void RetractAmbulanceFleetConditionAlarm()
+          {
+          RetractAmbulanceFleetConditionAlarm_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name);
+            };
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/ambulance_fleet_condition_alarm_off.txt"));
+          k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], db_notifications.TargetOfAboutAgency("ambulance-fleet-condition-change"), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+          template_reader.Close();
+          }
+
+        private delegate string RetractAmbulanceFleetConditionAlert_Merge(string s);
+        public void RetractAmbulanceFleetConditionAlert()
+          {
+          RetractAmbulanceFleetConditionAlert_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name);
+            };
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/ambulance_fleet_condition_alert_off.txt"));
+          k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], db_notifications.TargetOfAboutAgency("ambulance-fleet-condition-change"), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+          template_reader.Close();
+          }
 
         public string TargetOfAboutAgency(string name)
           {

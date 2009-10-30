@@ -1,0 +1,23 @@
+*CITYWIDE AMBULANCE FLEET IS CONDITION RED*
+This is an automatic notification from <application_name/>.
+
+**
+** CITYWIDE AMBULANCE FLEET IS CONDITION RED
+**
+
+The condition of the citywide ambulance fleet has reached the CONDITION RED threshold.  The number of ambulances that are UP is so low that under some circumstances, not all crews will have an ambulance to staff.
+
+Please do the following immediately:
+
+1. Log into <application_name/> to verify the accuracy of the Fleet Inventory Status data.
+
+2. Make a concerted effort to bring ambulances back UP.
+
+3. Collaborate with your peers at other squads, and with schedule coordinators,
+   to match crews with ambulances that are UP.
+
+4. Pay extra attention to <application_name/>'s Shift Fleet Status Reports.
+
+When this condition is alleviated, <application_name/> will advise you.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

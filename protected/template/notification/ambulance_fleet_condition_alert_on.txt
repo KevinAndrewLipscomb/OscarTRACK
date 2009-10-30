@@ -1,0 +1,17 @@
+Citywide Ambulance Fleet is Condition Yellow
+This is an automatic notification from <application_name/>.
+
+** Citywide Ambulance Fleet is Condition Yellow
+
+The condition of the citywide ambulance fleet has reached the CONDITION YELLOW threshold.  Surge capacity may be diminished.
+
+Please do the following soon:
+
+1. Log into <application_name/> to verify the accuracy of the Fleet Inventory Status data.
+
+2. Encourage repair/maintenance/upgrade/etc personnel to place a higher priority
+   on completing their work so that ambulances can be brought back UP.
+
+When this condition is alleviated, <application_name/> will advise you.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

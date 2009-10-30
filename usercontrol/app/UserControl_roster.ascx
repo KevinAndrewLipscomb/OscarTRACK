@@ -10,10 +10,10 @@
                 <td align="right"><ASP:LinkButton id="LinkButton_add_member" runat="server" font-bold="True" causesvalidation="False" onclick="LinkButton_add_member_Click">Add member(s)</ASP:LinkButton></td>
               </tr>
               <tr>
-                <td align="right">
-                        <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" align="center">
+                <td>
+                        <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
                             <tr>
-                              <td>
+                              <td align="left">
                         <table cellspacing="0" cellpadding="5" border="0" align="center">
                     <tr>
                       <td><b><small>Filters:</small></b></td>

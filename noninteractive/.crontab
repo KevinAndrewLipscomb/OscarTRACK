@@ -6,6 +6,32 @@ MAILTO=kevin.lipscomb@kvrs.org
 # Daily
 #
 15 00 * * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/daily_tasks.aspx
+31 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R01
+32 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R02
+34 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R04
+35 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R05
+36 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R06
+39 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R09
+43 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R13
+44 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R14
+46 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R16
+47 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R17
+48 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=MRT
+49 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=SAR
+50 04 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=EMS
+31 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R01
+32 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R02
+34 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R04
+35 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R05
+36 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R06
+39 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R09
+43 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R13
+44 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R14
+46 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R16
+47 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=R17
+48 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=MRT
+49 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=SAR
+50 16 01 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_shift_fleet_status.aspx?agency=EMS
 #
 # Weekly
 #
@@ -110,7 +136,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #10 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R06
 20 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R09
 #30 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R13
-40 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R14
+#40 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R14
 #50 03 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R16
 #00 04 20 * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R17
 #

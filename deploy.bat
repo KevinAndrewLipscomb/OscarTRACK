@@ -7,6 +7,7 @@
 @robocopy C:\Inetpub\wwwroot\OscarDotNet                                      ready-to-deploy                                      *.aspx    /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet                                      ready-to-deploy                                      *.pdf     /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\bin                                  ready-to-deploy\bin                                  *.dll     /m /np /ns /z | qgrep "New "
+@robocopy C:\Inetpub\wwwroot\OscarDotNet\bin                                  ready-to-deploy\bin                                  *.pdb     /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\bin                                  ready-to-deploy\bin                                  *.TTF     /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\css                                  ready-to-deploy\css                                            /m /np /ns /z | qgrep "New "
 @robocopy C:\Inetpub\wwwroot\OscarDotNet\doc                                  ready-to-deploy\doc                                  *.aspx    /m /np /ns /z | qgrep "New "

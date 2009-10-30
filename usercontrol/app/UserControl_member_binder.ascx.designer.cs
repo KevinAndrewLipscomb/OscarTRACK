@@ -41,6 +41,15 @@ namespace UserControl_member_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
         
         /// <summary>
+        /// TabPanel_fleet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        
+        /// <summary>
         /// TabPanel_funddrive control.
         /// </summary>
         /// <remarks>

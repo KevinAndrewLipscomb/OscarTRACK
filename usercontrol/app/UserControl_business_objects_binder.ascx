@@ -1,0 +1,28 @@
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_business_objects_binder.ascx.cs" Inherits="UserControl_business_objects_binder.TWebUserControl_business_objects_binder"%>
+<!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~binder.ascx-template -->
+<%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
+<asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
+  <ContentTemplate>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+      <tr>
+        <td>
+          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+            <cc1:TabPanel runat="server" headertext="Agencies" id="TabPanel_agencies" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Vehicles" id="TabPanel_vehicles" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Vehicle kinds" id="TabPanel_vehicle_kinds" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Chassis makes" id="TabPanel_chassis_makes" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Chassis models" id="TabPanel_chassis_models" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Custom makes" id="TabPanel_custom_makes" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Custom models" id="TabPanel_custom_models" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Fuels" id="TabPanel_fuels" enabled="False"></cc1:TabPanel>
+          </cc1:TabContainer>
+        </td>
+      </tr>
+      <tr>
+        <td style="PADDING:8px; BORDER-BOTTOM:thin solid silver; BORDER-LEFT:thin solid silver; BORDER-RIGHT:thin solid silver;">
+          <ASP:PlaceHolder id="PlaceHolder_content" runat="server"></ASP:PlaceHolder>
+        </td>
+      </tr>
+    </table>
+  </ContentTemplate>
+</asp:UpdatePanel>
