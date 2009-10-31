@@ -81,12 +81,12 @@ namespace report_shift_fleet_status
             // Write the HTML stream into a StringBuilder.
             var sb = new StringBuilder();
             base.Render(new HtmlTextWriter(new StringWriter(sb)));
-            // //
-            writer.Write(sb.ToString());
-            // //
-            //var body = sb.ToString();
-            //k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Shiftwise Fleet Status", body, true);
-            //Session.Abandon();
+            //
+            //writer.Write(sb.ToString());
+            //
+            var body = sb.ToString();
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Shiftwise Fleet Status", body, true);
+            Session.Abandon();
 
         }
 
