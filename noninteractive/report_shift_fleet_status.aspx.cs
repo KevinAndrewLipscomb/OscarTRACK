@@ -26,6 +26,7 @@ namespace report_shift_fleet_status
         public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public string role_name;
+        public string target;
     } // end p_type
 
     public partial class TWebForm_report_shift_fleet_status: System.Web.UI.Page
@@ -65,11 +66,19 @@ namespace report_shift_fleet_status
             {
                 p.role_name = "Department Fleet Coordinator";
                 Session.Add("privilege_array", new string[1] {"see-all-squads"});
+                p.target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator)
+                + k.COMMA
+                + ConfigurationManager.AppSettings["sender_email_address"];
             }
             else
             {
                 p.role_name = "Squad Fleet Coordinator";
                 Session.Add("privilege_array", new string[0]);
+                p.target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator)
+                + k.COMMA
+                + p.biz_role_member_map.EmailTargetOf("Squad Commander", p.agency_short_designator)
+                + k.COMMA
+                + p.biz_role_member_map.EmailTargetOf("Squad Manager", p.agency_short_designator);
             }
             Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
             PlaceHolder_fleet_status.Controls.Add(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))));
@@ -85,7 +94,7 @@ namespace report_shift_fleet_status
             //writer.Write(sb.ToString());
             //
             var body = sb.ToString();
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Shiftwise Fleet Status", body, true);
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.target, "Report: Shift Fleet Status (" + p.agency_short_designator + ")", body, true);
             Session.Abandon();
 
         }
