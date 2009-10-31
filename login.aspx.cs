@@ -55,7 +55,7 @@ namespace login
             }
             else
             {
-                Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - login";
+                Title = ConfigurationManager.AppSettings["application_name"] + " - login";
                 p.biz_users = new TClass_biz_users();
                 Focus(TextBox_username, true);
             }
