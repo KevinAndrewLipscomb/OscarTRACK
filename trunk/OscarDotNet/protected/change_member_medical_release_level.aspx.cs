@@ -64,9 +64,12 @@ namespace change_member_medical_release_level
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
                     Label_member_name_3.Text = Label_member_name_2.Text;
+                    Literal_member_name_4.Text = Label_member_name_3.Text;
+                    Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
                     HtmlTable_proper_release_reminder.Visible = !k.Has((string[])(Session["privilege_array"]), "release-trainees");
                     Label_current_medical_release_level.Text = p.saved_level;
                     p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
+                    UserControl_drop_down_date_effective_date.selectedvalue = DateTime.Today;
                 }
             }
         }
@@ -105,18 +108,39 @@ namespace change_member_medical_release_level
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
-        {
+          {
             if (Page.IsValid)
-            {
-                p.biz_members.SetMedicalReleaseCode(p.saved_level, k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), Session["member_summary"]);
+              {
+              if(
+                p.biz_members.SetMedicalReleaseCode
+                  (
+                  p.saved_level,
+                  k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
+                  Session["member_summary"],
+                  Panel_effective_date.Visible,
+                  UserControl_drop_down_date_effective_date.selectedvalue
+                  )
+                )
+                {
                 BackTrack();
-            }
-        }
+                }
+              else
+                {
+                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "inveffdat", "The new enrollment status was NOT recorded.  Possible reasons are:  (1) The new membership status cannot take effect on a" + " date that is before the current membership status began; (2) A membership status may not be repeated on the same day --" + " consider advancing the effective date by one day.", true);
+                }
+              }
+          }
 
         private void TWebForm_change_member_medical_release_level_PreRender(object sender, System.EventArgs e)
         {
             SessionSet("change_member_medical_release_level.p", p);
         }
+
+        protected void DropDownList_medical_release_level_SelectedIndexChanged(object sender, EventArgs e)
+          {
+          Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level)
+          && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM)));
+          }
 
     } // end TWebForm_change_member_medical_release_level
 

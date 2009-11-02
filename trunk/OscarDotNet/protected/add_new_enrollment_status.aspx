@@ -48,7 +48,9 @@ new status be?&nbsp; Please consider carefully.
 								  <blockquote><p><uc1:UserControl_drop_down_date id="UserControl_effective_date" runat="server"></uc1:UserControl_drop_down_date></p></blockquote>
 								  <p>Note (optional):</p>
 								  <blockquote><ASP:TextBox id="TextBox_note" runat="server" maxlength="127" columns="40" textmode="MultiLine"></ASP:TextBox></blockquote>
-								  <p><ASP:RequiredFieldValidator id="RequiredFieldValidator_new_status" runat="server" errormessage="Please select a new membership status." font-bold="True" controltovalidate="RadioButtonList_disposition">!ERR!</ASP:RequiredFieldValidator></p>
+								  <p><ASP:RequiredFieldValidator id="RequiredFieldValidator_new_status" runat="server" errormessage="Please select a new membership status." font-bold="True" controltovalidate="RadioButtonList_disposition" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
+                    <asp:CustomValidator ID="CustomValidator_control" runat="server" Display="Dynamic" Font-Bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
+                  </p>
 								  <p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p>
 								  <p>&nbsp;</p>
 								  <p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small">Grant leave instead</ASP:LinkButton></p>

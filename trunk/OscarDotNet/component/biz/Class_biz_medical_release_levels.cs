@@ -53,6 +53,11 @@ namespace Class_biz_medical_release_levels
             return result;
         }
 
+        public bool BeValidEnrollmentForCurrent(string enrollment_level_code, string description)
+        {
+            return db_medical_release_levels.BeValidEnrollmentForCurrent(enrollment_level_code, description);
+        }
+
         public void BindListControl(object target)
         {
             db_medical_release_levels.BindListControl(target);

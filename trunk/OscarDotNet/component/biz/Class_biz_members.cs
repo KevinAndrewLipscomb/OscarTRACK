@@ -473,15 +473,20 @@ namespace Class_biz_members
             biz_notifications.IssueForSectionChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), section_num);
         }
 
-        public void SetMedicalReleaseCode(string old_level, string new_code, object summary)
-        {
+        public bool SetMedicalReleaseCode(string old_level, string new_code, object summary, bool be_force_to_regular_required, DateTime effective_date)
+          {
+          var ok_so_far = true;
+          if (be_force_to_regular_required)
+            {
+            ok_so_far = biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), effective_date, k.EMPTY, IdOf(summary), summary);
+            }
+          if (ok_so_far)
+            {
             db_members.SetMedicalReleaseCode(new_code, summary);
             biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
-            if (biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(old_level) && !biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_code))
-            {
-                biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), DateTime.Today, k.EMPTY, IdOf(summary), summary);
             }
-        }
+          return ok_so_far;
+          }
 
         public void SetPhoneNum(string phone_num, object summary)
         {

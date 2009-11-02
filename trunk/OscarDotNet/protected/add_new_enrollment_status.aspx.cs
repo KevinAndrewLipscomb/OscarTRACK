@@ -1,6 +1,7 @@
 using appcommon;
 using Class_biz_agencies;
 using Class_biz_enrollment;
+using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_user;
 using kix;
@@ -15,6 +16,7 @@ namespace add_new_enrollment_status
         public bool be_member_currently_transferring;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_enrollment biz_enrollment;
+        public TClass_biz_medical_release_levels biz_medical_release_levels;
         public TClass_biz_members biz_members;
         public TClass_biz_user biz_user;
         public string member_id_of_user_id;
@@ -62,6 +64,7 @@ namespace add_new_enrollment_status
                     Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_new_enrollment_status";
                     p.biz_agencies = new TClass_biz_agencies();
                     p.biz_enrollment = new TClass_biz_enrollment();
+                    p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
@@ -108,21 +111,24 @@ namespace add_new_enrollment_status
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
-        {
+          {
+          if (IsValid)
+            {
             var target_agency_id = k.EMPTY;
             if (p.be_member_currently_transferring)
               {
               target_agency_id = k.Safe(DropDownList_target_agency.SelectedValue,k.safe_hint_type.NUM);
               }
             if (p.biz_enrollment.SetLevel(k.Safe(RadioButtonList_disposition.SelectedValue, k.safe_hint_type.NUM), UserControl_effective_date.selectedvalue, k.Safe(TextBox_note.Text, k.safe_hint_type.PUNCTUATED), p.biz_members.IdOf(Session["member_summary"]), Session["member_summary"],target_agency_id))
-            {
-                BackTrack();
-            }
+              {
+              BackTrack();
+              }
             else
-            {
-                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "inveffdat", "The new enrollment status was NOT recorded.  Possible reasons are:  (1) The new membership status cannot take effect on a" + " date that is before the current membership status began; (2) A membership status may not be repeated on the same day --" + " consider advancing the effective date by one day.", true);
+              {
+              Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "inveffdat", "The new enrollment status was NOT recorded.  Possible reasons are:  (1) The new membership status cannot take effect on a" + " date that is before the current membership status began; (2) A membership status may not be repeated on the same day --" + " consider advancing the effective date by one day.", true);
+              }
             }
-        }
+          }
 
         protected void Button_cancel_Click(object sender, System.EventArgs e)
         {
@@ -133,6 +139,22 @@ namespace add_new_enrollment_status
         {
             SessionSet("add_new_enrollment_status.p", p);
         }
+
+        protected void CustomValidator_control_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+          {
+          args.IsValid = false;
+          var current_medical_release_level = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
+          var first_name = p.biz_members.FirstNameOf(Session["member_summary"]);
+          if (p.biz_medical_release_levels.BeValidEnrollmentForCurrent(k.Safe(RadioButtonList_disposition.SelectedValue, k.safe_hint_type.NUM),current_medical_release_level))
+            {
+            args.IsValid = true;
+            }
+          else
+            {
+            CustomValidator_control.ErrorMessage = first_name + "'s current released cert level is '" + current_medical_release_level + "', which is incompatible with the Membership Status that you selected.  If " + first_name
+            + " has been released at a higher medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and increase " + first_name + "'s Released cert level appropriately.  Then perform your current action again.";
+            }
+          }
 
     } // end TWebForm_add_new_enrollment_status
 

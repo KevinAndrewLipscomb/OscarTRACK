@@ -27,6 +27,14 @@ namespace Class_db_medical_release_levels
             return result;
         }
 
+        public bool BeValidEnrollmentForCurrent(string enrollment_level_code, string description)
+        {
+            this.Open();
+            var be_valid_enrollment_for_current = "1" == new MySqlCommand("select" + " (" + " select TRUE" + " from enrollment_level" + " where code = \"" + enrollment_level_code + "\"" + " and core_ops_commitment_level_code = 1" + " )" + " or" + " (" + " select TRUE" + " from medical_release_code_description_map" + " where description = '" + description + "'" + " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'Trainee')" + " )", this.connection).ExecuteScalar().ToString();
+            this.Close();
+            return be_valid_enrollment_for_current;
+        }
+
         public void BindListControl(object target)
         {
             MySqlDataReader dr;
