@@ -139,7 +139,7 @@ namespace Class_db_vehicles
           "select vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
-          + " , vehicle_quarters.medium_designator as quarters"
+          + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL(recent_mileage,'') as last_known_mileage"
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
@@ -167,13 +167,13 @@ namespace Class_db_vehicles
           +       " vehicle_usability_history.time_came_up is null"
           +     " )"
           +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
-          +   " join vehicle_quarters_history on"
+          +   " left join vehicle_quarters_history on"
           +     " ("
           +       " vehicle_quarters_history.vehicle_id=vehicle.id"
           +     " and"
           +       " vehicle_quarters_history.end_datetime is null"
           +     " )"
-          +   " join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
+          +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
           + filter
           + " order by " + sort_order,
           connection
