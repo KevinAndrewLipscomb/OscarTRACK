@@ -181,9 +181,14 @@ namespace Class_db_vehicle_quarters_history
 
     public string IdOfCurrent(string vehicle_id)
       {
+      var id_of_current = k.EMPTY;
       Open();
-      var id_of_current = new MySqlCommand("select quarters_id from vehicle_quarters_history where vehicle_id = '" + vehicle_id + "' and end_datetime is null",connection).ExecuteScalar().ToString();
+      var obj = new MySqlCommand("select quarters_id from vehicle_quarters_history where vehicle_id = '" + vehicle_id + "' and end_datetime is null",connection).ExecuteScalar();
       Close();
+      if (obj != null)
+        {
+        id_of_current = obj.ToString();
+        }
       return id_of_current;
       }
 
