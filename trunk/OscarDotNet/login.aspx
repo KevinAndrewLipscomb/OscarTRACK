@@ -91,6 +91,9 @@
 				  </table>
 				</td>
 			  </tr>
-		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></form>
+		  </table>
+		<input id="Hidden_client_timezone_offset" runat="server" type="hidden"/>
+		<uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
+  </form>
 </body>
 </html>

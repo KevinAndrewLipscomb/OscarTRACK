@@ -40,26 +40,34 @@ namespace login
             this.PreRender += this.TWebForm_login_PreRender;
         }
 
+        private void InjectPersistentClientSideScript()
+          {
+          EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
+          EstablishClientSideFunction("SetClientTimezoneOffset()","El('" + Hidden_client_timezone_offset.ClientID + "').value = (new Date()).getTimezoneOffset();");
+          Button_log_in.Attributes.Add("onclick","SetClientTimezoneOffset();");
+          }
+
         protected void Page_Load(object sender, System.EventArgs e)
-        {
-            if (IsPostBack)
+          {
+          if (IsPostBack)
             {
-                if ((Session["login.p"] != null))
-                {
-                    p = (p_type)(Session["login.p"]);
-                }
-                else
-                {
-                    Server.Transfer("~/timeout.aspx");
-                }
-            }
+            if ((Session["login.p"] != null))
+              {
+              p = (p_type)(Session["login.p"]);
+              }
             else
-            {
-                Title = ConfigurationManager.AppSettings["application_name"] + " - login";
-                p.biz_users = new TClass_biz_users();
-                Focus(TextBox_username, true);
+              {
+              Server.Transfer("~/timeout.aspx");
+              }
             }
-        }
+          else
+            {
+              Title = ConfigurationManager.AppSettings["application_name"] + " - login";
+              p.biz_users = new TClass_biz_users();
+              Focus(TextBox_username, true);
+            }
+          InjectPersistentClientSideScript();
+          }
 
         protected override void OnInit(EventArgs e)
         {
@@ -118,6 +126,7 @@ namespace login
             {
                 SessionSet("user_id", p.biz_users.IdOf(username));
                 SessionSet("username", username);
+                SessionSet("client_timezone_offset", double.Parse(k.Safe(Hidden_client_timezone_offset.Value,k.safe_hint_type.HYPHENATED_NUM)));
                 p.biz_users.RecordSuccessfulLogin(Session["user_id"].ToString());
                 FormsAuthentication.RedirectFromLoginPage(username, CheckBox_keep_me_logged_in.Checked);
             }
