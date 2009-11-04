@@ -105,10 +105,10 @@
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                   <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                 </asp:ButtonColumn>
-                <asp:BoundColumn DataField="last_known_mileage" HeaderText="Recent mileage" ReadOnly="True" SortExpression="last_known_mileage%,vehicle_name">
+                <asp:ButtonColumn CommandName="UpdateMileage" DataTextField="last_known_mileage" HeaderText="Recent mileage" SortExpression="last_known_mileage%,vehicle_name">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
-                </asp:BoundColumn>
+                  <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
+                </asp:ButtonColumn>
                 <asp:BoundColumn DataField="model_year" HeaderText="Model year" ReadOnly="True" SortExpression="model_year%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_make" HeaderText="Chassis make" ReadOnly="True" SortExpression="chassis_make%,chassis_model,vehicle_name">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />

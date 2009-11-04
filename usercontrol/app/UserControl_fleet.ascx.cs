@@ -247,6 +247,10 @@ namespace UserControl_fleet
           {
           DropCrumbAndTransferTo("change_vehicle_quarters.aspx");
           }
+        else if (e.CommandName == "UpdateMileage")
+          {
+          //DropCrumbAndTransferTo("update_vehicle_mileage.aspx");
+          }
         }
       }
 
@@ -271,6 +275,9 @@ namespace UserControl_fleet
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton);
           link_button.ToolTip = "Relocate";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton);
+          link_button.ToolTip = "Update";
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -290,6 +297,7 @@ namespace UserControl_fleet
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
           }
         }
       //

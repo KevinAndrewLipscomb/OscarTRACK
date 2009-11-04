@@ -21,7 +21,7 @@
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
               <tr>
-                <td bgcolor="#f5f5f5"><strong>Mark vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&nbsp;DOWN</strong></td>
+                <td bgcolor="#f5f5f5"><strong>Mark vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&nbsp;UP</strong></td>
               </tr>
               <tr>
                 <td>

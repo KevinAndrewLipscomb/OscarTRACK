@@ -49,7 +49,7 @@ namespace change_vehicle_quarters
         Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         Literal_vehicle_name_3.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
         p.biz_vehicle_quarters.BindDirectToListControlMediumDashLong(DropDownList_quarters);
-        UserControl_drop_down_datetime_control.selectedvalue = DateTime.Now;
+        UserControl_drop_down_datetime_control.selectedvalue = DateTime.Now.ToUniversalTime().AddMinutes(-((Double)(Session["client_timezone_offset"])));
         UserControl_drop_down_datetime_control.minute_intervals = 5;
         }
       }

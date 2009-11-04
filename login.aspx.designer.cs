@@ -131,6 +131,15 @@ namespace login {
         protected global::System.Web.UI.WebControls.Button Button_log_in;
         
         /// <summary>
+        /// Hidden_client_timezone_offset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlInputHidden Hidden_client_timezone_offset;
+        
+        /// <summary>
         /// UserControl_postcontent control.
         /// </summary>
         /// <remarks>
