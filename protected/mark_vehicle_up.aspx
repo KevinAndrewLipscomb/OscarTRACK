@@ -16,7 +16,7 @@
   <body bgcolor="white">
     <form runat="server" defaultbutton="Button_submit">
       <uc1:UserControl_precontent ID="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <table cellspacing="0" cellpadding="0" width="100%" border="1" bordercolor="#dcdcdc">
+      <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
