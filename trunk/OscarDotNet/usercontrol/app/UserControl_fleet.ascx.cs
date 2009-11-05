@@ -249,7 +249,7 @@ namespace UserControl_fleet
           }
         else if (e.CommandName == "UpdateMileage")
           {
-          //DropCrumbAndTransferTo("update_vehicle_mileage.aspx");
+          DropCrumbAndTransferTo("update_vehicle_mileage.aspx");
           }
         }
       }

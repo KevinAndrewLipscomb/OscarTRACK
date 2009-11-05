@@ -127,6 +127,11 @@ namespace Class_biz_vehicles
       return db_vehicles.NameOfId(id);
       }
 
+    public string RecentMileageOf(object summary)
+      {
+      return db_vehicles.RecentMileageOf(summary);
+      }
+
     public void Set
       (
       string id,
@@ -158,6 +163,15 @@ namespace Class_biz_vehicles
         license_plate,
         purchase_price
         );
+      }
+
+    public void SetMileage
+      (
+      string id,
+      string mileage
+      )
+      {
+      db_vehicles.SetMileage(id,mileage);
       }
 
     public object Summary(string vehicle_id)

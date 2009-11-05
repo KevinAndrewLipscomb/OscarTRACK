@@ -334,6 +334,11 @@ namespace Class_db_vehicles
       return name_of_id;
       }
 
+    public string RecentMileageOf(object summary)
+      {
+      return (summary as vehicle_summary).last_known_mileage;
+      }
+
     public void Set
       (
       string id,
@@ -363,7 +368,7 @@ namespace Class_db_vehicles
       + " , license_plate = NULLIF('" + license_plate + "','')"
       + " , purchase_price = NULLIF('" + purchase_price + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       new MySqlCommand
         (
         db_trail.Saved
@@ -374,10 +379,26 @@ namespace Class_db_vehicles
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+        connection
         )
         .ExecuteNonQuery();
-      this.Close();
+      Close();
+      }
+
+    public void SetMileage
+      (
+      string id,
+      string mileage
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved("update vehicle set recent_mileage = '" + mileage + "' where id = '" + id + "'"),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
       }
 
     public object Summary(string vehicle_id)
@@ -391,7 +412,7 @@ namespace Class_db_vehicles
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IFNULL('?','') as quarters"
           + " , IFNULL('?','') as last_known_pm_date"
-          + " , IFNULL('?','') as last_known_mileage"
+          + " , IFNULL(recent_mileage,'') as last_known_mileage"
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
           + " , chassis_model.name as chassis_model"

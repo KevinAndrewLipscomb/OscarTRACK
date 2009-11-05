@@ -14,7 +14,7 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <table cellspacing="0" cellpadding="0" width="100%" border="1" bordercolor="#dcdcdc">
+      <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
@@ -23,6 +23,7 @@
               </tr>
               <tr>
                 <td>
+                  <p>In this system, a vehicle's <i>Quarters</i> is the place the vehicle is kept when it is <i>not staffed</i>.</p>
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
                       <td>
