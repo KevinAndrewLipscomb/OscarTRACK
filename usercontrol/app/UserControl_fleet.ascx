@@ -101,6 +101,9 @@
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                   <ItemStyle BackColor="LightGray" Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:ButtonColumn>
+                <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Journal&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="AppendNote" Visible="false">
+                  <ItemStyle BackColor="LightGray" HorizontalAlign="Center" VerticalAlign="Middle" />
+                </asp:ButtonColumn>
                 <asp:ButtonColumn CommandName="ChangeQuarters" DataTextField="quarters" HeaderText="Quarters" SortExpression="quarters%,vehicle_name" >
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                   <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />

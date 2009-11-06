@@ -1,0 +1,12 @@
+Note added for vehicle <vehicle_name/>'s DOWN episode
+This is an automatic notification from <application_name/>.
+
+<actor/> has appended a note to vehicle <vehicle_name/>'s DOWN episode.  The resulting note now reads:
+
+   <down_comment/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
