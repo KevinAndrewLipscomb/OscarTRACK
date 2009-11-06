@@ -210,6 +210,17 @@ namespace Class_db_vehicle_usability_history
       Close();
       }
 
+    public void ReplaceDownNote
+      (
+      string vehicle_id,
+      string replacement_note
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update vehicle_usability_history set down_comment = '" + replacement_note + "' where vehicle_id = '" + vehicle_id + "' and time_came_up is null"),connection).ExecuteNonQuery();
+      Close();
+      }
+
     public void Set
       (
       string id,

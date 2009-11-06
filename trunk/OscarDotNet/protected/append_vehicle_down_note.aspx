@@ -1,12 +1,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 
-<%@ Page Language="c#" Debug="true" CodeBehind="mark_vehicle_up.aspx.cs" AutoEventWireup="True" Inherits="mark_vehicle_up.TWebForm_mark_vehicle_up" %>
+<%@ Page Language="c#" Debug="true" CodeBehind="append_vehicle_down_note.aspx.cs" AutoEventWireup="True" Inherits="append_vehicle_down_note.TWebForm_append_vehicle_down_note" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc3" TagName="UserControl_update_progress_blocker" Src="~/usercontrol/app/UserControl_update_progress_blocker.ascx" %>
-<%@ Register src="../usercontrol/ki/UserControl_drop_down_datetime.ascx" tagname="UserControl_drop_down_datetime" tagprefix="uc5" %>
 <html>
   <head runat="server">
     <!-- $Id: template-protected-nonlanding.aspx-template 2660 2008-10-22 20:33:51Z kevinanlipscomb $ -->
@@ -21,30 +20,14 @@
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
               <tr>
-                <td bgcolor="#f5f5f5"><strong>Mark vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&nbsp;UP</strong></td>
+                <td bgcolor="#f5f5f5"><strong>Append a note for <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&#39;s DOWN episode</strong></td>
               </tr>
               <tr>
                 <td>
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
                       <td>
-                        *Approximately what date and time did the unit come up?
-                        <table cellspacing="0" cellpadding="20" border="0">
-                          <tr>
-                            <td>
-                              <uc5:UserControl_drop_down_datetime ID="UserControl_drop_down_datetime_control" runat="server" />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td nowrap="nowrap">
-                        <asp:CustomValidator ID="CustomValidator_date" runat="server" ErrorMessage="Please enter a valid Date." Font-Bold="True" onservervalidate="CustomValidator_date_ServerValidate">!ERR!</asp:CustomValidator>
-                        <asp:CustomValidator ID="CustomValidator_datetime" runat="server" Display="Dynamic" ErrorMessage="This unit's history in this system has already overtaken the specified Date and Time." Font-Bold="True" onservervalidate="CustomValidator_datetime_ServerValidate">!ERR!</asp:CustomValidator>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Comments for this episode's downtime were:
+                        Prior comments about this episode were:
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
@@ -58,16 +41,18 @@
                     </tr>
                     <tr>
                       <td>
-                        Enter any comments to associate with the unit coming back up:
+                        Append any additional comments about this episode here:
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
                               <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
+                              <p><small>Resulting note will be truncated at 65,536 characters.</small></p>
                             </td>
                           </tr>
                         </table>
                       </td>
                       <td nowrap="nowrap" valign="top">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox_note_to_append" ErrorMessage="Please enter Additional comments." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
                       </td>
                     </tr>
                     <tr>

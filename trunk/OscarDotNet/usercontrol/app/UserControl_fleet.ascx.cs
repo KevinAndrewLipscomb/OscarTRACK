@@ -27,19 +27,20 @@ namespace UserControl_fleet
       public const int TCI_STATUS = 3;
       public const int TCI_STATUS_UP = 4;
       public const int TCI_STATUS_DOWN = 5;
-      public const int TCI_QUARTERS = 6;
-      public const int TCI_RECENT_MILEAGE = 7;
-      public const int TCI_MODEL_YEAR = 8;
-      public const int TCI_CHASSIS_MAKE = 9;
-      public const int TCI_CHASSIS_MODEL = 10;
-      public const int TCI_CUSTOM_MAKE = 11;
-      public const int TCI_CUSTOM_MODEL = 12;
-      public const int TCI_FUEL = 13;
-      public const int TCI_KIND = 14;
-      public const int TCI_AGENCY = 15;
-      public const int TCI_BUMPER_NUMBER = 16;
-      public const int TCI_TAG = 17;
-      public const int TCI_VIN = 18;
+      public const int TCI_APPEND_NOTE = 6;
+      public const int TCI_QUARTERS = 7;
+      public const int TCI_RECENT_MILEAGE = 8;
+      public const int TCI_MODEL_YEAR = 9;
+      public const int TCI_CHASSIS_MAKE = 10;
+      public const int TCI_CHASSIS_MODEL = 11;
+      public const int TCI_CUSTOM_MAKE = 12;
+      public const int TCI_CUSTOM_MODEL = 13;
+      public const int TCI_FUEL = 14;
+      public const int TCI_KIND = 15;
+      public const int TCI_AGENCY = 16;
+      public const int TCI_BUMPER_NUMBER = 17;
+      public const int TCI_TAG = 18;
+      public const int TCI_VIN = 19;
       }
 
     private struct p_type
@@ -49,6 +50,7 @@ namespace UserControl_fleet
       public bool be_interest_dynamic;
       public bool be_loaded;
       public bool be_sort_order_ascending;
+      public bool be_user_privileged_to_append_vehicle_down_notes;
       public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
@@ -182,7 +184,16 @@ namespace UserControl_fleet
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         //
+        p.be_user_privileged_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
+        p.be_interactive = (Session["mode:report"] == null);
+        p.be_interest_dynamic = true;
+        p.be_loaded = false;
+        p.be_sort_order_ascending = true;
+        p.quarters_filter = k.EMPTY;
+        p.sort_order = "vehicle_name%";
+        p.vehicle_kind_filter = k.EMPTY;
+        //
         if (p.be_user_privileged_to_see_all_squads)
           {
           p.agency_filter = k.EMPTY;
@@ -191,13 +202,6 @@ namespace UserControl_fleet
           {
           p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
-        p.be_interactive = (Session["mode:report"] == null);
-        p.be_interest_dynamic = true;
-        p.be_loaded = false;
-        p.be_sort_order_ascending = true;
-        p.quarters_filter = k.EMPTY;
-        p.sort_order = "vehicle_name%";
-        p.vehicle_kind_filter = k.EMPTY;
         }
       }
 
@@ -243,6 +247,10 @@ namespace UserControl_fleet
           {
           DropCrumbAndTransferTo("mark_vehicle_up.aspx");
           }
+        else if (e.CommandName == "AppendNote")
+          {
+          DropCrumbAndTransferTo("append_vehicle_down_note.aspx");
+          }
         else if (e.CommandName == "ChangeQuarters")
           {
           DropCrumbAndTransferTo("change_vehicle_quarters.aspx");
@@ -272,6 +280,10 @@ namespace UserControl_fleet
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark UP";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Append note";
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton);
           link_button.ToolTip = "Relocate";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
@@ -296,6 +308,7 @@ namespace UserControl_fleet
           {
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
           }
@@ -309,6 +322,8 @@ namespace UserControl_fleet
           p.num_usable++;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Visible = false;
           e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].BackColor = Color.White;
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].BackColor = Color.White;
           }
         else
           {
@@ -337,6 +352,7 @@ namespace UserControl_fleet
       {
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_user_privileged_to_append_vehicle_down_notes;
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);

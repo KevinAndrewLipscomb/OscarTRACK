@@ -319,6 +319,13 @@
     <Compile Include="protected\add_new_enrollment_status.aspx.designer.cs">
       <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\append_vehicle_down_note.aspx.cs">
+      <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\append_vehicle_down_note.aspx.designer.cs">
+      <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\change_cad_num.aspx.cs">
       <DependentUpon>change_cad_num.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1007,6 +1014,7 @@
     <Content Include="noninteractive\template\notification\seniority_promotion.txt" />
     <Content Include="protected\add_member.aspx" />
     <Content Include="protected\add_new_enrollment_status.aspx" />
+    <Content Include="protected\append_vehicle_down_note.aspx" />
     <Content Include="protected\change_cad_num.aspx" />
     <Content Include="protected\change_email_address.aspx" />
     <Content Include="protected\change_leave.aspx" />
@@ -1061,6 +1069,7 @@
     <Content Include="protected\template\notification\role_change.txt" />
     <Content Include="protected\template\notification\section_change.txt" />
     <Content Include="protected\mark_vehicle_down.aspx" />
+    <Content Include="protected\template\notification\vehicle_down_note_appended.txt" />
     <Content Include="protected\template\notification\vehicle_marked_down.txt" />
     <Content Include="protected\template\notification\vehicle_marked_up.txt" />
     <Content Include="protected\template\notification\vehicle_quarters_change.txt" />

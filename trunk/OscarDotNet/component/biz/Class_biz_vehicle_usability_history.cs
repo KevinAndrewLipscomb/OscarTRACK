@@ -22,6 +22,18 @@ namespace Class_biz_vehicle_usability_history
       biz_vehicles = new TClass_biz_vehicles();
       }
 
+    public void AppendDownNote
+      (
+      string vehicle_id,
+      string old_comment,
+      string note_to_append
+      )
+      {
+      var replacement_note = old_comment + k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE + note_to_append;
+      db_vehicle_usability_history.ReplaceDownNote(vehicle_id,replacement_note);
+      biz_notifications.IssueForVehicleDownNoteAppended(vehicle_id,replacement_note);
+      }
+
     public bool BeLater
       (
       string id,
