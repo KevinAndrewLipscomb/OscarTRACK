@@ -30,17 +30,18 @@ namespace UserControl_fleet
       public const int TCI_APPEND_NOTE = 6;
       public const int TCI_QUARTERS = 7;
       public const int TCI_RECENT_MILEAGE = 8;
-      public const int TCI_MODEL_YEAR = 9;
-      public const int TCI_CHASSIS_MAKE = 10;
-      public const int TCI_CHASSIS_MODEL = 11;
-      public const int TCI_CUSTOM_MAKE = 12;
-      public const int TCI_CUSTOM_MODEL = 13;
-      public const int TCI_FUEL = 14;
-      public const int TCI_KIND = 15;
-      public const int TCI_AGENCY = 16;
-      public const int TCI_BUMPER_NUMBER = 17;
-      public const int TCI_TAG = 18;
-      public const int TCI_VIN = 19;
+      public const int TCI_MILES_FROM_PM = 9;
+      public const int TCI_MODEL_YEAR = 10;
+      public const int TCI_CHASSIS_MAKE = 11;
+      public const int TCI_CHASSIS_MODEL = 12;
+      public const int TCI_CUSTOM_MAKE = 13;
+      public const int TCI_CUSTOM_MODEL = 14;
+      public const int TCI_FUEL = 15;
+      public const int TCI_KIND = 16;
+      public const int TCI_AGENCY = 17;
+      public const int TCI_BUMPER_NUMBER = 18;
+      public const int TCI_TAG = 19;
+      public const int TCI_VIN = 20;
       }
 
     private struct p_type
@@ -57,6 +58,8 @@ namespace UserControl_fleet
       public TClass_biz_vehicle_quarters biz_vehicle_quarters;
       public TClass_biz_vehicles biz_vehicles;
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
+      public int miles_from_pm_alarm_threshold;
+      public int miles_from_pm_alert_threshold;
       public uint num_usable;
       public uint num_vehicles;
       public string quarters_filter;
@@ -190,6 +193,8 @@ namespace UserControl_fleet
         p.be_interest_dynamic = true;
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.miles_from_pm_alarm_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alarm_threshold"]);
+        p.miles_from_pm_alert_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alert_threshold"]);
         p.quarters_filter = k.EMPTY;
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
@@ -237,7 +242,7 @@ namespace UserControl_fleet
         SessionSet("vehicle_summary",vehicle_summary);
         if (e.CommandName == "Select")
           {
-          //DropCrumbAndTransferTo("vehicle_detail.aspx");
+          DropCrumbAndTransferTo("vehicle_detail.aspx");
           }
         else if (e.CommandName == "MarkDown")
           {
@@ -264,10 +269,46 @@ namespace UserControl_fleet
 
     private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
-      var be_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem})).Contains(e.Item.ItemType);
-      if (p.be_interactive)
+      if ((new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem})).Contains(e.Item.ItemType))
         {
-        if (be_item)
+        p.num_vehicles++;
+        if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
+          {
+          p.num_usable++;
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].BackColor = Color.White;
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].BackColor = Color.White;
+          }
+        else
+          {
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
+          }
+        var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
+        if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
+          {
+          if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
+            {
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
+            }
+          var miles_from_pm = int.Parse(miles_from_pm_text);
+          if (miles_from_pm >= p.miles_from_pm_alert_threshold)
+            {
+            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Yellow;
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Yellow;
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            }
+          if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
+            {
+            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
+            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
+            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            }
+          }
+        if (p.be_interactive)
           {
           LinkButton link_button;
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_SELECT].Controls[0]) as LinkButton);
@@ -300,35 +341,13 @@ namespace UserControl_fleet
           e.Item.Cells[UserControl_fleet_Static.TCI_ID].EnableViewState = true;
           //
           }
-        }
-      else
-        {
-        e.Item.Cells[UserControl_fleet_Static.TCI_SELECT].Visible = false;
-        if (be_item)
+        else
           {
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
-          }
-        }
-      //
-      if (be_item)
-        {
-        p.num_vehicles++;
-        if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
-          {
-          p.num_usable++;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].BackColor = Color.White;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].BackColor = Color.White;
-          }
-        else
-          {
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
           }
         }
       }
@@ -350,11 +369,13 @@ namespace UserControl_fleet
 
     private void Bind()
       {
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_user_privileged_to_append_vehicle_down_notes;
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);
