@@ -89,7 +89,7 @@
             <asp:DataGrid ID="DataGrid_control" runat="server" GridLines="Horizontal" CellPadding="10" AutoGenerateColumns="False" AllowSorting="True">
               <HeaderStyle BackColor="WhiteSmoke"></HeaderStyle>
               <Columns>
-                <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="Select" Visible="false"></asp:ButtonColumn>
+                <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="Select"></asp:ButtonColumn>
                 <asp:BoundColumn DataField="vehicle_id" ReadOnly="True" SortExpression="vehicle_id" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vehicle_name" HeaderText="Name" ReadOnly="True" SortExpression="vehicle_name%"></asp:BoundColumn>
                 <asp:BoundColumn DataField="status" ReadOnly="True" Visible="False"></asp:BoundColumn>
@@ -112,6 +112,9 @@
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                   <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
                 </asp:ButtonColumn>
+                <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="CAST(miles_from_pm AS signed)%,vehicle_name">
+                  <ItemStyle HorizontalAlign="Right" />
+                </asp:BoundColumn>
                 <asp:BoundColumn DataField="model_year" HeaderText="Model year" ReadOnly="True" SortExpression="model_year%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_make" HeaderText="Chassis make" ReadOnly="True" SortExpression="chassis_make%,chassis_model,vehicle_name">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />

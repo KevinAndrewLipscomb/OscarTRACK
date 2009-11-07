@@ -141,6 +141,7 @@ namespace Class_db_vehicles
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL(recent_mileage,'???') as last_known_mileage"
+          + " , IFNULL(CAST(recent_mileage - target_pm_mileage AS signed),'???') as miles_from_pm"
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
           + " , chassis_model.name as chassis_model"
