@@ -19,11 +19,12 @@ namespace Class_db_vehicles
     public string chassis_model;
     public string custom_make;
     public string custom_model;
+    public string dmv_inspection_due;
     public string fuel_description;
     public string id;
     public string kind;
-    public string last_known_mileage;
-    public string last_known_pm_date;
+    public string recent_mileage;
+    public string miles_from_pm;
     public string model_year;
     public string name;
     public string quarters;
@@ -167,6 +168,7 @@ namespace Class_db_vehicles
           + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL(recent_mileage,'???') as last_known_mileage"
           + " , IFNULL(CAST(recent_mileage - target_pm_mileage AS signed),'???') as miles_from_pm"
+          + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'???') as dmv_inspection_due"
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
           + " , chassis_model.name as chassis_model"
@@ -371,7 +373,7 @@ namespace Class_db_vehicles
 
     public string RecentMileageOf(object summary)
       {
-      return (summary as vehicle_summary).last_known_mileage;
+      return (summary as vehicle_summary).recent_mileage;
       }
 
     public void Set
@@ -452,8 +454,9 @@ namespace Class_db_vehicles
           "select vehicle.name as vehicle_name"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IFNULL('?','') as quarters"
-          + " , IFNULL('?','') as last_known_pm_date"
-          + " , IFNULL(recent_mileage,'') as last_known_mileage"
+          + " , IFNULL('?','') as miles_from_pm"
+          + " , IFNULL(recent_mileage,'') as recent_mileage"
+          + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'') as dmv_inspection_due"
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
           + " , chassis_model.name as chassis_model"
@@ -494,11 +497,12 @@ namespace Class_db_vehicles
         chassis_model = dr["chassis_model"].ToString(),
         custom_make = dr["custom_make"].ToString(),
         custom_model = dr["custom_model"].ToString(),
+        dmv_inspection_due = dr["dmv_inspection_due"].ToString(),
         fuel_description = dr["fuel_description"].ToString(),
         id = vehicle_id,
         kind = dr["vehicle_kind"].ToString(),
-        last_known_mileage = dr["last_known_mileage"].ToString(),
-        last_known_pm_date = dr["last_known_pm_date"].ToString(),
+        recent_mileage = dr["recent_mileage"].ToString(),
+        miles_from_pm = dr["miles_from_pm"].ToString(),
         model_year = dr["model_year"].ToString(),
         name = dr["vehicle_name"].ToString(),
         quarters = dr["quarters"].ToString(),
