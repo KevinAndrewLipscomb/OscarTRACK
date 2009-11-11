@@ -31,17 +31,18 @@ namespace UserControl_fleet
       public const int TCI_QUARTERS = 7;
       public const int TCI_RECENT_MILEAGE = 8;
       public const int TCI_MILES_FROM_PM = 9;
-      public const int TCI_MODEL_YEAR = 10;
-      public const int TCI_CHASSIS_MAKE = 11;
-      public const int TCI_CHASSIS_MODEL = 12;
-      public const int TCI_CUSTOM_MAKE = 13;
-      public const int TCI_CUSTOM_MODEL = 14;
-      public const int TCI_FUEL = 15;
-      public const int TCI_KIND = 16;
-      public const int TCI_AGENCY = 17;
-      public const int TCI_BUMPER_NUMBER = 18;
-      public const int TCI_TAG = 19;
-      public const int TCI_VIN = 20;
+      public const int TCI_DMV_INSPECTION_DUE = 10;
+      public const int TCI_MODEL_YEAR = 11;
+      public const int TCI_CHASSIS_MAKE = 12;
+      public const int TCI_CHASSIS_MODEL = 13;
+      public const int TCI_CUSTOM_MAKE = 14;
+      public const int TCI_CUSTOM_MODEL = 15;
+      public const int TCI_FUEL = 16;
+      public const int TCI_KIND = 17;
+      public const int TCI_AGENCY = 18;
+      public const int TCI_BUMPER_NUMBER = 19;
+      public const int TCI_TAG = 20;
+      public const int TCI_VIN = 21;
       }
 
     private struct p_type
@@ -306,6 +307,23 @@ namespace UserControl_fleet
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            }
+          }
+        var dmv_inspection_due_text = k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
+        if (dmv_inspection_due_text != k.EMPTY)
+          {
+          var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
+          var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString();
+          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
+          if (DateTime.Today.ToString("yyyy-MM-dd").CompareTo(dmv_inspection_due_month + "-01") >= 0)
+            {
+            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
+            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Yellow;
+            }
+          if (DateTime.Today >= dmv_inspection_due_date)
+            {
+            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
+            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
             }
           }
         if (p.be_interactive)
