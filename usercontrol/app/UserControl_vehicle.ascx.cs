@@ -50,6 +50,9 @@ namespace UserControl_vehicle
       DropDownList_fuel.ClearSelection();
       TextBox_license_plate.Text = k.EMPTY;
       TextBox_purchase_price.Text = k.EMPTY;
+      TextBox_recent_mileage.Text = k.EMPTY;
+      CheckBox_be_active.Checked = false;
+      TextBox_target_pm_mileage.Text = k.EMPTY;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -182,6 +185,9 @@ namespace UserControl_vehicle
       string fuel_id;
       string license_plate;
       string purchase_price;
+      string recent_mileage;
+      bool be_active;
+      string target_pm_mileage;
       result = false;
       if
         (
@@ -198,7 +204,10 @@ namespace UserControl_vehicle
           out vin,
           out fuel_id,
           out license_plate,
-          out purchase_price
+          out purchase_price,
+          out recent_mileage,
+          out be_active,
+          out target_pm_mileage
           )
         )
         {
@@ -215,6 +224,9 @@ namespace UserControl_vehicle
         DropDownList_fuel.SelectedValue = fuel_id;
         TextBox_license_plate.Text = license_plate;
         TextBox_purchase_price.Text = purchase_price;
+        TextBox_recent_mileage.Text = recent_mileage;
+        CheckBox_be_active.Checked = be_active;
+        TextBox_target_pm_mileage.Text = target_pm_mileage;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
@@ -317,7 +329,10 @@ namespace UserControl_vehicle
           k.Safe(TextBox_vin.Text,k.safe_hint_type.ALPHANUM).ToUpper(),
           k.Safe(DropDownList_fuel.SelectedValue,k.safe_hint_type.NUM),
           k.Safe(TextBox_license_plate.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).ToUpper(),
-          k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA)
+          k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA),
+          k.Safe(TextBox_recent_mileage.Text,k.safe_hint_type.NUM),
+          CheckBox_be_active.Checked,
+          k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
@@ -392,6 +407,9 @@ namespace UserControl_vehicle
       DropDownList_fuel.Enabled = ablement;
       TextBox_license_plate.Enabled = ablement;
       TextBox_purchase_price.Enabled = ablement;
+      TextBox_recent_mileage.Enabled = ablement;
+      CheckBox_be_active.Enabled = ablement;
+      TextBox_target_pm_mileage.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
@@ -439,6 +457,16 @@ namespace UserControl_vehicle
         model_year.val = textbox_model_year_text;
         args.IsValid = ((model_year.val.CompareTo(YEAR_FORD_MODEL_T_FIRST_PRODUCED) >= 0) && (model_year.val.CompareTo((DateTime.Today.Year + 1).ToString()) <= 0));
         }
+      }
+
+    protected void CustomValidator_recent_mileage_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = p.biz_vehicles.BeNotLessMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_recent_mileage.Text,k.safe_hint_type.NUM));
+      }
+
+    protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
       }
 
     } // end TWebUserControl_vehicle

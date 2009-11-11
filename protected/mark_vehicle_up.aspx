@@ -44,6 +44,22 @@
                     </tr>
                     <tr>
                       <td>
+                        If the unit received PM during this downtime, what is the new target PM mileage?
+                        <table cellspacing="0" cellpadding="20" border="0">
+                          <tr>
+                            <td>
+                              <asp:TextBox ID="TextBox_target_pm_mileage" runat="server" Columns="7" MaxLength="7"></asp:TextBox>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                      <td nowrap="nowrap" valign="top">
+                        <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+                        <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You cannot move the Target PM mileage backwards." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
                         Comments for this episode's downtime were:
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>

@@ -1,0 +1,6 @@
+START TRANSACTION;
+
+ALTER TABLE `vehicle`
+  ADD COLUMN `target_pm_mileage` INTEGER UNSIGNED;
+
+COMMIT

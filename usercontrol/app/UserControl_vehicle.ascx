@@ -160,6 +160,40 @@
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_purchase_price" runat="server" errormessage="Please enter a valid Purchase&nbsp;price." font-bold="True" controltovalidate="TextBox_purchase_price" validationexpression="(\d*\.?\d*)|(-(\d+\.?\d*)|(\.\d*))">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
+  <tr>
+    <td><font class="">Recent&nbsp;mileage:</font></td>
+    <td>
+      <font class="">
+        <ASP:TextBox id="TextBox_recent_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+      </font>
+    </td>
+    <td nowrap="True">
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_recent_mileage" runat="server" ControlToValidate="TextBox_recent_mileage" ErrorMessage="Please enter a valid Recent mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+      <asp:CustomValidator ID="CustomValidator_recent_mileage" runat="server" Display="Dynamic" ErrorMessage="This unit's mileage in this system has already overtaken the specified Recent mileage." Font-Bold="True" onservervalidate="CustomValidator_recent_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
+  <tr>
+    <td><font class="">Be&nbsp;active:</font></td>
+    <td>
+      <font class="">
+        <ASP:CheckBox id="CheckBox_be_active" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
+      </font>
+    </td>
+    <td nowrap="True">
+    </td>
+  </tr>
+  <tr>
+    <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>
+    <td>
+      <font class="">
+        <ASP:TextBox id="TextBox_target_pm_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+      </font>
+    </td>
+    <td nowrap="True">
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+      <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You cannot move the Target PM mileage backwards." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
       </table>
     </td>
   </tr>
