@@ -49,6 +49,31 @@ namespace Class_db_vehicles
       return agency_id_of_id;
       }
 
+    public bool BeNotEarlierTargetPmMileage
+      (
+      string id,
+      string proposed_mileage
+      )
+      {
+      var be_not_earlier_target_pm_mileage = true;
+      if (proposed_mileage != k.EMPTY)
+        {
+        Open();
+        var current_target_pm_mileage = new MySqlCommand
+          (
+          "select target_pm_mileage from vehicle where id = '" + id + "'",
+          connection
+          )
+          .ExecuteScalar();
+        if (current_target_pm_mileage != DBNull.Value)
+          {
+          be_not_earlier_target_pm_mileage = (uint.Parse(current_target_pm_mileage.ToString()) <= uint.Parse(proposed_mileage));
+          }
+        Close();
+        }
+      return be_not_earlier_target_pm_mileage;
+      }
+
     public bool BeNotLessMileage
       (
       string id,
@@ -244,7 +269,10 @@ namespace Class_db_vehicles
       out string vin,
       out string fuel_id,
       out string license_plate,
-      out string purchase_price
+      out string purchase_price,
+      out string recent_mileage,
+      out bool be_active,
+      out string target_pm_mileage
       )
       {
       bool result;
@@ -261,6 +289,9 @@ namespace Class_db_vehicles
       fuel_id = k.EMPTY;
       license_plate = k.EMPTY;
       purchase_price = k.EMPTY;
+      recent_mileage = k.EMPTY;
+      be_active = false;
+      target_pm_mileage = k.EMPTY;
       result = false;
       //
       this.Open();
@@ -278,6 +309,9 @@ namespace Class_db_vehicles
         fuel_id = dr["fuel_id"].ToString();
         license_plate = dr["license_plate"].ToString();
         purchase_price = dr["purchase_price"].ToString();
+        recent_mileage = dr["recent_mileage"].ToString();
+        be_active = ("1" == dr["be_active"].ToString());
+        target_pm_mileage = dr["target_pm_mileage"].ToString();
         result = true;
         }
       dr.Close();
@@ -353,7 +387,10 @@ namespace Class_db_vehicles
       string vin,
       string fuel_id,
       string license_plate,
-      string purchase_price
+      string purchase_price,
+      string recent_mileage,
+      bool be_active,
+      string target_pm_mileage
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -368,6 +405,9 @@ namespace Class_db_vehicles
       + " , fuel_id = NULLIF('" + fuel_id + "','')"
       + " , license_plate = NULLIF('" + license_plate + "','')"
       + " , purchase_price = NULLIF('" + purchase_price + "','')"
+      + " , recent_mileage = NULLIF('" + recent_mileage + "','')"
+      + " , be_active = " + be_active.ToString()
+      + " , target_pm_mileage = NULLIF('" + target_pm_mileage + "','')"
       + k.EMPTY;
       Open();
       new MySqlCommand

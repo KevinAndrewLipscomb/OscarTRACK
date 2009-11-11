@@ -22,6 +22,15 @@ namespace Class_biz_vehicles
       return db_vehicles.AgencyIdOfId(id);
       }
 
+    public bool BeNotEarlierTargetPmMileage
+      (
+      string id,
+      string proposed_mileage
+      )
+      {
+      return db_vehicles.BeNotEarlierTargetPmMileage(id,proposed_mileage);
+      }
+
     public bool BeNotLessMileage
       (
       string id,
@@ -72,7 +81,10 @@ namespace Class_biz_vehicles
       out string vin,
       out string fuel_id,
       out string license_plate,
-      out string purchase_price
+      out string purchase_price,
+      out string recent_mileage,
+      out bool be_active,
+      out string target_pm_mileage
       )
       {
       return db_vehicles.Get
@@ -88,7 +100,10 @@ namespace Class_biz_vehicles
         out vin,
         out fuel_id,
         out license_plate,
-        out purchase_price
+        out purchase_price,
+        out recent_mileage,
+        out be_active,
+        out target_pm_mileage
         );
       }
 
@@ -145,7 +160,10 @@ namespace Class_biz_vehicles
       string vin,
       string fuel_id,
       string license_plate,
-      string purchase_price
+      string purchase_price,
+      string recent_mileage,
+      bool be_active,
+      string target_pm_mileage
       )
       {
       db_vehicles.Set
@@ -161,7 +179,10 @@ namespace Class_biz_vehicles
         vin,
         fuel_id,
         license_plate,
-        purchase_price
+        purchase_price,
+        recent_mileage,
+        be_active,
+        target_pm_mileage
         );
       }
 

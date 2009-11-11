@@ -284,6 +284,69 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_purchase_price;
         
         /// <summary>
+        /// TextBox_recent_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_recent_mileage;
+        
+        /// <summary>
+        /// RegularExpressionValidator_recent_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_recent_mileage;
+        
+        /// <summary>
+        /// CustomValidator_recent_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_recent_mileage;
+        
+        /// <summary>
+        /// CheckBox_be_active control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_active;
+        
+        /// <summary>
+        /// TextBox_target_pm_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_target_pm_mileage;
+        
+        /// <summary>
+        /// RegularExpressionValidator_target_pm_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_target_pm_mileage;
+        
+        /// <summary>
+        /// CustomValidator_target_pm_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_target_pm_mileage;
+        
+        /// <summary>
         /// Button_submit control.
         /// </summary>
         /// <remarks>
