@@ -53,6 +53,7 @@ namespace UserControl_vehicle
       TextBox_recent_mileage.Text = k.EMPTY;
       CheckBox_be_active.Checked = false;
       TextBox_target_pm_mileage.Text = k.EMPTY;
+      UserControl_drop_down_date_dmv_inspection_due.Clear();
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -188,6 +189,7 @@ namespace UserControl_vehicle
       string recent_mileage;
       bool be_active;
       string target_pm_mileage;
+      DateTime dmv_inspection_due;
       result = false;
       if
         (
@@ -207,7 +209,8 @@ namespace UserControl_vehicle
           out purchase_price,
           out recent_mileage,
           out be_active,
-          out target_pm_mileage
+          out target_pm_mileage,
+          out dmv_inspection_due
           )
         )
         {
@@ -227,6 +230,7 @@ namespace UserControl_vehicle
         TextBox_recent_mileage.Text = recent_mileage;
         CheckBox_be_active.Checked = be_active;
         TextBox_target_pm_mileage.Text = target_pm_mileage;
+        UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
@@ -308,6 +312,7 @@ namespace UserControl_vehicle
 
     public TWebUserControl_vehicle Fresh()
       {
+      UserControl_drop_down_date_dmv_inspection_due.Fresh();
       Session.Remove("UserControl_vehicle.p");
       return this;
       }
@@ -332,7 +337,8 @@ namespace UserControl_vehicle
           k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA),
           k.Safe(TextBox_recent_mileage.Text,k.safe_hint_type.NUM),
           CheckBox_be_active.Checked,
-          k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)
+          k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
+          UserControl_drop_down_date_dmv_inspection_due.selectedvalue
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
@@ -410,6 +416,7 @@ namespace UserControl_vehicle
       TextBox_recent_mileage.Enabled = ablement;
       CheckBox_be_active.Enabled = ablement;
       TextBox_target_pm_mileage.Enabled = ablement;
+      UserControl_drop_down_date_dmv_inspection_due.enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
@@ -467,6 +474,11 @@ namespace UserControl_vehicle
     protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
+      }
+
+    protected void CustomValidator_dmv_inspection_due_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = p.biz_vehicles.BeNotEarlierDmvInspectionDue(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),UserControl_drop_down_date_dmv_inspection_due.selectedvalue);
       }
 
     } // end TWebUserControl_vehicle

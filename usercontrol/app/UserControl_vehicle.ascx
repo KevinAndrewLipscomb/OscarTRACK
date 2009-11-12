@@ -194,6 +194,17 @@
       <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You cannot move the Target PM mileage backwards." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
+  <tr>
+    <td><font class="">DMV&nbsp;inspection&nbsp;due:</font></td>
+    <td>
+      <font class="">
+        <uc1:UserControl_drop_down_date id="UserControl_drop_down_date_dmv_inspection_due" runat="server"  cssclass="" enabled="False"></uc1:UserControl_drop_down_date><small>(Day of month will be disregarded and forced to end of month)</small>
+      </font>
+    </td>
+    <td nowrap="True">
+      <asp:CustomValidator ID="CustomValidator_dmv_inspection_due" runat="server" Display="Dynamic" ErrorMessage="You cannot move the DMV inspection due date backwards." Font-Bold="True" onservervalidate="CustomValidator_dmv_inspection_due_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
       </table>
     </td>
   </tr>

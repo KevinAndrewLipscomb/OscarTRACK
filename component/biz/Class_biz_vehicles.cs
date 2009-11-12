@@ -22,6 +22,15 @@ namespace Class_biz_vehicles
       return db_vehicles.AgencyIdOfId(id);
       }
 
+    public bool BeNotEarlierDmvInspectionDue
+      (
+      string id,
+      DateTime proposed_date
+      )
+      {
+      return db_vehicles.BeNotEarlierDmvInspectionDue(id,proposed_date);
+      }
+
     public bool BeNotEarlierTargetPmMileage
       (
       string id,
@@ -84,7 +93,8 @@ namespace Class_biz_vehicles
       out string purchase_price,
       out string recent_mileage,
       out bool be_active,
-      out string target_pm_mileage
+      out string target_pm_mileage,
+      out DateTime dmv_inspection_due
       )
       {
       return db_vehicles.Get
@@ -103,7 +113,8 @@ namespace Class_biz_vehicles
         out purchase_price,
         out recent_mileage,
         out be_active,
-        out target_pm_mileage
+        out target_pm_mileage,
+        out dmv_inspection_due
         );
       }
 
@@ -163,7 +174,8 @@ namespace Class_biz_vehicles
       string purchase_price,
       string recent_mileage,
       bool be_active,
-      string target_pm_mileage
+      string target_pm_mileage,
+      DateTime dmv_inspection_due
       )
       {
       db_vehicles.Set
@@ -182,7 +194,8 @@ namespace Class_biz_vehicles
         purchase_price,
         recent_mileage,
         be_active,
-        target_pm_mileage
+        target_pm_mileage,
+        new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1)
         );
       }
 
