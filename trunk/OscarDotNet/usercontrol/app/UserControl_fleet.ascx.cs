@@ -313,7 +313,7 @@ namespace UserControl_fleet
         if (dmv_inspection_due_text != k.EMPTY)
           {
           var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
-          var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString();
+          var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString("D2");
           e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
           if (DateTime.Today.ToString("yyyy-MM-dd").CompareTo(dmv_inspection_due_month + "-01") >= 0)
             {
