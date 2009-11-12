@@ -394,6 +394,7 @@ namespace UserControl_fleet
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);

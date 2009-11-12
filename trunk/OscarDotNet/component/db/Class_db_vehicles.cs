@@ -50,6 +50,31 @@ namespace Class_db_vehicles
       return agency_id_of_id;
       }
 
+    public bool BeNotEarlierDmvInspectionDue
+      (
+      string id,
+      DateTime proposed_date
+      )
+      {
+      var be_not_earlier_dmv_inspection_due = true;
+      if (proposed_date != DateTime.MinValue)
+        {
+        Open();
+        var current_dmv_inspection_due = new MySqlCommand
+          (
+          "select dmv_inspection_due from vehicle where id = '" + id + "'",
+          connection
+          )
+          .ExecuteScalar();
+        if (current_dmv_inspection_due != DBNull.Value)
+          {
+          be_not_earlier_dmv_inspection_due = (DateTime.Parse(current_dmv_inspection_due.ToString()) <= proposed_date);
+          }
+        Close();
+        }
+      return be_not_earlier_dmv_inspection_due;
+      }
+
     public bool BeNotEarlierTargetPmMileage
       (
       string id,
@@ -274,7 +299,8 @@ namespace Class_db_vehicles
       out string purchase_price,
       out string recent_mileage,
       out bool be_active,
-      out string target_pm_mileage
+      out string target_pm_mileage,
+      out DateTime dmv_inspection_due
       )
       {
       bool result;
@@ -294,6 +320,7 @@ namespace Class_db_vehicles
       recent_mileage = k.EMPTY;
       be_active = false;
       target_pm_mileage = k.EMPTY;
+      dmv_inspection_due = DateTime.MinValue;
       result = false;
       //
       this.Open();
@@ -314,6 +341,14 @@ namespace Class_db_vehicles
         recent_mileage = dr["recent_mileage"].ToString();
         be_active = ("1" == dr["be_active"].ToString());
         target_pm_mileage = dr["target_pm_mileage"].ToString();
+        if (dr["dmv_inspection_due"] != DBNull.Value)
+          {
+          dmv_inspection_due = DateTime.Parse(dr["dmv_inspection_due"].ToString());
+          }
+        else
+          {
+          dmv_inspection_due = DateTime.MinValue;
+          }
         result = true;
         }
       dr.Close();
@@ -392,7 +427,8 @@ namespace Class_db_vehicles
       string purchase_price,
       string recent_mileage,
       bool be_active,
-      string target_pm_mileage
+      string target_pm_mileage,
+      DateTime dmv_inspection_due
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -410,6 +446,7 @@ namespace Class_db_vehicles
       + " , recent_mileage = NULLIF('" + recent_mileage + "','')"
       + " , be_active = " + be_active.ToString()
       + " , target_pm_mileage = NULLIF('" + target_pm_mileage + "','')"
+      + " , dmv_inspection_due = NULLIF(LAST_DAY('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "'),'')"
       + k.EMPTY;
       Open();
       new MySqlCommand
