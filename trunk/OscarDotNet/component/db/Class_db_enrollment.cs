@@ -252,10 +252,10 @@ namespace Class_db_enrollment
                       ok_so_far = (target_agency_id != k.EMPTY);
                       new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), this.connection, transaction).ExecuteNonQuery();
                       }
-                    if (new_level_code == "20")
+                    if ((new ArrayList(new string[] {"11","12","13","14","15","16","20","22"}).Contains(new_level_code)))
                       {
                       //
-                      // A transfer is being initiated.  Curtail any existing leave and cancel any future ones.
+                      // A transfer or past status is being initiated.  Curtail any existing leave and cancel any future ones.
                       //
                       new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),this.connection,transaction).ExecuteNonQuery();
                       new MySqlCommand
@@ -264,7 +264,7 @@ namespace Class_db_enrollment
                           (
                           "update leave_of_absence"
                           + " set end_date = LAST_DAY(DATE_SUB('" + effective_date.ToString("yyyy-MM-dd") + "',INTERVAL 1 MONTH))"
-                          +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to initiation of transfer.]')"
+                          +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to movement into a Transfer or Past status.]')"
                           + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
                           ),
                         this.connection,
