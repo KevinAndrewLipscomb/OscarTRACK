@@ -33,6 +33,18 @@ namespace UserControl_vehicle
       public bool be_ok_to_config_vehicles;
       }
 
+    public bool be_record_navigation_controls_visible
+      {
+      get
+        {
+        return TableRow_record_navigation_controls.Visible;
+        }
+      set
+        {
+        TableRow_record_navigation_controls.Visible = value;
+        }
+      }
+
     private p_type p;
 
     private void Clear()
