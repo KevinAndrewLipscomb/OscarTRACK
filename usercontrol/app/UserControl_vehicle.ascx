@@ -5,7 +5,7 @@
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
-  <tr>
+  <tr runat="server" id="TableRow_record_navigation_controls">
     <td bgcolor="gainsboro" valign="top"><font class="">ID:</font></td>
     <td valign="top"><font class="">
       <table cellspacing="0" cellpadding="0" width="100%" border="0">

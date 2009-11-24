@@ -14,6 +14,15 @@ namespace UserControl_vehicle {
     public partial class TWebUserControl_vehicle {
         
         /// <summary>
+        /// TableRow_record_navigation_controls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_record_navigation_controls;
+        
+        /// <summary>
         /// TextBox_id control.
         /// </summary>
         /// <remarks>
