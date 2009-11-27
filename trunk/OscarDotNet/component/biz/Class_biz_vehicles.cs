@@ -172,12 +172,16 @@ namespace Class_biz_vehicles
       string fuel_id,
       string license_plate,
       string purchase_price,
-      string recent_mileage,
       bool be_active,
       string target_pm_mileage,
       DateTime dmv_inspection_due
       )
       {
+      var effective_dmv_inspection_due = DateTime.MinValue;
+      if (dmv_inspection_due != DateTime.MinValue)
+        {
+        effective_dmv_inspection_due = new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1);
+        }
       db_vehicles.Set
         (
         id,
@@ -192,10 +196,9 @@ namespace Class_biz_vehicles
         fuel_id,
         license_plate,
         purchase_price,
-        recent_mileage,
         be_active,
         target_pm_mileage,
-        new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1)
+        effective_dmv_inspection_due
         );
       }
 

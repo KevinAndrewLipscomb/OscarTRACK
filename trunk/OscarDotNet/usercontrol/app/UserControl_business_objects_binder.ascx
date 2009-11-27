@@ -8,7 +8,6 @@
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
             <cc1:TabPanel runat="server" headertext="Agencies" id="TabPanel_agencies" enabled="False"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Vehicles" id="TabPanel_vehicles" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Vehicle kinds" id="TabPanel_vehicle_kinds" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Chassis makes" id="TabPanel_chassis_makes" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Chassis models" id="TabPanel_chassis_models" enabled="False"></cc1:TabPanel>

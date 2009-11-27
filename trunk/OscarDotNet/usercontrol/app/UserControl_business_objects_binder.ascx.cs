@@ -21,13 +21,12 @@ namespace UserControl_business_objects_binder
   public class UserControl_business_objects_binder_Static
     {
     public const int TSSI_AGENCIES = 0;
-    public const int TSSI_VEHICLES = 1;
-    public const int TSSI_VEHICLE_KINDS = 2;
-    public const int TSSI_CHASSIS_MAKES = 3;
-    public const int TSSI_CHASSIS_MODELS = 4;
-    public const int TSSI_CUSTOM_MAKES = 5;
-    public const int TSSI_CUSTOM_MODELS = 6;
-    public const int TSSI_FUELS = 7;
+    public const int TSSI_VEHICLE_KINDS = 1;
+    public const int TSSI_CHASSIS_MAKES = 2;
+    public const int TSSI_CHASSIS_MODELS = 3;
+    public const int TSSI_CUSTOM_MAKES = 4;
+    public const int TSSI_CUSTOM_MODELS = 5;
+    public const int TSSI_FUELS = 6;
     }
 
   public struct p_type
@@ -57,10 +56,6 @@ namespace UserControl_business_objects_binder
           TabPanel_chassis_models.Enabled = true;
           TabPanel_custom_makes.Enabled = true;
           TabPanel_custom_models.Enabled = true;
-          }
-        if (k.Has((string[])(Session["privilege_array"]), "config-vehicles"))
-          {
-          TabPanel_vehicles.Enabled = true;
           }
         p.be_loaded = true;
         }
@@ -105,10 +100,6 @@ namespace UserControl_business_objects_binder
         else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MODELS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))), "UserControl_custom_model", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_VEHICLES)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle)(LoadControl("~/usercontrol/app/UserControl_vehicle.ascx"))), "UserControl_vehicle", PlaceHolder_content);
           }
         }
       else
@@ -177,10 +168,6 @@ namespace UserControl_business_objects_binder
       else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MODELS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))).Fresh(), "UserControl_custom_model", PlaceHolder_content);
-        }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_VEHICLES)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle)(LoadControl("~/usercontrol/app/UserControl_vehicle.ascx"))).Fresh(), "UserControl_vehicle", PlaceHolder_content);
         }
       }
 

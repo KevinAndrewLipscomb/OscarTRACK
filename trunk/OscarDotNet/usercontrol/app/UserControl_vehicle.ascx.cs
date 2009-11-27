@@ -23,6 +23,8 @@ namespace UserControl_vehicle
     private struct p_type
       {
       public bool be_loaded;
+      public bool be_ok_to_config_vehicles;
+      public bool be_ok_to_retire_vehicles;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_chassis_models biz_chassis_models;
       public TClass_biz_custom_models biz_custom_models;
@@ -30,7 +32,6 @@ namespace UserControl_vehicle
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_vehicles biz_vehicles;
       public TClass_biz_role_member_map biz_role_member_map;
-      public bool be_ok_to_config_vehicles;
       }
 
     public bool be_record_navigation_controls_visible
@@ -62,7 +63,7 @@ namespace UserControl_vehicle
       DropDownList_fuel.ClearSelection();
       TextBox_license_plate.Text = k.EMPTY;
       TextBox_purchase_price.Text = k.EMPTY;
-      TextBox_recent_mileage.Text = k.EMPTY;
+      Literal_recent_mileage.Text = k.EMPTY;
       CheckBox_be_active.Checked = false;
       TextBox_target_pm_mileage.Text = k.EMPTY;
       UserControl_drop_down_date_dmv_inspection_due.Clear();
@@ -173,6 +174,7 @@ namespace UserControl_vehicle
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
+        LinkButton_update_vehicle_mileage.Text = k.ExpandTildePath(LinkButton_update_vehicle_mileage.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
         if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/vehicle/"))
           {
@@ -239,7 +241,7 @@ namespace UserControl_vehicle
         DropDownList_fuel.SelectedValue = fuel_id;
         TextBox_license_plate.Text = license_plate;
         TextBox_purchase_price.Text = purchase_price;
-        TextBox_recent_mileage.Text = recent_mileage;
+        Literal_recent_mileage.Text = recent_mileage;
         CheckBox_be_active.Checked = be_active;
         TextBox_target_pm_mileage.Text = target_pm_mileage;
         UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
@@ -280,7 +282,7 @@ namespace UserControl_vehicle
       Label_lookup_hint.Enabled = true;
       LinkButton_reset.Enabled = false;
       LinkButton_new_record.Enabled = true;
-      Focus(TextBox_id, true);
+      Focus(TextBox_name, true);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -291,11 +293,13 @@ namespace UserControl_vehicle
       if (Session["UserControl_vehicle.p"] != null)
         {
         p = (p_type)(Session["UserControl_vehicle.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_vehicle");
+        p.be_loaded = IsPostBack;
         }
       else
         {
         p.be_loaded = false;
+        p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
+        p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_chassis_models = new TClass_biz_chassis_models();
         p.biz_custom_models = new TClass_biz_custom_models();
@@ -303,7 +307,6 @@ namespace UserControl_vehicle
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_role_member_map = new TClass_biz_role_member_map();
-        p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         }
       }
 
@@ -347,13 +350,12 @@ namespace UserControl_vehicle
           k.Safe(DropDownList_fuel.SelectedValue,k.safe_hint_type.NUM),
           k.Safe(TextBox_license_plate.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).ToUpper(),
           k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA),
-          k.Safe(TextBox_recent_mileage.Text,k.safe_hint_type.NUM),
           CheckBox_be_active.Checked,
           k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
           UserControl_drop_down_date_dmv_inspection_due.selectedvalue
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        SetLookupMode();
+        BackTrack();
         }
       else
         {
@@ -394,7 +396,7 @@ namespace UserControl_vehicle
       {
       if (p.biz_vehicles.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
         {
-        SetLookupMode();
+        BackTrack();
         }
       else
         {
@@ -425,8 +427,7 @@ namespace UserControl_vehicle
       DropDownList_fuel.Enabled = ablement;
       TextBox_license_plate.Enabled = ablement;
       TextBox_purchase_price.Enabled = ablement;
-      TextBox_recent_mileage.Enabled = ablement;
-      CheckBox_be_active.Enabled = ablement;
+      CheckBox_be_active.Enabled = ablement && p.be_ok_to_retire_vehicles;
       TextBox_target_pm_mileage.Enabled = ablement;
       UserControl_drop_down_date_dmv_inspection_due.enabled = ablement;
       }
@@ -478,11 +479,6 @@ namespace UserControl_vehicle
         }
       }
 
-    protected void CustomValidator_recent_mileage_ServerValidate(object source, ServerValidateEventArgs args)
-      {
-      args.IsValid = p.biz_vehicles.BeNotLessMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_recent_mileage.Text,k.safe_hint_type.NUM));
-      }
-
     protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
@@ -491,6 +487,16 @@ namespace UserControl_vehicle
     protected void CustomValidator_dmv_inspection_due_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = p.biz_vehicles.BeNotEarlierDmvInspectionDue(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),UserControl_drop_down_date_dmv_inspection_due.selectedvalue);
+      }
+
+    protected void Button_cancel_Click(object sender, EventArgs e)
+      {
+      BackTrack();
+      }
+
+    protected void LinkButton_update_vehicle_mileage_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("update_vehicle_mileage.aspx");
       }
 
     } // end TWebUserControl_vehicle

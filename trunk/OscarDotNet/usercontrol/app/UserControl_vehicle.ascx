@@ -7,6 +7,7 @@
       <table cellspacing="0" cellpadding="5" border="0">
   <tr runat="server" id="TableRow_record_navigation_controls">
     <td bgcolor="gainsboro" valign="top"><font class="">ID:</font></td>
+    <td></td>
     <td valign="top"><font class="">
       <table cellspacing="0" cellpadding="0" width="100%" border="0">
          <tr>
@@ -45,6 +46,7 @@
   </tr>
   <tr>
     <td><font class="">Name:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_name" runat="server" columns="63" maxlength="63" cssclass="" enabled="False"></ASP:TextBox>
@@ -56,6 +58,7 @@
   </tr>
   <tr>
     <td><font class="">Agency:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:DropDownList id="DropDownList_agency" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
@@ -67,6 +70,7 @@
   </tr>
   <tr>
     <td><font class="">Kind:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:DropDownList id="DropDownList_kind" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
@@ -78,6 +82,7 @@
   </tr>
   <tr>
     <td><font class="">Bumper&nbsp;number:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_bumper_number" runat="server" columns="6" maxlength="6" cssclass="" enabled="False"></ASP:TextBox>
@@ -88,6 +93,7 @@
   </tr>
   <tr>
     <td><font class="">Model&nbsp;year:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_model_year" runat="server"  cssclass="" enabled="False" MaxLength="4" Columns="4"></ASP:TextBox>
@@ -100,6 +106,7 @@
   </tr>
   <tr>
     <td><font class="">Chassis&nbsp;model:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:DropDownList id="DropDownList_chassis_model" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
@@ -111,6 +118,7 @@
   </tr>
   <tr>
     <td><font class="">Custom&nbsp;model:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:DropDownList id="DropDownList_custom_model" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
@@ -121,6 +129,7 @@
   </tr>
   <tr>
     <td><font class="">VIN:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_vin" runat="server" columns="17" maxlength="17" cssclass="" enabled="False"></ASP:TextBox>
@@ -131,6 +140,7 @@
   </tr>
   <tr>
     <td><font class="">Fuel:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:DropDownList id="DropDownList_fuel" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
@@ -141,6 +151,7 @@
   </tr>
   <tr>
     <td><font class="">License&nbsp;plate:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_license_plate" runat="server" columns="15" maxlength="15" cssclass="" enabled="False"></ASP:TextBox>
@@ -151,6 +162,7 @@
   </tr>
   <tr>
     <td><font class="">Purchase&nbsp;price:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_purchase_price" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
@@ -162,18 +174,17 @@
   </tr>
   <tr>
     <td><font class="">Recent&nbsp;mileage:</font></td>
+    <td><ASP:LinkButton id="LinkButton_update_vehicle_mileage" runat="server" onclick="LinkButton_update_vehicle_mileage_Click"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_recent_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal>
       </font>
     </td>
-    <td nowrap="True">
-      <asp:RegularExpressionValidator ID="RegularExpressionValidator_recent_mileage" runat="server" ControlToValidate="TextBox_recent_mileage" ErrorMessage="Please enter a valid Recent mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
-      <asp:CustomValidator ID="CustomValidator_recent_mileage" runat="server" Display="Dynamic" ErrorMessage="This unit's mileage in this system has already overtaken the specified Recent mileage." Font-Bold="True" onservervalidate="CustomValidator_recent_mileage_ServerValidate">!ERR!</asp:CustomValidator>
-    </td>
+    <td nowrap="True"></td>
   </tr>
   <tr>
     <td><font class="">Be&nbsp;active:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:CheckBox id="CheckBox_be_active" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
@@ -184,6 +195,7 @@
   </tr>
   <tr>
     <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>
+    <td></td>
     <td>
       <font class="">
         <ASP:TextBox id="TextBox_target_pm_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
@@ -196,6 +208,7 @@
   </tr>
   <tr>
     <td><font class="">DMV&nbsp;inspection&nbsp;due:</font></td>
+    <td></td>
     <td>
       <font class="">
         <uc1:UserControl_drop_down_date id="UserControl_drop_down_date_dmv_inspection_due" runat="server"  cssclass="" enabled="False"></uc1:UserControl_drop_down_date><small>(Day of month will be disregarded and forced to end of month)</small>
@@ -209,5 +222,6 @@
     </td>
   </tr>
 </table>
-<ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>
-
+<ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;
+<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>&nbsp;&nbsp;
+<ASP:Button id="Button_cancel" text="Cancel" runat="server" enabled="True" onclick="Button_cancel_Click"></ASP:Button>
