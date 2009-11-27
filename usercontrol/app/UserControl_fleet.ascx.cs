@@ -387,7 +387,7 @@ namespace UserControl_fleet
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = false; // (p.be_interactive);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_user_privileged_to_append_vehicle_down_notes;

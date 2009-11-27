@@ -425,7 +425,6 @@ namespace Class_db_vehicles
       string fuel_id,
       string license_plate,
       string purchase_price,
-      string recent_mileage,
       bool be_active,
       string target_pm_mileage,
       DateTime dmv_inspection_due
@@ -443,10 +442,9 @@ namespace Class_db_vehicles
       + " , fuel_id = NULLIF('" + fuel_id + "','')"
       + " , license_plate = NULLIF('" + license_plate + "','')"
       + " , purchase_price = NULLIF('" + purchase_price + "','')"
-      + " , recent_mileage = NULLIF('" + recent_mileage + "','')"
       + " , be_active = " + be_active.ToString()
       + " , target_pm_mileage = NULLIF('" + target_pm_mileage + "','')"
-      + " , dmv_inspection_due = NULLIF(LAST_DAY('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "'),'')"
+      + " , dmv_inspection_due = NULLIF('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "','0001-01-01')"
       + k.EMPTY;
       Open();
       new MySqlCommand

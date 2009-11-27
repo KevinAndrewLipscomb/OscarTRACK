@@ -293,31 +293,22 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_purchase_price;
         
         /// <summary>
-        /// TextBox_recent_mileage control.
+        /// LinkButton_update_vehicle_mileage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_recent_mileage;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_update_vehicle_mileage;
         
         /// <summary>
-        /// RegularExpressionValidator_recent_mileage control.
+        /// Literal_recent_mileage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_recent_mileage;
-        
-        /// <summary>
-        /// CustomValidator_recent_mileage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_recent_mileage;
+        protected global::System.Web.UI.WebControls.Literal Literal_recent_mileage;
         
         /// <summary>
         /// CheckBox_be_active control.
@@ -390,5 +381,14 @@ namespace UserControl_vehicle {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_delete;
+        
+        /// <summary>
+        /// Button_cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_cancel;
     }
 }
