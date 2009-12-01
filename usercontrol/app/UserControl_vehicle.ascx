@@ -173,16 +173,6 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Recent&nbsp;mileage:</font></td>
-    <td><ASP:LinkButton id="LinkButton_update_vehicle_mileage" runat="server" onclick="LinkButton_update_vehicle_mileage_Click"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
-    <td>
-      <font class="">
-        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal>
-      </font>
-    </td>
-    <td nowrap="True"></td>
-  </tr>
-  <tr>
     <td><font class="">Be&nbsp;active:</font></td>
     <td></td>
     <td>
@@ -192,6 +182,36 @@
     </td>
     <td nowrap="True">
     </td>
+  </tr>
+  <tr>
+    <td><font class="">Usability:</font></td>
+    <td><ASP:LinkButton id="LinkButton_usability" runat="server" onclick="LinkButton_usability_Click"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
+    <td>
+      <font class="">
+        <asp:Literal ID="Literal_usability" runat="server"></asp:Literal>
+      </font>
+    </td>
+    <td nowrap="True"></td>
+  </tr>
+  <tr>
+    <td><font class="">Quarters:</font></td>
+    <td><ASP:LinkButton id="LinkButton_quarters" runat="server" onclick="LinkButton_quarters_Click"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
+    <td>
+      <font class="">
+        <asp:Literal ID="Literal_quarters" runat="server"></asp:Literal>
+      </font>
+    </td>
+    <td nowrap="True"></td>
+  </tr>
+  <tr>
+    <td><font class="">Recent&nbsp;mileage:</font></td>
+    <td><ASP:LinkButton id="LinkButton_update_vehicle_mileage" runat="server" onclick="LinkButton_update_vehicle_mileage_Click"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+    <td>
+      <font class="">
+        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal>
+      </font>
+    </td>
+    <td nowrap="True"></td>
   </tr>
   <tr>
     <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>

@@ -293,6 +293,51 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_purchase_price;
         
         /// <summary>
+        /// CheckBox_be_active control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_active;
+        
+        /// <summary>
+        /// LinkButton_usability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_usability;
+        
+        /// <summary>
+        /// Literal_usability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_usability;
+        
+        /// <summary>
+        /// LinkButton_quarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_quarters;
+        
+        /// <summary>
+        /// Literal_quarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_quarters;
+        
+        /// <summary>
         /// LinkButton_update_vehicle_mileage control.
         /// </summary>
         /// <remarks>
@@ -309,15 +354,6 @@ namespace UserControl_vehicle {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_recent_mileage;
-        
-        /// <summary>
-        /// CheckBox_be_active control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_active;
         
         /// <summary>
         /// TextBox_target_pm_mileage control.
