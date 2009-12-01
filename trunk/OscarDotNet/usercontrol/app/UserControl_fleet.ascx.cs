@@ -52,8 +52,9 @@ namespace UserControl_fleet
       public bool be_interest_dynamic;
       public bool be_loaded;
       public bool be_sort_order_ascending;
-      public bool be_user_privileged_to_append_vehicle_down_notes;
-      public bool be_user_privileged_to_see_all_squads;
+      public bool be_ok_to_config_vehicles;
+      public bool be_ok_to_append_vehicle_down_notes;
+      public bool be_ok_to_see_all_squads;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
       public TClass_biz_vehicle_quarters biz_vehicle_quarters;
@@ -164,6 +165,7 @@ namespace UserControl_fleet
         p.biz_vehicle_quarters.BindDirectToListControlMedium(DropDownList_quarters_filter,p.quarters_filter,true);
         p.biz_vehicle_kinds.BindListControl(DropDownList_vehicle_kind_filter,p.vehicle_kind_filter,true);
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
+        LinkButton_add_vehicle.Visible = p.be_ok_to_config_vehicles;
         Bind();
         p.be_loaded = true;
         }
@@ -188,8 +190,9 @@ namespace UserControl_fleet
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         //
-        p.be_user_privileged_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
-        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
+        p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
+        p.be_ok_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
+        p.be_ok_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.be_interactive = (Session["mode:report"] == null);
         p.be_interest_dynamic = true;
         p.be_loaded = false;
@@ -200,7 +203,7 @@ namespace UserControl_fleet
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
         //
-        if (p.be_user_privileged_to_see_all_squads)
+        if (p.be_ok_to_see_all_squads)
           {
           p.agency_filter = k.EMPTY;
           }
@@ -390,7 +393,7 @@ namespace UserControl_fleet
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_user_privileged_to_append_vehicle_down_notes;
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
@@ -416,17 +419,18 @@ namespace UserControl_fleet
       condition.val = p.biz_vehicles.AmbulanceFleetCondition(num_ambulances_up_citywide,fraction_of_ambulances_up_citywide);
       Literal_num_ambulances_usable_citywide.Text = num_ambulances_up_citywide.val.ToString();
       Literal_percent_ambulances_usable_citywide.Text = fraction_of_ambulances_up_citywide.val.ToString("P0");
-      TableData_ambulances_citywide.BgColor = k.EMPTY;
+      Table_ambulances_citywide.BgColor = k.EMPTY;
       //
       // UNCOMMENT AFTER PILOT PROGRAM
       //
       //if (condition.val == 0)
       //  {
-      //  TableData_ambulances_citywide.BgColor = Color.Yellow.Name;
+      //  Table_ambulances_citywide.BgColor = Color.Yellow.Name;
       //  }
       //if (condition.val == -1)
       //  {
-      //  TableData_ambulances_citywide.BgColor = Color.Red.Name;
+      //  Table_ambulances_citywide.BgColor = Color.Red.Name;
+      //  Table_ambulances_citywide.Style.Value = "color:white";
       //  }
       //
       if (TableRow_none.Visible = !(p.num_vehicles > 0))
@@ -463,6 +467,11 @@ namespace UserControl_fleet
       {
       p.quarters_filter = k.Safe(DropDownList_quarters_filter.SelectedValue,k.safe_hint_type.NUM);
       Bind();
+      }
+
+    protected void LinkButton_add_vehicle_Click(object sender, EventArgs e)
+      {
+      //DropCrumbAndTransferTo("add_vehicle.aspx");
       }
 
     } // end TWebUserControl_fleet

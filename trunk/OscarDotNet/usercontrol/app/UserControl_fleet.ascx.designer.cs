@@ -95,13 +95,22 @@ namespace UserControl_fleet {
         protected global::System.Web.UI.WebControls.Literal Literal_percent_usable;
         
         /// <summary>
-        /// TableData_ambulances_citywide control.
+        /// LinkButton_add_vehicle control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_ambulances_citywide;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_add_vehicle;
+        
+        /// <summary>
+        /// Table_ambulances_citywide control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_ambulances_citywide;
         
         /// <summary>
         /// Literal_num_ambulances_usable_citywide control.

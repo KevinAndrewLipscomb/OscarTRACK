@@ -174,6 +174,8 @@ namespace UserControl_vehicle
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
+        LinkButton_usability.Text = k.ExpandTildePath(LinkButton_usability.Text);
+        LinkButton_quarters.Text = k.ExpandTildePath(LinkButton_quarters.Text);
         LinkButton_update_vehicle_mileage.Text = k.ExpandTildePath(LinkButton_update_vehicle_mileage.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
         if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/vehicle/"))
@@ -241,8 +243,8 @@ namespace UserControl_vehicle
         DropDownList_fuel.SelectedValue = fuel_id;
         TextBox_license_plate.Text = license_plate;
         TextBox_purchase_price.Text = purchase_price;
-        Literal_recent_mileage.Text = recent_mileage;
         CheckBox_be_active.Checked = be_active;
+        Literal_recent_mileage.Text = recent_mileage;
         TextBox_target_pm_mileage.Text = target_pm_mileage;
         UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
         Button_lookup.Enabled = false;
@@ -497,6 +499,16 @@ namespace UserControl_vehicle
     protected void LinkButton_update_vehicle_mileage_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("update_vehicle_mileage.aspx");
+      }
+
+    protected void LinkButton_usability_Click(object sender, EventArgs e)
+      {
+
+      }
+
+    protected void LinkButton_quarters_Click(object sender, EventArgs e)
+      {
+
       }
 
     } // end TWebUserControl_vehicle

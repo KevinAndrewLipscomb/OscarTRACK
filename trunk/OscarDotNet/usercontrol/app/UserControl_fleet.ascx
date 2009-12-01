@@ -6,9 +6,9 @@
       <table cellspacing="0" cellpadding="10" border="0">
         <tr>
           <td bgcolor="#f5f5f5">
-            <table cellspacing="0" cellpadding="0" border="0" width="100%">
+            <table cellspacing="0" cellpadding="5" border="0" width="100%">
               <tr>
-                <td>
+                <td rowspan="2">
                   <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
                     <tr>
                       <td>
@@ -45,16 +45,28 @@
                             </td>
                             <td align="center" valign="middle">
                               <small>
-                                <b><asp:Literal ID="Literal_num_usable" runat="server"></asp:Literal>&nbsp;(<asp:Literal ID="Literal_percent_usable" runat="server"></asp:Literal>)</b><br />
+                                <b><asp:Literal ID="Literal_num_usable" runat="server"></asp:Literal>&nbsp;&nbsp;(<asp:Literal ID="Literal_percent_usable" runat="server"></asp:Literal>)</b><br />
                                 up
                               </small>
                             </td>
-                            <td visible="false">
-                              &nbsp;&nbsp;&nbsp;
-                            </td>
-                            <td align="center" id="TableData_ambulances_citywide" runat="server" valign="middle" visible="false">
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+                <td align="right" valign="top"><asp:LinkButton ID="LinkButton_add_vehicle" runat="server" Visible="False" onclick="LinkButton_add_vehicle_Click" Enabled="false">Add vehicle(s)</asp:LinkButton></td>
+              </tr>
+              <tr>
+                <td align="right" valign="bottom">
+                  <table id="Table_ambulances_citywide" runat="server" cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" visible="false">
+                    <tr>
+                      <td>
+                        <table cellspacing="0" cellpadding="20" border="0" align="center">
+                          <tr>
+                            <td align="center">
                               <small>
-                                <b><asp:Literal ID="Literal_num_ambulances_usable_citywide" runat="server"></asp:Literal>&nbsp;(<asp:Literal ID="Literal_percent_ambulances_usable_citywide" runat="server"></asp:Literal>)</b><br />
+                                <b><asp:Literal ID="Literal_num_ambulances_usable_citywide" runat="server"></asp:Literal>&nbsp;&nbsp;(<asp:Literal ID="Literal_percent_ambulances_usable_citywide" runat="server"></asp:Literal>)</b><br />
                                 ambulances up citywide
                               </small>
                             </td>
