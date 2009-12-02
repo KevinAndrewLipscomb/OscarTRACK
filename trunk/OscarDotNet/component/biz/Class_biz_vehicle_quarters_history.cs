@@ -38,6 +38,17 @@ namespace Class_biz_vehicle_quarters_history
       db_vehicle_quarters_history.BindDirectToListControl(target);
       }
 
+    public void BindVehicleRecords
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      db_vehicle_quarters_history.BindVehicleRecords(vehicle_id,sort_order,be_sort_order_ascending,target);
+      }
+
     public void Change
       (
       string vehicle_id,

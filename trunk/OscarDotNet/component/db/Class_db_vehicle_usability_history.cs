@@ -66,6 +66,46 @@ namespace Class_db_vehicle_usability_history
       return ((target) as ListControl).Items.Count > 0;
       }
 
+    public void BindVehicleRecords
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      Open();
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "select vehicle_usability_history.id as id"
+        + " , nature_id"
+        + " , vehicle_down_nature.name as nature_name"
+        + " , date_format(time_went_down,'%Y-%m-%d %H:%i') as time_went_down"
+        + " , mileage"
+        + " , down_comment"
+        + " , date_format(time_came_up,'%Y-%m-%d %H:%i') as time_came_up"
+        + " , up_comment"
+        + " , TIMEDIFF(IFNULL(time_came_up,NOW()),time_went_down) as duration_down"
+        + " from vehicle_usability_history"
+        +   " join vehicle on (vehicle.id=vehicle_usability_history.vehicle_id)"
+        +   " join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
+        + " where vehicle_id = " + vehicle_id
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
     public void BindDirectToListControl(object target)
       {
       this.Open();

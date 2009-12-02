@@ -311,6 +311,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_usability;
         
         /// <summary>
+        /// Table_usability control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_usability;
+        
+        /// <summary>
         /// Literal_usability control.
         /// </summary>
         /// <remarks>

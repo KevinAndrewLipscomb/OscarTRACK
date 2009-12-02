@@ -45,6 +45,7 @@ namespace login
           EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
           EstablishClientSideFunction("SetClientTimezoneOffset()","El('" + Hidden_client_timezone_offset.ClientID + "').value = (new Date()).getTimezoneOffset();");
           Button_log_in.Attributes.Add("onclick","SetClientTimezoneOffset();");
+          LinkButton_new_user.Attributes.Add("onclick","SetClientTimezoneOffset();");
           }
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -77,9 +78,10 @@ namespace login
         }
 
         protected void LinkButton_new_user_Click(object sender, System.EventArgs e)
-        {
-            Server.Transfer("new_user_registration.aspx");
-        }
+          {
+          SessionSet("client_timezone_offset", double.Parse(k.Safe(Hidden_client_timezone_offset.Value,k.safe_hint_type.HYPHENATED_NUM)));
+          Server.Transfer("new_user_registration.aspx");
+          }
 
         protected void LinkButton_forgot_username_Click(object sender, System.EventArgs e)
         {

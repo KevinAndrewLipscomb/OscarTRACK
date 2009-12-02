@@ -53,6 +53,17 @@ namespace Class_biz_vehicle_usability_history
       db_vehicle_usability_history.BindDirectToListControl(target);
       }
 
+    public void BindVehicleRecords
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      db_vehicle_usability_history.BindVehicleRecords(vehicle_id,sort_order,be_sort_order_ascending,target);
+      }
+
     public bool Delete(string id)
       {
       return db_vehicle_usability_history.Delete(id);

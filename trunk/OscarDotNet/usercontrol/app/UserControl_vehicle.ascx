@@ -187,9 +187,13 @@
     <td><font class="">Usability:</font></td>
     <td><ASP:LinkButton id="LinkButton_usability" runat="server" onclick="LinkButton_usability_Click"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
     <td>
-      <font class="">
-        <asp:Literal ID="Literal_usability" runat="server"></asp:Literal>
-      </font>
+      <table  id="Table_usability" runat="server" cellpadding="10" cellspacing="0" border="1">
+        <tr>
+          <td>
+            <tt><asp:Literal ID="Literal_usability" runat="server"></asp:Literal></tt>
+          </td>
+        </tr>
+      </table>
     </td>
     <td nowrap="True"></td>
   </tr>

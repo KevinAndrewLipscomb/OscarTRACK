@@ -9,11 +9,12 @@ using Class_biz_vehicles;
 using Class_biz_role_member_map;
 using kix;
 using System;
+using System.Collections;
+using System.Drawing;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
 using UserControl_drop_down_date;
 
 namespace UserControl_vehicle
@@ -178,11 +179,20 @@ namespace UserControl_vehicle
         LinkButton_quarters.Text = k.ExpandTildePath(LinkButton_quarters.Text);
         LinkButton_update_vehicle_mileage.Text = k.ExpandTildePath(LinkButton_update_vehicle_mileage.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-        if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/vehicle/"))
+        PresentRecord(p.biz_vehicles.IdOf(Session["vehicle_summary"]));
+        if (p.biz_vehicles.StatusOf(Session["vehicle_summary"]) == "UP")
           {
-          PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
-          Session.Remove("mode:goto");
+          Table_usability.BgColor = "LightGreen";
+          Table_usability.BorderColor = "LightGreen";
+          Literal_usability.Text = "&nbsp;UP&nbsp;";
           }
+        else
+          {
+          Table_usability.BgColor = "LightGray";
+          Table_usability.BorderColor = "LightGray";
+          Literal_usability.Text = "DOWN";
+          }
+        Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -503,12 +513,12 @@ namespace UserControl_vehicle
 
     protected void LinkButton_usability_Click(object sender, EventArgs e)
       {
-
+      DropCrumbAndTransferTo("usability_detail.aspx");
       }
 
     protected void LinkButton_quarters_Click(object sender, EventArgs e)
       {
-
+      DropCrumbAndTransferTo("quarters_detail.aspx");
       }
 
     } // end TWebUserControl_vehicle
