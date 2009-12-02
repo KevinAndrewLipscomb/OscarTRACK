@@ -472,12 +472,26 @@
     <Compile Include="protected\mark_vehicle_down.aspx.designer.cs">
       <DependentUpon>mark_vehicle_down.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\quarters_detail.aspx.cs">
+      <DependentUpon>quarters_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\quarters_detail.aspx.designer.cs">
+      <DependentUpon>quarters_detail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\update_vehicle_mileage.aspx.cs">
       <DependentUpon>update_vehicle_mileage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="protected\update_vehicle_mileage.aspx.designer.cs">
       <DependentUpon>update_vehicle_mileage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\usability_detail.aspx.cs">
+      <DependentUpon>usability_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\usability_detail.aspx.designer.cs">
+      <DependentUpon>usability_detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\vehicle_detail.aspx.cs">
       <DependentUpon>vehicle_detail.aspx</DependentUpon>
@@ -1055,6 +1069,7 @@
     <Content Include="protected\member_detail.aspx" />
     <Content Include="protected\officership_detail.aspx" />
     <Content Include="protected\overview.aspx" />
+    <Content Include="protected\quarters_detail.aspx" />
     <Content Include="protected\template\notification\agency_change.txt" />
     <Content Include="protected\template\notification\ambulance_fleet_condition_alarm_off.txt" />
     <Content Include="protected\template\notification\ambulance_fleet_condition_alarm_on.txt" />
@@ -1080,6 +1095,7 @@
     <Content Include="protected\template\notification\vehicle_marked_up.txt" />
     <Content Include="protected\template\notification\vehicle_quarters_change.txt" />
     <Content Include="protected\update_vehicle_mileage.aspx" />
+    <Content Include="protected\usability_detail.aspx" />
     <Content Include="protected\vehicle_detail.aspx" />
     <Content Include="template\notification\temporary_password.txt" />
     <Content Include="template\notification\username_reminder.txt" />

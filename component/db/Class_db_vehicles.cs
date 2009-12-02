@@ -406,6 +406,11 @@ namespace Class_db_vehicles
       return name_of_id;
       }
 
+    public string QuartersOf(object summary)
+      {
+      return (summary as vehicle_summary).quarters;
+      }
+
     public string RecentMileageOf(object summary)
       {
       return (summary as vehicle_summary).recent_mileage;
@@ -488,7 +493,7 @@ namespace Class_db_vehicles
           (
           "select vehicle.name as vehicle_name"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
-          + " , IFNULL('?','') as quarters"
+          + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL('?','') as miles_from_pm"
           + " , IFNULL(recent_mileage,'') as recent_mileage"
           + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'') as dmv_inspection_due"
@@ -518,6 +523,13 @@ namespace Class_db_vehicles
           +       " vehicle_usability_history.time_came_up is null"
           +     " )"
           +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
+          +   " left join vehicle_quarters_history on"
+          +     " ("
+          +       " vehicle_quarters_history.vehicle_id=vehicle.id"
+          +     " and"
+          +       " vehicle_quarters_history.end_datetime is null"
+          +     " )"
+          +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
           + " where vehicle.id = '" + vehicle_id + "'",
           connection
           )
@@ -549,6 +561,10 @@ namespace Class_db_vehicles
       return the_summary;
       }
 
+    public string StatusOf(object summary)
+      {
+      return (summary as vehicle_summary).status;
+      }
     } // end TClass_db_vehicles
 
   }

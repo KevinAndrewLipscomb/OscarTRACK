@@ -153,6 +153,11 @@ namespace Class_biz_vehicles
       return db_vehicles.NameOfId(id);
       }
 
+    public string QuartersOf(object summary)
+      {
+      return db_vehicles.QuartersOf(summary);
+      }
+
     public string RecentMileageOf(object summary)
       {
       return db_vehicles.RecentMileageOf(summary);
@@ -209,6 +214,11 @@ namespace Class_biz_vehicles
       )
       {
       db_vehicles.SetMileage(id,mileage);
+      }
+
+    public string StatusOf(object summary)
+      {
+      return db_vehicles.StatusOf(summary);
       }
 
     public object Summary(string vehicle_id)

@@ -87,6 +87,43 @@ namespace Class_db_vehicle_quarters_history
       this.Close();
       }
 
+    public void BindVehicleRecords
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      Open();
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "select vehicle_quarters_history.id as id"
+        + " , vehicle_quarters.medium_designator as designator"
+        + " , date_format(start_datetime,'%Y-%m-%d %H:%i') as start_datetime"
+        + " , date_format(end_datetime,'%Y-%m-%d %H:%i') as end_datetime"
+        + " , note"
+        + " , TIMEDIFF(IFNULL(end_datetime,NOW()),start_datetime) as duration"
+        + " from vehicle_quarters_history"
+        +   " join vehicle on (vehicle.id=vehicle_quarters_history.vehicle_id)"
+        +   " join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
+        + " where vehicle_id = " + vehicle_id
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
     public void Change
       (
       string vehicle_id,
