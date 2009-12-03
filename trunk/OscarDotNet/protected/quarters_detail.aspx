@@ -53,9 +53,10 @@
                     <asp:BoundColumn DataField="end_datetime" SortExpression="end_datetime%" ReadOnly="True" HeaderText="To">
                       <ItemStyle HorizontalAlign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
                     </asp:BoundColumn>
-                    <asp:BoundColumn DataField="duration" SortExpression="duration%" ReadOnly="True" HeaderText="Duration (D.HH:mm:ss)">
+                    <asp:BoundColumn DataField="duration" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                    <asp:BoundColumn HeaderText="Duration" ReadOnly="True" SortExpression="duration%">
                       <HeaderStyle HorizontalAlign="Right" />
-                      <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" VerticalAlign="Top" Wrap="False" />
+                      <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Wrap="False" />
                     </asp:BoundColumn>
                   </Columns>
                 </asp:DataGrid>

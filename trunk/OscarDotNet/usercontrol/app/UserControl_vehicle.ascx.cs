@@ -182,8 +182,8 @@ namespace UserControl_vehicle
         PresentRecord(p.biz_vehicles.IdOf(Session["vehicle_summary"]));
         if (p.biz_vehicles.StatusOf(Session["vehicle_summary"]) == "UP")
           {
-          Table_usability.BgColor = "LightGreen";
-          Table_usability.BorderColor = "LightGreen";
+          Table_usability.BgColor = "Lime";
+          Table_usability.BorderColor = "Lime";
           Literal_usability.Text = "&nbsp;UP&nbsp;";
           }
         else

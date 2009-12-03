@@ -78,13 +78,14 @@ namespace mark_vehicle_down
       {
       if (IsValid)
         {
-        p.biz_vehicle_usability_history.MarkDown
+        p.biz_vehicles.MarkDown
           (
           p.vehicle_id,
           UserControl_drop_down_datetime_control.selectedvalue,
           k.Safe(RadioButtonList_nature.SelectedValue,k.safe_hint_type.NUM),
           k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_note.Text,k.safe_hint_type.MEMO).Trim()
+          k.Safe(TextBox_note.Text,k.safe_hint_type.MEMO).Trim(),
+          Session["vehicle_summary"]
           );
         BackTrack();
         }

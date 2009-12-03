@@ -1,7 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_vehicle_quarters_history;
-using Class_biz_notifications;
 using kix;
 using System;
 using System.Collections;
@@ -11,12 +10,10 @@ namespace Class_biz_vehicle_quarters_history
   public class TClass_biz_vehicle_quarters_history
     {
     private TClass_db_vehicle_quarters_history db_vehicle_quarters_history = null;
-    private TClass_biz_notifications biz_notifications = null;
 
     public TClass_biz_vehicle_quarters_history() : base()
       {
       db_vehicle_quarters_history = new TClass_db_vehicle_quarters_history();
-      biz_notifications = new TClass_biz_notifications();
       }
 
     public bool BeLater
@@ -47,19 +44,6 @@ namespace Class_biz_vehicle_quarters_history
       )
       {
       db_vehicle_quarters_history.BindVehicleRecords(vehicle_id,sort_order,be_sort_order_ascending,target);
-      }
-
-    public void Change
-      (
-      string vehicle_id,
-      string quarters_id,
-      DateTime effective_datetime,
-      string mileage,
-      string note
-      )
-      {
-      db_vehicle_quarters_history.Change(vehicle_id,quarters_id,effective_datetime,mileage,note);
-      biz_notifications.IssueForVehicleQuartersChange(vehicle_id,quarters_id,effective_datetime,mileage,note);
       }
 
     public bool Delete(string id)

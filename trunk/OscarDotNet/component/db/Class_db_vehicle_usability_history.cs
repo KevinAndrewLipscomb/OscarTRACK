@@ -93,7 +93,7 @@ namespace Class_db_vehicle_usability_history
         + " , down_comment"
         + " , date_format(time_came_up,'%Y-%m-%d %H:%i') as time_came_up"
         + " , up_comment"
-        + " , TIMEDIFF(IFNULL(time_came_up,NOW()),time_went_down) as duration_down"
+        + " , TIMEDIFF(IFNULL(time_came_up,NOW()),time_went_down) as duration"
         + " from vehicle_usability_history"
         +   " join vehicle on (vehicle.id=vehicle_usability_history.vehicle_id)"
         +   " join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
@@ -199,55 +199,6 @@ namespace Class_db_vehicle_usability_history
       var latest_down_comment = new MySqlCommand("select IFNULL(down_comment,'') from vehicle_usability_history where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString();
       Close();
       return latest_down_comment;
-      }
-
-    public void MarkDown
-      (
-      string vehicle_id,
-      DateTime time_went_down,
-      string nature_id,
-      string mileage,
-      string down_comment
-      )
-      {
-      var sql = "insert vehicle_usability_history"
-      + " set vehicle_id = '" + vehicle_id + "'"
-      + " , time_went_down = '" + time_went_down.ToString("yyyy-MM-dd HH:mm") + "'"
-      + " , nature_id = '" + nature_id + "'"
-      + " , mileage = NULLIF('" + mileage + "','')"
-      + " , down_comment = NULLIF('" + down_comment + "','')";
-      if (mileage != k.EMPTY)
-        {
-        sql = "START TRANSACTION;"
-        + sql
-        + ";"
-        + "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'"
-        + ";"
-        + " COMMIT";
-        }
-      Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
-      Close();
-      }
-
-    public void MarkUp
-      (
-      string vehicle_id,
-      DateTime time_came_up,
-      string up_comment
-      )
-      {
-      Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "update vehicle_usability_history set time_came_up = '" + time_came_up.ToString("yyyy-MM-dd HH:mm") + "', up_comment = NULLIF('" + up_comment + "','') where vehicle_id = '" + vehicle_id +"' and time_came_up is null"
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
-      Close();
       }
 
     public void ReplaceDownNote

@@ -259,6 +259,40 @@ namespace Class_db_vehicles
       this.Close();
       }
 
+    public void ChangeQuarters
+      (
+      string vehicle_id,
+      string quarters_id,
+      DateTime effective_datetime,
+      string mileage,
+      string note,
+      object summary
+      )
+      {
+      var sql = "START TRANSACTION"
+      + "; "
+      + "update vehicle_quarters_history"
+      + " set end_datetime = '" + effective_datetime.ToString("yyyy-MM-dd HH:mm") + "'"
+      + " where vehicle_id = '" + vehicle_id + "'"
+      +   " and end_datetime is null"
+      + "; "
+      + "insert vehicle_quarters_history"
+      + " set vehicle_id = '" + vehicle_id + "'"
+      + " , quarters_id = '" + quarters_id + "'"
+      + " , start_datetime = '" + effective_datetime.ToString("yyyy-MM-dd HH:mm") + "'"
+      + " , note = NULLIF('" + note + "','')"
+      + "; ";
+      if (mileage != k.EMPTY)
+        {
+        sql += "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'; ";
+        }
+      sql += "COMMIT";
+      Open();
+      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      Close();
+      (summary as vehicle_summary).quarters = new MySqlCommand("select medium_designator from vehicle_quarters where id = '" + quarters_id + "'",connection).ExecuteScalar().ToString();
+      }
+
     public bool Delete(string id)
       {
       bool result;
@@ -391,6 +425,59 @@ namespace Class_db_vehicles
     public string IdOf(object summary)
       {
       return (summary as vehicle_summary).id;
+      }
+
+    public void MarkDown
+      (
+      string vehicle_id,
+      DateTime time_went_down,
+      string nature_id,
+      string mileage,
+      string down_comment,
+      object summary
+      )
+      {
+      var sql = "insert vehicle_usability_history"
+      + " set vehicle_id = '" + vehicle_id + "'"
+      + " , time_went_down = '" + time_went_down.ToString("yyyy-MM-dd HH:mm") + "'"
+      + " , nature_id = '" + nature_id + "'"
+      + " , mileage = NULLIF('" + mileage + "','')"
+      + " , down_comment = NULLIF('" + down_comment + "','')";
+      if (mileage != k.EMPTY)
+        {
+        sql = "START TRANSACTION;"
+        + sql
+        + ";"
+        + "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'"
+        + ";"
+        + " COMMIT";
+        }
+      Open();
+      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      Close();
+      (summary as vehicle_summary).status = "DOWN";
+      }
+
+    public void MarkUp
+      (
+      string vehicle_id,
+      DateTime time_came_up,
+      string up_comment,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "update vehicle_usability_history set time_came_up = '" + time_came_up.ToString("yyyy-MM-dd HH:mm") + "', up_comment = NULLIF('" + up_comment + "','') where vehicle_id = '" + vehicle_id +"' and time_came_up is null"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      (summary as vehicle_summary).status = "UP";
       }
 
     public string NameOf(object summary)

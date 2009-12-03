@@ -1,23 +1,10 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-using Class_biz_vehicles;
-using Class_biz_vehicle_quarters_history;
 using Class_biz_user;
-using appcommon;
-using Class_db_vehicles;
+using Class_biz_vehicle_quarters_history;
+using Class_biz_vehicles;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace quarters_detail
 {
@@ -30,7 +17,8 @@ namespace quarters_detail
       public const int TCCI_NOTE = 2;
       public const int TCCI_FROM = 3;
       public const int TCCI_TO = 4;
-      public const int TCCI_DURATION = 5;
+      public const int TCCI_DURATION_RAW = 5;
+      public const int TCCI_DURATION_COOKED = 6;
       }
         private p_type p;
         // / <summary>
@@ -106,7 +94,31 @@ namespace quarters_detail
             if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
             {
                 // We are dealing with a data row, not a header or footer row.
+                //
+                // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
+                //
+                var duration_component_array = new string[3];
+                if (e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Contains(k.PERIOD))
+                  {
+                  duration_component_array = e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {'.',':'});
+                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "d " + duration_component_array[1] + "h " + duration_component_array[2] + "m";
+                  }
+                else
+                  {
+                  duration_component_array = e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {':'});
+                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "h " + duration_component_array[1] + "m";
+                  }
+                //
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
+                //
+                // Remove all cell controls from viewstate except for the one at TCI_ID.
+                //
+                foreach (TableCell cell in e.Item.Cells)
+                  {
+                  cell.EnableViewState = false;
+                  }
+                e.Item.Cells[quarters_detail_Static.TCCI_ID].EnableViewState = true;
+                //
             }
         }
 

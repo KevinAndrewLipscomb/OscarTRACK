@@ -82,13 +82,14 @@ namespace change_vehicle_quarters
       {
       if (IsValid)
         {
-        p.biz_vehicle_quarters_history.Change
+        p.biz_vehicles.ChangeQuarters
           (
           p.vehicle_id,
           k.Safe(DropDownList_quarters.SelectedValue,k.safe_hint_type.NUM),
           UserControl_drop_down_datetime_control.selectedvalue,
           k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_note.Text,k.safe_hint_type.MEMO)
+          k.Safe(TextBox_note.Text,k.safe_hint_type.MEMO),
+          Session["vehicle_summary"]
           );
         BackTrack();
         }
