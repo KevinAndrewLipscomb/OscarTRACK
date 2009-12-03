@@ -54,9 +54,9 @@
                   <HeaderStyle BackColor="WhiteSmoke" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False"></HeaderStyle>
                   <Columns>
                     <asp:BoundColumn Visible="False" DataField="id" ReadOnly="True"></asp:BoundColumn>
-                    <asp:BoundColumn Visible="false" DataField="nature_id" SortExpression="nature_id%,time_went_down%" ReadOnly="True"></asp:BoundColumn>
-                    <asp:BoundColumn DataField="nature_name" SortExpression="nature_name%,duration_down%" ReadOnly="True" HeaderText="Nature">
-                      <ItemStyle HorizontalAlign="Center" BorderWidth="1px" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
+                    <asp:BoundColumn Visible="false" DataField="nature_id" SortExpression="nature_id%,time_went_down" ReadOnly="True"></asp:BoundColumn>
+                    <asp:BoundColumn DataField="nature_name" SortExpression="nature_name%,duration_down" ReadOnly="True" HeaderText="Nature">
+                      <ItemStyle HorizontalAlign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
                     </asp:BoundColumn>
                     <asp:BoundColumn DataField="time_went_down" SortExpression="time_went_down%" ReadOnly="True" HeaderText="DOWN">
                       <ItemStyle HorizontalAlign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
@@ -68,6 +68,9 @@
                       <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
                       <ItemStyle HorizontalAlign="Left" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top"></ItemStyle>
                     </asp:BoundColumn>
+                    <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Journal&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="AppendNote" Visible="false">
+                      <ItemStyle BackColor="LightGray" HorizontalAlign="Center" VerticalAlign="Middle" />
+                    </asp:ButtonColumn>
                     <asp:BoundColumn DataField="time_came_up" SortExpression="time_came_up%" ReadOnly="True" HeaderText="UP">
                       <ItemStyle HorizontalAlign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
                     </asp:BoundColumn>
@@ -75,9 +78,10 @@
                       <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
                       <ItemStyle HorizontalAlign="Left" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top"></ItemStyle>
                     </asp:BoundColumn>
-                    <asp:BoundColumn DataField="duration_down" SortExpression="duration_down%" ReadOnly="True" HeaderText="DOWN duration (D.HH:mm:ss)">
+                    <asp:BoundColumn DataField="duration" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                    <asp:BoundColumn HeaderText="Duration" ReadOnly="True" SortExpression="duration%">
                       <HeaderStyle HorizontalAlign="Right" />
-                      <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" VerticalAlign="Top" Wrap="False" />
+                      <ItemStyle HorizontalAlign="Right" VerticalAlign="Top" Wrap="False" />
                     </asp:BoundColumn>
                   </Columns>
                 </asp:DataGrid>

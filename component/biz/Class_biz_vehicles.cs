@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_notifications;
 using Class_db_vehicles;
 using kix;
 using System;
@@ -10,10 +11,12 @@ namespace Class_biz_vehicles
   {
   public class TClass_biz_vehicles
     {
+    private TClass_biz_notifications biz_notifications = null;
     private TClass_db_vehicles db_vehicles = null;
 
     public TClass_biz_vehicles() : base()
       {
+      biz_notifications = new TClass_biz_notifications();
       db_vehicles = new TClass_db_vehicles();
       }
 
@@ -70,6 +73,20 @@ namespace Class_biz_vehicles
       )
       {
       db_vehicles.BindBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,vehicle_kind_filter,quarters_filter);
+      }
+
+    public void ChangeQuarters
+      (
+      string vehicle_id,
+      string quarters_id,
+      DateTime effective_datetime,
+      string mileage,
+      string note,
+      object summary
+      )
+      {
+      db_vehicles.ChangeQuarters(vehicle_id,quarters_id,effective_datetime,mileage,note,summary);
+      biz_notifications.IssueForVehicleQuartersChange(vehicle_id,quarters_id,effective_datetime,mileage,note);
       }
 
     public bool Delete(string id)
@@ -141,6 +158,69 @@ namespace Class_biz_vehicles
     public string IdOf(object summary)
       {
       return db_vehicles.IdOf(summary);
+      }
+
+    public void MarkDown
+      (
+      string vehicle_id,
+      DateTime time_went_down,
+      string nature_id,
+      string mileage,
+      string down_comment,
+      object summary
+      )
+      {
+      var dummy_int_nonnegative = new k.int_nonnegative();
+      var dummy_decimal_nonnegative = new k.decimal_nonnegative();
+      var saved_condition = new k.subtype<int>(-1,1);
+      saved_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
+      db_vehicles.MarkDown(vehicle_id,time_went_down,nature_id,mileage,down_comment,summary);
+      biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
+      //
+      var current_condition = new k.subtype<int>(-1,1);
+      current_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
+      if (current_condition.val < saved_condition.val)
+        {
+        if (current_condition.val == 0)
+          {
+          biz_notifications.IssueAmbulanceFleetConditionAlert();
+          }
+        else if (current_condition.val < 0)
+          {
+          biz_notifications.IssueAmbulanceFleetConditionAlarm();
+          }
+        }
+      }
+
+    public void MarkUp
+      (
+      string vehicle_id,
+      DateTime time_came_up,
+      string down_comment,
+      string up_comment,
+      object summary
+      )
+      {
+      var dummy_int_nonnegative = new k.int_nonnegative();
+      var dummy_decimal_nonnegative = new k.decimal_nonnegative();
+      var saved_condition = new k.subtype<int>(-1,1);
+      saved_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
+      db_vehicles.MarkUp(vehicle_id,time_came_up,up_comment,summary);
+      biz_notifications.IssueForVehicleMarkedUp(vehicle_id,time_came_up,down_comment,up_comment);
+      //
+      var current_condition = new k.subtype<int>(-1,1);
+      current_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
+      if (current_condition.val > saved_condition.val)
+        {
+        if (current_condition.val == 0)
+          {
+          biz_notifications.RetractAmbulanceFleetConditionAlarm();
+          }
+        else if (current_condition.val > 0)
+          {
+          biz_notifications.RetractAmbulanceFleetConditionAlert();
+          }
+        }
       }
 
     public string NameOf(object summary)

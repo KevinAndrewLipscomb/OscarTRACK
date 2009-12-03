@@ -78,12 +78,13 @@ namespace mark_vehicle_up
       {
       if (IsValid)
         {
-        p.biz_vehicle_usability_history.MarkUp
+        p.biz_vehicles.MarkUp
           (
           p.vehicle_id,
           UserControl_drop_down_datetime_control.selectedvalue,
           p.down_comment,
-          k.Safe(TextBox_note_to_append.Text,k.safe_hint_type.MEMO).Trim()
+          k.Safe(TextBox_note_to_append.Text,k.safe_hint_type.MEMO).Trim(),
+          Session["vehicle_summary"]
           );
         BackTrack();
         }

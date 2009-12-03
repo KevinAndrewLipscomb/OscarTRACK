@@ -99,67 +99,6 @@ namespace Class_biz_vehicle_usability_history
       return db_vehicle_usability_history.LatestDownComment(vehicle_id);
       }
 
-    public void MarkDown
-      (
-      string vehicle_id,
-      DateTime time_went_down,
-      string nature_id,
-      string mileage,
-      string down_comment
-      )
-      {
-      var dummy_int_nonnegative = new k.int_nonnegative();
-      var dummy_decimal_nonnegative = new k.decimal_nonnegative();
-      var saved_condition = new k.subtype<int>(-1,1);
-      saved_condition.val = biz_vehicles.AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      db_vehicle_usability_history.MarkDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
-      biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
-      //
-      var current_condition = new k.subtype<int>(-1,1);
-      current_condition.val = biz_vehicles.AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      if (current_condition.val < saved_condition.val)
-        {
-        if (current_condition.val == 0)
-          {
-          biz_notifications.IssueAmbulanceFleetConditionAlert();
-          }
-        else if (current_condition.val < 0)
-          {
-          biz_notifications.IssueAmbulanceFleetConditionAlarm();
-          }
-        }
-      }
-
-    public void MarkUp
-      (
-      string vehicle_id,
-      DateTime time_came_up,
-      string down_comment,
-      string up_comment
-      )
-      {
-      var dummy_int_nonnegative = new k.int_nonnegative();
-      var dummy_decimal_nonnegative = new k.decimal_nonnegative();
-      var saved_condition = new k.subtype<int>(-1,1);
-      saved_condition.val = biz_vehicles.AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      db_vehicle_usability_history.MarkUp(vehicle_id,time_came_up,up_comment);
-      biz_notifications.IssueForVehicleMarkedUp(vehicle_id,time_came_up,down_comment,up_comment);
-      //
-      var current_condition = new k.subtype<int>(-1,1);
-      current_condition.val = biz_vehicles.AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      if (current_condition.val > saved_condition.val)
-        {
-        if (current_condition.val == 0)
-          {
-          biz_notifications.RetractAmbulanceFleetConditionAlarm();
-          }
-        else if (current_condition.val > 0)
-          {
-          biz_notifications.RetractAmbulanceFleetConditionAlert();
-          }
-        }
-      }
-
     public void Set
       (
       string id,

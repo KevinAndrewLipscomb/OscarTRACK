@@ -107,7 +107,7 @@
                 <asp:BoundColumn DataField="status" ReadOnly="True" Visible="False"></asp:BoundColumn>
                 <asp:ButtonColumn CommandName="MarkDown" HeaderText="Up" SortExpression="status%,vehicle_name" Text="&lt;tt&gt;&amp;nbsp;UP&amp;nbsp;&lt;/tt&gt;">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle BackColor="LightGreen" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Middle"/>
+                  <ItemStyle BackColor="Lime" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Middle"/>
                 </asp:ButtonColumn>
                 <asp:ButtonColumn CommandName="MarkUp" HeaderText="Down" SortExpression="status%,vehicle_name" Text="&lt;tt&gt;DOWN&lt;/tt&gt;">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />

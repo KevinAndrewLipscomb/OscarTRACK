@@ -3,6 +3,7 @@ using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
 using kix;
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Drawing;
 using System.Web.UI.WebControls;
@@ -19,9 +20,11 @@ namespace usability_detail
       public const int TCCI_TIME_WENT_DOWN = 3;
       public const int TCCI_MILEAGE = 4;
       public const int TCCI_DOWN_COMMENT = 5;
-      public const int TCCI_TIME_CAME_UP = 6;
-      public const int TCCI_UP_COMMENT = 7;
-      public const int TCCI_DURATION = 8;
+      public const int TCCI_APPEND_NOTE = 6;
+      public const int TCCI_TIME_CAME_UP = 7;
+      public const int TCCI_UP_COMMENT = 8;
+      public const int TCCI_DURATION_RAW = 9;
+      public const int TCCI_DURATION_COOKED = 10;
       }
         private p_type p;
         // / <summary>
@@ -44,8 +47,8 @@ namespace usability_detail
                 Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
                 if (p.biz_vehicles.StatusOf(Session["vehicle_summary"]) == "UP")
                   {
-                  Table_current.BgColor = "LightGreen";
-                  Table_current.BorderColor = "LightGreen";
+                  Table_current.BgColor = "Lime";
+                  Table_current.BorderColor = "Lime";
                   LinkButton_new.Text = "&nbsp;UP&nbsp;";
                   }
                 else
@@ -117,38 +120,61 @@ namespace usability_detail
             {
                 // We are dealing with a data row, not a header or footer row.
                 var nature_id = k.Safe(e.Item.Cells[usability_detail_Static.TCCI_NATURE_ID].Text,k.safe_hint_type.NUM);
-                var indicator_color = Color.Gainsboro;
-                if (nature_id == "6")
-                  {
-                  indicator_color = Color.LightGreen;
-                  }
-                else if (nature_id == "5")
+                var indicator_color = Color.Gainsboro; // UNVALIDATED
+                if (nature_id == "6") // UPGRADE
                   {
                   indicator_color = Color.Lime;
                   }
-                else if (nature_id == "4")
+                else if (nature_id == "5") // PM
+                  {
+                  indicator_color = Color.Olive;
+                  }
+                else if (nature_id == "4") // EXTERNAL EVENT
                   {
                   indicator_color = Color.Yellow;
                   }
-                else if (nature_id == "3")
+                else if (nature_id == "3") // SENTINEL FAILURE
                   {
                   indicator_color = Color.Orange;
                   }
-                else if (nature_id == "2")
+                else if (nature_id == "2") // AGGRAVATING FAILURE
                   {
-                  indicator_color = Color.Tomato;
+                  indicator_color = Color.OrangeRed;
                   }
-                else if (nature_id == "1")
+                else if (nature_id == "1") // CRITICAL FAILURE
                   {
                   indicator_color = Color.Red;
                   }
-                e.Item.Cells[usability_detail_Static.TCCI_NATURE_NAME].BorderColor = indicator_color;
                 e.Item.Cells[usability_detail_Static.TCCI_NATURE_NAME].BackColor = indicator_color;
-                if (indicator_color == Color.Red)
+                if ((new ArrayList() {Color.Red,Color.OrangeRed,Color.Orange,Color.Olive}).Contains(indicator_color))
                   {
                   e.Item.Cells[usability_detail_Static.TCCI_NATURE_NAME].ForeColor = Color.White;
                   }
+                //
+                // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
+                //
+                var duration_down_component_array = new string[3];
+                if (e.Item.Cells[usability_detail_Static.TCCI_DURATION_RAW].Text.Contains(k.PERIOD))
+                  {
+                  duration_down_component_array = e.Item.Cells[usability_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {'.',':'});
+                  e.Item.Cells[usability_detail_Static.TCCI_DURATION_COOKED].Text = duration_down_component_array[0] + "d " + duration_down_component_array[1] + "h " + duration_down_component_array[2] + "m";
+                  }
+                else
+                  {
+                  duration_down_component_array = e.Item.Cells[usability_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {':'});
+                  e.Item.Cells[usability_detail_Static.TCCI_DURATION_COOKED].Text = duration_down_component_array[0] + "h " + duration_down_component_array[1] + "m";
+                  }
+                //
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
+                //
+                // Remove all cell controls from viewstate except for the one at TCI_ID.
+                //
+                foreach (TableCell cell in e.Item.Cells)
+                  {
+                  cell.EnableViewState = false;
+                  }
+                e.Item.Cells[usability_detail_Static.TCCI_ID].EnableViewState = true;
+                //
             }
         }
 

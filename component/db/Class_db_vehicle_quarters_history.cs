@@ -124,38 +124,6 @@ namespace Class_db_vehicle_quarters_history
       Close();
       }
 
-    public void Change
-      (
-      string vehicle_id,
-      string quarters_id,
-      DateTime effective_datetime,
-      string mileage,
-      string note
-      )
-      {
-      var sql = "START TRANSACTION"
-      + "; "
-      + "update vehicle_quarters_history"
-      + " set end_datetime = '" + effective_datetime.ToString("yyyy-MM-dd HH:mm") + "'"
-      + " where vehicle_id = '" + vehicle_id + "'"
-      +   " and end_datetime is null"
-      + "; "
-      + "insert vehicle_quarters_history"
-      + " set vehicle_id = '" + vehicle_id + "'"
-      + " , quarters_id = '" + quarters_id + "'"
-      + " , start_datetime = '" + effective_datetime.ToString("yyyy-MM-dd HH:mm") + "'"
-      + " , note = NULLIF('" + note + "','')"
-      + "; ";
-      if (mileage != k.EMPTY)
-        {
-        sql += "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'; ";
-        }
-      sql += "COMMIT";
-      Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
-      Close();
-      }
-
     public bool Delete(string id)
       {
       bool result;
