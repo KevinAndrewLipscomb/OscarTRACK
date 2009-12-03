@@ -41,6 +41,15 @@ namespace quarters_detail {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
         
         /// <summary>
+        /// LinkButton_new control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_new;
+        
+        /// <summary>
         /// DataGrid_control control.
         /// </summary>
         /// <remarks>
