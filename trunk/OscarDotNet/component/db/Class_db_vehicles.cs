@@ -289,8 +289,8 @@ namespace Class_db_vehicles
       sql += "COMMIT";
       Open();
       new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
-      Close();
       (summary as vehicle_summary).quarters = new MySqlCommand("select medium_designator from vehicle_quarters where id = '" + quarters_id + "'",connection).ExecuteScalar().ToString();
+      Close();
       }
 
     public bool Delete(string id)

@@ -36,6 +36,7 @@
             </tr>
             <tr>
               <td>
+                <p><asp:LinkButton ID="LinkButton_new" runat="server" OnClick="LinkButton_new_Click">[Add new quarters]</asp:LinkButton></p>
                 <asp:DataGrid ID="DataGrid_control" runat="server" AllowSorting="True" AutoGenerateColumns="False" UseAccessibleHeader="True" CellPadding="10" GridLines="Horizontal" BorderColor="Gainsboro" BorderWidth="1px">
                   <HeaderStyle BackColor="WhiteSmoke" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False"></HeaderStyle>
                   <Columns>
