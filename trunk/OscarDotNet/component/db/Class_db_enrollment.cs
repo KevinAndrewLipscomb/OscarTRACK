@@ -94,25 +94,26 @@ namespace Class_db_enrollment
           out DateTime effective_date
           )
           {
-          this.Open();
+          Open();
           var dr =
             (
             new MySqlCommand
               (
-              "select description,start_date"
+              "select description"
+              + " , IF(IFNULL(start_date,'0000-00-00') = '0000-00-00','0001-01-01',start_date) as start_date"
               + " from enrollment_history"
               +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
               + " where member_id = '" + member_id + "'"
               + " order by start_date desc"
               + " limit 1",
-              this.connection
+              connection
               )
               .ExecuteReader()
             );
           dr.Read();
           description = dr["description"].ToString();
           effective_date = DateTime.Parse(dr["start_date"].ToString());
-          this.Close();
+          Close();
           }
 
         public string DescriptionOf(string level_code)
