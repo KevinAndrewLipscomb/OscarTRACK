@@ -69,14 +69,7 @@ namespace UserControl_member_binder
             {
                 p.be_loaded = false;
                 p.biz_user = new TClass_biz_user();
-                if(new ArrayList
-                    {
-                    "Department Fleet Coordinator",
-                    "Department Street Supervisor",
-                    "Squad Fleet Coordinator"
-                    }
-                    .Contains(p.biz_user.Roles()[0])
-                  )
+                if ((new ArrayList{"Department Fleet Coordinator","Department Street Supervisor","Squad Fleet Coordinator","Member"}).Contains(p.biz_user.Roles()[0]))
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_FLEET;
                   p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))).Fresh(), "UserControl_fleet", PlaceHolder_content);
