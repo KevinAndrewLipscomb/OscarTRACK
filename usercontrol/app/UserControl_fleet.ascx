@@ -59,7 +59,7 @@
               </tr>
               <tr>
                 <td align="right" valign="bottom">
-                  <table id="Table_ambulances_citywide" runat="server" cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" visible="false">
+                  <table id="Table_ambulances_citywide" runat="server" cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
                     <tr>
                       <td>
                         <table cellspacing="0" cellpadding="20" border="0" align="center">
