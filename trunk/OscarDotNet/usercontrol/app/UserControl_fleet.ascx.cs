@@ -421,17 +421,15 @@ namespace UserControl_fleet
       Literal_percent_ambulances_usable_citywide.Text = fraction_of_ambulances_up_citywide.val.ToString("P0");
       Table_ambulances_citywide.BgColor = k.EMPTY;
       //
-      // UNCOMMENT AFTER PILOT PROGRAM
-      //
-      //if (condition.val == 0)
-      //  {
-      //  Table_ambulances_citywide.BgColor = Color.Yellow.Name;
-      //  }
-      //if (condition.val == -1)
-      //  {
-      //  Table_ambulances_citywide.BgColor = Color.Red.Name;
-      //  Table_ambulances_citywide.Style.Value = "color:white";
-      //  }
+      if (condition.val == 0)
+        {
+        Table_ambulances_citywide.BgColor = Color.Yellow.Name;
+        }
+      if (condition.val == -1)
+        {
+        Table_ambulances_citywide.BgColor = Color.Red.Name;
+        Table_ambulances_citywide.Style.Value = "color:white";
+        }
       //
       if (TableRow_none.Visible = !(p.num_vehicles > 0))
         {
