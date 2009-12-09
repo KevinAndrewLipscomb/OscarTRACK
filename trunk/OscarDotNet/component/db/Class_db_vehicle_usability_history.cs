@@ -196,7 +196,7 @@ namespace Class_db_vehicle_usability_history
     public string LatestDownComment(string vehicle_id)
       {
       Open();
-      var latest_down_comment = new MySqlCommand("select IFNULL(down_comment,'') from vehicle_usability_history where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString();
+      var latest_down_comment = new MySqlCommand("select IFNULL(down_comment,'') from vehicle_usability_history where vehicle_id = '" + vehicle_id + "' and time_came_up is null",connection).ExecuteScalar().ToString();
       Close();
       return latest_down_comment;
       }
