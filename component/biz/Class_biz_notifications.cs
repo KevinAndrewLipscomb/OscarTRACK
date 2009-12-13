@@ -641,7 +641,7 @@ namespace Class_biz_notifications
                 .Replace("<host_domain_name/>", host_domain_name)
                 .Replace("<full_name/>", full_name.ToUpper())
                 .Replace("<user_email_address/>", user_email_address)
-                .Replace("<explanation/>", k.WrapText(explanation, (k.NEW_LINE + "   "), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+                .Replace("<explanation/>", k.WrapText(explanation, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
               };
 
             biz_user = new TClass_biz_user();
@@ -984,7 +984,7 @@ namespace Class_biz_notifications
               .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
-              .Replace("<down_comment/>", down_comment);
+              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_down_note_appended.txt"));
@@ -1025,7 +1025,7 @@ namespace Class_biz_notifications
               .Replace("<time_went_down/>", time_went_down.ToString("yyyy-MM-dd HH:mm"))
               .Replace("<nature/>", biz_vehicle_down_natures.ElaborationOf(nature_id))
               .Replace("<mileage/>", mileage)
-              .Replace("<down_comment/>", down_comment);
+              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_down.txt"));
@@ -1056,6 +1056,7 @@ namespace Class_biz_notifications
 
           IssueForVehicleMarkedDown_Merge Merge = delegate (string s)
             {
+            var WRAPTEXT_INSERT_STRING = k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6);
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
@@ -1063,8 +1064,8 @@ namespace Class_biz_notifications
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<time_came_up/>", time_came_up.ToString("yyyy-MM-dd HH:mm"))
-              .Replace("<down_comment/>", down_comment)
-              .Replace("<up_comment/>", up_comment);
+              .Replace("<down_comment/>", k.WrapText(down_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
+              .Replace("<up_comment/>", k.WrapText(up_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_up.txt"));
@@ -1105,7 +1106,7 @@ namespace Class_biz_notifications
               .Replace("<quarters_designator/>", biz_vehicle_quarters.MediumDashLongDesignatorOfId(quarters_id))
               .Replace("<effective_datetime/>", effective_datetime.ToString("yyyy-MM-dd HH:mm"))
               .Replace("<mileage/>", mileage)
-              .Replace("<note/>", note);
+              .Replace("<note/>", k.WrapText(note, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_quarters_change.txt"));

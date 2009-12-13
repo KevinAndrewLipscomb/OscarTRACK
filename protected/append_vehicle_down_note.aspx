@@ -31,7 +31,7 @@
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
-                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="4" TextMode="MultiLine" Enabled="false"></asp:TextBox>
+                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="4" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
                             </td>
                           </tr>
                         </table>
