@@ -151,6 +151,9 @@ namespace usability_detail
                   e.Item.Cells[usability_detail_Static.TCCI_NATURE_NAME].ForeColor = Color.White;
                   }
                 //
+                e.Item.Cells[usability_detail_Static.TCCI_DOWN_COMMENT].Text = e.Item.Cells[usability_detail_Static.TCCI_DOWN_COMMENT].Text.Replace(k.NEW_LINE,"<br>");
+                e.Item.Cells[usability_detail_Static.TCCI_UP_COMMENT].Text = e.Item.Cells[usability_detail_Static.TCCI_UP_COMMENT].Text.Replace(k.NEW_LINE,"<br>");
+                //
                 // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
                 //
                 var duration_down_component_array = new string[3];

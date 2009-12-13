@@ -94,6 +94,7 @@ namespace quarters_detail
             if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
             {
                 // We are dealing with a data row, not a header or footer row.
+                e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text = e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text.Replace(k.NEW_LINE,"<br>");
                 //
                 // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
                 //
