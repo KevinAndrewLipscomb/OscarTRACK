@@ -80,7 +80,7 @@ namespace report_shift_fleet_status
                 + k.COMMA
                 + p.biz_role_member_map.EmailTargetOf("Squad Manager", p.agency_short_designator);
             }
-            Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
+            Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder("Squad Commander", p.agency_short_designator));
             PlaceHolder_fleet_status.Controls.Add(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))));
 
         }
