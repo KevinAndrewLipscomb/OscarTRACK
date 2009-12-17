@@ -26,6 +26,7 @@
                       <p>
                         Best practices:</p>
                       <ul>
+                        <li><p>Your members can update this data directly.&nbsp; Encourage crews to update their unit's status once per shift.</p></li>
                         <li><p><asp:Label ID="Label_application_name_1" runat="server" Font-Bold="True"></asp:Label> &nbsp;shares this data with the Duty Street Supervisor team.</p></li>
                         <li>
                           <p>Visit the <asp:Label ID="Label_application_name_2" runat="server" Font-Bold="True"></asp:Label>&nbsp;website to make updates and to use additional features, such as advanced filtering, sorting, detail lookups, and QuickMessaging:</p>
