@@ -55,7 +55,7 @@
                   <Columns>
                     <asp:BoundColumn Visible="False" DataField="id" ReadOnly="True"></asp:BoundColumn>
                     <asp:BoundColumn Visible="false" DataField="nature_id" SortExpression="nature_id%,time_went_down" ReadOnly="True"></asp:BoundColumn>
-                    <asp:BoundColumn DataField="nature_name" SortExpression="nature_name%,duration_down" ReadOnly="True" HeaderText="Nature">
+                    <asp:BoundColumn DataField="nature_name" SortExpression="nature_name%,duration" ReadOnly="True" HeaderText="Nature">
                       <ItemStyle HorizontalAlign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" Wrap="False"></ItemStyle>
                     </asp:BoundColumn>
                     <asp:BoundColumn DataField="time_went_down" SortExpression="time_went_down%" ReadOnly="True" HeaderText="DOWN">
