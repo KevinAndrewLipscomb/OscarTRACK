@@ -89,6 +89,7 @@
       </font>
     </td>
     <td nowrap="True">
+      <asp:CustomValidator ID="CustomValidator_bumper_number" runat="server" ControlToValidate="TextBox_bumper_number" ErrorMessage="The specified Bumper number already belongs to vehicle " Font-Bold="True" onservervalidate="CustomValidator_bumper_number_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>
@@ -136,6 +137,7 @@
       </font>
     </td>
     <td nowrap="True">
+      <asp:CustomValidator ID="CustomValidator_vin" runat="server" ControlToValidate="TextBox_vin" ErrorMessage="The specified VIN already belongs to vehicle " Font-Bold="True" onservervalidate="CustomValidator_vin_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>

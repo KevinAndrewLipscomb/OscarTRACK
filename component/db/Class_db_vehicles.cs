@@ -50,6 +50,38 @@ namespace Class_db_vehicles
       return agency_id_of_id;
       }
 
+    public void AmbulanceFleetCondition
+      (
+      k.int_nonnegative num,
+      k.decimal_nonnegative fraction
+      )
+      {
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select (count(vehicle.id) - count(time_went_down)) as num"
+        + " , ((count(vehicle.id) - count(time_went_down))/count(vehicle.id)) as fraction"
+        + " from vehicle"
+        +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
+        +   " left join vehicle_usability_history on"
+        +     " ("
+        +       " vehicle_usability_history.vehicle_id=vehicle.id"
+        +     " and"
+        +       " vehicle_usability_history.time_came_up is null"
+        +     " )"
+        + " where be_active"
+        +   " and (vehicle_kind.description = 'Ambulance')"
+        ,
+        connection
+        )
+        .ExecuteReader();
+      dr.Read();
+      num.val = int.Parse(dr["num"].ToString());
+      fraction.val = decimal.Parse(dr["fraction"].ToString());
+      dr.Close();
+      Close();
+      }
+
     public bool BeNotEarlierDmvInspectionDue
       (
       string id,
@@ -390,38 +422,6 @@ namespace Class_db_vehicles
       return result;
       }
 
-    public void AmbulanceFleetCondition
-      (
-      k.int_nonnegative num,
-      k.decimal_nonnegative fraction
-      )
-      {
-      Open();
-      var dr = new MySqlCommand
-        (
-        "select (count(vehicle.id) - count(time_went_down)) as num"
-        + " , ((count(vehicle.id) - count(time_went_down))/count(vehicle.id)) as fraction"
-        + " from vehicle"
-        +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
-        +   " left join vehicle_usability_history on"
-        +     " ("
-        +       " vehicle_usability_history.vehicle_id=vehicle.id"
-        +     " and"
-        +       " vehicle_usability_history.time_came_up is null"
-        +     " )"
-        + " where be_active"
-        +   " and (vehicle_kind.description = 'Ambulance')"
-        ,
-        connection
-        )
-        .ExecuteReader();
-      dr.Read();
-      num.val = int.Parse(dr["num"].ToString());
-      fraction.val = decimal.Parse(dr["fraction"].ToString());
-      dr.Close();
-      Close();
-      }
-
     public string IdOf(object summary)
       {
       return (summary as vehicle_summary).id;
@@ -491,6 +491,46 @@ namespace Class_db_vehicles
       var name_of_id = new MySqlCommand("select name from vehicle where id = '" + id + "'",connection).ExecuteScalar().ToString();
       Close();
       return name_of_id;
+      }
+
+    internal string NameWithCompetingBumperNumber(string id, string bumper_number)
+      {
+      Open();
+      var be_bumper_number_collision_obj = new MySqlCommand
+        (
+        "select IFNULL(name,'') from vehicle where bumper_number = '" + bumper_number + "' and id <> '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      if (be_bumper_number_collision_obj == null)
+        {
+        return k.EMPTY;
+        }
+      else
+        {
+        return be_bumper_number_collision_obj.ToString();
+        }
+      }
+
+    internal string NameWithCompetingVin(string id, string vin)
+      {
+      Open();
+      var name_with_competing_vin_obj = new MySqlCommand
+        (
+        "select name from vehicle where vin = '" + vin + "' and id <> '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      if (name_with_competing_vin_obj == null)
+        {
+        return k.EMPTY;
+        }
+      else
+        {
+        return name_with_competing_vin_obj.ToString();
+        }
       }
 
     public string QuartersOf(object summary)
@@ -652,6 +692,7 @@ namespace Class_db_vehicles
       {
       return (summary as vehicle_summary).status;
       }
+
     } // end TClass_db_vehicles
 
   }
