@@ -25,6 +25,26 @@ namespace Class_biz_vehicles
       return db_vehicles.AgencyIdOfId(id);
       }
 
+    public int AmbulanceFleetCondition
+      (
+      k.int_nonnegative num,
+      k.decimal_nonnegative fraction
+      )
+      {
+      var ambulance_fleet_condition = new k.subtype<int>(-1,1);
+      db_vehicles.AmbulanceFleetCondition(num,fraction);
+      ambulance_fleet_condition.val = 1;
+      if (fraction.val <= decimal.Parse(ConfigurationManager.AppSettings["ambulances_up_citywide_alert_fraction"]))
+        {
+        ambulance_fleet_condition.val = 0;
+        }
+      if (num.val < int.Parse(ConfigurationManager.AppSettings["ambulances_up_citywide_alarm_num"]))
+        {
+        ambulance_fleet_condition.val = -1;
+        }
+      return ambulance_fleet_condition.val;
+      }
+
     public bool BeNotEarlierDmvInspectionDue
       (
       string id,
@@ -135,26 +155,6 @@ namespace Class_biz_vehicles
         );
       }
 
-    public int AmbulanceFleetCondition
-      (
-      k.int_nonnegative num,
-      k.decimal_nonnegative fraction
-      )
-      {
-      var ambulance_fleet_condition = new k.subtype<int>(-1,1);
-      db_vehicles.AmbulanceFleetCondition(num,fraction);
-      ambulance_fleet_condition.val = 1;
-      if (fraction.val <= decimal.Parse(ConfigurationManager.AppSettings["ambulances_up_citywide_alert_fraction"]))
-        {
-        ambulance_fleet_condition.val = 0;
-        }
-      if (num.val < int.Parse(ConfigurationManager.AppSettings["ambulances_up_citywide_alarm_num"]))
-        {
-        ambulance_fleet_condition.val = -1;
-        }
-      return ambulance_fleet_condition.val;
-      }
-
     public string IdOf(object summary)
       {
       return db_vehicles.IdOf(summary);
@@ -231,6 +231,16 @@ namespace Class_biz_vehicles
     public string NameOfId(string id)
       {
       return db_vehicles.NameOfId(id);
+      }
+
+    internal string NameWithCompetingBumperNumber(string id, string bumper_number)
+      {
+      return db_vehicles.NameWithCompetingBumperNumber(id,bumper_number);
+      }
+
+    internal string NameWithCompetingVin(string id, string vin)
+      {
+      return db_vehicles.NameWithCompetingVin(id,vin);
       }
 
     public string QuartersOf(object summary)

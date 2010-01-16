@@ -194,6 +194,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.TextBox TextBox_bumper_number;
         
         /// <summary>
+        /// CustomValidator_bumper_number control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_bumper_number;
+        
+        /// <summary>
         /// TextBox_model_year control.
         /// </summary>
         /// <remarks>
@@ -255,6 +264,15 @@ namespace UserControl_vehicle {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox_vin;
+        
+        /// <summary>
+        /// CustomValidator_vin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_vin;
         
         /// <summary>
         /// DropDownList_fuel control.

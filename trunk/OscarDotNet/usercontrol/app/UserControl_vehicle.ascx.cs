@@ -521,6 +521,20 @@ namespace UserControl_vehicle
       DropCrumbAndTransferTo("quarters_detail.aspx");
       }
 
+    protected void CustomValidator_bumper_number_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      var name_with_competing_bumper_number = p.biz_vehicles.NameWithCompetingBumperNumber(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_bumper_number.Text,k.safe_hint_type.NUM));
+      CustomValidator_bumper_number.ErrorMessage += name_with_competing_bumper_number;
+      args.IsValid = (name_with_competing_bumper_number == k.EMPTY);
+      }
+
+    protected void CustomValidator_vin_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      var name_with_competing_vin = p.biz_vehicles.NameWithCompetingVin(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_vin.Text,k.safe_hint_type.ALPHANUM));
+      CustomValidator_vin.ErrorMessage += name_with_competing_vin;
+      args.IsValid = (name_with_competing_vin == k.EMPTY);
+      }
+
     } // end TWebUserControl_vehicle
 
   }
