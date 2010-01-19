@@ -31,7 +31,8 @@
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
-                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="4" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
+                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="10" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
+                              <p><small>The "<small><tt>=====^===== TIMESTAMP AUTHOR NAME</tt></small>" indicator is inserted by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>.</small></p>
                             </td>
                           </tr>
                         </table>
@@ -41,11 +42,11 @@
                     </tr>
                     <tr>
                       <td>
-                        Append any additional comments about this episode here:
+                        Append any additional comments about this episode here, including <i>WHERE</i> the vehicle was moved next (if applicable):
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
-                              <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
+                              <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="10" TextMode="MultiLine"></asp:TextBox>
                               <p><small>Resulting note will be truncated at 65,536 characters.</small></p>
                             </td>
                           </tr>

@@ -41,6 +41,15 @@ namespace append_vehicle_down_note {
         protected global::System.Web.UI.WebControls.TextBox TextBox_prior_note;
         
         /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
         /// TextBox_note_to_append control.
         /// </summary>
         /// <remarks>

@@ -23,7 +23,7 @@
               </tr>
               <tr>
                 <td>
-                  <p>In this system, a vehicle's <i>Quarters</i> is the place the vehicle is kept when it is <i>not staffed</i>.</p>
+                  <p>In this system, a vehicle's <i>Quarters</i> is the place the vehicle is kept when it is <i>UP</i> but not staffed.</p>
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
                       <td>

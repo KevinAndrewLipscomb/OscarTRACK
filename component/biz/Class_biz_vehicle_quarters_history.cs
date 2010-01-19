@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_members;
 using Class_db_vehicle_quarters_history;
 using kix;
 using System;
@@ -9,10 +10,12 @@ namespace Class_biz_vehicle_quarters_history
   {
   public class TClass_biz_vehicle_quarters_history
     {
+    private TClass_biz_members biz_members = null;
     private TClass_db_vehicle_quarters_history db_vehicle_quarters_history = null;
 
     public TClass_biz_vehicle_quarters_history() : base()
       {
+      biz_members = new TClass_biz_members();
       db_vehicle_quarters_history = new TClass_db_vehicle_quarters_history();
       }
 
@@ -94,7 +97,7 @@ namespace Class_biz_vehicle_quarters_history
         quarters_id,
         start_datetime,
         end_datetime,
-        note
+        note + biz_members.UserAttributionIndicator()
         );
       }
 

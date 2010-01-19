@@ -3,6 +3,7 @@ using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_notifications;
 using Class_biz_sections;
+using Class_biz_user;
 using Class_db_leaves;
 using Class_db_members;
 using Class_db_users;
@@ -19,6 +20,7 @@ namespace Class_biz_members
         private TClass_biz_medical_release_levels biz_medical_release_levels = null;
         private TClass_biz_notifications biz_notifications = null;
         private TClass_biz_sections biz_sections = null;
+        private TClass_biz_user biz_user = null;
         private TClass_db_leaves db_leaves = null;
         private TClass_db_members db_members = null;
         private TClass_db_users db_users = null;
@@ -34,6 +36,7 @@ namespace Class_biz_members
             biz_medical_release_levels = new TClass_biz_medical_release_levels();
             biz_notifications = new TClass_biz_notifications();
             biz_sections = new TClass_biz_sections();
+            biz_user = new TClass_biz_user();
         }
         public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level, string phone_num)
         {
@@ -508,6 +511,12 @@ namespace Class_biz_members
         public object Summary(string member_id)
           {
           return db_members.Summary(member_id);
+          }
+
+        public string UserAttributionIndicator()
+          {
+          var actor_member_id = IdOfUserId(biz_user.IdNum());
+          return k.NEW_LINE + "=====^=====" + k.SPACE + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + k.SPACE + FirstNameOfMemberId(actor_member_id) + k.SPACE + LastNameOfMemberId(actor_member_id);
           }
 
         public string UserIdOf(string member_id)

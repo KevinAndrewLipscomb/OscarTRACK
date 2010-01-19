@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_members;
 using Class_biz_notifications;
 using Class_biz_vehicles;
 using Class_db_vehicle_usability_history;
@@ -15,15 +16,17 @@ namespace Class_biz_vehicle_usability_history
     }
   public class TClass_biz_vehicle_usability_history
     {
+    private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
     private TClass_biz_vehicles biz_vehicles = null;
     private TClass_db_vehicle_usability_history db_vehicle_usability_history = null;
 
     public TClass_biz_vehicle_usability_history() : base()
       {
-      db_vehicle_usability_history = new TClass_db_vehicle_usability_history();
+      biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
       biz_vehicles = new TClass_biz_vehicles();
+      db_vehicle_usability_history = new TClass_db_vehicle_usability_history();
       }
 
     public void AppendDownNote
@@ -33,7 +36,7 @@ namespace Class_biz_vehicle_usability_history
       string note_to_append
       )
       {
-      var replacement_note = old_comment + Class_biz_vehicle_usability_history_Static.COMMENT_SEPARATOR + note_to_append;
+      var replacement_note = old_comment + Class_biz_vehicle_usability_history_Static.COMMENT_SEPARATOR + note_to_append + biz_members.UserAttributionIndicator();
       db_vehicle_usability_history.ReplaceDownNote(vehicle_id,replacement_note);
       biz_notifications.IssueForVehicleDownNoteAppended(vehicle_id,replacement_note);
       }
