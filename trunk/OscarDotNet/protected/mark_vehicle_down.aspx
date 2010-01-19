@@ -78,7 +78,7 @@
                     </tr>
                     <tr>
                       <td>
-                        Enter any comments about this episode here:
+                        Enter any comments about this episode here, including <i>WHERE</i> the vehicle went (if applicable):
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>

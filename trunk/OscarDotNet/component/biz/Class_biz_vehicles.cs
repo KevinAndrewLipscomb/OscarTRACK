@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_members;
 using Class_biz_notifications;
 using Class_db_vehicles;
 using kix;
@@ -11,11 +12,13 @@ namespace Class_biz_vehicles
   {
   public class TClass_biz_vehicles
     {
+    private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
     private TClass_db_vehicles db_vehicles = null;
 
     public TClass_biz_vehicles() : base()
       {
+      biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
       db_vehicles = new TClass_db_vehicles();
       }
@@ -174,7 +177,15 @@ namespace Class_biz_vehicles
       var dummy_decimal_nonnegative = new k.decimal_nonnegative();
       var saved_condition = new k.subtype<int>(-1,1);
       saved_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      db_vehicles.MarkDown(vehicle_id,time_went_down,nature_id,mileage,down_comment,summary);
+      db_vehicles.MarkDown
+        (
+        vehicle_id,
+        time_went_down,
+        nature_id,
+        mileage,
+        down_comment + biz_members.UserAttributionIndicator(),
+        summary
+        );
       biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
       //
       var current_condition = new k.subtype<int>(-1,1);
@@ -205,7 +216,13 @@ namespace Class_biz_vehicles
       var dummy_decimal_nonnegative = new k.decimal_nonnegative();
       var saved_condition = new k.subtype<int>(-1,1);
       saved_condition.val = AmbulanceFleetCondition(dummy_int_nonnegative,dummy_decimal_nonnegative);
-      db_vehicles.MarkUp(vehicle_id,time_came_up,up_comment,summary);
+      db_vehicles.MarkUp
+        (
+        vehicle_id,
+        time_came_up,
+        up_comment + biz_members.UserAttributionIndicator(),
+        summary
+        );
       biz_notifications.IssueForVehicleMarkedUp(vehicle_id,time_came_up,down_comment,up_comment);
       //
       var current_condition = new k.subtype<int>(-1,1);
