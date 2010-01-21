@@ -32,7 +32,7 @@
                           <tr>
                             <td>
                               <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="10" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
-                              <p><small>The "<small><tt>=====^===== TIMESTAMP AUTHOR NAME</tt></small>" indicator is inserted by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>.</small></p>
+                              <p><small>The "<small><tt>==v== AUTHOR NAME TIMESTAMP</tt></small>" indicator is inserted by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>.</small></p>
                             </td>
                           </tr>
                         </table>

@@ -36,7 +36,7 @@ namespace Class_biz_vehicle_usability_history
       string note_to_append
       )
       {
-      var replacement_note = old_comment + Class_biz_vehicle_usability_history_Static.COMMENT_SEPARATOR + note_to_append + biz_members.UserAttributionIndicator();
+      var replacement_note = old_comment + Class_biz_vehicle_usability_history_Static.COMMENT_SEPARATOR + biz_members.UserAttributionIndicator() + note_to_append;
       db_vehicle_usability_history.ReplaceDownNote(vehicle_id,replacement_note);
       biz_notifications.IssueForVehicleDownNoteAppended(vehicle_id,replacement_note);
       }

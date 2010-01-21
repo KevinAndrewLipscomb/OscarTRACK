@@ -183,7 +183,7 @@ namespace Class_biz_vehicles
         time_went_down,
         nature_id,
         mileage,
-        down_comment + biz_members.UserAttributionIndicator(),
+        biz_members.UserAttributionIndicator() + down_comment,
         summary
         );
       biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
@@ -220,7 +220,7 @@ namespace Class_biz_vehicles
         (
         vehicle_id,
         time_came_up,
-        up_comment + biz_members.UserAttributionIndicator(),
+        biz_members.UserAttributionIndicator() + up_comment,
         summary
         );
       biz_notifications.IssueForVehicleMarkedUp(vehicle_id,time_came_up,down_comment,up_comment);
