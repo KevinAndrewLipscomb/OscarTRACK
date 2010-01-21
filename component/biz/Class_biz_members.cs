@@ -516,7 +516,7 @@ namespace Class_biz_members
         public string UserAttributionIndicator()
           {
           var actor_member_id = IdOfUserId(biz_user.IdNum());
-          return k.NEW_LINE + "=====^=====" + k.SPACE + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + k.SPACE + FirstNameOfMemberId(actor_member_id) + k.SPACE + LastNameOfMemberId(actor_member_id);
+          return "==v==" + k.SPACE + FirstNameOfMemberId(actor_member_id) + k.SPACE + LastNameOfMemberId(actor_member_id) + k.SPACE + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + k.NEW_LINE;
           }
 
         public string UserIdOf(string member_id)

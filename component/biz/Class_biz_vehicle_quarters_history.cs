@@ -97,7 +97,7 @@ namespace Class_biz_vehicle_quarters_history
         quarters_id,
         start_datetime,
         end_datetime,
-        note + biz_members.UserAttributionIndicator()
+        biz_members.UserAttributionIndicator() + note
         );
       }
 
