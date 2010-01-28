@@ -95,6 +95,8 @@
                         <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>
                         &nbsp;
                         <asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
+                        &nbsp;
+                        <asp:CustomValidator ID="CustomValidator_submit" runat="server" ErrorMessage="This vehicle is already marked DOWN.  You may need to log out and back into the application to refresh the displayed data." Font-Bold="True" onservervalidate="CustomValidator_submit_ServerValidate">!ERR!</asp:CustomValidator>
                       </td>
                       <td>
                       </td>

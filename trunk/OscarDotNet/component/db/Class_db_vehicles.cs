@@ -157,6 +157,14 @@ namespace Class_db_vehicles
       return be_not_less_mileage;
       }
 
+    internal bool BeDown(string id)
+      {
+      Open();
+      var be_down_obj = new MySqlCommand("select (time_came_up is null) as be_down from vehicle_usability_history where vehicle_id = '" + id + "' order by id desc limit 1",connection).ExecuteScalar();
+      Close();
+      return ((be_down_obj != null) && (be_down_obj.ToString() == "1"));
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       bool result;
