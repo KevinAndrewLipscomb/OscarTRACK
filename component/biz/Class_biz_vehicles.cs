@@ -48,6 +48,11 @@ namespace Class_biz_vehicles
       return ambulance_fleet_condition.val;
       }
 
+    internal bool BeDown(string id)
+      {
+      return db_vehicles.BeDown(id);
+      }
+
     public bool BeNotEarlierDmvInspectionDue
       (
       string id,

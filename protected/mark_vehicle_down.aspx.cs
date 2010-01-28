@@ -110,6 +110,11 @@ namespace mark_vehicle_down
       args.IsValid = p.biz_vehicles.BeNotLessMileage(p.vehicle_id,k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM));
       }
 
+    protected void CustomValidator_submit_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = !p.biz_vehicles.BeDown(p.vehicle_id);
+      }
+
     } // end TWebForm_mark_vehicle_down
 
   }
