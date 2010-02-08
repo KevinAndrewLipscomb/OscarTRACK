@@ -35,11 +35,8 @@ Your status in <application_name/> for *next month* has been recorded as follows
       certified but not released as an AIC, you should be listed as a
       "Trainee".
 
-   Qualified to drive ambulances:
+   Fully released to drive ambulances:
       <be_driver_qualified/>
-
-      Note:  You must have Defensive Driving and EVOC to be qualified to
-      drive ambulances.
 
    Membership status:
       <enrollment/>
