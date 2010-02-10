@@ -111,7 +111,9 @@ namespace mark_vehicle_up
 
     protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeNotEarlierTargetPmMileage(p.vehicle_id,k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
+      var be_valid = p.biz_vehicles.BeNotEarlierTargetPmMileage(p.vehicle_id,k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_target_pm_mileage.Checked;
+      CheckBox_target_pm_mileage.Visible = !be_valid;
+      args.IsValid = be_valid;
       }
 
     } // end TWebForm_mark_vehicle_up

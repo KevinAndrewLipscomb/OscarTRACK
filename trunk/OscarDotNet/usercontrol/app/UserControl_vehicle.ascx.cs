@@ -493,7 +493,9 @@ namespace UserControl_vehicle
 
     protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
+      var be_valid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_target_pm_mileage.Checked;
+      CheckBox_target_pm_mileage.Visible = !be_valid;
+      args.IsValid = be_valid;
       }
 
     protected void CustomValidator_dmv_inspection_due_ServerValidate(object source, ServerValidateEventArgs args)
