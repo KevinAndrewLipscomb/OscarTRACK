@@ -50,12 +50,15 @@
                             <td>
                               <asp:TextBox ID="TextBox_target_pm_mileage" runat="server" Columns="7" MaxLength="7"></asp:TextBox>
                             </td>
+                            <td>
+                              <asp:CheckBox ID="CheckBox_target_pm_mileage" runat="server" Text="Force target PM mileage backward" Visible="False" />
+                            </td>
                           </tr>
                         </table>
                       </td>
                       <td nowrap="nowrap" valign="top">
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
-                        <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You cannot move the Target PM mileage backwards." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+                        <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
                       </td>
                     </tr>
                     <tr>

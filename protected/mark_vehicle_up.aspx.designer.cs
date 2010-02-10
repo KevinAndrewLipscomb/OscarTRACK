@@ -68,6 +68,15 @@ namespace mark_vehicle_up {
         protected global::System.Web.UI.WebControls.TextBox TextBox_target_pm_mileage;
         
         /// <summary>
+        /// CheckBox_target_pm_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_target_pm_mileage;
+        
+        /// <summary>
         /// RegularExpressionValidator_target_pm_mileage control.
         /// </summary>
         /// <remarks>

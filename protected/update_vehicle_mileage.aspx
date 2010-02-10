@@ -40,13 +40,16 @@
                             <td>
                               <asp:TextBox ID="TextBox_nominal_mileage" runat="server" Columns="7" MaxLength="7"></asp:TextBox>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small>(Whole miles only)</small>
                             </td>
+                            <td>
+                              <asp:CheckBox ID="CheckBox_mileage" runat="server" Text="Force mileage backward" Visible="False" />
+                            </td>
                           </tr>
                         </table>
                       </td>
                       <td nowrap="nowrap">
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator_nominal_mileage" runat="server" ControlToValidate="TextBox_nominal_mileage" ErrorMessage="Please enter a nominal Odometer reading." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator_nominal_mileage" runat="server" ControlToValidate="TextBox_nominal_mileage" ErrorMessage="Please enter a valid nominal Odometer reading." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
-                        <asp:CustomValidator ID="CustomValidator_nominal_mileage" runat="server" Display="Dynamic" ErrorMessage="This unit's mileage in this system has already overtaken the specified nominal mileage." Font-Bold="True" onservervalidate="CustomValidator_nominal_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+                        <asp:CustomValidator ID="CustomValidator_nominal_mileage" runat="server" Display="Dynamic" ErrorMessage="This unit's mileage in this system has already overtaken the specified nominal mileage.  Check the 'Force mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_nominal_mileage_ServerValidate">!ERR!</asp:CustomValidator>
                       </td>
                     </tr>
                     <tr>

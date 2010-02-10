@@ -96,7 +96,9 @@ namespace update_vehicle_mileage
 
     protected void CustomValidator_nominal_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeNotLessMileage(p.vehicle_id,k.Safe(TextBox_nominal_mileage.Text,k.safe_hint_type.NUM));
+      var be_valid = p.biz_vehicles.BeNotLessMileage(p.vehicle_id,k.Safe(TextBox_nominal_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_mileage.Checked;
+      CheckBox_mileage.Visible = !be_valid;
+      args.IsValid = be_valid;
       }
 
     protected void Button_cancel_Click(object sender, EventArgs e)

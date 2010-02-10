@@ -107,7 +107,9 @@ namespace mark_vehicle_down
 
     protected void CustomValidator_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeNotLessMileage(p.vehicle_id,k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM));
+      var be_valid = p.biz_vehicles.BeNotLessMileage(p.vehicle_id,k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_mileage.Checked;
+      CheckBox_mileage.Visible = !be_valid;
+      args.IsValid = be_valid;
       }
 
     protected void CustomValidator_submit_ServerValidate(object source, ServerValidateEventArgs args)

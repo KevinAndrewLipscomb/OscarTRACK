@@ -68,6 +68,15 @@ namespace update_vehicle_mileage {
         protected global::System.Web.UI.WebControls.TextBox TextBox_nominal_mileage;
         
         /// <summary>
+        /// CheckBox_mileage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_mileage;
+        
+        /// <summary>
         /// RequiredFieldValidator_nominal_mileage control.
         /// </summary>
         /// <remarks>
