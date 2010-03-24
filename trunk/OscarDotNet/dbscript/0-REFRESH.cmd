@@ -1,5 +1,10 @@
 @REM $Id$
 @REM
-mysql --user=root --password=%1 --execute="drop schema oscardotnetdb_d; create schema oscardotnetdb_d"
-mysql --user=root --password=%1 --database=oscardotnetdb_d <"%USERPROFILE%\My Documents\SANDBOX\vocational\kalipso-infogistics\db-dump\oscardotnetdb.sql"
-mysql --user=root --password=%1 --database=oscardotnetdb_d <0-render-safe-for-d-or-x.sql
+set the_host=localhost
+set the_user=root
+if "%1"=="x" set the_host=elm.phpwebhosting.com
+if "%1"=="x" set the_user=kalipso5
+echo on
+mysql --host=%the_host% --user=%the_user% --password=%2 --execute="drop schema oscardotnetdb_%1; create schema oscardotnetdb_%1"
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=oscardotnetdb_%1 <"%USERPROFILE%\My Documents\SANDBOX\vocational\kalipso-infogistics\db-dump\oscardotnetdb.sql"
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=oscardotnetdb_%1 <0-render-safe-for-d-or-x.sql
