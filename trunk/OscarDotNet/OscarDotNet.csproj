@@ -886,6 +886,13 @@
     <Compile Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_third_slot_saturation.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_third_slot_saturation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_third_slot_saturation.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_third_slot_saturation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_utilization.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1162,6 +1169,7 @@
     <Content Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_third_slot_saturation.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx" />
     <Content Include="usercontrol\app\UserControl_update_progress_blocker.ascx" />
     <Content Include="usercontrol\app\UserControl_user.ascx" />

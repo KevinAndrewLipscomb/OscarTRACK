@@ -26,6 +26,7 @@ namespace UserControl_serial_indicators_per_agency
     public string expanded_img_median_length_of_service_src;
     public string expanded_img_num_members_in_pipeline_src;
     public string expanded_img_standard_enrollment_src;
+    public string expanded_img_third_slot_saturation_src;
     public string expanded_img_utilization_src;
     }
 
@@ -85,6 +86,7 @@ namespace UserControl_serial_indicators_per_agency
         p.expanded_img_median_length_of_service_src = k.ExpandAsperand(Img_median_length_of_service.Attributes["src"]);
         p.expanded_img_num_members_in_pipeline_src = k.ExpandAsperand(Img_num_members_in_pipeline.Attributes["src"]);
         p.expanded_img_standard_enrollment_src = k.ExpandAsperand(Img_standard_enrollment.Attributes["src"]);
+        p.expanded_img_third_slot_saturation_src = k.ExpandAsperand(Img_third_slot_saturation.Attributes["src"]);
         p.expanded_img_utilization_src = k.ExpandAsperand(Img_utilization.Attributes["src"]);
         }
       }
@@ -134,6 +136,7 @@ namespace UserControl_serial_indicators_per_agency
       Img_standard_enrollment.Attributes["src"] = p.expanded_img_standard_enrollment_src + passthrough_parms;
       Img_median_length_of_service.Attributes["src"] = p.expanded_img_median_length_of_service_src + passthrough_parms;
       Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
+      Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
       }
 
     } // end TWebUserControl_serial_indicators_per_agency
