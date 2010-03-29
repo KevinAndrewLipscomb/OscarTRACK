@@ -36,11 +36,56 @@ namespace Class_db_members
         public const int TCCI_EMAIL_ADDRESS = 16;
         public const int TCCI_PHONE_NUM = 17;
         public static string CrewShiftsForecastMetricFromWhereClause(string relative_month)
-        {
-            string result;
-            result = " sum(" + " if" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))," + " num_obliged_shifts," + " num_shifts" + " )" + " )/2 as num_crew_shifts" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" + " )" + " )" + " )" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
-            return result;
-        }
+          {
+          return k.EMPTY
+          + " sum("
+          +   " if"
+          +     " (" 
+          +       " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+          +       " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),"
+          +     " num_obliged_shifts,"
+          +     " num_shifts"
+          +     " )"
+          +   " )/2 as num_crew_shifts"
+          + " from member"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          +   " join enrollment_history"
+          +     " on"
+          +       " ("
+          +       " enrollment_history.member_id=member.id"
+          +       " and"
+          +         " ("
+          +           " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+          +         " and"
+          +           " ("
+          +             " (enrollment_history.end_date is null)"
+          +           " or"
+          +             " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"
+          +           " )"
+          +         " )"
+          +       " )"
+          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+          +   " left join leave_of_absence"
+          +     " on"
+          +       " ("
+          +       " leave_of_absence.member_id=member.id"
+          +       " and "
+          +         " ("
+          +           " (leave_of_absence.start_date is null)"
+          +         " or"
+          +           " ("
+          +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+          +           " and"
+          +             " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"
+          +           " )"
+          +         " )"
+          +       " )"
+          +   " join agency on (agency.id=member.agency_id)"
+          + " where"
+          +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +   " and"
+          +     " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
+          }
 
     }
 
@@ -307,6 +352,171 @@ namespace Class_db_members
         public void BindRankedStandardEnrollment(object target)
         {
             BindRankedStandardEnrollment(target, true);
+        }
+
+        public void BindRankedThirdSlotSaturation(object target, bool do_log)
+          {
+          var metric_phrase = k.EMPTY          
+          + " sum("
+          +   " if"
+          +     " ("
+          +     " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('EMT Intern','Trainee'),"
+          +     " if"
+          +       " (" 
+          +         " (leave_of_absence.start_date <= CURDATE())"
+          +         " and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),"
+          +       " num_obliged_shifts,"
+          +       " if(enrollment_level.description = 'Regular',num_shifts,2)"  // assume an EMT Intern not on leave will occupy 2 shifts
+          +       " ),"
+          +     " 0"
+          +     " )"
+          +   " )"
+          + " /"
+          + " sum("
+          +   " if"
+          +     " ("
+          +       " ("
+          +         " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +       " and"
+          +         " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
+          +       " ),"
+          +     " if"
+          +       " (" 
+          +         " (leave_of_absence.start_date <= CURDATE())"
+          +         " and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),"
+          +       " num_obliged_shifts,"
+          +       " num_shifts"
+          +       " ),"
+          +     " 0"
+          +     " )"
+          +   " )/2";
+          var from_where_phrase = k.EMPTY
+          + " from member"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          +   " join enrollment_history"
+          +     " on"
+          +       " ("
+          +       " enrollment_history.member_id=member.id"
+          +       " and"
+          +         " ("
+          +           " (enrollment_history.start_date <= CURDATE())"
+          +         " and"
+          +           " ("
+          +             " (enrollment_history.end_date is null)"
+          +           " or"
+          +             " (enrollment_history.end_date >= LAST_DAY(CURDATE()))"
+          +           " )"
+          +         " )"
+          +       " )"
+          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+          +   " left join leave_of_absence"
+          +     " on"
+          +       " ("
+          +       " leave_of_absence.member_id=member.id"
+          +       " and "
+          +         " ("
+          +           " (leave_of_absence.start_date is null)"
+          +         " or"
+          +           " ("
+          +             " (leave_of_absence.start_date <= CURDATE())"
+          +           " and"
+          +             " (leave_of_absence.end_date >= LAST_DAY(CURDATE()))"
+          +           " )"
+          +         " )"
+          +       " )"
+          +   " join agency on (agency.id=member.agency_id)"
+          + " where"
+          +     " enrollment_level.description in ('Associate','Recruit','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +   " and"
+          +     " ("
+          +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
+          +     " or"
+          +       " medical_release_code_description_map.description in ('EMT Intern','Trainee')"
+          +     " )";
+          Open();
+          if (do_log)
+            {
+            new MySqlCommand
+              (
+              db_trail.Saved
+                (
+                "START TRANSACTION;"
+                // Log squad-by-squad indicators.
+                + " replace indicator_third_slot_saturation (year,month,be_agency_id_applicable,agency_id,value)"
+                +   " select YEAR(CURDATE())"
+                +   " , MONTH(CURDATE())"
+                +   " , TRUE"
+                +   " , agency.id"
+                + " , " + metric_phrase + "*100"
+                +     from_where_phrase
+                +   " group by agency.id"
+                + ";"
+                // Log citywide indicator.
+                + " replace indicator_third_slot_saturation (year,month,be_agency_id_applicable,agency_id,value)"
+                +   " select YEAR(CURDATE())"
+                +   " , MONTH(CURDATE())"
+                +   " , FALSE"
+                +   " , 0"
+                + " , " + metric_phrase + "*100"
+                +     from_where_phrase
+                + ";"
+                + " COMMIT"
+                ),
+                connection
+              )
+              .ExecuteNonQuery();
+            }
+          // Bind datagrid for display.
+          ((target) as DataGrid).DataSource = new MySqlCommand
+            (
+            "select NULL as rank"
+            + " , concat(medium_designator,\" - \",long_designator) as agency"
+            + " , sum("
+            +     " if"
+            +       " ("
+            +       " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('EMT Intern','Trainee'),"
+            +       " if"
+            +         " (" 
+            +           " (leave_of_absence.start_date <= CURDATE())"
+            +           " and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),"
+            +         " num_obliged_shifts,"
+            +         " if(enrollment_level.description = 'Regular',num_shifts,2)"  // assume an EMT Intern not on leave will occupy 2 shifts
+            +         " ),"
+            +       " 0"
+            +       " )"
+            +     " ) as num_third_shifts"
+            + " , sum("
+            +     " if"
+            +       " ("
+            +         " ("
+            +           " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+            +         " and"
+            +           " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
+            +         " ),"
+            +       " if"
+            +         " (" 
+            +           " (leave_of_absence.start_date <= CURDATE())"
+            +           " and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),"
+            +         " num_obliged_shifts,"
+            +         " num_shifts"
+            +         " ),"
+            +       " 0"
+            +       " )"
+            +     " )/2 as num_crew_shifts"
+            + " , " + metric_phrase + " as third_saturation_factor"
+            +   from_where_phrase
+            + " group by agency.id"
+            + " order by third_saturation_factor",
+            connection
+            )
+            .ExecuteReader();
+          ((target) as DataGrid).DataBind();
+          Close();
+          }
+
+        public void BindRankedThirdSlotSaturation(object target)
+        {
+            BindRankedThirdSlotSaturation(target, true);
         }
 
         public void BindRankedUtilization(object target, bool do_log)

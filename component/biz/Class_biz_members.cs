@@ -173,6 +173,16 @@ namespace Class_biz_members
             BindRankedStandardEnrollment(target, true);
         }
 
+        public void BindRankedThirdSlotSaturation(object target, bool do_log)
+        {
+            db_members.BindRankedThirdSlotSaturation(target, do_log);
+        }
+
+        public void BindRankedThirdSlotSaturation(object target)
+        {
+            BindRankedThirdSlotSaturation(target, true);
+        }
+
         public void BindRankedUtilization(object target, bool do_log)
         {
             db_members.BindRankedUtilization(target, do_log);

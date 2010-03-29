@@ -739,6 +739,13 @@
     <Compile Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_standard_enrollment.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_third_slot_saturation.ascx.cs">
+      <DependentUpon>UserControl_ranked_third_slot_saturation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_third_slot_saturation.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_third_slot_saturation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_utilization.ascx.cs">
       <DependentUpon>UserControl_ranked_utilization.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1134,6 +1141,7 @@
     <Content Include="usercontrol\app\UserControl_ranked_length_of_service.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_third_slot_saturation.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_utilization.ascx" />
     <Content Include="usercontrol\app\UserControl_role.ascx" />
     <Content Include="usercontrol\app\UserControl_roles_and_matrices_binder.ascx" />

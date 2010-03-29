@@ -67,11 +67,11 @@ namespace UserControl_ranked_utilization
                 p.total_raw = p.total_raw + num_raw_shifts;
                 if (num_raw_shifts != 0)
                 {
-                    e.Item.Cells[3].Text = (num_cooked_shifts / num_raw_shifts).ToString("P0");
+                    e.Item.Cells[4].Text = (num_cooked_shifts / num_raw_shifts).ToString("P0");
                 }
                 else
                 {
-                    e.Item.Cells[3].Text = "NAN";
+                    e.Item.Cells[4].Text = "NAN";
                 }
             }
         }

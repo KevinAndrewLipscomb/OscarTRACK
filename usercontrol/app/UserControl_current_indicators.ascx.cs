@@ -1,17 +1,12 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using UserControl_ranked_commensuration;
 using UserControl_ranked_core_ops_size;
 using UserControl_ranked_crew_shifts_forecast;
 using UserControl_ranked_length_of_service;
 using UserControl_ranked_num_members_in_pipeline;
 using UserControl_ranked_standard_enrollment;
+using UserControl_ranked_third_slot_saturation;
 using UserControl_ranked_utilization;
+
 namespace UserControl_current_indicators
 {
     public partial class TWebUserControl_current_indicators: ki_web_ui.usercontrol_class
@@ -46,6 +41,7 @@ namespace UserControl_current_indicators
                 PlaceHolder_ranked_length_of_service.Controls.Add(((TWebUserControl_ranked_length_of_service)(LoadControl("~/usercontrol/app/UserControl_ranked_length_of_service.ascx"))).Fresh());
                 PlaceHolder_ranked_commensuration.Controls.Add(((TWebUserControl_ranked_commensuration)(LoadControl("~/usercontrol/app/UserControl_ranked_commensuration.ascx"))).Fresh());
                 PlaceHolder_ranked_num_members_in_pipeline.Controls.Add(((TWebUserControl_ranked_num_members_in_pipeline)(LoadControl("~/usercontrol/app/UserControl_ranked_num_members_in_pipeline.ascx"))).Fresh());
+                PlaceHolder_ranked_third_slot_saturation.Controls.Add(((TWebUserControl_ranked_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_ranked_third_slot_saturation.ascx"))).Fresh());
             }
 
         }
