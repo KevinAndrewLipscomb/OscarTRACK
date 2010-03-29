@@ -1,19 +1,12 @@
-using AjaxControlToolkit;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using UserControl_serial_indicator_commensuration;
 using UserControl_serial_indicator_length_of_service;
 using UserControl_serial_indicator_num_core_ops_members;
 using UserControl_serial_indicator_num_members_in_pipeline;
 using UserControl_serial_indicator_potential_crew_shifts;
 using UserControl_serial_indicator_standard_enrollment;
+using UserControl_serial_indicator_third_slot_saturation;
 using UserControl_serial_indicator_utilization;
-using appcommon;
+
 namespace UserControl_serial_indicators_binder
 {
     public struct p_type
@@ -56,6 +49,9 @@ namespace UserControl_serial_indicators_binder
                         break;
                     case Units.UserControl_serial_indicators_binder.TSSI_NUM_POTENTIAL_CREW_SHIFTS:
                         AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_potential_crew_shifts)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_potential_crew_shifts.ascx"))), "UserControl_serial_indicator_potential_crew_shifts", PlaceHolder_content);
+                        break;
+                    case Units.UserControl_serial_indicators_binder.TSSI_THIRD_SLOT_SATURATION:
+                        AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_third_slot_saturation.ascx"))), "UserControl_serial_indicator_third_slot_saturation", PlaceHolder_content);
                         break;
                     case Units.UserControl_serial_indicators_binder.TSSI_ROSTER_UTILIZATION:
                         AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_utilization)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_utilization.ascx"))), "UserControl_serial_indicator_utilization", PlaceHolder_content);
@@ -119,6 +115,9 @@ namespace UserControl_serial_indicators_binder
                 case Units.UserControl_serial_indicators_binder.TSSI_NUM_POTENTIAL_CREW_SHIFTS:
                     AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_potential_crew_shifts)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_potential_crew_shifts.ascx"))).Fresh(), "UserControl_serial_indicator_potential_crew_shifts", PlaceHolder_content);
                     break;
+                case Units.UserControl_serial_indicators_binder.TSSI_THIRD_SLOT_SATURATION:
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_third_slot_saturation.ascx"))).Fresh(), "UserControl_serial_indicator_third_slot_saturation", PlaceHolder_content);
+                    break;
                 case Units.UserControl_serial_indicators_binder.TSSI_ROSTER_UTILIZATION:
                     AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_utilization)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_utilization.ascx"))).Fresh(), "UserControl_serial_indicator_utilization", PlaceHolder_content);
                     break;
@@ -143,9 +142,10 @@ namespace UserControl_serial_indicators_binder.Units
         public const int TSSI_NUM_CORE_OPS_MEMBERS = 1;
         public const int TSSI_NUM_MEMBERS_IN_PIPELINE = 2;
         public const int TSSI_NUM_POTENTIAL_CREW_SHIFTS = 3;
-        public const int TSSI_ROSTER_UTILIZATION = 4;
-        public const int TSSI_CORE_OPS_COMMITMENT = 5;
-        public const int TSSI_MEDIAN_YEARS_OF_SERVICE = 6;
+        public const int TSSI_THIRD_SLOT_SATURATION = 4;
+        public const int TSSI_ROSTER_UTILIZATION = 5;
+        public const int TSSI_CORE_OPS_COMMITMENT = 6;
+        public const int TSSI_MEDIAN_YEARS_OF_SERVICE = 7;
     } // end UserControl_serial_indicators_binder
 
 }
