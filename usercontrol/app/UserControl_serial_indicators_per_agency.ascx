@@ -11,7 +11,7 @@
 <p><b>3. Potential number of ambulance crew-shifts that could have been supplied on the schedule: </b></p>
 <p><img id="Img_crew_shifts_forecast" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=crew_shifts_forecast' /></p>
 <p>&nbsp;</p>
-<p><b>4. Percentage of ambulance crew-shifts expected to be occupied by a Trainee or EMT Intern: </b></p>
+<p><b>4. Percentage of ambulance crews expected to include a Trainee or EMT Intern: </b></p>
 <p><img id="Img_third_slot_saturation" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=third_slot_saturation' /></p>
 <p>&nbsp;</p>
 <p><b>5. Percentage of released core operations personnel who were meeting their baseline duty requirements. The lower the data point, the more personnel were granted partial or full leaves-of-absence: </b></p>
