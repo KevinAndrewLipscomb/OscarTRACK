@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_third_slot_saturation.ascx.cs" Inherits="UserControl_serial_indicator_third_slot_saturation.TWebUserControl_serial_indicator_third_slot_saturation"%>
-<p>These control charts show the degree to which the agency's ambulance crew-shifts were expected to be occupied by a Trainee or EMT Intern.</p>
+<p>These control charts show the degree to which the agency's ambulance crews were expected to include a Trainee or EMT Intern.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
   <Columns>
