@@ -68,6 +68,7 @@ namespace UserControl_vehicle
       CheckBox_be_active.Checked = false;
       TextBox_target_pm_mileage.Text = k.EMPTY;
       UserControl_drop_down_date_dmv_inspection_due.Clear();
+      Literal_recent_mileage_update_time.Text = k.EMPTY;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -216,6 +217,7 @@ namespace UserControl_vehicle
       bool be_active;
       string target_pm_mileage;
       DateTime dmv_inspection_due;
+      DateTime recent_mileage_update_time;
       result = false;
       if
         (
@@ -236,7 +238,8 @@ namespace UserControl_vehicle
           out recent_mileage,
           out be_active,
           out target_pm_mileage,
-          out dmv_inspection_due
+          out dmv_inspection_due,
+          out recent_mileage_update_time
           )
         )
         {
@@ -257,6 +260,14 @@ namespace UserControl_vehicle
         Literal_recent_mileage.Text = recent_mileage;
         TextBox_target_pm_mileage.Text = target_pm_mileage;
         UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
+        if (recent_mileage_update_time == DateTime.MinValue)
+          {
+          Literal_recent_mileage_update_time.Text = "never";
+          }
+        else
+          {
+          Literal_recent_mileage_update_time.Text = recent_mileage_update_time.ToString("yyyy-MM-dd HH:mm");
+          }
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;

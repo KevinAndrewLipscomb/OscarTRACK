@@ -1,0 +1,5 @@
+START TRANSACTION;
+
+ALTER TABLE `vehicle` ADD COLUMN `recent_mileage_update_time` DATETIME NULL;
+
+COMMIT

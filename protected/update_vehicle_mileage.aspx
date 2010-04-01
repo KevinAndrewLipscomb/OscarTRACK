@@ -26,7 +26,8 @@
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
                       <td>
-                        The last mileage entered into this system for <asp:Literal ID="Literal_vehicle_name_2" runat="server"></asp:Literal> &nbsp;was:
+                        <asp:Literal ID="Literal_vehicle_name_2" runat="server"></asp:Literal>'s mileage as of 
+                        <asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal>&nbsp;was entered as:
                         <table cellspacing="0" cellpadding="20" border="0"><tr><td><tt><b><asp:Literal ID="Literal_recent_mileage" runat="server"></asp:Literal></b></tt></td></tr></table>
                       </td>
                       <td>

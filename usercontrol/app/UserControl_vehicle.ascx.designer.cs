@@ -383,6 +383,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.Literal Literal_recent_mileage;
         
         /// <summary>
+        /// Literal_recent_mileage_update_time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_recent_mileage_update_time;
+        
+        /// <summary>
         /// TextBox_target_pm_mileage control.
         /// </summary>
         /// <remarks>

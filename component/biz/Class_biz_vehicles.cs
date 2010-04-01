@@ -139,7 +139,8 @@ namespace Class_biz_vehicles
       out string recent_mileage,
       out bool be_active,
       out string target_pm_mileage,
-      out DateTime dmv_inspection_due
+      out DateTime dmv_inspection_due,
+      out DateTime recent_mileage_update_time
       )
       {
       return db_vehicles.Get
@@ -159,7 +160,8 @@ namespace Class_biz_vehicles
         out recent_mileage,
         out be_active,
         out target_pm_mileage,
-        out dmv_inspection_due
+        out dmv_inspection_due,
+        out recent_mileage_update_time
         );
       }
 
@@ -273,6 +275,11 @@ namespace Class_biz_vehicles
     public string RecentMileageOf(object summary)
       {
       return db_vehicles.RecentMileageOf(summary);
+      }
+
+    public string RecentMileageUpdateTimeOf(object summary)
+      {
+      return db_vehicles.RecentMileageUpdateTimeOf(summary);
       }
 
     public void Set

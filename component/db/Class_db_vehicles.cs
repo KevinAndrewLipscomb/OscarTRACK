@@ -31,6 +31,7 @@ namespace Class_db_vehicles
     public string status;
     public string tag;
     public string vin;
+    public string recent_mileage_update_time;
     }
 
   public class TClass_db_vehicles: TClass_db
@@ -245,6 +246,7 @@ namespace Class_db_vehicles
           + " , IFNULL(bumper_number,'') as bumper_number"
           + " , IFNULL(license_plate,'') as tag"
           + " , IFNULL(vin,'') as vin"
+          + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
@@ -324,7 +326,9 @@ namespace Class_db_vehicles
       + "; ";
       if (mileage != k.EMPTY)
         {
-        sql += "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'; ";
+        var this_minute = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+        sql += "update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + this_minute + "' where id = '" + vehicle_id + "'; ";
+        (summary as vehicle_summary).recent_mileage_update_time = this_minute;
         }
       sql += "COMMIT";
       Open();
@@ -374,7 +378,8 @@ namespace Class_db_vehicles
       out string recent_mileage,
       out bool be_active,
       out string target_pm_mileage,
-      out DateTime dmv_inspection_due
+      out DateTime dmv_inspection_due,
+      out DateTime recent_mileage_update_time
       )
       {
       bool result;
@@ -395,6 +400,7 @@ namespace Class_db_vehicles
       be_active = false;
       target_pm_mileage = k.EMPTY;
       dmv_inspection_due = DateTime.MinValue;
+      recent_mileage_update_time = DateTime.MinValue;
       result = false;
       //
       this.Open();
@@ -422,6 +428,14 @@ namespace Class_db_vehicles
         else
           {
           dmv_inspection_due = DateTime.MinValue;
+          }
+        if (dr["recent_mileage_update_time"] != DBNull.Value)
+          {
+          recent_mileage_update_time = DateTime.Parse(dr["recent_mileage_update_time"].ToString());
+          }
+        else
+          {
+          recent_mileage_update_time = DateTime.MinValue;
           }
         result = true;
         }
@@ -453,12 +467,14 @@ namespace Class_db_vehicles
       + " , down_comment = NULLIF('" + down_comment + "','')";
       if (mileage != k.EMPTY)
         {
+        var this_minute = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
         sql = "START TRANSACTION;"
         + sql
         + ";"
-        + "update vehicle set recent_mileage = '" + mileage + "' where id = '" + vehicle_id + "'"
+        + "update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + this_minute + "' where id = '" + vehicle_id + "'"
         + ";"
         + " COMMIT";
+        (summary as vehicle_summary).recent_mileage_update_time = this_minute;
         }
       Open();
       new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
@@ -551,6 +567,11 @@ namespace Class_db_vehicles
       return (summary as vehicle_summary).recent_mileage;
       }
 
+    public string RecentMileageUpdateTimeOf(object summary)
+      {
+      return (summary as vehicle_summary).recent_mileage_update_time;
+      }
+
     public void Set
       (
       string id,
@@ -612,7 +633,7 @@ namespace Class_db_vehicles
       Open();
       new MySqlCommand
         (
-        db_trail.Saved("update vehicle set recent_mileage = '" + mileage + "' where id = '" + id + "'"),
+        db_trail.Saved("update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' where id = '" + id + "'"),
         connection
         )
         .ExecuteNonQuery();
@@ -643,6 +664,7 @@ namespace Class_db_vehicles
           + " , IFNULL(bumper_number,'') as bumper_number"
           + " , IFNULL(license_plate,'') as tag"
           + " , IFNULL(vin,'') as vin"
+          + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
@@ -690,7 +712,8 @@ namespace Class_db_vehicles
         quarters = dr["quarters"].ToString(),
         status = dr["status"].ToString(),
         tag = dr["tag"].ToString(),
-        vin = dr["vin"].ToString()
+        vin = dr["vin"].ToString(),
+        recent_mileage_update_time = dr["recent_mileage_update_time"].ToString()
         };
       Close();
       return the_summary;

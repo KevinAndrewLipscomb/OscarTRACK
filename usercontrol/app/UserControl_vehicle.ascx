@@ -214,7 +214,7 @@
     <td><ASP:LinkButton id="LinkButton_update_vehicle_mileage" runat="server" onclick="LinkButton_update_vehicle_mileage_Click"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
     <td>
       <font class="">
-        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal>
+        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal> (updated <asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal>)
       </font>
     </td>
     <td nowrap="True"></td>
