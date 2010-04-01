@@ -41,6 +41,15 @@ namespace update_vehicle_mileage {
         protected global::System.Web.UI.WebControls.Literal Literal_vehicle_name_2;
         
         /// <summary>
+        /// Literal_recent_mileage_update_time control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_recent_mileage_update_time;
+        
+        /// <summary>
         /// Literal_recent_mileage control.
         /// </summary>
         /// <remarks>
