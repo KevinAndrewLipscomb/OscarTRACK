@@ -624,13 +624,14 @@ namespace Class_db_vehicles
       Close();
       }
 
-    public void SetMileage
+    public DateTime SetMileage
       (
       string id,
       string mileage
       )
       {
       Open();
+      var set_mileage = DateTime.Parse((new MySqlCommand("select IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'0001-01-01') from vehicle where id = '" + id + "'",connection).ExecuteScalar().ToString()));
       new MySqlCommand
         (
         db_trail.Saved("update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' where id = '" + id + "'"),
@@ -638,6 +639,7 @@ namespace Class_db_vehicles
         )
         .ExecuteNonQuery();
       Close();
+      return set_mileage;
       }
 
     public object Summary(string vehicle_id)

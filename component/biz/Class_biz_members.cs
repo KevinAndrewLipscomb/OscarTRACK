@@ -153,6 +153,19 @@ namespace Class_biz_members
             BindRankedCrewShiftsForecast(target, true);
         }
 
+        public void BindRankedFleetTrackingParticipation
+          (
+          object target,
+          bool do_log
+          )
+          {
+          db_members.BindRankedFleetTrackingParticipation(target, do_log);
+          }
+        public void BindRankedFleetTrackingParticipation(object target)
+          {
+          BindRankedFleetTrackingParticipation(target, true);
+          }
+
         public void BindRankedNumMembersInPipeline(object target, bool do_log)
         {
             db_members.BindRankedNumMembersInPipeline(target, do_log);
@@ -409,6 +422,11 @@ namespace Class_biz_members
             result = db_members.OfficershipOf(member_id);
             return result;
         }
+
+        public string OverallFleetTrackingParticipation()
+          {
+          return db_members.OverallFleetTrackingParticipation();
+          }
 
         public string PhoneNumOf(string member_id)
         {

@@ -2,6 +2,8 @@
 
 using Class_biz_members;
 using Class_biz_notifications;
+using Class_biz_user;
+using Class_db_agencies;
 using Class_db_vehicles;
 using kix;
 using System;
@@ -14,12 +16,16 @@ namespace Class_biz_vehicles
     {
     private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
+    private TClass_biz_user biz_user = null;
+    private TClass_db_agencies db_agencies = null;
     private TClass_db_vehicles db_vehicles = null;
 
     public TClass_biz_vehicles() : base()
       {
       biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
+      biz_user = new TClass_biz_user();
+      db_agencies = new TClass_db_agencies();
       db_vehicles = new TClass_db_vehicles();
       }
 
@@ -193,6 +199,7 @@ namespace Class_biz_vehicles
         biz_members.UserAttributionIndicator() + down_comment,
         summary
         );
+      db_agencies.IncrementFleetTrackingOpsTally(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
       biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
       //
       var current_condition = new k.subtype<int>(-1,1);
@@ -230,6 +237,7 @@ namespace Class_biz_vehicles
         biz_members.UserAttributionIndicator() + up_comment,
         summary
         );
+      db_agencies.IncrementFleetTrackingOpsTally(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
       biz_notifications.IssueForVehicleMarkedUp(vehicle_id,time_came_up,down_comment,up_comment);
       //
       var current_condition = new k.subtype<int>(-1,1);
@@ -332,7 +340,11 @@ namespace Class_biz_vehicles
       string mileage
       )
       {
-      db_vehicles.SetMileage(id,mileage);
+      var prior_mileage_update_time = db_vehicles.SetMileage(id,mileage);
+      if (DateTime.Now - prior_mileage_update_time > new TimeSpan(12,0,0))
+        {
+        db_agencies.IncrementFleetTrackingOpsTally(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
+        }
       }
 
     public string StatusOf(object summary)

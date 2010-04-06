@@ -718,6 +718,13 @@
     <Compile Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_crew_shifts_forecast.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_fleet_tracking_participation.ascx.cs">
+      <DependentUpon>UserControl_ranked_fleet_tracking_participation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_fleet_tracking_participation.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_fleet_tracking_participation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_length_of_service.ascx.cs">
       <DependentUpon>UserControl_ranked_length_of_service.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1145,6 +1152,7 @@
     <Content Include="usercontrol\app\UserControl_ranked_commensuration.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_core_ops_size.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_crew_shifts_forecast.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_fleet_tracking_participation.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_length_of_service.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx" />

@@ -306,6 +306,116 @@ namespace Class_db_members
             BindRankedCrewShiftsForecast(target, true);
         }
 
+        public void BindRankedFleetTrackingParticipation
+          (
+          object target,
+          bool do_log
+          )
+          {
+          Open();
+          if (do_log)
+            {
+            new MySqlCommand
+              (
+              db_trail.Saved
+                (
+                "START TRANSACTION"
+                + ";"
+                // Log squad-by-squad indicators.
+                + " replace indicator_fleet_tracking_participation (year,month,be_agency_id_applicable,agency_id,value)"
+                +   " select YEAR(CURDATE())"
+                +     " , MONTH(CURDATE())"
+                +     " , TRUE"
+                +     " , agency.id"
+                +     " , fleet_tracking_ops_tally"
+                +         " /"
+                +         " ("
+                +         " sum("
+                +           " if"
+                +             " (" 
+                +               " (leave_of_absence.start_date <= DATE_SUB(CURDATE(),INTERVAL 1 MONTH))"
+                +               " and (leave_of_absence.end_date >= LAST_DAY(DATE_SUB(CURDATE(),INTERVAL 1 MONTH))),"
+                +             " num_obliged_shifts,"
+                +             " num_shifts"
+                +             " )"
+                +           " )/2"
+                +         " )*100"
+                +   " from member"
+                +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+                +     " join enrollment_history"
+                +       " on"
+                +         " ("
+                +         " enrollment_history.member_id=member.id"
+                +         " and"
+                +           " ("
+                +             " (enrollment_history.start_date <= DATE_SUB(CURDATE(),INTERVAL 1 MONTH))"
+                +           " and"
+                +             " ("
+                +               " (enrollment_history.end_date is null)"
+                +             " or"
+                +               " (enrollment_history.end_date >= LAST_DAY(DATE_SUB(CURDATE(),INTERVAL 1 MONTH)))"
+                +             " )"
+                +           " )"
+                +         " )"
+                +     " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+                +     " left join leave_of_absence"
+                +       " on"
+                +         " ("
+                +         " leave_of_absence.member_id=member.id"
+                +         " and "
+                +           " ("
+                +             " (leave_of_absence.start_date is null)"
+                +           " or"
+                +             " ("
+                +               " (leave_of_absence.start_date <= DATE_SUB(CURDATE(),INTERVAL 1 MONTH))"
+                +             " and"
+                +               " (leave_of_absence.end_date >= LAST_DAY(DATE_SUB(CURDATE(),INTERVAL 1 MONTH)))"
+                +             " )"
+                +           " )"
+                +         " )"
+                +     " join agency on (agency.id=member.agency_id)"
+                +   " where"
+                +       " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+                +     " and"
+                +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
+                +   " group by agency.id"
+                + ";"
+                // Log citywide indicator.
+                + " replace indicator_fleet_tracking_participation (year,month,be_agency_id_applicable,agency_id,value)"
+                +   " select YEAR(CURDATE())"
+                +     " , MONTH(CURDATE())"
+                +     " , FALSE"
+                +     " , 0"
+                +     " , (select sum(fleet_tracking_ops_tally) from agency)"
+                +       " /"
+                +       " (select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("-1") + ")"
+                +       " *100"
+                + ";"
+                + " COMMIT"
+                ),
+              connection
+              )
+              .ExecuteNonQuery();
+            db_agencies.CycleFleetTrackingOpsTallies();
+            }
+          ((target) as DataGrid).DataSource = new MySqlCommand
+            (
+            "select NULL as rank"
+            + " , concat(medium_designator,' - ',long_designator) as agency"
+            + " , value"
+            + " from indicator_fleet_tracking_participation"
+            +   " join agency on (agency.id=indicator_fleet_tracking_participation.agency_id)"
+            + " where YEAR(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = YEAR(CURDATE())"
+            +   " and MONTH(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = MONTH(CURDATE())"
+            +   " and be_agency_id_applicable = TRUE"
+            + " order by value desc",
+            connection
+            )
+            .ExecuteReader();
+          ((target) as DataGrid).DataBind();
+          Close();
+          }
+
         public void BindRankedNumMembersInPipeline(object target, bool do_log)
         {
             string from_where_phrase;
@@ -1138,6 +1248,28 @@ namespace Class_db_members
             this.Close();
             return result;
         }
+
+        public string OverallFleetTrackingParticipation()
+          {
+          var result = k.EMPTY;
+          Open();
+          object overall_fleet_tracking_participation_obj = new MySqlCommand
+            (
+            "select FORMAT(value,0)"
+            + " from indicator_fleet_tracking_participation"
+            + " where YEAR(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = YEAR(CURDATE())"
+            +   " and MONTH(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = MONTH(CURDATE())"
+            +   " and not be_agency_id_applicable",
+            connection
+            )
+            .ExecuteScalar();
+          if (overall_fleet_tracking_participation_obj != null)
+            {
+            result = overall_fleet_tracking_participation_obj.ToString();
+            }
+          Close();
+          return result;
+          }
 
         public string PeckCodeOf(object summary)
         {

@@ -1,19 +1,15 @@
-using AjaxControlToolkit;
-
-
 using kix;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
-using UserControl_roster;
 using UserControl_commensuration;
-using UserControl_dashboard_binder;
+using UserControl_roster;
+
 namespace UserControl_personnel_binder
 {
+  public class UserControl_personnel_binder_Static
+    {
+    public const int TSSI_ROSTER = 0;
+    public const int TSSI_RESULTS = 1;
+    }
+
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~personnel~binder.pas
     public partial class TWebUserControl_personnel_binder: ki_web_ui.usercontrol_class
     {
@@ -48,22 +44,19 @@ namespace UserControl_personnel_binder
                 }
                 switch(p.tab_index)
                 {
-                    case Units.UserControl_personnel_binder.TSSI_ROSTER:
+                    case UserControl_personnel_binder_Static.TSSI_ROSTER:
                         // Dynamic controls must be re-added on each postback.
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                         break;
-                    case Units.UserControl_personnel_binder.TSSI_RESULTS:
+                    case UserControl_personnel_binder_Static.TSSI_RESULTS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))), "UserControl_commensuration", PlaceHolder_content);
-                        break;
-                    case Units.UserControl_personnel_binder.TSSI_DASHBOARD:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))), "UserControl_dashboard_binder", PlaceHolder_content);
                         break;
                 }
             }
             else
             {
                 p.be_loaded = false;
-                p.tab_index = Units.UserControl_personnel_binder.TSSI_ROSTER;
+                p.tab_index = UserControl_personnel_binder_Static.TSSI_ROSTER;
                 // NO .Fresh call -- special treatment
                 p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
             }
@@ -76,15 +69,12 @@ namespace UserControl_personnel_binder
             PlaceHolder_content.Controls.Clear();
             switch(p.tab_index)
             {
-                case Units.UserControl_personnel_binder.TSSI_ROSTER:
+                case UserControl_personnel_binder_Static.TSSI_ROSTER:
                     // NO .Fresh call -- special treatment
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                     break;
-                case Units.UserControl_personnel_binder.TSSI_RESULTS:
+                case UserControl_personnel_binder_Static.TSSI_RESULTS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))).Fresh(), "UserControl_commensuration", PlaceHolder_content);
-                    break;
-                case Units.UserControl_personnel_binder.TSSI_DASHBOARD:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))).Fresh(), "UserControl_dashboard_binder", PlaceHolder_content);
                     break;
             }
         }
@@ -125,17 +115,6 @@ namespace UserControl_personnel_binder
         } // end p_type
 
     } // end TWebUserControl_personnel_binder
-
-}
-
-namespace UserControl_personnel_binder.Units
-{
-    public class UserControl_personnel_binder
-    {
-        public const int TSSI_ROSTER = 0;
-        public const int TSSI_RESULTS = 1;
-        public const int TSSI_DASHBOARD = 2;
-    } // end UserControl_personnel_binder
 
 }
 
