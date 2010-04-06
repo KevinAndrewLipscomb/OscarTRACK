@@ -65,7 +65,7 @@ namespace UserControl_ranked_standard_enrollment
                 num_raw_shifts = decimal.Parse(e.Item.Cells[3].Text);
                 p.total_cooked = p.total_cooked + num_cooked_shifts;
                 p.total_raw = p.total_raw + num_raw_shifts;
-                e.Item.Cells[3].Text = (num_cooked_shifts / num_raw_shifts).ToString("P0");
+                //e.Item.Cells[4].Text = (num_cooked_shifts / num_raw_shifts).ToString("P0");
             }
         }
 

@@ -2,6 +2,7 @@ using Class_biz_user;
 using System.Collections;
 using UserControl_about;
 using UserControl_config_binder;
+using UserControl_dashboard_binder;
 using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
@@ -13,8 +14,9 @@ namespace UserControl_member_binder
         public const int TSSI_PERSONNEL = 0;
         public const int TSSI_FLEET = 1;
         public const int TSSI_FUNDDRIVE = 2;
-        public const int TSSI_CONFIG = 3;
-        public const int TSSI_ABOUT = 4;
+        public const int TSSI_DASHBOARD = 3;
+        public const int TSSI_CONFIG = 4;
+        public const int TSSI_ABOUT = 5;
     } // end UserControl_member_binder
 
     public struct p_type
@@ -56,6 +58,9 @@ namespace UserControl_member_binder
                         break;
                     case UserControl_member_binder_Static.TSSI_FUNDDRIVE:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))), "UserControl_funddrive_binder", PlaceHolder_content);
+                        break;
+                    case UserControl_member_binder_Static.TSSI_DASHBOARD:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))), "UserControl_dashboard_binder", PlaceHolder_content);
                         break;
                     case UserControl_member_binder_Static.TSSI_CONFIG:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))), "UserControl_config", PlaceHolder_content);
@@ -125,6 +130,9 @@ namespace UserControl_member_binder
                     break;
                 case UserControl_member_binder_Static.TSSI_FUNDDRIVE:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))).Fresh(), "UserControl_funddrive_binder", PlaceHolder_content);
+                    break;
+                case UserControl_member_binder_Static.TSSI_DASHBOARD:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))).Fresh(), "UserControl_dashboard_binder", PlaceHolder_content);
                     break;
                 case UserControl_member_binder_Static.TSSI_CONFIG:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))).Fresh(), "UserControl_config", PlaceHolder_content);

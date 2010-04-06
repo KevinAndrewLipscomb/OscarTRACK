@@ -8,10 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_ranked_commensuration {
+namespace UserControl_ranked_fleet_tracking_participation {
     
     
-    public partial class TWebUserControl_ranked_commensuration {
+    public partial class TWebUserControl_ranked_fleet_tracking_participation {
         
         /// <summary>
         /// Label_overall control.
@@ -30,14 +30,5 @@ namespace UserControl_ranked_commensuration {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_detail;
-        
-        /// <summary>
-        /// Label_no_data control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_no_data;
     }
 }

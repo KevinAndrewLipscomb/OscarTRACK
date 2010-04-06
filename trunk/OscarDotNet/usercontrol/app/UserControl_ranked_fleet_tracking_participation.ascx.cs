@@ -1,25 +1,20 @@
+using Class_biz_members;
+using Class_biz_role_member_map;
 using kix;
-using System;
-
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
+using System.Collections;
 using System.Web.UI.WebControls;
 
-using System.Collections;
-using Class_biz_agencies;
-using Class_biz_role_member_map;
-namespace UserControl_ranked_commensuration
+namespace UserControl_ranked_fleet_tracking_participation
 {
     public struct p_type
     {
         public bool be_loaded;
-        public TClass_biz_agencies biz_agencies;
+        public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public uint rank;
     } // end p_type
 
-    public partial class TWebUserControl_ranked_commensuration: ki_web_ui.usercontrol_class
+    public partial class TWebUserControl_ranked_fleet_tracking_participation: ki_web_ui.usercontrol_class
     {
         private p_type p;
         protected System.Web.UI.WebControls.Label Label_auditor_name = null;
@@ -27,21 +22,8 @@ namespace UserControl_ranked_commensuration
         {
             if (!p.be_loaded)
             {
-                Label_overall.Text = p.biz_agencies.OverallCommensuration();
-                if (Label_overall.Text != k.EMPTY)
-                {
-                    Label_overall.Text = Label_overall.Text + " %";
-                    p.biz_agencies.BindRankedCommensuration(DataGrid_detail);
-                    DataGrid_detail.Visible = true;
-                    Label_no_data.Visible = false;
-                }
-                else
-                {
-                    Label_overall.Text = "?";
-                    Label_no_data.Text = Label_no_data.Text + k.SPACE + p.biz_role_member_map.HolderOf("Department Schedule Auditor").ToUpper();
-                    Label_no_data.Visible = true;
-                    DataGrid_detail.Visible = false;
-                }
+                p.biz_members.BindRankedFleetTrackingParticipation(DataGrid_detail, (Session["mode:report/monthly-core-ops-dashboard"] != null));
+                Label_overall.Text = p.biz_members.OverallFleetTrackingParticipation() + " %";
                 p.be_loaded = true;
             }
 
@@ -52,14 +34,14 @@ namespace UserControl_ranked_commensuration
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_commensuration.p"] != null) && (Session["UserControl_ranked_commensuration.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session["UserControl_ranked_fleet_tracking_participation.p"] != null) && (Session["UserControl_ranked_fleet_tracking_participation.p"].GetType().Namespace == p.GetType().Namespace))
             {
-                p = (p_type)(Session["UserControl_ranked_commensuration.p"]);
+                p = (p_type)(Session["UserControl_ranked_fleet_tracking_participation.p"]);
             }
             else
             {
                 p.be_loaded = false;
-                p.biz_agencies = new TClass_biz_agencies();
+                p.biz_members = new TClass_biz_members();
                 p.biz_role_member_map = new TClass_biz_role_member_map();
                 p.rank = 0;
             }
@@ -73,19 +55,19 @@ namespace UserControl_ranked_commensuration
         private void InitializeComponent()
         {
             this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            this.PreRender += this.TWebUserControl_ranked_commensuration_PreRender;
+            this.PreRender += this.TWebUserControl_ranked_fleet_tracking_participation_PreRender;
             //this.Load += this.Page_Load;
         }
 
-        private void TWebUserControl_ranked_commensuration_PreRender(object sender, System.EventArgs e)
+        private void TWebUserControl_ranked_fleet_tracking_participation_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_commensuration.p", p);
+            SessionSet("UserControl_ranked_fleet_tracking_participation.p", p);
         }
 
-        public TWebUserControl_ranked_commensuration Fresh()
+        public TWebUserControl_ranked_fleet_tracking_participation Fresh()
         {
-            TWebUserControl_ranked_commensuration result;
-            Session.Remove("UserControl_ranked_commensuration.p");
+            TWebUserControl_ranked_fleet_tracking_participation result;
+            Session.Remove("UserControl_ranked_fleet_tracking_participation.p");
             result = this;
             return result;
         }
@@ -100,6 +82,6 @@ namespace UserControl_ranked_commensuration
             }
         }
 
-    } // end TWebUserControl_ranked_commensuration
+    } // end TWebUserControl_ranked_fleet_tracking_participation
 
 }

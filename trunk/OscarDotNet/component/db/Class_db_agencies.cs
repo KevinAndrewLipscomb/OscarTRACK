@@ -149,6 +149,13 @@ namespace Class_db_agencies
             this.Close();
         }
 
+        public void CycleFleetTrackingOpsTallies()
+          {
+          Open();
+          new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = 0"), connection).ExecuteNonQuery();
+          Close();
+          }
+
         public void Delete(string short_designator)
         {
             this.Open();
@@ -188,6 +195,13 @@ namespace Class_db_agencies
             this.Close();
             return result;
         }
+
+        public void IncrementFleetTrackingOpsTally(string id)
+          {
+          Open();
+          new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = fleet_tracking_ops_tally + 1 where id = '" + id + "'"), connection).ExecuteNonQuery();
+          Close();
+          }
 
         public string LongDesignatorOf(string id)
         {
