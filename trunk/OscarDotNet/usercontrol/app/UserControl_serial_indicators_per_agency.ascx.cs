@@ -23,6 +23,7 @@ namespace UserControl_serial_indicators_per_agency
     public string expanded_img_commensuration_src;
     public string expanded_img_core_ops_size_src;
     public string expanded_img_crew_shifts_forecast_src;
+    public string expanded_img_fleet_tracking_participation_src;
     public string expanded_img_median_length_of_service_src;
     public string expanded_img_num_members_in_pipeline_src;
     public string expanded_img_standard_enrollment_src;
@@ -71,7 +72,7 @@ namespace UserControl_serial_indicators_per_agency
       if (Session["UserControl_serial_indicators_per_agency.p"] != null)
         {
         p = (p_type)(Session["UserControl_serial_indicators_per_agency.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_P_UserControl_dashboard_binder_UserControl_dashboard_serial_aspects_binder_PlaceHolder_content"] as string) == "UserControl_serial_indicators_per_agency");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_dashboard_binder_UserControl_dashboard_serial_aspects_binder_PlaceHolder_content"] as string) == "UserControl_serial_indicators_per_agency");
         }
       else
         {
@@ -83,6 +84,7 @@ namespace UserControl_serial_indicators_per_agency
         p.expanded_img_commensuration_src = k.ExpandAsperand(Img_commensuration.Attributes["src"]);
         p.expanded_img_core_ops_size_src = k.ExpandAsperand(Img_core_ops_size.Attributes["src"]);
         p.expanded_img_crew_shifts_forecast_src = k.ExpandAsperand(Img_crew_shifts_forecast.Attributes["src"]);
+        p.expanded_img_fleet_tracking_participation_src = k.ExpandAsperand(Img_fleet_tracking_participation.Attributes["src"]);
         p.expanded_img_median_length_of_service_src = k.ExpandAsperand(Img_median_length_of_service.Attributes["src"]);
         p.expanded_img_num_members_in_pipeline_src = k.ExpandAsperand(Img_num_members_in_pipeline.Attributes["src"]);
         p.expanded_img_standard_enrollment_src = k.ExpandAsperand(Img_standard_enrollment.Attributes["src"]);
@@ -137,6 +139,7 @@ namespace UserControl_serial_indicators_per_agency
       Img_median_length_of_service.Attributes["src"] = p.expanded_img_median_length_of_service_src + passthrough_parms;
       Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
       Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
+      Img_fleet_tracking_participation.Attributes["src"] = p.expanded_img_fleet_tracking_participation_src + passthrough_parms;
       }
 
     } // end TWebUserControl_serial_indicators_per_agency

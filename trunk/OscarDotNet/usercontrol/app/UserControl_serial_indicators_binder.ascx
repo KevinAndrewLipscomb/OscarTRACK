@@ -14,6 +14,7 @@
               <cc1:TabPanel runat="server" headertext="Roster utilization" id="TabPanel_roster_utilization"></cc1:TabPanel>
               <cc1:TabPanel runat="server" headertext="Core ops commitment" id="TabPanel_core_ops_commitment"></cc1:TabPanel>
               <cc1:TabPanel runat="server" headertext="Median years of service" id="TabPanel_median_years_of_service"></cc1:TabPanel>
+              <cc1:TabPanel runat="server" headertext="Fleet tracking participation" id="TabPanel_fleet_tracking_participation"></cc1:TabPanel>
             </cc1:TabContainer></td>
         </tr>
         <tr>

@@ -10,7 +10,7 @@
               <em>(Citywide = </em>
               <asp:Label ID="Label_overall" runat="server" Font-Italic="True"></asp:Label><em>)</em></p>
             <p>
-              <small>This block shows the degree to which agency personnel took each crew-shift as an opportunity to make a qualifying status update to a vehicle.</small></p>
+              <small>This block shows the degree to which agency personnel took each of last month's crew-shifts as an opportunity to make a qualifying status update to a vehicle.</small></p>
           </td>
         </tr>
         <tr>

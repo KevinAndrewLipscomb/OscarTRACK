@@ -25,3 +25,6 @@
 <p>&nbsp;</p>
 <p><b>8. Degree to which the agency produced a complete initial schedule. A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave statuses: </b></p>
 <p><img id="Img_commensuration" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=commensuration' /></p>
+<p>&nbsp;</p>
+<p><b>9. Degree to which agency personnel took each of a month's crew-shifts as an opportunity to make a qualifying status update to a vehicle: </b></p>
+<p><img id="Img_fleet_tracking_participation" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=fleet_tracking_participation' /></p>
