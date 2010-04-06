@@ -858,6 +858,13 @@
     <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_fleet_tracking_participation.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_fleet_tracking_participation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_fleet_tracking_participation.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_fleet_tracking_participation.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_length_of_service.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1172,6 +1179,7 @@
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_fleet_tracking_participation.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_length_of_service.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_num_core_ops_members.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_num_members_in_pipeline.ascx" />

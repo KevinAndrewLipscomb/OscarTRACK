@@ -104,6 +104,15 @@ namespace UserControl_serial_indicators_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_median_years_of_service;
         
         /// <summary>
+        /// TabPanel_fleet_tracking_participation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet_tracking_participation;
+        
+        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>
