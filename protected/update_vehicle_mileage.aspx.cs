@@ -50,11 +50,18 @@ namespace update_vehicle_mileage
         if (recent_mileage != k.EMPTY)
           {
           Literal_recent_mileage.Text = recent_mileage;
-          Literal_recent_mileage_update_time.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
           }
         else
           {
           Literal_recent_mileage.Text = "(not specified)";
+          }
+        var recent_mileage_update_time = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
+        if (recent_mileage_update_time != k.EMPTY)
+          {
+          Literal_recent_mileage_update_time.Text = recent_mileage_update_time;
+          }
+        else
+          {
           Literal_recent_mileage_update_time.Text = "yet";
           }
         TextBox_nominal_mileage.Focus();
