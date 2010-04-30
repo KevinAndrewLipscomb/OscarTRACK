@@ -20,7 +20,7 @@ namespace UserControl_precontent {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.ScriptManager ScriptManager_control;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ScriptManager_control;
         
         /// <summary>
         /// Label_application_name control.
