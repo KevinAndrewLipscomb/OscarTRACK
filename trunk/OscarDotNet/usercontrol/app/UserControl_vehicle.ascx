@@ -1,6 +1,12 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_vehicle.ascx.cs" Inherits="UserControl_vehicle.TWebUserControl_vehicle"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~kicrudhelped~item.ascx-template -->
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
+<style type="text/css">
+  .style1
+  {
+    font-variant: small-caps;
+  }
+</style>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">
@@ -186,6 +192,42 @@
     </td>
   </tr>
   <tr>
+    <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>
+    <td></td>
+    <td>
+      <font class="">
+        <ASP:TextBox id="TextBox_target_pm_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>&nbsp;<asp:CheckBox ID="CheckBox_target_pm_mileage" runat="server" Text="Force target PM mileage backward" Visible="False" />
+      </font>
+    </td>
+    <td nowrap="True">
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+      <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
+  <tr>
+    <td><font class="">DMV&nbsp;inspection&nbsp;due:</font></td>
+    <td></td>
+    <td>
+      <font class="">
+        <uc1:UserControl_drop_down_date id="UserControl_drop_down_date_dmv_inspection_due" runat="server"  cssclass="" enabled="False"></uc1:UserControl_drop_down_date><small>(Day of month will be disregarded and forced to end of month)</small>
+      </font>
+    </td>
+    <td nowrap="True">
+      <asp:CustomValidator ID="CustomValidator_dmv_inspection_due" runat="server" Display="Dynamic" ErrorMessage="You cannot move the DMV inspection due date backwards." Font-Bold="True" onservervalidate="CustomValidator_dmv_inspection_due_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+      <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;
+      <ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>&nbsp;&nbsp;
+      <ASP:Button id="Button_cancel" text="Cancel" runat="server" enabled="True" onclick="Button_cancel_Click"></ASP:Button>
+      <p></p>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4" bgcolor="Gainsboro" class="style1" style="text-align: center">Clicking the following links will cause unsubmitted changes above to be lost</td>
+  </tr>
+  <tr>
     <td><font class="">Usability:</font></td>
     <td><ASP:LinkButton id="LinkButton_usability" runat="server" onclick="LinkButton_usability_Click"><IMG src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
     <td>
@@ -219,35 +261,7 @@
     </td>
     <td nowrap="True"></td>
   </tr>
-  <tr>
-    <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>
-    <td></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_target_pm_mileage" runat="server"  cssclass="" enabled="False"></ASP:TextBox>&nbsp;<asp:CheckBox ID="CheckBox_target_pm_mileage" runat="server" Text="Force target PM mileage backward" Visible="False" />
-      </font>
-    </td>
-    <td nowrap="True">
-      <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
-      <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
-    </td>
-  </tr>
-  <tr>
-    <td><font class="">DMV&nbsp;inspection&nbsp;due:</font></td>
-    <td></td>
-    <td>
-      <font class="">
-        <uc1:UserControl_drop_down_date id="UserControl_drop_down_date_dmv_inspection_due" runat="server"  cssclass="" enabled="False"></uc1:UserControl_drop_down_date><small>(Day of month will be disregarded and forced to end of month)</small>
-      </font>
-    </td>
-    <td nowrap="True">
-      <asp:CustomValidator ID="CustomValidator_dmv_inspection_due" runat="server" Display="Dynamic" ErrorMessage="You cannot move the DMV inspection due date backwards." Font-Bold="True" onservervalidate="CustomValidator_dmv_inspection_due_ServerValidate">!ERR!</asp:CustomValidator>
-    </td>
-  </tr>
       </table>
     </td>
   </tr>
 </table>
-<ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;
-<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>&nbsp;&nbsp;
-<ASP:Button id="Button_cancel" text="Cancel" runat="server" enabled="True" onclick="Button_cancel_Click"></ASP:Button>
