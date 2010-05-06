@@ -168,6 +168,7 @@ namespace UserControl_fleet
         p.biz_vehicle_quarters.BindDirectToListControlMedium(DropDownList_quarters_filter,p.quarters_filter,true);
         p.biz_vehicle_kinds.BindListControl(DropDownList_vehicle_kind_filter,p.vehicle_kind_filter,true);
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
+        RadioButtonList_interest.SelectedIndex = (p.be_interest_dynamic ? 0 : 1);
         LinkButton_add_vehicle.Visible = p.be_ok_to_config_vehicles;
         Bind();
         p.be_loaded = true;
