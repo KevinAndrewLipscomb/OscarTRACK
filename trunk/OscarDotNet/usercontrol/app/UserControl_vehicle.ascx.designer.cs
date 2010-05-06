@@ -238,6 +238,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_chassis_model;
         
         /// <summary>
+        /// CheckBox_be_four_or_all_wheel_drive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_four_or_all_wheel_drive;
+        
+        /// <summary>
         /// RequiredFieldValidator_chassis_model control.
         /// </summary>
         /// <remarks>

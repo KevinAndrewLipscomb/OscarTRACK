@@ -69,6 +69,7 @@ namespace UserControl_vehicle
       TextBox_target_pm_mileage.Text = k.EMPTY;
       UserControl_drop_down_date_dmv_inspection_due.Clear();
       Literal_recent_mileage_update_time.Text = k.EMPTY;
+      CheckBox_be_four_or_all_wheel_drive.Checked = false;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -218,6 +219,7 @@ namespace UserControl_vehicle
       string target_pm_mileage;
       DateTime dmv_inspection_due;
       DateTime recent_mileage_update_time;
+      bool be_four_or_all_wheel_drive;
       result = false;
       if
         (
@@ -239,7 +241,8 @@ namespace UserControl_vehicle
           out be_active,
           out target_pm_mileage,
           out dmv_inspection_due,
-          out recent_mileage_update_time
+          out recent_mileage_update_time,
+          out be_four_or_all_wheel_drive
           )
         )
         {
@@ -268,6 +271,7 @@ namespace UserControl_vehicle
           {
           Literal_recent_mileage_update_time.Text = recent_mileage_update_time.ToString("yyyy-MM-dd HH:mm");
           }
+        CheckBox_be_four_or_all_wheel_drive.Checked = be_four_or_all_wheel_drive;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
@@ -375,7 +379,8 @@ namespace UserControl_vehicle
           k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA),
           CheckBox_be_active.Checked,
           k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
-          UserControl_drop_down_date_dmv_inspection_due.selectedvalue
+          UserControl_drop_down_date_dmv_inspection_due.selectedvalue,
+          CheckBox_be_four_or_all_wheel_drive.Checked
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();
@@ -453,6 +458,7 @@ namespace UserControl_vehicle
       CheckBox_be_active.Enabled = ablement && p.be_ok_to_retire_vehicles;
       TextBox_target_pm_mileage.Enabled = ablement;
       UserControl_drop_down_date_dmv_inspection_due.enabled = ablement;
+      CheckBox_be_four_or_all_wheel_drive.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)

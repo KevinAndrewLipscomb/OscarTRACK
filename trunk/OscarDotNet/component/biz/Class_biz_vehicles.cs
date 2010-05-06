@@ -103,10 +103,11 @@ namespace Class_biz_vehicles
       object target,
       string agency_filter,
       string vehicle_kind_filter,
+      bool be_four_or_all_wheel_drive_filter,
       string quarters_filter
       )
       {
-      db_vehicles.BindBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,vehicle_kind_filter,quarters_filter);
+        db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter);
       }
 
     public void ChangeQuarters
@@ -146,7 +147,8 @@ namespace Class_biz_vehicles
       out bool be_active,
       out string target_pm_mileage,
       out DateTime dmv_inspection_due,
-      out DateTime recent_mileage_update_time
+      out DateTime recent_mileage_update_time,
+      out bool be_four_or_all_wheel_drive
       )
       {
       return db_vehicles.Get
@@ -167,7 +169,8 @@ namespace Class_biz_vehicles
         out be_active,
         out target_pm_mileage,
         out dmv_inspection_due,
-        out recent_mileage_update_time
+        out recent_mileage_update_time,
+        out be_four_or_all_wheel_drive
         );
       }
 
@@ -306,7 +309,8 @@ namespace Class_biz_vehicles
       string purchase_price,
       bool be_active,
       string target_pm_mileage,
-      DateTime dmv_inspection_due
+      DateTime dmv_inspection_due,
+      bool be_four_or_all_wheel_drive
       )
       {
       var effective_dmv_inspection_due = DateTime.MinValue;
@@ -330,7 +334,8 @@ namespace Class_biz_vehicles
         purchase_price,
         be_active,
         target_pm_mileage,
-        effective_dmv_inspection_due
+        effective_dmv_inspection_due,
+        be_four_or_all_wheel_drive
         );
       }
 

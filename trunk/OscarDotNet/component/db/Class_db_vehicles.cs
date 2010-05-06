@@ -32,6 +32,7 @@ namespace Class_db_vehicles
     public string tag;
     public string vin;
     public string recent_mileage_update_time;
+    public bool be_four_or_all_wheel_drive;
     }
 
   public class TClass_db_vehicles: TClass_db
@@ -199,6 +200,7 @@ namespace Class_db_vehicles
       object target,
       string agency_filter,
       string vehicle_kind_filter,
+      bool be_four_or_all_wheel_drive_filter,
       string quarters_filter
       )
       {
@@ -219,6 +221,10 @@ namespace Class_db_vehicles
         {
         filter += " and kind_id = '" + vehicle_kind_filter + "'" + k.SPACE;
         }
+      if (be_four_or_all_wheel_drive_filter)
+        {
+          filter += " and be_four_or_all_wheel_drive ";
+        }
       if (quarters_filter != k.EMPTY)
         {
         filter += " and vehicle_quarters.id = '" + quarters_filter + "'" + k.SPACE;
@@ -238,6 +244,7 @@ namespace Class_db_vehicles
           + " , IFNULL(model_year,'') as model_year"
           + " , chassis_make.name as chassis_make"
           + " , chassis_model.name as chassis_model"
+          + " , IF(be_four_or_all_wheel_drive,'YES','no') as be_four_or_all_wheel_drive"
           + " , IFNULL(custom_make.name,'') as custom_make"
           + " , IFNULL(custom_model.name,'') as custom_model"
           + " , IFNULL(fuel.description,'') as fuel_description"
@@ -379,7 +386,8 @@ namespace Class_db_vehicles
       out bool be_active,
       out string target_pm_mileage,
       out DateTime dmv_inspection_due,
-      out DateTime recent_mileage_update_time
+      out DateTime recent_mileage_update_time,
+      out bool be_four_or_all_wheel_drive
       )
       {
       bool result;
@@ -401,6 +409,7 @@ namespace Class_db_vehicles
       target_pm_mileage = k.EMPTY;
       dmv_inspection_due = DateTime.MinValue;
       recent_mileage_update_time = DateTime.MinValue;
+      be_four_or_all_wheel_drive = false;
       result = false;
       //
       this.Open();
@@ -437,6 +446,7 @@ namespace Class_db_vehicles
           {
           recent_mileage_update_time = DateTime.MinValue;
           }
+        be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1");
         result = true;
         }
       dr.Close();
@@ -588,7 +598,8 @@ namespace Class_db_vehicles
       string purchase_price,
       bool be_active,
       string target_pm_mileage,
-      DateTime dmv_inspection_due
+      DateTime dmv_inspection_due,
+      bool be_four_or_all_wheel_drive
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -606,6 +617,7 @@ namespace Class_db_vehicles
       + " , be_active = " + be_active.ToString()
       + " , target_pm_mileage = NULLIF('" + target_pm_mileage + "','')"
       + " , dmv_inspection_due = NULLIF('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "','0001-01-01')"
+      + " , be_four_or_all_wheel_drive = " + be_four_or_all_wheel_drive.ToString()
       + k.EMPTY;
       Open();
       new MySqlCommand
@@ -667,6 +679,7 @@ namespace Class_db_vehicles
           + " , IFNULL(license_plate,'') as tag"
           + " , IFNULL(vin,'') as vin"
           + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
+          + " , be_four_or_all_wheel_drive"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
@@ -715,7 +728,8 @@ namespace Class_db_vehicles
         status = dr["status"].ToString(),
         tag = dr["tag"].ToString(),
         vin = dr["vin"].ToString(),
-        recent_mileage_update_time = dr["recent_mileage_update_time"].ToString()
+        recent_mileage_update_time = dr["recent_mileage_update_time"].ToString(),
+        be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1")
         };
       Close();
       return the_summary;
