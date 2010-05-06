@@ -116,7 +116,7 @@
     <td></td>
     <td>
       <font class="">
-        <ASP:DropDownList id="DropDownList_chassis_model" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
+        <ASP:DropDownList id="DropDownList_chassis_model" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>&nbsp;<asp:CheckBox ID="CheckBox_be_four_or_all_wheel_drive" runat="server" Text="All or 4-Wheel Drive" />
       </font>
     </td>
     <td nowrap="True">
@@ -225,7 +225,7 @@
     </td>
   </tr>
   <tr>
-    <td colspan="4" bgcolor="Gainsboro" class="style1" style="text-align: center">Clicking the following links will cause unsubmitted changes above to be lost</td>
+    <td colspan="4" bgcolor="Gainsboro" class="style1" style="text-align: center">Clicking the following icons will cause unsubmitted changes above to be lost</td>
   </tr>
   <tr>
     <td><font class="">Usability:</font></td>

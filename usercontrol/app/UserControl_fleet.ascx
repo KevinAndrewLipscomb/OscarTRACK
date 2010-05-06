@@ -27,6 +27,11 @@
                                 <small>Kind</small><br>
                                 <asp:DropDownList ID="DropDownList_vehicle_kind_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_vehicle_kind_filter_SelectedIndexChanged"></asp:DropDownList>
                             </td>
+                            <td id="TableData_be_four_or_all_wheel_drive_filter" runat="server">
+                              <p align="center">
+                                <small>4WD/AWD only</small><br>
+                                <asp:CheckBox ID="CheckBox_be_four_or_all_wheel_drive_filter" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_be_four_or_all_wheel_drive_filter_CheckedChanged" />
+                            </td>
                             <td id="TableData_agency_filter" runat="server">
                               <p align="center">
                                 <small>Agency</small><br>
@@ -136,6 +141,10 @@
                   <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_model" HeaderText="Chassis model" ReadOnly="True" SortExpression="chassis_model%,chassis_make,vehicle_name"></asp:BoundColumn>
+                <asp:BoundColumn DataField="be_four_or_all_wheel_drive" HeaderText="AWD / 4WD" ReadOnly="True" SortExpression="be_four_or_all_wheel_drive%,vehicle_name">
+                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                  <ItemStyle Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                </asp:BoundColumn>
                 <asp:BoundColumn DataField="custom_make" HeaderText="Custom make" ReadOnly="True" SortExpression="custom_make%,custom_model,vehicle_name">
                   <HeaderStyle HorizontalAlign="Right" />
                   <ItemStyle HorizontalAlign="Right" />
@@ -147,7 +156,9 @@
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,vehicle_name"></asp:BoundColumn>
-                <asp:BoundColumn DataField="bumper_number" HeaderText="Bumper #" ReadOnly="True" SortExpression="bumper_number%"></asp:BoundColumn>
+                <asp:BoundColumn DataField="bumper_number" HeaderText="Bumper #" ReadOnly="True" SortExpression="bumper_number%">
+                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                </asp:BoundColumn>
                 <asp:BoundColumn DataField="tag" HeaderText="Tag" ReadOnly="True" SortExpression="tag%"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vin" HeaderText="VIN" ReadOnly="True" SortExpression="vin%"></asp:BoundColumn>
               </Columns>

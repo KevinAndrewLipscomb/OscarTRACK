@@ -35,19 +35,21 @@ namespace UserControl_fleet
       public const int TCI_MODEL_YEAR = 11;
       public const int TCI_CHASSIS_MAKE = 12;
       public const int TCI_CHASSIS_MODEL = 13;
-      public const int TCI_CUSTOM_MAKE = 14;
-      public const int TCI_CUSTOM_MODEL = 15;
-      public const int TCI_FUEL = 16;
-      public const int TCI_KIND = 17;
-      public const int TCI_AGENCY = 18;
-      public const int TCI_BUMPER_NUMBER = 19;
-      public const int TCI_TAG = 20;
-      public const int TCI_VIN = 21;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 14;
+      public const int TCI_CUSTOM_MAKE = 15;
+      public const int TCI_CUSTOM_MODEL = 16;
+      public const int TCI_FUEL = 17;
+      public const int TCI_KIND = 18;
+      public const int TCI_AGENCY = 19;
+      public const int TCI_BUMPER_NUMBER = 20;
+      public const int TCI_TAG = 21;
+      public const int TCI_VIN = 22;
       }
 
     private struct p_type
       {
       public string agency_filter;
+      public bool be_four_or_all_wheel_drive_filter;
       public bool be_interactive;
       public bool be_interest_dynamic;
       public bool be_loaded;
@@ -159,6 +161,7 @@ namespace UserControl_fleet
           DropDownList_agency_filter.Enabled = false;
           DropDownList_quarters_filter.Enabled = false;
           DropDownList_vehicle_kind_filter.Enabled = false;
+          CheckBox_be_four_or_all_wheel_drive_filter.Enabled = false;
           TableRow_interest.Visible = false;
           DataGrid_control.AllowSorting = false;
           }
@@ -190,6 +193,7 @@ namespace UserControl_fleet
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         //
+        p.be_four_or_all_wheel_drive_filter = false;
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
         p.be_ok_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
@@ -401,6 +405,7 @@ namespace UserControl_fleet
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE].Visible = (!p.be_interest_dynamic) && !p.be_four_or_all_wheel_drive_filter;
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CUSTOM_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_CUSTOM_MODEL].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_FUEL].Visible = (!p.be_interest_dynamic);
@@ -409,7 +414,7 @@ namespace UserControl_fleet
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_BUMPER_NUMBER].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_TAG].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_VIN].Visible = (!p.be_interest_dynamic);
-      p.biz_vehicles.BindBaseDataList(p.sort_order, p.be_sort_order_ascending, DataGrid_control, p.agency_filter, p.vehicle_kind_filter, p.quarters_filter);
+      p.biz_vehicles.BindBaseDataList(p.sort_order, p.be_sort_order_ascending, DataGrid_control, p.agency_filter, p.vehicle_kind_filter, p.be_four_or_all_wheel_drive_filter, p.quarters_filter);
       Literal_num_rows.Text = p.num_vehicles.ToString();
       Literal_num_usable.Text = p.num_usable.ToString();
       //
@@ -470,6 +475,12 @@ namespace UserControl_fleet
     protected void LinkButton_add_vehicle_Click(object sender, EventArgs e)
       {
       //DropCrumbAndTransferTo("add_vehicle.aspx");
+      }
+
+    protected void CheckBox_be_four_or_all_wheel_drive_filter_CheckedChanged(object sender, EventArgs e)
+      {
+      p.be_four_or_all_wheel_drive_filter = CheckBox_be_four_or_all_wheel_drive_filter.Checked;
+      Bind();
       }
 
     } // end TWebUserControl_fleet
