@@ -131,7 +131,7 @@ namespace Class_db_members
                 sql = sql + " , cad_num = \"" + cad_num + "\"";
             }
             sql = sql + " , email_address = \"" + email_address + "\"" + " , medical_release_code = " + medical_release_code.ToString() + " , be_driver_qualified = " + be_driver_qualified.ToString() + " , agency_id = " + agency_id.ToString() + " , phone_num = \"" + phone_num + "\"";
-            if (new ArrayList(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(enrollment_code))
+            if (new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(enrollment_code))
             {
                 sql = sql + " , equivalent_los_start_date = \"" + enrollment_date_string + "\"";
             }
