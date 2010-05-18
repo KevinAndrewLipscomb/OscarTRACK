@@ -148,6 +148,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_name;
         
         /// <summary>
+        /// CustomValidator_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_name;
+        
+        /// <summary>
         /// DropDownList_agency control.
         /// </summary>
         /// <remarks>
@@ -301,6 +310,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.TextBox TextBox_license_plate;
         
         /// <summary>
+        /// CustomValidator_license_plate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_license_plate;
+        
+        /// <summary>
         /// TextBox_purchase_price control.
         /// </summary>
         /// <remarks>
@@ -407,6 +425,15 @@ namespace UserControl_vehicle {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_cancel;
+        
+        /// <summary>
+        /// TableRow_caution control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_caution;
         
         /// <summary>
         /// LinkButton_usability control.

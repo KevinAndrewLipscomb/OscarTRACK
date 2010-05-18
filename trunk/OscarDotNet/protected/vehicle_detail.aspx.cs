@@ -28,7 +28,7 @@ namespace vehicle_detail
           if (!IsPostBack)
             {
             Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - vehicle_detail";
-            UserControl_vehicle_control.be_record_navigation_controls_visible = false;
+            UserControl_vehicle_control.be_mode_add = false;
             }
           }
 

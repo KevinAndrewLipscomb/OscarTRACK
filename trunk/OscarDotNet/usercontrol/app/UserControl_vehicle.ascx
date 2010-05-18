@@ -11,7 +11,7 @@
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
-  <tr runat="server" id="TableRow_record_navigation_controls">
+  <tr runat="server" id="TableRow_record_navigation_controls" visible="false">
     <td bgcolor="gainsboro" valign="top"><font class="">ID:</font></td>
     <td></td>
     <td valign="top"><font class="">
@@ -60,6 +60,7 @@
     </td>
     <td nowrap="True">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_name" runat="server" errormessage="Please enter Name." font-bold="True" controltovalidate="TextBox_name">!ERR!</ASP:RequiredFieldValidator>
+      <asp:CustomValidator ID="CustomValidator_name" runat="server" ErrorMessage="A vehicle with this name is already active in the system." Font-Bold="True" onservervalidate="CustomValidator_name_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>
@@ -166,6 +167,7 @@
       </font>
     </td>
     <td nowrap="True">
+      <asp:CustomValidator ID="CustomValidator_license_plate" runat="server" ErrorMessage="The specified license plate already belongs to vehicle " Font-Bold="True" onservervalidate="CustomValidator_license_plate_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>
@@ -185,7 +187,7 @@
     <td></td>
     <td>
       <font class="">
-        <ASP:CheckBox id="CheckBox_be_active" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
+        <ASP:CheckBox id="CheckBox_be_active" runat="server"  cssclass="" enabled="False" Checked="true"></ASP:CheckBox>
       </font>
     </td>
     <td nowrap="True">
@@ -224,7 +226,7 @@
       <p></p>
     </td>
   </tr>
-  <tr>
+  <tr runat="server" id="TableRow_caution">
     <td colspan="4" bgcolor="Gainsboro" class="style1" style="text-align: center">Clicking the following icons will cause unsubmitted changes above to be lost</td>
   </tr>
   <tr>
@@ -256,7 +258,7 @@
     <td><ASP:LinkButton id="LinkButton_update_vehicle_mileage" runat="server" onclick="LinkButton_update_vehicle_mileage_Click"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
     <td>
       <font class="">
-        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal> (updated <asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal>)
+        <ASP:Literal id="Literal_recent_mileage" runat="server"></ASP:Literal><asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal>
       </font>
     </td>
     <td nowrap="True"></td>

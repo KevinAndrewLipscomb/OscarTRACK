@@ -60,7 +60,7 @@
                     </tr>
                   </table>
                 </td>
-                <td align="right" valign="top"><asp:LinkButton ID="LinkButton_add_vehicle" runat="server" Visible="False" onclick="LinkButton_add_vehicle_Click" Enabled="false">Add vehicle(s)</asp:LinkButton></td>
+                <td align="right" valign="top"><asp:LinkButton ID="LinkButton_add_vehicle" runat="server" Visible="False" onclick="LinkButton_add_vehicle_Click">Add vehicle</asp:LinkButton></td>
               </tr>
               <tr>
                 <td align="right" valign="bottom">

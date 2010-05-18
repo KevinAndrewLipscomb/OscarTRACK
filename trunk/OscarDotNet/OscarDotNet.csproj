@@ -83,6 +83,7 @@
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="protected\add_vehicle.aspx" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
@@ -324,6 +325,13 @@
     </Compile>
     <Compile Include="protected\add_new_enrollment_status.aspx.designer.cs">
       <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\add_vehicle.aspx.cs">
+      <DependentUpon>add_vehicle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\add_vehicle.aspx.designer.cs">
+      <DependentUpon>add_vehicle.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\append_vehicle_down_note.aspx.cs">
       <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
