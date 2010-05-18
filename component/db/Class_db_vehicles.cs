@@ -44,6 +44,30 @@ namespace Class_db_vehicles
       db_trail = new TClass_db_trail();
       }
 
+    internal string ActiveNameWithCompetingLicensePlate
+      (
+      string id,
+      string license_plate
+      )
+      {
+      Open();
+      var be_license_plate_collision_obj = new MySqlCommand
+        (
+        "select IFNULL(name,'') from vehicle where be_active and license_plate = '" + license_plate + "' and id <> '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      if (be_license_plate_collision_obj == null)
+        {
+        return k.EMPTY;
+        }
+      else
+        {
+        return be_license_plate_collision_obj.ToString();
+        }
+      }
+
     public string AgencyIdOfId(string id)
       {
       Open();
@@ -82,6 +106,14 @@ namespace Class_db_vehicles
       fraction.val = decimal.Parse(dr["fraction"].ToString());
       dr.Close();
       Close();
+      }
+
+    internal bool BeNameActive(string name)
+      {
+      Open();
+      var be_name_active = ("0" != new MySqlCommand("select count(*) from vehicle where name = '" + name + "' and be_active",connection).ExecuteScalar().ToString());
+      Close();
+      return be_name_active;
       }
 
     public bool BeNotEarlierDmvInspectionDue
@@ -599,7 +631,8 @@ namespace Class_db_vehicles
       bool be_active,
       string target_pm_mileage,
       DateTime dmv_inspection_due,
-      bool be_four_or_all_wheel_drive
+      bool be_four_or_all_wheel_drive,
+      bool be_mode_add
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -619,20 +652,29 @@ namespace Class_db_vehicles
       + " , dmv_inspection_due = NULLIF('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "','0001-01-01')"
       + " , be_four_or_all_wheel_drive = " + be_four_or_all_wheel_drive.ToString()
       + k.EMPTY;
+      var sql = k.EMPTY
+      + "insert vehicle"
+      + " set id = NULLIF('" + id + "','')"
+      + " , " + childless_field_assignments_clause
+      + " on duplicate key update "
+      + childless_field_assignments_clause;
+      if (be_mode_add)
+        {
+        sql = "START TRANSACTION;"
+        + sql
+        + ";"
+        + " insert vehicle_quarters_history (vehicle_id,quarters_id,start_datetime)"
+        + " select vehicle.id as vehicle_id"
+        + " , (select id from vehicle_quarters where medium_designator = 'EMS Admin') as quarters_id"
+        + " , NOW() as start_datetime"
+        + " from vehicle"
+        + " where vehicle.name = '" + name + "'"
+        + " and be_active = TRUE"
+        + ";"
+        + " COMMIT";
+        }
       Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "insert vehicle"
-          + " set id = NULLIF('" + id + "','')"
-          + " , " + childless_field_assignments_clause
-          + " on duplicate key update "
-          + childless_field_assignments_clause
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
       Close();
       }
 

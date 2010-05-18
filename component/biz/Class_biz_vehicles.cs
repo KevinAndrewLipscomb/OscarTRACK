@@ -29,6 +29,15 @@ namespace Class_biz_vehicles
       db_vehicles = new TClass_db_vehicles();
       }
 
+    internal string ActiveNameWithCompetingLicensePlate
+      (
+      string id,
+      string license_plate
+      )
+      {
+      return db_vehicles.ActiveNameWithCompetingLicensePlate(id,license_plate);
+      }
+
     public string AgencyIdOfId(string id)
       {
       return db_vehicles.AgencyIdOfId(id);
@@ -57,6 +66,11 @@ namespace Class_biz_vehicles
     internal bool BeDown(string id)
       {
       return db_vehicles.BeDown(id);
+      }
+
+    internal bool BeNameActive(string name)
+      {
+      return db_vehicles.BeNameActive(name);
       }
 
     public bool BeNotEarlierDmvInspectionDue
@@ -310,7 +324,8 @@ namespace Class_biz_vehicles
       bool be_active,
       string target_pm_mileage,
       DateTime dmv_inspection_due,
-      bool be_four_or_all_wheel_drive
+      bool be_four_or_all_wheel_drive,
+      bool be_mode_add
       )
       {
       var effective_dmv_inspection_due = DateTime.MinValue;
@@ -335,7 +350,8 @@ namespace Class_biz_vehicles
         be_active,
         target_pm_mileage,
         effective_dmv_inspection_due,
-        be_four_or_all_wheel_drive
+        be_four_or_all_wheel_drive,
+        be_mode_add
         );
       }
 

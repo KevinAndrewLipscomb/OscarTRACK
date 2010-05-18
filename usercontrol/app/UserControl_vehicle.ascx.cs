@@ -24,6 +24,7 @@ namespace UserControl_vehicle
     private struct p_type
       {
       public bool be_loaded;
+      public bool be_mode_add;
       public bool be_ok_to_config_vehicles;
       public bool be_ok_to_retire_vehicles;
       public TClass_biz_agencies biz_agencies;
@@ -35,15 +36,15 @@ namespace UserControl_vehicle
       public TClass_biz_role_member_map biz_role_member_map;
       }
 
-    public bool be_record_navigation_controls_visible
+    public bool be_mode_add
       {
       get
         {
-        return TableRow_record_navigation_controls.Visible;
+        return p.be_mode_add;
         }
       set
         {
-        TableRow_record_navigation_controls.Visible = value;
+        p.be_mode_add = value;
         }
       }
 
@@ -177,24 +178,41 @@ namespace UserControl_vehicle
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
-        LinkButton_usability.Text = k.ExpandTildePath(LinkButton_usability.Text);
-        LinkButton_quarters.Text = k.ExpandTildePath(LinkButton_quarters.Text);
-        LinkButton_update_vehicle_mileage.Text = k.ExpandTildePath(LinkButton_update_vehicle_mileage.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-        PresentRecord(p.biz_vehicles.IdOf(Session["vehicle_summary"]));
-        if (p.biz_vehicles.StatusOf(Session["vehicle_summary"]) == "UP")
+        if (p.be_mode_add)
           {
+          TableRow_caution.Visible = false;
+          LinkButton_usability.Visible = false;
+          LinkButton_quarters.Visible = false;
+          LinkButton_update_vehicle_mileage.Visible = false;
+          SetDataEntryMode();
+          CheckBox_be_active.Checked = true;
           Table_usability.BgColor = "Lime";
           Table_usability.BorderColor = "Lime";
-          Literal_usability.Text = "&nbsp;UP&nbsp;";
+          Literal_usability.Text = "Will be set to UP.&nbsp; Change after adding vehicle.";
+          Literal_quarters.Text = "Will be set to <i>EMS Admin</i>.&nbsp; Change after adding vehicle.";
+          Literal_recent_mileage.Text = "Change after adding vehicle.";
           }
         else
           {
-          Table_usability.BgColor = "LightGray";
-          Table_usability.BorderColor = "LightGray";
-          Literal_usability.Text = "DOWN";
+          LinkButton_usability.Text = k.ExpandTildePath(LinkButton_usability.Text);
+          LinkButton_quarters.Text = k.ExpandTildePath(LinkButton_quarters.Text);
+          LinkButton_update_vehicle_mileage.Text = k.ExpandTildePath(LinkButton_update_vehicle_mileage.Text);
+          PresentRecord(p.biz_vehicles.IdOf(Session["vehicle_summary"]));
+          if (p.biz_vehicles.StatusOf(Session["vehicle_summary"]) == "UP")
+            {
+            Table_usability.BgColor = "Lime";
+            Table_usability.BorderColor = "Lime";
+            Literal_usability.Text = "&nbsp;UP&nbsp;";
+            }
+          else
+            {
+            Table_usability.BgColor = "LightGray";
+            Table_usability.BorderColor = "LightGray";
+            Literal_usability.Text = "DOWN";
+            }
+          Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
           }
-        Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -265,11 +283,11 @@ namespace UserControl_vehicle
         UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
         if (recent_mileage_update_time == DateTime.MinValue)
           {
-          Literal_recent_mileage_update_time.Text = "never";
+            Literal_recent_mileage_update_time.Text = " (updated never)";
           }
         else
           {
-          Literal_recent_mileage_update_time.Text = recent_mileage_update_time.ToString("yyyy-MM-dd HH:mm");
+          Literal_recent_mileage_update_time.Text = "  (updated " + recent_mileage_update_time.ToString("yyyy-MM-dd HH:mm") + ")";
           }
         CheckBox_be_four_or_all_wheel_drive.Checked = be_four_or_all_wheel_drive;
         Button_lookup.Enabled = false;
@@ -297,7 +315,14 @@ namespace UserControl_vehicle
       SetDependentFieldAblements(p.be_ok_to_config_vehicles);
       Button_submit.Enabled = p.be_ok_to_config_vehicles;
       Button_delete.Enabled = false;
-      Focus(TextBox_id, true);
+      if (p.be_mode_add)
+        {
+        Focus(TextBox_name, true);
+        }
+      else
+        {
+        Focus(TextBox_id, true);
+        }
       }
 
     private void SetLookupMode()
@@ -325,6 +350,7 @@ namespace UserControl_vehicle
       else
         {
         p.be_loaded = false;
+        p.be_mode_add = false;
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
         p.biz_agencies = new TClass_biz_agencies();
@@ -375,12 +401,13 @@ namespace UserControl_vehicle
           k.Safe(DropDownList_custom_model.SelectedValue,k.safe_hint_type.NUM),
           k.Safe(TextBox_vin.Text,k.safe_hint_type.ALPHANUM).ToUpper(),
           k.Safe(DropDownList_fuel.SelectedValue,k.safe_hint_type.NUM),
-          k.Safe(TextBox_license_plate.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).ToUpper(),
+          k.Safe(TextBox_license_plate.Text,k.safe_hint_type.ALPHANUM).ToUpper(),
           k.Safe(TextBox_purchase_price.Text,k.safe_hint_type.CURRENCY_USA),
           CheckBox_be_active.Checked,
           k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
           UserControl_drop_down_date_dmv_inspection_due.selectedvalue,
-          CheckBox_be_four_or_all_wheel_drive.Checked
+          CheckBox_be_four_or_all_wheel_drive.Checked,
+          p.be_mode_add
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();
@@ -552,6 +579,18 @@ namespace UserControl_vehicle
       var name_with_competing_vin = p.biz_vehicles.NameWithCompetingVin(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_vin.Text,k.safe_hint_type.ALPHANUM));
       CustomValidator_vin.ErrorMessage += name_with_competing_vin;
       args.IsValid = (name_with_competing_vin == k.EMPTY);
+      }
+
+    protected void CustomValidator_name_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = !CheckBox_be_active.Checked || !p.biz_vehicles.BeNameActive(k.Safe(TextBox_name.Text, k.safe_hint_type.MAKE_MODEL));
+      }
+
+    protected void CustomValidator_license_plate_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      var active_name_with_competing_license_plate = p.biz_vehicles.ActiveNameWithCompetingLicensePlate(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM), k.Safe(TextBox_license_plate.Text, k.safe_hint_type.ALPHANUM));
+      CustomValidator_license_plate.ErrorMessage += active_name_with_competing_license_plate;
+      args.IsValid = (active_name_with_competing_license_plate == k.EMPTY);
       }
 
     } // end TWebUserControl_vehicle
