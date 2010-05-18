@@ -156,7 +156,12 @@ namespace UserControl_fleet
       {
       if (!p.be_loaded)
         {
-        if (!p.be_interactive)
+        if (p.be_interactive)
+          {
+          LinkButton_add_vehicle.Visible = p.be_ok_to_config_vehicles;
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
+          }
+        else
           {
           DropDownList_agency_filter.Enabled = false;
           DropDownList_quarters_filter.Enabled = false;
@@ -170,8 +175,6 @@ namespace UserControl_fleet
         CheckBox_be_four_or_all_wheel_drive_filter.Checked = p.be_four_or_all_wheel_drive_filter;
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
         RadioButtonList_interest.SelectedIndex = (p.be_interest_dynamic ? 0 : 1);
-        LinkButton_add_vehicle.Visible = p.be_ok_to_config_vehicles;
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
         Bind();
         p.be_loaded = true;
         }
