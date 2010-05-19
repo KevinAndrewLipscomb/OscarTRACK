@@ -1,10 +1,11 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_agencies;
+using Class_biz_indicator_shiftwise_vehicles_up_and_current;
 using Class_biz_members;
 using Class_biz_vehicle_quarters;
-using Class_biz_vehicles;
 using Class_biz_vehicle_kinds;
+using Class_biz_vehicles;
 using kix;
 using System;
 using System.Collections;
@@ -58,14 +59,16 @@ namespace UserControl_fleet
       public bool be_ok_to_append_vehicle_down_notes;
       public bool be_ok_to_see_all_squads;
       public TClass_biz_agencies biz_agencies;
+      public TClass_biz_indicator_shiftwise_vehicles_up_and_current biz_indicator_shiftwise_vehicles_up_and_current;
       public TClass_biz_members biz_members;
       public TClass_biz_vehicle_quarters biz_vehicle_quarters;
-      public TClass_biz_vehicles biz_vehicles;
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
+      public TClass_biz_vehicles biz_vehicles;
       public int miles_from_pm_alarm_threshold;
       public int miles_from_pm_alert_threshold;
       public uint num_usable;
       public uint num_vehicles;
+      public k.int_nonnegative num_vehicles_up_and_current;
       public string quarters_filter;
       public string sort_order;
       public string vehicle_kind_filter;
@@ -176,6 +179,7 @@ namespace UserControl_fleet
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
         RadioButtonList_interest.SelectedIndex = (p.be_interest_dynamic ? 0 : 1);
         Bind();
+
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -194,6 +198,7 @@ namespace UserControl_fleet
       else
         {
         p.biz_agencies = new TClass_biz_agencies();
+        p.biz_indicator_shiftwise_vehicles_up_and_current = new TClass_biz_indicator_shiftwise_vehicles_up_and_current();
         p.biz_members = new TClass_biz_members();
         p.biz_vehicle_quarters = new TClass_biz_vehicle_quarters();
         p.biz_vehicles = new TClass_biz_vehicles();
@@ -209,6 +214,7 @@ namespace UserControl_fleet
         p.be_sort_order_ascending = true;
         p.miles_from_pm_alarm_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alarm_threshold"]);
         p.miles_from_pm_alert_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alert_threshold"]);
+        p.num_vehicles_up_and_current = new k.int_nonnegative();
         p.quarters_filter = k.EMPTY;
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
@@ -286,6 +292,7 @@ namespace UserControl_fleet
       if ((new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem})).Contains(e.Item.ItemType))
         {
         p.num_vehicles++;
+        p.num_vehicles_up_and_current.val++;
         if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
           {
           p.num_usable++;
@@ -298,6 +305,7 @@ namespace UserControl_fleet
           {
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
           e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
+          p.num_vehicles_up_and_current.val--;
           }
         var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
         if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
@@ -320,6 +328,7 @@ namespace UserControl_fleet
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            p.num_vehicles_up_and_current.val--;
             }
           }
         var dmv_inspection_due_text = k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
@@ -337,6 +346,7 @@ namespace UserControl_fleet
             {
             e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
             e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
+            p.num_vehicles_up_and_current.val--;
             }
           }
         if (p.be_interactive)
@@ -448,7 +458,12 @@ namespace UserControl_fleet
         }
       else
         {
-        Literal_percent_usable.Text = (decimal.Divide(Convert.ToDecimal(p.num_usable),Convert.ToDecimal(p.num_vehicles))).ToString("P0");
+        var decimal_num_vehicles = Convert.ToDecimal(p.num_vehicles);
+        Literal_percent_usable.Text = (decimal.Divide(Convert.ToDecimal(p.num_usable), decimal_num_vehicles)).ToString("P0");
+        if (!p.be_interactive)
+          {
+          p.biz_indicator_shiftwise_vehicles_up_and_current.Log(p.agency_filter,decimal.Divide(Convert.ToDecimal(p.num_vehicles_up_and_current.val), decimal_num_vehicles));
+          }
         }
       p.num_usable = 0;
       p.num_vehicles = 0;

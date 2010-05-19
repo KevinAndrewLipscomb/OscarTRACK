@@ -212,6 +212,7 @@ namespace UserControl_vehicle
             Literal_usability.Text = "DOWN";
             }
           Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
+          CustomValidator_name.Enabled = false;
           }
         p.be_loaded = true;
         }

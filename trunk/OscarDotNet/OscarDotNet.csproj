@@ -88,6 +88,7 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -102,6 +103,7 @@
     <Compile Include="component\biz\Class_biz_enrollment.cs" />
     <Compile Include="component\biz\Class_biz_fuels.cs" />
     <Compile Include="component\biz\Class_biz_indicator_median_length_of_service.cs" />
+    <Compile Include="component\biz\Class_biz_indicator_shiftwise_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_leave.cs" />
     <Compile Include="component\biz\Class_biz_leaves.cs" />
     <Compile Include="component\biz\Class_biz_medical_release_levels.cs" />
@@ -138,6 +140,7 @@
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
+    <Compile Include="component\db\Class_db_indicator_shiftwise_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_leaves.cs" />
     <Compile Include="component\db\Class_db_medical_release_levels.cs" />
     <Compile Include="component\db\Class_db_members.cs" />
@@ -773,6 +776,9 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_utilization.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_utilization.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_vehicles_up_and_current.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_role.ascx.cs">
       <DependentUpon>UserControl_role.ascx</DependentUpon>
