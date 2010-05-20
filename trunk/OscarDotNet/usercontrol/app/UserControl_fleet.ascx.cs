@@ -292,7 +292,7 @@ namespace UserControl_fleet
       if ((new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem})).Contains(e.Item.ItemType))
         {
         p.num_vehicles++;
-        p.num_vehicles_up_and_current.val++;
+        var be_up_and_current = true;
         if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
           {
           p.num_usable++;
@@ -305,7 +305,7 @@ namespace UserControl_fleet
           {
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
           e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
-          p.num_vehicles_up_and_current.val--;
+          be_up_and_current = false;
           }
         var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
         if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
@@ -328,7 +328,7 @@ namespace UserControl_fleet
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
-            p.num_vehicles_up_and_current.val--;
+            be_up_and_current = false;
             }
           }
         var dmv_inspection_due_text = k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
@@ -346,7 +346,7 @@ namespace UserControl_fleet
             {
             e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
             e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
-            p.num_vehicles_up_and_current.val--;
+            be_up_and_current = false;
             }
           }
         if (p.be_interactive)
@@ -389,6 +389,10 @@ namespace UserControl_fleet
           ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
+          }
+        if (be_up_and_current)
+          {
+          p.num_vehicles_up_and_current.val++;
           }
         }
       }
