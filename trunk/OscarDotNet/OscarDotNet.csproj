@@ -777,6 +777,10 @@
     <Compile Include="usercontrol\app\UserControl_ranked_utilization.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_utilization.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx.cs">
+      <DependentUpon>UserControl_ranked_vehicles_up_and_current.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_vehicles_up_and_current.ascx</DependentUpon>
     </Compile>

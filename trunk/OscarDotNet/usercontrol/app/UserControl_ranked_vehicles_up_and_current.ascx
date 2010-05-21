@@ -6,11 +6,11 @@
         <tr bgcolor="#f5f5f5">
           <td>
             <p>
-              <strong>Proportional fleet tracking participation</strong><br>
+              <strong>Fleet UP-and-current factor</strong><br>
               <em>(Citywide = </em>
               <asp:Label ID="Label_overall" runat="server" Font-Italic="True"></asp:Label><em>)</em></p>
             <p>
-              <small>This block shows the degree to which agency personnel took each of last month's crew-shifts as an opportunity to make a qualifying status update to a vehicle.</small></p>
+              <small>This block shows the degree to which vehicles in the agency's fleet stayed UP, and avoided being overdue for PM or DMV inspection, across all shifts last month.</small></p>
           </td>
         </tr>
         <tr>
