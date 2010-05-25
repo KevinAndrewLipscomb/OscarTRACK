@@ -89,10 +89,15 @@
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appcommon.cs" />
+    <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
     <Compile Include="component\biz\Class_biz_agencies.cs" />
     <Compile Include="component\biz\Class_biz_chassis_makes.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
+    <Compile Include="component\db\Class_db_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_indicator_shiftwise_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_leaves.cs" />
     <Compile Include="component\db\Class_db_medical_release_levels.cs" />
@@ -861,6 +867,13 @@
     <Compile Include="usercontrol\app\UserControl_roster.ascx.designer.cs">
       <DependentUpon>UserControl_roster.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx.cs">
+      <DependentUpon>UserControl_serial_fleet_indicators_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_fleet_indicators_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicators_binder.ascx.cs">
       <DependentUpon>UserControl_serial_indicators_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -937,6 +950,20 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_utilization.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicator_utilization.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_vehicles_up_and_current.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_vehicles_up_and_current.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx.cs">
+      <DependentUpon>UserControl_serial_personnel_indicators_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_personnel_indicators_binder.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.cs">
       <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>
@@ -1200,7 +1227,6 @@
     <Content Include="usercontrol\app\UserControl_role_privilege_mapping.ascx" />
     <Content Include="usercontrol\app\UserControl_role_privilege_matrix.ascx" />
     <Content Include="usercontrol\app\UserControl_roster.ascx" />
-    <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_fleet_tracking_participation.ascx" />

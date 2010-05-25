@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_serial_indicators_binder {
+namespace UserControl_serial_fleet_indicators_binder {
     
     
-    public partial class TWebUserControl_serial_indicators_binder {
+    public partial class TWebUserControl_serial_fleet_indicators_binder {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -31,22 +31,22 @@ namespace UserControl_serial_indicators_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_personnel control.
+        /// TabPanel_fleet_tracking_participation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet_tracking_participation;
         
         /// <summary>
-        /// TabPanel_fleet control.
+        /// TabPanel_vehicles_up_and_current control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_vehicles_up_and_current;
         
         /// <summary>
         /// PlaceHolder_content control.

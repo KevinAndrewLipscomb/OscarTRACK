@@ -340,6 +340,59 @@ namespace Class_db_vehicles
       this.Close();
       }
 
+    internal void BindRankedUpAndCurrent(object target)
+      {
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "START TRANSACTION"
+        + ";"
+        + " SET @num_up_and_current = 0"
+        + ";"
+        + " SET @n = 0"
+        + ";"
+        + " SELECT NULL as rank"
+        + " , concat(medium_designator,' - ',long_designator) as agency"
+        + " , @num_vehicles_up_and_current :="
+        +     " ("
+        +     " select count(*)"
+        +     " from vehicle"
+        +       " left join vehicle_usability_history on"
+        +         " ("
+        +           " vehicle_usability_history.vehicle_id=vehicle.id"
+        +         " and"
+        +           " vehicle_usability_history.time_came_up is null"
+        +         " )"
+        +       " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
+        +     " where agency_id = v.agency_id"
+        +       " and be_active"
+        +       " and vehicle_down_nature.id is null"
+        +       " and recent_mileage <= target_pm_mileage"
+        +       " and dmv_inspection_due >= CURDATE()"
+        +     " )"
+        +     " as num_vehicles_up_and_current"
+        + " , @num_vehicles :="
+        +     " ("
+        +     " select count(*)"
+        +     " from vehicle"
+        +     " where agency_id = v.agency_id"
+        +       " and be_active"
+        +     " )"
+        +     " as num_vehicles"
+        + " , @num_vehicles_up_and_current/@num_vehicles as factor"
+        + " from vehicle v"
+        +   " join agency on (agency.id=v.agency_id)"
+        + " group by agency_id"
+        + " order by factor desc"
+        + ";"
+        + " COMMIT",
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
     public void ChangeQuarters
       (
       string vehicle_id,

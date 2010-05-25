@@ -7,99 +7,108 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_current_indicators {
+namespace UserControl_serial_personnel_indicators_binder {
     
     
-    public partial class TWebUserControl_current_indicators {
+    public partial class TWebUserControl_serial_personnel_indicators_binder {
         
         /// <summary>
-        /// PlaceHolder_ranked_core_ops_size control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_core_ops_size;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// PlaceHolder_ranked_crew_shifts_forecast control.
+        /// TabContainer_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_crew_shifts_forecast;
+        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// PlaceHolder_ranked_utilization control.
+        /// TabPanel_initial_schedule_completion control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_utilization;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_initial_schedule_completion;
         
         /// <summary>
-        /// PlaceHolder_ranked_length_of_service control.
+        /// TabPanel_num_core_ops_members control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_length_of_service;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_num_core_ops_members;
         
         /// <summary>
-        /// PlaceHolder_ranked_num_members_in_pipeline control.
+        /// TabPanel_num_members_in_pipeline control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_num_members_in_pipeline;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_num_members_in_pipeline;
         
         /// <summary>
-        /// PlaceHolder_ranked_third_slot_saturation control.
+        /// TabPanel_num_potential_crew_shifts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_third_slot_saturation;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_num_potential_crew_shifts;
         
         /// <summary>
-        /// PlaceHolder_ranked_commensuration control.
+        /// TabPanel_third_slot_saturation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_commensuration;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_third_slot_saturation;
         
         /// <summary>
-        /// PlaceHolder_ranked_standard_enrollment control.
+        /// TabPanel_roster_utilization control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_standard_enrollment;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_roster_utilization;
         
         /// <summary>
-        /// PlaceHolder_ranked_fleet_tracking_participation control.
+        /// TabPanel_core_ops_commitment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_fleet_tracking_participation;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_core_ops_commitment;
         
         /// <summary>
-        /// PlaceHolder_ranked_vehicles_up_and_current control.
+        /// TabPanel_median_years_of_service control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_vehicles_up_and_current;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_median_years_of_service;
+        
+        /// <summary>
+        /// PlaceHolder_content control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
     }
 }
