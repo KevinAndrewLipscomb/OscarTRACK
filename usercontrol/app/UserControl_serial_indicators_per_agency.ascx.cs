@@ -29,6 +29,7 @@ namespace UserControl_serial_indicators_per_agency
     public string expanded_img_standard_enrollment_src;
     public string expanded_img_third_slot_saturation_src;
     public string expanded_img_utilization_src;
+    public string expanded_img_vehicles_up_and_current_src;
     }
 
   public partial class TWebUserControl_serial_indicators_per_agency: ki_web_ui.usercontrol_class
@@ -90,6 +91,7 @@ namespace UserControl_serial_indicators_per_agency
         p.expanded_img_standard_enrollment_src = k.ExpandAsperand(Img_standard_enrollment.Attributes["src"]);
         p.expanded_img_third_slot_saturation_src = k.ExpandAsperand(Img_third_slot_saturation.Attributes["src"]);
         p.expanded_img_utilization_src = k.ExpandAsperand(Img_utilization.Attributes["src"]);
+        p.expanded_img_vehicles_up_and_current_src = k.ExpandAsperand(Img_vehicles_up_and_current.Attributes["src"]);
         }
       }
 
@@ -140,6 +142,7 @@ namespace UserControl_serial_indicators_per_agency
       Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
       Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
       Img_fleet_tracking_participation.Attributes["src"] = p.expanded_img_fleet_tracking_participation_src + passthrough_parms;
+      Img_vehicles_up_and_current.Attributes["src"] = p.expanded_img_vehicles_up_and_current_src + passthrough_parms;
       }
 
     } // end TWebUserControl_serial_indicators_per_agency

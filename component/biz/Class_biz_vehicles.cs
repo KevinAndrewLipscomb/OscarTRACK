@@ -124,6 +124,11 @@ namespace Class_biz_vehicles
         db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter);
       }
 
+    internal void BindRankedUpAndCurrent(object target)
+      {
+      db_vehicles.BindRankedUpAndCurrent(target);
+      }
+
     public void ChangeQuarters
       (
       string vehicle_id,

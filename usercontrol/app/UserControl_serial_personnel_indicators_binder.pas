@@ -1,4 +1,4 @@
-unit UserControl_serial_indicators_binder;
+unit UserControl_serial_personnel_indicators_binder;
 
 interface
 
@@ -25,11 +25,11 @@ type
     be_loaded: boolean;
     tab_index: cardinal;
     END;
-  TWebUserControl_serial_indicators_binder = class(ki_web_ui.usercontrol_class)
+  TWebUserControl_serial_personnel_indicators_binder = class(ki_web_ui.usercontrol_class)
   {$REGION 'Designer Managed Code'}
   strict private
     procedure InitializeComponent;
-    procedure TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
+    procedure TWebUserControl_serial_personnel_indicators_binder_PreRender(sender: System.Object;
       e: System.EventArgs);
     procedure TabContainer_control_ActiveTabChanged(sender: System.Object; e: System.EventArgs);
   {$ENDREGION}
@@ -46,7 +46,7 @@ type
   public
     { Public Declarations }
   published
-    function Fresh: TWebUserControl_serial_indicators_binder;
+    function Fresh: TWebUserControl_serial_personnel_indicators_binder;
   end;
 
 implementation
@@ -66,7 +66,7 @@ const
   TSSI_CORE_OPS_COMMITMENT = 5;
   TSSI_MEDIAN_YEARS_OF_SERVICE = 6;
 
-procedure TWebUserControl_serial_indicators_binder.Page_Load(sender: System.Object; e: System.EventArgs);
+procedure TWebUserControl_serial_personnel_indicators_binder.Page_Load(sender: System.Object; e: System.EventArgs);
 begin
   //
   if not p.be_loaded then begin
@@ -78,7 +78,7 @@ begin
   //
 end;
 
-procedure TWebUserControl_serial_indicators_binder.OnInit(e: System.EventArgs);
+procedure TWebUserControl_serial_personnel_indicators_binder.OnInit(e: System.EventArgs);
 begin
   //
   // Required for Designer support
@@ -87,10 +87,10 @@ begin
   inherited OnInit(e);
   //
   if IsPostback
-    and (session['UserControl_serial_indicators_binder.p'] <> nil)
-    and (session['UserControl_serial_indicators_binder.p'].GetType.namespace = p.GetType.namespace)
+    and (session['UserControl_serial_personnel_indicators_binder.p'] <> nil)
+    and (session['UserControl_serial_personnel_indicators_binder.p'].GetType.namespace = p.GetType.namespace)
   then begin
-    p := p_type(session['UserControl_serial_indicators_binder.p']);
+    p := p_type(session['UserControl_serial_personnel_indicators_binder.p']);
     //
     // Dynamic controls must be re-added on each postback.
     //
@@ -167,27 +167,27 @@ end;
 /// Required method for Designer support -- do not modify
 /// the contents of this method with the code editor.
 /// </summary>
-procedure TWebUserControl_serial_indicators_binder.InitializeComponent;
+procedure TWebUserControl_serial_personnel_indicators_binder.InitializeComponent;
 begin
   Include(Self.TabContainer_control.ActiveTabChanged, Self.TabContainer_control_ActiveTabChanged);
-  Include(Self.PreRender, Self.TWebUserControl_serial_indicators_binder_PreRender);
+  Include(Self.PreRender, Self.TWebUserControl_serial_personnel_indicators_binder_PreRender);
   Include(Self.Load, Self.Page_Load);
 end;
 {$ENDREGION}
 
-procedure TWebUserControl_serial_indicators_binder.TWebUserControl_serial_indicators_binder_PreRender(sender: System.Object;
+procedure TWebUserControl_serial_personnel_indicators_binder.TWebUserControl_serial_personnel_indicators_binder_PreRender(sender: System.Object;
   e: System.EventArgs);
 begin
-  SessionSet('UserControl_serial_indicators_binder.p',p);
+  SessionSet('UserControl_serial_personnel_indicators_binder.p',p);
 end;
 
-function TWebUserControl_serial_indicators_binder.Fresh: TWebUserControl_serial_indicators_binder;
+function TWebUserControl_serial_personnel_indicators_binder.Fresh: TWebUserControl_serial_personnel_indicators_binder;
 begin
-  session.Remove('UserControl_serial_indicators_binder.p');
+  session.Remove('UserControl_serial_personnel_indicators_binder.p');
   Fresh := self;
 end;
 
-procedure TWebUserControl_serial_indicators_binder.TabContainer_control_ActiveTabChanged(sender: System.Object;
+procedure TWebUserControl_serial_personnel_indicators_binder.TabContainer_control_ActiveTabChanged(sender: System.Object;
   e: System.EventArgs);
 begin
   //

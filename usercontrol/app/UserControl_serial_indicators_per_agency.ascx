@@ -28,3 +28,6 @@
 <p>&nbsp;</p>
 <p><b>9. Degree to which agency personnel took each of a month's crew-shifts as an opportunity to make a qualifying status update to a vehicle: </b></p>
 <p><img id="Img_fleet_tracking_participation" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=fleet_tracking_participation' /></p>
+<p>&nbsp;</p>
+<p><b>10. Degree to which vehicles in the agency's fleet were UP and within their PM and DMV inspection targets: </b></p>
+<p><img id="Img_vehicles_up_and_current" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=monthly_vehicles_up_and_current' /></p>

@@ -44,7 +44,7 @@
                 </td>
                 <td>&nbsp;&nbsp;</td>
                 <td valign="top" width="50%">
-                  &nbsp;
+                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_vehicles_up_and_current" runat="server"></ASP:PlaceHolder></p>
                 </td>
               </tr>
             </table>

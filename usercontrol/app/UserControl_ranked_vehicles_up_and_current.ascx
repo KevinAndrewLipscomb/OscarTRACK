@@ -6,11 +6,11 @@
         <tr bgcolor="#f5f5f5">
           <td>
             <p>
-              <strong>Fleet UP-and-current factor</strong><br>
+              <strong>Vehicles UP-and-current factor</strong><br/>
               <em>(Citywide = </em>
               <asp:Label ID="Label_overall" runat="server" Font-Italic="True"></asp:Label><em>)</em></p>
             <p>
-              <small>This block shows the degree to which vehicles in the agency's fleet stayed UP, and avoided being overdue for PM or DMV inspection, across all shifts last month.</small></p>
+              <small>This block shows the degree to which vehicles in the agency's fleet are UP and within their PM and DMV inspection targets.</small></p>
           </td>
         </tr>
         <tr>
@@ -22,7 +22,10 @@
                     <ItemStyle Font-Italic="True" HorizontalAlign="Right"></ItemStyle>
                   </asp:BoundColumn>
                   <asp:BoundColumn DataField="agency" ReadOnly="True" HeaderText="Agency"></asp:BoundColumn>
-                  <asp:BoundColumn DataField="value" ReadOnly="True" HeaderText="%" DataFormatString="{0:0}">
+                  <asp:BoundColumn DataField="num_vehicles_up_and_current" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                  <asp:BoundColumn DataField="num_vehicles" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                  <asp:BoundColumn DataField="factor" ReadOnly="True" headertext="%" dataformatstring="{0:0%}">
+                    <HeaderStyle Font-Italic="True"></HeaderStyle>
                     <ItemStyle Font-Bold="True" HorizontalAlign="Right"></ItemStyle>
                   </asp:BoundColumn>
                 </Columns>
@@ -34,3 +37,9 @@
     </td>
   </tr>
 </table>
+<asp:DataGrid ID="DataGrid_special" runat="server" AutoGenerateColumns="False" CellPadding="0" GridLines="None" ShowHeader="False" Visible="False">
+  <Columns>
+    <asp:BoundColumn DataField="agency" ReadOnly="True"></asp:BoundColumn>
+    <asp:BoundColumn DataField="shiftwise_factor" ReadOnly="True"></asp:BoundColumn>
+  </Columns>
+</asp:DataGrid>
