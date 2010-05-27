@@ -74,7 +74,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
           + " , be_for_night_shift = (HOUR(NOW()) > 12)"
           + " , be_agency_id_applicable = " + (agency_filter != k.EMPTY).ToString()
           + " , agency_id = '" + (agency_filter == k.EMPTY ? "0" : agency_filter) + "'"
-          + " , value = '" + value.ToString() + "'"
+          + " , value = '" + (value*100).ToString() + "'"
           )
         ,connection
         )
