@@ -3,8 +3,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
+  <head runat="server">
 	<!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
@@ -92,6 +91,9 @@
 				  </table>
 				</td>
 			  </tr>
-		  </table><uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent></form>
+		  </table>
+  	<input id="Hidden_client_timezone_offset" runat="server" type="hidden"/>
+    <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
+  </form>
 </body>
 </html>

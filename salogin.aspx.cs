@@ -55,7 +55,7 @@ namespace salogin
             }
             else
             {
-                Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - salogin";
+                Title = ConfigurationManager.AppSettings["application_name"] + " - salogin";
                 p.biz_users = new TClass_biz_users();
                 Focus(TextBox_username, true);
             }
@@ -122,6 +122,16 @@ namespace salogin
             {
                 SessionSet("user_id", p.biz_users.IdOf(username));
                 SessionSet("username", username);
+                double client_timezone_offset;
+                try
+                  {
+                  client_timezone_offset = double.Parse(k.Safe(Hidden_client_timezone_offset.Value,k.safe_hint_type.HYPHENATED_NUM));
+                  }
+                catch (FormatException)
+                  {
+                  client_timezone_offset = 270;
+                  }
+                SessionSet("client_timezone_offset",client_timezone_offset);
                 FormsAuthentication.RedirectFromLoginPage(username, CheckBox_keep_me_logged_in.Checked);
             }
         }
