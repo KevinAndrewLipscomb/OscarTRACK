@@ -128,7 +128,14 @@ namespace login
             {
                 SessionSet("user_id", p.biz_users.IdOf(username));
                 SessionSet("username", username);
-                SessionSet("client_timezone_offset", double.Parse(k.Safe(Hidden_client_timezone_offset.Value,k.safe_hint_type.HYPHENATED_NUM)));
+                try
+                  {
+                  SessionSet("client_timezone_offset", double.Parse(k.Safe(Hidden_client_timezone_offset.Value,k.safe_hint_type.HYPHENATED_NUM)));
+                  }
+                catch
+                  {
+                  throw new Exception("The user's browser returned a Hidden_client_timezone_offset.Value of '" + Hidden_client_timezone_offset.Value + "'.");
+                  }
                 p.biz_users.RecordSuccessfulLogin(Session["user_id"].ToString());
                 FormsAuthentication.RedirectFromLoginPage(username, CheckBox_keep_me_logged_in.Checked);
             }
