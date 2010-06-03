@@ -93,6 +93,11 @@ namespace Class_biz_members
             return result;
         }
 
+        internal bool BeRoleHolderByCadNum(string cad_num)
+          {
+          return db_members.BeRoleHolderByCadNum(cad_num);
+          }
+
         public bool BeTransferring(object summary)
           {
           return (EnrollmentOf(summary) == "Transferring");

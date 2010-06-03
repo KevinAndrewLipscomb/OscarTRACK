@@ -655,6 +655,34 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+        private delegate string IssueForMembershipReestablishment_Merge(string s);
+        internal void IssueForMembershipReestablishment(string saved_member_email_address, string username, string new_email_address)
+          {
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/membership_reestablishment.txt"));
+
+          IssueForMembershipReestablishment_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<username/>", username)
+              .Replace("<new_email_address/>", new_email_address);
+            };
+
+          k.SmtpMailSend
+            (
+            // from
+            ConfigurationManager.AppSettings["sender_email_address"],
+            // to
+            saved_member_email_address,
+            // subject
+            Merge(template_reader.ReadLine()),
+            // body
+            Merge(template_reader.ReadToEnd())
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueForNeedsEnrollmentReview_Merge(string s);
         public void IssueForNeedsEnrollmentReview(string member_id, string first_name, string last_name, string cad_num, string old_level, string medical_release_level)
         {

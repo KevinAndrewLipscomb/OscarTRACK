@@ -1,21 +1,17 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
+using Class_biz_members;
 using Class_biz_user;
 using Class_biz_users;
+using kix;
+using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
 namespace UserControl_establish_membership
 {
     public struct p_type
     {
         public bool be_loaded;
+        public TClass_biz_members biz_members;
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
     } // end p_type
@@ -49,6 +45,7 @@ namespace UserControl_establish_membership
             else
             {
                 p.be_loaded = false;
+                p.biz_members = new TClass_biz_members();
                 p.biz_user = new TClass_biz_user();
                 p.biz_users = new TClass_biz_users();
             }
@@ -66,19 +63,22 @@ namespace UserControl_establish_membership
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)
-        {
-            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.NUM), p.biz_user.IdNum()))
+          {
+          if (Page.IsValid)
             {
-                SessionSet("privilege_array", p.biz_user.Privileges());
-                // User was an unprivileged user until now, so reset privs.
-                Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "memaccept", "Link to membership record established.  Membership privileges granted.", true);
-                Table_proceed.Visible = true;
-            }
+            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.NUM), p.biz_user.IdNum(), Session["username"].ToString()))
+              {
+              SessionSet("privilege_array", p.biz_user.Privileges());
+              // User was an unprivileged user until now, so reset privs.
+              Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "memaccept", "Link to membership record established.  Membership privileges granted.", true);
+              Table_proceed.Visible = true;
+              }
             else
-            {
-                Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "nosuchmem", "No such membership record could be located.  Please check your submission for accuracy.", true);
+              {
+              Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "nosuchmem", "No such membership record could be located.  Please check your submission for accuracy.", true);
+              }
             }
-        }
+          }
 
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -102,6 +102,11 @@ namespace UserControl_establish_membership
             result = this;
             return result;
         }
+
+        protected void CustomValidator_shared_secret_ServerValidate(object source, ServerValidateEventArgs args)
+          {
+          args.IsValid = !p.biz_members.BeRoleHolderByCadNum(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.NUM));
+          }
 
     } // end TWebUserControl_establish_membership
 
