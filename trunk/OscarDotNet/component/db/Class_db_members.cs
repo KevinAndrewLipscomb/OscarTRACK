@@ -207,6 +207,14 @@ namespace Class_db_members
             return result;
         }
 
+        internal bool BeRoleHolderByCadNum(string cad_num)
+          {
+          Open();
+          var result = ("1" == new MySqlCommand("select (count(role_id) > 0) from member join role_member_map on (role_member_map.member_id=member.id) where cad_num = '" + cad_num + "'",connection).ExecuteScalar().ToString());
+          Close();
+          return result;
+          }
+
         public bool BeValidProfile(string id)
         {
             bool result;
@@ -977,6 +985,26 @@ namespace Class_db_members
         {
             return CurrentMemberEmailAddresses("");
         }
+
+        internal string EmailAddressByCadNum(string cad_num)
+          {
+          Open();
+          var email_address_by_cad_num_obj = new MySqlCommand
+            (
+            "select email_address from member where cad_num = '" + cad_num + "'",
+            connection
+            )
+            .ExecuteScalar();
+          Close();
+          if (email_address_by_cad_num_obj != null)
+            {
+            return email_address_by_cad_num_obj.ToString();
+            }
+          else
+            {
+            return k.EMPTY;
+            }
+          }
 
         public string EmailAddressOf(string member_id)
         {

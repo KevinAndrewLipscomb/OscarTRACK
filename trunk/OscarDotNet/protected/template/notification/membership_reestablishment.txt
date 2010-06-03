@@ -1,0 +1,16 @@
+Control of <application_name/> membership record transferred
+This is an automated message from <application_name/>.
+
+Control of the <application_name/> membership record formerly associated with your email address has been transferred to the following Username and New email address:
+
+   Username:
+      <username/>
+
+   New email address:
+      <new_email_address/>
+
+If the above Username and New email address belong to you, welcome back to the member features of <application_name/>!
+
+If you believe another person has taken control of your <application_name/> membership record inappropriately, please forward this message to the <application_name/> Application Administrator (<application_name/>@<host_domain_name/>) at once, and include any other information you think may be relevant.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

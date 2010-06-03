@@ -84,6 +84,7 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
+    <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />

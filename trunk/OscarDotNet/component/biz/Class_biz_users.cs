@@ -13,6 +13,7 @@ namespace Class_biz_users
     public class TClass_biz_users
     {
         private TClass_biz_notifications biz_notifications = null;
+        private TClass_biz_user biz_user = null;
         private TClass_db_members db_members = null;
         private TClass_db_users db_users = null;
         //Constructor  Create()
@@ -20,15 +21,25 @@ namespace Class_biz_users
         {
             // TODO: Add any constructor code here
             biz_notifications = new TClass_biz_notifications();
+            biz_user = new TClass_biz_user();
             db_members = new TClass_db_members();
             db_users = new TClass_db_users();
         }
-        public bool AcceptAsMember(string shared_secret, string id)
-        {
-            bool result;
-            result = db_users.AcceptAsMember(shared_secret, id);
-            return result;
-        }
+        public bool AcceptAsMember
+          (
+          string shared_secret,
+          string id,
+          string username
+          )
+          {
+          var saved_member_email_address = db_members.EmailAddressByCadNum(shared_secret);
+          var accept_as_member = db_users.AcceptAsMember(shared_secret, id);
+          if (saved_member_email_address != k.EMPTY)
+            {
+            biz_notifications.IssueForMembershipReestablishment(saved_member_email_address,username,biz_user.EmailAddress());
+            }
+          return accept_as_member;
+          }
 
         public bool BeAuthorized(string username, string encoded_password)
         {
