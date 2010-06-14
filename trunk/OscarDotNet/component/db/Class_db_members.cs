@@ -386,6 +386,7 @@ namespace Class_db_members
                 +       " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
                 +     " and"
                 +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
+                +     " and agency.id <> 0"
                 +   " group by agency.id"
                 + ";"
                 // Log citywide indicator.
@@ -416,6 +417,7 @@ namespace Class_db_members
             + " where YEAR(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = YEAR(CURDATE())"
             +   " and MONTH(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = MONTH(CURDATE())"
             +   " and be_agency_id_applicable = TRUE"
+            +   " and agency.id <> 0"
             + " order by value desc",
             connection
             )

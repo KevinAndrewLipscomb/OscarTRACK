@@ -28,7 +28,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
         + " , value as shiftwise_factor"
         + " from indicator_shiftwise_vehicles_up_and_current"
         +   " join agency on (agency.id=indicator_shiftwise_vehicles_up_and_current.agency_id)"
-        + " where PERIOD_DIFF(DATE_FORMAT(date,'%Y%m'),DATE_FORMAT(CURDATE(),'%Y%m')) = 1",
+        + " where PERIOD_DIFF(DATE_FORMAT(date,'%Y%m'),DATE_FORMAT(CURDATE(),'%Y%m')) = -1",
         connection
         )
         .ExecuteReader();
