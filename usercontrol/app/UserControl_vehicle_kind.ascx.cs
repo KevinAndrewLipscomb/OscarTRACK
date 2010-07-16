@@ -314,10 +314,6 @@ namespace UserControl_vehicle_kind
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
-          LinkButton_go_to_match_prior.Visible = true;
-          LinkButton_go_to_match_next.Visible = true;
-          LinkButton_go_to_match_last.Visible = true;
-          LinkButton_go_to_match_first.Visible = true;
           DropDownList_id.Visible = true;
           if (num_matches == 1)
             {
@@ -325,6 +321,10 @@ namespace UserControl_vehicle_kind
             }
           else
             {
+            LinkButton_go_to_match_prior.Visible = true;
+            LinkButton_go_to_match_next.Visible = true;
+            LinkButton_go_to_match_last.Visible = true;
+            LinkButton_go_to_match_first.Visible = true;
             DropDownList_id.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
             }
           }

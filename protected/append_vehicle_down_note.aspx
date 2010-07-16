@@ -31,7 +31,7 @@
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
-                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="10" TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
+                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="6" TextMode="MultiLine" ReadOnly="True" BackColor="Gainsboro"></asp:TextBox>
                               <p><small>The "<small><tt>==v== AUTHOR NAME TIMESTAMP</tt></small>" indicator is inserted by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>.</small></p>
                             </td>
                           </tr>
@@ -53,7 +53,7 @@
                         </table>
                       </td>
                       <td nowrap="nowrap" valign="top">
-                        <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox_note_to_append" ErrorMessage="Please enter Additional comments." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_note_to_append" runat="server" ControlToValidate="TextBox_note_to_append" ErrorMessage="Please enter Additional comments." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
                       </td>
                     </tr>
                     <tr>
