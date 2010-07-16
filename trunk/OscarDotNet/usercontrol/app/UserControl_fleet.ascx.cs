@@ -25,26 +25,27 @@ namespace UserControl_fleet
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
       public const int TCI_NAME = 2;
-      public const int TCI_STATUS = 3;
-      public const int TCI_STATUS_UP = 4;
-      public const int TCI_STATUS_DOWN = 5;
-      public const int TCI_APPEND_NOTE = 6;
-      public const int TCI_QUARTERS = 7;
-      public const int TCI_RECENT_MILEAGE = 8;
-      public const int TCI_MILES_FROM_PM = 9;
-      public const int TCI_DMV_INSPECTION_DUE = 10;
-      public const int TCI_MODEL_YEAR = 11;
-      public const int TCI_CHASSIS_MAKE = 12;
-      public const int TCI_CHASSIS_MODEL = 13;
-      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 14;
-      public const int TCI_CUSTOM_MAKE = 15;
-      public const int TCI_CUSTOM_MODEL = 16;
-      public const int TCI_FUEL = 17;
-      public const int TCI_KIND = 18;
-      public const int TCI_AGENCY = 19;
-      public const int TCI_BUMPER_NUMBER = 20;
-      public const int TCI_TAG = 21;
-      public const int TCI_VIN = 22;
+      public const int TCI_MINIFIXLOG = 3;
+      public const int TCI_STATUS = 4;
+      public const int TCI_STATUS_UP = 5;
+      public const int TCI_STATUS_DOWN = 6;
+      public const int TCI_APPEND_NOTE = 7;
+      public const int TCI_QUARTERS = 8;
+      public const int TCI_RECENT_MILEAGE = 9;
+      public const int TCI_MILES_FROM_PM = 10;
+      public const int TCI_DMV_INSPECTION_DUE = 11;
+      public const int TCI_MODEL_YEAR = 12;
+      public const int TCI_CHASSIS_MAKE = 13;
+      public const int TCI_CHASSIS_MODEL = 14;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 15;
+      public const int TCI_CUSTOM_MAKE = 16;
+      public const int TCI_CUSTOM_MODEL = 17;
+      public const int TCI_FUEL = 18;
+      public const int TCI_KIND = 19;
+      public const int TCI_AGENCY = 20;
+      public const int TCI_BUMPER_NUMBER = 21;
+      public const int TCI_TAG = 22;
+      public const int TCI_VIN = 23;
       }
 
     private struct p_type
@@ -258,11 +259,14 @@ namespace UserControl_fleet
       {
       if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
-        var vehicle_summary = p.biz_vehicles.Summary(k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_ID].Text,k.safe_hint_type.NUM));
-        SessionSet("vehicle_summary",vehicle_summary);
+        SessionSet("vehicle_summary",p.biz_vehicles.Summary(k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_ID].Text,k.safe_hint_type.NUM)));
         if (e.CommandName == "Select")
           {
           DropCrumbAndTransferTo("vehicle_detail.aspx");
+          }
+        else if (e.CommandName == "MiniFixLog")
+          {
+          DropCrumbAndTransferTo("mini_fix_log.aspx");
           }
         else if (e.CommandName == "MarkDown")
           {
@@ -356,6 +360,9 @@ namespace UserControl_fleet
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Detail";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_MINIFIXLOG].Controls[0]) as LinkButton);
+          link_button.ToolTip = "Manage MiniFixLog";
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark DOWN";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
@@ -415,6 +422,7 @@ namespace UserControl_fleet
     private void Bind()
       {
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_MINIFIXLOG].Visible = (p.be_interactive && p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;

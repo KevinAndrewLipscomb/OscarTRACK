@@ -390,22 +390,22 @@ namespace UserControl_role
                 TextBox_name.Text = saved_name;
                 p.biz_roles.Bind(saved_name, DropDownList_name);
                 num_matches = (uint)(DropDownList_name.Items.Count);
-                if (num_matches > 0)
-                {
-                    LinkButton_go_to_match_prior.Visible = true;
-                    LinkButton_go_to_match_next.Visible = true;
-                    LinkButton_go_to_match_last.Visible = true;
-                    LinkButton_go_to_match_first.Visible = true;
-                    DropDownList_name.Visible = true;
-                    if (num_matches == 1)
-                    {
-                        PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
-                    }
-                    else
-                    {
-                        DropDownList_name.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
-                    }
-                }
+        if (num_matches > 0)
+          {
+          DropDownList_name.Visible = true;
+          if (num_matches == 1)
+            {
+            PresentRecord(k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME));
+            }
+          else
+            {
+            LinkButton_go_to_match_prior.Visible = true;
+            LinkButton_go_to_match_next.Visible = true;
+            LinkButton_go_to_match_last.Visible = true;
+            LinkButton_go_to_match_first.Visible = true;
+            DropDownList_name.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
+            }
+          }
             }
         }
 

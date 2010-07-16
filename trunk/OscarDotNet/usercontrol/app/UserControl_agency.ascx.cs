@@ -212,22 +212,22 @@ namespace UserControl_agency
                 TextBox_short_designator.Text = saved_short_designator;
                 p.biz_agencies.Bind(saved_short_designator, DropDownList_short_designator);
                 num_matches = (uint)(DropDownList_short_designator.Items.Count);
-                if (num_matches > 0)
-                {
-                    LinkButton_go_to_match_prior.Visible = true;
-                    LinkButton_go_to_match_next.Visible = true;
-                    LinkButton_go_to_match_last.Visible = true;
-                    LinkButton_go_to_match_first.Visible = true;
-                    DropDownList_short_designator.Visible = true;
-                    if (num_matches == 1)
-                    {
-                        PresentRecord(k.Safe(DropDownList_short_designator.SelectedValue, k.safe_hint_type.ALPHANUM));
-                    }
-                    else
-                    {
-                        DropDownList_short_designator.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
-                    }
-                }
+        if (num_matches > 0)
+          {
+          DropDownList_short_designator.Visible = true;
+          if (num_matches == 1)
+            {
+            PresentRecord(k.Safe(DropDownList_short_designator.SelectedValue, k.safe_hint_type.ALPHANUM));
+            }
+          else
+            {
+            LinkButton_go_to_match_prior.Visible = true;
+            LinkButton_go_to_match_next.Visible = true;
+            LinkButton_go_to_match_last.Visible = true;
+            LinkButton_go_to_match_first.Visible = true;
+            DropDownList_short_designator.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
+            }
+          }
             }
         }
 
