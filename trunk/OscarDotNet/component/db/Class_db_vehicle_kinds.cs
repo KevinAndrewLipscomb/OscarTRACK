@@ -20,6 +20,14 @@ namespace Class_db_vehicle_kinds
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeTargetPmMileageMeaningful(string id)
+      {
+      Open();
+      var be_target_pm_mileage_meaningful = ("1" == new MySqlCommand("select be_target_pm_mileage_meaningful from vehicle_kind where id = '" + id + "'",connection).ExecuteScalar().ToString());
+      Close();
+      return be_target_pm_mileage_meaningful;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       bool result;

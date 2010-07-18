@@ -5,6 +5,7 @@ using Class_biz_notifications;
 using Class_biz_user;
 using Class_db_agencies;
 using Class_db_vehicles;
+using Class_db_vehicle_kinds;
 using kix;
 using System;
 using System.Collections;
@@ -19,6 +20,7 @@ namespace Class_biz_vehicles
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
     private TClass_db_vehicles db_vehicles = null;
+    private TClass_db_vehicle_kinds db_vehicle_kinds = null;
 
     public TClass_biz_vehicles() : base()
       {
@@ -27,6 +29,7 @@ namespace Class_biz_vehicles
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
       db_vehicles = new TClass_db_vehicles();
+      db_vehicle_kinds = new TClass_db_vehicle_kinds();
       }
 
     internal string ActiveNameWithCompetingLicensePlate
@@ -66,6 +69,15 @@ namespace Class_biz_vehicles
     internal bool BeDown(string id)
       {
       return db_vehicles.BeDown(id);
+      }
+
+    internal bool BeGoodCombinationKindTargetPmMileage
+      (
+      string kind_id,
+      string target_pm_mileage
+      )
+      {
+      return !(db_vehicle_kinds.BeTargetPmMileageMeaningful(kind_id) && (target_pm_mileage == k.EMPTY));
       }
 
     internal bool BeNameActive(string name)

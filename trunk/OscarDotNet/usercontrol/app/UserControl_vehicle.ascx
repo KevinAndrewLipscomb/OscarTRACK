@@ -211,8 +211,11 @@
       </font>
     </td>
     <td nowrap="True">
-      <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" 
+        ValidationExpression="\d+" Display="Dynamic">!ERR!</asp:RegularExpressionValidator>
       <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+      <asp:CustomValidator ID="CustomValidator_be_target_pm_mileage_meaningful" runat="server" Display="Dynamic" ErrorMessage="Target PM mileage is required for this kind of vehicle" Font-Bold="True" 
+        onservervalidate="CustomValidator_be_target_pm_mileage_meaningful_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>

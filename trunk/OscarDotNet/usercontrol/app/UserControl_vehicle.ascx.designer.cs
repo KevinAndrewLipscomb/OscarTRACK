@@ -409,6 +409,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_target_pm_mileage;
         
         /// <summary>
+        /// CustomValidator_be_target_pm_mileage_meaningful control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_be_target_pm_mileage_meaningful;
+        
+        /// <summary>
         /// UserControl_drop_down_date_dmv_inspection_due control.
         /// </summary>
         /// <remarks>

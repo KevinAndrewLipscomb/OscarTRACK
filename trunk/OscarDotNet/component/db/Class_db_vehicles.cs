@@ -286,6 +286,7 @@ namespace Class_db_vehicles
           + " , IFNULL(license_plate,'') as tag"
           + " , IFNULL(vin,'') as vin"
           + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
+          + " , be_target_pm_mileage_meaningful"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
