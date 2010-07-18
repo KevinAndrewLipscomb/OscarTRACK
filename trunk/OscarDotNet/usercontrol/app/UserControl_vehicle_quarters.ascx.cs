@@ -25,6 +25,9 @@ namespace UserControl_vehicle_quarters
       TextBox_long_designator.Text = k.EMPTY;
       TextBox_pecking_order.Text = k.EMPTY;
       CheckBox_be_active.Checked = false;
+      Literal_match_index.Text = k.EMPTY;
+      Literal_num_matches.Text = k.EMPTY;
+      Panel_match_numbers.Visible = false;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -137,6 +140,7 @@ namespace UserControl_vehicle_quarters
 
     private bool PresentRecord(string id)
       {
+      Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
       string medium_designator;
       string long_designator;
@@ -349,6 +353,9 @@ namespace UserControl_vehicle_quarters
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;

@@ -71,6 +71,9 @@ namespace UserControl_vehicle
       UserControl_drop_down_date_dmv_inspection_due.Clear();
       Literal_recent_mileage_update_time.Text = k.EMPTY;
       CheckBox_be_four_or_all_wheel_drive.Checked = false;
+      Literal_match_index.Text = k.EMPTY;
+      Literal_num_matches.Text = k.EMPTY;
+      Panel_match_numbers.Visible = false;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -221,6 +224,7 @@ namespace UserControl_vehicle
 
     private bool PresentRecord(string id)
       {
+      Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
       string agency_id;
       string name;
@@ -509,6 +513,9 @@ namespace UserControl_vehicle
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;
