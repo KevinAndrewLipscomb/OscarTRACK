@@ -342,7 +342,8 @@ namespace Class_biz_vehicles
       string target_pm_mileage,
       DateTime dmv_inspection_due,
       bool be_four_or_all_wheel_drive,
-      bool be_mode_add
+      bool be_mode_add,
+      string saved_kind_id
       )
       {
       var effective_dmv_inspection_due = DateTime.MinValue;
@@ -370,6 +371,10 @@ namespace Class_biz_vehicles
         be_four_or_all_wheel_drive,
         be_mode_add
         );
+      if (kind_id != saved_kind_id)
+        {
+        biz_notifications.IssueForVehicleKindChanged(id,saved_kind_id,kind_id);
+        }
       }
 
     public void SetMileage

@@ -34,6 +34,7 @@ namespace UserControl_vehicle
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_vehicles biz_vehicles;
       public TClass_biz_role_member_map biz_role_member_map;
+      public string saved_kind_id;
       }
 
     public bool be_mode_add
@@ -214,6 +215,7 @@ namespace UserControl_vehicle
             Table_usability.BorderColor = "LightGray";
             Literal_usability.Text = "DOWN";
             }
+          p.saved_kind_id = k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM);
           Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
           CustomValidator_name.Enabled = false;
           }
@@ -412,7 +414,8 @@ namespace UserControl_vehicle
           k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
           UserControl_drop_down_date_dmv_inspection_due.selectedvalue,
           CheckBox_be_four_or_all_wheel_drive.Checked,
-          p.be_mode_add
+          p.be_mode_add,
+          p.saved_kind_id
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();

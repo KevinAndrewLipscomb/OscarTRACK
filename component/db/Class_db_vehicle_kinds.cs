@@ -139,6 +139,14 @@ namespace Class_db_vehicle_kinds
       return result;
       }
 
+    internal string DescriptionOf(string id)
+      {
+      Open();
+      var description_of = new MySqlCommand("select description from vehicle_kind where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return description_of;
+      }
+
     public bool Get
       (
       string id,
