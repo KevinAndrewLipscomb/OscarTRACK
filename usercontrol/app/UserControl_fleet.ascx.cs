@@ -46,6 +46,7 @@ namespace UserControl_fleet
       public const int TCI_BUMPER_NUMBER = 21;
       public const int TCI_TAG = 22;
       public const int TCI_VIN = 23;
+      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 24;
       }
 
     private struct p_type
@@ -334,6 +335,15 @@ namespace UserControl_fleet
             e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
             be_up_and_current = false;
             }
+          }
+        else if (e.Item.Cells[UserControl_fleet_Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1")
+          {
+          e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
+          e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
+          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
+          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
+          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+          be_up_and_current = false;
           }
         var dmv_inspection_due_text = k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
         if (dmv_inspection_due_text != k.EMPTY)

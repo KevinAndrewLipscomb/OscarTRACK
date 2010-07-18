@@ -601,6 +601,11 @@ namespace UserControl_vehicle
       args.IsValid = (active_name_with_competing_license_plate == k.EMPTY);
       }
 
+    protected void CustomValidator_be_target_pm_mileage_meaningful_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = p.biz_vehicles.BeGoodCombinationKindTargetPmMileage(k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
+      }
+
     } // end TWebUserControl_vehicle
 
   }
