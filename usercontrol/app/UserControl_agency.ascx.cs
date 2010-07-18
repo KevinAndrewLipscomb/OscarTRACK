@@ -1,12 +1,9 @@
+using Class_biz_agencies;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
 
-using Class_biz_agencies;
 namespace UserControl_agency
 {
     public partial class TWebUserControl_agency: ki_web_ui.usercontrol_class
@@ -20,6 +17,9 @@ namespace UserControl_agency
             TextBox_medium_designator.Text = k.EMPTY;
             TextBox_long_designator.Text = k.EMPTY;
             CheckBox_be_active.Checked = false;
+            Literal_match_index.Text = k.EMPTY;
+            Literal_num_matches.Text = k.EMPTY;
+            Panel_match_numbers.Visible = false;
             LinkButton_go_to_match_prior.Visible = false;
             LinkButton_go_to_match_next.Visible = false;
             LinkButton_go_to_match_last.Visible = false;
@@ -48,6 +48,7 @@ namespace UserControl_agency
 
         private bool PresentRecord(string short_designator)
         {
+            Literal_match_index.Text = DropDownList_short_designator.SelectedIndex.ToString();
             bool result;
             string medium_designator;
             string long_designator;
@@ -221,6 +222,9 @@ namespace UserControl_agency
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;

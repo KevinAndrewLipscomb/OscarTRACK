@@ -1,22 +1,14 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
 using Class_biz_tiers;
 using Class_biz_user;
-using UserControl_drop_down_date;
-using appcommon;
-using Class_db_role_member_map;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
 namespace UserControl_role
 {
     public partial class TWebUserControl_role: ki_web_ui.usercontrol_class
@@ -29,6 +21,9 @@ namespace UserControl_role
             DropDownList_tier.ClearSelection();
             TextBox_pecking_order.Text = k.EMPTY;
             TextBox_soft_hyphenation_text.Text = k.EMPTY;
+            Literal_match_index.Text = k.EMPTY;
+            Literal_num_matches.Text = k.EMPTY;
+            Panel_match_numbers.Visible = false;
             LinkButton_go_to_match_prior.Visible = false;
             LinkButton_go_to_match_next.Visible = false;
             LinkButton_go_to_match_last.Visible = false;
@@ -159,6 +154,7 @@ namespace UserControl_role
 
         private bool PresentRecord(string name)
         {
+            Literal_match_index.Text = DropDownList_name.SelectedIndex.ToString();
             bool result;
             string tier_id;
             string soft_hyphenation_text;
@@ -399,6 +395,9 @@ namespace UserControl_role
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;

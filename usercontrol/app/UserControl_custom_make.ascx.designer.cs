@@ -61,6 +61,33 @@ namespace UserControl_custom_make {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_new_record;
         
         /// <summary>
+        /// Panel_match_numbers control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_match_numbers;
+        
+        /// <summary>
+        /// Literal_match_index control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_match_index;
+        
+        /// <summary>
+        /// Literal_num_matches control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_num_matches;
+        
+        /// <summary>
         /// LinkButton_go_to_match_first control.
         /// </summary>
         /// <remarks>

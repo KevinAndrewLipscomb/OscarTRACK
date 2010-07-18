@@ -26,6 +26,9 @@ namespace UserControl_vehicle_quarters_history
       TextBox_start_datetime.Text = k.EMPTY;
       TextBox_end_datetime.Text = k.EMPTY;
       TextBox_note.Text = k.EMPTY;
+      Literal_match_index.Text = k.EMPTY;
+      Literal_num_matches.Text = k.EMPTY;
+      Panel_match_numbers.Visible = false;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -138,6 +141,7 @@ namespace UserControl_vehicle_quarters_history
 
     private bool PresentRecord(string id)
       {
+      Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
       string vehicle_id;
       string quarters_id;
@@ -363,6 +367,9 @@ namespace UserControl_vehicle_quarters_history
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;

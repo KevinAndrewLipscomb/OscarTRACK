@@ -22,6 +22,9 @@ namespace UserControl_mini_fix_request
       //TextBox_vehicle_name.Text = k.EMPTY;
       TextBox_description.Text = k.EMPTY;
       TextBox_note_to_append.Text = k.EMPTY;
+      Literal_match_index.Text = k.EMPTY;
+      Literal_num_matches.Text = k.EMPTY;
+      Panel_match_numbers.Visible = false;
       LinkButton_go_to_match_prior.Visible = false;
       LinkButton_go_to_match_next.Visible = false;
       LinkButton_go_to_match_last.Visible = false;
@@ -136,6 +139,7 @@ namespace UserControl_mini_fix_request
 
     private bool PresentRecord(string id)
       {
+      Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
       string vehicle_name;
       string description;
@@ -337,6 +341,9 @@ namespace UserControl_mini_fix_request
             }
           else
             {
+            Literal_match_index.Text = "0";
+            Literal_num_matches.Text = num_matches.ToString();
+            Panel_match_numbers.Visible = true;
             LinkButton_go_to_match_prior.Visible = true;
             LinkButton_go_to_match_next.Visible = true;
             LinkButton_go_to_match_last.Visible = true;
