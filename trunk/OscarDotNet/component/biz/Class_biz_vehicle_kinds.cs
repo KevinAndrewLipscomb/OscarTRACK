@@ -40,6 +40,11 @@ namespace Class_biz_vehicle_kinds
       return db_vehicle_kinds.Delete(id);
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return db_vehicle_kinds.DescriptionOf(id);
+      }
+
     public bool Get
       (
       string id,

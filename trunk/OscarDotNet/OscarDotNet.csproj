@@ -85,6 +85,7 @@
     <Content Include="new_user_registration.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\mini_fix_log.aspx" />
+    <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />

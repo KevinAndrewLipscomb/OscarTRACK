@@ -4,6 +4,7 @@ using Class_biz_roles;
 using Class_biz_user;
 using Class_biz_users;
 using Class_biz_vehicle_down_natures;
+using Class_biz_vehicle_kinds;
 using Class_biz_vehicle_quarters;
 using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
@@ -1020,6 +1021,50 @@ namespace Class_biz_notifications
             (
             ConfigurationManager.AppSettings["sender_email_address"],
             actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-status-change","0"),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForVehicleKindChanged_Merge(string s);
+        internal void IssueForVehicleKindChanged
+          (
+          string vehicle_id,
+          string old_kind_id,
+          string new_kind_id
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForVehicleKindChanged_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<old_kind/>", biz_vehicle_kinds.DescriptionOf(old_kind_id))
+              .Replace("<new_kind/>", biz_vehicle_kinds.DescriptionOf(new_kind_id));
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_kind_changed.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-kind-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-kind-change","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
