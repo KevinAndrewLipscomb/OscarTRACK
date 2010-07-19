@@ -372,7 +372,6 @@ namespace UserControl_fleet
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_MINIFIXLOG].Controls[0]) as LinkButton);
           link_button.ToolTip = "Manage MiniFixLog";
-link_button.Enabled = false;
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark DOWN";

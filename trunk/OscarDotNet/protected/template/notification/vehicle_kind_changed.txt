@@ -1,0 +1,13 @@
+Vehicle <vehicle_name/>: <old_kind/> => <new_kind/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed vehicle <vehicle_name/>'s kind as follows:
+
+   Old:  <old_kind/>
+   New:  <new_kind/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
