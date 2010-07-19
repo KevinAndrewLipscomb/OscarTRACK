@@ -53,6 +53,17 @@ namespace Class_biz_mini_fix_requests
       db_mini_fix_requests.BindDirectToListControl(vehicle_id,target);
       }
 
+    internal void BindLog
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      db_mini_fix_requests.BindLog(vehicle_id,sort_order,be_sort_order_ascending,target);
+      }
+
     public bool Delete(string id)
       {
       return db_mini_fix_requests.Delete(id);

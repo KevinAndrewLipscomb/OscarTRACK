@@ -76,6 +76,38 @@ namespace Class_db_mini_fix_requests
       this.Close();
       }
 
+    internal void BindLog
+      (
+      string vehicle_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target
+      )
+      {
+      Open();
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      ((target) as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select mini_fix_request.id as id"
+        + " , description"
+        + " from mini_fix_request"
+        +   " join vehicle on (vehicle.id=mini_fix_request.vehicle_id)"
+        + " where vehicle_id = '" + vehicle_id + "'"
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      ((target) as BaseDataList).DataBind();
+      Close();
+      }
+
     public bool Delete(string id)
       {
       bool result;

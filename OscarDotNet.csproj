@@ -85,12 +85,14 @@
     <Content Include="new_user_registration.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\mini_fix_log.aspx" />
+    <Content Include="protected\mini_fix_request.aspx" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_mini_fix_log.ascx" />
     <Content Include="usercontrol\app\UserControl_mini_fix_request.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
@@ -488,6 +490,13 @@
     <Compile Include="protected\mini_fix_log.aspx.designer.cs">
       <DependentUpon>mini_fix_log.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\mini_fix_request.aspx.cs">
+      <DependentUpon>mini_fix_request.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\mini_fix_request.aspx.designer.cs">
+      <DependentUpon>mini_fix_request.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\officership_detail.aspx.cs">
       <DependentUpon>officership_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -711,6 +720,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_mini_fix_log.ascx.cs">
+      <DependentUpon>UserControl_mini_fix_log.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_mini_fix_log.ascx.designer.cs">
+      <DependentUpon>UserControl_mini_fix_log.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_mini_fix_request.ascx.cs">
       <DependentUpon>UserControl_mini_fix_request.ascx</DependentUpon>
