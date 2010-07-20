@@ -25,6 +25,7 @@ namespace UserControl_mini_fix_log
 
     private struct p_type
       {
+      public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
       public bool be_ok_to_config_mini_fix_requests;
@@ -33,6 +34,7 @@ namespace UserControl_mini_fix_log
       public TClass_biz_vehicles biz_vehicles;
       public uint num_mini_fix_requests;
       public string sort_order;
+      public Hashtable mini_fix_inclusion_hashtable;
       }
 
     private p_type p;
@@ -120,16 +122,18 @@ namespace UserControl_mini_fix_log
       {
       if (!p.be_loaded)
         {
+        p.mini_fix_inclusion_hashtable.Clear();
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
         if (p.be_interactive)
           {
-          Panel_filter.Visible = p.be_ok_to_config_mini_fix_requests;
+          CheckBox_be_work_order_mode.Visible = p.be_ok_to_config_mini_fix_requests;
           }
         else
           {
           DataGrid_control.AllowSorting = false;
           }
         Bind();
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -153,6 +157,7 @@ namespace UserControl_mini_fix_log
         p.be_loaded = false;
         p.be_ok_to_config_mini_fix_requests = k.Has((string[])(Session["privilege_array"]), "config-mini-fix-requests");
         p.be_sort_order_ascending = true;
+        p.mini_fix_inclusion_hashtable = new Hashtable();
         p.sort_order = "id%";
         }
       }
@@ -197,6 +202,13 @@ namespace UserControl_mini_fix_log
           p.biz_mini_fix_requests.Delete(id);
           Bind();
           }
+        else if (e.CommandName == "ToggleInclusion")
+          {
+          var new_value = !((bool)(p.mini_fix_inclusion_hashtable[id]));
+          (e.Item.Cells[UserControl_mini_fix_log_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (new_value ? "YES" : "no");
+          p.mini_fix_inclusion_hashtable[id] = new_value;
+          Bind();
+          }
         }
       }
 
@@ -207,33 +219,45 @@ namespace UserControl_mini_fix_log
         {
         if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
           {
-          link_button = ((e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DELETE].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Delete";
-          RequireConfirmation(link_button,"Are you sure you want to delete this record?");
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          //
-          link_button = ((e.Item.Cells[UserControl_mini_fix_log_Static.TCI_APPEND].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Append note";
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          //
-          e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
-          //
-          // Remove all cell controls from viewstate except for the one at TCI_DELETE.
-          //
-          foreach (TableCell cell in e.Item.Cells)
+          var id = k.Safe(e.Item.Cells[UserControl_mini_fix_log_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+          if (p.mini_fix_inclusion_hashtable.ContainsKey(id))
             {
-            cell.EnableViewState = false;
+            (e.Item.Cells[UserControl_mini_fix_log_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.mini_fix_inclusion_hashtable[id])) ? "YES" : "no");
             }
-          e.Item.Cells[UserControl_mini_fix_log_Static.TCI_ID].EnableViewState = true;
-          //
-          p.num_mini_fix_requests++;
+          else
+            {
+            p.mini_fix_inclusion_hashtable.Add(id,true);
+            }
+          if (CheckBox_be_work_order_mode.Checked && !(bool)(p.mini_fix_inclusion_hashtable[id]))
+            {
+            e.Item.Visible = false;
+            }
+          else
+            {
+            link_button = ((e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DELETE].Controls[0]) as LinkButton);
+            link_button.Text = k.ExpandTildePath(link_button.Text);
+            link_button.ToolTip = "Delete";
+            RequireConfirmation(link_button,"Are you sure you want to delete this record?");
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+            //
+            link_button = ((e.Item.Cells[UserControl_mini_fix_log_Static.TCI_APPEND].Controls[0]) as LinkButton);
+            link_button.Text = k.ExpandTildePath(link_button.Text);
+            link_button.ToolTip = "Append note";
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+            //
+            e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_mini_fix_log_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
+            //
+            // Remove all cell controls from viewstate except for the ones at TCI_ID (and for this control only, TCI_INCLUDE).
+            //
+            foreach (TableCell cell in e.Item.Cells)
+              {
+              cell.EnableViewState = false;
+              }
+            e.Item.Cells[UserControl_mini_fix_log_Static.TCI_ID].EnableViewState = true;
+            //
+            p.num_mini_fix_requests++;
+            }
           }
-        }
-      else
-        {
-        e.Item.Cells[UserControl_mini_fix_log_Static.TCI_APPEND].Visible = false;
         }
       }
 
@@ -254,9 +278,13 @@ namespace UserControl_mini_fix_log
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_mini_fix_log_Static.TCI_INCLUDE].Visible = (p.be_interactive && p.be_ok_to_config_mini_fix_requests);
-      DataGrid_control.Columns[UserControl_mini_fix_log_Static.TCI_DELETE].Visible = (p.be_interactive && p.be_ok_to_config_mini_fix_requests);
+      DataGrid_control.Columns[UserControl_mini_fix_log_Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_mini_fix_requests);
+      DataGrid_control.Columns[UserControl_mini_fix_log_Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_mini_fix_requests);
+      DataGrid_control.Columns[UserControl_mini_fix_log_Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
       p.biz_mini_fix_requests.BindLog(p.biz_vehicles.IdOf(Session["vehicle_summary"]),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
+      p.be_datagrid_empty = (p.num_mini_fix_requests == 0);
+      TableRow_none.Visible = p.be_datagrid_empty;
+      DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_requests.Text = p.num_mini_fix_requests.ToString();
       p.num_mini_fix_requests = 0;
       }
@@ -264,6 +292,12 @@ namespace UserControl_mini_fix_log
     protected void Button_new_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("mini_fix_request.aspx");
+      }
+
+    protected void CheckBox_be_work_order_mode_CheckedChanged(object sender, EventArgs e)
+      {
+      Bind();
+      Button_new.Visible = !CheckBox_be_work_order_mode.Checked;
       }
 
     } // end TWebUserControl_mini_fix_log
