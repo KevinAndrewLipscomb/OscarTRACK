@@ -40,22 +40,22 @@ namespace UserControl_mini_fix_log {
         protected global::System.Web.UI.WebControls.Literal Literal_vehicle_name;
         
         /// <summary>
-        /// Panel_filter control.
+        /// CheckBox_be_work_order_mode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel_filter;
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_work_order_mode;
         
         /// <summary>
-        /// DropDownList_filter control.
+        /// TableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_filter;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
         
         /// <summary>
         /// DataGrid_control control.
