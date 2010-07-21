@@ -1,6 +1,9 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
+using Class_biz_agencies;
+using Class_biz_members;
 using Class_biz_mini_fix_requests;
+using Class_biz_user;
 using Class_biz_vehicles;
 using kix;
 using System;
@@ -30,7 +33,10 @@ namespace UserControl_mini_fix_log
       public bool be_loaded;
       public bool be_ok_to_config_mini_fix_requests;
       public bool be_sort_order_ascending;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_members biz_members;
       public TClass_biz_mini_fix_requests biz_mini_fix_requests;
+      public TClass_biz_user biz_user;
       public TClass_biz_vehicles biz_vehicles;
       public uint num_mini_fix_requests;
       public string sort_order;
@@ -122,16 +128,43 @@ namespace UserControl_mini_fix_log
       {
       if (!p.be_loaded)
         {
-        p.mini_fix_inclusion_hashtable.Clear();
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
         if (p.be_interactive)
           {
-          CheckBox_be_work_order_mode.Visible = p.be_ok_to_config_mini_fix_requests;
+          if (p.be_ok_to_config_mini_fix_requests)
+            {
+            CheckBox_be_work_order_mode.Visible = true;
+            Literal_work_order_coordinator_title.Text = p.biz_user.Roles()[0];
+            var member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+            Literal_work_order_coordinator_name.Text = p.biz_members.FirstNameOfMemberId(member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(member_id);
+            var vehicle_summary = Session["vehicle_summary"];
+            Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(vehicle_summary)));
+            Literal_work_order_coordinator_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(member_id));
+            Literal_work_order_coordinator_email_address.Text = p.biz_user.EmailAddress();
+            Literal_kind.Text = p.biz_vehicles.KindOf(vehicle_summary);
+            Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(vehicle_summary);
+            Literal_bumper_number.Text = p.biz_vehicles.BumperNumberOf(vehicle_summary);
+            Literal_model_year.Text = p.biz_vehicles.ModelYearOf(vehicle_summary);
+            Literal_chassis_make.Text = p.biz_vehicles.ChassisMakeOf(vehicle_summary);
+            Literal_chassis_model.Text = p.biz_vehicles.ChassisModelOf(vehicle_summary);
+            Literal_custom_make.Text = p.biz_vehicles.CustomMakeOf(vehicle_summary);
+            Literal_custom_model.Text = p.biz_vehicles.CustomModelOf(vehicle_summary);
+            Literal_vin.Text = p.biz_vehicles.VinOf(vehicle_summary);
+            Literal_fuel.Text = p.biz_vehicles.FuelOf(vehicle_summary);
+            Literal_tag.Text = p.biz_vehicles.TagOf(vehicle_summary);
+            Literal_be_four_or_all_wheel_drive.Text = k.YesNoOf(p.biz_vehicles.BeFourOrAllWheelDriveOf(vehicle_summary));
+            Literal_recent_mileage_update_time.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(vehicle_summary);
+            Literal_recent_mileage_update_time_2.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(vehicle_summary);
+            Literal_recent_mileage.Text = p.biz_vehicles.RecentMileageOf(vehicle_summary);
+            Literal_miles_from_pm.Text = p.biz_vehicles.MilesFromPmOf(vehicle_summary);
+            Literal_dmv_inspection_due.Text = p.biz_vehicles.DmvInspectionDueOf(vehicle_summary).Substring(0,7);
+            }
           }
         else
           {
           DataGrid_control.AllowSorting = false;
           }
+        p.mini_fix_inclusion_hashtable.Clear();
         Bind();
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
         p.be_loaded = true;
@@ -151,7 +184,10 @@ namespace UserControl_mini_fix_log
         }
       else
         {
+        p.biz_agencies = new TClass_biz_agencies();
+        p.biz_members = new TClass_biz_members();
         p.biz_mini_fix_requests = new TClass_biz_mini_fix_requests();
+        p.biz_user = new TClass_biz_user();
         p.biz_vehicles = new TClass_biz_vehicles();
         p.be_interactive = !(Session["mode:report"] != null);
         p.be_loaded = false;
@@ -296,6 +332,8 @@ namespace UserControl_mini_fix_log
 
     protected void CheckBox_be_work_order_mode_CheckedChanged(object sender, EventArgs e)
       {
+      TableRow_best_practices.Visible = !CheckBox_be_work_order_mode.Checked;
+      TableRow_work_order_instructions.Visible = CheckBox_be_work_order_mode.Checked;
       Bind();
       Button_new.Visible = !CheckBox_be_work_order_mode.Checked;
       }

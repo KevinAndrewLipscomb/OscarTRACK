@@ -71,6 +71,11 @@ namespace Class_biz_vehicles
       return db_vehicles.BeDown(id);
       }
 
+    internal bool BeFourOrAllWheelDriveOf(object summary)
+      {
+      return db_vehicles.BeFourOrAllWheelDriveOf(summary);
+      }
+
     internal bool BeGoodCombinationKindTargetPmMileage
       (
       string kind_id,
@@ -141,6 +146,11 @@ namespace Class_biz_vehicles
       db_vehicles.BindRankedUpAndCurrent(target);
       }
 
+    internal string BumperNumberOf(object summary)
+      {
+      return db_vehicles.BumperNumberOf(summary);
+      }
+
     public void ChangeQuarters
       (
       string vehicle_id,
@@ -155,9 +165,39 @@ namespace Class_biz_vehicles
       biz_notifications.IssueForVehicleQuartersChange(vehicle_id,quarters_id,effective_datetime,mileage,note);
       }
 
+    internal string ChassisMakeOf(object summary)
+      {
+      return db_vehicles.ChassisMakeOf(summary);
+      }
+
+    internal string ChassisModelOf(object summary)
+      {
+      return db_vehicles.ChassisModelOf(summary);
+      }
+
+    internal string CustomMakeOf(object summary)
+      {
+      return db_vehicles.CustomMakeOf(summary);
+      }
+
+    internal string CustomModelOf(object summary)
+      {
+      return db_vehicles.CustomModelOf(summary);
+      }
+
     public bool Delete(string id)
       {
       return db_vehicles.Delete(id);
+      }
+
+    internal string DmvInspectionDueOf(object summary)
+      {
+      return db_vehicles.DmvInspectionDueOf(summary);
+      }
+
+    internal string FuelOf(object summary)
+      {
+      return db_vehicles.FuelOf(summary);
       }
 
     public bool Get
@@ -251,6 +291,11 @@ namespace Class_biz_vehicles
         }
       }
 
+    internal string KindOf(object summary)
+      {
+      return db_vehicles.KindOf(summary);
+      }
+
     public void MarkUp
       (
       string vehicle_id,
@@ -287,6 +332,16 @@ namespace Class_biz_vehicles
           biz_notifications.RetractAmbulanceFleetConditionAlert();
           }
         }
+      }
+
+    internal string MilesFromPmOf(object summary)
+      {
+      return db_vehicles.MilesFromPmOf(summary);
+      }
+
+    internal string ModelYearOf(object summary)
+      {
+      return db_vehicles.ModelYearOf(summary);
       }
 
     public string NameOf(object summary)
@@ -398,6 +453,16 @@ namespace Class_biz_vehicles
     public object Summary(string vehicle_id)
       {
       return db_vehicles.Summary(vehicle_id);
+      }
+
+    internal string TagOf(object summary)
+      {
+      return db_vehicles.TagOf(summary);
+      }
+
+    internal string VinOf(object summary)
+      {
+      return db_vehicles.VinOf(summary);
       }
 
     } // end TClass_biz_vehicles
