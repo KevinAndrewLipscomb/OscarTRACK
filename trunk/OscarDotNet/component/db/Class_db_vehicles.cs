@@ -108,6 +108,11 @@ namespace Class_db_vehicles
       Close();
       }
 
+    internal bool BeFourOrAllWheelDriveOf(object summary)
+      {
+      return (summary as vehicle_summary).be_four_or_all_wheel_drive;
+      }
+
     internal bool BeNameActive(string name)
       {
       Open();
@@ -394,6 +399,11 @@ namespace Class_db_vehicles
       Close();
       }
 
+    internal string BumperNumberOf(object summary)
+      {
+      return (summary as vehicle_summary).bumper_number;
+      }
+
     public void ChangeQuarters
       (
       string vehicle_id,
@@ -430,6 +440,26 @@ namespace Class_db_vehicles
       Close();
       }
 
+    internal string ChassisMakeOf(object summary)
+      {
+      return (summary as vehicle_summary).chassis_make;
+      }
+
+    internal string ChassisModelOf(object summary)
+      {
+      return (summary as vehicle_summary).chassis_model;
+      }
+
+    internal string CustomMakeOf(object summary)
+      {
+      return (summary as vehicle_summary).custom_make;
+      }
+
+    internal string CustomModelOf(object summary)
+      {
+      return (summary as vehicle_summary).custom_model;
+      }
+
     public bool Delete(string id)
       {
       bool result;
@@ -452,6 +482,16 @@ namespace Class_db_vehicles
         }
       this.Close();
       return result;
+      }
+
+    internal string DmvInspectionDueOf(object summary)
+      {
+      return (summary as vehicle_summary).dmv_inspection_due;
+      }
+
+    internal string FuelOf(object summary)
+      {
+      return (summary as vehicle_summary).fuel_description;
       }
 
     public bool Get
@@ -545,6 +585,11 @@ namespace Class_db_vehicles
       return (summary as vehicle_summary).id;
       }
 
+    internal string KindOf(object summary)
+      {
+      return (summary as vehicle_summary).kind;
+      }
+
     public void MarkDown
       (
       string vehicle_id,
@@ -598,6 +643,16 @@ namespace Class_db_vehicles
         .ExecuteNonQuery();
       Close();
       (summary as vehicle_summary).status = "UP";
+      }
+
+    internal string MilesFromPmOf(object summary)
+      {
+      return (summary as vehicle_summary).miles_from_pm;
+      }
+
+    internal string ModelYearOf(object summary)
+      {
+      return (summary as vehicle_summary).model_year;
       }
 
     public string NameOf(object summary)
@@ -760,7 +815,7 @@ namespace Class_db_vehicles
           "select vehicle.name as vehicle_name"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
-          + " , IFNULL('?','') as miles_from_pm"
+          + " , IFNULL(CAST(recent_mileage - target_pm_mileage AS signed),'???') as miles_from_pm"
           + " , IFNULL(recent_mileage,'') as recent_mileage"
           + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'') as dmv_inspection_due"
           + " , IFNULL(model_year,'') as model_year"
@@ -834,6 +889,16 @@ namespace Class_db_vehicles
     public string StatusOf(object summary)
       {
       return (summary as vehicle_summary).status;
+      }
+
+    internal string TagOf(object summary)
+      {
+      return (summary as vehicle_summary).tag;
+      }
+
+    internal string VinOf(object summary)
+      {
+      return (summary as vehicle_summary).vin;
       }
 
     } // end TClass_db_vehicles
