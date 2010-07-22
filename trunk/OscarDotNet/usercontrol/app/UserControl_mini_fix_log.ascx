@@ -180,6 +180,6 @@
       </tr>
     </table>
     <p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW REQUEST" onclick="Button_new_Click"></asp:Button></p>
-    <i>--&nbsp;END&nbsp;--</i><div id="Div_page_break" runat="server" style="page-break-before:always;" visible="false"/>
+    <asp:Panel ID="Panel_page_break" runat="server" Visible="false"><i>--&nbsp;END&nbsp;--</i><div style="page-break-before:always;" /></asp:Panel>
   </ContentTemplate>
 </asp:UpdatePanel>

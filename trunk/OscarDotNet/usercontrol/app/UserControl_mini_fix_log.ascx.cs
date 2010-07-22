@@ -338,7 +338,7 @@ namespace UserControl_mini_fix_log
       TableRow_work_order_instructions.Visible = CheckBox_be_work_order_mode.Checked;
       Bind();
       Button_new.Visible = !CheckBox_be_work_order_mode.Checked;
-      Div_page_break.Visible = CheckBox_be_work_order_mode.Checked;
+      Panel_page_break.Visible = CheckBox_be_work_order_mode.Checked;
       }
 
     } // end TWebUserControl_mini_fix_log
