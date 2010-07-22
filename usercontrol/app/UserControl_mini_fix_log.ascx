@@ -26,7 +26,8 @@
                 <small>
                   <p>Best practices:</p>
                   <ul>
-                    <li>This is a log of requested repairs or improvements that do not require putting the vehicle DOWN immediately.</li>
+                    <li>This is a log of requested <b>vehicular</b> repairs or improvements that do not require putting the vehicle DOWN immediately.</li>
+                    <li>Do not use this log to request work relating to supplies or portable or EMS-specific equipment.</li>
                     <li>Check to see if known issues are already documented.</li>
                     <li>To enter a new MiniFix request, scroll to the bottom of this page and click the NEW REQUEST button.</li>
                   </ul>
