@@ -310,12 +310,12 @@ namespace UserControl_mini_fix_log {
         protected global::System.Web.UI.WebControls.Button Button_new;
         
         /// <summary>
-        /// Div_page_break control.
+        /// Panel_page_break control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div_page_break;
+        protected global::System.Web.UI.WebControls.Panel Panel_page_break;
     }
 }
