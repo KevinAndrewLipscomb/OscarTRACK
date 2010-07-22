@@ -332,10 +332,13 @@ namespace UserControl_mini_fix_log
 
     protected void CheckBox_be_work_order_mode_CheckedChanged(object sender, EventArgs e)
       {
+      Literal_generation_timestamp.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+      Panel_generation_timestamp.Visible = CheckBox_be_work_order_mode.Checked;
       TableRow_best_practices.Visible = !CheckBox_be_work_order_mode.Checked;
       TableRow_work_order_instructions.Visible = CheckBox_be_work_order_mode.Checked;
       Bind();
       Button_new.Visible = !CheckBox_be_work_order_mode.Checked;
+      Div_page_break.Visible = CheckBox_be_work_order_mode.Checked;
       }
 
     } // end TWebUserControl_mini_fix_log

@@ -11,7 +11,10 @@
                 <table cellspacing="0" cellpadding="10" border="0" width="100%">
                   <tr>
                     <td nowrap="true">
-                      <b>MiniFix requests for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal></b>&nbsp; (<asp:Literal ID="Literal_num_requests" runat="server"></asp:Literal> items)
+                      <b>MiniFix requests for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal></b>&nbsp; (<asp:Literal ID="Literal_num_requests" runat="server"></asp:Literal>&nbsp;items)
+                    </td>
+                    <td align="center">
+                      <asp:Panel ID="Panel_generation_timestamp" runat="server" Visible="False"><small>Generated&nbsp;<asp:Literal ID="Literal_generation_timestamp" runat="server"></asp:Literal></small></asp:Panel>                      
                     </td>
                     <td align="center"><asp:CheckBox ID="CheckBox_be_work_order_mode" runat="server" AutoPostBack="True" Text="Work order mode" Visible="False" oncheckedchanged="CheckBox_be_work_order_mode_CheckedChanged" /></td>
                   </tr>
@@ -33,105 +36,113 @@
             <tr id="TableRow_work_order_instructions" runat="server" visible="false">
               <td>
                 <p><big><big><b><u>TECHNICIAN and/or SERVICE ADVISOR:</u></b></big></big></p>
-                <ul>
-                  <li>
-                    <p>Reference this vehicle:</p>
-                    <small>
-                      <blockquote>
-                        <table cellspacing="0" cellpadding="5" border="0">
+                <p>Reference this vehicle:</p>
+                <blockquote>
+                  <small>
+                    <table cellspacing="0" cellpadding="3" border="1" bordercolor="Gainsboro">
+                      <tr>
+                        <td>
+                          <table cellspacing="0" cellpadding="5" border="0">
+                            <tr>
+                              <td valign="top">
+                                <table cellspacing="0" cellpadding="1" border="0">
+                                  <tr>
+                                    <td align="right" nowrap="true">Kind/name:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_kind" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_vehicle_name_2" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">Bumper #:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_bumper_number" runat="server"></asp:Literal></td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>&nbsp;</td>
+                              <td valign="top">
+                                <table cellspacing="0" cellpadding="1" border="0">
+                                  <tr>
+                                    <td align="right" nowrap="true">Model year:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_model_year" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">Chassis make/model:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_chassis_make" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_chassis_model" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">Custom make/model:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_custom_make" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_custom_model" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">VIN:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_vin" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">Fuel:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_fuel" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">License plate:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_tag" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">4WD/AWD:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_be_four_or_all_wheel_drive" runat="server"></asp:Literal></td>
+                                  </tr>
+                                </table>
+                              </td>
+                              <td>&nbsp;</td>
+                              <td valign="top">
+                                <table cellspacing="0" cellpadding="1" border="0">
+                                  <tr>
+                                    <td align="right" nowrap="true">Recent mileage:&nbsp;</td>
+                                    <td nowrap="true">as of <asp:Literal ID="Literal_recent_mileage_update_time_2" runat="server"></asp:Literal> = <asp:Literal ID="Literal_recent_mileage" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">Miles from PM:&nbsp;</td>
+                                    <td nowrap="true">as of <asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal> = <asp:Literal ID="Literal_miles_from_pm" runat="server"></asp:Literal></td>
+                                  </tr>
+                                  <tr>
+                                    <td align="right" nowrap="true">DMV inspection due:&nbsp;</td>
+                                    <td nowrap="true"><asp:Literal ID="Literal_dmv_inspection_due" runat="server"></asp:Literal></td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </small>
+                </blockquote>
+                <p></p>
+                <p>You can reach me as follows:</p>
+                <blockquote>
+                  <table cellspacing="0" cellpadding="3" border="1" bordercolor="Gainsboro">
+                    <tr>
+                      <td>
+                        <table cellspacing="0" cellpadding="1" border="0">
                           <tr>
-                            <td valign="top">
-                              <table cellspacing="0" cellpadding="1" border="0">
-                                <tr>
-                                  <td align="right" nowrap="true">Kind/name:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_kind" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_vehicle_name_2" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">Bumper #:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_bumper_number" runat="server"></asp:Literal></td>
-                                </tr>
-                              </table>
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td valign="top">
-                              <table cellspacing="0" cellpadding="1" border="0">
-                                <tr>
-                                  <td align="right" nowrap="true">Model year:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_model_year" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">Chassis make/model:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_chassis_make" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_chassis_model" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">Custom make/model:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_custom_make" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_custom_model" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">VIN:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_vin" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">Fuel:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_fuel" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">License plate:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_tag" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">4WD/AWD:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_be_four_or_all_wheel_drive" runat="server"></asp:Literal></td>
-                                </tr>
-                              </table>
-                            </td>
-                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                            <td valign="top">
-                              <table cellspacing="0" cellpadding="1" border="0">
-                                <tr>
-                                  <td align="right" nowrap="true">Recent mileage:&nbsp;</td>
-                                  <td nowrap="true">as of <asp:Literal ID="Literal_recent_mileage_update_time_2" runat="server"></asp:Literal> = <asp:Literal ID="Literal_recent_mileage" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">Miles from PM:&nbsp;</td>
-                                  <td nowrap="true">as of <asp:Literal ID="Literal_recent_mileage_update_time" runat="server"></asp:Literal> = <asp:Literal ID="Literal_miles_from_pm" runat="server"></asp:Literal></td>
-                                </tr>
-                                <tr>
-                                  <td align="right" nowrap="true">DMV inspection due:&nbsp;</td>
-                                  <td nowrap="true"><asp:Literal ID="Literal_dmv_inspection_due" runat="server"></asp:Literal></td>
-                                </tr>
-                              </table>
-                            </td>
+                            <td align="right"><asp:Literal ID="Literal_work_order_coordinator_title" runat="server"></asp:Literal>:&nbsp;</td>
+                            <td><asp:Literal ID="Literal_work_order_coordinator_name" runat="server"></asp:Literal></td>
+                          </tr>
+                          <tr>
+                            <td align="right">on behalf of:&nbsp;</td>
+                            <td><asp:Literal ID="Literal_agency_long_designator" runat="server"></asp:Literal>&nbsp;Volunteer&nbsp;Rescue&nbsp;Squad</td>
+                          </tr>
+                          <tr>
+                            <td align="right">tel:&nbsp;</td>
+                            <td><asp:Literal ID="Literal_work_order_coordinator_phone_num" runat="server"></asp:Literal></td>
+                          </tr>
+                          <tr>
+                            <td align="right">mailto:&nbsp;</td>
+                            <td><i><asp:Literal ID="Literal_work_order_coordinator_email_address" runat="server"></asp:Literal></i></td>
                           </tr>
                         </table>
-                      </blockquote>
-                    </small>
-                  </li>
-                  <li>
-                    <p>You can reach me as follows:</p>
-                    <blockquote>
-                      <table cellspacing="0" cellpadding="1" border="0">
-                        <tr>
-                          <td align="right"><asp:Literal ID="Literal_work_order_coordinator_title" runat="server"></asp:Literal>:&nbsp;</td>
-                          <td><b><asp:Literal ID="Literal_work_order_coordinator_name" runat="server"></asp:Literal></b></td>
-                        </tr>
-                        <tr>
-                          <td align="right">on behalf of:&nbsp;</td>
-                          <td><b><asp:Literal ID="Literal_agency_long_designator" runat="server"></asp:Literal>&nbsp;Volunteer&nbsp;Rescue&nbsp;Squad</b></td>
-                        </tr>
-                        <tr>
-                          <td align="right">tel:&nbsp;</td>
-                          <td><b><asp:Literal ID="Literal_work_order_coordinator_phone_num" runat="server"></asp:Literal></b></td>
-                        </tr>
-                        <tr>
-                          <td align="right">mailto:&nbsp;</td>
-                          <td><b><i><asp:Literal ID="Literal_work_order_coordinator_email_address" runat="server"></asp:Literal></i></b></td>
-                        </tr>
-                      </table>
-                    </blockquote>
-                  </li>
-                  <li><p>Please resolve the following issues documented by the indicated members:</p></li>
-                </ul>
+                      </td>
+                    </tr>
+                  </table>
+                </blockquote>
+                <p></p>
+                <b>PLEASE RESOLVE THE FOLLOWING ISSUES DOCUMENTED BY THE INDICATED MEMBERS:</b>
               </td>
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
@@ -168,5 +179,6 @@
       </tr>
     </table>
     <p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW REQUEST" onclick="Button_new_Click"></asp:Button></p>
+    <i>--&nbsp;END&nbsp;--</i><div id="Div_page_break" runat="server" style="page-break-before:always;" visible="false"/>
   </ContentTemplate>
 </asp:UpdatePanel>
