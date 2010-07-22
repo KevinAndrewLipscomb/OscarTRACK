@@ -40,6 +40,24 @@ namespace UserControl_mini_fix_log {
         protected global::System.Web.UI.WebControls.Literal Literal_num_requests;
         
         /// <summary>
+        /// Panel_generation_timestamp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_generation_timestamp;
+        
+        /// <summary>
+        /// Literal_generation_timestamp control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_generation_timestamp;
+        
+        /// <summary>
         /// CheckBox_be_work_order_mode control.
         /// </summary>
         /// <remarks>
@@ -290,5 +308,14 @@ namespace UserControl_mini_fix_log {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_new;
+        
+        /// <summary>
+        /// Div_page_break control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Div_page_break;
     }
 }

@@ -252,7 +252,7 @@ namespace UserControl_mini_fix_request
           k.Safe(TextBox_note_to_append.Text,k.safe_hint_type.MEMO).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        SetLookupMode();
+        BackTrack();
         }
       else
         {
