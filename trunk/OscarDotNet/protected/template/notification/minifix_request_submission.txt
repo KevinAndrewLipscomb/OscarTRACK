@@ -1,0 +1,12 @@
+MiniFixLog entry for vehicle <vehicle_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following entry into vehicle <vehicle_name/>'s MiniFixLog:
+
+   <description/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -166,9 +166,9 @@ namespace UserControl_mini_fix_log
           }
         p.mini_fix_inclusion_hashtable.Clear();
         Bind();
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
         p.be_loaded = true;
         }
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
       InjectPersistentClientSideScript();
       }
 

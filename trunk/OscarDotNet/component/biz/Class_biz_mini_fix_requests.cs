@@ -2,6 +2,7 @@
 
 using Class_db_mini_fix_requests;
 using Class_biz_members;
+using Class_biz_notifications;
 using kix;
 using System;
 using System.Collections;
@@ -16,11 +17,13 @@ namespace Class_biz_mini_fix_requests
     {
     private TClass_db_mini_fix_requests db_mini_fix_requests = null;
     private TClass_biz_members biz_members = null;
+    private TClass_biz_notifications biz_notifications = null;
 
     public TClass_biz_mini_fix_requests() : base()
       {
       db_mini_fix_requests = new TClass_db_mini_fix_requests();
       biz_members = new TClass_biz_members();
+      biz_notifications = new TClass_biz_notifications();
       }
 
     public void Append
@@ -87,6 +90,7 @@ namespace Class_biz_mini_fix_requests
     public void Set
       (
       string id,
+      string vehicle_id,
       string vehicle_name,
       string description,
       string note_to_append
@@ -103,6 +107,7 @@ namespace Class_biz_mini_fix_requests
         vehicle_name,
         note_to_append
         );
+      biz_notifications.IssueForMiniFixRequestSubmission(vehicle_id,note_to_append);
       }
 
     } // end TClass_biz_mini_fix_requests
