@@ -274,7 +274,6 @@ namespace UserControl_mini_fix_log
             link_button.Text = k.ExpandTildePath(link_button.Text);
             link_button.ToolTip = "Delete";
             RequireConfirmation(link_button,"Are you sure you want to delete this record?");
-            ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
             //
             link_button = ((e.Item.Cells[UserControl_mini_fix_log_Static.TCI_APPEND].Controls[0]) as LinkButton);
             link_button.Text = k.ExpandTildePath(link_button.Text);
