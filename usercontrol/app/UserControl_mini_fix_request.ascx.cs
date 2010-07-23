@@ -247,6 +247,7 @@ namespace UserControl_mini_fix_request
         p.biz_mini_fix_requests.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
+          p.biz_vehicles.IdOf(Session["vehicle_summary"]),
           k.Safe(TextBox_vehicle_name.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
           k.Safe(TextBox_description.Text,k.safe_hint_type.MEMO).Trim(),
           k.Safe(TextBox_note_to_append.Text,k.safe_hint_type.MEMO).Trim()

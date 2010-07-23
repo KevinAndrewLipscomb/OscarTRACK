@@ -684,6 +684,47 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
+        private delegate string IssueForMiniFixRequestSubmission_Merge(string s);
+        internal void IssueForMiniFixRequestSubmission
+          (
+          string vehicle_id,
+          string down_comment
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForMiniFixRequestSubmission_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<description/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/minifix_request_submission.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-request-submission", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-request-submission","0"),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueForNeedsEnrollmentReview_Merge(string s);
         public void IssueForNeedsEnrollmentReview(string member_id, string first_name, string last_name, string cad_num, string old_level, string medical_release_level)
         {
