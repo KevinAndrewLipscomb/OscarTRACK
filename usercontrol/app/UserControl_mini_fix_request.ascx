@@ -6,7 +6,7 @@
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
   <tr>
-    <td bgcolor="gainsboro" valign="top"><font class="">ID:</font></td>
+    <td bgcolor="gainsboro" valign="top"><font class="">MiniFix entry #:</font></td>
     <td valign="top"><font class="">
       <table cellspacing="0" cellpadding="0" border="0">
          <tr>
@@ -17,7 +17,7 @@
       <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
                 </td>
                 <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
-                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full ID or entry</asp:Label></em></small></small></td>
+                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full entry or entry #</asp:Label></em></small></small></td>
               </tr>
             </table>
           </td>

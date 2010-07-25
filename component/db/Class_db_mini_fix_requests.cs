@@ -20,6 +20,14 @@ namespace Class_db_mini_fix_requests
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeVehicleLogEmpty(string vehicle_id)
+      {
+      Open();
+      var be_vehicle_log_empty = ("0" == new MySqlCommand("select count(*) from mini_fix_request where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString());
+      Close();
+      return be_vehicle_log_empty;
+      }
+
     public bool Bind
       (
       string vehicle_id,
@@ -166,6 +174,31 @@ namespace Class_db_mini_fix_requests
       dr.Close();
       Close();
       return result;
+      }
+
+    internal void VehicleLog
+      (
+      string vehicle_id,
+      ref Queue id_q,
+      ref Queue description_q
+      )
+      {
+      id_q = new Queue();
+      description_q = new Queue();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select id,description from mini_fix_request where vehicle_id = '" + vehicle_id + "' order by id",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        id_q.Enqueue(dr["id"].ToString());
+        description_q.Enqueue(dr["description"].ToString());
+        }
+      dr.Close();
+      Close();
       }
 
     public void Replace

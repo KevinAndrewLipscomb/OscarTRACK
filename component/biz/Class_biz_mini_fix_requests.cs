@@ -6,6 +6,7 @@ using Class_biz_notifications;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_mini_fix_requests
   {
@@ -37,6 +38,11 @@ namespace Class_biz_mini_fix_requests
       db_mini_fix_requests.Replace(id,replacement_description);
       }
 
+    internal bool BeVehicleLogEmpty(string vehicle_id)
+      {
+      return db_mini_fix_requests.BeVehicleLogEmpty(vehicle_id);
+      }
+
     public bool Bind
       (
       string vehicle_id,
@@ -65,6 +71,24 @@ namespace Class_biz_mini_fix_requests
       )
       {
       db_mini_fix_requests.BindLog(vehicle_id,sort_order,be_sort_order_ascending,target);
+      }
+
+    internal string VehicleLog(string vehicle_id)
+      {
+      var vehicle_log = k.EMPTY;
+      var id_q = new Queue();
+      var description_q = new Queue();
+      db_mini_fix_requests.VehicleLog(vehicle_id,ref id_q,ref description_q);
+      while (id_q.Count > 0)
+        {
+        vehicle_log += new string(Convert.ToChar(k.SPACE),3) + "MiniFixLog entry # " + id_q.Dequeue().ToString() + ":" + k.NEW_LINE
+        + new string(Convert.ToChar(k.SPACE),6) + k.WrapText(description_q.Dequeue().ToString(),k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"]));
+        if (id_q.Count > 0)
+          {
+          vehicle_log += k.NEW_LINE + k.NEW_LINE;
+          }
+        }
+      return vehicle_log;
       }
 
     public bool Delete(string id)

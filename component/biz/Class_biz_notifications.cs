@@ -1271,6 +1271,38 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+        private delegate string IssueMiniFixLogReview_Merge(string s);
+        public void IssueMiniFixLogReview
+          (
+          string vehicle_id,
+          string log
+          )
+          {
+          var biz_vehicles = new TClass_biz_vehicles();
+
+          IssueForVehicleMarkedDown_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+              .Replace("<log/>", log);
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/minifix_log_review.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            k.COMMA + db_notifications.TargetOfAboutAgency("minifix-log-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-log-review","0"),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY
+            );
+          template_reader.Close();
+          }
+
         private delegate string RetractAmbulanceFleetConditionAlarm_Merge(string s);
         public void RetractAmbulanceFleetConditionAlarm()
           {
