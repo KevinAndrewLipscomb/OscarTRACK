@@ -684,8 +684,8 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
-        private delegate string IssueForMiniFixRequestSubmission_Merge(string s);
-        internal void IssueForMiniFixRequestSubmission
+        private delegate string IssueForGripeSubmission_Merge(string s);
+        internal void IssueForGripeSubmission
           (
           string vehicle_id,
           string down_comment
@@ -699,7 +699,7 @@ namespace Class_biz_notifications
           var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
           var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
 
-          IssueForMiniFixRequestSubmission_Merge Merge = delegate (string s)
+          IssueForGripeSubmission_Merge Merge = delegate (string s)
             {
             return s
               .Replace("<application_name/>", application_name)
@@ -710,11 +710,11 @@ namespace Class_biz_notifications
               .Replace("<description/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/minifix_request_submission.txt"));
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/gripe_submission.txt"));
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-request-submission", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-request-submission","0"),
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-submission", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-submission","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
@@ -1271,8 +1271,8 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
-        private delegate string IssueMiniFixLogReview_Merge(string s);
-        public void IssueMiniFixLogReview
+        private delegate string IssueGripeLogReview_Merge(string s);
+        public void IssueGripeLogReview
           (
           string vehicle_id,
           string log
@@ -1289,11 +1289,11 @@ namespace Class_biz_notifications
               .Replace("<log/>", log);
             };
 
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/minifix_log_review.txt"));
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/gripe_log_review.txt"));
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            k.COMMA + db_notifications.TargetOfAboutAgency("minifix-log-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("minifix-log-review","0"),
+            k.COMMA + db_notifications.TargetOfAboutAgency("gripe-log-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-log-review","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,

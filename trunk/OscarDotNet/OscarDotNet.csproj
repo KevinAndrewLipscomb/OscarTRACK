@@ -84,8 +84,8 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
-    <Content Include="protected\mini_fix_log.aspx" />
-    <Content Include="protected\mini_fix_request.aspx" />
+    <Content Include="protected\gripe.aspx" />
+    <Content Include="protected\gripe_log.aspx" />
     <Content Include="protected\template\notification\minifix_log_review.txt" />
     <Content Include="protected\template\notification\minifix_request_submission.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
@@ -94,8 +94,8 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
-    <Content Include="usercontrol\app\UserControl_mini_fix_log.ascx" />
-    <Content Include="usercontrol\app\UserControl_mini_fix_request.ascx" />
+    <Content Include="usercontrol\app\UserControl_gripe.ascx" />
+    <Content Include="usercontrol\app\UserControl_gripe_log.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appcommon.cs" />
+    <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
     <Compile Include="component\biz\Class_biz_agencies.cs" />
@@ -122,7 +123,6 @@
     <Compile Include="component\biz\Class_biz_medical_release_levels.cs" />
     <Compile Include="component\biz\Class_biz_members.cs" />
     <Compile Include="component\biz\Class_biz_milestones.cs" />
-    <Compile Include="component\biz\Class_biz_mini_fix_requests.cs" />
     <Compile Include="component\biz\Class_biz_notifications.cs" />
     <Compile Include="component\biz\Class_biz_officerships.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
@@ -153,6 +153,7 @@
     <Compile Include="component\db\Class_db_custom_models.cs" />
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
+    <Compile Include="component\db\Class_db_gripes.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
     <Compile Include="component\db\Class_db_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_indicator_shiftwise_vehicles_up_and_current.cs" />
@@ -160,7 +161,6 @@
     <Compile Include="component\db\Class_db_medical_release_levels.cs" />
     <Compile Include="component\db\Class_db_members.cs" />
     <Compile Include="component\db\Class_db_milestones.cs" />
-    <Compile Include="component\db\Class_db_mini_fix_requests.cs" />
     <Compile Include="component\db\Class_db_notifications.cs" />
     <Compile Include="component\db\Class_db_officerships.cs" />
     <Compile Include="component\db\Class_db_privileges.cs" />
@@ -464,6 +464,20 @@
     <Compile Include="protected\grant_leave.aspx.designer.cs">
       <DependentUpon>grant_leave.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\gripe.aspx.cs">
+      <DependentUpon>gripe.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\gripe.aspx.designer.cs">
+      <DependentUpon>gripe.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\gripe_log.aspx.cs">
+      <DependentUpon>gripe_log.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\gripe_log.aspx.designer.cs">
+      <DependentUpon>gripe_log.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\leave_detail.aspx.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -484,20 +498,6 @@
     </Compile>
     <Compile Include="protected\member_detail.aspx.designer.cs">
       <DependentUpon>member_detail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="protected\mini_fix_log.aspx.cs">
-      <DependentUpon>mini_fix_log.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="protected\mini_fix_log.aspx.designer.cs">
-      <DependentUpon>mini_fix_log.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="protected\mini_fix_request.aspx.cs">
-      <DependentUpon>mini_fix_request.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="protected\mini_fix_request.aspx.designer.cs">
-      <DependentUpon>mini_fix_request.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\officership_detail.aspx.cs">
       <DependentUpon>officership_detail.aspx</DependentUpon>
@@ -709,6 +709,20 @@
     <Compile Include="usercontrol\app\UserControl_funddrive_teaser.ascx.designer.cs">
       <DependentUpon>UserControl_funddrive_teaser.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_gripe.ascx.cs">
+      <DependentUpon>UserControl_gripe.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_gripe.ascx.designer.cs">
+      <DependentUpon>UserControl_gripe.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_gripe_log.ascx.cs">
+      <DependentUpon>UserControl_gripe_log.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_gripe_log.ascx.designer.cs">
+      <DependentUpon>UserControl_gripe_log.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_log_new_donation.ascx.cs">
       <DependentUpon>UserControl_log_new_donation.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -722,20 +736,6 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_mini_fix_log.ascx.cs">
-      <DependentUpon>UserControl_mini_fix_log.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_mini_fix_log.ascx.designer.cs">
-      <DependentUpon>UserControl_mini_fix_log.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_mini_fix_request.ascx.cs">
-      <DependentUpon>UserControl_mini_fix_request.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_mini_fix_request.ascx.designer.cs">
-      <DependentUpon>UserControl_mini_fix_request.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.cs">
       <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>

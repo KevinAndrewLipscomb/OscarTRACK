@@ -1,0 +1,8 @@
+Review GripeLog for vehicle <vehicle_name/>
+This is an automatic notification from <application_name/>.
+
+Because <vehicle_name/> has just been marked DOWN, <application_name/> recommends that you review the outstanding requests in <vehicle_name/>'s GripeLog, shown below.  If any of the requests can be addressed while <vehicle_name/> is DOWN, consider logging into <application_name/> to generate and submit a corresponding work order:
+
+<log/>
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

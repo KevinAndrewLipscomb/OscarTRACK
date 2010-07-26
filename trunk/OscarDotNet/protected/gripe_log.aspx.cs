@@ -11,13 +11,13 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace mini_fix_log
+namespace gripe_log
   {
   public struct p_type
     {
     }
 
-  public partial class TWebForm_mini_fix_log: ki_web_ui.page_class
+  public partial class TWebForm_gripe_log: ki_web_ui.page_class
     {
     private p_type p;
 
@@ -28,14 +28,14 @@ namespace mini_fix_log
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_mini_fix_log_PreRender;
+      this.PreRender += this.TWebForm_gripe_log_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - mini_fix_log";
+        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - gripe_log";
         }
       }
 
@@ -44,7 +44,7 @@ namespace mini_fix_log
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("mini_fix_log.p");
+      var nature_of_visit = NatureOfVisit("gripe_log.p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         //
@@ -53,15 +53,15 @@ namespace mini_fix_log
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["mini_fix_log.p"]);
+        p = (p_type)(Session["gripe_log.p"]);
         }
       }
 
-    private void TWebForm_mini_fix_log_PreRender(object sender, System.EventArgs e)
+    private void TWebForm_gripe_log_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("mini_fix_log.p", p);
+      SessionSet("gripe_log.p", p);
       }
 
-    } // end TWebForm_mini_fix_log
+    } // end TWebForm_gripe_log
 
   }

@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace mini_fix_request {
+namespace gripe {
     
     
-    public partial class TWebForm_mini_fix_request {
+    public partial class TWebForm_gripe {
         
         /// <summary>
         /// UserControl_precontent control.
@@ -22,13 +22,13 @@ namespace mini_fix_request {
         protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// UserControl_mini_fix_request_control control.
+        /// UserControl_gripe_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_mini_fix_request.TWebUserControl_mini_fix_request UserControl_mini_fix_request_control;
+        protected global::UserControl_gripe.TWebUserControl_gripe UserControl_gripe_control;
         
         /// <summary>
         /// UserControl_postcontent control.

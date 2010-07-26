@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_mini_fix_log.ascx.cs" Inherits="UserControl_mini_fix_log.TWebUserControl_mini_fix_log"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe_log.ascx.cs" Inherits="UserControl_gripe_log.TWebUserControl_gripe_log"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
@@ -11,7 +11,7 @@
                 <table cellspacing="0" cellpadding="10" border="0" width="100%">
                   <tr>
                     <td nowrap="true">
-                      <b>MiniFix requests for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal></b>&nbsp; (<asp:Literal ID="Literal_num_requests" runat="server"></asp:Literal>&nbsp;items)
+                      <b>Gripes for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal></b>&nbsp; (<asp:Literal ID="Literal_num_requests" runat="server"></asp:Literal>&nbsp;items)
                     </td>
                     <td align="center">
                       <asp:Panel ID="Panel_generation_timestamp" runat="server" Visible="False"><small>Generated&nbsp;<asp:Literal ID="Literal_generation_timestamp" runat="server"></asp:Literal></small></asp:Panel>                      
@@ -29,7 +29,7 @@
                     <li>This is a log of requested <b>vehicular</b> repairs or improvements that do not require putting the vehicle DOWN immediately.</li>
                     <li>Do not use this log to request work relating to supplies or portable or EMS-specific equipment.</li>
                     <li>Check to see if known issues are already documented.</li>
-                    <li>To enter a new MiniFix request, scroll to the bottom of this page and click the NEW REQUEST button.</li>
+                    <li>To enter a new gripe, scroll to the bottom of this page and click the NEW GRIPE button.</li>
                   </ul>
                 </small>
               </td>
@@ -179,7 +179,7 @@
         </td>
       </tr>
     </table>
-    <p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW REQUEST" onclick="Button_new_Click"></asp:Button></p>
+    <p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click"></asp:Button></p>
     <asp:Panel ID="Panel_page_break" runat="server" Visible="false"><i>--&nbsp;END&nbsp;--</i><div style="page-break-before:always;" /></asp:Panel>
   </ContentTemplate>
 </asp:UpdatePanel>

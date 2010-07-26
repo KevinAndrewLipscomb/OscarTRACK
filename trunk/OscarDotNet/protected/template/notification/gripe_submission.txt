@@ -1,7 +1,7 @@
-MiniFixLog entry for vehicle <vehicle_name/>
+GripeLog entry for vehicle <vehicle_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has made the following entry into vehicle <vehicle_name/>'s MiniFixLog:
+<actor/> has made the following entry into vehicle <vehicle_name/>'s GripeLog:
 
    <description/>
 

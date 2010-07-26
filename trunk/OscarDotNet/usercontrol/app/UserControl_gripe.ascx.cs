@@ -1,6 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_mini_fix_requests;
+using Class_biz_gripes;
 using Class_biz_role_member_map;
 using Class_biz_vehicles;
 using kix;
@@ -9,9 +9,9 @@ using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace UserControl_mini_fix_request
+namespace UserControl_gripe
   {
-  public partial class TWebUserControl_mini_fix_request: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_gripe: ki_web_ui.usercontrol_class
     {
     private p_type p;
 
@@ -126,7 +126,7 @@ namespace UserControl_mini_fix_request
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
         SetDataEntryMode();
         TextBox_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
-        if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/mini_fix_request/"))
+        if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/gripe/"))
           {
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
           Session.Remove("mode:goto");
@@ -146,7 +146,7 @@ namespace UserControl_mini_fix_request
       result = false;
       if
         (
-        p.biz_mini_fix_requests.Get
+        p.biz_gripes.Get
           (
           id,
           out vehicle_name,
@@ -165,7 +165,7 @@ namespace UserControl_mini_fix_request
         LinkButton_reset.Enabled = true;
         SetDependentFieldAblements(true);
         Button_submit.Enabled = true;
-        Button_delete.Enabled = p.be_ok_to_config_mini_fix_requests;
+        Button_delete.Enabled = p.be_ok_to_config_gripes;
         result = true;
         }
       return result;
@@ -204,18 +204,18 @@ namespace UserControl_mini_fix_request
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_mini_fix_request.p"] != null)
+      if (Session["UserControl_gripe.p"] != null)
         {
-        p = (p_type)(Session["UserControl_mini_fix_request.p"]);
+        p = (p_type)(Session["UserControl_gripe.p"]);
         p.be_loaded = IsPostBack;
         }
       else
         {
         p.be_loaded = false;
-        p.biz_mini_fix_requests = new TClass_biz_mini_fix_requests();
+        p.biz_gripes = new TClass_biz_gripes();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         p.biz_vehicles = new TClass_biz_vehicles();
-        p.be_ok_to_config_mini_fix_requests = k.Has((string[])(Session["privilege_array"]), "config-mini-fix-requests");
+        p.be_ok_to_config_gripes = k.Has((string[])(Session["privilege_array"]), "config-gripes");
         }
       }
 
@@ -226,17 +226,17 @@ namespace UserControl_mini_fix_request
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_mini_fix_request_PreRender;
+      this.PreRender += this.TWebUserControl_gripe_PreRender;
       }
 
-    private void TWebUserControl_mini_fix_request_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_gripe_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_mini_fix_request.p", p);
+      SessionSet("UserControl_gripe.p", p);
       }
 
-    public TWebUserControl_mini_fix_request Fresh()
+    public TWebUserControl_gripe Fresh()
       {
-      Session.Remove("UserControl_mini_fix_request.p");
+      Session.Remove("UserControl_gripe.p");
       return this;
       }
 
@@ -244,7 +244,7 @@ namespace UserControl_mini_fix_request
       {
       if (Page.IsValid)
         {
-        p.biz_mini_fix_requests.Set
+        p.biz_gripes.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           p.biz_vehicles.IdOf(Session["vehicle_summary"]),
@@ -292,7 +292,7 @@ namespace UserControl_mini_fix_request
 
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (p.biz_mini_fix_requests.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
+      if (p.biz_gripes.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
         {
         SetLookupMode();
         }
@@ -331,7 +331,7 @@ namespace UserControl_mini_fix_request
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_mini_fix_requests.Bind(p.biz_vehicles.IdOf(Session["vehicle_summary"]),saved_id, DropDownList_id);
+        p.biz_gripes.Bind(p.biz_vehicles.IdOf(Session["vehicle_summary"]),saved_id, DropDownList_id);
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -358,8 +358,8 @@ namespace UserControl_mini_fix_request
     private struct p_type
       {
       public bool be_loaded;
-      public bool be_ok_to_config_mini_fix_requests;
-      public TClass_biz_mini_fix_requests biz_mini_fix_requests;
+      public bool be_ok_to_config_gripes;
+      public TClass_biz_gripes biz_gripes;
       public TClass_biz_role_member_map biz_role_member_map;
       public TClass_biz_vehicles biz_vehicles;
       }
@@ -369,6 +369,6 @@ namespace UserControl_mini_fix_request
       BackTrack();
       }
 
-    } // end TWebUserControl_mini_fix_request
+    } // end TWebUserControl_gripe
 
   }

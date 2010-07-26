@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_mini_fix_request {
+namespace UserControl_gripe {
     
     
-    public partial class TWebUserControl_mini_fix_request {
+    public partial class TWebUserControl_gripe {
         
         /// <summary>
         /// TextBox_id control.

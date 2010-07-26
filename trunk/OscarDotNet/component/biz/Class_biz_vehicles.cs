@@ -1,7 +1,7 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_biz_members;
-using Class_biz_mini_fix_requests;
+using Class_biz_gripes;
 using Class_biz_notifications;
 using Class_biz_user;
 using Class_db_agencies;
@@ -17,7 +17,7 @@ namespace Class_biz_vehicles
   public class TClass_biz_vehicles
     {
     private TClass_biz_members biz_members = null;
-    private TClass_biz_mini_fix_requests biz_mini_fix_requests = null;
+    private TClass_biz_gripes biz_gripes = null;
     private TClass_biz_notifications biz_notifications = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
@@ -27,7 +27,7 @@ namespace Class_biz_vehicles
     public TClass_biz_vehicles() : base()
       {
       biz_members = new TClass_biz_members();
-      biz_mini_fix_requests = new TClass_biz_mini_fix_requests();
+      biz_gripes = new TClass_biz_gripes();
       biz_notifications = new TClass_biz_notifications();
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
@@ -278,9 +278,9 @@ namespace Class_biz_vehicles
         );
       db_agencies.IncrementFleetTrackingOpsTally(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
       biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
-      if (!biz_mini_fix_requests.BeVehicleLogEmpty(vehicle_id))
+      if (!biz_gripes.BeVehicleLogEmpty(vehicle_id))
         {
-        biz_notifications.IssueMiniFixLogReview(vehicle_id,biz_mini_fix_requests.VehicleLog(vehicle_id));
+        biz_notifications.IssueGripeLogReview(vehicle_id,biz_gripes.VehicleLog(vehicle_id));
         }
       //
       var current_condition = new k.subtype<int>(-1,1);
