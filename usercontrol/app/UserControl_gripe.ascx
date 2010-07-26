@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_mini_fix_request.ascx.cs" Inherits="UserControl_mini_fix_request.TWebUserControl_mini_fix_request"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe.ascx.cs" Inherits="UserControl_gripe.TWebUserControl_gripe"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~kicrudhelped~item.ascx-template -->
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
@@ -6,7 +6,7 @@
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
   <tr>
-    <td bgcolor="gainsboro" valign="top"><font class="">MiniFix entry #:</font></td>
+    <td bgcolor="gainsboro" valign="top"><font class="">Gripe #:</font></td>
     <td valign="top"><font class="">
       <table cellspacing="0" cellpadding="0" border="0">
          <tr>
@@ -17,7 +17,7 @@
       <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
                 </td>
                 <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
-                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full entry or entry #</asp:Label></em></small></small></td>
+                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full gripe or gripe #</asp:Label></em></small></small></td>
               </tr>
             </table>
           </td>
@@ -30,7 +30,7 @@
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td valign="middle">
             <small>
-              <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False" onclick="LinkButton_new_record_Click">Enter&nbsp;brand&nbsp;new&nbsp;record</ASP:LinkButton>
+              <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False" onclick="LinkButton_new_record_Click">Enter&nbsp;brand&nbsp;new&nbsp;gripe</ASP:LinkButton>
             </small>
           </td>
         </tr>
@@ -82,7 +82,7 @@
     <td valign="top"><font class="">New/additional entry:</font></td>
     <td>
       <font class="">
-        <small>Please be precise, concise, and professional.&nbsp; Your comments may be displayed on a future shop work order.</small><br />
+        <small>Please be positive, professional, precise, and concise.&nbsp; Your comments may be displayed on a future shop work order.</small><br />
         <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="72" Rows="6" TextMode="MultiLine"></asp:TextBox><br />
         <small>Resulting note will be truncated at 65,536 characters.</small>
       </font>

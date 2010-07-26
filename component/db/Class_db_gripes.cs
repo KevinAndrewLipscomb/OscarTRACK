@@ -9,13 +9,13 @@ using System.Collections;
 using System.Web.UI.WebControls;
 using UserControl_drop_down_date;
 
-namespace Class_db_mini_fix_requests
+namespace Class_db_gripes
   {
-  public class TClass_db_mini_fix_requests: TClass_db
+  public class TClass_db_gripes: TClass_db
     {
     private TClass_db_trail db_trail = null;
 
-    public TClass_db_mini_fix_requests() : base()
+    public TClass_db_gripes() : base()
       {
       db_trail = new TClass_db_trail();
       }
@@ -23,7 +23,7 @@ namespace Class_db_mini_fix_requests
     internal bool BeVehicleLogEmpty(string vehicle_id)
       {
       Open();
-      var be_vehicle_log_empty = ("0" == new MySqlCommand("select count(*) from mini_fix_request where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString());
+      var be_vehicle_log_empty = ("0" == new MySqlCommand("select count(*) from gripe where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString());
       Close();
       return be_vehicle_log_empty;
       }
@@ -42,7 +42,7 @@ namespace Class_db_mini_fix_requests
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
-        + " from mini_fix_request"
+        + " from gripe"
         + " where vehicle_id = '" + vehicle_id + "'"
         +   " and " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
@@ -70,7 +70,7 @@ namespace Class_db_mini_fix_requests
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(description,'-')) USING utf8) as spec"
-        + " FROM mini_fix_request"
+        + " FROM gripe"
         + " where vehicle_id = '" + vehicle_id + "'"
         + " order by spec",
         this.connection
@@ -103,10 +103,10 @@ namespace Class_db_mini_fix_requests
         }
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select mini_fix_request.id as id"
+        "select gripe.id as id"
         + " , description"
-        + " from mini_fix_request"
-        +   " join vehicle on (vehicle.id=mini_fix_request.vehicle_id)"
+        + " from gripe"
+        +   " join vehicle on (vehicle.id=gripe.vehicle_id)"
         + " where vehicle_id = '" + vehicle_id + "'"
         + " order by " + sort_order,
         connection
@@ -123,7 +123,7 @@ namespace Class_db_mini_fix_requests
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from mini_fix_request where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("delete from gripe where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -159,9 +159,9 @@ namespace Class_db_mini_fix_requests
         (
         "select name"
         + " , description"
-        + " from mini_fix_request"
-        +   " join vehicle on (vehicle.id=mini_fix_request.vehicle_id)"
-        + " where CAST(mini_fix_request.id AS CHAR) = '" + id + "'",
+        + " from gripe"
+        +   " join vehicle on (vehicle.id=gripe.vehicle_id)"
+        + " where CAST(gripe.id AS CHAR) = '" + id + "'",
         connection
         )
         .ExecuteReader();
@@ -188,7 +188,7 @@ namespace Class_db_mini_fix_requests
       Open();
       var dr = new MySqlCommand
         (
-        "select id,description from mini_fix_request where vehicle_id = '" + vehicle_id + "' order by id",
+        "select id,description from gripe where vehicle_id = '" + vehicle_id + "' order by id",
         connection
         )
         .ExecuteReader();
@@ -208,7 +208,7 @@ namespace Class_db_mini_fix_requests
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update mini_fix_request set description = '" + replacement_note + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update gripe set description = '" + replacement_note + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -228,7 +228,7 @@ namespace Class_db_mini_fix_requests
         (
         db_trail.Saved
           (
-          "insert mini_fix_request"
+          "insert gripe"
           + " set id = NULLIF('" + id + "','')"
           + " , " + childless_field_assignments_clause
           + " on duplicate key update "
@@ -240,6 +240,6 @@ namespace Class_db_mini_fix_requests
       this.Close();
       }
 
-    } // end TClass_db_mini_fix_requests
+    } // end TClass_db_gripes
 
   }

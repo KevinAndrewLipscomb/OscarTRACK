@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_mini_fix_log {
+namespace UserControl_gripe_log {
     
     
-    public partial class TWebUserControl_mini_fix_log {
+    public partial class TWebUserControl_gripe_log {
         
         /// <summary>
         /// UpdatePanel_control control.

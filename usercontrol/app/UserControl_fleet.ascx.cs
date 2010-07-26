@@ -265,9 +265,9 @@ namespace UserControl_fleet
           {
           DropCrumbAndTransferTo("vehicle_detail.aspx");
           }
-        else if (e.CommandName == "MiniFixLog")
+        else if (e.CommandName == "GripeLog")
           {
-          DropCrumbAndTransferTo("mini_fix_log.aspx");
+          DropCrumbAndTransferTo("gripe_log.aspx");
           }
         else if (e.CommandName == "MarkDown")
           {
@@ -371,7 +371,7 @@ namespace UserControl_fleet
           link_button.ToolTip = "Detail";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_MINIFIXLOG].Controls[0]) as LinkButton);
-          link_button.ToolTip = "Manage MiniFixLog";
+          link_button.ToolTip = "Manage GripeLog";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark DOWN";
