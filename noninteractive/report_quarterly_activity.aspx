@@ -3,8 +3,8 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_behind_the_scenes_activity" Src="~/usercontrol/app/UserControl_behind_the_scenes_activity.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-    <title id="Title" runat="server"></title>
+  <head runat="server">
+    <title/>
     <!-- $Id: report_quarterly_activity.aspx 2649 2008-10-17 19:21:01Z kevinanlipscomb $ -->
   </head>
   <body bgcolor="white">
@@ -28,7 +28,7 @@
                     <small>
                       <p>Best practices:</p>
                       <ul>
-                        <li><p>This report shows the level of personnel tracking activity and inter-stakeholder notifications
+                        <li><p>This report shows the level of tracking activity and inter-stakeholder notifications
                           managed by <asp:label id="Label_application_name_2" runat="server"></asp:label>.</p></li>
                         <li><p>Access <asp:label id="Label_application_name_3" runat="server"></asp:label> here:&nbsp;
                           <ASP:HyperLink id="HyperLink_web_site" runat="server" font-bold="True"></ASP:HyperLink></p></li>

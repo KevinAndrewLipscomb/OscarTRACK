@@ -13,11 +13,11 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
-namespace UserControl_gripe_log
+namespace UserControl_gripe_sheet
   {
-  public partial class TWebUserControl_gripe_log: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_gripe_sheet: ki_web_ui.usercontrol_class
     {
-    public class UserControl_gripe_log_Static
+    public class UserControl_gripe_sheet_Static
       {
       public const int TCI_INCLUDE = 0;
       public const int TCI_DELETE = 1;
@@ -177,9 +177,9 @@ namespace UserControl_gripe_log
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_gripe_log.p"] != null)
+      if (Session["UserControl_gripe_sheet.p"] != null)
         {
-        p = (p_type)(Session["UserControl_gripe_log.p"]);
+        p = (p_type)(Session["UserControl_gripe_sheet.p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -207,18 +207,18 @@ namespace UserControl_gripe_log
       this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
       this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
       this.DataGrid_control.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_control_ItemCommand);
-      this.PreRender += this.TWebUserControl_gripe_log_PreRender;
+      this.PreRender += this.TWebUserControl_gripe_sheet_PreRender;
       //this.Load += this.Page_Load;
       }
 
-    private void TWebUserControl_gripe_log_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_gripe_sheet_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_gripe_log.p", p);
+      SessionSet("UserControl_gripe_sheet.p", p);
       }
 
-    public TWebUserControl_gripe_log Fresh()
+    public TWebUserControl_gripe_sheet Fresh()
       {
-      Session.Remove("UserControl_gripe_log.p");
+      Session.Remove("UserControl_gripe_sheet.p");
       return this;
       }
 
@@ -226,7 +226,7 @@ namespace UserControl_gripe_log
       {
       if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
-        var id = k.Safe(e.Item.Cells[UserControl_gripe_log_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
         //
         if (e.CommandName == "Append")
           {
@@ -241,7 +241,7 @@ namespace UserControl_gripe_log
         else if (e.CommandName == "ToggleInclusion")
           {
           var new_value = !((bool)(p.gripe_inclusion_hashtable[id]));
-          (e.Item.Cells[UserControl_gripe_log_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (new_value ? "YES" : "no");
+          (e.Item.Cells[UserControl_gripe_sheet_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (new_value ? "YES" : "no");
           p.gripe_inclusion_hashtable[id] = new_value;
           Bind();
           }
@@ -255,10 +255,10 @@ namespace UserControl_gripe_log
         {
         if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
           {
-          var id = k.Safe(e.Item.Cells[UserControl_gripe_log_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+          var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
           if (p.gripe_inclusion_hashtable.ContainsKey(id))
             {
-            (e.Item.Cells[UserControl_gripe_log_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.gripe_inclusion_hashtable[id])) ? "YES" : "no");
+            (e.Item.Cells[UserControl_gripe_sheet_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.gripe_inclusion_hashtable[id])) ? "YES" : "no");
             }
           else
             {
@@ -270,17 +270,17 @@ namespace UserControl_gripe_log
             }
           else
             {
-            link_button = ((e.Item.Cells[UserControl_gripe_log_Static.TCI_DELETE].Controls[0]) as LinkButton);
+            link_button = ((e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DELETE].Controls[0]) as LinkButton);
             link_button.Text = k.ExpandTildePath(link_button.Text);
             link_button.ToolTip = "Delete";
             RequireConfirmation(link_button,"Are you sure you want to delete this record?");
             //
-            link_button = ((e.Item.Cells[UserControl_gripe_log_Static.TCI_APPEND].Controls[0]) as LinkButton);
+            link_button = ((e.Item.Cells[UserControl_gripe_sheet_Static.TCI_APPEND].Controls[0]) as LinkButton);
             link_button.Text = k.ExpandTildePath(link_button.Text);
             link_button.ToolTip = "Append note";
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
             //
-            e.Item.Cells[UserControl_gripe_log_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_gripe_log_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
+            e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
             //
             // Remove all cell controls from viewstate except for the ones at TCI_ID (and for this control only, TCI_INCLUDE).
             //
@@ -288,7 +288,7 @@ namespace UserControl_gripe_log
               {
               cell.EnableViewState = false;
               }
-            e.Item.Cells[UserControl_gripe_log_Static.TCI_ID].EnableViewState = true;
+            e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].EnableViewState = true;
             //
             p.num_gripes++;
             }
@@ -313,9 +313,9 @@ namespace UserControl_gripe_log
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_gripe_log_Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
-      DataGrid_control.Columns[UserControl_gripe_log_Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
-      DataGrid_control.Columns[UserControl_gripe_log_Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
+      DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
+      DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
+      DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
       p.biz_gripes.BindLog(p.biz_vehicles.IdOf(Session["vehicle_summary"]),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
       p.be_datagrid_empty = (p.num_gripes == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -340,6 +340,6 @@ namespace UserControl_gripe_log
       Panel_page_break.Visible = CheckBox_be_work_order_mode.Checked;
       }
 
-    } // end TWebUserControl_gripe_log
+    } // end TWebUserControl_gripe_sheet
 
   }

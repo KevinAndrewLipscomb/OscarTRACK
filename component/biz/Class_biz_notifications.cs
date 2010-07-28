@@ -1271,8 +1271,8 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
-        private delegate string IssueGripeLogReview_Merge(string s);
-        public void IssueGripeLogReview
+        private delegate string IssueGripeSheetReview_Merge(string s);
+        public void IssueGripeSheetReview
           (
           string vehicle_id,
           string log
@@ -1289,11 +1289,11 @@ namespace Class_biz_notifications
               .Replace("<log/>", log);
             };
 
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/gripe_log_review.txt"));
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/gripe_sheet_review.txt"));
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            k.COMMA + db_notifications.TargetOfAboutAgency("gripe-log-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-log-review","0"),
+            k.COMMA + db_notifications.TargetOfAboutAgency("gripe-sheet-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-sheet-review","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,

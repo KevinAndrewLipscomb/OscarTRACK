@@ -84,9 +84,9 @@
     <Content Include="new_user_registration.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\gripe.aspx" />
-    <Content Include="protected\gripe_log.aspx" />
-    <Content Include="protected\template\notification\minifix_log_review.txt" />
-    <Content Include="protected\template\notification\minifix_request_submission.txt" />
+    <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\template\notification\gripe_sheet_review.txt" />
+    <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="remind_username.aspx" />
@@ -94,7 +94,7 @@
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
-    <Content Include="usercontrol\app\UserControl_gripe_log.ascx" />
+    <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
@@ -470,12 +470,12 @@
     <Compile Include="protected\gripe.aspx.designer.cs">
       <DependentUpon>gripe.aspx</DependentUpon>
     </Compile>
-    <Compile Include="protected\gripe_log.aspx.cs">
-      <DependentUpon>gripe_log.aspx</DependentUpon>
+    <Compile Include="protected\gripe_sheet.aspx.cs">
+      <DependentUpon>gripe_sheet.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="protected\gripe_log.aspx.designer.cs">
-      <DependentUpon>gripe_log.aspx</DependentUpon>
+    <Compile Include="protected\gripe_sheet.aspx.designer.cs">
+      <DependentUpon>gripe_sheet.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\leave_detail.aspx.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>
@@ -715,12 +715,12 @@
     <Compile Include="usercontrol\app\UserControl_gripe.ascx.designer.cs">
       <DependentUpon>UserControl_gripe.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_gripe_log.ascx.cs">
-      <DependentUpon>UserControl_gripe_log.ascx</DependentUpon>
+    <Compile Include="usercontrol\app\UserControl_gripe_sheet.ascx.cs">
+      <DependentUpon>UserControl_gripe_sheet.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_gripe_log.ascx.designer.cs">
-      <DependentUpon>UserControl_gripe_log.ascx</DependentUpon>
+    <Compile Include="usercontrol\app\UserControl_gripe_sheet.ascx.designer.cs">
+      <DependentUpon>UserControl_gripe_sheet.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_log_new_donation.ascx.cs">
       <DependentUpon>UserControl_log_new_donation.ascx</DependentUpon>

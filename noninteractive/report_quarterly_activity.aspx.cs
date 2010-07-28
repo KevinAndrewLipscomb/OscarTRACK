@@ -1,21 +1,11 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Text;
-using System.IO;
 using Class_biz_role_member_map;
+using kix;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Web.UI;
+
 namespace report_quarterly_activity
 {
     public partial class TWebForm_report_quarterly_activity: System.Web.UI.Page
@@ -32,7 +22,7 @@ namespace report_quarterly_activity
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_quarterly_activity";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_quarterly_activity";
             Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = Label_application_name.Text;
             Label_application_name_3.Text = Label_application_name.Text;
