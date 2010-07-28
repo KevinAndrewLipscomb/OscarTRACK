@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace gripe_log {
+namespace gripe_sheet {
     
     
-    public partial class TWebForm_gripe_log {
+    public partial class TWebForm_gripe_sheet {
         
         /// <summary>
         /// UserControl_precontent control.
@@ -22,13 +22,13 @@ namespace gripe_log {
         protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// UserControl_gripe_log_control control.
+        /// UserControl_gripe_sheet_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_gripe_log.TWebUserControl_gripe_log UserControl_gripe_log_control;
+        protected global::UserControl_gripe_sheet.TWebUserControl_gripe_sheet UserControl_gripe_sheet_control;
         
         /// <summary>
         /// UserControl_postcontent control.

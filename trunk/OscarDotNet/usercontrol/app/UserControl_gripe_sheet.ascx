@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe_log.ascx.cs" Inherits="UserControl_gripe_log.TWebUserControl_gripe_log"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe_sheet.ascx.cs" Inherits="UserControl_gripe_sheet.TWebUserControl_gripe_sheet"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>

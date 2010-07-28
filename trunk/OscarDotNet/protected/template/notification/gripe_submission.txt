@@ -1,7 +1,7 @@
-GripeLog entry for vehicle <vehicle_name/>
+GripeSheet entry for vehicle <vehicle_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has made the following entry into vehicle <vehicle_name/>'s GripeLog:
+<actor/> has made the following entry on vehicle <vehicle_name/>'s GripeSheet:
 
    <description/>
 

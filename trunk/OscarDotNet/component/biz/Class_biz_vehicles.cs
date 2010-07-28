@@ -280,7 +280,7 @@ namespace Class_biz_vehicles
       biz_notifications.IssueForVehicleMarkedDown(vehicle_id,time_went_down,nature_id,mileage,down_comment);
       if (!biz_gripes.BeVehicleLogEmpty(vehicle_id))
         {
-        biz_notifications.IssueGripeLogReview(vehicle_id,biz_gripes.VehicleLog(vehicle_id));
+        biz_notifications.IssueGripeSheetReview(vehicle_id,biz_gripes.VehicleLog(vehicle_id));
         }
       //
       var current_condition = new k.subtype<int>(-1,1);
