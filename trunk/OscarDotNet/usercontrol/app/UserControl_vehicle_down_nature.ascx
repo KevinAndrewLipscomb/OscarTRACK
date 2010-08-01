@@ -94,6 +94,7 @@
     </td>
     <td nowrap="True">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_elaboration" runat="server" errormessage="Please enter Elaboration." font-bold="True" controltovalidate="TextBox_elaboration">!ERR!</ASP:RequiredFieldValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_elaboration" runat="server" ErrorMessage="Please restrict the Elaboration entry to 16,777,215 characters." ControlToValidate="TextBox_elaboration" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,16777215}$">!ERR!</asp:RegularExpressionValidator>
     </td>
   </tr>
       </table>

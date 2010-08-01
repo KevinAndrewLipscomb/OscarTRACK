@@ -47,7 +47,7 @@
                           <tr>
                             <td>
                               <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="10" TextMode="MultiLine"></asp:TextBox>
-                              <p><small>Resulting note will be truncated at 65,536 characters.</small></p>
+                              <p><small>Resulting note will be truncated at 16,777,215 characters.</small></p>
                             </td>
                           </tr>
                         </table>
