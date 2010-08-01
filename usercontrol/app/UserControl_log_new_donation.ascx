@@ -75,7 +75,9 @@
           <td align="right" valign="top">Note:</td>
           <td>
             <asp:TextBox id="TextBox_note" runat="server" columns="40" rows="4" textmode="MultiLine"></asp:TextBox></td>
-          <td></td>
+          <td valign="top">
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator_note" runat="server" ErrorMessage="Please restrict the Note entry to 16,777,215 characters." ControlToValidate="TextBox_note" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,16777215}$">!ERR!</asp:RegularExpressionValidator>
+          </td>
         </tr>
         <tr>
           <td align="right">&nbsp;</td>

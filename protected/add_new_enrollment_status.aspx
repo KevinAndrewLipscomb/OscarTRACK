@@ -46,7 +46,7 @@ new status be?&nbsp; Please consider carefully.
                   </asp:Panel>
 								  <p>When&nbsp;does the change take effect?</p>
 								  <blockquote><p><uc1:UserControl_drop_down_date id="UserControl_effective_date" runat="server"></uc1:UserControl_drop_down_date></p></blockquote>
-								  <p>Note (optional):</p>
+								  <p>Note (optional):&nbsp;&nbsp;<asp:RegularExpressionValidator ID="RegularExpressionValidator_note" runat="server" ErrorMessage="Please restrict the Note entry to 127 characters." ControlToValidate="TextBox_note" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,127}$">!ERR!</asp:RegularExpressionValidator></p>
 								  <blockquote><ASP:TextBox id="TextBox_note" runat="server" maxlength="127" columns="40" textmode="MultiLine"></ASP:TextBox></blockquote>
 								  <p><ASP:RequiredFieldValidator id="RequiredFieldValidator_new_status" runat="server" errormessage="Please select a new membership status." font-bold="True" controltovalidate="RadioButtonList_disposition" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
                     <asp:CustomValidator ID="CustomValidator_control" runat="server" Display="Dynamic" Font-Bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
