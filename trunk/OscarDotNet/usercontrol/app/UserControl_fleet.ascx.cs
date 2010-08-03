@@ -25,28 +25,29 @@ namespace UserControl_fleet
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
       public const int TCI_NAME = 2;
-      public const int TCI_MINIFIXLOG = 3;
-      public const int TCI_STATUS = 4;
-      public const int TCI_STATUS_UP = 5;
-      public const int TCI_STATUS_DOWN = 6;
-      public const int TCI_APPEND_NOTE = 7;
-      public const int TCI_QUARTERS = 8;
-      public const int TCI_RECENT_MILEAGE = 9;
-      public const int TCI_MILES_FROM_PM = 10;
-      public const int TCI_DMV_INSPECTION_DUE = 11;
-      public const int TCI_MODEL_YEAR = 12;
-      public const int TCI_CHASSIS_MAKE = 13;
-      public const int TCI_CHASSIS_MODEL = 14;
-      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 15;
-      public const int TCI_CUSTOM_MAKE = 16;
-      public const int TCI_CUSTOM_MODEL = 17;
-      public const int TCI_FUEL = 18;
-      public const int TCI_KIND = 19;
-      public const int TCI_AGENCY = 20;
-      public const int TCI_BUMPER_NUMBER = 21;
-      public const int TCI_TAG = 22;
-      public const int TCI_VIN = 23;
-      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 24;
+      public const int TCI_GRIPESHEET = 3;
+      public const int TCI_NUM_GRIPES = 4;
+      public const int TCI_STATUS = 5;
+      public const int TCI_STATUS_UP = 6;
+      public const int TCI_STATUS_DOWN = 7;
+      public const int TCI_APPEND_NOTE = 8;
+      public const int TCI_QUARTERS = 9;
+      public const int TCI_RECENT_MILEAGE = 10;
+      public const int TCI_MILES_FROM_PM = 11;
+      public const int TCI_DMV_INSPECTION_DUE = 12;
+      public const int TCI_MODEL_YEAR = 13;
+      public const int TCI_CHASSIS_MAKE = 14;
+      public const int TCI_CHASSIS_MODEL = 15;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 16;
+      public const int TCI_CUSTOM_MAKE = 17;
+      public const int TCI_CUSTOM_MODEL = 18;
+      public const int TCI_FUEL = 19;
+      public const int TCI_KIND = 20;
+      public const int TCI_AGENCY = 21;
+      public const int TCI_BUMPER_NUMBER = 22;
+      public const int TCI_TAG = 23;
+      public const int TCI_VIN = 24;
+      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 25;
       }
 
     private struct p_type
@@ -296,8 +297,14 @@ namespace UserControl_fleet
       {
       if ((new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem})).Contains(e.Item.ItemType))
         {
+        LinkButton link_button;
+        //
         p.num_vehicles++;
         var be_up_and_current = true;
+        //
+        link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
+        link_button.Text = "<small>" + link_button.Text + "<sub>:" + e.Item.Cells[UserControl_fleet_Static.TCI_NUM_GRIPES].Text + "</sub></small>";
+        //
         if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
           {
           p.num_usable++;
@@ -365,12 +372,11 @@ namespace UserControl_fleet
           }
         if (p.be_interactive)
           {
-          LinkButton link_button;
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_SELECT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Detail";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_MINIFIXLOG].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
           link_button.ToolTip = "Manage GripeSheet";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
@@ -401,6 +407,7 @@ namespace UserControl_fleet
           }
         else
           {
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
@@ -432,7 +439,7 @@ namespace UserControl_fleet
     private void Bind()
       {
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_MINIFIXLOG].Visible = (p.be_interactive && p.be_interest_dynamic);
+      DataGrid_control.Columns[UserControl_fleet_Static.TCI_GRIPESHEET].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;

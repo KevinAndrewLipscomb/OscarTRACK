@@ -273,6 +273,7 @@ namespace Class_db_vehicles
           (
           "select vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
+          + " , count(gripe.vehicle_id) as num_gripes"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL(recent_mileage,'???') as last_known_mileage"
@@ -314,7 +315,9 @@ namespace Class_db_vehicles
           +       " vehicle_quarters_history.end_datetime is null"
           +     " )"
           +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
+          +   " left join gripe on (gripe.vehicle_id=vehicle.id)"
           + filter
+          + " group by vehicle.id"
           + " order by " + sort_order,
           connection
           )

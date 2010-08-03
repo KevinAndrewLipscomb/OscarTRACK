@@ -109,7 +109,10 @@
                 <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="Select"></asp:ButtonColumn>
                 <asp:BoundColumn DataField="vehicle_id" ReadOnly="True" SortExpression="vehicle_id" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vehicle_name" HeaderText="Name" ReadOnly="True" SortExpression="vehicle_name%"></asp:BoundColumn>
-                <asp:ButtonColumn CommandName="GripeSheet" Text="&lt;small&gt;GripeSheet&lt;/small&gt;"></asp:ButtonColumn>
+                <asp:ButtonColumn CommandName="GripeSheet" HeaderText="Gripes" Text="GripeSheet" SortExpression="num_gripes%,status,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" />
+                </asp:ButtonColumn>
+                <asp:BoundColumn DataField="num_gripes" ReadOnly="True" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="status" ReadOnly="True" Visible="False"></asp:BoundColumn>
                 <asp:ButtonColumn CommandName="MarkDown" HeaderText="Up" SortExpression="status%,vehicle_name" Text="&lt;tt&gt;&amp;nbsp;UP&amp;nbsp;&lt;/tt&gt;">
                   <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
