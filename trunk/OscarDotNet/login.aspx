@@ -12,7 +12,11 @@
   <body ms_positioning="FlowLayout" bgcolor="white">
   <form runat="server">
 
-  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
+  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
+  <table cellpadding="0" cellspacing="0">
+    <tr>
+      <td>
+<table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
 			  <tr>
 				<td>
 				  <table cellspacing="0" cellpadding="5" border="0">
@@ -92,7 +96,21 @@
 				</td>
 			  </tr>
 		  </table>
-		<input id="Hidden_client_timezone_offset" runat="server" type="hidden"/>
+      </td>
+      <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td align="center" valign="middle">
+        <table cellpadding="5" cellspacing="0" border="0">
+          <tr>
+            <td align="center" valign="middle">
+              <small>Looking for the <i>Schedule Availability System</i>?</small><br />
+              <big><big><b><a href="http://oscarsystem.com">Visit OSCAR (classic)</a></b></big></big>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  		<input id="Hidden_client_timezone_offset" runat="server" type="hidden"/>
 		<uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
   </form>
 </body>
