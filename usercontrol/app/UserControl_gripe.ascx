@@ -14,17 +14,17 @@
              <table cellspacing="0" cellpadding="0" border="0">
                <tr>
                  <td>
-      <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
+      <ASP:TextBox id="TextBox_id" runat="server"  cssclass="" Enabled="false"></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click" Visible="false"></ASP:Button>
                 </td>
-                <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
-                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full gripe or gripe #</asp:Label></em></small></small></td>
+                <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server" Visible="False">&lt;--</asp:Label></small></small></td>
+                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server" Visible="false">Lookup by partial or full gripe or gripe #</asp:Label></em></small></small></td>
               </tr>
             </table>
           </td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
           <td valign="middle">
             <small>
-              <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False" enabled="False" onclick="LinkButton_reset_Click">New lookup</ASP:LinkButton>
+              <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False" enabled="False" onclick="LinkButton_reset_Click" Visible="false">New lookup</ASP:LinkButton>
             </small>
           </td>
           <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>

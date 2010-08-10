@@ -117,11 +117,11 @@ namespace UserControl_gripe
       {
       if (!p.be_loaded)
         {
-        LinkButton_new_record.Visible = true;
-        LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
-        LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
-        LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
-        LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
+        //LinkButton_new_record.Visible = true;
+        //LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
+        //LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
+        //LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
+        //LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
         Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
         SetDataEntryMode();
@@ -139,7 +139,7 @@ namespace UserControl_gripe
 
     private bool PresentRecord(string id)
       {
-      Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
+      //Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
       string vehicle_name;
       string description;
@@ -162,7 +162,7 @@ namespace UserControl_gripe
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
-        LinkButton_reset.Enabled = true;
+        //LinkButton_reset.Enabled = true;
         SetDependentFieldAblements(true);
         Button_submit.Enabled = true;
         Button_delete.Enabled = p.be_ok_to_config_gripes;
@@ -179,7 +179,7 @@ namespace UserControl_gripe
       Button_lookup.Enabled = false;
       Label_lookup_arrow.Enabled = false;
       Label_lookup_hint.Enabled = false;
-      LinkButton_reset.Enabled = true;
+      //LinkButton_reset.Enabled = true;
       LinkButton_new_record.Enabled = false;
       SetDependentFieldAblements(true);
       Button_submit.Enabled = true;
@@ -294,7 +294,8 @@ namespace UserControl_gripe
       {
       if (p.biz_gripes.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
         {
-        SetLookupMode();
+        //SetLookupMode();
+        BackTrack();
         }
       else
         {
