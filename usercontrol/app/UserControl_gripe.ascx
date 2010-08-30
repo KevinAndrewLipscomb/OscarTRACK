@@ -61,7 +61,6 @@
     </td>
     <td nowrap="True">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_vehicle_id" runat="server" errormessage="Please enter Vehicle&nbsp;id." font-bold="True" controltovalidate="TextBox_vehicle_name">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_vehicle_id" runat="server" errormessage="Please enter a valid Vehicle&nbsp;id." font-bold="True" controltovalidate="TextBox_vehicle_name" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
   <tr>
