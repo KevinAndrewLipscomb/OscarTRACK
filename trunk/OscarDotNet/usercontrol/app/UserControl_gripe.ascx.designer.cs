@@ -166,15 +166,6 @@ namespace UserControl_gripe {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_vehicle_id;
         
         /// <summary>
-        /// RegularExpressionValidator_vehicle_id control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_vehicle_id;
-        
-        /// <summary>
         /// Label_prior_entry control.
         /// </summary>
         /// <remarks>
