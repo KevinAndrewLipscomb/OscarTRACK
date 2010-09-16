@@ -10,7 +10,7 @@ select concat_ws(
   "",
   "USA",
   IFNULL(email_address,""),
-  phone_num,
+  IFNULL(phone_num,""),
   "",
   IF(enrollment_level.description = "Retired","Alumni","Active")
   )
@@ -33,6 +33,5 @@ from member
   join enrollment_level on (enrollment_level.code=enrollment_history.level_code)
 where cad_num is not null
   and cad_num not like "9%"
-  and phone_num is not NULL
   and enrollment_level.description in ("Applicant","Associate","Regular","Life","Tenured","Atypical","Recruit","Admin","Reduced (1)","Reduced (2)","Reduced (3)","SpecOps","Transferring","Suspended","New trainee","Retired")
 order by cad_num
