@@ -37,7 +37,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #
 # Weekly
 #
-30 11  *  * 0 wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/weekly_tasks.aspx
+30 23  *  * 0 wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/weekly_tasks.aspx
 #
 # Monthly
 #
