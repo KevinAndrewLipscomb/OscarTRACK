@@ -1,20 +1,23 @@
-using System;
 using Class_biz_enrollment;
 using Class_biz_leaves;
+using Class_biz_residents;
 using Class_db_members;
+using System;
+
 namespace Class_biz_scheduled_tasks
 {
     public class TClass_biz_scheduled_tasks
     {
         private TClass_biz_enrollment biz_enrollment = null;
         private TClass_biz_leaves biz_leaves = null;
+        private TClass_biz_residents biz_residents = null;
         private TClass_db_members db_members = null;
-        //Constructor  Create()
+
         public TClass_biz_scheduled_tasks() : base()
         {
-            // TODO: Add any constructor code here
             biz_enrollment = new TClass_biz_enrollment();
             biz_leaves = new TClass_biz_leaves();
+            biz_residents = new TClass_biz_residents();
             db_members = new TClass_db_members();
         }
         public void DoDailyChores()
@@ -29,6 +32,11 @@ namespace Class_biz_scheduled_tasks
         {
             db_members.MakeMemberStatusStatements();
         }
+
+        internal void DoWeeklyChores()
+          {
+          biz_residents.ScrubToApplicationStandards();
+          }
 
     } // end TClass_biz_scheduled_tasks
 

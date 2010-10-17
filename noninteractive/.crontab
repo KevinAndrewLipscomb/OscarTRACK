@@ -3,6 +3,8 @@
 #
 MAILTO=kevin.lipscomb@kvrs.org
 #
+#mmhh DD MM d (mm=minute, hh=hour, DD=DayOfMonth, MM=MonthNum, d=DayOfWeekWhereZeroIsSunday)
+#
 # Daily
 #
 15 00  *  * * wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/daily_tasks.aspx
@@ -35,6 +37,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #
 # Weekly
 #
+30 11  *  * 0 wget --output-document=/dev/null https://sslws038.alentus.com/frompaper2web/OscarDotNet/noninteractive/weekly_tasks.aspx
 #
 # Monthly
 #

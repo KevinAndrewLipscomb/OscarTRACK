@@ -29,6 +29,11 @@ namespace Class_biz_residents
         return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator);
         }
 
-    } // end TClass_biz_residents
+      internal void ScrubToApplicationStandards()
+        {
+        db_residents.ScrubToApplicationStandards();
+        }
+
+      }
 
   }

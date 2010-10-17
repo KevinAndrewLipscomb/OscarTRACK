@@ -26,7 +26,7 @@
               </tr>
               <tr>
                 <td align="center">
-                  <asp:TextBox ID="TextBox_scene_visits" runat="server" Columns="45" Rows="40" TextMode="MultiLine" Wrap="False"></asp:TextBox>
+                  <asp:TextBox ID="TextBox_scene_visits" runat="server" Columns="45" Rows="30" TextMode="MultiLine" Wrap="False"></asp:TextBox>
                 </td>
                 <td style="text-align: center" valign="top">
                   Batch designator:<br />
@@ -36,7 +36,7 @@
                   <asp:Button ID="Button_process" runat="server" Text="=&gt; Process =&gt;" onclick="Button_process_Click" />
                 </td>
                 <td align="center">
-                  <asp:TextBox ID="TextBox_love_letter_targets" runat="server" Columns="45" ReadOnly="True" Rows="40" TextMode="MultiLine" Wrap="False"></asp:TextBox>
+                  <asp:TextBox ID="TextBox_love_letter_targets" runat="server" Columns="45" ReadOnly="True" Rows="30" TextMode="MultiLine" Wrap="False"></asp:TextBox>
                 </td>
               </tr>
             </table>

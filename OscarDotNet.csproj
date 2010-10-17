@@ -82,6 +82,7 @@
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
@@ -145,6 +146,7 @@
     <Compile Include="component\biz\Class_biz_vehicle_usability_history.cs" />
     <Compile Include="component\db\Class_db.cs" />
     <Compile Include="component\db\Class_dbkeyclick.cs" />
+    <Compile Include="component\db\Class_dbkeyclick_trail.cs" />
     <Compile Include="component\db\Class_db_accounts.cs" />
     <Compile Include="component\db\Class_db_agencies.cs" />
     <Compile Include="component\db\Class_db_chassis_makes.cs" />
@@ -329,6 +331,13 @@
     </Compile>
     <Compile Include="noninteractive\statement_member_status.aspx.designer.cs">
       <DependentUpon>statement_member_status.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\weekly_tasks.aspx.cs">
+      <DependentUpon>weekly_tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\weekly_tasks.aspx.designer.cs">
+      <DependentUpon>weekly_tasks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protected\add_member.aspx.cs">
