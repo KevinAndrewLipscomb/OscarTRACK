@@ -34,7 +34,7 @@ namespace Class_dbkeyclick_trail
         (
         ConfigurationManager.AppSettings["sender_email_address"],
         ConfigurationManager.AppSettings["failsafe_recipient_email_address"],
-        "DBkeyclick action by " + HttpContext.Current.User.Identity.Name,
+        "keyclick DB action by " + HttpContext.Current.User.Identity.Name,
         "/*" + DateTime.Now.ToString("yyyyMMddHHmmssfffffff") + "*/ " + action
         );
       return action;
