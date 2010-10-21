@@ -29,6 +29,12 @@ update resident_base set name = NULL where name = "TO OUR NEIGHBORS AT"
 ;
 update resident_base set name = "THOMAS CECELIA", city = "VIRGINIA BEACH" where address1 = "5204 ALBRIGHT DR"
 ;
+update resident_base set address1 = REPLACE(address1,'  ',' ')
+;
+update resident_base set address1 = REPLACE(address1,' 1/2','-1/2')
+;
+update resident_base set address1 = REPLACE(address1,'- ','-')
+;
 update resident_base set address1 = 'PO BOX 62247' where id = 33911
 ;
 update resident_base set state = "NO" where state = ""
@@ -73,6 +79,7 @@ update donation set id = 36442 where id in (29702);
 update donation set id = 36443 where id in (10088);
 update donation set id = 36445 where id in (36446);
 update donation set id = 39771 where id in (51053);
+update donation set id = 50148 where id in (16540);
 update donation set id = 50917 where id in (7773);
 ;
 delete from resident_base where id in
@@ -155,6 +162,7 @@ delete from resident_base where id in
   11474,
   15251,
   15429,
+  16540,
   17241,
   26791,
   26978,
@@ -345,5 +353,23 @@ ALTER TABLE `resident_base` CHARACTER SET = utf8
  , ENGINE = InnoDB
  , ADD UNIQUE `street_id_house_num` (`street_id` ASC, house_num)
  , ADD CONSTRAINT `resident_base_street_id` FOREIGN KEY (`street_id` ) REFERENCES `street` (`id` )
+;
+create or replace view resident2 as
+SELECT resident_base.id as id
+ , resident_base.name as name
+ , IF(street.name = 'PO BOX',
+     concat(street.name,' ',house_num),
+     concat(IF(house_num is null,'',concat(house_num,' ')),street.name)
+     ) as address1
+ , city.name as city
+ , state.abbreviation as state
+ , NULL as zip
+ , agency
+ , year_of_last_appeal_to_become_a_donor
+FROM `resident_base`
+  join street on (street.id=street_id)
+  join city on (city.id=street.city_id)
+  join state on (state.id=city.state_id)
+order by resident_base.id
 ;
 COMMIT
