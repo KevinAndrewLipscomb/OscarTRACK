@@ -58,24 +58,6 @@ namespace UserControl_funddrive_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_love_letters;
         
         /// <summary>
-        /// TabPanel_new_donation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_new_donation;
-        
-        /// <summary>
-        /// TabPanel_old_donation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_old_donation;
-        
-        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>

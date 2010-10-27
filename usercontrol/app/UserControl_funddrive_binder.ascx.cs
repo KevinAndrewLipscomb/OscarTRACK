@@ -41,11 +41,12 @@ namespace UserControl_funddrive_binder
                     SessionSet("keyclick_boarding_pass_number",p.biz_manifest.NewBoardingPass());
                     }
                   //
-                  TabPanel_about.Visible = false;
+                  // Note that all tabs to the left of a visible tab must be visible in order for tab changing to work.
+                  //
                   TabPanel_keyclick.Visible = true;
                   TabPanel_love_letters.Visible = true;
-                  TabPanel_new_donation.Visible = true;
-                  TabPanel_old_donation.Visible = true;
+                  //TabPanel_new_donation.Visible = true;
+                  //TabPanel_old_donation.Visible = true;
                   }
                 p.be_loaded = true;
             }
@@ -66,17 +67,20 @@ namespace UserControl_funddrive_binder
                     p.tab_index = (uint)(Session["UserControl_funddrive_binder_selected_tab"].GetHashCode());
                     Session.Remove("UserControl_funddrive_binder_selected_tab");
                 }
+                // Dynamic controls must be re-added on each postback.
                 switch(p.tab_index)
                 {
                     case UserControl_funddrive_binder_Static.TSSI_TEASER:
-                        // Dynamic controls must be re-added on each postback.
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))), "UserControl_funddrive_teaser", PlaceHolder_content);
                         break;
-                    case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))), "UserControl_log_new_donation", PlaceHolder_content);
+                    case UserControl_funddrive_binder_Static.TSSI_KEYCLICK:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))), "UserControl_keyclick", PlaceHolder_content);
                         break;
                     case UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                        break;
+                    case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))), "UserControl_log_new_donation", PlaceHolder_content);
                         break;
                 // TSSI_1:
                 // p.content_id := AddIdentifiedControlToPlaceHolder
@@ -121,11 +125,14 @@ namespace UserControl_funddrive_binder
                 case UserControl_funddrive_binder_Static.TSSI_TEASER:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))).Fresh(), "UserControl_funddrive_teaser", PlaceHolder_content);
                     break;
-                case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))).Fresh(), "UserControl_log_new_donation", PlaceHolder_content);
+                case UserControl_funddrive_binder_Static.TSSI_KEYCLICK:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))).Fresh(), "UserControl_keyclick", PlaceHolder_content);
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))).Fresh(), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                    break;
+                case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))).Fresh(), "UserControl_log_new_donation", PlaceHolder_content);
                     break;
             // TSSI_1:
             // p.content_id := AddIdentifiedControlToPlaceHolder
