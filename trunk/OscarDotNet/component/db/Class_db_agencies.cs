@@ -203,6 +203,19 @@ namespace Class_db_agencies
           Close();
           }
 
+        internal string KeyclickEnumeratorOf(string id)
+          {
+          var keyclick_enumerator_of = k.EMPTY;
+          Open();
+          var keyclick_enumerator_of_obj = new MySqlCommand("select keyclick_enumerator from agency where id = '" + id + "'",connection).ExecuteScalar();
+          Close();
+          if (keyclick_enumerator_of_obj != DBNull.Value)
+            {
+            keyclick_enumerator_of = keyclick_enumerator_of_obj.ToString();
+            }
+          return keyclick_enumerator_of;
+          }
+
         public string LongDesignatorOf(string id)
         {
             string result;
@@ -220,6 +233,19 @@ namespace Class_db_agencies
             this.Close();
             return result;
         }
+
+        internal string OscarClassicEnumeratorOf(string id)
+          {
+          var oscar_classic_enumerator_of = k.EMPTY;
+          Open();
+          var oscar_classic_enumerator_of_obj = new MySqlCommand("select oscar_classic_enumerator from agency where id = '" + id + "'",connection).ExecuteScalar();
+          Close();
+          if (oscar_classic_enumerator_of_obj != DBNull.Value)
+            {
+            oscar_classic_enumerator_of = oscar_classic_enumerator_of_obj.ToString();
+            }
+          return oscar_classic_enumerator_of;
+          }
 
         public string OverallCommensuration()
         {

@@ -1,5 +1,7 @@
+using Class_biz_manifest;
 using kix;
 using UserControl_funddrive_teaser;
+using UserControl_keyclick;
 using UserControl_log_new_donation;
 using UserControl_scene_visits_to_love_letter_targets;
 
@@ -8,9 +10,10 @@ namespace UserControl_funddrive_binder
   public class UserControl_funddrive_binder_Static
     {
     public const int TSSI_TEASER = 0;
-    public const int TSSI_LOVE_LETTERS = 1;
-    public const int TSSI_NEW_DONATION = 2;
-    public const int TSSI_OLD_DONATION = 3;
+    public const int TSSI_KEYCLICK = 1;
+    public const int TSSI_LOVE_LETTERS = 2;
+    public const int TSSI_NEW_DONATION = 3;
+    public const int TSSI_OLD_DONATION = 4;
     }
 
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~funddrive~binder.pas
@@ -19,6 +22,7 @@ namespace UserControl_funddrive_binder
         private struct p_type
           {
           public bool be_loaded;
+          public TClass_biz_manifest biz_manifest;
           public string content_id;
           public uint tab_index;
           }
@@ -30,16 +34,18 @@ namespace UserControl_funddrive_binder
             if (!p.be_loaded)
             {
                 TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-                if (k.Has((string[])(Session["privilege_array"]), "log-donations"))
+                if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
                   {
-                  TabPanel_about.Enabled = false;
-                  TabPanel_new_donation.Enabled = true;
-                  TabPanel_old_donation.Enabled = true;
-                  }
-                if (k.Has((string[])(Session["privilege_array"]), "convert-scene-visits-to-love-letter-targets"))
-                  {
-                  TabPanel_about.Enabled = false;
-                  TabPanel_love_letters.Enabled = true;
+                  if (Session["keyclick_boarding_pass_number"] == null)
+                    {
+                    SessionSet("keyclick_boarding_pass_number",p.biz_manifest.NewBoardingPass());
+                    }
+                  //
+                  TabPanel_about.Visible = false;
+                  TabPanel_keyclick.Visible = true;
+                  TabPanel_love_letters.Visible = true;
+                  TabPanel_new_donation.Visible = true;
+                  TabPanel_old_donation.Visible = true;
                   }
                 p.be_loaded = true;
             }
@@ -90,11 +96,12 @@ namespace UserControl_funddrive_binder
             }
             else
             {
+                p.biz_manifest = new TClass_biz_manifest();
                 p.be_loaded = false;
-                if (k.Has((string[])(Session["privilege_array"]), "convert-scene-visits-to-love-letter-targets"))
+                if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
                 {
-                    p.tab_index = UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS;
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))).Fresh(), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                    p.tab_index = UserControl_funddrive_binder_Static.TSSI_KEYCLICK;
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))).Fresh(), "UserControl_keyclick", PlaceHolder_content);
                 }
                 else
                 {

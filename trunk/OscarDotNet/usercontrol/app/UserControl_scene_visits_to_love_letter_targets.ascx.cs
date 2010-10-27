@@ -39,7 +39,7 @@ namespace UserControl_scene_visits_to_love_letter_targets
       if (Session["UserControl_scene_visits_to_love_letter_targets.p"] != null)
         {
         p = (p_type)(Session["UserControl_scene_visits_to_love_letter_targets.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_scene_visits_to_love_letter_targets");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_scene_visits_to_love_letter_targets");
         }
       else
         {
