@@ -40,6 +40,15 @@ namespace UserControl_funddrive_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_about;
         
         /// <summary>
+        /// TabPanel_keyclick control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_keyclick;
+        
+        /// <summary>
         /// TabPanel_love_letters control.
         /// </summary>
         /// <remarks>

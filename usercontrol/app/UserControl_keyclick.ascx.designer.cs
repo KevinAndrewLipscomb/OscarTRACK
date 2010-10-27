@@ -7,99 +7,90 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_member_binder {
+namespace UserControl_keyclick {
     
     
-    public partial class TWebUserControl_member_binder {
+    public partial class TWebUserControl_keyclick {
         
         /// <summary>
-        /// UpdatePanel_control control.
+        /// HyperLink_log_new control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_log_new;
         
         /// <summary>
-        /// TabContainer_control control.
+        /// HyperLink_log_old control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_log_old;
         
         /// <summary>
-        /// TabPanel_availabilities control.
+        /// HyperLink_add control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_availabilities;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_add;
         
         /// <summary>
-        /// TabPanel_personnel control.
+        /// HyperLink_modify_or_remove control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_modify_or_remove;
         
         /// <summary>
-        /// TabPanel_fleet control.
+        /// HyperLink_analyze control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_analyze;
         
         /// <summary>
-        /// TabPanel_funddrive control.
+        /// HyperLink_export control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_funddrive;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_export;
         
         /// <summary>
-        /// TabPanel_dashboard control.
+        /// HyperLink_catch_up control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_dashboard;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_catch_up;
         
         /// <summary>
-        /// TabPanel_config control.
+        /// HyperLink_faq control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_config;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_faq;
         
         /// <summary>
-        /// TabPanel_about control.
+        /// HyperLink_contact control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_about;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_contact;
     }
 }

@@ -109,6 +109,11 @@ namespace Class_biz_agencies
             return result;
         }
 
+        internal string KeyclickEnumeratorOf(string id)
+          {
+          return db_agencies.KeyclickEnumeratorOf(id);
+          }
+
         public string LongDesignatorOf(string id)
         {
             string result;
@@ -122,6 +127,11 @@ namespace Class_biz_agencies
             result = db_agencies.MediumDesignatorOf(id);
             return result;
         }
+
+        internal string OscarClassicEnumeratorOf(string id)
+          {
+          return db_agencies.OscarClassicEnumeratorOf(id);
+          }
 
         public string OverallCommensuration()
         {

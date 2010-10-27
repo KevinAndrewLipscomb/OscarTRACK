@@ -83,7 +83,6 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
-    <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
@@ -94,8 +93,10 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
+    <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
@@ -144,6 +145,7 @@
     <Compile Include="component\biz\Class_biz_vehicle_quarters.cs" />
     <Compile Include="component\biz\Class_biz_vehicle_quarters_history.cs" />
     <Compile Include="component\biz\Class_biz_vehicle_usability_history.cs" />
+    <Compile Include="component\biz\Class_biz_manifest.cs" />
     <Compile Include="component\db\Class_db.cs" />
     <Compile Include="component\db\Class_dbkeyclick.cs" />
     <Compile Include="component\db\Class_dbkeyclick_trail.cs" />
@@ -182,6 +184,7 @@
     <Compile Include="component\db\Class_db_vehicle_quarters.cs" />
     <Compile Include="component\db\Class_db_vehicle_quarters_history.cs" />
     <Compile Include="component\db\Class_db_vehicle_usability_history.cs" />
+    <Compile Include="component\db\Class_db_manifest.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -353,13 +356,6 @@
     </Compile>
     <Compile Include="protected\add_new_enrollment_status.aspx.designer.cs">
       <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="protected\add_vehicle.aspx.cs">
-      <DependentUpon>add_vehicle.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="protected\add_vehicle.aspx.designer.cs">
-      <DependentUpon>add_vehicle.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\append_vehicle_down_note.aspx.cs">
       <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
@@ -599,6 +595,13 @@
     <Compile Include="usercontrol\app\UserControl_agency.ascx.designer.cs">
       <DependentUpon>UserControl_agency.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_availabilities.ascx.cs">
+      <DependentUpon>UserControl_availabilities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_availabilities.ascx.designer.cs">
+      <DependentUpon>UserControl_availabilities.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_behind_the_scenes_activity.ascx.cs">
       <DependentUpon>UserControl_behind_the_scenes_activity.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -731,6 +734,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_gripe_sheet.ascx.designer.cs">
       <DependentUpon>UserControl_gripe_sheet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_keyclick.ascx.cs">
+      <DependentUpon>UserControl_keyclick.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_keyclick.ascx.designer.cs">
+      <DependentUpon>UserControl_keyclick.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_log_new_donation.ascx.cs">
       <DependentUpon>UserControl_log_new_donation.ascx</DependentUpon>
