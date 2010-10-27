@@ -12,9 +12,9 @@ namespace UserControl_member_binder
 {
     public class UserControl_member_binder_Static
     {
-        public const int TSSI_AVAILABILITIES = 0;
-        public const int TSSI_PERSONNEL = 1;
-        public const int TSSI_FLEET = 2;
+        public const int TSSI_FLEET = 0;
+        public const int TSSI_AVAILABILITIES = 1;
+        public const int TSSI_PERSONNEL = 2;
         public const int TSSI_FUNDDRIVE = 3;
         public const int TSSI_DASHBOARD = 4;
         public const int TSSI_CONFIG = 5;

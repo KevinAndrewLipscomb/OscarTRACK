@@ -10,8 +10,10 @@
             <cc1:TabPanel runat="server" headertext="About this module" id="TabPanel_about"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="KEYclick" id="TabPanel_keyclick" visible="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Love letters" id="TabPanel_love_letters" visible="False"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="New donation" id="TabPanel_new_donation" visible="False"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Old donation" id="TabPanel_old_donation" visible="False"></cc1:TabPanel>
+<%--        
+            <cc1:TabPanel runat="server" headertext="New donation" id="TabPanel_new_donation" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Old donation" id="TabPanel_old_donation" enabled="False"></cc1:TabPanel>
+--%>
           </cc1:TabContainer>
         </td>
       </tr>

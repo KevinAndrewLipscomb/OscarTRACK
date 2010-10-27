@@ -14,4 +14,4 @@
   <li>Statiscal analyses</li>
   <li>Customized, unattended data maintenance</li>
 </ul>
-<p>You are not currently privileged to use this module.&nbsp; If you are interested in using it, please contact your Squad Commander.</p>
+<p>If you are not currently privileged to use all the features of this module, and you'd like to be, please contact your Squad Commander.</p>
