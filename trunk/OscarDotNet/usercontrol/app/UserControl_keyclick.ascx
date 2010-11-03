@@ -37,19 +37,12 @@
           <td>
             <small># ROD records:</small>
           </td>
-          <td align="right">
-            <small>47,935</small>
-          </td>
+          <td align="right"><small><asp:Literal ID="Literal_num_rod_records" runat="server"></asp:Literal></small></td>
         </tr>
       </table>
     </td>
   </tr>
   <tr>
-    <!--
-    <form action="analyze.phtml" method="post">
-    <input type="hidden" name="bpn" value="5e8aab8988ec08be0adc8671e0f0b4e8">
-    <input type="hidden" name="format" value="html">
-    <input type="hidden" name="algorithm" value="FNDNAMADR">
     <td>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
@@ -63,13 +56,11 @@
             by name or address:
           </td>
           <td>
-            <input type="text" name="search_text" maxlength="50" size="20"><input type="submit" value="Go!">
+            <asp:TextBox ID="TextBox_search_text" runat="server" MaxLength="50" Columns="20"></asp:TextBox><asp:Button ID="Button_find" runat="server" Text="Go!" onclick="Button_find_Click" />
           </td>
         </tr>
       </table>
     </td>
-    </form>
-    -->
   </tr>
   <tr>
     <td>
@@ -89,10 +80,6 @@
     </td>
   </tr>
   <tr>
-    <!--
-    <form action="form-act-singly.phtml" method="post">
-    <input type="hidden" name="bpn" value="5e8aab8988ec08be0adc8671e0f0b4e8">
-    -->
     <td>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
@@ -103,19 +90,14 @@
       <table border="0">
         <tr>
           <td>
-            ROD record<!-- # -->
+            ROD record #
           </td>
           <td>
-            <!--
-            <input type="text" name="id" maxlength="5" size="5"><input type="submit" value="Go!">
-            -->
+            <asp:TextBox ID="TextBox_id" runat="server" MaxLength="5" Columns="5"></asp:TextBox><asp:Button ID="Button_modify_or_remove" runat="server" Text="Go!" onclick="Button_modify_or_remove_Click" />
           </td>
         </tr>
       </table>
     </td>
-    <!--
-    </form>
-    -->
   </tr>
   <tr>
     <td>

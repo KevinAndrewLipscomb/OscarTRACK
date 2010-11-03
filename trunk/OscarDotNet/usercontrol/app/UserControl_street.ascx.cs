@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_vehicle_kinds;
+using Class_biz_cities;
+using Class_biz_streets;
 using Class_biz_role_member_map;
 using kix;
 using System;
@@ -11,17 +12,27 @@ using System.Web.UI.WebControls;
 using System.Collections;
 using UserControl_drop_down_date;
 
-namespace UserControl_vehicle_kind
+namespace UserControl_street
   {
-  public partial class TWebUserControl_vehicle_kind: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_street: ki_web_ui.usercontrol_class
     {
+    private struct p_type
+      {
+      public bool be_loaded;
+      public TClass_biz_cities biz_cities;
+      public TClass_biz_streets biz_streets;
+      public TClass_biz_role_member_map biz_role_member_map;
+      public bool be_ok_to_config_streets;
+      }
+
     private p_type p;
 
     private void Clear()
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_description.Text = k.EMPTY;
+      DropDownList_city.ClearSelection();
+      TextBox_name.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -117,13 +128,15 @@ namespace UserControl_vehicle_kind
       {
       if (!p.be_loaded)
         {
-        LinkButton_new_record.Visible = p.be_ok_to_config_vehicle_kinds;
+        p.biz_cities.BindDirectToListControl(DropDownList_city);
+        DropDownList_city.Items.Insert(0,(new ListItem("-- city --",k.EMPTY)));
+        LinkButton_new_record.Visible = p.be_ok_to_config_streets;
         LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-        if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/vehicle_kind/"))
+        if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/street/"))
           {
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
           Session.Remove("mode:goto");
@@ -137,27 +150,30 @@ namespace UserControl_vehicle_kind
       {
       Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
-      string description;
+      string city_id;
+      string name;
       result = false;
       if
         (
-        p.biz_vehicle_kinds.Get
+        p.biz_streets.Get
           (
           id,
-          out description
+          out city_id,
+          out name
           )
         )
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_description.Text = description;
+        DropDownList_city.SelectedValue = city_id;
+        TextBox_name.Text = name;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
         LinkButton_reset.Enabled = true;
-        SetDependentFieldAblements(p.be_ok_to_config_vehicle_kinds);
-        Button_submit.Enabled = p.be_ok_to_config_vehicle_kinds;
-        Button_delete.Enabled = p.be_ok_to_config_vehicle_kinds;
+        SetDependentFieldAblements(p.be_ok_to_config_streets);
+        Button_submit.Enabled = p.be_ok_to_config_streets;
+        Button_delete.Enabled = p.be_ok_to_config_streets;
         result = true;
         }
       return result;
@@ -173,8 +189,8 @@ namespace UserControl_vehicle_kind
       Label_lookup_hint.Enabled = false;
       LinkButton_reset.Enabled = true;
       LinkButton_new_record.Enabled = false;
-      SetDependentFieldAblements(p.be_ok_to_config_vehicle_kinds);
-      Button_submit.Enabled = p.be_ok_to_config_vehicle_kinds;
+      SetDependentFieldAblements(p.be_ok_to_config_streets);
+      Button_submit.Enabled = p.be_ok_to_config_streets;
       Button_delete.Enabled = false;
       Focus(TextBox_id, true);
       }
@@ -196,17 +212,18 @@ namespace UserControl_vehicle_kind
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_vehicle_kind.p"] != null)
+      if (Session["UserControl_street.p"] != null)
         {
-        p = (p_type)(Session["UserControl_vehicle_kind.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_vehicle_kind");
+        p = (p_type)(Session["UserControl_street.p"]);
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fund_drive_object_binder_PlaceHolder_content"] as string) == "UserControl_street");
         }
       else
         {
         p.be_loaded = false;
-        p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
+        p.biz_cities = new TClass_biz_cities();
+        p.biz_streets = new TClass_biz_streets();
         p.biz_role_member_map = new TClass_biz_role_member_map();
-        p.be_ok_to_config_vehicle_kinds = k.Has((string[])(Session["privilege_array"]), "config-fleet-attributes");
+        p.be_ok_to_config_streets = k.Has((string[])(Session["privilege_array"]), "config-fund-drive-attributes");
         }
       }
 
@@ -217,17 +234,17 @@ namespace UserControl_vehicle_kind
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_vehicle_kind_PreRender;
+      this.PreRender += this.TWebUserControl_street_PreRender;
       }
 
-    private void TWebUserControl_vehicle_kind_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_street_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_vehicle_kind.p", p);
+      SessionSet("UserControl_street.p", p);
       }
 
-    public TWebUserControl_vehicle_kind Fresh()
+    public TWebUserControl_street Fresh()
       {
-      Session.Remove("UserControl_vehicle_kind.p");
+      Session.Remove("UserControl_street.p");
       return this;
       }
 
@@ -235,10 +252,11 @@ namespace UserControl_vehicle_kind
       {
       if (Page.IsValid)
         {
-        p.biz_vehicle_kinds.Set
+        p.biz_streets.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_description.Text,k.safe_hint_type.MAKE_MODEL).Trim()
+          k.Safe(DropDownList_city.SelectedValue,k.safe_hint_type.NUM),
+          k.Safe(TextBox_name.Text,k.safe_hint_type.ALPHA_WORDS).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
@@ -280,7 +298,7 @@ namespace UserControl_vehicle_kind
 
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (p.biz_vehicle_kinds.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
+      if (p.biz_streets.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
         {
         SetLookupMode();
         }
@@ -302,7 +320,8 @@ namespace UserControl_vehicle_kind
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_description.Enabled = ablement;
+      DropDownList_city.Enabled = ablement;
+      TextBox_name.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
@@ -314,7 +333,7 @@ namespace UserControl_vehicle_kind
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_vehicle_kinds.Bind(saved_id, DropDownList_id);
+        p.biz_streets.Bind(saved_id, DropDownList_id);
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -338,14 +357,6 @@ namespace UserControl_vehicle_kind
         }
       }
 
-    private struct p_type
-      {
-      public bool be_loaded;
-      public TClass_biz_vehicle_kinds biz_vehicle_kinds;
-      public TClass_biz_role_member_map biz_role_member_map;
-      public bool be_ok_to_config_vehicle_kinds;
-      } // end p_type
-
-    } // end TWebUserControl_vehicle_kind
+    } // end TWebUserControl_street
 
   }

@@ -1,4 +1,5 @@
 using Class_db_residents;
+using kix;
 using System;
 
 namespace Class_biz_residents
@@ -27,6 +28,11 @@ namespace Class_biz_residents
         )
         {
         return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator);
+        }
+
+      internal k.int_nonnegative NumForAgency(string agency_id)
+        {
+        return db_residents.NumForAgency(agency_id);
         }
 
       internal void ScrubToApplicationStandards()

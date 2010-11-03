@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_business_objects_binder {
+namespace UserControl_fund_drive_object_binder {
     
     
-    public partial class TWebUserControl_business_objects_binder {
+    public partial class TWebUserControl_fund_drive_object_binder {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -31,31 +31,31 @@ namespace UserControl_business_objects_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_agencies control.
+        /// TabPanel_street control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_agencies;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_street;
         
         /// <summary>
-        /// TabPanel_fleet_objects control.
+        /// TabPanel_city control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet_objects;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_city;
         
         /// <summary>
-        /// TabPanel_fund_drive_objects control.
+        /// TabPanel_state control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fund_drive_objects;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_state;
         
         /// <summary>
         /// PlaceHolder_content control.

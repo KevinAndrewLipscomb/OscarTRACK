@@ -31,6 +31,33 @@ namespace UserControl_keyclick {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_log_old;
         
         /// <summary>
+        /// Literal_num_rod_records control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_num_rod_records;
+        
+        /// <summary>
+        /// TextBox_search_text control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_search_text;
+        
+        /// <summary>
+        /// Button_find control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_find;
+        
+        /// <summary>
         /// HyperLink_add control.
         /// </summary>
         /// <remarks>
@@ -47,6 +74,24 @@ namespace UserControl_keyclick {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_modify_or_remove;
+        
+        /// <summary>
+        /// TextBox_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_id;
+        
+        /// <summary>
+        /// Button_modify_or_remove control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_modify_or_remove;
         
         /// <summary>
         /// HyperLink_analyze control.

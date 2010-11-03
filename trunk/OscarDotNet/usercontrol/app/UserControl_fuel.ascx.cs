@@ -199,7 +199,7 @@ namespace UserControl_fuel
       if (Session["UserControl_fuel.p"] != null)
         {
         p = (p_type)(Session["UserControl_fuel.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_fuel");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_fuel");
         }
       else
         {

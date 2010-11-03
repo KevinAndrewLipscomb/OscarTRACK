@@ -20,7 +20,11 @@ namespace Class_db_manifest
       dbkeyclick_trail = new TClass_dbkeyclick_trail();
       }
 
-    internal string NewBoardingPass(string agency_keyclick_enumerator)
+    internal string NewBoardingPass
+      (
+      string agency_keyclick_enumerator,
+      string email_address
+      )
       {
       var boarding_pass_number_string = k.EMPTY;
       var ascii_encoding = new ASCIIEncoding();
@@ -37,7 +41,7 @@ namespace Class_db_manifest
           (
           "insert into manifest"
           + " set bpn = '" + boarding_pass_number_string + "'"
-          + " , email_addr = ''"
+          + " , email_addr = '" + email_address + "'"
           + " , ip='(OscarTRACK)'"
           + " , agency = '" + agency_keyclick_enumerator + "'"
           + " , expiration_time = UNIX_TIMESTAMP() + 60*(select value from tuning_parm where name='boarding-pass-valid-minutes')"
