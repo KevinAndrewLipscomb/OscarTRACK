@@ -45,9 +45,6 @@ namespace UserControl_keyclick
         //
         Literal_num_rod_records.Text = p.biz_residents.NumForAgency(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))).val.ToString("N0");
         //
-        TextBox_search_text.Focus();
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_find);
-        //
         p.be_loaded = true;
         }
       }
