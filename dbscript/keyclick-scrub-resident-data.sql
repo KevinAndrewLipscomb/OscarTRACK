@@ -67,6 +67,22 @@ select id
  , SUBSTRING(address1,LOCATE(" # ",address1) + LENGTH(" # ")) as suffix
 from resident
 where address1 REGEXP '^[0-9]+.* # .*'
+UNION
+select id
+ , LEFT(address1,LOCATE(" TRLR ",address1) - 1) as prefix
+ , LEFT(address1,LOCATE(" ",address1) - 1) as house_num
+ , SPACE(127) as street_name
+ , SUBSTRING(address1,LOCATE(" TRLR ",address1) + LENGTH(" TRLR ")) as suffix
+from resident
+where address1 REGEXP '^[0-9]+.* TRLR .*'
+UNION
+select id
+ , LEFT(address1,LOCATE(' OFC',address1) - 1) as prefix
+ , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
+ , SPACE(127) as street_name
+ , 'OFC' as suffix
+from resident
+ where address1 REGEXP '^[0-9]+.* OFC'
 ;
 update resident_address1_parse
 set street_name = REPLACE(prefix,concat(house_num," "),"")

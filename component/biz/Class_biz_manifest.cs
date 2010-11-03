@@ -30,7 +30,7 @@ namespace Class_biz_manifest
         var agency_keyclick_enumerator = biz_agencies.KeyclickEnumeratorOf(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
         if (new ArrayList(new string[] {"KVRS"}).Contains(agency_keyclick_enumerator))
           {
-          new_boarding_pass = db_manifest.NewBoardingPass(agency_keyclick_enumerator);
+          new_boarding_pass = db_manifest.NewBoardingPass(agency_keyclick_enumerator,biz_user.EmailAddress());
           }
         return new_boarding_pass;
         }

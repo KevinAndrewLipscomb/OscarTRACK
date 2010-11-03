@@ -199,7 +199,7 @@ namespace UserControl_chassis_make
       if (Session["UserControl_chassis_make.p"] != null)
         {
         p = (p_type)(Session["UserControl_chassis_make.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_chassis_make");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_chassis_make");
         }
       else
         {

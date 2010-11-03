@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_business_objects_binder {
+namespace UserControl_fleet_object_binder {
     
     
-    public partial class TWebUserControl_business_objects_binder {
+    public partial class TWebUserControl_fleet_object_binder {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -31,31 +31,58 @@ namespace UserControl_business_objects_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_agencies control.
+        /// TabPanel_vehicle_kinds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_agencies;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_vehicle_kinds;
         
         /// <summary>
-        /// TabPanel_fleet_objects control.
+        /// TabPanel_chassis_makes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet_objects;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_chassis_makes;
         
         /// <summary>
-        /// TabPanel_fund_drive_objects control.
+        /// TabPanel_chassis_models control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fund_drive_objects;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_chassis_models;
+        
+        /// <summary>
+        /// TabPanel_custom_makes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_custom_makes;
+        
+        /// <summary>
+        /// TabPanel_custom_models control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_custom_models;
+        
+        /// <summary>
+        /// TabPanel_fuels control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_fuels;
         
         /// <summary>
         /// PlaceHolder_content control.

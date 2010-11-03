@@ -8,25 +8,16 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_agency;
-using UserControl_chassis_make;
-using UserControl_chassis_model;
-using UserControl_custom_make;
-using UserControl_custom_model;
-using UserControl_fuel;
-using UserControl_vehicle;
-using UserControl_vehicle_kind;
+using UserControl_fleet_object_binder;
+using UserControl_fund_drive_object_binder;
 
 namespace UserControl_business_objects_binder
   {
   public class UserControl_business_objects_binder_Static
     {
     public const int TSSI_AGENCIES = 0;
-    public const int TSSI_VEHICLE_KINDS = 1;
-    public const int TSSI_CHASSIS_MAKES = 2;
-    public const int TSSI_CHASSIS_MODELS = 3;
-    public const int TSSI_CUSTOM_MAKES = 4;
-    public const int TSSI_CUSTOM_MODELS = 5;
-    public const int TSSI_FUELS = 6;
+    public const int TSSI_FLEET_OBJECTS = 1;
+    public const int TSSI_FUND_DRIVE_OBJECTS = 2;
     }
 
   public struct p_type
@@ -50,12 +41,11 @@ namespace UserControl_business_objects_binder
           }
         if (k.Has((string[])(Session["privilege_array"]), "config-fleet-attributes"))
           {
-          TabPanel_vehicle_kinds.Enabled = true;
-          TabPanel_fuels.Enabled = true;
-          TabPanel_chassis_makes.Enabled = true;
-          TabPanel_chassis_models.Enabled = true;
-          TabPanel_custom_makes.Enabled = true;
-          TabPanel_custom_models.Enabled = true;
+          TabPanel_fleet_objects.Enabled = true;
+          }
+        if (k.Has((string[])(Session["privilege_array"]), "config-fund-drive-attributes"))
+          {
+          TabPanel_fund_drive_objects.Enabled = true;
           }
         p.be_loaded = true;
         }
@@ -77,29 +67,13 @@ namespace UserControl_business_objects_binder
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))), "UserControl_agency", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_VEHICLE_KINDS)
+        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FLEET_OBJECTS)
           {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle_kind)(LoadControl("~/usercontrol/app/UserControl_vehicle_kind.ascx"))), "UserControl_vehicle_kind", PlaceHolder_content);
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet_object_binder)(LoadControl("~/usercontrol/app/UserControl_fleet_object_binder.ascx"))), "UserControl_fleet_object_binder", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FUELS)
+        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FUND_DRIVE_OBJECTS)
           {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fuel)(LoadControl("~/usercontrol/app/UserControl_fuel.ascx"))), "UserControl_fuel", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CHASSIS_MAKES)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_chassis_make)(LoadControl("~/usercontrol/app/UserControl_chassis_make.ascx"))), "UserControl_chassis_make", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CHASSIS_MODELS)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_chassis_model)(LoadControl("~/usercontrol/app/UserControl_chassis_model.ascx"))), "UserControl_chassis_model", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MAKES)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_make)(LoadControl("~/usercontrol/app/UserControl_custom_make.ascx"))), "UserControl_custom_make", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MODELS)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))), "UserControl_custom_model", PlaceHolder_content);
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))), "UserControl_fund_drive_object_binder", PlaceHolder_content);
           }
         }
       else
@@ -145,29 +119,13 @@ namespace UserControl_business_objects_binder
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))).Fresh(), "UserControl_agency", PlaceHolder_content);
         }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_VEHICLE_KINDS)
+      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FLEET_OBJECTS)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle_kind)(LoadControl("~/usercontrol/app/UserControl_vehicle_kind.ascx"))).Fresh(), "UserControl_vehicle_kind", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet_object_binder)(LoadControl("~/usercontrol/app/UserControl_fleet_object_binder.ascx"))).Fresh(), "UserControl_fleet_object_binder", PlaceHolder_content);
         }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FUELS)
+      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FUND_DRIVE_OBJECTS)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fuel)(LoadControl("~/usercontrol/app/UserControl_fuel.ascx"))).Fresh(), "UserControl_fuel", PlaceHolder_content);
-        }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CHASSIS_MAKES)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_chassis_make)(LoadControl("~/usercontrol/app/UserControl_chassis_make.ascx"))).Fresh(), "UserControl_chassis_make", PlaceHolder_content);
-        }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CHASSIS_MODELS)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_chassis_model)(LoadControl("~/usercontrol/app/UserControl_chassis_model.ascx"))).Fresh(), "UserControl_chassis_model", PlaceHolder_content);
-        }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MAKES)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_make)(LoadControl("~/usercontrol/app/UserControl_custom_make.ascx"))).Fresh(), "UserControl_custom_make", PlaceHolder_content);
-        }
-      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_CUSTOM_MODELS)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))).Fresh(), "UserControl_custom_model", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))).Fresh(), "UserControl_fund_drive_object_binder", PlaceHolder_content);
         }
       }
 
