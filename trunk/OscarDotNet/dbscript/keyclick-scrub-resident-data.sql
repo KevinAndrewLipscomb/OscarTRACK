@@ -1,247 +1,219 @@
 START TRANSACTION
 ;
- drop table if exists resident_address1_parse
+ drop table if exists resident_sud_parse
 ;
- CREATE TABLE resident_address1_parse
+ CREATE TABLE resident_sud_parse
   (
   id mediumint not null,
   prefix varchar(143),
-  house_num varchar(143),
-  street_name varchar(127),
   suffix varchar(143)
   )
   ENGINE=InnoDB
 ;
-insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' APT ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' APT ',address1) + LENGTH(' APT ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* APT .*'
+insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' APT ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' APT ',street.name) + LENGTH(' APT ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* APT .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' BLDG ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' BLDG ',address1) + LENGTH(' BLDG ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* BLDG .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' BLDG ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' BLDG ',street.name) + LENGTH(' BLDG ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* BLDG .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' DEPT ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' DEPT ',address1) + LENGTH(' DEPT ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* DEPT .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' DEPT ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' DEPT ',street.name) + LENGTH(' DEPT ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* DEPT .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' FL ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' FL ',address1) + LENGTH(' FL ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* FL .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' FL ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' FL ',street.name) + LENGTH(' FL ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* FL .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' HNGR ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' HNGR ',address1) + LENGTH(' HNGR ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* HNGR .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' HNGR ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' HNGR ',street.name) + LENGTH(' HNGR ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* HNGR .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' LOT ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' LOT ',address1) + LENGTH(' LOT ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* LOT .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' LOT ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' LOT ',street.name) + LENGTH(' LOT ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* LOT .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' PIER ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' PIER ',address1) + LENGTH(' PIER ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* PIER .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' PIER ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' PIER ',street.name) + LENGTH(' PIER ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* PIER .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' RM ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' RM ',address1) + LENGTH(' RM ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* RM .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' RM ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' RM ',street.name) + LENGTH(' RM ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* RM .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' SLIP ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' SLIP ',address1) + LENGTH(' SLIP ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* SLIP .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' SLIP ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' SLIP ',street.name) + LENGTH(' SLIP ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* SLIP .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' SPC ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' SPC ',address1) + LENGTH(' SPC ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* SPC .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' SPC ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' SPC ',street.name) + LENGTH(' SPC ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* SPC .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' STE ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' STE ',address1) + LENGTH(' STE ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* STE .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' STE ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' STE ',street.name) + LENGTH(' STE ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* STE .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' STOP ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' STOP ',address1) + LENGTH(' STOP ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* STOP .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' STOP ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' STOP ',street.name) + LENGTH(' STOP ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* STOP .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' SUITE ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' SUITE ',address1) + LENGTH(' SUITE ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* SUITE .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' SUITE ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' SUITE ',street.name) + LENGTH(' SUITE ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* SUITE .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' UNIT ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' UNIT ',address1) + LENGTH(' UNIT ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* UNIT .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' UNIT ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' UNIT ',street.name) + LENGTH(' UNIT ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* UNIT .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' # ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' # ',address1) + LENGTH(' # ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* # .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' # ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' # ',street.name) + LENGTH(' # ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* # .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' TRLR ',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
-   , SUBSTRING(address1,LOCATE(' TRLR ',address1) + LENGTH(' TRLR ')) as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* TRLR .*'
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' TRLR ',street.name) - 1) as prefix
+   , SUBSTRING(street.name,LOCATE(' TRLR ',street.name) + LENGTH(' TRLR ')) as suffix
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* TRLR .*'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' BSMT',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' BSMT',street.name) - 1) as prefix
    , 'BSMT' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* BSMT$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* BSMT$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' FRNT',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' FRNT',street.name) - 1) as prefix
    , 'FRNT' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* FRNT$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* FRNT$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' LBBY',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' LBBY',street.name) - 1) as prefix
    , 'LBBY' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* LBBY$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* LBBY$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' LOWR',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' LOWR',street.name) - 1) as prefix
    , 'LOWR' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* LOWR$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* LOWR$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' OFC',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' OFC',street.name) - 1) as prefix
    , 'OFC' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* OFC$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* OFC$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' REAR',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' REAR',street.name) - 1) as prefix
    , 'REAR' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* REAR$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* REAR$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' SIDE',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' SIDE',street.name) - 1) as prefix
    , 'SIDE' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* SIDE$'
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* SIDE$'
  ;
- insert ignore resident_address1_parse
- select id
-   , LEFT(address1,LOCATE(' UPPR',address1) - 1) as prefix
-   , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
-   , NULL as street_name
+ insert ignore resident_sud_parse
+ select resident_base.id
+   , LEFT(street.name,LOCATE(' UPPR',street.name) - 1) as prefix
    , 'UPPR' as suffix
- from resident
- where address1 REGEXP '^[0-9]+.* UPPR$'
-;
- update resident_address1_parse set street_name = REPLACE(prefix,concat(house_num,' '),'')
+ from resident_base
+   join street on (street.id=resident_base.street_id)
+ where street.name REGEXP '^.* UPPR$'
 ;
  insert ignore street (name,city_id)
- select distinct street_name
+ select distinct prefix
    , city_id
- from resident_address1_parse
-   join resident_base on (resident_base.id=resident_address1_parse.id)
+ from resident_sud_parse
+   join resident_base on (resident_base.id=resident_sud_parse.id)
    join street on (street.id=resident_base.street_id)
 ;
- update resident_base join resident_address1_parse using (id)
- set resident_base.house_num = CONCAT(resident_address1_parse.house_num,'-',suffix)
-  , street_id = (select id from street where name = street_name)
+ update resident_base join resident_sud_parse using (id)
+ set resident_base.house_num = CONCAT(resident_base.house_num,'-',suffix)
+  , street_id = (select id from street where name = prefix)
 ;
- drop table if exists resident_address1_parse
+ drop table if exists resident_sud_parse
 ;
  delete from street where id not in (select distinct street_id from resident_base)
 ;
