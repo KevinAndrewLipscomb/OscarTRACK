@@ -164,6 +164,7 @@ namespace Class_db_residents
           + " street_name varchar(127),"
           + " suffix varchar(143)"
           + " )"
+          + " ENGINE=InnoDB"
         + ";"
         //
         // These SUDs must be followed by a range number
