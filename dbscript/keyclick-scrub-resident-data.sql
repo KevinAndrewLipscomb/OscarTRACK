@@ -1,25 +1,5 @@
 START TRANSACTION
 ;
- delete from resident_base
- where house_num not like '1%'
-   and house_num not like '2%'
-   and house_num not like '3%'
-   and house_num not like '4%'
-   and house_num not like '5%'
-   and house_num not like '6%'
-   and house_num not like '7%'
-   and house_num not like '8%'
-   and house_num not like '9%'
-   and street_id not in (select id from street where name = 'PO BOX')
-   and name is null
-   and id not in (select id from donation)
-;
- update resident_base set name = REPLACE(name,'  ',' ')
-;
- update resident_base set house_num = REPLACE(house_num,' -','-')
-;
- update resident_base set house_num = REPLACE(house_num,'- ','-')
-;
  drop table if exists resident_address1_parse
 ;
  CREATE TABLE resident_address1_parse
@@ -40,7 +20,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' APT ',address1) + LENGTH(' APT ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* APT .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' BLDG ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -48,7 +29,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' BLDG ',address1) + LENGTH(' BLDG ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* BLDG .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' DEPT ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -56,7 +38,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' DEPT ',address1) + LENGTH(' DEPT ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* DEPT .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' FL ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -64,7 +47,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' FL ',address1) + LENGTH(' FL ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* FL .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' HNGR ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -72,7 +56,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' HNGR ',address1) + LENGTH(' HNGR ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* HNGR .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' LOT ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -80,7 +65,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' LOT ',address1) + LENGTH(' LOT ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* LOT .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' PIER ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -88,7 +74,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' PIER ',address1) + LENGTH(' PIER ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* PIER .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' RM ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -96,7 +83,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' RM ',address1) + LENGTH(' RM ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* RM .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' SLIP ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -104,7 +92,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' SLIP ',address1) + LENGTH(' SLIP ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* SLIP .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' SPC ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -112,7 +101,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' SPC ',address1) + LENGTH(' SPC ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* SPC .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' STE ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -120,7 +110,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' STE ',address1) + LENGTH(' STE ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* STE .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' STOP ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -128,7 +119,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' STOP ',address1) + LENGTH(' STOP ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* STOP .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' SUITE ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -136,7 +128,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' SUITE ',address1) + LENGTH(' SUITE ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* SUITE .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' UNIT ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -144,7 +137,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' UNIT ',address1) + LENGTH(' UNIT ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* UNIT .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' # ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -152,7 +146,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' # ',address1) + LENGTH(' # ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* # .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' TRLR ',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -160,7 +155,8 @@ insert ignore resident_address1_parse
    , SUBSTRING(address1,LOCATE(' TRLR ',address1) + LENGTH(' TRLR ')) as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* TRLR .*'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' BSMT',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -168,7 +164,8 @@ insert ignore resident_address1_parse
    , 'BSMT' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* BSMT$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' FRNT',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -176,7 +173,8 @@ insert ignore resident_address1_parse
    , 'FRNT' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* FRNT$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' LBBY',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -184,7 +182,8 @@ insert ignore resident_address1_parse
    , 'LBBY' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* LBBY$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' LOWR',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -192,7 +191,8 @@ insert ignore resident_address1_parse
    , 'LOWR' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* LOWR$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' OFC',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -200,7 +200,8 @@ insert ignore resident_address1_parse
    , 'OFC' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* OFC$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' REAR',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -208,7 +209,8 @@ insert ignore resident_address1_parse
    , 'REAR' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* REAR$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' SIDE',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
@@ -216,7 +218,8 @@ insert ignore resident_address1_parse
    , 'SIDE' as suffix
  from resident
  where address1 REGEXP '^[0-9]+.* SIDE$'
- ; insert ignore resident_address1_parse
+ ;
+ insert ignore resident_address1_parse
  select id
    , LEFT(address1,LOCATE(' UPPR',address1) - 1) as prefix
    , LEFT(address1,LOCATE(' ',address1) - 1) as house_num
