@@ -30,6 +30,7 @@ START TRANSACTION
   street_name varchar(127),
   suffix varchar(143)
   )
+  ENGINE=InnoDB
 ;
 insert ignore resident_address1_parse
  select id
