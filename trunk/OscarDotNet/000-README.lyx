@@ -1,0 +1,406 @@
+#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
+\lyxformat 345
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\date{}
+\end_preamble
+\use_default_options false
+\language english
+\inputencoding auto
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family sfdefault
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\paperfontsize 12
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\cite_engine basic
+\use_bibtopic false
+\paperorientation portrait
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\headheight 0cm
+\headsep 0.25cm
+\footskip 0.25cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle empty
+\tracking_changes false
+\output_changes false
+\author "" 
+\author "" 
+\end_header
+
+\begin_body
+
+\begin_layout Title
+000-README
+\end_layout
+
+\begin_layout Abstract
+This document describes additional steps that you must perform, after checking
+ out the OscarDotNet project from its repository, to achieve a
+ clean compilation or to execute the application.
+ This document does not cover how to meet other prerequisites, such as setting
+ up an ASP.NET server, or creating and populating the database schema.
+\end_layout
+
+\begin_layout Section
+Recommended methods
+\end_layout
+
+\begin_layout Standard
+The use of 
+\begin_inset CommandInset href
+LatexCommand href
+name "NTFS reparse points"
+target "http://en.wikipedia.org/wiki/NTFS_reparse_point"
+
+\end_inset
+
+ (junction points and hardlinks) is recommended in this document because
+ it allows Subversion operations to take place without undesirable impact
+ to project environments, and without violating Subversion rules.
+ If you simply exported OscarDotNet from its repository and you
+ do not intend to perform subsequent updates or any other Subversion operations
+ on it (not recommended), you can simply make copies instead of NTFS reparse
+ points.
+\end_layout
+
+\begin_layout Section
+Establish hooks to adjunct projects
+\end_layout
+
+\begin_layout Subsection
+Hook up the KiUsercontrolFoundry project
+\end_layout
+
+\begin_layout Standard
+OscarDotNet uses UserControls from the KiUsercontrolFoundry adjunct
+ project.
+ The KiUsercontrolFoundry is used by multiple production-eligible projects
+ and is version controlled independently from those production-eligible
+ projects.
+ To hook up the KiUsercontrolFoundry project, do the following:
+\end_layout
+
+\begin_layout Enumerate
+Check out the 
+\emph on
+https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-project/trunk/foundry/u
+sercontrol/ki
+\emph default
+ project.
+ Put it in a 
+\emph on
+KiUsercontrolFoundry
+\emph default
+ folder.
+ Make sure the 
+\emph on
+KiUsercontrolFoundry
+\emph default
+ folder is 
+\bar under
+not
+\bar default
+ inside the 
+\emph on
+OscarDotNet
+\emph default
+ folder tree.
+\end_layout
+
+\begin_layout Enumerate
+Create a junction point named 
+\emph on
+ki
+\emph default
+ inside the 
+\emph on
+OscarDotNet/usercontrol
+\emph default
+ folder that points to the 
+\emph on
+KiUsercontrolFoundry/usercontrol/ki
+\emph default
+ folder.
+ You should end up with two folders inside the 
+\emph on
+OscarDotNet/usercontrol
+\emph default
+ folder: 
+\emph on
+app
+\emph default
+ and 
+\emph on
+ki
+\emph default
+.
+ You can make junction points with 
+\noun on
+Michael Elsdoerfer's NTFS Link
+\noun default
+ tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
+ and later systems), the prototype commands would be:
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+cd OscarDotNet/usercontrol
+\begin_inset Newline newline
+\end_inset
+
+mklink /j ki KiUserControlFoundry/usercontrol/ki
+\end_layout
+
+\begin_layout Subsection
+Hook up the KiDotnetFoundation project (only if compiling)
+\end_layout
+
+\begin_layout Standard
+OscarDotNet uses object code from the KiDotnetFoundation adjunct
+ project.
+ The KiDotnetFoundation is used by multiple production-eligible projects
+ and its source code is version controlled independently from those production-e
+ligible projects.
+ The object code is already provided as 
+\emph on
+OscarDotNet/bin/ki.dll
+\emph default
+ to enable execution of OscarDotNet in a production environment,
+ but to hook up the KiDotnetFoundation project for the sake of a clean compile
+ of OscarDotNet, do the following:
+\end_layout
+
+\begin_layout Enumerate
+Check out the 
+\emph on
+https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-project/trunk/foundatio
+n/dotnet/ki
+\emph default
+ project.
+ Put it in a 
+\emph on
+KiDotnetFoundation
+\emph default
+ folder.
+ Make sure the 
+\emph on
+KiDotnetFoundation
+\emph default
+ folder is 
+\bar under
+not
+\bar default
+ inside the 
+\emph on
+OscarDotNet
+\emph default
+ folder tree.
+\end_layout
+
+\begin_layout Enumerate
+Create a junction point named 
+\emph on
+ki
+\emph default
+ inside the 
+\emph on
+OscarDotNet/lib
+\emph default
+ folder that points to the 
+\emph on
+KiDotnetFoundation
+\emph default
+ folder.
+ You should end up with a folder inside the 
+\emph on
+OscarDotNet/lib
+\emph default
+ folder called 
+\emph on
+ki
+\emph default
+.
+ You can make junction points with 
+\noun on
+Michael Elsdoerfer's NTFS Link
+\noun default
+ tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
+ and later systems), the prototype commands would be:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\emph on
+cd OscarDotNet/lib
+\begin_inset Newline newline
+\end_inset
+
+mklink /j ki KiDotnetFoundation
+\end_layout
+
+\begin_layout Section
+Establish hooks to appropriate config files
+\end_layout
+
+\begin_layout Standard
+OscarDotNet will not run without 
+\emph on
+Web.config
+\emph default
+ and 
+\emph on
+unpublished.config
+\emph default
+ files in its top-level folder.
+ Because the contents of those files are environment-specific, and we wish
+ to keep the canonical ASP.NET parts of the OscarDotNet folder tree
+ environment-neutral, those config files are kept in a non-ASP.NET-canonical
+ 
+\emph on
+OscarDotNet/config
+\emph default
+ subfolder tree.
+ To hook the config files that are appropriate for your environment into
+ the top-level OscarDotNet folder, do the following:
+\end_layout
+
+\begin_layout Enumerate
+If there is no 
+\emph on
+unpublished.config
+\emph default
+ file inside the 
+\emph on
+OscarDotNet/config
+\emph default
+ folder tree (this should be true for projects kept in public repositories),
+ copy the 
+\emph on
+OscarDotNet/config/template-unpublished.config-template
+\emph default
+ file to an appropriate subfolder of 
+\emph on
+OscarDotNet/config
+\emph default
+, rename it to 
+\emph on
+unpublished.config
+\emph default
+, and revise its contents appropriately.
+ 
+\series bold
+Do not add any 
+\series default
+\emph on
+unpublished.config
+\series bold
+\emph default
+ file to any public repository.
+\end_layout
+
+\begin_layout Enumerate
+Create a hardlink in the 
+\emph on
+OscarDotNet
+\emph default
+ top-level folder that points to the appropriate 
+\emph on
+unpublished.config
+\emph default
+ file inside the 
+\emph on
+OscarDotNet/config
+\emph default
+ folder tree.
+\end_layout
+
+\begin_layout Enumerate
+Create a hardlink in the 
+\emph on
+OscarDotNet
+\emph default
+ top-level folder that points to the appropriate 
+\emph on
+Web.config
+\emph default
+ file inside the 
+\emph on
+OscarDotNet/config
+\emph default
+ folder tree.
+\end_layout
+
+\begin_layout Standard
+You can make hardlinks with 
+\noun on
+Michael Elsdoerfer's NTFS Link
+\noun default
+ tool or, from the Windows command line, the prototype commands would be:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\emph on
+cd OscarDotNet
+\begin_inset Newline newline
+\end_inset
+
+fsutil hardlink create unpublished.config config/
+\emph default
+{path-to-appropriate-
+\emph on
+unpublished.config
+\emph default
+-file}
+\emph on
+
+\begin_inset Newline newline
+\end_inset
+
+fsutil hardlink create Web.config config/
+\emph default
+{path-to-appropriate-
+\emph on
+Web.config
+\emph default
+-file}
+\end_layout
+
+\end_body
+\end_document
