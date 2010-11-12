@@ -15,6 +15,6 @@ mysql --host=%the_host% --user=%the_user% --password=%2 --execute="drop schema %
 mysql --host=%the_host% --user=%the_user% --password=%2 --execute="create schema %db_instance%"
 mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% <"%USERPROFILE%\my-documents\SANDBOX\vocational\kalipso-infogistics\db-dump\%base_db_name%.sql"
 if "%db_instance%"=="%base_db_name%" goto :END
-mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% <0-render-safe-for-d-or-x.sql
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% <0-render-safe-for-d-or-x--keyclick.sql
 :END
 pause
