@@ -7,7 +7,7 @@
 <meta name="originator" content="TeX4ht (http://www.cse.ohio-state.edu/~gurari/TeX4ht/)"> 
 <!-- html --> 
 <meta name="src" content="000-README.tex"> 
-<meta name="date" content="2010-11-11 16:55:00"> 
+<meta name="date" content="2010-11-19 19:35:00"> 
 <link rel="stylesheet" type="text/css" href="000-README.css"> 
 </head><body 
 >
@@ -31,21 +31,22 @@ class="cmssbx-10x-x-109">Abstract</span></div>
       <!--l. 36--><p class="indent" >    <span 
 class="cmss-10x-x-109">This document describes additional steps that you must perform, after checking out</span>
       <span 
-class="cmss-10x-x-109">the OscarDotNet project from its repository, to achieve a clean compilation or</span>
+class="cmss-10x-x-109">the OscarTRACK project from its repository, to achieve a clean compilation or</span>
       <span 
 class="cmss-10x-x-109">to execute the application. This document does not cover how to meet other prerequisites,</span>
       <span 
-class="cmss-10x-x-109">such as setting up an ASP.NET server, or creating and populating the database schema.</span>
+class="cmss-10x-x-109">such as setting up an ASP.NET server, creating and populating the database schema, and</span>
+      <span 
+class="cmss-10x-x-109">setting up a cron daemon.</span>
 </div>
 <h3 class="sectionHead"><span class="titlemark">1   </span> <a 
  id="x1-10001"></a>Recommended methods</h3>
-<!--l. 45--><p class="noindent" >The use of <a 
-href="http://en.wikipedia.org/wiki/NTFS_reparse_point" >NTFS reparse points</a> (junction points and hardlinks) is recommended in this document
-because it allows Subversion operations to take place without undesirable impact to project
-environments, and without violating Subversion rules. If you simply exported OscarDotNet
-from its repository and you do not intend to perform subsequent updates or any other Subversion
-operations on it (not recommended), you can simply make copies instead of NTFS reparse
-points.
+<!--l. 46--><p class="noindent" >The use of <a 
+href="http://en.wikipedia.org/wiki/Junction_point" >NTFS junction points</a> is recommended in this document because it allows Subversion
+operations to take place without undesirable impact to project environments, and without violating
+Subversion rules. If you simply exported OscarTRACK from its repository and you do not
+intend to perform subsequent updates or any other Subversion operations on it (not recommended), you
+can simply make copies instead of NTFS junction points.
                                                                                          
                                                                                          
 <!--l. 55--><p class="noindent" >
@@ -54,7 +55,7 @@ points.
 <!--l. 58--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">2.1   </span> <a 
  id="x1-30002.1"></a>Hook up the KiUsercontrolFoundry project</h4>
-<!--l. 60--><p class="noindent" >OscarDotNet uses UserControls from the KiUsercontrolFoundry adjunct project. The
+<!--l. 60--><p class="noindent" >OscarTRACK uses UserControls from the KiUsercontrolFoundry adjunct project. The
 KiUsercontrolFoundry is used by multiple production-eligible projects and is version controlled
 independently from those production-eligible projects. To hook up the KiUsercontrolFoundry project, do
 the following:
@@ -66,16 +67,16 @@ class="cmssi-12">https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-pro
 class="cmssi-12">KiUsercontrolFoundry </span>folder. Make sure the <span 
 class="cmssi-12">KiUsercontrolFoundry </span>folder
       is <span class="underline">not</span> inside the <span 
-class="cmssi-12">OscarDotNet </span>folder tree.
+class="cmssi-12">OscarTRACK </span>folder tree.
       </li>
       <li 
   class="enumerate" id="x1-3004x2">Create a junction point named <span 
 class="cmssi-12">ki </span>inside the <span 
-class="cmssi-12">OscarDotNet/usercontrol </span>folder that
+class="cmssi-12">OscarTRACK/usercontrol </span>folder that
       points to the <span 
 class="cmssi-12">KiUsercontrolFoundry/usercontrol/ki  </span>folder. You should end up with two
       folders inside the <span 
-class="cmssi-12">OscarDotNet/usercontrol  </span>folder: <span 
+class="cmssi-12">OscarTRACK/usercontrol  </span>folder: <span 
 class="cmssi-12">app </span>and <span 
 class="cmssi-12">ki</span>. You can make
       junction points with <span 
@@ -103,19 +104,19 @@ class="small-caps">k</span> </span>tool or, on Vista-based
       commands would be:<br 
 class="newline" /><br 
 class="newline" /><span 
-class="cmssi-12">cd OscarDotNet/usercontrol</span><br 
+class="cmssi-12">cd OscarTRACK/usercontrol</span><br 
 class="newline" /><span 
 class="cmssi-12">mklink /j ki KiUserControlFoundry/usercontrol/ki</span></li></ol>
 <!--l. 81--><p class="noindent" >
 <h4 class="subsectionHead"><span class="titlemark">2.2   </span> <a 
  id="x1-40002.2"></a>Hook up the KiDotnetFoundation project (only if compiling)</h4>
-<!--l. 83--><p class="noindent" >OscarDotNet uses object code from the KiDotnetFoundation adjunct project. The
+<!--l. 83--><p class="noindent" >OscarTRACK uses object code from the KiDotnetFoundation adjunct project. The
 KiDotnetFoundation is used by multiple production-eligible projects and its source code is version
 controlled independently from those production-eligible projects. The object code is already provided as
 <span 
-class="cmssi-12">OscarDotNet/bin/ki.dll </span>to enable execution of OscarDotNet in a production
+class="cmssi-12">OscarTRACK/bin/ki.dll </span>to enable execution of OscarTRACK in a production
 environment, but to hook up the KiDotnetFoundation project for the sake of a clean compile of
-OscarDotNet, do the following:
+OscarTRACK, do the following:
       <ol  class="enumerate1" >
       <li 
   class="enumerate" id="x1-4002x1">Check out the <span 
@@ -124,18 +125,18 @@ class="cmssi-12">https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-pro
 class="cmssi-12">KiDotnetFoundation </span>folder. Make sure the <span 
 class="cmssi-12">KiDotnetFoundation </span>folder
       is <span class="underline">not</span> inside the <span 
-class="cmssi-12">OscarDotNet </span>folder tree.
+class="cmssi-12">OscarTRACK </span>folder tree.
                                                                                          
                                                                                          
       </li>
       <li 
   class="enumerate" id="x1-4004x2">Create  a  junction  point  named  <span 
 class="cmssi-12">ki  </span>inside  the  <span 
-class="cmssi-12">OscarDotNet/lib  </span>folder  that
+class="cmssi-12">OscarTRACK/lib  </span>folder  that
       points  to  the  <span 
 class="cmssi-12">KiDotnetFoundation  </span>folder.  You  should  end  up  with  a  folder  inside  the
       <span 
-class="cmssi-12">OscarDotNet/lib </span>folder called <span 
+class="cmssi-12">OscarTRACK/lib </span>folder called <span 
 class="cmssi-12">ki</span>. You can make junction points with <span 
 class="cmcsc-10x-x-120">M<span 
 class="small-caps">i</span><span 
@@ -162,31 +163,31 @@ class="small-caps">k</span> </span>tool  or,  on  Vista-based  systems  (includi
       Windows Server 2008, and later systems), the prototype commands would be:<br 
 class="newline" /><br 
 class="newline" /><span 
-class="cmssi-12">cd OscarDotNet/lib</span><br 
+class="cmssi-12">cd OscarTRACK/lib</span><br 
 class="newline" /><span 
 class="cmssi-12">mklink /j ki KiDotnetFoundation</span></li></ol>
 <!--l. 108--><p class="noindent" >
 <h3 class="sectionHead"><span class="titlemark">3   </span> <a 
- id="x1-50003"></a>Establish hooks to appropriate config files</h3>
-<!--l. 110--><p class="noindent" >OscarDotNet will not run without <span 
+ id="x1-50003"></a>Put appropriate config files in the application root folder</h3>
+<!--l. 110--><p class="noindent" >OscarTRACK will not run without <span 
 class="cmssi-12">Web.config </span>and <span 
 class="cmssi-12">unpublished.config </span>files in its top-level
 folder. Because the contents of those files are environment-specific, and we wish to keep the canonical
-ASP.NET parts of the OscarDotNet folder tree environment-neutral, those config files are
+ASP.NET parts of the OscarTRACK folder tree environment-neutral, those config files are
 kept in a non-ASP.NET-canonical <span 
-class="cmssi-12">OscarDotNet/config </span>subfolder tree. To hook the config
-files that are appropriate for your environment into the top-level OscarDotNet folder, do the
+class="cmssi-12">OscarTRACK/config </span>subfolder tree. To put config files that
+are appropriate for your environment into the top-level OscarTRACK folder, do the
 following:
       <ol  class="enumerate1" >
       <li 
   class="enumerate" id="x1-5002x1">If there is no <span 
 class="cmssi-12">unpublished.config </span>file inside the <span 
-class="cmssi-12">OscarDotNet/config </span>folder tree
+class="cmssi-12">OscarTRACK/config </span>folder tree
       (this     should     be     true     for     projects     kept     in     public     repositories),
       copy the <span 
-class="cmssi-12">OscarDotNet/config/template-unpublished.config-template  </span>file to an
+class="cmssi-12">OscarTRACK/config/template-unpublished.config-template  </span>file to an
       appropriate subfolder of <span 
-class="cmssi-12">OscarDotNet/config</span>, rename it to <span 
+class="cmssi-12">OscarTRACK/config</span>, rename it to <span 
 class="cmssi-12">unpublished.config</span>,
       and revise its contents appropriately. <span 
 class="cmssbx-10x-x-120">Do not add any </span><span 
@@ -196,53 +197,43 @@ class="cmssbx-10x-x-120">file to any</span>
 class="cmssbx-10x-x-120">public repository.</span>
       </li>
       <li 
-  class="enumerate" id="x1-5004x2">Create  a  hardlink  in  the  <span 
-class="cmssi-12">OscarDotNet  </span>top-level  folder  that  points  to  the
-      appropriate <span 
-class="cmssi-12">unpublished.config </span>file inside the <span 
-class="cmssi-12">OscarDotNet/config </span>folder tree.
+  class="enumerate" id="x1-5004x2">Copy the appropriate <span 
+class="cmssi-12">unpublished.config </span>file from within the <span 
+class="cmssi-12">OscarTRACK/config</span>
+      folder tree to the <span 
+class="cmssi-12">OscarTRACK </span>top-level folder.
       </li>
       <li 
-  class="enumerate" id="x1-5006x3">Create  a  hardlink  in  the  <span 
-class="cmssi-12">OscarDotNet  </span>top-level  folder  that  points  to  the
-      appropriate <span 
-class="cmssi-12">Web.config </span>file inside the <span 
-class="cmssi-12">OscarDotNet/config </span>folder tree.</li></ol>
-<!--l. 133--><p class="noindent" >You can make hardlinks with <span 
-class="cmcsc-10x-x-120">M<span 
-class="small-caps">i</span><span 
-class="small-caps">c</span><span 
-class="small-caps">h</span><span 
-class="small-caps">a</span><span 
-class="small-caps">e</span><span 
-class="small-caps">l</span> E<span 
-class="small-caps">l</span><span 
-class="small-caps">s</span><span 
-class="small-caps">d</span><span 
-class="small-caps">o</span><span 
-class="small-caps">e</span><span 
-class="small-caps">r</span><span 
-class="small-caps">f</span><span 
-class="small-caps">e</span><span 
-class="small-caps">r</span>&#8217;<span 
-class="small-caps">s</span> NTFS L<span 
-class="small-caps">i</span><span 
-class="small-caps">n</span><span 
-class="small-caps">k</span> </span>tool or, from the Windows
-command line, the prototype commands would be:<br 
+  class="enumerate" id="x1-5006x3">Copy the appropriate <span 
+class="cmssi-12">Web.config </span>file from within the <span 
+class="cmssi-12">OscarTRACK/config </span>folder
+      tree to the <span 
+class="cmssi-12">OscarTRACK </span>top-level folder.</li></ol>
+<!--l. 132--><p class="noindent" >From the Windows command line, the prototype commands would be:<br 
 class="newline" /><br 
 class="newline" /><span 
-class="cmssi-12">cd OscarDotNet</span><br 
+class="cmssi-12">cd OscarTRACK</span><br 
 class="newline" /><span 
-class="cmssi-12">fsutil hardlink create unpublished.config config/</span><span 
-class="cmsy-10x-x-120">{</span>path-to-appropriate-<span 
-class="cmssi-12">unpublished.config</span>-file<span 
-class="cmsy-10x-x-120">}</span><br 
+class="cmssi-12">copy config/</span><span 
+class="cmsy-10x-x-120">{</span>appropriate-path<span 
+class="cmsy-10x-x-120">}</span>/<span 
+class="cmssi-12">unpublished.config .</span><br 
 class="newline" /><span 
-class="cmssi-12">fsutil hardlink create Web.config config/</span><span 
-class="cmsy-10x-x-120">{</span>path-to-appropriate-<span 
-class="cmssi-12">Web.config</span>-file<span 
-class="cmsy-10x-x-120">}</span> 
+class="cmssi-12">copy config/</span><span 
+class="cmsy-10x-x-120">{</span>appropriate-path<span 
+class="cmsy-10x-x-120">}</span>/<span 
+class="cmssi-12">Web.config .</span>
+                                                                                         
+                                                                                         
+<!--l. 140--><p class="noindent" >
+<h3 class="sectionHead"><span class="titlemark">4   </span> <a 
+ id="x1-60004"></a>Set up cron jobs</h3>
+<!--l. 142--><p class="noindent" >Some FromPaper2Web applications include features that support scheduled unattended jobs, such as
+notifications and report generation, data scrubs, and other periodic tasks. <a 
+href="http://en.wikipedia.org/wiki/Cron" >Crontab</a> entries for any
+such jobs that are part of OscarTRACK are located in <span 
+class="cmssi-12">noninteractive/.crontab</span>.
+ 
 </body></html> 
 
                                                                                          
