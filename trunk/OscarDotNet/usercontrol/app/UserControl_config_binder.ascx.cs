@@ -44,9 +44,10 @@ namespace UserControl_config_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_config_binder.p"] != null) && (Session["UserControl_config_binder.p"].GetType().Namespace == p.GetType().Namespace))
+            if (Session["UserControl_config_binder.p"] != null)
             {
                 p = (p_type)(Session["UserControl_config_binder.p"]);
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_config");
                 switch(p.tab_index)
                 {
                     case Units.UserControl_config_binder.TSSI_ROLES_AND_MATRICES:
