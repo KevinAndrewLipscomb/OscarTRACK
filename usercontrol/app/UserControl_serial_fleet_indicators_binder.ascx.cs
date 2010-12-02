@@ -32,9 +32,10 @@ namespace UserControl_serial_fleet_indicators_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_serial_fleet_indicators_binder.p"] != null) && (Session["UserControl_serial_fleet_indicators_binder.p"].GetType().Namespace == p.GetType().Namespace))
+            if (Session["UserControl_serial_fleet_indicators_binder.p"] != null)
             {
                 p = (p_type)(Session["UserControl_serial_fleet_indicators_binder.p"]);
+                p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_serial_fleet_indicators_binder");
                 switch(p.tab_index)
                 {
                     case UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION:
