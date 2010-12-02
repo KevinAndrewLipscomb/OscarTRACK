@@ -248,6 +248,16 @@ namespace UserControl_role_member_mapping
                 e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].Visible = false;
                 e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_CAD_NUM].Visible = false;
                 e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_AGENCY_ID].Visible = false;
+                //
+                // Remove all cell controls from viewstate except for the ones at ID fields.
+                //
+                foreach (TableCell cell in e.Row.Cells)
+                  {
+                  cell.EnableViewState = false;
+                  }
+                e.Row.Cells[Units.UserControl_role_member_mapping.CI_ROLE_ID].EnableViewState = true;
+                e.Row.Cells[Units.UserControl_role_member_mapping.CI_MEMBER_ID].EnableViewState = true;
+                //
             }
         }
 
