@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<appSettings>
+  <add key="db_connection_string" value="Server=localhost;Database=oscardotnetdb;Uid=ki-oscartrack;Pwd=~ki-oscartrack-password~;Treat Tiny As Boolean=false;Respect Binary Flags=false;Default Command Timeout=300" />
+  <add key="dbkeyclick_connection_string" value="Server=localhost;Database=keyclick;Uid=ki-oscartrackk;Pwd=~ki-oscartrackk-password~;Treat Tiny As Boolean=false;Respect Binary Flags=false;Default Command Timeout=300" />
+  <add key="sysadmin_encoded_password" value="~" />
+</appSettings>

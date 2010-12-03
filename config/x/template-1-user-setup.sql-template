@@ -1,0 +1,17 @@
+grant select
+ , insert
+ , update
+ , delete
+ , execute
+ , create
+  on oscardotnetdb_x.*
+  to 'ki-oscartrack-x'@'localhost' identified by '~ki-oscartrack-x-password~'
+;
+grant select
+ , insert
+ , update
+ , delete
+ , create
+ , drop
+  on keyclick_x.*
+  to 'ki-oscartrackk-x'@'localhost' identified by '~ki-oscartrackk-x-password~'
