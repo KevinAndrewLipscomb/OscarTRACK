@@ -55,12 +55,11 @@ namespace UserControl_availabilities
         + "odnmid=" + Server.UrlEncode(member_id)
         + "&"
         + "applicable_month_num=";
-        var month_next = DateTime.Now.AddMonths(1);
-        HyperLink_submit_avails_for_month_next.Text = month_next.ToString("MMMM");
-        HyperLink_submit_avails_for_month_next.NavigateUrl += query_string + Server.UrlEncode(month_next.ToString("%M"));
-        var month_following = DateTime.Now.AddMonths(2);
-        HyperLink_submit_avails_for_month_following.Text = month_following.ToString("MMMM");
-        HyperLink_submit_avails_for_month_following.NavigateUrl += query_string + Server.UrlEncode(month_following.ToString("%M"));
+        var this_month = DateTime.Now;
+        HyperLink_submit_avails_for_month_next.Text = this_month.AddMonths(1).ToString("MMMM");
+        HyperLink_submit_avails_for_month_next.NavigateUrl += query_string + (this_month.Month + 1).ToString();
+        HyperLink_submit_avails_for_month_following.Text = this_month.AddMonths(2).ToString("MMMM");
+        HyperLink_submit_avails_for_month_following.NavigateUrl += query_string + (this_month.Month + 2).ToString();
         //
         p.be_loaded = true;
         }
