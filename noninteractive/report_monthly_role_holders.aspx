@@ -23,8 +23,7 @@
                     <small>
                       <p>Best practices:</p>
                       <ul>
-                        <li><p>In <asp:label id="Label_application_name_1" runat="server"></asp:label>, this material is managed
-                          under the <em>Config / Roles&nbsp;&amp;&nbsp;Mappings</em> area.</p></li>
+                        <li><p>You should update these settings by logging into <asp:label id="Label_application_name_1" runat="server"></asp:label> and navigating to the <em>Config / Roles&nbsp;&amp;&nbsp;Mappings</em> area.</p></li>
                         <li>
                           <p>It is <u>critical</u> to maintain the roles properly (using the <em>Role-Member Mappings</em>), because
                             these settings tell the application:</p>

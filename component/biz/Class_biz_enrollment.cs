@@ -138,7 +138,13 @@ namespace Class_biz_enrollment
                   {
                   biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator)),biz_agencies.MediumDesignatorOf(target_agency_id));
                   }
-                biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, db_enrollment.DescriptionOf(new_level_code), effective_date.ToString("yyyy-MM-dd"), note);
+                var new_level_description = db_enrollment.DescriptionOf(new_level_code);
+                biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+                //
+                if ((new ArrayList() {"Transferring","Unknown","Resigned","Retired"}).Contains(new_level_description))
+                  {
+                  biz_notifications.IssueForElectiveDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+                  }
             }
 
             return result;
