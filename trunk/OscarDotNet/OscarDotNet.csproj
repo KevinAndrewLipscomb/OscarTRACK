@@ -85,6 +85,7 @@
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
