@@ -1,21 +1,12 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
+using appcommon;
 using Class_biz_enrollment;
 using Class_biz_members;
 using Class_biz_user;
-using appcommon;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI.WebControls;
+
 namespace enrollment_detail
 {
     public partial class TWebForm_enrollment_detail: ki_web_ui.page_class

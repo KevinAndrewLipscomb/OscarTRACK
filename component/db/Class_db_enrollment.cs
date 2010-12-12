@@ -245,7 +245,8 @@ namespace Class_db_enrollment
                     new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), this.connection, transaction).ExecuteNonQuery();
                     new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), this.connection, transaction).ExecuteNonQuery();
                     var ok_so_far = true;
-                    if (current_level_code == 20)
+                    var be_member_squad_affiliation_weak = (new ArrayList(new uint[] {11,12,14,15,16,20,22}).Contains(current_level_code));
+                    if (be_member_squad_affiliation_weak)
                       {
                       //
                       // A transfer is being completed.
@@ -277,7 +278,7 @@ namespace Class_db_enrollment
                       {
                       transaction.Commit();
                       (summary as member_summary).enrollment = DescriptionOf(new_level_code);
-                      if (current_level_code == 20)
+                      if (be_member_squad_affiliation_weak)
                         {
                         (summary as member_summary).agency = db_agencies.ShortDesignatorOf(target_agency_id);
                         }
