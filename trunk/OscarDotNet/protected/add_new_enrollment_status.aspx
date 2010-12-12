@@ -36,7 +36,7 @@ new status be?&nbsp; Please consider carefully.
 							  <td valign="top">
 							    <asp:Panel ID="Panel_target_agency" runat="server" Visible="False">
                     <asp:Literal ID="Literal_member_first_name_2" runat="server"></asp:Literal>
-                    &nbsp;is currently in the &quot;Transferring&quot; status.&nbsp; What agency has <asp:Literal ID="Literal_member_first_name_3" runat="server"></asp:Literal> &nbsp;joined?
+                    &nbsp;is currently in a &quot;Past&quot; or &quot;Transferring&quot; status.&nbsp; What agency has <asp:Literal ID="Literal_member_first_name_3" runat="server"></asp:Literal> &nbsp;joined?
                     <blockquote>
                       <p>
                         <asp:DropDownList ID="DropDownList_target_agency" runat="server" Enabled="False"></asp:DropDownList>

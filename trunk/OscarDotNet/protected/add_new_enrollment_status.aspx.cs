@@ -13,7 +13,7 @@ namespace add_new_enrollment_status
 {
     public struct p_type
     {
-        public bool be_member_currently_transferring;
+        public bool be_member_squad_affiliation_weak;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_enrollment biz_enrollment;
         public TClass_biz_medical_release_levels biz_medical_release_levels;
@@ -76,8 +76,8 @@ namespace add_new_enrollment_status
                     Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     p.member_id_of_user_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
                     p.biz_enrollment.BindTransitionRadioButtonList(p.biz_members.IdOf(Session["member_summary"]), p.biz_members.HighestTierOf(p.member_id_of_user_id), RadioButtonList_disposition);
-                    p.be_member_currently_transferring = p.biz_members.BeTransferring(Session["member_summary"]);
-                    if (p.be_member_currently_transferring)
+                    p.be_member_squad_affiliation_weak = p.biz_members.BeTransferring(Session["member_summary"]) || p.biz_members.BePast(Session["member_summary"]);
+                    if (p.be_member_squad_affiliation_weak)
                       {
                       Panel_target_agency.Visible = true;
                       Literal_member_first_name_2.Text = p.biz_members.FirstNameOf(Session["member_summary"]);
@@ -115,7 +115,7 @@ namespace add_new_enrollment_status
           if (IsValid)
             {
             var target_agency_id = k.EMPTY;
-            if (p.be_member_currently_transferring)
+            if (p.be_member_squad_affiliation_weak)
               {
               target_agency_id = k.Safe(DropDownList_target_agency.SelectedValue,k.safe_hint_type.NUM);
               }

@@ -89,7 +89,7 @@ FINALLY, personnel with required ambulance duties must submit availabilities to 
 
    http://www.oscarsystem.com
 
-Thanks for you continued service to Virginia Beach EMS!
+Thanks for your continued service to Virginia Beach EMS!
 
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)
 

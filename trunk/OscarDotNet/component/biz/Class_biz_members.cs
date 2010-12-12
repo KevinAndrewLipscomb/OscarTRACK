@@ -93,6 +93,11 @@ namespace Class_biz_members
             return result;
         }
 
+        internal bool BePast(object summary)
+          {
+          return biz_enrollment.BePastDescription(EnrollmentOf(summary));
+          }
+
         internal bool BeRoleHolderByCadNum(string cad_num)
           {
           return db_members.BeRoleHolderByCadNum(cad_num);
@@ -106,7 +111,7 @@ namespace Class_biz_members
         public bool BeUserAuthorizedToEditEnrollments(string subject_member_id, object summary, bool has_edit_enrollments, bool has_edit_enrollments_nonreleased_ops_members_only)
           {
           return
-              (BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(summary)) || BeTransferring(summary))
+              (BeAuthorizedTierOrSameAgency(subject_member_id, IdOf(summary)) || BeTransferring(summary) || BePast(summary))
             &&
               (has_edit_enrollments || (has_edit_enrollments_nonreleased_ops_members_only && (!BeDriverQualifiedOf(summary) || !biz_medical_release_levels.BeReleased(PeckCodeOf(summary)))));
           }

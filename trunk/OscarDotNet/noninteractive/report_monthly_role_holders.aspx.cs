@@ -1,22 +1,12 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Text;
-using System.IO;
 using Class_biz_role_member_map;
+using kix;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Web.UI;
 using UserControl_role_holders_per_agency;
+
 namespace report_monthly_role_holders
 {
     public partial class TWebForm_report_monthly_role_holders: System.Web.UI.Page
@@ -33,7 +23,7 @@ namespace report_monthly_role_holders
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_role_holders";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_role_holders";
             Label_agency.Text = this.Request["agency"];
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
