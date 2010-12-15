@@ -136,7 +136,12 @@ namespace Class_biz_enrollment
                 result = true;
                 if (target_agency_id != k.EMPTY)
                   {
-                  biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator)),biz_agencies.MediumDesignatorOf(target_agency_id));
+                  var old_agency_medium_designator = biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator));
+                  var new_agency_medium_designator = biz_agencies.MediumDesignatorOf(target_agency_id);
+                  if (new_agency_medium_designator != old_agency_medium_designator)
+                    {
+                    biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,old_agency_medium_designator,new_agency_medium_designator);
+                    }
                   }
                 var new_level_description = db_enrollment.DescriptionOf(new_level_code);
                 biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
