@@ -3,6 +3,7 @@ using kix;
 using UserControl_funddrive_teaser;
 using UserControl_keyclick;
 using UserControl_log_new_donation;
+using UserControl_paypal_assistant;
 using UserControl_scene_visits_to_love_letter_targets;
 
 namespace UserControl_funddrive_binder
@@ -12,8 +13,9 @@ namespace UserControl_funddrive_binder
     public const int TSSI_TEASER = 0;
     public const int TSSI_KEYCLICK = 1;
     public const int TSSI_LOVE_LETTERS = 2;
-    public const int TSSI_NEW_DONATION = 3;
-    public const int TSSI_OLD_DONATION = 4;
+    public const int TSSI_PAYPAL_ASSISTANT = 3;
+    public const int TSSI_NEW_DONATION = 4;
+    public const int TSSI_OLD_DONATION = 5;
     }
 
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~funddrive~binder.pas
@@ -45,6 +47,7 @@ namespace UserControl_funddrive_binder
                   //
                   TabPanel_keyclick.Visible = true;
                   TabPanel_love_letters.Visible = true;
+                  TabPanel_paypal_assistant.Visible = true;
                   //TabPanel_new_donation.Visible = true;
                   //TabPanel_old_donation.Visible = true;
                   }
@@ -78,6 +81,9 @@ namespace UserControl_funddrive_binder
                         break;
                     case UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                        break;
+                    case UserControl_funddrive_binder_Static.TSSI_PAYPAL_ASSISTANT:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_paypal_assistant)(LoadControl("~/usercontrol/app/UserControl_paypal_assistant.ascx"))), "UserControl_paypal_assistant", PlaceHolder_content);
                         break;
                     case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))), "UserControl_log_new_donation", PlaceHolder_content);
@@ -130,6 +136,9 @@ namespace UserControl_funddrive_binder
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))).Fresh(), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                    break;
+                case UserControl_funddrive_binder_Static.TSSI_PAYPAL_ASSISTANT:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_paypal_assistant)(LoadControl("~/usercontrol/app/UserControl_paypal_assistant.ascx"))).Fresh(), "UserControl_paypal_assistant", PlaceHolder_content);
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))).Fresh(), "UserControl_log_new_donation", PlaceHolder_content);

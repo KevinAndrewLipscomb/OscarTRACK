@@ -83,8 +83,10 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
+    <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
@@ -101,6 +103,7 @@
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
+    <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
@@ -460,6 +463,14 @@
     <Compile Include="protected\change_vehicle_quarters.aspx.designer.cs">
       <DependentUpon>change_vehicle_quarters.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\Class_msg_protected.cs" />
+    <Compile Include="protected\confirm_paypal_donation.aspx.cs">
+      <DependentUpon>confirm_paypal_donation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\confirm_paypal_donation.aspx.designer.cs">
+      <DependentUpon>confirm_paypal_donation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\enrollment_detail.aspx.cs">
       <DependentUpon>enrollment_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -508,6 +519,13 @@
     </Compile>
     <Compile Include="protected\mark_vehicle_up.aspx.designer.cs">
       <DependentUpon>mark_vehicle_up.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\process_paypal_donation.aspx.cs">
+      <DependentUpon>process_paypal_donation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\process_paypal_donation.aspx.designer.cs">
+      <DependentUpon>process_paypal_donation.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\member_detail.aspx.cs">
       <DependentUpon>member_detail.aspx</DependentUpon>
@@ -788,6 +806,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_paypal_assistant.ascx.cs">
+      <DependentUpon>UserControl_paypal_assistant.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_paypal_assistant.ascx.designer.cs">
+      <DependentUpon>UserControl_paypal_assistant.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_personnel_binder.ascx.cs">
       <DependentUpon>UserControl_personnel_binder.ascx</DependentUpon>

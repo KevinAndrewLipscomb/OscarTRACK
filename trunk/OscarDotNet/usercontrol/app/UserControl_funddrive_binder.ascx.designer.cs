@@ -58,6 +58,15 @@ namespace UserControl_funddrive_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_love_letters;
         
         /// <summary>
+        /// TabPanel_paypal_assistant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_paypal_assistant;
+        
+        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>
