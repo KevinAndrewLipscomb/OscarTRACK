@@ -5,6 +5,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace Class_db_residents
   {
@@ -27,6 +28,107 @@ namespace Class_db_residents
       var result = (null != new MySqlCommand("select TRUE from resident where id = '" + id + "'", connection).ExecuteScalar());
       Close();
       return result;
+      }
+
+    internal void BindDirectToListControl
+      (
+      string email_address,
+      string name,
+      string house_num,
+      string street_id,
+      object target
+      )
+      {
+      var insert_where_clause = "insert possible_match (id) select id from resident_base where";
+      string condition_clause;
+      var collision_clause = " on duplicate key update score = score + 1";
+      var word_array = name.Split(new char[] {' '});
+      var i = new k.subtype<int>(0,word_array.Length);
+      //
+      Open();
+      new MySqlCommand
+        (
+        "create temporary table possible_match"
+        + " ("
+        + " id mediumint not null"
+        + " , score smallint not null default 1"
+        + " , num_priors mediumint not null default 0"
+        + " , avg_amount float not null default 0"
+        + " , primary key (id)"
+        + " )",
+        connection
+        )
+        .ExecuteNonQuery();
+      //
+      // Match at least one word in the specified resident name.
+      //
+      condition_clause = k.EMPTY;
+      for (i.val = 0; i.val < word_array.Length; i.val++)
+        {
+        if (i.val > 0)
+          {
+          condition_clause += " or";
+          }
+        condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
+        }
+      new MySqlCommand(insert_where_clause + condition_clause + collision_clause,connection).ExecuteNonQuery();
+      //
+      // Match all words in the specified resident name.
+      //
+      condition_clause = k.EMPTY;
+      for (i.val = 0; i.val < word_array.Length; i.val++)
+        {
+        if (i.val > 0)
+          {
+          condition_clause += " and";
+          }
+        condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
+        }
+      new MySqlCommand(insert_where_clause + condition_clause + collision_clause,connection).ExecuteNonQuery();
+      //
+      // Match the specified house_num and street.
+      //
+      if ((house_num != k.EMPTY) && (street_id != k.EMPTY))
+        {
+        new MySqlCommand(insert_where_clause + " house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection).ExecuteNonQuery();
+        }
+      //
+      // Match prior donations.
+      //
+      new MySqlCommand
+        (
+        "update possible_match set score = score + 1"
+        + " , num_priors = (select count(*) from donation where donation.id = possible_match.id)"
+        + " , avg_amount = IFNULL((select avg(amount) from donation where donation.id = possible_match.id),0)",
+        connection
+        )
+        .ExecuteNonQuery();
+      //
+      // Bind possible matches to target
+      //
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select resident_base.id as id"
+        + " , IFNULL(resident_base.name,'') as name"
+        + " , concat(house_num,' ',street.name) as house_num_and_street"
+        + " , IF(city.name = 'VIRGINIA BEACH','VB',city.name) as city"
+        + " , state.abbreviation as state"
+        + " , score"
+        + " , num_priors"
+        + " , avg_amount"
+        + " from possible_match"
+        +   " join resident_base on (resident_base.id=possible_match.id)"
+        +   " join street on (street.id=resident_base.street_id)"
+        +   " join city on (city.id=street.city_id)"
+        +   " join state on (state.id=city.state_id)"
+        + " order by score desc, num_priors desc",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      new MySqlCommand("drop temporary table possible_match",connection).ExecuteNonQuery();
+      Close();
       }
 
     internal string FilteredFromSceneVisits
@@ -72,6 +174,7 @@ namespace Class_db_residents
       + " WHERE address like '100 264%'"
         + " or address like '100 64%%'"
         + " or address like '%/%'"
+        + " or address like '100 % CY'"
         + " or address in"
           + " ("
           + " '3769 E STATFORD RD'"

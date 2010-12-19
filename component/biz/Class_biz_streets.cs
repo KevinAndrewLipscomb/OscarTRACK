@@ -21,14 +21,24 @@ namespace Class_biz_streets
       return db_streets.Bind(partial_spec, target);
       }
 
+    public void BindDirectToListControl
+      (
+      object target,
+      string unselected_literal,
+      string selected_value
+      )
+      {
+      db_streets.BindDirectToListControl(target,unselected_literal,selected_value);
+      }
+    public void BindDirectToListControl(object target, string unselected_literal)
+      {
+      BindDirectToListControl(target, unselected_literal, k.EMPTY);
+      }
     public void BindDirectToListControl(object target)
       {
-      BindDirectToListControl(target,false);
+      BindDirectToListControl(target, "-- street --");
       }
-    public void BindDirectToListControl(object target, bool be_idiomatic_format)
-      {
-      db_streets.BindDirectToListControl(target,be_idiomatic_format);
-      }
+
 
     public bool Delete(string id)
       {

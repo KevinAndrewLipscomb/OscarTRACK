@@ -49,41 +49,49 @@ namespace Class_db_streets
       return result;
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string unselected_literal,
+      string selected_value
+      )
       {
-      BindDirectToListControl(target,false);
-      }
-    public void BindDirectToListControl(object target, bool be_idiomatic_format)
-      {
-      var concat_phrase = k.EMPTY;
-      if (be_idiomatic_format)
-        {
-        concat_phrase = "IFNULL(city.name,'-'),' ',IFNULL(street.name,'-')";
-        }
-      else
-        {
-        concat_phrase = "IFNULL(street.name,'-')";
-        }
-      MySqlDataReader dr;
-      this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      Open();
+      (target as ListControl).DataSource = new MySqlCommand
         (
-        "SELECT street.id"
-        + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
+        "SELECT street.id as id"
+        + " , CONVERT(concat(street.name,', ',city.name,', ',state.abbreviation) USING utf8) as spec"
         + " FROM street"
         +   " join city on (city.id=street.city_id)"
+        +   " join state on (state.id=city.state_id)"
         + " order by spec",
-        this.connection
+        connection
         )
         .ExecuteReader();
-      while (dr.Read())
+      (target as ListControl).DataValueField = "id";
+      (target as ListControl).DataTextField = "spec";
+      (target as ListControl).DataBind();
+      ((target as ListControl).DataSource as MySqlDataReader).Close();
+      Close();
+      if (unselected_literal != k.EMPTY)
         {
-        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
+        ((target) as ListControl).Items.Insert(0,new ListItem(unselected_literal, k.EMPTY));
         }
-      dr.Close();
-      this.Close();
+      if (selected_value != k.EMPTY)
+        {
+        ((target) as ListControl).SelectedValue = selected_value;
+        }
       }
+    public void BindDirectToListControl(object target, string unselected_literal)
+      {
+      BindDirectToListControl(target, unselected_literal, k.EMPTY);
+      }
+    public void BindDirectToListControl(object target)
+      {
+      BindDirectToListControl(target, "-- street --");
+      }
+
 
     public bool Delete(string id)
       {

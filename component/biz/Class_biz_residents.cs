@@ -21,6 +21,18 @@ namespace Class_biz_residents
         return result;
         }
 
+      internal void BindDirectToListControl
+        (
+        string email_address,
+        string name,
+        string house_num,
+        string street_id,
+        object target
+        )
+        {
+        db_residents.BindDirectToListControl(email_address,name,house_num,street_id,target);
+        }
+
       internal string FilteredFromSceneVisits
         (
         string scene_visits,

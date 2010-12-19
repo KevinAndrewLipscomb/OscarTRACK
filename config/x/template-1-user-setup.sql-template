@@ -13,5 +13,6 @@ grant select
  , delete
  , create
  , drop
+ , create temporary tables
   on keyclick_x.*
   to 'ki-oscartrackk-x'@'localhost' identified by '~ki-oscartrackk-x-password~'
