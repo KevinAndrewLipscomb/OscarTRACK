@@ -23,8 +23,7 @@ namespace Class_biz_donations
       string amount,
       DateTime date,
       string in_mem_of,
-      string note,
-      string user_email_address
+      string note
       )
       {
       db_donations.Log(id,amount,date,in_mem_of,note,biz_user.EmailAddress());

@@ -1339,12 +1339,106 @@ namespace Class_biz_notifications
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
-            k.COMMA + db_notifications.TargetOfAboutAgency("gripe-sheet-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-sheet-review","0"),
+            db_notifications.TargetOfAboutAgency("gripe-sheet-review", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("gripe-sheet-review","0"),
             Merge(template_reader.ReadLine()),
             Merge(template_reader.ReadToEnd()),
             false,
             k.EMPTY,
             k.EMPTY
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssuePayPalDonationAcknowledgmentToDonorRecognized_Merge(string s);
+        internal void IssuePayPalDonationAcknowledgmentToDonorRecognized
+          (
+          string amount_donated,
+          string donor_name,
+          DateTime donation_date,
+          string donor_email_address,
+          string resident_name,
+          string resident_house_num_and_street,
+          string resident_city,
+          string resident_state
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssuePayPalDonationAcknowledgmentToDonorRecognized_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<actor/>", biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<amount_donated/>", amount_donated)
+              .Replace("<donor_name/>", donor_name)
+              .Replace("<donation_date/>", donation_date.ToString("D"))
+              .Replace("<resident_name/>", resident_name)
+              .Replace("<resident_house_num_and_street/>", resident_house_num_and_street)
+              .Replace("<resident_city/>", resident_city)
+              .Replace("<resident_state/>", resident_state)
+              ;
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/acknowledgment-to-paypal-donor-recognized.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            donor_email_address,
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssuePayPalDonationAcknowledgmentToDonorUnrecognized_Merge(string s);
+        internal void IssuePayPalDonationAcknowledgmentToDonorUnrecognized
+          (
+          string amount_donated,
+          string donor_name,
+          DateTime donation_date,
+          string donor_email_address
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssuePayPalDonationAcknowledgmentToDonorRecognized_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<actor/>", biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<amount_donated/>", amount_donated)
+              .Replace("<donor_name/>", donor_name)
+              .Replace("<donation_date/>", donation_date.ToString("D"))
+              ;
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/acknowledgment-to-paypal-donor-unrecognized.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            donor_email_address,
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
             );
           template_reader.Close();
           }
