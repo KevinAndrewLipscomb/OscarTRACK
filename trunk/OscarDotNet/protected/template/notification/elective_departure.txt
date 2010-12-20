@@ -1,0 +1,17 @@
+<cad_num/> <last_name/>, <first_name/> => <new_level/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed <first_name/> <last_name/>'s membership status in <application_name/> as follows:
+
+   New status:
+      <new_level/>
+   Effective date (yyyy-mm-dd):
+      <effective_date/>
+   Note:
+      <note/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

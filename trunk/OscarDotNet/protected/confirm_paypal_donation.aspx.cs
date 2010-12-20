@@ -85,9 +85,32 @@ namespace confirm_paypal_donation
       {
       if (p.incoming.resident_id != k.EMPTY)
         {
-        p.biz_donations.Log();
+        p.biz_donations.Log(p.incoming.resident_id,p.incoming.from_process_paypal_donation.amount_donated,p.incoming.from_process_paypal_donation.donation_date,k.EMPTY,k.EMPTY);
+        p.biz_notifications.IssuePayPalDonationAcknowledgmentToDonorRecognized
+          (
+          p.incoming.from_process_paypal_donation.amount_donated,
+          p.incoming.from_process_paypal_donation.donor_name,
+          p.incoming.from_process_paypal_donation.donation_date,
+          p.incoming.from_process_paypal_donation.donor_email_address,
+          p.incoming.resident_name,
+          p.incoming.resident_house_num_and_street,
+          Literal_city.Text,
+          p.incoming.resident_state
+          );
+        //Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"donatnackrcd","Donation acknowledged and recorded");
         }
-      p.biz_notifications.IssuePayPalDonationAcknowledgment();
+      else
+        {
+        p.biz_notifications.IssuePayPalDonationAcknowledgmentToDonorUnrecognized
+          (
+          p.incoming.from_process_paypal_donation.amount_donated,
+          p.incoming.from_process_paypal_donation.donor_name,
+          p.incoming.from_process_paypal_donation.donation_date,
+          p.incoming.from_process_paypal_donation.donor_email_address
+          );
+        //Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"donatnacknlgd","Donation acknowledged (not recorded)");
+        }
+      BackTrack(2);
       }
 
     protected void Button_cancel_Click(object sender, System.EventArgs e)

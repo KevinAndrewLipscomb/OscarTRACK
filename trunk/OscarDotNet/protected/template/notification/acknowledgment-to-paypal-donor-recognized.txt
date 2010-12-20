@@ -1,0 +1,47 @@
+Receipt for donation to KVRS
+Dear <donor_name/>,
+
+(This is a form letter response.)
+
+The Kempsville Volunteer Rescue Squad (KVRS) has received the $<amount_donated/> donation you made via PayPal on <donation_date/>.  Thank you!
+
+- Thanks to information you provided, or research we
+  performed on our end, we have attributed your donation to
+  the following record in our donation tracking system:
+
+    <resident_name/>
+    <resident_house_num_and_street/>
+    <resident_city/> <resident_state/>
+
+  Please reply to this email (with this text included) if a
+  correction is required.
+
+- US taxpayers, your donation is tax deductible -- KVRS is a
+  501.C.3 organization (public charity).
+
+- If you made an In Memorium donation, KVRS will send an
+  acknowledgement to the bereaved on your behalf.
+
+- If you donated US$250 or more, KVRS will send a hardcopy
+  acknowledgement later in the year to comply with IRS rules.
+
+- KVRS wants to hear from you!  Please address your comments
+  to the appropriate squad officer, as follows:
+
+      president@kvrs.org
+
+      treasurer@kvrs.org
+
+      funddrive@kvrs.org
+
+      captain@kvrs.org
+
+      recruitment@kvrs.org
+
+      infotech@kvrs.org
+
+-- Kempsville Volunteer Rescue Squad
+-- http://www.kvrs.org
+
+
+P.S.:  Your PayPal donation was processed by KVRS volunteer <actor/> using <application_name/>.

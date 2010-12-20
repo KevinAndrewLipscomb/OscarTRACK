@@ -29,28 +29,34 @@ namespace Class_db_donations
       )
       {
       Open();
-      new MySqlCommand
-        (
-        dbkeyclick_trail.Saved
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        var per_clerk_seq_num = new MySqlCommand("select ifnull(max(per_clerk_seq_num)+1,1) as per_clerk_seq_num from donation where entered_by = '" + user_email_address + "'",connection,transaction).ExecuteScalar().ToString();
+        new MySqlCommand
           (
-          "START TRANSACTION"
-          + ";"
-          + " insert donation set id = '" + id + "'"
-          + " , amount = '" + amount + "'"
-          + " , date = '" + date + "'"
-          + " , method = 'WEB'"
-          + " , in_mem_of = NULLIF('" + in_mem_of + "','')"
-          + " , note = NULLIF('" + note + "','')"
-          + " , entered_by = '" + user_email_address + "'"
-          + " , per_clerk_seq_num = (select ifnull(max(per_clerk_seq_num)+1,1) as per_clerk_seq_num from donation where entered_by = '" + user_email_address + "')"
-          + ";"
-          + " update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"
-          + ";"
-          + "COMMIT"
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
+          dbkeyclick_trail.Saved
+            (
+            "insert donation set id = '" + id + "'"
+            + " , amount = '" + amount + "'"
+            + " , date = '" + date.ToString("yyyy-MM-dd") + "'"
+            + " , method = 'WEB'"
+            + " , in_mem_of = NULLIF('" + in_mem_of + "','')"
+            + " , note = NULLIF('" + note + "','')"
+            + " , entered_by = '" + user_email_address + "'"
+            + " , per_clerk_seq_num = '" + per_clerk_seq_num + "'"
+            ),
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
+        new MySqlCommand(dbkeyclick_trail.Saved("update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch
+        {
+        transaction.Rollback();
+        }
       Close();
       }
     }
