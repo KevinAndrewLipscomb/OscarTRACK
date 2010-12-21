@@ -94,7 +94,7 @@ namespace process_paypal_donation
         // We are dealing with a data row, not a header or footer row.
         p.msg_protected_confirm_paypal_donation.from_process_paypal_donation = p.incoming;
         p.msg_protected_confirm_paypal_donation.resident_id = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_ID].Text,k.safe_hint_type.NUM);
-        p.msg_protected_confirm_paypal_donation.resident_name = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_NAME].Text,k.safe_hint_type.ORG_NAME);
+        p.msg_protected_confirm_paypal_donation.resident_name = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_NAME].Text,k.safe_hint_type.ORG_NAME_ASTERICIZED);
         p.msg_protected_confirm_paypal_donation.resident_house_num_and_street = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_HOUSE_NUM_AND_STREET].Text,k.safe_hint_type.POSTAL_STREET_ADDRESS);
         p.msg_protected_confirm_paypal_donation.resident_city = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_CITY].Text,k.safe_hint_type.POSTAL_CITY);
         p.msg_protected_confirm_paypal_donation.resident_state = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_STATE].Text,k.safe_hint_type.ALPHA);
