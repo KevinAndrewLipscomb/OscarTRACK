@@ -272,20 +272,18 @@ namespace UserControl_roster
         protected void DropDownList_enrollment_filter_SelectedIndexChanged(object sender, System.EventArgs e)
         {
             p.enrollment_filter = (Class_biz_enrollment.filter_type)(Class_biz_enrollment.filter_type.Parse((p.enrollment_filter).GetType(), DropDownList_enrollment_filter.SelectedValue, true));
-            switch(p.enrollment_filter)
-            {
-                // Modify the A .. B: Class_biz_enrollment.filter_type.CURRENT .. Class_biz_enrollment.filter_type.ADMIN
-                case Class_biz_enrollment.filter_type.CURRENT:
-                    Label_leave_filter.Enabled = true;
-                    DropDownList_leave_filter.Enabled = true;
-                    break;
-                default:
-                    Label_leave_filter.Enabled = false;
-                    DropDownList_leave_filter.SelectedIndex = 0;
-                    DropDownList_leave_filter.Enabled = false;
-                    p.leave_filter = Class_biz_leave.filter_type.NONE;
-                    break;
-            }
+            if ((p.enrollment_filter >= Class_biz_enrollment.filter_type.CURRENT) && (p.enrollment_filter <= Class_biz_enrollment.filter_type.ADMIN))
+              {
+              Label_leave_filter.Enabled = true;
+              DropDownList_leave_filter.Enabled = true;
+              }
+            else
+              {
+              Label_leave_filter.Enabled = false;
+              DropDownList_leave_filter.SelectedIndex = 0;
+              DropDownList_leave_filter.Enabled = false;
+              p.leave_filter = Class_biz_leave.filter_type.NONE;
+              }
             Bind();
         }
 
