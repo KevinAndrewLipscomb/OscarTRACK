@@ -765,21 +765,17 @@ namespace Class_db_members
                         filter = filter + " = \"New trainee\" ";
                         break;
                 }
-                switch(enrollment_filter)
-                {
-                    // Modify the A .. B: Class_biz_enrollment.filter_type.CURRENT .. Class_biz_enrollment.filter_type.ADMIN
-                    case Class_biz_enrollment.filter_type.CURRENT:
-                        switch(leave_filter)
-                        {
-                            case Class_biz_leave.filter_type.OBLIGATED:
-                                filter = filter + " and (not(" + any_relevant_leave + ") or (leave_of_absence.start_date is null)) ";
-                                break;
-                            case Class_biz_leave.filter_type.ON_LEAVE:
-                                filter = filter + " and " + any_relevant_leave + k.SPACE;
-                                break;
-                        }
-                        break;
-                }
+                if ((enrollment_filter >= Class_biz_enrollment.filter_type.CURRENT) && (enrollment_filter <= Class_biz_enrollment.filter_type.ADMIN))
+                  {
+                  if (leave_filter == Class_biz_leave.filter_type.OBLIGATED)
+                    {
+                    filter = filter + " and (not(" + any_relevant_leave + ") or (leave_of_absence.start_date is null)) ";
+                    }
+                  else if (leave_filter == Class_biz_leave.filter_type.ON_LEAVE)
+                    {
+                    filter = filter + " and " + any_relevant_leave + k.SPACE;
+                    }
+                  }
             }
             if (med_release_level_filter != Class_biz_medical_release_levels.filter_type.ALL)
             {
