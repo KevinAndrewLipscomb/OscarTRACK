@@ -66,9 +66,7 @@ namespace report_shift_fleet_status
             {
                 p.role_name = "Department Fleet Coordinator";
                 Session.Add("privilege_array", new string[1] {"see-all-squads"});
-                p.target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator)
-                + k.COMMA
-                + ConfigurationManager.AppSettings["sender_email_address"];
+                p.target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator);
             }
             else
             {
