@@ -130,6 +130,7 @@ namespace UserControl_role_member_mapping
                 DropDownList_tier_filter.SelectedValue = p.tier_filter;
                 p.biz_agencies.BindListControlShortDashLong(DropDownList_agency_filter, k.EMPTY, true, "All");
                 DropDownList_agency_filter.SelectedValue = p.agency_filter;
+                Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
                 if (!p.be_interactive)
                 {
                     DropDownList_agency_filter.Enabled = false;

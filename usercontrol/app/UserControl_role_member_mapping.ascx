@@ -19,7 +19,7 @@
           <td>
             <table cellspacing="0" cellpadding="10" border="0">
               <tr>
-                <td valign="top">
+                <td nowrap="nowrap" valign="top">
                   <asp:GridView id="GridView_control" runat="server" gridlines="Horizontal" cellpadding="5" allowsorting="True" emptydatatext="No mappings" bordercolor="Gainsboro" borderstyle="Solid" borderwidth="1px" autogeneratecolumns="False">
                     <RowStyle font-size="Small"></RowStyle>
                     <Columns>
@@ -45,6 +45,8 @@
                   </asp:GridView>
                 </td>
                 <td id="TableCell_add_mapping" runat="server" valign="top" visible="false">
+                  <p><small>Please make sure the member has logged into <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;and linked their account to their membership record <i>prior</i> to assigning a role to the user.&nbsp;
+                  Otherwise, for security reasons, Application Administrator involvement will be necessary.</small></p>
                   <table cellspacing="0" cellpadding="2" border="0">
                     <tr>
                       <td>
@@ -52,7 +54,7 @@
                           <asp:ListItem selected="True">-- Role --</asp:ListItem>
                         </asp:DropDownList>
                       </td>
-                      <td><asp:RequiredFieldValidator id="RequiredFieldValidator_role" runat="server" errormessage="Please select a Role." font-bold="True" controltovalidate="DropDownList_role" setfocusonerror="True" display="Dynamic">!ERR!</asp:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><asp:RequiredFieldValidator id="RequiredFieldValidator_role" runat="server" errormessage="Please select a Role." font-bold="True" controltovalidate="DropDownList_role" setfocusonerror="True" display="Dynamic">!ERR!</asp:RequiredFieldValidator></td>
                     </tr>
                     <tr>
                       <td>
@@ -60,7 +62,7 @@
                           <asp:ListItem selected="True">-- Member --</asp:ListItem>
                         </asp:DropDownList>
                       </td>
-                      <td><asp:RequiredFieldValidator id="RequiredFieldValidator_member" runat="server" errormessage="Please select a Member." font-bold="True" controltovalidate="DropDownList_member" setfocusonerror="True" display="Dynamic">!ERR!</asp:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><asp:RequiredFieldValidator id="RequiredFieldValidator_member" runat="server" errormessage="Please select a Member." font-bold="True" controltovalidate="DropDownList_member" setfocusonerror="True" display="Dynamic">!ERR!</asp:RequiredFieldValidator></td>
                     </tr>
                     <tr>
                       <td><asp:Button id="Button_add" runat="server" text="<--&nbsp;Add" onclick="Button_add_Click"></asp:Button></td>

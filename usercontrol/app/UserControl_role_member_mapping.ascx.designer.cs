@@ -49,6 +49,15 @@ namespace UserControl_role_member_mapping {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_add_mapping;
         
         /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
         /// DropDownList_role control.
         /// </summary>
         /// <remarks>

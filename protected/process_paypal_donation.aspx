@@ -74,6 +74,9 @@
                       <ASP:BoundColumn datafield="state" headertext="St">
                         <HeaderStyle HorizontalAlign="Left"/>
                       </ASP:BoundColumn>
+                      <ASP:BoundColumn datafield="email_address" headertext="Email address">
+                        <HeaderStyle HorizontalAlign="Left"/>
+                      </ASP:BoundColumn>
                       <ASP:BoundColumn datafield="score" headertext="Score">
                         <ItemStyle HorizontalAlign="Right" />
                       </ASP:BoundColumn>
