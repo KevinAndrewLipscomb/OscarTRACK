@@ -25,7 +25,8 @@ namespace Class_db_donations
       DateTime date,
       string in_mem_of,
       string note,
-      string user_email_address
+      string user_email_address,
+      string donor_email_address
       )
       {
       Open();
@@ -33,6 +34,18 @@ namespace Class_db_donations
       try
         {
         var per_clerk_seq_num = new MySqlCommand("select ifnull(max(per_clerk_seq_num)+1,1) as per_clerk_seq_num from donation where entered_by = '" + user_email_address + "'",connection,transaction).ExecuteScalar().ToString();
+        new MySqlCommand
+          (
+          dbkeyclick_trail.Saved
+            (
+            "insert web_donor set email_address = '" + donor_email_address + "'"
+            + " , resident_id = '" + id + "'"
+            + " on duplicate key update resident_id = '" + id + "'"
+            ),
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
         new MySqlCommand
           (
           dbkeyclick_trail.Saved
@@ -45,6 +58,7 @@ namespace Class_db_donations
             + " , note = NULLIF('" + note + "','')"
             + " , entered_by = '" + user_email_address + "'"
             + " , per_clerk_seq_num = '" + per_clerk_seq_num + "'"
+            + " , web_donor_id = (select id from web_donor where email_address = '" + donor_email_address + "')"
             ),
           connection,
           transaction
@@ -53,9 +67,10 @@ namespace Class_db_donations
         new MySqlCommand(dbkeyclick_trail.Saved("update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
-      catch
+      catch (Exception e)
         {
         transaction.Rollback();
+        throw e;
         }
       Close();
       }

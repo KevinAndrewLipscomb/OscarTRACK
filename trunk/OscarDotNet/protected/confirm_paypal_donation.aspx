@@ -27,25 +27,22 @@
                   <p>made on:</p>
                   <blockquote><strong>
                     <asp:Literal ID="Literal_donation_date" runat="server"></asp:Literal></strong></blockquote>
-                  <p>should be logged to the following ROD record:</p>
+                  <p>should be logged to the following donor:</p>
                   <blockquote>
+                    <strong>
+                      <asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal>
                       <asp:Panel ID="Panel_selected" runat="server" Visible="false">
-                        <strong>
-                          <asp:Literal ID="Literal_resident_name" runat="server"></asp:Literal><br />
-                          <asp:Literal ID="Literal_house_num_and_street" runat="server"></asp:Literal><br />
-                          <asp:Literal ID="Literal_city" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_state" runat="server"></asp:Literal><br />
-                        </strong>
                         <br />
-                        (<asp:Literal ID="Literal_num_priors" runat="server"></asp:Literal> prior donations averaging <asp:Literal ID="Literal_avg_amount" runat="server"></asp:Literal>)
+                        <asp:Literal ID="Literal_resident_name" runat="server"></asp:Literal><br />
+                        <asp:Literal ID="Literal_house_num_and_street" runat="server"></asp:Literal><br />
+                        <asp:Literal ID="Literal_city" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_state" runat="server"></asp:Literal><br />
                       </asp:Panel>
-                      <asp:Panel ID="Panel_unknown" runat="server" Visible="false">
-                        <strong>
-                          None
-                        </strong>
-                      </asp:Panel>
+                    </strong>
+                    <br />
+                    (<asp:Literal ID="Literal_num_priors" runat="server"></asp:Literal> prior donations averaging <asp:Literal ID="Literal_avg_amount" runat="server"></asp:Literal>)
                   </blockquote>
                   <p>and an acknowledgment message should be sent to:</p>
-                  <blockquote><strong><asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal> (<i><asp:Literal ID="Literal_donor_email_address" runat="server"></asp:Literal></i>)</strong></blockquote>
+                  <blockquote><strong><i><asp:Literal ID="Literal_donor_email_address" runat="server"></asp:Literal></i></strong></blockquote>
                   <p>Is this correct?</p>
                   <blockquote>
                     <asp:Button ID="Button_yes" runat="server" Font-Bold="true" Text="YES" OnClick="Button_yes_Click"/>

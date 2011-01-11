@@ -39,7 +39,7 @@ namespace Class_db_residents
       object target
       )
       {
-      var insert_where_clause = "insert possible_match (id) select id from resident_base where";
+      var insert_where_clause = "insert possible_match (resident_id,web_donor_id) select resident_base.id,IFNULL(web_donor.id,0) from resident_base left join web_donor on (web_donor.resident_id=resident_base.id) where";
       string condition_clause;
       var collision_clause = " on duplicate key update score = score + 1";
       var word_array = name.Split(new char[] {' '});
@@ -50,11 +50,12 @@ namespace Class_db_residents
         (
         "create temporary table possible_match"
         + " ("
-        + " id mediumint not null"
+        + " resident_id mediumint not null"
+        + " , web_donor_id bigint unsigned"
         + " , score smallint not null default 1"
         + " , num_priors mediumint not null default 0"
         + " , avg_amount float not null default 0"
-        + " , primary key (id)"
+        + " , primary key (resident_id,web_donor_id)"
         + " )",
         connection
         )
@@ -93,13 +94,28 @@ namespace Class_db_residents
         new MySqlCommand(insert_where_clause + " house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection).ExecuteNonQuery();
         }
       //
-      // Match prior donations.
+      // Match email address
+      //
+      new MySqlCommand(insert_where_clause + " email_address = '" + email_address + "'" + collision_clause,connection).ExecuteNonQuery();
+      //
+      // Match prior donations attributed to resident.
       //
       new MySqlCommand
         (
         "update possible_match set score = score + 1"
-        + " , num_priors = (select count(*) from donation where donation.id = possible_match.id)"
-        + " , avg_amount = IFNULL((select avg(amount) from donation where donation.id = possible_match.id),0)",
+        + " , num_priors = (select count(*) from donation where donation.id = possible_match.resident_id)"
+        + " , avg_amount = IFNULL((select avg(amount) from donation where donation.id = possible_match.resident_id),0)",
+        connection
+        )
+        .ExecuteNonQuery();
+      //
+      // Match prior donations attributed to web_donor.
+      //
+      new MySqlCommand
+        (
+        "update possible_match set score = score + 1"
+        + " , num_priors = (select count(*) from donation where donation.web_donor_id = possible_match.web_donor_id)"
+        + " , avg_amount = IFNULL((select avg(amount) from donation where donation.web_donor_id = possible_match.web_donor_id),0)",
         connection
         )
         .ExecuteNonQuery();
@@ -113,14 +129,16 @@ namespace Class_db_residents
         + " , concat(house_num,' ',street.name) as house_num_and_street"
         + " , IF(city.name = 'VIRGINIA BEACH','VB',city.name) as city"
         + " , state.abbreviation as state"
+        + " , web_donor.email_address"
         + " , score"
         + " , num_priors"
         + " , avg_amount"
         + " from possible_match"
-        +   " join resident_base on (resident_base.id=possible_match.id)"
+        +   " join resident_base on (resident_base.id=possible_match.resident_id)"
         +   " join street on (street.id=resident_base.street_id)"
         +   " join city on (city.id=street.city_id)"
         +   " join state on (state.id=city.state_id)"
+        +   " left join web_donor on (web_donor.resident_id=resident_base.id)"
         + " order by score desc, num_priors desc",
         connection
         )

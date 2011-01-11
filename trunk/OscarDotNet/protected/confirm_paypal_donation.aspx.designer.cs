@@ -40,6 +40,15 @@ namespace confirm_paypal_donation {
         protected global::System.Web.UI.WebControls.Literal Literal_donation_date;
         
         /// <summary>
+        /// Literal_donor_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_donor_name;
+        
+        /// <summary>
         /// Panel_selected control.
         /// </summary>
         /// <remarks>
@@ -101,24 +110,6 @@ namespace confirm_paypal_donation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_avg_amount;
-        
-        /// <summary>
-        /// Panel_unknown control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel_unknown;
-        
-        /// <summary>
-        /// Literal_donor_name control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_donor_name;
         
         /// <summary>
         /// Literal_donor_email_address control.
