@@ -134,7 +134,7 @@
                   <ItemStyle Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
                 </asp:ButtonColumn>
                 <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="CAST((recent_mileage - target_pm_mileage) AS signed)%,vehicle_name">
-                  <ItemStyle HorizontalAlign="Right" />
+                  <ItemStyle HorizontalAlign="Right" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" Wrap="False" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="dmv_inspection_due" HeaderText="DMV inspection due" ReadOnly="True" SortExpression="dmv_inspection_due%,vehicle_name">
                   <ItemStyle HorizontalAlign="Center" />
