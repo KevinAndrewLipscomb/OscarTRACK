@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_member_binder {
+namespace UserControl_schedule_binder {
     
     
-    public partial class TWebUserControl_member_binder {
+    public partial class TWebUserControl_schedule_binder {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -31,67 +31,31 @@ namespace UserControl_member_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_fleet control.
+        /// TabPanel_availabilities control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_availabilities;
         
         /// <summary>
-        /// TabPanel_schedule control.
+        /// TabPanel_assignment_assistant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_schedule;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_assignment_assistant;
         
         /// <summary>
-        /// TabPanel_personnel control.
+        /// TabPanel_results control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
-        
-        /// <summary>
-        /// TabPanel_funddrive control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_funddrive;
-        
-        /// <summary>
-        /// TabPanel_dashboard control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_dashboard;
-        
-        /// <summary>
-        /// TabPanel_config control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_config;
-        
-        /// <summary>
-        /// TabPanel_about control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_about;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_results;
         
         /// <summary>
         /// PlaceHolder_content control.

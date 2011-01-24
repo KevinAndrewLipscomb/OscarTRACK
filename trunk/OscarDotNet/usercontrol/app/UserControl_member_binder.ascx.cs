@@ -1,19 +1,19 @@
 using Class_biz_user;
 using System.Collections;
 using UserControl_about;
-using UserControl_availabilities;
 using UserControl_config_binder;
 using UserControl_dashboard_binder;
 using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
+using UserControl_schedule_binder;
 
 namespace UserControl_member_binder
 {
     public class UserControl_member_binder_Static
     {
         public const int TSSI_FLEET = 0;
-        public const int TSSI_AVAILABILITIES = 1;
+        public const int TSSI_SCHEDULE = 1;
         public const int TSSI_PERSONNEL = 2;
         public const int TSSI_FUNDDRIVE = 3;
         public const int TSSI_DASHBOARD = 4;
@@ -52,8 +52,8 @@ namespace UserControl_member_binder
                 // Dynamic controls must be re-added on each postback.
                 switch(p.tab_index)
                 {
-                    case UserControl_member_binder_Static.TSSI_AVAILABILITIES:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx"))), "UserControl_availabilities", PlaceHolder_content);
+                    case UserControl_member_binder_Static.TSSI_SCHEDULE:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))), "UserControl_schedule_binder", PlaceHolder_content);
                         break;
                     case UserControl_member_binder_Static.TSSI_PERSONNEL:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))), "P", PlaceHolder_content);
@@ -127,8 +127,8 @@ namespace UserControl_member_binder
             PlaceHolder_content.Controls.Clear();
             switch(p.tab_index)
             {
-                case UserControl_member_binder_Static.TSSI_AVAILABILITIES:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx"))).Fresh(), "UserControl_availabilities", PlaceHolder_content);
+                case UserControl_member_binder_Static.TSSI_SCHEDULE:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "UserControl_schedule_binder", PlaceHolder_content);
                     break;
                 case UserControl_member_binder_Static.TSSI_PERSONNEL:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);
