@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using UserControl_agency;
 using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
+using UserControl_shift;
 
 namespace UserControl_business_objects_binder
   {
@@ -18,6 +19,7 @@ namespace UserControl_business_objects_binder
     public const int TSSI_AGENCIES = 0;
     public const int TSSI_FLEET_OBJECTS = 1;
     public const int TSSI_FUND_DRIVE_OBJECTS = 2;
+    public const int TSSI_SHIFTS = 3;
     }
 
   public struct p_type
@@ -47,6 +49,10 @@ namespace UserControl_business_objects_binder
           {
           TabPanel_fund_drive_objects.Enabled = true;
           }
+        if (k.Has((string[])(Session["privilege_array"]), "config-shifts"))
+          {
+          TabPanel_shifts.Enabled = true;
+          }
         p.be_loaded = true;
         }
       }
@@ -74,6 +80,10 @@ namespace UserControl_business_objects_binder
         else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FUND_DRIVE_OBJECTS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))), "UserControl_fund_drive_object_binder", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SHIFTS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_shift)(LoadControl("~/usercontrol/app/UserControl_shift.ascx"))), "UserControl_shift", PlaceHolder_content);
           }
         }
       else
@@ -127,9 +137,12 @@ namespace UserControl_business_objects_binder
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))).Fresh(), "UserControl_fund_drive_object_binder", PlaceHolder_content);
         }
+      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SHIFTS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_shift)(LoadControl("~/usercontrol/app/UserControl_shift.ascx"))).Fresh(), "UserControl_shift", PlaceHolder_content);
+        }
       }
 
     } // end TWebUserControl_business_objects_binder
 
   }
-

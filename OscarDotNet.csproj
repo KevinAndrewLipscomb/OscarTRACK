@@ -98,6 +98,7 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_assignment_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
@@ -108,10 +109,13 @@
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_assignment.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="Web.config" />
@@ -147,7 +151,9 @@
     <Compile Include="component\biz\Class_biz_role_notification_map.cs" />
     <Compile Include="component\biz\Class_biz_role_privilege_map.cs" />
     <Compile Include="component\biz\Class_biz_scheduled_tasks.cs" />
+    <Compile Include="component\biz\Class_biz_schedule_assignments.cs" />
     <Compile Include="component\biz\Class_biz_sections.cs" />
+    <Compile Include="component\biz\Class_biz_shifts.cs" />
     <Compile Include="component\biz\Class_biz_states.cs" />
     <Compile Include="component\biz\Class_biz_streets.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
@@ -190,6 +196,8 @@
     <Compile Include="component\db\Class_db_role_member_map.cs" />
     <Compile Include="component\db\Class_db_role_notification_map.cs" />
     <Compile Include="component\db\Class_db_role_privilege_map.cs" />
+    <Compile Include="component\db\Class_db_schedule_assignments.cs" />
+    <Compile Include="component\db\Class_db_shifts.cs" />
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
@@ -629,6 +637,13 @@
     <Compile Include="usercontrol\app\UserControl_agency.ascx.designer.cs">
       <DependentUpon>UserControl_agency.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_assignment_assistant.ascx.cs">
+      <DependentUpon>UserControl_assignment_assistant.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_assignment_assistant.ascx.designer.cs">
+      <DependentUpon>UserControl_assignment_assistant.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_availabilities.ascx.cs">
       <DependentUpon>UserControl_availabilities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -993,6 +1008,20 @@
     <Compile Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx.designer.cs">
       <DependentUpon>UserControl_scene_visits_to_love_letter_targets.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment.ascx.cs">
+      <DependentUpon>UserControl_schedule_assignment.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_assignment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_binder.ascx.cs">
+      <DependentUpon>UserControl_schedule_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx.cs">
       <DependentUpon>UserControl_serial_fleet_indicators_binder.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1090,6 +1119,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx.designer.cs">
       <DependentUpon>UserControl_serial_personnel_indicators_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_shift.ascx.cs">
+      <DependentUpon>UserControl_shift.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_shift.ascx.designer.cs">
+      <DependentUpon>UserControl_shift.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_state.ascx.cs">
       <DependentUpon>UserControl_state.ascx</DependentUpon>

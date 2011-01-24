@@ -10,6 +10,7 @@
             <cc1:TabPanel runat="server" headertext="Agencies" id="TabPanel_agencies" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Fleet objects" id="TabPanel_fleet_objects" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Fund drive objects" id="TabPanel_fund_drive_objects" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Shifts" id="TabPanel_shifts" enabled="False"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>
