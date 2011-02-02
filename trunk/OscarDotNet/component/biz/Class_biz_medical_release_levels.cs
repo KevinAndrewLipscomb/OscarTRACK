@@ -1,6 +1,7 @@
+using Class_db_medical_release_levels;
 using System;
 using System.Collections;
-using Class_db_medical_release_levels;
+
 namespace Class_biz_medical_release_levels
 {
     public class TClass_biz_medical_release_levels
@@ -57,6 +58,11 @@ namespace Class_biz_medical_release_levels
         {
             return db_medical_release_levels.BeValidEnrollmentForCurrent(enrollment_level_code, description);
         }
+
+        internal void BindBaseDataList(object target)
+          {
+          db_medical_release_levels.BindBaseDataList(target);
+          }
 
         public void BindListControl(object target)
         {

@@ -35,6 +35,24 @@ namespace Class_db_medical_release_levels
             return be_valid_enrollment_for_current;
         }
 
+        internal void BindBaseDataList(object target)
+          {
+          Open();
+          (target as BaseDataList).DataSource = new MySqlCommand
+            (
+            "select watchbill_rendition"
+            + " , description"
+            + " from medical_release_code_description_map"
+            + " where be_hereafter_valid"
+            + " order by pecking_order desc",
+            connection
+            )
+            .ExecuteReader();
+          (target as BaseDataList).DataBind();
+          ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+          Close();
+          }
+
         public void BindListControl(object target)
         {
             MySqlDataReader dr;

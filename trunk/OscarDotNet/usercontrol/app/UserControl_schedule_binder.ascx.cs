@@ -38,7 +38,7 @@ namespace UserControl_schedule_binder
         if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
           {
           TabPanel_assignment_assistant.Enabled = true;
-          TabPanel_results.Enabled = true;
+//          TabPanel_results.Enabled = true;
           }
         p.be_loaded = true;
         }

@@ -4,6 +4,8 @@ grant select
  , delete
  , execute
  , create
+ , alter
+ , create temporary tables
   on oscardotnetdb.*
   to 'ki-oscartrack'@'localhost' identified by '~ki-oscartrack-password~'
 ;
