@@ -1,13 +1,10 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-
 using Class_biz_notifications;
+using Class_biz_user;
 using Class_db_members;
 using Class_db_users;
-using Class_biz_user;
+using kix;
+using System.Configuration;
+
 namespace Class_biz_users
 {
     public class TClass_biz_users
@@ -175,7 +172,11 @@ namespace Class_biz_users
         public void SetEmailAddress(string id, string email_address)
         {
             db_users.SetEmailAddress(id, email_address);
-            db_members.SetEmailAddress(db_members.IdOfUserId(id), email_address);
+            var member_id = db_members.IdOfUserId(id);
+            if (member_id != k.EMPTY)
+              {
+              db_members.SetEmailAddress(member_id,email_address);
+              }
         }
 
         public void SetPassword(string id, string encoded_password)

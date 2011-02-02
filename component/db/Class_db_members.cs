@@ -1,8 +1,4 @@
-using Class_biz_enrollment;
-using Class_biz_medical_release_levels;
-using Class_biz_leave;
 using Class_biz_notifications;
-using Class_biz_sections;
 using Class_db;
 using Class_db_agencies;
 using Class_db_medical_release_levels;
@@ -1337,11 +1333,11 @@ namespace Class_db_members
         }
 
         public void SetEmailAddress(string id, string email_address)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET email_address = \"" + email_address + "\"" + " WHERE id = " + id), this.connection).ExecuteNonQuery();
-            this.Close();
-        }
+          {
+          Open();
+          new MySqlCommand(db_trail.Saved("UPDATE member" + " SET email_address = \"" + email_address + "\"" + " WHERE id = '" + id + "'"), connection).ExecuteNonQuery();
+          Close();
+          }
 
         public void SetName(string first, string last, object summary)
         {

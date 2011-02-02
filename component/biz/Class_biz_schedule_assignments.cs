@@ -16,19 +16,39 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
 
-    internal void Initialize()
-      {
-      db_schedule_assignments.Initialize();
-      }
-
     public bool Bind(string partial_spec, object target)
       {
       return db_schedule_assignments.Bind(partial_spec, target);
       }
 
+    internal void BindBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      string depth_filter,
+      k.subtype<int> relative_month,
+      object target,
+      ref k.int_nonnegative num_members,
+      ref k.decimal_nonnegative num_crew_shifts
+      )
+      {
+      db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,target,ref num_members,ref num_crew_shifts);
+      }
+
     public void BindDirectToListControl(object target)
       {
       db_schedule_assignments.BindDirectToListControl(target);
+      }
+
+    internal void BindTimeOffAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      db_schedule_assignments.BindTimeOffAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
     public bool Delete(string id)
@@ -88,6 +108,11 @@ namespace Class_biz_schedule_assignments
         be_selected,
         comment
         );
+      }
+
+    internal void Update(string relative_month)
+      {
+      db_schedule_assignments.Update(relative_month);
       }
 
     } // end TClass_biz_schedule_assignments
