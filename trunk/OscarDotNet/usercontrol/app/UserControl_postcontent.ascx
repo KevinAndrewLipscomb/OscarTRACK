@@ -93,7 +93,7 @@
                             <td><small>You can help us make this application better!</small></td>
                           </tr>
                           <tr>
-                            <td><small>Send suggestions <a href="mailto:feedback@frompaper2web.com?subject=OSCAR%20suggestion">here </a>.</small></td>
+                            <td><small>Send suggestions <a href="mailto:feedback@frompaper2web.com?subject=OSCAR%20suggestion">here</a>.</small></td>
                           </tr>
                           <tr>
                             <td><small><strong>Thanks!</strong></small></td>

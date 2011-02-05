@@ -16,6 +16,15 @@ namespace Class_msg_protected
       internal string num_priors = k.EMPTY;
       internal string avg_amount = k.EMPTY;
       }
+    public class investigate_time_off_alert
+      {
+      internal string member_id = k.EMPTY;
+      internal k.subtype<int> relative_month;
+      internal string first_schedule_assignment_id = k.EMPTY;
+      internal string second_schedule_assignment_id = k.EMPTY;
+      internal string time_off = k.EMPTY;
+      internal string scheduler_agency_id = k.EMPTY;
+      }
     public class process_paypal_donation
       {
       internal string amount_donated = k.EMPTY;

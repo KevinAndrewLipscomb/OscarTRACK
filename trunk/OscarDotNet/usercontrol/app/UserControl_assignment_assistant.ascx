@@ -84,8 +84,8 @@
       <asp:datagrid id="A" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="A_ItemDataBound">
         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
         <Columns>
-          <asp:BoundColumn DataField="nominal_day" HeaderText="Nominal day" ReadOnly="True">
-            <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="XX-Large" Font-Strikeout="False" Font-Underline="False" />
+          <asp:BoundColumn DataField="nominal_day" ReadOnly="True">
+            <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="XX-Large" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
             <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Size="XX-Large" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
           </asp:BoundColumn>
           <asp:BoundColumn DataField="display_seq_num" ReadOnly="True" Visible="False"></asp:BoundColumn>
@@ -182,7 +182,7 @@
               <tr bgcolor="#f5f5f5"><td><strong>Alerts</strong></td></tr>
               <tr>
                 <td>
-                  <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound">
+                  <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
                       <asp:BoundColumn DataField="name" HeaderText="This member.." ReadOnly="True">
@@ -202,6 +202,7 @@
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="second_shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="second_schedule_assignment_id" Visible="False"></asp:BoundColumn>
+                      <asp:ButtonColumn Text="Investigate"></asp:ButtonColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>
