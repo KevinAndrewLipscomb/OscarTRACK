@@ -4,16 +4,25 @@ using Class_db_schedule_assignments;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_schedule_assignments
   {
   public class TClass_biz_schedule_assignments
     {
+
+    public const int MAX_PER_MONTH = 62;
+
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
     public TClass_biz_schedule_assignments() : base()
       {
       db_schedule_assignments = new TClass_db_schedule_assignments();
+      }
+
+    internal bool BeOkToWorkOnNextMonth()
+      {
+      return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]));
       }
 
     public bool Bind(string partial_spec, object target)
@@ -51,6 +60,17 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindTimeOffAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
+    internal void BindTimeOffAlertInvestigationBaseDataList
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      string agency_id,
+      object target
+      )
+      {
+      db_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(member_id,relative_month,agency_id,target);
+      }
+
     public bool Delete(string id)
       {
       return db_schedule_assignments.Delete(id);
@@ -83,6 +103,37 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal string MonthlessRenditionOfId(string id)
+      {
+      var nominal_day = DateTime.MinValue;
+      var shift_name = k.EMPTY;
+      db_schedule_assignments.GetNominalDayShiftNameOfId(id,out nominal_day,out shift_name);
+      return MonthlessRenditionOfNominalDayShiftName(nominal_day,shift_name);
+      }
+
+    internal string MonthlessRenditionOfNominalDayShiftName
+      (
+      DateTime nominal_day,
+      string shift_name
+      )
+      {
+      return MonthlessRenditionOfNominalDay(nominal_day) + k.SPACE + shift_name;
+      }
+
+    internal string MonthlessRenditionOfNominalDay(DateTime nominal_day)
+      {
+      return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
+      }
+
+    internal k.subtype<int> NumAvailsFromMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month
+      )
+      {
+      return db_schedule_assignments.NumAvailsFromMemberInMonth(member_id,relative_month);
+      }
+
     public void Set
       (
       string id,
@@ -112,7 +163,7 @@ namespace Class_biz_schedule_assignments
 
     internal void Update(string relative_month)
       {
-      db_schedule_assignments.Update(relative_month);
+      db_schedule_assignments.Update(relative_month,(relative_month == "0") || BeOkToWorkOnNextMonth());
       }
 
     } // end TClass_biz_schedule_assignments

@@ -221,7 +221,7 @@ namespace Class_db_schedule_assignments
           // The following CREATE, ALTER, and INSERT statements accomplish a FULL OUTER JOIN hinged on nominal_day and display_seq_num.  (MySQL 5.5 does not directly support FULL OUTER JOINs.)
           //
           + " CREATE temporary table this_month_schedule_assignment"
-          + " select d.nominal_day , d.display_seq_num" + common_final_fields
+          + " select DATE_FORMAT(d.nominal_day,'%Y-%m-%d') as nominal_day , d.display_seq_num" + common_final_fields
           + " from this_month_day_schedule_assignment_with_dsn as d"
           +   " left join this_month_night_schedule_assignment_with_dsn as n"
           +     " using (nominal_day,display_seq_num)"
@@ -240,7 +240,7 @@ namespace Class_db_schedule_assignments
           + " , modify d_comment VARCHAR(511) NULL"
           + ";"
           + " INSERT ignore this_month_schedule_assignment"
-          + " select n.nominal_day , n.display_seq_num" + common_final_fields
+          + " select DATE_FORMAT(n.nominal_day,'%Y-%m-%d') as nominal_day , n.display_seq_num" + common_final_fields
           + " from this_month_day_schedule_assignment_with_dsn as d"
           +   " right join this_month_night_schedule_assignment_with_dsn as n"
           +     " using (nominal_day,display_seq_num)",
@@ -379,11 +379,11 @@ namespace Class_db_schedule_assignments
           (
           "select concat(first_name,' ',last_name) as name"
           + " , times_off.member_id as member_id"
-          + " , first_schedule_assignment.nominal_day as first_nominal_day"
+          + " , DATE_FORMAT(first_schedule_assignment.nominal_day,'%Y-%m-%d') as first_nominal_day"
           + " , first_shift.name as first_shift_name"
           + " , first_schedule_assignment_id"
           + " , time_off"
-          + " , second_schedule_assignment.nominal_day as second_nominal_day"
+          + " , DATE_FORMAT(second_schedule_assignment.nominal_day,'%Y-%m-%d') as second_nominal_day"
           + " , second_shift.name as second_shift_name"
           + " , second_schedule_assignment_id"
           + " from times_off"
@@ -410,6 +410,75 @@ namespace Class_db_schedule_assignments
         }
       Close();
       //
+      }
+
+    internal void BindTimeOffAlertInvestigationBaseDataList
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      string agency_id,
+      object target
+      )
+      {
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select schedule_assignment_id"
+        + " , nominal_day"
+        + " , shift_name"
+        + " , be_selected"
+        + " , time_off"
+        + " , shift_population_from_agency"
+        + " , shift_population_citywide"
+        + " from"
+        +   " ("
+        +   " select schedule_assignment_id"
+        +   " , nominal_day"
+        +   " , shift_name"
+        +   " , be_selected"
+        +   " , IF(be_selected,@on_duty := on_duty,NULL) as on_duty"
+        +   " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty,@on_duty),NULL) as time_off"
+        +   " , IF(be_selected,@off_duty := off_duty,NULL) as off_duty"
+        +   " , from_agency as shift_population_from_agency"
+        +   " , citywide as shift_population_citywide"
+        +   " from (select @on_duty := '', @off_duty := '') as dummy,"
+        +     " ("
+        +     " select member_id"
+        +     " , schedule_assignment.id as schedule_assignment_id"
+        +     " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+        +     " , shift_id"
+        +     " , shift.name as shift_name"
+        +     " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+        +     " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+        +     " , be_selected"
+        +     " FROM schedule_assignment"
+        +       " join shift on (shift.id=schedule_assignment.shift_id)"
+        +       " join member on (member.id=schedule_assignment.member_id)"
+        +     " where member_id = '" + member_id + "'"
+        +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +     " order by member_id,nominal_day,start"
+        +     " ) as toai_member_schedule_assignments_sorted_chronologically"
+        +   " join"
+        +     " ("
+        +     " select nominal_day"
+        +     " , shift_id"
+        +     " , sum(member.agency_id = '" + agency_id + "')/2 as from_agency"
+        +     " , count(*)/2 as citywide"
+        +     " from schedule_assignment"
+        +       " join member on (member.id=schedule_assignment.member_id)"
+        +       " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +     " where medical_release_code_description_map.pecking_order >= 20"
+        +       " and be_selected"
+        +     " group by nominal_day,shift_id"
+        +     " ) toai_shift_populations_on_member_schedule_assignments"
+        +       " using (nominal_day,shift_id)"
+        +   " ) as toai_calculated",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
       }
 
     public bool Delete(string id)
@@ -481,8 +550,56 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
-    internal void Update(string relative_month)
+    public bool GetNominalDayShiftNameOfId
+      (
+      string id,
+      out DateTime nominal_day,
+      out string shift_name
+      )
       {
+      nominal_day = DateTime.MinValue;
+      shift_name = k.EMPTY;
+      var result = false;
+      //
+      Open();
+      var dr = new MySqlCommand("select nominal_day,shift.name as shift_name from schedule_assignment join shift on (shift.id=schedule_assignment.shift_id) where CAST(schedule_assignment.id AS CHAR) = '" + id + "'", this.connection).ExecuteReader();
+      if (dr.Read())
+        {
+        nominal_day = DateTime.Parse(dr["nominal_day"].ToString());
+        shift_name = dr["shift_name"].ToString();
+        result = true;
+        }
+      dr.Close();
+      Close();
+      return result;
+      }
+
+    internal k.subtype<int> NumAvailsFromMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month
+      )
+      {
+      var num_avails_from_member_in_month = new k.subtype<int>(0,62);
+      Open();
+      num_avails_from_member_in_month.val = int.Parse(new MySqlCommand("select count(*) from schedule_assignment where member_id = '" + member_id + "' and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,connection).ExecuteScalar().ToString());
+      Close();
+      return num_avails_from_member_in_month;
+      }
+
+    private delegate string Update_Dispositioned(string sql);
+    internal void Update
+      (
+      string relative_month,
+      bool be_official
+      )
+      {
+      //
+      Update_Dispositioned Dispositioned = delegate (string sql)
+        {
+        return (be_official ? db_trail.Saved(sql) : sql);
+        };
+      //
       var convenient_datetime = DateTime.Now.AddMonths(int.Parse(relative_month));
       var month_abbreviation = convenient_datetime.ToString("MMM");
       var month_yyyy_mm = convenient_datetime.ToString("yyyy-MM");
@@ -518,7 +635,7 @@ namespace Class_db_schedule_assignments
           +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
           + ";";
           }
-        new MySqlCommand(db_trail.Saved(sql),connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
         //
         // Determine initial shift popularities.  Do not save operations on temporary table to the db_trail.
         //
@@ -657,7 +774,7 @@ namespace Class_db_schedule_assignments
           }
         if (trimables != k.EMPTY)
           {
-          new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
           }
         //--
         //
@@ -749,7 +866,7 @@ namespace Class_db_schedule_assignments
           dr.Close();
           if (!done)
             {
-            new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
             }
           new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction).ExecuteNonQuery();
           }
@@ -847,7 +964,7 @@ namespace Class_db_schedule_assignments
           }
         if (trimables != k.EMPTY)
           {
-          new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
           }
         //
         // Determine which Trainees want how many extra assignments.  EMT Interns are not allowed to run extras.
@@ -1012,6 +1129,11 @@ namespace Class_db_schedule_assignments
         )
         .ExecuteNonQuery();
       this.Close();
+      }
+
+    internal void GetNominalDayShiftNameOfId(string id, out string nominal_day, out string shift_name)
+      {
+    throw new NotImplementedException();
       }
 
     } // end TClass_db_schedule_assignments
