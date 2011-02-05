@@ -427,6 +427,8 @@ namespace Class_db_schedule_assignments
         + " , nominal_day"
         + " , shift_name"
         + " , be_selected"
+        + " , on_duty"
+        + " , off_duty"
         + " , time_off"
         + " , shift_population_from_agency"
         + " , shift_population_citywide"
@@ -550,6 +552,36 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal void GetInfoAboutMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      out k.subtype<int> num,
+      out DateTime start_of_earliest_unselected,
+      out DateTime end_of_latest_unselected
+      )
+      {
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select count(*) as num"
+        + " , min(IF(be_selected,'9999-12-31 23:59:59',DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i:%s'))) as start_of_earliest_unselected"
+        + " , max(IF(be_selected,'1000-01-01 00:00:00',DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i:%s'))) as end_of_latest_unselected"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where member_id = '" + member_id + "'"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        connection
+        )
+        .ExecuteReader();
+      dr.Read();
+      num = new k.subtype<int>(0,62);
+      num.val = int.Parse(dr["num"].ToString());
+      start_of_earliest_unselected = DateTime.Parse(dr["start_of_earliest_unselected"].ToString());
+      end_of_latest_unselected = DateTime.Parse(dr["end_of_latest_unselected"].ToString());
+      Close();
+      }
+
     public bool GetNominalDayShiftNameOfId
       (
       string id,
@@ -572,19 +604,6 @@ namespace Class_db_schedule_assignments
       dr.Close();
       Close();
       return result;
-      }
-
-    internal k.subtype<int> NumAvailsFromMemberInMonth
-      (
-      string member_id,
-      k.subtype<int> relative_month
-      )
-      {
-      var num_avails_from_member_in_month = new k.subtype<int>(0,62);
-      Open();
-      num_avails_from_member_in_month.val = int.Parse(new MySqlCommand("select count(*) from schedule_assignment where member_id = '" + member_id + "' and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,connection).ExecuteScalar().ToString());
-      Close();
-      return num_avails_from_member_in_month;
       }
 
     private delegate string Update_Dispositioned(string sql);
