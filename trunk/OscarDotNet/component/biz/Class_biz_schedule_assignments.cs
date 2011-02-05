@@ -103,6 +103,18 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void GetInfoAboutMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      out k.subtype<int> num,
+      out DateTime earliest_unselected,
+      out DateTime latest_unselected
+      )
+      {
+      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,out num,out earliest_unselected,out latest_unselected);
+      }
+
     internal string MonthlessRenditionOfId(string id)
       {
       var nominal_day = DateTime.MinValue;
@@ -123,15 +135,6 @@ namespace Class_biz_schedule_assignments
     internal string MonthlessRenditionOfNominalDay(DateTime nominal_day)
       {
       return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
-      }
-
-    internal k.subtype<int> NumAvailsFromMemberInMonth
-      (
-      string member_id,
-      k.subtype<int> relative_month
-      )
-      {
-      return db_schedule_assignments.NumAvailsFromMemberInMonth(member_id,relative_month);
       }
 
     public void Set
