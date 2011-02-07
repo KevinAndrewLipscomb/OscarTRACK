@@ -18,3 +18,7 @@ grant select
  , create temporary tables
   on keyclick.*
   to 'ki-oscartrackk'@'localhost' identified by '~ki-oscartrackk-password~'
+;
+grant select
+  on oscar.*
+  to 'ki-oscartracko'@'localhost' identified by '~ki-oscartracko-password~'
