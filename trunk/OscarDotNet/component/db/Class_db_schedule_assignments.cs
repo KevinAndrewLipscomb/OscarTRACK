@@ -460,20 +460,20 @@ namespace Class_db_schedule_assignments
         +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
         +     " order by member_id,nominal_day,start"
         +     " ) as toai_member_schedule_assignments_sorted_chronologically"
-        +   " join"
-        +     " ("
-        +     " select nominal_day"
-        +     " , shift_id"
-        +     " , sum(member.agency_id = '" + agency_id + "')/2 as from_agency"
-        +     " , count(*)/2 as citywide"
-        +     " from schedule_assignment"
-        +       " join member on (member.id=schedule_assignment.member_id)"
-        +       " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-        +     " where medical_release_code_description_map.pecking_order >= 20"
-        +       " and be_selected"
-        +     " group by nominal_day,shift_id"
-        +     " ) toai_shift_populations_on_member_schedule_assignments"
-        +       " using (nominal_day,shift_id)"
+        +     " join"
+        +       " ("
+        +       " select nominal_day"
+        +       " , shift_id"
+        +       " , sum(member.agency_id = '" + agency_id + "')/2 as from_agency"
+        +       " , count(*)/2 as citywide"
+        +       " from schedule_assignment"
+        +         " join member on (member.id=schedule_assignment.member_id)"
+        +         " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +       " where medical_release_code_description_map.pecking_order >= 20"
+        +         " and be_selected"
+        +       " group by nominal_day,shift_id"
+        +       " ) toai_shift_populations_on_member_schedule_assignments"
+        +         " using (nominal_day,shift_id)"
         +   " ) as toai_calculated",
         connection
         )
@@ -830,7 +830,8 @@ namespace Class_db_schedule_assignments
             +   " join schedule_assignment on (schedule_assignment.nominal_day=shift_population.nominal_day and schedule_assignment.shift_id=shift_population.shift_id)"
             +   " join member on (member.id=schedule_assignment.member_id)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where pecking_order >= 20"
+            + " where be_new"
+            +   " and pecking_order >= 20"
             + ";"
             + " create temporary table least_needed"
             + " select member_id,schedule_assignment_id,num_released_members_assigned"
@@ -1150,9 +1151,86 @@ namespace Class_db_schedule_assignments
       this.Close();
       }
 
-    internal void GetNominalDayShiftNameOfId(string id, out string nominal_day, out string shift_name)
+    internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
-    throw new NotImplementedException();
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        var target_id = new MySqlCommand
+          (
+          "select target.id as id"
+          + " FROM"
+          +   " ("
+          +   " select member_id"
+          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          +   " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+          +   " FROM schedule_assignment"
+          +     " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " where schedule_assignment.id = '" + id + "'"
+          +   " ) as source"
+          +   " join schedule_assignment as target"
+          +   " join shift on (shift.id=target.shift_id)"
+          + " where target.member_id = source.member_id"
+          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
+          +   " and DATE_FORMAT(IF(start<end,ADDTIME(target.nominal_day,end),ADDTIME(ADDTIME(target.nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') < source.off_duty"
+          +   " and not target.be_selected"
+          + " order by target.nominal_day desc,start desc"
+          + " limit 1",
+          connection,
+          transaction
+          )
+          .ExecuteScalar().ToString();
+        new MySqlCommand("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')",connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
+      }
+
+    internal void SwapSelectedForMemberNextLaterUnselected(string id)
+      {
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        var target_id = new MySqlCommand
+          (
+          "select target.id as id"
+          + " FROM"
+          +   " ("
+          +   " select member_id"
+          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          +   " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+          +   " FROM schedule_assignment"
+          +     " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " where schedule_assignment.id = '" + id + "'"
+          +   " ) as source"
+          +   " join schedule_assignment as target"
+          +   " join shift on (shift.id=target.shift_id)"
+          + " where target.member_id = source.member_id"
+          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
+          +   " and DATE_FORMAT(ADDTIME(target.nominal_day,start),'%Y-%m-%d %H:%i') > source.on_duty"
+          +   " and not target.be_selected"
+          + " order by target.nominal_day,start"
+          + " limit 1",
+          connection,
+          transaction
+          )
+          .ExecuteScalar().ToString();
+        new MySqlCommand("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')",connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
       }
 
     } // end TClass_db_schedule_assignments

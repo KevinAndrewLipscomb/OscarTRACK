@@ -54,34 +54,38 @@
                       <td align="right"><asp:Button ID="Button_cancel" runat="server" Text="Cancel" onclick="Button_cancel_Click"/></td>
                     </tr>
                   </table>
-                  <ASP:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="5" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" onitemcommand="DataGrid_control_ItemCommand">
-                    <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                    <Columns>
-                      <ASP:BoundColumn datafield="schedule_assignment_id" Visible="false"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="nominal_day" HeaderText="Shift">
-                        <HeaderStyle HorizontalAlign="Right" />
-                        <ItemStyle HorizontalAlign="Right" />
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="shift_name"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="be_selected" Visible="false"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="on_duty" Visible="false"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="off_duty" Visible="false"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="time_off" HeaderText="Time off before duty (hours)">
-                        <ItemStyle HorizontalAlign="Center" />
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="shift_population_from_agency" HeaderText="Crews local" DataFormatString="{0:F1}">
-                        <ItemStyle HorizontalAlign="Center" />
-                      </ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="shift_population_citywide" HeaderText="Crews citywide" DataFormatString="{0:F1}">
-                        <ItemStyle HorizontalAlign="Center" />
-                      </ASP:BoundColumn>
-                      <ASP:ButtonColumn text="Earlier" commandname="Earlier" HeaderText="Change">
-                        <ItemStyle HorizontalAlign="Right" />
-                      </ASP:ButtonColumn>
-                      <ASP:ButtonColumn text="Later" commandname="Later" HeaderText="selection">
-                      </ASP:ButtonColumn>
-                    </Columns>
-                  </ASP:DataGrid>
+                  <asp:UpdatePanel ID="UpdatePanel_control" runat="server">
+                    <ContentTemplate>
+                      <ASP:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="5" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" onitemcommand="DataGrid_control_ItemCommand">
+                        <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                        <Columns>
+                          <ASP:BoundColumn datafield="schedule_assignment_id" Visible="false"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="nominal_day" HeaderText="Shift">
+                            <HeaderStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" />
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="shift_name"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="be_selected" Visible="false"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="on_duty" Visible="false"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="off_duty" Visible="false"></ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="time_off" HeaderText="Time off before duty (hours)">
+                            <ItemStyle HorizontalAlign="Center" />
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="shift_population_from_agency" HeaderText="Crews local" DataFormatString="{0:F1}">
+                            <ItemStyle HorizontalAlign="Center" />
+                          </ASP:BoundColumn>
+                          <ASP:BoundColumn datafield="shift_population_citywide" HeaderText="Crews citywide" DataFormatString="{0:F1}">
+                            <ItemStyle HorizontalAlign="Center" />
+                          </ASP:BoundColumn>
+                          <ASP:ButtonColumn text="Earlier" commandname="Earlier" HeaderText="Change">
+                            <ItemStyle HorizontalAlign="Right" />
+                          </ASP:ButtonColumn>
+                          <ASP:ButtonColumn text="Later" commandname="Later" HeaderText="selection">
+                          </ASP:ButtonColumn>
+                        </Columns>
+                      </ASP:DataGrid>
+                    </ContentTemplate>
+                  </asp:UpdatePanel>
                 </td>
               </tr>
             </table>
