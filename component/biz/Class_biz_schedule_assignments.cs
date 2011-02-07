@@ -164,6 +164,16 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void SwapSelectedForMemberNextEarlierUnselected(string id)
+      {
+      db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id);
+      }
+
+    internal void SwapSelectedForMemberNextLaterUnselected(string id)
+      {
+      db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id);
+      }
+
     internal void Update(string relative_month)
       {
       db_schedule_assignments.Update(relative_month,(relative_month == "0") || BeOkToWorkOnNextMonth());

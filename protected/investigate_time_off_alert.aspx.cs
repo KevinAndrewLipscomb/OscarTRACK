@@ -77,7 +77,7 @@ namespace investigate_time_off_alert
           Label_special_request_comment.Font.Italic = true;
           }
         //
-        p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.scheduler_agency_id,DataGrid_control);
+        Bind();
         }
       }
 
@@ -106,6 +106,11 @@ namespace investigate_time_off_alert
     protected void Button_cancel_Click(object sender, System.EventArgs e)
       {
       BackTrack();
+      }
+
+    private void Bind()
+      {
+      p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.scheduler_agency_id,DataGrid_control);
       }
 
     protected void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
@@ -168,27 +173,15 @@ namespace investigate_time_off_alert
 
     protected void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
-      //if (e.CommandName == "Earlier")
-      //  {
-      //  p.db.Open();
-      //  new MySqlCommand(p.db_trail.Saved("START TRANSACTION;" + "update emsof_request_detail set priority = 0" + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + ";" + "update emsof_request_detail set priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " - 1" + ";" + "update emsof_request_detail set priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " - 1" + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = 0;" + "COMMIT;"), p.db.connection).ExecuteNonQuery();
-      //  p.db.Close();
-      //  }
-      //else if (e.CommandName == "Later")
-      //  {
-      //  p.db.Open();
-      //  new MySqlCommand(p.db_trail.Saved("START TRANSACTION;" + "update emsof_request_detail set priority = 0" + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + ";" + "update emsof_request_detail set priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " + 1" + ";" + "update emsof_request_detail set priority = " + k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM) + " + 1" + " where master_id = " + Session["emsof_request_master_id"].ToString() + " and priority = 0;" + "COMMIT;"), p.db.connection).ExecuteNonQuery();
-      //  p.db.Close();
-      //  }
-      //else
-      //  {
-      //  // e.commandname = 'Select'
-      //  SessionSet("emsof_request_item_priority", k.Safe(e.Item.Cells[(int)(p.tcci_priority)].Text, k.safe_hint_type.NUM));
-      //  SessionSet("emsof_request_item_code", k.Safe(e.Item.Cells[(int)(p.tcci_code)].Text, k.safe_hint_type.NUM));
-      //  SessionSet("emsof_request_item_equipment_category", k.Safe(e.Item.Cells[(int)(p.tcci_item_description)].Text, k.safe_hint_type.PUNCTUATED));
-      //  DropCrumbAndTransferTo("request_item_detail.aspx");
-      //  }
-      //Bind_items();
+      if (e.CommandName == "Earlier")
+        {
+        p.biz_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(k.Safe(e.Item.Cells[TWebForm_investigate_time_off_alert_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM));
+        }
+      else if (e.CommandName == "Later")
+        {
+        p.biz_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(k.Safe(e.Item.Cells[TWebForm_investigate_time_off_alert_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM));
+        }
+      Bind();
       }
 
     private void TWebForm_investigate_time_off_alert_PreRender(object sender, System.EventArgs e)
