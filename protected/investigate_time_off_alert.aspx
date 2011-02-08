@@ -31,18 +31,6 @@
                       <td align="right">Month:</td>
                       <td><strong><asp:Literal ID="Literal_month" runat="server"></asp:Literal></strong></td>
                     </tr>
-                    <tr>
-                      <td align="right">First duty:</td>
-                      <td><strong><asp:Literal ID="Literal_first_schedule_assignment_nominal_day_shift_name" runat="server"></asp:Literal></strong></td>
-                    </tr>
-                    <tr>
-                      <td align="right">Second duty:</td>
-                      <td><strong><asp:Literal ID="Literal_second_schedule_assignment_nominal_day_shift_name" runat="server"></asp:Literal></strong></td>
-                    </tr>
-                    <tr>
-                      <td align="right">Time off:</td>
-                      <td><strong><asp:Literal ID="Literal_time_off" runat="server"></asp:Literal>&nbsp;hours</strong></td>
-                    </tr>
                   </table>
                   <hr size="1" />
                   <p>The member's availability submission contained the following special request comment:</p>

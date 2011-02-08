@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_schedule_binder {
+namespace UserControl_schedule_assignment_assistant_binder {
     
     
-    public partial class TWebUserControl_schedule_binder {
+    public partial class TWebUserControl_schedule_assignment_assistant_binder {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -31,22 +31,31 @@ namespace UserControl_schedule_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_availabilities control.
+        /// TabPanel_intro control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_availabilities;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_intro;
         
         /// <summary>
-        /// TabPanel_assignment_assistant control.
+        /// TabPanel_alert control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_assignment_assistant;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_alert;
+        
+        /// <summary>
+        /// TabPanel_proposal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_proposal;
         
         /// <summary>
         /// PlaceHolder_content control.

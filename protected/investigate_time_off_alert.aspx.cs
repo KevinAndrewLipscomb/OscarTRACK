@@ -66,9 +66,6 @@ namespace investigate_time_off_alert
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - investigate_time_off_alert";
         Literal_name.Text = p.biz_members.FirstNameOfMemberId(p.incoming.member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(p.incoming.member_id);
         Literal_month.Text = DateTime.Now.AddMonths(p.incoming.relative_month.val).ToString("MMMM");
-        Literal_first_schedule_assignment_nominal_day_shift_name.Text = p.biz_schedule_assignments.MonthlessRenditionOfId(p.incoming.first_schedule_assignment_id);
-        Literal_second_schedule_assignment_nominal_day_shift_name.Text = p.biz_schedule_assignments.MonthlessRenditionOfId(p.incoming.second_schedule_assignment_id);
-        Literal_time_off.Text = p.incoming.time_off;
         //
         var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.incoming.member_id,p.incoming.relative_month);
         if (comment != k.EMPTY)
