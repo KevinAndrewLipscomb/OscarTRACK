@@ -1,6 +1,7 @@
 using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_user;
+using kix;
 using System;
 using System.Configuration;
 
@@ -30,9 +31,9 @@ namespace UserControl_availabilities
         HyperLink_surrogate.NavigateUrl = HyperLink_surrogate.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_vorps.NavigateUrl = HyperLink_vorps.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_more_stats.NavigateUrl = HyperLink_more_stats.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
-        Img_mortarboard.Src = Img_mortarboard.Src.Replace("$OSCAR",path_to_external_oscar);
+        Img_mortarboard.Src = k.ExpandTildePath(Img_mortarboard.Src);
         HyperLink_oscar_u.NavigateUrl = HyperLink_oscar_u.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
-        Img_trophy.Src = Img_trophy.Src.Replace("$OSCAR",path_to_external_oscar);
+        Img_trophy.Src = k.ExpandTildePath(Img_trophy.Src);
         HyperLink_class_act.NavigateUrl = HyperLink_class_act.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_request.NavigateUrl = HyperLink_request.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_reconfirm_or_retract.NavigateUrl = HyperLink_reconfirm_or_retract.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);

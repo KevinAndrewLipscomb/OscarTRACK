@@ -86,6 +86,8 @@
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\image\mortarboard.gif" />
+    <Content Include="protected\image\trophy-icon.gif" />
     <Content Include="protected\investigate_time_off_alert.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
