@@ -87,11 +87,11 @@ Remember, the above details apply to *next month*.  If any of the above details 
 
 FINALLY, personnel with required ambulance duties must submit availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
 
-   http://www.oscarsystem.com
+    http://<host_domain_name/>/<application_name/>
 
 Thanks for your continued service to Virginia Beach EMS!
 
--- <application_name/> (http://<host_domain_name/>/<application_name/>)
+-- <application_name/>
 
 
 P.S.:  Have you joined the BeachEMS YahooGroup?  Participate in citywide conversations, share photos, files, etc.  Just follow this link and click "Join This Group!".  If you don't already have a Yahoo! ID, just "Sign Up".  It's free and easy to use.  When joining, please tell the moderator your full name and which squad you run with:

@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_schedule_binder.ascx.cs" Inherits="UserControl_schedule_binder.TWebUserControl_schedule_binder"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_schedule_assignment_assistant_alert_binder.ascx.cs" Inherits="UserControl_schedule_assignment_assistant_alert_binder.TWebUserControl_schedule_assignment_assistant_alert_binder"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~binder.ascx-template -->
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
@@ -7,8 +7,7 @@
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
-            <cc1:TabPanel runat="server" headertext="Availabilities" id="TabPanel_availabilities" enabled="True"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Assignment assistant" id="TabPanel_assignment_assistant" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Time off" id="TabPanel_time_off" enabled="False"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

@@ -7,90 +7,72 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace investigate_time_off_alert {
+namespace UserControl_schedule_assignment_assistant_alert_time_off {
     
     
-    public partial class TWebForm_investigate_time_off_alert {
+    public partial class TWebUserControl_schedule_assignment_assistant_alert_time_off {
         
         /// <summary>
-        /// UserControl_precontent control.
+        /// Button_refresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
+        protected global::System.Web.UI.WebControls.Button Button_refresh;
         
         /// <summary>
-        /// Literal_name control.
+        /// TableData_agency_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_name;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_agency_filter;
         
         /// <summary>
-        /// Literal_month control.
+        /// DropDownList_agency_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_month;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_agency_filter;
         
         /// <summary>
-        /// Label_special_request_comment control.
+        /// DropDownList_release_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_special_request_comment;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_release_filter;
         
         /// <summary>
-        /// Button_cancel control.
+        /// RadioButtonList_which_month control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_cancel;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_which_month;
         
         /// <summary>
-        /// UpdatePanel_control control.
+        /// W control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        protected global::System.Web.UI.WebControls.DataGrid W;
         
         /// <summary>
-        /// DataGrid_control control.
+        /// TableRow_time_off_alert_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
-        
-        /// <summary>
-        /// UserControl_postcontent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
-        
-        /// <summary>
-        /// UserControl_update_progress_blocker_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_time_off_alert_none;
     }
 }

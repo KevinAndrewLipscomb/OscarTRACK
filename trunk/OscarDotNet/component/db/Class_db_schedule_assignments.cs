@@ -718,7 +718,7 @@ namespace Class_db_schedule_assignments
           +   " as num_excess_avails"
           + " from schedule_assignment"
           +   " join member on (member.id=schedule_assignment.member_id)"
-          + "   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
           +   " join enrollment_history on" 
           +     " (" 
