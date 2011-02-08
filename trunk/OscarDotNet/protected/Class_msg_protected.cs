@@ -22,6 +22,12 @@ namespace Class_msg_protected
       internal k.subtype<int> relative_month;
       internal string scheduler_agency_id = k.EMPTY;
       }
+    public class investigate_unusable_als_alert
+      {
+      internal string member_id = k.EMPTY;
+      internal k.subtype<int> relative_month;
+      internal string scheduler_agency_id = k.EMPTY;
+      }
     public class process_paypal_donation
       {
       internal string amount_donated = k.EMPTY;

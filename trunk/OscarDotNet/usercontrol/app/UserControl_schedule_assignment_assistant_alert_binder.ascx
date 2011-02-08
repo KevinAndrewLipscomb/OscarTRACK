@@ -7,7 +7,8 @@
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
-            <cc1:TabPanel runat="server" headertext="Time off" id="TabPanel_time_off" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Time off" id="TabPanel_time_off"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Unusable ALS" id="TabPanel_unusable_als" enabled="False"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

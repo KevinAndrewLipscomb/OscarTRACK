@@ -7,99 +7,72 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_member_binder {
+namespace UserControl_schedule_assignment_assistant_alert_unusable_als {
     
     
-    public partial class TWebUserControl_member_binder {
+    public partial class TWebUserControl_schedule_assignment_assistant_alert_unusable_als {
         
         /// <summary>
-        /// UpdatePanel_control control.
+        /// Button_refresh control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        protected global::System.Web.UI.WebControls.Button Button_refresh;
         
         /// <summary>
-        /// TabContainer_control control.
+        /// TableData_agency_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_agency_filter;
         
         /// <summary>
-        /// TabPanel_schedule control.
+        /// DropDownList_agency_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_schedule;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_agency_filter;
         
         /// <summary>
-        /// TabPanel_fleet control.
+        /// DropDownList_release_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_release_filter;
         
         /// <summary>
-        /// TabPanel_personnel control.
+        /// RadioButtonList_which_month control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_which_month;
         
         /// <summary>
-        /// TabPanel_funddrive control.
+        /// W control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_funddrive;
+        protected global::System.Web.UI.WebControls.DataGrid W;
         
         /// <summary>
-        /// TabPanel_dashboard control.
+        /// TableRow_unusable_als_alert_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_dashboard;
-        
-        /// <summary>
-        /// TabPanel_config control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_config;
-        
-        /// <summary>
-        /// TabPanel_about control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_about;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_unusable_als_alert_none;
     }
 }

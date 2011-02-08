@@ -8,12 +8,14 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_time_off;
+using UserControl_schedule_assignment_assistant_alert_unusable_als;
 
 namespace UserControl_schedule_assignment_assistant_alert_binder
   {
   public class UserControl_schedule_assignment_assistant_alert_binder_Static
     {
     public const int TSSI_TIME_OFF = 0;
+    public const int TSSI_UNUSABLE_ALS = 1;
     }
 
   public struct p_type
@@ -50,6 +52,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_alert_time_off)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_off.ascx"))), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNUSABLE_ALS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_alert_unusable_als)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unusable_als.ascx"))), "UserControl_schedule_assignment_assistant_alert_unusable_als", PlaceHolder_content);
           }
         }
       else
@@ -94,6 +100,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_alert_time_off)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_off.ascx"))).Fresh(), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNUSABLE_ALS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_alert_unusable_als)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unusable_als.ascx"))).Fresh(), "UserControl_schedule_assignment_assistant_alert_unusable_als", PlaceHolder_content);
         }
       }
 
