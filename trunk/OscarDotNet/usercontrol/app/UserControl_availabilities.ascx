@@ -25,10 +25,10 @@
       <br>
       <p>
         <asp:HyperLink id="HyperLink_oscar_u" runat="server" target="_blank" NavigateUrl="$OSCAR/training.phtml">
-          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="$OSCAR/doc/mortarboard.gif">&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
+          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="~/protected/image/mortarboard.gif">&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
       <p>
         <asp:HyperLink id="HyperLink_class_act" runat="server" target="_blank" NavigateUrl="$OSCAR/form-submit-class-act.phtml">
-          <img id="Img_trophy" runat="server" align="middle" border="1" src="$OSCAR/static-image/trophy-icon.gif">&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
+          <img id="Img_trophy" runat="server" align="middle" border="1" src="~/protected/image/trophy-icon.gif">&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
     </td>
   </tr>
   <tr>
