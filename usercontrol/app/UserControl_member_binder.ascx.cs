@@ -12,8 +12,8 @@ namespace UserControl_member_binder
 {
     public class UserControl_member_binder_Static
     {
-        public const int TSSI_FLEET = 0;
-        public const int TSSI_SCHEDULE = 1;
+        public const int TSSI_SCHEDULE = 0;
+        public const int TSSI_FLEET = 1;
         public const int TSSI_PERSONNEL = 2;
         public const int TSSI_FUNDDRIVE = 3;
         public const int TSSI_DASHBOARD = 4;
@@ -79,15 +79,15 @@ namespace UserControl_member_binder
             {
                 p.be_loaded = false;
                 p.biz_user = new TClass_biz_user();
-                if ((new ArrayList{"Department Fleet Coordinator","Department Street Supervisor","Squad Fleet Coordinator","Member"}).Contains(p.biz_user.Roles()[0]))
+                if ((new ArrayList{"Department Fleet Coordinator","Department Street Supervisor","Squad Fleet Coordinator"}).Contains(p.biz_user.Roles()[0]))
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_FLEET;
                   p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))).Fresh(), "UserControl_fleet", PlaceHolder_content);
                   }
                 else
                   {
-                  p.tab_index = UserControl_member_binder_Static.TSSI_PERSONNEL;
-                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);
+                  p.tab_index = UserControl_member_binder_Static.TSSI_SCHEDULE;
+                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "UserControl_schedule_binder", PlaceHolder_content);
                   }
             }
 

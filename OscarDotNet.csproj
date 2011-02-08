@@ -112,6 +112,7 @@
     <Content Include="usercontrol\app\UserControl_schedule_assignment.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_off.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_unusable_als.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_intro.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_binder.ascx" />
@@ -1036,6 +1037,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_off.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_alert_time_off.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_unusable_als.ascx.cs">
+      <DependentUpon>UserControl_schedule_assignment_assistant_alert_unusable_als.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_unusable_als.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_assignment_assistant_alert_unusable_als.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_binder.ascx.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_binder.ascx</DependentUpon>
