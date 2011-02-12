@@ -29,6 +29,10 @@ namespace member_schedule_detail
     public DateTime end_of_latest_unselected;
     public TClass_msg_protected.confirm_paypal_donation msg_protected_confirm_paypal_donation;
     public k.subtype<int> num;
+    public ArrayList arraylist_selected_day_avail;
+    public ArrayList arraylist_selected_night_avail;
+    public ArrayList arraylist_unselected_day_avail;
+    public ArrayList arraylist_unselected_night_avail;
     }
 
   public partial class TWebForm_member_schedule_detail: ki_web_ui.page_class
@@ -87,12 +91,17 @@ namespace member_schedule_detail
       var nature_of_visit = NatureOfVisit("member_schedule_detail.p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
-        p.be_interactive =  !(Session["mode:report"] != null);
         p.biz_availabilities = new TClass_biz_availabilities();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        //
+        p.be_interactive =  !(Session["mode:report"] != null);
         p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
         p.msg_protected_confirm_paypal_donation = new TClass_msg_protected.confirm_paypal_donation();
+        p.arraylist_selected_day_avail = new ArrayList();
+        p.arraylist_selected_night_avail = new ArrayList();
+        p.arraylist_unselected_day_avail = new ArrayList();
+        p.arraylist_unselected_night_avail = new ArrayList();
         p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,out p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
@@ -119,15 +128,18 @@ namespace member_schedule_detail
       {
       if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (Calendar_night.SelectedDate.Date >= DateTime.Now.Date))
         {
-        p.biz_schedule_assignments.Force(p.incoming.member_id,Calendar_day.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
+        p.biz_schedule_assignments.Force(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
         }
       Bind();
       }
 
     private void Bind()
       {
-      Calendar_day.SelectedDates.Clear();
-      Calendar_night.SelectedDates.Clear();
+      p.arraylist_selected_day_avail.Clear();
+      p.arraylist_selected_night_avail.Clear();
+      p.arraylist_unselected_day_avail.Clear();
+      p.arraylist_unselected_night_avail.Clear();
+      p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,out p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
       p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.scheduler_agency_id,DataGrid_control);
       }
 
@@ -151,11 +163,11 @@ namespace member_schedule_detail
           //
           if (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "DAY")
             {
-            Calendar_day.SelectedDates.Add(nominal_day);
+            p.arraylist_selected_day_avail.Add(nominal_day);
             }
           else if (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "NIGHT")
             {
-            Calendar_night.SelectedDates.Add(nominal_day);
+            p.arraylist_selected_night_avail.Add(nominal_day);
             }
           }
         else
@@ -167,6 +179,15 @@ namespace member_schedule_detail
           e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].ForeColor = Color.Gray;
           (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
           (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_LATER].Controls[0] as LinkButton).Text = k.EMPTY;
+          //
+          if (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "DAY")
+            {
+            p.arraylist_unselected_day_avail.Add(nominal_day);
+            }
+          else if (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "NIGHT")
+            {
+            p.arraylist_unselected_night_avail.Add(nominal_day);
+            }
           }
         //
         if (!be_selected || (DateTime.Parse(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_ON_DUTY].Text) < p.start_of_earliest_unselected))
@@ -210,6 +231,40 @@ namespace member_schedule_detail
         p.biz_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM));
         }
       Bind();
+      }
+
+    protected void Calendar_day_DayRender(object sender, DayRenderEventArgs e)
+      {
+      var be_selected_day_avail = p.arraylist_selected_day_avail.Contains(e.Day.Date);
+      var be_unselected_day_avail = p.arraylist_unselected_day_avail.Contains(e.Day.Date);
+      e.Day.IsSelectable = (e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (e.Day.Date >= DateTime.Now.Date) && (!be_selected_day_avail) && (!be_unselected_day_avail);
+      if (be_selected_day_avail)
+        {
+        e.Cell.ForeColor = Color.White;
+        e.Cell.BackColor = Color.Green;
+        }
+      else if (be_unselected_day_avail)
+        {
+        e.Cell.ForeColor = Color.Black;
+        e.Cell.BackColor = Color.PaleGreen;
+        }
+      }
+
+    protected void Calendar_night_DayRender(object sender, DayRenderEventArgs e)
+      {
+      var be_selected_night_avail = p.arraylist_selected_night_avail.Contains(e.Day.Date);
+      var be_unselected_night_avail = p.arraylist_unselected_night_avail.Contains(e.Day.Date);
+      e.Day.IsSelectable = (e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (e.Day.Date >= DateTime.Now.Date) && (!be_selected_night_avail) && (!be_unselected_night_avail);
+      if (be_selected_night_avail)
+        {
+        e.Cell.ForeColor = Color.White;
+        e.Cell.BackColor = Color.Green;
+        }
+      else if (be_unselected_night_avail)
+        {
+        e.Cell.ForeColor = Color.Black;
+        e.Cell.BackColor = Color.PaleGreen;
+        }
       }
 
     private void TWebForm_member_schedule_detail_PreRender(object sender, System.EventArgs e)
