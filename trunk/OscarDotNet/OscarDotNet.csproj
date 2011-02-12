@@ -88,7 +88,7 @@
     <Content Include="protected\gripe_sheet.aspx" />
     <Content Include="protected\image\mortarboard.gif" />
     <Content Include="protected\image\trophy-icon.gif" />
-    <Content Include="protected\investigate_time_off_alert.aspx" />
+    <Content Include="protected\member_schedule_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
@@ -529,12 +529,12 @@
     <Compile Include="protected\gripe_sheet.aspx.designer.cs">
       <DependentUpon>gripe_sheet.aspx</DependentUpon>
     </Compile>
-    <Compile Include="protected\investigate_time_off_alert.aspx.cs">
-      <DependentUpon>investigate_time_off_alert.aspx</DependentUpon>
+    <Compile Include="protected\member_schedule_detail.aspx.cs">
+      <DependentUpon>member_schedule_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="protected\investigate_time_off_alert.aspx.designer.cs">
-      <DependentUpon>investigate_time_off_alert.aspx</DependentUpon>
+    <Compile Include="protected\member_schedule_detail.aspx.designer.cs">
+      <DependentUpon>member_schedule_detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\leave_detail.aspx.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>

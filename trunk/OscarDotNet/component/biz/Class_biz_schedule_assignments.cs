@@ -103,6 +103,17 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void Force
+      (
+      string member_id,
+      DateTime nominal_day,
+      string shift_name,
+      string agency_id
+      )
+      {
+      db_schedule_assignments.Force(member_id,nominal_day,shift_name,agency_id);
+      }
+
     internal void GetInfoAboutMemberInMonth
       (
       string member_id,

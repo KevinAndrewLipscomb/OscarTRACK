@@ -20,6 +20,24 @@ namespace Class_db_schedule_assignments
       db_trail = new TClass_db_trail();
       }
 
+    internal void Force
+      (
+      string member_id,
+      DateTime nominal_day,
+      string shift_name,
+      string post_id
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        "insert ignore schedule_assignment set nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "', shift_id = (select id from shift where name = '" + shift_name + "'), post_id = '" + post_id + "', member_id = '" + member_id + "', be_selected = FALSE",
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";

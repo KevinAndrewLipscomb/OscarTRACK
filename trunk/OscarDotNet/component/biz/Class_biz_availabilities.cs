@@ -14,6 +14,15 @@ namespace Class_biz_availabilities
       db_availabilities = new TClass_db_availabilities();
       }
 
+    internal k.int_nonnegative NumExtraForMemberForMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month
+      )
+      {
+      return db_availabilities.NumExtraForMemberForMonth(member_id,DateTime.Now.AddMonths(relative_month.val).ToString("MMM"));
+      }
+
     internal string SpecialRequestCommentsForMemberForMonth
       (
       string member_id,

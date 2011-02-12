@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace investigate_time_off_alert {
+namespace member_schedule_detail {
     
     
-    public partial class TWebForm_investigate_time_off_alert {
+    public partial class TWebForm_member_schedule_detail {
         
         /// <summary>
         /// UserControl_precontent control.
@@ -40,6 +40,15 @@ namespace investigate_time_off_alert {
         protected global::System.Web.UI.WebControls.Literal Literal_month;
         
         /// <summary>
+        /// Literal_num_extra control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_num_extra;
+        
+        /// <summary>
         /// Label_special_request_comment control.
         /// </summary>
         /// <remarks>
@@ -49,13 +58,13 @@ namespace investigate_time_off_alert {
         protected global::System.Web.UI.WebControls.Label Label_special_request_comment;
         
         /// <summary>
-        /// Button_cancel control.
+        /// Button_done control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_cancel;
+        protected global::System.Web.UI.WebControls.Button Button_done;
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -74,6 +83,24 @@ namespace investigate_time_off_alert {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
+        
+        /// <summary>
+        /// Calendar_day control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar_day;
+        
+        /// <summary>
+        /// Calendar_night control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar_night;
         
         /// <summary>
         /// UserControl_postcontent control.

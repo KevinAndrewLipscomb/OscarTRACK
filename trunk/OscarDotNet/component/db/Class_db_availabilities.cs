@@ -9,6 +9,19 @@ namespace Class_db_availabilities
   public class TClass_db_availabilities: TClass_dboscar
     {
 
+    internal k.int_nonnegative NumExtraForMemberForMonth
+      (
+      string member_id,
+      string month_abbreviation
+      )
+      {
+      var num_extra_for_member_for_month = new k.int_nonnegative();
+      Open();
+      num_extra_for_member_for_month.val = int.Parse(new MySqlCommand("select num_extras from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection).ExecuteScalar().ToString());
+      Close();
+      return num_extra_for_member_for_month;
+      }
+
     internal string SpecialRequestCommentsForMemberForMonth
       (
       string member_id,

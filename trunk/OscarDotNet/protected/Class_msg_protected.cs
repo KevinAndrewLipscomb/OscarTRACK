@@ -16,7 +16,7 @@ namespace Class_msg_protected
       internal string num_priors = k.EMPTY;
       internal string avg_amount = k.EMPTY;
       }
-    public class investigate_time_off_alert
+    public class member_schedule_detail
       {
       internal string member_id = k.EMPTY;
       internal k.subtype<int> relative_month;
