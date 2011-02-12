@@ -21,7 +21,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_msg_protected.investigate_time_off_alert msg_protected_investigate_time_off_alert;
+    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_time_off_alert_datagrid_rows;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -90,7 +90,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
           {
           p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
-        p.msg_protected_investigate_time_off_alert = new TClass_msg_protected.investigate_time_off_alert();
+        p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_time_off_alert_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -188,10 +188,10 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      p.msg_protected_investigate_time_off_alert.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_TIME_OFF_ALERT_MEMBER_ID].Text,k.safe_hint_type.NUM);
-      p.msg_protected_investigate_time_off_alert.relative_month = p.relative_month;
-      p.msg_protected_investigate_time_off_alert.scheduler_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-      MessageDropCrumbAndTransferTo(p.msg_protected_investigate_time_off_alert,"protected","investigate_time_off_alert");
+      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_TIME_OFF_ALERT_MEMBER_ID].Text,k.safe_hint_type.NUM);
+      p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
+      p.msg_protected_member_schedule_detail.scheduler_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
     }
