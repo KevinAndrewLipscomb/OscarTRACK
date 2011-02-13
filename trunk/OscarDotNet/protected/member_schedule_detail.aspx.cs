@@ -50,9 +50,9 @@ namespace member_schedule_detail
       public const int TCI_SHIFT_POPULATION_CITYWIDE = 8;
       public const int TCI_SWAP_EARLIER = 9;
       public const int TCI_SWAP_LATER = 10;
-      public const int TCI_FORCE_OFF = 11;
-      public const int TCI_FORCE_ON = 12;
-      public const int TCI_OTHERS_AVAILABLE = 13;
+      public const int TCI_OTHERS_AVAILABLE = 11;
+      public const int TCI_FORCE_OFF = 12;
+      public const int TCI_FORCE_ON = 13;
       }
 
     private p_type p;
@@ -70,9 +70,10 @@ namespace member_schedule_detail
       {
       if (!IsPostBack)
         {
+        var month_of_interest = DateTime.Now.AddMonths(p.incoming.relative_month.val);
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - member_schedule_detail";
         Literal_name.Text = p.biz_members.FirstNameOfMemberId(p.incoming.member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(p.incoming.member_id);
-        Literal_month.Text = DateTime.Now.AddMonths(p.incoming.relative_month.val).ToString("MMMM");
+        Literal_month.Text = month_of_interest.ToString("MMMM");
         //
         Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.incoming.member_id,p.incoming.relative_month).val.ToString();
         var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.incoming.member_id,p.incoming.relative_month);
@@ -81,6 +82,9 @@ namespace member_schedule_detail
           Label_special_request_comment.Text = comment;
           Label_special_request_comment.Font.Italic = true;
           }
+        //
+        Calendar_day.VisibleDate = month_of_interest;
+        Calendar_night.VisibleDate = month_of_interest;
         //
         Bind();
         }
@@ -148,7 +152,6 @@ namespace member_schedule_detail
 
     protected void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
-      //LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
@@ -216,9 +219,15 @@ namespace member_schedule_detail
         {
         if (be_any_kind_of_item)
           {
-          //link_button = ((e.Item.Cells[UserControl_template_datagrid_sortable_Static.TCI_SELECT].Controls[0]) as LinkButton);
-          //link_button.Text = k.ExpandTildePath(link_button.Text);
-          //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          LinkButton link_button;
+          link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_ON].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
           //
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.

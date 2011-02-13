@@ -69,20 +69,20 @@
                           <ASP:BoundColumn datafield="shift_population_citywide" HeaderText="Crews citywide" DataFormatString="{0:F1}">
                             <ItemStyle HorizontalAlign="Center" />
                           </ASP:BoundColumn>
-                          <ASP:ButtonColumn text="Earlier" commandname="Earlier" HeaderText="SWAP">
+                          <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/go-up-4.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Earlier" HeaderText="SWAP">
                             <HeaderStyle HorizontalAlign="Right" />
                             <ItemStyle HorizontalAlign="Right" />
                           </ASP:ButtonColumn>
-                          <ASP:ButtonColumn text="Later" commandname="Later"></ASP:ButtonColumn>
-                          <ASP:ButtonColumn text="-!" commandname="ForceOff" HeaderText="FORCE">
-                            <HeaderStyle HorizontalAlign="Right" />
-                            <ItemStyle HorizontalAlign="Right" />
-                          </ASP:ButtonColumn>
-                          <ASP:ButtonColumn text="+!" commandname="ForceOn"></ASP:ButtonColumn>
+                          <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/go-down-4.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Later"></ASP:ButtonColumn>
                           <ASP:BoundColumn datafield="others_available" HeaderText="Other squad members available">
                             <HeaderStyle HorizontalAlign="Left" />
-                            <ItemStyle Font-Size="X-Small" />
+                            <ItemStyle Font-Size="Small" />
                           </ASP:BoundColumn>
+                          <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/list-remove-4.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="ForceOff" HeaderText="FORCE">
+                            <HeaderStyle HorizontalAlign="Right" />
+                            <ItemStyle HorizontalAlign="Right" />
+                          </ASP:ButtonColumn>
+                          <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/list-add-4.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="ForceOn"></ASP:ButtonColumn>
                         </Columns>
                       </ASP:DataGrid>
                       <br/>
