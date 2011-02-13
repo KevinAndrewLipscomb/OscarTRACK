@@ -70,7 +70,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       if (Session["UserControl_schedule_assignment_assistant_alert_time_off.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_alert_time_off.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_time_off");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_time_off");
         }
       else
         {
