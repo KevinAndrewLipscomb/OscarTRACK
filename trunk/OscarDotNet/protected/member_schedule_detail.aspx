@@ -79,6 +79,10 @@
                             <ItemStyle HorizontalAlign="Right" />
                           </ASP:ButtonColumn>
                           <ASP:ButtonColumn text="+!" commandname="ForceOn"></ASP:ButtonColumn>
+                          <ASP:BoundColumn datafield="others_available" HeaderText="Other squad members available">
+                            <HeaderStyle HorizontalAlign="Left" />
+                            <ItemStyle Font-Size="X-Small" />
+                          </ASP:BoundColumn>
                         </Columns>
                       </ASP:DataGrid>
                       <br/>

@@ -52,6 +52,7 @@ namespace member_schedule_detail
       public const int TCI_SWAP_LATER = 10;
       public const int TCI_FORCE_OFF = 11;
       public const int TCI_FORCE_ON = 12;
+      public const int TCI_OTHERS_AVAILABLE = 13;
       }
 
     private p_type p;
