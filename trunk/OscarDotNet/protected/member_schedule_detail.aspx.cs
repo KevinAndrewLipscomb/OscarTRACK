@@ -48,8 +48,10 @@ namespace member_schedule_detail
       public const int TCI_TIME_OFF = 6;
       public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 7;
       public const int TCI_SHIFT_POPULATION_CITYWIDE = 8;
-      public const int TCI_CHANGE_SELECTION_EARLIER = 9;
-      public const int TCI_CHANGE_SELECTION_LATER = 10;
+      public const int TCI_SWAP_EARLIER = 9;
+      public const int TCI_SWAP_LATER = 10;
+      public const int TCI_FORCE_OFF = 11;
+      public const int TCI_FORCE_ON = 12;
       }
 
     private p_type p;
@@ -119,7 +121,7 @@ namespace member_schedule_detail
       {
       if ((Calendar_day.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (Calendar_day.SelectedDate.Date >= DateTime.Now.Date))
         {
-        p.biz_schedule_assignments.Force(p.incoming.member_id,Calendar_day.SelectedDate,"DAY",p.incoming.scheduler_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_day.SelectedDate,"DAY",p.incoming.scheduler_agency_id);
         }
       Bind();
       }
@@ -128,7 +130,7 @@ namespace member_schedule_detail
       {
       if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (Calendar_night.SelectedDate.Date >= DateTime.Now.Date))
         {
-        p.biz_schedule_assignments.Force(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
         }
       Bind();
       }
@@ -177,8 +179,8 @@ namespace member_schedule_detail
           e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_TIME_OFF].ForeColor = Color.Gray;
           e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].ForeColor = Color.Gray;
           e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].ForeColor = Color.Gray;
-          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
-          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_LATER].Controls[0] as LinkButton).Text = k.EMPTY;
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0] as LinkButton).Text = k.EMPTY;
           //
           if (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "DAY")
             {
@@ -192,11 +194,20 @@ namespace member_schedule_detail
         //
         if (!be_selected || (DateTime.Parse(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_ON_DUTY].Text) < p.start_of_earliest_unselected))
           {
-          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         if (!be_selected || (DateTime.Parse(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_OFF_DUTY].Text) > p.end_of_latest_unselected))
           {
-          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_CHANGE_SELECTION_LATER].Controls[0] as LinkButton).Text = k.EMPTY;
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0] as LinkButton).Text = k.EMPTY;
+          }
+        //
+        if (be_selected)
+          {
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_ON].Controls[0] as LinkButton).Text = k.EMPTY;
+          }
+        else
+          {
+          (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         //
         }
@@ -230,6 +241,14 @@ namespace member_schedule_detail
         {
         p.biz_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM));
         }
+      else if (e.CommandName == "ForceOn")
+        {
+        p.biz_schedule_assignments.ForceSelection(k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),true);
+        }
+      else if (e.CommandName == "ForceOff")
+        {
+        p.biz_schedule_assignments.ForceSelection(k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),false);
+        }
       Bind();
       }
 
@@ -237,7 +256,11 @@ namespace member_schedule_detail
       {
       var be_selected_day_avail = p.arraylist_selected_day_avail.Contains(e.Day.Date);
       var be_unselected_day_avail = p.arraylist_unselected_day_avail.Contains(e.Day.Date);
-      e.Day.IsSelectable = (e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (e.Day.Date >= DateTime.Now.Date) && (!be_selected_day_avail) && (!be_unselected_day_avail);
+      if ((e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (!be_selected_day_avail) && (!be_unselected_day_avail))
+        {
+        e.Cell.ForeColor = Color.Blue;
+        e.Day.IsSelectable = true;
+        }
       if (be_selected_day_avail)
         {
         e.Cell.ForeColor = Color.White;
@@ -254,7 +277,11 @@ namespace member_schedule_detail
       {
       var be_selected_night_avail = p.arraylist_selected_night_avail.Contains(e.Day.Date);
       var be_unselected_night_avail = p.arraylist_unselected_night_avail.Contains(e.Day.Date);
-      e.Day.IsSelectable = (e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (e.Day.Date >= DateTime.Now.Date) && (!be_selected_night_avail) && (!be_unselected_night_avail);
+      if ((e.Day.Date.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (!be_selected_night_avail) && (!be_unselected_night_avail))
+        {
+        e.Cell.ForeColor = Color.Blue;
+        e.Day.IsSelectable = true;
+        }
       if (be_selected_night_avail)
         {
         e.Cell.ForeColor = Color.White;
