@@ -76,6 +76,38 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.Delete(id);
       }
 
+    internal void ForceAvail
+      (
+      string member_id,
+      DateTime nominal_day,
+      string shift_name,
+      string agency_id
+      )
+      {
+      db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id);
+      }
+
+    internal void ForceSelection
+      (
+      string id,
+      bool be_selected
+      )
+      {
+      db_schedule_assignments.ForceSelection(id,be_selected);
+      }
+
+    internal void GetInfoAboutMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      out k.subtype<int> num,
+      out DateTime earliest_unselected,
+      out DateTime latest_unselected
+      )
+      {
+      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,out num,out earliest_unselected,out latest_unselected);
+      }
+
     public bool Get
       (
       string id,
@@ -101,29 +133,6 @@ namespace Class_biz_schedule_assignments
         out be_selected,
         out comment
         );
-      }
-
-    internal void Force
-      (
-      string member_id,
-      DateTime nominal_day,
-      string shift_name,
-      string agency_id
-      )
-      {
-      db_schedule_assignments.Force(member_id,nominal_day,shift_name,agency_id);
-      }
-
-    internal void GetInfoAboutMemberInMonth
-      (
-      string member_id,
-      k.subtype<int> relative_month,
-      out k.subtype<int> num,
-      out DateTime earliest_unselected,
-      out DateTime latest_unselected
-      )
-      {
-      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,out num,out earliest_unselected,out latest_unselected);
       }
 
     internal string MonthlessRenditionOfId(string id)

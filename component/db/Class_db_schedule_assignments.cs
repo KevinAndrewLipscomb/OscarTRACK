@@ -20,24 +20,6 @@ namespace Class_db_schedule_assignments
       db_trail = new TClass_db_trail();
       }
 
-    internal void Force
-      (
-      string member_id,
-      DateTime nominal_day,
-      string shift_name,
-      string post_id
-      )
-      {
-      Open();
-      new MySqlCommand
-        (
-        "insert ignore schedule_assignment set nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "', shift_id = (select id from shift where name = '" + shift_name + "'), post_id = '" + post_id + "', member_id = '" + member_id + "', be_selected = FALSE",
-        connection
-        )
-        .ExecuteNonQuery();
-      Close();
-      }
-
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";
@@ -523,6 +505,43 @@ namespace Class_db_schedule_assignments
         }
       this.Close();
       return result;
+      }
+
+    internal void ForceAvail
+      (
+      string member_id,
+      DateTime nominal_day,
+      string shift_name,
+      string post_id
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "insert ignore schedule_assignment set nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'"
+          + " , shift_id = (select id from shift where name = '" + shift_name + "')"
+          + " , post_id = '" + post_id + "'"
+          + " , member_id = '" + member_id + "'"
+          + " , be_selected = FALSE"
+          + " , be_new = FALSE"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
+    internal void ForceSelection
+      (
+      string id,
+      bool be_selected
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + " where id = '" + id + "'"),connection).ExecuteNonQuery();
+      Close();
       }
 
     public bool Get
@@ -1199,7 +1218,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')",connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
@@ -1240,7 +1259,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')",connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
