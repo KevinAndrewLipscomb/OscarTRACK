@@ -184,6 +184,15 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void SetComment
+      (
+      string id,
+      string comment
+      )
+      {
+      db_schedule_assignments.SetComment(id,comment);
+      }
+
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
       db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id);

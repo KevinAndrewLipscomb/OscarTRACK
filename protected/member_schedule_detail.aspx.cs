@@ -42,17 +42,19 @@ namespace member_schedule_detail
       public const int TCI_SCHEDULE_ASSIGNMENT_ID = 0;
       public const int TCI_NOMINAL_DAY = 1;
       public const int TCI_SHIFT_NAME = 2;
-      public const int TCI_BE_SELECTED = 3;
-      public const int TCI_ON_DUTY = 4;
-      public const int TCI_OFF_DUTY = 5;
-      public const int TCI_TIME_OFF = 6;
-      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 7;
-      public const int TCI_SHIFT_POPULATION_CITYWIDE = 8;
-      public const int TCI_SWAP_EARLIER = 9;
-      public const int TCI_SWAP_LATER = 10;
-      public const int TCI_OTHERS_AVAILABLE = 11;
-      public const int TCI_FORCE_OFF = 12;
-      public const int TCI_FORCE_ON = 13;
+      public const int TCI_COMMENT = 3;
+      public const int TCI_COMMENT_EDIT_UPDATE_CANCEL = 4;
+      public const int TCI_BE_SELECTED = 5;
+      public const int TCI_ON_DUTY = 6;
+      public const int TCI_OFF_DUTY = 7;
+      public const int TCI_TIME_OFF = 8;
+      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 9;
+      public const int TCI_SHIFT_POPULATION_CITYWIDE = 10;
+      public const int TCI_SWAP_EARLIER = 11;
+      public const int TCI_SWAP_LATER = 12;
+      public const int TCI_OTHERS_AVAILABLE = 13;
+      public const int TCI_FORCE_OFF = 14;
+      public const int TCI_FORCE_ON = 15;
       }
 
     private p_type p;
@@ -63,7 +65,15 @@ namespace member_schedule_detail
     // / </summary>
     private void InitializeComponent()
       {
+      DataGrid_control.CancelCommand += new DataGridCommandEventHandler(DataGrid_control_CancelCommand);
+      DataGrid_control.EditCommand += new DataGridCommandEventHandler(DataGrid_control_EditCommand);
+      DataGrid_control.UpdateCommand += new DataGridCommandEventHandler(DataGrid_control_UpdateCommand);
       PreRender += TWebForm_member_schedule_detail_PreRender;
+      }
+
+    private void InjectPersistentClientSideScript()
+      {
+      EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
@@ -87,6 +97,8 @@ namespace member_schedule_detail
         Calendar_night.VisibleDate = month_of_interest;
         //
         Bind();
+        //
+        InjectPersistentClientSideScript();
         }
       }
 
@@ -220,14 +232,40 @@ namespace member_schedule_detail
         if (be_any_kind_of_item)
           {
           LinkButton link_button;
+          var comment_edit_update_cancel_controls = e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls;
+          if (comment_edit_update_cancel_controls.Count == 1)
+            {
+            link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
+            link_button.Text = k.ExpandTildePath(link_button.Text);
+            link_button.ToolTip = "Edit comment";
+            }
+          else
+            {
+            link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
+            link_button.Text = k.ExpandTildePath(link_button.Text);
+            link_button.ToolTip = "Save edit";
+            // Skip comment_edit_update_cancel_controls[1].  It's a literal spacer.
+            link_button = (comment_edit_update_cancel_controls[2] as LinkButton);
+            link_button.Text = k.ExpandTildePath(link_button.Text);
+            link_button.ToolTip = "Cancel edit";
+            //
+            ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 9;
+            ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 9;
+            ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
+              ("onkeydown","if (event.keyCode == 13) El('" + e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls[0].ClientID + "').click();");
+            }
           link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Swap with earlier availability";
           link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Swap with later availability";
           link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Force off";
           link_button = ((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_ON].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Force on";
           //
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
@@ -259,6 +297,26 @@ namespace member_schedule_detail
         {
         p.biz_schedule_assignments.ForceSelection(k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),false);
         }
+      Bind();
+      }
+
+    private void DataGrid_control_UpdateCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+      {
+      p.biz_schedule_assignments.SetComment
+        (k.Safe(e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe(((e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Text,k.safe_hint_type.DATE_TIME));
+      DataGrid_control.EditItemIndex =  -1;
+      Bind();
+      }
+
+    private void DataGrid_control_CancelCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+      {
+      DataGrid_control.EditItemIndex =  -1;
+      Bind();
+      }
+
+    private void DataGrid_control_EditCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+      {
+      DataGrid_control.EditItemIndex = e.Item.ItemIndex;
       Bind();
       }
 
