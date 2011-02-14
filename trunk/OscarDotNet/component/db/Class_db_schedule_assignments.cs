@@ -426,6 +426,7 @@ namespace Class_db_schedule_assignments
         "select schedule_assignment_id"
         + " , nominal_day"
         + " , shift_name"
+        + " , comment"
         + " , be_selected"
         + " , on_duty"
         + " , off_duty"
@@ -438,6 +439,7 @@ namespace Class_db_schedule_assignments
         +   " select schedule_assignment_id"
         +   " , nominal_day"
         +   " , shift_name"
+        +   " , comment"
         +   " , be_selected"
         +   " , IF(be_selected,@on_duty := on_duty,NULL) as on_duty"
         +   " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty,@on_duty),NULL) as time_off"
@@ -452,6 +454,7 @@ namespace Class_db_schedule_assignments
         +     " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
         +     " , shift_id"
         +     " , shift.name as shift_name"
+        +     " , comment"
         +     " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
         +     " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
         +     " , be_selected"
@@ -1189,6 +1192,17 @@ namespace Class_db_schedule_assignments
         )
         .ExecuteNonQuery();
       this.Close();
+      }
+
+    internal void SetComment
+      (
+      string id,
+      string comment
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      Close();
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
