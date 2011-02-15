@@ -117,6 +117,19 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
       return this;
       }
 
+    internal void SetFilter
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      p.agency_filter = agency_filter;
+      p.release_filter = release_filter;
+      p.relative_month = relative_month;
+      Bind();
+      }
+
     protected void Button_refresh_Click(object sender, System.EventArgs e)
       {
       Bind();

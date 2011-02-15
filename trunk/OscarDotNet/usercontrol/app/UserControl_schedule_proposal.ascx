@@ -13,18 +13,6 @@
             <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
               <tr>
                 <td align="right"><b><small>Filters:</small></b></td>
-                <td id="TableData_agency_filter" runat="server" align="center">
-                  <small>Agency</small><br/>
-                  <asp:DropDownList ID="DropDownList_agency_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_agency_filter_SelectedIndexChanged"></asp:DropDownList>
-                </td>
-                <td align="center" nowrap="nowrap">
-                  <small>Release level</small><br/>
-                  <ASP:DropDownList id="DropDownList_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_release_filter_SelectedIndexChanged">
-                    <ASP:ListItem value="" selected="True">All</ASP:ListItem>
-                    <ASP:ListItem value="1">Released</ASP:ListItem>
-                    <ASP:ListItem value="0">Not released</ASP:ListItem>
-                  </ASP:DropDownList>
-   							</td>
                 <td align="center" nowrap="nowrap">
                   <small>Depth</small><br/>
                   <ASP:DropDownList id="DropDownList_depth" runat="server" autopostback="True" onselectedindexchanged="DropDownList_depth_SelectedIndexChanged">
@@ -33,12 +21,6 @@
                     <ASP:ListItem value="0">Not selected</ASP:ListItem>
                   </ASP:DropDownList>
    							</td>
-                <td nowrap="nowrap" align="left">
-                  <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" Font-Size="Smaller" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged">
-                    <asp:ListItem Value="0" Selected="True">This&nbsp;month</asp:ListItem>
-                    <asp:ListItem Value="1">Next&nbsp;month</asp:ListItem>
-                  </asp:RadioButtonList>
-                </td>
               </tr>
             </table>
             <table cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
