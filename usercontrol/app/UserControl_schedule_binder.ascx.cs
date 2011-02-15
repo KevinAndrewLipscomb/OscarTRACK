@@ -37,6 +37,7 @@ namespace UserControl_schedule_binder
           {
           TabPanel_assignment_assistant.Enabled = true;
           }
+        TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
       }

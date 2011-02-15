@@ -22,6 +22,42 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
+        /// TableData_agency_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_agency_filter;
+        
+        /// <summary>
+        /// DropDownList_agency_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_agency_filter;
+        
+        /// <summary>
+        /// DropDownList_release_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_release_filter;
+        
+        /// <summary>
+        /// RadioButtonList_which_month control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_which_month;
+        
+        /// <summary>
         /// TabContainer_control control.
         /// </summary>
         /// <remarks>

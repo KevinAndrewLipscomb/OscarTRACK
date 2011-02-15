@@ -1,4 +1,3 @@
-using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_msg_protected;
@@ -16,9 +15,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
     public string agency_filter;
     public bool be_interactive;
     public bool be_loaded;
-    public bool be_user_privileged_to_see_all_squads;
     public bool be_time_off_alert_datagrid_empty;
-    public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
@@ -49,11 +46,6 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       {
       if (!p.be_loaded)
         {
-        p.biz_agencies.BindListControlShort(DropDownList_agency_filter);
-        DropDownList_agency_filter.SelectedValue = p.agency_filter;
-        DropDownList_release_filter.SelectedValue = p.release_filter;
-        RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
-        RadioButtonList_which_month.Enabled = p.biz_schedule_assignments.BeOkToWorkOnNextMonth();
         //
         p.biz_schedule_assignments.Update(p.relative_month.val.ToString());
         Bind();
@@ -76,20 +68,10 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         {
         p.be_loaded = false;
         //
-        p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.be_interactive = !(Session["mode:report"] != null);
-        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        if (p.be_user_privileged_to_see_all_squads)
-          {
-          p.agency_filter = k.EMPTY;
-          }
-        else
-          {
-          p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-          }
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_time_off_alert_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
@@ -117,27 +99,21 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       return this;
       }
 
+    internal void SetFilter
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      p.agency_filter = agency_filter;
+      p.release_filter = release_filter;
+      p.relative_month = relative_month;
+      Bind();
+      }
+
     protected void Button_refresh_Click(object sender, System.EventArgs e)
       {
-      Bind();
-      }
-
-    protected void DropDownList_agency_filter_SelectedIndexChanged(object sender, System.EventArgs e)
-      {
-      p.agency_filter = k.Safe(DropDownList_agency_filter.SelectedValue,k.safe_hint_type.NUM);
-      Bind();
-      }
-
-    protected void DropDownList_release_filter_SelectedIndexChanged(object sender, EventArgs e)
-      {
-      p.release_filter = k.Safe(DropDownList_release_filter.SelectedValue,k.safe_hint_type.NUM);
-      Bind();
-      }
-
-    protected void RadioButtonList_which_month_SelectedIndexChanged(object sender, System.EventArgs e)
-      {
-      p.relative_month.val = int.Parse(k.Safe(RadioButtonList_which_month.SelectedValue,k.safe_hint_type.NUM));
-      p.biz_schedule_assignments.Update(p.relative_month.val.ToString());
       Bind();
       }
 
