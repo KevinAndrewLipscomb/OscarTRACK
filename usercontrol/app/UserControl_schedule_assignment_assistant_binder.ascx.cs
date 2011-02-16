@@ -141,6 +141,12 @@ namespace UserControl_schedule_assignment_assistant_binder
       return this;
       }
 
+    protected void Button_refresh_Click(object sender, System.EventArgs e)
+      {
+      p.biz_schedule_assignments.Update(p.relative_month.val.ToString());
+      Bind();
+      }
+
     protected void DropDownList_agency_filter_SelectedIndexChanged(object sender, System.EventArgs e)
       {
       p.agency_filter = k.Safe(DropDownList_agency_filter.SelectedValue,k.safe_hint_type.NUM);

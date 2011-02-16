@@ -31,6 +31,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
+        /// Button_refresh control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_refresh;
+        
+        /// <summary>
         /// TableData_agency_filter control.
         /// </summary>
         /// <remarks>

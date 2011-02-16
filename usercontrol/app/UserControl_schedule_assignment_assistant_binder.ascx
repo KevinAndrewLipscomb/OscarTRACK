@@ -14,6 +14,7 @@
               <td align="center">
                 <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
                   <tr>
+                    <td><asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" /></td>
                     <td align="right"><b><small>Filters:</small></b></td>
                     <td id="TableData_agency_filter" runat="server" align="center">
                       <small>Agency</small><br/>
