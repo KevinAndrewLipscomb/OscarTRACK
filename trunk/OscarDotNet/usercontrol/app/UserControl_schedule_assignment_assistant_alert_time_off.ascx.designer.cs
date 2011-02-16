@@ -13,15 +13,6 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off {
     public partial class TWebUserControl_schedule_assignment_assistant_alert_time_off {
         
         /// <summary>
-        /// Button_refresh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_refresh;
-        
-        /// <summary>
         /// W control.
         /// </summary>
         /// <remarks>
@@ -31,12 +22,12 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off {
         protected global::System.Web.UI.WebControls.DataGrid W;
         
         /// <summary>
-        /// TableRow_time_off_alert_none control.
+        /// TableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_time_off_alert_none;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
     }
 }

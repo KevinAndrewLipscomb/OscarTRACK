@@ -112,11 +112,6 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       Bind();
       }
 
-    protected void Button_refresh_Click(object sender, System.EventArgs e)
-      {
-      Bind();
-      }
-
     private void Bind()
       {
       p.biz_members.BindSpecialRequestBaseDataList(p.sort_order,p.be_sort_order_ascending,Q,p.agency_filter,p.release_filter,p.relative_month);

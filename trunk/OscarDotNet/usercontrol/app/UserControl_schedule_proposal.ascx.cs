@@ -76,7 +76,6 @@ namespace UserControl_schedule_proposal
         DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         //
-        p.biz_schedule_assignments.Update(p.relative_month.val.ToString());
         Bind();
         //
         p.be_loaded = true;
@@ -148,11 +147,6 @@ namespace UserControl_schedule_proposal
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
       p.relative_month = relative_month;
-      Bind();
-      }
-
-    protected void Button_refresh_Click(object sender, System.EventArgs e)
-      {
       Bind();
       }
 

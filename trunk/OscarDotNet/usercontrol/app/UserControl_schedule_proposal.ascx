@@ -2,9 +2,6 @@
   Inherits="UserControl_schedule_proposal.TWebUserControl_schedule_proposal" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <table cellspacing="0" cellpadding="10" width="100%" border="0">
-  <tr>
-    <td><asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" /></td>
-  </tr>
   <tr bgcolor="#f5f5f5">
     <td>
       <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" width="100%">

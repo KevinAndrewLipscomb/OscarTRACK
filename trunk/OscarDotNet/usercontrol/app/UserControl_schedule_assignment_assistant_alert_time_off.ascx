@@ -3,9 +3,6 @@
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <table cellspacing="0" cellpadding="10" border="0">
   <tr>
-    <td><asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" /></td>
-  </tr>
-  <tr>
     <td>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
         <tr>
@@ -37,7 +34,7 @@
                   </asp:datagrid>
                 </td>
               </tr>
-              <tr id="TableRow_time_off_alert_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
+              <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             </table>
           </td>
         </tr>

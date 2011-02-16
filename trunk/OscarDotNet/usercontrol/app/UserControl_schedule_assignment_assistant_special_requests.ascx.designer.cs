@@ -13,15 +13,6 @@ namespace UserControl_schedule_assignment_assistant_special_requests {
     public partial class TWebUserControl_schedule_assignment_assistant_special_requests {
         
         /// <summary>
-        /// Button_refresh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_refresh;
-        
-        /// <summary>
         /// Q control.
         /// </summary>
         /// <remarks>

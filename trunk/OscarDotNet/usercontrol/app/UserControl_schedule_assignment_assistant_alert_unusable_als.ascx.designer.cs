@@ -13,51 +13,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als {
     public partial class TWebUserControl_schedule_assignment_assistant_alert_unusable_als {
         
         /// <summary>
-        /// Button_refresh control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_refresh;
-        
-        /// <summary>
-        /// TableData_agency_filter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_agency_filter;
-        
-        /// <summary>
-        /// DropDownList_agency_filter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_agency_filter;
-        
-        /// <summary>
-        /// DropDownList_release_filter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_release_filter;
-        
-        /// <summary>
-        /// RadioButtonList_which_month control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_which_month;
-        
-        /// <summary>
         /// W control.
         /// </summary>
         /// <remarks>
@@ -67,12 +22,12 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als {
         protected global::System.Web.UI.WebControls.DataGrid W;
         
         /// <summary>
-        /// TableRow_unusable_als_alert_none control.
+        /// TableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_unusable_als_alert_none;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
     }
 }

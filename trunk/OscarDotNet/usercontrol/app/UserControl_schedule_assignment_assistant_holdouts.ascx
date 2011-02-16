@@ -3,9 +3,6 @@
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <table cellspacing="0" cellpadding="10" border="0">
   <tr>
-    <td><asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" /></td>
-  </tr>
-  <tr>
     <td>
       <p>The following members have not submitted availabilities for the selected month:</p>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
@@ -71,11 +68,12 @@
 				      <tr>
 					      <td valign="top">Body:</td>
 					      <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="72" rows="18" textmode="MultiLine"></ASP:TextBox></td>
-					      <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body">!ERR!</ASP:RequiredFieldValidator></td>
+					      <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" 
+                    ValidationGroup="QuickMessage">!ERR!</ASP:RequiredFieldValidator></td>
 				      </tr>
 				      <tr>
 					      <td></td>
-					      <td><ASP:Button id="Button_send" runat="server" text="Send" onclick="Button_send_Click"></ASP:Button></td>
+					      <td><ASP:Button id="Button_send" runat="server" text="Send" onclick="Button_send_Click" ValidationGroup="QuickMessage"></ASP:Button></td>
 					      <td></td>
 				      </tr>
 			      </table>
