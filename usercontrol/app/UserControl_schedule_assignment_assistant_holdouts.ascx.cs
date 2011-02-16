@@ -1,9 +1,9 @@
 using Class_biz_members;
-using Class_msg_protected;
+using Class_biz_user;
 using kix;
 using System;
 using System.Collections;
-using System.Web.UI;
+using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_assignment_assistant_holdouts
@@ -17,6 +17,8 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_interactive;
     public bool be_loaded;
     public TClass_biz_members biz_members;
+    public TClass_biz_user biz_user;
+    public string distribution_list;
     public uint num_datagrid_rows;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -41,6 +43,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       if (!p.be_loaded)
         {
         Bind();
+        Literal_author_email_address.Text = p.biz_user.EmailAddress();
         p.be_loaded = true;
         }
       }
@@ -60,10 +63,12 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
         p.be_sort_order_ascending = true;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.distribution_list = k.EMPTY;
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -111,8 +116,10 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     private void Bind()
       {
+      p.distribution_list = k.EMPTY;
       p.biz_members.BindHoldoutsBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
+      Literal_num_members.Text = p.num_datagrid_rows.ToString();
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       p.num_datagrid_rows = 0;
@@ -123,6 +130,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
+        p.distribution_list += k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
         p.num_datagrid_rows++;
         }
       if (p.be_interactive)
@@ -140,7 +148,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         }
       }
 
-    private void DataGrid_control_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+    protected void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
       {
       if (e.SortExpression == p.sort_order)
         {
@@ -152,6 +160,26 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.be_sort_order_ascending = true;
         }
       DataGrid_control.EditItemIndex =  -1;
+      Bind();
+      }
+
+    protected void Button_send_Click(object sender, System.EventArgs e)
+      {
+      k.SmtpMailSend
+        (
+        ConfigurationManager.AppSettings["sender_email_address"],
+        p.distribution_list.Trim(new char[] {Convert.ToChar(k.COMMA)}),
+        TextBox_quick_message_subject.Text,
+         "-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
+        false,
+        k.EMPTY,
+        p.biz_user.EmailAddress(),
+        p.biz_user.EmailAddress()
+        );
+      TextBox_quick_message_subject.Text = k.EMPTY;
+      TextBox_quick_message_body.Text = k.EMPTY;
+      Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
+      // Apparently we must call RegisterPostBackControl on all the linkbuttons again.
       Bind();
       }
 
