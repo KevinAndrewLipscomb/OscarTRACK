@@ -264,6 +264,87 @@ namespace Class_db_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
+    internal void BindHoldoutsBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending, 
+      object target,
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var filter = "where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      + " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,num_shifts)"
+      + " and member.id not in (select odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "' and odnmid is not null)";
+      if (agency_filter != k.EMPTY)
+        {
+        filter += " and agency_id = '" + agency_filter + "'";
+        }
+      if (release_filter == "1")
+        {
+        filter += " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        filter += " and medical_release_code_description_map.pecking_order < 20";
+        }
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select concat(member.first_name,' ',member.last_name) as name"
+        + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , member.email_address"
+        + " , member.phone_num"
+        + " from member"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join enrollment_history on"
+        +     " ("
+        +       " enrollment_history.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH))"
+        +       " and"
+        +         " ("
+        +           " (enrollment_history.end_date is null)"
+        +         " or"
+        +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+        +   " left join leave_of_absence on"
+        +     " ("
+        +       " leave_of_absence.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (leave_of_absence.start_date is null)"
+        +       " or"
+        +         " ("
+        +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH))"
+        +         " and"
+        +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        + filter
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             string from_where_phrase;

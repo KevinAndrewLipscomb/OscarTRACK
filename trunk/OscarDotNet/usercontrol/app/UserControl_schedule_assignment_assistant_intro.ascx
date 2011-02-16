@@ -3,18 +3,20 @@
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">
   <tr>
     <td>
-      <table cellspacing="0" cellpadding="10" width="100%" border="0">
+      <table cellspacing="0" cellpadding="5" width="100%" border="0">
         <tr bgcolor="#f5f5f5"><td><strong>The <i>Schedule Assignment Assistant</i> is a work in progress.</strong></td></tr>
         <tr>
           <td>
-            <p>Currently, it does the following, in this order:</p>
-            <ol>
-              <li><p>Loads new availabilities submitted by members;</p></li>
-              <li><p>Accounts for member flexibility and shift popularity;</p></li>
-              <li><p>Corrects imbalances based on need;</p></li>
-              <li><p>Gives EMT Interns and Trainees the minimum intended number of shifts;</p></li>
-              <li><p>Takes turns giving Trainees extra shifts to the extent requested and possible</p></li>
-            </ol>
+            <small>
+              Currently, it does the following, in this order:
+              <ol>
+                <li>Loads new availabilities submitted by members;</li>
+                <li>Accounts for member flexibility and shift popularity;</li>
+                <li>Corrects imbalances based on need;</li>
+                <li>Gives EMT Interns and Trainees the minimum intended number of shifts;</li>
+                <li>Takes turns giving Trainees extra shifts to the extent requested and possible.</li>
+              </ol>
+            </small>
           </td>
         </tr>
       </table>
