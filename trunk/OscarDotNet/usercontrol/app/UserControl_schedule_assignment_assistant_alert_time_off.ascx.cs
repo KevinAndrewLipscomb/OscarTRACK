@@ -71,6 +71,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
+        p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_time_off_alert_datagrid_rows = 0;

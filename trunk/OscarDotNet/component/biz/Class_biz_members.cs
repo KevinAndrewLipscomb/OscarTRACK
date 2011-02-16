@@ -264,6 +264,19 @@ namespace Class_biz_members
             db_members.BindSpecialForRankedLengthOfService(target);
         }
 
+        internal void BindSpecialRequestBaseDataList
+          (
+          string sort_order,
+          bool be_sort_order_ascending,
+          object target,
+          string agency_filter,
+          string release_filter,
+          k.subtype<int> relative_month
+          )
+          {
+          db_members.BindSpecialRequestBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month);
+          }
+
         public string CadNumOf(object summary)
         {
             string result;

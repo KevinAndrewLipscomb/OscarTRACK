@@ -27,7 +27,6 @@ namespace member_schedule_detail
     public DateTime start_of_earliest_unselected;
     public TClass_msg_protected.member_schedule_detail incoming;
     public DateTime end_of_latest_unselected;
-    public TClass_msg_protected.confirm_paypal_donation msg_protected_confirm_paypal_donation;
     public k.subtype<int> num;
     public ArrayList arraylist_selected_day_avail;
     public ArrayList arraylist_selected_night_avail;
@@ -116,7 +115,6 @@ namespace member_schedule_detail
         //
         p.be_interactive =  !(Session["mode:report"] != null);
         p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
-        p.msg_protected_confirm_paypal_donation = new TClass_msg_protected.confirm_paypal_donation();
         p.arraylist_selected_day_avail = new ArrayList();
         p.arraylist_selected_night_avail = new ArrayList();
         p.arraylist_unselected_day_avail = new ArrayList();

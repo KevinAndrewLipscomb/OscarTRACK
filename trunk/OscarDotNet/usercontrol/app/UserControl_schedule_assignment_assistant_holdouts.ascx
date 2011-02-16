@@ -7,6 +7,7 @@
   </tr>
   <tr>
     <td>
+      <p>The following members have not submitted availabilities for the selected month:</p>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
         <tr>
           <td>
