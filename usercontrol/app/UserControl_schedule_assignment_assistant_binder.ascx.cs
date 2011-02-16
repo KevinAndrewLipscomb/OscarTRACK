@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
+using UserControl_schedule_assignment_assistant_special_requests;
 using UserControl_schedule_proposal;
 
 namespace UserControl_schedule_assignment_assistant_binder
@@ -20,7 +21,8 @@ namespace UserControl_schedule_assignment_assistant_binder
     {
     public const int TSSI_HOLDOUTS = 0;
     public const int TSSI_ALERT = 1;
-    public const int TSSI_PROPOSAL = 2;
+    public const int TSSI_SPECIAL_REQUESTS = 2;
+    public const int TSSI_PROPOSAL = 3;
     }
 
   public struct p_type
@@ -41,8 +43,9 @@ namespace UserControl_schedule_assignment_assistant_binder
     {
     private p_type p;
 
-    protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
     protected TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
+    protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
+    protected TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
     protected TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -67,6 +70,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       //
       UserControl_schedule_assignment_assistant_holdouts = ((TWebUserControl_schedule_assignment_assistant_holdouts)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_holdouts.ascx")));
       UserControl_schedule_assignment_assistant_alert_binder = ((TWebUserControl_schedule_assignment_assistant_alert_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_binder.ascx")));
+      UserControl_schedule_assignment_assistant_special_requests = ((TWebUserControl_schedule_assignment_assistant_special_requests)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_special_requests.ascx")));
       UserControl_schedule_proposal = ((TWebUserControl_schedule_proposal)(LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx")));
       //
       if (Session["UserControl_schedule_assignment_assistant_binder.p"] != null)
@@ -83,6 +87,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_binder, "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_special_requests, "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
           }
         else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
           {
@@ -111,15 +119,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       }
 
-    // / <summary>
-    // / Required method for Designer support -- do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void InitializeComponent()
       {
-      this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-      this.PreRender += this.TWebUserControl_schedule_assignment_assistant_binder_PreRender;
-      //this.Load += this.Page_Load;
+      TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+      PreRender += TWebUserControl_schedule_assignment_assistant_binder_PreRender;
       }
 
     private void TWebUserControl_schedule_assignment_assistant_binder_PreRender(object sender, System.EventArgs e)
@@ -170,6 +173,11 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_binder.Fresh(), "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
         UserControl_schedule_assignment_assistant_alert_binder.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_special_requests.Fresh(), "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
+        UserControl_schedule_assignment_assistant_special_requests.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal.Fresh(), "UserControl_schedule_proposal", PlaceHolder_content);
@@ -187,13 +195,17 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         UserControl_schedule_assignment_assistant_alert_binder.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+        {
+        UserControl_schedule_assignment_assistant_special_requests.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
         {
         UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       }
 
-    } // end TWebUserControl_schedule_assignment_assistant_binder
+    }
 
   }
 

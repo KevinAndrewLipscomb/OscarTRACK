@@ -274,7 +274,7 @@ namespace Class_db_members
       k.subtype<int> relative_month
       )
       {
-      var filter = "where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      var filter = " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
       + " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,num_shifts)"
       + " and member.id not in (select odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "' and odnmid is not null)";
       if (agency_filter != k.EMPTY)
@@ -1011,6 +1011,58 @@ namespace Class_db_members
             ((target) as DataGrid).DataBind();
             this.Close();
         }
+
+    internal void BindSpecialRequestBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending, 
+      object target,
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var filter = " where month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
+      + " and note is not null and note <> '' and note not like '%mesg(RETRACT)...from(OSCAR)%'";
+      if (agency_filter != k.EMPTY)
+        {
+        filter += " and agency_id = '" + agency_filter + "'";
+        }
+      if (release_filter == "1")
+        {
+        filter += " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        filter += " and medical_release_code_description_map.pecking_order < 20";
+        }
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select concat(member.first_name,' ',member.last_name) as name"
+        + " , member.id as member_id"
+        + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , note"
+        + " from member"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join avail_sheet on (avail_sheet.odnmid=member.id)"
+        + filter
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
 
         public string CadNumOf(object summary)
         {

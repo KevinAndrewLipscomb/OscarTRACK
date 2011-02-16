@@ -94,6 +94,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_alert;
         
         /// <summary>
+        /// TabPanel_special_requests control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_special_requests;
+        
+        /// <summary>
         /// TabPanel_proposal control.
         /// </summary>
         /// <remarks>

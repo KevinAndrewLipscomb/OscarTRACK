@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
 <%@ Register src="UserControl_schedule_assignment_assistant_intro.ascx" tagname="UserControl_schedule_assignment_assistant_intro" tagprefix="uc1" %>
 <uc1:UserControl_schedule_assignment_assistant_intro ID="UserControl_schedule_assignment_assistant_intro1" runat="server" />
+<br />
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -45,6 +46,7 @@
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
             <cc1:TabPanel runat="server" headertext="Holdouts" id="TabPanel_holdouts" enabled="True"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Alert" id="TabPanel_alert" enabled="True"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests" enabled="True"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Proposal" id="TabPanel_proposal" enabled="True"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
