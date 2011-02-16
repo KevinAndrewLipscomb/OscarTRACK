@@ -143,6 +143,19 @@ namespace Class_biz_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
+    internal void BindHoldoutsBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      db_members.BindHoldoutsBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month);
+      }
+
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             db_members.BindRankedCoreOpsSize(target, do_log);

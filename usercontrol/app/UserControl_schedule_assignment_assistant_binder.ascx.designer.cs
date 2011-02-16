@@ -13,6 +13,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
     public partial class TWebUserControl_schedule_assignment_assistant_binder {
         
         /// <summary>
+        /// UserControl_schedule_assignment_assistant_intro1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_schedule_assignment_assistant_intro.TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro1;
+        
+        /// <summary>
         /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,13 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_intro control.
+        /// TabPanel_holdouts control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_intro;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_holdouts;
         
         /// <summary>
         /// TabPanel_alert control.
