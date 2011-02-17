@@ -16,8 +16,13 @@ namespace Class_db_availabilities
       )
       {
       var num_extra_for_member_for_month = new k.int_nonnegative();
+      var num_extra_for_member_for_month_obj = new Object();
       Open();
-      num_extra_for_member_for_month.val = int.Parse(new MySqlCommand("select num_extras from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection).ExecuteScalar().ToString());
+      num_extra_for_member_for_month_obj = new MySqlCommand("select num_extras from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection).ExecuteScalar();
+      if (num_extra_for_member_for_month_obj != null)
+        {
+        num_extra_for_member_for_month.val = int.Parse(num_extra_for_member_for_month_obj.ToString());
+        }
       Close();
       return num_extra_for_member_for_month;
       }

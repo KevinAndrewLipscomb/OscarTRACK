@@ -34,7 +34,6 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
       public const int TCI_BE_RELEASED = 2;
-      public const int TCI_REVIEW_HANDLE = 3;
       public const int TCI_NOTE = 4;
       }
 
@@ -133,9 +132,8 @@ namespace UserControl_schedule_assignment_assistant_special_requests
         {
         if (be_any_kind_of_item)
           {
-          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_special_requests_Static.TCI_REVIEW_HANDLE].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_special_requests_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Review/handle";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           //

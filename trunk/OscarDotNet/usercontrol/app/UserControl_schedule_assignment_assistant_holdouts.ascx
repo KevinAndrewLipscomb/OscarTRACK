@@ -4,13 +4,25 @@
 <table cellspacing="0" cellpadding="10" border="0">
   <tr>
     <td>
-      <p>The following members have not submitted availabilities for the selected month:</p>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr bgcolor="#f5f5f5">
                 <td>
+                  <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
+                    <tr>
+                      <td align="right"><b><small>Filters:</small></b></td>
+                      <td align="center" nowrap="nowrap">
+                        <small>Compliancy</small><br/>
+                        <ASP:DropDownList id="DropDownList_compliancy" runat="server" autopostback="True" onselectedindexchanged="DropDownList_compliancy_SelectedIndexChanged">
+                          <ASP:ListItem value="">All</ASP:ListItem>
+                          <ASP:ListItem value="1">Submissions</ASP:ListItem>
+                          <ASP:ListItem value="0" selected="True">Holdouts</ASP:ListItem>
+                        </ASP:DropDownList>
+   							      </td>
+                    </tr>
+                  </table>
                   <table cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
                     <tr>
                       <td align="center" valign="middle"><small><b><asp:literal id="Literal_num_members" runat="server"></asp:literal></b><br/>members</small></td>
@@ -20,13 +32,23 @@
               </tr>
               <tr>
                 <td>
-                  <asp:datagrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="3" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" AllowSorting="true" OnSortCommand="DataGrid_control_SortCommand">
+                  <asp:datagrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="3" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" 
+                    AllowSorting="True" OnSortCommand="DataGrid_control_SortCommand" onitemcommand="DataGrid_control_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
-                      <asp:BoundColumn DataField="name" HeaderText="Name" SortExpression="member.last_name%,member.first_name"></asp:BoundColumn>
+                      <asp:ButtonColumn CommandName="Select" DataTextField="name" HeaderText="Name" SortExpression="member.last_name%,member.first_name"></asp:ButtonColumn>
+                      <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="be_released" HeaderText="Released?" SortExpression="be_released%,member.last_name,member.first_name">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
+                      <asp:BoundColumn DataField="be_compliant" Visible="false"></asp:BoundColumn>
+                      <asp:TemplateColumn HeaderText="Compliant?">
+                        <ItemTemplate>
+                          <asp:Image ID="Image_compliant" runat="server" ImageUrl="~/protected/image/dialog-clean.png" Visible="False" />
+                          <asp:Image ID="Image_noncompliant" runat="server" ImageUrl="~/protected/image/appointment-missed.png" Visible="False" />
+                        </ItemTemplate>
+                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                      </asp:TemplateColumn>
                       <asp:BoundColumn DataField="email_address" HeaderText="Email address"></asp:BoundColumn>
                       <asp:BoundColumn DataField="phone_num" HeaderText="Phone #"></asp:BoundColumn>
                     </Columns>
@@ -52,7 +74,7 @@
 			      <table cellspacing="0" cellpadding="10" width="100%" border="0">
 				      <tr>
 					      <td>To:</td>
-					      <td>The parties shown in the above filtered table</td>
+					      <td>The <b>holdouts</b> shown in the above filtered table</td>
 					      <td></td>
 				      </tr>
 				      <tr>

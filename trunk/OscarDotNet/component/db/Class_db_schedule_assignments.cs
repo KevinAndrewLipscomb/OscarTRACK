@@ -311,6 +311,100 @@ namespace Class_db_schedule_assignments
       this.Close();
       }
 
+    internal void BindSubmissionCompliancyBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending, 
+      object target,
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      string compliancy_filter
+      )
+      {
+      var filter = " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      + " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,num_shifts)";
+      if (agency_filter != k.EMPTY)
+        {
+        filter += " and agency_id = '" + agency_filter + "'";
+        }
+      if (release_filter == "1")
+        {
+        filter += " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        filter += " and medical_release_code_description_map.pecking_order < 20";
+        }
+      if (compliancy_filter == "0")
+        {
+        filter += " and (condensed_schedule_assignment.member_id is null)";
+        }
+      else if (compliancy_filter == "1")
+        {
+        filter += " and (condensed_schedule_assignment.member_id is not null)";
+        }
+      //
+      if (be_sort_order_ascending)
+        {
+        sort_order = sort_order.Replace("%", " asc");
+        }
+      else
+        {
+        sort_order = sort_order.Replace("%", " desc");
+        }
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select distinct concat(member.first_name,' ',member.last_name) as name"
+        + " , member.id as member_id"
+        + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , (condensed_schedule_assignment.member_id is not null) as be_compliant"
+        + " , member.email_address"
+        + " , member.phone_num"
+        + " from member"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join enrollment_history on"
+        +     " ("
+        +       " enrollment_history.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +       " and"
+        +         " ("
+        +           " (enrollment_history.end_date is null)"
+        +         " or"
+        +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+        +   " left join leave_of_absence on"
+        +     " ("
+        +       " leave_of_absence.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (leave_of_absence.start_date is null)"
+        +       " or"
+        +         " ("
+        +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +         " and"
+        +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " left join"
+        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + 0) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        + filter
+        + " order by " + sort_order,
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindTimeOffAlertBaseDataList
       (
       string agency_filter,
@@ -599,7 +693,7 @@ namespace Class_db_schedule_assignments
       (
       string member_id,
       k.subtype<int> relative_month,
-      out k.subtype<int> num,
+      ref k.subtype<int> num,
       out DateTime start_of_earliest_unselected,
       out DateTime end_of_latest_unselected
       )
@@ -608,8 +702,8 @@ namespace Class_db_schedule_assignments
       var dr = new MySqlCommand
         (
         "select count(*) as num"
-        + " , min(IF(be_selected,'9999-12-31 23:59:59',DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i:%s'))) as start_of_earliest_unselected"
-        + " , max(IF(be_selected,'1000-01-01 00:00:00',DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i:%s'))) as end_of_latest_unselected"
+        + " , IFNULL(min(IF(be_selected,'9999-12-31 23:59:59',DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i:%s'))),'9999-12-31 23:59:59') as start_of_earliest_unselected"
+        + " , IFNULL(max(IF(be_selected,'1000-01-01 00:00:00',DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i:%s'))),'1000-01-01 00:00:00') as end_of_latest_unselected"
         + " from schedule_assignment"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
         + " where member_id = '" + member_id + "'"
@@ -618,7 +712,6 @@ namespace Class_db_schedule_assignments
         )
         .ExecuteReader();
       dr.Read();
-      num = new k.subtype<int>(0,62);
       num.val = int.Parse(dr["num"].ToString());
       start_of_earliest_unselected = DateTime.Parse(dr["start_of_earliest_unselected"].ToString());
       end_of_latest_unselected = DateTime.Parse(dr["end_of_latest_unselected"].ToString());
