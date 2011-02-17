@@ -1,5 +1,6 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
+using appcommon;
 using Class_biz_availabilities;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
@@ -7,19 +8,19 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Drawing;
+using System.Web.UI.WebControls;
 
 namespace member_schedule_detail
   {
   public struct p_type
     {
+    public ArrayList arraylist_selected_day_avail;
+    public ArrayList arraylist_selected_night_avail;
+    public ArrayList arraylist_unselected_day_avail;
+    public ArrayList arraylist_unselected_night_avail;
+    public bool be_datagrid_empty;
     public bool be_interactive;
     public TClass_biz_availabilities biz_availabilities;
     public TClass_biz_members biz_members;
@@ -28,10 +29,7 @@ namespace member_schedule_detail
     public TClass_msg_protected.member_schedule_detail incoming;
     public DateTime end_of_latest_unselected;
     public k.subtype<int> num;
-    public ArrayList arraylist_selected_day_avail;
-    public ArrayList arraylist_selected_night_avail;
-    public ArrayList arraylist_unselected_day_avail;
-    public ArrayList arraylist_unselected_night_avail;
+    public uint num_datagrid_rows;
     }
 
   public partial class TWebForm_member_schedule_detail: ki_web_ui.page_class
@@ -113,13 +111,15 @@ namespace member_schedule_detail
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
-        p.be_interactive =  !(Session["mode:report"] != null);
-        p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
         p.arraylist_selected_day_avail = new ArrayList();
         p.arraylist_selected_night_avail = new ArrayList();
         p.arraylist_unselected_day_avail = new ArrayList();
         p.arraylist_unselected_night_avail = new ArrayList();
-        p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,out p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
+        p.be_interactive =  !(Session["mode:report"] != null);
+        p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
+        p.num = new k.subtype<int>(0,62);
+        p.num_datagrid_rows = 0;
+        p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -134,7 +134,7 @@ namespace member_schedule_detail
 
     protected void Calendar_day_SelectionChanged(object sender, System.EventArgs e)
       {
-      if ((Calendar_day.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (Calendar_day.SelectedDate.Date >= DateTime.Now.Date))
+      if ((Calendar_day.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month))
         {
         p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_day.SelectedDate,"DAY",p.incoming.scheduler_agency_id);
         }
@@ -143,7 +143,7 @@ namespace member_schedule_detail
 
     protected void Calendar_night_SelectionChanged(object sender, System.EventArgs e)
       {
-      if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month) && (Calendar_night.SelectedDate.Date >= DateTime.Now.Date))
+      if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month))
         {
         p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
         }
@@ -156,8 +156,12 @@ namespace member_schedule_detail
       p.arraylist_selected_night_avail.Clear();
       p.arraylist_unselected_day_avail.Clear();
       p.arraylist_unselected_night_avail.Clear();
-      p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,out p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
+      p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
       p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.scheduler_agency_id,DataGrid_control);
+      p.be_datagrid_empty = (p.num_datagrid_rows == 0);
+      TableRow_data.Visible = !p.be_datagrid_empty;
+      TableRow_none.Visible = p.be_datagrid_empty;
+      p.num_datagrid_rows = 0;
       }
 
     protected void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
@@ -224,6 +228,7 @@ namespace member_schedule_detail
           (e.Item.Cells[TWebForm_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         //
+        p.num_datagrid_rows++;
         }
       if (p.be_interactive)
         {

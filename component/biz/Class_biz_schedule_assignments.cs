@@ -60,6 +60,20 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindTimeOffAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
+    internal void BindSubmissionCompliancyBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      string compliancy_filter
+      )
+      {
+      db_schedule_assignments.BindSubmissionCompliancyBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month,compliancy_filter);
+      }
+
     internal void BindTimeOffAlertInvestigationBaseDataList
       (
       string member_id,
@@ -100,12 +114,12 @@ namespace Class_biz_schedule_assignments
       (
       string member_id,
       k.subtype<int> relative_month,
-      out k.subtype<int> num,
+      ref k.subtype<int> num,
       out DateTime earliest_unselected,
       out DateTime latest_unselected
       )
       {
-      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,out num,out earliest_unselected,out latest_unselected);
+      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
       }
 
     public bool Get

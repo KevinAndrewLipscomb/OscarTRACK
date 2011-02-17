@@ -86,6 +86,14 @@
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\image\appointment-missed.png" />
+    <Content Include="protected\image\dialog-clean.png" />
+    <Content Include="protected\image\document-save-5.png" />
+    <Content Include="protected\image\edit-undo-8.png" />
+    <Content Include="protected\image\go-down-4.png" />
+    <Content Include="protected\image\go-up-4.png" />
+    <Content Include="protected\image\list-add-4.png" />
+    <Content Include="protected\image\list-remove-4.png" />
     <Content Include="protected\image\mortarboard.gif" />
     <Content Include="protected\image\trophy-icon.gif" />
     <Content Include="protected\member_schedule_detail.aspx" />

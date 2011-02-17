@@ -1,9 +1,13 @@
 using Class_biz_members;
+using Class_biz_schedule_assignments;
 using Class_biz_user;
+using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Drawing;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_assignment_assistant_holdouts
@@ -17,8 +21,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_interactive;
     public bool be_loaded;
     public TClass_biz_members biz_members;
+    public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
+    public string compliancy_filter;
     public string distribution_list;
+    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_datagrid_rows;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -31,9 +38,12 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public class UserControl_schedule_assignment_assistant_holdouts_Static
       {
       public const int TCI_NAME = 0;
-      public const int TCI_BE_RELEASED = 1;
-      public const int TCI_EMAIL_ADDRESS = 2;
-      public const int TCI_PHONE_NUM = 3;
+      public const int TCI_MEMBER_ID = 1;
+      public const int TCI_BE_RELEASED = 2;
+      public const int TCI_BE_COMPLIANT = 3;
+      public const int TCI_COMPLIANCY_MARK = 4;
+      public const int TCI_EMAIL_ADDRESS = 5;
+      public const int TCI_PHONE_NUM = 6;
       }
 
     private p_type p;
@@ -42,6 +52,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       {
       if (!p.be_loaded)
         {
+        DropDownList_compliancy.SelectedValue = p.compliancy_filter;
         Bind();
         Literal_author_email_address.Text = p.biz_user.EmailAddress();
         p.be_loaded = true;
@@ -63,12 +74,15 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
         p.be_sort_order_ascending = true;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.compliancy_filter = "0";
         p.distribution_list = k.EMPTY;
+        p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -109,10 +123,16 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       Bind();
       }
 
+    protected void DropDownList_compliancy_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.compliancy_filter = k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.NUM);
+      Bind();
+      }
+
     private void Bind()
       {
       p.distribution_list = k.EMPTY;
-      p.biz_members.BindHoldoutsBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month);
+      p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       Literal_num_members.Text = p.num_datagrid_rows.ToString();
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -122,16 +142,35 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
+      LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
-        p.distribution_list += k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
+        if (e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_COMPLIANT].Text == "0")
+          {
+          p.distribution_list += k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Font.Bold = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].Font.Bold = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Font.Bold = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].Font.Bold = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_noncompliant").Visible = true;
+          }
+        else
+          {
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = true;
+          }
         p.num_datagrid_rows++;
         }
       if (p.be_interactive)
         {
         if (be_any_kind_of_item)
           {
+          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Controls[0]) as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate.
           //
@@ -139,6 +178,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
             {
             cell.EnableViewState = false;
             }
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_MEMBER_ID].EnableViewState = true;
           }
         }
       }
@@ -176,6 +216,14 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
       // Apparently we must call RegisterPostBackControl on all the linkbuttons again.
       Bind();
+      }
+
+    protected void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
+      {
+      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
+      p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
+      p.msg_protected_member_schedule_detail.scheduler_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
     }

@@ -45,8 +45,8 @@
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
-            <cc1:TabPanel runat="server" headertext="Holdouts" id="TabPanel_holdouts" enabled="True"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Alert" id="TabPanel_alert" enabled="True"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Compliancy" id="TabPanel_holdouts" enabled="True"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Alerts" id="TabPanel_alert" enabled="True" ></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests" enabled="True"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Proposal" id="TabPanel_proposal" enabled="True"></cc1:TabPanel>
           </cc1:TabContainer>
