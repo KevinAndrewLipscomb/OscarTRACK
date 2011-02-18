@@ -18,6 +18,7 @@ namespace UserControl_schedule_proposal
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_ok_to_edit_post;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_medical_release_levels biz_medical_release_levels;
     public TClass_biz_members biz_members;
@@ -43,28 +44,32 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_ASSIGNMENT_ID = 7;
       public const int TCI_D_POST_ID = 8;
       public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 9;
-      public const int TCI_D_POST_CARDINALITY = 10;
-      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 11;
-      public const int TCI_D_COLON = 12;
-      public const int TCI_D_NAME = 13;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 14;
-      public const int TCI_D_BE_SELECTED = 15;
-      public const int TCI_D_COMMENT = 16;
-      public const int TCI_N_SPACER_MAJOR = 17;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 18;
-      public const int TCI_N_SLASH = 19;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 20;
-      public const int TCI_N_SPACER_MINOR = 21;
-      public const int TCI_N_ASSIGNMENT_ID = 22;
-      public const int TCI_N_POST_ID = 23;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 24;
-      public const int TCI_N_POST_CARDINALITY = 25;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 26;
-      public const int TCI_N_COLON = 27;
-      public const int TCI_N_NAME = 28;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 29;
-      public const int TCI_N_BE_SELECTED = 30;
-      public const int TCI_N_COMMENT = 31;
+      public const int TCI_D_POST_DROPDOWNLIST = 10;
+      public const int TCI_D_POST_CARDINALITY = 11;
+      public const int TCI_D_POST_CARDINALITY_DROPDOWNLIST = 12;
+      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 13;
+      public const int TCI_D_COLON = 14;
+      public const int TCI_D_NAME = 15;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 16;
+      public const int TCI_D_BE_SELECTED = 17;
+      public const int TCI_D_COMMENT = 18;
+      public const int TCI_N_SPACER_MAJOR = 19;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 20;
+      public const int TCI_N_SLASH = 21;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 22;
+      public const int TCI_N_SPACER_MINOR = 23;
+      public const int TCI_N_ASSIGNMENT_ID = 24;
+      public const int TCI_N_POST_ID = 25;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 26;
+      public const int TCI_N_POST_DROPDOWNLIST = 27;
+      public const int TCI_N_POST_CARDINALITY = 28;
+      public const int TCI_N_POST_CARDINALITY_DROPDOWNLIST = 29;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 30;
+      public const int TCI_N_COLON = 31;
+      public const int TCI_N_NAME = 32;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 33;
+      public const int TCI_N_BE_SELECTED = 34;
+      public const int TCI_N_COMMENT = 35;
       }
 
     private p_type p;
@@ -103,6 +108,7 @@ namespace UserControl_schedule_proposal
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler"))
           {
           p.depth_filter = k.EMPTY;
@@ -175,7 +181,6 @@ namespace UserControl_schedule_proposal
 
     protected void A_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
-      //LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (e.Item.ItemType == ListItemType.Header)
         {
@@ -279,10 +284,36 @@ namespace UserControl_schedule_proposal
         {
         if (be_any_kind_of_item)
           {
+          //LinkButton link_button;
           //link_button = ((e.Item.Cells[UserControl_template_datagrid_sortable_Static.TCI_SELECT].Controls[0]) as LinkButton);
           //link_button.Text = k.ExpandTildePath(link_button.Text);
           //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          //
+          var drop_down_list = new DropDownList();
+          var post_id = k.EMPTY;
+          drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DROPDOWNLIST].FindControl("DropDownList_d_post")) as DropDownList);
+          post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
+          if (post_id != k.EMPTY)
+            {
+            p.biz_agencies.BindListControlShort(drop_down_list);
+            drop_down_list.SelectedValue = post_id;
+            drop_down_list.Enabled = p.be_ok_to_edit_post;
+            }
+          else
+            {
+            drop_down_list.Visible = false;
+            }
+          drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DROPDOWNLIST].FindControl("DropDownList_n_post")) as DropDownList);
+          post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
+          if (post_id != k.EMPTY)
+            {
+            p.biz_agencies.BindListControlShort(drop_down_list);
+            drop_down_list.SelectedValue = post_id;
+            drop_down_list.Enabled = p.be_ok_to_edit_post;
+            }
+          else
+            {
+            drop_down_list.Visible = false;
+            }
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -294,6 +325,26 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].EnableViewState = true;
           }
         }
+      }
+
+    protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+      }
+
+    protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+      }
+
+    protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
+      }
+
+    protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
+      {
+
       }
 
     }
