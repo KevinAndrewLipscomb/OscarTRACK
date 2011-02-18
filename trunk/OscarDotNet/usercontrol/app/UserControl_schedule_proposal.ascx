@@ -68,7 +68,7 @@
           <asp:BoundColumn DataField="d_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post" runat="server" AutoPostBack="True" DataTextField="d_agency_short_designator" DataValueField="d_post_id" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_d_post" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -76,7 +76,7 @@
           <asp:BoundColumn DataField="d_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" AutoPostBack="True" DataTextField="d_post_cardinality" DataValueField="d_post_cardinality" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -116,7 +116,7 @@
           <asp:BoundColumn DataField="n_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post" runat="server" AutoPostBack="True" DataTextField="n_agency_short_designator" DataValueField="n_post_id" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_n_post" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -124,7 +124,7 @@
           <asp:BoundColumn DataField="n_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" AutoPostBack="True" DataTextField="n_post_cardinality" DataValueField="n_post_cardinality" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />

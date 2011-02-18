@@ -3,8 +3,8 @@
 using Class_db_schedule_assignments;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace Class_biz_schedule_assignments
   {
@@ -47,6 +47,19 @@ namespace Class_biz_schedule_assignments
     public void BindDirectToListControl(object target)
       {
       db_schedule_assignments.BindDirectToListControl(target);
+      }
+
+    internal void BindPostCardinalityListControl
+      (
+      DropDownList target,
+      string designator
+      )
+      {
+      for (var i = new k.subtype<int>(0,int.Parse(ConfigurationManager.AppSettings["max_num_units_per_post"])); i.val < i.LAST; i.val++)
+        {
+        target.Items.Add(new ListItem(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val)),Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val))));
+        }
+      target.SelectedValue = designator;
       }
 
     internal void BindTimeOffAlertBaseDataList
@@ -205,6 +218,24 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.SetComment(id,comment);
+      }
+
+    internal void SetPost
+      (
+      string id,
+      string post_id
+      )
+      {
+      db_schedule_assignments.SetPost(id,post_id);
+      }
+
+    internal void SetPostCardinality
+      (
+      string id,
+      string post_cardinality
+      )
+      {
+      db_schedule_assignments.SetPostCardinality(id,post_cardinality);
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)

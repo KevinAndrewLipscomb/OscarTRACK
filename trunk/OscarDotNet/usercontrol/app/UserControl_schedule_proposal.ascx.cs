@@ -288,31 +288,40 @@ namespace UserControl_schedule_proposal
           //link_button = ((e.Item.Cells[UserControl_template_datagrid_sortable_Static.TCI_SELECT].Controls[0]) as LinkButton);
           //link_button.Text = k.ExpandTildePath(link_button.Text);
           //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          var drop_down_list = new DropDownList();
-          var post_id = k.EMPTY;
-          drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DROPDOWNLIST].FindControl("DropDownList_d_post")) as DropDownList);
+          //
+          DropDownList post_drop_down_list;
+          DropDownList post_cardinality_drop_down_list;
+          String post_id;
+          //
           post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
+          post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DROPDOWNLIST].Controls[1]) as DropDownList);
+          post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
           if (post_id != k.EMPTY)
             {
-            p.biz_agencies.BindListControlShort(drop_down_list);
-            drop_down_list.SelectedValue = post_id;
-            drop_down_list.Enabled = p.be_ok_to_edit_post;
+            p.biz_agencies.BindEmsPostListControlShort(post_drop_down_list,post_id,false);
+            p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY].Text);
+            post_drop_down_list.Enabled = p.be_ok_to_edit_post;
+            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
             }
           else
             {
-            drop_down_list.Visible = false;
+            post_drop_down_list.Visible = false;
+            post_cardinality_drop_down_list.Visible = false;
             }
-          drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DROPDOWNLIST].FindControl("DropDownList_n_post")) as DropDownList);
           post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
+          post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DROPDOWNLIST].Controls[1]) as DropDownList);
+          post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
           if (post_id != k.EMPTY)
             {
-            p.biz_agencies.BindListControlShort(drop_down_list);
-            drop_down_list.SelectedValue = post_id;
-            drop_down_list.Enabled = p.be_ok_to_edit_post;
+            p.biz_agencies.BindEmsPostListControlShort(post_drop_down_list,post_id,false);
+            p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY].Text);
+            post_drop_down_list.Enabled = p.be_ok_to_edit_post;
+            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
             }
           else
             {
-            drop_down_list.Visible = false;
+            post_drop_down_list.Visible = false;
+            post_cardinality_drop_down_list.Visible = false;
             }
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
@@ -322,29 +331,41 @@ namespace UserControl_schedule_proposal
             cell.EnableViewState = false;
             }
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DROPDOWNLIST].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_DROPDOWNLIST].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DROPDOWNLIST].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_DROPDOWNLIST].EnableViewState = true;
           }
         }
       }
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-
+      p.biz_schedule_assignments.SetPost
+        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+      Bind();
       }
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-
+      p.biz_schedule_assignments.SetPost
+        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+      Bind();
       }
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-
+      p.biz_schedule_assignments.SetPostCardinality
+        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+      Bind();
       }
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-
+      p.biz_schedule_assignments.SetPostCardinality
+        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+      Bind();
       }
 
     }

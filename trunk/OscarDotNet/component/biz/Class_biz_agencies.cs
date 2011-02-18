@@ -34,9 +34,24 @@ namespace Class_biz_agencies
             return result;
         }
 
-        public void BindListControlShort(object target, string selected_id, bool be_available_option_all, string unselected_literal)
+        public void BindEmsPostListControlShort(object target, string selected_id, bool be_available_option_all, string unselected_literal)
         {
-            db_agencies.BindListControlShort(target, selected_id, be_available_option_all, unselected_literal);
+            db_agencies.BindEmsPostListControlShort(target, selected_id, be_available_option_all, unselected_literal);
+        }
+
+        public void BindEmsPostListControlShort(object target)
+        {
+            BindEmsPostListControlShort(target, "");
+        }
+
+        public void BindEmsPostListControlShort(object target, string selected_id)
+        {
+            BindEmsPostListControlShort(target, selected_id, true);
+        }
+
+        public void BindEmsPostListControlShort(object target, string selected_id, bool be_available_option_all)
+        {
+            BindEmsPostListControlShort(target, selected_id, be_available_option_all, "All");
         }
 
         public void BindListControlShort(object target)
@@ -52,6 +67,11 @@ namespace Class_biz_agencies
         public void BindListControlShort(object target, string selected_id, bool be_available_option_all)
         {
             BindListControlShort(target, selected_id, be_available_option_all, "All");
+        }
+
+        public void BindListControlShort(object target, string selected_id, bool be_available_option_all, string unselected_literal)
+        {
+            db_agencies.BindListControlShort(target, selected_id, be_available_option_all, unselected_literal);
         }
 
         public void BindListControlShortDashLong(object target, string selected_id, bool be_available_option_all, string option_all_text)
