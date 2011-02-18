@@ -742,6 +742,161 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    public void Set
+      (
+      string id,
+      DateTime nominal_day,
+      string shift_id,
+      string post_id,
+      string post_cardinality,
+      string position_id,
+      string member_id,
+      bool be_selected,
+      string comment
+      )
+      {
+      string childless_field_assignments_clause = k.EMPTY
+      + "nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'"
+      + " , shift_id = NULLIF('" + shift_id + "','')"
+      + " , post_id = NULLIF('" + post_id + "','')"
+      + " , post_cardinality = NULLIF('" + post_cardinality + "','')"
+      + " , position_id = NULLIF('" + position_id + "','')"
+      + " , member_id = NULLIF('" + member_id + "','')"
+      + " , be_selected = NULLIF('" + be_selected.ToString() + "','')"
+      + " , comment = NULLIF('" + comment + "','')"
+      + k.EMPTY;
+      this.Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "insert schedule_assignment"
+          + " set id = NULLIF('" + id + "','')"
+          + " , " + childless_field_assignments_clause
+          + " on duplicate key update "
+          + childless_field_assignments_clause
+          ),
+          this.connection
+        )
+        .ExecuteNonQuery();
+      this.Close();
+      }
+
+    internal void SetComment
+      (
+      string id,
+      string comment
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      Close();
+      }
+
+    internal void SetPost
+      (
+      string id,
+      string post_id
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      Close();
+      }
+
+    internal void SetPostCardinality
+      (
+      string id,
+      string post_cardinality
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1 where id = '" + id + "'"),connection).ExecuteNonQuery();
+      Close();
+      }
+
+    internal void SwapSelectedForMemberNextEarlierUnselected(string id)
+      {
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        var target_id = new MySqlCommand
+          (
+          "select target.id as id"
+          + " FROM"
+          +   " ("
+          +   " select member_id"
+          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          +   " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+          +   " FROM schedule_assignment"
+          +     " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " where schedule_assignment.id = '" + id + "'"
+          +   " ) as source"
+          +   " join schedule_assignment as target"
+          +   " join shift on (shift.id=target.shift_id)"
+          + " where target.member_id = source.member_id"
+          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
+          +   " and DATE_FORMAT(IF(start<end,ADDTIME(target.nominal_day,end),ADDTIME(ADDTIME(target.nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') < source.off_duty"
+          +   " and not target.be_selected"
+          + " order by target.nominal_day desc,start desc"
+          + " limit 1",
+          connection,
+          transaction
+          )
+          .ExecuteScalar().ToString();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
+      }
+
+    internal void SwapSelectedForMemberNextLaterUnselected(string id)
+      {
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        var target_id = new MySqlCommand
+          (
+          "select target.id as id"
+          + " FROM"
+          +   " ("
+          +   " select member_id"
+          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          +   " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+          +   " FROM schedule_assignment"
+          +     " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " where schedule_assignment.id = '" + id + "'"
+          +   " ) as source"
+          +   " join schedule_assignment as target"
+          +   " join shift on (shift.id=target.shift_id)"
+          + " where target.member_id = source.member_id"
+          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
+          +   " and DATE_FORMAT(ADDTIME(target.nominal_day,start),'%Y-%m-%d %H:%i') > source.on_duty"
+          +   " and not target.be_selected"
+          + " order by target.nominal_day,start"
+          + " limit 1",
+          connection,
+          transaction
+          )
+          .ExecuteScalar().ToString();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
+      }
+
     private delegate string Update_Dispositioned(string sql);
     internal void Update
       (
@@ -767,8 +922,7 @@ namespace Class_db_schedule_assignments
         // Load new availabilities from avail_sheet.
         //
         var sql = k.EMPTY;
-        var i = new k.subtype<int>(0,31);
-        for (; i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(0,31); i.val < i.LAST; i.val++)
           {
           sql += k.EMPTY
           + " insert ignore into schedule_assignment (nominal_day,shift_id,post_id,member_id)"
@@ -1237,139 +1391,6 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteNonQuery();
-        transaction.Commit();
-        }
-      catch (Exception e)
-        {
-        transaction.Rollback();
-        throw e;
-        }
-      Close();
-      }
-
-    public void Set
-      (
-      string id,
-      DateTime nominal_day,
-      string shift_id,
-      string post_id,
-      string post_cardinality,
-      string position_id,
-      string member_id,
-      bool be_selected,
-      string comment
-      )
-      {
-      string childless_field_assignments_clause = k.EMPTY
-      + "nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'"
-      + " , shift_id = NULLIF('" + shift_id + "','')"
-      + " , post_id = NULLIF('" + post_id + "','')"
-      + " , post_cardinality = NULLIF('" + post_cardinality + "','')"
-      + " , position_id = NULLIF('" + position_id + "','')"
-      + " , member_id = NULLIF('" + member_id + "','')"
-      + " , be_selected = NULLIF('" + be_selected.ToString() + "','')"
-      + " , comment = NULLIF('" + comment + "','')"
-      + k.EMPTY;
-      this.Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "insert schedule_assignment"
-          + " set id = NULLIF('" + id + "','')"
-          + " , " + childless_field_assignments_clause
-          + " on duplicate key update "
-          + childless_field_assignments_clause
-          ),
-          this.connection
-        )
-        .ExecuteNonQuery();
-      this.Close();
-      }
-
-    internal void SetComment
-      (
-      string id,
-      string comment
-      )
-      {
-      Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
-      Close();
-      }
-
-    internal void SwapSelectedForMemberNextEarlierUnselected(string id)
-      {
-      Open();
-      var transaction = connection.BeginTransaction();
-      try
-        {
-        var target_id = new MySqlCommand
-          (
-          "select target.id as id"
-          + " FROM"
-          +   " ("
-          +   " select member_id"
-          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
-          +   " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
-          +   " FROM schedule_assignment"
-          +     " join shift on (shift.id=schedule_assignment.shift_id)"
-          +   " where schedule_assignment.id = '" + id + "'"
-          +   " ) as source"
-          +   " join schedule_assignment as target"
-          +   " join shift on (shift.id=target.shift_id)"
-          + " where target.member_id = source.member_id"
-          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
-          +   " and DATE_FORMAT(IF(start<end,ADDTIME(target.nominal_day,end),ADDTIME(ADDTIME(target.nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') < source.off_duty"
-          +   " and not target.be_selected"
-          + " order by target.nominal_day desc,start desc"
-          + " limit 1",
-          connection,
-          transaction
-          )
-          .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
-        transaction.Commit();
-        }
-      catch (Exception e)
-        {
-        transaction.Rollback();
-        throw e;
-        }
-      Close();
-      }
-
-    internal void SwapSelectedForMemberNextLaterUnselected(string id)
-      {
-      Open();
-      var transaction = connection.BeginTransaction();
-      try
-        {
-        var target_id = new MySqlCommand
-          (
-          "select target.id as id"
-          + " FROM"
-          +   " ("
-          +   " select member_id"
-          +   " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
-          +   " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
-          +   " FROM schedule_assignment"
-          +     " join shift on (shift.id=schedule_assignment.shift_id)"
-          +   " where schedule_assignment.id = '" + id + "'"
-          +   " ) as source"
-          +   " join schedule_assignment as target"
-          +   " join shift on (shift.id=target.shift_id)"
-          + " where target.member_id = source.member_id"
-          +   " and MONTH(target.nominal_day) = MONTH(source.nominal_day)"
-          +   " and DATE_FORMAT(ADDTIME(target.nominal_day,start),'%Y-%m-%d %H:%i') > source.on_duty"
-          +   " and not target.be_selected"
-          + " order by target.nominal_day,start"
-          + " limit 1",
-          connection,
-          transaction
-          )
-          .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)

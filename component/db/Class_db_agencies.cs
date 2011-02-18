@@ -50,6 +50,55 @@ namespace Class_db_agencies
             return result;
         }
 
+        private void BindEmsPostListControl(string unselected_literal,string designator_clause,object target,string selected_id)
+          {
+          this.Open();
+          (target as ListControl).Items.Clear();
+          if (unselected_literal != k.EMPTY)
+            {
+            (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
+            }
+          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_ems_post = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          while (dr.Read())
+            {
+            (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
+            }
+          dr.Close();
+          if (selected_id != k.EMPTY)
+            {
+            (target as ListControl).SelectedValue = selected_id;
+            }
+          this.Close();
+          }
+        private void BindEmsPostListControl(string unselected_literal,string designator_clause,object target)
+          {
+          BindEmsPostListControl(unselected_literal, designator_clause, target, k.EMPTY);
+          }
+
+        public void BindEmsPostListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
+          {
+          if (be_available_option_all)
+            {
+            BindEmsPostListControl(unselected_literal, "short_designator", target, selected_id);
+            }
+          else
+            {
+            BindEmsPostListControl(k.EMPTY, "short_designator", target, selected_id);
+            }
+          }
+        public void BindEmsPostListControlShort(object target,string selected_id,bool be_available_option_all)
+          {
+          BindEmsPostListControlShort(target, selected_id, be_available_option_all, "All");
+          }
+        public void BindEmsPostListControlShort(object target,string selected_id)
+          {
+          BindEmsPostListControlShort(target, selected_id, true);
+          }
+        public void BindEmsPostListControlShort(object target)
+          {
+          BindEmsPostListControlShort(target, "");
+          }
+
         private void BindListControl(string unselected_literal,string designator_clause,object target,string selected_id)
           {
           this.Open();
@@ -123,8 +172,22 @@ namespace Class_db_agencies
           BindListControlShortDashLong(target, "");
           }
 
-
-
+        private void BindListItemCollection(string unselected_literal,string designator_clause,object target,string selected_id)
+          {
+          this.Open();
+          (target as ListItemCollection).Clear();
+          if (unselected_literal != k.EMPTY)
+            {
+            (target as ListItemCollection).Add(new ListItem(unselected_literal, ""));
+            }
+          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          while (dr.Read())
+            {
+            (target as ListItemCollection).Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
+            }
+          dr.Close();
+          this.Close();
+          }
         public void BindForCommensuration(object target)
         {
             this.Open();
