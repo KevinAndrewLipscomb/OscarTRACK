@@ -65,12 +65,22 @@
           <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
           <asp:BoundColumn DataField="d_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_post_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
-          <asp:BoundColumn DataField="d_agency_short_designator" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
-          <asp:BoundColumn DataField="d_post_cardinality" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="d_agency_short_designator" Visible="False"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate>
+              <asp:DropDownList ID="DropDownList_d_post" runat="server" AutoPostBack="True" DataTextField="d_agency_short_designator" DataValueField="d_post_id" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
+              </asp:DropDownList>
+            </ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
+          <asp:BoundColumn DataField="d_post_cardinality" Visible="false"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate>
+              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" AutoPostBack="True" DataTextField="d_post_cardinality" DataValueField="d_post_cardinality" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
+              </asp:DropDownList>
+            </ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
           <asp:BoundColumn DataField="d_medical_release_description" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" HorizontalAlign="Center" />
           </asp:BoundColumn>
@@ -85,9 +95,7 @@
           <asp:BoundColumn DataField="d_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
-          <asp:BoundColumn DataField="d_be_selected" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="d_be_selected" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
@@ -105,12 +113,22 @@
           <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
           <asp:BoundColumn DataField="n_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_post_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
-          <asp:BoundColumn DataField="n_agency_short_designator" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
-          <asp:BoundColumn DataField="n_post_cardinality" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="n_agency_short_designator" Visible="False"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate>
+              <asp:DropDownList ID="DropDownList_n_post" runat="server" AutoPostBack="True" DataTextField="n_agency_short_designator" DataValueField="n_post_id" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
+              </asp:DropDownList>
+            </ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
+          <asp:BoundColumn DataField="n_post_cardinality" Visible="false"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate>
+              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" AutoPostBack="True" DataTextField="n_post_cardinality" DataValueField="n_post_cardinality" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
+              </asp:DropDownList>
+            </ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
           <asp:BoundColumn DataField="n_medical_release_description" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" HorizontalAlign="Center" />
           </asp:BoundColumn>
@@ -125,9 +143,7 @@
           <asp:BoundColumn DataField="n_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
-          <asp:BoundColumn DataField="n_be_selected" ReadOnly="True">
-            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="n_be_selected" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
