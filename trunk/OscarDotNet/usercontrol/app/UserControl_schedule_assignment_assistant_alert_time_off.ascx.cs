@@ -155,6 +155,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
             cell.EnableViewState = false;
             }
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_MEMBER_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_FIRST_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_TIME_OFF].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_SECOND_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
@@ -166,7 +167,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       {
       p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
       p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.scheduler_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
       MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
