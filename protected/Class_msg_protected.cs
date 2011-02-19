@@ -20,7 +20,7 @@ namespace Class_msg_protected
       {
       internal string member_id = k.EMPTY;
       internal k.subtype<int> relative_month;
-      internal string scheduler_agency_id = k.EMPTY;
+      internal string member_agency_id = k.EMPTY;
       }
     public class process_paypal_donation
       {

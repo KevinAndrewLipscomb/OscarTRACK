@@ -136,7 +136,7 @@ namespace member_schedule_detail
       {
       if ((Calendar_day.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month))
         {
-        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_day.SelectedDate,"DAY",p.incoming.scheduler_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_day.SelectedDate,"DAY",p.incoming.member_agency_id);
         }
       Bind();
       }
@@ -145,7 +145,7 @@ namespace member_schedule_detail
       {
       if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.incoming.relative_month.val).Month))
         {
-        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.scheduler_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.incoming.member_id,Calendar_night.SelectedDate,"NIGHT",p.incoming.member_agency_id);
         }
       Bind();
       }
@@ -157,7 +157,7 @@ namespace member_schedule_detail
       p.arraylist_unselected_day_avail.Clear();
       p.arraylist_unselected_night_avail.Clear();
       p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.incoming.member_id,p.incoming.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
-      p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.scheduler_agency_id,DataGrid_control);
+      p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.incoming.member_id,p.incoming.relative_month,p.incoming.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_data.Visible = !p.be_datagrid_empty;
       TableRow_none.Visible = p.be_datagrid_empty;

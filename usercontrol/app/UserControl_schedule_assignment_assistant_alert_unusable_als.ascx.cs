@@ -34,13 +34,14 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
       {
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
-      public const int TCI_FIRST_NOMINAL_DAY = 2;
-      public const int TCI_FIRST_SHIFT_NAME = 3;
-      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 4;
-      public const int TCI_UNUSABLE_ALS = 5;
-      public const int TCI_SECOND_NOMINAL_DAY = 6;
-      public const int TCI_SECOND_SHIFT_NAME = 7;
-      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 8;
+      public const int TCI_AGENCY_ID = 2;
+      public const int TCI_FIRST_NOMINAL_DAY = 3;
+      public const int TCI_FIRST_SHIFT_NAME = 4;
+      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 5;
+      public const int TCI_UNUSABLE_ALS = 6;
+      public const int TCI_SECOND_NOMINAL_DAY = 7;
+      public const int TCI_SECOND_SHIFT_NAME = 8;
+      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 9;
       }
 
     private p_type p;
@@ -154,6 +155,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
             cell.EnableViewState = false;
             }
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_MEMBER_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_AGENCY_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_FIRST_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_UNUSABLE_ALS].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_SECOND_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
@@ -165,7 +167,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
       {
       p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
       p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.scheduler_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
       MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
