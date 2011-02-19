@@ -172,22 +172,20 @@ namespace Class_db_agencies
           BindListControlShortDashLong(target, "");
           }
 
-        private void BindListItemCollection(string unselected_literal,string designator_clause,object target,string selected_id)
+        internal void BindEmsPostListItemCollectionShort(object target)
           {
-          this.Open();
+          Open();
           (target as ListItemCollection).Clear();
-          if (unselected_literal != k.EMPTY)
-            {
-            (target as ListItemCollection).Add(new ListItem(unselected_literal, ""));
-            }
-          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          var dr = new MySqlCommand("SELECT id, short_designator from agency where be_ems_post = TRUE order by short_designator", connection).ExecuteReader();
           while (dr.Read())
             {
-            (target as ListItemCollection).Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
+            (target as ListItemCollection).Add(new ListItem(dr["short_designator"].ToString(), dr["id"].ToString()));
             }
           dr.Close();
-          this.Close();
+          Close();
           }
+
+
         public void BindForCommensuration(object target)
         {
             this.Open();
