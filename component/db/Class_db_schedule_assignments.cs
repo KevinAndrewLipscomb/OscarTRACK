@@ -925,7 +925,7 @@ namespace Class_db_schedule_assignments
         for (var i = new k.subtype<int>(0,31); i.val < i.LAST; i.val++)
           {
           sql += k.EMPTY
-          + " insert ignore into schedule_assignment (nominal_day,shift_id,post_id,member_id)"
+          + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id)"
           + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
           + " , (select id from shift where name = 'DAY') as shift_id"
           + " , (select id from agency where oscar_classic_enumerator = coord_agency) as post_id"
@@ -933,8 +933,9 @@ namespace Class_db_schedule_assignments
           + " from avail_sheet"
           + " where month = '" + month_abbreviation + "'"
           +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
+          + " on duplicate key update id = id"
           + ";"
-          + " insert ignore into schedule_assignment (nominal_day,shift_id,post_id,member_id)"
+          + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id)"
           + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
           + " , (select id from shift where name = 'NIGHT') as shift_id"
           + " , (select id from agency where oscar_classic_enumerator = coord_agency) as post_id"
@@ -942,6 +943,7 @@ namespace Class_db_schedule_assignments
           + " from avail_sheet"
           + " where month = '" + month_abbreviation + "'"
           +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
+          + " on duplicate key update id = id"
           + ";";
           }
         new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
