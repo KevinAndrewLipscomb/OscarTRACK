@@ -27,6 +27,7 @@ namespace UserControl_schedule_proposal
     public uint num_datagrid_rows;
     public k.subtype<int> relative_month;
     public string release_filter;
+    public ListItem[] proto_post_list_item_array;
     }
 
   public partial class TWebUserControl_schedule_proposal: ki_web_ui.usercontrol_class
@@ -120,6 +121,11 @@ namespace UserControl_schedule_proposal
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        //
+        var proto_post_list_item_collection = new ListItemCollection();
+        p.biz_agencies.BindEmsPostListItemCollectionShort(proto_post_list_item_collection);
+        p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
+        proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
         }
       }
 
@@ -298,7 +304,11 @@ namespace UserControl_schedule_proposal
           post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
           if (post_id != k.EMPTY)
             {
-            p.biz_agencies.BindEmsPostListControlShort(post_drop_down_list,post_id,false);
+            foreach (ListItem list_item in p.proto_post_list_item_array)
+              {
+              post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
+              post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
+              }
             p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY].Text);
             post_drop_down_list.Enabled = p.be_ok_to_edit_post;
             post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
@@ -313,7 +323,11 @@ namespace UserControl_schedule_proposal
           post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
           if (post_id != k.EMPTY)
             {
-            p.biz_agencies.BindEmsPostListControlShort(post_drop_down_list,post_id,false);
+            foreach (ListItem list_item in p.proto_post_list_item_array)
+              {
+              post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
+              post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
+              }
             p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY].Text);
             post_drop_down_list.Enabled = p.be_ok_to_edit_post;
             post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
