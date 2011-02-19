@@ -394,7 +394,7 @@ namespace Class_db_schedule_assignments
         +       " )"
         +     " )"
         +   " left join"
-        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + 0) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + ") as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
         + filter
         + " order by " + sort_order,
         connection
