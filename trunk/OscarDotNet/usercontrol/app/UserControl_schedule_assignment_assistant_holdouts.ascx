@@ -1,7 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_assignment_assistant_holdouts.ascx.cs"
   Inherits="UserControl_schedule_assignment_assistant_holdouts.TWebUserControl_schedule_assignment_assistant_holdouts" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
-<table cellspacing="0" cellpadding="10" border="0">
+<asp:Panel ID="Panel_supressed" runat="server"><p></p><em>--&nbsp;SUPRESSED&nbsp;--</em></asp:Panel>
+<table id="Table_data" runat="server" cellspacing="0" cellpadding="10" border="0" visible="false">
   <tr>
     <td>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
@@ -64,7 +65,7 @@
   </tr>
 </table>
 <p></p>
-<table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1">
+<table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" width="100%" border="1" visible="false">
   <tr>
 	  <td>
 	    <table cellspacing="0" cellpadding="10" width="100%" border="0">

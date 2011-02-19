@@ -99,6 +99,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       else
         {
+        p.biz_agencies = new TClass_biz_agencies();
+        p.biz_members = new TClass_biz_members();
+        p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        //
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (p.be_user_privileged_to_see_all_squads)
           {
@@ -109,9 +113,6 @@ namespace UserControl_schedule_assignment_assistant_binder
           p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
         p.be_loaded = false;
-        p.biz_agencies = new TClass_biz_agencies();
-        p.biz_members = new TClass_biz_members();
-        p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_holdouts.Fresh(), "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
         p.relative_month = new k.subtype<int>(0,1);
