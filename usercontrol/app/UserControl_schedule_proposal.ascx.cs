@@ -19,12 +19,14 @@ namespace UserControl_schedule_proposal
     public bool be_interactive;
     public bool be_loaded;
     public bool be_ok_to_edit_post;
+    public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_medical_release_levels biz_medical_release_levels;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public string depth_filter;
     public uint num_datagrid_rows;
+    public string own_agency;
     public k.subtype<int> relative_month;
     public string release_filter;
     public ListItem[] proto_post_list_item_array;
@@ -44,33 +46,35 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_SPACER_MINOR = 6;
       public const int TCI_D_ASSIGNMENT_ID = 7;
       public const int TCI_D_POST_ID = 8;
-      public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 9;
-      public const int TCI_D_POST_DROPDOWNLIST = 10;
-      public const int TCI_D_POST_CARDINALITY = 11;
-      public const int TCI_D_POST_CARDINALITY_DROPDOWNLIST = 12;
-      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 13;
-      public const int TCI_D_COLON = 14;
-      public const int TCI_D_NAME = 15;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 16;
-      public const int TCI_D_BE_SELECTED = 17;
-      public const int TCI_D_COMMENT = 18;
-      public const int TCI_N_SPACER_MAJOR = 19;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 20;
-      public const int TCI_N_SLASH = 21;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 22;
-      public const int TCI_N_SPACER_MINOR = 23;
-      public const int TCI_N_ASSIGNMENT_ID = 24;
-      public const int TCI_N_POST_ID = 25;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 26;
-      public const int TCI_N_POST_DROPDOWNLIST = 27;
-      public const int TCI_N_POST_CARDINALITY = 28;
-      public const int TCI_N_POST_CARDINALITY_DROPDOWNLIST = 29;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 30;
-      public const int TCI_N_COLON = 31;
-      public const int TCI_N_NAME = 32;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 33;
-      public const int TCI_N_BE_SELECTED = 34;
-      public const int TCI_N_COMMENT = 35;
+      public const int TCI_D_MEMBER_AGENCY_ID = 9;
+      public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 10;
+      public const int TCI_D_POST_DROPDOWNLIST = 11;
+      public const int TCI_D_POST_CARDINALITY = 12;
+      public const int TCI_D_POST_CARDINALITY_DROPDOWNLIST = 13;
+      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
+      public const int TCI_D_COLON = 15;
+      public const int TCI_D_NAME = 16;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 17;
+      public const int TCI_D_BE_SELECTED = 18;
+      public const int TCI_D_COMMENT = 19;
+      public const int TCI_N_SPACER_MAJOR = 20;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 21;
+      public const int TCI_N_SLASH = 22;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 23;
+      public const int TCI_N_SPACER_MINOR = 24;
+      public const int TCI_N_ASSIGNMENT_ID = 25;
+      public const int TCI_N_POST_ID = 26;
+      public const int TCI_N_MEMBER_AGENCY_ID = 27;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 28;
+      public const int TCI_N_POST_DROPDOWNLIST = 29;
+      public const int TCI_N_POST_CARDINALITY = 30;
+      public const int TCI_N_POST_CARDINALITY_DROPDOWNLIST = 31;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 32;
+      public const int TCI_N_COLON = 33;
+      public const int TCI_N_NAME = 34;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 35;
+      public const int TCI_N_BE_SELECTED = 36;
+      public const int TCI_N_COMMENT = 37;
       }
 
     private p_type p;
@@ -110,6 +114,7 @@ namespace UserControl_schedule_proposal
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler"))
           {
           p.depth_filter = k.EMPTY;
@@ -119,6 +124,7 @@ namespace UserControl_schedule_proposal
           p.depth_filter = "1";
           }
         p.num_datagrid_rows = 0;
+        p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         //
@@ -302,7 +308,7 @@ namespace UserControl_schedule_proposal
           post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
           post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DROPDOWNLIST].Controls[1]) as DropDownList);
           post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
-          if (post_id != k.EMPTY)
+          if ((post_id != k.EMPTY) && (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Text == "1"))
             {
             foreach (ListItem list_item in p.proto_post_list_item_array)
               {
@@ -310,8 +316,8 @@ namespace UserControl_schedule_proposal
               post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
               }
             p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY].Text);
-            post_drop_down_list.Enabled = p.be_ok_to_edit_post;
-            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
+            post_drop_down_list.Enabled = p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency));
+            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency));
             }
           else
             {
@@ -321,7 +327,7 @@ namespace UserControl_schedule_proposal
           post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
           post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DROPDOWNLIST].Controls[1]) as DropDownList);
           post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_DROPDOWNLIST].Controls[1]) as DropDownList);
-          if (post_id != k.EMPTY)
+          if ((post_id != k.EMPTY) && (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1"))
             {
             foreach (ListItem list_item in p.proto_post_list_item_array)
               {
@@ -329,8 +335,8 @@ namespace UserControl_schedule_proposal
               post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
               }
             p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY].Text);
-            post_drop_down_list.Enabled = p.be_ok_to_edit_post;
-            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post;
+            post_drop_down_list.Enabled = p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency));
+            post_cardinality_drop_down_list.Enabled = p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency));
             }
           else
             {

@@ -17,6 +17,7 @@
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="first_nominal_day" HeaderText="..is selected for this shift.." ReadOnly="True">
                         <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                       </asp:BoundColumn>

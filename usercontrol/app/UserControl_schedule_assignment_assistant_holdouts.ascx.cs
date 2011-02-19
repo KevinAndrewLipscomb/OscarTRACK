@@ -20,6 +20,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
@@ -78,8 +79,9 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
-        p.be_sort_order_ascending = true;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads");
+        p.be_sort_order_ascending = true;
         p.compliancy_filter = "0";
         p.distribution_list = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
@@ -132,11 +134,26 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     private void Bind()
       {
       p.distribution_list = k.EMPTY;
-      p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter);
+      var be_suppressed = true;
+      var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      if (p.be_user_privileged_to_see_all_squads)
+        {
+        be_suppressed = false;
+        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter);
+        }
+      else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+        {
+        be_suppressed = false;
+        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,own_agency,p.release_filter,p.relative_month,p.compliancy_filter);
+        }
+      Panel_supressed.Visible = be_suppressed;
+      Table_data.Visible = !be_suppressed;
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       Literal_num_members.Text = p.num_datagrid_rows.ToString();
-      TableRow_none.Visible = p.be_datagrid_empty;
-      DataGrid_control.Visible = !p.be_datagrid_empty;
+      DataGrid_control.Visible = !be_suppressed && !p.be_datagrid_empty;
+      TableRow_none.Visible = !be_suppressed && p.be_datagrid_empty;
+      Table_quick_message.Visible = !be_suppressed;
+      //
       p.num_datagrid_rows = 0;
       }
 

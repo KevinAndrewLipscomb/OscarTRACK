@@ -16,10 +16,12 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
     public bool be_interactive;
     public bool be_loaded;
     public bool be_time_off_alert_datagrid_empty;
+    public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_time_off_alert_datagrid_rows;
+    public string own_agency;
     public k.subtype<int> relative_month;
     public string release_filter;
     }
@@ -31,13 +33,14 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       {
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
-      public const int TCI_FIRST_NOMINAL_DAY = 2;
-      public const int TCI_FIRST_SHIFT_NAME = 3;
-      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 4;
-      public const int TCI_TIME_OFF = 5;
-      public const int TCI_SECOND_NOMINAL_DAY = 6;
-      public const int TCI_SECOND_SHIFT_NAME = 7;
-      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 8;
+      public const int TCI_AGENCY_ID = 2;
+      public const int TCI_FIRST_NOMINAL_DAY = 3;
+      public const int TCI_FIRST_SHIFT_NAME = 4;
+      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 5;
+      public const int TCI_TIME_OFF = 6;
+      public const int TCI_SECOND_NOMINAL_DAY = 7;
+      public const int TCI_SECOND_SHIFT_NAME = 8;
+      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 9;
       }
 
     private p_type p;
@@ -72,8 +75,10 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_time_off_alert_datagrid_rows = 0;
+        p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         }
@@ -140,8 +145,8 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
           {
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency));
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          //
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
