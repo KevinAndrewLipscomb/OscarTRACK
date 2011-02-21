@@ -64,9 +64,9 @@
                                 <ASP:EditCommandColumn buttontype="LinkButton" updatetext="&lt;IMG src=&quot;~/protected/image/document-save-5.png&quot; alt=&quot;Update&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" canceltext="&lt;IMG src=&quot;~/protected/image/edit-undo-8.png&quot; alt=&quot;Cancel&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" edittext="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Edit&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;">
                                   <ItemStyle Wrap="false" HorizontalAlign="Center" />
                                 </ASP:EditCommandColumn>
-                                <ASP:BoundColumn datafield="be_selected" Visible="false"></ASP:BoundColumn>
-                                <ASP:BoundColumn datafield="on_duty" Visible="false"></ASP:BoundColumn>
-                                <ASP:BoundColumn datafield="off_duty" Visible="false"></ASP:BoundColumn>
+                                <ASP:BoundColumn datafield="be_selected" Visible="false" ReadOnly="true"></ASP:BoundColumn>
+                                <ASP:BoundColumn datafield="on_duty" Visible="false" ReadOnly="true"></ASP:BoundColumn>
+                                <ASP:BoundColumn datafield="off_duty" Visible="false" ReadOnly="true"></ASP:BoundColumn>
                                 <ASP:BoundColumn datafield="time_off" HeaderText="Time off before duty (hours)" ReadOnly="true">
                                   <ItemStyle HorizontalAlign="Center" />
                                 </ASP:BoundColumn>
