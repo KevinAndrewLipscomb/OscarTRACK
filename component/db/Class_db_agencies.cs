@@ -281,7 +281,7 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select long_designator from agency where id = " + id, this.connection).ExecuteScalar().ToString();
+            result = new MySqlCommand("select long_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -290,7 +290,7 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select medium_designator from agency where id = " + id, this.connection).ExecuteScalar().ToString();
+            result = new MySqlCommand("select medium_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -392,7 +392,7 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select short_designator from agency where id = " + id, this.connection).ExecuteScalar().ToString();
+            result = new MySqlCommand("select short_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
         }

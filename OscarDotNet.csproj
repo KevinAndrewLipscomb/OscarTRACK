@@ -106,6 +106,7 @@
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
+    <Content Include="protected\watchbill.aspx" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
@@ -624,6 +625,13 @@
     </Compile>
     <Compile Include="protected\vehicle_detail.aspx.designer.cs">
       <DependentUpon>vehicle_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\watchbill.aspx.cs">
+      <DependentUpon>watchbill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\watchbill.aspx.designer.cs">
+      <DependentUpon>watchbill.aspx</DependentUpon>
     </Compile>
     <Compile Include="remind_username.aspx.cs">
       <DependentUpon>remind_username.aspx</DependentUpon>

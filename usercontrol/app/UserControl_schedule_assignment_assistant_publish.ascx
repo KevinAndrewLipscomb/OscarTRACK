@@ -8,34 +8,36 @@
       <blockquote>
         <table cellpadding="2" cellspacing="0">
           <tr>
-            <td><asp:RadioButton ID="RadioButton_scalable" runat="server" Checked="True" GroupName="format" Text="Scalable format" /></td>
+            <td nowrap="nowrap" width="1%"><asp:RadioButton ID="RadioButton_scalable" runat="server" Checked="True" GroupName="format" Text="Scalable format" /></td>
             <td>
-              <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" NavigateUrl="~/protected/hardcopy.aspx?audience=client&amp;id=" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
+              &nbsp;
+              <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
             </td>
           </tr>
           <tr>
             <td colspan="2">
-              <small>
-                <blockquote>
+            <blockquote>
+                <small>
                   All days are listed vertically, with adjacent columns for each shift.&nbsp; Light staffing is rendered efficiently.&nbsp; Heavy staffing is rendered on multiple pages, but no data is cropped.&nbsp; This is the format used in the Proposal 
                   control.
-                </blockquote>
-              </small>
+                </small>
+            </blockquote>
             </td>
           </tr>
           <tr>
-            <td><asp:RadioButton ID="RadioButton_month_at_a_glance" runat="server" GroupName="format" Text="Month-at-a-glance format" Enabled="False" /></td>
+            <td nowrap="nowrap" width="1%"><asp:RadioButton ID="RadioButton_month_at_a_glance" runat="server" GroupName="format" Text="Month-at-a-glance format" Enabled="False" /></td>
             <td>
-              <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" NavigateUrl="~/protected/hardcopy.aspx?audience=client&amp;id=" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
+              &nbsp;
+              <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
             </td>
           </tr>
           <tr>
             <td colspan="2">
-              <small>
-                <blockquote>
+              <blockquote>
+                <small>
                   A commonly-recognized format that may give good results in certain situations.&nbsp; Heavy staffing requires tiny font size, or some data may be cropped.
-                </blockquote>
-              </small>
+                </small>
+              </blockquote>
             </td>
           </tr>
         </table>
@@ -48,18 +50,17 @@
   <tr>
     <td>
       <asp:CheckBox ID="CheckBox_incremental" runat="server" Checked="True" Enabled="False" Font-Bold="True" Text="PERSONALIZED DUTY ASSIGNMENTS" />
-      <small>
-        <blockquote>
+      <blockquote>
+        <small>
           For any given month...
           <ul>
             <li><p>The first time you publish, these go to all of your current core operations members.</p></li>
             <li><p>All other times you publish, these only go to your members who have been affected by changes.</p></li>
           </ul>
-        </blockquote>
-      </small>
+        </small>
+      </blockquote>
     </td>
     <td></td>
   </tr>
 </table>
 <asp:Button ID="Button_publish" runat="server" Font-Bold="True" onclick="Button_publish_Click" Text="PUBLISH"/>
-
