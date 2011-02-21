@@ -88,6 +88,7 @@
     <Content Include="protected\gripe_sheet.aspx" />
     <Content Include="protected\image\appointment-missed.png" />
     <Content Include="protected\image\dialog-clean.png" />
+    <Content Include="protected\image\dialog-warning.png" />
     <Content Include="protected\image\document-save-5.png" />
     <Content Include="protected\image\edit-undo-8.png" />
     <Content Include="protected\image\go-down-4.png" />
@@ -126,6 +127,7 @@
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_holdouts.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_intro.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_publish.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_special_requests.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_proposal.ascx" />
@@ -1077,6 +1079,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_intro.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_intro.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_publish.ascx.cs">
+      <DependentUpon>UserControl_schedule_assignment_assistant_publish.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_publish.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_assignment_assistant_publish.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_special_requests.ascx.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_special_requests.ascx</DependentUpon>
