@@ -7,81 +7,81 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_schedule_proposal {
+namespace UserControl_schedule_assignment_assistant_publish {
     
     
-    public partial class TWebUserControl_schedule_proposal {
+    public partial class TWebUserControl_schedule_assignment_assistant_publish {
         
         /// <summary>
-        /// DropDownList_depth control.
+        /// CheckBox_full control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_depth;
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_full;
         
         /// <summary>
-        /// Literal_num_members control.
+        /// RadioButton_scalable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_num_members;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_scalable;
         
         /// <summary>
-        /// Literal_num_crew_shifts control.
+        /// HyperLink_preview_print_scalable control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_num_crew_shifts;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_scalable;
         
         /// <summary>
-        /// DataList_key control.
+        /// RadioButton_month_at_a_glance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataList DataList_key;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_month_at_a_glance;
         
         /// <summary>
-        /// TableRow_none control.
+        /// HyperLink_preview_print_month_at_a_glance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_month_at_a_glance;
         
         /// <summary>
-        /// Image_warning control.
+        /// CustomValidator_full_schedule_format control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Image_warning;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_full_schedule_format;
         
         /// <summary>
-        /// Button_save control.
+        /// CheckBox_incremental control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_save;
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_incremental;
         
         /// <summary>
-        /// A control.
+        /// Button_publish control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DataGrid A;
+        protected global::System.Web.UI.WebControls.Button Button_publish;
     }
 }

@@ -1,22 +1,13 @@
-using System.Configuration;
-
+using Class_biz_members;
 using kix;
-
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Text;
+using System.Configuration;
 using System.IO;
-using Class_biz_members;
+using System.Text;
+using System.Web.UI;
 using UserControl_roster;
+
 namespace report_monthly_current_phone_list
 {
     public struct p_type
@@ -39,7 +30,7 @@ namespace report_monthly_current_phone_list
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_current_phone_list";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_current_phone_list";
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];

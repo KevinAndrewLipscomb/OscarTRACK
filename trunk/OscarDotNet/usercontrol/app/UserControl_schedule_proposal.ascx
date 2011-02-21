@@ -43,6 +43,14 @@
   <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
   <tr>
     <td>
+      <table cellpadding="3" cellspacing="0">
+        <tr>
+          <td><asp:Image ID="Image_warning" runat="server" AlternateText="Warning!" ImageUrl="~/protected/image/dialog-warning.png" /></td>
+          <td>Changes made below will not be saved until you click this button:</td>
+          <td><asp:Button ID="Button_save" runat="server" Font-Bold="True" onclick="Button_save_Click" Text="SAVE" /></td>
+        </tr>
+      </table>
+      <br />
       <asp:datagrid id="A" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="A_ItemDataBound">
         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
         <Columns>
@@ -69,7 +77,7 @@
           <asp:BoundColumn DataField="d_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_d_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -77,7 +85,7 @@
           <asp:BoundColumn DataField="d_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -118,7 +126,7 @@
           <asp:BoundColumn DataField="n_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_n_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -126,7 +134,7 @@
           <asp:BoundColumn DataField="n_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" AutoPostBack="True" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
+              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
               </asp:DropDownList>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />

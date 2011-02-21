@@ -3,8 +3,8 @@
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-    <title id="Title" runat="server"></title>
+  <head runat="server">
+    <title/>
     <!-- $Id: report_monthly_current_phone_list.aspx 2527 2008-09-02 16:48:45Z kevinanlipscomb $ -->
   </head>
   <body bgcolor="white">
@@ -33,7 +33,7 @@
                       <li><p>If unable to find coverage from within your section, call members of other sections.&nbsp; If unable
                         to find coverage from within your squad, call members of other squads.&nbsp; (Log into
                         <asp:label id="Label_application_name_1" runat="server" font-bold="True"></asp:label> to access other
-                        squads' phone lists.)</p></li>
+                        participating squads' phone lists.)</p></li>
                       <li><p>Log into <asp:label id="Label_application_name_2" runat="server" font-bold="True"></asp:label> to
                         update your own phone number, and to use additional features, such as advanced filtering, sorting, and
                         detail lookups:</p>
