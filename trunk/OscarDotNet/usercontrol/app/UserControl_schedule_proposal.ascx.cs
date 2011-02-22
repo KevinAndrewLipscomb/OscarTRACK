@@ -117,7 +117,7 @@ namespace UserControl_schedule_proposal
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
-        p.be_interactive = !(Session["mode:report"] != null);
+        p.be_interactive = (Session["mode:report"] == null);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler"))
@@ -129,7 +129,7 @@ namespace UserControl_schedule_proposal
           p.depth_filter = "1";
           }
         p.num_datagrid_rows = 0;
-        p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+        p.own_agency = (p.be_interactive ? p.biz_members.AgencyIdOfId(Session["member_id"].ToString()) : k.EMPTY);
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         //
