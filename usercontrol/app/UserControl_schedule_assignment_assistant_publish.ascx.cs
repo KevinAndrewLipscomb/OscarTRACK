@@ -119,7 +119,27 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (Page.IsValid)
         {
-
+        var stdout = k.EMPTY;
+        var stderr = k.EMPTY;
+        k.RunCommandIteratedOverArguments
+          (
+          "c:\\cygwin\\bin\\wget",
+          new ArrayList()
+            {
+            //"--output-document=/dev/null --background"
+            "--output-document=wget-out.html"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx"
+            +   "?agency_id=" + p.agency_filter
+            +   "&release_filter=" + p.release_filter
+            +   "&relative_month=" + p.relative_month.val
+            + "\""
+            },
+          "c:\\temp",
+          out stdout,
+          out stderr
+          );
+        Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The watchbill is being published.",true);
         }
       }
 
