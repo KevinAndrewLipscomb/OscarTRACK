@@ -224,7 +224,7 @@ namespace Class_biz_schedule_assignments
         "c:\\cygwin\\bin\\wget",
         new ArrayList()
           {
-          "--output-document=/dev/null --background"
+          "--output-document=/dev/null --no-check-certificate --background"
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx?agency_id=" + agency_filter + "&release_filter=" + release_filter + "&relative_month=" + relative_month.val + "\""
           },
@@ -251,7 +251,7 @@ namespace Class_biz_schedule_assignments
         target = (target_q.Dequeue() as string);
         arguments.Add
           (
-          "--output-document=/dev/null"
+          "--output-document=/dev/null --no-check-certificate"
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx"
           +   "?member_id=" + target
