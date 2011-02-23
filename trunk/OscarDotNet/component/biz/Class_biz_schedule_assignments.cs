@@ -214,7 +214,8 @@ namespace Class_biz_schedule_assignments
       (
       string agency_filter,
       string release_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string working_directory
       )
       {
       var stdout = k.EMPTY;
@@ -228,7 +229,7 @@ namespace Class_biz_schedule_assignments
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx?agency_id=" + agency_filter + "&release_filter=" + release_filter + "&relative_month=" + relative_month.val + "\""
           },
-        "c:\\temp",
+        working_directory,
         out stdout,
         out stderr
         );
@@ -237,7 +238,8 @@ namespace Class_biz_schedule_assignments
     internal void PublishPendingNotifications
       (
       string agency_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string working_directory
       )
       {
       var stdout = k.EMPTY;
@@ -261,7 +263,7 @@ namespace Class_biz_schedule_assignments
           );
         target_q.Enqueue(target);
         }
-      k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,"c:\\temp",out stdout,out stderr);
+      k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,working_directory,out stdout,out stderr);
       db_schedule_assignments.MarkNotificationsMade(target_q,relative_month);
       }
 

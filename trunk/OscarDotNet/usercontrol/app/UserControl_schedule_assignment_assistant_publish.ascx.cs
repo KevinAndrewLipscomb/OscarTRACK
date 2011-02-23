@@ -121,13 +121,15 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (Page.IsValid)
         {
+        var working_directory = Server.MapPath("scratch");
         if (CheckBox_full.Checked)
           {
-          p.biz_schedule_assignments.PublishFullWatchbill(p.agency_filter,p.release_filter,p.relative_month);
+          p.biz_schedule_assignments.PublishFullWatchbill(p.agency_filter,p.release_filter,p.relative_month,working_directory);
           Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",true);
           }
         //
-        p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month);
+        p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month,working_directory);
+        ;
         }
       }
 
