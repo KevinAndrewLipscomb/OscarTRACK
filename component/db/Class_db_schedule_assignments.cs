@@ -646,7 +646,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + " where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + ", be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -748,6 +748,31 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal void MarkNotificationsMade
+      (
+      Queue member_id_q,
+      k.subtype<int> relative_month
+      )
+      {
+      if (member_id_q.Count > 0)
+        {
+        var member_id_list = k.EMPTY;
+        while (member_id_q.Count > 0)
+          {
+          member_id_list += member_id_q.Dequeue() + k.COMMA;
+          }
+        Open();
+        new MySqlCommand
+          (
+          db_trail.Saved
+            ("update schedule_assignment set be_notification_pending = FALSE where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + " and member_id in (" + member_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)}) + ")"),
+          connection
+          )
+          .ExecuteNonQuery();
+        Close();
+        }
+      }
+
     internal Queue PendingNotificationTargetQ
       (
       string agency_filter,
@@ -818,7 +843,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -829,7 +854,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -840,7 +865,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1 where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -874,7 +899,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
@@ -915,7 +940,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)

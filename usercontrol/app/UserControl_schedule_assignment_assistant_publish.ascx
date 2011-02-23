@@ -54,7 +54,7 @@
         <small>
           For any given month...
           <ul>
-            <li><p>The first time you publish, these go to all of your current core operations members.</p></li>
+            <li><p>The first time you publish, these go to all of your current core operations members.&nbsp; <strong>This may take about half a second per member.</strong></p></li>
             <li><p>All other times you publish, these only go to your members who have been affected by changes.</p></li>
           </ul>
         </small>
