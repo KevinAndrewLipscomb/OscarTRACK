@@ -244,20 +244,25 @@ namespace Class_biz_schedule_assignments
       var stderr = k.EMPTY;
       var arguments = new ArrayList();
       var target_q = db_schedule_assignments.PendingNotificationTargetQ(agency_filter,relative_month);
-      for (var i = new k.subtype<int>(0,target_q.Count); i.val < target_q.Count; i.val++)
+      var target_q_count = target_q.Count;
+      var target = k.EMPTY;
+      for (var i = new k.subtype<int>(0,target_q_count); i.val < target_q_count; i.val++)
         {
+        target = (target_q.Dequeue() as string);
         arguments.Add
           (
           "--output-document=/dev/null"
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx"
-          +   "?member_id=" + target_q.Dequeue()
+          +   "?member_id=" + target
           +   "&relative_month=" + relative_month.val
           +   "&member_agency_id=" + agency_filter
           + "\""
           );
+        target_q.Enqueue(target);
         }
       k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,"c:\\temp",out stdout,out stderr);
+      db_schedule_assignments.MarkNotificationsMade(target_q,relative_month);
       }
 
     public void Set
