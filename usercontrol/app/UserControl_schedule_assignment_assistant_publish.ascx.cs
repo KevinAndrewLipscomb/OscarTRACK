@@ -98,6 +98,8 @@ namespace UserControl_schedule_assignment_assistant_publish
       p.release_filter = release_filter;
       p.relative_month = relative_month;
       //
+      ManageAblements();
+      //
       HyperLink_preview_print_scalable.Text = k.ExpandTildePath(HyperLink_preview_print_scalable.Text);
       HyperLink_preview_print_scalable.NavigateUrl = "~/protected/watchbill.aspx"
       + "?agency_id=" + p.agency_filter
@@ -119,27 +121,35 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (Page.IsValid)
         {
-        var stdout = k.EMPTY;
-        var stderr = k.EMPTY;
-        k.RunCommandIteratedOverArguments
-          (
-          "c:\\cygwin\\bin\\wget",
-          new ArrayList()
-            {
-            //"--output-document=/dev/null --background"
-            "--output-document=wget-out.html"
-            + k.SPACE
-            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx"
-            +   "?agency_id=" + p.agency_filter
-            +   "&release_filter=" + p.release_filter
-            +   "&relative_month=" + p.relative_month.val
-            + "\""
-            },
-          "c:\\temp",
-          out stdout,
-          out stderr
-          );
-        Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The watchbill is being published.",true);
+        if (CheckBox_full.Checked)
+          {
+          p.biz_schedule_assignments.PublishFullWatchbill(p.agency_filter,p.release_filter,p.relative_month);
+          Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",true);
+          }
+        //
+        p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month);
+        }
+      }
+
+    private void ManageAblements()
+      {
+      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(true,p.biz_user.IdNum(),p.agency_filter))
+        {
+        var be_full_watchbill_publish_mandatory = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
+        CheckBox_full.Checked = be_full_watchbill_publish_mandatory;
+        CheckBox_full.Enabled = !be_full_watchbill_publish_mandatory;
+        RadioButton_scalable.Checked = true;  // delete this line when month-at-a-glance is implemented
+        //RadioButton_scalable.Enabled = true;  // uncomment when month-at-a-glance is implemented
+        //RadioButton_month_at_a_glance.Enabled = true;  // uncomment when month-at-a-glance is implemented
+        }
+      else
+        {
+        CheckBox_full.Checked = false;
+        CheckBox_full.Enabled = false;
+        RadioButton_scalable.Checked = false;
+        RadioButton_scalable.Enabled = false;
+        RadioButton_month_at_a_glance.Checked = false;
+        RadioButton_month_at_a_glance.Enabled = false;
         }
       }
 

@@ -1,10 +1,10 @@
-using MySql.Data.MySqlClient;
-using kix;
-using System;
-
-using System.Web.UI.WebControls;
 using Class_db;
 using Class_db_trail;
+using kix;
+using MySql.Data.MySqlClient;
+using System;
+using System.Web.UI.WebControls;
+
 namespace Class_db_roles
 {
     public struct crosstab_metadata_rec_type
@@ -19,13 +19,28 @@ namespace Class_db_roles
 
     public class TClass_db_roles: TClass_db
     {
+
         private TClass_db_trail db_trail = null;
-        //Constructor  Create()
+
         public TClass_db_roles() : base()
         {
             // TODO: Add any constructor code here
             db_trail = new TClass_db_trail();
         }
+
+        internal bool BePeckingOrderAtLeast
+          (
+          string subject_name,
+          string object_name
+          )
+          {
+          Open();
+          var be_pecking_order_at_least = "1" == new MySqlCommand
+            ("select IF((select pecking_order from role where name = '" + subject_name + "') <= (select pecking_order from role where name = '" + object_name + "'),1,0)",connection).ExecuteScalar().ToString();
+          Close();
+          return be_pecking_order_at_least;
+          }
+
         public bool Bind(string partial_name, object target)
         {
             bool result;

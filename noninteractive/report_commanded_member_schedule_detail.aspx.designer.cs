@@ -7,19 +7,28 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace member_schedule_detail {
+namespace report_commanded_member_schedule_detail {
     
     
-    public partial class TWebForm_member_schedule_detail {
+    public partial class TWebForm_report_commanded_member_schedule_detail {
         
         /// <summary>
-        /// UserControl_precontent control.
+        /// ScriptManager_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
+        protected global::AjaxControlToolkit.ToolkitScriptManager ScriptManager_control;
+        
+        /// <summary>
+        /// UserControl_common_header_bar_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_common_header_bar.TWebUserControl_common_header_bar UserControl_common_header_bar_control;
         
         /// <summary>
         /// UserControl_member_schedule_detail_control control.
@@ -29,23 +38,5 @@ namespace member_schedule_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::UserControl_member_schedule_detail.TWebUserControl_member_schedule_detail UserControl_member_schedule_detail_control;
-        
-        /// <summary>
-        /// UserControl_postcontent control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
-        
-        /// <summary>
-        /// UserControl_update_progress_blocker_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
     }
 }
