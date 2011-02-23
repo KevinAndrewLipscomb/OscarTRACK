@@ -278,17 +278,22 @@ namespace Class_biz_members
             return result;
         }
 
+        public Queue CurrentMemberEmailAddressesQueue
+          (
+          string agency_short_designator,
+          bool be_core_ops_only
+          )
+          {
+          return db_members.CurrentMemberEmailAddresses(agency_short_designator,be_core_ops_only);
+          }
         public Queue CurrentMemberEmailAddressesQueue(string agency_short_designator)
-        {
-            Queue result;
-            result = db_members.CurrentMemberEmailAddresses(agency_short_designator);
-            return result;
-        }
-
+          {
+          return CurrentMemberEmailAddressesQueue(agency_short_designator,false);
+          }
         public Queue CurrentMemberEmailAddressesQueue()
-        {
-            return CurrentMemberEmailAddressesQueue("");
-        }
+          {
+          return CurrentMemberEmailAddressesQueue("",false);
+          }
 
         public string CurrentMemberEmailAddressesString(string agency_short_designator)
         {

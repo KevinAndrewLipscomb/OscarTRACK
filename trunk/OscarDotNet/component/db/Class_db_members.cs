@@ -997,40 +997,65 @@ namespace Class_db_members
             return result;
         }
 
+        public Queue CurrentMemberEmailAddresses
+          (
+          string agency_short_designator,
+          bool be_core_ops_only
+          )
+          {
+          var current_member_email_addresses = new Queue();
+          var sql = "select email_address"
+          + " from member"
+          +   " join enrollment_history on"
+          +     " ("
+          +       " enrollment_history.member_id=member.id"
+          +     " and"
+          +       " ("
+          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+          +       " and"
+          +         " ("
+          +           " (enrollment_history.end_date is null)"
+          +         " or"
+          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+          +         " )"
+          +       " )"
+          +     " )"
+          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)";
+          if (agency_short_designator != k.EMPTY)
+            {
+            sql += " join agency on (agency.id=member.agency_id)";
+            }
+          sql += " where email_address is not null and email_address <> ''";
+          if (be_core_ops_only)
+            {
+            sql += " and enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Recruit','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','Suspended','New trainee')";
+            }
+          else
+            {
+            sql += " and enrollment_level.description in ('Applicant','Associate','Regular','Life','Tenured','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee')";
+            }
+          if (agency_short_designator != k.EMPTY)
+            {
+            sql += " and agency.short_designator = '" + agency_short_designator + "'";
+            }
+          Open();
+          var dr = new MySqlCommand(sql,connection).ExecuteReader();
+          while (dr.Read())
+            {
+            current_member_email_addresses.Enqueue(dr["email_address"]);
+            }
+          dr.Close();
+          Close();
+          return current_member_email_addresses;
+          }
         public Queue CurrentMemberEmailAddresses(string agency_short_designator)
-        {
-            Queue result;
-            Queue current_member_email_addresses;
-            MySqlDataReader dr;
-            string sql;
-            current_member_email_addresses = new Queue();
-            sql = "select email_address" + " from member" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)";
-            if (agency_short_designator != k.EMPTY)
-            {
-                sql = sql + " join agency on (agency.id=member.agency_id)";
-            }
-            sql = sql + " where email_address is not null" + " and email_address <> \"\"" + " and enrollment_level.description in" + " (" + " \"Applicant\"" + " , \"Associate\"" + " , \"Regular\"" + " , \"Life\"" + " , \"Tenured\"" + " , \"Atypical\"" + " , \"Recruit\"" + " , \"Admin\"" + " , \"Reduced (1)\"" + " , \"Reduced (2)\"" + " , \"Reduced (3)\"" + " , \"SpecOps\"" + " , \"Transferring\"" + " , \"Suspended\"" + " , \"New trainee\"" + " )";
-            if (agency_short_designator != k.EMPTY)
-            {
-                sql = sql + " and agency.short_designator = \"" + agency_short_designator + "\"";
-            }
-            this.Open();
-            dr = new MySqlCommand(sql, this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                current_member_email_addresses.Enqueue(dr["email_address"]);
-            }
-            dr.Close();
-            this.Close();
-            result = current_member_email_addresses;
-
-            return result;
-        }
-
+          {
+          return CurrentMemberEmailAddresses(agency_short_designator,false);
+          }
         public Queue CurrentMemberEmailAddresses()
-        {
-            return CurrentMemberEmailAddresses("");
-        }
+          {
+          return CurrentMemberEmailAddresses("",false);
+          }
 
         internal string EmailAddressByCadNum(string cad_num)
           {
@@ -1093,7 +1118,7 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select first_name from member where id = " + member_id, this.connection).ExecuteScalar().ToString();
+            result = new MySqlCommand("select first_name from member where id = '" + member_id + "'", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1221,7 +1246,7 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select last_name from member where id = " + member_id, this.connection).ExecuteScalar().ToString();
+            result = new MySqlCommand("select last_name from member where id = '" + member_id + "'", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
         }

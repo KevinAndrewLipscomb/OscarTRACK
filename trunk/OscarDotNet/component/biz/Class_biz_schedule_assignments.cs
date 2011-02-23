@@ -1,8 +1,11 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_members;
+using Class_biz_roles;
 using Class_db_schedule_assignments;
 using kix;
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -13,11 +16,34 @@ namespace Class_biz_schedule_assignments
 
     public const int MAX_PER_MONTH = 62;
 
+    private TClass_biz_members biz_members = null;
+    private TClass_biz_roles biz_roles = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
     public TClass_biz_schedule_assignments() : base()
       {
+      biz_members = new TClass_biz_members();
+      biz_roles = new TClass_biz_roles();
       db_schedule_assignments = new TClass_db_schedule_assignments();
+      }
+
+    internal bool BeFullWatchbillPublishMandatory
+      (
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      return true;
+      }
+
+    internal bool BeOkToPublishFullWatchbill
+      (
+      bool be_user_privileged_to_edit_schedule,
+      string user_id,
+      string agency_id
+      )
+      {
+      return be_user_privileged_to_edit_schedule && ((biz_members.AgencyIdOfId(user_id) == agency_id) || (biz_roles.BeUserPeckingOrderAtLeast("Application Administrator")));
       }
 
     internal bool BeOkToWorkOnNextMonth()
@@ -182,6 +208,56 @@ namespace Class_biz_schedule_assignments
     internal string MonthlessRenditionOfNominalDay(DateTime nominal_day)
       {
       return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
+      }
+
+    internal void PublishFullWatchbill
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+          "--output-document=/dev/null --background"
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx?agency_id=" + agency_filter + "&release_filter=" + release_filter + "&relative_month=" + relative_month.val + "\""
+          },
+        "c:\\temp",
+        out stdout,
+        out stderr
+        );
+      }
+
+    internal void PublishPendingNotifications
+      (
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      var arguments = new ArrayList();
+      var target_q = db_schedule_assignments.PendingNotificationTargetQ(agency_filter,relative_month);
+      for (var i = new k.subtype<int>(0,target_q.Count); i.val < target_q.Count; i.val++)
+        {
+        arguments.Add
+          (
+          "--output-document=/dev/null"
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx"
+          +   "?member_id=" + target_q.Dequeue()
+          +   "&relative_month=" + relative_month.val
+          +   "&member_agency_id=" + agency_filter
+          + "\""
+          );
+        }
+      k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,"c:\\temp",out stdout,out stderr);
       }
 
     public void Set

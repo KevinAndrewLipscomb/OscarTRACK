@@ -4,11 +4,11 @@
 <table cellpadding="5" cellspacing="0">
   <tr>
     <td>
-      <asp:CheckBox ID="CheckBox_full" runat="server" Checked="True" Enabled="False" Font-Bold="True" Text="FULL SCHEDULE" />
+      <asp:CheckBox ID="CheckBox_full" runat="server" Enabled="False" Font-Bold="True" Text="FULL SCHEDULE" />
       <blockquote>
         <table cellpadding="2" cellspacing="0">
           <tr>
-            <td nowrap="nowrap" width="1%"><asp:RadioButton ID="RadioButton_scalable" runat="server" Checked="True" GroupName="format" Text="Scalable format" /></td>
+            <td nowrap="nowrap" width="1%"><asp:RadioButton ID="RadioButton_scalable" runat="server" Checked="True" GroupName="format" Text="Scalable format" Enabled="False" /></td>
             <td>
               &nbsp;
               <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
@@ -28,7 +28,7 @@
             <td nowrap="nowrap" width="1%"><asp:RadioButton ID="RadioButton_month_at_a_glance" runat="server" GroupName="format" Text="Month-at-a-glance format" Enabled="False" /></td>
             <td>
               &nbsp;
-              <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
+              <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print" Enabled="false"></asp:HyperLink>
             </td>
           </tr>
           <tr>

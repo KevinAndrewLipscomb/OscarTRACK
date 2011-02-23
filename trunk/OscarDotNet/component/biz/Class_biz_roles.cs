@@ -1,17 +1,26 @@
-using kix;
-using System;
+using Class_biz_user;
 using Class_db_roles;
+using kix;
+
 namespace Class_biz_roles
 {
     public class TClass_biz_roles
     {
+
+        private TClass_biz_user biz_user;
         private TClass_db_roles db_roles = null;
-        //Constructor  Create()
+
         public TClass_biz_roles() : base()
         {
-            // TODO: Add any constructor code here
+            biz_user = new TClass_biz_user();
             db_roles = new TClass_db_roles();
         }
+
+        internal bool BeUserPeckingOrderAtLeast(string role_name)
+          {
+          return db_roles.BePeckingOrderAtLeast(biz_user.Roles()[0],role_name);
+          }
+
         public bool Bind(string partial_name, object target)
         {
             bool result;

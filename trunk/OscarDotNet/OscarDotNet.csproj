@@ -82,6 +82,7 @@
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
@@ -119,6 +120,7 @@
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
+    <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
@@ -274,6 +276,13 @@
     </Compile>
     <Compile Include="new_user_registration.aspx.designer.cs">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_commanded_member_schedule_detail.aspx.cs">
+      <DependentUpon>report_commanded_member_schedule_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_commanded_member_schedule_detail.aspx.designer.cs">
+      <DependentUpon>report_commanded_member_schedule_detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_commanded_watchbill.aspx.cs">
       <DependentUpon>report_commanded_watchbill.aspx</DependentUpon>
@@ -864,6 +873,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_schedule_detail.ascx.cs">
+      <DependentUpon>UserControl_member_schedule_detail.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_schedule_detail.ascx.designer.cs">
+      <DependentUpon>UserControl_member_schedule_detail.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_paypal_assistant.ascx.cs">
       <DependentUpon>UserControl_paypal_assistant.ascx</DependentUpon>

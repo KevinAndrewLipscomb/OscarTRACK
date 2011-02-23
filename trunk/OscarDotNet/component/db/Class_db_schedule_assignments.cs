@@ -748,6 +748,29 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal Queue PendingNotificationTargetQ
+      (
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var pending_notification_target_q = new Queue();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select distinct member_id from schedule_assignment join member on (member.id=schedule_assignment.member_id) where be_notification_pending and agency_id = '" + agency_filter + "' and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        pending_notification_target_q.Enqueue(dr["member_id"].ToString());
+        }
+      dr.Close();
+      Close();
+      return pending_notification_target_q;
+      }
+
     public void Set
       (
       string id,
