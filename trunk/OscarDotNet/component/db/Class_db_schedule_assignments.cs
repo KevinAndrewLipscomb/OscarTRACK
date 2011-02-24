@@ -238,6 +238,7 @@ namespace Class_db_schedule_assignments
           + " , modify d_post_cardinality CHAR NULL"
           + " , modify d_member_agency_id INT UNSIGNED NULL"
           + " , modify d_agency_short_designator VARCHAR(3) NULL"
+          + " , modify d_member_id INT UNSIGNED NULL"
           + " , modify d_medical_release_description VARCHAR(31) NULL"
           + " , modify d_name VARCHAR(64) NULL"
           + " , modify d_be_selected TINYINT NULL"
