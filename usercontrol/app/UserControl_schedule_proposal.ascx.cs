@@ -2,11 +2,13 @@ using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
+using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
 using System.Drawing;
 using System.Web;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_proposal
@@ -25,6 +27,7 @@ namespace UserControl_schedule_proposal
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public string depth_filter;
+    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_datagrid_rows;
     public string own_agency;
     public k.subtype<int> relative_month;
@@ -48,33 +51,35 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_POST_ID = 8;
       public const int TCI_D_MEMBER_AGENCY_ID = 9;
       public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 10;
-      public const int TCI_D_POST_DESIGNATOR = 11;
-      public const int TCI_D_POST_CARDINALITY = 12;
-      public const int TCI_D_POST_CARDINALITY_DESIGNATOR = 13;
-      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
-      public const int TCI_D_COLON = 15;
-      public const int TCI_D_NAME = 16;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 17;
-      public const int TCI_D_BE_SELECTED = 18;
-      public const int TCI_D_COMMENT = 19;
-      public const int TCI_N_SPACER_MAJOR = 20;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 21;
-      public const int TCI_N_SLASH = 22;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 23;
-      public const int TCI_N_SPACER_MINOR = 24;
-      public const int TCI_N_ASSIGNMENT_ID = 25;
-      public const int TCI_N_POST_ID = 26;
-      public const int TCI_N_MEMBER_AGENCY_ID = 27;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 28;
-      public const int TCI_N_POST_DESIGNATOR = 29;
-      public const int TCI_N_POST_CARDINALITY = 30;
-      public const int TCI_N_POST_CARDINALITY_DESIGNATOR = 31;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 32;
-      public const int TCI_N_COLON = 33;
-      public const int TCI_N_NAME = 34;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 35;
-      public const int TCI_N_BE_SELECTED = 36;
-      public const int TCI_N_COMMENT = 37;
+      public const int TCI_D_MEMBER_ID = 11;
+      public const int TCI_D_POST_DESIGNATOR = 12;
+      public const int TCI_D_POST_CARDINALITY = 13;
+      public const int TCI_D_POST_CARDINALITY_DESIGNATOR = 14;
+      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 15;
+      public const int TCI_D_COLON = 16;
+      public const int TCI_D_NAME = 17;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 18;
+      public const int TCI_D_BE_SELECTED = 19;
+      public const int TCI_D_COMMENT = 20;
+      public const int TCI_N_SPACER_MAJOR = 21;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 22;
+      public const int TCI_N_SLASH = 23;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 24;
+      public const int TCI_N_SPACER_MINOR = 25;
+      public const int TCI_N_ASSIGNMENT_ID = 26;
+      public const int TCI_N_POST_ID = 27;
+      public const int TCI_N_MEMBER_AGENCY_ID = 28;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 29;
+      public const int TCI_N_MEMBER_ID = 30;
+      public const int TCI_N_POST_DESIGNATOR = 31;
+      public const int TCI_N_POST_CARDINALITY = 32;
+      public const int TCI_N_POST_CARDINALITY_DESIGNATOR = 33;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 34;
+      public const int TCI_N_COLON = 35;
+      public const int TCI_N_NAME = 36;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 37;
+      public const int TCI_N_BE_SELECTED = 38;
+      public const int TCI_N_COMMENT = 39;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 1;
       public const int CI_DESIGNATOR_LABEL = 3;
@@ -128,6 +133,7 @@ namespace UserControl_schedule_proposal
           {
           p.depth_filter = "1";
           }
+        p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.own_agency = (p.be_interactive ? p.biz_members.AgencyIdOfId(Session["member_id"].ToString()) : k.EMPTY);
         p.relative_month = new k.subtype<int>(0,1);
@@ -257,7 +263,6 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COLON].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_DRIVER_QUALIFIED].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].ForeColor = Color.Gray;
@@ -284,7 +289,6 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COLON].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].ForeColor = Color.Gray;
@@ -380,10 +384,11 @@ namespace UserControl_schedule_proposal
         {
         if (be_any_kind_of_item)
           {
-          //LinkButton link_button;
-          //link_button = ((e.Item.Cells[UserControl_template_datagrid_sortable_Static.TCI_SELECT].Controls[0]) as LinkButton);
-          //link_button.Text = k.ExpandTildePath(link_button.Text);
-          //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          LinkButton link_button;
+          link_button = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME].Controls[0]) as LinkButton);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME].Controls[0]) as LinkButton);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -392,9 +397,13 @@ namespace UserControl_schedule_proposal
             cell.EnableViewState = false;
             }
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_DESIGNATOR].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_ID].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR].EnableViewState = true;
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_DESIGNATOR].EnableViewState = true;
           }
@@ -428,6 +437,22 @@ namespace UserControl_schedule_proposal
     protected void Button_save_Click(object sender, EventArgs e)
       {
       Bind();
+      }
+
+    protected void A_ItemCommand(object source, DataGridCommandEventArgs e)
+      {
+      p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
+      if (e.CommandName == "SelectDayAvailMember")
+        {
+        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_ID].Text,k.safe_hint_type.NUM);
+        p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        }
+      else if (e.CommandName == "SelectNightAvailMember")
+        {
+        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_ID].Text,k.safe_hint_type.NUM);
+        p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        }
+      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
     }
