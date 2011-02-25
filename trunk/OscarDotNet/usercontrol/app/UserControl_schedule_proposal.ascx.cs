@@ -57,29 +57,31 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_POST_CARDINALITY_DESIGNATOR = 14;
       public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 15;
       public const int TCI_D_COLON = 16;
-      public const int TCI_D_NAME = 17;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 18;
-      public const int TCI_D_BE_SELECTED = 19;
-      public const int TCI_D_COMMENT = 20;
-      public const int TCI_N_SPACER_MAJOR = 21;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 22;
-      public const int TCI_N_SLASH = 23;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 24;
-      public const int TCI_N_SPACER_MINOR = 25;
-      public const int TCI_N_ASSIGNMENT_ID = 26;
-      public const int TCI_N_POST_ID = 27;
-      public const int TCI_N_MEMBER_AGENCY_ID = 28;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 29;
-      public const int TCI_N_MEMBER_ID = 30;
-      public const int TCI_N_POST_DESIGNATOR = 31;
-      public const int TCI_N_POST_CARDINALITY = 32;
-      public const int TCI_N_POST_CARDINALITY_DESIGNATOR = 33;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 34;
-      public const int TCI_N_COLON = 35;
-      public const int TCI_N_NAME = 36;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 37;
-      public const int TCI_N_BE_SELECTED = 38;
-      public const int TCI_N_COMMENT = 39;
+      public const int TCI_D_NAME_INTERACTIVE = 17;
+      public const int TCI_D_NAME_NONINTERACTIVE = 18;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 19;
+      public const int TCI_D_BE_SELECTED = 20;
+      public const int TCI_D_COMMENT = 21;
+      public const int TCI_N_SPACER_MAJOR = 22;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 23;
+      public const int TCI_N_SLASH = 24;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 25;
+      public const int TCI_N_SPACER_MINOR = 26;
+      public const int TCI_N_ASSIGNMENT_ID = 27;
+      public const int TCI_N_POST_ID = 28;
+      public const int TCI_N_MEMBER_AGENCY_ID = 29;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 30;
+      public const int TCI_N_MEMBER_ID = 31;
+      public const int TCI_N_POST_DESIGNATOR = 32;
+      public const int TCI_N_POST_CARDINALITY = 33;
+      public const int TCI_N_POST_CARDINALITY_DESIGNATOR = 34;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 35;
+      public const int TCI_N_COLON = 36;
+      public const int TCI_N_NAME_INTERACTIVE = 37;
+      public const int TCI_N_NAME_NONINTERACTIVE = 38;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 39;
+      public const int TCI_N_BE_SELECTED = 40;
+      public const int TCI_N_COMMENT = 41;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 1;
       public const int CI_DESIGNATOR_LABEL = 3;
@@ -199,8 +201,12 @@ namespace UserControl_schedule_proposal
       {
       A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
       A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+      A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive;
+      A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
       A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
       A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+      A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
+      A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
       var num_members = new k.int_nonnegative();
       var num_crew_shifts = new k.decimal_nonnegative();
       p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,A,ref num_members,ref num_crew_shifts);
@@ -250,7 +256,7 @@ namespace UserControl_schedule_proposal
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COLON].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME].Font.Bold = true;
+            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_DRIVER_QUALIFIED].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].Font.Bold = true;
@@ -276,7 +282,7 @@ namespace UserControl_schedule_proposal
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COLON].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME].Font.Bold = true;
+            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Font.Bold = true;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].Font.Bold = true;
@@ -384,11 +390,8 @@ namespace UserControl_schedule_proposal
         {
         if (be_any_kind_of_item)
           {
-          LinkButton link_button;
-          link_button = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME].Controls[0]) as LinkButton);
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME].Controls[0]) as LinkButton);
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls[0]) as LinkButton));
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls[0]) as LinkButton));
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //

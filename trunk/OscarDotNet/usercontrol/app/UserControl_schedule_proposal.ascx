@@ -49,8 +49,7 @@
             <td>
               <asp:Image ID="Image_warning" runat="server" AlternateText="Warning!" ImageUrl="~/protected/image/dialog-warning.png" />
             </td>
-            <td>
-              Changes made below will not be saved until you click a member's name or this button:</td>
+            <td>Changes made below will not be saved until you click a member&#39;s name <em>or</em> click this button:</td>
             <td>
               <asp:Button ID="Button_save" runat="server" Font-Bold="True" onclick="Button_save_Click" Text="SAVE" />
             </td>
@@ -85,8 +84,7 @@
           <asp:BoundColumn DataField="d_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged">
-              </asp:DropDownList>
+              <asp:DropDownList ID="DropDownList_d_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged"></asp:DropDownList>
               <asp:Label ID="Label_d_post" runat="server" Font-Size="Small"></asp:Label>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -94,8 +92,7 @@
           <asp:BoundColumn DataField="d_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged">
-              </asp:DropDownList>
+              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged"></asp:DropDownList>
               <asp:Label ID="Label_d_post_cardinality" runat="server" Font-Size="Small"></asp:Label>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -107,10 +104,14 @@
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
             <ItemTemplate>:</ItemTemplate>
           </asp:TemplateColumn>
-          <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" HeaderText="DAY">
+          <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" HeaderText="DAY" Visible="false">
             <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
           </asp:ButtonColumn>
+          <asp:BoundColumn DataField="d_name" HeaderText="DAY">
+            <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
+            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
+          </asp:BoundColumn>
           <asp:BoundColumn DataField="d_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
           </asp:BoundColumn>
@@ -137,8 +138,7 @@
           <asp:BoundColumn DataField="n_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged">
-              </asp:DropDownList>
+              <asp:DropDownList ID="DropDownList_n_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged"></asp:DropDownList>
               <asp:Label ID="Label_n_post" runat="server" Font-Size="Small"></asp:Label>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -146,8 +146,7 @@
           <asp:BoundColumn DataField="n_post_cardinality" Visible="false"></asp:BoundColumn>
           <asp:TemplateColumn>
             <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged">
-              </asp:DropDownList>
+              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged"></asp:DropDownList>
               <asp:Label ID="Label_n_post_cardinality" runat="server" Font-Size="Small"></asp:Label>
             </ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
@@ -159,10 +158,14 @@
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
             <ItemTemplate>:</ItemTemplate>
           </asp:TemplateColumn>
-          <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" HeaderText="NIGHT">
+          <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" HeaderText="NIGHT" Visible="false">
             <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
           </asp:ButtonColumn>
+          <asp:BoundColumn DataField="n_name" HeaderText="NIGHT">
+            <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
+            <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
+          </asp:BoundColumn>
           <asp:BoundColumn DataField="n_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" Font-Size="Small" />
           </asp:BoundColumn>

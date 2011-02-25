@@ -31,15 +31,6 @@ namespace UserControl_availabilities {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_submit_avails_for_month_following;
         
         /// <summary>
-        /// HyperLink_surrogate control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_surrogate;
-        
-        /// <summary>
         /// HyperLink_vorps control.
         /// </summary>
         /// <remarks>
