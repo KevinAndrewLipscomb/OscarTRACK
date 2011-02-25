@@ -28,7 +28,6 @@ namespace UserControl_availabilities
         var path_to_external_oscar = ConfigurationManager.AppSettings["path_to_external_oscar"];
         HyperLink_submit_avails_for_month_next.NavigateUrl = HyperLink_submit_avails_for_month_next.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_submit_avails_for_month_following.NavigateUrl = HyperLink_submit_avails_for_month_following.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
-        HyperLink_surrogate.NavigateUrl = HyperLink_surrogate.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_vorps.NavigateUrl = HyperLink_vorps.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_more_stats.NavigateUrl = HyperLink_more_stats.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         Img_mortarboard.Src = k.ExpandTildePath(Img_mortarboard.Src);

@@ -7,11 +7,7 @@
     <td align="right" valign="top">Submit</td>
     <td valign="top">
       an&nbsp;availability&nbsp;sheet for
-      <asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink 
-        ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
-      <br />
-      <br />
-      <small><i>Surrogates,&nbsp;make&nbsp;submissions&nbsp;<asp:HyperLink id="HyperLink_surrogate" runat="server" target="_blank" NavigateUrl="$OSCAR/form-surrogate-submissions-1.phtml">here</asp:HyperLink>.<br /></i></small>
+      <asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td rowspan="3" valign="top">
