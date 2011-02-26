@@ -83,18 +83,12 @@
           <asp:BoundColumn DataField="d_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
-            <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged"></asp:DropDownList>
-              <asp:Label ID="Label_d_post" runat="server" Font-Size="Small"></asp:Label>
-            </ItemTemplate>
+            <ItemTemplate><asp:DropDownList ID="DropDownList_d_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_SelectedIndexChanged" Visible="false"></asp:DropDownList><asp:Label ID="Label_d_post" runat="server" Font-Size="Small"></asp:Label></ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
           </asp:TemplateColumn>
-          <asp:BoundColumn DataField="d_post_cardinality" Visible="false"></asp:BoundColumn>
-          <asp:TemplateColumn>
-            <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged"></asp:DropDownList>
-              <asp:Label ID="Label_d_post_cardinality" runat="server" Font-Size="Small"></asp:Label>
-            </ItemTemplate>
+          <asp:BoundColumn DataField="d_post_cardinality" ItemStyle-Font-Size="Small" ItemStyle-VerticalAlign="Bottom"></asp:BoundColumn>
+          <asp:TemplateColumn Visible="false">
+            <ItemTemplate><asp:DropDownList ID="DropDownList_d_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_d_post_cardinality_SelectedIndexChanged"></asp:DropDownList></ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
           </asp:TemplateColumn>
           <asp:BoundColumn DataField="d_medical_release_description" ReadOnly="True">
@@ -137,18 +131,12 @@
           <asp:BoundColumn DataField="n_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
-            <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged"></asp:DropDownList>
-              <asp:Label ID="Label_n_post" runat="server" Font-Size="Small"></asp:Label>
-            </ItemTemplate>
+            <ItemTemplate><asp:DropDownList ID="DropDownList_n_post" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_SelectedIndexChanged" Visible="false"></asp:DropDownList><asp:Label ID="Label_n_post" runat="server" Font-Size="Small"></asp:Label></ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
           </asp:TemplateColumn>
-          <asp:BoundColumn DataField="n_post_cardinality" Visible="false"></asp:BoundColumn>
-          <asp:TemplateColumn>
-            <ItemTemplate>
-              <asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged"></asp:DropDownList>
-              <asp:Label ID="Label_n_post_cardinality" runat="server" Font-Size="Small"></asp:Label>
-            </ItemTemplate>
+          <asp:BoundColumn DataField="n_post_cardinality" ItemStyle-Font-Size="Small" ItemStyle-VerticalAlign="Bottom"></asp:BoundColumn>
+          <asp:TemplateColumn Visible="false">
+            <ItemTemplate><asp:DropDownList ID="DropDownList_n_post_cardinality" runat="server" Enabled="False" Font-Size="Small" onselectedindexchanged="DropDownList_n_post_cardinality_SelectedIndexChanged"></asp:DropDownList></ItemTemplate>
             <ItemStyle VerticalAlign="Bottom" />
           </asp:TemplateColumn>
           <asp:BoundColumn DataField="n_medical_release_description" ReadOnly="True">
