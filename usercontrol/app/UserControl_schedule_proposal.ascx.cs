@@ -222,6 +222,109 @@ namespace UserControl_schedule_proposal
       p.num_datagrid_rows = 0;
       }
 
+    private void ManageSimpleColumns
+      (
+      DataGridItemEventArgs e,
+      bool be_selected,
+      int tci_comment,
+      int tci_medical_release_description,
+      int tci_colon,
+      int tci_name_interactive,
+      int tci_be_driver_qualified,
+      int tci_be_selected,
+      int tci_member_agency_id
+      )
+      {
+      // Control comment length.
+      //
+      e.Item.Cells[tci_comment].Text = e.Item.Cells[tci_comment].Text.Substring(0,Math.Min(e.Item.Cells[tci_comment].Text.Length,15));
+      //
+      // Make simple columns bold to indicate selected, gray to indicate unselected.
+      //
+      if (be_selected)
+        {
+        if (p.be_interactive)
+          {
+          e.Item.Cells[tci_medical_release_description].Font.Bold = true;
+          e.Item.Cells[tci_colon].Font.Bold = true;
+          e.Item.Cells[tci_name_interactive].Font.Bold = true;
+          e.Item.Cells[tci_be_driver_qualified].Font.Bold = true;
+          e.Item.Cells[tci_be_selected].Font.Bold = true;
+          e.Item.Cells[tci_comment].Font.Bold = true;
+          }
+        }
+      else
+        {
+        e.Item.Cells[tci_member_agency_id].ForeColor = Color.Gray;
+        e.Item.Cells[tci_medical_release_description].ForeColor = Color.Gray;
+        e.Item.Cells[tci_colon].ForeColor = Color.Gray;
+        e.Item.Cells[tci_be_driver_qualified].ForeColor = Color.Gray;
+        e.Item.Cells[tci_be_selected].ForeColor = Color.Gray;
+        e.Item.Cells[tci_comment].ForeColor = Color.Gray;
+        }
+      //
+      // Italicize medical_release_description for zone-duty-capable ALS
+      //
+      if (e.Item.Cells[tci_medical_release_description].Text != "&nbsp;")
+        {
+        e.Item.Cells[tci_medical_release_description].Font.Italic = (new ArrayList() {"P","I","C"}).Contains(e.Item.Cells[tci_medical_release_description].Text);
+        }
+      else
+        {
+        e.Item.Cells[tci_colon].Text = k.EMPTY;
+        }
+      }
+
+    private void ManageComplexColumns
+      (
+      DataGridItemEventArgs e,
+      bool be_selected,
+      int tci_post_id,
+      int tci_post_designator,
+      int tci_post_cardinality_interactive,
+      int tci_post_cardinality_noninteractive,
+      int tci_member_agency_id,
+      int tci_agency_short_designator
+      )
+      {
+      var post_id = k.Safe(e.Item.Cells[tci_post_id].Text,k.safe_hint_type.NUM);
+      var post_drop_down_list = ((e.Item.Cells[tci_post_designator].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
+      var post_label = ((e.Item.Cells[tci_post_designator].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_LABEL]) as Label);
+      var post_cardinality_drop_down_list = ((e.Item.Cells[tci_post_cardinality_interactive].Controls[0]) as DropDownList);
+      if (post_id != k.EMPTY)
+        {
+        foreach (ListItem list_item in p.proto_post_list_item_array)
+          {
+          post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
+          post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
+          }
+        if (be_selected)
+          {
+          if (p.be_interactive)
+            {
+            post_drop_down_list.Visible = true;
+            post_label.Visible = false;
+            p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[tci_post_cardinality_noninteractive].Text);
+            //
+            if (p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[tci_member_agency_id].Text == p.own_agency)))
+              {
+              post_drop_down_list.Enabled = true;
+              post_cardinality_drop_down_list.Enabled = true;
+              }
+            }
+          else
+            {
+            post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + post_drop_down_list.SelectedItem.Text;
+            }
+          }
+        }
+      if ((post_id == k.EMPTY) || !p.be_interactive || !be_selected)
+        {
+        post_drop_down_list.Visible = false;
+        post_cardinality_drop_down_list.Visible = false;
+        }
+      }
+
     protected void A_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
@@ -249,180 +352,56 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].Text = k.EMPTY;
           }
         //
-        // Control comment length.
-        //
-        e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].Text =
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].Text.Substring(0,Math.Min(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].Text.Length,15));
-        e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].Text =
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].Text.Substring(0,Math.Min(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].Text.Length,15));
-        //
         var d_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Text == "1");
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         //
-        // Make simple columns bold to indicate selected, gray to indicate unselected.
+        ManageSimpleColumns
+          (
+          e,
+          d_be_selected,
+          UserControl_schedule_proposal_Static.TCI_D_COMMENT,
+          UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION,
+          UserControl_schedule_proposal_Static.TCI_D_COLON,
+          UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_D_BE_DRIVER_QUALIFIED,
+          UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED,
+          UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID
+          );
+        ManageSimpleColumns
+          (
+          e,
+          n_be_selected,
+          UserControl_schedule_proposal_Static.TCI_N_COMMENT,
+          UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION,
+          UserControl_schedule_proposal_Static.TCI_N_COLON,
+          UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED,
+          UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED,
+          UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID
+          );
         //
-        if (d_be_selected)
-          {
-          if (p.be_interactive)
-            {
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COLON].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_DRIVER_QUALIFIED].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].Font.Bold = true;
-            }
-          }
-        else
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COLON].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_DRIVER_QUALIFIED].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COMMENT].ForeColor = Color.Gray;
-          }
-        if (n_be_selected)
-          {
-          if (p.be_interactive)
-            {
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COLON].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Font.Bold = true;
-            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].Font.Bold = true;
-            }
-          }
-        else
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COLON].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COMMENT].ForeColor = Color.Gray;
-          }
-        //
-        // Italicize medical_release_description for zone-duty-capable ALS
-        //
-        if (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text != "&nbsp;")
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text == "P")
-          || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text == "I")
-          || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text == "C");
-          }
-        else
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_COLON].Text = k.EMPTY;
-          }
-        if (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text != "&nbsp;")
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text == "P")
-          || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text == "I")
-          || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text == "C");
-          }
-        else
-          {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_COLON].Text = k.EMPTY;
-          }
-        //--
-        //
-        // Complex columns
-        //
-        //--
-        DropDownList post_drop_down_list;
-        Label post_label;
-        DropDownList post_cardinality_drop_down_list;
-        String post_id;
-        //
-        // Days
-        //
-        post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
-        post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
-        post_label = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_LABEL]) as Label);
-        post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Controls[0]) as DropDownList);
-        if (post_id != k.EMPTY)
-          {
-          foreach (ListItem list_item in p.proto_post_list_item_array)
-            {
-            post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
-            post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
-            }
-          if (d_be_selected)
-            {
-            if (p.be_interactive)
-              {
-              post_drop_down_list.Visible = true;
-              post_label.Visible = false;
-              p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text);
-              //
-              if (p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)))
-                {
-                post_drop_down_list.Enabled = true;
-                post_cardinality_drop_down_list.Enabled = true;
-                }
-              }
-            else
-              {
-              post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + post_drop_down_list.SelectedItem.Text;
-              }
-            }
-          else
-            {
-            post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR].Text;
-            post_label.ForeColor = Color.Gray;
-            }
-          }
-        if ((post_id == k.EMPTY) || !p.be_interactive || !d_be_selected)
-          {
-          post_drop_down_list.Visible = false;
-          post_cardinality_drop_down_list.Visible = false;
-          }
-        //
-        // Nights
-        //
-        post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
-        post_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
-        post_label = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_LABEL]) as Label);
-        post_cardinality_drop_down_list = ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Controls[0]) as DropDownList);
-        if (post_id != k.EMPTY)
-          {
-          foreach (ListItem list_item in p.proto_post_list_item_array)
-            {
-            post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
-            post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
-            }
-          if (n_be_selected)
-            {
-            if (p.be_interactive)
-              {
-              post_drop_down_list.Visible = true;
-              post_label.Visible = false;
-              p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Text);
-              //
-              if (p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)))
-                {
-                post_drop_down_list.Enabled = true;
-                post_cardinality_drop_down_list.Enabled = true;
-                }
-              }
-            else
-              {
-              post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + post_drop_down_list.SelectedItem.Text;
-              }
-            }
-          else
-            {
-            post_label.Text = (p.depth_filter == k.EMPTY ? "&nbsp;" : k.EMPTY) + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR].Text;
-            post_label.ForeColor = Color.Gray;
-            }
-          }
-        if ((post_id == k.EMPTY) || !p.be_interactive || !n_be_selected)
-          {
-          post_drop_down_list.Visible = false;
-          post_cardinality_drop_down_list.Visible = false;
-          }
+        ManageComplexColumns
+          (
+          e,
+          d_be_selected,
+          UserControl_schedule_proposal_Static.TCI_D_POST_ID,
+          UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR,
+          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID,
+          UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR
+          );
+        ManageComplexColumns
+          (
+          e,
+          n_be_selected,
+          UserControl_schedule_proposal_Static.TCI_N_POST_ID,
+          UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR,
+          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID,
+          UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR
+          );
         //
         // Increment row counter
         //

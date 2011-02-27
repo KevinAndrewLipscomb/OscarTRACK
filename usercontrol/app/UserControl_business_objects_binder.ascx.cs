@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_agency;
+using UserControl_agency_satellite_station;
 using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
 using UserControl_shift;
@@ -17,9 +18,10 @@ namespace UserControl_business_objects_binder
   public class UserControl_business_objects_binder_Static
     {
     public const int TSSI_AGENCIES = 0;
-    public const int TSSI_FLEET_OBJECTS = 1;
-    public const int TSSI_FUND_DRIVE_OBJECTS = 2;
-    public const int TSSI_SHIFTS = 3;
+    public const int TSSI_SATELLITE_STATIONS = 1;
+    public const int TSSI_FLEET_OBJECTS = 2;
+    public const int TSSI_FUND_DRIVE_OBJECTS = 3;
+    public const int TSSI_SHIFTS = 4;
     }
 
   public struct p_type
@@ -40,6 +42,10 @@ namespace UserControl_business_objects_binder
         if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
           {
           TabPanel_agencies.Enabled = true;
+          }
+        if (k.Has((string[])(Session["privilege_array"]), "config-agencies"))
+          {
+          TabPanel_satellite_stations.Enabled = true;
           }
         if (k.Has((string[])(Session["privilege_array"]), "config-fleet-attributes"))
           {
@@ -72,6 +78,10 @@ namespace UserControl_business_objects_binder
         if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_AGENCIES)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))), "UserControl_agency", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SATELLITE_STATIONS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency_satellite_station)(LoadControl("~/usercontrol/app/UserControl_agency_satellite_station.ascx"))), "UserControl_agency_satellite_station", PlaceHolder_content);
           }
         else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FLEET_OBJECTS)
           {
@@ -128,6 +138,10 @@ namespace UserControl_business_objects_binder
       if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_AGENCIES)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency)(LoadControl("~/usercontrol/app/UserControl_agency.ascx"))).Fresh(), "UserControl_agency", PlaceHolder_content);
+        }
+      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SATELLITE_STATIONS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_agency_satellite_station)(LoadControl("~/usercontrol/app/UserControl_agency_satellite_station.ascx"))).Fresh(), "UserControl_agency_satellite_station", PlaceHolder_content);
         }
       else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_FLEET_OBJECTS)
         {

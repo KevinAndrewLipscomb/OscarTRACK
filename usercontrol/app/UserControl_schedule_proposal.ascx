@@ -79,7 +79,9 @@
           <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
           <asp:BoundColumn DataField="d_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_post_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
-          <asp:BoundColumn DataField="d_member_agency_id" Visible="False"></asp:BoundColumn>
+          <asp:BoundColumn DataField="d_member_agency_id">
+            <ItemStyle HorizontalAlign="Right" VerticalAlign="Bottom" Font-Size="Small" />
+          </asp:BoundColumn>
           <asp:BoundColumn DataField="d_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>
@@ -127,7 +129,9 @@
           <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
           <asp:BoundColumn DataField="n_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_post_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
-          <asp:BoundColumn DataField="n_member_agency_id" Visible="False"></asp:BoundColumn>
+          <asp:BoundColumn DataField="n_member_agency_id">
+            <ItemStyle HorizontalAlign="Right"  VerticalAlign="Bottom" Font-Size="Small" />
+          </asp:BoundColumn>
           <asp:BoundColumn DataField="n_agency_short_designator" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_member_id" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn>

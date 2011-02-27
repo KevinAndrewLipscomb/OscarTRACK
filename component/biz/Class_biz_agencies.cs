@@ -94,6 +94,11 @@ namespace Class_biz_agencies
             BindListControlShortDashLong(target, selected_id, be_available_option_all, "-- Select --");
         }
 
+        internal void BindListControlShortDashLongSatelliteStations(object target)
+          {
+          db_agencies.BindListControlShortDashLongSatelliteStations(target);
+          }
+
         internal void BindEmsPostListItemCollectionShort(object target)
           {
           db_agencies.BindEmsPostListItemCollectionShort(target);
