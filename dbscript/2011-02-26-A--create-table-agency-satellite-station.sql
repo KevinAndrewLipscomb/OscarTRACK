@@ -15,4 +15,13 @@ ALTER TABLE `agency_satellite_station` ADD CONSTRAINT `agency_satellite_station_
 , ADD INDEX `agency_satellite_station_satellite_station_id` (`satellite_station_id` ASC)
 , DROP INDEX `id` 
 ;
+insert ignore agency_satellite_station (agency_id,satellite_station_id) values
+(1,22),
+(2,7),
+(5,21),
+(9,10),
+(9,19),
+(14,8),
+(16,18)
+;
 COMMIT

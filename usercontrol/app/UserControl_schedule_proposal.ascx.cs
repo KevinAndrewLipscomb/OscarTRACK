@@ -49,17 +49,17 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_SPACER_MINOR = 6;
       public const int TCI_D_ASSIGNMENT_ID = 7;
       public const int TCI_D_POST_ID = 8;
-      public const int TCI_D_MEMBER_AGENCY_ID = 9;
-      public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 10;
-      public const int TCI_D_MEMBER_ID = 11;
-      public const int TCI_D_POST_DESIGNATOR = 12;
-      public const int TCI_D_POST_CARDINALITY_NONINTERACTIVE = 13;
-      public const int TCI_D_POST_CARDINALITY_INTERACTIVE = 14;
-      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 15;
-      public const int TCI_D_COLON = 16;
-      public const int TCI_D_NAME_INTERACTIVE = 17;
-      public const int TCI_D_NAME_NONINTERACTIVE = 18;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 19;
+      public const int TCI_D_AGENCY_SHORT_DESIGNATOR = 9;
+      public const int TCI_D_MEMBER_ID = 10;
+      public const int TCI_D_POST_DESIGNATOR = 11;
+      public const int TCI_D_POST_CARDINALITY_NONINTERACTIVE = 12;
+      public const int TCI_D_POST_CARDINALITY_INTERACTIVE = 13;
+      public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
+      public const int TCI_D_COLON = 15;
+      public const int TCI_D_NAME_INTERACTIVE = 16;
+      public const int TCI_D_NAME_NONINTERACTIVE = 17;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 18;
+      public const int TCI_D_MEMBER_AGENCY_ID = 19;
       public const int TCI_D_BE_SELECTED = 20;
       public const int TCI_D_COMMENT = 21;
       public const int TCI_N_SPACER_MAJOR = 22;
@@ -69,17 +69,17 @@ namespace UserControl_schedule_proposal
       public const int TCI_N_SPACER_MINOR = 26;
       public const int TCI_N_ASSIGNMENT_ID = 27;
       public const int TCI_N_POST_ID = 28;
-      public const int TCI_N_MEMBER_AGENCY_ID = 29;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 30;
-      public const int TCI_N_MEMBER_ID = 31;
-      public const int TCI_N_POST_DESIGNATOR = 32;
-      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 33;
-      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 34;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 35;
-      public const int TCI_N_COLON = 36;
-      public const int TCI_N_NAME_INTERACTIVE = 37;
-      public const int TCI_N_NAME_NONINTERACTIVE = 38;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 39;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 29;
+      public const int TCI_N_MEMBER_ID = 30;
+      public const int TCI_N_POST_DESIGNATOR = 31;
+      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 32;
+      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 33;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 34;
+      public const int TCI_N_COLON = 35;
+      public const int TCI_N_NAME_INTERACTIVE = 36;
+      public const int TCI_N_NAME_NONINTERACTIVE = 37;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 38;
+      public const int TCI_N_MEMBER_AGENCY_ID = 39;
       public const int TCI_N_BE_SELECTED = 40;
       public const int TCI_N_COMMENT = 41;
       //
@@ -235,9 +235,6 @@ namespace UserControl_schedule_proposal
       int tci_member_agency_id
       )
       {
-      // Control comment length.
-      //
-      e.Item.Cells[tci_comment].Text = e.Item.Cells[tci_comment].Text.Substring(0,Math.Min(e.Item.Cells[tci_comment].Text.Length,15));
       //
       // Make simple columns bold to indicate selected, gray to indicate unselected.
       //
@@ -273,6 +270,18 @@ namespace UserControl_schedule_proposal
         {
         e.Item.Cells[tci_colon].Text = k.EMPTY;
         }
+      //
+      // Manage member_agency_id.
+      //
+      var member_agency_id = k.Safe(e.Item.Cells[tci_member_agency_id].Text,k.safe_hint_type.NUM);
+      if (member_agency_id != k.EMPTY)
+        {
+        e.Item.Cells[tci_member_agency_id].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id);
+        }
+      //
+      // Control comment length.
+      //
+      e.Item.Cells[tci_comment].Text = e.Item.Cells[tci_comment].Text.Substring(0,Math.Min(e.Item.Cells[tci_comment].Text.Length,15));
       }
 
     private void ManageComplexColumns
