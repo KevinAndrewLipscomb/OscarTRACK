@@ -58,7 +58,7 @@ namespace Class_db_schedule_assignments
       var agency_condition_clause = k.EMPTY;
       if (agency_filter != k.EMPTY)
         {
-        agency_condition_clause = " and ((agency_id = '" + agency_filter + "') or (agency_id != post_id))";
+        agency_condition_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
         }
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
