@@ -20,6 +20,28 @@ namespace Class_db_schedule_assignments
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeNotificationPendingForAllInScope
+      (
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var be_notification_pending_for_all_in_scope = true;
+      Open();
+      be_notification_pending_for_all_in_scope = "1" == new MySqlCommand
+        (
+        "select IF(sum(not be_notification_pending) = 0,1,0)"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        + " where agency_id = '" + agency_filter + "'"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return be_notification_pending_for_all_in_scope;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";

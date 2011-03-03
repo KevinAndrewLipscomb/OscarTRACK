@@ -33,7 +33,7 @@ namespace Class_biz_schedule_assignments
       k.subtype<int> relative_month
       )
       {
-      return true;
+      return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
       }
 
     internal bool BeOkToPublishFullWatchbill
