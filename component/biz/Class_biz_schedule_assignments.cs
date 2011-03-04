@@ -113,7 +113,7 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindSubmissionCompliancyBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month,compliancy_filter);
       }
 
-    internal void BindTimeOffAlertInvestigationBaseDataList
+    internal void BindMemberScheduleDetailBaseDataList
       (
       string member_id,
       k.subtype<int> relative_month,
@@ -121,7 +121,7 @@ namespace Class_biz_schedule_assignments
       object target
       )
       {
-      db_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(member_id,relative_month,agency_id,target);
+      db_schedule_assignments.BindMemberScheduleDetailBaseDataList(member_id,relative_month,agency_id,target);
       }
 
     public bool Delete(string id)
