@@ -38,19 +38,21 @@ namespace UserControl_member_schedule_detail
       public const int TCI_SCHEDULE_ASSIGNMENT_ID = 0;
       public const int TCI_NOMINAL_DAY = 1;
       public const int TCI_SHIFT_NAME = 2;
-      public const int TCI_COMMENT = 3;
-      public const int TCI_COMMENT_EDIT_UPDATE_CANCEL = 4;
-      public const int TCI_BE_SELECTED = 5;
-      public const int TCI_ON_DUTY = 6;
-      public const int TCI_OFF_DUTY = 7;
-      public const int TCI_TIME_OFF = 8;
-      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 9;
-      public const int TCI_SHIFT_POPULATION_CITYWIDE = 10;
-      public const int TCI_SWAP_EARLIER = 11;
-      public const int TCI_SWAP_LATER = 12;
-      public const int TCI_OTHERS_AVAILABLE = 13;
-      public const int TCI_FORCE_OFF = 14;
-      public const int TCI_FORCE_ON = 15;
+      public const int TCI_POST_DESIGNATOR = 3;
+      public const int TCI_POST_CARDINALITY = 4;
+      public const int TCI_COMMENT = 5;
+      public const int TCI_COMMENT_EDIT_UPDATE_CANCEL = 6;
+      public const int TCI_BE_SELECTED = 7;
+      public const int TCI_ON_DUTY = 8;
+      public const int TCI_OFF_DUTY = 9;
+      public const int TCI_TIME_OFF = 10;
+      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 11;
+      public const int TCI_SHIFT_POPULATION_CITYWIDE = 12;
+      public const int TCI_SWAP_EARLIER = 13;
+      public const int TCI_SWAP_LATER = 14;
+      public const int TCI_OTHERS_AVAILABLE = 15;
+      public const int TCI_FORCE_OFF = 16;
+      public const int TCI_FORCE_ON = 17;
       }
 
     private p_type p;
@@ -160,7 +162,11 @@ namespace UserControl_member_schedule_detail
         if (be_selected)
           {
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].Font.Bold = true;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].ForeColor = Color.White;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].BackColor = Color.Green;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].Font.Bold = true;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].ForeColor = Color.White;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].BackColor = Color.Green;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Font.Bold = true;
@@ -177,7 +183,9 @@ namespace UserControl_member_schedule_detail
         else
           {
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].BackColor = Color.PaleGreen;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].BackColor = Color.PaleGreen;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].ForeColor = Color.Gray;
@@ -333,6 +341,7 @@ namespace UserControl_member_schedule_detail
       p.arraylist_unselected_night_avail.Clear();
       p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.member_id,p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Visible = p.be_interactive;
@@ -341,7 +350,7 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_OTHERS_AVAILABLE].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_interactive;
-      p.biz_schedule_assignments.BindTimeOffAlertInvestigationBaseDataList(p.member_id,p.relative_month,p.member_agency_id,DataGrid_control);
+      p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.member_id,p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_data.Visible = !p.be_datagrid_empty;
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -371,7 +380,7 @@ namespace UserControl_member_schedule_detail
         }
       else if (be_unselected_day_avail)
         {
-        e.Cell.ForeColor = Color.Black;
+        e.Cell.ForeColor = Color.Gray;
         e.Cell.BackColor = Color.PaleGreen;
         }
       }
@@ -399,7 +408,7 @@ namespace UserControl_member_schedule_detail
         }
       else if (be_unselected_night_avail)
         {
-        e.Cell.ForeColor = Color.Black;
+        e.Cell.ForeColor = Color.Gray;
         e.Cell.BackColor = Color.PaleGreen;
         }
       }

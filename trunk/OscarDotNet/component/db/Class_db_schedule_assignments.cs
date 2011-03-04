@@ -13,6 +13,9 @@ namespace Class_db_schedule_assignments
   {
   public class TClass_db_schedule_assignments: TClass_db
     {
+
+    private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
+
     private TClass_db_trail db_trail = null;
 
     public TClass_db_schedule_assignments() : base()
@@ -105,7 +108,7 @@ namespace Class_db_schedule_assignments
       + " , num_units.citywide as num_units_citywide"
       + " , schedule_assignment.id as assignment_id"
       + " , post_id"
-      + " , IF(be_selected,CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR),'') as post_cardinality"
+      + " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
       + " , member.agency_id as member_agency_id"
       + " , short_designator as agency_short_designator"
       + " , member_id"
@@ -535,7 +538,7 @@ namespace Class_db_schedule_assignments
       //
       }
 
-    internal void BindTimeOffAlertInvestigationBaseDataList
+    internal void BindMemberScheduleDetailBaseDataList
       (
       string member_id,
       k.subtype<int> relative_month,
@@ -549,6 +552,8 @@ namespace Class_db_schedule_assignments
         "select schedule_assignment_id"
         + " , nominal_day"
         + " , shift_name"
+        + " , post_designator"
+        + " , post_cardinality"
         + " , comment"
         + " , be_selected"
         + " , on_duty"
@@ -562,6 +567,8 @@ namespace Class_db_schedule_assignments
         +   " select schedule_assignment_id"
         +   " , nominal_day"
         +   " , shift_name"
+        +   " , post_designator"
+        +   " , post_cardinality"
         +   " , comment"
         +   " , be_selected"
         +   " , IF(be_selected,@on_duty := on_duty,NULL) as on_duty"
@@ -577,6 +584,8 @@ namespace Class_db_schedule_assignments
         +     " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
         +     " , shift_id"
         +     " , shift.name as shift_name"
+        +     " , IF(be_selected,short_designator,'') as post_designator"
+        +     " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
         +     " , comment"
         +     " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
         +     " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
@@ -584,10 +593,11 @@ namespace Class_db_schedule_assignments
         +     " FROM schedule_assignment"
         +       " join shift on (shift.id=schedule_assignment.shift_id)"
         +       " join member on (member.id=schedule_assignment.member_id)"
+        +       " join agency on (agency.id=schedule_assignment.post_id)"
         +     " where member_id = '" + member_id + "'"
         +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
         +     " order by member_id,nominal_day,start"
-        +     " ) as toai_member_schedule_assignments_sorted_chronologically"
+        +     " ) as msd_member_schedule_assignments_sorted_chronologically"
         +     " join"
         +       " ("
         +       " select nominal_day"
@@ -601,9 +611,9 @@ namespace Class_db_schedule_assignments
         +       " where medical_release_code_description_map.pecking_order >= 20"
         +         " and be_selected"
         +       " group by nominal_day,shift_id"
-        +       " ) toai_shift_populations_on_member_schedule_assignments"
+        +       " ) msd_shift_populations_on_member_schedule_assignments"
         +         " using (nominal_day,shift_id)"
-        +   " ) as toai_calculated",
+        +   " ) as msd_calculated",
         connection
         )
         .ExecuteReader();
