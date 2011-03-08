@@ -6,6 +6,7 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Drawing;
 using System.Web;
 using System.Web.UI;
@@ -99,6 +100,11 @@ namespace UserControl_schedule_proposal
         Panel_warning_to_save.Visible = p.be_interactive;
         //
         Bind();
+        //
+        if (!p.be_interactive)
+          {
+          A.Style.Add(HtmlTextWriterStyle.FontFamily,ConfigurationManager.AppSettings["report_compressed_font_family"]);
+          }
         //
         p.be_loaded = true;
         }
@@ -199,6 +205,40 @@ namespace UserControl_schedule_proposal
 
     private void Bind()
       {
+      var interactive_major_font_size = FontUnit.Larger;
+      var interactive_neutral_font_size = FontUnit.Empty;
+      var interactive_minor_font_size = FontUnit.Smaller;
+      var noninteractive_major_font_size = FontUnit.Point(18);
+      var noninteractive_neutral_font_size = FontUnit.Point(12);
+      var noninteractive_minor_font_size = FontUnit.Point(10);
+      //
+      if (p.be_interactive)
+        {
+        A.Font.Size = interactive_neutral_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = interactive_major_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = interactive_major_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
+        }
+      else
+        {
+        A.Font.Size = noninteractive_neutral_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = noninteractive_major_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = noninteractive_major_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
+        }
+      //
       A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
       A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
       A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive;
@@ -276,7 +316,7 @@ namespace UserControl_schedule_proposal
       var member_agency_id = k.Safe(e.Item.Cells[tci_member_agency_id].Text,k.safe_hint_type.NUM);
       if (member_agency_id != k.EMPTY)
         {
-        e.Item.Cells[tci_member_agency_id].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id);
+        e.Item.Cells[tci_member_agency_id].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id + "&nbsp;&nbsp;");
         }
       //
       // Control comment length.
