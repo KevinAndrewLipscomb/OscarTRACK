@@ -8,7 +8,6 @@
     <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
-    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=VT323" />
   </head>
   <body bgcolor="white">
     <form runat="server">

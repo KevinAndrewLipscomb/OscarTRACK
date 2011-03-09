@@ -9,22 +9,6 @@
     <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
-    <script type="text/javascript">
-      WebFontConfig =
-        {
-        google: { families: ['VT323'] }
-        };
-      (function ()
-        {
-        var wf = document.createElement('script');
-        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-        wf.type = 'text/javascript';
-        wf.async = 'true';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(wf, s);
-        }
-       )();
-    </script>
   </head>
   <body bgcolor="white">
     <form runat="server">
