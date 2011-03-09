@@ -103,7 +103,9 @@ namespace UserControl_schedule_proposal
         //
         if (!p.be_interactive)
           {
-          A.Style.Add(HtmlTextWriterStyle.FontFamily,ConfigurationManager.AppSettings["report_compressed_font_family"]);
+          var report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
+          EstablishGoogleWebFontLoader("google: { families: ['" + report_compressed_font_family + "'] }");
+          A.Style.Add(HtmlTextWriterStyle.FontFamily,report_compressed_font_family);
           }
         //
         p.be_loaded = true;
