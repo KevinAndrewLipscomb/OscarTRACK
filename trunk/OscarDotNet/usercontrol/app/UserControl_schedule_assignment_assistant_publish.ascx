@@ -12,8 +12,6 @@
             <td>
               &nbsp;
               <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print"></asp:HyperLink>
-              &nbsp;
-              <small>(landscape orientation recommended)</small>
             </td>
           </tr>
           <tr>
@@ -31,8 +29,6 @@
             <td>
               &nbsp;
               <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="&lt;IMG src=&quot;~/protected/image/print16_h.png&quot; alt=&quot;(preview/print)&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Target="_blank" ToolTip="Preview/print" Enabled="false"></asp:HyperLink>
-              &nbsp;
-              <small>(landscape orientation recommended)</small>
             </td>
           </tr>
           <tr>
