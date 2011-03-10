@@ -104,8 +104,10 @@ namespace UserControl_schedule_proposal
         if (!p.be_interactive)
           {
           var report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
-          EstablishGoogleWebFontLoader("google: { families: ['" + report_compressed_font_family + "'] }");
-          A.Style.Add(HtmlTextWriterStyle.FontFamily,report_compressed_font_family);
+          EstablishGoogleWebFontLoader("google: { families: [" + report_compressed_font_family + "] }");
+          A.Style.Add("font-family",report_compressed_font_family);
+          A.Style.Add("letter-spacing","-0.05em");
+          A.Style.Add("word-spacing","-0.2em");
           }
         //
         p.be_loaded = true;
@@ -210,9 +212,9 @@ namespace UserControl_schedule_proposal
       var interactive_major_font_size = FontUnit.Larger;
       var interactive_neutral_font_size = FontUnit.Empty;
       var interactive_minor_font_size = FontUnit.Smaller;
-      var noninteractive_major_font_size = FontUnit.Point(18);
-      var noninteractive_neutral_font_size = FontUnit.Point(12);
-      var noninteractive_minor_font_size = FontUnit.Point(10);
+      var noninteractive_major_font_size = FontUnit.Point(16);
+      var noninteractive_neutral_font_size = FontUnit.Point(11);
+      var noninteractive_minor_font_size = FontUnit.Point(9);
       //
       if (p.be_interactive)
         {
