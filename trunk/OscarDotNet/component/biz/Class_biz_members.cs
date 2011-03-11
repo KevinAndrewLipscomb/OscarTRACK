@@ -514,6 +514,11 @@ namespace Class_biz_members
         public void SetEmailAddress(string id, string email_address)
         {
             db_members.SetEmailAddress(id, email_address);
+            var user_id = UserIdOf(id);
+            if (user_id != k.EMPTY)
+              {
+              db_users.SetEmailAddress(user_id,email_address);
+              }
         }
 
         public void SetName(string old_first, string old_last, string new_first, string new_last, object summary)
