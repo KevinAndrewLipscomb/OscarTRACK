@@ -203,6 +203,15 @@ namespace Class_db_members
             return result;
         }
 
+        internal bool BeRoleHolder(string id)
+          {
+          var be_role_holder = true;
+          Open();
+          be_role_holder = ("1" == new MySqlCommand("select (count(role_id) > 0) from member join role_member_map on (role_member_map.member_id=member.id) where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          Close();
+          return be_role_holder;
+          }
+
         internal bool BeRoleHolderByCadNum(string cad_num)
           {
           Open();

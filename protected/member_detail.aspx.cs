@@ -99,7 +99,9 @@ namespace member_detail
                 LinkButton_change_driver_qual.Text = k.ExpandTildePath(LinkButton_change_driver_qual.Text);
                 LinkButton_change_member_phone_num.Visible = (target_member_id == p.biz_members.IdOfUserId(p.biz_user.IdNum())) || (k.Has((string[])(Session["privilege_array"]), "change-member-phone-num") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id));
                 LinkButton_change_member_phone_num.Text = k.ExpandTildePath(LinkButton_change_member_phone_num.Text);
-                LinkButton_change_member_email_address.Visible = k.Has((string[])(Session["privilege_array"]), "change-member-email-address") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+                LinkButton_change_member_email_address.Visible = !p.biz_members.BeRoleHolder(target_member_id)
+                  && k.Has((string[])(Session["privilege_array"]), "change-member-email-address")
+                  && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
                 LinkButton_change_member_email_address.Text = k.ExpandTildePath(LinkButton_change_member_email_address.Text);
                 LinkButton_change_medical_release_level.Visible = k.Has((string[])(Session["privilege_array"]), "change-med-release-level") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
                 LinkButton_change_medical_release_level.Text = k.ExpandTildePath(LinkButton_change_medical_release_level.Text);
