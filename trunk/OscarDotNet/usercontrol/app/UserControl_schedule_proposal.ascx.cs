@@ -107,7 +107,7 @@ namespace UserControl_schedule_proposal
           EstablishGoogleWebFontLoader("google: { families: [" + report_compressed_font_family + "] }");
           A.Style.Add("font-family",report_compressed_font_family);
           A.Style.Add("letter-spacing","-0.05em");
-          A.Style.Add("word-spacing","-0.2em");
+          A.Style.Add("word-spacing","-0.12em");
           }
         //
         p.be_loaded = true;
