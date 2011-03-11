@@ -270,6 +270,7 @@ namespace UserControl_schedule_proposal
       (
       DataGridItemEventArgs e,
       bool be_selected,
+      bool be_ok_to_enable_controls,
       int tci_comment,
       int tci_medical_release_description,
       int tci_colon,
@@ -315,6 +316,10 @@ namespace UserControl_schedule_proposal
         e.Item.Cells[tci_colon].Text = k.EMPTY;
         }
       //
+      // Manage ablement of interactive name linkbutton.
+      //
+      ((e.Item.Cells[tci_name_interactive].Controls[0]) as LinkButton).Enabled = be_ok_to_enable_controls;
+      //
       // Manage member_agency_id.
       //
       var member_agency_id = k.Safe(e.Item.Cells[tci_member_agency_id].Text,k.safe_hint_type.NUM);
@@ -332,15 +337,13 @@ namespace UserControl_schedule_proposal
       (
       DataGridItemEventArgs e,
       bool be_selected,
-      int tci_post_id,
+      string post_id,
+      bool be_ok_to_enable_controls,
       int tci_post_designator,
       int tci_post_cardinality_interactive,
-      int tci_post_cardinality_noninteractive,
-      int tci_member_agency_id,
-      int tci_agency_short_designator
+      int tci_post_cardinality_noninteractive
       )
       {
-      var post_id = k.Safe(e.Item.Cells[tci_post_id].Text,k.safe_hint_type.NUM);
       var post_drop_down_list = ((e.Item.Cells[tci_post_designator].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
       var post_label = ((e.Item.Cells[tci_post_designator].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_LABEL]) as Label);
       var post_cardinality_drop_down_list = ((e.Item.Cells[tci_post_cardinality_interactive].Controls[0]) as DropDownList);
@@ -359,7 +362,7 @@ namespace UserControl_schedule_proposal
             post_label.Visible = false;
             p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[tci_post_cardinality_noninteractive].Text);
             //
-            if (p.be_ok_to_edit_post && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[tci_member_agency_id].Text == p.own_agency)))
+            if (be_ok_to_enable_controls)
               {
               post_drop_down_list.Enabled = true;
               post_cardinality_drop_down_list.Enabled = true;
@@ -406,12 +409,48 @@ namespace UserControl_schedule_proposal
           }
         //
         var d_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Text == "1");
+        var d_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
+        var d_be_ok_to_enable_controls = (d_post_id != k.EMPTY)
+          && d_be_selected
+          && p.be_interactive
+          && p.be_ok_to_edit_post
+          && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id));
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
+        var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
+        var n_be_ok_to_enable_controls = (n_post_id != k.EMPTY)
+          && n_be_selected
+          && p.be_interactive
+          && p.be_ok_to_edit_post
+          && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id));
+        //
+        ManageComplexColumns
+          (
+          e,
+          d_be_selected,
+          d_post_id,
+          d_be_ok_to_enable_controls,
+          UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR,
+          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE
+          );
+        ManageComplexColumns
+          (
+          e,
+          n_be_selected,
+          n_post_id,
+          n_be_ok_to_enable_controls,
+          UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR,
+          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE,
+          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE
+          );
+        //
+        // Manage simple columns after managing complex columns because ManageSimpleColumns potentially modifies the member_agency_id value.
         //
         ManageSimpleColumns
           (
           e,
           d_be_selected,
+          d_be_ok_to_enable_controls,
           UserControl_schedule_proposal_Static.TCI_D_COMMENT,
           UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION,
           UserControl_schedule_proposal_Static.TCI_D_COLON,
@@ -424,6 +463,7 @@ namespace UserControl_schedule_proposal
           (
           e,
           n_be_selected,
+          n_be_ok_to_enable_controls,
           UserControl_schedule_proposal_Static.TCI_N_COMMENT,
           UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION,
           UserControl_schedule_proposal_Static.TCI_N_COLON,
@@ -431,29 +471,6 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_N_BE_DRIVER_QUALIFIED,
           UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED,
           UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID
-          );
-        //
-        ManageComplexColumns
-          (
-          e,
-          d_be_selected,
-          UserControl_schedule_proposal_Static.TCI_D_POST_ID,
-          UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR,
-          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID,
-          UserControl_schedule_proposal_Static.TCI_D_AGENCY_SHORT_DESIGNATOR
-          );
-        ManageComplexColumns
-          (
-          e,
-          n_be_selected,
-          UserControl_schedule_proposal_Static.TCI_N_POST_ID,
-          UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR,
-          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID,
-          UserControl_schedule_proposal_Static.TCI_N_AGENCY_SHORT_DESIGNATOR
           );
         //
         // Increment row counter

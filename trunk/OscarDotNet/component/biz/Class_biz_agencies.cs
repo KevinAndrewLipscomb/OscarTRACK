@@ -1,19 +1,38 @@
-using System;
-
-using System.Collections;
 using Class_db_agencies;
+using Class_db_agency_satellite_stations;
+using System.Collections;
+
 namespace Class_biz_agencies
 {
     public class TClass_biz_agencies
     {
+
         private TClass_db_agencies db_agencies = null;
+        private TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
 
         //Constructor  Create()
         public TClass_biz_agencies() : base()
         {
             // TODO: Add any constructor code here
             db_agencies = new TClass_db_agencies();
+            db_agency_satellite_stations = new TClass_db_agency_satellite_stations();
         }
+
+        internal bool BeAgencyResponsibleForPost
+          (
+          string agency_id,
+          string post_id
+          )
+          {
+          if (agency_id == post_id)
+            {
+            return true;
+            }
+          else
+            {
+            return db_agency_satellite_stations.BeStationSatelliteOfAgency(post_id,agency_id);
+            }
+          }
 
         public bool BeImmediateOutTransfersAllowed(string agency)
           {

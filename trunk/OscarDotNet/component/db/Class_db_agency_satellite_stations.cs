@@ -20,6 +20,19 @@ namespace Class_db_agency_satellite_stations
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeStationSatelliteOfAgency
+      (
+      string station_num,
+      string agency_id
+      )
+      {
+      var be_station_satellite_of_agency = false;
+      Open();
+      be_station_satellite_of_agency = "1" == new MySqlCommand("select IFNULL((select 1 from agency_satellite_station where agency_id = '" + agency_id + "' and satellite_station_id = '" + station_num + "'),0)",connection).ExecuteScalar().ToString();
+      Close();
+      return be_station_satellite_of_agency;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(satellite_station_id,'-'))";
