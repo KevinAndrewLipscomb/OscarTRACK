@@ -1,5 +1,5 @@
 --
--- NOTE:  Run iteratively until 0 rows are affected.
+-- NOTE:  Run repeatedly until 0 rows are affected.
 --
 START TRANSACTION
 ;
@@ -86,6 +86,11 @@ update ignore avail_sheet
 set odnmid = (select id from member where member.last_name = avail_sheet.last_name and member.first_name = "DEBORAH")
 where odnmid is null
   and avail_sheet.first_name = "DEB"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.last_name = avail_sheet.last_name and member.first_name = "DEBORAH")
+where odnmid is null
+  and avail_sheet.first_name = "DEBBIE"
 ;
 update ignore avail_sheet
 set odnmid = (select id from member where member.last_name = avail_sheet.last_name and member.first_name = "DENNIS")
@@ -281,5 +286,58 @@ update ignore avail_sheet
 set odnmid = (select id from member where member.last_name = avail_sheet.last_name and member.first_name = "ZACHARY")
 where odnmid is null
   and avail_sheet.first_name = "ZACH"
+;
+--
+-- Specific links
+--
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "MICHAEL" and member.last_name = "BEVERLY JR.")
+where odnmid is null
+  and avail_sheet.first_name = "MICHAEL" and avail_sheet.last_name = "BEVERLY"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "CLIFFORD" and member.last_name = "COLLINGS III")
+where odnmid is null
+  and avail_sheet.first_name = "CLIFF" and avail_sheet.last_name = "COLLINGS"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "PAUL" and member.last_name = "FLACK")
+where odnmid is null
+  and avail_sheet.first_name = "RICK" and avail_sheet.last_name = "FLACK"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "KATHERINE" and member.last_name = "HASTINGS")
+where odnmid is null
+  and avail_sheet.first_name = "KATHARINE" and avail_sheet.last_name = "HASTINGS"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "CALVIN GERALD" and member.last_name = "JONES JR.")
+where odnmid is null
+  and avail_sheet.first_name = "CALVIN" and avail_sheet.last_name = "JONES"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "ALEX" and member.last_name = "MARTINEZ")
+where odnmid is null
+  and avail_sheet.first_name = "DAVID" and avail_sheet.last_name = "MARTINEZ"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "GEORGE" and member.last_name = "MEADORS")
+where odnmid is null
+  and avail_sheet.first_name = "GEORGE" and avail_sheet.last_name = "MEADORS JR"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "AMBER-LEIGH" and member.last_name = "MITCHELL")
+where odnmid is null
+  and avail_sheet.first_name = "AMBER" and avail_sheet.last_name = "MITCHELL"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "JERRY" and member.last_name = "SAMS")
+where odnmid is null
+  and avail_sheet.first_name = "JERRY LEE" and avail_sheet.last_name = "SAMS"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "CHARLES" and member.last_name = "WHITLEY")
+where odnmid is null
+  and avail_sheet.first_name = "DAVID" and avail_sheet.last_name = "WHITLEY"
 ;
 COMMIT
