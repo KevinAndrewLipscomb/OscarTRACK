@@ -98,6 +98,11 @@ namespace Class_biz_members
           return biz_enrollment.BePastDescription(EnrollmentOf(summary));
           }
 
+        internal bool BeRoleHolder(string id)
+          {
+          return db_members.BeRoleHolder(id);
+          }
+
         internal bool BeRoleHolderByCadNum(string cad_num)
           {
           return db_members.BeRoleHolderByCadNum(cad_num);
