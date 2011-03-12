@@ -355,4 +355,9 @@ set odnmid = (select id from member where member.first_name = "CHARLES" and memb
 where odnmid is null
   and avail_sheet.first_name = "DAVID" and avail_sheet.last_name = "WHITLEY"
 ;
+update schedule_assignment
+set be_selected = FALSE
+  and be_notification_pending = FALSE
+where MONTH(nominal_day) < 4
+;
 COMMIT
