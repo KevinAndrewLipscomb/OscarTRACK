@@ -53,7 +53,7 @@ namespace UserControl_member_binder
                 switch(p.tab_index)
                 {
                     case UserControl_member_binder_Static.TSSI_SCHEDULE:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))), "UserControl_schedule_binder", PlaceHolder_content);
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))), "S", PlaceHolder_content);
                         break;
                     case UserControl_member_binder_Static.TSSI_PERSONNEL:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))), "P", PlaceHolder_content);
@@ -87,7 +87,7 @@ namespace UserControl_member_binder
                 else
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_SCHEDULE;
-                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "UserControl_schedule_binder", PlaceHolder_content);
+                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "S", PlaceHolder_content);
                   }
             }
 
@@ -128,7 +128,7 @@ namespace UserControl_member_binder
             switch(p.tab_index)
             {
                 case UserControl_member_binder_Static.TSSI_SCHEDULE:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "UserControl_schedule_binder", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "S", PlaceHolder_content);
                     break;
                 case UserControl_member_binder_Static.TSSI_PERSONNEL:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);

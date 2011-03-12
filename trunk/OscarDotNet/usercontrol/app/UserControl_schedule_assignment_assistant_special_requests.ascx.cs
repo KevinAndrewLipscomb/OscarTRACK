@@ -59,7 +59,7 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       if (Session["UserControl_schedule_assignment_assistant_special_requests.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_special_requests.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_special_requests");
+        p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_special_requests");
         }
       else
         {

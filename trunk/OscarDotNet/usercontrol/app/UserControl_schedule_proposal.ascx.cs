@@ -122,7 +122,7 @@ namespace UserControl_schedule_proposal
       if (Session["UserControl_schedule_proposal.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_proposal.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_PlaceHolder_content"] as string) == "UserControl_schedule_proposal");
+        p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "C");
         }
       else
         {
@@ -411,14 +411,12 @@ namespace UserControl_schedule_proposal
         var d_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Text == "1");
         var d_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
         var d_be_ok_to_enable_controls = (d_post_id != k.EMPTY)
-          && d_be_selected
           && p.be_interactive
           && p.be_ok_to_edit_post
           && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id));
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
         var n_be_ok_to_enable_controls = (n_post_id != k.EMPTY)
-          && n_be_selected
           && p.be_interactive
           && p.be_ok_to_edit_post
           && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id));

@@ -80,7 +80,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       if (Session["UserControl_schedule_assignment_assistant_binder.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_binder.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_binder");
+        p.be_loaded = IsPostBack && ((Session["M_S_PlaceHolder_content"] as string) == "G");
         //
         // Dynamic controls must be re-added on each postback.
         //
@@ -98,7 +98,7 @@ namespace UserControl_schedule_assignment_assistant_binder
           }
         else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
           {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal, "UserControl_schedule_proposal", PlaceHolder_content);
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal, "C", PlaceHolder_content);
           }
         else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
           {
@@ -195,7 +195,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal.Fresh(), "UserControl_schedule_proposal", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal.Fresh(), "C", PlaceHolder_content);
         UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)

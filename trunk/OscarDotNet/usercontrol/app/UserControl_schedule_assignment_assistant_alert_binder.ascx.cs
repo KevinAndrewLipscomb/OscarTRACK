@@ -56,7 +56,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (Session["UserControl_schedule_assignment_assistant_alert_binder.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_alert_binder.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_binder");
+        p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_binder");
         //
         // Dynamic controls must be re-added on each postback.
         //
