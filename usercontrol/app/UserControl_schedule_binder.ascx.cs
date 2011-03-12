@@ -50,7 +50,7 @@ namespace UserControl_schedule_binder
       if (Session["UserControl_schedule_binder.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_binder.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_schedule_binder");
+        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "S");
         //
         // Dynamic controls must be re-added on each postback.
         //
@@ -60,7 +60,7 @@ namespace UserControl_schedule_binder
           }
         else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
           {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))), "UserControl_schedule_assignment_assistant_binder", PlaceHolder_content);
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))), "G", PlaceHolder_content);
           }
         }
       else
@@ -108,7 +108,7 @@ namespace UserControl_schedule_binder
         }
       else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))).Fresh(), "UserControl_schedule_assignment_assistant_binder", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))).Fresh(), "G", PlaceHolder_content);
         }
       }
 

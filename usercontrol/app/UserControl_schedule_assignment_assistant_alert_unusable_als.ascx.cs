@@ -65,7 +65,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
       if (Session["UserControl_schedule_assignment_assistant_alert_unusable_als.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_alert_unusable_als.p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_unusable_als");
+        p.be_loaded = IsPostBack && ((Session["M_S_G_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_unusable_als");
         }
       else
         {
