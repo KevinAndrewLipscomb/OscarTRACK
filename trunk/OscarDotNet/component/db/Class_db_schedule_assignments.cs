@@ -610,6 +610,7 @@ namespace Class_db_schedule_assignments
         +         " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +       " where medical_release_code_description_map.pecking_order >= 20"
         +         " and be_selected"
+        +         " and member.id <> '" + member_id + "'"
         +       " group by nominal_day,shift_id"
         +       " ) msd_shift_populations_on_member_schedule_assignments"
         +         " using (nominal_day,shift_id)"
