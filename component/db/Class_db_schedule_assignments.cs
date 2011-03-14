@@ -1080,16 +1080,19 @@ namespace Class_db_schedule_assignments
           +       " ("
           +         " if"
           +           " ("
-          +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),"  // on leave
-          +             " num_obliged_shifts,"  // then num duties specified in terms of leave
+          +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"  // on leave
+          +           " ,"
+          +             " num_obliged_shifts"  // then num duties specified in terms of leave
+          +           " ,"
           +             " IFNULL"  // else
           +               " ("
           +                 " num_shifts"  // if applicable, num standard obliged duties
-          +                 " ,"
-          +                 " count(*))"  // else (like for Atypical members) num avails submitted
+          +               " ,"
+          +                 " count(*)"  // else (like for Atypical members) num avails submitted
+          +               " )"
           +           " )"
           +         " +"  // plus
-          +           " IFNULL(num_extras,0)"  // num extras member indicated they wanted to run, if any
+          +           " (select LEAST(0,min(num_extras)) from avail_sheet where avail_sheet.odnmid = member.id and MONTH(avail_sheet.expiration) = MONTH(schedule_assignment.nominal_day))"  // num extras member indicated they wanted to run, if any
           +       " ,"
           +         " 0"
           +       " )"
@@ -1098,7 +1101,6 @@ namespace Class_db_schedule_assignments
           + " from schedule_assignment"
           +   " join member on (member.id=schedule_assignment.member_id)"
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
           +   " join enrollment_history on" 
           +     " (" 
           +       " enrollment_history.member_id=member.id" 
