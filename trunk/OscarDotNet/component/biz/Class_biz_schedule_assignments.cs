@@ -70,9 +70,30 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,target,ref num_members,ref num_crew_shifts);
       }
 
+    internal void BindInsufficientDriversAlertBaseDataList
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      db_schedule_assignments.BindInsufficientDriversAlertBaseDataList(agency_filter,relative_month,target);
+      }
+
     public void BindDirectToListControl(object target)
       {
       db_schedule_assignments.BindDirectToListControl(target);
+      }
+
+    internal void BindMemberScheduleDetailBaseDataList
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      string agency_id,
+      object target
+      )
+      {
+      db_schedule_assignments.BindMemberScheduleDetailBaseDataList(member_id,relative_month,agency_id,target);
       }
 
     internal void BindPostCardinalityListControl
@@ -86,17 +107,6 @@ namespace Class_biz_schedule_assignments
         target.Items.Add(new ListItem(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val)),Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val))));
         }
       target.SelectedValue = designator;
-      }
-
-    internal void BindTimeOffAlertBaseDataList
-      (
-      string agency_filter,
-      string release_filter,
-      k.subtype<int> relative_month,
-      object target
-      )
-      {
-      db_schedule_assignments.BindTimeOffAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
     internal void BindSubmissionCompliancyBaseDataList
@@ -113,15 +123,15 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindSubmissionCompliancyBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month,compliancy_filter);
       }
 
-    internal void BindMemberScheduleDetailBaseDataList
+    internal void BindTimeOffAlertBaseDataList
       (
-      string member_id,
+      string agency_filter,
+      string release_filter,
       k.subtype<int> relative_month,
-      string agency_id,
       object target
       )
       {
-      db_schedule_assignments.BindMemberScheduleDetailBaseDataList(member_id,relative_month,agency_id,target);
+      db_schedule_assignments.BindTimeOffAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
     public bool Delete(string id)

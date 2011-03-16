@@ -15,7 +15,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
   public class UserControl_schedule_assignment_assistant_alert_binder_Static
     {
     public const int TSSI_TIME_OFF = 0;
-    public const int TSSI_UNUSABLE_ALS = 1;
+    public const int TSSI_INSUFFICIENT_DRIVERS = 1;
     }
 
   public struct p_type
@@ -64,7 +64,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off, "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNUSABLE_ALS)
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_unusable_als, "UserControl_schedule_assignment_assistant_alert_unusable_als", PlaceHolder_content);
           }
@@ -129,7 +129,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off.Fresh(), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
         UserControl_schedule_assignment_assistant_alert_time_off.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNUSABLE_ALS)
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_unusable_als.Fresh(), "UserControl_schedule_assignment_assistant_alert_unusable_als", PlaceHolder_content);
         UserControl_schedule_assignment_assistant_alert_unusable_als.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
@@ -142,7 +142,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         {
         UserControl_schedule_assignment_assistant_alert_time_off.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNUSABLE_ALS)
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
         {
         UserControl_schedule_assignment_assistant_alert_unusable_als.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }

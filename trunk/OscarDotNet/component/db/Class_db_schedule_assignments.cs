@@ -342,6 +342,125 @@ namespace Class_db_schedule_assignments
       this.Close();
       }
 
+    internal void BindInsufficientDriversAlertBaseDataList
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var post_filter = (agency_filter != k.EMPTY ? " and post_id = '" + agency_filter + "' or agency_satellite_station.agency_id = '" + agency_filter + "'" : k.EMPTY);
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select nominal_day"
+        + " , shift.name as shift_name"
+        + " , short_designator as post_designator"
+        + " , (sum(IF((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)),1,0)) > sum(IF(be_driver_qualified,1,0))) as be_insufficient_drivers"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=shift_id)"
+        +   " join agency on (agency.id=schedule_assignment.post_id)"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
+        + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and be_selected"
+        +   post_filter
+        + " group by nominal_day,shift_id,post_id"
+        +   " having be_insufficient_drivers",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
+    internal void BindMemberScheduleDetailBaseDataList
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      string agency_id,
+      object target
+      )
+      {
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select schedule_assignment_id"
+        + " , nominal_day"
+        + " , shift_name"
+        + " , post_designator"
+        + " , post_cardinality"
+        + " , comment"
+        + " , be_selected"
+        + " , on_duty"
+        + " , off_duty"
+        + " , time_off"
+        + " , shift_population_from_agency"
+        + " , shift_population_citywide"
+        + " , others_available"
+        + " from"
+        +   " ("
+        +   " select schedule_assignment_id"
+        +   " , nominal_day"
+        +   " , shift_name"
+        +   " , post_designator"
+        +   " , post_cardinality"
+        +   " , comment"
+        +   " , be_selected"
+        +   " , IF(be_selected,@on_duty := on_duty,NULL) as on_duty"
+        +   " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty,@on_duty),NULL) as time_off"
+        +   " , IF(be_selected,@off_duty := off_duty,NULL) as off_duty"
+        +   " , from_agency as shift_population_from_agency"
+        +   " , citywide as shift_population_citywide"
+        +   " , others_available"
+        +   " from (select @on_duty := '', @off_duty := '') as dummy,"
+        +     " ("
+        +     " select member_id"
+        +     " , schedule_assignment.id as schedule_assignment_id"
+        +     " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+        +     " , shift_id"
+        +     " , shift.name as shift_name"
+        +     " , IF(be_selected,short_designator,'') as post_designator"
+        +     " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
+        +     " , comment"
+        +     " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+        +     " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+        +     " , be_selected"
+        +     " FROM schedule_assignment"
+        +       " join shift on (shift.id=schedule_assignment.shift_id)"
+        +       " join member on (member.id=schedule_assignment.member_id)"
+        +       " join agency on (agency.id=schedule_assignment.post_id)"
+        +     " where member_id = '" + member_id + "'"
+        +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +     " order by member_id,nominal_day,start"
+        +     " ) as msd_member_schedule_assignments_sorted_chronologically"
+        +     " join"
+        +       " ("
+        +       " select nominal_day"
+        +       " , shift_id"
+        +       " , sum(member.agency_id = '" + agency_id + "')/2 as from_agency"
+        +       " , count(*)/2 as citywide"
+        +       " , group_concat(distinct IF(member.agency_id = '" + agency_id + "',concat(first_name,' ',last_name),NULL) order by last_name, first_name separator ', ') as others_available"
+        +       " from schedule_assignment"
+        +         " join member on (member.id=schedule_assignment.member_id)"
+        +         " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +       " where medical_release_code_description_map.pecking_order >= 20"
+        +         " and be_selected"
+        +         " and member.id <> '" + member_id + "'"
+        +       " group by nominal_day,shift_id"
+        +       " ) msd_shift_populations_on_member_schedule_assignments"
+        +         " using (nominal_day,shift_id)"
+        +   " ) as msd_calculated",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindSubmissionCompliancyBaseDataList
       (
       string sort_order,
@@ -536,91 +655,6 @@ namespace Class_db_schedule_assignments
         }
       Close();
       //
-      }
-
-    internal void BindMemberScheduleDetailBaseDataList
-      (
-      string member_id,
-      k.subtype<int> relative_month,
-      string agency_id,
-      object target
-      )
-      {
-      Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
-        (
-        "select schedule_assignment_id"
-        + " , nominal_day"
-        + " , shift_name"
-        + " , post_designator"
-        + " , post_cardinality"
-        + " , comment"
-        + " , be_selected"
-        + " , on_duty"
-        + " , off_duty"
-        + " , time_off"
-        + " , shift_population_from_agency"
-        + " , shift_population_citywide"
-        + " , others_available"
-        + " from"
-        +   " ("
-        +   " select schedule_assignment_id"
-        +   " , nominal_day"
-        +   " , shift_name"
-        +   " , post_designator"
-        +   " , post_cardinality"
-        +   " , comment"
-        +   " , be_selected"
-        +   " , IF(be_selected,@on_duty := on_duty,NULL) as on_duty"
-        +   " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty,@on_duty),NULL) as time_off"
-        +   " , IF(be_selected,@off_duty := off_duty,NULL) as off_duty"
-        +   " , from_agency as shift_population_from_agency"
-        +   " , citywide as shift_population_citywide"
-        +   " , others_available"
-        +   " from (select @on_duty := '', @off_duty := '') as dummy,"
-        +     " ("
-        +     " select member_id"
-        +     " , schedule_assignment.id as schedule_assignment_id"
-        +     " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
-        +     " , shift_id"
-        +     " , shift.name as shift_name"
-        +     " , IF(be_selected,short_designator,'') as post_designator"
-        +     " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
-        +     " , comment"
-        +     " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
-        +     " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
-        +     " , be_selected"
-        +     " FROM schedule_assignment"
-        +       " join shift on (shift.id=schedule_assignment.shift_id)"
-        +       " join member on (member.id=schedule_assignment.member_id)"
-        +       " join agency on (agency.id=schedule_assignment.post_id)"
-        +     " where member_id = '" + member_id + "'"
-        +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
-        +     " order by member_id,nominal_day,start"
-        +     " ) as msd_member_schedule_assignments_sorted_chronologically"
-        +     " join"
-        +       " ("
-        +       " select nominal_day"
-        +       " , shift_id"
-        +       " , sum(member.agency_id = '" + agency_id + "')/2 as from_agency"
-        +       " , count(*)/2 as citywide"
-        +       " , group_concat(distinct IF(member.agency_id = '" + agency_id + "',concat(first_name,' ',last_name),NULL) order by last_name, first_name separator ', ') as others_available"
-        +       " from schedule_assignment"
-        +         " join member on (member.id=schedule_assignment.member_id)"
-        +         " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-        +       " where medical_release_code_description_map.pecking_order >= 20"
-        +         " and be_selected"
-        +         " and member.id <> '" + member_id + "'"
-        +       " group by nominal_day,shift_id"
-        +       " ) msd_shift_populations_on_member_schedule_assignments"
-        +         " using (nominal_day,shift_id)"
-        +   " ) as msd_calculated",
-        connection
-        )
-        .ExecuteReader();
-      (target as BaseDataList).DataBind();
-      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-      Close();
       }
 
     public bool Delete(string id)
