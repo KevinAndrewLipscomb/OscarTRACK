@@ -426,10 +426,22 @@ where odnmid is null
   and avail_sheet.first_name = "AMBER" and avail_sheet.last_name = "MITCHELL"
 ;
 update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "GARY" and member.last_name = "PETTINGER")
+, timestamp = timestamp
+where odnmid is null
+  and avail_sheet.first_name = "MIKE" and avail_sheet.last_name = "PETTINGER"
+;
+update ignore avail_sheet
 set odnmid = (select id from member where member.first_name = "ELMER" and member.last_name = "PUGH")
 , timestamp = timestamp
 where odnmid is null
   and avail_sheet.first_name = "RANDY" and avail_sheet.last_name = "PUGH"
+;
+update ignore avail_sheet
+set odnmid = (select id from member where member.first_name = "ROBERT" and member.last_name = "RADAM III")
+, timestamp = timestamp
+where odnmid is null
+  and avail_sheet.first_name = "ROBERT" and avail_sheet.last_name = "RADAM"
 ;
 update ignore avail_sheet
 set odnmid = (select id from member where member.first_name = "BEVERLY" and member.last_name = "RING")
