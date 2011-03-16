@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_time_off;
+using UserControl_schedule_assignment_assistant_alert_time_on;
 using UserControl_schedule_assignment_assistant_alert_unusable_als;
 
 namespace UserControl_schedule_assignment_assistant_alert_binder
@@ -15,7 +16,8 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
   public class UserControl_schedule_assignment_assistant_alert_binder_Static
     {
     public const int TSSI_TIME_OFF = 0;
-    public const int TSSI_INSUFFICIENT_DRIVERS = 1;
+    public const int TSSI_TIME_ON = 1;
+    public const int TSSI_INSUFFICIENT_DRIVERS = 2;
     }
 
   public struct p_type
@@ -33,6 +35,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
     private p_type p;
 
     TWebUserControl_schedule_assignment_assistant_alert_time_off UserControl_schedule_assignment_assistant_alert_time_off = null;
+    TWebUserControl_schedule_assignment_assistant_alert_time_on UserControl_schedule_assignment_assistant_alert_time_on = null;
     TWebUserControl_schedule_assignment_assistant_alert_unusable_als UserControl_schedule_assignment_assistant_alert_unusable_als = null;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -51,6 +54,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       base.OnInit(e);
       //
       UserControl_schedule_assignment_assistant_alert_time_off = ((TWebUserControl_schedule_assignment_assistant_alert_time_off)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_off.ascx")));
+      UserControl_schedule_assignment_assistant_alert_time_on = ((TWebUserControl_schedule_assignment_assistant_alert_time_on)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_on.ascx")));
       UserControl_schedule_assignment_assistant_alert_unusable_als = ((TWebUserControl_schedule_assignment_assistant_alert_unusable_als)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unusable_als.ascx")));
       //
       if (Session["UserControl_schedule_assignment_assistant_alert_binder.p"] != null)
@@ -63,6 +67,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off, "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_ON)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_on, "UserControl_schedule_assignment_assistant_alert_time_on", PlaceHolder_content);
           }
         else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
           {
@@ -129,6 +137,11 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off.Fresh(), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
         UserControl_schedule_assignment_assistant_alert_time_off.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_ON)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_on.Fresh(), "UserControl_schedule_assignment_assistant_alert_time_on", PlaceHolder_content);
+        UserControl_schedule_assignment_assistant_alert_time_on.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_unusable_als.Fresh(), "UserControl_schedule_assignment_assistant_alert_unusable_als", PlaceHolder_content);
@@ -141,6 +154,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)
         {
         UserControl_schedule_assignment_assistant_alert_time_off.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_ON)
+        {
+        UserControl_schedule_assignment_assistant_alert_time_on.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_INSUFFICIENT_DRIVERS)
         {
