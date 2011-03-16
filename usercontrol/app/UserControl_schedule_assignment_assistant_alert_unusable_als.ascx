@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_assignment_assistant_alert_unusable_als.ascx.cs"
   Inherits="UserControl_schedule_assignment_assistant_alert_unusable_als.TWebUserControl_schedule_assignment_assistant_alert_unusable_als" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
-<table cellspacing="0" cellpadding="10" width="100%" border="0">
+<table cellspacing="0" cellpadding="10" border="0">
   <tr>
     <td>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
@@ -10,27 +10,17 @@
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr>
                 <td>
+                  <p>Too few drivers are selected to support the load of selected ALS providers or non-drivers on the following shifts at the following stations:</p>
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
-                      <asp:ButtonColumn DataTextField="name" HeaderText="This member...">
-                        <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
-                      </asp:ButtonColumn>
-                      <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="first_nominal_day" HeaderText="..is selected for this shift.." ReadOnly="True">
+                      <asp:BoundColumn DataField="nominal_day" HeaderText="Shift" ReadOnly="True">
+                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
+                      </asp:BoundColumn>
+                      <asp:BoundColumn DataField="shift_name" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="post_designator" HeaderText="Station" ReadOnly="True">
                         <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                       </asp:BoundColumn>
-                      <asp:BoundColumn DataField="first_shift_name" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="first_schedule_assignment_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="unusable_als" HeaderText="..with this many hours.." ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                      </asp:BoundColumn>
-                      <asp:BoundColumn DataField="second_nominal_day" HeaderText="..until this selected shift.." ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                      </asp:BoundColumn>
-                      <asp:BoundColumn DataField="second_shift_name" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="second_schedule_assignment_id" Visible="False"></asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>

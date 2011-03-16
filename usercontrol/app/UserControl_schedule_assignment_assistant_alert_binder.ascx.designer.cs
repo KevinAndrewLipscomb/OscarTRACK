@@ -40,13 +40,13 @@ namespace UserControl_schedule_assignment_assistant_alert_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_time_off;
         
         /// <summary>
-        /// TabPanel_unusable_als control.
+        /// TabPanel_insufficient_drivers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_unusable_als;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_insufficient_drivers;
         
         /// <summary>
         /// PlaceHolder_content control.
