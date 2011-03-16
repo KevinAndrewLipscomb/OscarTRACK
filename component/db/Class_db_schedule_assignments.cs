@@ -14,6 +14,19 @@ namespace Class_db_schedule_assignments
   public class TClass_db_schedule_assignments: TClass_db
     {
 
+    private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE = "create temporary table assignment_start_and_end_datetimes_sorted_by_member_id"
+    + " select member_id"
+    + " , schedule_assignment.id as schedule_assignment_id"
+    + " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+    + " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+    + " FROM schedule_assignment"
+    +   " join shift on (shift.id=schedule_assignment.shift_id)"
+    +   " join member on (member.id=schedule_assignment.member_id)"
+    +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+    + " where member_id is not null"
+    +   " and be_selected"
+    +   " and MONTH(nominal_day) = MONTH(CURDATE()) + ";
+    private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
     private TClass_db_trail db_trail = null;
@@ -586,21 +599,11 @@ namespace Class_db_schedule_assignments
         //
         new MySqlCommand
           (
-          "create temporary table assignment_start_and_end_datetimes_sorted_by_member_id"
-          + " select member_id"
-          + " , schedule_assignment.id as schedule_assignment_id"
-          + " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
-          + " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
-          + " FROM schedule_assignment"
-          +   " join shift on (shift.id=schedule_assignment.shift_id)"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          + " where member_id is not null"
-          +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
-          +   " and be_selected"
-          +   agency_condition_clause
-          +   release_condition_clause
-          + " order by member_id,nominal_day,start",
+          ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
+          + relative_month.val
+          + agency_condition_clause
+          + release_condition_clause
+          + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
           transaction
           )
@@ -646,6 +649,90 @@ namespace Class_db_schedule_assignments
         (target as BaseDataList).DataBind();
         ((target as BaseDataList).DataSource as MySqlDataReader).Close();
         new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_off",connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
+      //
+      }
+
+    internal void BindTimeOnAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and agency_id = '" + agency_filter + "'";
+        }
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        //
+        // Since we are only using selects and temporary tables, do not save this to the db_trail.
+        //
+        new MySqlCommand
+          (
+          ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
+          + relative_month.val
+          + agency_condition_clause
+          + release_condition_clause
+          + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
+        new MySqlCommand
+          (
+          "create temporary table times_on"
+          + " select schedule_assignment_id"
+          + " , @time_on := IF((member_id = @member_id) and (on_duty = @off_duty),@time_on + TIMESTAMPDIFF(HOUR,on_duty,off_duty),TIMESTAMPDIFF(HOUR,on_duty,off_duty)) as time_on"
+          + " , @off_duty := off_duty as off_duty"
+          + " , @member_id := member_id as member_id"
+          + " from (select @time_on := '', @off_duty := '', @member_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id",
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
+        (target as BaseDataList).DataSource = new MySqlCommand
+          (
+          "select concat(first_name,' ',last_name) as name"
+          + " , times_on.member_id as member_id"
+          + " , member.agency_id"
+          + " , DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          + " , shift.name as shift_name"
+          + " , time_on"
+          + " from times_on"
+          +   " join member on (member.id=times_on.member_id)"
+          +   " join schedule_assignment on (schedule_assignment.id=times_on.schedule_assignment_id)"
+          +   " join shift on (shift.id=schedule_assignment.shift_id)"
+          + " where time_on > 24"
+          + " order by schedule_assignment.nominal_day,shift.start",
+          connection,
+          transaction
+          )
+          .ExecuteReader();
+        (target as BaseDataList).DataBind();
+        ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+        new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_on",connection,transaction).ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
