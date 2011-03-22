@@ -1,24 +1,14 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Data.Common;
-using System.Globalization;
-
-
 using Class_biz_members;
 using Class_biz_user;
 using Class_biz_users;
+using Class_msg_protected;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
 using UserControl_establish_membership;
 using UserControl_member_binder;
+
 namespace overview
 {
     public struct p_type
@@ -26,12 +16,16 @@ namespace overview
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
         public TClass_biz_members biz_members;
+        public TClass_msg_protected.overview incoming;
     } // end p_type
 
     public partial class TWebForm_overview: ki_web_ui.page_class
     {
         private p_type p;
-        protected System.Web.UI.ScriptManager ScriptManager_control = null;
+
+        protected ScriptManager ScriptManager_control = null;
+        protected TWebUserControl_member_binder UserControl_member_binder = null;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -82,6 +76,7 @@ namespace overview
                     DropCrumbAndTransferTo("change_password.aspx");
                 }
                 SessionSet("privilege_array", p.biz_user.Privileges());
+                p.incoming = Message<TClass_msg_protected.overview>("protected","overview");
             }
             if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
             {
@@ -91,7 +86,13 @@ namespace overview
             else
             {
                 SessionSet("member_id", p.biz_members.IdOfUserId(Session["user_id"].ToString()));
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx"))), "M", PlaceHolder_member_binder);
+                UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
+                AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_member_binder);
+                if (p.incoming != null)
+                  {
+                  UserControl_member_binder.SetTarget(p.incoming.target);
+                  p.incoming.target = k.EMPTY;
+                  }
             }
 
         }

@@ -29,6 +29,8 @@ namespace UserControl_schedule_binder
     {
     private p_type p;
 
+    protected TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
+
     private void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
@@ -51,23 +53,13 @@ namespace UserControl_schedule_binder
         {
         p = (p_type)(Session["UserControl_schedule_binder.p"]);
         p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "S");
-        //
-        // Dynamic controls must be re-added on each postback.
-        //
-        if (p.tab_index == UserControl_schedule_binder_Static.TSSI_AVAILABILITIES)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx"))), "UserControl_availabilities", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))), "G", PlaceHolder_content);
-          }
+        FillPlaceHolder(false);
         }
       else
         {
         p.be_loaded = false;
         p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx"))).Fresh(), "UserControl_availabilities", PlaceHolder_content);
+        FillPlaceHolder(true);
         }
       }
 
@@ -77,9 +69,8 @@ namespace UserControl_schedule_binder
     // / </summary>
     private void InitializeComponent()
       {
-      this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-      this.PreRender += this.TWebUserControl_schedule_binder_PreRender;
-      //this.Load += this.Page_Load;
+      TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+      PreRender += TWebUserControl_schedule_binder_PreRender;
       }
 
     private void TWebUserControl_schedule_binder_PreRender(object sender, System.EventArgs e)
@@ -102,13 +93,48 @@ namespace UserControl_schedule_binder
       {
       p.tab_index = (uint)(TabContainer_control.ActiveTabIndex);
       PlaceHolder_content.Controls.Clear();
+      FillPlaceHolder(true);
+      }
+
+    private void FillPlaceHolder
+      (
+      bool be_fresh_control_required,
+      string target
+      )
+      {
       if (p.tab_index == UserControl_schedule_binder_Static.TSSI_AVAILABILITIES)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx"))).Fresh(), "UserControl_availabilities", PlaceHolder_content);
+        var c = ((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_availabilities", PlaceHolder_content);
         }
       else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx"))).Fresh(), "G", PlaceHolder_content);
+        var c = ((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "G", PlaceHolder_content);
+        c.SetTarget(target);
+        }
+      }
+    private void FillPlaceHolder(bool be_fresh_control_required)
+      {
+      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
+      }
+
+    public void SetTarget(string target)
+      {
+      if (target != k.EMPTY)
+        {
+        if (target.ToLower().Contains("/availabilities/"))
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+          }
+        else if (target.ToLower().Contains("/assignment-assistant/"))
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
+          }
+        //
+        PlaceHolder_content.Controls.Clear();
+        FillPlaceHolder(false,target);
+        //
         }
       }
 

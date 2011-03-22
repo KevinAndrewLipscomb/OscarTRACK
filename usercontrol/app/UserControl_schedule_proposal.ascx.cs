@@ -10,6 +10,7 @@ using System.Configuration;
 using System.Drawing;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_proposal
@@ -390,12 +391,17 @@ namespace UserControl_schedule_proposal
         }
       else if (be_any_kind_of_item)
         {
+        var nominal_day_datetime = DateTime.Parse(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text);
+        //
+        // Set up bookmark.
+        //
+        ((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_SPACER_MAJOR].Controls[0]) as HtmlAnchor).Name = nominal_day_datetime.Day.ToString();
         //
         // Show certain columns only for first row of nominal day.
         //
         if (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_DISPLAY_SEQ_NUM].Text == "1")
           {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = "<br/>" + p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(DateTime.Parse(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text));
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = "<br/>" + p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day_datetime);
           }
         else
           {

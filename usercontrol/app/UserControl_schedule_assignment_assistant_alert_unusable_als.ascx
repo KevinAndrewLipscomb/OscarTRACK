@@ -14,9 +14,9 @@
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
-                      <asp:BoundColumn DataField="nominal_day" HeaderText="Shift" ReadOnly="True">
+                      <asp:ButtonColumn DataTextField="nominal_day" HeaderText="Shift">
                         <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
-                      </asp:BoundColumn>
+                      </asp:ButtonColumn>
                       <asp:BoundColumn DataField="shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="post_designator" HeaderText="Station" ReadOnly="True">
                         <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
