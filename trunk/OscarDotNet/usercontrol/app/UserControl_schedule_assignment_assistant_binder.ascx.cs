@@ -229,6 +229,80 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       }
 
+    private void FillPlaceHolder
+      (
+      bool be_fresh_control_required,
+      string target
+      )
+      {
+      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
+        {
+        var c = UserControl_schedule_assignment_assistant_holdouts;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
+        {
+        var c = UserControl_schedule_assignment_assistant_alert_binder;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+        {
+        var c = UserControl_schedule_assignment_assistant_special_requests;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
+        {
+        var c = UserControl_schedule_proposal;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "C", PlaceHolder_content);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        //c.SetTarget(target);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
+        {
+        var c = UserControl_schedule_assignment_assistant_publish;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_publish", PlaceHolder_content);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      }
+    private void FillPlaceHolder(bool be_fresh_control_required)
+      {
+      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
+      }
+
+    public void SetTarget(string target)
+      {
+      if (target != k.EMPTY)
+        {
+        if (target.ToLower().Contains("/compliance/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
+          }
+        else if (target.ToLower().Contains("/alert/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT;
+          }
+        else if (target.ToLower().Contains("/special-requests/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS;
+          }
+        else if (target.ToLower().Contains("/proposal/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL;
+          }
+        else if (target.ToLower().Contains("/publish/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH;
+          }
+        //
+        PlaceHolder_content.Controls.Clear();
+        FillPlaceHolder(false,target);
+        //
+        }
+      }
+
     }
 
   }

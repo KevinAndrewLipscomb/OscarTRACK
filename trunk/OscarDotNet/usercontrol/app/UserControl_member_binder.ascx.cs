@@ -1,4 +1,5 @@
 using Class_biz_user;
+using kix;
 using System.Collections;
 using UserControl_about;
 using UserControl_config_binder;
@@ -50,30 +51,7 @@ namespace UserControl_member_binder
             {
                 p = (p_type)(Session["UserControl_member_binder.p"]);
                 // Dynamic controls must be re-added on each postback.
-                switch(p.tab_index)
-                {
-                    case UserControl_member_binder_Static.TSSI_SCHEDULE:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))), "S", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_PERSONNEL:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))), "P", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_FLEET:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))), "UserControl_fleet", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_FUNDDRIVE:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))), "UserControl_funddrive_binder", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_DASHBOARD:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))), "UserControl_dashboard_binder", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_CONFIG:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))), "UserControl_config", PlaceHolder_content);
-                        break;
-                    case UserControl_member_binder_Static.TSSI_ABOUT:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx"))), "UserControl_about", PlaceHolder_content);
-                        break;
-                }
+                FillPlaceHolder(false);
             }
             else
             {
@@ -82,13 +60,12 @@ namespace UserControl_member_binder
                 if ((new ArrayList{"Department Fleet Coordinator","Department Street Supervisor","Squad Fleet Coordinator"}).Contains(p.biz_user.Roles()[0]))
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_FLEET;
-                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))).Fresh(), "UserControl_fleet", PlaceHolder_content);
                   }
                 else
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_SCHEDULE;
-                  p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "S", PlaceHolder_content);
                   }
+                FillPlaceHolder(true);
             }
 
         }
@@ -99,9 +76,8 @@ namespace UserControl_member_binder
         // / </summary>
         private void InitializeComponent()
         {
-            this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            this.PreRender += this.TWebUserControl_member_binder_PreRender;
-            //this.Load += this.Page_Load;
+            TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+            PreRender += TWebUserControl_member_binder_PreRender;
         }
 
         private void TWebUserControl_member_binder_PreRender(object sender, System.EventArgs e)
@@ -115,42 +91,103 @@ namespace UserControl_member_binder
 
         public TWebUserControl_member_binder Fresh()
         {
-            TWebUserControl_member_binder result;
             Session.Remove("UserControl_member_binder.p");
-            result = this;
-            return result;
+            return this;
         }
 
         private void TabContainer_control_ActiveTabChanged(object sender, System.EventArgs e)
         {
             p.tab_index = (uint)(TabContainer_control.ActiveTabIndex);
             PlaceHolder_content.Controls.Clear();
-            switch(p.tab_index)
-            {
-                case UserControl_member_binder_Static.TSSI_SCHEDULE:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx"))).Fresh(), "S", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_PERSONNEL:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx"))).Fresh(), "P", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_FLEET:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))).Fresh(), "UserControl_fleet", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_FUNDDRIVE:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx"))).Fresh(), "UserControl_funddrive_binder", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_DASHBOARD:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx"))).Fresh(), "UserControl_dashboard_binder", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_CONFIG:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx"))).Fresh(), "UserControl_config", PlaceHolder_content);
-                    break;
-                case UserControl_member_binder_Static.TSSI_ABOUT:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx"))).Fresh(), "UserControl_about", PlaceHolder_content);
-                    break;
-            }
-
+            FillPlaceHolder(true);
         }
+
+        private void FillPlaceHolder
+          (
+          bool be_fresh_control_required,
+          string target
+          )
+          {
+          if (p.tab_index == UserControl_member_binder_Static.TSSI_SCHEDULE)
+            {
+            var c = ((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "S", PlaceHolder_content);
+            c.SetTarget(target);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_PERSONNEL)
+            {
+            var c = ((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "P", PlaceHolder_content);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_FLEET)
+            {
+            var c = ((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_fleet", PlaceHolder_content);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_FUNDDRIVE)
+            {
+            var c = ((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_funddrive_binder", PlaceHolder_content);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_DASHBOARD)
+            {
+            var c = ((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_dashboard_binder", PlaceHolder_content);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_CONFIG)
+            {
+            var c = ((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_config", PlaceHolder_content);
+            }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_ABOUT)
+            {
+            var c = ((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_about", PlaceHolder_content);
+            }
+          }
+        private void FillPlaceHolder(bool be_fresh_control_required)
+          {
+          FillPlaceHolder(be_fresh_control_required,k.EMPTY);
+          }
+
+        public void SetTarget(string target)
+          {
+          if (target != k.EMPTY)
+            {
+            if (target.ToLower().Contains("/schedule/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_SCHEDULE;
+              }
+            else if (target.ToLower().Contains("/personnel/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_PERSONNEL;
+              }
+            else if (target.ToLower().Contains("/fleet/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_FLEET;
+              }
+            else if (target.ToLower().Contains("/funddrive/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_FUNDDRIVE;
+              }
+            else if (target.ToLower().Contains("/dashboard/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_DASHBOARD;
+              }
+            else if (target.ToLower().Contains("/config/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_CONFIG;
+              }
+            else if (target.ToLower().Contains("/about/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_ABOUT;
+              }
+            //
+            PlaceHolder_content.Controls.Clear();
+            FillPlaceHolder(false,target);
+            //
+            }
+          }
 
     } // end TWebUserControl_member_binder
 

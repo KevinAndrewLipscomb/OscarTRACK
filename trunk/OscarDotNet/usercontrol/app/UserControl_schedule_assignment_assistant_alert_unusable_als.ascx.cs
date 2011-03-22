@@ -1,3 +1,4 @@
+using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_msg_protected;
@@ -17,9 +18,10 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
     public bool be_loaded;
     public bool be_unusable_als_alert_datagrid_empty;
     public bool be_user_privileged_to_see_all_squads;
+    public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
+    public TClass_msg_protected.overview msg_protected_overview;
     public uint num_unusable_als_alert_datagrid_rows;
     public string own_agency;
     public k.subtype<int> relative_month;
@@ -63,13 +65,14 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
         {
         p.be_loaded = false;
         //
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
+        p.msg_protected_overview = new TClass_msg_protected.overview();
         p.num_unusable_als_alert_datagrid_rows = 0;
         p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
@@ -125,8 +128,8 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
-        e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
-          (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Text),e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_SHIFT_NAME].Text);
+        ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton).Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
+          (DateTime.Parse(((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton).Text),e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_SHIFT_NAME].Text);
         //
         p.num_unusable_als_alert_datagrid_rows++;
         }
@@ -134,10 +137,9 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
         {
         if (be_any_kind_of_item)
           {
-          //link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton);
-          //link_button.Text = k.ExpandTildePath(link_button.Text);
-          //link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_AGENCY_ID].Text == p.own_agency));
-          //ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton);
+          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_POST_DESIGNATOR].Text));
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -152,10 +154,8 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      //p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
-      //p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      //p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
-      //MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+      p.msg_protected_overview.target = "/schedule/assignment-assistant/proposal/";
+      MessageDropCrumbAndTransferTo(p.msg_protected_overview,"protected","overview",k.Safe(((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton).Text,k.safe_hint_type.NUM));
       }
 
     }
