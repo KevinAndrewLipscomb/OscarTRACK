@@ -84,6 +84,8 @@
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
+    <Content Include="noninteractive\template\notification\availabilities_due_soon.txt" />
+    <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />

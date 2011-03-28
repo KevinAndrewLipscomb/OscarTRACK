@@ -20,23 +20,26 @@ namespace Class_biz_notifications
     public static class Class_biz_notifications_Static
     {
         public static char[] BreakChars = new char[3 + 1] {Convert.ToChar(k.SPACE),Convert.ToChar(k.TAB),Convert.ToChar(k.HYPHEN),Convert.ToChar(0)};
-    } // end Class_biz_notifications
+    }
 
     public class TClass_biz_notifications
     {
-        private string application_name = String.Empty;
+        private string application_name = k.EMPTY;
         private TClass_db_notifications db_notifications = null;
-        private string host_domain_name = String.Empty;
-        private string runtime_root_fullspec = String.Empty;
-        //Constructor  Create()
+        private string host_domain_name = k.EMPTY;
+        private string last_day_of_month_to_submit_schedule_availabilities = k.EMPTY;
+        private string runtime_root_fullspec = k.EMPTY;
+
         public TClass_biz_notifications() : base()
         {
             // TODO: Add any constructor code here
             application_name = ConfigurationManager.AppSettings["application_name"];
             db_notifications = new TClass_db_notifications();
             host_domain_name = ConfigurationManager.AppSettings["host_domain_name"];
+            last_day_of_month_to_submit_schedule_availabilities = ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"];
             runtime_root_fullspec = ConfigurationManager.AppSettings["runtime_root_fullspec"];
         }
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             db_notifications.BindDirectToListControl(target, unselected_literal, selected_value);
@@ -131,6 +134,54 @@ namespace Class_biz_notifications
             };
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/ambulance_fleet_condition_alert_on.txt"));
           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], db_notifications.TargetOfAboutAgency("ambulance-fleet-condition-change"), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
+          template_reader.Close();
+          }
+
+        private delegate string IssueForAvailabilitiesDueSoon_Merge(string s);
+        public void IssueForAvailabilitiesDueSoon(string member_id)
+          {
+          //
+          IssueForAvailabilitiesDueSoon_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
+            };
+          //
+          var biz_members = new TClass_biz_members();
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_due_soon.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            biz_members.EmailAddressOf(member_id),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd())
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForAvailabilitiesOverdue_Merge(string s);
+        public void IssueForAvailabilitiesOverdue(string member_id)
+          {
+          //
+          IssueForAvailabilitiesOverdue_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
+            };
+          //
+          var biz_members = new TClass_biz_members();
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            biz_members.EmailAddressOf(member_id),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd())
+            );
           template_reader.Close();
           }
 

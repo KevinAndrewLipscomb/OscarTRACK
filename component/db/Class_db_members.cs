@@ -1006,6 +1006,61 @@ namespace Class_db_members
             return result;
         }
 
+      internal Queue HoldoutQueue()
+        {
+        var holdout_q = new Queue();
+        Open();
+        var dr = new MySqlCommand
+          (
+          "select member.id as member_id"
+          + " from member"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          +   " join enrollment_history on"
+          +     " ("
+          +       " enrollment_history.member_id=member.id"
+          +     " and"
+          +       " ("
+          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+          +       " and"
+          +         " ("
+          +           " (enrollment_history.end_date is null)"
+          +         " or"
+          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+          +         " )"
+          +       " )"
+          +     " )"
+          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+          +   " left join leave_of_absence on"
+          +     " ("
+          +       " leave_of_absence.member_id=member.id"
+          +     " and"
+          +       " ("
+          +         " (leave_of_absence.start_date is null)"
+          +       " or"
+          +         " ("
+          +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+          +         " and"
+          +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+          +         " )"
+          +       " )"
+          +     " )"
+          +   " left join"
+          +     " (select distinct odnmid from avail_sheet where month = '" + DateTime.Now.ToString("MMM") + "') as condensed_avail_sheet on (condensed_avail_sheet.odnmid=member.id)"
+          + " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,num_shifts)"
+          +   " and (condensed_avail_sheet.odnmid is null)",
+          connection
+          )
+          .ExecuteReader();
+        while (dr.Read())
+          {
+          holdout_q.Enqueue(dr["member_id"]);
+          }
+        dr.Close();
+        Close();
+        return holdout_q;
+        }
+
         public Queue CurrentMemberEmailAddresses
           (
           string agency_short_designator,

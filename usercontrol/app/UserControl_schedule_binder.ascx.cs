@@ -29,8 +29,6 @@ namespace UserControl_schedule_binder
     {
     private p_type p;
 
-    protected TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
-
     private void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
