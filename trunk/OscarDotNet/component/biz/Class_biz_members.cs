@@ -10,6 +10,7 @@ using Class_db_users;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_members
 {
@@ -427,6 +428,38 @@ namespace Class_biz_members
             result = db_members.LastNameOfMemberId(member_id);
             return result;
         }
+
+    private delegate void MakeAvailabilitySubmissionDeadlineRelatedNotifications_Issue(string email_address);
+    internal void MakeAvailabilitySubmissionDeadlineRelatedNotifications()
+      {
+      var days_until_deadline = new k.subtype<int>(-30,30);
+      days_until_deadline.val = int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]) - DateTime.Now.Day;
+      if ((new ArrayList() {0,1,3,7}).Contains(days_until_deadline.val) || (days_until_deadline.val < 0))
+        {
+        //
+        MakeAvailabilitySubmissionDeadlineRelatedNotifications_Issue Issue;
+        if (days_until_deadline.val >= 0)
+          {
+          Issue = biz_notifications.IssueForAvailabilitiesDueSoon;
+          }
+        else
+          {
+          Issue = biz_notifications.IssueForAvailabilitiesOverdue;
+          }
+        //
+        var member_id_q = db_members.HoldoutQueue();
+        var member_id_q_count = member_id_q.Count;
+        for (var i = new k.subtype<int>(0,member_id_q_count); i.val < member_id_q_count; i.val++)
+          {
+          Issue(member_id_q.Dequeue().ToString());
+          }
+        }
+      }
+
+        internal void MakeMemberStatusStatements()
+          {
+          db_members.MakeMemberStatusStatements();
+          }
 
         public string MedicalReleaseLevelOf(object summary)
         {

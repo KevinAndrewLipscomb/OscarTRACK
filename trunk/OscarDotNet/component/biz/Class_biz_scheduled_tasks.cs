@@ -1,5 +1,6 @@
 using Class_biz_enrollment;
 using Class_biz_leaves;
+using Class_biz_members;
 using Class_biz_residents;
 using Class_db_members;
 using System;
@@ -10,6 +11,7 @@ namespace Class_biz_scheduled_tasks
     {
         private TClass_biz_enrollment biz_enrollment = null;
         private TClass_biz_leaves biz_leaves = null;
+        private TClass_biz_members biz_members = null;
         private TClass_biz_residents biz_residents = null;
         private TClass_db_members db_members = null;
 
@@ -17,6 +19,7 @@ namespace Class_biz_scheduled_tasks
         {
             biz_enrollment = new TClass_biz_enrollment();
             biz_leaves = new TClass_biz_leaves();
+            biz_members = new TClass_biz_members();
             biz_residents = new TClass_biz_residents();
             db_members = new TClass_db_members();
         }
@@ -26,11 +29,12 @@ namespace Class_biz_scheduled_tasks
             biz_leaves.MakeLeaveEndingSoonNotifications();
             biz_leaves.MakeLeaveExpirationNotifications();
             biz_enrollment.MakeFailureToThriveDemotions();
+            biz_members.MakeAvailabilitySubmissionDeadlineRelatedNotifications();
         }
 
         public void DoMemberStatusStatements()
         {
-            db_members.MakeMemberStatusStatements();
+            biz_members.MakeMemberStatusStatements();
         }
 
         internal void DoWeeklyChores()

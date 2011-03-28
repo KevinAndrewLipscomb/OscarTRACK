@@ -1,0 +1,18 @@
+Duty availabilities OVERDUE
+This is an automated notification from <application_name/>.
+
+YOUR IMMEDIATE ACTION IS REQUIRED.
+
+Your duty availabilities for next month were due on day <last_day_of_month_to_submit_schedule_availabilities/> of this month.
+
+This determination is based on your status as recorded by your squad officers in <application_name/>.  If you suspect your status has not been recorded correctly, please notify your squad commander (or appropriate designee) *immediately*.
+
+Please take a moment NOW to submit your duty availabilities by logging into <application_name/>.
+
+-  If you've forgotten your username or password, click "Forgot
+   username?" or "Forgot passowrd?", respectively, on the login page.
+
+-  If you've never logged in before, click "New user?" on the login
+   page.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -24,7 +24,6 @@ namespace overview
         private p_type p;
 
         protected ScriptManager ScriptManager_control = null;
-        protected TWebUserControl_member_binder UserControl_member_binder = null;
 
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -86,7 +85,7 @@ namespace overview
             else
             {
                 SessionSet("member_id", p.biz_members.IdOfUserId(Session["user_id"].ToString()));
-                UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
+                var UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
                 AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_member_binder);
                 if (p.incoming != null)
                   {
