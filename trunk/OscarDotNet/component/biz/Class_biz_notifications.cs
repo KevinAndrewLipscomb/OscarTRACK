@@ -1,5 +1,6 @@
 using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_role_member_map;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_biz_users;
@@ -149,14 +150,20 @@ namespace Class_biz_notifications
               .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
             };
           //
+          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
+          var biz_role_member_map = new TClass_biz_role_member_map();
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_due_soon.txt"));
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
             biz_members.EmailAddressOf(member_id),
             Merge(template_reader.ReadLine()),
-            Merge(template_reader.ReadToEnd())
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
             );
           template_reader.Close();
           }
@@ -173,14 +180,20 @@ namespace Class_biz_notifications
               .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
             };
           //
+          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
+          var biz_role_member_map = new TClass_biz_role_member_map();
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
           k.SmtpMailSend
             (
             ConfigurationManager.AppSettings["sender_email_address"],
             biz_members.EmailAddressOf(member_id),
             Merge(template_reader.ReadLine()),
-            Merge(template_reader.ReadToEnd())
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
             );
           template_reader.Close();
           }
