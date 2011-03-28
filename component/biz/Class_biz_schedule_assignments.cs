@@ -39,11 +39,11 @@ namespace Class_biz_schedule_assignments
     internal bool BeOkToPublishFullWatchbill
       (
       bool be_user_privileged_to_edit_schedule,
-      string user_id,
+      string member_id,
       string agency_id
       )
       {
-      return be_user_privileged_to_edit_schedule && ((biz_members.AgencyIdOfId(user_id) == agency_id) || (biz_roles.BeUserPeckingOrderAtLeast("Application Administrator")));
+      return be_user_privileged_to_edit_schedule && ((biz_members.AgencyIdOfId(member_id) == agency_id) || (biz_roles.BeUserPeckingOrderAtLeast("Application Administrator")));
       }
 
     internal bool BeOkToWorkOnNextMonth()

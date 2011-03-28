@@ -133,7 +133,7 @@ namespace UserControl_schedule_assignment_assistant_publish
 
     private void ManageAblements()
       {
-      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(true,p.biz_user.IdNum(),p.agency_filter))
+      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(true,p.biz_members.IdOfUserId(p.biz_user.IdNum()),p.agency_filter))
         {
         var be_full_watchbill_publish_mandatory = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
         CheckBox_full.Checked = be_full_watchbill_publish_mandatory;
