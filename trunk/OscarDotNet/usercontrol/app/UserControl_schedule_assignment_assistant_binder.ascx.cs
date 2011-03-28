@@ -81,29 +81,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         p = (p_type)(Session["UserControl_schedule_assignment_assistant_binder.p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_PlaceHolder_content"] as string) == "G");
-        //
-        // Dynamic controls must be re-added on each postback.
-        //
-        if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_holdouts, "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_binder, "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_special_requests, "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal, "C", PlaceHolder_content);
-          }
-        else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
-          {
-          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_publish, "UserControl_schedule_assignment_assistant_publish", PlaceHolder_content);
-          }
+        FillPlaceHolder(false);
         }
       else
         {
@@ -178,31 +156,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       {
       p.tab_index = (uint)(TabContainer_control.ActiveTabIndex);
       PlaceHolder_content.Controls.Clear();
-      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_holdouts.Fresh(), "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
-        UserControl_schedule_assignment_assistant_holdouts.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_binder.Fresh(), "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
-        UserControl_schedule_assignment_assistant_alert_binder.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_special_requests.Fresh(), "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
-        UserControl_schedule_assignment_assistant_special_requests.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_proposal.Fresh(), "C", PlaceHolder_content);
-        UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
-        {
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_publish.Fresh(), "UserControl_schedule_assignment_assistant_publish", PlaceHolder_content);
-        UserControl_schedule_assignment_assistant_publish.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        }
+      FillPlaceHolder(true);
       }
 
     private void Bind()
