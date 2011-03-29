@@ -299,7 +299,7 @@ namespace Class_db_schedule_assignments
         var dr = new MySqlCommand
           (
           "select count(distinct member_id) as num_members"
-          + " , sum(be_selected)/2 as num_crew_shifts"
+          + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20)/2 as num_crew_shifts"
           + common_from_where_clause,
           connection,
           transaction
