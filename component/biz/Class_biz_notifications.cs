@@ -150,22 +150,26 @@ namespace Class_biz_notifications
               .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
             };
           //
-          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
-          var biz_role_member_map = new TClass_biz_role_member_map();
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_due_soon.txt"));
-          k.SmtpMailSend
-            (
-            ConfigurationManager.AppSettings["sender_email_address"],
-            biz_members.EmailAddressOf(member_id),
-            Merge(template_reader.ReadLine()),
-            Merge(template_reader.ReadToEnd()),
-            false,
-            k.EMPTY,
-            k.EMPTY,
-            biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
-            );
-          template_reader.Close();
+          var member_email_address = biz_members.EmailAddressOf(member_id);
+          if (member_email_address != k.EMPTY)
+            {
+            var biz_agencies = new TClass_biz_agencies();
+            var biz_role_member_map = new TClass_biz_role_member_map();
+            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_due_soon.txt"));
+            k.SmtpMailSend
+              (
+              ConfigurationManager.AppSettings["sender_email_address"],
+              member_email_address,
+              Merge(template_reader.ReadLine()),
+              Merge(template_reader.ReadToEnd()),
+              false,
+              k.EMPTY,
+              k.EMPTY,
+              biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
+              );
+            template_reader.Close();
+            }
           }
 
         private delegate string IssueForAvailabilitiesOverdue_Merge(string s);
@@ -180,22 +184,26 @@ namespace Class_biz_notifications
               .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
             };
           //
-          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
-          var biz_role_member_map = new TClass_biz_role_member_map();
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
-          k.SmtpMailSend
-            (
-            ConfigurationManager.AppSettings["sender_email_address"],
-            biz_members.EmailAddressOf(member_id),
-            Merge(template_reader.ReadLine()),
-            Merge(template_reader.ReadToEnd()),
-            false,
-            k.EMPTY,
-            k.EMPTY,
-            biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
-            );
-          template_reader.Close();
+          var member_email_address = biz_members.EmailAddressOf(member_id);
+          if (member_email_address != k.EMPTY)
+            {
+            var biz_agencies = new TClass_biz_agencies();
+            var biz_role_member_map = new TClass_biz_role_member_map();
+            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
+            k.SmtpMailSend
+              (
+              ConfigurationManager.AppSettings["sender_email_address"],
+              member_email_address,
+              Merge(template_reader.ReadLine()),
+              Merge(template_reader.ReadToEnd()),
+              false,
+              k.EMPTY,
+              k.EMPTY,
+              biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
+              );
+            template_reader.Close();
+            }
           }
 
         private delegate string IssueForCadNumChange_Merge(string s);

@@ -744,6 +744,105 @@ namespace Class_db_schedule_assignments
       //
       }
 
+    internal void BindUnexpectedSubmissionsAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and agency_id = '" + agency_filter + "'";
+        }
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      Open();
+      //
+      // Since we are only using selects and temporary tables, do not save this to the db_trail.
+      //
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select distinct concat(first_name,' ',last_name) as name"
+        + " , member.id as member_id"
+        + " , agency_id"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join enrollment_history on" 
+        +     " (" 
+        +       " enrollment_history.member_id=member.id" 
+        +     " and" 
+        +       " (" 
+        +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" 
+        +       " and" 
+        +         " (" 
+        +           " (enrollment_history.end_date is null)" 
+        +         " or" 
+        +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))" 
+        +         " )" 
+        +       " )" 
+        +     " )" 
+        +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+        +   " left join leave_of_absence on" 
+        +     " (" 
+        +       " leave_of_absence.member_id=member.id" 
+        +     " and " 
+        +       " (" 
+        +         " (leave_of_absence.start_date is null)" 
+        +       " or" 
+        +         " (" 
+        +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" 
+        +         " and" 
+        +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))" 
+        +         " )" 
+        +       " )" 
+        +     " )" 
+        + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + agency_condition_clause + release_condition_clause
+        +   " and 0 ="
+        +     " IFNULL"  // num duties supposed to run
+        +       " ("
+        +         " if"
+        +           " ("
+        +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))"  // on leave
+        +           " ,"
+        +             " num_obliged_shifts"  // then num duties specified in terms of leave
+        +           " ,"
+        +             " IFNULL"  // else if applicable...
+        +               " ("
+        +                 " IF"
+        +                   " ("
+        +                     " medical_release_code = 9"  // EMT Intern
+        +                   " ,"
+        +                     " 2"  // expect 2 even though not strictly required
+        +                   " ,"
+        +                     " num_shifts"  // num standard obliged duties
+        +                   " )"
+        +               " ,"
+        +                 " 0"  // else (like for Atypical members) num avails submitted
+        +               " )"
+        +           " )"
+        +       " ,"
+        +         " 0"
+        +       " )",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      //
+      }
+
     public bool Delete(string id)
       {
       bool result;
