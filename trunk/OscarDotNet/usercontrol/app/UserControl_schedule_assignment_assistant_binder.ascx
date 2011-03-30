@@ -14,8 +14,28 @@
               <td align="center">
                 <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
                   <tr>
-                    <td><asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" /></td>
                     <td align="right"><b><small>Filters:</small></b></td>
+                    <td align="center">
+                      <table border="1" bordercolor="#808080" cellpadding="0" cellspacing="0">
+                        <tr>
+                          <td>
+                            <table cellpadding="5" cellspacing="0">
+                              <tr>
+                                <td nowrap="nowrap">
+                                  <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" AutoPostBack="True" Font-Size="Smaller" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged">
+                                    <asp:ListItem Selected="True" Value="0">This&nbsp;month</asp:ListItem>
+                                    <asp:ListItem Value="1">Next&nbsp;month</asp:ListItem>
+                                  </asp:RadioButtonList>
+                                </td>
+                                <td>
+                                  <asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" />
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
                     <td id="TableData_agency_filter" runat="server" align="center">
                       <small>Agency</small><br/>
                       <asp:DropDownList ID="DropDownList_agency_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_agency_filter_SelectedIndexChanged"></asp:DropDownList>
@@ -28,12 +48,6 @@
                         <ASP:ListItem value="0">Not released</ASP:ListItem>
                       </ASP:DropDownList>
    							    </td>
-                    <td nowrap="nowrap" align="left">
-                      <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" Font-Size="Smaller" AutoPostBack="True" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged">
-                        <asp:ListItem Value="0" Selected="True">This&nbsp;month</asp:ListItem>
-                        <asp:ListItem Value="1">Next&nbsp;month</asp:ListItem>
-                      </asp:RadioButtonList>
-                    </td>
                   </tr>
                 </table>
               </td>
