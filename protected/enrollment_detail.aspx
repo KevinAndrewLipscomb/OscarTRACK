@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-	<title id="Title" runat="server"></title>
+	<title/>
       <!-- $Id$ -->
   </head>
   <body bgcolor="white">
@@ -40,7 +40,7 @@
 							<ASP:BoundColumn datafield="description" sortexpression="description" readonly="True" headertext="Level">
 							  <ItemStyle horizontalalign="Center"></ItemStyle>
 							</ASP:BoundColumn>
-							<ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note">
+							<ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note" Visible="false">
 							  <HeaderStyle horizontalalign="Left"></HeaderStyle>
 							  <ItemStyle horizontalalign="Left"></ItemStyle>
 							</ASP:BoundColumn>

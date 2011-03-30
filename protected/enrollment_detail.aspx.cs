@@ -11,6 +11,14 @@ namespace enrollment_detail
 {
     public partial class TWebForm_enrollment_detail: ki_web_ui.page_class
     {
+    public class enrollment_detail_Static
+      {
+      public const int TCCI_ID = 0;
+      public const int TCCI_START_DATE = 1;
+      public const int TCCI_DESCRIPTION = 2;
+      public const int TCCI_NOTE = 3;
+      }
+
         private p_type p;
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -28,7 +36,7 @@ namespace enrollment_detail
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
                 LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["member_summary"], k.Has((string[])(Session["privilege_array"]), "edit-enrollments"), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"));
                 Bind();
@@ -64,6 +72,7 @@ namespace enrollment_detail
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
+                    p.be_user_privileged_to_see_personnel_status_notes = k.Has((string[])(Session["privilege_array"]), "see-personnel-status-notes") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
                     p.num_datagrid_rows = 0;
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
@@ -108,6 +117,7 @@ namespace enrollment_detail
 
         private void Bind()
         {
+            DataGrid_member_history.Columns[enrollment_detail_Static.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
             p.biz_enrollment.BindMemberHistory(p.biz_members.IdOf(Session["member_summary"]), DataGrid_member_history);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
@@ -121,6 +131,7 @@ namespace enrollment_detail
         private struct p_type
         {
             public bool be_datagrid_empty;
+            public bool be_user_privileged_to_see_personnel_status_notes;
             public TClass_biz_enrollment biz_enrollment;
             public TClass_biz_members biz_members;
             public TClass_biz_user biz_user;
