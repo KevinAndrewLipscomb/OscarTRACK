@@ -40,7 +40,7 @@ namespace leave_detail
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - leave_detail";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - leave_detail";
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
                 LinkButton_new.Visible = (p.be_user_privileged_to_grant_leave && !p.biz_members.BeTransferring(Session["member_summary"]));
                 Bind();
@@ -78,6 +78,7 @@ namespace leave_detail
                     p.biz_user = new TClass_biz_user();
                     p.be_sort_order_ascending = false;
                     p.be_user_privileged_to_grant_leave = k.Has((string[])(Session["privilege_array"]), "grant-leave") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
+                    p.be_user_privileged_to_see_personnel_status_notes = k.Has((string[])(Session["privilege_array"]), "see-personnel-status-notes") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
                     p.num_datagrid_rows = 0;
                     p.sort_order = "start_date%";
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
@@ -161,6 +162,7 @@ namespace leave_detail
         {
             DataGrid_leaves.Columns[Units.leave_detail.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
             DataGrid_leaves.Columns[Units.leave_detail.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
+            DataGrid_leaves.Columns[Units.leave_detail.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
             p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(Session["member_summary"]), p.sort_order, p.be_sort_order_ascending, DataGrid_leaves);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
@@ -176,6 +178,7 @@ namespace leave_detail
             public bool be_datagrid_empty;
             public bool be_sort_order_ascending;
             public bool be_user_privileged_to_grant_leave;
+            public bool be_user_privileged_to_see_personnel_status_notes;
             public TClass_biz_leaves biz_leaves;
             public TClass_biz_members biz_members;
             public TClass_biz_user biz_user;
@@ -192,6 +195,7 @@ namespace leave_detail.Units
 {
     public class leave_detail
     {
+        public const int TCCI_NOTE = 5;
         public const int TCCI_EDIT = 6;
         public const int TCCI_DELETE = 7;
     } // end leave_detail
