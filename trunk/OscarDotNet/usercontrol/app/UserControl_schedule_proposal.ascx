@@ -108,9 +108,11 @@
           <asp:BoundColumn DataField="d_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
-          <asp:BoundColumn DataField="d_member_agency_id">
-            <ItemStyle HorizontalAlign="Right" VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="d_member_agency_id" Visible="false"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate><asp:Label ID="Label_d_member_agency_designator" runat="server" Font-Size="Small"></asp:Label></ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
           <asp:BoundColumn DataField="d_be_selected" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="d_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
@@ -158,9 +160,11 @@
           <asp:BoundColumn DataField="n_be_driver_qualified" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
-          <asp:BoundColumn DataField="n_member_agency_id">
-            <ItemStyle HorizontalAlign="Right"  VerticalAlign="Bottom" />
-          </asp:BoundColumn>
+          <asp:BoundColumn DataField="n_member_agency_id" Visible="False"></asp:BoundColumn>
+          <asp:TemplateColumn>
+            <ItemTemplate><asp:Label ID="Label_n_member_agency_designator" runat="server" Font-Size="Small"></asp:Label></ItemTemplate>
+            <ItemStyle VerticalAlign="Bottom" />
+          </asp:TemplateColumn>
           <asp:BoundColumn DataField="n_be_selected" Visible="False"></asp:BoundColumn>
           <asp:BoundColumn DataField="n_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
