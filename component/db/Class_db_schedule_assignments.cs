@@ -449,7 +449,7 @@ namespace Class_db_schedule_assignments
         +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
         +     " order by member_id,nominal_day,start"
         +     " ) as msd_member_schedule_assignments_sorted_chronologically"
-        +     " join"
+        +     " left join"
         +       " ("
         +       " select nominal_day"
         +       " , shift_id"
@@ -484,12 +484,22 @@ namespace Class_db_schedule_assignments
       string compliancy_filter
       )
       {
-      var filter = " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
-      + " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,num_shifts)";
+      var filter = " where"
+      + " ("
+      +   " ("
+      +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      +   " and"
+      +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,num_shifts) > 0"
+      +   " )"
+      + " or"
+      +   " (enrollment_level.description = 'Atypical')"
+      + " )";
+      //
       if (agency_filter != k.EMPTY)
         {
         filter += " and agency_id = '" + agency_filter + "'";
         }
+      //
       if (release_filter == "1")
         {
         filter += " and medical_release_code_description_map.pecking_order >= 20";
@@ -498,13 +508,18 @@ namespace Class_db_schedule_assignments
         {
         filter += " and medical_release_code_description_map.pecking_order < 20";
         }
-      if (compliancy_filter == "0")
+      //
+      if (compliancy_filter == "0") // holdouts
         {
-        filter += " and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description <> 'Atypical') and (condensed_schedule_assignment.member_id is null)";
         }
-      else if (compliancy_filter == "1")
+      else if (compliancy_filter == "1") // submitters
         {
-        filter += " and (condensed_schedule_assignment.member_id is not null)";
+        filter += " and condensed_schedule_assignment.member_id is not null";
+        }
+      else if (compliancy_filter == "A") // atypicals
+        {
+        filter += " and (enrollment_level.description = 'Atypical') and (condensed_schedule_assignment.member_id is null)";
         }
       //
       if (be_sort_order_ascending)
@@ -521,7 +536,7 @@ namespace Class_db_schedule_assignments
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
-        + " , (condensed_schedule_assignment.member_id is not null) as be_compliant"
+        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant"
         + " , member.email_address"
         + " , member.phone_num"
         + " from member"

@@ -18,8 +18,9 @@
                         <small>Compliancy</small><br/>
                         <ASP:DropDownList id="DropDownList_compliancy" runat="server" autopostback="True" onselectedindexchanged="DropDownList_compliancy_SelectedIndexChanged">
                           <ASP:ListItem value="">All</ASP:ListItem>
-                          <ASP:ListItem value="1">Submissions</ASP:ListItem>
                           <ASP:ListItem value="0" selected="True">Holdouts</ASP:ListItem>
+                          <ASP:ListItem value="1">Submitters</ASP:ListItem>
+                          <ASP:ListItem value="A">Atypicals</ASP:ListItem>
                         </ASP:DropDownList>
    							      </td>
                     </tr>

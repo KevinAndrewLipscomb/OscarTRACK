@@ -127,7 +127,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void DropDownList_compliancy_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.compliancy_filter = k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.NUM);
+      p.compliancy_filter = k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.ALPHANUM);
       Bind();
       }
 
@@ -163,7 +163,8 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
-        if (e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_COMPLIANT].Text == "0")
+        var compliancy_text = e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_COMPLIANT].Text;
+        if (compliancy_text == "0")
           {
           p.distribution_list += k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Font.Bold = true;
@@ -177,7 +178,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = (compliancy_text == "1");
           }
         p.num_datagrid_rows++;
         }
