@@ -423,7 +423,7 @@ namespace UserControl_member_schedule_detail
       p.member_agency_id = member_agency_id;
       p.relative_month = relative_month;
       p.member_id = member_id;
-      //
+      Bind();
       }
 
     internal void SetInteractivity(bool be_interactive)
