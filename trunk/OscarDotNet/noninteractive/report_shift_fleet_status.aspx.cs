@@ -87,7 +87,7 @@ namespace report_shift_fleet_status
         {
             // Write the HTML stream into a StringBuilder.
             var sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb),k.EMPTY));
+            base.Render(new HtmlTextWriter(new StringWriter(sb)));
             //
             //writer.Write(sb.ToString());
             //
