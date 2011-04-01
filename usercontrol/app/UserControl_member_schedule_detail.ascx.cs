@@ -315,22 +315,27 @@ namespace UserControl_member_schedule_detail
       Bind();
       }
 
-    protected void Calendar_day_SelectionChanged(object sender, System.EventArgs e)
+    protected void CalendarSelectionChanged
+      (
+      Calendar the_calendar,
+      string shift_name
+      )
       {
-      if ((Calendar_day.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
+      if ((the_calendar.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
         {
-        p.biz_schedule_assignments.ForceAvail(p.member_id,Calendar_day.SelectedDate,"DAY",p.member_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.member_id,the_calendar.SelectedDate,shift_name,p.member_agency_id);
         }
       Bind();
       }
 
+    protected void Calendar_day_SelectionChanged(object sender, System.EventArgs e)
+      {
+      CalendarSelectionChanged(Calendar_day,"DAY");
+      }
+
     protected void Calendar_night_SelectionChanged(object sender, System.EventArgs e)
       {
-      if((Calendar_night.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
-        {
-        p.biz_schedule_assignments.ForceAvail(p.member_id,Calendar_night.SelectedDate,"NIGHT",p.member_agency_id);
-        }
-      Bind();
+      CalendarSelectionChanged(Calendar_night,"NIGHT");
       }
 
     private void Bind()
@@ -357,60 +362,43 @@ namespace UserControl_member_schedule_detail
       p.num_datagrid_rows = 0;
       }
 
-    protected void Calendar_day_DayRender(object sender, DayRenderEventArgs e)
+    protected void CalendarDayRender
+      (
+      ArrayList arraylist_selected_avail,
+      ArrayList arraylist_unselected_avail,
+      DayRenderEventArgs e
+      )
       {
-      var be_selected_day_avail = p.arraylist_selected_day_avail.Contains(e.Day.Date);
-      var be_unselected_day_avail = p.arraylist_unselected_day_avail.Contains(e.Day.Date);
-      if (p.be_interactive)
+      e.Day.IsSelectable = false;
+      var be_selected_avail = arraylist_selected_avail.Contains(e.Day.Date);
+      var be_unselected_avail = arraylist_unselected_avail.Contains(e.Day.Date);
+      if ((p.be_interactive) && (e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_avail) && (!be_unselected_avail))
         {
-        if ((e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_day_avail) && (!be_unselected_day_avail))
-          {
-          e.Cell.ForeColor = Color.Blue;
-          e.Day.IsSelectable = true;
-          }
+        e.Day.IsSelectable = true;
+        e.Cell.ForeColor = Color.Blue;
         }
-      else
-        {
-        e.Day.IsSelectable = false;
-        }
-      if (be_selected_day_avail)
+      if (be_selected_avail)
         {
         e.Cell.ForeColor = Color.White;
         e.Cell.BackColor = Color.Green;
+        e.Cell.Font.Bold = true;
         }
-      else if (be_unselected_day_avail)
+      else if (be_unselected_avail)
         {
         e.Cell.ForeColor = Color.Gray;
         e.Cell.BackColor = Color.PaleGreen;
+        e.Cell.Font.Bold = false;
         }
+      }
+
+    protected void Calendar_day_DayRender(object sender, DayRenderEventArgs e)
+      {
+      CalendarDayRender(p.arraylist_selected_day_avail,p.arraylist_unselected_day_avail,e);
       }
 
     protected void Calendar_night_DayRender(object sender, DayRenderEventArgs e)
       {
-      var be_selected_night_avail = p.arraylist_selected_night_avail.Contains(e.Day.Date);
-      var be_unselected_night_avail = p.arraylist_unselected_night_avail.Contains(e.Day.Date);
-      if (p.be_interactive)
-        {
-        if ((e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_night_avail) && (!be_unselected_night_avail))
-          {
-          e.Cell.ForeColor = Color.Blue;
-          e.Day.IsSelectable = true;
-          }
-        }
-      else
-        {
-        e.Day.IsSelectable = false;
-        }
-      if (be_selected_night_avail)
-        {
-        e.Cell.ForeColor = Color.White;
-        e.Cell.BackColor = Color.Green;
-        }
-      else if (be_unselected_night_avail)
-        {
-        e.Cell.ForeColor = Color.Gray;
-        e.Cell.BackColor = Color.PaleGreen;
-        }
+      CalendarDayRender(p.arraylist_selected_night_avail,p.arraylist_unselected_night_avail,e);
       }
 
     internal void SetFilter
