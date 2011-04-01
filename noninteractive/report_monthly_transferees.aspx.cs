@@ -69,7 +69,7 @@ namespace report_monthly_transferees
             StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
             sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb),k.EMPTY));
+            base.Render(new HtmlTextWriter(new StringWriter(sb)));
             // //
             // writer.Write(sb.ToString());
             // //
