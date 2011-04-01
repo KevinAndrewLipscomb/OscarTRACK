@@ -73,7 +73,7 @@ namespace report_monthly_current_phone_list
             StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
             sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
+            base.Render(new HtmlTextWriter(new StringWriter(sb),k.EMPTY));
             // //
             // writer.Write(sb.ToString());
             // //
