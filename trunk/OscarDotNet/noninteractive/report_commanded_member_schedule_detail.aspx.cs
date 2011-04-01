@@ -76,7 +76,7 @@ namespace report_commanded_member_schedule_detail
     protected override void Render(HtmlTextWriter writer)
       {
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      base.Render(new HtmlTextWriter(new StringWriter(sb),k.EMPTY));
       // //
       // writer.Write(sb.ToString());
       // //
