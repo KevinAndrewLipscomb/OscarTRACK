@@ -1,6 +1,8 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
+using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_role_member_map;
 using kix;
 using System;
 using System.Configuration;
@@ -16,7 +18,9 @@ namespace report_commanded_member_schedule_detail
 
     private struct p_type
       {
+      public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
+      public TClass_biz_role_member_map biz_role_member_map;
       public string member_id;
       }
 
@@ -51,7 +55,9 @@ namespace report_commanded_member_schedule_detail
           (nature_of_visit_unlimited == nature_of_visit_type.VISIT_INITIAL)
         )
         {
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
+        p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
         //
@@ -81,7 +87,17 @@ namespace report_commanded_member_schedule_detail
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"],p.biz_members.EmailAddressOf(p.member_id),"Ambulance Duty Assignments",body,true);
+      k.SmtpMailSend
+        (
+        ConfigurationManager.AppSettings["sender_email_address"],
+        p.biz_members.EmailAddressOf(p.member_id),
+        "Ambulance Duty Assignments",
+        body,
+        true,
+        k.EMPTY,
+        k.EMPTY,
+        p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.biz_members.AgencyIdOfId(p.member_id))
+        );
       Session.Abandon();
       }
 

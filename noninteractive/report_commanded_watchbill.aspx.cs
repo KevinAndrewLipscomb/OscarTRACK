@@ -1,5 +1,6 @@
 using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_role_member_map;
 using kix;
 using System;
 using System.Configuration;
@@ -19,6 +20,7 @@ namespace report_commanded_watchbill
       public string agency_filter;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
+      public TClass_biz_role_member_map biz_role_member_map;
       public string release_filter;
       public k.subtype<int> relative_month;
       }
@@ -77,6 +79,7 @@ namespace report_commanded_watchbill
         {
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
+        p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.agency_filter = k.Safe(Request["agency_id"],k.safe_hint_type.NUM);
         p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.NUM);
@@ -113,8 +116,18 @@ namespace report_commanded_watchbill
       var recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue((p.agency_filter == k.EMPTY ? k.EMPTY : p.biz_agencies.ShortDesignatorOf(p.agency_filter)),true);
       var recipient_q_count = recipient_q.Count;
       for (var i = new k.subtype<int>(0,recipient_q_count); i.val < recipient_q_count; i.val++ )
-       {
-        k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"],recipient_q.Dequeue().ToString(),"Ambulance Watchbill",body,true);
+        {
+        k.SmtpMailSend
+          (
+          ConfigurationManager.AppSettings["sender_email_address"],
+          recipient_q.Dequeue().ToString(),
+          "Ambulance Watchbill",
+          body,
+          true,
+          k.EMPTY,
+          k.EMPTY,
+          p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.agency_filter)
+          );
         }
       this.Session.Abandon();
       }

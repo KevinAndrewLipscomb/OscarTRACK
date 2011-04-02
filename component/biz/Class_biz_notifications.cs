@@ -166,7 +166,7 @@ namespace Class_biz_notifications
               false,
               k.EMPTY,
               k.EMPTY,
-              biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
+              biz_role_member_map.EmailTargetOfAppropriateScheduler(biz_members.AgencyIdOfId(member_id))
               );
             template_reader.Close();
             }
@@ -200,7 +200,7 @@ namespace Class_biz_notifications
               false,
               k.EMPTY,
               k.EMPTY,
-              biz_role_member_map.EmailTargetOf("Squad Scheduler",biz_agencies.ShortDesignatorOf(biz_members.AgencyIdOfId(member_id)))
+              biz_role_member_map.EmailTargetOfAppropriateScheduler(biz_members.AgencyIdOfId(member_id))
               );
             template_reader.Close();
             }

@@ -156,6 +156,38 @@ namespace Class_db_role_member_map
 
         }
 
+        public string EmailTargetAboutAgencyId
+          (
+          string role_name,
+          string agency_id
+          )
+          {
+          var email_target_about_agency_id = k.EMPTY;
+          Open();
+          var dr = new MySqlCommand
+            (
+            "select email_address"
+            + " from role_member_map"
+            +   " join role on (role.id=role_member_map.role_id)"
+            +   " join member on (member.id=role_member_map.member_id)"
+            + " where role.name = '" + role_name + "'"
+            +   " and agency_id = '" + agency_id + "'",
+            connection
+            )
+            .ExecuteReader();
+          while (dr.Read())
+            {
+            email_target_about_agency_id += dr["email_address"].ToString() + k.COMMA;
+            }
+          dr.Close();
+          Close();
+          if (email_target_about_agency_id.Length > 0)
+            {
+            email_target_about_agency_id = email_target_about_agency_id.Substring(0, email_target_about_agency_id.Length - 1);
+            }
+          return email_target_about_agency_id;
+          }
+
         public string EmailTargetOf(string role_name, string agency_short_designator)
         {
             string result;
