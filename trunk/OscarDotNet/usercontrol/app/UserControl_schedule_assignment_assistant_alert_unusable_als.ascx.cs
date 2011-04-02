@@ -138,7 +138,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
         if (be_any_kind_of_item)
           {
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_POST_DESIGNATOR].Text));
+          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,p.biz_agencies.IdOfShortDesignator(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_POST_DESIGNATOR].Text)));
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
