@@ -140,7 +140,7 @@ namespace UserControl_schedule_proposal
         p.be_interactive = (Session["mode:report"] == null);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler"))
+        if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
           {
           p.depth_filter = k.EMPTY;
           }
@@ -155,7 +155,7 @@ namespace UserControl_schedule_proposal
         p.release_filter = k.EMPTY;
         //
         var proto_post_list_item_collection = new ListItemCollection();
-        p.biz_agencies.BindEmsPostListItemCollectionShort(proto_post_list_item_collection);
+        p.biz_agencies.BindEmsPostListItemCollectionShort(p.biz_members.HighestTierOf(Session["member_id"].ToString()),proto_post_list_item_collection);
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
         proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
         }

@@ -118,9 +118,13 @@ namespace Class_biz_agencies
           db_agencies.BindListControlShortDashLongSatelliteStations(target);
           }
 
-        internal void BindEmsPostListItemCollectionShort(object target)
+        internal void BindEmsPostListItemCollectionShort
+          (
+          string tier,
+          object target
+          )
           {
-          db_agencies.BindEmsPostListItemCollectionShort(target);
+          db_agencies.BindEmsPostListItemCollectionShort(tier,target);
           }
 
         public void BindForCommensuration(object target)

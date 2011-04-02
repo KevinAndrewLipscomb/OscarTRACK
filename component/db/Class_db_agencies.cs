@@ -185,11 +185,25 @@ namespace Class_db_agencies
           Close();
           }
 
-        internal void BindEmsPostListItemCollectionShort(object target)
+        internal void BindEmsPostListItemCollectionShort
+          (
+          string tier,
+          object target
+          )
           {
           Open();
           (target as ListItemCollection).Clear();
-          var dr = new MySqlCommand("SELECT id, short_designator from agency where be_ems_post = TRUE order by short_designator", connection).ExecuteReader();
+          var dr = new MySqlCommand
+            (
+            "SELECT DISTINCT agency.id as id"
+            + " , short_designator"
+            + " from agency"
+            +   " left join agency_satellite_station on (agency_satellite_station.agency_id=agency.id)"
+            + " where be_ems_post = TRUE" + (tier == "1" ? k.EMPTY : " and agency.id < 200")
+            + " order by short_designator",
+            connection
+            )
+            .ExecuteReader();
           while (dr.Read())
             {
             (target as ListItemCollection).Add(new ListItem(dr["short_designator"].ToString(), dr["id"].ToString()));
