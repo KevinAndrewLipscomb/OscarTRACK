@@ -7,6 +7,6 @@ This is an automatic notification from <application_name/>.
 
 CONGRATULATIONS, <first_name/>, and THANKS FOR YOUR DEDICATION AND SERVICE!
 
-OscarTRACK has automatically adjusted <first_name/>'s required duties accordingly and they will take effect in the next scheduling generation cycle.
+<application_name/> has automatically adjusted <first_name/>'s required duties accordingly and they will take effect in the next schedule generation cycle.
 
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)

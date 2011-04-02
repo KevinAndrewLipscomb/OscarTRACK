@@ -44,13 +44,13 @@ Your status in <application_name/> for *next month* has been recorded as follows
       Note 1:  Members with red or yellow ID cards should be listed as
       "Recruit".
 
-      Note 2:  Standard membership statuses for members with white ID
-      cards who ride on ambulances include "Regular", "Life", and
-      "Tenured".
+      Note 2:  Standard membership statuses for members with orange or
+      white ID cards who ride on ambulances include "Regular", "Life",
+      and "Tenured".
 
-      Note 3:  Liberal membership statuses for members with white ID
-      cards who ride on ambulances include "Associate", "Reduced (#)",
-      and "Atypical".
+      Note 3:  Liberal membership statuses for members with orange or
+      white ID cards who ride on ambulances include "Associate",
+      "Reduced (#)", and "Atypical".
 
       Note 4:  The following membership statuses are reserved for
       members who do not ride on the ambulances:  "Applicant", "Admin",
@@ -85,7 +85,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
 
-FINALLY, personnel with required ambulance duties must submit availabilities to OSCAR by the 10th of the month.  The web address for availability submissions is:
+FINALLY, personnel with required ambulance duties must submit availabilities to <application_name/> by the 10th of the month.  The web address for availability submissions is:
 
     http://<host_domain_name/>/<application_name/>
 
