@@ -210,6 +210,7 @@ namespace Class_db_schedule_assignments
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where medical_release_code_description_map.pecking_order >= 20"
           +   " and be_selected"
+          +   " and post_id < 200" // Only count ground ambulance assignments.
           +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
           + " group by nominal_day,shift_id"
           + ";"
@@ -299,7 +300,7 @@ namespace Class_db_schedule_assignments
         var dr = new MySqlCommand
           (
           "select count(distinct member_id) as num_members"
-          + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20)/2 as num_crew_shifts"
+          + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
           + common_from_where_clause,
           connection,
           transaction
@@ -461,6 +462,7 @@ namespace Class_db_schedule_assignments
         +         " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +       " where medical_release_code_description_map.pecking_order >= 20"
         +         " and be_selected"
+        +         " and post_id < 200" // Only count ground ambulance assignments.
         +       " group by nominal_day,shift_id"
         +       " ) msd_shift_populations_on_member_schedule_assignments"
         +         " using (nominal_day,shift_id)"
