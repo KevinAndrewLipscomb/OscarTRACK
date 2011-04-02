@@ -15,7 +15,7 @@
       <asp:ToolkitScriptManager ID="ScriptManager_control" runat="server"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ToolkitScriptManager>
       <uc1:UserControl_common_header_bar ID="UserControl_common_header_bar_control" runat="server" />
       <br />
-      <p>Your current ambulance assignments for the indicated month are shown below.</p>
+      <p>Your assignments for the indicated month are shown below.</p>
       <br />
       <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
     </form>

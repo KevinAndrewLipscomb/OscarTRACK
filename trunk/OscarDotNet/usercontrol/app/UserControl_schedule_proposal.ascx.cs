@@ -155,7 +155,7 @@ namespace UserControl_schedule_proposal
         p.release_filter = k.EMPTY;
         //
         var proto_post_list_item_collection = new ListItemCollection();
-        p.biz_agencies.BindEmsPostListItemCollectionShort(p.biz_members.HighestTierOf(Session["member_id"].ToString()),proto_post_list_item_collection);
+        p.biz_agencies.BindEmsPostListItemCollectionShort((p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),proto_post_list_item_collection);
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
         proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
         }

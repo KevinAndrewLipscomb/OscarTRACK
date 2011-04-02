@@ -97,8 +97,16 @@
                             <ItemStyle HorizontalAlign="Right" />
                           </ASP:ButtonColumn>
                           <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/list-add-4.png&quot; alt=&quot;Force On&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="ForceOn"></ASP:ButtonColumn>
+                          <asp:BoundColumn DataField="be_notification_pending" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                          <asp:TemplateColumn Visible="False">
+                            <ItemTemplate><asp:Label ID="Label_revised" runat="server" Visible="false">&lt;&lt;&lt;REVISED<sup>*</sup></asp:Label></ItemTemplate>
+                            <ItemStyle Font-Bold="True" ForeColor="Red" Wrap="False" />
+                          </asp:TemplateColumn>
                         </Columns>
                       </ASP:DataGrid>
+                      <small>
+                        <asp:Label ID="Label_revision_explanation" runat="server" ForeColor="Red" Visible="False"><sup>*</sup>If a scheduler revises AND un-revises an assignment in a single session, it will be marked as REVISED even though there may ultimately be no impact.</asp:Label>
+                      </small>
                     </td>
                   </tr>
                   <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
