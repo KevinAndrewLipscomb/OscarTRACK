@@ -81,6 +81,11 @@ namespace Class_biz_role_member_map
             return result;
         }
 
+        public string EmailTargetOfAppropriateScheduler(string agency_id)
+          {
+          return db_role_member_map.EmailTargetAboutAgencyId((agency_id == "0" ? "Department Chief Scheduler" : "Squad Scheduler"),agency_id);
+          }
+
         public string HolderOf(string role_name)
         {
             string result;
