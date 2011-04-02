@@ -16,9 +16,11 @@ namespace UserControl_member_schedule_detail
     public ArrayList arraylist_selected_night_avail;
     public ArrayList arraylist_unselected_day_avail;
     public ArrayList arraylist_unselected_night_avail;
+    public bool be_any_revisions;
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_virgin_watchbill;
     public TClass_biz_availabilities biz_availabilities;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
@@ -53,6 +55,8 @@ namespace UserControl_member_schedule_detail
       public const int TCI_OTHERS_AVAILABLE = 15;
       public const int TCI_FORCE_OFF = 16;
       public const int TCI_FORCE_ON = 17;
+      public const int TCI_BE_NOTIFICATION_PENDING = 18;
+      public const int TCI_REVISED = 19;
       }
 
     private p_type p;
@@ -111,7 +115,9 @@ namespace UserControl_member_schedule_detail
         p.arraylist_selected_night_avail = new ArrayList();
         p.arraylist_unselected_day_avail = new ArrayList();
         p.arraylist_unselected_night_avail = new ArrayList();
+        p.be_any_revisions = false;
         p.be_interactive = (Session["mode:report"] == null);
+        p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
         p.member_id = k.EMPTY;
         p.num = new k.subtype<int>(0,62);
@@ -222,55 +228,57 @@ namespace UserControl_member_schedule_detail
         //
         p.num_datagrid_rows++;
         }
-      if (p.be_interactive)
+      if (p.be_interactive && be_any_kind_of_item)
         {
-        if (be_any_kind_of_item)
+        LinkButton link_button;
+        var comment_edit_update_cancel_controls = e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls;
+        if (comment_edit_update_cancel_controls.Count == 1)
           {
-          LinkButton link_button;
-          var comment_edit_update_cancel_controls = e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls;
-          if (comment_edit_update_cancel_controls.Count == 1)
-            {
-            link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
-            link_button.Text = k.ExpandTildePath(link_button.Text);
-            link_button.ToolTip = "Edit comment";
-            }
-          else
-            {
-            link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
-            link_button.Text = k.ExpandTildePath(link_button.Text);
-            link_button.ToolTip = "Save edit";
-            // Skip comment_edit_update_cancel_controls[1].  It's a literal spacer.
-            link_button = (comment_edit_update_cancel_controls[2] as LinkButton);
-            link_button.Text = k.ExpandTildePath(link_button.Text);
-            link_button.ToolTip = "Cancel edit";
-            //
-            ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 9;
-            ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 9;
-            ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
-              ("onkeydown","if (event.keyCode == 13) El('" + e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls[0].ClientID + "').click();");
-            }
-          link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
+          link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Swap with earlier availability";
-          link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Swap with later availability";
-          link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Force off";
-          link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Controls[0]) as LinkButton);
-          link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.ToolTip = "Force on";
-          //
-          //
-          // Remove all cell controls from viewstate except for the one at TCI_ID.
-          //
-          foreach (TableCell cell in e.Item.Cells)
-            {
-            cell.EnableViewState = false;
-            }
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
+          link_button.ToolTip = "Edit comment";
           }
+        else
+          {
+          link_button = (comment_edit_update_cancel_controls[0] as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Save edit";
+          // Skip comment_edit_update_cancel_controls[1].  It's a literal spacer.
+          link_button = (comment_edit_update_cancel_controls[2] as LinkButton);
+          link_button.Text = k.ExpandTildePath(link_button.Text);
+          link_button.ToolTip = "Cancel edit";
+          //
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 9;
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 9;
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
+            ("onkeydown","if (event.keyCode == 13) El('" + e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls[0].ClientID + "').click();");
+          }
+        link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
+        link_button.Text = k.ExpandTildePath(link_button.Text);
+        link_button.ToolTip = "Swap with earlier availability";
+        link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_LATER].Controls[0]) as LinkButton);
+        link_button.Text = k.ExpandTildePath(link_button.Text);
+        link_button.ToolTip = "Swap with later availability";
+        link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0]) as LinkButton);
+        link_button.Text = k.ExpandTildePath(link_button.Text);
+        link_button.ToolTip = "Force off";
+        link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Controls[0]) as LinkButton);
+        link_button.Text = k.ExpandTildePath(link_button.Text);
+        link_button.ToolTip = "Force on";
+        //
+        //
+        // Remove all cell controls from viewstate except for the one at TCI_ID.
+        //
+        foreach (TableCell cell in e.Item.Cells)
+          {
+          cell.EnableViewState = false;
+          }
+        e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
+        }
+      if (!p.be_interactive && be_any_kind_of_item && !p.be_virgin_watchbill && (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
+        {
+        ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_REVISED].Controls[0]) as Label).Visible = true;
+        p.be_any_revisions = true;
         }
       }
 
@@ -355,10 +363,12 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_OTHERS_AVAILABLE].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_interactive;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_interactive && !p.be_virgin_watchbill;
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.member_id,p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_data.Visible = !p.be_datagrid_empty;
       TableRow_none.Visible = p.be_datagrid_empty;
+      Label_revision_explanation.Visible = p.be_any_revisions;
       p.num_datagrid_rows = 0;
       }
 
@@ -405,13 +415,24 @@ namespace UserControl_member_schedule_detail
       (
       string member_agency_id,
       k.subtype<int> relative_month,
-      string member_id
+      string member_id,
+      bool be_virgin_watchbill
       )
       {
       p.member_agency_id = member_agency_id;
       p.relative_month = relative_month;
       p.member_id = member_id;
+      p.be_virgin_watchbill = be_virgin_watchbill;
       Bind();
+      }
+    internal void SetFilter
+      (
+      string member_agency_id,
+      k.subtype<int> relative_month,
+      string member_id
+      )
+      {
+      SetFilter(member_agency_id,relative_month,member_id,true);
       }
 
     internal void SetInteractivity(bool be_interactive)

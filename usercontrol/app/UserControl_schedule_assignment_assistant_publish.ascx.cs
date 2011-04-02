@@ -18,6 +18,7 @@ namespace UserControl_schedule_assignment_assistant_publish
     public string agency_filter;
     public bool be_loaded;
     public bool be_user_privileged_to_see_all_squads;
+    public bool be_virgin_watchbill;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
@@ -127,7 +128,7 @@ namespace UserControl_schedule_assignment_assistant_publish
           p.biz_schedule_assignments.PublishFullWatchbill(p.agency_filter,p.release_filter,p.relative_month,working_directory);
           Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",true);
           }
-        p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month,working_directory);
+        p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month,p.be_virgin_watchbill,working_directory);
         }
       }
 
@@ -135,9 +136,9 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(true,p.biz_members.IdOfUserId(p.biz_user.IdNum()),p.agency_filter))
         {
-        var be_full_watchbill_publish_mandatory = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
-        CheckBox_full.Checked = be_full_watchbill_publish_mandatory;
-        CheckBox_full.Enabled = !be_full_watchbill_publish_mandatory;
+        p.be_virgin_watchbill = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
+        CheckBox_full.Checked = p.be_virgin_watchbill;
+        CheckBox_full.Enabled = !p.be_virgin_watchbill;
         RadioButton_scalable.Checked = true;  // delete this line when month-at-a-glance is implemented
         //RadioButton_scalable.Enabled = true;  // uncomment when month-at-a-glance is implemented
         //RadioButton_month_at_a_glance.Enabled = true;  // uncomment when month-at-a-glance is implemented

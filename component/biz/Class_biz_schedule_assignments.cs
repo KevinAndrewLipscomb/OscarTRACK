@@ -271,6 +271,7 @@ namespace Class_biz_schedule_assignments
       (
       string agency_filter,
       k.subtype<int> relative_month,
+      bool be_virgin_watchbill,
       string working_directory
       )
       {
@@ -291,6 +292,7 @@ namespace Class_biz_schedule_assignments
           +   "?member_id=" + target
           +   "&relative_month=" + relative_month.val
           +   "&member_agency_id=" + agency_filter
+          +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
           + "\""
           );
         target_q.Enqueue(target);

@@ -18,6 +18,7 @@ namespace report_commanded_member_schedule_detail
 
     private struct p_type
       {
+      public bool be_virgin_watchbill;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
@@ -59,6 +60,7 @@ namespace report_commanded_member_schedule_detail
         p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
+        p.be_virgin_watchbill = bool.Parse(k.Safe(Request["be_virgin_watchbill"],k.safe_hint_type.ALPHA));
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
         //
         SessionSet("mode:report",k.EMPTY);
@@ -66,7 +68,7 @@ namespace report_commanded_member_schedule_detail
         var relative_month = new k.subtype<int>(0,1);
         relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
         UserControl_member_schedule_detail_control.SetInteractivity(false);
-        UserControl_member_schedule_detail_control.SetFilter(k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM),relative_month,p.member_id);
+        UserControl_member_schedule_detail_control.SetFilter(k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM),relative_month,p.member_id,p.be_virgin_watchbill);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -94,7 +96,7 @@ namespace report_commanded_member_schedule_detail
         "Ambulance Duty Assignments",
         body,
         true,
-        k.EMPTY,
+        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS"))),
         k.EMPTY,
         p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.biz_members.AgencyIdOfId(p.member_id))
         );
