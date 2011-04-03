@@ -129,6 +129,7 @@ namespace UserControl_schedule_assignment_assistant_publish
           Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",true);
           }
         p.biz_schedule_assignments.PublishPendingNotifications(p.agency_filter,p.relative_month,p.be_virgin_watchbill,working_directory);
+        Button_publish.Enabled = false;
         }
       }
 

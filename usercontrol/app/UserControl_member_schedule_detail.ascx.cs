@@ -12,6 +12,8 @@ namespace UserControl_member_schedule_detail
 
   public struct p_type
     {
+    public ArrayList arraylist_revised_day_avail;
+    public ArrayList arraylist_revised_night_avail;
     public ArrayList arraylist_selected_day_avail;
     public ArrayList arraylist_selected_night_avail;
     public ArrayList arraylist_unselected_day_avail;
@@ -111,6 +113,8 @@ namespace UserControl_member_schedule_detail
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
+        p.arraylist_revised_day_avail = new ArrayList();
+        p.arraylist_revised_night_avail = new ArrayList();
         p.arraylist_selected_day_avail = new ArrayList();
         p.arraylist_selected_night_avail = new ArrayList();
         p.arraylist_unselected_day_avail = new ArrayList();
@@ -226,6 +230,20 @@ namespace UserControl_member_schedule_detail
           (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         //
+        if (!p.be_interactive && !p.be_virgin_watchbill && (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
+          {
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_REVISED].Controls[0]) as Label).Visible = true;
+          if (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "DAY")
+            {
+            p.arraylist_revised_day_avail.Add(nominal_day);
+            }
+          else if (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "NIGHT")
+            {
+            p.arraylist_revised_night_avail.Add(nominal_day);
+            }
+          p.be_any_revisions = true;
+          }
+        //
         p.num_datagrid_rows++;
         }
       if (p.be_interactive && be_any_kind_of_item)
@@ -274,11 +292,6 @@ namespace UserControl_member_schedule_detail
           cell.EnableViewState = false;
           }
         e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
-        }
-      if (!p.be_interactive && be_any_kind_of_item && !p.be_virgin_watchbill && (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
-        {
-        ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_REVISED].Controls[0]) as Label).Visible = true;
-        p.be_any_revisions = true;
         }
       }
 
@@ -374,18 +387,25 @@ namespace UserControl_member_schedule_detail
 
     protected void CalendarDayRender
       (
+      ArrayList arraylist_revised_avail,
       ArrayList arraylist_selected_avail,
       ArrayList arraylist_unselected_avail,
       DayRenderEventArgs e
       )
       {
       e.Day.IsSelectable = false;
+      var be_revised_avail = arraylist_revised_avail.Contains(e.Day.Date);
       var be_selected_avail = arraylist_selected_avail.Contains(e.Day.Date);
       var be_unselected_avail = arraylist_unselected_avail.Contains(e.Day.Date);
       if ((p.be_interactive) && (e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_avail) && (!be_unselected_avail))
         {
         e.Day.IsSelectable = true;
         e.Cell.ForeColor = Color.Blue;
+        }
+      if (!p.be_interactive && be_revised_avail)
+        {
+        e.Cell.BorderColor = Color.Red;
+        e.Cell.BorderWidth = 2;
         }
       if (be_selected_avail)
         {
@@ -403,12 +423,12 @@ namespace UserControl_member_schedule_detail
 
     protected void Calendar_day_DayRender(object sender, DayRenderEventArgs e)
       {
-      CalendarDayRender(p.arraylist_selected_day_avail,p.arraylist_unselected_day_avail,e);
+      CalendarDayRender(p.arraylist_revised_day_avail,p.arraylist_selected_day_avail,p.arraylist_unselected_day_avail,e);
       }
 
     protected void Calendar_night_DayRender(object sender, DayRenderEventArgs e)
       {
-      CalendarDayRender(p.arraylist_selected_night_avail,p.arraylist_unselected_night_avail,e);
+      CalendarDayRender(p.arraylist_revised_night_avail,p.arraylist_selected_night_avail,p.arraylist_unselected_night_avail,e);
       }
 
     internal void SetFilter
