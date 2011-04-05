@@ -31,6 +31,8 @@ namespace UserControl_schedule_assignment_assistant_binder
     {
     public string agency_filter;
     public bool be_loaded;
+    public bool be_ok_to_edit_schedule;
+    public bool be_ok_to_see_proposal;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
@@ -59,7 +61,13 @@ namespace UserControl_schedule_assignment_assistant_binder
         DropDownList_agency_filter.SelectedValue = p.agency_filter;
         DropDownList_release_filter.SelectedValue = p.release_filter;
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
-        RadioButtonList_which_month.Enabled = p.biz_schedule_assignments.BeOkToWorkOnNextMonth();
+        RadioButtonList_which_month.Enabled = p.be_ok_to_edit_schedule && p.biz_schedule_assignments.BeOkToWorkOnNextMonth();
+        Button_refresh.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_holdouts.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_proposal.Enabled = p.be_ok_to_edit_schedule || p.be_ok_to_see_proposal;
+        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -89,6 +97,8 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
+        p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_see_proposal = k.Has((string[])(Session["privilege_array"]), "see-proposal");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (p.be_user_privileged_to_see_all_squads)
           {
@@ -99,10 +109,17 @@ namespace UserControl_schedule_assignment_assistant_binder
           p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
         p.be_loaded = false;
-        p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_holdouts.Fresh(), "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        if (p.be_ok_to_edit_schedule)
+          {
+          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
+          }
+        else
+          {
+          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL;
+          }
+        FillPlaceHolder(true);
         }
       }
 
