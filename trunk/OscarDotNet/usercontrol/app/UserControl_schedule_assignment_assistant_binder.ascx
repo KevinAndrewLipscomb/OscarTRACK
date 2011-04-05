@@ -22,13 +22,13 @@
                             <table cellpadding="5" cellspacing="0">
                               <tr>
                                 <td nowrap="nowrap">
-                                  <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" AutoPostBack="True" Font-Size="Smaller" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged">
+                                  <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" AutoPostBack="True" Font-Size="Smaller" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged" Enabled="false">
                                     <asp:ListItem Selected="True" Value="0">This&nbsp;month</asp:ListItem>
                                     <asp:ListItem Value="1">Next&nbsp;month</asp:ListItem>
                                   </asp:RadioButtonList>
                                 </td>
                                 <td>
-                                  <asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" />
+                                  <asp:Button ID="Button_refresh" runat="server" OnClick="Button_refresh_Click" Text="Refresh" enabled="false"/>
                                 </td>
                               </tr>
                             </table>
@@ -59,11 +59,11 @@
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
-            <cc1:TabPanel runat="server" headertext="Compliancy" id="TabPanel_holdouts"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Alerts" id="TabPanel_alert"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Compliancy" id="TabPanel_holdouts" Enabled="false"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Alerts" id="TabPanel_alert" Enabled="false"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests" Enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Proposal" id="TabPanel_proposal"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Publish/print" id="TabPanel_publish_print"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Publish/print" id="TabPanel_publish_print" Enabled="false"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

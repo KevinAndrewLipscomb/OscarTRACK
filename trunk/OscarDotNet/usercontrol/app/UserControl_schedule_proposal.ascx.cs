@@ -100,7 +100,7 @@ namespace UserControl_schedule_proposal
         DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         DropDownList_depth.Enabled = p.be_interactive;
-        Panel_warning_to_save.Visible = p.be_interactive;
+        Panel_warning_to_save.Visible = p.be_interactive && p.be_ok_to_edit_post;
         //
         Bind();
         //
