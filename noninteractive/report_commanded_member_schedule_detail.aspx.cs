@@ -22,7 +22,9 @@ namespace report_commanded_member_schedule_detail
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
+      public string member_agency_id;
       public string member_id;
+      public k.subtype<int> relative_month;
       }
 
     private p_type p;
@@ -41,6 +43,15 @@ namespace report_commanded_member_schedule_detail
       if (!IsPostBack)
         {
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - report_commanded_member_schedule_detail";
+        Literal_member_name.Text = p.biz_members.FirstNameOfMemberId(p.member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(p.member_id);
+        if (p.relative_month.val == 0)
+          {
+          Literal_which_month.Text = "THIS";
+          }
+        else if (p.relative_month.val == 1)
+          {
+          Literal_which_month.Text = "NEXT";
+          }
         }
       }
 
@@ -61,14 +72,15 @@ namespace report_commanded_member_schedule_detail
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.be_virgin_watchbill = bool.Parse(k.Safe(Request["be_virgin_watchbill"],k.safe_hint_type.ALPHA));
+        p.member_agency_id = k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM);
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
+        p.relative_month = new k.subtype<int>(0,1);
+        p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
         //
         SessionSet("mode:report",k.EMPTY);
         //
-        var relative_month = new k.subtype<int>(0,1);
-        relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
         UserControl_member_schedule_detail_control.SetInteractivity(false);
-        UserControl_member_schedule_detail_control.SetFilter(k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM),relative_month,p.member_id,p.be_virgin_watchbill);
+        UserControl_member_schedule_detail_control.SetFilter(p.member_agency_id,p.relative_month,p.member_id,p.be_virgin_watchbill);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -89,16 +101,21 @@ namespace report_commanded_member_schedule_detail
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
+      var squad_schedule_monitor_target = p.biz_role_member_map.EmailTargetOf("Squad Schedule Monitor",p.biz_agencies.ShortDesignatorOf(p.member_agency_id));
+      if (squad_schedule_monitor_target.Length > 0)
+        {
+        squad_schedule_monitor_target = k.COMMA + squad_schedule_monitor_target;
+        }
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
         p.biz_members.EmailAddressOf(p.member_id),
-        "Ambulance Duty Assignments",
+        "Schedule Assignments",
         body,
         true,
-        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS"))),
+        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + squad_schedule_monitor_target)),
         k.EMPTY,
-        p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.biz_members.AgencyIdOfId(p.member_id))
+        p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.member_agency_id)
         );
       Session.Abandon();
       }
