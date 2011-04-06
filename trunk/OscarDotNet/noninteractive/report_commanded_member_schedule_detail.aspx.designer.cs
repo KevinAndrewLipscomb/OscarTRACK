@@ -31,6 +31,24 @@ namespace report_commanded_member_schedule_detail {
         protected global::UserControl_common_header_bar.TWebUserControl_common_header_bar UserControl_common_header_bar_control;
         
         /// <summary>
+        /// Literal_member_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_member_name;
+        
+        /// <summary>
+        /// Literal_which_month control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_which_month;
+        
+        /// <summary>
         /// UserControl_member_schedule_detail_control control.
         /// </summary>
         /// <remarks>
