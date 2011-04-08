@@ -10,6 +10,25 @@
             <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
               <tr>
                 <td align="right"><b><small>Filters:</small></b></td>
+                <td id="Td_nominal_day_filter" runat="server" align="center" nowrap="nowrap">
+                  <small>Nominal day<br />
+                  <asp:RadioButtonList ID="RadioButtonList_be_nominal_day_mode_specific" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonList_be_nominal_day_mode_specific_SelectedIndexChanged">
+                    <asp:ListItem Value="0">All</asp:ListItem>
+                    <asp:ListItem Value="1" Selected="True">Specific</asp:ListItem>
+                  </asp:RadioButtonList>
+                  <asp:Calendar ID="Calendar_nominal_day" runat="server" BackColor="White" BorderColor="#999999" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" onselectionchanged="Calendar_nominal_day_SelectionChanged" 
+                    ShowNextPrevMonth="False" ondayrender="Calendar_nominal_day_DayRender">
+                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                    <NextPrevStyle VerticalAlign="Bottom" />
+                    <OtherMonthDayStyle ForeColor="Gray" />
+                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                    <SelectorStyle BackColor="#CCCCCC" />
+                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                    <TodayDayStyle ForeColor="Black" />
+                    <WeekendDayStyle BackColor="#FFFFCC" />
+                  </asp:Calendar>
+                  </small>
+                </td>
                 <td align="center" nowrap="nowrap">
                   <small>Depth</small><br/>
                   <ASP:DropDownList id="DropDownList_depth" runat="server" autopostback="True" onselectedindexchanged="DropDownList_depth_SelectedIndexChanged">
@@ -52,6 +71,10 @@
             <td>Changes made below will not be saved until you click a member&#39;s name <em>or</em> click this button:</td>
             <td>
               <asp:Button ID="Button_save" runat="server" Font-Bold="True" onclick="Button_save_Click" Text="SAVE" />
+            </td>
+            <td>
+              <small><i>
+                <asp:Literal ID="Literal_publish_reminder" runat="server" Visible="false">Don't forget to publish!</asp:Literal></i></small>
             </td>
           </tr>
         </table>

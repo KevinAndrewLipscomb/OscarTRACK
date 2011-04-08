@@ -7,16 +7,15 @@
         <tr bgcolor="#f5f5f5"><td><strong>The <i>Schedule Assignment Assistant</i> is a work in progress.</strong></td></tr>
         <tr>
           <td>
-            <small>
-              Currently, it does the following, in this order:
-              <ol>
-                <li>Loads new availabilities submitted by members;</li>
-                <li>Accounts for member flexibility and shift popularity;</li>
-                <li>Corrects imbalances based on need;</li>
-                <li>Gives EMT Interns and Trainees the minimum intended number of shifts;</li>
-                <li>Takes turns giving Trainees extra shifts to the extent requested and possible.</li>
-              </ol>
-            </small>
+            Currently, it does the following, in this order:
+            <ol>
+              <li>Loads new availabilities submitted by members;</li>
+              <li>Accounts for member flexibility and shift popularity;</li>
+              <li>Corrects imbalances based on need;</li>
+              <li>Gives EMT Interns and Trainees the minimum intended number of shifts;</li>
+              <li>Takes turns giving Trainees extra shifts to the extent requested and possible;</li>
+              <li>Turns control of everything over to the schedule coordinators.</li>
+            </ol>
           </td>
         </tr>
       </table>

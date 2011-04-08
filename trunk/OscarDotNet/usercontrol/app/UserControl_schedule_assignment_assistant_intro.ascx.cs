@@ -110,14 +110,11 @@ namespace UserControl_schedule_assignment_assistant_intro
             if (Session["UserControl_schedule_assignment_assistant_intro.p"] != null)
             {
                 p = (p_type)(Session["UserControl_schedule_assignment_assistant_intro.p"]);
-                p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_UserControl_schedule_assignment_assistant_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_intro");
+                p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_intro");
             }
             else
             {
-                p.agency_filter = k.EMPTY;
                 p.be_loaded = false;
-                p.relative_month = new k.subtype<int>(0,1);
-                p.release_filter = k.EMPTY;
             }
 
         }
@@ -145,30 +142,10 @@ namespace UserControl_schedule_assignment_assistant_intro
             return result;
         }
 
-        internal void SetFilter
-          (
-          string agency_filter,
-          string release_filter,
-          k.subtype<int> relative_month
-          )
-          {
-          p.agency_filter = agency_filter;
-          p.release_filter = release_filter;
-          p.relative_month = relative_month;
-          Bind();
-          }
-
-        private void Bind()
-          {
-          }
-
         private struct p_type
         {
-            public string agency_filter;
             public bool be_loaded;
-            public k.subtype<int> relative_month;
-            public string release_filter;
-        } // end p_type
+        }
 
     } // end TWebUserControl_schedule_assignment_assistant_intro
 

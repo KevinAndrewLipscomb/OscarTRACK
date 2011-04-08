@@ -1,9 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_schedule_assignment_assistant_binder.ascx.cs" Inherits="UserControl_schedule_assignment_assistant_binder.TWebUserControl_schedule_assignment_assistant_binder"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~binder.ascx-template -->
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
-<%@ Register src="UserControl_schedule_assignment_assistant_intro.ascx" tagname="UserControl_schedule_assignment_assistant_intro" tagprefix="uc1" %>
-<uc1:UserControl_schedule_assignment_assistant_intro ID="UserControl_schedule_assignment_assistant_intro1" runat="server" />
-<br />
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -64,6 +61,7 @@
             <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests" Enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Proposal" id="TabPanel_proposal"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Publish/print" id="TabPanel_publish_print" Enabled="false"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="About" id="TabPanel_about"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

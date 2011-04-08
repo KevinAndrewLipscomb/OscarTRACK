@@ -2,6 +2,7 @@ using Class_biz_agencies;
 using kix;
 using System;
 using System.Configuration;
+using UserControl_schedule_proposal;
 
 namespace watchbill
   {
@@ -50,9 +51,6 @@ namespace watchbill
           {
           Literal_release_filter.Text = "only personnel who are not released";
           }
-        //
-        UserControl_schedule_proposal_control.SetInteractivity(false);
-        UserControl_schedule_proposal_control.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       }
 
@@ -74,6 +72,14 @@ namespace watchbill
         p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.NUM);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
+        //
+        Session.Add("mode:report", k.EMPTY);
+        Session.Add("mode:report/commanded-watchbill", k.EMPTY);
+        //
+        var UserControl_schedule_proposal_control = ((LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx") as TWebUserControl_schedule_proposal));
+        PlaceHolder_schedule_proposal.Controls.Add(UserControl_schedule_proposal_control);
+        UserControl_schedule_proposal_control.SetInteractivity(false);
+        UserControl_schedule_proposal_control.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

@@ -30,7 +30,7 @@
       </tr>
     </table>
     <br />
-    <uc1:UserControl_schedule_proposal ID="UserControl_schedule_proposal_control" runat="server" />
+    <p><asp:PlaceHolder ID="PlaceHolder_schedule_proposal" runat="server"></asp:PlaceHolder></p>
     </form>
     <script type="text/javascript">window.print();</script>
   </body>
