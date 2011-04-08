@@ -13,6 +13,33 @@ namespace UserControl_schedule_proposal {
     public partial class TWebUserControl_schedule_proposal {
         
         /// <summary>
+        /// Td_nominal_day_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_nominal_day_filter;
+        
+        /// <summary>
+        /// RadioButtonList_be_nominal_day_mode_specific control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_be_nominal_day_mode_specific;
+        
+        /// <summary>
+        /// Calendar_nominal_day control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Calendar Calendar_nominal_day;
+        
+        /// <summary>
         /// DropDownList_depth control.
         /// </summary>
         /// <remarks>
@@ -83,6 +110,15 @@ namespace UserControl_schedule_proposal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_save;
+        
+        /// <summary>
+        /// Literal_publish_reminder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_publish_reminder;
         
         /// <summary>
         /// A control.

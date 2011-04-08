@@ -434,7 +434,7 @@ namespace Class_biz_members
       {
       var days_until_deadline = new k.subtype<int>(-30,30);
       days_until_deadline.val = int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]) - DateTime.Now.Day;
-      if ((new ArrayList() {0,1,3,7}).Contains(days_until_deadline.val) || (days_until_deadline.val < 0))
+      if ((new ArrayList() {0,1,7}).Contains(days_until_deadline.val) || (days_until_deadline.val < 0))
         {
         //
         MakeAvailabilitySubmissionDeadlineRelatedNotifications_Issue Issue;

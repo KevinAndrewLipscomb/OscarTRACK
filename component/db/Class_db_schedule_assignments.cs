@@ -88,6 +88,7 @@ namespace Class_db_schedule_assignments
       string release_filter,
       string depth_filter,
       k.subtype<int> relative_month,
+      string nominal_day_filter,
       object target,
       ref k.int_nonnegative num_members,
       ref k.decimal_nonnegative num_crew_shifts
@@ -116,6 +117,11 @@ namespace Class_db_schedule_assignments
         {
         depth_condition_clause = " and not be_selected";
         }
+      var nominal_day_condition_clause = k.EMPTY;
+      if (nominal_day_filter.Length > 0)
+        {
+        nominal_day_condition_clause = " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'";
+        }
       var common_initial_field_list = k.EMPTY
       + " , num_units.from_agency as num_units_from_agency"
       + " , num_units.citywide as num_units_citywide"
@@ -138,6 +144,7 @@ namespace Class_db_schedule_assignments
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
       +   " join num_units on (num_units.nominal_day=schedule_assignment.nominal_day and num_units.shift_id=schedule_assignment.shift_id)"
       + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+      +     nominal_day_condition_clause
       +     agency_condition_clause;
       var common_initial_from_where_clause = common_from_where_clause + release_condition_clause + depth_condition_clause;
       var common_order_by_clause = k.EMPTY

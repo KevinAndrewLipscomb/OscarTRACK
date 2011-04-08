@@ -62,12 +62,13 @@ namespace Class_biz_schedule_assignments
       string release_filter,
       string depth_filter,
       k.subtype<int> relative_month,
+      string nominal_day_filter,
       object target,
       ref k.int_nonnegative num_members,
       ref k.decimal_nonnegative num_crew_shifts
       )
       {
-      db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,target,ref num_members,ref num_crew_shifts);
+      db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,nominal_day_filter,target,ref num_members,ref num_crew_shifts);
       }
 
     internal void BindInsufficientDriversAlertBaseDataList

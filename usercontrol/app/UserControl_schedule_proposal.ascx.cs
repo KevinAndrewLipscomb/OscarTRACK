@@ -22,6 +22,7 @@ namespace UserControl_schedule_proposal
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
@@ -30,11 +31,17 @@ namespace UserControl_schedule_proposal
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public string depth_filter;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
+    public string nominal_day_filter_active;
+    public string nominal_day_filter_saved;
     public uint num_datagrid_rows;
     public string own_agency;
+    public ListItem[] proto_post_list_item_array;
     public k.subtype<int> relative_month;
     public string release_filter;
-    public ListItem[] proto_post_list_item_array;
+    public DateTime selected_month_day_first;
+    public DateTime selected_month_day_last;
+    public int selected_month_num;
+    public int selected_year_num;
     }
 
   public partial class TWebUserControl_schedule_proposal: ki_web_ui.usercontrol_class
@@ -97,10 +104,12 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
+        Td_nominal_day_filter.Visible = p.be_interactive;
         DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         DropDownList_depth.Enabled = p.be_interactive;
         Panel_warning_to_save.Visible = p.be_interactive && p.be_ok_to_edit_post;
+        Literal_publish_reminder.Visible = !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
         //
         Bind();
         //
@@ -122,9 +131,9 @@ namespace UserControl_schedule_proposal
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_proposal.p"] != null)
+      if (Session[ClientID + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_proposal.p"]);
+        p = (p_type)(Session[ClientID + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "C");
         }
       else
@@ -138,6 +147,7 @@ namespace UserControl_schedule_proposal
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = (Session["mode:report"] == null);
+        p.be_nominal_day_mode_specific = p.be_interactive;
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
@@ -154,11 +164,24 @@ namespace UserControl_schedule_proposal
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         //
+        p.nominal_day_filter_active = (p.be_interactive ? DateTime.Today.Day.ToString() : k.EMPTY);
+        p.nominal_day_filter_saved = p.nominal_day_filter_active;
+        //
         var proto_post_list_item_collection = new ListItemCollection();
         p.biz_agencies.BindEmsPostListItemCollectionShort((p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),proto_post_list_item_collection);
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
         proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
+        //
+        MakeDateCalculations();
         }
+      }
+
+    private void MakeDateCalculations()
+      {
+      p.selected_month_num = DateTime.Today.AddMonths(p.relative_month.val).Month;
+      p.selected_year_num = DateTime.Today.AddMonths(p.relative_month.val).Year;
+      p.selected_month_day_first = new DateTime(p.selected_year_num, p.selected_month_num, 1);
+      p.selected_month_day_last = new DateTime(p.selected_year_num, p.selected_month_num, DateTime.DaysInMonth(p.selected_year_num, p.selected_month_num));
       }
 
     // / <summary>
@@ -172,7 +195,7 @@ namespace UserControl_schedule_proposal
 
     private void TWebUserControl_schedule_proposal_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_proposal.p", p);
+      SessionSet(ClientID + ".p",p);
       }
 
     public TWebUserControl_schedule_proposal Fresh()
@@ -191,6 +214,12 @@ namespace UserControl_schedule_proposal
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
       p.relative_month = relative_month;
+      if (p.be_interactive)
+        {
+        p.nominal_day_filter_active = (relative_month.val == 0 ? DateTime.Today.Day.ToString() : "1");
+        p.nominal_day_filter_saved = p.nominal_day_filter_active;
+        }
+      MakeDateCalculations();
       Bind();
       }
 
@@ -212,6 +241,20 @@ namespace UserControl_schedule_proposal
 
     private void Bind()
       {
+      RadioButtonList_be_nominal_day_mode_specific.SelectedValue = (p.be_nominal_day_mode_specific ? "1" : "0" );
+      RadioButtonList_be_nominal_day_mode_specific.Enabled = p.be_interactive;
+      Calendar_nominal_day.VisibleDate = DateTime.Today.AddMonths(p.relative_month.val);
+      if (p.be_nominal_day_mode_specific)
+        {
+        var nominal_datetime_filter_active = new DateTime(p.selected_year_num,p.selected_month_num,int.Parse(p.nominal_day_filter_active));
+        Calendar_nominal_day.SelectedDates.SelectRange(nominal_datetime_filter_active,nominal_datetime_filter_active);
+        }
+      else
+        {
+        Calendar_nominal_day.SelectedDates.SelectRange(p.selected_month_day_first,p.selected_month_day_last);
+        }
+      Calendar_nominal_day.Enabled = p.be_interactive;
+      //
       var interactive_major_font_size = FontUnit.Larger;
       var interactive_neutral_font_size = FontUnit.Empty;
       var interactive_minor_font_size = FontUnit.Smaller;
@@ -260,7 +303,7 @@ namespace UserControl_schedule_proposal
       A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
       var num_members = new k.int_nonnegative();
       var num_crew_shifts = new k.decimal_nonnegative();
-      p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,A,ref num_members,ref num_crew_shifts);
+      p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
       Literal_num_members.Text = num_members.val.ToString();
       Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
@@ -559,6 +602,40 @@ namespace UserControl_schedule_proposal
         p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
         }
       MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+      }
+
+    protected void RadioButtonList_be_nominal_day_mode_specific_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.be_nominal_day_mode_specific = (k.Safe(RadioButtonList_be_nominal_day_mode_specific.SelectedValue,k.safe_hint_type.NUM) == "1");
+      p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? p.nominal_day_filter_saved : k.EMPTY );
+      Bind();
+      }
+
+    protected void Calendar_nominal_day_SelectionChanged(object sender, EventArgs e)
+      {
+      RadioButtonList_be_nominal_day_mode_specific.SelectedValue = "1";
+      p.be_nominal_day_mode_specific = true;
+      Calendar_nominal_day.SelectedDates.SelectRange(Calendar_nominal_day.SelectedDate,Calendar_nominal_day.SelectedDate);
+      p.nominal_day_filter_active = Calendar_nominal_day.SelectedDate.Day.ToString();
+      p.nominal_day_filter_saved = p.nominal_day_filter_active;
+      Bind();
+      }
+
+    protected void Calendar_nominal_day_DayRender(object sender, DayRenderEventArgs e)
+      {
+      e.Day.IsSelectable = false;
+      if ((p.be_interactive) && (e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
+        {
+        if (p.be_nominal_day_mode_specific && e.Day.IsSelected)
+          {
+          e.Cell.ForeColor = Color.White;
+          }
+        else
+          {
+          e.Day.IsSelectable = true;
+          e.Cell.ForeColor = (e.Day.IsSelected ? Color.LightBlue : Color.Blue);
+          }
+        }
       }
 
     }

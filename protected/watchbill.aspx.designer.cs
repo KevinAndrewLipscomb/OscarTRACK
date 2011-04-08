@@ -40,12 +40,12 @@ namespace watchbill {
         protected global::System.Web.UI.WebControls.Literal Literal_release_filter;
         
         /// <summary>
-        /// UserControl_schedule_proposal_control control.
+        /// PlaceHolder_schedule_proposal control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_schedule_proposal.TWebUserControl_schedule_proposal UserControl_schedule_proposal_control;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_schedule_proposal;
     }
 }

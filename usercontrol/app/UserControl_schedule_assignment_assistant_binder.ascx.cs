@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
+using UserControl_schedule_assignment_assistant_intro;
 using UserControl_schedule_assignment_assistant_publish;
 using UserControl_schedule_assignment_assistant_special_requests;
 using UserControl_schedule_proposal;
@@ -25,6 +26,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public const int TSSI_SPECIAL_REQUESTS = 2;
     public const int TSSI_PROPOSAL = 3;
     public const int TSSI_PUBLISH = 4;
+    public const int TSSI_ABOUT = 5;
     }
 
   public struct p_type
@@ -49,6 +51,7 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     protected TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
     protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
+    protected TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro = null;
     protected TWebUserControl_schedule_assignment_assistant_publish UserControl_schedule_assignment_assistant_publish = null;
     protected TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
     protected TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
@@ -80,6 +83,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       base.OnInit(e);
       //
       UserControl_schedule_assignment_assistant_holdouts = ((TWebUserControl_schedule_assignment_assistant_holdouts)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_holdouts.ascx")));
+      UserControl_schedule_assignment_assistant_intro = ((TWebUserControl_schedule_assignment_assistant_intro)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_intro.ascx")));
       UserControl_schedule_assignment_assistant_alert_binder = ((TWebUserControl_schedule_assignment_assistant_alert_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_binder.ascx")));
       UserControl_schedule_assignment_assistant_special_requests = ((TWebUserControl_schedule_assignment_assistant_special_requests)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_special_requests.ascx")));
       UserControl_schedule_proposal = ((TWebUserControl_schedule_proposal)(LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx")));
@@ -237,6 +241,11 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_publish", PlaceHolder_content);
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT)
+        {
+        var c = UserControl_schedule_assignment_assistant_intro;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_intro", PlaceHolder_content);
+        }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
       {
@@ -266,6 +275,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         else if (target.ToLower().Contains("/publish/"))
           {
           p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH;
+          }
+        else if (target.ToLower().Contains("/about/"))
+          {
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT;
           }
         //
         PlaceHolder_content.Controls.Clear();
