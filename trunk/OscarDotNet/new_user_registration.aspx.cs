@@ -1,19 +1,10 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-using System.Web.Security;
 using Class_biz_users;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.Security;
+using System.Web.UI;
+
 namespace new_user_registration
 {
     public struct p_type
@@ -57,7 +48,7 @@ namespace new_user_registration
                 }
                 else
                 {
-                    Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - new_user_registration";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - new_user_registration";
                     p.biz_users = new TClass_biz_users();
                     Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
                     Focus(TextBox_username, true);

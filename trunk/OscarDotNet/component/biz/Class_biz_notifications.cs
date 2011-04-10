@@ -138,6 +138,40 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
+        private delegate string IssueForAvailabilitiesOverdue_Merge(string s);
+        public void IssueForAvailabilitiesOverdue(string member_id)
+          {
+          //
+          IssueForAvailabilitiesOverdue_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
+            };
+          //
+          var biz_members = new TClass_biz_members();
+          var member_email_address = biz_members.EmailAddressOf(member_id);
+          if (member_email_address != k.EMPTY)
+            {
+            var biz_agencies = new TClass_biz_agencies();
+            var biz_role_member_map = new TClass_biz_role_member_map();
+            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
+            k.SmtpMailSend
+              (
+              ConfigurationManager.AppSettings["sender_email_address"],
+              member_email_address,
+              Merge(template_reader.ReadLine()),
+              Merge(template_reader.ReadToEnd()),
+              false,
+              k.EMPTY,
+              k.EMPTY,
+              biz_role_member_map.EmailTargetOfAppropriateScheduler(biz_members.AgencyIdOfId(member_id))
+              );
+            template_reader.Close();
+            }
+          }
+
         private delegate string IssueForAvailabilitiesDueSoon_Merge(string s);
         public void IssueForAvailabilitiesDueSoon(string member_id)
           {
@@ -172,16 +206,15 @@ namespace Class_biz_notifications
             }
           }
 
-        private delegate string IssueForAvailabilitiesOverdue_Merge(string s);
-        public void IssueForAvailabilitiesOverdue(string member_id)
+        private delegate string IssueForAvailabilitiesDueToday_Merge(string s);
+        public void IssueForAvailabilitiesDueToday(string member_id)
           {
           //
-          IssueForAvailabilitiesOverdue_Merge Merge = delegate (string s)
+          IssueForAvailabilitiesDueToday_Merge Merge = delegate (string s)
             {
             return s
               .Replace("<application_name/>", application_name)
-              .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<last_day_of_month_to_submit_schedule_availabilities/>",last_day_of_month_to_submit_schedule_availabilities);
+              .Replace("<host_domain_name/>", host_domain_name);
             };
           //
           var biz_members = new TClass_biz_members();
@@ -190,7 +223,7 @@ namespace Class_biz_notifications
             {
             var biz_agencies = new TClass_biz_agencies();
             var biz_role_member_map = new TClass_biz_role_member_map();
-            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_overdue.txt"));
+            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/availabilities_due_today.txt"));
             k.SmtpMailSend
               (
               ConfigurationManager.AppSettings["sender_email_address"],
@@ -745,6 +778,50 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("member-name-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
         }
+
+        private delegate string IssueForMembershipEstablishmentBlocked_Merge(string s);
+        public void IssueForMembershipEstablishmentBlocked
+          (
+          string username,
+          string user_id,
+          string shared_secret,
+          string claimed_role_name,
+          string claimed_member_name,
+          string claimed_member_id,
+          string claimed_member_email_address
+          )
+          {
+          var user_email_address = k.EMPTY;
+          IssueForMembershipEstablishmentBlocked_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>",application_name)
+              .Replace("<host_domain_name/>",host_domain_name)
+              .Replace("<username/>",username)
+              .Replace("<user_id/>",user_id)
+              .Replace("<user_email_address/>",user_email_address)
+              .Replace("<shared_secret/>",shared_secret)
+              .Replace("<claimed_role_name/>",claimed_role_name)
+              .Replace("<claimed_member_name/>",claimed_member_name)
+              .Replace("<claimed_member_id/>",claimed_member_id)
+              .Replace("<claimed_member_email_address/>",claimed_member_email_address);
+            };
+          var biz_user = new TClass_biz_user();
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/membership_establishment_blocked.txt"));
+          user_email_address = biz_user.EmailAddress();
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            ConfigurationManager.AppSettings["application_name"] + "-appadmin@" + host_domain_name + k.COMMA + ConfigurationManager.AppSettings["sysadmin_sms_address"],
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            user_email_address
+            );
+          template_reader.Close();
+          }
 
         private delegate string IssueForMembershipEstablishmentTrouble_Merge(string s);
         public void IssueForMembershipEstablishmentTrouble(string full_name, string explanation)

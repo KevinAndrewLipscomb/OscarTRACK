@@ -1,4 +1,5 @@
 using Class_biz_members;
+using Class_biz_notifications;
 using Class_biz_user;
 using Class_biz_users;
 using kix;
@@ -12,6 +13,7 @@ namespace UserControl_establish_membership
     {
         public bool be_loaded;
         public TClass_biz_members biz_members;
+        public TClass_biz_notifications biz_notifications;
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
     } // end p_type
@@ -28,7 +30,8 @@ namespace UserControl_establish_membership
                 Label_sponsor_2.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_sponsor_3.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_shared_secret_description.Text = ConfigurationManager.AppSettings["shared_secret_description"];
-                Focus(TextBox_shared_secret, true);
+                Label_shared_secret_description_2.Text = Label_shared_secret_description.Text;
+                Focus(TextBox_nominal_shared_secret, true);
             }
 
         }
@@ -46,6 +49,7 @@ namespace UserControl_establish_membership
             {
                 p.be_loaded = false;
                 p.biz_members = new TClass_biz_members();
+                p.biz_notifications = new TClass_biz_notifications();
                 p.biz_user = new TClass_biz_user();
                 p.biz_users = new TClass_biz_users();
             }
@@ -66,7 +70,7 @@ namespace UserControl_establish_membership
           {
           if (Page.IsValid)
             {
-            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.NUM), p.biz_user.IdNum(), Session["username"].ToString()))
+            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM), p.biz_user.IdNum(), Session["username"].ToString()))
               {
               SessionSet("privilege_array", p.biz_user.Privileges());
               // User was an unprivileged user until now, so reset privs.
@@ -105,7 +109,20 @@ namespace UserControl_establish_membership
 
         protected void CustomValidator_shared_secret_ServerValidate(object source, ServerValidateEventArgs args)
           {
-          args.IsValid = !p.biz_members.BeRoleHolderByCadNum(k.Safe(TextBox_shared_secret.Text, k.safe_hint_type.NUM));
+          var claimed_role_name = k.EMPTY;
+          var claimed_member_name = k.EMPTY;
+          var claimed_member_id = k.EMPTY;
+          var claimed_member_email_address = k.EMPTY;
+          var shared_secret = k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM);
+          if (p.biz_members.BeRoleHolderByCadNum(shared_secret,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address))
+            {
+            args.IsValid = false;
+            p.biz_notifications.IssueForMembershipEstablishmentBlocked(Session["username"].ToString(),Session["user_id"].ToString(),shared_secret,claimed_role_name,claimed_member_name,claimed_member_id,claimed_member_email_address);
+            }
+          else
+            {
+            args.IsValid = true;
+            }
           }
 
     } // end TWebUserControl_establish_membership
