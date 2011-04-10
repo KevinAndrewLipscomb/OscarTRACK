@@ -58,49 +58,31 @@ namespace UserControl_establish_membership {
         protected global::System.Web.UI.WebControls.Label Label_shared_secret_description;
         
         /// <summary>
-        /// TextBox_noop_ie_behavior_workaround control.
+        /// TextBox_nominal_shared_secret control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_noop_ie_behavior_workaround;
+        protected global::System.Web.UI.WebControls.TextBox TextBox_nominal_shared_secret;
         
         /// <summary>
-        /// TextBox_shared_secret control.
+        /// RequiredFieldValidator_nominal_shared_secret control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_shared_secret;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_nominal_shared_secret;
         
         /// <summary>
-        /// Button_submit control.
+        /// RegularExpressionValidator_nominal_shared_secret control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_submit;
-        
-        /// <summary>
-        /// RequiredFieldValidator_shared_secret control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_shared_secret;
-        
-        /// <summary>
-        /// RegularExpressionValidator_shared_secret control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_shared_secret;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_nominal_shared_secret;
         
         /// <summary>
         /// CustomValidator_shared_secret control.
@@ -110,6 +92,51 @@ namespace UserControl_establish_membership {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_shared_secret;
+        
+        /// <summary>
+        /// Label_shared_secret_description_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_shared_secret_description_2;
+        
+        /// <summary>
+        /// TextBox_confirmation_shared_secret control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_confirmation_shared_secret;
+        
+        /// <summary>
+        /// RequiredFieldValidator_confirmation_shared_secret control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_confirmation_shared_secret;
+        
+        /// <summary>
+        /// CompareValidator_confirmation_shared_secret control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator_confirmation_shared_secret;
+        
+        /// <summary>
+        /// Button_submit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_submit;
         
         /// <summary>
         /// LinkButton_trouble_handler control.

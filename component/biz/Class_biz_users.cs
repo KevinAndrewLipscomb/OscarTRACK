@@ -52,6 +52,11 @@ namespace Class_biz_users
             return result;
         }
 
+        internal bool BeEmailAddressMappedToMember(string email_address)
+          {
+          return db_users.BeEmailAddressMappedToMember(email_address);
+          }
+
         public bool BeRegisteredEmailAddress(string email_address)
         {
             bool result;

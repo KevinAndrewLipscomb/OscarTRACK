@@ -212,12 +212,47 @@ namespace Class_db_members
           return be_role_holder;
           }
 
-        internal bool BeRoleHolderByCadNum(string cad_num)
+        internal bool BeRoleHolderByCadNum
+          (
+          string cad_num,
+          out string claimed_role_name,
+          out string claimed_member_name,
+          out string claimed_member_id,
+          out string claimed_member_email_address
+          )
           {
+          var be_role_holder_by_cad_num = false;
+          claimed_role_name = k.EMPTY;
+          claimed_member_name = k.EMPTY;
+          claimed_member_id = k.EMPTY;
+          claimed_member_email_address = k.EMPTY;
           Open();
-          var result = ("1" == new MySqlCommand("select (count(role_id) > 0) from member join role_member_map on (role_member_map.member_id=member.id) where cad_num = '" + cad_num + "'",connection).ExecuteScalar().ToString());
+          var dr = new MySqlCommand
+            (
+            "select role.name as role_name"
+            + " , concat(member.first_name,' ',member.last_name) as member_name"
+            + " , member.id as member_id"
+            + " , IFNULL(email_address,'') as email_address"
+            + " from member"
+            +   " join role_member_map on (role_member_map.member_id=member.id)"
+            +   " join role on (role.id=role_member_map.role_id)"
+            + " where cad_num = '" + cad_num + "'"
+            + " order by role.pecking_order"
+            + " limit 1",
+            connection
+            )
+            .ExecuteReader();
+          if (dr.Read())
+            {
+            claimed_role_name = dr["role_name"].ToString();
+            claimed_member_name = dr["member_name"].ToString();
+            claimed_member_id = dr["member_id"].ToString();
+            claimed_member_email_address = dr["email_address"].ToString();
+            be_role_holder_by_cad_num = true;
+            }
+          dr.Close();
           Close();
-          return result;
+          return be_role_holder_by_cad_num;
           }
 
         public bool BeValidProfile(string id)

@@ -1,0 +1,17 @@
+Blocked user from linking to <claimed_role_name/> <claimed_member_name/>
+<application_name/> blocked the following attempted link:
+
+   Legend:
+      User <--> Member
+
+   Names:
+      <username/> <--> <claimed_role_name/> <claimed_member_name/>
+
+   IDs:
+      <user_id/> <--> <claimed_member_id/>
+
+   Email addresses:
+      <user_email_address/> <--> <claimed_member_email_address/>
+
+
+-- http://<host_domain_name/>/<application_name/>

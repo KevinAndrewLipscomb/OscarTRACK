@@ -85,6 +85,7 @@
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
     <Content Include="noninteractive\template\notification\availabilities_due_soon.txt" />
+    <Content Include="noninteractive\template\notification\availabilities_due_today.txt" />
     <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
@@ -108,6 +109,7 @@
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
+    <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="protected\watchbill.aspx" />

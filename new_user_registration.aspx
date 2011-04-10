@@ -3,8 +3,8 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
+  <head runat="server">
+	<title/>
       <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
@@ -52,7 +52,7 @@
                                   <p align="right">Enter your <strong>email address</strong>:
                                   </p></td>
                                 <td><ASP:TextBox id="TextBox_email_address" runat="server" maxlength="63" columns="40"></ASP:TextBox></td>
-                                <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_email_address" runat="server" errormessage="Please enter an email address." font-bold="True" controltovalidate="TextBox_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address_domain" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" width="35px" onservervalidate="CustomValidator_email_address_domain_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="A user with that email address already exists in the system.  Click the Cancel button to return to the login page, then click one of the 'forgot' links." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate">!ERR!</ASP:CustomValidator></td>
+                                <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_email_address" runat="server" errormessage="Please enter an email address." font-bold="True" controltovalidate="TextBox_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address_domain" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" width="35px" onservervalidate="CustomValidator_email_address_domain_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="A user with that email address already exists in the system.  Click the Cancel button to return to the login page, then click one of the 'Forgot...?' links." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate">!ERR!</ASP:CustomValidator></td>
                               </tr>
                               <tr>
                                 <td></td>

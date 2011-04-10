@@ -44,6 +44,14 @@ namespace Class_db_users
             return result;
         }
 
+        internal bool BeEmailAddressMappedToMember(string email_address)
+          {
+          Open();
+          var be_email_address_mapped_to_member = (null != new MySqlCommand("SELECT 1 FROM user join user_member_map on (user_member_map.user_id=user.id) where password_reset_email_address = '" + email_address + "'",connection).ExecuteScalar());
+          Close();
+          return be_email_address_mapped_to_member;
+          }
+
         public bool BeRegisteredEmailAddress(string email_address)
         {
             bool result;
@@ -210,11 +218,25 @@ namespace Class_db_users
         }
 
         public void SetEmailAddress(string id, string email_address)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE user" + " SET password_reset_email_address = \"" + email_address + "\"" + " WHERE id = " + id), this.connection).ExecuteNonQuery();
-            this.Close();
-        }
+          {
+          Open();
+          new MySqlCommand
+            (
+            db_trail.Saved
+              (
+              "START TRANSACTION"
+              + ";"
+              + " delete from user where (password_reset_email_address = '" + email_address + "') and (id not in (select user_id from user_member_map)) limit 1" // The limit should not be necessary but adds protection if another part of the query turns out to have been programmed erroneously.
+              + ";"
+              + " update user set password_reset_email_address = '" + email_address + "'" + " WHERE id = '" + id + "'"
+              + ";"
+              + " COMMIT"
+              ),
+            connection
+            )
+            .ExecuteNonQuery();
+          Close();
+          }
 
         public void SetPassword(string id, string encoded_password)
         {

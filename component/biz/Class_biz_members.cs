@@ -104,9 +104,16 @@ namespace Class_biz_members
           return db_members.BeRoleHolder(id);
           }
 
-        internal bool BeRoleHolderByCadNum(string cad_num)
+        internal bool BeRoleHolderByCadNum
+          (
+          string cad_num,
+          out string claimed_role_name,
+          out string claimed_member_name,
+          out string claimed_member_id,
+          out string claimed_member_email_address
+          )
           {
-          return db_members.BeRoleHolderByCadNum(cad_num);
+          return db_members.BeRoleHolderByCadNum(cad_num,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address);
           }
 
         public bool BeTransferring(object summary)
@@ -438,9 +445,13 @@ namespace Class_biz_members
         {
         //
         MakeAvailabilitySubmissionDeadlineRelatedNotifications_Issue Issue;
-        if (days_until_deadline.val >= 0)
+        if (days_until_deadline.val > 0)
           {
           Issue = biz_notifications.IssueForAvailabilitiesDueSoon;
+          }
+        else if (days_until_deadline.val == 0)
+          {
+          Issue = biz_notifications.IssueForAvailabilitiesDueToday;
           }
         else
           {

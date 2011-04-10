@@ -110,6 +110,11 @@ namespace change_email_address
             }
         }
 
+        protected void CustomValidator_email_address_novelty_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+          {
+          args.IsValid = !p.biz_users.BeEmailAddressMappedToMember(k.Safe(args.Value, k.safe_hint_type.EMAIL_ADDRESS));
+          }
+
     } // end TWebForm_change_email_address
 
 }
