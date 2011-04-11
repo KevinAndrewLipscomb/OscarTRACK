@@ -166,10 +166,10 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         var compliancy_text = e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_COMPLIANT].Text;
         if (compliancy_text == "0")
           {
-          var holdout_email_address = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS);
-          if (holdout_email_address.Length >0)
+          var holdout_email_address_value = e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text;
+          if (holdout_email_address_value != "&nbsp;")
             {
-            p.distribution_list += holdout_email_address + k.COMMA;
+            p.distribution_list += k.Safe(holdout_email_address_value,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
             }
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Font.Bold = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].Font.Bold = true;
@@ -222,7 +222,6 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void Button_send_Click(object sender, System.EventArgs e)
       {
-      SessionSet("p.distribution_list",p.distribution_list);
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
