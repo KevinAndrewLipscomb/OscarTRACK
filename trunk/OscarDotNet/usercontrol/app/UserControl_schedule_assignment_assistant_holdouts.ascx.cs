@@ -166,7 +166,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         var compliancy_text = e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_COMPLIANT].Text;
         if (compliancy_text == "0")
           {
-          p.distribution_list += k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS) + k.COMMA;
+          var holdout_email_address = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Text,k.safe_hint_type.EMAIL_ADDRESS);
+          if (holdout_email_address.Length >0)
+            {
+            p.distribution_list += holdout_email_address + k.COMMA;
+            }
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Font.Bold = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].Font.Bold = true;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].Font.Bold = true;
