@@ -222,6 +222,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void Button_send_Click(object sender, System.EventArgs e)
       {
+      SessionSet("p.distribution_list",p.distribution_list);
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
