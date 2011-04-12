@@ -106,10 +106,11 @@ namespace report_commanded_member_schedule_detail
         {
         squad_schedule_monitor_target = k.COMMA + squad_schedule_monitor_target;
         }
+      var member_email_address = p.biz_members.EmailAddressOf(p.member_id).Trim();
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
-        p.biz_members.EmailAddressOf(p.member_id),
+        (member_email_address.Length > 0 ? member_email_address : "MEMBER_EMAIL_ADDRESS_NOT_KNOWN@frompaper2web.com"),
         "Schedule Assignments",
         body,
         true,
