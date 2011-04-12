@@ -270,6 +270,7 @@ namespace UserControl_member_schedule_detail
           ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 9;
           ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
             ("onkeydown","if (event.keyCode == 13) El('" + e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls[0].ClientID + "').click();");
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Focus();
           }
         link_button = ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0]) as LinkButton);
         link_button.Text = k.ExpandTildePath(link_button.Text);
@@ -319,7 +320,10 @@ namespace UserControl_member_schedule_detail
     private void DataGrid_control_UpdateCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
       p.biz_schedule_assignments.SetComment
-        (k.Safe(e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe(((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Text,k.safe_hint_type.DATE_TIME));
+        (
+        k.Safe(e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+        k.Safe(((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Text,k.safe_hint_type.PUNCTUATED)
+        );
       DataGrid_control.EditItemIndex =  -1;
       Bind();
       }
