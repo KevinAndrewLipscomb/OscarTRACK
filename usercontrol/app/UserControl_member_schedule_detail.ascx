@@ -46,7 +46,7 @@
               </tr>
             </table>
             <hr size="1" />
-            <p><asp:Button ID="Button_done" runat="server" Text="Done" onclick="Button_done_Click"/></p>
+            <p><asp:Button ID="Button_done" runat="server" Text="Done" onclick="Button_done_Click" UseSubmitBehavior="False"/></p>
             <asp:UpdatePanel ID="UpdatePanel_control" runat="server">
               <ContentTemplate>
                 <table cellspacing="0" cellpadding="0" border="0">

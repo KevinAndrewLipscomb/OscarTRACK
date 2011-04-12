@@ -213,11 +213,11 @@ namespace UserControl_schedule_proposal
       {
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
-      p.relative_month = relative_month;
-      if (p.be_nominal_day_mode_specific)
+      if ((relative_month.val != p.relative_month.val) && p.be_nominal_day_mode_specific)
         {
         p.nominal_day_filter_active = (relative_month.val == 0 ? DateTime.Today.Day.ToString() : "1");
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
+        p.relative_month = relative_month;
         }
       MakeDateCalculations();
       Bind();
