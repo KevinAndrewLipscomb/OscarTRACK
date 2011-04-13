@@ -1083,8 +1083,8 @@ namespace Class_db_members
           +     " (select distinct odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(1).ToString("MMM") + "') as condensed_avail_sheet on (condensed_avail_sheet.odnmid=member.id)"
           +   " left join"
           +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + 1) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
-          + " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
-          +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,num_shifts)"
+          + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'EMT Intern',2,num_shifts))"
           +   " and (condensed_avail_sheet.odnmid is null)"
           +   " and (condensed_schedule_assignment.member_id is null)"
           ,
