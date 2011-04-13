@@ -131,9 +131,9 @@ namespace UserControl_schedule_proposal
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[ClientID + ".p"] != null)
+      if (Session[Parent.ClientID + ".UserControl_schedule_proposal.p"] != null)
         {
-        p = (p_type)(Session[ClientID + ".p"]);
+        p = (p_type)(Session[ClientID + ".UserControl_schedule_proposal.p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "C");
         }
       else
@@ -195,7 +195,7 @@ namespace UserControl_schedule_proposal
 
     private void TWebUserControl_schedule_proposal_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet(ClientID + ".p",p);
+      SessionSet(Parent.ClientID + ".UserControl_schedule_proposal.p",p);
       }
 
     public TWebUserControl_schedule_proposal Fresh()
@@ -217,8 +217,8 @@ namespace UserControl_schedule_proposal
         {
         p.nominal_day_filter_active = (relative_month.val == 0 ? DateTime.Today.Day.ToString() : "1");
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
-        p.relative_month = relative_month;
         }
+      p.relative_month = relative_month;
       MakeDateCalculations();
       Bind();
       }
