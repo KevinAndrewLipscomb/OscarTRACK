@@ -14,11 +14,11 @@
         </tr>
         <tr id="TableRow_account_control" runat="server">
           <td align="left" colspan="3">
-            <hr align="center" noshade="true" width="100%" size="1">
+            <hr align="center" noshade="noshade" width="100%" size="1"/>
             <small>
               <ASP:Label id="Label_username" runat="server"></ASP:Label>:&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False" onclick="LinkButton_logout_Click">logout</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_password" runat="server" causesvalidation="False" onclick="LinkButton_change_password_Click">password</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_change_email_address" runat="server" causesvalidation="False" onclick="LinkButton_change_email_address_Click">email address</ASP:LinkButton>
             </small>
-            <hr align="center" noshade="true" width="100%" size="1">
+            <hr align="center" noshade="noshade" width="100%" size="1"/>
             <small><i><uc1:UserControl_bread_crumb_trail id="UserControl_bread_crumb_trail" runat="server"></uc1:UserControl_bread_crumb_trail></i></small>
           </td>
         </tr>
