@@ -70,7 +70,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_proposal.Enabled = p.be_ok_to_edit_schedule || p.be_ok_to_see_proposal;
-        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule || p.be_ok_to_see_proposal;
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }

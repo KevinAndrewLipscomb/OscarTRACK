@@ -17,6 +17,7 @@ namespace UserControl_schedule_assignment_assistant_publish
     {
     public string agency_filter;
     public bool be_loaded;
+    public bool be_ok_to_edit_schedule;
     public bool be_user_privileged_to_see_all_squads;
     public bool be_virgin_watchbill;
     public TClass_biz_members biz_members;
@@ -62,6 +63,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
+        p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads");
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -135,7 +137,7 @@ namespace UserControl_schedule_assignment_assistant_publish
 
     private void ManageAblements()
       {
-      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(true,p.biz_members.IdOfUserId(p.biz_user.IdNum()),p.agency_filter))
+      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(p.be_ok_to_edit_schedule,p.biz_members.IdOfUserId(p.biz_user.IdNum()),p.agency_filter))
         {
         p.be_virgin_watchbill = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
         CheckBox_full.Checked = p.be_virgin_watchbill;
@@ -153,6 +155,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         RadioButton_month_at_a_glance.Checked = false;
         RadioButton_month_at_a_glance.Enabled = false;
         }
+      Button_publish.Enabled = p.be_ok_to_edit_schedule;
       }
 
     }
