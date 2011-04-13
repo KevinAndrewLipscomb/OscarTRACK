@@ -2,6 +2,7 @@ using kix;
 using System.Configuration;
 using System.Web;
 using System.Web.Security;
+using System.Web.UI;
 
 namespace UserControl_precontent
 {
@@ -21,7 +22,11 @@ namespace UserControl_precontent
                     Label_username.Text = Session["username"].ToString();
                 }
             }
-
+            var timeout_page = k.ExpandTildePath("~/timeout.aspx");
+            if (Request.ServerVariables["URL"] != timeout_page)
+              {
+              EstablishUpdatePanelCompliantTimeoutHandler((Session.Timeout - 1)*60000,timeout_page); // session timeout minus 1 minute
+              }
         }
 
         protected override void OnInit(System.EventArgs e)
