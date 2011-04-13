@@ -133,7 +133,7 @@ namespace UserControl_schedule_proposal
       base.OnInit(e);
       if (Session[Parent.ClientID + ".UserControl_schedule_proposal.p"] != null)
         {
-        p = (p_type)(Session[ClientID + ".UserControl_schedule_proposal.p"]);
+        p = (p_type)(Session[Parent.ClientID + ".UserControl_schedule_proposal.p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "C");
         }
       else
