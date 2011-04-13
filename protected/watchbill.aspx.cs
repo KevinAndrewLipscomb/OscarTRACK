@@ -90,6 +90,8 @@ namespace watchbill
     private void TWebForm_watchbill_PreRender(object sender, System.EventArgs e)
       {
       SessionSet("watchbill.p", p);
+      Session.Remove("mode:report");
+      Session.Remove("mode:report/commanded-watchbill");
       }
 
     } // end TWebForm_watchbill
