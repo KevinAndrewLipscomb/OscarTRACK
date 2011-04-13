@@ -63,4 +63,4 @@
     <td></td>
   </tr>
 </table>
-<asp:Button ID="Button_publish" runat="server" Font-Bold="True" onclick="Button_publish_Click" Text="PUBLISH"/>
+<asp:Button ID="Button_publish" runat="server" Font-Bold="True" onclick="Button_publish_Click" Text="PUBLISH" Enabled="False"/>
