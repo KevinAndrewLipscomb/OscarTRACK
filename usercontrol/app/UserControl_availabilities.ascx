@@ -6,8 +6,10 @@
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td align="right" valign="top">Submit</td>
     <td valign="top">
-      an&nbsp;availability&nbsp;sheet for
-      <asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
+      an&nbsp;availability&nbsp;sheet to 
+      <asp:DropDownList ID="DropDownList_coord_agency" runat="server" AutoPostBack="True" Font-Size="Small" onselectedindexchanged="DropDownList_coord_agency_SelectedIndexChanged"></asp:DropDownList> for
+      <asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink 
+        ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td rowspan="3" valign="top">
