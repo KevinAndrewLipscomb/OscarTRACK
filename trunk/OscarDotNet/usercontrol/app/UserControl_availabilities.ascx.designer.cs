@@ -13,6 +13,15 @@ namespace UserControl_availabilities {
     public partial class TWebUserControl_availabilities {
         
         /// <summary>
+        /// DropDownList_coord_agency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_coord_agency;
+        
+        /// <summary>
         /// HyperLink_submit_avails_for_month_next control.
         /// </summary>
         /// <remarks>
