@@ -859,7 +859,8 @@ namespace Class_db_schedule_assignments
         +           " )"
         +       " ,"
         +         " 0"
-        +       " )",
+        +       " )"
+        + " order by last_name,first_name",
         connection
         )
         .ExecuteReader();
