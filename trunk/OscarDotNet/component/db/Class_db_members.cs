@@ -1131,7 +1131,13 @@ namespace Class_db_members
           sql += " where email_address is not null and email_address <> ''";
           if (be_core_ops_only)
             {
-            sql += " and enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Recruit','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','Suspended','New trainee')";
+            sql += k.EMPTY
+            + " and"
+            +   " ("
+            +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','New trainee')"
+            +   " or"
+            +     " (enrollment_level.description = 'Recruit' and medical_release_code = '9')"
+            +   " )";
             }
           else
             {
