@@ -23,7 +23,7 @@
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="target_agency_id" Visible="False"></asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>

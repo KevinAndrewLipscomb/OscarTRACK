@@ -781,7 +781,7 @@ namespace Class_db_schedule_assignments
       var agency_condition_clause = k.EMPTY;
       if (agency_filter != k.EMPTY)
         {
-        agency_condition_clause = " and agency_id = '" + agency_filter + "'";
+        agency_condition_clause = " and @target_agency_id = '" + agency_filter + "'";
         }
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
@@ -807,8 +807,9 @@ namespace Class_db_schedule_assignments
         + " , last_name"
         + " , first_name"
         + " , member.id as member_id"
-        + " , agency_id"
-        + " from schedule_assignment"
+        + " , @target_agency_id := member.agency_id as target_agency_id"
+        + " from (select @target_agency_id := '') as init"
+        +   " join schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join enrollment_history on" 
@@ -877,8 +878,9 @@ namespace Class_db_schedule_assignments
         + " , member.last_name"
         + " , member.first_name"
         + " , member.id as member_id"
-        + " , agency.id as agency_id"
-        + " from avail_sheet"
+        + " , @target_agency_id := agency.id as target_agency_id"
+        + " from (select @target_agency_id := '') as init"
+        +   " join avail_sheet"
         +   " join member on (member.id=avail_sheet.odnmid)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
