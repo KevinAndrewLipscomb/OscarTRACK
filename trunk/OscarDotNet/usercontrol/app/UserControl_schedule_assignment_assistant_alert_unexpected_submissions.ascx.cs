@@ -34,7 +34,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       {
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
-      public const int TCI_AGENCY_ID = 2;
+      public const int TCI_TARGET_AGENCY_ID = 2;
       }
 
     private p_type p;
@@ -133,7 +133,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
           {
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_AGENCY_ID].Text == p.own_agency));
+          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.own_agency));
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
@@ -143,7 +143,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
             cell.EnableViewState = false;
             }
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_MEMBER_ID].EnableViewState = true;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_AGENCY_ID].EnableViewState = true;
+          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].EnableViewState = true;
           }
         }
       }
@@ -152,7 +152,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       {
       p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
       p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
+      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text,k.safe_hint_type.NUM);
       MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
