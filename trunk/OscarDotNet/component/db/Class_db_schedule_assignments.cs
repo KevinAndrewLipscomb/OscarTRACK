@@ -781,7 +781,7 @@ namespace Class_db_schedule_assignments
       var agency_condition_clause = k.EMPTY;
       if (agency_filter != k.EMPTY)
         {
-        agency_condition_clause = " and @target_agency_id = '" + agency_filter + "'";
+        agency_condition_clause = " and agency.id = '" + agency_filter + "'";
         }
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
@@ -807,10 +807,10 @@ namespace Class_db_schedule_assignments
         + " , last_name"
         + " , first_name"
         + " , member.id as member_id"
-        + " , @target_agency_id := member.agency_id as target_agency_id"
-        + " from (select @target_agency_id := '') as init"
-        +   " join schedule_assignment"
+        + " , agency.id as target_agency_id" // Because of the way the join is coded below, this is the id of the agency to which the member belongs.
+        + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join enrollment_history on" 
         +     " (" 
@@ -878,9 +878,8 @@ namespace Class_db_schedule_assignments
         + " , member.last_name"
         + " , member.first_name"
         + " , member.id as member_id"
-        + " , @target_agency_id := agency.id as target_agency_id"
-        + " from (select @target_agency_id := '') as init"
-        +   " join avail_sheet"
+        + " , agency.id as target_agency_id" // Because of the way the join is coded below, this is the id of the agency to which the member submitted avails.
+        + " from avail_sheet"
         +   " join member on (member.id=avail_sheet.odnmid)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
