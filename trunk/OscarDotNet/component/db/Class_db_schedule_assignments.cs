@@ -798,7 +798,14 @@ namespace Class_db_schedule_assignments
       //
       (target as BaseDataList).DataSource = new MySqlCommand
         (
-        "select distinct concat(first_name,' ',last_name) as name"
+        k.EMPTY
+        //
+        // Select members who submitted despite their status indicating they didn't have to or shouldn't have.
+        //
+        + " ("
+        + " select distinct concat(first_name,' ',last_name) as name"
+        + " , last_name"
+        + " , first_name"
         + " , member.id as member_id"
         + " , agency_id"
         + " from schedule_assignment"
@@ -860,6 +867,23 @@ namespace Class_db_schedule_assignments
         +       " ,"
         +         " 0"
         +       " )"
+        + " )"
+        + " UNION"
+        //
+        // Select members who belong to one agency but submitted to another, regardless of the member's status.
+        //
+        + " ("
+        + " select distinct concat(member.first_name,' ',member.last_name) as name"
+        + " , member.last_name"
+        + " , member.first_name"
+        + " , member.id as member_id"
+        + " , agency.id as agency_id"
+        + " from avail_sheet"
+        +   " join member on (member.id=avail_sheet.odnmid)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
+        + " where agency.id <> member.agency_id and month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'" + agency_condition_clause + release_condition_clause
+        + " )"
         + " order by last_name,first_name",
         connection
         )
