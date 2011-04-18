@@ -38,6 +38,8 @@ namespace UserControl_schedule_proposal
     public ListItem[] proto_post_list_item_array;
     public k.subtype<int> relative_month;
     public string release_filter;
+    public string saved_d_unit_spec;
+    public string saved_n_unit_spec;
     public DateTime selected_month_day_first;
     public DateTime selected_month_day_last;
     public int selected_month_num;
@@ -165,6 +167,8 @@ namespace UserControl_schedule_proposal
         p.own_agency = (p.be_interactive ? p.biz_members.AgencyIdOfId(Session["member_id"].ToString()) : k.EMPTY);
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        p.saved_d_unit_spec = k.EMPTY;
+        p.saved_n_unit_spec = k.EMPTY;
         //
         p.nominal_day_filter_active = (p.be_interactive ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
@@ -311,7 +315,10 @@ namespace UserControl_schedule_proposal
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       A.Visible = !p.be_datagrid_empty;
+      //
       p.num_datagrid_rows = 0;
+      p.saved_d_unit_spec = k.EMPTY;
+      p.saved_n_unit_spec = k.EMPTY;
       }
 
     private void ManageSimpleColumns
@@ -328,7 +335,8 @@ namespace UserControl_schedule_proposal
       int tci_be_selected,
       int tci_member_agency_id,
       int tci_member_agency_designator,
-      int tci_be_challenge
+      int tci_be_challenge,
+      bool be_unit_spec_change
       )
       {
       //
@@ -394,6 +402,17 @@ namespace UserControl_schedule_proposal
       // Control comment length.
       //
       e.Item.Cells[tci_comment].Text = e.Item.Cells[tci_comment].Text.Substring(0,Math.Min(e.Item.Cells[tci_comment].Text.Length,15));
+      //
+      if (be_unit_spec_change)
+        {
+        e.Item.Cells[tci_comment].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_medical_release_description].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_colon].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_name_interactive].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_name_noninteractive].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_be_driver_qualified].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_member_agency_designator].Style.Add("border-top","thin solid silver");
+        }
       }
 
     private void ManageComplexColumns
@@ -405,7 +424,8 @@ namespace UserControl_schedule_proposal
       int tci_post_designator,
       int tci_post_cardinality_interactive,
       int tci_post_cardinality_noninteractive,
-      int tci_be_challenge
+      int tci_be_challenge,
+      bool be_unit_spec_change
       )
       {
       var post_drop_down_list = ((e.Item.Cells[tci_post_designator].Controls[UserControl_schedule_proposal_Static.CI_DESIGNATOR_DROPDOWNLIST]) as DropDownList);
@@ -449,6 +469,12 @@ namespace UserControl_schedule_proposal
         post_drop_down_list.Visible = false;
         post_cardinality_drop_down_list.Visible = false;
         }
+      if (be_unit_spec_change)
+        {
+        e.Item.Cells[tci_post_designator].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_post_cardinality_interactive].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_post_cardinality_noninteractive].Style.Add("border-top","thin solid silver");
+        }
       }
 
     protected void A_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
@@ -468,9 +494,10 @@ namespace UserControl_schedule_proposal
         //
         // Show certain columns only for first row of nominal day.
         //
+        var monthless_rendition_of_nominal_day = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day_datetime);
         if (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_DISPLAY_SEQ_NUM].Text == "1")
           {
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = "<br/>" + p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day_datetime);
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = "<br/>" + monthless_rendition_of_nominal_day;
           }
         else
           {
@@ -496,6 +523,12 @@ namespace UserControl_schedule_proposal
           && p.be_ok_to_edit_post
           && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id));
         //
+        var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
+        var current_n_unit_spec = monthless_rendition_of_nominal_day + "--" + n_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Text;
+        //
+        var be_d_unit_spec_change = (current_d_unit_spec != p.saved_d_unit_spec);
+        var be_n_unit_spec_change = (current_n_unit_spec != p.saved_n_unit_spec);
+        //
         ManageComplexColumns
           (
           e,
@@ -505,7 +538,8 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_D_POST_DESIGNATOR,
           UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE,
           UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_D_BE_CHALLENGE
+          UserControl_schedule_proposal_Static.TCI_D_BE_CHALLENGE,
+          be_d_unit_spec_change
           );
         ManageComplexColumns
           (
@@ -516,7 +550,8 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_N_POST_DESIGNATOR,
           UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE,
           UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE,
-          UserControl_schedule_proposal_Static.TCI_N_BE_CHALLENGE
+          UserControl_schedule_proposal_Static.TCI_N_BE_CHALLENGE,
+          be_n_unit_spec_change
           );
         ManageSimpleColumns
           (
@@ -532,7 +567,8 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED,
           UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID,
           UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_DESIGNATOR,
-          UserControl_schedule_proposal_Static.TCI_D_BE_CHALLENGE
+          UserControl_schedule_proposal_Static.TCI_D_BE_CHALLENGE,
+          be_d_unit_spec_change
           );
         ManageSimpleColumns
           (
@@ -548,8 +584,12 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED,
           UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID,
           UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_DESIGNATOR,
-          UserControl_schedule_proposal_Static.TCI_N_BE_CHALLENGE
+          UserControl_schedule_proposal_Static.TCI_N_BE_CHALLENGE,
+          be_n_unit_spec_change
           );
+        //
+        p.saved_d_unit_spec = current_d_unit_spec;
+        p.saved_n_unit_spec = current_n_unit_spec;
         //
         // Increment row counter
         //
