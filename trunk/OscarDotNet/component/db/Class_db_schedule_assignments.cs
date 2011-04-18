@@ -135,14 +135,16 @@ namespace Class_db_schedule_assignments
       + " , concat(last_name,', ',first_name) as name"
       + " , IF(medical_release_code_description_map.pecking_order >= 20,IF(be_driver_qualified,'','Ð'),'') as be_driver_qualified"
       + " , be_selected"
-      + " , IFNULL(comment,'') as comment";
+      + " , IFNULL(comment,'') as comment"
+      + " , be_challenge";
       var common_from_where_clause = k.EMPTY
       + " from schedule_assignment"
       +   " join agency on (agency.id=schedule_assignment.post_id)"
       +   " join member on (member.id=schedule_assignment.member_id)"
       +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
-      +   " join num_units on (num_units.nominal_day=schedule_assignment.nominal_day and num_units.shift_id=schedule_assignment.shift_id)"
+      +   " join num_units using (nominal_day,shift_id)"
+      +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
       +     nominal_day_condition_clause
       +     agency_condition_clause;
@@ -167,7 +169,8 @@ namespace Class_db_schedule_assignments
       + " , name"
       + " , be_driver_qualified"
       + " , be_selected"
-      + " , comment";
+      + " , comment"
+      + " , be_challenge";
       var common_final_fields = k.EMPTY
       // nominal_day
       // display_seq_num
@@ -184,6 +187,7 @@ namespace Class_db_schedule_assignments
       + " , d.be_driver_qualified as d_be_driver_qualified"
       + " , d.be_selected as d_be_selected"
       + " , d.comment as d_comment"
+      + " , d.be_challenge as d_be_challenge"
       + " , n.num_units_from_agency as n_num_units_from_agency"
       + " , n.num_units_citywide as n_num_units_citywide"
       + " , n.assignment_id as n_assignment_id"
@@ -196,7 +200,8 @@ namespace Class_db_schedule_assignments
       + " , n.name as n_name"
       + " , n.be_driver_qualified as n_be_driver_qualified"
       + " , n.be_selected as n_be_selected"
-      + " , n.comment as n_comment";
+      + " , n.comment as n_comment"
+      + " , n.be_challenge as n_be_challenge";
       //
       Open();
       var transaction = connection.BeginTransaction();
@@ -220,6 +225,25 @@ namespace Class_db_schedule_assignments
           +   " and post_id < 200" // Only count ground ambulance assignments.
           +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
           + " group by nominal_day,shift_id"
+          + ";"
+          //
+          // Generate the challenge analysis table
+          //
+          + " drop temporary table if exists challenge_analysis"
+          + ";"
+          + " create temporary table challenge_analysis"
+          + " select nominal_day"
+          + " , shift_id"
+          + " , post_id"
+          + " , post_cardinality"
+          + " , ((sum(be_selected) = 0) or (sum(be_selected)%2 = 1)) as be_challenge"
+          + " from schedule_assignment"
+          +   " join member on (member.id=schedule_assignment.member_id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          + " where medical_release_code_description_map.pecking_order >= 20"
+          +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
+          +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+          + " group by nominal_day,shift_id,post_id,post_cardinality"
           + ";"
           //
           // Generate the list of DAY schedule assignments for this month in the desired order.
@@ -290,6 +314,7 @@ namespace Class_db_schedule_assignments
           + " , modify d_be_selected TINYINT NULL"
           + " , modify d_be_driver_qualified CHAR NULL"
           + " , modify d_comment VARCHAR(511) NULL"
+          + " , modify d_be_challenge TINYINT NULL"
           + ";"
           + " INSERT ignore this_month_schedule_assignment"
           + " select DATE_FORMAT(n.nominal_day,'%Y-%m-%d') as nominal_day , n.display_seq_num" + common_final_fields
@@ -325,7 +350,7 @@ namespace Class_db_schedule_assignments
         //
         new MySqlCommand
           (
-          "drop temporary table num_units,this_month_day_schedule_assignment,this_month_night_schedule_assignment,this_month_day_schedule_assignment_with_dsn,this_month_night_schedule_assignment_with_dsn,this_month_schedule_assignment",
+          "drop temporary table num_units,challenge_analysis,this_month_day_schedule_assignment,this_month_night_schedule_assignment,this_month_day_schedule_assignment_with_dsn,this_month_night_schedule_assignment_with_dsn,this_month_schedule_assignment",
           connection,
           transaction
           )

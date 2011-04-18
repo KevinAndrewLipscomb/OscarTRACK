@@ -140,6 +140,7 @@
           <asp:BoundColumn DataField="d_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
+          <asp:BoundColumn DataField="d_be_challenge" Visible="False"></asp:BoundColumn>
           <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
           <asp:BoundColumn DataField="n_num_units_from_agency" DataFormatString="{0:F1}" ReadOnly="True">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
@@ -192,6 +193,7 @@
           <asp:BoundColumn DataField="n_comment">
             <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
           </asp:BoundColumn>
+          <asp:BoundColumn DataField="n_be_challenge" Visible="False"></asp:BoundColumn>
         </Columns>
       </asp:datagrid>
     </td>
