@@ -77,6 +77,14 @@ namespace Class_db_medical_release_levels
             return result;
         }
 
+        internal string PeckCodeOf(string level_code)
+          {
+          Open();
+          var peck_code_of = new MySqlCommand("select pecking_order from medical_release_code_description_map where code = '" + level_code + "'",connection).ExecuteScalar().ToString();
+          Close();
+          return peck_code_of;
+          }
+
     } // end TClass_db_medical_release_levels
 
 }

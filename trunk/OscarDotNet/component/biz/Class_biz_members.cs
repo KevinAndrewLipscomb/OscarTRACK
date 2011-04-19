@@ -80,12 +80,22 @@ namespace Class_biz_members
             return result;
         }
 
+        internal bool BeAlsForLegacyOscarPurposes(string id)
+          {
+          return biz_medical_release_levels.BeCodeAlsForLegacyOscarPurposes(db_members.MedicalReleaseLevelCodeOf(id));
+          }
+
         public bool BeAuthorizedTierOrSameAgency(string subject_member_id, string object_member_id)
         {
             bool result;
             result = (HighestTierOf(subject_member_id) == "1") || (AgencyIdOfId(subject_member_id) == AgencyIdOfId(object_member_id));
             return result;
         }
+
+        internal bool BeDriverQualifiedOfId(string id)
+          {
+          return db_members.BeDriverQualifiedOfId(id);
+          }
 
         public bool BeDriverQualifiedOf(object summary)
         {
@@ -97,6 +107,11 @@ namespace Class_biz_members
         internal bool BePast(object summary)
           {
           return biz_enrollment.BePastDescription(EnrollmentOf(summary));
+          }
+
+        internal bool BeReleased(string id)
+          {
+          return biz_medical_release_levels.BeReleased(biz_medical_release_levels.PeckCodeOf(db_members.MedicalReleaseLevelCodeOf(id)));
           }
 
         internal bool BeRoleHolder(string id)
