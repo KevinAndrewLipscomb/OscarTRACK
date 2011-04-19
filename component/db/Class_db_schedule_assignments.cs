@@ -241,7 +241,7 @@ namespace Class_db_schedule_assignments
           +   " or"
           +     " (sum(be_selected)%2 = 1)" // Odd number of released members
           +   " or"
-          +     " (sum(be_selected and (medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
+          +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
           +   " ) as be_challenge"
           + " from schedule_assignment"
           +   " join member on (member.id=schedule_assignment.member_id)"
