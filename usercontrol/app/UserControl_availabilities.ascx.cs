@@ -60,8 +60,12 @@ namespace UserControl_availabilities
     private void UpdateSubmitAvailHyperLinks()
       {
       var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM)));
-      HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part + "&coord_agency=" + url_encoded_coord_agency + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString();
-      HyperLink_submit_avails_for_month_following.NavigateUrl = p.base_navigate_url_for_month_following + p.query_string_invariant_part + "&coord_agency=" + url_encoded_coord_agency + "&applicable_month_num=" + (DateTime.Now.Month + 2).ToString();
+      HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part
+      + "&coord_agency=" + url_encoded_coord_agency
+      + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString();
+      HyperLink_submit_avails_for_month_following.NavigateUrl = p.base_navigate_url_for_month_following + p.query_string_invariant_part
+      + "&coord_agency=" + url_encoded_coord_agency
+      + "&applicable_month_num=" + (DateTime.Now.Month + 2).ToString();
       //
       HyperLink_submit_avails_for_month_next.Focus();
       }
@@ -83,6 +87,9 @@ namespace UserControl_availabilities
         //
         p.member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
         //
+        var user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+        var home_squad = (user_member_agency_id == "0" ? "ERS" : user_member_agency_id);
+        var be_als_string = p.biz_members.BeAlsForLegacyOscarPurposes(Session["member_id"].ToString()).ToString().ToUpper();
         p.query_string_invariant_part = "?"
         + "first_name=" + Server.UrlEncode(p.biz_members.FirstNameOfMemberId(p.member_id))
         + "&"
@@ -90,7 +97,17 @@ namespace UserControl_availabilities
         + "&"
         + "email_addr=" + Server.UrlEncode(p.biz_user.EmailAddress())
         + "&"
-        + "odnmid=" + Server.UrlEncode(p.member_id);
+        + "odnmid=" + Server.UrlEncode(p.member_id)
+        + "&"
+        + "squad=" + Server.UrlEncode(home_squad)
+        + "&"
+        + "be_als=" + Server.UrlEncode(be_als_string)
+        + "&"
+        + "be_driver=" + Server.UrlEncode(p.biz_members.BeDriverQualifiedOfId(Session["member_id"].ToString()).ToString().ToUpper())
+        + "&"
+        + "be_aic=" + Server.UrlEncode(p.biz_members.BeReleased(Session["member_id"].ToString()).ToString().ToUpper())
+        + "&"
+        + "be_needing_driver=" + Server.UrlEncode(be_als_string);
         //
         p.be_loaded = false;
         }

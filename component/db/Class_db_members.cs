@@ -170,6 +170,14 @@ namespace Class_db_members
             return result;
         }
 
+        internal bool BeDriverQualifiedOfId(string id)
+          {
+          Open();
+          var be_driver_qualified_of_id = ("1" == new MySqlCommand("select be_driver_qualified from member where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          Close();
+          return be_driver_qualified_of_id;
+          }
+
         public bool BeDriverQualifiedOf(object summary)
         {
             return (summary as member_summary).be_driver_qualified;
@@ -1389,6 +1397,15 @@ namespace Class_db_members
             dr.Close();
             this.Close();
         }
+
+        internal string MedicalReleaseLevelCodeOf(string id)
+          {
+          Open();
+          var medical_release_level_code_of = new MySqlCommand("select code from member join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code) where id = '" + id + "'", connection)
+            .ExecuteScalar().ToString();
+          Close();
+          return medical_release_level_code_of;
+          }
 
         public string MedicalReleaseLevelOf(object summary)
         {

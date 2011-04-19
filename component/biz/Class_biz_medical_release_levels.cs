@@ -13,6 +13,12 @@ namespace Class_biz_medical_release_levels
             // TODO: Add any constructor code here
             db_medical_release_levels = new TClass_db_medical_release_levels();
         }
+
+        internal bool BeCodeAlsForLegacyOscarPurposes(string level_code)
+          {
+          return uint.Parse(db_medical_release_levels.PeckCodeOf(level_code)) > 20;
+          }
+
         public bool BeLeaf(filter_type filter)
         {
             bool result;
@@ -75,6 +81,11 @@ namespace Class_biz_medical_release_levels
             result = db_medical_release_levels.DescriptionOf(code);
             return result;
         }
+
+        internal string PeckCodeOf(string level_code)
+          {
+          return db_medical_release_levels.PeckCodeOf(level_code);
+          }
 
     } // end TClass_biz_medical_release_levels
 
