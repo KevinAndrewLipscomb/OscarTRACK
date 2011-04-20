@@ -102,17 +102,6 @@ namespace UserControl_schedule_assignment_assistant_publish
       p.relative_month = relative_month;
       //
       ManageAblements();
-      //
-      HyperLink_preview_print_scalable.Text = k.ExpandTildePath(HyperLink_preview_print_scalable.Text);
-      HyperLink_preview_print_scalable.NavigateUrl = "~/protected/watchbill.aspx"
-      + "?agency_id=" + p.agency_filter
-      + "&release_filter=" + p.release_filter
-      + "&relative_month=" + p.relative_month.val;
-      HyperLink_preview_print_month_at_a_glance.Text = k.ExpandTildePath(HyperLink_preview_print_month_at_a_glance.Text);
-      HyperLink_preview_print_month_at_a_glance.NavigateUrl = "~/protected/watchbill.aspx"
-      + "?agency_id=" + p.agency_filter
-      + "&release_filter=" + p.release_filter
-      + "&relative_month=" + p.relative_month.val;
       }
 
     protected void CustomValidator_full_schedule_format_ServerValidate(object source, ServerValidateEventArgs args)

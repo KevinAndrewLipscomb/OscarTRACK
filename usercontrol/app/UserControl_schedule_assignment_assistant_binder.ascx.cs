@@ -24,7 +24,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public const int TSSI_HOLDOUTS = 0;
     public const int TSSI_ALERT = 1;
     public const int TSSI_SPECIAL_REQUESTS = 2;
-    public const int TSSI_PROPOSAL = 3;
+    public const int TSSI_WATCHBILL = 3;
     public const int TSSI_PUBLISH = 4;
     public const int TSSI_ABOUT = 5;
     }
@@ -34,7 +34,6 @@ namespace UserControl_schedule_assignment_assistant_binder
     public string agency_filter;
     public bool be_loaded;
     public bool be_ok_to_edit_schedule;
-    public bool be_ok_to_see_proposal;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
@@ -64,13 +63,12 @@ namespace UserControl_schedule_assignment_assistant_binder
         DropDownList_agency_filter.SelectedValue = p.agency_filter;
         DropDownList_release_filter.SelectedValue = p.release_filter;
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
-        RadioButtonList_which_month.Enabled = p.be_ok_to_edit_schedule && p.biz_schedule_assignments.BeOkToWorkOnNextMonth();
+        RadioButtonList_which_month.Enabled = (p.be_ok_to_edit_schedule && p.biz_schedule_assignments.BeOkToWorkOnNextMonth()) || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1));
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_holdouts.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
-        TabPanel_proposal.Enabled = p.be_ok_to_edit_schedule || p.be_ok_to_see_proposal;
-        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule || p.be_ok_to_see_proposal;
+        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -102,7 +100,6 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
-        p.be_ok_to_see_proposal = k.Has((string[])(Session["privilege_array"]), "see-proposal");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (p.be_user_privileged_to_see_all_squads)
           {
@@ -121,7 +118,7 @@ namespace UserControl_schedule_assignment_assistant_binder
           }
         else
           {
-          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL;
+          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
           }
         FillPlaceHolder(true);
         }
@@ -194,7 +191,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         UserControl_schedule_assignment_assistant_special_requests.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
         {
         UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
@@ -228,7 +225,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL)
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
         {
         var c = UserControl_schedule_proposal;
         p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "C", PlaceHolder_content);
@@ -270,7 +267,7 @@ namespace UserControl_schedule_assignment_assistant_binder
           }
         else if (target.ToLower().Contains("/proposal/"))
           {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PROPOSAL;
+          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
           }
         else if (target.ToLower().Contains("/publish/"))
           {
