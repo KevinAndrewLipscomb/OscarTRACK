@@ -33,10 +33,6 @@ namespace UserControl_schedule_binder
       {
       if (!p.be_loaded)
         {
-        if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "see-proposal"))
-          {
-          TabPanel_assignment_assistant.Enabled = true;
-          }
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }

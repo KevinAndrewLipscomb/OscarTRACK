@@ -13,6 +13,42 @@ namespace UserControl_schedule_proposal {
     public partial class TWebUserControl_schedule_proposal {
         
         /// <summary>
+        /// Panel_supressed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_supressed;
+        
+        /// <summary>
+        /// Table_data control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_data;
+        
+        /// <summary>
+        /// HyperLink_preview_print_scalable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_scalable;
+        
+        /// <summary>
+        /// HyperLink_preview_print_month_at_a_glance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_month_at_a_glance;
+        
+        /// <summary>
         /// Td_nominal_day_filter control.
         /// </summary>
         /// <remarks>

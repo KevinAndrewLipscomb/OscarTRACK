@@ -1,7 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_proposal.ascx.cs"
   Inherits="UserControl_schedule_proposal.TWebUserControl_schedule_proposal" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
-<table cellspacing="0" cellpadding="10" width="100%" border="0">
+<asp:Panel ID="Panel_supressed" runat="server"><p></p><em>--&nbsp;SUPRESSED&nbsp;--</em></asp:Panel>
+<table id="Table_data" runat="server" cellspacing="0" cellpadding="10" width="100%" border="0" visible="false">
   <tr bgcolor="#f5f5f5">
     <td>
       <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" width="100%">
@@ -9,6 +10,12 @@
           <td align="center">
             <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
               <tr>
+                <td>
+                  <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/scalable&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;(scalable format)&lt;/small&gt;" Target="_blank"></asp:HyperLink>
+                </td>
+                <td>
+                  <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/month-at-a-glance&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;(month-at-a-glance format)&lt;/small&gt;" Target="_blank" Enabled="false"></asp:HyperLink>
+                </td>
                 <td align="right"><b><small>Filters:</small></b></td>
                 <td id="Td_nominal_day_filter" runat="server" align="center" nowrap="nowrap">
                   <small>Nominal day<br />

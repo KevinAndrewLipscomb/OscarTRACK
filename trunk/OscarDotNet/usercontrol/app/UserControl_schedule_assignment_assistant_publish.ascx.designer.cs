@@ -31,15 +31,6 @@ namespace UserControl_schedule_assignment_assistant_publish {
         protected global::System.Web.UI.WebControls.RadioButton RadioButton_scalable;
         
         /// <summary>
-        /// HyperLink_preview_print_scalable control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_scalable;
-        
-        /// <summary>
         /// RadioButton_month_at_a_glance control.
         /// </summary>
         /// <remarks>
@@ -47,15 +38,6 @@ namespace UserControl_schedule_assignment_assistant_publish {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RadioButton RadioButton_month_at_a_glance;
-        
-        /// <summary>
-        /// HyperLink_preview_print_month_at_a_glance control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_month_at_a_glance;
         
         /// <summary>
         /// CustomValidator_full_schedule_format control.

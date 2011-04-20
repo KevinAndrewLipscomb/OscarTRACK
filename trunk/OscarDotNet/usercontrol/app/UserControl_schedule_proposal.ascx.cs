@@ -108,7 +108,7 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
-        Td_nominal_day_filter.Visible = p.be_interactive;
+        Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
         DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         DropDownList_depth.Enabled = p.be_interactive;
@@ -119,6 +119,8 @@ namespace UserControl_schedule_proposal
         //
         if (!p.be_interactive)
           {
+          HyperLink_preview_print_scalable.Visible = false;
+          HyperLink_preview_print_month_at_a_glance.Visible = false;
           var report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
           EstablishGoogleWebFontLoader("google: { families: [" + report_compressed_font_family + "] }");
           A.Style.Add("font-family",report_compressed_font_family);
@@ -151,7 +153,34 @@ namespace UserControl_schedule_proposal
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = (Session["mode:report"] == null);
-        p.be_nominal_day_mode_specific = p.be_interactive;
+        p.be_nominal_day_mode_specific =  p.be_interactive &&
+          (
+            HttpContext.Current.User.IsInRole("Application Administrator")
+          ||
+            HttpContext.Current.User.IsInRole("Department Chief Scheduler")
+          ||
+            HttpContext.Current.User.IsInRole("Department Scheduler")
+          ||
+            HttpContext.Current.User.IsInRole("Department Fleet Supervisor")
+          ||
+            HttpContext.Current.User.IsInRole("Department Fleet Coordinator")
+          ||
+            HttpContext.Current.User.IsInRole("Department Street Supervisor")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Commander")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Manager")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Assistant Manager")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Scheduler")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Training Officer")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Section Sergeant")
+          ||
+            HttpContext.Current.User.IsInRole("Squad Fleet Coordinator")
+          );
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
@@ -170,7 +199,7 @@ namespace UserControl_schedule_proposal
         p.saved_d_unit_spec = k.EMPTY;
         p.saved_n_unit_spec = k.EMPTY;
         //
-        p.nominal_day_filter_active = (p.be_interactive ? DateTime.Today.Day.ToString() : k.EMPTY);
+        p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         //
         var proto_post_list_item_collection = new ListItemCollection();
@@ -225,7 +254,20 @@ namespace UserControl_schedule_proposal
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         }
       p.relative_month = relative_month;
+      //
+      HyperLink_preview_print_scalable.Text = k.ExpandTildePath(HyperLink_preview_print_scalable.Text);
+      HyperLink_preview_print_scalable.NavigateUrl = "~/protected/watchbill.aspx"
+      + "?agency_id=" + p.agency_filter
+      + "&release_filter=" + p.release_filter
+      + "&relative_month=" + p.relative_month.val;
+      HyperLink_preview_print_month_at_a_glance.Text = k.ExpandTildePath(HyperLink_preview_print_month_at_a_glance.Text);
+      HyperLink_preview_print_month_at_a_glance.NavigateUrl = "~/protected/watchbill.aspx"
+      + "?agency_id=" + p.agency_filter
+      + "&release_filter=" + p.release_filter
+      + "&relative_month=" + p.relative_month.val;
+      //
       MakeDateCalculations();
+      //
       Bind();
       }
 
@@ -261,57 +303,71 @@ namespace UserControl_schedule_proposal
         }
       Calendar_nominal_day.Enabled = p.be_interactive;
       //
-      var interactive_major_font_size = FontUnit.Larger;
-      var interactive_neutral_font_size = FontUnit.Empty;
-      var interactive_minor_font_size = FontUnit.Smaller;
-      var noninteractive_major_font_size = FontUnit.Point(16);
-      var noninteractive_neutral_font_size = FontUnit.Point(11);
-      var noninteractive_minor_font_size = FontUnit.Point(9);
-      //
-      if (p.be_interactive)
+      var be_suppressed = true;
+      if(
+          (p.relative_month.val == 0)
+        ||
+          (p.be_ok_to_edit_post && p.biz_schedule_assignments.BeOkToWorkOnNextMonth())
+        ||
+          !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))
+        )
         {
-        A.Font.Size = interactive_neutral_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = interactive_major_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = interactive_major_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
+        be_suppressed = false;
+        //
+        var interactive_major_font_size = FontUnit.Larger;
+        var interactive_neutral_font_size = FontUnit.Empty;
+        var interactive_minor_font_size = FontUnit.Smaller;
+        var noninteractive_major_font_size = FontUnit.Point(16);
+        var noninteractive_neutral_font_size = FontUnit.Point(11);
+        var noninteractive_minor_font_size = FontUnit.Point(9);
+        //
+        if (p.be_interactive)
+          {
+          A.Font.Size = interactive_neutral_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = interactive_major_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = interactive_major_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = interactive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = interactive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = interactive_minor_font_size;
+          }
+        else
+          {
+          A.Font.Size = noninteractive_neutral_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = noninteractive_major_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = noninteractive_major_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
+          A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
+          }
+        //
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
+        var num_members = new k.int_nonnegative();
+        var num_crew_shifts = new k.decimal_nonnegative();
+        p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
+        Literal_num_members.Text = num_members.val.ToString();
+        Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
         }
-      else
-        {
-        A.Font.Size = noninteractive_neutral_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].HeaderStyle.Font.Size = noninteractive_major_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].ItemStyle.Font.Size = noninteractive_major_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE].ItemStyle.Font.Size = noninteractive_minor_font_size;
-        A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
-        }
-      //
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
-      A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
-      var num_members = new k.int_nonnegative();
-      var num_crew_shifts = new k.decimal_nonnegative();
-      p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
-      Literal_num_members.Text = num_members.val.ToString();
-      Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
+      Panel_supressed.Visible = be_suppressed;
+      Table_data.Visible = !be_suppressed;
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       A.Visible = !p.be_datagrid_empty;
