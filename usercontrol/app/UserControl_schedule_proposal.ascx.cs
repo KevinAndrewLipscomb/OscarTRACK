@@ -556,6 +556,7 @@ namespace UserControl_schedule_proposal
         if (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_DISPLAY_SEQ_NUM].Text == "1")
           {
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = "<br/>" + monthless_rendition_of_nominal_day;
+          e.Item.Style.Add("border-top","thick solid black");
           }
         else
           {
