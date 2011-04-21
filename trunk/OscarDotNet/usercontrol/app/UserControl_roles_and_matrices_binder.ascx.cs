@@ -66,8 +66,8 @@ namespace UserControl_roles_and_matrices_binder
             else
             {
                 p.be_loaded = false;
-                p.tab_index = Units.UserControl_roles_and_matrices_binder.TSSI_ROLES;
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role)(LoadControl("~/usercontrol/app/UserControl_role.ascx"))).Fresh(), "UserControl_role", PlaceHolder_content);
+                p.tab_index = Units.UserControl_roles_and_matrices_binder.TSSI_ROLE_MEMBER_MAPPING;
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_member_mapping)(LoadControl("~/usercontrol/app/UserControl_role_member_mapping.ascx"))).Fresh(), "UserControl_role_member_mapping", PlaceHolder_content);
             }
 
         }

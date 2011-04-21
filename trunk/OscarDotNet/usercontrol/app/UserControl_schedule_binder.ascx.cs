@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
+using Class_biz_user;
 using kix;
 using System;
 using System.Collections;
@@ -21,6 +22,7 @@ namespace UserControl_schedule_binder
   public struct p_type
     {
     public bool be_loaded;
+    public TClass_biz_user biz_user;
     public string content_id;
     public uint tab_index;
     }
@@ -51,8 +53,34 @@ namespace UserControl_schedule_binder
         }
       else
         {
+        p.biz_user = new TClass_biz_user();
+        //
         p.be_loaded = false;
-        p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+        if(
+            (
+            new ArrayList
+              {
+              "Department Chief Scheduler",
+              "Department Fleet Supervisor",
+              "Department Fleet Coordinator",
+              "Department Street Supervisor",
+              "Squad Commander",
+              "Squad Manager",
+              "Squad Assistant Manager",
+              "Squad Scheduler",
+              "Squad Training Officer",
+              "Squad Section Sergeant",
+              "Squad Fleet Coordinator"
+              }
+            )
+            .Contains(p.biz_user.Roles()[0]))
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
+          }
+        else
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+          }
         FillPlaceHolder(true);
         }
       }

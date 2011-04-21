@@ -57,9 +57,17 @@ namespace UserControl_member_binder
             {
                 p.be_loaded = false;
                 p.biz_user = new TClass_biz_user();
-                if ((new ArrayList{"Department Fleet Coordinator","Department Street Supervisor","Squad Fleet Coordinator"}).Contains(p.biz_user.Roles()[0]))
+                if ((new ArrayList{"Department Fleet Coordinator","Squad Fleet Coordinator"}).Contains(p.biz_user.Roles()[0]))
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_FLEET;
+                  }
+                else if ((new ArrayList{"Department Human Resources Officer","Department BLS ID Coordinator","Department ALS ID Coordinator","Department New Membership Clerk","Squad Membership Coordinator"}).Contains(p.biz_user.Roles()[0]))
+                  {
+                  p.tab_index = UserControl_member_binder_Static.TSSI_PERSONNEL;
+                  }
+                else if ((new ArrayList{"Department Authority","Squad Commander"}).Contains(p.biz_user.Roles()[0]))
+                  {
+                  p.tab_index = UserControl_member_binder_Static.TSSI_CONFIG;
                   }
                 else
                   {
