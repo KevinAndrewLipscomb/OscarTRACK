@@ -4,7 +4,7 @@
   <tr>
     <td>
       <table cellspacing="0" cellpadding="5" width="100%" border="0">
-        <tr bgcolor="#f5f5f5"><td><strong>The <i>Schedule Assignment Assistant</i> is a work in progress.</strong></td></tr>
+        <tr bgcolor="#f5f5f5"><td><strong>The <i>Schedule Watchbill Assistant</i> is a work in progress.</strong></td></tr>
         <tr>
           <td>
             Currently, it does the following, in this order:
