@@ -19,6 +19,7 @@ namespace UserControl_schedule_proposal
   public struct p_type
     {
     public string agency_filter;
+    public bool be_commanded_watchbill_noninteractive;
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
@@ -152,6 +153,7 @@ namespace UserControl_schedule_proposal
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
+        p.be_commanded_watchbill_noninteractive = (Session["mode:report/commanded-watchbill-noninteractive"] != null);
         p.be_interactive = (Session["mode:report"] == null);
         p.be_nominal_day_mode_specific =  p.be_interactive &&
           (
@@ -312,6 +314,8 @@ namespace UserControl_schedule_proposal
           )
         ||
           (p.be_ok_to_edit_post && p.biz_schedule_assignments.BeOkToWorkOnNextMonth())
+        ||
+          p.be_commanded_watchbill_noninteractive
         )
         {
         be_suppressed = false;
