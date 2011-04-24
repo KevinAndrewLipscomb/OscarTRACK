@@ -259,8 +259,12 @@ namespace Class_biz_schedule_assignments
         new ArrayList()
           {
           "--output-document=/dev/null --no-check-certificate --background"
+          + " --post-data"
+          +   "=agency_id=" + agency_filter
+          +   "&release_filter=" + release_filter
+          +   "&relative_month=" + relative_month.val
           + k.SPACE
-          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx?agency_id=" + agency_filter + "&release_filter=" + release_filter + "&relative_month=" + relative_month.val + "\""
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx\""
           },
         working_directory,
         out stdout,
@@ -288,13 +292,13 @@ namespace Class_biz_schedule_assignments
         arguments.Add
           (
           "--output-document=/dev/null --no-check-certificate"
-          + k.SPACE
-          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx"
-          +   "?member_id=" + target
+          + " --post-data"
+          +   "=member_id=" + target
           +   "&relative_month=" + relative_month.val
           +   "&member_agency_id=" + agency_filter
           +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
-          + "\""
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx\""
           );
         target_q.Enqueue(target);
         }

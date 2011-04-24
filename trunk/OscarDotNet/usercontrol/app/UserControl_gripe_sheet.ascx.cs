@@ -12,6 +12,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Web.Script.Serialization;
 
 namespace UserControl_gripe_sheet
   {
@@ -38,9 +39,12 @@ namespace UserControl_gripe_sheet
       public TClass_biz_gripes biz_gripes;
       public TClass_biz_user biz_user;
       public TClass_biz_vehicles biz_vehicles;
+      public Hashtable gripe_inclusion_hashtable;
       public uint num_gripes;
       public string sort_order;
-      public Hashtable gripe_inclusion_hashtable;
+      public string user_id;
+      public object vehicle_summary;
+      public string work_order_coordinator_title;
       }
 
     private p_type p;
@@ -128,47 +132,46 @@ namespace UserControl_gripe_sheet
       {
       if (!p.be_loaded)
         {
-        Literal_vehicle_name.Text = p.biz_vehicles.NameOf(Session["vehicle_summary"]);
+        var member_id = p.biz_members.IdOfUserId(p.user_id);
+        Literal_vehicle_name.Text = p.biz_vehicles.NameOf((p.vehicle_summary));
+        Literal_work_order_coordinator_title.Text = p.work_order_coordinator_title;
+        Literal_work_order_coordinator_name.Text = p.biz_members.FirstNameOfMemberId(member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(member_id);
+        Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(p.vehicle_summary)));
+        Literal_work_order_coordinator_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(member_id));
+        Literal_work_order_coordinator_email_address.Text = p.biz_members.EmailAddressOf(member_id);
+        Literal_kind.Text = p.biz_vehicles.KindOf(p.vehicle_summary);
+        Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
+        Literal_bumper_number.Text = p.biz_vehicles.BumperNumberOf(p.vehicle_summary);
+        Literal_model_year.Text = p.biz_vehicles.ModelYearOf(p.vehicle_summary);
+        Literal_chassis_make.Text = p.biz_vehicles.ChassisMakeOf(p.vehicle_summary);
+        Literal_chassis_model.Text = p.biz_vehicles.ChassisModelOf(p.vehicle_summary);
+        Literal_custom_make.Text = p.biz_vehicles.CustomMakeOf(p.vehicle_summary);
+        Literal_custom_model.Text = p.biz_vehicles.CustomModelOf(p.vehicle_summary);
+        Literal_vin.Text = p.biz_vehicles.VinOf(p.vehicle_summary);
+        Literal_fuel.Text = p.biz_vehicles.FuelOf(p.vehicle_summary);
+        Literal_tag.Text = p.biz_vehicles.TagOf(p.vehicle_summary);
+        Literal_be_four_or_all_wheel_drive.Text = k.YesNoOf(p.biz_vehicles.BeFourOrAllWheelDriveOf(p.vehicle_summary));
+        Literal_recent_mileage_update_time.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
+        Literal_recent_mileage_update_time_2.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
+        Literal_recent_mileage.Text = p.biz_vehicles.RecentMileageOf(p.vehicle_summary);
+        Literal_miles_from_pm.Text = p.biz_vehicles.MilesFromPmOf(p.vehicle_summary);
+        Literal_dmv_inspection_due.Text = p.biz_vehicles.DmvInspectionDueOf(p.vehicle_summary).Substring(0,7);
+        CheckBox_be_work_order_mode.Visible = p.be_interactive && p.be_ok_to_config_gripes;
+        CheckBox_be_work_order_mode.Checked = !p.be_interactive;
+        DataGrid_control.AllowSorting = p.be_interactive;
+        SetWorkOrderMode(!p.be_interactive);
+        Button_send.Visible = p.be_interactive;
         if (p.be_interactive)
           {
-          if (p.be_ok_to_config_gripes)
-            {
-            CheckBox_be_work_order_mode.Visible = true;
-            Literal_work_order_coordinator_title.Text = p.biz_user.Roles()[0];
-            var member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
-            Literal_work_order_coordinator_name.Text = p.biz_members.FirstNameOfMemberId(member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(member_id);
-            var vehicle_summary = Session["vehicle_summary"];
-            Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(vehicle_summary)));
-            Literal_work_order_coordinator_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(member_id));
-            Literal_work_order_coordinator_email_address.Text = p.biz_user.EmailAddress();
-            Literal_kind.Text = p.biz_vehicles.KindOf(vehicle_summary);
-            Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(vehicle_summary);
-            Literal_bumper_number.Text = p.biz_vehicles.BumperNumberOf(vehicle_summary);
-            Literal_model_year.Text = p.biz_vehicles.ModelYearOf(vehicle_summary);
-            Literal_chassis_make.Text = p.biz_vehicles.ChassisMakeOf(vehicle_summary);
-            Literal_chassis_model.Text = p.biz_vehicles.ChassisModelOf(vehicle_summary);
-            Literal_custom_make.Text = p.biz_vehicles.CustomMakeOf(vehicle_summary);
-            Literal_custom_model.Text = p.biz_vehicles.CustomModelOf(vehicle_summary);
-            Literal_vin.Text = p.biz_vehicles.VinOf(vehicle_summary);
-            Literal_fuel.Text = p.biz_vehicles.FuelOf(vehicle_summary);
-            Literal_tag.Text = p.biz_vehicles.TagOf(vehicle_summary);
-            Literal_be_four_or_all_wheel_drive.Text = k.YesNoOf(p.biz_vehicles.BeFourOrAllWheelDriveOf(vehicle_summary));
-            Literal_recent_mileage_update_time.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(vehicle_summary);
-            Literal_recent_mileage_update_time_2.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(vehicle_summary);
-            Literal_recent_mileage.Text = p.biz_vehicles.RecentMileageOf(vehicle_summary);
-            Literal_miles_from_pm.Text = p.biz_vehicles.MilesFromPmOf(vehicle_summary);
-            Literal_dmv_inspection_due.Text = p.biz_vehicles.DmvInspectionDueOf(vehicle_summary).Substring(0,7);
-            }
+          p.gripe_inclusion_hashtable.Clear();
           }
-        else
-          {
-          DataGrid_control.AllowSorting = false;
-          }
-        p.gripe_inclusion_hashtable.Clear();
         Bind();
         p.be_loaded = true;
         }
-      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
+      if (p.be_interactive)
+        {
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
+        }
       InjectPersistentClientSideScript();
       }
 
@@ -177,9 +180,9 @@ namespace UserControl_gripe_sheet
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_gripe_sheet.p"] != null)
+      if (Session[Parent.ClientID + ".UserControl_gripe_sheet.p"] != null)
         {
-        p = (p_type)(Session["UserControl_gripe_sheet.p"]);
+        p = (p_type)(Session[Parent.ClientID + ".UserControl_gripe_sheet.p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -189,7 +192,7 @@ namespace UserControl_gripe_sheet
         p.biz_gripes = new TClass_biz_gripes();
         p.biz_user = new TClass_biz_user();
         p.biz_vehicles = new TClass_biz_vehicles();
-        p.be_interactive = !(Session["mode:report"] != null);
+        p.be_interactive = true;
         p.be_loaded = false;
         p.be_ok_to_config_gripes = k.Has((string[])(Session["privilege_array"]), "config-gripes");
         p.be_sort_order_ascending = true;
@@ -213,12 +216,12 @@ namespace UserControl_gripe_sheet
 
     private void TWebUserControl_gripe_sheet_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_gripe_sheet.p", p);
+      SessionSet(Parent.ClientID + ".UserControl_gripe_sheet.p", p);
       }
 
     public TWebUserControl_gripe_sheet Fresh()
       {
-      Session.Remove("UserControl_gripe_sheet.p");
+      Session.Remove(Parent.ClientID + ".UserControl_gripe_sheet.p");
       return this;
       }
 
@@ -251,24 +254,21 @@ namespace UserControl_gripe_sheet
     private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      if (p.be_interactive)
+      if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
-        if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+        var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        if (p.gripe_inclusion_hashtable.ContainsKey(id))
           {
-          var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
-          if (p.gripe_inclusion_hashtable.ContainsKey(id))
-            {
-            (e.Item.Cells[UserControl_gripe_sheet_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.gripe_inclusion_hashtable[id])) ? "YES" : "no");
-            }
-          else
-            {
-            p.gripe_inclusion_hashtable.Add(id,true);
-            }
-          if (CheckBox_be_work_order_mode.Checked && !(bool)(p.gripe_inclusion_hashtable[id]))
-            {
-            e.Item.Visible = false;
-            }
-          else
+          (e.Item.Cells[UserControl_gripe_sheet_Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.gripe_inclusion_hashtable[id])) ? "YES" : "no");
+          }
+        else
+          {
+          p.gripe_inclusion_hashtable.Add(id,true);
+          }
+        var be_ok_to_display = (!CheckBox_be_work_order_mode.Checked || (bool)(p.gripe_inclusion_hashtable[id]));
+        if (p.be_interactive)
+          {
+          if (be_ok_to_display)
             {
             link_button = ((e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DELETE].Controls[0]) as LinkButton);
             link_button.Text = k.ExpandTildePath(link_button.Text);
@@ -279,20 +279,11 @@ namespace UserControl_gripe_sheet
             link_button.Text = k.ExpandTildePath(link_button.Text);
             link_button.ToolTip = "Append note";
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-            //
-            e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
-            //
-            // Remove all cell controls from viewstate except for the ones at TCI_ID (and for this control only, TCI_INCLUDE).
-            //
-            foreach (TableCell cell in e.Item.Cells)
-              {
-              cell.EnableViewState = false;
-              }
-            e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].EnableViewState = true;
-            //
-            p.num_gripes++;
             }
           }
+        e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text = e.Item.Cells[UserControl_gripe_sheet_Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
+        e.Item.Visible = be_ok_to_display;
+        p.num_gripes++;
         }
       }
 
@@ -316,7 +307,7 @@ namespace UserControl_gripe_sheet
       DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[UserControl_gripe_sheet_Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
-      p.biz_gripes.BindLog(p.biz_vehicles.IdOf(Session["vehicle_summary"]),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
+      p.biz_gripes.BindLog(p.biz_vehicles.IdOf((p.vehicle_summary)),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
       p.be_datagrid_empty = (p.num_gripes == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
@@ -331,13 +322,61 @@ namespace UserControl_gripe_sheet
 
     protected void CheckBox_be_work_order_mode_CheckedChanged(object sender, EventArgs e)
       {
+      SetWorkOrderMode(CheckBox_be_work_order_mode.Checked);
+      }
+
+    internal void SetFilter
+      (
+      string user_id,
+      object vehicle_summary,
+      string work_order_coordinator_title,
+      string serialized_gripe_inclusion_hashtable
+      )
+      {
+      p.user_id = user_id;
+      p.vehicle_summary = vehicle_summary;
+      p.work_order_coordinator_title = work_order_coordinator_title;
+      if (serialized_gripe_inclusion_hashtable.Length > 0)
+        {
+        p.gripe_inclusion_hashtable = (new JavaScriptSerializer()).Deserialize<Hashtable>(serialized_gripe_inclusion_hashtable);
+        p.be_interactive = false;
+        Bind();
+        }
+      }
+    internal void SetFilter
+      (
+      string user_id,
+      object vehicle_summary,
+      string work_order_coordinator_title
+      )
+      {
+      SetFilter(user_id,vehicle_summary,work_order_coordinator_title,k.EMPTY);
+      }
+
+    private void SetWorkOrderMode(bool value)
+      {
       Literal_generation_timestamp.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
-      Panel_generation_timestamp.Visible = CheckBox_be_work_order_mode.Checked;
-      TableRow_best_practices.Visible = !CheckBox_be_work_order_mode.Checked;
-      TableRow_work_order_instructions.Visible = CheckBox_be_work_order_mode.Checked;
+      Panel_generation_timestamp.Visible = value;
+      TableRow_best_practices.Visible = !value;
+      TableRow_work_order_instructions.Visible = value;
       Bind();
-      Button_new.Visible = !CheckBox_be_work_order_mode.Checked;
-      Panel_page_break.Visible = CheckBox_be_work_order_mode.Checked;
+      Button_new.Visible = !value;
+      Panel_page_break.Visible = value;
+      }
+
+    protected void Button_send_Click(object sender, EventArgs e)
+      {
+      var working_directory = Server.MapPath("scratch");
+      p.biz_gripes.SendWorkOrderToCityGarage
+        (
+        p.biz_vehicles.IdOf(p.vehicle_summary),
+        p.user_id,
+        Server.UrlEncode(p.work_order_coordinator_title),
+        Server.UrlEncode((new JavaScriptSerializer()).Serialize(p.gripe_inclusion_hashtable)),
+        working_directory
+        );
+      Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"msgsent","Message sent.",true);
+      Button_send.Enabled = false;
       }
 
     } // end TWebUserControl_gripe_sheet

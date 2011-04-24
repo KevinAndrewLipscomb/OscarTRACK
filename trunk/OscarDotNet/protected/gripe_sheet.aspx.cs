@@ -1,20 +1,15 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
-using kix;
+using Class_biz_user;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
+using UserControl_gripe_sheet;
 
 namespace gripe_sheet
   {
   public struct p_type
     {
+    public TClass_biz_user biz_user;
     }
 
   public partial class TWebForm_gripe_sheet: ki_web_ui.page_class
@@ -47,14 +42,15 @@ namespace gripe_sheet
       var nature_of_visit = NatureOfVisit("gripe_sheet.p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
-        //
-        // Initialize p.~ objects here.
-        //
+        p.biz_user = new TClass_biz_user();
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
         p = (p_type)(Session["gripe_sheet.p"]);
         }
+      var UserControl_gripe_sheet = ((LoadControl("~/usercontrol/app/UserControl_gripe_sheet.ascx") as TWebUserControl_gripe_sheet));
+      PlaceHolder_gripe_sheet.Controls.Add(UserControl_gripe_sheet);
+      UserControl_gripe_sheet.SetFilter(p.biz_user.IdNum(),Session["vehicle_summary"],p.biz_user.Roles()[0]);
       }
 
     private void TWebForm_gripe_sheet_PreRender(object sender, System.EventArgs e)

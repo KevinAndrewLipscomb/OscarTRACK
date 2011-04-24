@@ -1,8 +1,8 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
-using Class_db_gripes;
 using Class_biz_members;
 using Class_biz_notifications;
+using Class_db_gripes;
 using kix;
 using System;
 using System.Collections;
@@ -108,6 +108,37 @@ namespace Class_biz_gripes
         id,
         out vehicle_name,
         out description
+        );
+      }
+
+    internal void SendWorkOrderToCityGarage
+      (
+      string vehicle_id,
+      string user_id,
+      string urlencoded_work_order_coordinator_title,
+      string urlencoded_serialized_gripe_inclusion_hashtable,
+      string working_directory
+      )
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+          "--output-document=/dev/null --no-check-certificate"
+          + " --post-data"
+          +   "=vehicle_id=" + vehicle_id
+          +   "&user_id=" + user_id
+          +   "&work_order_coordinator_title=" + urlencoded_work_order_coordinator_title
+          +   "&serialized_gripe_inclusion_hashtable=\"" + urlencoded_serialized_gripe_inclusion_hashtable + "\""
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_gripe_sheet.aspx\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
         );
       }
 

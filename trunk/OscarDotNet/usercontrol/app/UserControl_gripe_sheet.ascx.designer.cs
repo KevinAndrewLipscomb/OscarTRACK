@@ -13,15 +13,6 @@ namespace UserControl_gripe_sheet {
     public partial class TWebUserControl_gripe_sheet {
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// Literal_vehicle_name control.
         /// </summary>
         /// <remarks>
@@ -83,6 +74,15 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_work_order_instructions;
+        
+        /// <summary>
+        /// Button_send control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_send;
         
         /// <summary>
         /// Literal_kind control.
