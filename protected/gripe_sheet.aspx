@@ -14,7 +14,11 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <uc2:UserControl_gripe_sheet ID="UserControl_gripe_sheet_control" runat="server" />
+      <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
+        <ContentTemplate>
+          <asp:PlaceHolder ID="PlaceHolder_gripe_sheet" runat="server"></asp:PlaceHolder>
+        </ContentTemplate>
+      </asp:UpdatePanel>
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
       <uc3:UserControl_update_progress_blocker id="UserControl_update_progress_blocker_control" runat="server"></uc3:UserControl_update_progress_blocker>
     </form>

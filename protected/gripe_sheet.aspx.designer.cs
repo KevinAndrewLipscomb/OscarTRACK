@@ -22,13 +22,22 @@ namespace gripe_sheet {
         protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// UserControl_gripe_sheet_control control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_gripe_sheet.TWebUserControl_gripe_sheet UserControl_gripe_sheet_control;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        
+        /// <summary>
+        /// PlaceHolder_gripe_sheet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_gripe_sheet;
         
         /// <summary>
         /// UserControl_postcontent control.
