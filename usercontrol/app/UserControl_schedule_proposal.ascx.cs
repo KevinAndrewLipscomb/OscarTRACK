@@ -50,7 +50,7 @@ namespace UserControl_schedule_proposal
   public partial class TWebUserControl_schedule_proposal: ki_web_ui.usercontrol_class
     {
 
-    public class UserControl_schedule_proposal_Static
+    public static class UserControl_schedule_proposal_Static
       {
       public const int TCI_NOMINAL_DAY = 0;
       public const int TCI_DISPLAY_SEQ_NUM = 1;
@@ -263,9 +263,8 @@ namespace UserControl_schedule_proposal
       + "&release_filter=" + p.release_filter
       + "&relative_month=" + p.relative_month.val;
       HyperLink_preview_print_month_at_a_glance.Text = k.ExpandTildePath(HyperLink_preview_print_month_at_a_glance.Text);
-      HyperLink_preview_print_month_at_a_glance.NavigateUrl = "~/protected/watchbill.aspx"
+      HyperLink_preview_print_month_at_a_glance.NavigateUrl = "~/protected/watchbill_maag.aspx"
       + "?agency_id=" + p.agency_filter
-      + "&release_filter=" + p.release_filter
       + "&relative_month=" + p.relative_month.val;
       //
       MakeDateCalculations();

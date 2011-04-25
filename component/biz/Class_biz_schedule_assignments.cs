@@ -71,6 +71,18 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,nominal_day_filter,target,ref num_members,ref num_crew_shifts);
       }
 
+    internal void BindBaseDataListForMaag
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string shift_name,
+      string nominal_day_filter,
+      object target
+      )
+      {
+      db_schedule_assignments.BindBaseDataListForMaag(agency_filter,relative_month,shift_name,nominal_day_filter,target);
+      }
+
     internal void BindInsufficientDriversAlertBaseDataList
       (
       string agency_filter,

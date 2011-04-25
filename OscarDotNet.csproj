@@ -114,6 +114,7 @@
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="protected\watchbill.aspx" />
+    <Content Include="protected\watchbill_maag.aspx" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
@@ -150,6 +151,7 @@
     <Content Include="usercontrol\app\UserControl_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
+    <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -668,6 +670,13 @@
     </Compile>
     <Compile Include="protected\watchbill.aspx.designer.cs">
       <DependentUpon>watchbill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\watchbill_maag.aspx.cs">
+      <DependentUpon>watchbill_maag.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\watchbill_maag.aspx.designer.cs">
+      <DependentUpon>watchbill_maag.aspx</DependentUpon>
     </Compile>
     <Compile Include="remind_username.aspx.cs">
       <DependentUpon>remind_username.aspx</DependentUpon>
@@ -1347,6 +1356,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_vehicle_kind.ascx.designer.cs">
       <DependentUpon>UserControl_vehicle_kind.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_watchbill_maag.ascx.cs">
+      <DependentUpon>UserControl_watchbill_maag.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_watchbill_maag.ascx.designer.cs">
+      <DependentUpon>UserControl_watchbill_maag.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_about_by.ascx.cs">
       <DependentUpon>UserControl_about_by.ascx</DependentUpon>
