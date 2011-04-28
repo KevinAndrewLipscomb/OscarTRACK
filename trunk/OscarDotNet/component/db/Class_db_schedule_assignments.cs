@@ -1860,7 +1860,7 @@ namespace Class_db_schedule_assignments
             .ExecuteScalar();
           if (selectable_id_obj != null)
             {
-            new MySqlCommand("update schedule_assignment set be_selected = TRUE where be_new and id = '" + selectable_id_obj.ToString() + "'",connection,transaction).ExecuteNonQuery();
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
             if (num_extras > 1)
               {
               member_id_q.Enqueue(member_id);
@@ -1873,7 +1873,7 @@ namespace Class_db_schedule_assignments
         //
         new MySqlCommand
           (
-          "update schedule_assignment set be_new = FALSE"
+          Dispositioned("update schedule_assignment set be_new = FALSE")
           + ";"
           + " drop temporary table shift_popularity",
           connection,

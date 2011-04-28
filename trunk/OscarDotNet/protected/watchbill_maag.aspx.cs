@@ -46,9 +46,10 @@ namespace watchbill_maag
         {
         p.biz_agencies = new TClass_biz_agencies();
         //
-        p.agency_filter = k.Safe(Request["agency_id"],k.safe_hint_type.NUM);
+        var hashtable_of_shielded_request = HashtableOfShieldedRequest();
+        p.agency_filter = hashtable_of_shielded_request["agency_id"].ToString();
         p.relative_month = new k.subtype<int>(0,1);
-        p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
+        p.relative_month.val = int.Parse(hashtable_of_shielded_request["relative_month"].ToString());
         //
         Session.Add("mode:report", k.EMPTY);
         Session.Add("mode:report/commanded-watchbill-maag", k.EMPTY);
