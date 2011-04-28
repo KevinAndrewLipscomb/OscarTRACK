@@ -27,6 +27,7 @@ namespace UserControl_watchbill_maag
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public k.int_nonnegative num_selections;
     public k.subtype<int> relative_month;
+    public string report_compressed_font_family;
     public string saved_unit_spec;
     }
 
@@ -51,14 +52,15 @@ namespace UserControl_watchbill_maag
       {
       if (!p.be_loaded)
         {
-        var report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
-        EstablishGoogleWebFontLoader("google: { families: [" + report_compressed_font_family + "] }");
-        //A.Style.Add("font-family",report_compressed_font_family);
-        //A.Style.Add("letter-spacing","-0.05em");
-        //A.Style.Add("word-spacing","-0.12em");
+        EstablishGoogleWebFontLoader("google: { families: [" + p.report_compressed_font_family + "] }");
         //
-        Calendar_day.Caption = "RESCUE " + p.agency_filter + " DAYS -- http://frompaper2web.com/OscarTRACK";
-        Calendar_night.Caption = "RESCUE " + p.agency_filter + " NIGHTS -- http://frompaper2web.com/OscarTRACK";
+        var referrer = "http://frompaper2web.com/OscarTRACK";
+        if (Session["mode:report/commanded-watchbill-maag-noninteractive"] != null)
+          {
+          referrer = "<a href=\"" + referrer + "\">" + referrer + "</a>";
+          }
+        Calendar_day.Caption = "<b><big><big><big><big>RESCUE " + p.agency_filter + " DAYS -- " + referrer + "</big></big></big></big></b>";
+        Calendar_night.Caption = "<b><big><big><big><big>RESCUE " + p.agency_filter + " NIGHTS -- " + referrer + "</big></big></big></big></b>";
         p.be_loaded = true;
         }
       }
@@ -86,6 +88,7 @@ namespace UserControl_watchbill_maag
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.num_selections = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
+        p.report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
         p.saved_unit_spec = k.EMPTY;
         }
       }
@@ -130,7 +133,7 @@ namespace UserControl_watchbill_maag
       data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
       p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
       data_grid.GridLines = GridLines.None;
-      data_grid.ItemStyle.Font.Size = FontUnit.XXSmall;
+      data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
       data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
       data_grid.ItemStyle.VerticalAlign = VerticalAlign.Top;
       data_grid.ItemStyle.Wrap = false;
