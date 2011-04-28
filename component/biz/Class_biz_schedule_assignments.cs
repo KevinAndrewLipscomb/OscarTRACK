@@ -260,6 +260,7 @@ namespace Class_biz_schedule_assignments
       string agency_filter,
       string release_filter,
       k.subtype<int> relative_month,
+      bool be_scalable_format_selected,
       string working_directory
       )
       {
@@ -276,7 +277,7 @@ namespace Class_biz_schedule_assignments
           +   "&release_filter=" + release_filter
           +   "&relative_month=" + relative_month.val
           + k.SPACE
-          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill.aspx\""
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill" + (be_scalable_format_selected ? k.EMPTY : "_maag") + ".aspx\""
           },
         working_directory,
         out stdout,
