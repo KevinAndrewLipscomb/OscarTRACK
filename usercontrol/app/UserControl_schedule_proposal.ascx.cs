@@ -265,8 +265,8 @@ namespace UserControl_schedule_proposal
       //
       HyperLink_preview_print_month_at_a_glance.Text = k.ExpandTildePath(HyperLink_preview_print_month_at_a_glance.Text);
       var watchbill_maag_hashtable = new Hashtable();
-      watchbill_maag_hashtable.Add("agency_id",p.agency_filter);
-      watchbill_maag_hashtable.Add("relative_month",p.relative_month.val);
+      watchbill_maag_hashtable["agency_id"] = p.agency_filter;
+      watchbill_maag_hashtable["relative_month"] = p.relative_month.val;
       HyperLink_preview_print_month_at_a_glance.NavigateUrl = "~/protected/watchbill_maag.aspx?" + ShieldedQueryStringOfHashtable(watchbill_maag_hashtable);
       //
       MakeDateCalculations();
