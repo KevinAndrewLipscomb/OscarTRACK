@@ -121,6 +121,8 @@ namespace UserControl_watchbill_maag
       {
       p.agency_filter = agency_filter;
       p.relative_month = relative_month;
+      Calendar_day.VisibleDate = DateTime.Today.AddMonths(p.relative_month.val);
+      Calendar_night.VisibleDate = DateTime.Today.AddMonths(p.relative_month.val);
       }
 
     private void CalendarDayRender
@@ -129,21 +131,24 @@ namespace UserControl_watchbill_maag
       DayRenderEventArgs e
       )
       {
-      var data_grid = new DataGrid();
-      data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
-      p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
-      data_grid.GridLines = GridLines.None;
-      data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
-      data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
-      data_grid.ItemStyle.VerticalAlign = VerticalAlign.Top;
-      data_grid.ItemStyle.Wrap = false;
-      data_grid.ShowHeader = false;
-      e.Cell.Controls.Add(data_grid);
       e.Cell.HorizontalAlign = HorizontalAlign.Left;
       e.Cell.VerticalAlign = VerticalAlign.Top;
-      if (p.num_selections.val == 0)
+      if (!e.Day.IsOtherMonth)
         {
-        e.Cell.BackColor = Color.Yellow;
+        var data_grid = new DataGrid();
+        data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
+        p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
+        data_grid.GridLines = GridLines.None;
+        data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
+        data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
+        data_grid.ItemStyle.VerticalAlign = VerticalAlign.Top;
+        data_grid.ItemStyle.Wrap = false;
+        data_grid.ShowHeader = false;
+        e.Cell.Controls.Add(data_grid);
+        if (p.num_selections.val == 0)
+          {
+          e.Cell.BackColor = Color.Yellow;
+          }
         }
       p.num_selections.val = 0;
       p.saved_unit_spec = k.EMPTY;
