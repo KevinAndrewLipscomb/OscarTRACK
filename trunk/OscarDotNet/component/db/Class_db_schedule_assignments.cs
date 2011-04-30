@@ -1059,11 +1059,12 @@ namespace Class_db_schedule_assignments
     internal void ForceSelection
       (
       string id,
-      bool be_selected
+      bool be_selected,
+      string reviser_member_id
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + ", be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + ", be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1256,37 +1257,44 @@ namespace Class_db_schedule_assignments
     internal void SetComment
       (
       string id,
-      string comment
+      string comment,
+      string reviser_member_id
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
     internal void SetPost
       (
       string id,
-      string post_id
+      string post_id,
+      string reviser_member_id
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
     internal void SetPostCardinality
       (
       string id,
-      string post_cardinality
+      string post_cardinality,
+      string reviser_member_id
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = TRUE where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
-    internal void SwapSelectedForMemberNextEarlierUnselected(string id)
+    internal void SwapSelectedForMemberNextEarlierUnselected
+      (
+      string id,
+      string reviser_member_id
+      )
       {
       Open();
       var transaction = connection.BeginTransaction();
@@ -1316,7 +1324,8 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+          .ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
@@ -1327,7 +1336,11 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
-    internal void SwapSelectedForMemberNextLaterUnselected(string id)
+    internal void SwapSelectedForMemberNextLaterUnselected
+      (
+      string id,
+      string reviser_member_id
+      )
       {
       Open();
       var transaction = connection.BeginTransaction();
@@ -1357,7 +1370,8 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE where id in ('" + id + "','" + target_id + "')"),connection,transaction).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+          .ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)

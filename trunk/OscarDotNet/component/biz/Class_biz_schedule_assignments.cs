@@ -194,7 +194,7 @@ namespace Class_biz_schedule_assignments
       bool be_selected
       )
       {
-      db_schedule_assignments.ForceSelection(id,be_selected);
+      db_schedule_assignments.ForceSelection(id,be_selected,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void GetInfoAboutMemberInMonth
@@ -359,7 +359,7 @@ namespace Class_biz_schedule_assignments
       string comment
       )
       {
-      db_schedule_assignments.SetComment(id,comment);
+      db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void SetPost
@@ -368,7 +368,7 @@ namespace Class_biz_schedule_assignments
       string post_id
       )
       {
-      db_schedule_assignments.SetPost(id,post_id);
+      db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void SetPostCardinality
@@ -377,17 +377,17 @@ namespace Class_biz_schedule_assignments
       string post_cardinality
       )
       {
-      db_schedule_assignments.SetPostCardinality(id,post_cardinality);
+      db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
-      db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id);
+      db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void SwapSelectedForMemberNextLaterUnselected(string id)
       {
-      db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id);
+      db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void Update(string relative_month)
