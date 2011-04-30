@@ -1586,7 +1586,7 @@ namespace Class_db_schedule_assignments
           }
         if (trimables != k.EMPTY)
           {
-          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
           }
         //--
         //
@@ -1679,7 +1679,7 @@ namespace Class_db_schedule_assignments
           dr.Close();
           if (!done)
             {
-            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected, reviser_member_id = null where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
             }
           new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction).ExecuteNonQuery();
           }
@@ -1777,7 +1777,7 @@ namespace Class_db_schedule_assignments
           }
         if (trimables != k.EMPTY)
           {
-          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
           }
         //
         // Determine which Trainees want how many extra assignments.  EMT Interns are not allowed to run extras.
@@ -1874,7 +1874,7 @@ namespace Class_db_schedule_assignments
             .ExecuteScalar();
           if (selectable_id_obj != null)
             {
-            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE, reviser_member_id = null where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
             if (num_extras > 1)
               {
               member_id_q.Enqueue(member_id);
