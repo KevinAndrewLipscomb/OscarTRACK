@@ -4,9 +4,9 @@ using Class_biz_role_member_map;
 using kix;
 using System;
 using System.Configuration;
+using System.IO;
 using System.Text;
 using System.Web.UI;
-using System.IO;
 using UserControl_schedule_proposal;
 
 namespace report_commanded_watchbill
@@ -21,6 +21,7 @@ namespace report_commanded_watchbill
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
+      public string publisher;
       public string release_filter;
       public k.subtype<int> relative_month;
       }
@@ -62,6 +63,8 @@ namespace report_commanded_watchbill
         var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
         HyperLink_web_site.Text = url;
         HyperLink_web_site.NavigateUrl = url;
+        //
+        Literal_publisher.Text = p.publisher;
         }
       }
 
@@ -82,6 +85,7 @@ namespace report_commanded_watchbill
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.agency_filter = k.Safe(Request["agency_id"],k.safe_hint_type.NUM);
+        p.publisher = k.Safe(Request["publisher"],k.safe_hint_type.HUMAN_NAME);
         p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.NUM);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));

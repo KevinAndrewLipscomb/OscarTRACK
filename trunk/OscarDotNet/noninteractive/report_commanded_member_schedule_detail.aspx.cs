@@ -24,6 +24,7 @@ namespace report_commanded_member_schedule_detail
       public TClass_biz_role_member_map biz_role_member_map;
       public string member_agency_id;
       public string member_id;
+      public string publisher;
       public k.subtype<int> relative_month;
       }
 
@@ -52,6 +53,7 @@ namespace report_commanded_member_schedule_detail
           {
           Literal_which_month.Text = "NEXT";
           }
+        Literal_publisher.Text = p.publisher;
         }
       }
 
@@ -74,6 +76,7 @@ namespace report_commanded_member_schedule_detail
         p.be_virgin_watchbill = bool.Parse(k.Safe(Request["be_virgin_watchbill"],k.safe_hint_type.ALPHA));
         p.member_agency_id = k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM);
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
+        p.publisher = k.Safe(Request["publisher"],k.safe_hint_type.HUMAN_NAME);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
         //
