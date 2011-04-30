@@ -2,6 +2,7 @@
 
 using Class_biz_members;
 using Class_biz_roles;
+using Class_biz_user;
 using Class_db_schedule_assignments;
 using kix;
 using System;
@@ -18,12 +19,14 @@ namespace Class_biz_schedule_assignments
 
     private TClass_biz_members biz_members = null;
     private TClass_biz_roles biz_roles = null;
+    private TClass_biz_user biz_user = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
     public TClass_biz_schedule_assignments() : base()
       {
       biz_members = new TClass_biz_members();
       biz_roles = new TClass_biz_roles();
+      biz_user = new TClass_biz_user();
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
 
@@ -264,6 +267,7 @@ namespace Class_biz_schedule_assignments
       string working_directory
       )
       {
+      var member_id = biz_members.IdOfUserId(biz_user.IdNum());
       var stdout = k.EMPTY;
       var stderr = k.EMPTY;
       k.RunCommandIteratedOverArguments
@@ -276,6 +280,7 @@ namespace Class_biz_schedule_assignments
           +   "=agency_id=" + agency_filter
           +   "&release_filter=" + release_filter
           +   "&relative_month=" + relative_month.val
+          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(member_id) + k.SPACE + biz_members.LastNameOfMemberId(member_id) + "\""
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill" + (be_scalable_format_selected ? k.EMPTY : "_maag") + ".aspx\""
           },
@@ -293,9 +298,10 @@ namespace Class_biz_schedule_assignments
       string working_directory
       )
       {
+      var arguments = new ArrayList();
+      var member_id = biz_members.IdOfUserId(biz_user.IdNum());
       var stdout = k.EMPTY;
       var stderr = k.EMPTY;
-      var arguments = new ArrayList();
       var target_q = db_schedule_assignments.PendingNotificationTargetQ(agency_filter,relative_month);
       var target_q_count = target_q.Count;
       var target = k.EMPTY;
@@ -310,6 +316,7 @@ namespace Class_biz_schedule_assignments
           +   "&relative_month=" + relative_month.val
           +   "&member_agency_id=" + agency_filter
           +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
+          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(member_id) + k.SPACE + biz_members.LastNameOfMemberId(member_id) + "\""
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx\""
           );
