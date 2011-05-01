@@ -63,7 +63,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         DropDownList_agency_filter.SelectedValue = p.agency_filter;
         DropDownList_release_filter.SelectedValue = p.release_filter;
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
-        RadioButtonList_which_month.Enabled = (p.be_ok_to_edit_schedule && p.biz_schedule_assignments.BeOkToWorkOnNextMonth()) || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1));
+        RadioButtonList_which_month.Enabled = ((p.be_ok_to_edit_schedule || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_holdouts.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
