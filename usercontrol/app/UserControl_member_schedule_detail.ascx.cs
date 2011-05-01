@@ -5,6 +5,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Drawing;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_member_schedule_detail
@@ -94,6 +95,10 @@ namespace UserControl_member_schedule_detail
         //
         InjectPersistentClientSideScript();
         p.be_loaded = true;
+        }
+      if (p.be_interactive)
+        {
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
         }
       }
 

@@ -3,7 +3,6 @@
 <%@ Page language="c#" Debug="true" Codebehind="report_commanded_member_schedule_detail.aspx.cs" AutoEventWireup="True" Inherits="report_commanded_member_schedule_detail.TWebForm_report_commanded_member_schedule_detail" %>
 <%@ Register src="../usercontrol/app/UserControl_common_header_bar.ascx" tagname="UserControl_common_header_bar" tagprefix="uc1" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_member_schedule_detail" Src="~/usercontrol/app/UserControl_member_schedule_detail.ascx" %>
-<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
 <html>
   <head runat="server">
     <!-- $Id$ -->
@@ -12,7 +11,6 @@
   </head>
   <body bgcolor="white">
     <form runat="server">
-      <asp:ToolkitScriptManager ID="ScriptManager_control" runat="server"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ToolkitScriptManager>
       <uc1:UserControl_common_header_bar ID="UserControl_common_header_bar_control" runat="server" />
       <br />
       <p><asp:Literal ID="Literal_member_name" runat="server"></asp:Literal>'s assignments for <b><asp:Literal ID="Literal_which_month" runat="server"></asp:Literal></b> month are shown below.</p>
