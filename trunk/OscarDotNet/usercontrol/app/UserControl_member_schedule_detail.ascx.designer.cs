@@ -67,15 +67,6 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Button Button_done;
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// TableRow_data control.
         /// </summary>
         /// <remarks>

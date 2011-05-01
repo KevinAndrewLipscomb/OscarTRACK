@@ -13,15 +13,6 @@ namespace report_commanded_member_schedule_detail {
     public partial class TWebForm_report_commanded_member_schedule_detail {
         
         /// <summary>
-        /// ScriptManager_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.ToolkitScriptManager ScriptManager_control;
-        
-        /// <summary>
         /// UserControl_common_header_bar_control control.
         /// </summary>
         /// <remarks>

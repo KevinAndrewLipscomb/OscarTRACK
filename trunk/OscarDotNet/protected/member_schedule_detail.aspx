@@ -14,7 +14,11 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
+      <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
+        <ContentTemplate>
+          <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
+        </ContentTemplate>
+      </asp:UpdatePanel>
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
       <uc1:UserControl_update_progress_blocker id="UserControl_update_progress_blocker_control" runat="server"></uc1:UserControl_update_progress_blocker>
     </form>
