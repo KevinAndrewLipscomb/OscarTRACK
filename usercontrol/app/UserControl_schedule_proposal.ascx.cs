@@ -314,7 +314,9 @@ namespace UserControl_schedule_proposal
             ((p.agency_filter == p.own_agency) || p.be_user_privileged_to_see_all_squads)
           )
         ||
-          (p.be_ok_to_edit_post && p.biz_schedule_assignments.BeOkToWorkOnNextMonth())
+          p.be_ok_to_edit_post
+        ||
+          p.be_user_privileged_to_see_all_squads
         ||
           p.be_commanded_watchbill_noninteractive
         )
