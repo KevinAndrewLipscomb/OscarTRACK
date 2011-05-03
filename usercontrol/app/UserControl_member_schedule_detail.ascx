@@ -1,18 +1,21 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_member_schedule_detail.ascx.cs" Inherits="UserControl_member_schedule_detail.TWebUserControl_member_schedule_detail"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <style type="text/css">
-  .style1
-  {
-    color: #FFFFFF;
-  }
-  .style2
-  {
-    color: #808080;
-  }
-  .style3
-  {
-    text-decoration: underline;
-  }
+  .revised
+    {
+    border: 2px solid red;
+    }
+  .selected_for_duty
+    {
+    background-color: Green;
+    color: White;
+    font-weight: bold;
+    }
+  .unselected_availability
+    {
+    background-color: PaleGreen;
+    color: Gray;
+    }
 </style>
 <table cellpadding="0" cellspacing="0" border="1" bordercolor="gainsboro">
   <tr>
@@ -46,9 +49,14 @@
               </tr>
             </table>
             <hr size="1" />
-            <p><asp:Button ID="Button_done" runat="server" Text="Done" onclick="Button_done_Click" UseSubmitBehavior="False"/></p>
+            <table cellpadding="5">
+              <tr>
+                <td id="HtmlTableCell_button_done" runat="server"><asp:Button ID="Button_done" runat="server" Text="Done" onclick="Button_done_Click" UseSubmitBehavior="False"/></td>
+                <td><small>See below for the <u>**KEY**</u> to reading this data.</small></td>
+              </tr>
+            </table>
             <table cellspacing="0" cellpadding="0" border="0">
-              <tr id="TableRow_data" runat="server">
+              <tr id="HtmlTableRow_data" runat="server">
                 <td>
                   <ASP:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="5" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" onitemcommand="DataGrid_control_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
@@ -110,11 +118,11 @@
                   </small>
                 </td>
               </tr>
-              <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
+              <tr id="HtmlTableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             </table>
             <br/>
             <table cellpadding="5" cellspacing="0">
-              <tr id="TableRow_instruction_for_calendars" runat="server">
+              <tr id="HtmlTableRow_instruction_for_calendars" runat="server">
                 <td colspan="3">To force a shift into the member's availability list, click a nominal day on the appropriate shift calendar:</td>
               </tr>
               <tr align="center">
@@ -140,11 +148,12 @@
                     <WeekendDayStyle BackColor="#FFFFCC" />
                   </asp:Calendar>
                 </td>
-                <td>
+                <td valign="top">
                   <table cellpadding="5" cellspacing="2">
-                    <tr><td align="center" class="style3"><small>KEY</small></td></tr>
-                    <tr><td align="center" bgcolor="Green" class="style1"><strong>SELECTED FOR DUTY</strong></td></tr>
-                    <tr><td align="center" bgcolor="PaleGreen" class="style2">UNSELECTED AVAILABILITY</td></tr>
+                    <tr><td align="center"><small><u>**KEY**</u></small></td></tr>
+                    <tr><td align="center" class="selected_for_duty">REPORT FOR DUTY</td></tr>
+                    <tr><td align="center" class="unselected_availability">Unselected availability</td></tr>
+                    <tr id="HtmlTableRow_key_revised" runat="server"><td align="center" class="revised">REVISED</td></tr>
                   </table>
                 </td>
               </tr>

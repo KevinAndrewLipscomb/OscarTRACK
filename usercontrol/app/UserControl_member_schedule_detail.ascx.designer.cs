@@ -58,6 +58,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Label Label_special_request_comment;
         
         /// <summary>
+        /// HtmlTableCell_button_done control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell HtmlTableCell_button_done;
+        
+        /// <summary>
         /// Button_done control.
         /// </summary>
         /// <remarks>
@@ -67,13 +76,13 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Button Button_done;
         
         /// <summary>
-        /// TableRow_data control.
+        /// HtmlTableRow_data control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_data;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_data;
         
         /// <summary>
         /// DataGrid_control control.
@@ -94,22 +103,22 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Label Label_revision_explanation;
         
         /// <summary>
-        /// TableRow_none control.
+        /// HtmlTableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_none;
         
         /// <summary>
-        /// TableRow_instruction_for_calendars control.
+        /// HtmlTableRow_instruction_for_calendars control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_instruction_for_calendars;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_instruction_for_calendars;
         
         /// <summary>
         /// Calendar_day control.
@@ -128,5 +137,14 @@ namespace UserControl_member_schedule_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Calendar Calendar_night;
+        
+        /// <summary>
+        /// HtmlTableRow_key_revised control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_key_revised;
     }
 }
