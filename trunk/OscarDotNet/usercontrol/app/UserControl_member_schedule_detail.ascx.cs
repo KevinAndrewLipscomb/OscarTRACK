@@ -60,6 +60,7 @@ namespace UserControl_member_schedule_detail
       public const int TCI_FORCE_ON = 17;
       public const int TCI_BE_NOTIFICATION_PENDING = 18;
       public const int TCI_REVISED = 19;
+      public const int TCI_LAST_REVISER = 20;
       }
 
     private p_type p;
@@ -391,6 +392,7 @@ namespace UserControl_member_schedule_detail
       TableRow_data.Visible = !p.be_datagrid_empty;
       TableRow_none.Visible = p.be_datagrid_empty;
       Label_revision_explanation.Visible = p.be_any_revisions;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_LAST_REVISER].Visible = (p.be_interactive || p.be_any_revisions);
       p.num_datagrid_rows = 0;
       }
 

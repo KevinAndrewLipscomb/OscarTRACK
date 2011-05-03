@@ -100,6 +100,9 @@
                         <ItemTemplate><asp:Label ID="Label_revised" runat="server" Visible="false">&lt;&lt;&lt;REVISED<sup>*</sup></asp:Label></ItemTemplate>
                         <ItemStyle Font-Bold="True" ForeColor="Red" Wrap="False" />
                       </asp:TemplateColumn>
+                      <ASP:BoundColumn datafield="last_reviser" ReadOnly="true" HeaderText="Last revised">
+                        <ItemStyle Font-Size="Small"/>
+                      </ASP:BoundColumn>
                     </Columns>
                   </ASP:DataGrid>
                   <small>
