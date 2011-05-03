@@ -87,8 +87,8 @@ namespace UserControl_member_schedule_detail
           Label_special_request_comment.Font.Italic = true;
           }
         //
-        Button_done.Visible = p.be_interactive;
-        TableRow_instruction_for_calendars.Visible = p.be_interactive;
+        HtmlTableCell_button_done.Visible = p.be_interactive;
+        HtmlTableRow_instruction_for_calendars.Visible = p.be_interactive;
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
@@ -177,12 +177,8 @@ namespace UserControl_member_schedule_detail
         var be_selected = (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_SELECTED].Text == "1");
         if (be_selected)
           {
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].Font.Bold = true;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].ForeColor = Color.White;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].BackColor = Color.Green;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].Font.Bold = true;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].ForeColor = Color.White;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].BackColor = Color.Green;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].CssClass = "selected_for_duty";
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].CssClass = "selected_for_duty";
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Font.Bold = true;
@@ -198,10 +194,8 @@ namespace UserControl_member_schedule_detail
           }
         else
           {
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].BackColor = Color.PaleGreen;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].BackColor = Color.PaleGreen;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].CssClass = "unselected_availability";
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].CssClass = "unselected_availability";
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].ForeColor = Color.Gray;
@@ -389,10 +383,11 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_interactive && !p.be_virgin_watchbill;
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.member_id,p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
-      TableRow_data.Visible = !p.be_datagrid_empty;
-      TableRow_none.Visible = p.be_datagrid_empty;
+      HtmlTableRow_data.Visible = !p.be_datagrid_empty;
+      HtmlTableRow_none.Visible = p.be_datagrid_empty;
       Label_revision_explanation.Visible = p.be_any_revisions;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_LAST_REVISER].Visible = (p.be_interactive || p.be_any_revisions);
+      HtmlTableRow_key_revised.Visible = p.be_any_revisions;
       p.num_datagrid_rows = 0;
       }
 
@@ -415,17 +410,22 @@ namespace UserControl_member_schedule_detail
         }
       if (!p.be_interactive && be_revised_avail)
         {
-        e.Cell.BorderColor = Color.Red;
-        e.Cell.BorderWidth = 2;
+        e.Cell.CssClass = "revised";
         }
       if (be_selected_avail)
         {
+        //
+        // I'd like to just set the CssClass here as above, but when I tried, the backcolor (background-color) seemed to get overriden by the default styling on the overall calendar control.
+        //
         e.Cell.ForeColor = Color.White;
         e.Cell.BackColor = Color.Green;
         e.Cell.Font.Bold = true;
         }
       else if (be_unselected_avail)
         {
+        //
+        // I'd like to just set the CssClass here as above, but when I tried, the backcolor (background-color) seemed to get overriden by the default styling on the overall calendar control.
+        //
         e.Cell.ForeColor = Color.Gray;
         e.Cell.BackColor = Color.PaleGreen;
         e.Cell.Font.Bold = false;
