@@ -26,33 +26,72 @@
         </tr>
         <tr>
           <td>
-            <table cellpadding="5" cellspacing="0">
+            <table cellpadding="5" cellspacing="0" width="100%">
               <tr>
-                <td align="right">Member:</td>
-                <td><strong><asp:Literal ID="Literal_name" runat="server"></asp:Literal></strong></td>
-              </tr>
-              <tr>
-                <td align="right">Month:</td>
-                <td><strong><asp:Literal ID="Literal_month" runat="server"></asp:Literal></strong></td>
+                <td>
+                  <table cellpadding="5" cellspacing="0">
+                    <tr>
+                      <td align="right">Member:</td>
+                      <td><strong><asp:Literal ID="Literal_name" runat="server"></asp:Literal></strong></td>
+                    </tr>
+                    <tr>
+                      <td align="right">Month:</td>
+                      <td><strong><asp:Literal ID="Literal_month" runat="server"></asp:Literal></strong></td>
+                    </tr>
+                  </table>
+                </td>
+                <td align="right">
+                  <table cellpadding="0" cellspacing="0" border="1" bordercolor="gainsboro">
+                    <tr>
+                      <td>
+                        <table cellpadding="5" cellspacing="0">
+                          <tr>
+                            <td align="right"><small>Membership status:</small></td>
+                            <td align="left"><strong><small><asp:Literal ID="Literal_membership_status" runat="server"></asp:Literal></small></strong></td>
+                            <td>&nbsp;</td>
+                            <td align="right"><small>Released cert level:</small></td>
+                            <td align="left"><strong><small><asp:Literal ID="Literal_released_cert_level" runat="server"></asp:Literal></small></strong></td>
+                            <td>&nbsp;</td>
+                            <td align="right"><small>Phone #:</small></td>
+                            <td align="left"><strong><small><asp:HyperLink ID="HyperLink_phone_num" runat="server"/></small></strong></td>
+                          </tr>
+                          <tr>
+                            <td align="right"><small>Leave:</small></td>
+                            <td align="left"><strong><small><asp:Literal ID="Literal_leave" runat="server"></asp:Literal></small></strong></td>
+                            <td>&nbsp;</td>
+                            <td align="right"><small>Driver:</small></td>
+                            <td align="left"><strong><small><asp:Literal ID="Literal_be_driver" runat="server"></asp:Literal></small></strong></td>
+                            <td>&nbsp;</td>
+                            <td align="right"><small>Email address:</small></td>
+                            <td align="left"><strong><small><asp:HyperLink ID="HyperLink_email_address" runat="server"/></small></strong></td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
               </tr>
             </table>
             <hr size="1" />
-            <p><asp:Literal ID="Literal_name_2" runat="server"></asp:Literal> offered the following:</p>
-            <table cellpadding="5" cellspacing="0">
+            <small><asp:Literal ID="Literal_name_2" runat="server"></asp:Literal> offered the following:</small>
+            <table cellpadding="3" cellspacing="0">
               <tr>
-                <td align="right" nowrap="nowrap" valign="top">Extra shifts will run:</td>
-                <td valign="top"><strong><asp:Literal ID="Literal_num_extra" runat="server"></asp:Literal></strong></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td align="right" nowrap="nowrap" valign="top"><small>Extra shifts will run:</small></td>
+                <td valign="top"><small><strong><asp:Literal ID="Literal_num_extra" runat="server"></asp:Literal></strong></small></td>
               </tr>
               <tr>
-                <td align="right" nowrap="nowrap" valign="top">Special request:</td>
-                <td valign="top"><code><asp:Label ID="Label_special_request_comment" runat="server">(none)</asp:Label></code></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td align="right" nowrap="nowrap" valign="top"><small>Special request:</small></td>
+                <td valign="top"><small><code><asp:Label ID="Label_special_request_comment" runat="server">(none)</asp:Label></code></small></td>
               </tr>
             </table>
             <hr size="1" />
             <table cellpadding="5">
               <tr>
-                <td id="HtmlTableCell_button_done" runat="server"><asp:Button ID="Button_done" runat="server" Text="Done" onclick="Button_done_Click" UseSubmitBehavior="False"/></td>
+                <td id="HtmlTableCell_button_done" runat="server"><asp:Button ID="Button_done" runat="server" Text="DONE" onclick="Button_done_Click" UseSubmitBehavior="False"/></td>
                 <td><small>See below for the <u>**KEY**</u> to reading this data.</small></td>
+                <td id="HtmlTableCell_scheduler_actions" runat="server"><asp:Button ID="Button_mark_tbr" runat="server" Text="Mark TBR" onclick="Button_mark_tbr_Click" UseSubmitBehavior="False"/></td>
               </tr>
             </table>
             <table cellspacing="0" cellpadding="0" border="0">

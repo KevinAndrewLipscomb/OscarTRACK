@@ -53,6 +53,11 @@ namespace report_commanded_member_schedule_detail
           {
           Literal_which_month.Text = "NEXT";
           }
+        //
+        var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
+        HyperLink_web_site.Text = url;
+        HyperLink_web_site.NavigateUrl = url;
+        //
         Literal_publisher.Text = p.publisher;
         }
       }

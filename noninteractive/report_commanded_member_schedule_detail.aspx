@@ -13,11 +13,11 @@
     <form runat="server">
       <uc1:UserControl_common_header_bar ID="UserControl_common_header_bar_control" runat="server" />
       <br />
-      <p><asp:Literal ID="Literal_member_name" runat="server"></asp:Literal>'s assignments for <b><asp:Literal ID="Literal_which_month" runat="server"></asp:Literal></b> month are shown below.</p>
+      <p><asp:Literal ID="Literal_member_name" runat="server"></asp:Literal>'s assignments for <b><asp:Literal ID="Literal_which_month" runat="server"></asp:Literal></b> month are shown below.&nbsp; If this message does not display neatly, log into
+        <asp:HyperLink ID="HyperLink_web_site" runat="server" Font-Bold="True"/> to pull up the Watchbill.</p>
       <br />
       <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
-      <hr size="1" />
-      <small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal>.</small>
+      <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal>.</small></p>
     </form>
   </body>
 </html>
