@@ -125,7 +125,7 @@ namespace report_commanded_watchbill
           (
           ConfigurationManager.AppSettings["sender_email_address"],
           recipient_q.Dequeue().ToString(),
-          "Ambulance Watchbill",
+          DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Ambulance Watchbill (scalable)",
           body,
           true,
           k.EMPTY,

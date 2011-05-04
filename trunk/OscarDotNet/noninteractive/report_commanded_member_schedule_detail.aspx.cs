@@ -114,7 +114,7 @@ namespace report_commanded_member_schedule_detail
         (
         ConfigurationManager.AppSettings["sender_email_address"],
         (member_email_address.Length > 0 ? member_email_address : "MEMBER_EMAIL_ADDRESS_NOT_KNOWN@frompaper2web.com"),
-        "Schedule Assignments",
+        DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (REVISED)"),
         body,
         true,
         ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + squad_schedule_monitor_target)),
