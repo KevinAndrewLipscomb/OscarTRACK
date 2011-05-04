@@ -107,7 +107,10 @@ namespace UserControl_member_schedule_detail
           }
         //
         HtmlTableCell_button_done.Visible = p.be_interactive;
-        HtmlTableCell_scheduler_actions.Visible = p.be_interactive;
+        //
+        Button_mark_tbr.Visible = p.be_interactive && !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
+        HtmlTableCell_scheduler_actions.Visible = Button_mark_tbr.Visible;
+        //
         HtmlTableRow_instruction_for_calendars.Visible = p.be_interactive;
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
