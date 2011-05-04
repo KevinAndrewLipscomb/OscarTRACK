@@ -1038,7 +1038,8 @@ namespace Class_db_schedule_assignments
       string member_id,
       DateTime nominal_day,
       string shift_name,
-      string post_id
+      string post_id,
+      string reviser_member_id
       )
       {
       Open();
@@ -1052,6 +1053,7 @@ namespace Class_db_schedule_assignments
           + " , member_id = '" + member_id + "'"
           + " , be_selected = FALSE"
           + " , be_new = FALSE"
+          + " , reviser_member_id = '" + reviser_member_id + "'"
           ),
         connection
         )
