@@ -91,7 +91,7 @@ namespace UserControl_member_schedule_detail
         //
         Literal_released_cert_level.Text = p.biz_members.MedicalReleaseLevelOf(p.member_summary);
         Literal_be_driver.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));
-        HyperLink_phone_num.Text = p.biz_members.PhoneNumOf(p.biz_members.IdOf(p.member_summary));
+        HyperLink_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.biz_members.IdOf(p.member_summary)));
         HyperLink_phone_num.NavigateUrl = "tel:" + HyperLink_phone_num.Text;
         HyperLink_phone_num.Enabled = p.be_interactive;
         HyperLink_email_address.Text = p.biz_members.EmailAddressOf(p.biz_members.IdOf(p.member_summary));

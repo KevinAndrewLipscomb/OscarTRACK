@@ -185,7 +185,7 @@ namespace Class_biz_schedule_assignments
       string agency_id
       )
       {
-      db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id);
+      db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void ForceSelection
