@@ -97,7 +97,7 @@ namespace report_commanded_watchbill_maag
           (
           ConfigurationManager.AppSettings["sender_email_address"],
           recipient_q.Dequeue().ToString(),
-          "Ambulance Watchbill",
+          DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Ambulance Watchbill (MAAG)",
           body,
           true,
           k.EMPTY,
