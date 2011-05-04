@@ -31,6 +31,60 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_month;
         
         /// <summary>
+        /// Literal_membership_status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_membership_status;
+        
+        /// <summary>
+        /// Literal_released_cert_level control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_released_cert_level;
+        
+        /// <summary>
+        /// HyperLink_phone_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_phone_num;
+        
+        /// <summary>
+        /// Literal_leave control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_leave;
+        
+        /// <summary>
+        /// Literal_be_driver control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_be_driver;
+        
+        /// <summary>
+        /// HyperLink_email_address control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_email_address;
+        
+        /// <summary>
         /// Literal_name_2 control.
         /// </summary>
         /// <remarks>
@@ -74,6 +128,24 @@ namespace UserControl_member_schedule_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_done;
+        
+        /// <summary>
+        /// HtmlTableCell_scheduler_actions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell HtmlTableCell_scheduler_actions;
+        
+        /// <summary>
+        /// Button_mark_tbr control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_mark_tbr;
         
         /// <summary>
         /// HtmlTableRow_data control.

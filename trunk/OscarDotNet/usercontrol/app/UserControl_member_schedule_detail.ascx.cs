@@ -1,4 +1,6 @@
+using appcommon;
 using Class_biz_availabilities;
+using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using kix;
@@ -25,12 +27,13 @@ namespace UserControl_member_schedule_detail
     public bool be_loaded;
     public bool be_virgin_watchbill;
     public TClass_biz_availabilities biz_availabilities;
+    public TClass_biz_leaves biz_leaves;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public DateTime start_of_earliest_unselected;
     public DateTime end_of_latest_unselected;
     public string member_agency_id;
-    public string member_id;
+    public object member_summary;
     public k.subtype<int> num;
     public uint num_datagrid_rows;
     public  k.subtype<int> relative_month;
@@ -75,12 +78,28 @@ namespace UserControl_member_schedule_detail
       if (!p.be_loaded)
         {
         var month_of_interest = DateTime.Now.AddMonths(p.relative_month.val);
-        Literal_name.Text = p.biz_members.FirstNameOfMemberId(p.member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(p.member_id);
+        Literal_name.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
         Literal_name_2.Text = Literal_name.Text;
-        Literal_month.Text = month_of_interest.ToString("MMMM");
+        Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
         //
-        Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.member_id,p.relative_month).val.ToString();
-        var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.member_id,p.relative_month);
+        Literal_membership_status.Text = p.biz_members.EnrollmentOf(p.member_summary);
+        //
+        var this_month_description = k.EMPTY;
+        var next_month_description = k.EMPTY;
+        p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(p.member_summary),out this_month_description,out next_month_description,appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+        Literal_leave.Text = (p.relative_month.val == 0 ? this_month_description : next_month_description);
+        //
+        Literal_released_cert_level.Text = p.biz_members.MedicalReleaseLevelOf(p.member_summary);
+        Literal_be_driver.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));
+        HyperLink_phone_num.Text = p.biz_members.PhoneNumOf(p.biz_members.IdOf(p.member_summary));
+        HyperLink_phone_num.NavigateUrl = "tel:" + HyperLink_phone_num.Text;
+        HyperLink_phone_num.Enabled = p.be_interactive;
+        HyperLink_email_address.Text = p.biz_members.EmailAddressOf(p.biz_members.IdOf(p.member_summary));
+        HyperLink_email_address.NavigateUrl = "mailto:" + HyperLink_email_address.Text;
+        HyperLink_email_address.Enabled = p.be_interactive;
+        //
+        Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month).val.ToString();
+        var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month);
         if (comment != k.EMPTY)
           {
           Label_special_request_comment.Text = comment;
@@ -88,6 +107,7 @@ namespace UserControl_member_schedule_detail
           }
         //
         HtmlTableCell_button_done.Visible = p.be_interactive;
+        HtmlTableCell_scheduler_actions.Visible = p.be_interactive;
         HtmlTableRow_instruction_for_calendars.Visible = p.be_interactive;
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
@@ -116,6 +136,7 @@ namespace UserControl_member_schedule_detail
       else
         {
         p.biz_availabilities = new TClass_biz_availabilities();
+        p.biz_leaves = new TClass_biz_leaves();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
@@ -129,10 +150,9 @@ namespace UserControl_member_schedule_detail
         p.be_interactive = (Session["mode:report"] == null);
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
-        p.member_id = k.EMPTY;
+        p.member_summary = null;
         p.num = new k.subtype<int>(0,62);
         p.num_datagrid_rows = 0;
-        p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.member_id,p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
         //
         p.be_loaded = false;
         }
@@ -348,7 +368,7 @@ namespace UserControl_member_schedule_detail
       {
       if ((the_calendar.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
         {
-        p.biz_schedule_assignments.ForceAvail(p.member_id,the_calendar.SelectedDate,shift_name,p.member_agency_id);
+        p.biz_schedule_assignments.ForceAvail(p.biz_members.IdOf(p.member_summary),the_calendar.SelectedDate,shift_name,p.member_agency_id);
         }
       Bind();
       }
@@ -369,7 +389,7 @@ namespace UserControl_member_schedule_detail
       p.arraylist_selected_night_avail.Clear();
       p.arraylist_unselected_day_avail.Clear();
       p.arraylist_unselected_night_avail.Clear();
-      p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.member_id,p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
+      p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.biz_members.IdOf(p.member_summary),p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Visible = p.be_interactive;
@@ -381,7 +401,7 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_interactive && !p.be_virgin_watchbill;
-      p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.member_id,p.relative_month,p.member_agency_id,DataGrid_control);
+      p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;
       HtmlTableRow_none.Visible = p.be_datagrid_empty;
@@ -452,7 +472,7 @@ namespace UserControl_member_schedule_detail
       {
       p.member_agency_id = member_agency_id;
       p.relative_month = relative_month;
-      p.member_id = member_id;
+      p.member_summary = p.biz_members.Summary(member_id);
       p.be_virgin_watchbill = be_virgin_watchbill;
       Bind();
       }
@@ -469,6 +489,12 @@ namespace UserControl_member_schedule_detail
     internal void SetInteractivity(bool be_interactive)
       {
       p.be_interactive = be_interactive;
+      }
+
+    protected void Button_mark_tbr_Click(object sender, EventArgs e)
+      {
+      p.biz_schedule_assignments.MarkMemberToBeReleased(p.biz_members.IdOf(p.member_summary),p.relative_month);
+      Bind();
       }
 
     }

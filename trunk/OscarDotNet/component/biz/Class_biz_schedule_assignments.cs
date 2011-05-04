@@ -236,6 +236,15 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void MarkMemberToBeReleased
+      (
+      string member_id,
+      k.subtype<int> relative_month
+      )
+      {
+      db_schedule_assignments.MarkMemberToBeReleased(member_id,relative_month);
+      }
+
     internal string MonthlessRenditionOfId(string id)
       {
       var nominal_day = DateTime.MinValue;

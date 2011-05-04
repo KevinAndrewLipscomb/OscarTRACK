@@ -40,6 +40,15 @@ namespace report_commanded_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_which_month;
         
         /// <summary>
+        /// HyperLink_web_site control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_web_site;
+        
+        /// <summary>
         /// UserControl_member_schedule_detail_control control.
         /// </summary>
         /// <remarks>

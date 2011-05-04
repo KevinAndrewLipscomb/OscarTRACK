@@ -1169,6 +1169,17 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal void MarkMemberToBeReleased
+      (
+      string member_id,
+      k.subtype<int> relative_month
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = IF(comment is null,'TBR',concat('TBR ',comment)) where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + " and member_id = '" + member_id + "'"),connection).ExecuteNonQuery();
+      Close();
+      }
+
     internal void MarkNotificationsMade
       (
       Queue member_id_q,
