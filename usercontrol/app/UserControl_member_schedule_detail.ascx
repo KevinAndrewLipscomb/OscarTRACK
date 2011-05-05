@@ -40,30 +40,38 @@
                     </tr>
                   </table>
                 </td>
-                <td align="right">
+                <td align="center">
                   <table cellpadding="0" cellspacing="0" border="1" bordercolor="gainsboro">
                     <tr>
                       <td>
-                        <table cellpadding="5" cellspacing="0">
+                        <table cellpadding="0" cellspacing="0">
                           <tr>
-                            <td align="right"><small>Membership status:</small></td>
-                            <td align="left"><strong><small><asp:Literal ID="Literal_membership_status" runat="server"></asp:Literal></small></strong></td>
-                            <td>&nbsp;</td>
-                            <td align="right"><small>Released cert level:</small></td>
-                            <td align="left"><strong><small><asp:Literal ID="Literal_released_cert_level" runat="server"></asp:Literal></small></strong></td>
-                            <td>&nbsp;</td>
-                            <td align="right"><small>Phone #:</small></td>
-                            <td align="left"><strong><small><asp:HyperLink ID="HyperLink_phone_num" runat="server"/></small></strong></td>
+                            <td align="left">
+                              <table cellpadding="5" cellspacing="0" width="100%">
+                                <tr>
+                                  <td><small>Ph#:&nbsp;<strong><asp:HyperLink ID="HyperLink_phone_num" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
+                                  <td><small>Agency:&nbsp;<strong><asp:Literal ID="Literal_agency" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
+                                  <td><small>Membership Status:&nbsp;<strong><asp:Literal ID="Literal_membership_status" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
+                                  <td><small>Cert:&nbsp;<strong><asp:Literal ID="Literal_released_cert_level" runat="server"/></strong></small></td>
+                                </tr>
+                              </table>
+                            </td>
                           </tr>
                           <tr>
-                            <td align="right"><small>Leave:</small></td>
-                            <td align="left"><strong><small><asp:Literal ID="Literal_leave" runat="server"></asp:Literal></small></strong></td>
-                            <td>&nbsp;</td>
-                            <td align="right"><small>Driver:</small></td>
-                            <td align="left"><strong><small><asp:Literal ID="Literal_be_driver" runat="server"></asp:Literal></small></strong></td>
-                            <td>&nbsp;</td>
-                            <td align="right"><small>Email address:</small></td>
-                            <td align="left"><strong><small><asp:HyperLink ID="HyperLink_email_address" runat="server"/></small></strong></td>
+                            <td align="left">
+                              <table cellpadding="5" cellspacing="0" width="100%">
+                                <tr>
+                                  <td><small>Email:&nbsp;<strong><asp:HyperLink ID="HyperLink_email_address" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
+                                  <td><small>Leave:&nbsp;<strong><asp:Literal ID="Literal_leave" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
+                                  <td><small>Driver:&nbsp;<strong><asp:Literal ID="Literal_be_driver" runat="server"/></strong></small></td>
+                                </tr>
+                              </table>
+                            </td>
                           </tr>
                         </table>
                       </td>

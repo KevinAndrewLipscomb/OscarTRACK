@@ -82,6 +82,7 @@ namespace UserControl_member_schedule_detail
         Literal_name_2.Text = Literal_name.Text;
         Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
         //
+        Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
         Literal_membership_status.Text = p.biz_members.EnrollmentOf(p.member_summary);
         //
         var this_month_description = k.EMPTY;
