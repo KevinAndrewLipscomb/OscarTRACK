@@ -24,6 +24,7 @@ namespace report_commanded_member_schedule_detail
       public TClass_biz_role_member_map biz_role_member_map;
       public string member_agency_id;
       public string member_id;
+      public string other_agency_ids;
       public string publisher;
       public k.subtype<int> relative_month;
       }
@@ -81,6 +82,7 @@ namespace report_commanded_member_schedule_detail
         p.be_virgin_watchbill = bool.Parse(k.Safe(Request["be_virgin_watchbill"],k.safe_hint_type.ALPHA));
         p.member_agency_id = k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM);
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
+        p.other_agency_ids = k.Safe(Request["other_agency_ids"],k.safe_hint_type.NUM_CSV);
         p.publisher = k.Safe(Request["publisher"],k.safe_hint_type.HUMAN_NAME);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
@@ -109,10 +111,21 @@ namespace report_commanded_member_schedule_detail
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
+      var squad_scheduler_target = p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.member_agency_id);
       var squad_schedule_monitor_target = p.biz_role_member_map.EmailTargetOf("Squad Schedule Monitor",p.biz_agencies.ShortDesignatorOf(p.member_agency_id));
       if (squad_schedule_monitor_target.Length > 0)
         {
         squad_schedule_monitor_target = k.COMMA + squad_schedule_monitor_target;
+        }
+      var other_squad_schedule_coordinator_target = p.biz_role_member_map.EmailTargetOfAgencyIdList("Squad Scheduler",p.other_agency_ids);
+      if (other_squad_schedule_coordinator_target.Length > 0)
+        {
+        other_squad_schedule_coordinator_target = k.COMMA + other_squad_schedule_coordinator_target;
+        }
+      var other_squad_schedule_monitor_target = p.biz_role_member_map.EmailTargetOfAgencyIdList("Squad Schedule Monitor",p.other_agency_ids);
+      if (other_squad_schedule_monitor_target.Length > 0)
+        {
+        other_squad_schedule_monitor_target = k.COMMA + other_squad_schedule_monitor_target;
         }
       var member_email_address = p.biz_members.EmailAddressOf(p.member_id).Trim();
       k.SmtpMailSend
@@ -122,9 +135,9 @@ namespace report_commanded_member_schedule_detail
         DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (REVISED)"),
         body,
         true,
-        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + squad_schedule_monitor_target)),
+        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + k.COMMA + squad_scheduler_target + squad_schedule_monitor_target + other_squad_schedule_coordinator_target + other_squad_schedule_monitor_target)),
         k.EMPTY,
-        p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.member_agency_id)
+        squad_scheduler_target
         );
       Session.Abandon();
       }

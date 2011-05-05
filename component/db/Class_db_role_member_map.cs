@@ -213,6 +213,38 @@ namespace Class_db_role_member_map
             return result;
         }
 
+        internal string EmailTargetOfAgencyIdList
+          (
+          string role_name,
+          string agency_id_list
+          )
+          {
+          var email_target_of_agency_id_list = k.EMPTY;
+          if (agency_id_list.Length > 0)
+            {
+            Open();
+            var dr = new MySqlCommand
+              (
+              "select email_address"
+              + " from role_member_map"
+              +   " join role on (role.id=role_member_map.role_id)"
+              +   " join member on (member.id=role_member_map.member_id)"
+              +   " join agency on (agency.id=member.agency_id)"
+              + " where role.name = '" + role_name + "'"
+              +   " and agency.id in (" + agency_id_list + ")",
+              connection
+              )
+              .ExecuteReader();
+            while (dr.Read())
+              {
+              email_target_of_agency_id_list += dr["email_address"].ToString() + k.COMMA;
+              }
+            dr.Close();
+            Close();
+            }
+          return email_target_of_agency_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)});
+          }
+
         public string HolderOf(string role_name)
         {
             string result;

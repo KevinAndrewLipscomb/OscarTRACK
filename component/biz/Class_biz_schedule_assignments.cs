@@ -301,38 +301,43 @@ namespace Class_biz_schedule_assignments
 
     internal void PublishPendingNotifications
       (
-      string agency_filter,
       k.subtype<int> relative_month,
       bool be_virgin_watchbill,
       string working_directory
       )
       {
       var arguments = new ArrayList();
-      var member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      var member_id_q = new Queue();
+      var other_agency_ids_q = new Queue();
+      var publisher_member_id = biz_members.IdOfUserId(biz_user.IdNum());
       var stdout = k.EMPTY;
       var stderr = k.EMPTY;
-      var target_q = db_schedule_assignments.PendingNotificationTargetQ(agency_filter,relative_month);
-      var target_q_count = target_q.Count;
-      var target = k.EMPTY;
-      for (var i = new k.subtype<int>(0,target_q_count); i.val < target_q_count; i.val++)
+      db_schedule_assignments.PendingNotificationTargets(relative_month,publisher_member_id,biz_members.AgencyIdOfId(publisher_member_id),ref member_id_q,ref other_agency_ids_q);
+      var num_targets = member_id_q.Count;
+      var member_id = k.EMPTY;
+      var other_agency_ids = k.EMPTY;
+      for (var i = new k.subtype<int>(0,num_targets); i.val < num_targets; i.val++)
         {
-        target = (target_q.Dequeue() as string);
+        member_id = (member_id_q.Dequeue() as string);
+        other_agency_ids = (other_agency_ids_q.Dequeue() as string);
         arguments.Add
           (
           "--output-document=/dev/null --no-check-certificate"
           + " --post-data"
-          +   "=member_id=" + target
+          +   "=member_id=" + member_id
           +   "&relative_month=" + relative_month.val
-          +   "&member_agency_id=" + agency_filter
+          +   "&member_agency_id=" + biz_members.AgencyIdOfId(member_id)
+          +   "&other_agency_ids=" + other_agency_ids
           +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
-          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(member_id) + k.SPACE + biz_members.LastNameOfMemberId(member_id) + "\""
+          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(publisher_member_id) + k.SPACE + biz_members.LastNameOfMemberId(publisher_member_id) + "\""
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx\""
           );
-        target_q.Enqueue(target);
+        member_id_q.Enqueue(member_id);
+        other_agency_ids_q.Enqueue(other_agency_ids);
         }
       k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,working_directory,out stdout,out stderr);
-      db_schedule_assignments.MarkNotificationsMade(target_q,relative_month);
+      db_schedule_assignments.MarkNotificationsMade(member_id_q,relative_month);
       }
 
     public void Set

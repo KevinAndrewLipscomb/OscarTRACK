@@ -29,10 +29,17 @@
       <asp:CheckBox ID="CheckBox_incremental" runat="server" Checked="True" Enabled="False" Font-Bold="True" Text="PERSONALIZED DUTY ASSIGNMENTS" />
       <blockquote>
         <small>
-          For any given month...
+          For any given month, these go to members in your Area Of Responsibility (AOR), which includes:
           <ul>
-            <li><p>The first time you publish, these go to all of your current core operations members.&nbsp; <strong>This may take about half a second per member.</strong></p></li>
-            <li><p>All other times you publish, these only go to your members who have been affected by changes.</p></li>
+            <li>Core operations members of your agency;</li>
+            <li>Any members of the system assigned to duties at your station or your satellite stations;</li>
+            <li>Any members of the system affected by changes you've made.</li>
+          </ul>
+          Also note that:
+          <ul>
+            <li>The first time you publish, these go to your entire AOR.&nbsp; <strong>This may take about half a second per member.</strong></li>
+            <li>All other times you publish, these only go to the subset of your AOR affected by changes.</li>
+            <li>This control <i>disregards</i> the above Agency and Release level filters.</li>
           </ul>
         </small>
       </blockquote>

@@ -128,7 +128,6 @@ namespace UserControl_schedule_assignment_assistant_publish
           }
         p.biz_schedule_assignments.PublishPendingNotifications
           (
-          p.agency_filter,
           p.relative_month,
           p.be_virgin_watchbill,
           working_directory
