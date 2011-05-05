@@ -31,6 +31,24 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_month;
         
         /// <summary>
+        /// HyperLink_phone_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_phone_num;
+        
+        /// <summary>
+        /// Literal_agency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_agency;
+        
+        /// <summary>
         /// Literal_membership_status control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,13 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_released_cert_level;
         
         /// <summary>
-        /// HyperLink_phone_num control.
+        /// HyperLink_email_address control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_phone_num;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_email_address;
         
         /// <summary>
         /// Literal_leave control.
@@ -74,15 +92,6 @@ namespace UserControl_member_schedule_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_be_driver;
-        
-        /// <summary>
-        /// HyperLink_email_address control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_email_address;
         
         /// <summary>
         /// Literal_name_2 control.
