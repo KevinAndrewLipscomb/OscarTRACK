@@ -81,6 +81,15 @@ namespace Class_biz_role_member_map
             return result;
         }
 
+        internal string EmailTargetOfAgencyIdList
+          (
+          string role_name,
+          string agency_id_list
+          )
+          {
+          return db_role_member_map.EmailTargetOfAgencyIdList(role_name,agency_id_list);
+          }
+
         public string EmailTargetOfAppropriateScheduler(string agency_id)
           {
           return db_role_member_map.EmailTargetAboutAgencyId((agency_id == "0" ? "Department Chief Scheduler" : "Squad Scheduler"),agency_id);

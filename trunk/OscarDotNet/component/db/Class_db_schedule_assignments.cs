@@ -1207,27 +1207,48 @@ namespace Class_db_schedule_assignments
         }
       }
 
-    internal Queue PendingNotificationTargetQ
+    internal void PendingNotificationTargets
       (
-      string agency_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string publisher_member_id,
+      string publisher_member_agency_id,
+      ref Queue member_id_q,
+      ref Queue other_agency_ids_q
       )
       {
-      var pending_notification_target_q = new Queue();
+      member_id_q.Clear();
+      other_agency_ids_q.Clear();
       Open();
       var dr = new MySqlCommand
         (
-        "select distinct member_id from schedule_assignment join member on (member.id=schedule_assignment.member_id) where be_notification_pending and agency_id = '" + agency_filter + "' and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        "select member_id"
+        + " , group_concat(distinct NULLIF(IFNULL(agency_satellite_station.agency_id,post_id),'" + publisher_member_agency_id + "') separator ',') as other_agencies"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
+        + " where be_notification_pending"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and"
+        +     " ("
+        +       " member.agency_id = '" + publisher_member_agency_id + "'"
+        +     " or"
+        +       " post_id = '" + publisher_member_agency_id + "'"
+        +     " or"
+        +       " agency_satellite_station.agency_id = '" + publisher_member_agency_id + "'"
+        +     " or"
+        +       " reviser_member_id = '" + publisher_member_id + "'"
+        +     " )"
+        + " group by member_id",
         connection
         )
         .ExecuteReader();
       while (dr.Read())
         {
-        pending_notification_target_q.Enqueue(dr["member_id"].ToString());
+        member_id_q.Enqueue(dr["member_id"].ToString());
+        other_agency_ids_q.Enqueue(dr["other_agencies"].ToString());
         }
       dr.Close();
       Close();
-      return pending_notification_target_q;
       }
 
     public void Set
