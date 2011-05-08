@@ -1,16 +1,9 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
-using appcommon;
-using Class_biz_availabilities;
-using Class_biz_members;
-using Class_biz_schedule_assignments;
 using Class_msg_protected;
-using kix;
 using System;
-using System.Collections;
 using System.Configuration;
-using System.Drawing;
-using System.Web.UI.WebControls;
+using System.Web;
 
 namespace member_schedule_detail
   {
@@ -51,6 +44,7 @@ namespace member_schedule_detail
         {
         p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
         UserControl_member_schedule_detail_control.SetFilter(p.incoming.member_agency_id,p.incoming.relative_month,p.incoming.member_id);
+        UserControl_member_schedule_detail_control.SetInteractivity(!HttpContext.Current.User.IsInRole("Department Street Supervisor"));
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
