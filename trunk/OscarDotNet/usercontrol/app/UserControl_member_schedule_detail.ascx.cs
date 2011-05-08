@@ -94,25 +94,26 @@ namespace UserControl_member_schedule_detail
         Literal_be_driver.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));
         HyperLink_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.biz_members.IdOf(p.member_summary)));
         HyperLink_phone_num.NavigateUrl = "tel:" + HyperLink_phone_num.Text;
-        HyperLink_phone_num.Enabled = p.be_interactive;
         HyperLink_email_address.Text = p.biz_members.EmailAddressOf(p.biz_members.IdOf(p.member_summary));
         HyperLink_email_address.NavigateUrl = "mailto:" + HyperLink_email_address.Text;
-        HyperLink_email_address.Enabled = p.be_interactive;
         //
-        Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month).val.ToString();
-        var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month);
-        if (comment != k.EMPTY)
+        if (p.be_interactive)
           {
-          Label_special_request_comment.Text = comment;
-          Label_special_request_comment.Font.Italic = true;
+          Panel_sensitive_submission_detail.Visible = true;
+          Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month).val.ToString();
+          var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month);
+          if (comment != k.EMPTY)
+            {
+            Label_special_request_comment.Text = comment;
+            Label_special_request_comment.Font.Italic = true;
+            }
+          //
+          HtmlTableCell_button_done.Visible = true;
+          HtmlTableCell_scheduler_actions.Visible = !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
+          //
+          HtmlTableRow_instruction_for_calendars.Visible = p.be_interactive;
           }
         //
-        HtmlTableCell_button_done.Visible = p.be_interactive;
-        //
-        Button_mark_tbr.Visible = p.be_interactive && !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
-        HtmlTableCell_scheduler_actions.Visible = Button_mark_tbr.Visible;
-        //
-        HtmlTableRow_instruction_for_calendars.Visible = p.be_interactive;
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
@@ -151,7 +152,7 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_day_avail = new ArrayList();
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
-        p.be_interactive = (Session["mode:report"] == null);
+        p.be_interactive = ((Session["mode:report"] == null) && k.Has((Session["privilege_array"] as string[]),"edit-schedule"));
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
         p.member_summary = null;
@@ -394,7 +395,6 @@ namespace UserControl_member_schedule_detail
       p.arraylist_unselected_day_avail.Clear();
       p.arraylist_unselected_night_avail.Clear();
       p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.biz_members.IdOf(p.member_summary),p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Visible = p.be_interactive;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Visible = p.be_interactive;
