@@ -94,6 +94,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_be_driver;
         
         /// <summary>
+        /// Panel_sensitive_submission_detail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_sensitive_submission_detail;
+        
+        /// <summary>
         /// Literal_name_2 control.
         /// </summary>
         /// <remarks>

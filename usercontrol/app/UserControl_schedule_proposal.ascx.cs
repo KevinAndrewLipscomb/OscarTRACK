@@ -25,7 +25,7 @@ namespace UserControl_schedule_proposal
     public bool be_loaded;
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
-    public bool be_ok_just_to_drill_down_to_detail;
+    public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_medical_release_levels biz_medical_release_levels;
@@ -185,7 +185,7 @@ namespace UserControl_schedule_proposal
             HttpContext.Current.User.IsInRole("Squad Fleet Coordinator")
           );
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
-        p.be_ok_just_to_drill_down_to_detail = HttpContext.Current.User.IsInRole("Department Street Supervisor");
+        p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
           {
@@ -625,7 +625,7 @@ namespace UserControl_schedule_proposal
           (
           e,
           d_be_selected,
-          d_be_ok_to_enable_controls || p.be_ok_just_to_drill_down_to_detail,
+          d_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           UserControl_schedule_proposal_Static.TCI_D_COMMENT,
           UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION,
           UserControl_schedule_proposal_Static.TCI_D_COLON,
@@ -642,7 +642,7 @@ namespace UserControl_schedule_proposal
           (
           e,
           n_be_selected,
-          n_be_ok_to_enable_controls || p.be_ok_just_to_drill_down_to_detail,
+          n_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           UserControl_schedule_proposal_Static.TCI_N_COMMENT,
           UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION,
           UserControl_schedule_proposal_Static.TCI_N_COLON,
