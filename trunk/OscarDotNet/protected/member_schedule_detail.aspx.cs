@@ -1,5 +1,6 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
+using Class_biz_user;
 using Class_msg_protected;
 using System;
 using System.Configuration;
@@ -9,6 +10,7 @@ namespace member_schedule_detail
   {
   public struct p_type
     {
+    public TClass_biz_user biz_user;
     public TClass_msg_protected.member_schedule_detail incoming;
     }
 
@@ -42,9 +44,10 @@ namespace member_schedule_detail
       var nature_of_visit = NatureOfVisit("member_schedule_detail.p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
+        p.biz_user = new TClass_biz_user();
         p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
         UserControl_member_schedule_detail_control.SetFilter(p.incoming.member_agency_id,p.incoming.relative_month,p.incoming.member_id);
-        UserControl_member_schedule_detail_control.SetInteractivity(!HttpContext.Current.User.IsInRole("Department Street Supervisor"));
+        UserControl_member_schedule_detail_control.SetInteractivity(p.biz_user.Roles()[0] != "Department Street Supervisor");
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
