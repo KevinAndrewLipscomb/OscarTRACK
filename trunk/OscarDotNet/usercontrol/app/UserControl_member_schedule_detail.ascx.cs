@@ -110,7 +110,7 @@ namespace UserControl_member_schedule_detail
             Label_special_request_comment.Font.Italic = true;
             }
           //
-          HtmlTableCell_button_done.Visible = true;
+          HtmlTableCell_button_done.Visible = !p.be_my_watchbill_mode;
           HtmlTableCell_scheduler_actions.Visible = !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
           //
           HtmlTableRow_instruction_for_calendars.Visible = p.be_editable;
@@ -135,9 +135,9 @@ namespace UserControl_member_schedule_detail
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_member_schedule_detail.p"] != null)
+      if (Session[Page.ToString() + ".UserControl_member_schedule_detail.p"] != null)
         {
-        p = (p_type)(Session["UserControl_member_schedule_detail.p"]);
+        p = (p_type)(Session[Page.ToString() + ".UserControl_member_schedule_detail.p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -155,7 +155,7 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
         p.be_editable = ((Session["mode:report"] == null) && k.Has((Session["privilege_array"] as string[]),"edit-schedule"));
-        p.be_my_watchbill_mode = (Session["member_id"] != null);
+        p.be_my_watchbill_mode = (Page.ToString() == "ASP.protected_overview_aspx");
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
         p.member_summary = null;
@@ -188,12 +188,12 @@ namespace UserControl_member_schedule_detail
 
     private void TWebUserControl_member_schedule_detail_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_member_schedule_detail.p", p);
+      SessionSet(Page.ToString() + ".UserControl_member_schedule_detail.p", p);
       }
 
     public TWebUserControl_member_schedule_detail Fresh()
       {
-      Session.Remove("UserControl_member_schedule_detail.p");
+      Session.Remove(Page.ToString() + ".UserControl_member_schedule_detail.p");
       return this;
       }
 
