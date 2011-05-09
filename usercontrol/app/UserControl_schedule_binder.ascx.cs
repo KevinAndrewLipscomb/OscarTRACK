@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
+using Class_biz_members;
 using Class_biz_user;
 using kix;
 using System;
@@ -9,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_availabilities;
+using UserControl_member_schedule_detail;
 using UserControl_schedule_assignment_assistant_binder;
 
 namespace UserControl_schedule_binder
@@ -16,12 +18,14 @@ namespace UserControl_schedule_binder
   public class UserControl_schedule_binder_Static
     {
     public const int TSSI_AVAILABILITIES = 0;
-    public const int TSSI_ASSIGNMENT_ASSISTANT = 1;
+    public const int TSSI_MY_ASSIGNMENTS = 1;
+    public const int TSSI_ASSIGNMENT_ASSISTANT = 2;
     }
 
   public struct p_type
     {
     public bool be_loaded;
+    public TClass_biz_members biz_members;
     public TClass_biz_user biz_user;
     public string content_id;
     public uint tab_index;
@@ -30,6 +34,10 @@ namespace UserControl_schedule_binder
   public partial class TWebUserControl_schedule_binder: ki_web_ui.usercontrol_class
     {
     private p_type p;
+
+    protected TWebUserControl_availabilities UserControl_availabilities = null;
+    protected TWebUserControl_member_schedule_detail UserControl_member_schedule_detail = null;
+    protected TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
 
     private void Page_Load(object sender, System.EventArgs e)
       {
@@ -45,6 +53,11 @@ namespace UserControl_schedule_binder
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
+      //
+      UserControl_availabilities = ((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx")));
+      UserControl_member_schedule_detail = ((TWebUserControl_member_schedule_detail)(LoadControl("~/usercontrol/app/UserControl_member_schedule_detail.ascx")));
+      UserControl_schedule_assignment_assistant_binder = ((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx")));
+      //
       if (Session["UserControl_schedule_binder.p"] != null)
         {
         p = (p_type)(Session["UserControl_schedule_binder.p"]);
@@ -53,6 +66,7 @@ namespace UserControl_schedule_binder
         }
       else
         {
+        p.biz_members = new TClass_biz_members();
         p.biz_user = new TClass_biz_user();
         //
         p.be_loaded = false;
@@ -126,12 +140,17 @@ namespace UserControl_schedule_binder
       {
       if (p.tab_index == UserControl_schedule_binder_Static.TSSI_AVAILABILITIES)
         {
-        var c = ((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx")));
+        var c = UserControl_availabilities;
         p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_availabilities", PlaceHolder_content);
+        }
+      else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_MY_ASSIGNMENTS)
+        {
+        var c = UserControl_member_schedule_detail;
+        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_member_schedule_detail", PlaceHolder_content);
         }
       else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
         {
-        var c = ((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx")));
+        var c = UserControl_schedule_assignment_assistant_binder;
         p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "G", PlaceHolder_content);
         c.SetTarget(target);
         }
@@ -148,6 +167,10 @@ namespace UserControl_schedule_binder
         if (target.ToLower().Contains("/availabilities/"))
           {
           p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+          }
+        else if (target.ToLower().Contains("/my-assignments/"))
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_MY_ASSIGNMENTS;
           }
         else if (target.ToLower().Contains("/assignment-assistant/"))
           {

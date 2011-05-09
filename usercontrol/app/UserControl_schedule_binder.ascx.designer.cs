@@ -40,6 +40,15 @@ namespace UserControl_schedule_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_availabilities;
         
         /// <summary>
+        /// TabPanel_my_assignments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_my_assignments;
+        
+        /// <summary>
         /// TabPanel_assignment_assistant control.
         /// </summary>
         /// <remarks>
