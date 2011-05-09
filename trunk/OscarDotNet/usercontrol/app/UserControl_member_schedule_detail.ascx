@@ -36,7 +36,7 @@
                     </tr>
                     <tr>
                       <td align="right">Month:</td>
-                      <td><strong><asp:Literal ID="Literal_month" runat="server"></asp:Literal></strong></td>
+                      <td nowrap="nowrap"><strong><asp:Literal ID="Literal_month" runat="server"></asp:Literal></strong>&nbsp;&nbsp;<asp:LinkButton ID="LinkButton_switch_month" runat="server" Text="(switch)" Font-Size="Small" CausesValidation="False"  UseSubmitBehavior="False" onclick="LinkButton_switch_month_Click" Visible="False" /></td>
                     </tr>
                   </table>
                 </td>

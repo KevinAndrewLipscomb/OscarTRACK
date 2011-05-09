@@ -31,6 +31,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_month;
         
         /// <summary>
+        /// LinkButton_switch_month control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_switch_month;
+        
+        /// <summary>
         /// HyperLink_phone_num control.
         /// </summary>
         /// <remarks>

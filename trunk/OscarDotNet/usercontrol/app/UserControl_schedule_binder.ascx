@@ -8,6 +8,7 @@
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
             <cc1:TabPanel runat="server" headertext="Availabilities" id="TabPanel_availabilities"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="My assignments" id="TabPanel_my_assignments"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Watchbill assistant" id="TabPanel_assignment_assistant"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
