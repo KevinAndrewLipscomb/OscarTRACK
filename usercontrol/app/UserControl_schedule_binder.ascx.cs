@@ -121,7 +121,7 @@ namespace UserControl_schedule_binder
 
     public TWebUserControl_schedule_binder Fresh()
       {
-      Session.Remove(InstanceContextId());
+      Session.Remove(InstanceContextId() + ".p");
       return this;
       }
 
