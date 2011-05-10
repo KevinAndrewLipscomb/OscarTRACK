@@ -50,9 +50,9 @@ namespace overview
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["overview.p"] != null))
+                if ((Session[InstanceContextId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["overview.p"]);
+                    p = (p_type)(Session[InstanceContextId() + ".p"]);
                 }
                 else
                 {
@@ -76,6 +76,9 @@ namespace overview
                 }
                 SessionSet("privilege_array", p.biz_user.Privileges());
                 p.incoming = Message<TClass_msg_protected.overview>("protected","overview");
+                //
+                // ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
+                //
             }
             if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
             {
@@ -98,7 +101,7 @@ namespace overview
 
         private void TWebForm_overview_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("overview.p", p);
+            SessionSet(InstanceContextId() + ".p", p);
         }
 
     } // end TWebForm_overview
