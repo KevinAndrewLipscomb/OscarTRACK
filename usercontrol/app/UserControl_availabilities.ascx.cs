@@ -75,9 +75,9 @@ namespace UserControl_availabilities
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (IsPostBack && (Session["UserControl_availabilities.p"] != null) && (Session["UserControl_availabilities.p"].GetType().Namespace == p.GetType().Namespace))
+      if (IsPostBack && (Session[InstanceContextId() + ".p"] != null) && (Session[InstanceContextId() + ".p"].GetType().Namespace == p.GetType().Namespace))
         {
-        p = (p_type)(Session["UserControl_availabilities.p"]);
+        p = (p_type)(Session[InstanceContextId() + ".p"]);
         }
       else
         {
@@ -124,12 +124,12 @@ namespace UserControl_availabilities
 
     private void TWebUserControl_availabilities_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_availabilities.p", p);
+      SessionSet(InstanceContextId() + ".p", p);
       }
 
     public TWebUserControl_availabilities Fresh()
       {
-      Session.Remove("UserControl_availabilities.p");
+      Session.Remove(InstanceContextId());
       return this;
       }
 

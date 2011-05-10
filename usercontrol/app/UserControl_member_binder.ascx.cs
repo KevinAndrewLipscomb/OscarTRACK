@@ -47,9 +47,9 @@ namespace UserControl_member_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if ((Session["UserControl_member_binder.p"] != null) && (Session["UserControl_member_binder.p"].GetType().Namespace == p.GetType().Namespace))
+            if ((Session[InstanceContextId() + ".p"] != null) && (Session[InstanceContextId() + ".p"].GetType().Namespace == p.GetType().Namespace))
             {
-                p = (p_type)(Session["UserControl_member_binder.p"]);
+                p = (p_type)(Session[InstanceContextId() + ".p"]);
                 // Dynamic controls must be re-added on each postback.
                 FillPlaceHolder(false);
             }
@@ -93,13 +93,13 @@ namespace UserControl_member_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_member_binder.p", p);
+            SessionSet(InstanceContextId() + ".p", p);
 
         }
 
         public TWebUserControl_member_binder Fresh()
         {
-            Session.Remove("UserControl_member_binder.p");
+            Session.Remove(InstanceContextId());
             return this;
         }
 
@@ -119,7 +119,7 @@ namespace UserControl_member_binder
           if (p.tab_index == UserControl_member_binder_Static.TSSI_SCHEDULE)
             {
             var c = ((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "S", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c, "S", PlaceHolder_content, (be_fresh_control_required ? InstanceContextId() : k.EMPTY));
             c.SetTarget(target);
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_PERSONNEL)
