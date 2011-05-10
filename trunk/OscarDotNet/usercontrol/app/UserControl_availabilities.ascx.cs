@@ -129,7 +129,7 @@ namespace UserControl_availabilities
 
     public TWebUserControl_availabilities Fresh()
       {
-      Session.Remove(InstanceContextId());
+      Session.Remove(InstanceContextId() + ".p");
       return this;
       }
 

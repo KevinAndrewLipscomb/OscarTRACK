@@ -99,7 +99,7 @@ namespace UserControl_member_binder
 
         public TWebUserControl_member_binder Fresh()
         {
-            Session.Remove(InstanceContextId());
+            Session.Remove(InstanceContextId() + ".p");
             return this;
         }
 
