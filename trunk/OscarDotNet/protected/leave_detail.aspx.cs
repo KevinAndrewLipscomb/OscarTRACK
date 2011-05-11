@@ -54,9 +54,9 @@ namespace leave_detail
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["leave_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["leave_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -114,7 +114,7 @@ namespace leave_detail
 
         private void TWebForm_leave_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("leave_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void DataGrid_leaves_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)

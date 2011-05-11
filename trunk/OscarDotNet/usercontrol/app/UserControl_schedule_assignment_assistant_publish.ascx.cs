@@ -49,9 +49,9 @@ namespace UserControl_schedule_assignment_assistant_publish
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_assignment_assistant_publish.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_publish.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_publish");
         }
       else
@@ -81,12 +81,12 @@ namespace UserControl_schedule_assignment_assistant_publish
 
     private void TWebUserControl_schedule_assignment_assistant_publish_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_assignment_assistant_publish.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_publish Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_publish.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

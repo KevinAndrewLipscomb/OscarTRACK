@@ -41,9 +41,9 @@ namespace grant_leave
             string cad_num_string;
             if (IsPostBack)
             {
-                if ((Session["grant_leave.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["grant_leave.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -115,7 +115,7 @@ namespace grant_leave
 
         private void TWebForm_grant_leave_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("grant_leave.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_grant_leave

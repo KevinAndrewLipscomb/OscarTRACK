@@ -118,9 +118,9 @@ namespace UserControl_log_new_donation
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_log_new_donation.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_log_new_donation.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_log_new_donation");
             }
             else
@@ -143,13 +143,13 @@ namespace UserControl_log_new_donation
 
         private void TWebUserControl_log_new_donation_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_log_new_donation.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_log_new_donation Fresh()
         {
             TWebUserControl_log_new_donation result;
-            Session.Remove("UserControl_log_new_donation.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

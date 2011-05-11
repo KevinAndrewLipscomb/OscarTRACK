@@ -59,7 +59,7 @@ namespace change_vehicle_quarters
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("change_vehicle_quarters.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_vehicle_quarters = new TClass_biz_vehicle_quarters();
@@ -69,13 +69,13 @@ namespace change_vehicle_quarters
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["change_vehicle_quarters.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_change_vehicle_quarters_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("change_vehicle_quarters.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected void Button_submit_Click(object sender, EventArgs e)

@@ -37,9 +37,9 @@ namespace UserControl_ranked_standard_enrollment
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_standard_enrollment.p"] != null) && (Session["UserControl_ranked_standard_enrollment.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_standard_enrollment.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -82,13 +82,13 @@ namespace UserControl_ranked_standard_enrollment
 
         private void TWebUserControl_ranked_standard_enrollment_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_standard_enrollment.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_standard_enrollment Fresh()
         {
             TWebUserControl_ranked_standard_enrollment result;
-            Session.Remove("UserControl_ranked_standard_enrollment.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

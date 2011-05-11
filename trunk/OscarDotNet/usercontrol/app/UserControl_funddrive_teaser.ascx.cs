@@ -107,9 +107,9 @@ namespace UserControl_funddrive_teaser
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_funddrive_teaser.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_funddrive_teaser.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_funddrive_teaser");
             }
             else
@@ -131,13 +131,13 @@ namespace UserControl_funddrive_teaser
 
         private void TWebUserControl_funddrive_teaser_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_funddrive_teaser.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_funddrive_teaser Fresh()
         {
             TWebUserControl_funddrive_teaser result;
-            Session.Remove("UserControl_funddrive_teaser.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

@@ -73,9 +73,9 @@ namespace UserControl_ranked_vehicles_up_and_current
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (IsPostBack && (Session["UserControl_ranked_vehicles_up_and_current.p"] != null) && (Session["UserControl_ranked_vehicles_up_and_current.p"].GetType().Namespace == p.GetType().Namespace))
+      if (IsPostBack && (Session[InstanceId() + ".p"] != null))
         {
-        p = (p_type)(Session["UserControl_ranked_vehicles_up_and_current.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       else
         {
@@ -203,12 +203,12 @@ namespace UserControl_ranked_vehicles_up_and_current
 
     private void TWebUserControl_ranked_vehicles_up_and_current_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_ranked_vehicles_up_and_current.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_ranked_vehicles_up_and_current Fresh()
       {
-      Session.Remove("UserControl_ranked_vehicles_up_and_current.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

@@ -42,9 +42,9 @@ namespace add_new_enrollment_status
             string cad_num_string;
             if (IsPostBack)
             {
-                if ((Session["add_new_enrollment_status.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["add_new_enrollment_status.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -137,7 +137,7 @@ namespace add_new_enrollment_status
 
         private void TWebForm_add_new_enrollment_status_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("add_new_enrollment_status.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         protected void CustomValidator_control_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)

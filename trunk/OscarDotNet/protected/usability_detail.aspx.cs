@@ -68,9 +68,9 @@ namespace usability_detail
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["usability_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["usability_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace usability_detail
 
         private void TWebForm_usability_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("usability_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)

@@ -26,9 +26,9 @@ namespace UserControl_dashboard_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_dashboard_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_dashboard_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_dashboard_binder");
                 switch(p.tab_index)
                 {
@@ -45,7 +45,7 @@ namespace UserControl_dashboard_binder
             {
                 p.be_loaded = false;
                 p.tab_index = 0;
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))).Fresh(), "UserControl_current_indicators", PlaceHolder_content);
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))),"UserControl_current_indicators",PlaceHolder_content,InstanceId());
             }
 
         }
@@ -63,13 +63,13 @@ namespace UserControl_dashboard_binder
 
         private void TWebUserControl_dashboard_binder_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_dashboard_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_dashboard_binder Fresh()
         {
             TWebUserControl_dashboard_binder result;
-            Session.Remove("UserControl_dashboard_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
@@ -81,10 +81,10 @@ namespace UserControl_dashboard_binder
             switch(p.tab_index)
             {
                 case Units.UserControl_dashboard_binder.TSSI_CURRENT:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))).Fresh(), "UserControl_current_indicators", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))),"UserControl_current_indicators",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_dashboard_binder.TSSI_SERIAL:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_serial_aspects_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_serial_aspects_binder.ascx"))).Fresh(), "UserControl_dashboard_serial_aspects_binder", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_dashboard_serial_aspects_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_serial_aspects_binder.ascx"))),"UserControl_dashboard_serial_aspects_binder",PlaceHolder_content,InstanceId());
                     break;
             }
         }

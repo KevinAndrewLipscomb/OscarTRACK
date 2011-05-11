@@ -42,7 +42,7 @@ namespace report_commanded_gripe_sheet
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit_unlimited = NatureOfVisitUnlimited("report_commanded_gripe_sheet.p");
+      var nature_of_visit_unlimited = NatureOfVisitUnlimited(InstanceId() + ".p");
       if(
           (nature_of_visit_unlimited == nature_of_visit_type.VISIT_COLD_CALL)
         ||
@@ -68,13 +68,13 @@ namespace report_commanded_gripe_sheet
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["report_commanded_gripe_sheet.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_report_commanded_gripe_sheet_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("report_commanded_gripe_sheet.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected override void Render(HtmlTextWriter writer)

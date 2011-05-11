@@ -37,9 +37,9 @@ namespace UserControl_ranked_utilization
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_utilization.p"] != null) && (Session["UserControl_ranked_utilization.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_utilization.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -89,13 +89,13 @@ namespace UserControl_ranked_utilization
 
         private void TWebUserControl_ranked_utilization_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_utilization.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_utilization Fresh()
         {
             TWebUserControl_ranked_utilization result;
-            Session.Remove("UserControl_ranked_utilization.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

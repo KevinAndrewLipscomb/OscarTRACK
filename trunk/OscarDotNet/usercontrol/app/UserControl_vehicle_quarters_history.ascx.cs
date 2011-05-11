@@ -215,9 +215,9 @@ namespace UserControl_vehicle_quarters_history
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_vehicle_quarters_history.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_vehicle_quarters_history.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
 #warning Revise the following line if the usercontrol will not be a direct child of the member binder.
         p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_vehicle_quarters_history");
         }
@@ -242,12 +242,12 @@ namespace UserControl_vehicle_quarters_history
 
     private void TWebUserControl_vehicle_quarters_history_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_vehicle_quarters_history.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_vehicle_quarters_history Fresh()
       {
-      Session.Remove("UserControl_vehicle_quarters_history.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

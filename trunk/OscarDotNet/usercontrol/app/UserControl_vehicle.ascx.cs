@@ -349,9 +349,9 @@ namespace UserControl_vehicle
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_vehicle.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_vehicle.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -382,13 +382,13 @@ namespace UserControl_vehicle
 
     private void TWebUserControl_vehicle_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_vehicle.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_vehicle Fresh()
       {
       UserControl_drop_down_date_dmv_inspection_due.Fresh();
-      Session.Remove("UserControl_vehicle.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

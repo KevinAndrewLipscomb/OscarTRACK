@@ -196,9 +196,9 @@ namespace UserControl_fuel
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_fuel.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_fuel.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_fuel");
         }
       else
@@ -222,12 +222,12 @@ namespace UserControl_fuel
 
     private void TWebUserControl_fuel_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_fuel.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_fuel Fresh()
       {
-      Session.Remove("UserControl_fuel.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

@@ -41,9 +41,9 @@ namespace UserControl_establish_membership
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_establish_membership.p"] != null) && (Session["UserControl_establish_membership.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_establish_membership.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -96,13 +96,13 @@ namespace UserControl_establish_membership
 
         private void TWebUserControl_establish_membership_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_establish_membership.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_establish_membership Fresh()
         {
             TWebUserControl_establish_membership result;
-            Session.Remove("UserControl_establish_membership.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

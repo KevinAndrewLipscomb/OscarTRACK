@@ -35,9 +35,9 @@ namespace UserControl_ranked_core_ops_size
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_core_ops_size.p"] != null) && (Session["UserControl_ranked_core_ops_size.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_core_ops_size.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -73,13 +73,13 @@ namespace UserControl_ranked_core_ops_size
 
         private void TWebUserControl_ranked_core_ops_size_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_core_ops_size.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_core_ops_size Fresh()
         {
             TWebUserControl_ranked_core_ops_size result;
-            Session.Remove("UserControl_ranked_core_ops_size.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

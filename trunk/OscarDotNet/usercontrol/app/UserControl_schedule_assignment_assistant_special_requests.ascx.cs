@@ -56,9 +56,9 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_assignment_assistant_special_requests.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_special_requests.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_special_requests");
         }
       else
@@ -91,12 +91,12 @@ namespace UserControl_schedule_assignment_assistant_special_requests
 
     private void TWebUserControl_schedule_assignment_assistant_special_requests_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_assignment_assistant_special_requests.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_special_requests Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_special_requests.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

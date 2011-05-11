@@ -193,9 +193,9 @@ namespace UserControl_fleet
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_fleet.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_fleet.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_fleet");
         }
       else
@@ -248,12 +248,12 @@ namespace UserControl_fleet
 
     private void TWebUserControl_fleet_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_fleet.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_fleet Fresh()
       {
-      Session.Remove("UserControl_fleet.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

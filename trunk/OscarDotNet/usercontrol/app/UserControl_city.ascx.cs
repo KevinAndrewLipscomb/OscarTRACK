@@ -212,9 +212,9 @@ namespace UserControl_city
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_city.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_city.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fund_drive_object_binder_PlaceHolder_content"] as string) == "UserControl_city");
         }
       else
@@ -239,12 +239,12 @@ namespace UserControl_city
 
     private void TWebUserControl_city_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_city.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_city Fresh()
       {
-      Session.Remove("UserControl_city.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

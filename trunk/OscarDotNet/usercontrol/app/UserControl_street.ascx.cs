@@ -212,9 +212,9 @@ namespace UserControl_street
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_street.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_street.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fund_drive_object_binder_PlaceHolder_content"] as string) == "UserControl_street");
         }
       else
@@ -239,12 +239,12 @@ namespace UserControl_street
 
     private void TWebUserControl_street_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_street.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_street Fresh()
       {
-      Session.Remove("UserControl_street.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

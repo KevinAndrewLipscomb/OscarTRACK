@@ -139,9 +139,9 @@ namespace UserControl_schedule_proposal
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[Parent.ClientID + ".UserControl_schedule_proposal.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session[Parent.ClientID + ".UserControl_schedule_proposal.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "C");
         }
       else
@@ -234,12 +234,12 @@ namespace UserControl_schedule_proposal
 
     private void TWebUserControl_schedule_proposal_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet(Parent.ClientID + ".UserControl_schedule_proposal.p",p);
+      SessionSet(InstanceId() + ".p",p);
       }
 
     public TWebUserControl_schedule_proposal Fresh()
       {
-      Session.Remove("UserControl_schedule_proposal.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

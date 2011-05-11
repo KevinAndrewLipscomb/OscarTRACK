@@ -116,9 +116,9 @@ namespace UserControl_role_help
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_role_help.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_role_help.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_role_help");
             }
             else
@@ -140,13 +140,13 @@ namespace UserControl_role_help
 
         private void TWebUserControl_role_help_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_role_help.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_role_help Fresh()
         {
             TWebUserControl_role_help result;
-            Session.Remove("UserControl_role_help.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

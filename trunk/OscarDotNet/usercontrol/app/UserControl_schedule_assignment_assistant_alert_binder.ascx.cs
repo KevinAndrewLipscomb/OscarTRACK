@@ -57,9 +57,9 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       UserControl_schedule_assignment_assistant_alert_time_on = ((TWebUserControl_schedule_assignment_assistant_alert_time_on)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_on.ascx")));
       UserControl_schedule_assignment_assistant_alert_unexpected_submissions = ((TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unexpected_submissions.ascx")));
       //
-      if (Session["UserControl_schedule_assignment_assistant_alert_binder.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_alert_binder.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_binder");
         //
         // Dynamic controls must be re-added on each postback.
@@ -84,7 +84,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         p.tab_index = UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF;
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off.Fresh(), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off,"UserControl_schedule_assignment_assistant_alert_time_off",PlaceHolder_content,InstanceId());
         }
       }
 
@@ -106,12 +106,12 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       // not it is already loaded in the user's browser.
       //
       SessionSet(PlaceHolder_content.ClientID, p.content_id);
-      SessionSet("UserControl_schedule_assignment_assistant_alert_binder.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_alert_binder Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_alert_binder.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 
@@ -160,19 +160,19 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)
         {
         var c = UserControl_schedule_assignment_assistant_alert_time_off;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_alert_time_off", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_time_off",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_ON)
         {
         var c = UserControl_schedule_assignment_assistant_alert_time_on;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_alert_time_onr", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_time_on",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS)
         {
         var c = UserControl_schedule_assignment_assistant_alert_unexpected_submissions;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_alert_unexpected_submissions", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_unexpected_submissions",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       }

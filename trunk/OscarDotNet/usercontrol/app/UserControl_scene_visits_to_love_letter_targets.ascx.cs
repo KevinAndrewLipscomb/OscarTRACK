@@ -36,9 +36,9 @@ namespace UserControl_scene_visits_to_love_letter_targets
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_scene_visits_to_love_letter_targets.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_scene_visits_to_love_letter_targets.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_scene_visits_to_love_letter_targets");
         }
       else
@@ -60,12 +60,12 @@ namespace UserControl_scene_visits_to_love_letter_targets
 
     private void TWebUserControl_scene_visits_to_love_letter_targets_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_scene_visits_to_love_letter_targets.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_scene_visits_to_love_letter_targets Fresh()
       {
-      Session.Remove("UserControl_scene_visits_to_love_letter_targets.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

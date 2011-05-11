@@ -54,9 +54,9 @@ namespace UserControl_keyclick
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_keyclick.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_keyclick.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_keyclick");
         }
       else
@@ -81,12 +81,12 @@ namespace UserControl_keyclick
 
     private void TWebUserControl_keyclick_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_keyclick.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_keyclick Fresh()
       {
-      Session.Remove("UserControl_keyclick.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

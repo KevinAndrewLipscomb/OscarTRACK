@@ -204,9 +204,9 @@ namespace UserControl_gripe
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_gripe.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_gripe.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -231,12 +231,12 @@ namespace UserControl_gripe
 
     private void TWebUserControl_gripe_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_gripe.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_gripe Fresh()
       {
-      Session.Remove("UserControl_gripe.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

@@ -54,7 +54,7 @@ namespace mark_vehicle_up
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("mark_vehicle_up.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_vehicle_usability_history = new TClass_biz_vehicle_usability_history();
@@ -65,13 +65,13 @@ namespace mark_vehicle_up
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["mark_vehicle_up.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_mark_vehicle_up_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("mark_vehicle_up.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected void Button_submit_Click(object sender, EventArgs e)

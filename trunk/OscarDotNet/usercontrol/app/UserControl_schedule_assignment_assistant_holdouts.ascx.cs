@@ -65,9 +65,9 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_assignment_assistant_holdouts.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_holdouts.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_holdouts");
         }
       else
@@ -103,12 +103,12 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     private void TWebUserControl_schedule_assignment_assistant_holdouts_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_assignment_assistant_holdouts.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_holdouts Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_holdouts.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

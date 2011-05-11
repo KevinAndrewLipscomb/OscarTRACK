@@ -208,9 +208,9 @@ namespace UserControl_vehicle_down_nature
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_vehicle_down_nature.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_vehicle_down_nature.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_PlaceHolder_content"] as string) == "UserControl_vehicle_down_nature");
         }
       else
@@ -234,12 +234,12 @@ namespace UserControl_vehicle_down_nature
 
     private void TWebUserControl_vehicle_down_nature_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_vehicle_down_nature.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_vehicle_down_nature Fresh()
       {
-      Session.Remove("UserControl_vehicle_down_nature.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

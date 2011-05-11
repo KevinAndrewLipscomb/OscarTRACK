@@ -35,9 +35,9 @@ namespace UserControl_serial_indicator_third_slot_saturation
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_serial_indicator_third_slot_saturation.p"] != null) && (Session["UserControl_serial_indicator_third_slot_saturation.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_serial_indicator_third_slot_saturation.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -59,13 +59,13 @@ namespace UserControl_serial_indicator_third_slot_saturation
 
         private void TWebUserControl_serial_indicator_third_slot_saturation_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_indicator_third_slot_saturation.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_indicator_third_slot_saturation Fresh()
         {
             TWebUserControl_serial_indicator_third_slot_saturation result;
-            Session.Remove("UserControl_serial_indicator_third_slot_saturation.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

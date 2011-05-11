@@ -42,9 +42,9 @@ namespace UserControl_serial_indicators_binder
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_serial_indicators_binder.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_serial_indicators_binder.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_dashboard_binder_UserControl_serial_aspects_binder_PlaceHolder_content"] as string) == "UserControl_serial_indicators_binder");
         //
         // Dynamic controls must be re-added on each postback.
@@ -62,7 +62,7 @@ namespace UserControl_serial_indicators_binder
         {
         p.be_loaded = false;
         p.tab_index = UserControl_serial_indicators_binder_Static.TSSI_PERSONNEL;
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))).Fresh(), "UserControl_serial_personnel_indicators_binder", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))),"UserControl_serial_personnel_indicators_binder",PlaceHolder_content,InstanceId());
         }
       }
 
@@ -84,12 +84,12 @@ namespace UserControl_serial_indicators_binder
       // not it is already loaded in the user's browser.
       //
       SessionSet(PlaceHolder_content.ClientID, p.content_id);
-      SessionSet("UserControl_serial_indicators_binder.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_serial_indicators_binder Fresh()
       {
-      Session.Remove("UserControl_serial_indicators_binder.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 
@@ -99,11 +99,11 @@ namespace UserControl_serial_indicators_binder
       PlaceHolder_content.Controls.Clear();
       if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_PERSONNEL)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))).Fresh(), "UserControl_serial_personnel_indicators_binder", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_personnel_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_personnel_indicators_binder.ascx"))),"UserControl_serial_personnel_indicators_binder",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == UserControl_serial_indicators_binder_Static.TSSI_FLEET)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_fleet_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_fleet_indicators_binder.ascx"))).Fresh(), "UserControl_serial_fleet_indicators_binder", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_fleet_indicators_binder)(LoadControl("~/usercontrol/app/UserControl_serial_fleet_indicators_binder.ascx"))),"UserControl_serial_fleet_indicators_binder",PlaceHolder_content,InstanceId());
         }
       }
 

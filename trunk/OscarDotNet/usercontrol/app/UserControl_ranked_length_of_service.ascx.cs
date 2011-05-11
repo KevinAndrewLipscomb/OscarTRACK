@@ -55,9 +55,9 @@ namespace UserControl_ranked_length_of_service
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_length_of_service.p"] != null) && (Session["UserControl_ranked_length_of_service.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_length_of_service.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -155,13 +155,13 @@ namespace UserControl_ranked_length_of_service
 
         private void TWebUserControl_ranked_length_of_service_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_length_of_service.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_length_of_service Fresh()
         {
             TWebUserControl_ranked_length_of_service result;
-            Session.Remove("UserControl_ranked_length_of_service.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

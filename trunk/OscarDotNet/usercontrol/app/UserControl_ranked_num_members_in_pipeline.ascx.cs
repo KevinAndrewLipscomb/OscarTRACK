@@ -36,9 +36,9 @@ namespace UserControl_ranked_num_members_in_pipeline
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_num_members_in_pipeline.p"] != null) && (Session["UserControl_ranked_num_members_in_pipeline.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_num_members_in_pipeline.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -74,13 +74,13 @@ namespace UserControl_ranked_num_members_in_pipeline
 
         private void TWebUserControl_ranked_num_members_in_pipeline_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_num_members_in_pipeline.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_num_members_in_pipeline Fresh()
         {
             TWebUserControl_ranked_num_members_in_pipeline result;
-            Session.Remove("UserControl_ranked_num_members_in_pipeline.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

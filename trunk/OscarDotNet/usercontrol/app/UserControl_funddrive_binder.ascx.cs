@@ -61,9 +61,9 @@ namespace UserControl_funddrive_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_funddrive_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_funddrive_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_funddrive_binder");
                 if ((Session["UserControl_funddrive_binder_selected_tab"] != null))
                 {
@@ -111,12 +111,12 @@ namespace UserControl_funddrive_binder
                 if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
                 {
                     p.tab_index = UserControl_funddrive_binder_Static.TSSI_KEYCLICK;
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))).Fresh(), "UserControl_keyclick", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))),"UserControl_keyclick",PlaceHolder_content,InstanceId());
                 }
                 else
                 {
                     p.tab_index = UserControl_funddrive_binder_Static.TSSI_TEASER;
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))).Fresh(), "UserControl_funddrive_teaser", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))),"UserControl_funddrive_teaser",PlaceHolder_content,InstanceId());
                 }
             }
 
@@ -129,19 +129,19 @@ namespace UserControl_funddrive_binder
             switch(p.tab_index)
             {
                 case UserControl_funddrive_binder_Static.TSSI_TEASER:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))).Fresh(), "UserControl_funddrive_teaser", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_funddrive_teaser)(LoadControl("~/usercontrol/app/UserControl_funddrive_teaser.ascx"))),"UserControl_funddrive_teaser",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_KEYCLICK:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))).Fresh(), "UserControl_keyclick", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))),"UserControl_keyclick",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))).Fresh(), "UserControl_scene_visits_to_love_letter_targets", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_scene_visits_to_love_letter_targets)(LoadControl("~/usercontrol/app/UserControl_scene_visits_to_love_letter_targets.ascx"))),"UserControl_scene_visits_to_love_letter_targets",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_PAYPAL_ASSISTANT:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_paypal_assistant)(LoadControl("~/usercontrol/app/UserControl_paypal_assistant.ascx"))).Fresh(), "UserControl_paypal_assistant", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_paypal_assistant)(LoadControl("~/usercontrol/app/UserControl_paypal_assistant.ascx"))),"UserControl_paypal_assistant",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_funddrive_binder_Static.TSSI_NEW_DONATION:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))).Fresh(), "UserControl_log_new_donation", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_log_new_donation)(LoadControl("~/usercontrol/app/UserControl_log_new_donation.ascx"))),"UserControl_log_new_donation",PlaceHolder_content,InstanceId());
                     break;
             // TSSI_1:
             // p.content_id := AddIdentifiedControlToPlaceHolder
@@ -176,14 +176,14 @@ namespace UserControl_funddrive_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_funddrive_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_funddrive_binder Fresh()
         {
             TWebUserControl_funddrive_binder result;
-            Session.Remove("UserControl_funddrive_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

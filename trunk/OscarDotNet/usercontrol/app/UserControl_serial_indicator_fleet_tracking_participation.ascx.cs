@@ -27,9 +27,9 @@ namespace UserControl_serial_indicator_fleet_tracking_participation
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_serial_indicator_fleet_tracking_participation.p"] != null) && (Session["UserControl_serial_indicator_fleet_tracking_participation.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_serial_indicator_fleet_tracking_participation.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -51,13 +51,13 @@ namespace UserControl_serial_indicator_fleet_tracking_participation
 
         private void TWebUserControl_serial_indicator_fleet_tracking_participation_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_indicator_fleet_tracking_participation.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_indicator_fleet_tracking_participation Fresh()
         {
             TWebUserControl_serial_indicator_fleet_tracking_participation result;
-            Session.Remove("UserControl_serial_indicator_fleet_tracking_participation.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

@@ -87,9 +87,9 @@ namespace UserControl_schedule_assignment_assistant_binder
       UserControl_schedule_proposal = ((TWebUserControl_schedule_proposal)(LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx")));
       UserControl_schedule_assignment_assistant_publish = ((TWebUserControl_schedule_assignment_assistant_publish)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_publish.ascx")));
       //
-      if (Session["UserControl_schedule_assignment_assistant_binder.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_binder.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_PlaceHolder_content"] as string) == "G");
         FillPlaceHolder(false);
         }
@@ -137,12 +137,12 @@ namespace UserControl_schedule_assignment_assistant_binder
       // not it is already loaded in the user's browser.
       //
       SessionSet(PlaceHolder_content.ClientID, p.content_id);
-      SessionSet("UserControl_schedule_assignment_assistant_binder.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_binder Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_binder.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 
@@ -210,38 +210,38 @@ namespace UserControl_schedule_assignment_assistant_binder
       if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
         {
         var c = UserControl_schedule_assignment_assistant_holdouts;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_holdouts", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_holdouts",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
         {
         var c = UserControl_schedule_assignment_assistant_alert_binder;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_alert_binder", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
         {
         var c = UserControl_schedule_assignment_assistant_special_requests;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_special_requests", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_special_requests",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
         {
         var c = UserControl_schedule_proposal;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "C", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"C",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         //c.SetTarget(target);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
         {
         var c = UserControl_schedule_assignment_assistant_publish;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_publish", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_publish",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT)
         {
         var c = UserControl_schedule_assignment_assistant_intro;
-        p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_schedule_assignment_assistant_intro", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_intro",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)

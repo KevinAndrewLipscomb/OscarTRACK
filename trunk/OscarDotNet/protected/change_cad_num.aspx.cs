@@ -54,9 +54,9 @@ namespace change_cad_num
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["change_cad_num.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_cad_num.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -99,7 +99,7 @@ namespace change_cad_num
 
         private void TWebForm_change_cad_num_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_cad_num.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_cad_num

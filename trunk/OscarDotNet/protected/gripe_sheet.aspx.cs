@@ -39,14 +39,14 @@ namespace gripe_sheet
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("gripe_sheet.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_user = new TClass_biz_user();
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["gripe_sheet.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       var UserControl_gripe_sheet = ((LoadControl("~/usercontrol/app/UserControl_gripe_sheet.ascx") as TWebUserControl_gripe_sheet));
       PlaceHolder_gripe_sheet.Controls.Add(UserControl_gripe_sheet);
@@ -55,7 +55,7 @@ namespace gripe_sheet
 
     private void TWebForm_gripe_sheet_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("gripe_sheet.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     } // end TWebForm_gripe_sheet

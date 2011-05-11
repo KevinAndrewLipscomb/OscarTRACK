@@ -35,9 +35,9 @@ namespace UserControl_serial_indicator_potential_crew_shifts
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_serial_indicator_potential_crew_shifts.p"] != null) && (Session["UserControl_serial_indicator_potential_crew_shifts.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_serial_indicator_potential_crew_shifts.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -59,13 +59,13 @@ namespace UserControl_serial_indicator_potential_crew_shifts
 
         private void TWebUserControl_serial_indicator_potential_crew_shifts_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_indicator_potential_crew_shifts.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_indicator_potential_crew_shifts Fresh()
         {
             TWebUserControl_serial_indicator_potential_crew_shifts result;
-            Session.Remove("UserControl_serial_indicator_potential_crew_shifts.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

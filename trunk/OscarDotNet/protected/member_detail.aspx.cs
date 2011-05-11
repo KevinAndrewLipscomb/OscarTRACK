@@ -118,9 +118,9 @@ namespace member_detail
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["member_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["member_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -217,7 +217,7 @@ namespace member_detail
 
         private void TWebForm_member_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("member_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_member_detail

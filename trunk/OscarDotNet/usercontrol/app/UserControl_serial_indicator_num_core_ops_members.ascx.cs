@@ -35,9 +35,9 @@ namespace UserControl_serial_indicator_num_core_ops_members
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_serial_indicator_num_core_ops_members.p"] != null) && (Session["UserControl_serial_indicator_num_core_ops_members.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_serial_indicator_num_core_ops_members.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -59,13 +59,13 @@ namespace UserControl_serial_indicator_num_core_ops_members
 
         private void TWebUserControl_serial_indicator_num_core_ops_members_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_indicator_num_core_ops_members.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_indicator_num_core_ops_members Fresh()
         {
             TWebUserControl_serial_indicator_num_core_ops_members result;
-            Session.Remove("UserControl_serial_indicator_num_core_ops_members.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

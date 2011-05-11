@@ -173,9 +173,9 @@ namespace UserControl_role_privilege_matrix
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_role_privilege_matrix.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_role_privilege_matrix.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_roles_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_role_privilege_matrix");
             }
             else
@@ -213,13 +213,13 @@ namespace UserControl_role_privilege_matrix
 
         private void TWebUserControl_role_privilege_matrix_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_role_privilege_matrix.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_role_privilege_matrix Fresh()
         {
             TWebUserControl_role_privilege_matrix result;
-            Session.Remove("UserControl_role_privilege_matrix.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

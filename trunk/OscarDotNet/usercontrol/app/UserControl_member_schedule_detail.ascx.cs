@@ -135,9 +135,9 @@ namespace UserControl_member_schedule_detail
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[InstanceContextId() + ".p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session[InstanceContextId() + ".p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack;
         }
       else
@@ -155,7 +155,7 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
         p.be_editable = ((Session["mode:report"] == null) && k.Has((Session["privilege_array"] as string[]),"edit-schedule"));
-        p.be_my_watchbill_mode = InstanceContextId().Contains("ASP.protected_overview_aspx");
+        p.be_my_watchbill_mode = InstanceId().Contains("ASP.protected_overview_aspx");
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
         p.member_summary = null;
@@ -188,12 +188,12 @@ namespace UserControl_member_schedule_detail
 
     private void TWebUserControl_member_schedule_detail_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet(InstanceContextId() + ".p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_member_schedule_detail Fresh()
       {
-      Session.Remove(InstanceContextId() + ".p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

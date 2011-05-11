@@ -37,9 +37,9 @@ namespace UserControl_paypal_assistant
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_paypal_assistant.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_paypal_assistant.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_paypal_assistant");
         }
       else
@@ -61,12 +61,12 @@ namespace UserControl_paypal_assistant
 
     private void TWebUserControl_paypal_assistant_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_paypal_assistant.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_paypal_assistant Fresh()
       {
-      Session.Remove("UserControl_paypal_assistant.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

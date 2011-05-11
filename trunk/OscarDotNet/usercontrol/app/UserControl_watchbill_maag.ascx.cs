@@ -70,9 +70,9 @@ namespace UserControl_watchbill_maag
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[Parent.ClientID + ".UserControl_watchbill_maag.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session[Parent.ClientID + ".UserControl_watchbill_maag.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["PlaceHolder_content"] as string) == "C");
         }
       else
@@ -104,12 +104,12 @@ namespace UserControl_watchbill_maag
 
     private void TWebUserControl_watchbill_maag_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet(Parent.ClientID + ".UserControl_watchbill_maag.p",p);
+      SessionSet(InstanceId() + ".p",p);
       }
 
     public TWebUserControl_watchbill_maag Fresh()
       {
-      Session.Remove("UserControl_watchbill_maag.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

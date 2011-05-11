@@ -53,7 +53,7 @@ namespace append_vehicle_down_note
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("append_vehicle_down_note.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_vehicle_usability_history = new TClass_biz_vehicle_usability_history();
@@ -64,13 +64,13 @@ namespace append_vehicle_down_note
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["append_vehicle_down_note.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_append_vehicle_down_note_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("append_vehicle_down_note.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected void Button_submit_Click(object sender, EventArgs e)

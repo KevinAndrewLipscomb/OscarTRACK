@@ -208,9 +208,9 @@ namespace UserControl_shift
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_shift.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_shift.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_shift");
         }
       else
@@ -234,12 +234,12 @@ namespace UserControl_shift
 
     private void TWebUserControl_shift_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_shift.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_shift Fresh()
       {
-      Session.Remove("UserControl_shift.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

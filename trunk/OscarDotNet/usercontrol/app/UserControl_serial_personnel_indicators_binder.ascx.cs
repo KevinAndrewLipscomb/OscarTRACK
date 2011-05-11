@@ -44,9 +44,9 @@ namespace UserControl_serial_personnel_indicators_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_serial_personnel_indicators_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_serial_personnel_indicators_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_serial_personnel_indicators_binder");
                 switch(p.tab_index)
                 {
@@ -81,7 +81,7 @@ namespace UserControl_serial_personnel_indicators_binder
             {
                 p.be_loaded = false;
                 p.tab_index = UserControl_serial_personnel_indicators_binder_Static.TSSI_COMMENSURATION;
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_commensuration)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx"))).Fresh(), "UserControl_serial_indicator_commensuration", PlaceHolder_content);
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_commensuration)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx"))),"UserControl_serial_indicator_commensuration",PlaceHolder_content,InstanceId());
             }
 
         }
@@ -99,13 +99,13 @@ namespace UserControl_serial_personnel_indicators_binder
 
         private void TWebUserControl_serial_personnel_indicators_binder_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_personnel_indicators_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_personnel_indicators_binder Fresh()
         {
             TWebUserControl_serial_personnel_indicators_binder result;
-            Session.Remove("UserControl_serial_personnel_indicators_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
@@ -117,28 +117,28 @@ namespace UserControl_serial_personnel_indicators_binder
             switch(p.tab_index)
             {
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_COMMENSURATION:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_commensuration)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx"))).Fresh(), "UserControl_serial_indicator_commensuration", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_commensuration)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_commensuration.ascx"))),"UserControl_serial_indicator_commensuration",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_NUM_CORE_OPS_MEMBERS:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_num_core_ops_members)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_num_core_ops_members.ascx"))).Fresh(), "UserControl_serial_indicator_num_core_ops_members", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_num_core_ops_members)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_num_core_ops_members.ascx"))),"UserControl_serial_indicator_num_core_ops_members",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_NUM_MEMBERS_IN_PIPELINE:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_num_members_in_pipeline)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_num_members_in_pipeline.ascx"))).Fresh(), "UserControl_serial_indicator_num_members_in_pipeline", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_num_members_in_pipeline)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_num_members_in_pipeline.ascx"))),"UserControl_serial_indicator_num_members_in_pipeline",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_NUM_POTENTIAL_CREW_SHIFTS:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_potential_crew_shifts)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_potential_crew_shifts.ascx"))).Fresh(), "UserControl_serial_indicator_potential_crew_shifts", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_potential_crew_shifts)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_potential_crew_shifts.ascx"))),"UserControl_serial_indicator_potential_crew_shifts",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_THIRD_SLOT_SATURATION:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_third_slot_saturation.ascx"))).Fresh(), "UserControl_serial_indicator_third_slot_saturation", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_third_slot_saturation.ascx"))),"UserControl_serial_indicator_third_slot_saturation",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_ROSTER_UTILIZATION:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_utilization)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_utilization.ascx"))).Fresh(), "UserControl_serial_indicator_utilization", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_utilization)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_utilization.ascx"))),"UserControl_serial_indicator_utilization",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_CORE_OPS_COMMITMENT:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_standard_enrollment)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_standard_enrollment.ascx"))).Fresh(), "UserControl_serial_indicator_standard_enrollment", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_standard_enrollment)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_standard_enrollment.ascx"))),"UserControl_serial_indicator_standard_enrollment",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_personnel_indicators_binder_Static.TSSI_MEDIAN_YEARS_OF_SERVICE:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_length_of_service)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_length_of_service.ascx"))).Fresh(), "UserControl_serial_indicator_length_of_service", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_length_of_service)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_length_of_service.ascx"))),"UserControl_serial_indicator_length_of_service",PlaceHolder_content,InstanceId());
                     break;
             }
         }
