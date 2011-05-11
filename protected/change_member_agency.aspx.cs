@@ -40,9 +40,9 @@ namespace change_member_agency
         {
             if (IsPostBack)
             {
-                if ((Session["change_member_agency.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_member_agency.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace change_member_agency
 
         private void TWebForm_change_member_agency_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_member_agency.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_member_agency

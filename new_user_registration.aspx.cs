@@ -29,9 +29,9 @@ namespace new_user_registration
         {
             if (IsPostBack)
             {
-                if ((Session["new_user_registration.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["new_user_registration.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace new_user_registration
 
         private void TWebForm_new_user_registration_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("new_user_registration.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_new_user_registration

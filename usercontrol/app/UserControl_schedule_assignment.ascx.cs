@@ -224,9 +224,9 @@ namespace UserControl_schedule_assignment
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_assignment.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_schedule_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment");
         }
       else
@@ -250,12 +250,12 @@ namespace UserControl_schedule_assignment
 
     private void TWebUserControl_schedule_assignment_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_assignment.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment.p");
+      Session.Remove(InstanceId() + ".p");
       UserControl_drop_down_date_nominal_day.Fresh();
       return this;
       }

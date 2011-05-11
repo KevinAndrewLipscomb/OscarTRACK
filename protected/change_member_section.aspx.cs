@@ -39,9 +39,9 @@ namespace change_member_section
         {
             if (IsPostBack)
             {
-                if ((Session["change_member_section.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_member_section.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -88,7 +88,7 @@ namespace change_member_section
 
         private void TWebForm_change_member_section_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_member_section.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_member_section

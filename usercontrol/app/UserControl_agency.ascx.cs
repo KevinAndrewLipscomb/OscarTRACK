@@ -90,9 +90,9 @@ namespace UserControl_agency
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_agency.p"] != null) && (Session["UserControl_agency.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_agency.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -115,13 +115,13 @@ namespace UserControl_agency
 
         private void TWebUserControl_agency_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_agency.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_agency Fresh()
         {
             TWebUserControl_agency result;
-            Session.Remove("UserControl_agency.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

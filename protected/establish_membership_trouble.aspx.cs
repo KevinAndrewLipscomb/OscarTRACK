@@ -50,9 +50,9 @@ namespace establish_membership_trouble
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["establish_membership_trouble.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["establish_membership_trouble.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -89,7 +89,7 @@ namespace establish_membership_trouble
 
         private void TWebForm_establish_membership_trouble_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("establish_membership_trouble.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private struct p_type

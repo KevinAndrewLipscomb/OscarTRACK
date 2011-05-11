@@ -54,9 +54,9 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_schedule_assignment_assistant_alert_unexpected_submissions.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_schedule_assignment_assistant_alert_unexpected_submissions.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_S_G_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_unexpected_submissions");
         }
       else
@@ -88,12 +88,12 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
 
     private void TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_schedule_assignment_assistant_alert_unexpected_submissions.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions Fresh()
       {
-      Session.Remove("UserControl_schedule_assignment_assistant_alert_unexpected_submissions.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

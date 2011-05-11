@@ -33,9 +33,9 @@ namespace UserControl_personnel_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_personnel_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_personnel_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "P");
                 if ((Session["UserControl_personnel_binder_selected_tab"] != null))
                 {
@@ -74,7 +74,7 @@ namespace UserControl_personnel_binder
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                     break;
                 case UserControl_personnel_binder_Static.TSSI_RESULTS:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))).Fresh(), "UserControl_commensuration", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))),"UserControl_commensuration",PlaceHolder_content,InstanceId());
                     break;
             }
         }
@@ -95,14 +95,14 @@ namespace UserControl_personnel_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_personnel_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_personnel_binder Fresh()
         {
             TWebUserControl_personnel_binder result;
-            Session.Remove("UserControl_personnel_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

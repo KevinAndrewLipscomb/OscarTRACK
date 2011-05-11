@@ -50,9 +50,9 @@ namespace enrollment_detail
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["enrollment_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["enrollment_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -90,7 +90,7 @@ namespace enrollment_detail
 
         private void TWebForm_enrollment_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("enrollment_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void DataGrid_member_history_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)

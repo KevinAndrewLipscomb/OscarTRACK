@@ -56,9 +56,9 @@ namespace change_name
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["change_name.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_name.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -97,7 +97,7 @@ namespace change_name
 
         private void TWebForm_change_name_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_name.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_name

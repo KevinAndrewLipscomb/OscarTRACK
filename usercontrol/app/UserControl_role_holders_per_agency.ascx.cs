@@ -118,9 +118,9 @@ namespace UserControl_role_holders_per_agency
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_role_holders_per_agency.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_role_holders_per_agency.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["parent_PlaceHolder_content"] as string) == "UserControl_role_holders_per_agency");
             }
             else
@@ -146,13 +146,13 @@ namespace UserControl_role_holders_per_agency
 
         private void TWebUserControl_role_holders_per_agency_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_role_holders_per_agency.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_role_holders_per_agency Fresh()
         {
             TWebUserControl_role_holders_per_agency result;
-            Session.Remove("UserControl_role_holders_per_agency.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

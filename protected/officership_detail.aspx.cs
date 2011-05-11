@@ -38,9 +38,9 @@ namespace officership_detail
             string cad_num_string;
             if (IsPostBack)
             {
-                if ((Session["officership_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["officership_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -82,7 +82,7 @@ namespace officership_detail
 
         private void TWebForm_officership_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("officership_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void DataGrid_officerships_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)

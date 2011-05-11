@@ -196,9 +196,9 @@ namespace UserControl_chassis_make
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_chassis_make.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_chassis_make.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_chassis_make");
         }
       else
@@ -222,12 +222,12 @@ namespace UserControl_chassis_make
 
     private void TWebUserControl_chassis_make_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_chassis_make.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_chassis_make Fresh()
       {
-      Session.Remove("UserControl_chassis_make.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

@@ -210,9 +210,9 @@ namespace UserControl_agency_satellite_station
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_agency_satellite_station.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_agency_satellite_station.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_agency_satellite_station");
         }
       else
@@ -238,12 +238,12 @@ namespace UserControl_agency_satellite_station
 
     private void TWebUserControl_agency_satellite_station_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_agency_satellite_station.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_agency_satellite_station Fresh()
       {
-      Session.Remove("UserControl_agency_satellite_station.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

@@ -110,9 +110,9 @@ namespace UserControl_roster
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_roster.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_roster.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 // only necessary because the roster is a special case that is deliberately not always freshened by its parent binder
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "P") && ((Session["M_P_PlaceHolder_content"] as string) == "R");
             }
@@ -362,7 +362,7 @@ namespace UserControl_roster
 
         private void TWebUserControl_roster_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_roster.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void R_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
@@ -436,7 +436,7 @@ namespace UserControl_roster
         public TWebUserControl_roster Fresh()
         {
             TWebUserControl_roster result;
-            Session.Remove("UserControl_roster.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

@@ -72,9 +72,9 @@ namespace add_member
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["add_member.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["add_member.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -173,7 +173,7 @@ namespace add_member
 
         private void TWebForm_add_member_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("add_member.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private bool Add()

@@ -38,9 +38,9 @@ namespace change_member_driver_qualification
         {
             if (IsPostBack)
             {
-                if ((Session["change_member_driver_qualification.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_member_driver_qualification.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace change_member_driver_qualification
 
         private void TWebForm_change_member_driver_qualification_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_member_driver_qualification.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_member_driver_qualification

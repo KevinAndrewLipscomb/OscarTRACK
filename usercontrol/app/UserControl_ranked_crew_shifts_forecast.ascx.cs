@@ -35,9 +35,9 @@ namespace UserControl_ranked_crew_shifts_forecast
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_ranked_crew_shifts_forecast.p"] != null) && (Session["UserControl_ranked_crew_shifts_forecast.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_ranked_crew_shifts_forecast.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -73,13 +73,13 @@ namespace UserControl_ranked_crew_shifts_forecast
 
         private void TWebUserControl_ranked_crew_shifts_forecast_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_ranked_crew_shifts_forecast.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_ranked_crew_shifts_forecast Fresh()
         {
             TWebUserControl_ranked_crew_shifts_forecast result;
-            Session.Remove("UserControl_ranked_crew_shifts_forecast.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

@@ -37,7 +37,7 @@ namespace roles
                 //@ Unsupported property or method(A): 'appsettings'
                 //@ Undeclared identifier(3): 'server'
                 //@ Unsupported property or method(A): 'HtmlEncode'
-                Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - roles";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - roles";
             }
         }
 
@@ -50,10 +50,10 @@ namespace roles
             if (IsPostBack)
             {
                 //@ Undeclared identifier(3): 'session'
-                if ((Session["roles.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
                     //@ Undeclared identifier(3): 'session'
-                    p = (p_type)(Session["roles.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -71,7 +71,7 @@ namespace roles
         private void TWebForm_roles_PreRender(object sender, System.EventArgs e)
         {
             //@ Undeclared identifier(3): 'SessionSet'
-            SessionSet("roles.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_roles

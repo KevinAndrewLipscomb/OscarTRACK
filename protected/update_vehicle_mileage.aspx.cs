@@ -73,7 +73,7 @@ namespace update_vehicle_mileage
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("update_vehicle_mileage.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_vehicles = new TClass_biz_vehicles();
@@ -81,13 +81,13 @@ namespace update_vehicle_mileage
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["update_vehicle_mileage.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_update_vehicle_mileage_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("update_vehicle_mileage.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected void Button_submit_Click(object sender, EventArgs e)

@@ -32,9 +32,9 @@ namespace UserControl_serial_fleet_indicators_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_serial_fleet_indicators_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_serial_fleet_indicators_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_serial_fleet_indicators_binder");
                 switch(p.tab_index)
                 {
@@ -50,7 +50,7 @@ namespace UserControl_serial_fleet_indicators_binder
             {
                 p.be_loaded = false;
                 p.tab_index = UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION;
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))).Fresh(), "UserControl_serial_indicator_fleet_tracking_participation", PlaceHolder_content);
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))),"UserControl_serial_indicator_fleet_tracking_participation",PlaceHolder_content,InstanceId());
             }
 
         }
@@ -68,13 +68,13 @@ namespace UserControl_serial_fleet_indicators_binder
 
         private void TWebUserControl_serial_fleet_indicators_binder_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_serial_fleet_indicators_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_serial_fleet_indicators_binder Fresh()
         {
             TWebUserControl_serial_fleet_indicators_binder result;
-            Session.Remove("UserControl_serial_fleet_indicators_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
@@ -86,10 +86,10 @@ namespace UserControl_serial_fleet_indicators_binder
             switch(p.tab_index)
             {
                 case UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))).Fresh(), "UserControl_serial_indicator_fleet_tracking_participation", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))),"UserControl_serial_indicator_fleet_tracking_participation",PlaceHolder_content,InstanceId());
                     break;
                 case UserControl_serial_fleet_indicators_binder_Static.TSSI_VEHICLES_UP_AND_CURRENT:
-                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_vehicles_up_and_current)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_vehicles_up_and_current.ascx"))).Fresh(), "UserControl_serial_indicator_vehicles_up_and_current", PlaceHolder_content);
+                    AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_vehicles_up_and_current)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_vehicles_up_and_current.ascx"))),"UserControl_serial_indicator_vehicles_up_and_current",PlaceHolder_content,InstanceId());
                     break;
             }
         }

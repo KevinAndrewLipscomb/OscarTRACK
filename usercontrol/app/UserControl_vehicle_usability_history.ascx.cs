@@ -217,9 +217,9 @@ namespace UserControl_vehicle_usability_history
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_vehicle_usability_history.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_vehicle_usability_history.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_PlaceHolder_content"] as string) == "UserControl_vehicle_usability_history");
         }
       else
@@ -243,12 +243,12 @@ namespace UserControl_vehicle_usability_history
 
     private void TWebUserControl_vehicle_usability_history_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_vehicle_usability_history.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_vehicle_usability_history Fresh()
       {
-      Session.Remove("UserControl_vehicle_usability_history.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

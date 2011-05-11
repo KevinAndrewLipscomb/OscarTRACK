@@ -41,9 +41,9 @@ namespace change_password
         {
             if (IsPostBack)
             {
-                if ((Session["change_password.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_password.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -83,7 +83,7 @@ namespace change_password
 
         private void TWebForm_change_password_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_password.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         protected void Button_submit_Click(object sender, System.EventArgs e)

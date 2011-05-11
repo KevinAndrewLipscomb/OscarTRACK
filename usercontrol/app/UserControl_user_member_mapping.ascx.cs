@@ -136,9 +136,9 @@ namespace UserControl_user_member_mapping
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_user_member_mapping.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_user_member_mapping.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_users_and_matrices_binder_PlaceHolder_content"] as string) == "UserControl_user_member_mapping");
             }
             else
@@ -169,13 +169,13 @@ namespace UserControl_user_member_mapping
 
         private void TWebUserControl_user_member_mapping_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_user_member_mapping.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_user_member_mapping Fresh()
         {
             TWebUserControl_user_member_mapping result;
-            Session.Remove("UserControl_user_member_mapping.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

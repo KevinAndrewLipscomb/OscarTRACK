@@ -37,9 +37,9 @@ namespace UserControl_roles_and_matrices_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_roles_and_matrices_binder.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_roles_and_matrices_binder.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_UserControl_config_PlaceHolder_content"] as string) == "UserControl_roles_and_matrices_binder");
                 if ((Session["UserControl_roles_and_matrices_binder_selected_tab"] != null))
                 {
@@ -67,7 +67,7 @@ namespace UserControl_roles_and_matrices_binder
             {
                 p.be_loaded = false;
                 p.tab_index = Units.UserControl_roles_and_matrices_binder.TSSI_ROLE_MEMBER_MAPPING;
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_member_mapping)(LoadControl("~/usercontrol/app/UserControl_role_member_mapping.ascx"))).Fresh(), "UserControl_role_member_mapping", PlaceHolder_content);
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_member_mapping)(LoadControl("~/usercontrol/app/UserControl_role_member_mapping.ascx"))),"UserControl_role_member_mapping",PlaceHolder_content,InstanceId());
             }
 
         }
@@ -88,14 +88,14 @@ namespace UserControl_roles_and_matrices_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet("UserControl_roles_and_matrices_binder.p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_roles_and_matrices_binder Fresh()
         {
             TWebUserControl_roles_and_matrices_binder result;
-            Session.Remove("UserControl_roles_and_matrices_binder.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
@@ -107,16 +107,16 @@ namespace UserControl_roles_and_matrices_binder
             switch(p.tab_index)
             {
                 case Units.UserControl_roles_and_matrices_binder.TSSI_ROLES:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role)(LoadControl("~/usercontrol/app/UserControl_role.ascx"))).Fresh(), "UserControl_role", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role)(LoadControl("~/usercontrol/app/UserControl_role.ascx"))),"UserControl_role",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_roles_and_matrices_binder.TSSI_ROLE_MEMBER_MAPPING:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_member_mapping)(LoadControl("~/usercontrol/app/UserControl_role_member_mapping.ascx"))).Fresh(), "UserControl_role_member_mapping", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_member_mapping)(LoadControl("~/usercontrol/app/UserControl_role_member_mapping.ascx"))),"UserControl_role_member_mapping",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_roles_and_matrices_binder.TSSI_ROLE_PRIVILEGE_MAPPING:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_privilege_mapping)(LoadControl("~/usercontrol/app/UserControl_role_privilege_mapping.ascx"))).Fresh(), "UserControl_role_privilege_mapping", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_privilege_mapping)(LoadControl("~/usercontrol/app/UserControl_role_privilege_mapping.ascx"))),"UserControl_role_privilege_mapping",PlaceHolder_content,InstanceId());
                     break;
                 case Units.UserControl_roles_and_matrices_binder.TSSI_ROLE_NOTIFICATION_MAPPING:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_notification_mapping)(LoadControl("~/usercontrol/app/UserControl_role_notification_mapping.ascx"))).Fresh(), "UserControl_role_notification_mapping", PlaceHolder_content);
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_role_notification_mapping)(LoadControl("~/usercontrol/app/UserControl_role_notification_mapping.ascx"))),"UserControl_role_notification_mapping",PlaceHolder_content,InstanceId());
                     break;
             }
         }

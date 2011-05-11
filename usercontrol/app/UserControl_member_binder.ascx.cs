@@ -47,9 +47,9 @@ namespace UserControl_member_binder
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if ((Session[InstanceContextId() + ".p"] != null) && (Session[InstanceContextId() + ".p"].GetType().Namespace == p.GetType().Namespace))
+            if ((Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session[InstanceContextId() + ".p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 // Dynamic controls must be re-added on each postback.
                 FillPlaceHolder(false);
             }
@@ -93,13 +93,13 @@ namespace UserControl_member_binder
             // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
             // not it is already loaded in the user's browser.
             SessionSet(PlaceHolder_content.ClientID, p.content_id);
-            SessionSet(InstanceContextId() + ".p", p);
+            SessionSet(InstanceId() + ".p", p);
 
         }
 
         public TWebUserControl_member_binder Fresh()
         {
-            Session.Remove(InstanceContextId() + ".p");
+            Session.Remove(InstanceId() + ".p");
             return this;
         }
 
@@ -119,38 +119,38 @@ namespace UserControl_member_binder
           if (p.tab_index == UserControl_member_binder_Static.TSSI_SCHEDULE)
             {
             var c = ((TWebUserControl_schedule_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder(c, "S", PlaceHolder_content, (be_fresh_control_required ? InstanceContextId() : k.EMPTY));
+            p.content_id = AddIdentifiedControlToPlaceHolder(c, "S", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
             c.SetTarget(target);
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_PERSONNEL)
             {
             var c = ((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "P", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"P",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_FLEET)
             {
             var c = ((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_fleet", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_fleet",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_FUNDDRIVE)
             {
             var c = ((TWebUserControl_funddrive_binder)(LoadControl("~/usercontrol/app/UserControl_funddrive_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_funddrive_binder", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_funddrive_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_DASHBOARD)
             {
             var c = ((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_dashboard_binder", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_dashboard_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_CONFIG)
             {
             var c = ((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_config", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_config",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_ABOUT)
             {
             var c = ((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder((be_fresh_control_required ? c.Fresh() : c), "UserControl_about", PlaceHolder_content);
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_about",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           }
         private void FillPlaceHolder(bool be_fresh_control_required)

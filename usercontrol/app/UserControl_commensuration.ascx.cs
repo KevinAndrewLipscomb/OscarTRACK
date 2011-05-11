@@ -41,9 +41,9 @@ namespace UserControl_commensuration
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_commensuration.p"] != null) && (Session["UserControl_commensuration.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_commensuration.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -66,13 +66,13 @@ namespace UserControl_commensuration
 
         private void TWebUserControl_commensuration_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_commensuration.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_commensuration Fresh()
         {
             TWebUserControl_commensuration result;
-            Session.Remove("UserControl_commensuration.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

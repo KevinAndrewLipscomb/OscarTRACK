@@ -186,9 +186,9 @@ namespace UserControl_state
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_state.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_state.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fund_drive_object_binder_PlaceHolder_content"] as string) == "UserControl_state");
             }
             else
@@ -212,13 +212,13 @@ namespace UserControl_state
 
         private void TWebUserControl_state_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_state.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_state Fresh()
         {
             TWebUserControl_state result;
-            Session.Remove("UserControl_state.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

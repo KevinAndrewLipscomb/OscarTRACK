@@ -44,9 +44,9 @@ namespace UserControl_fund_drive_object_binder
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session["UserControl_fund_drive_object_binder.p"] != null)
+      if (Session[InstanceId() + ".p"] != null)
         {
-        p = (p_type)(Session["UserControl_fund_drive_object_binder.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_PlaceHolder_content"] as string) == "UserControl_fund_drive_object_binder");
         //
         // Dynamic controls must be re-added on each postback.
@@ -68,7 +68,7 @@ namespace UserControl_fund_drive_object_binder
         {
         p.be_loaded = false;
         p.tab_index = UserControl_fund_drive_object_binder_Static.TSSI_STREET;
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))).Fresh(), "UserControl_street", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))),"UserControl_street",PlaceHolder_content,InstanceId());
         }
       }
 
@@ -90,12 +90,12 @@ namespace UserControl_fund_drive_object_binder
       // not it is already loaded in the user's browser.
       //
       SessionSet(PlaceHolder_content.ClientID, p.content_id);
-      SessionSet("UserControl_fund_drive_object_binder.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_fund_drive_object_binder Fresh()
       {
-      Session.Remove("UserControl_fund_drive_object_binder.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 
@@ -105,15 +105,15 @@ namespace UserControl_fund_drive_object_binder
       PlaceHolder_content.Controls.Clear();
       if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STREET)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))).Fresh(), "UserControl_street", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))),"UserControl_street",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_CITY)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_city)(LoadControl("~/usercontrol/app/UserControl_city.ascx"))).Fresh(), "UserControl_city", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_city)(LoadControl("~/usercontrol/app/UserControl_city.ascx"))),"UserControl_city",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STATE)
         {
-        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_state)(LoadControl("~/usercontrol/app/UserControl_state.ascx"))).Fresh(), "UserControl_state", PlaceHolder_content);
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_state)(LoadControl("~/usercontrol/app/UserControl_state.ascx"))),"UserControl_state",PlaceHolder_content,InstanceId());
         }
       }
 

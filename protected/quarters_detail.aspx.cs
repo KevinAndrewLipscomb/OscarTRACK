@@ -50,9 +50,9 @@ namespace quarters_detail
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session["quarters_detail.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["quarters_detail.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -86,7 +86,7 @@ namespace quarters_detail
 
         private void TWebForm_quarters_detail_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("quarters_detail.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)

@@ -44,9 +44,9 @@ namespace salogin
         {
             if (IsPostBack)
             {
-                if ((Session["salogin.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["salogin.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -102,7 +102,7 @@ namespace salogin
 
         private void TWebForm_salogin_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("salogin.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         protected void CustomValidator_account_exists_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)

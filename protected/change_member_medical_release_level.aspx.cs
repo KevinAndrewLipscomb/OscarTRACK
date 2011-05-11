@@ -41,9 +41,9 @@ namespace change_member_medical_release_level
         {
             if (IsPostBack)
             {
-                if ((Session["change_member_medical_release_level.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_member_medical_release_level.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace change_member_medical_release_level
 
         private void TWebForm_change_member_medical_release_level_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_member_medical_release_level.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         protected void DropDownList_medical_release_level_SelectedIndexChanged(object sender, EventArgs e)

@@ -69,7 +69,7 @@ namespace process_paypal_donation
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit("process_paypal_donation.p");
+      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_residents = new TClass_biz_residents();
@@ -78,7 +78,7 @@ namespace process_paypal_donation
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["process_paypal_donation.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
@@ -113,7 +113,7 @@ namespace process_paypal_donation
 
     private void TWebForm_process_paypal_donation_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("process_paypal_donation.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     } // end TWebForm_process_paypal_donation

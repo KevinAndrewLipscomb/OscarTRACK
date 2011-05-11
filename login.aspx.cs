@@ -52,9 +52,9 @@ namespace login
           {
           if (IsPostBack)
             {
-            if ((Session["login.p"] != null))
+            if ((Session[InstanceId() + ".p"] != null))
               {
-              p = (p_type)(Session["login.p"]);
+              p = (p_type)(Session[InstanceId() + ".p"]);
               }
             else
               {
@@ -112,7 +112,7 @@ namespace login
 
         private void TWebForm_login_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("login.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         protected void CustomValidator_account_exists_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)

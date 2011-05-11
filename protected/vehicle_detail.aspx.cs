@@ -37,7 +37,7 @@ namespace vehicle_detail
           // Required for Designer support
           InitializeComponent();
           base.OnInit(e);
-          var nature_of_visit = NatureOfVisit("vehicle_detail.p");
+          var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
           if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
             {
             //
@@ -47,13 +47,13 @@ namespace vehicle_detail
             }
           else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
             {
-            p = (p_type)(Session["vehicle_detail.p"]);
+            p = (p_type)(Session[InstanceId() + ".p"]);
             }
           }
 
         private void TWebForm_vehicle_detail_PreRender(object sender, System.EventArgs e)
           {
-          SessionSet("vehicle_detail.p", p);
+          SessionSet(InstanceId() + ".p", p);
           }
 
     } // end TWebForm_vehicle_detail

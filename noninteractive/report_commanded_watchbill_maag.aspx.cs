@@ -47,7 +47,7 @@ namespace report_commanded_watchbill_maag
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit_unlimited = NatureOfVisitUnlimited("report_commanded_watchbill_maag.p");
+      var nature_of_visit_unlimited = NatureOfVisitUnlimited(InstanceId() + ".p");
       if(
           (nature_of_visit_unlimited == nature_of_visit_type.VISIT_COLD_CALL)
         ||
@@ -72,13 +72,13 @@ namespace report_commanded_watchbill_maag
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
-        p = (p_type)(Session["report_commanded_watchbill_maag.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       }
 
     private void TWebForm_report_commanded_watchbill_maag_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("report_commanded_watchbill_maag.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     protected override void Render(HtmlTextWriter writer)

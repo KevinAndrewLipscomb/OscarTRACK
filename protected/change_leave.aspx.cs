@@ -45,9 +45,9 @@ namespace change_leave
             uint i;
             if (IsPostBack)
             {
-                if ((Session["change_leave.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["change_leave.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -170,7 +170,7 @@ namespace change_leave
 
         private void TWebForm_change_leave_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("change_leave.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_change_leave

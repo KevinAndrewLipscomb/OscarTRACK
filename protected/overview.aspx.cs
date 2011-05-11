@@ -50,9 +50,9 @@ namespace overview
             base.OnInit(e);
             if (IsPostBack)
             {
-                if ((Session[InstanceContextId() + ".p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session[InstanceContextId() + ".p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -101,7 +101,7 @@ namespace overview
 
         private void TWebForm_overview_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet(InstanceContextId() + ".p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_overview

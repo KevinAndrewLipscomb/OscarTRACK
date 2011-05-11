@@ -35,9 +35,9 @@ namespace UserControl_ranked_third_slot_saturation
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (IsPostBack && (Session["UserControl_ranked_third_slot_saturation.p"] != null) && (Session["UserControl_ranked_third_slot_saturation.p"].GetType().Namespace == p.GetType().Namespace))
+      if (IsPostBack && (Session[InstanceId() + ".p"] != null))
         {
-        p = (p_type)(Session["UserControl_ranked_third_slot_saturation.p"]);
+        p = (p_type)(Session[InstanceId() + ".p"]);
         }
       else
         {
@@ -84,12 +84,12 @@ namespace UserControl_ranked_third_slot_saturation
 
     private void TWebUserControl_ranked_third_slot_saturation_PreRender(object sender, System.EventArgs e)
       {
-      SessionSet("UserControl_ranked_third_slot_saturation.p", p);
+      SessionSet(InstanceId() + ".p", p);
       }
 
     public TWebUserControl_ranked_third_slot_saturation Fresh()
       {
-      Session.Remove("UserControl_ranked_third_slot_saturation.p");
+      Session.Remove(InstanceId() + ".p");
       return this;
       }
 

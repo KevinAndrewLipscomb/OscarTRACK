@@ -36,9 +36,9 @@ namespace remind_username
         {
             if (IsPostBack)
             {
-                if ((Session["remind_username.p"] != null))
+                if ((Session[InstanceId() + ".p"] != null))
                 {
-                    p = (p_type)(Session["remind_username.p"]);
+                    p = (p_type)(Session[InstanceId() + ".p"]);
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace remind_username
 
         private void TWebForm_remind_username_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("remind_username.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
     } // end TWebForm_remind_username

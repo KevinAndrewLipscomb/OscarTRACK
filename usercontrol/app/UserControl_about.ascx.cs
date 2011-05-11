@@ -33,9 +33,9 @@ namespace UserControl_about
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (IsPostBack && (Session["UserControl_about.p"] != null) && (Session["UserControl_about.p"].GetType().Namespace == p.GetType().Namespace))
+            if (IsPostBack && (Session[InstanceId() + ".p"] != null))
             {
-                p = (p_type)(Session["UserControl_about.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
             }
             else
             {
@@ -56,13 +56,13 @@ namespace UserControl_about
 
         private void TWebUserControl_about_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_about.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_about Fresh()
         {
             TWebUserControl_about result;
-            Session.Remove("UserControl_about.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }

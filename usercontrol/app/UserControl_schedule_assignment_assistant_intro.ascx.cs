@@ -107,9 +107,9 @@ namespace UserControl_schedule_assignment_assistant_intro
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
-            if (Session["UserControl_schedule_assignment_assistant_intro.p"] != null)
+            if (Session[InstanceId() + ".p"] != null)
             {
-                p = (p_type)(Session["UserControl_schedule_assignment_assistant_intro.p"]);
+                p = (p_type)(Session[InstanceId() + ".p"]);
                 p.be_loaded = IsPostBack && ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_intro");
             }
             else
@@ -131,13 +131,13 @@ namespace UserControl_schedule_assignment_assistant_intro
 
         private void TWebUserControl_schedule_assignment_assistant_intro_PreRender(object sender, System.EventArgs e)
         {
-            SessionSet("UserControl_schedule_assignment_assistant_intro.p", p);
+            SessionSet(InstanceId() + ".p", p);
         }
 
         public TWebUserControl_schedule_assignment_assistant_intro Fresh()
         {
             TWebUserControl_schedule_assignment_assistant_intro result;
-            Session.Remove("UserControl_schedule_assignment_assistant_intro.p");
+            Session.Remove(InstanceId() + ".p");
             result = this;
             return result;
         }
