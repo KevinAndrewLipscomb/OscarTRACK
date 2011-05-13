@@ -2,7 +2,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_bread_crumb_trail" Src="~/usercontrol/ki/UserControl_bread_crumb_trail.ascx" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
-<asp:ToolkitScriptManager ID="ScriptManager_control" runat="server" onasyncpostbackerror="ScriptManager_control_AsyncPostBackError"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ToolkitScriptManager>
+<asp:ToolkitScriptManager ID="ScriptManager_control" runat="server" onasyncpostbackerror="ScriptManager_control_AsyncPostBackError" AsyncPostBackTimeout="300"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ToolkitScriptManager>
 <table width="100%" bgcolor="#b0c4de" border="1" bordercolor="lightsteelblue" cellspacing="0" cellpadding="0">
   <tr>
     <td>
