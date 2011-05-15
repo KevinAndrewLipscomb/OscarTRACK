@@ -1537,7 +1537,7 @@ namespace Class_db_schedule_assignments
           +               " ("
           +                 " num_shifts"  // if applicable, num standard obliged duties
           +               " ,"
-          +                 " count(*)"  // else (like for Atypical members) num avails submitted
+          +                 " 0"  // else (like for Atypical members) zero
           +               " )"
           +           " )"
           +         " +"  // plus
