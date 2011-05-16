@@ -114,11 +114,12 @@ namespace Class_biz_schedule_assignments
 
     internal void BindPostCardinalityListControl
       (
+      string max_post_cardinality,
       DropDownList target,
       string designator
       )
       {
-      for (var i = new k.subtype<int>(0,int.Parse(ConfigurationManager.AppSettings["max_num_units_per_post"])); i.val < i.LAST; i.val++)
+      for (var i = new k.subtype<int>(0,Convert.ToInt16(Convert.ToChar(max_post_cardinality)) - Convert.ToInt16('a') + 1); i.val < i.LAST; i.val++)
         {
         target.Items.Add(new ListItem(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val)),Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val))));
         }
@@ -197,18 +198,6 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.ForceSelection(id,be_selected,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
-    internal void GetInfoAboutMemberInMonth
-      (
-      string member_id,
-      k.subtype<int> relative_month,
-      ref k.subtype<int> num,
-      out DateTime earliest_unselected,
-      out DateTime latest_unselected
-      )
-      {
-      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
-      }
-
     public bool Get
       (
       string id,
@@ -236,6 +225,18 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void GetAgencyFootprintInfo
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      out string posts,
+      out string max_post_cardinality
+      )
+      {
+      db_schedule_assignments.GetAgencyFootprintInfo(agency_filter,relative_month,nominal_day_filter,out posts,out max_post_cardinality);
+      }
+
     internal void MarkMemberToBeReleased
       (
       string member_id,
@@ -243,6 +244,18 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.MarkMemberToBeReleased(member_id,relative_month);
+      }
+
+    internal void GetInfoAboutMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      ref k.subtype<int> num,
+      out DateTime earliest_unselected,
+      out DateTime latest_unselected
+      )
+      {
+      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
       }
 
     internal string MonthlessRenditionOfId(string id)

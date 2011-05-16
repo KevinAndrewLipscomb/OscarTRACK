@@ -37,20 +37,35 @@
                   </small>
                 </td>
                 <td align="center" nowrap="nowrap">
-                  <small>Depth</small><br/>
-                  <ASP:DropDownList id="DropDownList_depth" runat="server" autopostback="True" onselectedindexchanged="DropDownList_depth_SelectedIndexChanged">
-                    <ASP:ListItem value="" selected="True">All</ASP:ListItem>
-                    <ASP:ListItem value="1">Selected</ASP:ListItem>
-                    <ASP:ListItem value="0">Not selected</ASP:ListItem>
-                  </ASP:DropDownList>
+                  <table cellpadding="3" cellspacing="0">
+                    <tr>
+                      <td align="right" nowrap="nowrap"><small>Depth:</small></td>
+                      <td align="left">
+                        <ASP:DropDownList id="DropDownList_depth" runat="server" autopostback="True" onselectedindexchanged="DropDownList_depth_SelectedIndexChanged">
+                          <ASP:ListItem value="" selected="True">All</ASP:ListItem>
+                          <ASP:ListItem value="1">Selected</ASP:ListItem>
+                          <ASP:ListItem value="0">Not selected</ASP:ListItem>
+                        </ASP:DropDownList>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td align="right" nowrap="nowrap"><small>Expand station drop-downs:</small></td>
+                      <td align="left"><asp:CheckBox ID="CheckBox_expand_posts" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_expand_posts_CheckedChanged" /></td>
+                    </tr>
+                    <tr>
+                      <td align="right" nowrap="nowrap"><small>Max crew at a station:</small></td>
+                      <td align="left"><asp:DropDownList ID="DropDownList_max_post_cardinality" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_max_post_cardinality_SelectedIndexChanged"></asp:DropDownList></td>
+                    </tr>
+                  </table>
+                  <br/>
    							</td>
               </tr>
             </table>
             <table cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
               <tr>
-                <td align="center" valign="middle"><small><b><asp:literal id="Literal_num_members" runat="server"></asp:literal></b><br/>members</small></td>
+                <td align="center" valign="middle"><small><b><asp:literal id="Literal_num_members" runat="server"></asp:literal></b>&nbsp;members</small></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
-                <td align="center" valign="middle"><small><b><ASP:literal id="Literal_num_crew_shifts" runat="server"></ASP:literal></b><br/>crew-shifts</small></td>
+                <td align="center" valign="middle"><small><b><ASP:literal id="Literal_num_crew_shifts" runat="server"></ASP:literal></b>&nbsp;crew-shifts</small></td>
               </tr>
             </table>
             <small>

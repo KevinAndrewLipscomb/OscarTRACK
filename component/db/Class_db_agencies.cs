@@ -188,6 +188,9 @@ namespace Class_db_agencies
         internal void BindEmsPostListItemCollectionShort
           (
           string tier,
+          string agency_filter,
+          string post_footprint,
+          bool be_condensed,
           object target
           )
           {
@@ -195,12 +198,11 @@ namespace Class_db_agencies
           (target as ListItemCollection).Clear();
           var dr = new MySqlCommand
             (
-            "SELECT DISTINCT agency.id as id"
-            + " , short_designator"
+            "select agency.id,agency.short_designator"
             + " from agency"
-            +   " left join agency_satellite_station on (agency_satellite_station.agency_id=agency.id)"
-            + " where be_ems_post = TRUE" + (tier == "1" ? k.EMPTY : " and agency.id < 200")
-            + " order by short_designator",
+            +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=agency.id)"
+            + " where be_ems_post" + (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0," + post_footprint + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
+            + " order by agency.id",
             connection
             )
             .ExecuteReader();

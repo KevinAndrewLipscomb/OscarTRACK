@@ -85,6 +85,24 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_depth;
         
         /// <summary>
+        /// CheckBox_expand_posts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_expand_posts;
+        
+        /// <summary>
+        /// DropDownList_max_post_cardinality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_max_post_cardinality;
+        
+        /// <summary>
         /// Literal_num_members control.
         /// </summary>
         /// <remarks>
