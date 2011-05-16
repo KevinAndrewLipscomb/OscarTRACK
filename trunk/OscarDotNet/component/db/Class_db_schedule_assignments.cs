@@ -1118,6 +1118,42 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal void GetAgencyFootprintInfo
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      out string posts,
+      out string max_post_cardinality
+      )
+      {
+      var nominal_day_condition_clause = k.EMPTY;
+      if (nominal_day_filter.Length > 0)
+        {
+        nominal_day_condition_clause = " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'";
+        }
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select GROUP_CONCAT(distinct post_id order by post_id) as posts"
+        + " , max(" + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ") as max_post_cardinality"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        + " where be_selected"
+        +   " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +     nominal_day_condition_clause
+        + " group by NULL",
+        connection
+        )
+        .ExecuteReader();
+      dr.Read();
+      posts = dr["posts"].ToString();
+      max_post_cardinality = dr["max_post_cardinality"].ToString();
+      dr.Close();
+      Close();
+      }
+
     internal void GetInfoAboutMemberInMonth
       (
       string member_id,

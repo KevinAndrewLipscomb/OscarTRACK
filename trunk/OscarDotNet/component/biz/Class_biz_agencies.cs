@@ -121,10 +121,13 @@ namespace Class_biz_agencies
         internal void BindEmsPostListItemCollectionShort
           (
           string tier,
+          string agency_filter,
+          string post_footprint,
+          bool be_condensed,
           object target
           )
           {
-          db_agencies.BindEmsPostListItemCollectionShort(tier,target);
+          db_agencies.BindEmsPostListItemCollectionShort(tier,agency_filter,post_footprint,be_condensed,target);
           }
 
         public void BindForCommensuration(object target)

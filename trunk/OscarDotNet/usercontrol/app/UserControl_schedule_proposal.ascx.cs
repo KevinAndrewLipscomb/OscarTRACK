@@ -32,11 +32,14 @@ namespace UserControl_schedule_proposal
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public string depth_filter;
+    public string max_post_cardinality_actual;
+    public string max_post_cardinality_effective;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public string nominal_day_filter_active;
     public string nominal_day_filter_saved;
     public uint num_datagrid_rows;
     public string own_agency;
+    public string post_footprint;
     public ListItem[] proto_post_list_item_array;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -119,6 +122,8 @@ namespace UserControl_schedule_proposal
         //
         Bind();
         //
+        p.biz_schedule_assignments.BindPostCardinalityListControl(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + int.Parse(ConfigurationManager.AppSettings["max_num_units_per_post"]) - 1)),DropDownList_max_post_cardinality,p.max_post_cardinality_effective);
+        //
         if (!p.be_interactive)
           {
           HyperLink_preview_print_scalable.Visible = false;
@@ -195,9 +200,12 @@ namespace UserControl_schedule_proposal
           {
           p.depth_filter = "1";
           }
+        p.max_post_cardinality_actual = k.EMPTY;
+        p.max_post_cardinality_effective = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.own_agency = (p.be_interactive ? p.biz_members.AgencyIdOfId(Session["member_id"].ToString()) : k.EMPTY);
+        p.post_footprint = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         p.saved_d_unit_spec = k.EMPTY;
@@ -205,11 +213,6 @@ namespace UserControl_schedule_proposal
         //
         p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
-        //
-        var proto_post_list_item_collection = new ListItemCollection();
-        p.biz_agencies.BindEmsPostListItemCollectionShort((p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),proto_post_list_item_collection);
-        p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
-        proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
         //
         MakeDateCalculations();
         }
@@ -371,11 +374,23 @@ namespace UserControl_schedule_proposal
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive;
+        //
+        p.biz_schedule_assignments.GetAgencyFootprintInfo(p.agency_filter,p.relative_month,p.nominal_day_filter_active,out p.post_footprint,out p.max_post_cardinality_actual);
+        var proto_post_list_item_collection = new ListItemCollection();
+        p.biz_agencies.BindEmsPostListItemCollectionShort((p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),p.agency_filter,p.post_footprint,!CheckBox_expand_posts.Checked,proto_post_list_item_collection);
+        p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
+        proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
+        var max_post_cardinality_commanded = k.Safe(DropDownList_max_post_cardinality.SelectedValue,k.safe_hint_type.ALPHA);
+        p.max_post_cardinality_effective = (max_post_cardinality_commanded.CompareTo(p.max_post_cardinality_actual) >= 0 ? max_post_cardinality_commanded : p.max_post_cardinality_actual);
+        DropDownList_max_post_cardinality.SelectedValue = p.max_post_cardinality_effective;
+        //
         var num_members = new k.int_nonnegative();
         var num_crew_shifts = new k.decimal_nonnegative();
         p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
         Literal_num_members.Text = num_members.val.ToString();
         Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
+        p.max_post_cardinality_actual = k.EMPTY;
+        p.post_footprint = k.EMPTY;
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;
@@ -511,7 +526,7 @@ namespace UserControl_schedule_proposal
             {
             post_drop_down_list.Visible = true;
             post_label.Visible = false;
-            p.biz_schedule_assignments.BindPostCardinalityListControl(post_cardinality_drop_down_list,e.Item.Cells[tci_post_cardinality_noninteractive].Text);
+            p.biz_schedule_assignments.BindPostCardinalityListControl(p.max_post_cardinality_effective,post_cardinality_drop_down_list,e.Item.Cells[tci_post_cardinality_noninteractive].Text);
             //
             if (be_ok_to_enable_controls)
               {
@@ -768,6 +783,16 @@ namespace UserControl_schedule_proposal
           e.Cell.ForeColor = (e.Day.IsSelected ? Color.LightBlue : Color.Blue);
           }
         }
+      }
+
+    protected void CheckBox_expand_posts_CheckedChanged(object sender, EventArgs e)
+      {
+      Bind();
+      }
+
+    protected void DropDownList_max_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      Bind();
       }
 
     }
