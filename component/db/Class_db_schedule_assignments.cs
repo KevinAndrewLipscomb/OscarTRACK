@@ -1147,9 +1147,16 @@ namespace Class_db_schedule_assignments
         connection
         )
         .ExecuteReader();
-      dr.Read();
-      posts = dr["posts"].ToString();
-      max_post_cardinality = dr["max_post_cardinality"].ToString();
+      if (dr.Read())
+        {
+        posts = dr["posts"].ToString();
+        max_post_cardinality = dr["max_post_cardinality"].ToString();
+        }
+      else
+        {
+        posts = agency_filter;
+        max_post_cardinality = "a";
+        }
       dr.Close();
       Close();
       }
