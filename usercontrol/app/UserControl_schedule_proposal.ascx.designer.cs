@@ -85,6 +85,15 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_depth;
         
         /// <summary>
+        /// TableRow_expand_station_drop_downs control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_expand_station_drop_downs;
+        
+        /// <summary>
         /// CheckBox_expand_posts control.
         /// </summary>
         /// <remarks>
@@ -92,6 +101,15 @@ namespace UserControl_schedule_proposal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_expand_posts;
+        
+        /// <summary>
+        /// TableRow_max_crews_at_a_station control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_max_crews_at_a_station;
         
         /// <summary>
         /// DropDownList_max_post_cardinality control.
