@@ -48,11 +48,11 @@
                         </ASP:DropDownList>
                       </td>
                     </tr>
-                    <tr>
+                    <tr id="TableRow_expand_station_drop_downs" runat="server">
                       <td align="right" nowrap="nowrap"><small>Expand station drop-downs:</small></td>
                       <td align="left"><asp:CheckBox ID="CheckBox_expand_posts" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_expand_posts_CheckedChanged" /></td>
                     </tr>
-                    <tr>
+                    <tr id="TableRow_max_crews_at_a_station" runat="server">
                       <td align="right" nowrap="nowrap"><small>Max crew at a station:</small></td>
                       <td align="left"><asp:DropDownList ID="DropDownList_max_post_cardinality" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_max_post_cardinality_SelectedIndexChanged"></asp:DropDownList></td>
                     </tr>

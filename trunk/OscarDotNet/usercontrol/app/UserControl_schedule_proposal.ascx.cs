@@ -128,6 +128,8 @@ namespace UserControl_schedule_proposal
           {
           HyperLink_preview_print_scalable.Visible = false;
           HyperLink_preview_print_month_at_a_glance.Visible = false;
+          TableRow_expand_station_drop_downs.Visible = false;
+          TableRow_max_crews_at_a_station.Visible = false;
           var report_compressed_font_family = ConfigurationManager.AppSettings["report_compressed_font_family"];
           EstablishGoogleWebFontLoader("google: { families: [" + report_compressed_font_family + "] }");
           A.Style.Add("font-family",report_compressed_font_family);
