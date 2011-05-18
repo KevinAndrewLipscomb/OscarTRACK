@@ -37,7 +37,6 @@ namespace UserControl_current_indicators
             {
                 p.be_loaded = false;
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_core_ops_size)(LoadControl("~/usercontrol/app/UserControl_ranked_core_ops_size.ascx"))),"UserControl_ranked_core_ops_size",PlaceHolder_ranked_core_ops_size,InstanceId());
-                AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_core_ops_size)(LoadControl("~/usercontrol/app/UserControl_ranked_core_ops_size.ascx"))),"UserControl_ranked_core_ops_size",PlaceHolder_ranked_core_ops_size,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_crew_shifts_forecast)(LoadControl("~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx"))),"UserControl_ranked_crew_shifts_forecast",PlaceHolder_ranked_crew_shifts_forecast,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_standard_enrollment)(LoadControl("~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx"))),"UserControl_ranked_standard_enrollment",PlaceHolder_ranked_standard_enrollment,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_utilization)(LoadControl("~/usercontrol/app/UserControl_ranked_utilization.ascx"))),"UserControl_ranked_utilization",PlaceHolder_ranked_utilization,InstanceId());
