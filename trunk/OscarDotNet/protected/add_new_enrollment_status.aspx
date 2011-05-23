@@ -57,7 +57,7 @@ new status be?&nbsp; Please consider carefully.
                   <p><b><i>If this new membership status should eventually expire, visit this page again later and specify a fallback membership status to take effect at a future date.</i></b></p>
 								  <p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp;<ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p>
 								  <p>&nbsp;</p>
-								  <p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small">Grant leave instead</ASP:LinkButton></p>
+								  <p><ASP:LinkButton id="LinkButton_grant_leave" runat="server" causesvalidation="False" font-size="Small" onclick="LinkButton_grant_leave_Click">Grant leave instead</ASP:LinkButton></p>
 								</td>
 							</tr>
 						</table>
