@@ -23,6 +23,8 @@
 					</tr>
 					<tr>
 					  <td>
+            <asp:UpdatePanel ID="UpdatePanel_control" runat="server">
+              <ContentTemplate>
 						<table cellspacing="0" cellpadding="10" border="0">
 							<tr>
 							  <td valign="top">What should <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>'s 
@@ -30,9 +32,10 @@ new status be?&nbsp; Please consider carefully.
 
 								<p></p>
 								<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
-								  <p><ASP:RadioButtonList id="RadioButtonList_disposition" runat="server"></ASP:RadioButtonList></p>
+								  <p><ASP:RadioButtonList id="RadioButtonList_disposition" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonList_disposition_SelectedIndexChanged"></ASP:RadioButtonList></p>
 								  <small><ASP:Label id="Label_no_transitions_available" runat="server" visible="False" font-italic="True">No transitions are available in this situation.</ASP:Label></small>
 								</blockquote>
+                </td>
 							  <td valign="top">
 							    <asp:Panel ID="Panel_target_agency" runat="server" Visible="False">
                     <asp:Literal ID="Literal_member_first_name_2" runat="server"></asp:Literal>
@@ -58,6 +61,8 @@ new status be?&nbsp; Please consider carefully.
 								</td>
 							</tr>
 						</table>
+              </ContentTemplate>
+            </asp:UpdatePanel>
 					  </td>
 					</tr>
 				</table>

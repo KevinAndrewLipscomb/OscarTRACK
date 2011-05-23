@@ -7,6 +7,7 @@ using Class_biz_user;
 using kix;
 using System;
 using System.Configuration;
+using System.Web.UI;
 using UserControl_drop_down_date;
 
 namespace add_new_enrollment_status
@@ -101,6 +102,9 @@ namespace add_new_enrollment_status
                     Button_submit.Enabled = (RadioButtonList_disposition.Items.Count > 0);
                 }
             }
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_grant_leave);
         }
 
         protected override void OnInit(EventArgs e)
@@ -154,6 +158,11 @@ namespace add_new_enrollment_status
             CustomValidator_control.ErrorMessage = first_name + "'s current released cert level is '" + current_medical_release_level + "', which is incompatible with the Membership Status that you selected.  If " + first_name
             + " has been released at a higher medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and increase " + first_name + "'s Released cert level appropriately.  Then perform your current action again.";
             }
+          }
+
+        protected void RadioButtonList_disposition_SelectedIndexChanged(object sender, EventArgs e)
+          {
+          Panel_target_agency.Visible = (RadioButtonList_disposition.SelectedValue == "13" ? false : p.be_member_squad_affiliation_weak);
           }
 
     } // end TWebForm_add_new_enrollment_status

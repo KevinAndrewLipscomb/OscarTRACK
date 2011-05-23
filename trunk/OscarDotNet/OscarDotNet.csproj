@@ -108,6 +108,7 @@
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
+    <Content Include="protected\template\notification\death.txt" />
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
