@@ -35,7 +35,7 @@ namespace Class_biz_enrollment
         public bool BePastDescription(string description)
         {
             bool result;
-            result = (description == "Withdrew application") || (description == "Resigned") || (description == "Retired") || (description == "Disabled") || (description == "Unknown") || (description == "Dismissed") || (description == "Died");
+            result = (description == "Withdrew application") || (description == "Resigned") || (description == "Retired") || (description == "Disabled") || (description == "Unknown") || (description == "Dismissed") || (description == "Deceased");
             return result;
         }
 
