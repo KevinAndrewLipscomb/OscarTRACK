@@ -165,6 +165,11 @@ namespace add_new_enrollment_status
           Panel_target_agency.Visible = (RadioButtonList_disposition.SelectedValue == "13" ? false : p.be_member_squad_affiliation_weak);
           }
 
+        protected void LinkButton_grant_leave_Click(object sender, EventArgs e)
+          {
+          BackTrack(2);
+          }
+
     } // end TWebForm_add_new_enrollment_status
 
 }
