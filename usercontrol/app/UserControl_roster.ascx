@@ -66,7 +66,7 @@
                                     <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
                                     <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
                                     <ASP:ListItem value="dismissed">- - Dismissed</ASP:ListItem>
-                                    <ASP:ListItem value="deceased">- Deceased</ASP:ListItem>
+                                    <ASP:ListItem value="deceased">- - Deceased</ASP:ListItem>
                         </asp:dropdownlist>
                                     </p>
                       </td>

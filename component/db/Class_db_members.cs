@@ -786,7 +786,7 @@ namespace Class_db_members
                         filter = filter + " = \"Suspended\" ";
                         break;
                     case Class_biz_enrollment.filter_type.PAST:
-                        filter = filter + "  in (\"Withdrew application\",\"Unknown\",\"Resigned\",\"Retired\",\"Disabled\",\"Dismissed\") ";
+                        filter = filter + "  in (\"Withdrew application\",\"Unknown\",\"Resigned\",\"Retired\",\"Disabled\",\"Dismissed\",\"Deceased\") ";
                         break;
                     case Class_biz_enrollment.filter_type.WITHDREW_APPLICATION:
                         filter = filter + " = \"Withdrew application\" ";
