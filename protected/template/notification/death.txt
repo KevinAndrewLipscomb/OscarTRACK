@@ -1,0 +1,19 @@
+<cad_num/> <last_name/>, <first_name/> => Deceased
+An apology may be appropriate for the stark and automatic nature of this notification from the Virginia Beach EMS <application_name/> system.
+
+<actor/> has changed <first_name/> <last_name/>'s membership status in <application_name/> as follows:
+
+   New status:
+      Deceased
+   Effective date (yyyy-mm-dd):
+      <effective_date/>
+   Note:
+      <note/>
+
+A record of <first_name/>'s involvement with Virginia Beach EMS will be retained in this system indefinitely.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

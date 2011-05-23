@@ -31,6 +31,15 @@ namespace add_new_enrollment_status {
         protected global::System.Web.UI.WebControls.Label Label_member_designator;
         
         /// <summary>
+        /// UpdatePanel_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        
+        /// <summary>
         /// Label_member_first_name control.
         /// </summary>
         /// <remarks>

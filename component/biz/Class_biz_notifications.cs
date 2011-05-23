@@ -281,6 +281,57 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+        private delegate string IssueForDeath_Merge(string s);
+        internal void IssueForDeath
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string effective_date,
+          string note
+          )
+          {
+          var actor = k.EMPTY;
+          var actor_email_address = k.EMPTY;
+          var actor_member_id = k.EMPTY;
+
+          IssueForDeath_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", actor)
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<cad_num/>", cad_num)
+              .Replace("<effective_date/>", effective_date)
+              .Replace("<first_name/>", first_name)
+              .Replace("<last_name/>", last_name)
+              .Replace("<member_id/>", member_id)
+              .Replace("<note/>", note);
+            };
+
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+          actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/death.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("new-enrollment-level", member_id),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueForDriverQualificationChange_Merge(string s);
         public void IssueForDriverQualificationChange(string member_id, string first_name, string last_name, string cad_num, bool be_driver_qualified)
         {

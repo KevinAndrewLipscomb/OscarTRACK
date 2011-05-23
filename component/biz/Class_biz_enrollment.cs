@@ -144,7 +144,14 @@ namespace Class_biz_enrollment
                     }
                   }
                 var new_level_description = db_enrollment.DescriptionOf(new_level_code);
-                biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+                if (new_level_description == "Deceased")
+                  {
+                  biz_notifications.IssueForDeath(member_id, first_name, last_name, cad_num, effective_date.ToString("yyyy-MM-dd"), note);
+                  }
+                else
+                  {
+                  biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+                  }
                 //
                 if ((new ArrayList() {"Transferring","Unknown","Resigned","Retired"}).Contains(new_level_description))
                   {
