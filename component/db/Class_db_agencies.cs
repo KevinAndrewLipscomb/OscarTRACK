@@ -1,13 +1,12 @@
-using MySql.Data.MySqlClient;
+using Class_db;
+using Class_db_members;
+using Class_db_trail;
 using kix;
+using MySql.Data.MySqlClient;
 using System;
-
-
 using System.Collections;
 using System.Web.UI.WebControls;
-using Class_db;
-using Class_db_trail;
-using Class_db_members;
+
 namespace Class_db_agencies
 {
     public struct commensuration_rec_type
@@ -33,22 +32,51 @@ namespace Class_db_agencies
             // TODO: Add any constructor code here
             db_trail = new TClass_db_trail();
         }
-        public bool Bind(string partial_short_designator, object target)
-        {
-            bool result;
-            MySqlDataReader dr;
-            this.Open();
-            ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT short_designator FROM agency WHERE short_designator like \"" + partial_short_designator + "%\" order by short_designator", this.connection).ExecuteReader();
-            while (dr.Read())
+
+    internal bool BeNotificationPendingForAllInScope
+      (
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      var be_notification_pending_for_all_in_scope = true;
+      Open();
+      be_notification_pending_for_all_in_scope = "1" == new MySqlCommand
+        (
+        "select IF(sum(not be_notification_pending) = 0,1,0)"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        + " where agency_id = '" + agency_filter + "'"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return be_notification_pending_for_all_in_scope;
+      }
+
+        public bool Bind(string partial_spec, object target)
+          {
+          var concat_clause = "concat(id,'|',short_designator,'|',long_designator,'|',keyclick_enumerator,'|',oscar_classic_enumerator)";
+          Open();
+          ((target) as ListControl).Items.Clear();
+          var dr = new MySqlCommand
+            (
+            "select id"
+            + " , CONVERT(" + concat_clause + " USING utf8) as spec"
+            + " from agency"
+            + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+            + " order by spec",
+            connection
+            )
+            .ExecuteReader();
+          while (dr.Read())
             {
-                ((target) as ListControl).Items.Add(new ListItem(dr["short_designator"].ToString(), dr["short_designator"].ToString()));
+            ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
             }
-            dr.Close();
-            this.Close();
-            result = ((target) as ListControl).Items.Count > 0;
-            return result;
-        }
+          dr.Close();
+          return ((target) as ListControl).Items.Count > 0;
+          }
 
         private void BindEmsPostListControl(string unselected_literal,string designator_clause,object target,string selected_id)
           {
@@ -246,36 +274,72 @@ namespace Class_db_agencies
           Close();
           }
 
-        public void Delete(string short_designator)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("delete from agency where short_designator = " + short_designator), this.connection).ExecuteNonQuery();
-            this.Close();
-        }
-
-        public bool Get(string short_designator, out string medium_designator, out string long_designator, out bool be_active)
-        {
-            bool result;
-            MySqlDataReader dr;
-
-            medium_designator = k.EMPTY;
-            long_designator = k.EMPTY;
-            be_active = false;
-            result = false;
-            this.Open();
-            dr = new MySqlCommand("select * from agency where short_designator = \"" + short_designator + "\"", this.connection).ExecuteReader();
-            if (dr.Read())
+        public bool Delete(string id)
+          {
+          var result = true;
+          Open();
+          try
             {
-                short_designator = dr["short_designator"].ToString();
-                medium_designator = dr["medium_designator"].ToString();
-                long_designator = dr["long_designator"].ToString();
-                be_active = (dr["be_active"].ToString() == "1");
-                result = true;
+            new MySqlCommand(db_trail.Saved("delete from agency where id = '" + id + "'"),connection).ExecuteNonQuery();
             }
-            dr.Close();
-            this.Close();
-            return result;
-        }
+          catch(System.Exception e)
+            {
+            if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
+              {
+              result = false;
+              }
+            else
+              {
+              throw e;
+              }
+            }
+          Close();
+          return result;
+          }
+
+        public bool Get
+          (
+          string id,
+          out string short_designator,
+          out string medium_designator,
+          out string long_designator,
+          out bool be_active,
+          out string keyclick_enumerator,
+          out string oscar_classic_enumerator,
+          out bool be_ems_post,
+          out string door_code,
+          out bool be_ok_to_nag
+          )
+          {
+          short_designator = k.EMPTY;
+          medium_designator = k.EMPTY;
+          long_designator = k.EMPTY;
+          be_active = false;
+          keyclick_enumerator = k.EMPTY;
+          oscar_classic_enumerator = k.EMPTY;
+          be_ems_post = false;
+          door_code = k.EMPTY;
+          be_ok_to_nag = true;
+          var result = false;
+          Open();
+          var dr = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
+          if (dr.Read())
+            {
+            short_designator = dr["short_designator"].ToString();
+            medium_designator = dr["medium_designator"].ToString();
+            long_designator = dr["long_designator"].ToString();
+            be_active = (dr["be_active"].ToString() == "1");
+            keyclick_enumerator = dr["keyclick_enumerator"].ToString();
+            oscar_classic_enumerator = dr["oscar_classic_enumerator"].ToString();
+            be_ems_post = (dr["be_ems_post"].ToString() == "1");
+            door_code = dr["door_code"].ToString();
+            be_ok_to_nag = (dr["be_ok_to_nag"].ToString() == "1");
+            result = true;
+            }
+          dr.Close();
+          Close();
+          return result;
+          }
 
         public string IdOfShortDesignator(string short_designator)
         {
@@ -387,12 +451,47 @@ namespace Class_db_agencies
             return result;
         }
 
-        public void Set(string short_designator, string medium_designator, string long_designator, bool be_active)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("replace agency" + " set short_designator = \"" + short_designator + "\"" + " , medium_designator = \"" + medium_designator + "\"" + " , long_designator = \"" + long_designator + "\"" + " , be_active = " + be_active.ToString()), this.connection).ExecuteNonQuery();
-            this.Close();
-        }
+        public void Set
+          (
+          string id,
+          string short_designator,
+          string medium_designator,
+          string long_designator,
+          bool be_active,
+          string keyclick_enumerator,
+          string oscar_classic_enumerator,
+          bool be_ems_post,
+          string door_code,
+          bool be_ok_to_nag
+          )
+          {
+          var childless_field_assignments_clause = k.EMPTY
+          + "short_designator = '" + short_designator + "'"
+          + " , medium_designator = '" + medium_designator + "'"
+          + " , long_designator = '" + long_designator + "'"
+          + " , be_active = " + be_active.ToString()
+          + " , keyclick_enumerator = NULLIF('" + keyclick_enumerator.ToUpper() + "','')"
+          + " , oscar_classic_enumerator = NULLIF('" + oscar_classic_enumerator + "','')"
+          + " , be_ems_post = " + be_ems_post.ToString()
+          + " , door_code = NULLIF('" + door_code + "','')"
+          + " , be_ok_to_nag = " + be_ok_to_nag.ToString()
+          + k.EMPTY;
+          Open();
+          new MySqlCommand
+            (
+            db_trail.Saved
+              (
+              "insert agency"
+              + " set id = NULLIF('" + id + "','')"
+              + " , " + childless_field_assignments_clause
+              + " on duplicate key update "
+              + childless_field_assignments_clause
+              ),
+             connection
+             )
+             .ExecuteNonQuery();
+          Close();
+          }
 
         public void SetCommensuration(Queue commensuration_rec_q)
         {

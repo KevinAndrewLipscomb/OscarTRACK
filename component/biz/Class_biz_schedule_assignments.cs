@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Web.UI.WebControls;
+using System.Web.SessionState;
 
 namespace Class_biz_schedule_assignments
   {
@@ -37,6 +38,36 @@ namespace Class_biz_schedule_assignments
       )
       {
       return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
+      }
+
+    internal bool BeOkToEditPerExclusivityRules
+      (
+      HttpSessionState session,
+      string target_member_agency_id,
+      k.subtype<int> relative_month
+      )
+      {
+      var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
+      return
+        (
+          session["mode:report"] == null
+        &&
+          k.Has(session["privilege_array"] as string[],"edit-schedule")
+        &&
+          (
+            (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())))
+          ||
+            (
+              k.Has(session["privilege_array"] as string[],"see-all-squads")
+            &&
+              (
+                !BeFullWatchbillPublishMandatory(target_member_agency_id,relative_month)
+              ||
+                DateTime.Today > new DateTime(relative_prep_month.Year,relative_prep_month.Month,int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]))
+              )
+            )
+          )
+        );
       }
 
     internal bool BeOkToPublishFullWatchbill
@@ -325,7 +356,7 @@ namespace Class_biz_schedule_assignments
       var publisher_member_id = biz_members.IdOfUserId(biz_user.IdNum());
       var stdout = k.EMPTY;
       var stderr = k.EMPTY;
-      db_schedule_assignments.PendingNotificationTargets(relative_month,publisher_member_id,biz_members.AgencyIdOfId(publisher_member_id),ref member_id_q,ref other_agency_ids_q);
+      db_schedule_assignments.PendingNotificationTargets(relative_month,publisher_member_id,biz_members.AgencyIdOfId(publisher_member_id),be_virgin_watchbill,ref member_id_q,ref other_agency_ids_q);
       var num_targets = member_id_q.Count;
       var member_id = k.EMPTY;
       var other_agency_ids = k.EMPTY;

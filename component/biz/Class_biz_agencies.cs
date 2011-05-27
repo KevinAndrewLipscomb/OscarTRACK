@@ -1,5 +1,6 @@
 using Class_db_agencies;
 using Class_db_agency_satellite_stations;
+using kix;
 using System.Collections;
 
 namespace Class_biz_agencies
@@ -34,6 +35,15 @@ namespace Class_biz_agencies
             }
           }
 
+        internal bool BeFullWatchbillPublishMandatory
+          (
+          string agency_filter,
+          k.subtype<int> relative_month
+          )
+          {
+          return db_agencies.BeNotificationPendingForAllInScope(agency_filter,relative_month);
+          }
+
         public bool BeImmediateOutTransfersAllowed(string agency)
           {
           return (agency == "EMS");
@@ -46,12 +56,10 @@ namespace Class_biz_agencies
             return result;
         }
 
-        public bool Bind(string partial_username, object target)
-        {
-            bool result;
-            result = db_agencies.Bind(partial_username, target);
-            return result;
-        }
+        public bool Bind(string partial_spec, object target)
+          {
+          return db_agencies.Bind(partial_spec, target);
+          }
 
         public void BindEmsPostListControlShort(object target, string selected_id, bool be_available_option_all, string unselected_literal)
         {
@@ -145,18 +153,27 @@ namespace Class_biz_agencies
             db_agencies.BindRankedCommensuration(target);
         }
 
-        public void Delete(string username)
-        {
-            db_agencies.Delete(username);
-        }
+        public bool Delete(string id)
+          {
+          return db_agencies.Delete(id);
+          }
 
-        public bool Get(string short_designator, out string medium_designator, out string long_designator, out bool be_active)
-        {
-            bool result;
-            result = db_agencies.Get(short_designator, out medium_designator, out long_designator, out be_active);
-
-            return result;
-        }
+        public bool Get
+          (
+          string id,
+          out string short_designator,
+          out string medium_designator,
+          out string long_designator,
+          out bool be_active,
+          out string keyclick_enumerator,
+          out string oscar_classic_enumerator,
+          out bool be_ems_post,
+          out string door_code,
+          out bool be_ok_to_nag
+          )
+          {
+          return db_agencies.Get(id, out short_designator, out medium_designator, out long_designator, out be_active, out keyclick_enumerator, out oscar_classic_enumerator, out be_ems_post, out door_code, out be_ok_to_nag);
+          }
 
         public string IdOfShortDesignator(string short_designator)
         {
@@ -203,11 +220,22 @@ namespace Class_biz_agencies
             return result;
         }
 
-        public void Set(string short_designator, string medium_designator, string long_designator, bool be_active)
-        {
-            db_agencies.Set(short_designator, medium_designator, long_designator, be_active);
-
-        }
+        public void Set
+          (
+          string id,
+          string short_designator,
+          string medium_designator,
+          string long_designator,
+          bool be_active,
+          string keyclick_enumerator,
+          string oscar_classic_enumerator,
+          bool be_ems_post,
+          string door_code,
+          bool be_ok_to_nag
+          )
+          {
+          db_agencies.Set(id,short_designator,medium_designator,long_designator,be_active,keyclick_enumerator,oscar_classic_enumerator,be_ems_post,door_code,be_ok_to_nag);
+          }
 
         public void SetCommensuration(Queue commensuration_rec_q)
         {

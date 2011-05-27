@@ -160,6 +160,9 @@
                       <ASP:BoundColumn datafield="last_reviser" ReadOnly="true" HeaderText="Last revised">
                         <ItemStyle Font-Size="Small"/>
                       </ASP:BoundColumn>
+                      <ASP:BoundColumn datafield="door_code" ReadOnly="true" HeaderText="Door code">
+                        <ItemStyle HorizontalAlign="Center" Font-Size="Small"/>
+                      </ASP:BoundColumn>
                     </Columns>
                   </ASP:DataGrid>
                   <small>

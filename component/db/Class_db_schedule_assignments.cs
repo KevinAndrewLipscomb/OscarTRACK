@@ -534,6 +534,7 @@ namespace Class_db_schedule_assignments
         + " , shift_population_citywide"
         + " , others_available"
         + " , last_reviser"
+        + " , door_code"
         + " from"
         +   " ("
         +   " select schedule_assignment_id"
@@ -551,6 +552,7 @@ namespace Class_db_schedule_assignments
         +   " , citywide as shift_population_citywide"
         +   " , others_available"
         +   " , last_reviser"
+        +   " , door_code"
         +   " from (select @on_duty := '', @off_duty := '') as dummy,"
         +     " ("
         +     " select member_id"
@@ -566,6 +568,7 @@ namespace Class_db_schedule_assignments
         +     " , be_selected"
         +     " , be_notification_pending"
         +     " , (select concat('by ',first_name,' ',last_name) from member where id = reviser_member_id) as last_reviser"
+        +     " , IF(be_selected,IFNULL(door_code,''),'') as door_code"
         +     " FROM schedule_assignment"
         +       " join shift on (shift.id=schedule_assignment.shift_id)"
         +       " join member on (member.id=schedule_assignment.member_id)"
@@ -1069,7 +1072,19 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = " + be_selected + ", be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "update schedule_assignment"
+          + " set be_selected = " + be_selected
+          + " , be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW()"
+          + " , reviser_member_id = '" + reviser_member_id + "'"
+          + " where id = '" + id + "'"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
       Close();
       }
 
@@ -1255,10 +1270,12 @@ namespace Class_db_schedule_assignments
       k.subtype<int> relative_month,
       string publisher_member_id,
       string publisher_member_agency_id,
+      bool be_virgin_watchbill,
       ref Queue member_id_q,
       ref Queue other_agency_ids_q
       )
       {
+      var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = '" + publisher_member_agency_id + "' or agency_satellite_station.agency_id = '" + publisher_member_agency_id + "' or reviser_member_id = '" + publisher_member_id + "'");
       member_id_q.Clear();
       other_agency_ids_q.Clear();
       Open();
@@ -1271,16 +1288,7 @@ namespace Class_db_schedule_assignments
         +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
         + " where be_notification_pending"
         +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
-        +   " and"
-        +     " ("
-        +       " member.agency_id = '" + publisher_member_agency_id + "'"
-        +     " or"
-        +       " post_id = '" + publisher_member_agency_id + "'"
-        +     " or"
-        +       " agency_satellite_station.agency_id = '" + publisher_member_agency_id + "'"
-        +     " or"
-        +       " reviser_member_id = '" + publisher_member_id + "'"
-        +     " )"
+        +   " and (member.agency_id = '" + publisher_member_agency_id + "'" + liberal_conditions + " )"
         + " group by member_id",
         connection
         )
@@ -1342,7 +1350,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1354,7 +1362,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1366,7 +1374,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1404,7 +1412,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
           .ExecuteNonQuery();
         transaction.Commit();
         }
@@ -1450,7 +1458,7 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = TRUE, reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
           .ExecuteNonQuery();
         transaction.Commit();
         }
