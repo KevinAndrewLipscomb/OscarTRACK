@@ -65,6 +65,7 @@ namespace UserControl_member_schedule_detail
       public const int TCI_BE_NOTIFICATION_PENDING = 18;
       public const int TCI_REVISED = 19;
       public const int TCI_LAST_REVISER = 20;
+      public const int TCI_DOOR_CODE = 21;
       }
 
     private p_type p;
@@ -416,6 +417,7 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_editable;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_editable;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_editable && !p.be_virgin_watchbill;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_DOOR_CODE].Visible = !p.be_editable || p.be_my_watchbill_mode;
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;
@@ -489,6 +491,7 @@ namespace UserControl_member_schedule_detail
       p.relative_month = relative_month;
       p.member_summary = p.biz_members.Summary(member_id);
       p.be_virgin_watchbill = be_virgin_watchbill;
+      p.be_editable = p.biz_schedule_assignments.BeOkToEditPerExclusivityRules(Session,member_agency_id,relative_month);
       Bind();
       }
     internal void SetFilter
@@ -503,7 +506,7 @@ namespace UserControl_member_schedule_detail
 
     internal void SetInteractivity(bool be_interactive)
       {
-      p.be_editable = be_interactive;
+      p.be_editable = p.be_editable && be_interactive;
       }
 
     protected void Button_mark_tbr_Click(object sender, EventArgs e)

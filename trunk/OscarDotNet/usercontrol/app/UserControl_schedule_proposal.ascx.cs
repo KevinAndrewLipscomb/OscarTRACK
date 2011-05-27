@@ -26,6 +26,7 @@ namespace UserControl_schedule_proposal
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
     public bool be_ok_to_see_other_member_schedule_detail;
+    public bool be_squad_exclusivity_expired;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_medical_release_levels biz_medical_release_levels;
@@ -193,6 +194,7 @@ namespace UserControl_schedule_proposal
           );
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
+        p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
           {
@@ -263,6 +265,9 @@ namespace UserControl_schedule_proposal
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         }
       p.relative_month = relative_month;
+      //
+      var relative_prep_month = DateTime.Today.AddMonths(p.relative_month.val - 1);
+      p.be_squad_exclusivity_expired = DateTime.Today > new DateTime(relative_prep_month.Year,relative_prep_month.Month,int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]));
       //
       HyperLink_preview_print_scalable.Text = k.ExpandTildePath(HyperLink_preview_print_scalable.Text);
       HyperLink_preview_print_scalable.NavigateUrl = "~/protected/watchbill.aspx"
@@ -600,13 +605,43 @@ namespace UserControl_schedule_proposal
         var d_be_ok_to_enable_controls = (d_post_id != k.EMPTY)
           && p.be_interactive
           && p.be_ok_to_edit_post
-          && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id));
+          &&
+            (
+              (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
+            ||
+              p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
+            ||
+              (
+                p.be_user_privileged_to_see_all_squads
+              &&
+                (
+                  !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,p.relative_month)
+                ||
+                  p.be_squad_exclusivity_expired
+                )
+              )
+            );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
         var n_be_ok_to_enable_controls = (n_post_id != k.EMPTY)
           && p.be_interactive
           && p.be_ok_to_edit_post
-          && (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency) || p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id));
+          &&
+            (
+              (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
+            ||
+              p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
+            ||
+              (
+                p.be_user_privileged_to_see_all_squads
+              &&
+                (
+                  !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,p.relative_month)
+                ||
+                  p.be_squad_exclusivity_expired
+                )
+              )
+            );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
         var current_n_unit_spec = monthless_rendition_of_nominal_day + "--" + n_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Text;

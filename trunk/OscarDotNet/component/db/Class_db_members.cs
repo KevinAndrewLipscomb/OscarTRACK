@@ -1057,6 +1057,7 @@ namespace Class_db_members
           (
           "select member.id as member_id"
           + " from member"
+          +   " join agency on (agency.id=member.agency_id)"
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           +   " join enrollment_history on"
           +     " ("
@@ -1095,6 +1096,7 @@ namespace Class_db_members
           +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'EMT Intern',2,num_shifts))"
           +   " and (condensed_avail_sheet.odnmid is null)"
           +   " and (condensed_schedule_assignment.member_id is null)"
+          +   " and be_ok_to_nag"
           ,
           connection
           )
