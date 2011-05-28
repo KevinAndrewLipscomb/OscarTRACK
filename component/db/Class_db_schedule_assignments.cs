@@ -1142,6 +1142,11 @@ namespace Class_db_schedule_assignments
       out string max_post_cardinality
       )
       {
+      var agency_filter_clause = k.EMPTY;
+      if (agency_filter.Length > 0)
+        {
+        agency_filter_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
+        }
       var nominal_day_condition_clause = k.EMPTY;
       if (nominal_day_filter.Length > 0)
         {
@@ -1155,7 +1160,7 @@ namespace Class_db_schedule_assignments
         + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
         + " where be_selected"
-        +   " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))"
+        +     agency_filter_clause
         +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
         +     nominal_day_condition_clause
         + " group by NULL",
