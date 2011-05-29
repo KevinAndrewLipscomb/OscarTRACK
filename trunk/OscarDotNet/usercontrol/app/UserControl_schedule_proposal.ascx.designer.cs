@@ -157,6 +157,15 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
         
         /// <summary>
+        /// TableRow_panel_and_datagrid control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_panel_and_datagrid;
+        
+        /// <summary>
         /// Panel_warning_to_save control.
         /// </summary>
         /// <remarks>

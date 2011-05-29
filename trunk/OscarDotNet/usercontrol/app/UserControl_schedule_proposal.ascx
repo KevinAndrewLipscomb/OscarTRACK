@@ -82,7 +82,7 @@
     </td>
   </tr>
   <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
-  <tr>
+  <tr id="TableRow_panel_and_datagrid" runat="server">
     <td>
       <asp:Panel ID="Panel_warning_to_save" runat="server">
         <table cellpadding="3" cellspacing="0">

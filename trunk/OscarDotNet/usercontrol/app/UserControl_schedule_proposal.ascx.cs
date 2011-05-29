@@ -403,7 +403,7 @@ namespace UserControl_schedule_proposal
       Table_data.Visible = !be_suppressed;
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
-      A.Visible = !p.be_datagrid_empty;
+      TableRow_panel_and_datagrid.Visible = !p.be_datagrid_empty;
       //
       p.num_datagrid_rows = 0;
       p.saved_d_unit_spec = k.EMPTY;
@@ -425,6 +425,8 @@ namespace UserControl_schedule_proposal
       int tci_member_agency_id,
       int tci_member_agency_designator,
       int tci_be_challenge,
+      int tci_num_units_citywide,
+      int tci_slash,
       bool be_unit_spec_change
       )
       {
@@ -463,6 +465,11 @@ namespace UserControl_schedule_proposal
         e.Item.Cells[tci_be_selected].ForeColor = Color.Gray;
         e.Item.Cells[tci_comment].ForeColor = Color.Gray;
         e.Item.Cells[tci_member_agency_designator].ForeColor = Color.Gray;
+        }
+      //
+      if (e.Item.Cells[tci_num_units_citywide].Text == "&nbsp;")
+        {
+        e.Item.Cells[tci_slash].Text = k.EMPTY;
         }
       //
       // Italicize medical_release_description for zone-duty-capable ALS
@@ -688,6 +695,8 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID,
           UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_DESIGNATOR,
           UserControl_schedule_proposal_Static.TCI_D_BE_CHALLENGE,
+          UserControl_schedule_proposal_Static.TCI_D_NUM_UNITS_CITYWIDE,
+          UserControl_schedule_proposal_Static.TCI_D_SLASH,
           be_d_unit_spec_change
           );
         ManageSimpleColumns
@@ -705,6 +714,8 @@ namespace UserControl_schedule_proposal
           UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID,
           UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_DESIGNATOR,
           UserControl_schedule_proposal_Static.TCI_N_BE_CHALLENGE,
+          UserControl_schedule_proposal_Static.TCI_N_NUM_UNITS_CITYWIDE,
+          UserControl_schedule_proposal_Static.TCI_N_SLASH,
           be_n_unit_spec_change
           );
         //
