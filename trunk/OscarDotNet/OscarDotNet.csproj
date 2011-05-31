@@ -82,6 +82,8 @@
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="noninteractive\end_of_month_tasks.aspx" />
+    <Content Include="noninteractive\report_archival_end_of_month_watchbill.aspx" />
     <Content Include="noninteractive\report_commanded_gripe_sheet.aspx" />
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
@@ -292,6 +294,20 @@
     </Compile>
     <Compile Include="new_user_registration.aspx.designer.cs">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\end_of_month_tasks.aspx.cs">
+      <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\end_of_month_tasks.aspx.designer.cs">
+      <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_archival_end_of_month_watchbill.aspx.cs">
+      <DependentUpon>report_archival_end_of_month_watchbill.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_archival_end_of_month_watchbill.aspx.designer.cs">
+      <DependentUpon>report_archival_end_of_month_watchbill.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_commanded_gripe_sheet.aspx.cs">
       <DependentUpon>report_commanded_gripe_sheet.aspx</DependentUpon>

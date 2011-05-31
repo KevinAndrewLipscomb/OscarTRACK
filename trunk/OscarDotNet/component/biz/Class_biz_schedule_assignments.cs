@@ -311,6 +311,25 @@ namespace Class_biz_schedule_assignments
       return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
       }
 
+    internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+          "--output-document=/dev/null --no-check-certificate"
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
+        );
+      }
+
     internal void PublishFullWatchbill
       (
       string agency_filter,
