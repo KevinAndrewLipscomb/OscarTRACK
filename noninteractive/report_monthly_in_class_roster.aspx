@@ -16,7 +16,7 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Monthly report of EMT Intern personnel</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of Student personnel</strong></td>
 					</tr>
 					<tr>
 					  <td>

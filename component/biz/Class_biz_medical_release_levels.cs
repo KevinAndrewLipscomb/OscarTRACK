@@ -42,7 +42,7 @@ namespace Class_biz_medical_release_levels
             bool result;
             string lowercase_level_description;
             lowercase_level_description = level_description.ToLower();
-            result = (lowercase_level_description == "none") || (lowercase_level_description == "emt intern");
+            result = (lowercase_level_description == "none") || (lowercase_level_description == "student");
             return result;
         }
 

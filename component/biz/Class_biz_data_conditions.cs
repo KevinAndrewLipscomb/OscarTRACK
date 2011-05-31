@@ -13,7 +13,7 @@ namespace Class_biz_data_conditions
         public bool BeMemberTrainee(string member_id)
         {
             bool result;
-            result = (new TClass_biz_members().MedicalReleaseLevelOfMemberId(member_id) == "Trainee");
+            result = (new TClass_biz_members().MedicalReleaseLevelOfMemberId(member_id) == "BLS Intern");
             return result;
         }
 

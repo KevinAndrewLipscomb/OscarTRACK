@@ -618,7 +618,7 @@ namespace Class_db_schedule_assignments
       +   " ("
       +     " enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
       +   " and"
-      +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'EMT Intern',2,num_shifts)) > 0"
+      +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
       +   " )"
       + " or"
       +   " (enrollment_level.description = 'Atypical')"
@@ -972,7 +972,7 @@ namespace Class_db_schedule_assignments
         +               " ("
         +                 " IF"
         +                   " ("
-        +                     " medical_release_code = 9"  // EMT Intern
+        +                     " medical_release_code = 9"  // Student
         +                   " ,"
         +                     " 2"  // expect 2 even though not strictly required
         +                   " ,"
@@ -1873,7 +1873,7 @@ namespace Class_db_schedule_assignments
           new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
           }
         //
-        // Determine which Trainees want how many extra assignments.  EMT Interns are not allowed to run extras.
+        // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
         //
         dr = new MySqlCommand
           (
