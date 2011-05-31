@@ -94,7 +94,7 @@ namespace report_monthly_recruit_awaiting_class_roster
             // subject
             // body
             // be_html
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Monthly Recruits-Who-Are-Not-Yet-EMT-Interns Roster", body, true);
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Monthly Recruits-Who-Are-Not-Yet-Students Roster", body, true);
             this.Session.Abandon();
 
         }

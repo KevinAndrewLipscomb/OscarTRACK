@@ -6,7 +6,7 @@
         <tr bgcolor="#f5f5f5">
           <td>
                 <p><strong>&quot;Third slot&quot; saturation factor</strong><br>
-				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the degree to which ambulance crews are expected include a Trainee or EMT Intern.</small></p>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the degree to which ambulance crews are expected include a BLS Intern or Student.</small></p>
           </td>
         </tr>
         <tr>

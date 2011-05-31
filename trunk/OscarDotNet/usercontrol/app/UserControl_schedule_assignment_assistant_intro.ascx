@@ -12,8 +12,8 @@
               <li>Loads new availabilities submitted by members;</li>
               <li>Accounts for member flexibility and shift popularity;</li>
               <li>Corrects imbalances based on need;</li>
-              <li>Gives EMT Interns and Trainees the minimum intended number of shifts;</li>
-              <li>Takes turns giving Trainees extra shifts to the extent requested and possible;</li>
+              <li>Gives Students and BLS Interns the minimum intended number of shifts;</li>
+              <li>Takes turns giving BLS Interns extra shifts to the extent requested and possible;</li>
               <li>Turns control of everything over to the schedule coordinators.</li>
             </ol>
           </td>

@@ -30,8 +30,8 @@
                                     <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
                                     <ASP:ListItem value="not_released">- Not released</ASP:ListItem>
                                     <ASP:ListItem value="none">- - None</ASP:ListItem>
-                                    <ASP:ListItem value="in_class">- - EMT Intern</ASP:ListItem>
-                                    <ASP:ListItem value="trainee">- - Trainee</ASP:ListItem>
+                                    <ASP:ListItem value="in_class">- - Student</ASP:ListItem>
+                                    <ASP:ListItem value="trainee">- - BLS Intern</ASP:ListItem>
                                     <ASP:ListItem value="released">- Released</ASP:ListItem>
                                     <ASP:ListItem value="emt_b">- - EMT-B</ASP:ListItem>
                                     <ASP:ListItem value="emt_st">- - EMT-ST</ASP:ListItem>
