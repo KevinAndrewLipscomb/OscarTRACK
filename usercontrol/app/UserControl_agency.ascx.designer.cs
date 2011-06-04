@@ -283,6 +283,15 @@ namespace UserControl_agency {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_ok_to_nag;
         
         /// <summary>
+        /// CheckBox_be_ok_to_send_duty_reminders control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_ok_to_send_duty_reminders;
+        
+        /// <summary>
         /// Button_submit control.
         /// </summary>
         /// <remarks>

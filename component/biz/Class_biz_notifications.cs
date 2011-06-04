@@ -2,12 +2,13 @@ using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
+using Class_biz_schedule_assignments;
+using Class_biz_shifts;
 using Class_biz_user;
 using Class_biz_users;
 using Class_biz_vehicle_down_natures;
 using Class_biz_vehicle_kinds;
 using Class_biz_vehicle_quarters;
-using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
 using Class_db_notifications;
 using kix;
@@ -1280,6 +1281,91 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_users.PasswordResetEmailAddressOfUsername(username), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
         }
+
+        private delegate string IssueForUpcomingDuty_Merge(string s);
+        internal void IssueForUpcomingDuty(string schedule_assignment_id)
+          {
+          var biz_agencies = new TClass_biz_agencies();
+          var biz_members = new TClass_biz_members();
+          var biz_role_member_map = new TClass_biz_role_member_map();
+          var biz_schedule_assignments = new TClass_biz_schedule_assignments();
+          var biz_shifts = new TClass_biz_shifts();
+          //
+          var dummy_bool = false;
+          var dummy_datetime = DateTime.MinValue;
+          var dummy_string = k.EMPTY;
+          //
+          var comment = k.EMPTY;
+          var member_id = k.EMPTY;
+          var nominal_day = DateTime.MinValue;
+          var post_id = k.EMPTY;
+          var post_cardinality = k.EMPTY;
+          var shift_id = k.EMPTY;
+          biz_schedule_assignments.Get(schedule_assignment_id,out nominal_day,out shift_id,out post_id,out post_cardinality,out dummy_string,out member_id,out dummy_bool,out comment);
+          var nominal_day_string = nominal_day.ToString("dddd dd MMMM yyyy");
+          //
+          var shift_name = k.EMPTY;
+          var shift_start = DateTime.MinValue;;
+          biz_shifts.Get(shift_id,out shift_start,out dummy_datetime,out shift_name,out dummy_string);
+          //
+          var door_code = k.EMPTY;
+          var post_medium_designator = k.EMPTY;
+          var post_long_designator = k.EMPTY;
+          biz_agencies.Get(post_id,out dummy_string,out post_medium_designator,out post_long_designator,out dummy_bool,out dummy_string,out dummy_string,out dummy_bool,out door_code,out dummy_bool,out dummy_bool);
+          //
+          var member_agency_id = biz_members.AgencyIdOfId(member_id);
+          var rsvp_target = k.EMPTY;
+          //
+          // Set up any RSVP to include cognizant authority for the assigned post.
+          //
+          var agency_id_responsible_for_post = biz_agencies.IdResponsibleForPost(post_id);
+          rsvp_target += k.SPACE + biz_role_member_map.EmailTargetOfAgencyIdList((agency_id_responsible_for_post == "0" ? "Department Chief Scheduler" : "Squad Commander"),agency_id_responsible_for_post) + k.SPACE;
+          //
+          // Set up any RSVP to include cognizant authority for the member.
+          //
+          if (biz_members.BeDriverQualifiedOfId(member_id) || biz_members.BeReleased(member_id))
+            {
+            rsvp_target += k.SPACE + biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + k.SPACE
+            + k.SPACE + biz_role_member_map.EmailTargetOfAgencyIdList("Squad Commander",member_agency_id) + k.SPACE;
+            }
+          else
+            {
+            rsvp_target += k.SPACE + biz_role_member_map.EmailTargetOfAgencyIdList((member_agency_id == "0" ? "Department BLS ID Coordinator" : "Squad Training Officer"),member_agency_id);
+            }
+
+          IssueForUpcomingDuty_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<comment/>",(comment == k.EMPTY ? "(none)" : comment))
+              .Replace("<door_code/>",door_code)
+              .Replace("<first_name/>",biz_members.FirstNameOfMemberId(member_id))
+              .Replace("<urlpathencoded_nominal_day_and_shift/>",HttpUtility.UrlPathEncode(nominal_day_string + k.SPACE + shift_name))
+              .Replace("<nominal_day/>",nominal_day_string)
+              .Replace("<post_elaboration/>",(post_medium_designator.StartsWith("Rescue ") ? " - " + post_long_designator : k.EMPTY))
+              .Replace("<post_medium_designator/>",post_medium_designator)
+              .Replace("<post_cardinality/>",post_cardinality)
+              .Replace("<shift_name/>",shift_name)
+              .Replace("<shift_start/>",shift_start.ToString("HH:mm"))
+              .Replace("<rsvp_target/>",rsvp_target.Trim().Replace(k.SPACE + k.SPACE,k.SPACE).Replace(k.SPACE,k.COMMA))
+              ;
+            };
+
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/upcoming_duty_reminder.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            biz_members.EmailAddressOf(member_id),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            ConfigurationManager.AppSettings["bouncer_email_address"]
+            );
+          template_reader.Close();
+          }
 
         private delegate string IssueForVehicleDownNoteAppended_Merge(string s);
         public void IssueForVehicleDownNoteAppended(string vehicle_id, string down_comment)

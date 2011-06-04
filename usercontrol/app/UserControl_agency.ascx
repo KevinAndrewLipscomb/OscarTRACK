@@ -123,5 +123,13 @@
 	<td>
 	</td>
   </tr>
+  <tr>
+	<td>Be ok to send duty reminders:</td>
+	<td>
+	  <ASP:CheckBox id="CheckBox_be_ok_to_send_duty_reminders" runat="server" enabled="False"></ASP:CheckBox>
+	</td>
+	<td>
+	</td>
+  </tr>
 </table>
 <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>

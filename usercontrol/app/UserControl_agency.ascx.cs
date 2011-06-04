@@ -23,6 +23,7 @@ namespace UserControl_agency
             CheckBox_be_ems_post.Checked = false;
             TextBox_door_code.Text = k.EMPTY;
             CheckBox_be_ok_to_nag.Checked = false;
+            CheckBox_be_ok_to_send_duty_reminders.Checked = false;
             Literal_match_index.Text = k.EMPTY;
             Literal_num_matches.Text = k.EMPTY;
             Panel_match_numbers.Visible = false;
@@ -65,8 +66,9 @@ namespace UserControl_agency
             bool be_ems_post;
             string door_code;
             bool be_ok_to_nag;
+            bool be_ok_to_send_duty_reminders;
             result = false;
-            if (p.biz_agencies.Get(id,out short_designator, out medium_designator, out long_designator, out be_active, out keyclick_enumerator, out oscar_classic_enumerator, out be_ems_post, out door_code, out be_ok_to_nag))
+            if (p.biz_agencies.Get(id,out short_designator, out medium_designator, out long_designator, out be_active, out keyclick_enumerator, out oscar_classic_enumerator, out be_ems_post, out door_code, out be_ok_to_nag, out be_ok_to_send_duty_reminders))
             {
                 TextBox_id.Text = id;
                 TextBox_id.Enabled = false;
@@ -79,6 +81,7 @@ namespace UserControl_agency
                 CheckBox_be_ems_post.Checked = be_ems_post;
                 TextBox_door_code.Text = door_code;
                 CheckBox_be_ok_to_nag.Checked = be_ok_to_nag;
+                CheckBox_be_ok_to_send_duty_reminders.Checked = be_ok_to_send_duty_reminders;
                 Button_lookup.Enabled = false;
                 Label_lookup_arrow.Enabled = false;
                 Label_lookup_hint.Enabled = false;
@@ -175,7 +178,8 @@ namespace UserControl_agency
                   k.Safe(TextBox_oscar_classic_enumerator.Text, k.safe_hint_type.ALPHANUM),
                   CheckBox_be_ems_post.Checked,
                   k.Safe(TextBox_door_code.Text, k.safe_hint_type.FINANCIAL_TERMS),
-                  CheckBox_be_ok_to_nag.Checked
+                  CheckBox_be_ok_to_nag.Checked,
+                  CheckBox_be_ok_to_send_duty_reminders.Checked
                   );
                 Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
@@ -247,6 +251,7 @@ namespace UserControl_agency
             CheckBox_be_ems_post.Enabled = ablement;
             TextBox_door_code.Enabled = ablement;
             CheckBox_be_ok_to_nag.Enabled = ablement;
+            CheckBox_be_ok_to_send_duty_reminders.Enabled = ablement;
         }
 
         protected void Button_lookup_Click(object sender, System.EventArgs e)

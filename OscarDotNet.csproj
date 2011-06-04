@@ -91,6 +91,7 @@
     <Content Include="noninteractive\template\notification\availabilities_due_soon.txt" />
     <Content Include="noninteractive\template\notification\availabilities_due_today.txt" />
     <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
+    <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />

@@ -308,7 +308,8 @@ namespace Class_db_agencies
           out string oscar_classic_enumerator,
           out bool be_ems_post,
           out string door_code,
-          out bool be_ok_to_nag
+          out bool be_ok_to_nag,
+          out bool be_ok_to_send_duty_reminders
           )
           {
           short_designator = k.EMPTY;
@@ -320,6 +321,7 @@ namespace Class_db_agencies
           be_ems_post = false;
           door_code = k.EMPTY;
           be_ok_to_nag = true;
+          be_ok_to_send_duty_reminders = false;
           var result = false;
           Open();
           var dr = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
@@ -334,6 +336,7 @@ namespace Class_db_agencies
             be_ems_post = (dr["be_ems_post"].ToString() == "1");
             door_code = dr["door_code"].ToString();
             be_ok_to_nag = (dr["be_ok_to_nag"].ToString() == "1");
+            be_ok_to_send_duty_reminders = (dr["be_ok_to_send_duty_reminders"].ToString() == "1");
             result = true;
             }
           dr.Close();
@@ -349,6 +352,19 @@ namespace Class_db_agencies
             this.Close();
             return result;
         }
+
+        internal string IdResponsibleForPost(string post_id)
+          {
+          Open();
+          var id_responsible_for_post = new MySqlCommand
+            (
+            "select IFNULL(IF((select be_active from agency where id = '" + post_id + "'),'" + post_id + "',(select agency_id from agency_satellite_station where satellite_station_id = '" + post_id + "')),0)",
+            connection
+            )
+            .ExecuteScalar().ToString();
+          Close();
+          return id_responsible_for_post;
+          }
 
         public void IncrementFleetTrackingOpsTally(string id)
           {
@@ -462,7 +478,8 @@ namespace Class_db_agencies
           string oscar_classic_enumerator,
           bool be_ems_post,
           string door_code,
-          bool be_ok_to_nag
+          bool be_ok_to_nag,
+          bool be_ok_to_send_duty_reminders
           )
           {
           var childless_field_assignments_clause = k.EMPTY
@@ -475,6 +492,7 @@ namespace Class_db_agencies
           + " , be_ems_post = " + be_ems_post.ToString()
           + " , door_code = NULLIF('" + door_code + "','')"
           + " , be_ok_to_nag = " + be_ok_to_nag.ToString()
+          + " , be_ok_to_send_duty_reminders = " + be_ok_to_send_duty_reminders.ToString()
           + k.EMPTY;
           Open();
           new MySqlCommand
