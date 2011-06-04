@@ -10,7 +10,7 @@ You are scheduled for duty tomorrow <shift_name/> (<nominal_day/>) at:
 
 At this station, on this shift, you are assigned to:
 
-    "<post_cardinality/>" crew
+   "<post_cardinality/>" crew
 
 The door code to the station is as follows.  Shred any printout of this message:
 

@@ -83,7 +83,7 @@
 	  <ASP:TextBox id="TextBox_keyclick_enumerator" runat="server" columns="7" maxlength="7" enabled="False"/>
 	</td>
 	<td>
-	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_keyclick_enumerator" runat="server" ControlToValidate="TextBox_keyclick_enumerator" ErrorMessage="Please enter a valid KEYclick enumerator (letters only)." Font-Bold="True" 
+	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_keyclick_enumerator" runat="server" ControlToValidate="TextBox_keyclick_enumerator" ErrorMessage="Please enter a valid KEYclick enumerator (letters only)." Font-Bold="True" display="Dynamic" 
       ValidationExpression="[a-zA-Z]+">!ERR!</asp:RegularExpressionValidator>
 	</td>
   </tr>
@@ -93,7 +93,7 @@
 	  <ASP:TextBox id="TextBox_oscar_classic_enumerator" runat="server" columns="8" maxlength="8" enabled="False"/>
 	</td>
 	<td>
-	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_oscar_classic_enumerator" runat="server" ControlToValidate="TextBox_oscar_classic_enumerator" ErrorMessage="Please enter a valid OSCAR Classic enumerator." Font-Bold="True" 
+	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_oscar_classic_enumerator" runat="server" ControlToValidate="TextBox_oscar_classic_enumerator" ErrorMessage="Please enter a valid OSCAR Classic enumerator." Font-Bold="True" display="Dynamic"
       ValidationExpression="[0-9a-zA-Z]+">!ERR!</asp:RegularExpressionValidator>
 	</td>
   </tr>
@@ -112,7 +112,7 @@
 	</td>
 	<td>
 	  <asp:RegularExpressionValidator ID="RegularExpressionValidator_door_code" runat="server" ControlToValidate="TextBox_door_code" 
-      ErrorMessage="Please enter a valid Door code using only numbers, letters, stars (&quot;*&quot;), pound (&quot;#&quot;), commas, and plus (&quot;+&quot;) signs." Font-Bold="True" ValidationExpression="[0-9a-zA-Z#*+,]+">!ERR!</asp:RegularExpressionValidator>
+      ErrorMessage="Please enter a valid Door code using only numbers, letters, stars (&quot;*&quot;), pound (&quot;#&quot;), commas, and plus (&quot;+&quot;) signs." Font-Bold="True" display="Dynamic" ValidationExpression="[0-9a-zA-Z#*+,]+">!ERR!</asp:RegularExpressionValidator>
 	</td>
   </tr>
   <tr>
@@ -130,6 +130,13 @@
 	</td>
 	<td>
 	</td>
+  </tr>
+  <tr>
+	<td>Address:</td>
+	<td>
+	  <ASP:TextBox id="TextBox_address" runat="server" columns="63" maxlength="63" enabled="False"></ASP:TextBox>, Virginia Beach, VA
+	</td>
+				<td><asp:RegularExpressionValidator ID="RegularExpressionValidator_address" runat="server" ErrorMessage="Please enter a valid Address." ControlToValidate="TextBox_address" Font-Bold="True" display="Dynamic" ValidationExpression="[0-9a-zA-Z ]+">!ERR!</asp:RegularExpressionValidator></td>
   </tr>
 </table>
 <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>

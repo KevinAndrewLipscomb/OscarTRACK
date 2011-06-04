@@ -1311,7 +1311,8 @@ namespace Class_biz_notifications
           var door_code = k.EMPTY;
           var post_medium_designator = k.EMPTY;
           var post_long_designator = k.EMPTY;
-          biz_agencies.Get(post_id,out dummy_string,out post_medium_designator,out post_long_designator,out dummy_bool,out dummy_string,out dummy_string,out dummy_bool,out door_code,out dummy_bool,out dummy_bool);
+          var address = k.EMPTY;
+          biz_agencies.Get(post_id,out dummy_string,out post_medium_designator,out post_long_designator,out dummy_bool,out dummy_string,out dummy_string,out dummy_bool,out door_code,out dummy_bool,out dummy_bool,out address);
           //
           var member_agency_id = biz_members.AgencyIdOfId(member_id);
           var rsvp_target = k.EMPTY;
@@ -1332,6 +1333,14 @@ namespace Class_biz_notifications
             {
             rsvp_target += k.SPACE + biz_role_member_map.EmailTargetOfAgencyIdList((member_agency_id == "0" ? "Department BLS ID Coordinator" : "Squad Training Officer"),member_agency_id);
             }
+          //
+          var post_elaboration = k.EMPTY;
+          if (post_medium_designator.StartsWith("Rescue "))
+            {
+            post_elaboration += " - " + post_long_designator + k.NEW_LINE
+            + (new String(Convert.ToChar(k.SPACE), 3)) + address + k.NEW_LINE
+            + (new String(Convert.ToChar(k.SPACE), 3)) + "Google map: http://google.com/maps?q=" + HttpUtility.UrlEncode(address + ", VIRGINIA BEACH, VA");
+            }
 
           IssueForUpcomingDuty_Merge Merge = delegate (string s)
             {
@@ -1343,7 +1352,7 @@ namespace Class_biz_notifications
               .Replace("<first_name/>",biz_members.FirstNameOfMemberId(member_id))
               .Replace("<urlpathencoded_nominal_day_and_shift/>",HttpUtility.UrlPathEncode(nominal_day_string + k.SPACE + shift_name))
               .Replace("<nominal_day/>",nominal_day_string)
-              .Replace("<post_elaboration/>",(post_medium_designator.StartsWith("Rescue ") ? " - " + post_long_designator : k.EMPTY))
+              .Replace("<post_elaboration/>",post_elaboration)
               .Replace("<post_medium_designator/>",post_medium_designator)
               .Replace("<post_cardinality/>",post_cardinality)
               .Replace("<shift_name/>",shift_name)

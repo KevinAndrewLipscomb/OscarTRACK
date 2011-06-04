@@ -170,10 +170,11 @@ namespace Class_biz_agencies
           out bool be_ems_post,
           out string door_code,
           out bool be_ok_to_nag,
-          out bool be_ok_to_send_duty_reminders
+          out bool be_ok_to_send_duty_reminders,
+          out string address
           )
           {
-          return db_agencies.Get(id, out short_designator, out medium_designator, out long_designator, out be_active, out keyclick_enumerator, out oscar_classic_enumerator, out be_ems_post, out door_code, out be_ok_to_nag, out be_ok_to_send_duty_reminders);
+          return db_agencies.Get(id,out short_designator,out medium_designator,out long_designator,out be_active,out keyclick_enumerator,out oscar_classic_enumerator,out be_ems_post,out door_code,out be_ok_to_nag,out be_ok_to_send_duty_reminders,out address);
           }
 
         public string IdOfShortDesignator(string short_designator)
@@ -238,10 +239,11 @@ namespace Class_biz_agencies
           bool be_ems_post,
           string door_code,
           bool be_ok_to_nag,
-          bool be_ok_to_send_duty_reminders
+          bool be_ok_to_send_duty_reminders,
+          string address
           )
           {
-          db_agencies.Set(id,short_designator,medium_designator,long_designator,be_active,keyclick_enumerator,oscar_classic_enumerator,be_ems_post,door_code,be_ok_to_nag,be_ok_to_send_duty_reminders);
+          db_agencies.Set(id,short_designator,medium_designator,long_designator,be_active,keyclick_enumerator,oscar_classic_enumerator,be_ems_post,door_code,be_ok_to_nag,be_ok_to_send_duty_reminders,address);
           }
 
         public void SetCommensuration(Queue commensuration_rec_q)
