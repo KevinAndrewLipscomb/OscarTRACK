@@ -32,6 +32,7 @@ namespace Class_biz_scheduled_tasks
             biz_leaves.MakeLeaveExpirationNotifications();
             biz_enrollment.MakeFailureToThriveDemotions();
             biz_members.MakeAvailabilitySubmissionDeadlineRelatedNotifications();
+            biz_schedule_assignments.MakeUpcomingDutyNotifications();
         }
 
         internal void DoEndOfMonthChores(string working_directory)

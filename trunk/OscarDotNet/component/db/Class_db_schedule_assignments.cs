@@ -1270,6 +1270,41 @@ namespace Class_db_schedule_assignments
         }
       }
 
+    internal Queue SelectedAndNotifiableWithinFutureHoursIdQueue
+      (
+      uint num_hours_til_window_open,
+      uint num_hours_til_window_close
+      )
+      {
+      var selected_and_notifiable_within_future_hours_id_q = new Queue();
+      //
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select schedule_assignment.id as schedule_assignment_id"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        + " where be_selected"
+        +   " and ADDDATE(nominal_day,INTERVAL HOUR(start) HOUR) >= ADDDATE(NOW(),INTERVAL " + num_hours_til_window_open + " HOUR)"
+        +   " and ADDDATE(nominal_day,INTERVAL HOUR(start) HOUR) <= ADDDATE(NOW(),INTERVAL " + num_hours_til_window_close + " HOUR)"
+        +   " and post_id <> 0"
+        +   " and post_id not in (405,406,417)"
+        +   " and be_ok_to_send_duty_reminders"
+        +   " and email_address is not null",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        selected_and_notifiable_within_future_hours_id_q.Enqueue(dr["schedule_assignment_id"].ToString());
+        }
+      Close();
+      //
+      return selected_and_notifiable_within_future_hours_id_q;
+      }
+
     internal void PendingNotificationTargets
       (
       k.subtype<int> relative_month,

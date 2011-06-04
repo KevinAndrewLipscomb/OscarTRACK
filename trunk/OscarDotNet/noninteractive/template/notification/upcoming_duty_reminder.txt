@@ -1,0 +1,65 @@
+You have duty tomorrow <shift_name/>
+This is an automated notification from <application_name/>.  Direct replies will bounce.  Read on.
+
+
+<first_name/>,
+
+You are scheduled for duty tomorrow <shift_name/> (<nominal_day/>) at:
+
+   <post_medium_designator/><post_elaboration/>
+
+At this station, on this shift, you are assigned to:
+
+    "<post_cardinality/>" crew
+
+The door code to the station is as follows.  Shred any printout of this message:
+
+   <door_code/>
+
+Arrive early enough to complete your checkoff and mark yourself on-duty by this time:
+
+   <shift_start/> (24-hour time)
+
+This assignment carries the following comment, which may modify the above values:
+
+   <comment/>
+
+
+STANDARD NOTICE:  You are expected to stand this duty, or take responsibility for getting it covered.
+
+   -  If you need coverage, OscarTRACK may be able to help, as follows:
+      1. Log into OscarTRACK:
+            http://<host_domain_name/>/<application_name/>
+      2. Select the "Schedule" tab.
+      3. Select the "Watchbill assistant" tab.
+      4. Select the "Watchbill" tab.
+      5. Set the Depth filter to "Not selected".
+      6. Scroll to <nominal_day/>.
+      7. Make a note of the members listed on the <shift_name/> of
+         <nominal_day/>.  These members originally said they would be
+         available for duty, but were not assigned for this shift.  If
+         their certification and driving status would make them suitable
+         replacements for you, try proposing a swap with them first, or
+         asking them to cover your shift second.  You may be able to
+         find contact information for them as follows:
+         a. Select the "Personnel" tab.
+         b. Check the "Phone list" checkbox.
+         c. Scroll to the person's name to find their phone number, or..
+         d. Click the yellow "open folder" icon to the left of their
+            name to bring up a page that shows their email address.
+
+   -  If the above process doesn't help, contact other members.  One-on-
+      one contacts -- especially in person or by phone -- are usually
+      much more effective than broadcast requests.
+
+   -  If you legitimately can not meet the above expectations, click
+      the following link to email your request for emergency leave to
+      the appropriate stakeholders.  You should also call your chain-
+      of-command superior as soon as possible:
+
+--BEGIN EMERGENCY LEAVE MAILTO LINK--
+mailto:<rsvp_target/>?Subject=Re:%20My%20duty%20<urlpathencoded_nominal_day_and_shift/>
+--END EMERGENCY LEAVE MAILTO LINK--
+
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_biz_members;
+using Class_biz_notifications;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_db_schedule_assignments;
@@ -19,6 +20,7 @@ namespace Class_biz_schedule_assignments
     public const int MAX_PER_MONTH = 62;
 
     private TClass_biz_members biz_members = null;
+    private TClass_biz_notifications biz_notifications = null;
     private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
@@ -26,6 +28,7 @@ namespace Class_biz_schedule_assignments
     public TClass_biz_schedule_assignments() : base()
       {
       biz_members = new TClass_biz_members();
+      biz_notifications = new TClass_biz_notifications();
       biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
       db_schedule_assignments = new TClass_db_schedule_assignments();
@@ -242,7 +245,7 @@ namespace Class_biz_schedule_assignments
       out string comment
       )
       {
-      return db_schedule_assignments.Get
+      var db_schedule_assignments_get = db_schedule_assignments.Get
         (
         id,
         out nominal_day,
@@ -254,6 +257,8 @@ namespace Class_biz_schedule_assignments
         out be_selected,
         out comment
         );
+      post_cardinality = Convert.ToString(Convert.ToChar(Convert.ToInt32('a') + int.Parse(post_cardinality) - 1));
+      return db_schedule_assignments_get;
       }
 
     internal void GetAgencyFootprintInfo
@@ -266,6 +271,16 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.GetAgencyFootprintInfo(agency_filter,relative_month,nominal_day_filter,out posts,out max_post_cardinality);
+      }
+
+    internal void MakeUpcomingDutyNotifications()
+      {
+      var id_q = db_schedule_assignments.SelectedAndNotifiableWithinFutureHoursIdQueue(24,48);
+      var id_q_count = id_q.Count;
+      for (var i = new k.subtype<int>(0,id_q_count); i.val < id_q_count; i.val++)
+        {
+        biz_notifications.IssueForUpcomingDuty(id_q.Dequeue() as string);
+        }
       }
 
     internal void MarkMemberToBeReleased
