@@ -49,7 +49,7 @@
                                 </tr>
                                 <tr>
                                   <td valign="top">•</td>
-                                  <td><small>Council of Virginia Beach Volunteer Rescue Squads, Inc.</small></td>
+                                  <td><small><a href="http://www.vbrescuecouncil.org/" target="_blank">Council of Virginia Beach Volunteer Rescue Squads, Inc.</a></small></td>
                                 </tr>
                                 <tr>
                                   <td valign="top">•</td>

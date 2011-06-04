@@ -195,7 +195,7 @@ namespace Class_db_residents
         + " or address like '100 % CY'"
         + " or address in"
           + " ("
-          + " '3769 E STATFORD RD'"
+          + " '3769 E STRATFORD RD'"
           + " , '4672 HAYGOOD RD'"
           + " , '600 CENTRAL DR'"
           + " , '2444 PLEASURE HOUSE RD'"

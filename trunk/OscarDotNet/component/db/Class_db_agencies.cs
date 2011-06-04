@@ -309,7 +309,8 @@ namespace Class_db_agencies
           out bool be_ems_post,
           out string door_code,
           out bool be_ok_to_nag,
-          out bool be_ok_to_send_duty_reminders
+          out bool be_ok_to_send_duty_reminders,
+          out string address
           )
           {
           short_designator = k.EMPTY;
@@ -322,6 +323,7 @@ namespace Class_db_agencies
           door_code = k.EMPTY;
           be_ok_to_nag = true;
           be_ok_to_send_duty_reminders = false;
+          address = k.EMPTY;
           var result = false;
           Open();
           var dr = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
@@ -337,6 +339,7 @@ namespace Class_db_agencies
             door_code = dr["door_code"].ToString();
             be_ok_to_nag = (dr["be_ok_to_nag"].ToString() == "1");
             be_ok_to_send_duty_reminders = (dr["be_ok_to_send_duty_reminders"].ToString() == "1");
+            address = dr["address"].ToString();
             result = true;
             }
           dr.Close();
@@ -479,7 +482,8 @@ namespace Class_db_agencies
           bool be_ems_post,
           string door_code,
           bool be_ok_to_nag,
-          bool be_ok_to_send_duty_reminders
+          bool be_ok_to_send_duty_reminders,
+          string address
           )
           {
           var childless_field_assignments_clause = k.EMPTY
@@ -493,6 +497,7 @@ namespace Class_db_agencies
           + " , door_code = NULLIF('" + door_code + "','')"
           + " , be_ok_to_nag = " + be_ok_to_nag.ToString()
           + " , be_ok_to_send_duty_reminders = " + be_ok_to_send_duty_reminders.ToString()
+          + " , address = NULLIF('" + address + "','')"
           + k.EMPTY;
           Open();
           new MySqlCommand
