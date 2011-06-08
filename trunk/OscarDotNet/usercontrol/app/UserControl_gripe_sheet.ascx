@@ -130,7 +130,7 @@
                       </tr>
                       <tr>
                         <td align="right">on behalf of:&nbsp;</td>
-                        <td><asp:Literal ID="Literal_agency_long_designator" runat="server"></asp:Literal>&nbsp;Volunteer&nbsp;Rescue&nbsp;Squad</td>
+                        <td><asp:Literal ID="Literal_agency_long_designator" runat="server"></asp:Literal></td>
                       </tr>
                       <tr>
                         <td align="right">tel:&nbsp;</td>
