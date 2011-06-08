@@ -136,7 +136,8 @@ namespace UserControl_gripe_sheet
         Literal_vehicle_name.Text = p.biz_vehicles.NameOf((p.vehicle_summary));
         Literal_work_order_coordinator_title.Text = p.work_order_coordinator_title;
         Literal_work_order_coordinator_name.Text = p.biz_members.FirstNameOfMemberId(member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(member_id);
-        Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(p.vehicle_summary)));
+        var agency_id = p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(p.vehicle_summary));
+        Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(agency_id) + (agency_id == "0" ? k.EMPTY : " Volunteer Rescue Squad");
         Literal_work_order_coordinator_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(member_id));
         Literal_work_order_coordinator_email_address.Text = p.biz_members.EmailAddressOf(member_id);
         Literal_kind.Text = p.biz_vehicles.KindOf(p.vehicle_summary);
@@ -155,7 +156,8 @@ namespace UserControl_gripe_sheet
         Literal_recent_mileage_update_time_2.Text = p.biz_vehicles.RecentMileageUpdateTimeOf(p.vehicle_summary);
         Literal_recent_mileage.Text = p.biz_vehicles.RecentMileageOf(p.vehicle_summary);
         Literal_miles_from_pm.Text = p.biz_vehicles.MilesFromPmOf(p.vehicle_summary);
-        Literal_dmv_inspection_due.Text = p.biz_vehicles.DmvInspectionDueOf(p.vehicle_summary).Substring(0,7);
+        var dmv_inspection_due = p.biz_vehicles.DmvInspectionDueOf(p.vehicle_summary);
+        Literal_dmv_inspection_due.Text = (dmv_inspection_due.Length >= 7 ? dmv_inspection_due.Substring(0,7) : "???");
         CheckBox_be_work_order_mode.Visible = p.be_interactive && p.be_ok_to_config_gripes;
         CheckBox_be_work_order_mode.Checked = !p.be_interactive;
         DataGrid_control.AllowSorting = p.be_interactive;
