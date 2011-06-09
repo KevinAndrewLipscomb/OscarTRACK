@@ -18,6 +18,7 @@ namespace UserControl_availabilities
     public TClass_biz_user biz_user;
     public string member_id;
     public string query_string_invariant_part;
+    public string user_member_agency_id;
     }
 
   public partial class TWebUserControl_availabilities: ki_web_ui.usercontrol_class
@@ -59,13 +60,17 @@ namespace UserControl_availabilities
 
     private void UpdateSubmitAvailHyperLinks()
       {
-      var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM)));
+      var coord_agency_id = k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM);
+      var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(coord_agency_id));
+      var indicator_of_be_cross_agency_submission = (coord_agency_id == p.user_member_agency_id).ToString().ToUpper();
       HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
-      + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString();
+      + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString()
+      + "&be_cross_agency_submission=" + indicator_of_be_cross_agency_submission;
       HyperLink_submit_avails_for_month_following.NavigateUrl = p.base_navigate_url_for_month_following + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
-      + "&applicable_month_num=" + (DateTime.Now.Month + 2).ToString();
+      + "&applicable_month_num=" + (DateTime.Now.Month + 2).ToString()
+      + "&be_cross_agency_submission=" + indicator_of_be_cross_agency_submission;
       //
       HyperLink_submit_avails_for_month_next.Focus();
       }
@@ -86,9 +91,9 @@ namespace UserControl_availabilities
         p.biz_user = new TClass_biz_user();
         //
         p.member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+        p.user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         //
-        var user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-        var home_squad = (user_member_agency_id == "0" ? "ERS" : user_member_agency_id);
+        var home_squad = (p.user_member_agency_id == "0" ? "ERS" : p.user_member_agency_id);
         var be_als_string = p.biz_members.BeAlsForLegacyOscarPurposes(Session["member_id"].ToString()).ToString().ToUpper();
         p.query_string_invariant_part = "?"
         + "first_name=" + Server.UrlEncode(p.biz_members.FirstNameOfMemberId(p.member_id))
