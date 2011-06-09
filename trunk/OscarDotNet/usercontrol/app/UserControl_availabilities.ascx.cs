@@ -62,7 +62,7 @@ namespace UserControl_availabilities
       {
       var coord_agency_id = k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM);
       var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(coord_agency_id));
-      var indicator_of_be_cross_agency_submission = (coord_agency_id == p.user_member_agency_id).ToString().ToUpper();
+      var indicator_of_be_cross_agency_submission = (coord_agency_id != p.user_member_agency_id).ToString().ToUpper();
       HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
       + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString()
