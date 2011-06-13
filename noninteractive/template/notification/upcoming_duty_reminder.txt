@@ -8,7 +8,7 @@ You are scheduled for duty tomorrow <shift_name/> (<nominal_day/>) at:
 
    <post_medium_designator/><post_elaboration/>
 
-At this station, on this shift, you are assigned to:
+In case multiple crews will be at this station on this shift, you are assigned to:
 
    "<post_cardinality/>" crew
 
@@ -57,9 +57,9 @@ STANDARD NOTICE:  You are expected to stand this duty, or take responsibility fo
       the appropriate stakeholders.  You should also call your chain-
       of-command superior as soon as possible:
 
---BEGIN EMERGENCY LEAVE MAILTO LINK--
+--begin EMERGENCY LEAVE mailto link--
 mailto:<rsvp_target/>?Subject=Re:%20My%20duty%20<urlpathencoded_nominal_day_and_shift/>
---END EMERGENCY LEAVE MAILTO LINK--
+--end EMERGENCY LEAVE mailto link--
 
 
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)
