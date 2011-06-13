@@ -143,7 +143,7 @@ namespace Class_db_schedule_assignments
       +   " join member on (member.id=schedule_assignment.member_id)"
       +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
-      +   " join num_units using (nominal_day,shift_id)"
+      +   " left join num_units using (nominal_day,shift_id)"
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
       +     nominal_day_condition_clause
