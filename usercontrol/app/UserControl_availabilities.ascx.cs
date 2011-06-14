@@ -62,7 +62,7 @@ namespace UserControl_availabilities
       {
       var coord_agency_id = k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM);
       var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(coord_agency_id));
-      var indicator_of_be_cross_agency_submission = (coord_agency_id != p.user_member_agency_id).ToString().ToUpper();
+      var indicator_of_be_cross_agency_submission = (coord_agency_id != p.user_member_agency_id ? "TRUE" : k.EMPTY);
       HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
       + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString()
@@ -94,7 +94,7 @@ namespace UserControl_availabilities
         p.user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         //
         var home_squad = (p.user_member_agency_id == "0" ? "ERS" : p.user_member_agency_id);
-        var be_als_string = p.biz_members.BeAlsForLegacyOscarPurposes(Session["member_id"].ToString()).ToString().ToUpper();
+        var be_als_string = (p.biz_members.BeAlsForLegacyOscarPurposes(Session["member_id"].ToString()) ? "TRUE" : k.EMPTY);
         p.query_string_invariant_part = "?"
         + "first_name=" + Server.UrlEncode(p.biz_members.FirstNameOfMemberId(p.member_id))
         + "&"
@@ -106,13 +106,13 @@ namespace UserControl_availabilities
         + "&"
         + "squad=" + Server.UrlEncode(home_squad)
         + "&"
-        + "be_als=" + Server.UrlEncode(be_als_string)
+        + "be_als=" + be_als_string
         + "&"
-        + "be_driver=" + Server.UrlEncode(p.biz_members.BeDriverQualifiedOfId(Session["member_id"].ToString()).ToString().ToUpper())
+        + "be_driver=" + (p.biz_members.BeDriverQualifiedOfId(Session["member_id"].ToString()) ? "TRUE" : k.EMPTY)
         + "&"
-        + "be_aic=" + Server.UrlEncode(p.biz_members.BeReleased(Session["member_id"].ToString()).ToString().ToUpper())
+        + "be_aic=" + (p.biz_members.BeReleased(Session["member_id"].ToString()) ? "TRUE" : k.EMPTY)
         + "&"
-        + "be_needing_driver=" + Server.UrlEncode(be_als_string);
+        + "be_needing_driver=" + be_als_string;
         //
         p.be_loaded = false;
         }
