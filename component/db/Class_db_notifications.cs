@@ -1,17 +1,12 @@
-using MySql.Data.MySqlClient;
-
-using System.Configuration;
-
-
-using kix;
-
-using System;
-
-
-using System.Web.UI.WebControls;
 using Class_biz_data_conditions;
 using Class_db;
 using Class_db_trail;
+using kix;
+using MySql.Data.MySqlClient;
+using System;
+using System.Configuration;
+using System.Web.UI.WebControls;
+
 namespace Class_db_notifications
 {
     public class TClass_db_notifications: TClass_db
@@ -93,8 +88,13 @@ namespace Class_db_notifications
             IncrementTallies(name, 0);
         }
 
-        public string TargetOf(string name, string member_id)
-        {
+        public string TargetOf
+          (
+          string name,
+          string member_id,
+          string role_name
+          )
+          {
             string result;
             MySqlDataReader dr;
             uint num_addressees;
@@ -116,11 +116,18 @@ namespace Class_db_notifications
             {
                 while (dr.Read())
                 {
-                    if ((dr["data_condition_name"].ToString() == "none") || ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id)))
-                    {
-                        target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                        num_addressees = num_addressees + 1;
-                    }
+                    if(
+                        (dr["data_condition_name"].ToString() == "none")
+                      ||
+                        ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
+                      ||
+                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                      )
+                    //
+                      {
+                      target_of = target_of + dr["email_address"].ToString() + k.COMMA;
+                      num_addressees = num_addressees + 1;
+                      }
                 }
             }
             dr.Close();
@@ -130,11 +137,18 @@ namespace Class_db_notifications
             {
                 while (dr.Read())
                 {
-                    if ((dr["data_condition_name"].ToString() == "none") || ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id)))
-                    {
-                        target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                        num_addressees = num_addressees + 1;
-                    }
+                    if(
+                        (dr["data_condition_name"].ToString() == "none")
+                      ||
+                        ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
+                      ||
+                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                      )
+                    //
+                      {
+                      target_of = target_of + dr["email_address"].ToString() + k.COMMA;
+                      num_addressees = num_addressees + 1;
+                      }
                 }
             }
             dr.Close();
@@ -144,11 +158,18 @@ namespace Class_db_notifications
             {
                 while (dr.Read())
                 {
-                    if ((dr["data_condition_name"].ToString() == "none") || ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id)))
-                    {
-                        target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                        num_addressees = num_addressees + 1;
-                    }
+                    if(
+                        (dr["data_condition_name"].ToString() == "none")
+                      ||
+                        ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
+                      ||
+                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                      )
+                    //
+                      {
+                      target_of = target_of + dr["email_address"].ToString() + k.COMMA;
+                      num_addressees = num_addressees + 1;
+                      }
                 }
             }
             dr.Close();
@@ -163,7 +184,11 @@ namespace Class_db_notifications
                 result = k.EMPTY;
             }
             return result;
-        }
+          }
+        public string TargetOf(string name, string member_id)
+          {
+          return TargetOf(name,member_id,k.EMPTY);
+          }
 
         public string TargetOfAboutAgency(string name)
           {
