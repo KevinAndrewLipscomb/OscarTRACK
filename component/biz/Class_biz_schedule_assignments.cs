@@ -273,6 +273,18 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.GetAgencyFootprintInfo(agency_filter,relative_month,nominal_day_filter,out posts,out max_post_cardinality);
       }
 
+    internal void GetInfoAboutMemberInMonth
+      (
+      string member_id,
+      k.subtype<int> relative_month,
+      ref k.subtype<int> num,
+      out DateTime earliest_unselected,
+      out DateTime latest_unselected
+      )
+      {
+      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
+      }
+
     internal void MakeUpcomingDutyNotifications()
       {
       var id_q = db_schedule_assignments.SelectedAndNotifiableWithinFutureHoursIdQueue(24,48);
@@ -290,18 +302,6 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.MarkMemberToBeReleased(member_id,relative_month);
-      }
-
-    internal void GetInfoAboutMemberInMonth
-      (
-      string member_id,
-      k.subtype<int> relative_month,
-      ref k.subtype<int> num,
-      out DateTime earliest_unselected,
-      out DateTime latest_unselected
-      )
-      {
-      db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
       }
 
     internal string MonthlessRenditionOfId(string id)
@@ -324,6 +324,17 @@ namespace Class_biz_schedule_assignments
     internal string MonthlessRenditionOfNominalDay(DateTime nominal_day)
       {
       return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
+      }
+
+    internal k.decimal_nonnegative NumCrewShifts
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      string shift_name
+      )
+      {
+      return db_schedule_assignments.NumCrewShifts(agency_filter,relative_month,nominal_day_filter,shift_name);
       }
 
     internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
