@@ -59,8 +59,9 @@ namespace UserControl_watchbill_maag
           {
           referrer = "<a href=\"" + referrer + "\">" + referrer + "</a>";
           }
-        Calendar_day.Caption = "<b><big><big><big><big>RESCUE " + p.agency_filter + " DAYS -- " + referrer + "</big></big></big></big></b>";
-        Calendar_night.Caption = "<b><big><big><big><big>RESCUE " + p.agency_filter + " NIGHTS -- " + referrer + "</big></big></big></big></b>";
+        var scope = (p.agency_filter == k.EMPTY ? "AGGREGATED" : (p.agency_filter == "0" ? "AGENCY 404" : "RESCUE " + p.agency_filter));
+        Calendar_day.Caption = "<b><big><big><big><big>" + scope + " DAYS -- " + referrer + "</big></big></big></big></b>";
+        Calendar_night.Caption = "<b><big><big><big><big>" + scope + " NIGHTS -- " + referrer + "</big></big></big></big></b>";
         p.be_loaded = true;
         }
       }
@@ -133,25 +134,59 @@ namespace UserControl_watchbill_maag
       {
       e.Cell.HorizontalAlign = HorizontalAlign.Left;
       e.Cell.VerticalAlign = VerticalAlign.Top;
-      if (!e.Day.IsOtherMonth)
+      if (p.agency_filter != k.EMPTY)
         {
-        var data_grid = new DataGrid();
-        data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
-        p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
-        data_grid.GridLines = GridLines.None;
-        data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
-        data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
-        data_grid.ItemStyle.VerticalAlign = VerticalAlign.Top;
-        data_grid.ItemStyle.Wrap = false;
-        data_grid.ShowHeader = false;
-        e.Cell.Controls.Add(data_grid);
-        if (p.num_selections.val == 0)
+        if (!e.Day.IsOtherMonth)
           {
-          e.Cell.BackColor = Color.Yellow;
+          var data_grid = new DataGrid();
+          data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
+          p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
+          data_grid.GridLines = GridLines.None;
+          data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
+          data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
+          data_grid.ItemStyle.VerticalAlign = VerticalAlign.Top;
+          data_grid.ItemStyle.Wrap = false;
+          data_grid.ShowHeader = false;
+          e.Cell.Controls.Add(data_grid);
+          if (p.num_selections.val == 0)
+            {
+            e.Cell.BackColor = Color.Yellow;
+            }
+          }
+        p.num_selections.val = 0;
+        p.saved_unit_spec = k.EMPTY;
+        }
+      else
+        {
+        if (!e.Day.IsOtherMonth)
+          {
+          var num_crew_shifts = p.biz_schedule_assignments.NumCrewShifts(p.agency_filter,p.relative_month,e.Day.DayNumberText,shift_name);
+          var table = new Table();
+          table.CellPadding = 20;
+          table.Width = Unit.Percentage(100);
+          var row = new TableRow();
+          var cell = new TableCell();
+          cell.HorizontalAlign = HorizontalAlign.Center;
+          cell.VerticalAlign = VerticalAlign.Middle;
+          var label = new Label();
+          label.Text = num_crew_shifts.val.ToString("F1");
+          label.Font.Size = FontUnit.XLarge;
+          label.Font.Bold = true;
+          cell.Controls.Add(label);
+          row.Controls.Add(cell);
+          table.Controls.Add(row);
+          e.Cell.Controls.Add(table);
+          if (num_crew_shifts.val < 12)
+            {
+            e.Cell.BackColor = Color.Yellow;
+            }
+          if (num_crew_shifts.val < 8)
+            {
+            e.Cell.ForeColor = Color.White;
+            e.Cell.BackColor = Color.Red;
+            }
           }
         }
-      p.num_selections.val = 0;
-      p.saved_unit_spec = k.EMPTY;
       }
 
     void data_grid_ItemDataBound(object sender, DataGridItemEventArgs e)

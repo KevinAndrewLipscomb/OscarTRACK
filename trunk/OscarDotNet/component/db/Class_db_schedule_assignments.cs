@@ -1305,6 +1305,45 @@ namespace Class_db_schedule_assignments
       return selected_and_notifiable_within_future_hours_id_q;
       }
 
+    internal k.decimal_nonnegative NumCrewShifts
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      string shift_name
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
+        }
+      Open();
+      var num_crew_shifts_obj = new MySqlCommand
+        (
+        "select sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
+        + " from schedule_assignment"
+        +   " join agency on (agency.id=schedule_assignment.post_id)"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
+        +   " and shift.name = '" + shift_name + "'"
+        +     agency_condition_clause,
+        connection
+        )
+        .ExecuteScalar();
+      var num_crew_shifts = new k.decimal_nonnegative();
+      if (num_crew_shifts_obj != DBNull.Value)
+        {
+        (num_crew_shifts = new k.decimal_nonnegative()).val = decimal.Parse(num_crew_shifts_obj.ToString());
+        }
+      Close();
+      return num_crew_shifts;
+      //
+      }
+
     internal void PendingNotificationTargets
       (
       k.subtype<int> relative_month,
