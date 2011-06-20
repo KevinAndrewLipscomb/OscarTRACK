@@ -128,6 +128,20 @@ namespace report_commanded_member_schedule_detail
         other_squad_schedule_monitor_target = k.COMMA + other_squad_schedule_monitor_target;
         }
       var member_email_address = p.biz_members.EmailAddressOf(p.member_id).Trim();
+      var cc_target = k.EMPTY;
+      if (!p.be_virgin_watchbill)
+        {
+        cc_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS")
+        + k.COMMA
+        + squad_scheduler_target
+        + squad_schedule_monitor_target
+        + other_squad_schedule_coordinator_target
+        + other_squad_schedule_monitor_target;
+        if (!p.biz_members.BeReleased(p.member_id))
+          {
+          cc_target += k.COMMA + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler","EMS");
+          }
+        }
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
@@ -135,7 +149,7 @@ namespace report_commanded_member_schedule_detail
         DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (REVISED)"),
         body,
         true,
-        ((p.be_virgin_watchbill ? k.EMPTY : p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + k.COMMA + squad_scheduler_target + squad_schedule_monitor_target + other_squad_schedule_coordinator_target + other_squad_schedule_monitor_target)),
+        cc_target,
         k.EMPTY,
         squad_scheduler_target
         );
