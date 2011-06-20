@@ -75,6 +75,7 @@ namespace UserControl_schedule_binder
             new ArrayList
               {
               "Department Chief Scheduler",
+              "Department Jump Seat Scheduler",
               "Department Fleet Supervisor",
               "Department Fleet Coordinator",
               "Department Street Supervisor",
