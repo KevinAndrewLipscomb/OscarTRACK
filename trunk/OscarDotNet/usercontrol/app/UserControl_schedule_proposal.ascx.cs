@@ -170,6 +170,8 @@ namespace UserControl_schedule_proposal
           ||
             HttpContext.Current.User.IsInRole("Department Chief Scheduler")
           ||
+            HttpContext.Current.User.IsInRole("Department Jump Seat Scheduler")
+          ||
             HttpContext.Current.User.IsInRole("Department Scheduler")
           ||
             HttpContext.Current.User.IsInRole("Department Fleet Supervisor")
