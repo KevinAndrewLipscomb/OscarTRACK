@@ -1,21 +1,13 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
 using Class_biz_tiers;
-using Class_db_roles;
-using Class_db_role_member_map;
+using Class_biz_user;
+using kix;
+using System.Configuration;
+using System.Web.UI.WebControls;
+
 namespace UserControl_role_member_mapping
 {
     public struct p_type
@@ -31,6 +23,7 @@ namespace UserControl_role_member_mapping
         public TClass_biz_role_member_map biz_role_member_map;
         public TClass_biz_roles biz_roles;
         public TClass_biz_tiers biz_tiers;
+        public TClass_biz_user biz_user;
         public bool may_add_mappings;
         public bool may_see_all_squads;
         public string own_agency;
@@ -163,10 +156,16 @@ namespace UserControl_role_member_mapping
                 p.biz_role_member_map = new TClass_biz_role_member_map();
                 p.biz_roles = new TClass_biz_roles();
                 p.biz_tiers = new TClass_biz_tiers();
+                p.biz_user = new TClass_biz_user();
+                //
                 p.TIER_ID_DEPARTMENT = p.biz_tiers.IdOfName("Department");
                 p.TIER_ID_SQUAD = p.biz_tiers.IdOfName("Squad");
                 p.may_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-                if (p.may_see_all_squads)
+                //
+                var tier_id = k.EMPTY;
+                var dummy_string = k.EMPTY;
+                p.biz_roles.Get(p.biz_user.Roles()[0],out tier_id,out dummy_string, out dummy_string);
+                if (p.may_see_all_squads && (tier_id == p.TIER_ID_DEPARTMENT))
                 {
                     p.own_tier = p.TIER_ID_DEPARTMENT;
                     p.own_agency = k.EMPTY;
