@@ -131,16 +131,12 @@ namespace report_commanded_member_schedule_detail
       var cc_target = k.EMPTY;
       if (!p.be_virgin_watchbill)
         {
-        cc_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS")
-        + k.COMMA
-        + squad_scheduler_target
+        cc_target = squad_scheduler_target
         + squad_schedule_monitor_target
         + other_squad_schedule_coordinator_target
-        + other_squad_schedule_monitor_target;
-        if (!p.biz_members.BeReleased(p.member_id))
-          {
-          cc_target += k.COMMA + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler","EMS");
-          }
+        + other_squad_schedule_monitor_target
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf((p.biz_members.BeReleased(p.member_id) ? "Department Chief Scheduler" : "Department Jump Seat Scheduler"),"EMS");
         }
       k.SmtpMailSend
         (

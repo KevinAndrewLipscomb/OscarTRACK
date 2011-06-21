@@ -303,8 +303,8 @@ namespace UserControl_member_schedule_detail
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Cancel edit";
           //
-          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 9;
-          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 9;
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 15;
+          ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 15;
           ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
             ("onkeydown","if (event.keyCode == 13) El('" + e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls[0].ClientID + "').click();");
           ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT].Controls[0]) as TextBox).Focus();
