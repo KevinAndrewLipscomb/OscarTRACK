@@ -65,6 +65,10 @@ namespace UserControl_member_binder
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_PERSONNEL;
                   }
+                else if ((new ArrayList{"Squad Fund Drive Clerk"}).Contains(p.biz_user.Roles()[0]))
+                  {
+                  p.tab_index = UserControl_member_binder_Static.TSSI_FUNDDRIVE;
+                  }
                 else if ((new ArrayList{"Department Authority","Squad Commander"}).Contains(p.biz_user.Roles()[0]))
                   {
                   p.tab_index = UserControl_member_binder_Static.TSSI_CONFIG;
