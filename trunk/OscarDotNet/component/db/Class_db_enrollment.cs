@@ -266,7 +266,7 @@ namespace Class_db_enrollment
                           (
                           "update leave_of_absence"
                           + " set end_date = LAST_DAY(DATE_SUB('" + effective_date.ToString("yyyy-MM-dd") + "',INTERVAL 1 MONTH))"
-                          +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to movement into a Transfer or Past status.]')"
+                          +   " , note = LEFT(CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to movement into a Transfer or Past status.]'),127)"
                           + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
                           ),
                         this.connection,
