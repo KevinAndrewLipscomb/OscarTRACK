@@ -56,7 +56,7 @@ namespace UserControl_serial_indicators_per_agency
         {
         p.biz_agencies.BindListControlShortDashLong(DropDownList_agency,"0");
         p.be_interactive_mode = (Session["mode:report"] == null);
-        if (p.be_interactive_mode && p.biz_agencies.BeOkToDefaultAgencyFilterToAll(k.Has((string[])(Session["privilege_array"]), "see-all-squads"),p.biz_user.Roles()))
+        if (p.be_interactive_mode && !p.biz_agencies.BeOkToDefaultAgencyFilterToAll(k.Has((string[])(Session["privilege_array"]), "see-all-squads"),p.biz_user.Roles()))
           {
           p.agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
