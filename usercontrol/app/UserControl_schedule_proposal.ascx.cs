@@ -322,11 +322,7 @@ namespace UserControl_schedule_proposal
       //
       var be_suppressed = true;
       if(
-          (
-            ((p.relative_month.val == 0) || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month))
-          && 
-            ((p.agency_filter == p.own_agency) || p.be_user_privileged_to_see_all_squads)
-          )
+          ((p.relative_month.val == 0) || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month))
         ||
           p.be_ok_to_edit_post
         ||
