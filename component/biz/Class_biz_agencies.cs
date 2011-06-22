@@ -1,3 +1,4 @@
+using Class_biz_roles;
 using Class_db_agencies;
 using Class_db_agency_satellite_stations;
 using kix;
@@ -8,13 +9,14 @@ namespace Class_biz_agencies
     public class TClass_biz_agencies
     {
 
+        private TClass_biz_roles biz_roles = null;
         private TClass_db_agencies db_agencies = null;
         private TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
 
         //Constructor  Create()
         public TClass_biz_agencies() : base()
         {
-            // TODO: Add any constructor code here
+            biz_roles = new TClass_biz_roles();
             db_agencies = new TClass_db_agencies();
             db_agency_satellite_stations = new TClass_db_agency_satellite_stations();
         }
@@ -47,6 +49,15 @@ namespace Class_biz_agencies
         public bool BeImmediateOutTransfersAllowed(string agency)
           {
           return (agency == "EMS");
+          }
+
+        internal bool BeOkToDefaultAgencyFilterToAll
+          (
+          bool be_ok_to_see_all_squads,
+          string[] roles
+          )
+          {
+          return be_ok_to_see_all_squads && (int.Parse(biz_roles.TierOfName(roles[0])) == 1);
           }
 
         public bool BeOkToSharePhoneListWithSiblings(string id)

@@ -3,17 +3,16 @@
 using Class_biz_agencies;
 using Class_biz_indicator_shiftwise_vehicles_up_and_current;
 using Class_biz_members;
-using Class_biz_vehicle_quarters;
+using Class_biz_user;
 using Class_biz_vehicle_kinds;
+using Class_biz_vehicle_quarters;
 using Class_biz_vehicles;
 using kix;
 using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace UserControl_fleet
@@ -64,6 +63,7 @@ namespace UserControl_fleet
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_indicator_shiftwise_vehicles_up_and_current biz_indicator_shiftwise_vehicles_up_and_current;
       public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
       public TClass_biz_vehicle_quarters biz_vehicle_quarters;
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_vehicles biz_vehicles;
@@ -203,6 +203,7 @@ namespace UserControl_fleet
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_indicator_shiftwise_vehicles_up_and_current = new TClass_biz_indicator_shiftwise_vehicles_up_and_current();
         p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
         p.biz_vehicle_quarters = new TClass_biz_vehicle_quarters();
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
@@ -222,14 +223,7 @@ namespace UserControl_fleet
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
         //
-        if (p.be_ok_to_see_all_squads)
-          {
-          p.agency_filter = k.EMPTY;
-          }
-        else
-          {
-          p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-          }
+        p.agency_filter = (p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
         }
       }
 

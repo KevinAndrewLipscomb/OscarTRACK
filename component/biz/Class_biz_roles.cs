@@ -93,6 +93,11 @@ namespace Class_biz_roles
             return result;
         }
 
+        internal string TierOfName(string name)
+          {
+          return db_roles.TierOfName(name);
+          }
+
     } // end TClass_biz_roles
 
 }

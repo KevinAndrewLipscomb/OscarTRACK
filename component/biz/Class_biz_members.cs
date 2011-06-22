@@ -2,6 +2,7 @@ using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_notifications;
+using Class_biz_roles;
 using Class_biz_sections;
 using Class_biz_user;
 using Class_db_leaves;
@@ -20,11 +21,13 @@ namespace Class_biz_members
         private TClass_biz_enrollment biz_enrollment = null;
         private TClass_biz_medical_release_levels biz_medical_release_levels = null;
         private TClass_biz_notifications biz_notifications = null;
+        private TClass_biz_roles biz_roles = null;
         private TClass_biz_sections biz_sections = null;
         private TClass_biz_user biz_user = null;
         private TClass_db_leaves db_leaves = null;
         private TClass_db_members db_members = null;
         private TClass_db_users db_users = null;
+
         //Constructor  Create()
         public TClass_biz_members() : base()
         {
@@ -36,9 +39,11 @@ namespace Class_biz_members
             biz_enrollment = new TClass_biz_enrollment();
             biz_medical_release_levels = new TClass_biz_medical_release_levels();
             biz_notifications = new TClass_biz_notifications();
+            biz_roles = new TClass_biz_roles();
             biz_sections = new TClass_biz_sections();
             biz_user = new TClass_biz_user();
         }
+
         public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level, string phone_num)
         {
             bool result;
@@ -103,6 +108,15 @@ namespace Class_biz_members
             result = db_members.BeDriverQualifiedOf(summary);
             return result;
         }
+
+        internal bool BeOkToDefaultAgencyFilterToAll
+          (
+          bool be_ok_to_see_all_squads,
+          string[] roles
+          )
+          {
+          return be_ok_to_see_all_squads && (int.Parse(biz_roles.TierOfName(roles[0])) == 1);
+          }
 
         internal bool BePast(object summary)
           {

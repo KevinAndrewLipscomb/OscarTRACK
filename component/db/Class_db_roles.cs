@@ -180,6 +180,15 @@ namespace Class_db_roles
             return result;
         }
 
+        internal string TierOfName(string name)
+          {
+          var tier_of_name = k.EMPTY;
+          Open();
+          tier_of_name = new MySqlCommand("select IFNULL(tier_id,'') as tier_id from role where name = '" + name + "'",connection).ExecuteScalar().ToString();
+          Close();
+          return tier_of_name;
+          }
+
     } // end TClass_db_roles
 
 }

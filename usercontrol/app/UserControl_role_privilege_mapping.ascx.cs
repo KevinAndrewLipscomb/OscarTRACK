@@ -1,20 +1,11 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
 using Class_biz_privileges;
 using Class_biz_role_privilege_map;
 using Class_biz_roles;
 using Class_biz_tiers;
-using Class_db_roles;
-using Class_db_role_privilege_map;
+using Class_biz_user;
+using kix;
+using System.Web.UI.WebControls;
+
 namespace UserControl_role_privilege_mapping
 {
     public struct p_type
@@ -28,6 +19,7 @@ namespace UserControl_role_privilege_mapping
         public TClass_biz_role_privilege_map biz_role_privilege_map;
         public TClass_biz_roles biz_roles;
         public TClass_biz_tiers biz_tiers;
+        public TClass_biz_user biz_user;
         public bool may_add_mappings;
         public bool may_see_all_squads;
         public string own_tier;
@@ -154,17 +146,12 @@ namespace UserControl_role_privilege_mapping
                 p.biz_role_privilege_map = new TClass_biz_role_privilege_map();
                 p.biz_roles = new TClass_biz_roles();
                 p.biz_tiers = new TClass_biz_tiers();
+                p.biz_user = new TClass_biz_user();
+                //
                 p.TIER_ID_DEPARTMENT = p.biz_tiers.IdOfName("Department");
                 p.TIER_ID_SQUAD = p.biz_tiers.IdOfName("Squad");
                 p.may_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-                if (p.may_see_all_squads)
-                {
-                    p.own_tier = p.TIER_ID_DEPARTMENT;
-                }
-                else
-                {
-                    p.own_tier = p.TIER_ID_SQUAD;
-                }
+                p.own_tier = (p.biz_role_privilege_map.BeOkToDefaultTierFilterToDepartment(p.may_see_all_squads,p.biz_user.Roles()) ? p.TIER_ID_DEPARTMENT : p.TIER_ID_SQUAD);
                 p.be_interactive = !(Session["mode:report"] != null);
                 p.be_loaded = false;
                 p.be_sort_order_ascending = true;

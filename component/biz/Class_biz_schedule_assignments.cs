@@ -43,6 +43,15 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
       }
 
+    internal bool BeOkToDefaultAgencyFilterToAll
+      (
+      bool be_user_privileged_to_see_all_squads,
+      string[] roles
+      )
+      {
+      return be_user_privileged_to_see_all_squads && (int.Parse(biz_roles.TierOfName(roles[0])) == 1);
+      }
+
     internal bool BeOkToEditPerExclusivityRules
       (
       HttpSessionState session,

@@ -2,6 +2,7 @@
 
 using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_user;
 using kix;
 using System;
 using System.Collections;
@@ -20,6 +21,7 @@ namespace UserControl_serial_indicators_per_agency
     public bool be_interactive_mode;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
+    public TClass_biz_user biz_user;
     public string expanded_img_commensuration_src;
     public string expanded_img_core_ops_size_src;
     public string expanded_img_crew_shifts_forecast_src;
@@ -53,11 +55,6 @@ namespace UserControl_serial_indicators_per_agency
       if (!p.be_loaded)
         {
         p.biz_agencies.BindListControlShortDashLong(DropDownList_agency,"0");
-        p.be_interactive_mode = (Session["mode:report"] == null);
-        if (p.be_interactive_mode && !k.Has((string[])(Session["privilege_array"]), "see-all-squads"))
-          {
-          p.agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-          }
         DropDownList_agency.SelectedValue = p.agency_id;
         DropDownList_agency.Enabled = p.be_interactive_mode;
         Bind();
@@ -79,9 +76,12 @@ namespace UserControl_serial_indicators_per_agency
         {
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
         //
-        p.agency_id = "0";
+        p.be_interactive_mode = (Session["mode:report"] == null);
         p.be_loaded = false;
+        //
+        p.agency_id = (p.be_interactive_mode && p.biz_agencies.BeOkToDefaultAgencyFilterToAll(k.Has((string[])(Session["privilege_array"]), "see-all-squads"),p.biz_user.Roles()) ? "0" : p.agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
         p.expanded_img_commensuration_src = k.ExpandAsperand(Img_commensuration.Attributes["src"]);
         p.expanded_img_core_ops_size_src = k.ExpandAsperand(Img_core_ops_size.Attributes["src"]);
         p.expanded_img_crew_shifts_forecast_src = k.ExpandAsperand(Img_crew_shifts_forecast.Attributes["src"]);
