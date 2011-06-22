@@ -223,7 +223,7 @@ namespace UserControl_fleet
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
         //
-        p.agency_filter = (p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
+        p.agency_filter = (p.be_interactive && p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
         }
       }
 
