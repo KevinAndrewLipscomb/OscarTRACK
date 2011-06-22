@@ -1,15 +1,15 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
-using Class_biz_members;
 using Class_biz_gripes;
+using Class_biz_members;
 using Class_biz_notifications;
+using Class_biz_roles;
 using Class_biz_user;
 using Class_db_agencies;
-using Class_db_vehicles;
 using Class_db_vehicle_kinds;
+using Class_db_vehicles;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 
 namespace Class_biz_vehicles
@@ -19,6 +19,7 @@ namespace Class_biz_vehicles
     private TClass_biz_members biz_members = null;
     private TClass_biz_gripes biz_gripes = null;
     private TClass_biz_notifications biz_notifications = null;
+    private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
     private TClass_db_vehicles db_vehicles = null;
@@ -29,6 +30,7 @@ namespace Class_biz_vehicles
       biz_members = new TClass_biz_members();
       biz_gripes = new TClass_biz_gripes();
       biz_notifications = new TClass_biz_notifications();
+      biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
       db_vehicles = new TClass_db_vehicles();
@@ -118,6 +120,15 @@ namespace Class_biz_vehicles
       )
       {
       return db_vehicles.BeNotLessMileage(id,proposed_mileage);
+      }
+
+    internal bool BeOkToDefaultAgencyFilterToAll
+      (
+      bool be_ok_to_see_all_squads,
+      string[] roles
+      )
+      {
+      return be_ok_to_see_all_squads && (int.Parse(biz_roles.TierOfName(roles[0])) == 1);
       }
 
     public bool Bind(string partial_spec, object target)

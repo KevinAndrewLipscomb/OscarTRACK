@@ -126,15 +126,9 @@ namespace UserControl_roster
                 p.biz_members = new TClass_biz_members();
                 p.biz_sections = new TClass_biz_sections();
                 p.biz_user = new TClass_biz_user();
+                //
                 p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-                if (p.be_user_privileged_to_see_all_squads)
-                {
-                    p.agency_filter = k.EMPTY;
-                }
-                else
-                {
-                    p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-                }
+                p.agency_filter = (p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
                 p.be_sort_order_ascending = true;
                 p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                 p.distribution_list = k.EMPTY;

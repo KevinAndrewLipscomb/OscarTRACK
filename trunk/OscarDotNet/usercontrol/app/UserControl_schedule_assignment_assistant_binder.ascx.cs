@@ -3,6 +3,7 @@
 using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
+using Class_biz_user;
 using kix;
 using System;
 using System.Collections;
@@ -38,6 +39,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
+    public TClass_biz_user biz_user;
     public string content_id;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -98,17 +100,11 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        p.biz_user = new TClass_biz_user();
         //
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        if (p.be_user_privileged_to_see_all_squads)
-          {
-          p.agency_filter = k.EMPTY;
-          }
-        else
-          {
-          p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-          }
+        p.agency_filter = (p.biz_schedule_assignments.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
         p.be_loaded = false;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
