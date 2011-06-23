@@ -129,7 +129,10 @@
                       <ASP:BoundColumn datafield="be_selected" Visible="false" ReadOnly="true"></ASP:BoundColumn>
                       <ASP:BoundColumn datafield="on_duty" Visible="false" ReadOnly="true"></ASP:BoundColumn>
                       <ASP:BoundColumn datafield="off_duty" Visible="false" ReadOnly="true"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="time_off" HeaderText="Time off before duty (hours)" ReadOnly="true" Visible="false">
+                      <ASP:BoundColumn datafield="time_off_before" HeaderText="Time off BEFORE duty (hours)" ReadOnly="true" Visible="false">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </ASP:BoundColumn>
+                      <ASP:BoundColumn datafield="time_off_after" HeaderText="Time off AFTER duty (hours)" ReadOnly="true" Visible="false">
                         <ItemStyle HorizontalAlign="Center" />
                       </ASP:BoundColumn>
                       <ASP:BoundColumn datafield="shift_population_from_agency" HeaderText="Crews local" DataFormatString="{0:F1}" ReadOnly="true" Visible="false">
