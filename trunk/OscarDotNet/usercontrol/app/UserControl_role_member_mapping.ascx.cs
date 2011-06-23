@@ -164,7 +164,8 @@ namespace UserControl_role_member_mapping
                 //
                 var tier_id = k.EMPTY;
                 var dummy_string = k.EMPTY;
-                p.biz_roles.Get(p.biz_user.Roles()[0],out tier_id,out dummy_string, out dummy_string);
+                var dummy_boolean = false;
+                p.biz_roles.Get(p.biz_user.Roles()[0],out tier_id,out dummy_string,out dummy_string,out dummy_boolean);
                 if (p.may_see_all_squads && (tier_id == p.TIER_ID_DEPARTMENT))
                 {
                     p.own_tier = p.TIER_ID_DEPARTMENT;

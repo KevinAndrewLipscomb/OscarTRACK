@@ -21,6 +21,7 @@ namespace UserControl_role
             DropDownList_tier.ClearSelection();
             TextBox_pecking_order.Text = k.EMPTY;
             TextBox_soft_hyphenation_text.Text = k.EMPTY;
+            CheckBox_be_occasional.Checked = false;
             Literal_match_index.Text = k.EMPTY;
             Literal_num_matches.Text = k.EMPTY;
             Panel_match_numbers.Visible = false;
@@ -131,6 +132,7 @@ namespace UserControl_role
                         LinkButton_new_record.Visible = true;
                         TableRow_pecking_order.Visible = true;
                         TableRow_soft_hyphenation_text.Visible = true;
+                        TableRow_be_occasional.Visible = true;
                     }
                 }
                 else
@@ -159,13 +161,15 @@ namespace UserControl_role
             string tier_id;
             string soft_hyphenation_text;
             string pecking_order;
+            bool be_occasional;
             result = false;
-            if (p.biz_roles.Get(name, out tier_id, out soft_hyphenation_text, out pecking_order))
+            if (p.biz_roles.Get(name,out tier_id,out soft_hyphenation_text,out pecking_order,out be_occasional))
             {
                 TextBox_name.Text = name;
                 DropDownList_tier.SelectedValue = tier_id;
                 TextBox_pecking_order.Text = pecking_order;
                 TextBox_soft_hyphenation_text.Text = soft_hyphenation_text;
+                CheckBox_be_occasional.Checked = be_occasional;
                 TextBox_name.Enabled = false;
                 Button_lookup.Enabled = false;
                 Label_lookup_arrow.Enabled = false;
@@ -296,7 +300,14 @@ namespace UserControl_role
         {
             if (Page.IsValid)
             {
-                p.biz_roles.Set(k.Safe(TextBox_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(), k.Safe(DropDownList_tier.SelectedValue, k.safe_hint_type.NUM).Trim(), k.Safe(TextBox_soft_hyphenation_text.Text, k.safe_hint_type.PUNCTUATED).Trim(), k.Safe(TextBox_pecking_order.Text, k.safe_hint_type.NUM).Trim());
+                p.biz_roles.Set
+                  (
+                  k.Safe(TextBox_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(),
+                  k.Safe(DropDownList_tier.SelectedValue, k.safe_hint_type.NUM).Trim(),
+                  k.Safe(TextBox_soft_hyphenation_text.Text, k.safe_hint_type.PUNCTUATED).Trim(),
+                  k.Safe(TextBox_pecking_order.Text, k.safe_hint_type.NUM).Trim(),
+                  CheckBox_be_occasional.Checked
+                  );
                 Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
             }
@@ -308,7 +319,7 @@ namespace UserControl_role
 
         protected void DropDownList_name_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            p.role_name = k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.HUMAN_NAME);
+            p.role_name = k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.MAKE_MODEL);
             PresentRecord(p.role_name);
         }
 
@@ -373,6 +384,7 @@ namespace UserControl_role
             DropDownList_tier.Enabled = ablement;
             TextBox_pecking_order.Enabled = ablement;
             TextBox_soft_hyphenation_text.Enabled = ablement;
+            CheckBox_be_occasional.Enabled = ablement;
         }
 
         protected void Button_lookup_Click(object sender, System.EventArgs e)
