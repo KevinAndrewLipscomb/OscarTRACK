@@ -54,18 +54,19 @@ namespace UserControl_member_schedule_detail
       public const int TCI_BE_SELECTED = 7;
       public const int TCI_ON_DUTY = 8;
       public const int TCI_OFF_DUTY = 9;
-      public const int TCI_TIME_OFF = 10;
-      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 11;
-      public const int TCI_SHIFT_POPULATION_CITYWIDE = 12;
-      public const int TCI_SWAP_EARLIER = 13;
-      public const int TCI_SWAP_LATER = 14;
-      public const int TCI_OTHERS_AVAILABLE = 15;
-      public const int TCI_FORCE_OFF = 16;
-      public const int TCI_FORCE_ON = 17;
-      public const int TCI_BE_NOTIFICATION_PENDING = 18;
-      public const int TCI_REVISED = 19;
-      public const int TCI_LAST_REVISER = 20;
-      public const int TCI_DOOR_CODE = 21;
+      public const int TCI_TIME_OFF_BEFORE = 10;
+      public const int TCI_TIME_OFF_AFTER = 11;
+      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 12;
+      public const int TCI_SHIFT_POPULATION_CITYWIDE = 13;
+      public const int TCI_SWAP_EARLIER = 14;
+      public const int TCI_SWAP_LATER = 15;
+      public const int TCI_OTHERS_AVAILABLE = 16;
+      public const int TCI_FORCE_OFF = 17;
+      public const int TCI_FORCE_ON = 18;
+      public const int TCI_BE_NOTIFICATION_PENDING = 19;
+      public const int TCI_REVISED = 20;
+      public const int TCI_LAST_REVISER = 21;
+      public const int TCI_DOOR_CODE = 22;
       }
 
     private p_type p;
@@ -216,7 +217,8 @@ namespace UserControl_member_schedule_detail
           {
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].CssClass = "selected_for_duty";
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].CssClass = "selected_for_duty";
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Font.Bold = true;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_BEFORE].Font.Bold = true;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_AFTER].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Font.Bold = true;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Font.Bold = true;
           //
@@ -233,7 +235,8 @@ namespace UserControl_member_schedule_detail
           {
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_NOMINAL_DAY].CssClass = "unselected_availability";
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].CssClass = "unselected_availability";
-          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_BEFORE].ForeColor = Color.Gray;
+          e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_AFTER].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].ForeColor = Color.Gray;
           (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Controls[0] as LinkButton).Text = k.EMPTY;
@@ -408,7 +411,8 @@ namespace UserControl_member_schedule_detail
       p.arraylist_unselected_night_avail.Clear();
       p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.biz_members.IdOf(p.member_summary),p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF].Visible = p.be_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_BEFORE].Visible = p.be_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_AFTER].Visible = p.be_editable;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Visible = p.be_editable;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Visible = p.be_editable;
       DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Visible = p.be_editable;

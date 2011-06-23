@@ -4,8 +4,8 @@ select agency.short_designator
  , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released
  , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant
  , if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,num_shifts) as obliged
- , sum(be_selected) as assigned
- , sum(be_selected) - if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,num_shifts)as balance
+ , IFNULL(sum(be_selected),0) as assigned
+ , IFNULL(sum(be_selected),0) - if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,num_shifts)as balance
 from member
   join agency on (agency.id=member.agency_id)
   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)
@@ -40,10 +40,10 @@ from member
     )
   left join
     (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + 0) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)
-  join schedule_assignment on (schedule_assignment.member_id=member.id)
+  left join schedule_assignment on (schedule_assignment.member_id=member.id)
 where
   (
-    MONTH(nominal_day) = MONTH(CURDATE()) + 0
+    ((MONTH(nominal_day) = MONTH(CURDATE()) + 0) or (nominal_day is null))
   and
     (
       (
