@@ -128,29 +128,35 @@ namespace Class_db_roles
             return result;
         }
 
-        public bool Get(string name, out string tier_id, out string soft_hyphenation_text, out string pecking_order)
-        {
-            bool result;
-            MySqlDataReader dr;
-
-            tier_id = k.EMPTY;
-            soft_hyphenation_text = k.EMPTY;
-            pecking_order = k.EMPTY;
-            result = false;
-            this.Open();
-            dr = new MySqlCommand("select * from role where CAST(name AS CHAR) = \"" + name + "\"", this.connection).ExecuteReader();
-            if (dr.Read())
+        public bool Get
+          (
+          string name,
+          out string tier_id,
+          out string soft_hyphenation_text,
+          out string pecking_order,
+          out bool be_occasional
+          )
+          {
+          tier_id = k.EMPTY;
+          soft_hyphenation_text = k.EMPTY;
+          pecking_order = k.EMPTY;
+          be_occasional = false;
+          var result = false;
+          Open();
+          var dr = new MySqlCommand("select * from role where CAST(name AS CHAR) = '" + name + "'", connection).ExecuteReader();
+          if (dr.Read())
             {
-                name = dr["name"].ToString();
-                tier_id = dr["tier_id"].ToString();
-                soft_hyphenation_text = dr["soft_hyphenation_text"].ToString();
-                pecking_order = dr["pecking_order"].ToString();
-                result = true;
+            name = dr["name"].ToString();
+            tier_id = dr["tier_id"].ToString();
+            soft_hyphenation_text = dr["soft_hyphenation_text"].ToString();
+            pecking_order = dr["pecking_order"].ToString();
+            be_occasional = (dr["be_occasional"].ToString() == "1");
+            result = true;
             }
-            dr.Close();
-            this.Close();
-            return result;
-        }
+          dr.Close();
+          Close();
+          return result;
+          }
 
         public string NameOfId(string id)
         {
@@ -161,15 +167,35 @@ namespace Class_db_roles
             return result;
         }
 
-        public void Set(string name, string tier_id, string soft_hyphenation_text, string pecking_order)
-        {
-            string childless_field_assignments_clause;
-            childless_field_assignments_clause = " tier_id = NULLIF(\"" + tier_id + "\",\"\")" + " , soft_hyphenation_text = NULLIF(\"" + soft_hyphenation_text + "\",\"\")" + " , pecking_order = NULLIF(\"" + pecking_order + "\",\"\")";
-            this.Open();
-            new MySqlCommand(db_trail.Saved("insert role" + " set name = NULLIF(\"" + name + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), this.connection).ExecuteNonQuery();
-            this.Close();
-
-        }
+        public void Set
+          (
+          string name,
+          string tier_id,
+          string soft_hyphenation_text,
+          string pecking_order,
+          bool be_occasional
+          )
+          {
+          var childless_field_assignments_clause = " tier_id = NULLIF('" + tier_id + "','')"
+          + " , soft_hyphenation_text = NULLIF('" + soft_hyphenation_text + "','')"
+          + " , pecking_order = NULLIF('" + pecking_order + "','')"
+          + " , be_occasional = " + be_occasional.ToString();
+          Open();
+          new MySqlCommand
+            (
+            db_trail.Saved
+              (
+              "insert role"
+              + " set name = NULLIF('" + name + "','')"
+              + " , " + childless_field_assignments_clause
+              + " on duplicate key update "
+              + childless_field_assignments_clause
+              ),
+            connection
+            )
+            .ExecuteNonQuery();
+          Close();
+          }
 
         public string TierOfId(string id)
         {

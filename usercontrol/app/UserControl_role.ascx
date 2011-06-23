@@ -16,7 +16,7 @@
                         <td>
               <ASP:TextBox id="TextBox_name" runat="server" columns="63" maxlength="63" cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
                         </td>
-                        <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
+                        <td nowrap="nowrap"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
                         <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full Role title</asp:Label></em></small></small></td>
                       </tr>
                     </table>
@@ -47,7 +47,7 @@
         </tr>
       </table></font>
           </td>
-          <td nowrap="true" valign="top">
+          <td nowrap="nowrap" valign="top">
             <ASP:RequiredFieldValidator id="RequiredFieldValidator_name" runat="server" errormessage="Please enter Name." font-bold="True" controltovalidate="TextBox_name" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
             <asp:RegularExpressionValidator id="RegularExpressionValidator_name" runat="server" errormessage="Please enter a valid Role title." font-bold="True" controltovalidate="TextBox_name" validationexpression="[a-zA-Z\-. ']+">!ERR!</asp:RegularExpressionValidator>
           </td>
@@ -55,12 +55,12 @@
         <tr>
           <td><font class="">Tier:</font></td>
           <td><font class=""><asp:DropDownList id="DropDownList_tier" runat="server" enabled="False"></asp:DropDownList></font></td>
-          <td nowrap="True"><asp:RequiredFieldValidator id="RequiredFieldValidator_tier" runat="server" errormessage="Please select a Tier." display="Dynamic" font-bold="True" controltovalidate="DropDownList_tier">!ERR!</asp:RequiredFieldValidator></td>
+          <td nowrap="nowrap"><asp:RequiredFieldValidator id="RequiredFieldValidator_tier" runat="server" errormessage="Please select a Tier." display="Dynamic" font-bold="True" controltovalidate="DropDownList_tier">!ERR!</asp:RequiredFieldValidator></td>
         </tr>
         <tr id="TableRow_pecking_order" runat="server" visible="False">
           <td><font class="">Pecking order:</font></td>
           <td><font class=""><ASP:TextBox id="TextBox_pecking_order" runat="server" columns="10" maxlength="10" cssclass="" enabled="False"></ASP:TextBox></font></td>
-          <td nowrap="True">
+          <td nowrap="nowrap">
             <asp:RequiredFieldValidator id="RequiredFieldValidator_pecking_order" runat="server" errormessage="Please enter Pecking order." display="Dynamic" font-bold="True" controltovalidate="TextBox_pecking_order">!ERR!</asp:RequiredFieldValidator>
             <asp:RegularExpressionValidator id="RegularExpressionValidator_pecking_order" runat="server" errormessage="Please enter a valid Pecking order." display="Dynamic" font-bold="True" controltovalidate="TextBox_pecking_order" validationexpression="\d{1,10}">!ERR!</asp:RegularExpressionValidator>
           </td>
@@ -68,7 +68,12 @@
         <tr id="TableRow_soft_hyphenation_text" runat="server" visible="False">
           <td><font class="">Soft hyphenation text:</font></td>
           <td><font class=""><ASP:TextBox id="TextBox_soft_hyphenation_text" runat="server" columns="72" maxlength="127" cssclass="" enabled="False"></ASP:TextBox></font></td>
-          <td nowrap="True"><ASP:RequiredFieldValidator id="RequiredFieldValidator_soft_hyphenation_text" runat="server" errormessage="Please enter Soft hyphenation text." font-bold="True" controltovalidate="TextBox_soft_hyphenation_text" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+          <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_soft_hyphenation_text" runat="server" errormessage="Please enter Soft hyphenation text." font-bold="True" controltovalidate="TextBox_soft_hyphenation_text" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+        </tr>
+        <tr id="TableRow_be_occasional" runat="server" visible="False">
+          <td><font class="">Be occasional:</font></td>
+          <td><font class=""><ASP:CheckBox id="CheckBox_be_occasional" runat="server" cssclass="" enabled="False"></ASP:CheckBox></font></td>
+          <td></td>
         </tr>
       </table>
     </td>
@@ -128,7 +133,7 @@
                 <tr>
                   <td valign="top">Body:</td>
                   <td><ASP:TextBox id="TextBox_quick_message_body" runat="server" columns="72" rows="18" textmode="MultiLine"></ASP:TextBox></td>
-                  <td nowrap="true" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic" validationgroup="QuickMessage">!ERR!</ASP:RequiredFieldValidator></td>
+                  <td nowrap="nowrap" valign="top"><ASP:RequiredFieldValidator id="RequiredFieldValidator_quick_message_body" runat="server" errormessage="Please enter a message body." font-bold="True" controltovalidate="TextBox_quick_message_body" display="Dynamic" validationgroup="QuickMessage">!ERR!</ASP:RequiredFieldValidator></td>
                 </tr>
                 <tr>
                   <td></td>
@@ -136,7 +141,7 @@
                   <td></td>
                 </tr>
                 <tr>
-                  <td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td>
+                  <td valign="top"><small><font color="#c0c0c0">Resolves to:</font></small></td>
                   <td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>
                   <td></td>
                 </tr>

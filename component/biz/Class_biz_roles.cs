@@ -65,13 +65,17 @@ namespace Class_biz_roles
             return result;
         }
 
-        public bool Get(string name, out string tier_id, out string soft_hyphenation_text, out string pecking_order)
-        {
-            bool result;
-            result = db_roles.Get(name, out tier_id, out soft_hyphenation_text, out pecking_order);
-
-            return result;
-        }
+        public bool Get
+          (
+          string name,
+          out string tier_id,
+          out string soft_hyphenation_text,
+          out string pecking_order,
+          out bool be_occasional
+          )
+          {
+          return db_roles.Get(name,out tier_id,out soft_hyphenation_text,out pecking_order,out be_occasional);
+          }
 
         public string NameOfId(string id)
         {
@@ -80,11 +84,17 @@ namespace Class_biz_roles
             return result;
         }
 
-        public void Set(string name, string tier_id, string soft_hyphenation_text, string pecking_order)
-        {
-            db_roles.Set(name, tier_id, soft_hyphenation_text, pecking_order);
-
-        }
+        public void Set
+          (
+          string name,
+          string tier_id,
+          string soft_hyphenation_text,
+          string pecking_order,
+          bool be_occasional
+          )
+          {
+          db_roles.Set(name,tier_id,soft_hyphenation_text,pecking_order,be_occasional);
+          }
 
         public string TierOfId(string id)
         {
