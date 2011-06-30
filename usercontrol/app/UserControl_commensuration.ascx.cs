@@ -109,7 +109,7 @@ namespace UserControl_commensuration
                         total_num_forecast = total_num_forecast + num_forecast;
                         total_num_actual = total_num_actual + num_actual;
                         commensuration_rec.agency_id = k.Safe(table_cell_collection[Units.UserControl_commensuration.TCCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
-                        commensuration_rec.commensuration_factor = num_actual / num_forecast;
+                        commensuration_rec.commensuration_factor = (num_forecast == 0 ? 0 : num_actual / num_forecast);
                         commensuration_rec.be_agency_id_applicable = true;
                         commensuration_rec_q.Enqueue(commensuration_rec);
                     }

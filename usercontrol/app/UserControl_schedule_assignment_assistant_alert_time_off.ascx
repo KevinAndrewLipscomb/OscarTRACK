@@ -13,7 +13,7 @@
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
-                      <asp:ButtonColumn DataTextField="name" HeaderText="This member...">
+                      <asp:ButtonColumn DataTextField="name" HeaderText="This member..." CommandName="SeeDetail">
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
@@ -31,6 +31,10 @@
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="second_shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="second_schedule_assignment_id" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="note" HeaderText="Note" ReadOnly="True">
+                        <ItemStyle Font-Bold="False" Font-Italic="True" Font-Overline="False" Font-Size="Small" Font-Strikeout="False" Font-Underline="False" />
+                      </asp:BoundColumn>
+                      <asp:ButtonColumn ButtonType="PushButton" CommandName="AutoFix" Text="AutoFix" Visible="False"></asp:ButtonColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>
