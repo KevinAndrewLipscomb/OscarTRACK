@@ -1507,7 +1507,7 @@ namespace Class_db_schedule_assignments
       )
       {
       //
-      // The following two queries are related to NumCrewShifts()/
+      // The following two queries are related to NumCrewShifts()
       //
       var citywide_population_select_from_where_prefix = k.EMPTY
       + " ("
@@ -1533,7 +1533,7 @@ namespace Class_db_schedule_assignments
       //
       Open();
       var transaction = connection.BeginTransaction();
-      var selected_assignment_to_swap = new MySqlCommand
+      var primary_selected_assignment_to_swap = new MySqlCommand
         (
         "select"
         + " IF("
@@ -1557,128 +1557,11 @@ namespace Class_db_schedule_assignments
         transaction
         )
         .ExecuteScalar().ToString();
-      var unselected_assignment_to_swap_obj = new MySqlCommand
-        (
-        //
-        // The MySQL query order of operations is critical here.  It is as follows:
-        // 1. FROM clause
-        // 2. WHERE clause
-        // 3. GROUP BY clause
-        // 4. HAVING clause (not involved here)
-        // 5. SELECT clause
-        // 6. ORDER BY clause
-        //
-        // Also, this query is closely related to the query in BindMemberScheduleDetailBaseDataList().
-        //
-        "select schedule_assignment_id"
-        + " from"
-        +   " ("
-        +   " select schedule_assignment_id"
-        +   " , nominal_day"
-        +   " , shift_name"
-        +   " , post_designator"
-        +   " , post_cardinality"
-        +   " , comment"
-        +   " , be_selected"
-        +   " , be_notification_pending"
-        +   " , on_duty"
-        +   " , off_duty"
-        +   " , time_off_before"
-        +   " , time_off_after"
-        +   " , shift_population_from_agency"
-        +   " , shift_population_citywide"
-        +   " , last_reviser"
-        +   " , door_code"
-        +   " from"
-        +     " ("
-        +     " select schedule_assignment_id"
-        +     " , nominal_day"
-        +     " , shift_name"
-        +     " , post_designator"
-        +     " , post_cardinality"
-        +     " , comment"
-        +     " , be_selected"
-        +     " , be_notification_pending"
-        +     " , IF(be_selected,@on_duty_before := on_duty,NULL) as on_duty"
-        +     " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty_before,@on_duty_before),TIMESTAMPDIFF(HOUR,@off_duty_before,on_duty)) as time_off_before"
-        +     " , IF(be_selected,@off_duty_before := off_duty,NULL) as off_duty"
-        +     " , time_off_after"
-        +     " , shift_population_from_agency"
-        +     " , shift_population_citywide"
-        +     " , last_reviser"
-        +     " , door_code"
-        +     " from (select @on_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR), @off_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
-        +       " ("
-        +       " select schedule_assignment_id"
-        +       " , nominal_day"
-        +       " , shift_name"
-        +       " , post_designator"
-        +       " , post_cardinality"
-        +       " , comment"
-        +       " , be_selected"
-        +       " , be_notification_pending"
-        +       " , IF(be_selected,@off_duty_after := off_duty,off_duty) as off_duty"
-        +       " , IF(be_selected,-TIMESTAMPDIFF(HOUR,@on_duty_after,@off_duty_after),-TIMESTAMPDIFF(HOUR,@on_duty_after,off_duty)) as time_off_after"
-        +       " , IF(be_selected,@on_duty_after := on_duty,on_duty) as on_duty"
-        +       " , from_agency as shift_population_from_agency"
-        +       " , citywide as shift_population_citywide"
-        +       " , last_reviser"
-        +       " , door_code"
-        +       " from (select @on_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR), @off_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
-        +         " ("
-        +         " select s.member_id"
-        +         " , s.id as schedule_assignment_id"
-        +         " , DATE_FORMAT(s.nominal_day,'%Y-%m-%d') as nominal_day"
-        +         " , s.shift_id"
-        +         " , shift.name as shift_name"
-        +         " , shift.start as shift_start"
-        +         " , IF(s.be_selected,short_designator,'') as post_designator"
-        +         " , IF(s.be_selected,CAST(CHAR(ASCII('a') + s.post_cardinality - 1) as CHAR),'') as post_cardinality"
-        +         " , s.comment"
-        +         " , DATE_FORMAT(ADDTIME(s.nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
-        +         " , DATE_FORMAT(IF(start<end,ADDTIME(s.nominal_day,end),ADDTIME(ADDTIME(s.nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
-        +         " , s.be_selected"
-        +         " , s.be_notification_pending"
-        +         " , (select concat('by ',first_name,' ',last_name) from member where id = s.reviser_member_id) as last_reviser"
-        +         " , IF(s.be_selected,IFNULL(door_code,''),'') as door_code"
-        +         " FROM schedule_assignment t"
-        +           " join schedule_assignment s on (s.member_id=t.member_id and MONTH(s.nominal_day) = MONTH(t.nominal_day))"
-        +           " join shift on (shift.id=s.shift_id)"
-        +           " join member on (member.id=s.member_id)"
-        +           " join agency on (agency.id=s.post_id)"
-        +         " where t.id = '" + selected_assignment_to_swap + "'"
-        +         " order by nominal_day desc,start desc"
-        +         " ) as msd_member_schedule_assignments_sorted_chronologically_backwards"
-        +         " left join"
-        +           " ("
-        +           " select s.nominal_day"
-        +           " , s.shift_id"
-        +           " , sum(m.agency_id = n.agency_id)/2 as from_agency"
-        +           " , count(*)/2 as citywide"
-        +           " from schedule_assignment s"
-        +             " join member m on (m.id=s.member_id)"
-        +             " join schedule_assignment t on (t.id='" + selected_assignment_to_swap + "')"
-        +             " join member n on (n.id=t.member_id)"
-        +             " join medical_release_code_description_map on (medical_release_code_description_map.code=m.medical_release_code)"
-        +           " where medical_release_code_description_map.pecking_order >= 20"
-        +             " and s.be_selected"
-        +             " and s.post_id < 200" // Only count ground ambulance assignments.
-        +           " group by s.nominal_day,s.shift_id"
-        +           " ) msd_shift_populations_on_member_schedule_assignments"
-        +             " using (nominal_day,shift_id)"
-        +       " order by nominal_day,shift_start"
-        +       " ) as msd_calculated_time_off_after"
-        +     " ) as msd_calculated_time_off_before"
-        +   " ) as member_schedule_detail"
-        + " where not be_selected"
-        +   " and time_off_before > '" + intolerable_gap + "'"
-        +   " and time_off_after > '" + intolerable_gap + "'"
-        + " order by shift_population_citywide,shift_population_from_agency,nominal_day,on_duty"
-        + " limit 1",
-        connection,
-        transaction
-        )
-        .ExecuteScalar();
+      var unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(intolerable_gap, transaction, primary_selected_assignment_to_swap);
+      if (unselected_assignment_to_swap_obj == null)
+        {
+        unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(intolerable_gap, transaction, (primary_selected_assignment_to_swap == id_a ? id_b : id_a));
+        }
       if (unselected_assignment_to_swap_obj != null)
         {
         new MySqlCommand
@@ -1688,7 +1571,7 @@ namespace Class_db_schedule_assignments
             "update schedule_assignment set be_selected = not be_selected"
             + " , be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW()"
             + " , reviser_member_id = '" + reviser_member_id + "'"
-            + " where id in ('" + selected_assignment_to_swap + "','" + unselected_assignment_to_swap_obj.ToString() + "')"
+            + " where id in ('" + primary_selected_assignment_to_swap + "','" + unselected_assignment_to_swap_obj.ToString() + "')"
             ),
           connection,
           transaction
@@ -1790,6 +1673,137 @@ namespace Class_db_schedule_assignments
         }
       Close();
       }
+
+      private object UnselectedAssignmentToSwapObj
+        (
+        string intolerable_gap,
+        MySqlTransaction transaction,
+        string selected_assignment_to_swap
+        )
+        {
+        return new MySqlCommand
+          (
+          //
+          // The MySQL query order of operations is critical here.  It is as follows:
+          // 1. FROM clause
+          // 2. WHERE clause
+          // 3. GROUP BY clause
+          // 4. HAVING clause (not involved here)
+          // 5. SELECT clause
+          // 6. ORDER BY clause
+          //
+          // Also, this query is closely related to the query in BindMemberScheduleDetailBaseDataList().
+          //
+          "select schedule_assignment_id"
+          + " from"
+          + " ("
+          + " select schedule_assignment_id"
+          + " , nominal_day"
+          + " , shift_name"
+          + " , post_designator"
+          + " , post_cardinality"
+          + " , comment"
+          + " , be_selected"
+          + " , be_notification_pending"
+          + " , on_duty"
+          + " , off_duty"
+          + " , time_off_before"
+          + " , time_off_after"
+          + " , shift_population_from_agency"
+          + " , shift_population_citywide"
+          + " , last_reviser"
+          + " , door_code"
+          + " from"
+          + " ("
+          + " select schedule_assignment_id"
+          + " , nominal_day"
+          + " , shift_name"
+          + " , post_designator"
+          + " , post_cardinality"
+          + " , comment"
+          + " , be_selected"
+          + " , be_notification_pending"
+          + " , IF(be_selected,@on_duty_before := on_duty,NULL) as on_duty"
+          + " , IF(be_selected,TIMESTAMPDIFF(HOUR,@off_duty_before,@on_duty_before),TIMESTAMPDIFF(HOUR,@off_duty_before,on_duty)) as time_off_before"
+          + " , IF(be_selected,@off_duty_before := off_duty,NULL) as off_duty"
+          + " , time_off_after"
+          + " , shift_population_from_agency"
+          + " , shift_population_citywide"
+          + " , last_reviser"
+          + " , door_code"
+          + " from (select @on_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR), @off_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
+          + " ("
+          + " select schedule_assignment_id"
+          + " , nominal_day"
+          + " , shift_name"
+          + " , post_designator"
+          + " , post_cardinality"
+          + " , comment"
+          + " , be_selected"
+          + " , be_notification_pending"
+          + " , IF(be_selected,@off_duty_after := off_duty,off_duty) as off_duty"
+          + " , IF(be_selected,-TIMESTAMPDIFF(HOUR,@on_duty_after,@off_duty_after),-TIMESTAMPDIFF(HOUR,@on_duty_after,off_duty)) as time_off_after"
+          + " , IF(be_selected,@on_duty_after := on_duty,on_duty) as on_duty"
+          + " , from_agency as shift_population_from_agency"
+          + " , citywide as shift_population_citywide"
+          + " , last_reviser"
+          + " , door_code"
+          + " from (select @on_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR), @off_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
+          + " ("
+          + " select s.member_id"
+          + " , s.id as schedule_assignment_id"
+          + " , DATE_FORMAT(s.nominal_day,'%Y-%m-%d') as nominal_day"
+          + " , s.shift_id"
+          + " , shift.name as shift_name"
+          + " , shift.start as shift_start"
+          + " , IF(s.be_selected,short_designator,'') as post_designator"
+          + " , IF(s.be_selected,CAST(CHAR(ASCII('a') + s.post_cardinality - 1) as CHAR),'') as post_cardinality"
+          + " , s.comment"
+          + " , DATE_FORMAT(ADDTIME(s.nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
+          + " , DATE_FORMAT(IF(start<end,ADDTIME(s.nominal_day,end),ADDTIME(ADDTIME(s.nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+          + " , s.be_selected"
+          + " , s.be_notification_pending"
+          + " , (select concat('by ',first_name,' ',last_name) from member where id = s.reviser_member_id) as last_reviser"
+          + " , IF(s.be_selected,IFNULL(door_code,''),'') as door_code"
+          + " FROM schedule_assignment t"
+          + " join schedule_assignment s on (s.member_id=t.member_id and MONTH(s.nominal_day) = MONTH(t.nominal_day))"
+          + " join shift on (shift.id=s.shift_id)"
+          + " join member on (member.id=s.member_id)"
+          + " join agency on (agency.id=s.post_id)"
+          + " where t.id = '" + selected_assignment_to_swap + "'"
+          + " order by nominal_day desc,start desc"
+          + " ) as msd_member_schedule_assignments_sorted_chronologically_backwards"
+          + " left join"
+          + " ("
+          + " select s.nominal_day"
+          + " , s.shift_id"
+          + " , sum(m.agency_id = n.agency_id)/2 as from_agency"
+          + " , count(*)/2 as citywide"
+          + " from schedule_assignment s"
+          + " join member m on (m.id=s.member_id)"
+          + " join schedule_assignment t on (t.id='" + selected_assignment_to_swap + "')"
+          + " join member n on (n.id=t.member_id)"
+          + " join medical_release_code_description_map on (medical_release_code_description_map.code=m.medical_release_code)"
+          + " where medical_release_code_description_map.pecking_order >= 20"
+          + " and s.be_selected"
+          + " and s.post_id < 200" // Only count ground ambulance assignments.
+          + " group by s.nominal_day,s.shift_id"
+          + " ) msd_shift_populations_on_member_schedule_assignments"
+          + " using (nominal_day,shift_id)"
+          + " order by nominal_day,shift_start"
+          + " ) as msd_calculated_time_off_after"
+          + " ) as msd_calculated_time_off_before"
+          + " ) as member_schedule_detail"
+          + " where not be_selected"
+          + " and time_off_before > '" + intolerable_gap + "'"
+          + " and time_off_after > '" + intolerable_gap + "'"
+          + " order by shift_population_citywide,shift_population_from_agency,nominal_day,on_duty"
+          + " limit 1",
+          connection,
+          transaction
+          )
+          .ExecuteScalar();
+        }
 
     private delegate string Update_Dispositioned(string sql);
     internal void Update
