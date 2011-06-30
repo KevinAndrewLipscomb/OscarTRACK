@@ -31,10 +31,10 @@
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="second_shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="second_schedule_assignment_id" Visible="False"></asp:BoundColumn>
+                      <asp:ButtonColumn ButtonType="PushButton" CommandName="AutoFix" Text="AutoFix"></asp:ButtonColumn>
                       <asp:BoundColumn DataField="note" HeaderText="Note" ReadOnly="True">
                         <ItemStyle Font-Bold="False" Font-Italic="True" Font-Overline="False" Font-Size="Small" Font-Strikeout="False" Font-Underline="False" />
                       </asp:BoundColumn>
-                      <asp:ButtonColumn ButtonType="PushButton" CommandName="AutoFix" Text="AutoFix" Visible="False"></asp:ButtonColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>
