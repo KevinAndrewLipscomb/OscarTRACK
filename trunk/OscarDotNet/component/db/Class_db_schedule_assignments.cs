@@ -566,7 +566,7 @@ namespace Class_db_schedule_assignments
         +   " , others_available"
         +   " , last_reviser"
         +   " , door_code"
-        +   " from (select @on_duty_before := '', @off_duty_before := '') as dummy,"
+        +   " from (select @on_duty_before := ADDDATE(LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " - 1 MONTH)),INTERVAL '1 6' DAY_HOUR), @off_duty_before := ADDDATE(LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " - 1 MONTH)),INTERVAL '1 6' DAY_HOUR)) as dummy,"
         +     " ("
         +     " select schedule_assignment_id"
         +     " , nominal_day"
@@ -584,7 +584,7 @@ namespace Class_db_schedule_assignments
         +     " , others_available"
         +     " , last_reviser"
         +     " , door_code"
-        +     " from (select @on_duty_after := '', @off_duty_after := '') as dummy,"
+        +     " from (select @on_duty_after := ADDDATE(LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH)),INTERVAL '1 6' DAY_HOUR), @off_duty_after := ADDDATE(LAST_DAY(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH)),INTERVAL '1 6' DAY_HOUR)) as dummy,"
         +       " ("
         +       " select member_id"
         +       " , schedule_assignment.id as schedule_assignment_id"
@@ -1350,6 +1350,9 @@ namespace Class_db_schedule_assignments
       string shift_name
       )
       {
+      //
+      // The following query is related to the queries in the first part of SpreadSelections().
+      //
       var agency_condition_clause = k.EMPTY;
       if (agency_filter != k.EMPTY)
         {
@@ -1503,6 +1506,9 @@ namespace Class_db_schedule_assignments
       string reviser_member_id
       )
       {
+      //
+      // The following two queries are related to NumCrewShifts()/
+      //
       var citywide_population_select_from_where_prefix = k.EMPTY
       + " ("
       + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200)/2"
@@ -1516,11 +1522,12 @@ namespace Class_db_schedule_assignments
       + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200)/2"
       + " from schedule_assignment t"
       +   " join schedule_assignment s on (s.nominal_day=t.nominal_day and s.shift_id=t.shift_id)"
-      +   " join member on (member.id=s.member_id)"
-      +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+      +   " join member m on (m.id=s.member_id)"
+      +   " join medical_release_code_description_map on (medical_release_code_description_map.code=m.medical_release_code)"
       +   " join agency on (agency.id=s.post_id)"
-      + " where ((agency_id = member.agency_id) or (s.post_id = member.agency_id) or (s.post_id in (select satellite_station_id from agency_satellite_station where agency_id = member.agency_id)))"
-      + " and t.id = '";
+      +   " join member n on (n.id=t.member_id)"
+      + " where ((m.agency_id = n.agency_id) or (s.post_id = n.agency_id) or (s.post_id in (select satellite_station_id from agency_satellite_station where agency_id = n.agency_id)))"
+      +   " and t.id = '";
       var common_suffix = "'"
       + " )";
       //
@@ -1600,7 +1607,7 @@ namespace Class_db_schedule_assignments
         +     " , shift_population_citywide"
         +     " , last_reviser"
         +     " , door_code"
-        +     " from (select @on_duty_before := '', @off_duty_before := '') as dummy,"
+        +     " from (select @on_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR), @off_duty_before := ADDDATE(LAST_DAY(ADDDATE(nominal_day,INTERVAL -1 MONTH)),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
         +       " ("
         +       " select schedule_assignment_id"
         +       " , nominal_day"
@@ -1617,7 +1624,7 @@ namespace Class_db_schedule_assignments
         +       " , citywide as shift_population_citywide"
         +       " , last_reviser"
         +       " , door_code"
-        +       " from (select @on_duty_after := '', @off_duty_after := '') as dummy,"
+        +       " from (select @on_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR), @off_duty_after := ADDDATE(LAST_DAY(nominal_day),INTERVAL '1 6' DAY_HOUR) from schedule_assignment where id = '" + selected_assignment_to_swap + "') as dummy,"
         +         " ("
         +         " select s.member_id"
         +         " , s.id as schedule_assignment_id"
