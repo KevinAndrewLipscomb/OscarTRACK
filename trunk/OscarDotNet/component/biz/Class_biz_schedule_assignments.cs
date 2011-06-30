@@ -492,6 +492,17 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
+    internal void SpreadSelections
+      (
+      string member_id,
+      string id_a,
+      string id_b,
+      string intolerable_gap
+      )
+      {
+      db_schedule_assignments.SpreadSelections(member_id,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      }
+
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
       db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
