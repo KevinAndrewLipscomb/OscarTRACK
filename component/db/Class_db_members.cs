@@ -538,7 +538,7 @@ namespace Class_db_members
           +         " (leave_of_absence.start_date <= CURDATE())"
           +         " and (leave_of_absence.end_date >= LAST_DAY(CURDATE())),"
           +       " num_obliged_shifts,"
-          +       " if(enrollment_level.description = 'Regular',num_shifts,2)"  // assume an Student not on leave will occupy 2 shifts
+          +       " if(enrollment_level.description = 'Regular',num_shifts,2)"  // assume a Student not on leave will occupy 2 shifts
           +       " ),"
           +     " 0"
           +     " )"
@@ -622,7 +622,7 @@ namespace Class_db_members
                 +   " , MONTH(CURDATE())"
                 +   " , TRUE"
                 +   " , agency.id"
-                + " , " + metric_phrase + "*100"
+                + " , IFNULL(" + metric_phrase + "*100,0)"
                 +     from_where_phrase
                 +   " group by agency.id"
                 + ";"
@@ -632,7 +632,7 @@ namespace Class_db_members
                 +   " , MONTH(CURDATE())"
                 +   " , FALSE"
                 +   " , 0"
-                + " , " + metric_phrase + "*100"
+                + " , IFNULL(" + metric_phrase + "*100,0)"
                 +     from_where_phrase
                 + ";"
                 + " COMMIT"
