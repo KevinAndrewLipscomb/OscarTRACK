@@ -33,16 +33,17 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       {
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
-      public const int TCI_AGENCY_ID = 2;
-      public const int TCI_FIRST_NOMINAL_DAY = 3;
-      public const int TCI_FIRST_SHIFT_NAME = 4;
-      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 5;
-      public const int TCI_TIME_OFF = 6;
-      public const int TCI_SECOND_NOMINAL_DAY = 7;
-      public const int TCI_SECOND_SHIFT_NAME = 8;
-      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 9;
-      public const int TCI_NOTE = 10;
-      public const int TCI_AUTO_FIX_BUTTON = 11;
+      public const int TCI_BE_MEMBER_RELEASED = 2;
+      public const int TCI_AGENCY_ID = 3;
+      public const int TCI_FIRST_NOMINAL_DAY = 4;
+      public const int TCI_FIRST_SHIFT_NAME = 5;
+      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 6;
+      public const int TCI_TIME_OFF = 7;
+      public const int TCI_SECOND_NOMINAL_DAY = 8;
+      public const int TCI_SECOND_SHIFT_NAME = 9;
+      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 10;
+      public const int TCI_NOTE = 11;
+      public const int TCI_AUTO_FIX_BUTTON = 12;
       }
 
     private p_type p;
@@ -179,6 +180,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         p.biz_schedule_assignments.SpreadSelections
           (
           k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM),
+          (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_BE_MEMBER_RELEASED].Text == "1"),
           k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_FIRST_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
           k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_SECOND_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
           k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_TIME_OFF].Text,k.safe_hint_type.NUM)

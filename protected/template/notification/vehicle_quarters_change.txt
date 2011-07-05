@@ -5,10 +5,13 @@ This is an automatic notification from <application_name/>.
 
    New quarters:
       <quarters_designator/>
+
    Effective time (yyyy-mm-dd 24:mm):
       <effective_datetime/>
+
    Mileage:
       <mileage/>
+
    Note:
       <note/>
 

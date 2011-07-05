@@ -495,12 +495,13 @@ namespace Class_biz_schedule_assignments
     internal void SpreadSelections
       (
       string member_id,
+      bool be_member_released,
       string id_a,
       string id_b,
       string intolerable_gap
       )
       {
-      db_schedule_assignments.SpreadSelections(member_id,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)

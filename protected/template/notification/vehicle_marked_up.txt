@@ -5,8 +5,10 @@ This is an automatic notification from <application_name/>.
 
    Time came up (yyyy-mm-dd 24:mm):
       <time_came_up/>
+
    Comment entered when the unit went down:
       <down_comment/>
+
    Comment when the unit came up:
       <up_comment/>
 

@@ -16,6 +16,7 @@ namespace Class_db_schedule_assignments
 
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE = "create temporary table assignment_start_and_end_datetimes_sorted_by_member_id"
     + " select member_id"
+    + " , medical_release_code_description_map.pecking_order >= 20 as be_member_released"
     + " , schedule_assignment.id as schedule_assignment_id"
     + " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
     + " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
@@ -793,6 +794,7 @@ namespace Class_db_schedule_assignments
           + " , IF(member_id = @member_id,@saved_schedule_assignment_id,NULL) as first_schedule_assignment_id"
           + " , @off_duty := off_duty as off_duty"
           + " , @member_id := member_id as member_id"
+          + " , be_member_released"
           + " , @saved_schedule_assignment_id := schedule_assignment_id as second_schedule_assignment_id"
           + " from (select @on_duty := '', @off_duty := '', @member_id := '', @saved_schedule_assignment_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id",
           connection,
@@ -803,6 +805,7 @@ namespace Class_db_schedule_assignments
           (
           "select concat(member.first_name,' ',member.last_name) as name"
           + " , times_off.member_id as member_id"
+          + " , be_member_released"
           + " , member.agency_id"
           + " , DATE_FORMAT(first_schedule_assignment.nominal_day,'%Y-%m-%d') as first_nominal_day"
           + " , first_shift.name as first_shift_name"
@@ -1500,6 +1503,7 @@ namespace Class_db_schedule_assignments
     internal void SpreadSelections
       (
       string member_id,
+      bool be_member_released,
       string id_a,
       string id_b,
       string intolerable_gap,
@@ -1538,14 +1542,14 @@ namespace Class_db_schedule_assignments
         "select"
         + " IF("
         +         citywide_population_select_from_where_prefix + id_a + common_suffix
-        +     " >"
+        +     (be_member_released ? " >" : " <")
         +         citywide_population_select_from_where_prefix + id_b + common_suffix
         +   " ,"
         +     " '" + id_a + "'"
         +   " ,"
         +     " IF("
         +             local_population_select_from_where_prefix + id_a + common_suffix
-        +         " >"
+        +         (be_member_released ? " >" : " <")
         +             local_population_select_from_where_prefix + id_b + common_suffix
         +       " ,"
         +         " '" + id_a + "'"
@@ -1557,10 +1561,10 @@ namespace Class_db_schedule_assignments
         transaction
         )
         .ExecuteScalar().ToString();
-      var unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(intolerable_gap, transaction, primary_selected_assignment_to_swap);
+      var unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(primary_selected_assignment_to_swap,intolerable_gap,be_member_released,transaction);
       if (unselected_assignment_to_swap_obj == null)
         {
-        unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(intolerable_gap, transaction, (primary_selected_assignment_to_swap == id_a ? id_b : id_a));
+        unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj((primary_selected_assignment_to_swap == id_a ? id_b : id_a),intolerable_gap,be_member_released,transaction);
         }
       if (unselected_assignment_to_swap_obj != null)
         {
@@ -1676,11 +1680,17 @@ namespace Class_db_schedule_assignments
 
       private object UnselectedAssignmentToSwapObj
         (
+        string selected_assignment_to_swap,
         string intolerable_gap,
-        MySqlTransaction transaction,
-        string selected_assignment_to_swap
+        bool be_member_released,
+        MySqlTransaction transaction
         )
         {
+        //
+        // Spread released members to shifts where they're most needed.  Spread non-released members to shifts where they're most likely to find a host crew.
+        //
+        var order_by_populations_direction = (be_member_released ? "asc" : "desc");
+        //
         return new MySqlCommand
           (
           //
@@ -1797,7 +1807,7 @@ namespace Class_db_schedule_assignments
           + " where not be_selected"
           + " and time_off_before > '" + intolerable_gap + "'"
           + " and time_off_after > '" + intolerable_gap + "'"
-          + " order by shift_population_citywide,shift_population_from_agency,nominal_day,on_duty"
+          + " order by shift_population_citywide " + order_by_populations_direction + ",shift_population_from_agency " + order_by_populations_direction + ",nominal_day,on_duty"
           + " limit 1",
           connection,
           transaction

@@ -5,10 +5,13 @@ This is an automatic notification from <application_name/>.
 
    Time went down (yyyy-mm-dd 24:mm):
       <time_went_down/>
+
    Severity:
       <nature/>
+
    Mileage:
       <mileage/>
+
    Comment:
       <down_comment/>
 

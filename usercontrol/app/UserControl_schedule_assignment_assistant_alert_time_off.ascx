@@ -17,6 +17,7 @@
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="be_member_released" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="first_nominal_day" HeaderText="..is selected for this shift.." ReadOnly="True">
                         <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
@@ -33,6 +34,7 @@
                       <asp:BoundColumn DataField="second_schedule_assignment_id" Visible="False"></asp:BoundColumn>
                       <asp:ButtonColumn ButtonType="PushButton" CommandName="AutoFix" Text="AutoFix"></asp:ButtonColumn>
                       <asp:BoundColumn DataField="note" HeaderText="Note" ReadOnly="True">
+                        <HeaderStyle HorizontalAlign="Left" />
                         <ItemStyle Font-Bold="False" Font-Italic="True" Font-Overline="False" Font-Size="Small" Font-Strikeout="False" Font-Underline="False" />
                       </asp:BoundColumn>
                     </Columns>
