@@ -2,7 +2,6 @@ using kix;
 using System.Configuration;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
 
 namespace UserControl_precontent
 {
@@ -10,6 +9,9 @@ namespace UserControl_precontent
     {
         protected void Page_Load(object sender, System.EventArgs e)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
+            //
             if (!IsPostBack)
             {
                 Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
