@@ -54,14 +54,14 @@
   </tr>
   <tr>
     <td><font class="">Agency:</font></td>
-    <td><font class=""><asp:DropDownList ID="DropDownList_agency" runat="server"></asp:DropDownList></font></td>
+    <td><font class=""><asp:DropDownList ID="DropDownList_agency" runat="server" enabled="false"></asp:DropDownList></font></td>
     <td nowrap="True">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_agency_id" runat="server" errormessage="Please select an Agency." font-bold="True" controltovalidate="DropDownList_agency">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
     <td><font class="">Satellite station:</font></td>
-    <td><font class=""><asp:DropDownList ID="DropDownList_satellite_station" runat="server"></asp:DropDownList></font></td>
+    <td><font class=""><asp:DropDownList ID="DropDownList_satellite_station" runat="server" enabled="false"></asp:DropDownList></font></td>
     <td nowrap="True">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_satellite_station_id" runat="server" errormessage="Please select Satellite station." font-bold="True" controltovalidate="DropDownList_satellite_station">!ERR!</ASP:RequiredFieldValidator>
     </td>

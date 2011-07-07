@@ -31,6 +31,8 @@ namespace UserControl_agency_satellite_station
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
+      DropDownList_agency.ClearSelection();
+      DropDownList_satellite_station.ClearSelection();
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -165,6 +167,8 @@ namespace UserControl_agency_satellite_station
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
+        DropDownList_agency.SelectedValue = agency_id;
+        DropDownList_satellite_station.SelectedValue = satellite_station_id;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;

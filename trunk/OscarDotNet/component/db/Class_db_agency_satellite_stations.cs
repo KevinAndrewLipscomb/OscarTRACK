@@ -35,14 +35,16 @@ namespace Class_db_agency_satellite_stations
 
     public bool Bind(string partial_spec, object target)
       {
-      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(satellite_station_id,'-'))";
+      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(a.short_designator,'-'),'|',IFNULL(a.medium_designator,'-'),'|',IFNULL(a.long_designator,'-'),'|',IFNULL(satellite_station_id,'-'),'|',IFNULL(s.short_designator,'-'),'|',IFNULL(s.medium_designator,'-'),'|',IFNULL(s.long_designator,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "select id"
+        "select agency_satellite_station.id as agency_satellite_station_id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from agency_satellite_station"
+        +   " join agency a on (a.id=agency_satellite_station.agency_id)"
+        +   " join agency s on (s.id=agency_satellite_station.satellite_station_id)"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
@@ -50,7 +52,7 @@ namespace Class_db_agency_satellite_stations
         .ExecuteReader();
       while (dr.Read())
         {
-        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
+        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["agency_satellite_station_id"].ToString()));
         }
       dr.Close();
       this.Close();
