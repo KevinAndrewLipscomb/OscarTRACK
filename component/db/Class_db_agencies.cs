@@ -204,6 +204,7 @@ namespace Class_db_agencies
           {
           Open();
           (target as ListControl).Items.Clear();
+          (target as ListControl).Items.Add(new ListItem("-- Select --",k.EMPTY));
           var dr = new MySqlCommand("SELECT id,short_designator as designator from agency where not be_active order by short_designator", connection).ExecuteReader();
           while (dr.Read())
             {
