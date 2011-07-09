@@ -114,8 +114,8 @@ namespace Class_db_residents
       new MySqlCommand
         (
         "update possible_match set score = score + 1"
-        + " , num_priors = (select count(*) from donation where donation.web_donor_id = possible_match.web_donor_id)"
-        + " , avg_amount = IFNULL((select avg(amount) from donation where donation.web_donor_id = possible_match.web_donor_id),0)",
+        + " , num_priors = num_priors + (select count(*) from donation where donation.web_donor_id = possible_match.web_donor_id)"
+        + " , avg_amount = IFNULL((avg_amount + (select avg(amount) from donation where donation.web_donor_id = possible_match.web_donor_id))/2,avg_amount)",
         connection
         )
         .ExecuteNonQuery();
