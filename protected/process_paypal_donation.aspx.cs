@@ -32,9 +32,10 @@ namespace process_paypal_donation
       public const int TCI_HOUSE_NUM_AND_STREET = 3;
       public const int TCI_CITY = 4;
       public const int TCI_STATE = 5;
-      public const int TCI_SCORE = 6;
-      public const int TCI_NUM_PRIORS = 7;
-      public const int TCI_AVG_AMOUNT = 8;
+      public const int TCI_EMAIL_ADDRESS = 6;
+      public const int TCI_SCORE = 7;
+      public const int TCI_NUM_PRIORS = 8;
+      public const int TCI_AVG_AMOUNT = 9;
       }
 
     private p_type p;
