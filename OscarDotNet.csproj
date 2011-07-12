@@ -93,6 +93,7 @@
     <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
     <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
+    <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
@@ -116,6 +117,7 @@
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
+    <Content Include="protected\template\notification\vehicle_added.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="protected\watchbill.aspx" />
@@ -124,6 +126,7 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
+    <Content Include="usercontrol\app\UserControl_add_vehicle.ascx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
@@ -472,6 +475,13 @@
     <Compile Include="protected\add_new_enrollment_status.aspx.designer.cs">
       <DependentUpon>add_new_enrollment_status.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\add_vehicle.aspx.cs">
+      <DependentUpon>add_vehicle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\add_vehicle.aspx.designer.cs">
+      <DependentUpon>add_vehicle.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\append_vehicle_down_note.aspx.cs">
       <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -738,6 +748,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_about.ascx.designer.cs">
       <DependentUpon>UserControl_about.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_add_vehicle.ascx.cs">
+      <DependentUpon>UserControl_add_vehicle.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_add_vehicle.ascx.designer.cs">
+      <DependentUpon>UserControl_add_vehicle.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_agency.ascx.cs">
       <DependentUpon>UserControl_agency.ascx</DependentUpon>

@@ -1,4 +1,7 @@
 using Class_biz_agencies;
+using Class_biz_chassis_models;
+using Class_biz_custom_models;
+using Class_biz_fuels;
 using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_roles;
@@ -1061,6 +1064,77 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("new-enrollment-level", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
         }
+
+        private delegate string IssueForNewVehicle_Merge(string s);
+        internal void IssueForNewVehicle
+          (
+          string agency_id,
+          string name,
+          string kind_id,
+          string bumper_number,
+          string model_year,
+          string chassis_model_id,
+          string custom_model_id,
+          string vin,
+          string fuel_id,
+          string license_plate,
+          string purchase_price,
+          string target_pm_mileage,
+          DateTime dmv_inspection_due,
+          bool be_four_or_all_wheel_drive
+          )
+          {
+          var biz_agencies = new TClass_biz_agencies();
+          var biz_chassis_models = new TClass_biz_chassis_models();
+          var biz_custom_models = new TClass_biz_custom_models();
+          var biz_fuels = new TClass_biz_fuels();
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForNewVehicle_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<agency/>",biz_agencies.ShortDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id))
+              .Replace("<name/>",name)
+              .Replace("<kind/>",biz_vehicle_kinds.DescriptionOf(kind_id))
+              .Replace("<bumper_number/>",bumper_number)
+              .Replace("<model_year/>",model_year)
+              .Replace("<chassis_model/>",biz_chassis_models.DescriptionOf(chassis_model_id))
+              .Replace("<custom_model/>",biz_custom_models.DescriptionOf(custom_model_id))
+              .Replace("<vin/>",vin)
+              .Replace("<fuel/>",biz_fuels.DescriptionOf(fuel_id))
+              .Replace("<license_plate/>",license_plate)
+              .Replace("<purchase_price/>",purchase_price)
+              .Replace("<target_pm_mileage/>",target_pm_mileage)
+              .Replace("<dmv_inspection_due/>",dmv_inspection_due.ToString("yyyy-mm"))
+              .Replace("<be_four_or_all_wheel_drive/>",be_four_or_all_wheel_drive.ToString())
+              ;
+            };
+
+          var biz_vehicles = new TClass_biz_vehicles();
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_added.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-added",agency_id) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-added","0"),
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
 
         private delegate string IssueForPhoneNumChange_Merge(string s);
         public void IssueForPhoneNumChange(string member_id, string first_name, string last_name, string cad_num, string agency_name, string phone_num)

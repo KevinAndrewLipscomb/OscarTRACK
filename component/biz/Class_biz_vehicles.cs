@@ -444,7 +444,11 @@ namespace Class_biz_vehicles
         be_four_or_all_wheel_drive,
         be_mode_add
         );
-      if (kind_id != saved_kind_id)
+      if (saved_kind_id.Length == 0)
+        {
+        biz_notifications.IssueForNewVehicle(agency_id,name,kind_id,bumper_number,model_year,chassis_model_id,custom_model_id,vin,fuel_id,license_plate,purchase_price,target_pm_mileage,dmv_inspection_due,be_four_or_all_wheel_drive);
+        }
+      else if (kind_id != saved_kind_id)
         {
         biz_notifications.IssueForVehicleKindChanged(id,saved_kind_id,kind_id);
         }

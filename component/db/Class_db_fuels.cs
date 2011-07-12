@@ -92,6 +92,14 @@ namespace Class_db_fuels
       return result;
       }
 
+    internal string DescriptionOf(string id)
+      {
+      Open();
+      var description_of_obj = new MySqlCommand("SELECT CONVERT(concat(IFNULL(description,'-')) USING utf8) FROM fuel where id = '" + id + "'",connection).ExecuteScalar();
+      Close();
+      return (description_of_obj == null ? k.EMPTY : description_of_obj.ToString());
+      }
+
     public bool Get
       (
       string id,

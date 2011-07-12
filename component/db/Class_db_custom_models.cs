@@ -108,6 +108,35 @@ namespace Class_db_custom_models
       return result;
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return DescriptionOf(id,false);
+      }
+    internal string DescriptionOf(string id, bool be_idiomatic_format)
+      {
+      var concat_phrase = k.EMPTY;
+      if (be_idiomatic_format)
+        {
+        concat_phrase = "IFNULL(custom_make.name,'-'),' ',IFNULL(custom_model.name,'-')";
+        }
+      else
+        {
+        concat_phrase = "IFNULL(custom_model.name,'-')";
+        }
+      Open();
+      var description_of_obj = new MySqlCommand
+        (
+        "SELECT CONVERT(concat(" + concat_phrase + ") USING utf8)"
+        + " FROM custom_model"
+        +   " join custom_make on (custom_make.id=custom_model.make_id)"
+        + " where custom_model.id = '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (description_of_obj == null ? k.EMPTY : description_of_obj.ToString());
+      }
+
     public bool Get
       (
       string id,

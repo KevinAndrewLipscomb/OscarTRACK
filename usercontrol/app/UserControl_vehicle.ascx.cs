@@ -356,10 +356,6 @@ namespace UserControl_vehicle
         }
       else
         {
-        p.be_loaded = false;
-        p.be_mode_add = false;
-        p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
-        p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_chassis_models = new TClass_biz_chassis_models();
         p.biz_custom_models = new TClass_biz_custom_models();
@@ -367,6 +363,12 @@ namespace UserControl_vehicle
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        //
+        p.be_loaded = false;
+        p.be_mode_add = false;
+        p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
+        p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
+        p.saved_kind_id = k.EMPTY;
         }
       }
 
@@ -548,14 +550,14 @@ namespace UserControl_vehicle
 
     protected void CustomValidator_target_pm_mileage_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      var be_valid = p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_target_pm_mileage.Checked;
+      var be_valid = p.be_mode_add || p.biz_vehicles.BeNotEarlierTargetPmMileage(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_target_pm_mileage.Checked;
       CheckBox_target_pm_mileage.Visible = !be_valid;
       args.IsValid = be_valid;
       }
 
     protected void CustomValidator_dmv_inspection_due_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = p.biz_vehicles.BeNotEarlierDmvInspectionDue(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),UserControl_drop_down_date_dmv_inspection_due.selectedvalue);
+      args.IsValid = p.be_mode_add || p.biz_vehicles.BeNotEarlierDmvInspectionDue(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),UserControl_drop_down_date_dmv_inspection_due.selectedvalue);
       }
 
     protected void Button_cancel_Click(object sender, EventArgs e)
