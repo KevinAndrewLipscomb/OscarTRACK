@@ -35,6 +35,11 @@ namespace Class_biz_chassis_models
       return db_chassis_models.Delete(id);
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return db_chassis_models.DescriptionOf(id,true);
+      }
+
     public bool Get
       (
       string id,

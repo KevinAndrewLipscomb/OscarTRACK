@@ -35,6 +35,11 @@ namespace Class_biz_custom_models
       return db_custom_models.Delete(id);
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return db_custom_models.DescriptionOf(id,true);
+      }
+
     public bool Get
       (
       string id,

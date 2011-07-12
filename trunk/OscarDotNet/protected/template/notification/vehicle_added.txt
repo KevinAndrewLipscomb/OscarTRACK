@@ -1,0 +1,39 @@
+Vehicle added to fleet: <name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has added a vehicle in <application_name/> as follows:
+
+   Name:
+      <name/>
+   Agency:
+      <agency/>
+   Kind:
+      <kind/>
+   Bumper #:
+      <bumper_number/>
+   Model year:
+      <model_year/>
+   Chassis model:
+      <chassis_model/>
+   Custom model:
+      <custom_model/>
+   VIN:
+      <vin/>
+   Fuel:
+      <fuel/>
+   License plate:
+      <license_plate/>
+   Purchase price:
+      <purchase_price/>
+   Target PM mileage:
+      <target_pm_mileage/>
+   DMV inspection due:
+      <dmv_inspection_due/>
+   AWD/4WD:
+      <be_four_or_all_wheel_drive/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

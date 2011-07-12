@@ -31,6 +31,11 @@ namespace Class_biz_fuels
       return db_fuels.Delete(id);
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return db_fuels.DescriptionOf(id);
+      }
+
     public bool Get
       (
       string id,

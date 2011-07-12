@@ -108,6 +108,39 @@ namespace Class_db_chassis_models
       return result;
       }
 
+    internal string DescriptionOf(string id)
+      {
+      return DescriptionOf(id,false);
+      }
+    internal string DescriptionOf
+      (
+      string id,
+      bool be_idiomatic_format
+      )
+      {
+      var concat_phrase = k.EMPTY;
+      if (be_idiomatic_format)
+        {
+        concat_phrase = "IFNULL(chassis_make.name,'-'),' ',IFNULL(chassis_model.name,'-')";
+        }
+      else
+        {
+        concat_phrase = "IFNULL(chassis_model.name,'-')";
+        }
+      Open();
+      var description_of_obj = new MySqlCommand
+        (
+        "SELECT CONVERT(concat(" + concat_phrase + ") USING utf8)"
+        + " FROM chassis_model"
+        +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
+        + " where chassis_model.id = '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (description_of_obj == null ? k.EMPTY : description_of_obj.ToString());
+      }
+
     public bool Get
       (
       string id,
