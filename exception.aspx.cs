@@ -46,7 +46,10 @@ namespace exception
                     {
                         Table_db_down.Visible = false;
                         Focus(TextArea_user_comment, true);
-                        p.notification_message = k.EscalatedException(last_error, User.Identity.Name, Session);
+                        if (base_exception.Message != "The client disconnected.")
+                          {
+                          p.notification_message = k.EscalatedException(last_error, User.Identity.Name, Session);
+                          }
                     }
                     break;
                 case nature_of_visit_type.VISIT_POSTBACK_STANDARD:
