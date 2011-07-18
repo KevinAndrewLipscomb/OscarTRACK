@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_schedule_assignment_assistant_alert_time_off {
+namespace UserControl_schedule_assignment_assistant_alert_split_friends {
     
     
-    public partial class TWebUserControl_schedule_assignment_assistant_alert_time_off {
+    public partial class TWebUserControl_schedule_assignment_assistant_alert_split_friends {
         
         /// <summary>
         /// Panel_supressed control.

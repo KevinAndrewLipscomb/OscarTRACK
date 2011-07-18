@@ -8,7 +8,8 @@
     <td valign="top">
       an&nbsp;availability&nbsp;sheet to 
       <asp:DropDownList ID="DropDownList_coord_agency" runat="server" AutoPostBack="True" Font-Size="Small" onselectedindexchanged="DropDownList_coord_agency_SelectedIndexChanged"></asp:DropDownList>
-      for&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
+      for&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_next" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_next_Click"></asp:LinkButton>
+      &nbsp;or&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_following" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_following_Click"></asp:LinkButton>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td rowspan="3" valign="top">
@@ -22,10 +23,10 @@
       <br/>
       <p>
         <asp:HyperLink id="HyperLink_oscar_u" runat="server" target="_blank" NavigateUrl="$OSCAR/training.phtml">
-          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="~/protected/image/mortarboard.gif" alt="Cap">&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
+          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="~/protected/image/mortarboard.gif" alt="Cap"/>&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
       <p>
         <asp:HyperLink id="HyperLink_class_act" runat="server" target="_blank" NavigateUrl="$OSCAR/form-submit-class-act.phtml">
-          <img id="Img_trophy" runat="server" align="middle" border="1" src="~/protected/image/trophy-icon.gif" alt="Trophy">&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
+          <img id="Img_trophy" runat="server" align="middle" border="1" src="~/protected/image/trophy-icon.gif" alt="Trophy"/>&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
     </td>
   </tr>
   <tr>

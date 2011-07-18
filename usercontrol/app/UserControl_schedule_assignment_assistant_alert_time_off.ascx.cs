@@ -42,8 +42,8 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       public const int TCI_SECOND_NOMINAL_DAY = 8;
       public const int TCI_SECOND_SHIFT_NAME = 9;
       public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 10;
-      public const int TCI_NOTE = 11;
-      public const int TCI_AUTO_FIX_BUTTON = 12;
+      public const int TCI_AUTO_FIX_BUTTON = 11;
+      public const int TCI_NOTE = 12;
       }
 
     private p_type p;
@@ -122,7 +122,20 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
 
     private void Bind()
       {
-      p.biz_schedule_assignments.BindTimeOffAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W);
+      var be_suppressed = true;
+      var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      if (p.be_user_privileged_to_see_all_squads)
+        {
+        be_suppressed = false;
+        p.biz_schedule_assignments.BindTimeOffAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W);
+        }
+      else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+        {
+        be_suppressed = false;
+        p.biz_schedule_assignments.BindTimeOffAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W);
+        }
+      Panel_supressed.Visible = be_suppressed;
+      Table_data.Visible = !be_suppressed;
       p.be_time_off_alert_datagrid_empty = (p.num_time_off_alert_datagrid_rows == 0);
       TableRow_none.Visible = p.be_time_off_alert_datagrid_empty;
       W.Visible = !p.be_time_off_alert_datagrid_empty;
@@ -150,6 +163,9 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency));
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          //
+          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AUTO_FIX_BUTTON].Controls[0]) as Button).Enabled =
+            (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency));
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //

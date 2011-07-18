@@ -1,8 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_schedule_assignment_assistant_binder.ascx.cs" Inherits="UserControl_schedule_assignment_assistant_binder.TWebUserControl_schedule_assignment_assistant_binder"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~binder.ascx-template -->
 <%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
-<asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
-  <ContentTemplate>
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
       <tr bgcolor="#f5f5f5">
         <td>
@@ -71,5 +69,3 @@
         </td>
       </tr>
     </table>
-  </ContentTemplate>
-</asp:UpdatePanel>

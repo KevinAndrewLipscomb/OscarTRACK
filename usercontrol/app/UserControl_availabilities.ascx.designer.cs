@@ -22,22 +22,22 @@ namespace UserControl_availabilities {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_coord_agency;
         
         /// <summary>
-        /// HyperLink_submit_avails_for_month_next control.
+        /// LinkButton_submit_avails_for_month_next control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_submit_avails_for_month_next;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_submit_avails_for_month_next;
         
         /// <summary>
-        /// HyperLink_submit_avails_for_month_following control.
+        /// LinkButton_submit_avails_for_month_following control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_submit_avails_for_month_following;
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_submit_avails_for_month_following;
         
         /// <summary>
         /// HyperLink_vorps control.

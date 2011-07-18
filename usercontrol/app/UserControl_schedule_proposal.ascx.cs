@@ -841,6 +841,15 @@ namespace UserControl_schedule_proposal
       Bind();
       }
 
+    internal void SetTarget(string target)
+      {
+      var nominal_day_target = target.Substring(target.LastIndexOf("/") + 1);
+      if (nominal_day_target.Length > 0)
+        {
+        p.nominal_day_filter_saved = p.nominal_day_filter_active = nominal_day_target;
+        }
+      }
+
     }
 
   }

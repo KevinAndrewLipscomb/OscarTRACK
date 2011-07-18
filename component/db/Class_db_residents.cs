@@ -30,7 +30,7 @@ namespace Class_db_residents
       return result;
       }
 
-    internal void BindDirectToListControl
+    internal void BindDirectToBaseDataList
       (
       string email_address,
       string name,

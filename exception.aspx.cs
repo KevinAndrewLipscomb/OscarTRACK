@@ -46,7 +46,7 @@ namespace exception
                     {
                         Table_db_down.Visible = false;
                         Focus(TextArea_user_comment, true);
-                        if (base_exception.Message != "The client disconnected.")
+                        if (!base_exception.Message.Contains("The client disconnected."))
                           {
                           p.notification_message = k.EscalatedException(last_error, User.Identity.Name, Session);
                           }

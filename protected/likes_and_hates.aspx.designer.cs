@@ -7,99 +7,81 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_member_binder {
+namespace likes_and_hates {
     
     
-    public partial class TWebUserControl_member_binder {
+    public partial class TWebForm_likes_and_hates {
         
         /// <summary>
-        /// UpdatePanel_control_member_binder control.
+        /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control_member_binder;
+        protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// TabContainer_control control.
+        /// HyperLink_continue_1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_continue_1;
         
         /// <summary>
-        /// TabPanel_schedule control.
+        /// HyperLink_continue_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_schedule;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_continue_2;
         
         /// <summary>
-        /// TabPanel_fleet control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// TabPanel_personnel control.
+        /// DataGrid_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
         
         /// <summary>
-        /// TabPanel_funddrive control.
+        /// HyperLink_continue_3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_funddrive;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_continue_3;
         
         /// <summary>
-        /// TabPanel_dashboard control.
+        /// UserControl_postcontent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_dashboard;
+        protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
         
         /// <summary>
-        /// TabPanel_config control.
+        /// UserControl_update_progress_blocker_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_config;
-        
-        /// <summary>
-        /// TabPanel_about control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_about;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+        protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
     }
 }
