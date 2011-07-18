@@ -13,13 +13,13 @@ namespace UserControl_schedule_binder {
     public partial class TWebUserControl_schedule_binder {
         
         /// <summary>
-        /// UpdatePanel_control control.
+        /// UpdatePanel_control_schedule_binder control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control_schedule_binder;
         
         /// <summary>
         /// TabContainer_control control.

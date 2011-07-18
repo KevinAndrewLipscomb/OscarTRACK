@@ -637,6 +637,113 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void BindPairedHatersAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and m1.agency_id = '" + agency_filter + "'";
+        }
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select DATE_FORMAT(sa1.nominal_day,'%Y-%m-%d') as nominal_day"
+        + " , shift.name as shift_name"
+        + " , agency.short_designator as post"
+        + " , CAST(CHAR(ASCII('a') + sa1.post_cardinality - 1) as CHAR) as post_cardinality"
+        + " , m1.agency_id as agency_id"
+        + " , m1.id as member_id_1"
+        + " , concat(m1.first_name,' ',m1.last_name) as member_name_1"
+        + " , m2.id as member_id_2"
+        + " , concat(m2.first_name,' ',m2.last_name) as member_name_2"
+        + " from schedule_assignment sa1"
+        +   " join schedule_assignment sa2 using (nominal_day,shift_id,post_id,post_cardinality)"
+        +   " join agency on (agency.id=sa1.post_id)"
+        +   " join member m1 on (m1.id=sa1.member_id)"
+        +   " join member m2 on (m2.id=sa2.member_id)"
+        +   " join shift on (shift.id=sa1.shift_id)"
+        +   " join melodrama on ((melodrama.subject_member_id=m1.id or melodrama.subject_member_id=m2.id) and (melodrama.object_member_id=m2.id or melodrama.object_member_id=m1.id) and not melodrama.be_friendly)"
+        + " where sa1.be_selected and sa2.be_selected"
+        +   " and MONTH(sa1.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        + agency_condition_clause
+        + release_condition_clause
+        + " group by subject_member_id,object_member_id"
+        + " order by sa1.nominal_day,shift.start",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
+    internal void BindSplitFriendsAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and mem1.agency_id = '" + agency_filter + "'";
+        }
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select DATE_FORMAT(sa1.nominal_day,'%Y-%m-%d') as nominal_day"
+        + " , shift.name as shift_name"
+        + " , mem1.agency_id as agency_id"
+        + " , mem1.id as member_id_1"
+        + " , concat(mem1.first_name,' ',mem1.last_name) as member_name_1"
+        + " , mem2.id as member_id_2"
+        + " , concat(mem2.first_name,' ',mem2.last_name) as member_name_2"
+        + " from schedule_assignment sa1"
+        +   " join schedule_assignment sa2 on (sa2.nominal_day=sa1.nominal_day and sa2.shift_id=sa1.shift_id and (sa2.post_id!=sa1.post_id or sa2.post_cardinality!=sa1.post_cardinality))"
+        +   " join member mem1 on (mem1.id=sa1.member_id)"
+        +   " join member mem2 on (mem2.id=sa2.member_id)"
+        +   " join shift on (shift.id=sa1.shift_id)"
+        +   " join melodrama md1 on (md1.subject_member_id=mem1.id and md1.object_member_id=mem2.id and md1.be_friendly)"
+        +   " join melodrama md2 on (md2.subject_member_id=mem2.id and md2.object_member_id=mem1.id and md2.be_friendly)"
+        + " where sa1.be_selected and sa2.be_selected"
+        +   " and MONTH(sa1.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        + agency_condition_clause
+        + release_condition_clause
+        + " order by sa1.nominal_day,shift.start",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindSubmissionCompliancyBaseDataList
       (
       string sort_order,

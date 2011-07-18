@@ -7,6 +7,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using UserControl_schedule_assignment_assistant_alert_paired_haters;
+using UserControl_schedule_assignment_assistant_alert_split_friends;
 using UserControl_schedule_assignment_assistant_alert_time_off;
 using UserControl_schedule_assignment_assistant_alert_time_on;
 using UserControl_schedule_assignment_assistant_alert_unexpected_submissions;
@@ -18,6 +20,8 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
     public const int TSSI_TIME_OFF = 0;
     public const int TSSI_TIME_ON = 1;
     public const int TSSI_UNEXPECTED_SUBMISSIONS = 2;
+    public const int TSSI_PAIRED_HATERS = 3;
+    public const int TSSI_SPLIT_FRIENDS = 4;
     }
 
   public struct p_type
@@ -37,6 +41,8 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
     TWebUserControl_schedule_assignment_assistant_alert_time_off UserControl_schedule_assignment_assistant_alert_time_off = null;
     TWebUserControl_schedule_assignment_assistant_alert_time_on UserControl_schedule_assignment_assistant_alert_time_on = null;
     TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions UserControl_schedule_assignment_assistant_alert_unexpected_submissions = null;
+    TWebUserControl_schedule_assignment_assistant_alert_paired_haters UserControl_schedule_assignment_assistant_alert_paired_haters = null;
+    TWebUserControl_schedule_assignment_assistant_alert_split_friends UserControl_schedule_assignment_assistant_alert_split_friends = null;
 
     private void Page_Load(object sender, System.EventArgs e)
       {
@@ -56,6 +62,8 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       UserControl_schedule_assignment_assistant_alert_time_off = ((TWebUserControl_schedule_assignment_assistant_alert_time_off)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_off.ascx")));
       UserControl_schedule_assignment_assistant_alert_time_on = ((TWebUserControl_schedule_assignment_assistant_alert_time_on)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_on.ascx")));
       UserControl_schedule_assignment_assistant_alert_unexpected_submissions = ((TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unexpected_submissions.ascx")));
+      UserControl_schedule_assignment_assistant_alert_paired_haters = ((TWebUserControl_schedule_assignment_assistant_alert_paired_haters)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_paired_haters.ascx")));
+      UserControl_schedule_assignment_assistant_alert_split_friends = ((TWebUserControl_schedule_assignment_assistant_alert_split_friends)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_split_friends.ascx")));
       //
       if (Session[InstanceId() + ".p"] != null)
         {
@@ -75,6 +83,14 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_unexpected_submissions, "UserControl_schedule_assignment_assistant_alert_unexpected_submissions", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_PAIRED_HATERS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_paired_haters, "UserControl_schedule_assignment_assistant_alert_paired_haters", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_SPLIT_FRIENDS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_split_friends, "UserControl_schedule_assignment_assistant_alert_split_friends", PlaceHolder_content);
           }
         }
       else
@@ -149,6 +165,14 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         {
         UserControl_schedule_assignment_assistant_alert_unexpected_submissions.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_PAIRED_HATERS)
+        {
+        UserControl_schedule_assignment_assistant_alert_paired_haters.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_SPLIT_FRIENDS)
+        {
+        UserControl_schedule_assignment_assistant_alert_split_friends.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       }
 
     private void FillPlaceHolder
@@ -175,6 +199,18 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_unexpected_submissions",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_PAIRED_HATERS)
+        {
+        var c = UserControl_schedule_assignment_assistant_alert_paired_haters;
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_paired_haters",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_SPLIT_FRIENDS)
+        {
+        var c = UserControl_schedule_assignment_assistant_alert_split_friends;
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_split_friends",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
       {
@@ -184,4 +220,3 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
     } // end TWebUserControl_schedule_assignment_assistant_alert_binder
 
   }
-

@@ -1,7 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_assignment_assistant_alert_time_on.ascx.cs"
   Inherits="UserControl_schedule_assignment_assistant_alert_time_on.TWebUserControl_schedule_assignment_assistant_alert_time_on" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
-<table cellspacing="0" cellpadding="10" border="0">
+<asp:Panel ID="Panel_supressed" runat="server"><p></p><em>--&nbsp;SUPRESSED&nbsp;--</em></asp:Panel>
+<table id="Table_data" runat="server" cellspacing="0" cellpadding="10" border="0">
   <tr>
     <td>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">

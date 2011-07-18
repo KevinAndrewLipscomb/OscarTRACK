@@ -226,7 +226,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         var c = UserControl_schedule_proposal;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"C",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
-        //c.SetTarget(target);
+        c.SetTarget(target);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
         {

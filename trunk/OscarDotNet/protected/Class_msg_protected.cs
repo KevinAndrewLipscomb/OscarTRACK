@@ -16,6 +16,11 @@ namespace Class_msg_protected
       internal string num_priors = k.EMPTY;
       internal string avg_amount = k.EMPTY;
       }
+    public class likes_and_hates
+      {
+      internal string navigate_url = k.EMPTY;
+      internal k.subtype<int> relative_month;
+      }
     public class member_schedule_detail
       {
       internal string member_id = k.EMPTY;

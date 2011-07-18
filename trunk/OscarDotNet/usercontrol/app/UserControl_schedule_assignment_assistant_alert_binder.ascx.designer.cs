@@ -13,15 +13,6 @@ namespace UserControl_schedule_assignment_assistant_alert_binder {
     public partial class TWebUserControl_schedule_assignment_assistant_alert_binder {
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// TabContainer_control control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,24 @@ namespace UserControl_schedule_assignment_assistant_alert_binder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel_unexpected_submissions;
+        
+        /// <summary>
+        /// TabPanel_paired_haters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_paired_haters;
+        
+        /// <summary>
+        /// TabPanel_split_friends control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_split_friends;
         
         /// <summary>
         /// PlaceHolder_content control.

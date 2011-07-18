@@ -13,6 +13,24 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on {
     public partial class TWebUserControl_schedule_assignment_assistant_alert_time_on {
         
         /// <summary>
+        /// Panel_supressed control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_supressed;
+        
+        /// <summary>
+        /// Table_data control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_data;
+        
+        /// <summary>
         /// W control.
         /// </summary>
         /// <remarks>

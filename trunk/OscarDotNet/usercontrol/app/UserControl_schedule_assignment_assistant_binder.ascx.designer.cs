@@ -13,15 +13,6 @@ namespace UserControl_schedule_assignment_assistant_binder {
     public partial class TWebUserControl_schedule_assignment_assistant_binder {
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// RadioButtonList_which_month control.
         /// </summary>
         /// <remarks>

@@ -21,7 +21,7 @@ namespace Class_biz_residents
         return result;
         }
 
-      internal void BindDirectToListControl
+      internal void BindDirectToBaseDataList
         (
         string email_address,
         string name,
@@ -30,7 +30,7 @@ namespace Class_biz_residents
         object target
         )
         {
-        db_residents.BindDirectToListControl(email_address,name,house_num,street_id,target);
+        db_residents.BindDirectToBaseDataList(email_address,name,house_num,street_id,target);
         }
 
       internal string FilteredFromSceneVisits
