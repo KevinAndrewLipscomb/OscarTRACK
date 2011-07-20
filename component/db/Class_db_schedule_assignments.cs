@@ -1292,7 +1292,7 @@ namespace Class_db_schedule_assignments
       var agency_filter_clause = k.EMPTY;
       if (agency_filter.Length > 0)
         {
-        agency_filter_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
+        agency_filter_clause = " and ((post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
         }
       var nominal_day_condition_clause = k.EMPTY;
       if (nominal_day_filter.Length > 0)
