@@ -42,7 +42,7 @@ namespace UserControl_availabilities
         //
         var path_to_external_oscar = ConfigurationManager.AppSettings["path_to_external_oscar"];
         p.base_navigate_url_for_month_next = path_to_external_oscar + "/form-submit-avails-2.phtml";
-        p.base_navigate_url_for_month_following = path_to_external_oscar + "form-submit-avails-2.phtml";
+        p.base_navigate_url_for_month_following = path_to_external_oscar + "/form-submit-avails-2.phtml";
         HyperLink_vorps.NavigateUrl = HyperLink_vorps.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_more_stats.NavigateUrl = HyperLink_more_stats.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         Img_mortarboard.Src = k.ExpandTildePath(Img_mortarboard.Src);

@@ -1123,7 +1123,7 @@ namespace Class_db_members
     internal void ClearMelodrama(string subject_member_id)
       {
       Open();
-      new MySqlCommand("delete from melodrama where subject_member_id = '" + subject_member_id + "'",connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("delete from melodrama where subject_member_id = '" + subject_member_id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1588,7 +1588,7 @@ namespace Class_db_members
           )
           {
           Open();
-          new MySqlCommand("delete from melodrama where subject_member_id = '" + subject_member_id + "' and object_member_id = '" + object_member_id + "'",connection).ExecuteNonQuery();
+          new MySqlCommand(db_trail.Saved("delete from melodrama where subject_member_id = '" + subject_member_id + "' and object_member_id = '" + object_member_id + "'"),connection).ExecuteNonQuery();
           Close();
           }
 
