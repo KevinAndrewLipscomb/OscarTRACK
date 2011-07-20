@@ -534,6 +534,12 @@ namespace UserControl_schedule_proposal
           }
         if (be_selected)
           {
+          var selected_post_list_item = new ListItem(p.biz_agencies.ShortDesignatorOf(post_id),post_id);
+          if (!post_drop_down_list.Items.Contains(selected_post_list_item))
+            {
+            post_drop_down_list.Items.Add(selected_post_list_item);
+            post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = true;
+            }
           if (p.be_interactive)
             {
             post_drop_down_list.Visible = true;
