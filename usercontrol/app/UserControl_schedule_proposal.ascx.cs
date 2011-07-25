@@ -365,6 +365,8 @@ namespace UserControl_schedule_proposal
         p.biz_schedule_assignments.BindBaseDataList(p.agency_filter,p.release_filter,p.depth_filter,p.relative_month,p.nominal_day_filter_active,A,ref num_members,ref num_crew_shifts);
         Literal_num_members.Text = num_members.val.ToString();
         Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
+        ManageDayBumpLinkButtons();
+        //
         p.max_post_cardinality_actual = k.EMPTY;
         p.post_footprint = k.EMPTY;
         }
@@ -783,9 +785,14 @@ namespace UserControl_schedule_proposal
 
     protected void Calendar_nominal_day_SelectionChanged(object sender, EventArgs e)
       {
+      SelectCalendarNominalDay();
+      }
+
+    private void SelectCalendarNominalDay()
+      {
       RadioButtonList_be_nominal_day_mode_specific.SelectedValue = "1";
       p.be_nominal_day_mode_specific = true;
-      Calendar_nominal_day.SelectedDates.SelectRange(Calendar_nominal_day.SelectedDate,Calendar_nominal_day.SelectedDate);
+      Calendar_nominal_day.SelectedDates.SelectRange(Calendar_nominal_day.SelectedDate, Calendar_nominal_day.SelectedDate);
       p.nominal_day_filter_active = Calendar_nominal_day.SelectedDate.Day.ToString();
       p.nominal_day_filter_saved = p.nominal_day_filter_active;
       Bind();
@@ -825,6 +832,30 @@ namespace UserControl_schedule_proposal
         {
         p.nominal_day_filter_saved = p.nominal_day_filter_active = nominal_day_target;
         }
+      }
+
+    protected void LinkButton_previous_Click(object sender, EventArgs e)
+      {
+      Calendar_nominal_day.SelectedDate = Calendar_nominal_day.SelectedDate.AddDays(-1);
+      SelectCalendarNominalDay();
+      }
+
+    protected void LinkButton_next_Click(object sender, EventArgs e)
+      {
+      Calendar_nominal_day.SelectedDate = Calendar_nominal_day.SelectedDate.AddDays(1);
+      SelectCalendarNominalDay();
+      }
+
+    private void ManageDayBumpLinkButtons()
+      {
+      var be_interactive_nominal_day_mode_specific_and_not_day_of_month_first = p.be_interactive && p.be_nominal_day_mode_specific && (p.nominal_day_filter_active != "1");
+      var be_interactive_nominal_day_mode_specific_and_not_day_of_month_last = p.be_interactive && p.be_nominal_day_mode_specific && (p.nominal_day_filter_active != p.selected_month_day_last.Day.ToString());
+      LinkButton_previous_top.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_first;
+      LinkButton_previous_middle.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_first;
+      LinkButton_previous_bottom.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_first;
+      LinkButton_next_top.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_last;
+      LinkButton_next_middle.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_last;
+      LinkButton_next_bottom.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_last;
       }
 
     }

@@ -148,6 +148,15 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.DataList DataList_key;
         
         /// <summary>
+        /// LinkButton_previous_top control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_previous_top;
+        
+        /// <summary>
         /// TableRow_none control.
         /// </summary>
         /// <remarks>
@@ -209,5 +218,50 @@ namespace UserControl_schedule_proposal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid A;
+        
+        /// <summary>
+        /// LinkButton_next_top control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_next_top;
+        
+        /// <summary>
+        /// LinkButton_previous_middle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_previous_middle;
+        
+        /// <summary>
+        /// LinkButton_next_middle control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_next_middle;
+        
+        /// <summary>
+        /// LinkButton_previous_bottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_previous_bottom;
+        
+        /// <summary>
+        /// LinkButton_next_bottom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_next_bottom;
     }
 }
