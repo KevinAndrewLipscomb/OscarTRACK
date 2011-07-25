@@ -38,19 +38,12 @@ namespace exception
                     Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
                     var last_error = Server.GetLastError();
                     var base_exception = last_error.GetBaseException();
-                    if (Regex.IsMatch(base_exception.Message, "Connection.*to MySQL server", RegexOptions.IgnoreCase) || (base_exception.Message == "Connection open failed. Too many connections"))
-                    {
-                        Table_oops.Visible = false;
-                    }
-                    else
-                    {
-                        Table_db_down.Visible = false;
-                        Focus(TextArea_user_comment, true);
-                        if (!base_exception.Message.Contains("The client disconnected."))
-                          {
-                          p.notification_message = k.EscalatedException(last_error, User.Identity.Name, Session);
-                          }
-                    }
+                    Table_db_down.Visible = false;
+                    Focus(TextArea_user_comment, true);
+                    if (!last_error.ToString().Contains("The client disconnected."))
+                      {
+                      p.notification_message = k.EscalatedException(last_error, User.Identity.Name, Session);
+                      }
                     break;
                 case nature_of_visit_type.VISIT_POSTBACK_STANDARD:
                     p = (p_type)(Session[InstanceId() + ".p"]);
