@@ -59,10 +59,10 @@ namespace UserControl_availabilities
         //
         UpdateSubmitAvailHyperLinks();
         //
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_next);
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_following);
         p.be_loaded = true;
         }
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_next);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_following);
       }
 
     private void UpdateSubmitAvailHyperLinks()
