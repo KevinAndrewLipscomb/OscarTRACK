@@ -1,0 +1,5 @@
+START TRANSACTION
+;
+truncate user
+;
+COMMIT
