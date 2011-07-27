@@ -164,7 +164,7 @@ namespace UserControl_schedule_proposal
         p.agency_filter = k.EMPTY;
         p.be_commanded_watchbill_noninteractive = (Session["mode:report/commanded-watchbill-noninteractive"] != null);
         p.be_interactive = (Session["mode:report"] == null);
-        p.be_nominal_day_mode_specific =  true;
+        p.be_nominal_day_mode_specific =  p.be_interactive;
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
