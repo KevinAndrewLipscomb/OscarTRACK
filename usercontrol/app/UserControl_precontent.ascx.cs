@@ -29,6 +29,12 @@ namespace UserControl_precontent
               {
               EstablishUpdatePanelCompliantTimeoutHandler((Session.Timeout - 1)*60000,timeout_page); // session timeout minus 1 minute
               }
+            //
+            // Protect against "Validation of Viewstate MAC failed" errors.  (See http://www.c-sharpcorner.com/Forums/Thread/119522/validation-of-viewstate-mac-failed-timeout.aspx .)
+            //
+            Page.Form.ID = "Form_control";
+            Page.Form.Disabled = true;
+            EstablishFormReenablementScript();
         }
 
         protected override void OnInit(System.EventArgs e)
