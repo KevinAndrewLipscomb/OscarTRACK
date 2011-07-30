@@ -13,13 +13,13 @@ namespace UserControl_member_binder {
     public partial class TWebUserControl_member_binder {
         
         /// <summary>
-        /// UpdatePanel_control_member_binder control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control_member_binder;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
         /// TabContainer_control control.
@@ -40,15 +40,6 @@ namespace UserControl_member_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_schedule;
         
         /// <summary>
-        /// TabPanel_fleet control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
-        
-        /// <summary>
         /// TabPanel_personnel control.
         /// </summary>
         /// <remarks>
@@ -56,6 +47,15 @@ namespace UserControl_member_binder {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::AjaxControlToolkit.TabPanel TabPanel_personnel;
+        
+        /// <summary>
+        /// TabPanel_fleet control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_fleet;
         
         /// <summary>
         /// TabPanel_funddrive control.
