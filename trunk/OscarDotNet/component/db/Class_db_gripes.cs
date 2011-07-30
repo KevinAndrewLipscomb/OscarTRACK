@@ -220,7 +220,7 @@ namespace Class_db_gripes
       )
       {
       string childless_field_assignments_clause = k.EMPTY
-      + "vehicle_id = NULLIF((select id from vehicle where name = '" + vehicle_name + "'),'')"
+      + "vehicle_id = NULLIF((select id from vehicle where name = '" + vehicle_name + "' and be_active),'')"
       + " , description = NULLIF('" + description + "','')"
       + k.EMPTY;
       this.Open();
