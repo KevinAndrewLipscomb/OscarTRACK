@@ -1115,7 +1115,7 @@ namespace Class_biz_notifications
               .Replace("<license_plate/>",license_plate)
               .Replace("<purchase_price/>",purchase_price)
               .Replace("<target_pm_mileage/>",target_pm_mileage)
-              .Replace("<dmv_inspection_due/>",dmv_inspection_due.ToString("yyyy-mm"))
+              .Replace("<dmv_inspection_due/>",dmv_inspection_due.ToString("yyyy-MM"))
               .Replace("<be_four_or_all_wheel_drive/>",be_four_or_all_wheel_drive.ToString())
               ;
             };
