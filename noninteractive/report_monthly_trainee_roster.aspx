@@ -3,8 +3,7 @@
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
+  <head runat="server">
 	<!-- $Id$ -->
   </head>
   <body bgcolor="white">
@@ -16,7 +15,7 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Monthly report of TRAINEE personnel</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of BLS INTERN personnel</strong></td>
 					</tr>
 					<tr>
 					  <td>
