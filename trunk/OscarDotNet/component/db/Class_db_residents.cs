@@ -161,7 +161,7 @@ namespace Class_db_residents
       + ";"
       + " delete from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "'"
       + ";";
-      var scene_visit_array = scene_visits.Split(new string[] {Environment.NewLine},StringSplitOptions.RemoveEmptyEntries);
+      var scene_visit_array = scene_visits.Split(new string[] {"\r\n","\n"},StringSplitOptions.RemoveEmptyEntries);
       foreach (var scene_visit in scene_visit_array)
         {
         script += " insert into scene_visited set love_letter_batch_designator = '" + love_letter_batch_designator + "', address = '" + scene_visit + "';";
