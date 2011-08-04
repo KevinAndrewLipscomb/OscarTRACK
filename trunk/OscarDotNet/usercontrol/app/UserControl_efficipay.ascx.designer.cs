@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_config_binder {
+namespace UserControl_efficipay {
     
     
-    public partial class TWebUserControl_config_binder {
+    public partial class TWebUserControl_efficipay {
         
         /// <summary>
         /// UpdatePanel_control control.
@@ -22,57 +22,39 @@ namespace UserControl_config_binder {
         protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// TabContainer_control control.
+        /// DropDownList_filter control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_filter;
         
         /// <summary>
-        /// TabPanel_roles_and_mappings control.
+        /// Literal_num_efficipay_dockets control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_roles_and_mappings;
+        protected global::System.Web.UI.WebControls.Literal Literal_num_efficipay_dockets;
         
         /// <summary>
-        /// TabPanel_users_and_mappings control.
+        /// TableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_users_and_mappings;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
         
         /// <summary>
-        /// TabPanel_business_objects control.
+        /// DataGrid_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_business_objects;
-        
-        /// <summary>
-        /// TabPanel_efficipay_tokens control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_efficipay_tokens;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
     }
 }

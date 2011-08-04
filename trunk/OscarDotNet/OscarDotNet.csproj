@@ -130,6 +130,8 @@
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
+    <Content Include="usercontrol\app\UserControl_efficipay.ascx" />
+    <Content Include="usercontrol\app\UserControl_efficipay_token.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
@@ -172,6 +174,7 @@
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
     <Compile Include="component\biz\Class_biz_cities.cs" />
     <Compile Include="component\biz\Class_biz_donations.cs" />
+    <Compile Include="component\biz\Class_biz_efficipay_tokens.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
@@ -227,6 +230,7 @@
     <Compile Include="component\db\Class_db_custom_makes.cs" />
     <Compile Include="component\db\Class_db_custom_models.cs" />
     <Compile Include="component\db\Class_db_donations.cs" />
+    <Compile Include="component\db\Class_db_efficipay_tokens.cs" />
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_gripes.cs" />
@@ -869,6 +873,20 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay.ascx.cs">
+      <DependentUpon>UserControl_efficipay.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_token.ascx.cs">
+      <DependentUpon>UserControl_efficipay_token.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_token.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_token.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
