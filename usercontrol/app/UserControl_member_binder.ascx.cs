@@ -17,9 +17,10 @@ namespace UserControl_member_binder
         public const int TSSI_PERSONNEL = 1;
         public const int TSSI_FLEET = 2;
         public const int TSSI_FUNDDRIVE = 3;
-        public const int TSSI_DASHBOARD = 4;
-        public const int TSSI_CONFIG = 5;
-        public const int TSSI_ABOUT = 6;
+        public const int TSSI_EFFICIPAY = 4;
+        public const int TSSI_DASHBOARD = 5;
+        public const int TSSI_CONFIG = 6;
+        public const int TSSI_ABOUT = 7;
     } // end UserControl_member_binder
 
     public struct p_type

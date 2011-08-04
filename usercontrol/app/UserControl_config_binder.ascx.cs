@@ -7,6 +7,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Collections;
 using UserControl_business_objects_binder;
+using UserControl_efficipay_token;
 using UserControl_roles_and_matrices_binder;
 using UserControl_users_and_mapping_binder;
 
@@ -34,6 +35,10 @@ namespace UserControl_config_binder
                 {
                     TabPanel_business_objects.Enabled = true;
                 }
+                if (k.Has((string[])(Session["privilege_array"]), "config-efficipay-tokens"))
+                {
+                    TabPanel_efficipay_tokens.Enabled = true;
+                }
                 p.be_loaded = true;
             }
 
@@ -59,6 +64,9 @@ namespace UserControl_config_binder
                         break;
                     case Units.UserControl_config_binder.TSSI_BUSINESS_OBJECTS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_business_objects_binder)(LoadControl("~/usercontrol/app/UserControl_business_objects_binder.ascx"))), "UserControl_business_objects_binder", PlaceHolder_content);
+                        break;
+                    case Units.UserControl_config_binder.TSSI_EFFICIPAY_TOKENS:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_efficipay_token)(LoadControl("~/usercontrol/app/UserControl_efficipay_token.ascx"))), "UserControl_efficipay_token", PlaceHolder_content);
                         break;
                 }
             }
@@ -114,6 +122,9 @@ namespace UserControl_config_binder
                 case Units.UserControl_config_binder.TSSI_BUSINESS_OBJECTS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_business_objects_binder)(LoadControl("~/usercontrol/app/UserControl_business_objects_binder.ascx"))),"UserControl_business_objects_binder",PlaceHolder_content,InstanceId());
                     break;
+                case Units.UserControl_config_binder.TSSI_EFFICIPAY_TOKENS:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_efficipay_token)(LoadControl("~/usercontrol/app/UserControl_efficipay_token.ascx"))),"UserControl_efficipay_token",PlaceHolder_content,InstanceId());
+                    break;
             }
         }
 
@@ -128,6 +139,7 @@ namespace UserControl_config_binder.Units
         public const int TSSI_ROLES_AND_MATRICES = 0;
         public const int TSSI_USERS_AND_MAPPING = 1;
         public const int TSSI_BUSINESS_OBJECTS = 2;
+        public const int TSSI_EFFICIPAY_TOKENS = 3;
     } // end UserControl_config_binder
 
 }
