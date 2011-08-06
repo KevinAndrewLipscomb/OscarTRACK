@@ -40,6 +40,15 @@ namespace UserControl_efficipay {
         protected global::System.Web.UI.WebControls.Literal Literal_num_efficipay_dockets;
         
         /// <summary>
+        /// LinkButton_add_docket control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_add_docket;
+        
+        /// <summary>
         /// TableRow_none control.
         /// </summary>
         /// <remarks>

@@ -8,14 +8,17 @@
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
               <td bgcolor="#dcdcdc">
-                <table cellspacing="0" cellpadding="0" border="0">
+                <table cellspacing="10" cellpadding="0" border="0">
                   <tr>
                     <td>
-                      <strong>Filter:&nbsp;<asp:DropDownList id="DropDownList_filter" runat="server" autopostback="True"></asp:DropDownList></strong>
+                      <strong>Filter:&nbsp;<asp:DropDownList id="DropDownList_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_filter_SelectedIndexChanged">
+                        <asp:ListItem Selected="True">All</asp:ListItem>
+                        <asp:ListItem Value="0">Not ready for review</asp:ListItem>
+                        <asp:ListItem Value="1">Ready for review</asp:ListItem>
+                      </asp:DropDownList></strong>
                     </td>
-                    <td align="right">
-                      <asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets
-                    </td>
+                    <td align="right"><asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets</td>
+                    <td><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click">Add docket</asp:LinkButton></td>
                   </tr>
                 </table>
               </td>
@@ -27,12 +30,14 @@
                   <Columns>
                     <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></asp:ButtonColumn>
                     <asp:BoundColumn datafield="id" Visible="False"></asp:BoundColumn>
-                    <asp:BoundColumn datafield="docket_num" headertext="Docket #" sortexpression="docket_num%">
+                    <asp:BoundColumn datafield="num" headertext="Docket #" sortexpression="num%">
                       <HeaderStyle horizontalalign="Left"></HeaderStyle>
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="status" headertext="Status" sortexpression="status%">
+                    <asp:BoundColumn datafield="be_ready_for_review" headertext="Ready for sigs" sortexpression="be_ready_for_review%,num">
                       <ItemStyle horizontalalign="Right"></ItemStyle>
                     </asp:BoundColumn>
+                    <asp:BoundColumn datafield="signer_1" HeaderText="First signer"></asp:BoundColumn>
+                    <asp:BoundColumn datafield="signer_2" HeaderText="Second signer"></asp:BoundColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
