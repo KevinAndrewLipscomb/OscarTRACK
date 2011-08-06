@@ -1,6 +1,9 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_efficipay_dockets;
+using Class_biz_members;
+using Class_biz_user;
+using Class_msg_protected;
 using kix;
 using System;
 using System.Web;
@@ -23,11 +26,16 @@ namespace UserControl_efficipay
 
     private struct p_type
       {
+      public string agency_id;
       public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
+      public string ready_for_review_filter;
       public bool be_sort_order_ascending;
       public TClass_biz_efficipay_dockets biz_efficipay_dockets;
+      public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.efficipay_docket_detail msg_protected_efficipay_docket_detail;
       public uint num_efficipay_dockets;
       public string sort_order;
       }
@@ -140,10 +148,17 @@ namespace UserControl_efficipay
       else
         {
         p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
+        p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
+        p.msg_protected_efficipay_docket_detail = new TClass_msg_protected.efficipay_docket_detail();
+        //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
-        p.sort_order = "docket_num%";
+        p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
+        p.ready_for_review_filter = (k.Has(Session["priv_array"] as string[],"create-efficipay-docket") ? k.EMPTY : "1");
+        p.sort_order = "num%";
         }
       }
 
@@ -175,8 +190,8 @@ namespace UserControl_efficipay
       {
       if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
-        SessionSet("efficipay_docket_summary",p.biz_efficipay_dockets.Summary(k.Safe(e.Item.Cells[UserControl_efficipay_Static.TCI_ID].Text,k.safe_hint_type.NUM)));
-        DropCrumbAndTransferTo("efficipay_detail.aspx");
+        p.msg_protected_efficipay_docket_detail.summary = p.biz_efficipay_dockets.Summary(k.Safe(e.Item.Cells[UserControl_efficipay_Static.TCI_ID].Text,k.safe_hint_type.NUM));
+        MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_detail");
         }
       }
 
@@ -225,12 +240,23 @@ namespace UserControl_efficipay
 
     private void Bind()
       {
-      p.biz_efficipay_dockets.BindGrid(p.sort_order, p.be_sort_order_ascending, DataGrid_control);
+      p.biz_efficipay_dockets.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_id,p.ready_for_review_filter);
       p.be_datagrid_empty = (p.num_efficipay_dockets == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_efficipay_dockets.Text = p.num_efficipay_dockets.ToString();
       p.num_efficipay_dockets = 0;
+      }
+
+    protected void DropDownList_filter_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.ready_for_review_filter = k.Safe(DropDownList_filter.SelectedValue,k.safe_hint_type.NUM);
+      }
+
+    protected void LinkButton_add_docket_Click(object sender, EventArgs e)
+      {
+      p.msg_protected_efficipay_docket_detail.summary = null;
+      MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_docket_detail");
       }
 
     } // end TWebUserControl_efficipay
