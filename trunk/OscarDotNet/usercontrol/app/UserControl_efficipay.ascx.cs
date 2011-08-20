@@ -129,9 +129,11 @@ namespace UserControl_efficipay
           {
           DataGrid_control.AllowSorting = false;
           }
+        LinkButton_add_docket.Visible = k.Has(Session["privilege_array"] as string[],"create-efficipay-docket");
         Bind();
         p.be_loaded = true;
         }
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_docket);
       InjectPersistentClientSideScript();
       }
 

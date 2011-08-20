@@ -18,7 +18,7 @@
                       </asp:DropDownList></strong>
                     </td>
                     <td align="right"><asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets</td>
-                    <td><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click">Add docket</asp:LinkButton></td>
+                    <td><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click" Visible="False" Font-Bold="True">Add docket</asp:LinkButton></td>
                   </tr>
                 </table>
               </td>
