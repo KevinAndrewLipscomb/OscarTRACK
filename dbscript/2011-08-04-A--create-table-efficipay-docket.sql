@@ -24,4 +24,19 @@ CREATE TABLE IF NOT EXISTS `efficipay_docket`
   CONSTRAINT `efficipay_docket_signer_2_member_id` FOREIGN KEY (`signer_2_member_id` ) REFERENCES `member` (`id` )
   )
 ;
+insert ignore role (name,tier_id,pecking_order) values
+("Squad Treasurer",2,24000),
+("Squad Bookkeeper",2,24100),
+("Squad Check Signer",2,24200)
+;
+insert ignore privilege (name) values
+("create-efficipay-docket"),
+("sign-efficipay-docket")
+;
+insert ignore role_privilege_map (privilege_id,role_id) values
+((select id from privilege where name = "create-efficipay-docket"),(select id from role where name = "Application Administrator")),
+((select id from privilege where name = "create-efficipay-docket"),(select id from role where name = "Squad Treasurer")),
+((select id from privilege where name = "create-efficipay-docket"),(select id from role where name = "Squad Bookkeeper")),
+((select id from privilege where name = "sign-efficipay-docket"),(select id from role where name = "Squad Check Signer"))
+;
 COMMIT

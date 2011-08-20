@@ -1,28 +1,20 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Text;
-using System.IO;
+using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_role_member_map;
+using kix;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Web.UI;
 using UserControl_roster;
+
 namespace report_monthly_in_class_roster
 {
     public struct p_type
     {
         public string agency_short_designator;
+        public TClass_biz_agencies biz_agencies;
         public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public string role_name;
@@ -56,12 +48,14 @@ namespace report_monthly_in_class_roster
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
+            p.biz_agencies = new TClass_biz_agencies();
             p.biz_members = new TClass_biz_members();
             p.biz_role_member_map = new TClass_biz_role_member_map();
             // Set session objects referenced by UserControl_roster.
             this.Session.Add("mode:report", k.EMPTY);
             this.Session.Add("mode:report/monthly-emt-intern-roster", k.EMPTY);
             p.agency_short_designator = this.Request["agency"];
+            Session.Add("noninteractive_effective_agency_id",p.biz_agencies.IdOfShortDesignator(p.agency_short_designator));
             if (p.agency_short_designator == "EMS")
             {
                 p.role_name = "Department BLS ID Coordinator";

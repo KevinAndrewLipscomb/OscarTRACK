@@ -1,3 +1,4 @@
+using Class_biz_agencies;
 using Class_biz_members;
 using kix;
 using System;
@@ -12,6 +13,7 @@ namespace report_monthly_current_phone_list
 {
     public struct p_type
     {
+        public TClass_biz_agencies biz_agencies;
         public TClass_biz_members biz_members;
         public string member_id;
     } // end p_type
@@ -45,10 +47,12 @@ namespace report_monthly_current_phone_list
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
+            p.biz_agencies = new TClass_biz_agencies();
             p.biz_members = new TClass_biz_members();
             // Set session objects referenced by UserControl_roster.
             this.Session.Add("mode:report", k.EMPTY);
             this.Session.Add("mode:report/monthly-current-phone-list", k.EMPTY);
+            Session.Add("noninteractive_effective_agency_id",p.biz_agencies.IdOfShortDesignator(Request["agency"]));
             if (this.Request["agency"] == "EMS")
             {
                 role_name = "Department Authority";
