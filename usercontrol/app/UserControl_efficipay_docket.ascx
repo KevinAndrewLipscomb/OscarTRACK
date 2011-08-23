@@ -15,7 +15,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_num" runat="server" errormessage="Please enter Num." font-bold="True" controltovalidate="TextBox_num">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_num" runat="server" errormessage="Please enter a valid Num." font-bold="True" controltovalidate="TextBox_num" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RegularExpressionValidator id="RegularExpressionValidator_num" runat="server" errormessage="Please enter a valid Num." font-bold="True" controltovalidate="TextBox_num" validationexpression="\d+">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
   <tr>
@@ -26,7 +26,7 @@
       </font>
     </td>
     <td nowrap="nowrap" valign="top">
-      <asp:CustomValidator ID="CustomValidator_content" runat="server" ErrorMessage="Please upload at least one item of content." Font-Bold="True">!ERR!</asp:CustomValidator>
+      <asp:CustomValidator ID="CustomValidator_content" runat="server" ErrorMessage="Please upload at least one item of content." Font-Bold="True" onservervalidate="CustomValidator_content_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>
