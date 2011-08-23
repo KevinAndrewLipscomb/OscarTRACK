@@ -191,7 +191,7 @@ namespace UserControl_efficipay_docket
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_efficipay_docket");
+        p.be_loaded = IsPostBack;
         }
       else
         {
@@ -244,6 +244,7 @@ namespace UserControl_efficipay_docket
           p.biz_efficipay_dockets.ExpirationDate()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+        BackTrack();
         }
       else
         {
@@ -274,6 +275,7 @@ namespace UserControl_efficipay_docket
       {
       TextBox_num.Enabled = ablement;
       UserControl_attachment_explorer_control.be_ok_to_add = ablement;
+      UserControl_attachment_explorer_control.be_ok_to_delete = ablement;
       CheckBox_be_ready_for_review.Enabled = ablement;
       TextBox_signer_1_member_id.Enabled = ablement;
       TextBox_signer_2_member_id.Enabled = ablement;
@@ -296,6 +298,11 @@ namespace UserControl_efficipay_docket
         p.id = p.biz_efficipay_dockets.IdOf(summary);
         PresentRecord(p.id);
         }
+      }
+
+    protected void CustomValidator_content_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = !UserControl_attachment_explorer_control.be_empty;
       }
 
     } // end TWebUserControl_efficipay_docket
