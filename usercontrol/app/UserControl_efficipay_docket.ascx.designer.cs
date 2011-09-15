@@ -67,13 +67,22 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_ready_for_review;
         
         /// <summary>
-        /// TextBox_signer_1_member_id control.
+        /// TableRow_signer_1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_signer_1_member_id;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signer_1;
+        
+        /// <summary>
+        /// Label_signer_1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_signer_1;
         
         /// <summary>
         /// Button_apply_signature_1 control.
@@ -85,22 +94,22 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.Button Button_apply_signature_1;
         
         /// <summary>
-        /// RegularExpressionValidator_signer_1_member_id control.
+        /// TableRow_signer_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_signer_1_member_id;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signer_2;
         
         /// <summary>
-        /// TextBox_signer_2_member_id control.
+        /// Label_signer_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_signer_2_member_id;
+        protected global::System.Web.UI.WebControls.Label Label_signer_2;
         
         /// <summary>
         /// Button_apply_signature_2 control.
@@ -110,15 +119,6 @@ namespace UserControl_efficipay_docket {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_apply_signature_2;
-        
-        /// <summary>
-        /// RegularExpressionValidator_signer_2_member_id control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_signer_2_member_id;
         
         /// <summary>
         /// Button_submit control.

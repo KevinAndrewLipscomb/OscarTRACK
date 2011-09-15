@@ -159,7 +159,7 @@ namespace UserControl_efficipay
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
         p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
-        p.ready_for_review_filter = (k.Has(Session["priv_array"] as string[],"create-efficipay-docket") ? k.EMPTY : "1");
+        p.ready_for_review_filter = (k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") ? k.EMPTY : "1");
         p.sort_order = "num%";
         }
       }
@@ -253,6 +253,7 @@ namespace UserControl_efficipay
     protected void DropDownList_filter_SelectedIndexChanged(object sender, EventArgs e)
       {
       p.ready_for_review_filter = k.Safe(DropDownList_filter.SelectedValue,k.safe_hint_type.NUM);
+      Bind();
       }
 
     protected void LinkButton_add_docket_Click(object sender, EventArgs e)

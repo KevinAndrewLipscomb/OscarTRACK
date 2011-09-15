@@ -132,7 +132,9 @@
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay.ascx" />
+    <Content Include="usercontrol\app\UserControl_efficipay_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_docket.ascx" />
+    <Content Include="usercontrol\app\UserControl_efficipay_teaser.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_token.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
@@ -892,12 +894,26 @@
     <Compile Include="usercontrol\app\UserControl_efficipay.ascx.designer.cs">
       <DependentUpon>UserControl_efficipay.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_binder.ascx.cs">
+      <DependentUpon>UserControl_efficipay_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_binder.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_efficipay_docket.ascx.cs">
       <DependentUpon>UserControl_efficipay_docket.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_efficipay_docket.ascx.designer.cs">
       <DependentUpon>UserControl_efficipay_docket.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_teaser.ascx.cs">
+      <DependentUpon>UserControl_efficipay_teaser.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_efficipay_teaser.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_teaser.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_efficipay_token.ascx.cs">
       <DependentUpon>UserControl_efficipay_token.ascx</DependentUpon>

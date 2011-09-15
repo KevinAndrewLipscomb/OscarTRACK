@@ -1254,6 +1254,14 @@ namespace Class_db_members
           return CurrentMemberEmailAddresses("",false);
           }
 
+        internal string EfficipaySignatureIdentifierOf(string id)
+          {
+          Open();
+          var efficipay_signature_identifier_of = new MySqlCommand("select concat(cad_num,' ',first_name,' ',last_name) from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
+          Close();
+          return efficipay_signature_identifier_of;
+          }
+
         internal string EmailAddressByCadNum(string cad_num)
           {
           Open();

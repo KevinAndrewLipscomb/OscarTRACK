@@ -1,6 +1,8 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
+using appcommon;
 using Class_biz_efficipay_dockets;
+using Class_biz_members;
 using Class_biz_role_member_map;
 using kix;
 using System;
@@ -20,9 +22,11 @@ namespace UserControl_efficipay_docket
       public string agency_id;
       public string attachment_key;
       public bool be_loaded;
-      public TClass_biz_efficipay_dockets biz_efficipay_dockets;
-      public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_create_efficipay_dockets;
+      public bool be_signer;
+      public TClass_biz_efficipay_dockets biz_efficipay_dockets;
+      public TClass_biz_members biz_members;
+      public TClass_biz_role_member_map biz_role_member_map;
       public string id;
       }
 
@@ -32,9 +36,9 @@ namespace UserControl_efficipay_docket
       {
       TextBox_num.Text = k.EMPTY;
       CheckBox_be_ready_for_review.Checked = false;
-      TextBox_signer_1_member_id.Text = k.EMPTY;
-      TextBox_signer_2_member_id.Text = k.EMPTY;
-      SetDependentFieldAblements(false);
+      Label_signer_1.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
+      Label_signer_2.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
+      SetDependentFieldAblements(false,false);
       Button_submit.Enabled = false;
       Button_delete.Enabled = false;
       }
@@ -123,12 +127,14 @@ namespace UserControl_efficipay_docket
       if (!p.be_loaded)
         {
         RequireConfirmation(Button_delete, "Are you sure you want to delete this docket?");
-        SetDataEntryMode();
+        //SetDataEntryMode();
         if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/efficipay_docket/"))
           {
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
           Session.Remove("mode:goto");
           }
+        TableRow_signer_1.Visible = p.biz_efficipay_dockets.BeOkToShowSigners(p.id);
+        TableRow_signer_2.Visible = p.biz_efficipay_dockets.BeOkToShowSigners(p.id);
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -164,9 +170,9 @@ namespace UserControl_efficipay_docket
         p.attachment_key = attachment_key;
         UserControl_attachment_explorer_control.path = HttpContext.Current.Server.MapPath("attachment/efficipay_docket/" + p.attachment_key);
         CheckBox_be_ready_for_review.Checked = be_ready_for_review;
-        TextBox_signer_1_member_id.Text = signer_1_member_id;
-        TextBox_signer_2_member_id.Text = signer_2_member_id;
-        SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets);
+        Label_signer_1.Text = (signer_1_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(signer_1_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+        Label_signer_2.Text = (signer_2_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(signer_2_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+        SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets,p.be_signer);
         Button_submit.Enabled = p.be_ok_to_create_efficipay_dockets;
         Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
         result = true;
@@ -177,7 +183,7 @@ namespace UserControl_efficipay_docket
     private void SetDataEntryMode()
       {
       Clear();
-      SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets);
+      SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets,p.be_signer);
       Button_submit.Enabled = p.be_ok_to_create_efficipay_dockets;
       Button_delete.Enabled = false;
       Focus(TextBox_num, true);
@@ -198,11 +204,13 @@ namespace UserControl_efficipay_docket
         p.be_loaded = false;
         //
         p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.agency_id = k.EMPTY;
         p.attachment_key = k.EMPTY;
         p.be_ok_to_create_efficipay_dockets = k.Has((string[])(Session["privilege_array"]), "create-efficipay-docket");
+        p.be_signer = k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket");
         p.id = k.EMPTY;
         }
       }
@@ -239,8 +247,6 @@ namespace UserControl_efficipay_docket
           k.Safe(TextBox_num.Text,k.safe_hint_type.NUM).Trim(),
           p.attachment_key,
           CheckBox_be_ready_for_review.Checked,
-          k.Safe(TextBox_signer_1_member_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_signer_2_member_id.Text,k.safe_hint_type.NUM).Trim(),
           p.biz_efficipay_dockets.ExpirationDate()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
@@ -271,14 +277,20 @@ namespace UserControl_efficipay_docket
         }
       }
 
-    private void SetDependentFieldAblements(bool ablement)
+    private void SetDependentFieldAblements
+      (
+      bool be_bookkeeper,
+      bool be_signer
+      )
       {
-      TextBox_num.Enabled = ablement;
-      UserControl_attachment_explorer_control.be_ok_to_add = ablement;
-      UserControl_attachment_explorer_control.be_ok_to_delete = ablement;
-      CheckBox_be_ready_for_review.Enabled = ablement;
-      TextBox_signer_1_member_id.Enabled = ablement;
-      TextBox_signer_2_member_id.Enabled = ablement;
+      TextBox_num.Enabled = be_bookkeeper;
+      UserControl_attachment_explorer_control.be_ok_to_add = be_bookkeeper;
+      UserControl_attachment_explorer_control.be_ok_to_delete = be_bookkeeper;
+      CheckBox_be_ready_for_review.Enabled = be_bookkeeper;
+      //
+      var be_ok_to_sign = p.biz_efficipay_dockets.BeOkToSign(p.id);
+      Button_apply_signature_1.Visible = be_ok_to_sign && be_signer;
+      Button_apply_signature_2.Visible = be_ok_to_sign && be_signer;
       }
 
     internal void SetFilter
