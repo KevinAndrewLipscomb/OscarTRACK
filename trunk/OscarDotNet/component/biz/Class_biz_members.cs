@@ -374,6 +374,11 @@ namespace Class_biz_members
             return CurrentMemberEmailAddressesString("");
         }
 
+        internal string EfficipaySignatureIdentifierOf(string id)
+          {
+          return db_members.EfficipaySignatureIdentifierOf(id);
+          }
+
         public string EmailAddressOf(string member_id)
         {
             string result;

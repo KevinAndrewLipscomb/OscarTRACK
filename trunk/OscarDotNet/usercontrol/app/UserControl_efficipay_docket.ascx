@@ -39,29 +39,25 @@
     <td nowrap="nowrap">
     </td>
   </tr>
-  <tr>
+  <tr id="TableRow_signer_1" runat="server">
     <td><font class="">Signer&nbsp;1:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_signer_1_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:Label id="Label_signer_1" runat="server" cssclass=""></ASP:Label>
       </font>
       <asp:Button ID="Button_apply_signature_1" runat="server" Text="Apply 1st signature" Visible="False" />
     </td>
-    <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_signer_1_member_id" runat="server" errormessage="Please enter a valid Signer&nbsp;1&nbsp;member&nbsp;id." font-bold="True" controltovalidate="TextBox_signer_1_member_id" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+    <td nowrap="nowrap"></td>
   </tr>
-  <tr>
+  <tr id="TableRow_signer_2" runat="server">
     <td><font class="">Signer&nbsp;2:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_signer_2_member_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:Label id="Label_signer_2" runat="server" cssclass=""></ASP:Label>
       </font>
       <asp:Button ID="Button_apply_signature_2" runat="server" Text="Apply 2nd signature" Visible="False" />
     </td>
-    <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_signer_2_member_id" runat="server" errormessage="Please enter a valid Signer&nbsp;2&nbsp;member&nbsp;id." font-bold="True" controltovalidate="TextBox_signer_2_member_id" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+    <td nowrap="nowrap"></td>
   </tr>
       </table>
     </td>

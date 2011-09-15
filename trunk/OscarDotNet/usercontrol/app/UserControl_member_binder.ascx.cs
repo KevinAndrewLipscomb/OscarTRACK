@@ -4,7 +4,7 @@ using System.Collections;
 using UserControl_about;
 using UserControl_config_binder;
 using UserControl_dashboard_binder;
-using UserControl_efficipay;
+using UserControl_efficipay_binder;
 using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
@@ -39,7 +39,6 @@ namespace UserControl_member_binder
           {
           if (!p.be_loaded)
             {
-            TabPanel_efficipay.Enabled = k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") || k.Has(Session["privilege_array"] as string[],"sign-efficipay-docket");
             p.be_loaded = true;
             }
           TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
@@ -150,8 +149,8 @@ namespace UserControl_member_binder
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_EFFICIPAY)
             {
-            var c = ((TWebUserControl_efficipay)(LoadControl("~/usercontrol/app/UserControl_efficipay.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+            var c = ((TWebUserControl_efficipay_binder)(LoadControl("~/usercontrol/app/UserControl_efficipay_binder.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_DASHBOARD)
             {

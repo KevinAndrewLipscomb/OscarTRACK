@@ -30,11 +30,12 @@
                   <Columns>
                     <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select"></asp:ButtonColumn>
                     <asp:BoundColumn datafield="id" Visible="False"></asp:BoundColumn>
-                    <asp:BoundColumn datafield="num" headertext="Docket #" sortexpression="num%">
+                    <asp:BoundColumn datafield="num" headertext="Check/Docket #" sortexpression="num%">
                       <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                      <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="be_ready_for_review" headertext="Ready for sigs" sortexpression="be_ready_for_review%,num">
-                      <ItemStyle horizontalalign="Right"></ItemStyle>
+                      <ItemStyle horizontalalign="Center" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False"></ItemStyle>
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="signer_1" HeaderText="First signer"></asp:BoundColumn>
                     <asp:BoundColumn datafield="signer_2" HeaderText="Second signer"></asp:BoundColumn>
