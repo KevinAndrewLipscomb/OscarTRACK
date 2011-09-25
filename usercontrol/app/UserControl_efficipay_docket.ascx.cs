@@ -1,17 +1,17 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
 using appcommon;
+using Class_biz_agencies;
 using Class_biz_efficipay_dockets;
 using Class_biz_members;
 using Class_biz_role_member_map;
+using Class_biz_user;
 using kix;
 using System;
+using System.Configuration;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_efficipay_docket
   {
@@ -24,24 +24,18 @@ namespace UserControl_efficipay_docket
       public bool be_loaded;
       public bool be_ok_to_create_efficipay_dockets;
       public bool be_signer;
+      public TClass_biz_agencies biz_agencies;
       public TClass_biz_efficipay_dockets biz_efficipay_dockets;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_user biz_user;
+      public string check_num;
       public string id;
+      public string signer_1_member_id;
+      public string signer_2_member_id;
       }
 
     private p_type p;
-
-    private void Clear()
-      {
-      TextBox_num.Text = k.EMPTY;
-      CheckBox_be_ready_for_review.Checked = false;
-      Label_signer_1.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
-      Label_signer_2.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
-      SetDependentFieldAblements(false,false);
-      Button_submit.Enabled = false;
-      Button_delete.Enabled = false;
-      }
 
     private void InjectPersistentClientSideScript()
       {
@@ -126,6 +120,7 @@ namespace UserControl_efficipay_docket
       {
       if (!p.be_loaded)
         {
+        Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         RequireConfirmation(Button_delete, "Are you sure you want to delete this docket?");
         //SetDataEntryMode();
         if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/efficipay_docket/"))
@@ -133,10 +128,10 @@ namespace UserControl_efficipay_docket
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
           Session.Remove("mode:goto");
           }
-        TableRow_signer_1.Visible = p.biz_efficipay_dockets.BeOkToShowSigners(p.id);
-        TableRow_signer_2.Visible = p.biz_efficipay_dockets.BeOkToShowSigners(p.id);
         p.be_loaded = true;
         }
+      UserControl_attachment_explorer_control.OnSave = UserControl_attachment_explorer_control_OnSave;
+      ManageControlAblementsAndVisibilities();
       InjectPersistentClientSideScript();
       }
 
@@ -166,27 +161,19 @@ namespace UserControl_efficipay_docket
           )
         )
         {
+        p.id = id;
+        p.check_num = num;
         TextBox_num.Text = num;
         p.attachment_key = attachment_key;
         UserControl_attachment_explorer_control.path = HttpContext.Current.Server.MapPath("attachment/efficipay_docket/" + p.attachment_key);
         CheckBox_be_ready_for_review.Checked = be_ready_for_review;
-        Label_signer_1.Text = (signer_1_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(signer_1_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
-        Label_signer_2.Text = (signer_2_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(signer_2_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
-        SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets,p.be_signer);
-        Button_submit.Enabled = p.be_ok_to_create_efficipay_dockets;
-        Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
+        p.signer_1_member_id = signer_1_member_id;
+        p.signer_2_member_id = signer_2_member_id;
+        Label_signer_1.Text = (p.signer_1_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(p.signer_1_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+        Label_signer_2.Text = (p.signer_2_member_id.Length > 0 ? p.biz_members.EfficipaySignatureIdentifierOf(p.signer_2_member_id) : appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
         result = true;
         }
       return result;
-      }
-
-    private void SetDataEntryMode()
-      {
-      Clear();
-      SetDependentFieldAblements(p.be_ok_to_create_efficipay_dockets,p.be_signer);
-      Button_submit.Enabled = p.be_ok_to_create_efficipay_dockets;
-      Button_delete.Enabled = false;
-      Focus(TextBox_num, true);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -203,15 +190,20 @@ namespace UserControl_efficipay_docket
         {
         p.be_loaded = false;
         //
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
         p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_user = new TClass_biz_user();
         //
         p.agency_id = k.EMPTY;
         p.attachment_key = k.EMPTY;
         p.be_ok_to_create_efficipay_dockets = k.Has((string[])(Session["privilege_array"]), "create-efficipay-docket");
         p.be_signer = k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket");
+        p.check_num = k.EMPTY;
         p.id = k.EMPTY;
+        p.signer_1_member_id = k.EMPTY;
+        p.signer_2_member_id = k.EMPTY;
         }
       }
 
@@ -236,31 +228,9 @@ namespace UserControl_efficipay_docket
       return this;
       }
 
-    protected void Button_submit_Click(object sender, System.EventArgs e)
-      {
-      if (Page.IsValid)
-        {
-        p.biz_efficipay_dockets.Set
-          (
-          p.id,
-          p.agency_id,
-          k.Safe(TextBox_num.Text,k.safe_hint_type.NUM).Trim(),
-          p.attachment_key,
-          CheckBox_be_ready_for_review.Checked,
-          p.biz_efficipay_dockets.ExpirationDate()
-          );
-        Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        BackTrack();
-        }
-      else
-        {
-        ValidationAlert(true);
-        }
-      }
-
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (UserControl_attachment_explorer_control.be_empty)
+      if (UserControl_attachment_explorer_control.be_empty || (p.biz_efficipay_dockets.StatusOf(p.id,p.check_num,CheckBox_be_ready_for_review.Checked,p.signer_1_member_id,p.signer_2_member_id) >= Class_biz_efficipay_dockets_Static.NEEDS_SIGNATURE_2))
         {
         if (p.biz_efficipay_dockets.Delete(p.id))
           {
@@ -275,22 +245,6 @@ namespace UserControl_efficipay_docket
         {
         Alert(k.alert_cause_type.FILESYSTEM,k.alert_state_type.FAILURE, "contnotempt", " Cannot delete this docket because its contents are not empty.", true);
         }
-      }
-
-    private void SetDependentFieldAblements
-      (
-      bool be_bookkeeper,
-      bool be_signer
-      )
-      {
-      TextBox_num.Enabled = be_bookkeeper;
-      UserControl_attachment_explorer_control.be_ok_to_add = be_bookkeeper;
-      UserControl_attachment_explorer_control.be_ok_to_delete = be_bookkeeper;
-      CheckBox_be_ready_for_review.Enabled = be_bookkeeper;
-      //
-      var be_ok_to_sign = p.biz_efficipay_dockets.BeOkToSign(p.id);
-      Button_apply_signature_1.Visible = be_ok_to_sign && be_signer;
-      Button_apply_signature_2.Visible = be_ok_to_sign && be_signer;
       }
 
     internal void SetFilter
@@ -310,11 +264,133 @@ namespace UserControl_efficipay_docket
         p.id = p.biz_efficipay_dockets.IdOf(summary);
         PresentRecord(p.id);
         }
+      ManageControlAblementsAndVisibilities();
       }
 
     protected void CustomValidator_content_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = !UserControl_attachment_explorer_control.be_empty;
+      }
+
+    protected void CheckBox_be_ready_for_review_CheckedChanged(object sender, EventArgs e)
+      {
+      if (CheckBox_be_ready_for_review.Checked)
+        {
+        if (Page.IsValid)
+          {
+          p.biz_efficipay_dockets.Set
+            (
+            p.id,
+            p.agency_id,
+            k.Safe(TextBox_num.Text,k.safe_hint_type.NUM).Trim(),
+            p.attachment_key,
+            CheckBox_be_ready_for_review.Checked,
+            p.biz_efficipay_dockets.ExpirationDate()
+            );
+          BackTrack();
+          }
+        else
+          {
+          ValidationAlert(true);
+          }
+        }
+      }
+
+    protected void UserControl_attachment_explorer_control_OnSave(string basename)
+      {
+      p.id = p.biz_efficipay_dockets.Set
+        (
+        p.id,
+        p.agency_id,
+        p.check_num,
+        p.attachment_key,
+        CheckBox_be_ready_for_review.Checked,
+        p.biz_efficipay_dockets.ExpirationDate()
+        );
+      ManageControlAblementsAndVisibilities();
+      }
+
+    private void ManageControlAblementsAndVisibilities()
+      {
+      var status = p.biz_efficipay_dockets.StatusOf(p.id,p.check_num,CheckBox_be_ready_for_review.Checked,p.signer_1_member_id,p.signer_2_member_id);
+      if (status == Class_biz_efficipay_dockets_Static.NEEDS_CHECK_NUM)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = p.be_ok_to_create_efficipay_dockets; TextBox_num.Focus();
+        Button_continue.Visible = p.be_ok_to_create_efficipay_dockets; Button_continue.Enabled = p.be_ok_to_create_efficipay_dockets;
+        TableRow_attachment.Visible = false;
+        TableRow_be_ready_for_review.Visible = false;
+        TableRow_signers.Visible = false;
+        TableRow_signature_action.Visible = false;
+        TableRow_final_imprint_action.Visible = false;
+        TableRow_removal_action.Visible = false;
+        }
+      else if (status == Class_biz_efficipay_dockets_Static.NEEDS_AN_ATTACHMENT)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = p.be_ok_to_create_efficipay_dockets;
+        Button_continue.Visible = false;
+        TableRow_attachment.Visible = true; UserControl_attachment_explorer_control.enabled = true; UserControl_attachment_explorer_control.be_ok_to_add = p.be_ok_to_create_efficipay_dockets; UserControl_attachment_explorer_control.be_ok_to_delete = false;
+        TableRow_be_ready_for_review.Visible = false;
+        TableRow_signers.Visible = false;
+        TableRow_signature_action.Visible = false;
+        TableRow_final_imprint_action.Visible = false;
+        TableRow_removal_action.Visible = false;
+        }
+      else if (status == Class_biz_efficipay_dockets_Static.NEEDS_READY_FOR_REVIEW)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = p.be_ok_to_create_efficipay_dockets;
+        Button_continue.Visible = false;
+        TableRow_attachment.Visible = true; UserControl_attachment_explorer_control.enabled = true; UserControl_attachment_explorer_control.be_ok_to_add = p.be_ok_to_create_efficipay_dockets; UserControl_attachment_explorer_control.be_ok_to_delete = p.be_ok_to_create_efficipay_dockets;
+        TableRow_be_ready_for_review.Visible = p.be_ok_to_create_efficipay_dockets; CheckBox_be_ready_for_review.Visible = p.be_ok_to_create_efficipay_dockets; CheckBox_be_ready_for_review.Enabled = p.be_ok_to_create_efficipay_dockets;
+        TableRow_signers.Visible = false;
+        TableRow_signature_action.Visible = false;
+        TableRow_final_imprint_action.Visible = false;
+        TableRow_removal_action.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
+        }
+      else if (status == Class_biz_efficipay_dockets_Static.NEEDS_SIGNATURE_1)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = false;
+        Button_continue.Visible = false;
+        TableRow_attachment.Visible = true; UserControl_attachment_explorer_control.enabled = true; UserControl_attachment_explorer_control.be_ok_to_add = false; UserControl_attachment_explorer_control.be_ok_to_delete = false;
+        TableRow_be_ready_for_review.Visible = p.be_ok_to_create_efficipay_dockets; CheckBox_be_ready_for_review.Visible = p.be_ok_to_create_efficipay_dockets; CheckBox_be_ready_for_review.Enabled = p.be_ok_to_create_efficipay_dockets;
+        TableRow_signers.Visible = true;
+        TableRow_signature_action.Visible = p.be_signer; Button_apply_signature.Visible = p.be_signer; Button_apply_signature.Enabled = p.be_signer; Button_apply_signature.Focus();
+        TableRow_final_imprint_action.Visible = false;
+        TableRow_removal_action.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
+        }
+      else if (status == Class_biz_efficipay_dockets_Static.NEEDS_SIGNATURE_2)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = false;
+        Button_continue.Visible = false;
+        TableRow_attachment.Visible = true; UserControl_attachment_explorer_control.enabled = true; UserControl_attachment_explorer_control.be_ok_to_add = false; UserControl_attachment_explorer_control.be_ok_to_delete = false;
+        TableRow_be_ready_for_review.Visible = false;
+        TableRow_signers.Visible = true;
+        TableRow_signature_action.Visible = p.be_signer; Button_apply_signature.Visible = p.be_signer; Button_apply_signature.Enabled = p.be_signer; Button_apply_signature.Focus();
+        TableRow_final_imprint_action.Visible = false;
+        TableRow_removal_action.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
+        }
+      else if (status == Class_biz_efficipay_dockets_Static.NEEDS_FINAL_IMPRINT)
+        {
+        TextBox_num.Visible = true; TextBox_num.Enabled = false;
+        Button_continue.Visible = false;
+        TableRow_attachment.Visible = true; UserControl_attachment_explorer_control.enabled = true; UserControl_attachment_explorer_control.be_ok_to_add = false; UserControl_attachment_explorer_control.be_ok_to_delete = false;
+        TableRow_be_ready_for_review.Visible = false;
+        TableRow_signers.Visible = true;
+        TableRow_signature_action.Visible = false;
+        TableRow_final_imprint_action.Visible = p.be_ok_to_create_efficipay_dockets; HyperLink_printable_overlay.Visible = p.be_ok_to_create_efficipay_dockets; HyperLink_printable_overlay.Enabled = p.be_ok_to_create_efficipay_dockets;
+        TableRow_removal_action.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Visible = p.be_ok_to_create_efficipay_dockets; Button_delete.Enabled = p.be_ok_to_create_efficipay_dockets;
+        }
+      }
+
+    protected void Button_continue_Click(object sender, EventArgs e)
+      {
+      p.check_num = k.Safe(TextBox_num.Text,k.safe_hint_type.NUM);
+      ManageControlAblementsAndVisibilities();
+      }
+
+    protected void Button_apply_signature_Click(object sender, EventArgs e)
+      {
+      p.biz_efficipay_dockets.ApplySignature(p.id,p.biz_members.IdOfUserId(p.biz_user.IdNum()));
+      BackTrack();
       }
 
     } // end TWebUserControl_efficipay_docket
