@@ -22,6 +22,15 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.TextBox TextBox_num;
         
         /// <summary>
+        /// Button_continue control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_continue;
+        
+        /// <summary>
         /// RequiredFieldValidator_num control.
         /// </summary>
         /// <remarks>
@@ -38,6 +47,15 @@ namespace UserControl_efficipay_docket {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_num;
+        
+        /// <summary>
+        /// TableRow_attachment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_attachment;
         
         /// <summary>
         /// UserControl_attachment_explorer_control control.
@@ -58,6 +76,24 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_content;
         
         /// <summary>
+        /// TableRow_be_ready_for_review control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_be_ready_for_review;
+        
+        /// <summary>
+        /// Label_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_application_name;
+        
+        /// <summary>
         /// CheckBox_be_ready_for_review control.
         /// </summary>
         /// <remarks>
@@ -67,13 +103,13 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_ready_for_review;
         
         /// <summary>
-        /// TableRow_signer_1 control.
+        /// TableRow_signers control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signer_1;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signers;
         
         /// <summary>
         /// Label_signer_1 control.
@@ -85,24 +121,6 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.Label Label_signer_1;
         
         /// <summary>
-        /// Button_apply_signature_1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_apply_signature_1;
-        
-        /// <summary>
-        /// TableRow_signer_2 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signer_2;
-        
-        /// <summary>
         /// Label_signer_2 control.
         /// </summary>
         /// <remarks>
@@ -112,22 +130,49 @@ namespace UserControl_efficipay_docket {
         protected global::System.Web.UI.WebControls.Label Label_signer_2;
         
         /// <summary>
-        /// Button_apply_signature_2 control.
+        /// TableRow_signature_action control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_apply_signature_2;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_signature_action;
         
         /// <summary>
-        /// Button_submit control.
+        /// Button_apply_signature control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_submit;
+        protected global::System.Web.UI.WebControls.LinkButton Button_apply_signature;
+        
+        /// <summary>
+        /// TableRow_final_imprint_action control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_final_imprint_action;
+        
+        /// <summary>
+        /// HyperLink_printable_overlay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_printable_overlay;
+        
+        /// <summary>
+        /// TableRow_removal_action control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_removal_action;
         
         /// <summary>
         /// Button_delete control.
@@ -136,6 +181,6 @@ namespace UserControl_efficipay_docket {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_delete;
+        protected global::System.Web.UI.WebControls.LinkButton Button_delete;
     }
 }

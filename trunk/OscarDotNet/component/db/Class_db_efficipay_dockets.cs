@@ -32,6 +32,31 @@ namespace Class_db_efficipay_dockets
       db_trail = new TClass_db_trail();
       }
 
+    internal void ApplySignature
+      (
+      string id,
+      string member_id
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "START TRANSACTION"
+          + ";"
+          + " update efficipay_docket set signer_1_member_id = '" + member_id + "' where id = '" + id + "' and signer_1_member_id is null"
+          + ";"
+          + " update efficipay_docket set signer_2_member_id = '" + member_id + "' where id = '" + id + "' and signer_2_member_id is null and signer_1_member_id is not null and signer_1_member_id <> '" + member_id + "'"
+          + ";"
+          + " COMMIT"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     internal bool BeOkToSign(string id)
       {
       var be_ok_to_sign = false;
@@ -207,7 +232,7 @@ namespace Class_db_efficipay_dockets
       return (summary as efficipay_docket_summary).id;
       }
 
-    public void Set
+    public string Set
       (
       string id,
       string agency_id,
@@ -225,20 +250,36 @@ namespace Class_db_efficipay_dockets
       + " , expiration_date = '" + expiration_date.ToString("yyyy-MM-dd") + "'"
       + k.EMPTY;
       Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        new MySqlCommand
           (
-          "insert efficipay_docket"
-          + " set id = NULLIF('" + id + "','')"
-          + " , " + childless_field_assignments_clause
-          + " on duplicate key update "
-          + childless_field_assignments_clause
-          ),
-          connection
-        )
-        .ExecuteNonQuery();
+          db_trail.Saved
+            (
+            "insert efficipay_docket"
+            + " set id = NULLIF('" + id + "','')"
+            + " , " + childless_field_assignments_clause
+            + " on duplicate key update "
+            + childless_field_assignments_clause
+            ),
+            connection,
+            transaction
+          )
+          .ExecuteNonQuery();
+        if (id.Length == 0)
+          {
+          id = new MySqlCommand("select id from efficipay_docket where attachment_key = '" + attachment_key + "'",connection,transaction).ExecuteScalar().ToString();
+          }
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
       Close();
+      return id;
       }
 
     public object Summary(string efficipay_docket_id)
