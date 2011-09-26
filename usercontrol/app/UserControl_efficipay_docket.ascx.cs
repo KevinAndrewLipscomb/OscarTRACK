@@ -8,6 +8,7 @@ using Class_biz_role_member_map;
 using Class_biz_user;
 using kix;
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Web;
 using System.Web.UI;
@@ -313,6 +314,12 @@ namespace UserControl_efficipay_docket
     private void ManageControlAblementsAndVisibilities()
       {
       var status = p.biz_efficipay_dockets.StatusOf(p.id,p.check_num,CheckBox_be_ready_for_review.Checked,p.signer_1_member_id,p.signer_2_member_id);
+      if ((HyperLink_printable_overlay.NavigateUrl.Length == 0) && (status > Class_biz_efficipay_dockets_Static.NEEDS_AN_ATTACHMENT))
+        {
+        var final_check_imprint_hashtable = new Hashtable();
+        final_check_imprint_hashtable["efficipay_docket_id"] = p.id;
+        HyperLink_printable_overlay.NavigateUrl = "~/protected/efficipay_final_check_imprint.aspx?" + ShieldedQueryStringOfHashtable(final_check_imprint_hashtable);
+        }
       if (status == Class_biz_efficipay_dockets_Static.NEEDS_CHECK_NUM)
         {
         TextBox_num.Visible = true; TextBox_num.Enabled = p.be_ok_to_create_efficipay_dockets; TextBox_num.Focus();
