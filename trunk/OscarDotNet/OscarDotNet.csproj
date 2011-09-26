@@ -96,6 +96,7 @@
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
+    <Content Include="protected\efficipay_final_check_imprint.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
     <Content Include="protected\image\appointment-missed.png" />
@@ -599,6 +600,13 @@
     </Compile>
     <Compile Include="protected\efficipay_docket_detail.aspx.designer.cs">
       <DependentUpon>efficipay_docket_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\efficipay_final_check_imprint.aspx.cs">
+      <DependentUpon>efficipay_final_check_imprint.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\efficipay_final_check_imprint.aspx.designer.cs">
+      <DependentUpon>efficipay_final_check_imprint.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\enrollment_detail.aspx.cs">
       <DependentUpon>enrollment_detail.aspx</DependentUpon>

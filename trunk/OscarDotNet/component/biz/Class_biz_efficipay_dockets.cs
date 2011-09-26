@@ -105,6 +105,19 @@ namespace Class_biz_efficipay_dockets
         );
       }
 
+    internal void GetForFinalCheckImprint
+      (
+      string p,
+      out string check_num,
+      out string first_signer,
+      out string second_signer,
+      out string first_hash,
+      out string second_hash
+      )
+      {
+      throw new NotImplementedException();
+      }
+
     internal string IdOf(object summary)
       {
       return db_efficipay_dockets.IdOf(summary);

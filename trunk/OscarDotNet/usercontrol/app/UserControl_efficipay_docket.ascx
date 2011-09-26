@@ -130,7 +130,7 @@
           <td>
             <blockquote>
               <font class="">
-                <asp:HyperLink ID="HyperLink_printable_overlay" runat="server" Font-Bold="True" ForeColor="Blue">Print overlay</asp:HyperLink>
+                <asp:HyperLink ID="HyperLink_printable_overlay" runat="server" Font-Bold="True" ForeColor="Blue" Target="_blank">Print signature marks on check</asp:HyperLink>
               </font>
             </blockquote>
           </td>
