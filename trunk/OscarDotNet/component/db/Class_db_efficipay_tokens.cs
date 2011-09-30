@@ -65,6 +65,14 @@ namespace Class_db_efficipay_tokens
       Close();
       }
 
+    internal string Current()
+      {
+      Open();
+      var c = new MySqlCommand("select value from efficipay_token where id = (select max(id) from efficipay_token) and time_retired is null",connection).ExecuteScalar().ToString();
+      Close();
+      return c;
+      }
+
     public bool Delete(string id)
       {
       var result = true;

@@ -27,12 +27,12 @@ namespace efficipay_final_check_imprint
       if (!IsPostBack)
         {
         Title = ConfigurationManager.AppSettings["application_name"] + " - efficipay_final_check_imprint";
-        var check_num = "8294"; //k.EMPTY;
-        var first_signer = "800300 Bob Paulsen"; //k.EMPTY;
-        var second_signer = "801251 Kevin Lipscomb"; //k.EMPTY;
-        var first_hash = "10293847"; //k.EMPTY;
-        var second_hash = "90785634"; //k.EMPTY;
-        //p.biz_efficipay_dockets.GetForFinalCheckImprint(p.docket_id,out check_num,out first_signer,out second_signer,out first_hash,out second_hash);
+        var check_num = k.EMPTY;
+        var first_signer = k.EMPTY;
+        var second_signer = k.EMPTY;
+        var first_hash = k.EMPTY;
+        var second_hash = k.EMPTY;
+        p.biz_efficipay_dockets.GetForFinalCheckImprint(p.docket_id,out check_num,out first_signer,out second_signer,out first_hash,out second_hash);
         Label_check_num_1.Text = check_num;
         Label_check_num_2.Text = check_num;
         Label_check_num_3.Text = check_num;

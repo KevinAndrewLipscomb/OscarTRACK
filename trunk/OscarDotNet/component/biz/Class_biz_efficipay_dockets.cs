@@ -1,9 +1,14 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_efficipay_dockets;
+using Class_db_efficipay_tokens;
+using Class_db_members;
+using Ionic.Crc;
 using kix;
 using System;
-using System.Collections;
+using System.Configuration;
+using System.IO;
+using System.Text;
 
 namespace Class_biz_efficipay_dockets
   {
@@ -20,10 +25,14 @@ namespace Class_biz_efficipay_dockets
   public class TClass_biz_efficipay_dockets
     {
     private TClass_db_efficipay_dockets db_efficipay_dockets = null;
+    private TClass_db_efficipay_tokens db_efficipay_tokens = null;
+    private TClass_db_members db_members = null;
 
     public TClass_biz_efficipay_dockets() : base()
       {
       db_efficipay_dockets = new TClass_db_efficipay_dockets();
+      db_efficipay_tokens = new TClass_db_efficipay_tokens();
+      db_members = new TClass_db_members();
       }
 
     internal void ApplySignature
@@ -107,7 +116,7 @@ namespace Class_biz_efficipay_dockets
 
     internal void GetForFinalCheckImprint
       (
-      string p,
+      string id,
       out string check_num,
       out string first_signer,
       out string second_signer,
@@ -115,7 +124,36 @@ namespace Class_biz_efficipay_dockets
       out string second_hash
       )
       {
-      throw new NotImplementedException();
+      var dummy_boolean = false;
+      var dummy_datetime = DateTime.MinValue;
+      var dummy_string = k.EMPTY;
+      var signer_1_member_id = k.EMPTY;
+      var signer_2_member_id = k.EMPTY;
+      Get
+        (
+        id: id,
+        agency_id: out dummy_string,
+        num: out check_num,
+        attachment_key: out dummy_string,
+        be_ready_for_review: out dummy_boolean,
+        signer_1_member_id: out signer_1_member_id,
+        signer_2_member_id: out signer_2_member_id,
+        expiration_date: out dummy_datetime
+        );
+      first_signer = db_members.EfficipaySignatureIdentifierOf(signer_1_member_id);
+      second_signer = db_members.EfficipaySignatureIdentifierOf(signer_2_member_id);
+      //
+      var current_token = db_efficipay_tokens.Current();
+      //
+      var first_byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + first_signer + k.SPACE + current_token);
+      var first_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(first_byte_buf),false);
+      first_crc_calculator_stream.Read(first_byte_buf,0,first_byte_buf.Length);
+      first_hash = first_crc_calculator_stream.Crc.ToString("X8");
+      //
+      var second_byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + second_signer + k.SPACE + current_token);
+      var second_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(second_byte_buf),false);
+      second_crc_calculator_stream.Read(second_byte_buf,0,second_byte_buf.Length);
+      second_hash = second_crc_calculator_stream.Crc.ToString("X8");
       }
 
     internal string IdOf(object summary)
