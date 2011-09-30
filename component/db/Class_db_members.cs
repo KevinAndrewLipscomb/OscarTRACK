@@ -1257,7 +1257,8 @@ namespace Class_db_members
         internal string EfficipaySignatureIdentifierOf(string id)
           {
           Open();
-          var efficipay_signature_identifier_of = new MySqlCommand("select concat(cad_num,' ',first_name,' ',last_name) from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
+          var efficipay_signature_identifier_of =
+            new MySqlCommand("select concat(cad_num,' ',LEFT(first_name,1),LOWER(SUBSTRING(first_name,2)),' ',LEFT(last_name,1),LOWER(SUBSTRING(last_name,2))) from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
           Close();
           return efficipay_signature_identifier_of;
           }
