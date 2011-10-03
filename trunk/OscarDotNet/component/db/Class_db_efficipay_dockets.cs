@@ -32,29 +32,33 @@ namespace Class_db_efficipay_dockets
       db_trail = new TClass_db_trail();
       }
 
-    internal void ApplySignature
+    internal bool ApplySignature
       (
       string id,
       string member_id
       )
       {
+      var apply_signature = false;
       Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "START TRANSACTION"
-          + ";"
-          + " update efficipay_docket set signer_1_member_id = '" + member_id + "' where id = '" + id + "' and signer_1_member_id is null"
-          + ";"
-          + " update efficipay_docket set signer_2_member_id = '" + member_id + "' where id = '" + id + "' and signer_2_member_id is null and signer_1_member_id is not null and signer_1_member_id <> '" + member_id + "'"
-          + ";"
-          + " COMMIT"
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        new MySqlCommand
+          (db_trail.Saved("update efficipay_docket set signer_1_member_id = '" + member_id + "' where id = '" + id + "' and signer_1_member_id is null"),connection,transaction)
+          .ExecuteNonQuery();
+        new MySqlCommand
+          (db_trail.Saved("update efficipay_docket set signer_2_member_id = '" + member_id + "' where id = '" + id + "' and signer_2_member_id is null and signer_1_member_id is not null and signer_1_member_id <> '" + member_id + "'"),connection,transaction)
+          .ExecuteNonQuery();
+        apply_signature = "1" == new MySqlCommand("select IF(signer_1_member_id is not null and signer_2_member_id is not null,1,0) from efficipay_docket where id = '" + id + "'",connection,transaction).ExecuteScalar().ToString();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
       Close();
+      return apply_signature;
       }
 
     internal bool BeOkToSign(string id)

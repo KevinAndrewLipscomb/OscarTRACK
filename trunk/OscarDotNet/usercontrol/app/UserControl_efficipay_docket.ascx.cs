@@ -279,7 +279,7 @@ namespace UserControl_efficipay_docket
         {
         if (Page.IsValid)
           {
-          p.biz_efficipay_dockets.Set
+          p.biz_efficipay_dockets.PromoteToReadyForReview
             (
             p.id,
             p.agency_id,
@@ -396,7 +396,13 @@ namespace UserControl_efficipay_docket
 
     protected void Button_apply_signature_Click(object sender, EventArgs e)
       {
-      p.biz_efficipay_dockets.ApplySignature(p.id,p.biz_members.IdOfUserId(p.biz_user.IdNum()));
+      p.biz_efficipay_dockets.ApplySignature
+        (
+        id: p.id,
+        agency_id: p.agency_id,
+        check_num: p.check_num,
+        member_id: p.biz_members.IdOfUserId(p.biz_user.IdNum())
+        );
       BackTrack();
       }
 
