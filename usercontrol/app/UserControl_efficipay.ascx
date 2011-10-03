@@ -8,7 +8,7 @@
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
               <td bgcolor="#dcdcdc">
-                <table cellspacing="10" cellpadding="0" border="0">
+                <table cellspacing="10" cellpadding="0" border="0" width="100%">
                   <tr>
                     <td>
                       <strong>Filter:&nbsp;<asp:DropDownList id="DropDownList_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_filter_SelectedIndexChanged">
@@ -17,8 +17,8 @@
                         <asp:ListItem Value="1">Ready for review</asp:ListItem>
                       </asp:DropDownList></strong>
                     </td>
-                    <td align="right"><asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets</td>
-                    <td><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click" Visible="False" Font-Bold="True">Add docket</asp:LinkButton></td>
+                    <td align="center"><asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets</td>
+                    <td align="right"><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click" Visible="False" Font-Bold="True">Add docket</asp:LinkButton></td>
                   </tr>
                 </table>
               </td>
