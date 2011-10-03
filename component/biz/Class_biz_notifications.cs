@@ -448,7 +448,7 @@ namespace Class_biz_notifications
           k.SmtpMailSend
             (
             from: ConfigurationManager.AppSettings["sender_email_address"],
-            to: actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency(name: "efficipay-docket-needs-review", agency_id: agency_id),
+            to: actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency(name: "efficipay-docket-ready-for-review", agency_id: agency_id),
             subject: Merge(template_reader.ReadLine()),
             message_string: Merge(template_reader.ReadToEnd()),
             be_html: false,
