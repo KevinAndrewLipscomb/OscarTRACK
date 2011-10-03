@@ -1,0 +1,6 @@
+﻿EfficiPay docket <check_num/> signed & countersigned
+This is an automatic notification from <application_name/>.
+
+EfficiPay docket/check # <check_num/> has been reviewed and signed by two authorized signers.  You may now apply the final imprint to the check, file the docket hardcopies, and delete the docket.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
