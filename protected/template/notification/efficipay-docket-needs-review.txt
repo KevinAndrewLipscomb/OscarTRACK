@@ -3,7 +3,7 @@ This is an automatic notification from <application_name/>.
 
 <actor/> has prepared EfficiPay docket/check # <check_num/> for your review (and signature, if appropriate).
 
-Please take action on this docket at your earliest convenience so that the transaction may be finalized efficiently.
+Please log into <application_name/> to take action on this docket at your earliest convenience so that the transaction may be finalized efficiently.
 
 You can reach <actor/> at:
 
