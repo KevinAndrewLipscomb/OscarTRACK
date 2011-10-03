@@ -1,12 +1,13 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_notifications;
 using Class_db_efficipay_dockets;
 using Class_db_efficipay_tokens;
 using Class_db_members;
 using Ionic.Crc;
 using kix;
 using System;
-using System.Configuration;
+using System.Collections;
 using System.IO;
 using System.Text;
 
@@ -24,12 +25,14 @@ namespace Class_biz_efficipay_dockets
 
   public class TClass_biz_efficipay_dockets
     {
+    private TClass_biz_notifications biz_notifications = null;
     private TClass_db_efficipay_dockets db_efficipay_dockets = null;
     private TClass_db_efficipay_tokens db_efficipay_tokens = null;
     private TClass_db_members db_members = null;
 
     public TClass_biz_efficipay_dockets() : base()
       {
+      biz_notifications = new TClass_biz_notifications();
       db_efficipay_dockets = new TClass_db_efficipay_dockets();
       db_efficipay_tokens = new TClass_db_efficipay_tokens();
       db_members = new TClass_db_members();
@@ -38,10 +41,15 @@ namespace Class_biz_efficipay_dockets
     internal void ApplySignature
       (
       string id,
+      string agency_id,
+      string check_num,
       string member_id
       )
       {
-      db_efficipay_dockets.ApplySignature(id,member_id);
+      if (db_efficipay_dockets.ApplySignature(id,member_id))
+        {
+        biz_notifications.IssueForEfficiPayDocketNeedsFinalImprint(agency_id,check_num);
+        }      
       }
 
     internal bool BeOkToShowSigners
@@ -159,6 +167,20 @@ namespace Class_biz_efficipay_dockets
     internal string IdOf(object summary)
       {
       return db_efficipay_dockets.IdOf(summary);
+      }
+
+    internal void PromoteToReadyForReview
+      (
+      string id,
+      string agency_id,
+      string check_num,
+      string attachment_key,
+      bool be_ready_for_review,
+      DateTime expiration_date
+      )
+      {
+      Set(id,agency_id,check_num,attachment_key,be_ready_for_review,expiration_date);
+      biz_notifications.IssueForEfficiPayDocketReadyForReview(agency_id,check_num);
       }
 
     public string Set
