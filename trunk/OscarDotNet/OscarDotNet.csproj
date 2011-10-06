@@ -280,6 +280,7 @@
     <Compile Include="component\db\Class_db_manifest.cs" />
     <Compile Include="component\db\Class_dboscar.cs" />
     <Compile Include="component\db\Class_db_availabilities.cs" />
+    <Compile Include="component\fs\Class_fs.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

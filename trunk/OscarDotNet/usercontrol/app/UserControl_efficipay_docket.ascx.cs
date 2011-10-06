@@ -7,6 +7,7 @@ using Class_biz_members;
 using Class_biz_role_member_map;
 using Class_biz_user;
 using kix;
+using OscarDotNet.component.os;
 using System;
 using System.Collections;
 using System.Configuration;
@@ -31,6 +32,7 @@ namespace UserControl_efficipay_docket
       public TClass_biz_role_member_map biz_role_member_map;
       public TClass_biz_user biz_user;
       public string check_num;
+      public Class_fs fs;
       public string id;
       public string signer_1_member_id;
       public string signer_2_member_id;
@@ -196,6 +198,7 @@ namespace UserControl_efficipay_docket
         p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         p.biz_user = new TClass_biz_user();
+        p.fs = new Class_fs();
         //
         p.agency_id = k.EMPTY;
         p.attachment_key = k.EMPTY;
@@ -235,6 +238,7 @@ namespace UserControl_efficipay_docket
         {
         if (p.biz_efficipay_dockets.Delete(p.id))
           {
+          p.fs.CondemnFolder(UserControl_attachment_explorer_control.path);
           BackTrack();
           }
         else
