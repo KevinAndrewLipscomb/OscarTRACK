@@ -1,12 +1,7 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using Class_biz_scheduled_tasks;
+using System;
+using System.Web;
+
 namespace daily_tasks
 {
     public partial class TWebForm_daily_tasks: System.Web.UI.Page
@@ -21,7 +16,7 @@ namespace daily_tasks
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            new TClass_biz_scheduled_tasks().DoDailyChores();
+            new TClass_biz_scheduled_tasks().DoDailyChores(HttpContext.Current.Server.MapPath("."));
         }
 
         protected override void OnInit(EventArgs e)
