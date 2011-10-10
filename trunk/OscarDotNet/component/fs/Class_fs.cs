@@ -27,7 +27,7 @@ namespace OscarDotNet.component.os
           {
           Directory.Delete(Path.GetDirectoryName(flag_file_spec),true);
           }
-        catch (IOException io_exception)
+        catch (IOException)
           {
           }
         }
