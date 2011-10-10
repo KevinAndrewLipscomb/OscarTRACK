@@ -157,6 +157,24 @@ namespace UserControl_efficipay_token {
         protected global::System.Web.UI.WebControls.TextBox TextBox_value;
         
         /// <summary>
+        /// HyperLink_password_generator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_password_generator;
+        
+        /// <summary>
+        /// HyperLink_base64_encoder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_base64_encoder;
+        
+        /// <summary>
         /// RequiredFieldValidator_value control.
         /// </summary>
         /// <remarks>

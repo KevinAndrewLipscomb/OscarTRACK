@@ -10,7 +10,7 @@ This determination is based on your status as recorded by your squad officers in
 Please take a moment NOW to submit your duty availabilities by logging into <application_name/>.
 
 -  If you've forgotten your username or password, click "Forgot
-   username?" or "Forgot passowrd?", respectively, on the login page.
+   username?" or "Forgot password?", respectively, on the login page.
 
 -  If you've never logged in before, click "New user?" on the login
    page.

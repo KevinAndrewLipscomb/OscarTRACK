@@ -5,7 +5,7 @@
   <li>Bookkeepers photo-scan and upload unsigned checks and their supporting documents into <i>EfficiPay</i> dockets;</li>
   <li>Signers review <i>EfficiPay</i> dockets and electronically sign the checks therein;</li>
   <li>Bookkeepers imprint electronic signatures onto harcopy checks;</li>
-  <li>Auditors and vendors can validate electronic signatures on hardcopy checks.</li>
+  <li>Auditors and vendors can verify electronic signatures on hardcopy checks.</li>
 </ul>
 <p>This module also provides:</p>
 <ul>
