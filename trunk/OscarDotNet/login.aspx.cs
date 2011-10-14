@@ -150,6 +150,11 @@ namespace login
             }
         }
 
+        protected void LinkButton_verify_efficipay_signature_Click(object sender, EventArgs e)
+          {
+          Server.Transfer("verify_efficipay_signature.aspx");
+          }
+
     } // end TWebForm_login
 
 }

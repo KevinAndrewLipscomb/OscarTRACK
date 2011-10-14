@@ -175,6 +175,7 @@
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
+    <Content Include="verify_efficipay_signature.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1559,6 +1560,13 @@
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_session_interrupted.ascx.designer.cs">
       <DependentUpon>UserControl_session_interrupted.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="verify_efficipay_signature.aspx.cs">
+      <DependentUpon>verify_efficipay_signature.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="verify_efficipay_signature.aspx.designer.cs">
+      <DependentUpon>verify_efficipay_signature.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
