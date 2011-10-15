@@ -91,8 +91,8 @@
               <td>
                 <table cellspacing="0" cellpadding="5" border="0" width="100%">
                   <tr>
-                    <td bgcolor="whitesmoke" width="1%"><small>EfficiPay:</small></td>
-                    <td width="99%"><small><asp:LinkButton ID="LinkButton_verify_efficipay_signature" runat="server" onclick="LinkButton_verify_efficipay_signature_Click" CausesValidation="False">Verify a check signature</asp:LinkButton></small></td>
+                    <td bgcolor="whitesmoke" width="1%"><small><strong><em>EfficiPay:</em></strong></small></td>
+                    <td width="99%"><small>No login required to <asp:LinkButton ID="LinkButton_verify_efficipay_signature" runat="server" onclick="LinkButton_verify_efficipay_signature_Click" CausesValidation="False">verify a check signature</asp:LinkButton></small></td>
                    </tr>
                 </table>
               </td>

@@ -31,6 +31,24 @@ namespace verify_efficipay_signature {
         protected global::System.Web.UI.WebControls.TextBox TextBox_check_num;
         
         /// <summary>
+        /// RequiredFieldValidator_check_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_check_num;
+        
+        /// <summary>
+        /// RegularExpressionValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator1;
+        
+        /// <summary>
         /// TextBox_signer_member_id control.
         /// </summary>
         /// <remarks>
@@ -38,6 +56,24 @@ namespace verify_efficipay_signature {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox_signer_member_id;
+        
+        /// <summary>
+        /// RequiredFieldValidator_signer_member_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_signer_member_id;
+        
+        /// <summary>
+        /// RegularExpressionValidator_signer_member_id control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_signer_member_id;
         
         /// <summary>
         /// TextBox_signer_first_name control.
@@ -49,6 +85,15 @@ namespace verify_efficipay_signature {
         protected global::System.Web.UI.WebControls.TextBox TextBox_signer_first_name;
         
         /// <summary>
+        /// RequiredFieldValidator_signer_first_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_signer_first_name;
+        
+        /// <summary>
         /// TextBox_signer_last_name control.
         /// </summary>
         /// <remarks>
@@ -58,6 +103,15 @@ namespace verify_efficipay_signature {
         protected global::System.Web.UI.WebControls.TextBox TextBox_signer_last_name;
         
         /// <summary>
+        /// RequiredFieldValidator_signer_last_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_signer_last_name;
+        
+        /// <summary>
         /// TextBox_hex_code control.
         /// </summary>
         /// <remarks>
@@ -65,6 +119,42 @@ namespace verify_efficipay_signature {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox_hex_code;
+        
+        /// <summary>
+        /// RequiredFieldValidator_hex_code control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_hex_code;
+        
+        /// <summary>
+        /// RegularExpressionValidator_hex_code control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_hex_code;
+        
+        /// <summary>
+        /// Button_reset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_reset;
+        
+        /// <summary>
+        /// Button_verify control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_verify;
         
         /// <summary>
         /// UserControl_postcontent control.

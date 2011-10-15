@@ -165,6 +165,7 @@
       </font>
     </td>
     <td nowrap="nowrap">
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_fuel" runat="server" errormessage="Please select a Fuel." font-bold="True" controltovalidate="DropDownList_fuel">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
