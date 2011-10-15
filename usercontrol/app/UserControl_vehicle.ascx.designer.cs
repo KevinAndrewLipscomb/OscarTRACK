@@ -328,6 +328,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_fuel;
         
         /// <summary>
+        /// RequiredFieldValidator_fuel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_fuel;
+        
+        /// <summary>
         /// TextBox_license_plate control.
         /// </summary>
         /// <remarks>
