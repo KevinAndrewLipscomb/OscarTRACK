@@ -87,7 +87,11 @@ namespace report_archival_end_of_month_watchbill
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var email_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler","EMS") + k.COMMA + p.biz_role_member_map.EmailTargetOf("Department Scheduler","EMS");
+      var email_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler", "EMS")
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Department Scheduler", "EMS")
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler", "EMS");
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
