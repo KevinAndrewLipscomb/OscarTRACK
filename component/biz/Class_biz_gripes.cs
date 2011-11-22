@@ -111,13 +111,14 @@ namespace Class_biz_gripes
         );
       }
 
-    internal void SendWorkOrderToCityGarage
+    internal void SendWorkOrder
       (
       string vehicle_id,
       string user_id,
       string urlencoded_work_order_coordinator_title,
       string urlencoded_serialized_gripe_inclusion_hashtable,
-      string working_directory
+      string working_directory,
+      string urlencoded_target
       )
       {
       var stdout = k.EMPTY;
@@ -133,6 +134,7 @@ namespace Class_biz_gripes
           +   "&user_id=" + user_id
           +   "&work_order_coordinator_title=" + urlencoded_work_order_coordinator_title
           +   "&serialized_gripe_inclusion_hashtable=\"" + urlencoded_serialized_gripe_inclusion_hashtable + "\""
+          +   "&target=" + urlencoded_target
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_gripe_sheet.aspx\""
           },

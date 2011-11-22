@@ -36,8 +36,12 @@
           <td>
             <table cellpadding="0" cellspacing="0" width="100%">
               <tr>
-                <td><big><big><b><u>TECHNICIAN and/or SERVICE ADVISOR:</u></b></big></big></td>
-                <td align="right"><asp:Button ID="Button_send" runat="server" Text="Email to City Garage" onclick="Button_send_Click" /></td>
+                <td width="99%"><big><big><b><u>TECHNICIAN and/or SERVICE ADVISOR:</u></b></big></big></td>
+                <td align="right" width="1%">
+                  <asp:Button ID="Button_send_to_city_garage" runat="server" Text="Email to City Garage" onclick="Button_send_to_city_garage_Click" Width="100%" />
+                  <br /><br />
+                  <asp:Button ID="Button_send_to_comit" runat="server" Text="Email to ComIT" onclick="Button_send_to_comit_Click" Width="100%" />
+                </td>
               </tr>
             </table>
             <p>Reference this vehicle:</p>
