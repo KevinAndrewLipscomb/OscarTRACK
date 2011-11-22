@@ -13,6 +13,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.Script.Serialization;
+using System.Configuration;
 
 namespace UserControl_gripe_sheet
   {
@@ -162,7 +163,8 @@ namespace UserControl_gripe_sheet
         CheckBox_be_work_order_mode.Checked = !p.be_interactive;
         DataGrid_control.AllowSorting = p.be_interactive;
         SetWorkOrderMode(!p.be_interactive);
-        Button_send.Visible = p.be_interactive;
+        Button_send_to_city_garage.Visible = p.be_interactive;
+        Button_send_to_comit.Visible = p.be_interactive;
         if (p.be_interactive)
           {
           p.gripe_inclusion_hashtable.Clear();
@@ -366,19 +368,31 @@ namespace UserControl_gripe_sheet
       Panel_page_break.Visible = value;
       }
 
-    protected void Button_send_Click(object sender, EventArgs e)
+    private void Button_send_Click(string app_setting_name)
       {
       var working_directory = Server.MapPath("scratch");
-      p.biz_gripes.SendWorkOrderToCityGarage
+      p.biz_gripes.SendWorkOrder
         (
         p.biz_vehicles.IdOf(p.vehicle_summary),
         p.user_id,
         Server.UrlEncode(p.work_order_coordinator_title),
         Server.UrlEncode((new JavaScriptSerializer()).Serialize(p.gripe_inclusion_hashtable)),
-        working_directory
+        working_directory,
+        Server.UrlEncode(ConfigurationManager.AppSettings[app_setting_name])
         );
-      Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"msgsent","Message sent.",true);
-      Button_send.Enabled = false;
+      Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "msgsent", "Message sent.", true);
+      Button_send_to_city_garage.Enabled = false;
+      Button_send_to_comit.Enabled = false;
+      }
+
+    protected void Button_send_to_city_garage_Click(object sender, EventArgs e)
+      {
+      Button_send_Click("fleet_work_order_target");
+      }
+
+    protected void Button_send_to_comit_Click(object sender, EventArgs e)
+      {
+      Button_send_Click("comit_work_order_target");
       }
 
     } // end TWebUserControl_gripe_sheet
