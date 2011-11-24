@@ -24,6 +24,7 @@ namespace Class_db_trail
         "insert into journal"
         + " set timestamp = null"
         + " , actor = \"" + HttpContext.Current.User.Identity.Name + "\""
+        + " , ip_address = \"" + HttpContext.Current.Request.UserHostAddress + "\""
         + " , action = \"" + Regex.Replace(action, Convert.ToString(k.QUOTE), k.DOUBLE_QUOTE) + "\"",
         connection
         )
