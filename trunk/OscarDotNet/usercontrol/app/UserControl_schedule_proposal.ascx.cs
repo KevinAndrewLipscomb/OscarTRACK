@@ -733,26 +733,54 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.biz_schedule_assignments.SetPost
-        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+        {
+        p.biz_schedule_assignments.SetPost
+          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+        }
+      else
+        {
+        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        }
       }
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.biz_schedule_assignments.SetPost
-        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+        {
+        p.biz_schedule_assignments.SetPost
+          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+        }
+      else
+        {
+        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        }
       }
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.biz_schedule_assignments.SetPostCardinality
-        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+        {
+        p.biz_schedule_assignments.SetPostCardinality
+          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+        }
+      else
+        {
+        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        }
       }
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.biz_schedule_assignments.SetPostCardinality
-        (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+        {
+        p.biz_schedule_assignments.SetPostCardinality
+          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+        }
+      else
+        {
+        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        }
       }
 
     protected void Button_save_Click(object sender, EventArgs e)
