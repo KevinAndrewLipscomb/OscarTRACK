@@ -13,6 +13,7 @@
         border: 1px solid gainsboro;
         }
     </style>
+    <title />
   </head>
   <body bgcolor="white">
     <form runat="server">
@@ -109,9 +110,14 @@
                     </tr>
                     <tr>
                       <td colspan="2">&nbsp;</td>
-                      <td><asp:Button ID="Button_reset" runat="server" Text="Reset" /></td>
+                      <td><asp:Button ID="Button_reset" runat="server" Text="Reset" CausesValidation="False" onclick="Button_reset_Click" /></td>
                       <td colspan="3">&nbsp;</td>
-                      <td><asp:Button ID="Button_verify" runat="server" Text="Verify" Font-Bold="True" Font-Size="Large" /></td>
+                      <td><asp:Button ID="Button_verify" runat="server" Text="Verify" Font-Bold="True" Font-Size="Large" onclick="Button_submit_Click" /></td>
+                    </tr>
+                    <tr>
+                      <td align="center" colspan="7">
+                        <asp:LinkButton ID="LinkButton_go_back" runat="server" CausesValidation="False" onclick="LinkButton_go_back_Click">Go back to login page</asp:LinkButton>
+                      </td>
                     </tr>
                   </table>
                 </td>
