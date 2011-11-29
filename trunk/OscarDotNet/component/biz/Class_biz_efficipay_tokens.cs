@@ -26,6 +26,11 @@ namespace Class_biz_efficipay_tokens
       db_efficipay_tokens.BindDirectToListControl(target);
       }
 
+    internal void BindTimePeriodsToListControl(object target)
+      {
+      db_efficipay_tokens.BindTimePeriodsToListControl(target);
+      }
+
     public bool Delete(string id)
       {
       return db_efficipay_tokens.Delete(id);

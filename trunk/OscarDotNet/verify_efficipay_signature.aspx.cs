@@ -1,4 +1,5 @@
 using Class_biz_efficipay_dockets;
+using Class_biz_efficipay_tokens;
 using kix;
 using System;
 using System.Configuration;
@@ -10,6 +11,7 @@ namespace verify_efficipay_signature
   public struct p_type
     {
     public TClass_biz_efficipay_dockets biz_efficipay_dockets;
+    public TClass_biz_efficipay_tokens biz_efficipay_tokens;
     }
 
   public partial class TWebForm_verify_efficipay_signature: ki_web_ui.page_class
@@ -28,6 +30,7 @@ namespace verify_efficipay_signature
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - verify_efficipay_signature";
+        p.biz_efficipay_tokens.BindTimePeriodsToListControl(DropDownList_time_period);
         Focus(TextBox_check_num, true);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
@@ -43,6 +46,7 @@ namespace verify_efficipay_signature
       base.OnInit(e);
       //
       p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
+      p.biz_efficipay_tokens = new TClass_biz_efficipay_tokens();
       }
 
     protected void Button_cancel_Click(object sender, System.EventArgs e)
@@ -61,7 +65,8 @@ namespace verify_efficipay_signature
             signer_member_id:k.Safe(TextBox_signer_member_id.Text,k.safe_hint_type.NUM),
             signer_first_name:k.Safe(TextBox_signer_first_name.Text,k.safe_hint_type.HUMAN_NAME),
             signer_last_name:k.Safe(TextBox_signer_last_name.Text,k.safe_hint_type.HUMAN_NAME),
-            hex_code:k.Safe(TextBox_hex_code.Text,k.safe_hint_type.ALPHANUM)
+            hex_code:k.Safe(TextBox_hex_code.Text,k.safe_hint_type.ALPHANUM),
+            token_id:k.Safe(DropDownList_time_period.SelectedValue,k.safe_hint_type.NUM)
             )
           )
         //

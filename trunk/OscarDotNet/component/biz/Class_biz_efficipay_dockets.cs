@@ -71,13 +71,18 @@ namespace Class_biz_efficipay_dockets
       string signer_member_id,
       string signer_first_name,
       string signer_last_name,
-      string hex_code
+      string hex_code,
+      string token_id
       )
       {
-      var byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + signer_member_id + k.SPACE + signer_first_name + k.SPACE + signer_last_name + k.SPACE + db_efficipay_tokens.Current());
+      var trimmed_signer_first_name = signer_first_name.Trim();
+      var normalized_signer_first_name = trimmed_signer_first_name.Substring(0,1).ToUpper() + trimmed_signer_first_name.Substring(1).ToLower();
+      var trimmed_signer_last_name = signer_last_name.Trim();
+      var normalized_signer_last_name = trimmed_signer_last_name.Substring(0,1).ToUpper() + trimmed_signer_last_name.Substring(1).ToLower();
+      var byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + signer_member_id + k.SPACE + normalized_signer_first_name + k.SPACE + normalized_signer_last_name + k.SPACE + db_efficipay_tokens.GetById(token_id));
       var crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(byte_buf),false);
       crc_calculator_stream.Read(byte_buf,0,byte_buf.Length);
-      return (crc_calculator_stream.Crc.ToString("X8") == hex_code);
+      return (crc_calculator_stream.Crc.ToString("X8") == hex_code.ToUpper());
       }
 
     public bool Bind(string partial_spec, object target)
