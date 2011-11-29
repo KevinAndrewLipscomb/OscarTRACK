@@ -16,7 +16,7 @@
     <title />
   </head>
   <body bgcolor="white">
-    <form runat="server">
+    <form runat="server" defaultbutton="Button_verify">
     <uc1:UserControl_precontent ID="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
     <p>
       <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
@@ -32,7 +32,7 @@
                 <td>
                   <table cellpadding="5" cellspacing="1">
                     <tr>
-                      <td colspan="6">Each EfficiPay signature has the following structure:</td>
+                      <td colspan="7">Each EfficiPay signature has the following structure:</td>
                     </tr>
                     <tr>
                       <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -60,12 +60,12 @@
                       <td align="center" class="bordered_cell"><b>A1B2C3D4</b></td>
                     </tr>
                     <tr>
-                      <td colspan="6"><br />To verify an actual EfficiPay signature, enter its parts exactly as imprinted on the check:</td>
+                      <td colspan="7"><br />To verify an actual EfficiPay signature, enter its parts exactly as imprinted on the check:</td>
                     </tr>
                     <tr>
                       <td>&nbsp;</td>
                       <td>&nbsp;</td>
-                      <td>&nbsp;</td>
+                      <td align="center"><asp:Button ID="Button_reset" runat="server" Text="Reset" CausesValidation="False" onclick="Button_reset_Click" Font-Size="Small"/></td>
                       <td align="center" bgcolor="whitesmoke" class="bordered_cell" colspan="3"><small>--&nbsp;Signer&nbsp;--</small></td>
                       <td>&nbsp;</td>
                     </tr>
@@ -109,14 +109,19 @@
                       </td>
                     </tr>
                     <tr>
-                      <td colspan="2">&nbsp;</td>
-                      <td><asp:Button ID="Button_reset" runat="server" Text="Reset" CausesValidation="False" onclick="Button_reset_Click" /></td>
-                      <td colspan="3">&nbsp;</td>
-                      <td><asp:Button ID="Button_verify" runat="server" Text="Verify" Font-Bold="True" Font-Size="Large" onclick="Button_submit_Click" /></td>
+                      <td colspan="6"><br />Select the time period during which the signer applied the signature:</td>
+                      <td rowspan="2" valign="middle"><asp:Button ID="Button_verify" runat="server" Text="Verify" Font-Bold="True" Font-Size="Large" onclick="Button_submit_Click" /></td>
                     </tr>
                     <tr>
-                      <td align="center" colspan="7">
-                        <asp:LinkButton ID="LinkButton_go_back" runat="server" CausesValidation="False" onclick="LinkButton_go_back_Click">Go back to login page</asp:LinkButton>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td colspan="5">
+                        <asp:DropDownList ID="DropDownList_time_period" runat="server"/>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="7">
+                        <br /><br /><asp:LinkButton ID="LinkButton_go_back" runat="server" CausesValidation="False" onclick="LinkButton_go_back_Click">Go back to login page</asp:LinkButton>
                       </td>
                     </tr>
                   </table>

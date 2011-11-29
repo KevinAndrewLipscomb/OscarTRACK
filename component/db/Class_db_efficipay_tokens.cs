@@ -65,6 +65,27 @@ namespace Class_db_efficipay_tokens
       Close();
       }
 
+    internal void BindTimePeriodsToListControl(object target)
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      var dr = new MySqlCommand
+        (
+        "SELECT id"
+        + " , concat('Between ',time_created,' and ',IFNULL(time_retired,'NOW')) as time_period"
+        + " FROM efficipay_token"
+        + " order by time_created desc",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["time_period"].ToString(), dr["id"].ToString()));
+        }
+      dr.Close();
+      Close();
+      }
+
     internal string Current()
       {
       Open();
@@ -121,6 +142,14 @@ namespace Class_db_efficipay_tokens
       dr.Close();
       Close();
       return result;
+      }
+
+    internal string GetById(string token_id)
+      {
+      Open();
+      var value = new MySqlCommand("select value from efficipay_token where id = '" + token_id + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return value;
       }
 
     public void Set

@@ -22,6 +22,15 @@ namespace verify_efficipay_signature {
         protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
+        /// Button_reset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_reset;
+        
+        /// <summary>
         /// TextBox_check_num control.
         /// </summary>
         /// <remarks>
@@ -139,15 +148,6 @@ namespace verify_efficipay_signature {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_hex_code;
         
         /// <summary>
-        /// Button_reset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_reset;
-        
-        /// <summary>
         /// Button_verify control.
         /// </summary>
         /// <remarks>
@@ -155,6 +155,15 @@ namespace verify_efficipay_signature {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_verify;
+        
+        /// <summary>
+        /// DropDownList_time_period control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_time_period;
         
         /// <summary>
         /// LinkButton_go_back control.
