@@ -10,6 +10,10 @@ grant select
   to 'ki-oscartrack'@'localhost' identified by '~ki-oscartrack-password~'
 ;
 grant select
+  on homedb.*
+  to 'ki-oscartrackh'@'localhost' identified by '~ki-oscartrackh-password~'
+;
+grant select
  , insert
  , update
  , delete
