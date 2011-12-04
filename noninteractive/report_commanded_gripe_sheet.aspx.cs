@@ -89,7 +89,7 @@ namespace report_commanded_gripe_sheet
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
-        k.Safe(Request["target"],k.safe_hint_type.EMAIL_ADDRESS),
+        Request["target"],
         "VB EMS vehicle work order",
         body,
         true,
