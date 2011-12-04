@@ -58,10 +58,11 @@ namespace verify_efficipay_signature
       {
       if (Page.IsValid)
         {
+        var check_num = k.Safe(TextBox_check_num.Text,k.safe_hint_type.NUM);
         if(
           p.biz_efficipay_dockets.BeVeritable
             (
-            check_num:k.Safe(TextBox_check_num.Text,k.safe_hint_type.NUM),
+            check_num:check_num,
             signer_member_id:k.Safe(TextBox_signer_member_id.Text,k.safe_hint_type.NUM),
             signer_first_name:k.Safe(TextBox_signer_first_name.Text,k.safe_hint_type.HUMAN_NAME),
             signer_last_name:k.Safe(TextBox_signer_last_name.Text,k.safe_hint_type.HUMAN_NAME),
@@ -71,7 +72,7 @@ namespace verify_efficipay_signature
           )
         //
           {
-          Alert(kix.k.alert_cause_type.APPDATA,kix.k.alert_state_type.SUCCESS,"epsigvalid","The specified EfficiPay signature is VALID.",true);
+          Alert(kix.k.alert_cause_type.APPDATA,kix.k.alert_state_type.SUCCESS,"epsigvalid","The specified EfficiPay signature is VALID for check # " + check_num + ".",true);
           }
         else
           {

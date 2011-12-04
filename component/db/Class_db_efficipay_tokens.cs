@@ -1,7 +1,7 @@
 // Derived from KiAspdotnetFramework/component/db/Class~db~template~kicrudhelped~items.cs~template
 
-using Class_db;
-using Class_db_trail;
+using Class_dbhomedb;
+using Class_dbhomedb_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
@@ -11,13 +11,13 @@ using UserControl_drop_down_date;
 
 namespace Class_db_efficipay_tokens
   {
-  public class TClass_db_efficipay_tokens: TClass_db
+  public class TClass_db_efficipay_tokens: TClass_dbhomedb
     {
-    private TClass_db_trail db_trail = null;
+    private TClass_dbhomedb_trail dbhomedb_trail = null;
 
     public TClass_db_efficipay_tokens() : base()
       {
-      db_trail = new TClass_db_trail();
+      dbhomedb_trail = new TClass_dbhomedb_trail();
       }
 
     public bool Bind(string partial_spec, object target)
@@ -100,7 +100,7 @@ namespace Class_db_efficipay_tokens
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from efficipay_token where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        new MySqlCommand(dbhomedb_trail.Saved("delete from efficipay_token where id = \"" + id + "\""), connection).ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -165,7 +165,7 @@ namespace Class_db_efficipay_tokens
       Open();
       new MySqlCommand
         (
-        db_trail.Saved
+        dbhomedb_trail.Saved
           (
           "START TRANSACTION"
           + ";"

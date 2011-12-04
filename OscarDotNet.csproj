@@ -16,6 +16,7 @@
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -142,7 +143,6 @@
     <Content Include="usercontrol\app\UserControl_efficipay_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_docket.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_teaser.ascx" />
-    <Content Include="usercontrol\app\UserControl_efficipay_token.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
@@ -232,6 +232,8 @@
     <Compile Include="component\biz\Class_biz_vehicle_usability_history.cs" />
     <Compile Include="component\biz\Class_biz_manifest.cs" />
     <Compile Include="component\db\Class_db.cs" />
+    <Compile Include="component\db\Class_dbhomedb.cs" />
+    <Compile Include="component\db\Class_dbhomedb_trail.cs" />
     <Compile Include="component\db\Class_dbkeyclick.cs" />
     <Compile Include="component\db\Class_dbkeyclick_trail.cs" />
     <Compile Include="component\db\Class_db_accounts.cs" />
@@ -930,13 +932,6 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_efficipay_teaser.ascx.designer.cs">
       <DependentUpon>UserControl_efficipay_teaser.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_efficipay_token.ascx.cs">
-      <DependentUpon>UserControl_efficipay_token.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_efficipay_token.ascx.designer.cs">
-      <DependentUpon>UserControl_efficipay_token.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
