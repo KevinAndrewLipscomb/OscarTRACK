@@ -104,7 +104,7 @@ namespace Class_db_enrollment
               + " from enrollment_history"
               +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
               + " where member_id = '" + member_id + "'"
-              + " order by start_date desc"
+              + " order by start_date desc, id desc"
               + " limit 1",
               connection
               )
