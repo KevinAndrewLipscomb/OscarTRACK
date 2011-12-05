@@ -24,5 +24,6 @@ grant select
   to 'ki-oscartrackk-d'@'localhost' identified by '~ki-oscartrackk-d-password~'
 ;
 grant select
+ , delete
   on oscar_d.*
   to 'ki-oscartracko-d'@'localhost' identified by '~ki-oscartracko-d-password~'

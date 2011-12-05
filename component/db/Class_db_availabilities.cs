@@ -27,6 +27,40 @@ namespace Class_db_availabilities
       return num_extra_for_member_for_month;
       }
 
+    internal void Purge()
+      {
+      Open();
+      new MySqlCommand
+        (
+        "START TRANSACTION"
+        + ";"
+        + " delete avail_comment,avail_sheet"
+        + " from avail_comment"
+        +   " join avail_sheet on"
+        +     " ("
+        +       " avail_sheet.month=avail_comment.month"
+        +     " and"
+        +       " avail_sheet.last_name=avail_comment.last_name"
+        +     " and"
+        +       " avail_sheet.first_name=avail_comment.first_name"
+        +     " and"
+        +       " avail_sheet.timestamp=avail_comment.timestamp"
+        +     " and"
+        +       " avail_sheet.coord_agency=avail_comment.coord_agency"
+        +     " )"
+        + " where expiration < CURRENT_DATE"
+        + ";"
+        + " delete from avail_sheet where expiration < CURRENT_DATE"
+        + ";"
+        + " delete from report_cache where expiration < CURRENT_DATE"
+        + ";"
+        + " COMMIT",
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     internal string SpecialRequestCommentsForMemberForMonth
       (
       string member_id,

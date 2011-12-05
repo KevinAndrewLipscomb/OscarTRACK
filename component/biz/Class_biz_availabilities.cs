@@ -23,6 +23,11 @@ namespace Class_biz_availabilities
       return db_availabilities.NumExtraForMemberForMonth(member_id,DateTime.Now.AddMonths(relative_month.val).ToString("MMM"));
       }
 
+    internal void Purge()
+      {
+      db_availabilities.Purge();
+      }
+
     internal string SpecialRequestCommentsForMemberForMonth
       (
       string member_id,

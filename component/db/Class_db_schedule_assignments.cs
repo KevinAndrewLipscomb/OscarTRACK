@@ -1417,6 +1417,13 @@ namespace Class_db_schedule_assignments
         }
       }
 
+    internal void Purge()
+      {
+      Open();
+      new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 1 MONTH),'%Y-%m-01')",connection).ExecuteNonQuery();
+      Close();
+      }
+
     internal Queue SelectedAndNotifiableWithinFutureHoursIdQueue
       (
       uint num_hours_til_window_open,

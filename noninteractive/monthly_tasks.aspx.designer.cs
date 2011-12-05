@@ -8,9 +8,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace end_of_month_tasks {
+namespace monthly_tasks {
     
     
-    public partial class TWebForm_end_of_month_tasks {
+    public partial class TWebForm_monthly_tasks {
     }
 }
