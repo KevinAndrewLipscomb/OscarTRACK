@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="end_of_month_tasks.aspx.cs" AutoEventWireup="True" Inherits="end_of_month_tasks.TWebForm_end_of_month_tasks" %>
+<%@ Page language="c#" Debug="true" Codebehind="monthly_tasks.aspx.cs" AutoEventWireup="True" Inherits="monthly_tasks.TWebForm_monthly_tasks" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html>

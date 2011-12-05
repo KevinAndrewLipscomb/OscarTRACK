@@ -368,25 +368,6 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.NumCrewShifts(agency_filter,relative_month,nominal_day_filter,shift_name);
       }
 
-    internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
-      {
-      var stdout = k.EMPTY;
-      var stderr = k.EMPTY;
-      k.RunCommandIteratedOverArguments
-        (
-        "c:\\cygwin\\bin\\wget",
-        new ArrayList()
-          {
-          "--output-document=/dev/null --no-check-certificate"
-          + k.SPACE
-          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx\""
-          },
-        working_directory,
-        out stdout,
-        out stderr
-        );
-      }
-
     internal void PublishFullWatchbill
       (
       string agency_filter,
@@ -458,6 +439,11 @@ namespace Class_biz_schedule_assignments
         }
       k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,working_directory,out stdout,out stderr);
       db_schedule_assignments.MarkNotificationsMade(member_id_q,relative_month);
+      }
+
+    internal void Purge()
+      {
+      db_schedule_assignments.Purge();
       }
 
     public void Set
