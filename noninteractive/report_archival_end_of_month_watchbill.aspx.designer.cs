@@ -22,6 +22,15 @@ namespace report_archival_end_of_month_watchbill {
         protected global::UserControl_common_header_bar.TWebUserControl_common_header_bar UserControl_common_header_bar_control;
         
         /// <summary>
+        /// Literal_scope control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_scope;
+        
+        /// <summary>
         /// HyperLink_web_site control.
         /// </summary>
         /// <remarks>

@@ -143,7 +143,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #40 03 20 * * wget --output-document=/dev/null  https://localhost/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R14
 #50 03 20 * * wget --output-document=/dev/null  https://localhost/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R16
 #00 04 20 * * wget --output-document=/dev/null  https://localhost/OscarDotNet/noninteractive/report_monthly_current_phone_list.aspx?agency=R17
-45 23 28,29,30,31 * * wget --output-document=/dev/null  https://localhost/OscarDotNet/noninteractive/report_archival_end_of_month_watchbill.aspx
+45 23 28,29,30,31 * * wget --output-document=/dev/null  https://localhost/OscarDotNet/noninteractive/end_of_month_tasks.aspx
 #
 # Quarterly
 #

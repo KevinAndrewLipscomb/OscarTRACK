@@ -17,6 +17,8 @@ namespace report_archival_end_of_month_watchbill
 
     private struct p_type
       {
+      public string agency_id;
+      public string agency_short_designator;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
@@ -37,6 +39,7 @@ namespace report_archival_end_of_month_watchbill
         Title = ConfigurationManager.AppSettings["application_name"] + " - report_archival_end_of_month_watchbill";
         //
         var url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
+        Literal_scope.Text = (p.agency_short_designator == "EMS" ? "SYSTEM-WIDE" : p.biz_agencies.MediumDesignatorOf(p.agency_id).ToUpper());
         HyperLink_web_site.Text = url;
         HyperLink_web_site.NavigateUrl = url;
         }
@@ -66,7 +69,9 @@ namespace report_archival_end_of_month_watchbill
         var UserControl_schedule_proposal_control = ((LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx") as TWebUserControl_schedule_proposal));
         PlaceHolder_schedule_proposal.Controls.Add(UserControl_schedule_proposal_control);
         UserControl_schedule_proposal_control.SetInteractivity(false);
-        UserControl_schedule_proposal_control.SetFilter(k.EMPTY,k.EMPTY,p.relative_month);
+        p.agency_short_designator = k.Safe(Request["agency"],k.safe_hint_type.ALPHANUM);
+        p.agency_id = p.biz_agencies.IdOfShortDesignator(p.agency_short_designator);
+        UserControl_schedule_proposal_control.SetFilter((p.agency_short_designator == "EMS" ? k.EMPTY : p.agency_id),k.EMPTY,p.relative_month);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -87,16 +92,28 @@ namespace report_archival_end_of_month_watchbill
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var email_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler", "EMS")
+      var email_target = k.EMPTY;
+      if (p.agency_short_designator == "EMS")
+        {
+        email_target = p.biz_role_member_map.EmailTargetOf("Department Chief Scheduler", "EMS")
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf("Department Scheduler", "EMS")
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler", "EMS");
+        }
+      else
+        {
+        email_target = p.biz_role_member_map.EmailTargetOf("Squad Scheduler",p.agency_short_designator)
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Squad Manager",p.agency_short_designator)
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Squad Commander",p.agency_short_designator);
+        }
       k.SmtpMailSend
         (
         ConfigurationManager.AppSettings["sender_email_address"],
         email_target,
-        "*Archival* " + DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM yyyy").ToUpper() + " Ambulance Watchbill (scalable)",
+        "*Archival* " + DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM yyyy").ToUpper() + " Ambulance Watchbill, " + (p.agency_short_designator == "EMS" ? "SYSTEM-WIDE" : p.agency_short_designator) + " (scalable)",
         body,
         true,
         k.EMPTY,
