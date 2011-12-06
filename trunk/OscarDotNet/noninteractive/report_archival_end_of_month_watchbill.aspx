@@ -21,7 +21,7 @@
               <td colspan="2" align="center"><div style="font-size: large;">ARCHIVAL END-OF-MONTH</div><div style="font-size: xx-large;"><strong>WATCHBILL</strong></div></td>
             </tr>
             <tr>
-              <td align="center" style="font-size: x-large;" width="50%"><b>SYSTEM-WIDE</b></td>
+              <td align="center" style="font-size: x-large;" width="50%"><b><asp:Literal ID="Literal_scope" runat="server"></asp:Literal></b></td>
               <td align="center" width="50%"><small>This report shows all assigned personnel.</small></td>
             </tr>
             <tr><td align="center" colspan="2"><small><asp:HyperLink ID="HyperLink_web_site" runat="server" Font-Bold="True"></asp:HyperLink></small></td></tr>

@@ -45,6 +45,11 @@ namespace Class_biz_scheduled_tasks
       fs.DeleteCondemnedFolders(current_working_directory_spec + "/../protected/attachment");
       }
 
+    internal void DoEndOfMonthChores(string working_directory)
+      {
+      biz_schedule_assignments.PublishArchivalEndOfMonthWatchbill(working_directory);
+      }
+
     public void DoMemberStatusStatements()
       {
       biz_members.MakeMemberStatusStatements();

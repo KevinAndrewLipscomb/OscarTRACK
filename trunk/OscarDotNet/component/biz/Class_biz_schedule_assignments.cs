@@ -368,6 +368,65 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.NumCrewShifts(agency_filter,relative_month,nominal_day_filter,shift_name);
       }
 
+    internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R01\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R02\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R04\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R05\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R06\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R09\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R13\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R14\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R16\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=R17\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_archival_end_of_month_watchbill.aspx?agency=EMS\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
+        );
+      }
+
     internal void PublishFullWatchbill
       (
       string agency_filter,

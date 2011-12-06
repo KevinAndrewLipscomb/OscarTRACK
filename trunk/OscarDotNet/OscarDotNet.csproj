@@ -87,6 +87,7 @@
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="noninteractive\end_of_month_tasks.aspx" />
     <Content Include="noninteractive\monthly_tasks.aspx" />
     <Content Include="noninteractive\report_archival_end_of_month_watchbill.aspx" />
     <Content Include="noninteractive\report_commanded_gripe_sheet.aspx" />
@@ -321,6 +322,13 @@
     </Compile>
     <Compile Include="new_user_registration.aspx.designer.cs">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\end_of_month_tasks.aspx.cs">
+      <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\end_of_month_tasks.aspx.designer.cs">
+      <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\monthly_tasks.aspx.cs">
       <DependentUpon>monthly_tasks.aspx</DependentUpon>
