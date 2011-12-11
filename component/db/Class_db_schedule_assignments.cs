@@ -2082,7 +2082,7 @@ namespace Class_db_schedule_assignments
           +               " )"
           +           " )"
           +         " +"  // plus
-          +           " (select LEAST(0,min(num_extras)) from avail_sheet where avail_sheet.odnmid = member.id and MONTH(avail_sheet.expiration) = MONTH(schedule_assignment.nominal_day))"  // num extras member indicated they wanted to run, if any
+          +           " (select IFNULL(min(num_extras),0) from avail_sheet where avail_sheet.odnmid = member.id and MONTH(avail_sheet.expiration) = MONTH(schedule_assignment.nominal_day))"  // num extras member indicated they wanted to run, if any
           +       " ,"
           +         " 0"
           +       " )"
