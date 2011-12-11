@@ -47,7 +47,7 @@ namespace Class_db_agencies
         + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
         + " where agency_id = '" + agency_filter + "'"
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
         )
         .ExecuteScalar().ToString();
