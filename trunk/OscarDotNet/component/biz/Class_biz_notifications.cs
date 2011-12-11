@@ -1452,10 +1452,11 @@ namespace Class_biz_notifications
           var comment = k.EMPTY;
           var member_id = k.EMPTY;
           var nominal_day = DateTime.MinValue;
+          var partner_list = k.EMPTY;
           var post_id = k.EMPTY;
           var post_cardinality = k.EMPTY;
           var shift_id = k.EMPTY;
-          biz_schedule_assignments.Get(schedule_assignment_id,out nominal_day,out shift_id,out post_id,out post_cardinality,out dummy_string,out member_id,out dummy_bool,out comment);
+          biz_schedule_assignments.Get(schedule_assignment_id,out nominal_day,out shift_id,out post_id,out post_cardinality,out dummy_string,out member_id,out dummy_bool,out comment,out partner_list);
           var nominal_day_string = nominal_day.ToString("dddd dd MMMM yyyy");
           //
           var shift_name = k.EMPTY;
@@ -1501,11 +1502,12 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<comment/>",(comment == k.EMPTY ? "(none)" : comment))
+              .Replace("<comment/>",(comment.Length == 0 ? "(none)" : comment))
               .Replace("<door_code/>",door_code)
               .Replace("<first_name/>",biz_members.FirstNameOfMemberId(member_id))
               .Replace("<urlpathencoded_nominal_day_and_shift/>",HttpUtility.UrlPathEncode(nominal_day_string + k.SPACE + shift_name))
               .Replace("<nominal_day/>",nominal_day_string)
+              .Replace("<partner_list/>",(partner_list.Length > 0 ? partner_list.Replace(k.COMMA_SPACE,k.NEW_LINE + (new String(Convert.ToChar(k.SPACE), 3))) : "(no one)"))
               .Replace("<post_elaboration/>",post_elaboration)
               .Replace("<post_medium_designator/>",post_medium_designator)
               .Replace("<post_cardinality/>",post_cardinality)

@@ -152,6 +152,7 @@ namespace UserControl_schedule_assignment
       string member_id;
       bool be_selected;
       string comment;
+      string partner_list;
       result = false;
       if
         (
@@ -165,7 +166,8 @@ namespace UserControl_schedule_assignment
           out position_id,
           out member_id,
           out be_selected,
-          out comment
+          out comment,
+          out partner_list
           )
         )
         {
