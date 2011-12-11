@@ -273,7 +273,8 @@ namespace Class_biz_schedule_assignments
       out string position_id,
       out string member_id,
       out bool be_selected,
-      out string comment
+      out string comment,
+      out string partner_list
       )
       {
       var db_schedule_assignments_get = db_schedule_assignments.Get
@@ -286,7 +287,8 @@ namespace Class_biz_schedule_assignments
         out position_id,
         out member_id,
         out be_selected,
-        out comment
+        out comment,
+        out partner_list
         );
       post_cardinality = Convert.ToString(Convert.ToChar(Convert.ToInt32('a') + int.Parse(post_cardinality) - 1));
       return db_schedule_assignments_get;

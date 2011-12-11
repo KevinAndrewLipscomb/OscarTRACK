@@ -1244,11 +1244,11 @@ namespace Class_db_schedule_assignments
       out string position_id,
       out string member_id,
       out bool be_selected,
-      out string comment
+      out string comment,
+      out string partner_list
       )
       {
-      bool result;
-      MySqlDataReader dr;
+      var result = false;
       //
       nominal_day = DateTime.MinValue;
       shift_id = k.EMPTY;
@@ -1258,10 +1258,30 @@ namespace Class_db_schedule_assignments
       member_id = k.EMPTY;
       be_selected = false;
       comment = k.EMPTY;
-      result = false;
+      partner_list = k.EMPTY;
       //
-      this.Open();
-      dr = new MySqlCommand("select * from schedule_assignment where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select *"
+        + " , ("
+        +   " select group_concat(concat(description,' ',first_name,' ',last_name,IFNULL(concat(' {',sa2.comment,'}'),'')) order by pecking_order desc,equivalent_los_start_date separator ', ')"
+        +   " from schedule_assignment sa2"
+        +     " join member on (member.id=sa2.member_id)"
+        +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " where sa2.nominal_day = sa1.nominal_day"
+        +     " and sa2.shift_id = sa1.shift_id"
+        +     " and sa2.post_id = sa1.post_id"
+        +     " and sa2.post_cardinality = sa1.post_cardinality"
+        +     " and be_selected"
+        +     " and sa2.member_id <> sa1.member_id"
+        +   " )"
+        +   " as partner_list"
+        + " from schedule_assignment sa1"
+        + " where CAST(id AS CHAR) = '" + id + "'",
+        connection
+        )
+        .ExecuteReader();
       if (dr.Read())
         {
         nominal_day = DateTime.Parse(dr["nominal_day"].ToString());
@@ -1272,10 +1292,11 @@ namespace Class_db_schedule_assignments
         member_id = dr["member_id"].ToString();
         be_selected = (dr["be_selected"].ToString() == "1");
         comment = dr["comment"].ToString();
+        partner_list = dr["partner_list"].ToString();
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
