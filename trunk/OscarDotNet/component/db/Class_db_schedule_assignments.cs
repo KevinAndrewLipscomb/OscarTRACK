@@ -25,8 +25,7 @@ namespace Class_db_schedule_assignments
     +   " join member on (member.id=schedule_assignment.member_id)"
     +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
     + " where member_id is not null"
-    +   " and be_selected"
-    +   " and MONTH(nominal_day) = MONTH(CURDATE()) + ";
+    +   " and be_selected";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
@@ -51,7 +50,7 @@ namespace Class_db_schedule_assignments
         + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
         + " where agency_id = '" + agency_filter + "'"
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
         )
         .ExecuteScalar().ToString();
@@ -146,7 +145,7 @@ namespace Class_db_schedule_assignments
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
       +   " left join num_units using (nominal_day,shift_id)"
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
-      + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+      + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
       +     nominal_day_condition_clause
       +     agency_condition_clause;
       var common_initial_from_where_clause = common_from_where_clause + release_condition_clause + depth_condition_clause;
@@ -224,7 +223,7 @@ namespace Class_db_schedule_assignments
           + " where medical_release_code_description_map.pecking_order >= 20"
           +   " and be_selected"
           +   " and post_id < 200" // Only count ground ambulance assignments.
-          +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+          +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
           + " group by nominal_day,shift_id"
           + ";"
           //
@@ -249,7 +248,7 @@ namespace Class_db_schedule_assignments
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where medical_release_code_description_map.pecking_order >= 20"
           +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
-          +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+          +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
           + " group by nominal_day,shift_id,post_id,post_cardinality"
           + ";"
           //
@@ -411,7 +410,7 @@ namespace Class_db_schedule_assignments
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         + " where medical_release_code_description_map.pecking_order >= 20"
         +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         + " group by post_id,post_cardinality"
@@ -434,7 +433,7 @@ namespace Class_db_schedule_assignments
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
         +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
         + " where be_selected"
-        +   " and MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         +   " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))"
@@ -496,7 +495,7 @@ namespace Class_db_schedule_assignments
         +   " join member on (member.id=schedule_assignment.member_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
-        + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and be_selected"
         +   post_filter
         + " group by nominal_day,shift_id,post_id"
@@ -607,7 +606,7 @@ namespace Class_db_schedule_assignments
         +         " join member on (member.id=schedule_assignment.member_id)"
         +         " join agency on (agency.id=schedule_assignment.post_id)"
         +       " where member_id = '" + member_id + "'"
-        +         " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +         " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +       " order by nominal_day desc,start desc"
         +       " ) as msd_member_schedule_assignments_sorted_chronologically_backwards"
         +       " left join"
@@ -679,7 +678,7 @@ namespace Class_db_schedule_assignments
         +   " join shift on (shift.id=sa1.shift_id)"
         +   " join melodrama on ((melodrama.subject_member_id=m1.id or melodrama.subject_member_id=m2.id) and (melodrama.object_member_id=m2.id or melodrama.object_member_id=m1.id) and not melodrama.be_friendly)"
         + " where sa1.be_selected and sa2.be_selected"
-        +   " and MONTH(sa1.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(sa1.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         + agency_condition_clause
         + release_condition_clause
         + " group by subject_member_id,object_member_id"
@@ -732,7 +731,7 @@ namespace Class_db_schedule_assignments
         +   " join melodrama md1 on (md1.subject_member_id=mem1.id and md1.object_member_id=mem2.id and md1.be_friendly)"
         +   " join melodrama md2 on (md2.subject_member_id=mem2.id and md2.object_member_id=mem1.id and md2.be_friendly)"
         + " where sa1.be_selected and sa2.be_selected"
-        +   " and MONTH(sa1.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(sa1.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         + agency_condition_clause
         + release_condition_clause
         + " order by sa1.nominal_day,shift.start",
@@ -842,7 +841,7 @@ namespace Class_db_schedule_assignments
         +       " )"
         +     " )"
         +   " left join"
-        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + ") as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + ") as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
         + filter
         + " order by " + sort_order,
         connection
@@ -885,7 +884,7 @@ namespace Class_db_schedule_assignments
         new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
-          + relative_month.val
+          + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
           + agency_condition_clause
           + release_condition_clause
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
@@ -982,7 +981,7 @@ namespace Class_db_schedule_assignments
         new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
-          + relative_month.val
+          + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
           + agency_condition_clause
           + release_condition_clause
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
@@ -1105,7 +1104,7 @@ namespace Class_db_schedule_assignments
         +         " )" 
         +       " )" 
         +     " )" 
-        + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + agency_condition_clause + release_condition_clause
+        + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + agency_condition_clause + release_condition_clause
         +   " and 0 ="
         +     " IFNULL"  // num duties supposed to run
         +       " ("
@@ -1308,7 +1307,7 @@ namespace Class_db_schedule_assignments
         +   " join member on (member.id=schedule_assignment.member_id)"
         + " where be_selected"
         +     agency_filter_clause
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +     nominal_day_condition_clause
         + " group by NULL",
         connection
@@ -1346,7 +1345,7 @@ namespace Class_db_schedule_assignments
         + " from schedule_assignment"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
         + " where member_id = '" + member_id + "'"
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val,
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
         )
         .ExecuteReader();
@@ -1388,7 +1387,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = IF(comment is null,'TBR',concat('TBR ',comment)) where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + " and member_id = '" + member_id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = IF(comment is null,'TBR',concat('TBR ',comment)) where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + " and member_id = '" + member_id + "'"),connection).ExecuteNonQuery();
       Close();
       }
 
@@ -1409,7 +1408,7 @@ namespace Class_db_schedule_assignments
         new MySqlCommand
           (
           db_trail.Saved
-            ("update schedule_assignment set be_notification_pending = FALSE where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val + " and member_id in (" + member_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)}) + ")"),
+            ("update schedule_assignment set be_notification_pending = FALSE where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + " and member_id in (" + member_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)}) + ")"),
           connection
           )
           .ExecuteNonQuery();
@@ -1484,7 +1483,7 @@ namespace Class_db_schedule_assignments
         +   " join member on (member.id=schedule_assignment.member_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + " where MONTH(schedule_assignment.nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         +     agency_condition_clause,
@@ -1523,7 +1522,7 @@ namespace Class_db_schedule_assignments
         +   " join member on (member.id=schedule_assignment.member_id)"
         +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
         + " where be_notification_pending"
-        +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month.val
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and (member.agency_id = '" + publisher_member_agency_id + "'" + liberal_conditions + " )"
         + " group by member_id",
         connection
@@ -2038,7 +2037,7 @@ namespace Class_db_schedule_assignments
           +   " join member on (member.id=schedule_assignment.member_id)"
           +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           +   " join agency on (agency.id=schedule_assignment.post_id)"
-          + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
           +   " and be_ems_post"
           + " group by nominal_day,shift_id"
           + ";"
@@ -2121,7 +2120,7 @@ namespace Class_db_schedule_assignments
           +         " )" 
           +       " )" 
           +     " )" 
-          + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
           +   " and medical_release_code_description_map.pecking_order >= 20"
           + " group by member.id"
           +   " having num_excess_avails > 0"
@@ -2190,7 +2189,7 @@ namespace Class_db_schedule_assignments
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
             + " where medical_release_code_description_map.pecking_order >= 20"
             +   " and be_selected"
-            +   " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
             + " group by nominal_day,shift_id"
             + ";"
             + " create temporary table member_assignment_vs_shift_population"
@@ -2312,7 +2311,7 @@ namespace Class_db_schedule_assignments
           +         " )" 
           +       " )" 
           +     " )" 
-          + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
           +   " and medical_release_code_description_map.pecking_order < 20"
           + " group by member.id"
           +   " having num_excess_avails > 0"
@@ -2398,7 +2397,7 @@ namespace Class_db_schedule_assignments
           +         " )" 
           +       " )" 
           +     " )" 
-          + " where MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
           +   " and medical_release_code = 2"
           + " group by member.id"
           +   " having num_extras > 0"
@@ -2438,7 +2437,7 @@ namespace Class_db_schedule_assignments
             +       " join member on (member.id=schedule_assignment.member_id)"
             +       " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
             +     " where be_selected"
-            +       " and MONTH(nominal_day) = MONTH(CURDATE()) + " + relative_month
+            +       " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
             +     " group by nominal_day,shift_id"
             +       " having (sum(medical_release_code_description_map.pecking_order >= 20)/2 - sum(medical_release_code_description_map.pecking_order < 20)) > 0"
             +     " )"
