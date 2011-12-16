@@ -94,15 +94,6 @@ namespace UserControl_availabilities {
         protected global::System.Web.UI.HtmlControls.HtmlImage Img_trophy;
         
         /// <summary>
-        /// HyperLink_request control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_request;
-        
-        /// <summary>
         /// HyperLink_reconfirm_or_retract control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace UserControl_availabilities {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_reconfirm_or_retract;
+        
+        /// <summary>
+        /// HyperLink_request control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_request;
         
         /// <summary>
         /// HyperLink_catch_up control.
