@@ -686,9 +686,17 @@ namespace Class_biz_members
             db_members.SetProfile(id, name);
         }
 
+        public object Summary
+          (
+          string member_id,
+          k.subtype<int> relative_month
+          )
+          {
+          return db_members.Summary(member_id,relative_month.val.ToString());
+          }
         public object Summary(string member_id)
           {
-          return db_members.Summary(member_id);
+          return Summary(member_id,new k.subtype<int>(0,0));
           }
 
         public string UserAttributionIndicator()

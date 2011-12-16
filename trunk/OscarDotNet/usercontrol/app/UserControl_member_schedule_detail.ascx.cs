@@ -34,6 +34,7 @@ namespace UserControl_member_schedule_detail
     public DateTime start_of_earliest_unselected;
     public DateTime end_of_latest_unselected;
     public string member_agency_id;
+    public string member_id;
     public object member_summary;
     public k.subtype<int> num;
     public uint num_datagrid_rows;
@@ -87,12 +88,6 @@ namespace UserControl_member_schedule_detail
         LinkButton_switch_month.Visible = (p.be_my_watchbill_mode && !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1)) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
         //
         Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
-        Literal_membership_status.Text = p.biz_members.EnrollmentOf(p.member_summary);
-        //
-        var this_month_description = k.EMPTY;
-        var next_month_description = k.EMPTY;
-        p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(p.member_summary),out this_month_description,out next_month_description,appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
-        Literal_leave.Text = (p.relative_month.val == 0 ? this_month_description : next_month_description);
         //
         Literal_released_cert_level.Text = p.biz_members.MedicalReleaseLevelOf(p.member_summary);
         Literal_be_driver.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));
@@ -104,13 +99,6 @@ namespace UserControl_member_schedule_detail
         if (p.be_editable)
           {
           Panel_sensitive_submission_detail.Visible = true;
-          Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month).val.ToString();
-          var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month);
-          if (comment != k.EMPTY)
-            {
-            Label_special_request_comment.Text = comment;
-            Label_special_request_comment.Font.Italic = true;
-            }
           //
           HtmlTableCell_button_done.Visible = !p.be_my_watchbill_mode;
           HtmlTableCell_scheduler_actions.Visible = !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
@@ -166,9 +154,9 @@ namespace UserControl_member_schedule_detail
         //
         if (p.be_my_watchbill_mode)
           {
-          var member_id = Session["member_id"].ToString();
-          p.member_summary = p.biz_members.Summary(member_id);
-          p.member_agency_id = p.biz_members.AgencyIdOfId(member_id);
+          p.member_id = Session["member_id"].ToString();
+          p.member_summary = p.biz_members.Summary(p.member_id);
+          p.member_agency_id = p.biz_members.AgencyIdOfId(p.member_id);
           p.relative_month = new k.subtype<int>(0,1);
           }
         //
@@ -405,6 +393,18 @@ namespace UserControl_member_schedule_detail
 
     private void Bind()
       {
+      p.member_summary = p.biz_members.Summary(p.member_id,p.relative_month);
+      //
+      var this_month_description = k.EMPTY;
+      var next_month_description = k.EMPTY;
+      p.biz_leaves.DescribeThisAndNextMonthForMember(p.biz_members.IdOf(p.member_summary),out this_month_description,out next_month_description,appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
+      Literal_leave.Text = (p.relative_month.val == 0 ? this_month_description : next_month_description);
+      Literal_membership_status.Text = p.biz_members.EnrollmentOf(p.member_summary);
+      Literal_num_extra.Text = p.biz_availabilities.NumExtraForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month).val.ToString();
+      var comment = p.biz_availabilities.SpecialRequestCommentsForMemberForMonth(p.biz_members.IdOf(p.member_summary),p.relative_month);
+      Label_special_request_comment.Text = (comment.Length > 0 ? comment : "(none)");
+      Label_special_request_comment.Font.Italic = (comment.Length > 0);
+      //
       p.arraylist_selected_day_avail.Clear();
       p.arraylist_selected_night_avail.Clear();
       p.arraylist_unselected_day_avail.Clear();
@@ -491,9 +491,9 @@ namespace UserControl_member_schedule_detail
       bool be_virgin_watchbill
       )
       {
+      p.member_id = member_id;
       p.member_agency_id = member_agency_id;
       p.relative_month = relative_month;
-      p.member_summary = p.biz_members.Summary(member_id);
       p.be_virgin_watchbill = be_virgin_watchbill;
       p.be_editable = p.biz_schedule_assignments.BeOkToEditPerExclusivityRules(Session,member_agency_id,relative_month);
       Bind();

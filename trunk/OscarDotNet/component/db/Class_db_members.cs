@@ -1709,7 +1709,11 @@ namespace Class_db_members
             this.Close();
         }
 
-        public object Summary(string member_id)
+        public object Summary
+          (
+          string member_id,
+          string relative_month
+          )
           {
           this.Open();
           var dr =
@@ -1734,12 +1738,12 @@ namespace Class_db_members
               +       " enrollment_history.member_id=member.id" 
               +     " and" 
               +       " (" 
-              +         " (enrollment_history.start_date <= CURDATE())" 
+              +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
               +       " and" 
               +         " (" 
               +           " (enrollment_history.end_date is null)" 
               +         " or" 
-              +           " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" 
+              +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
               +         " )" 
               +       " )" 
               +     " )" 
@@ -1769,6 +1773,10 @@ namespace Class_db_members
           dr.Close();
           this.Close();
           return the_summary;
+          }
+        public object Summary(string member_id)
+          {
+          return Summary(member_id,relative_month:"0");
           }
 
         public string UserIdOf(string member_id)
