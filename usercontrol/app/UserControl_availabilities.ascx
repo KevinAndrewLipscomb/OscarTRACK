@@ -4,9 +4,9 @@
   <tr><td colspan="5"><h3>Actions</h3></td></tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td align="right" valign="top">Submit</td>
-    <td valign="top">
-      an&nbsp;availability&nbsp;sheet to 
+    <td align="right" valign="middle"><b>Submit</b></td>
+    <td valign="middle" nowrap="nowrap">
+      <b>availabilities</b> to 
       <asp:DropDownList ID="DropDownList_coord_agency" runat="server" AutoPostBack="True" Font-Size="Small" onselectedindexchanged="DropDownList_coord_agency_SelectedIndexChanged"></asp:DropDownList>
       for&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_next" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_next_Click"></asp:LinkButton>
       &nbsp;or&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_following" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_following_Click"></asp:LinkButton>
@@ -30,14 +30,19 @@
     </td>
   </tr>
   <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
     <td>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_request" runat="server" target="_blank" NavigateUrl="$OSCAR/form-request-report-1.phtml">Request</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_reconfirm_or_retract" runat="server" target="_blank" NavigateUrl="$OSCAR/form-request-retraction.phtml">Reconfirm or Retract</asp:HyperLink></small>
     </td>
     <td valign="top">
-      a compiled availability report.
+      <small>previous submissions.</small>
     </td>
   </tr>
   <tr>
@@ -45,10 +50,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_reconfirm_or_retract" runat="server" target="_blank" NavigateUrl="$OSCAR/form-request-retraction.phtml">Reconfirm or Retract</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_request" runat="server" target="_blank" NavigateUrl="$OSCAR/form-request-report-1.phtml">Request</asp:HyperLink></small>
     </td>
     <td valign="top">
-      previous submissions.
+      <small>a compiled availability report.</small>
     </td>
   </tr>
   <tr>
@@ -63,10 +68,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_catch_up" runat="server" target="_blank" NavigateUrl="$OSCAR/whats-new.phtml">Catch up</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_catch_up" runat="server" target="_blank" NavigateUrl="$OSCAR/whats-new.phtml">Catch up</asp:HyperLink></small>
     </td>
     <td valign="top">
-      on what's new.
+      <small>on what's new.</small>
     </td>
   </tr>
   <tr>
@@ -74,10 +79,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_faq" runat="server" target="_blank" NavigateUrl="$OSCAR/faq.phtml">FAQ</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_faq" runat="server" target="_blank" NavigateUrl="$OSCAR/faq.phtml">FAQ</asp:HyperLink></small>
     </td>
     <td valign="top">
-      Answers to frequently asked questions.
+      <small>Answers to frequently asked questions.</small>
     </td>
   </tr>
   <tr>
@@ -85,10 +90,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_modify" runat="server" target="_blank" NavigateUrl="$OSCAR/modify.phtml">Modify</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_modify" runat="server" target="_blank" NavigateUrl="$OSCAR/modify.phtml">Modify</asp:HyperLink></small>
     </td>
     <td valign="top">
-      system settings (OSCAR Authorities only).
+      <small>system settings (OSCAR Authorities only).</small>
     </td>
   </tr>
   <tr>
@@ -96,10 +101,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_read" runat="server" target="_blank" NavigateUrl="$OSCAR/privacy.phtml">Read</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_read" runat="server" target="_blank" NavigateUrl="$OSCAR/privacy.phtml">Read</asp:HyperLink></small>
     </td>
     <td valign="top">
-      the privacy policy.
+      <small>the privacy policy.</small>
     </td>
   </tr>
   <tr>
@@ -107,10 +112,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink id="HyperLink_contribute" runat="server" target="_blank" NavigateUrl="$OSCAR/develop.phtml">Contribute</asp:HyperLink></b>
+      <small><asp:HyperLink id="HyperLink_contribute" runat="server" target="_blank" NavigateUrl="$OSCAR/develop.phtml">Contribute</asp:HyperLink></small>
     </td>
     <td valign="top">
-      to the <b>kveo-it-project</b> as a programmer or content developer.
+      <small>to the <b>kveo-it-project</b> as a programmer or content developer.</small>
     </td>
   </tr>
   <tr>
@@ -118,10 +123,10 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink ID="HyperLink_contact" runat="server" href="mailto:oscartrack@frompaper2web.com">Contact</asp:HyperLink></b>
+      <small><asp:HyperLink ID="HyperLink_contact" runat="server" href="mailto:oscartrack@frompaper2web.com">Contact</asp:HyperLink></small>
     </td>
     <td valign="top">
-      the OSCAR System Administrator.
+      <small>the OSCAR System Administrator.</small>
     </td>
   </tr>
 </table>
