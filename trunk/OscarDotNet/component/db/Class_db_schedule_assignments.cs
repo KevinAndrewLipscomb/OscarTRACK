@@ -652,11 +652,11 @@ namespace Class_db_schedule_assignments
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
         {
-        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        release_condition_clause = " and (mrcdm1.pecking_order >= 20 or mrcdm2.pecking_order >= 20)";
         }
       else if (release_filter == "0")
         {
-        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        release_condition_clause = " and (mrcdm1.pecking_order < 20 or mrcdm2.pecking_order < 20)";
         }
       Open();
       (target as BaseDataList).DataSource = new MySqlCommand
@@ -677,6 +677,8 @@ namespace Class_db_schedule_assignments
         +   " join member m2 on (m2.id=sa2.member_id)"
         +   " join shift on (shift.id=sa1.shift_id)"
         +   " join melodrama on ((melodrama.subject_member_id=m1.id or melodrama.subject_member_id=m2.id) and (melodrama.object_member_id=m2.id or melodrama.object_member_id=m1.id) and not melodrama.be_friendly)"
+        +   " join medical_release_code_description_map mrcdm1 on (mrcdm1.code=m1.medical_release_code)"
+        +   " join medical_release_code_description_map mrcdm2 on (mrcdm2.code=m2.medical_release_code)"
         + " where sa1.be_selected and sa2.be_selected"
         +   " and MONTH(sa1.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         + agency_condition_clause
@@ -707,11 +709,11 @@ namespace Class_db_schedule_assignments
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
         {
-        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        release_condition_clause = " and (mrcdm1.pecking_order >= 20 or mrcdm2.pecking_order >= 20)";
         }
       else if (release_filter == "0")
         {
-        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        release_condition_clause = " and (mrcdm1.pecking_order < 20 or mrcdm2.pecking_order < 20)";
         }
       Open();
       (target as BaseDataList).DataSource = new MySqlCommand
@@ -730,6 +732,8 @@ namespace Class_db_schedule_assignments
         +   " join shift on (shift.id=sa1.shift_id)"
         +   " join melodrama md1 on (md1.subject_member_id=mem1.id and md1.object_member_id=mem2.id and md1.be_friendly)"
         +   " join melodrama md2 on (md2.subject_member_id=mem2.id and md2.object_member_id=mem1.id and md2.be_friendly)"
+        +   " join medical_release_code_description_map mrcdm1 on (mrcdm1.code=mem1.medical_release_code)"
+        +   " join medical_release_code_description_map mrcdm2 on (mrcdm2.code=mem2.medical_release_code)"
         + " where sa1.be_selected and sa2.be_selected"
         +   " and MONTH(sa1.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         + agency_condition_clause
