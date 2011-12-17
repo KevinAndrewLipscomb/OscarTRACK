@@ -61,11 +61,11 @@
   </head>
   <body bgcolor="white">
     <form runat="server">
-      <table width="100%" border="1" cellpadding="0" cellspacing="0">
+      <table width="100%" cellpadding="0" cellspacing="0">
         <tr class="check_segment">
           <td width="60%">&nbsp;</td>
           <td width="40%">
-            <table class="right_cell_table" border="1" cellpadding="0" cellspacing="0">
+            <table class="right_cell_table" cellpadding="0" cellspacing="0">
               <tr class="check_right_cell_table_spacer_row"><td>&nbsp;</td></tr>
               <tr class="check_right_cell_table_payload_row">
                 <td valign="top">
