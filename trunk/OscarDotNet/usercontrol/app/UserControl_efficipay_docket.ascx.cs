@@ -261,6 +261,8 @@ namespace UserControl_efficipay_docket
       p.agency_id = agency_id;
       if (summary == null)
         {
+        p.check_num = k.EMPTY;
+        p.id = k.EMPTY;
         p.attachment_key = DateTime.Now.Ticks.ToString("D19");
         UserControl_attachment_explorer_control.path = HttpContext.Current.Server.MapPath("attachment/efficipay_docket/" + p.attachment_key);
         }

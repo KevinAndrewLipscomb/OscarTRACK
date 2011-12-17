@@ -15,15 +15,16 @@
         }
       .check_right_cell_table_payload_row
         {
-        height: 40%;
+        height: 1.3125in;
         }
       .check_right_cell_table_spacer_row
         {
-        height: 60%;
+        height: 1.3125in;
         }
-      .check_voucher_segment
+      .check_segment
         {
-        height: 3.5in;
+        /* Assumes top margin of 0.75in */
+        height: 2.625in;
         }
       .inner_line_outer_element
         {
@@ -49,22 +50,26 @@
         }
       .stub_segment
         {
-        height: 4in;
+        height: 2.46875in;
+        /* Assumes bottom margin setting of 0.75in */
+        }
+      .voucher_segment
+        {
+        height: 3.5in;
         }
     </style>
   </head>
   <body bgcolor="white">
     <form runat="server">
-      <table width="100%">
-        <tr class="check_voucher_segment">
+      <table width="100%" border="1" cellpadding="0" cellspacing="0">
+        <tr class="check_segment">
           <td width="60%">&nbsp;</td>
           <td width="40%">
-            <table class="right_cell_table">
-              <tr class="check_right_cell_table_space_row"><td>&nbsp;</td></tr>
+            <table class="right_cell_table" border="1" cellpadding="0" cellspacing="0">
+              <tr class="check_right_cell_table_spacer_row"><td>&nbsp;</td></tr>
               <tr class="check_right_cell_table_payload_row">
-                <td>
+                <td valign="top">
                   <small>
-                    <br />
                     <span class="outer_line">Authorized electronically by</span><br />
                       <div class="inner_line">
                         &nbsp;&nbsp;<asp:Label ID="Label_check_num_1" runat="server" CssClass="inner_line_outer_element"/>&nbsp;<asp:Label ID="Label_first_signer_1" runat="server" Font-Italic="True"/>&nbsp;<asp:Label ID="Label_first_hash_1" runat="server" CssClass="inner_line_outer_element"/><br />
@@ -77,29 +82,21 @@
             </table>
           </td>
         </tr>
-        <tr class="check_voucher_segment">
+        <tr class="voucher_segment">
           <td>&nbsp;</td>
           <td>&nbsp;</td>
         </tr>
         <tr class="stub_segment">
           <td>&nbsp;</td>
-          <td>
-            <table class="right_cell_table">
-              <tr class="stub_right_cell_table_spacer_row"><td>&nbsp;</td></tr>
-              <tr class="stub_right_cell_table_payload_row">
-                <td>
-                  <small>
-                    <span class="outer_line">Authorized electronically by</span><br />
-                      <div class="inner_line">
-                        &nbsp;&nbsp;<asp:Label ID="Label_check_num_3" runat="server" CssClass="inner_line_outer_element"/>&nbsp;<asp:Label ID="Label_first_signer_2" runat="server" Font-Italic="True"/>&nbsp;<asp:Label ID="Label_first_hash_2" runat="server" CssClass="inner_line_outer_element"/><br />
-                        &nbsp;&nbsp;<asp:Label ID="Label_check_num_4" runat="server" CssClass="inner_line_outer_element"/>&nbsp;<asp:Label ID="Label_second_signer_2" runat="server" Font-Italic="True"/>&nbsp;<asp:Label ID="Label_second_hash_2" runat="server" CssClass="inner_line_outer_element"/><br />
-                      </div>
-                    <span class="outer_line">via FromPaper2Web.com/OscarTRACK EfficiPay</span>
-                  </small>
-                </td>
-              </tr>
-              <tr class="stub_right_cell_table_spacer_row"><td>&nbsp;</td></tr>
-            </table>
+          <td valign="bottom">
+            <small>
+              <span class="outer_line">Authorized electronically by</span><br />
+                <div class="inner_line">
+                  &nbsp;&nbsp;<asp:Label ID="Label_check_num_3" runat="server" CssClass="inner_line_outer_element"/>&nbsp;<asp:Label ID="Label_first_signer_2" runat="server" Font-Italic="True"/>&nbsp;<asp:Label ID="Label_first_hash_2" runat="server" CssClass="inner_line_outer_element"/><br />
+                  &nbsp;&nbsp;<asp:Label ID="Label_check_num_4" runat="server" CssClass="inner_line_outer_element"/>&nbsp;<asp:Label ID="Label_second_signer_2" runat="server" Font-Italic="True"/>&nbsp;<asp:Label ID="Label_second_hash_2" runat="server" CssClass="inner_line_outer_element"/><br />
+                </div>
+              <span class="outer_line">via FromPaper2Web.com/OscarTRACK EfficiPay</span>
+            </small>
           </td>
         </tr>
       </table>
