@@ -144,7 +144,7 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     protected void Button_refresh_Click(object sender, System.EventArgs e)
       {
-      p.biz_schedule_assignments.Update(p.relative_month.val.ToString());
+      p.biz_schedule_assignments.Update(p.relative_month.val.ToString(),working_directory:Server.MapPath("scratch"));
       Bind();
       }
 

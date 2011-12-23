@@ -1,4 +1,4 @@
-﻿function EndRequestHandler(sender, args)
+function EndRequestHandler(sender, args)
   {
   if (args.get_error() != undefined)
     {
@@ -9,5 +9,5 @@
 
 if (Sys.WebForms)
   {
-  Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
+  if (Sys.WebForms) Sys.WebForms.PageRequestManager.getInstance().add_endRequest(EndRequestHandler);
   }
