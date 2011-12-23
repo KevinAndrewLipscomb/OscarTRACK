@@ -231,7 +231,7 @@ namespace UserControl_gripe_sheet
 
     private void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
-      if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+      if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
         var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
         //
@@ -258,7 +258,7 @@ namespace UserControl_gripe_sheet
     private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+      if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
         var id = k.Safe(e.Item.Cells[UserControl_gripe_sheet_Static.TCI_ID].Text,k.safe_hint_type.NUM);
         if (p.gripe_inclusion_hashtable.ContainsKey(id))

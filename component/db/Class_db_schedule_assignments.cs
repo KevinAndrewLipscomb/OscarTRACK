@@ -58,6 +58,35 @@ namespace Class_db_schedule_assignments
       return be_notification_pending_for_all_in_scope;
       }
 
+    internal bool BePendingNotifications
+      (
+      k.subtype<int> relative_month,
+      string publisher_member_id,
+      string publisher_member_agency_id,
+      bool be_virgin_watchbill,
+      bool be_selected_only
+      )
+      {
+      var be_pending_notifications = false;
+      var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = '" + publisher_member_agency_id + "' or agency_satellite_station.agency_id = '" + publisher_member_agency_id + "' or reviser_member_id = '" + publisher_member_id + "'");
+      Open();
+      be_pending_notifications = "1" == new MySqlCommand
+        (
+        "select count(member_id) > 0"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
+        + " where be_notification_pending"
+        +     (be_selected_only ? " and be_selected" : k.EMPTY)
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +   " and (member.agency_id = '" + publisher_member_agency_id + "'" + liberal_conditions + " )",
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return be_pending_notifications;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";
@@ -811,6 +840,7 @@ namespace Class_db_schedule_assignments
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
         + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant"
+        + " , be_notification_pending"
         + " , member.email_address"
         + " , member.phone_num"
         + " from member"
@@ -845,7 +875,14 @@ namespace Class_db_schedule_assignments
         +       " )"
         +     " )"
         +   " left join"
-        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + ") as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        +     " ("
+        +     " select distinct member_id"
+        +     " , IF(max(be_notification_pending),'**','') as be_notification_pending"
+        +     " from schedule_assignment"
+        +     " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +     " group by member_id"
+        +     " ) as condensed_schedule_assignment"
+        +     " on (condensed_schedule_assignment.member_id=member.id)"
         + filter
         + " order by " + sort_order,
         connection

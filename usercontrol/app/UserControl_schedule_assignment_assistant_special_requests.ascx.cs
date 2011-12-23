@@ -139,7 +139,7 @@ namespace UserControl_schedule_assignment_assistant_special_requests
     protected void Q_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
+      var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
         p.num_datagrid_rows++;

@@ -74,7 +74,7 @@ namespace UserControl_ranked_fleet_tracking_participation
 
         private void DataGrid_detail_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
         {
-            if (new ArrayList(new object[] {ListItemType.Item, ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+            if (new ArrayList {ListItemType.Item,ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
             {
                 // We are dealing with a data row, not a header or footer row.
                 p.rank = p.rank + 1;

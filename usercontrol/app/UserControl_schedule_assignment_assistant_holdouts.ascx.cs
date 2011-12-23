@@ -20,6 +20,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
@@ -43,8 +44,9 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       public const int TCI_BE_RELEASED = 2;
       public const int TCI_BE_COMPLIANT = 3;
       public const int TCI_COMPLIANCY_MARK = 4;
-      public const int TCI_EMAIL_ADDRESS = 5;
-      public const int TCI_PHONE_NUM = 6;
+      public const int TCI_BE_NOTIFICATION_PENDING = 5;
+      public const int TCI_EMAIL_ADDRESS = 6;
+      public const int TCI_PHONE_NUM = 7;
       }
 
     private p_type p;
@@ -116,12 +118,14 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       (
       string agency_filter,
       string release_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      bool be_post_publish_submissions_detected
       )
       {
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
       p.relative_month = relative_month;
+      p.be_post_publish_submissions_detected = be_post_publish_submissions_detected;
       Bind();
       }
 
@@ -136,6 +140,8 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       p.distribution_list = k.EMPTY;
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].Visible =
+        p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1"}).Contains(p.compliancy_filter);
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
@@ -160,7 +166,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     protected void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
+      var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
         e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].Text = k.FormatAsNanpPhoneNum(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].Text);
@@ -185,6 +191,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].ForeColor = Color.Gray;
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = (compliancy_text == "1");
+          //
+          if (p.be_post_publish_submissions_detected)
+            {
+            e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].ForeColor = Color.Orange;
+            }
           }
         p.num_datagrid_rows++;
         }
@@ -195,6 +206,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].Controls[0]) as LinkButton));
           //
           // Remove all cell controls from viewstate.
           //
@@ -244,10 +256,13 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
-      p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.member_agency_id = p.biz_members.AgencyIdOfId(p.msg_protected_member_schedule_detail.member_id);
-      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+      if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
+        {
+        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
+        p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
+        p.msg_protected_member_schedule_detail.member_agency_id = p.biz_members.AgencyIdOfId(p.msg_protected_member_schedule_detail.member_id);
+        MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+        }
       }
 
     }

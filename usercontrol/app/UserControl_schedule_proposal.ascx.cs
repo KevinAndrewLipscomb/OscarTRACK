@@ -552,7 +552,7 @@ namespace UserControl_schedule_proposal
 
     protected void A_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
       {
-      var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
+      var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (e.Item.ItemType == ListItemType.Header)
         {
         e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();

@@ -50,7 +50,13 @@
           </table>
         </td>
       </tr>
-      <tr><td>&nbsp;</td></tr>
+      <tr>
+        <td>
+          <small>
+            <asp:Label ID="Label_post_publish_submissions" runat="server" Text="**Post-publish submissions detected.  Check Compliancy:Submitters." ForeColor="Orange" Font-Bold="True" Font-Italic="True" Visible="False"></asp:Label>&nbsp;
+          </small>
+        </td>
+      </tr>
       <tr>
         <td>
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">

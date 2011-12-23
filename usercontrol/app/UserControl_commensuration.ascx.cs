@@ -101,7 +101,7 @@ namespace UserControl_commensuration
                 {
                     data_grid_item = data_grid_item_collection[(int)i];
                     item_type = data_grid_item.ItemType;
-                    if (new ArrayList(new object[] {ListItemType.Item, ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(item_type))
+                    if (new ArrayList {ListItemType.Item,ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(item_type))
                     {
                         table_cell_collection = data_grid_item.Cells;
                         num_forecast = decimal.Parse(k.Safe(table_cell_collection[Units.UserControl_commensuration.TCCI_FORECAST].Text, k.safe_hint_type.REAL_NUM));

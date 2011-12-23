@@ -97,6 +97,18 @@ namespace Class_biz_schedule_assignments
       return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]));
       }
 
+    internal bool BePendingNotifications
+      (
+      k.subtype<int> relative_month,
+      string publisher_member_id,
+      string publisher_member_agency_id,
+      bool be_virgin_watchbill,
+      bool be_selected_only
+      )
+      {
+      return db_schedule_assignments.BePendingNotifications(relative_month,publisher_member_id,publisher_member_agency_id,be_virgin_watchbill,be_selected_only);
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       return db_schedule_assignments.Bind(partial_spec, target);
@@ -600,7 +612,7 @@ namespace Class_biz_schedule_assignments
       {
       db_schedule_assignments.Update(relative_month,(relative_month == "0") || BeOkToWorkOnNextMonth());
       //
-      // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automaticaly made by the Update.
+      // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
       //
       var relative_month_int = int.Parse(relative_month);
       var relative_month_subtype = new k.subtype<int>(relative_month_int,relative_month_int);
