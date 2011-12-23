@@ -18,6 +18,7 @@ namespace report_commanded_member_schedule_detail
 
     private struct p_type
       {
+      public bool be_limited_preview;
       public bool be_virgin_watchbill;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_members biz_members;
@@ -59,7 +60,7 @@ namespace report_commanded_member_schedule_detail
         HyperLink_web_site.Text = url;
         HyperLink_web_site.NavigateUrl = url;
         //
-        Literal_publisher.Text = p.publisher;
+        Literal_publisher.Text = p.publisher + (p.be_limited_preview ? " performing a Refresh" : k.EMPTY);
         }
       }
 
@@ -79,6 +80,7 @@ namespace report_commanded_member_schedule_detail
         p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
+        p.be_limited_preview = bool.Parse(k.Safe(Request["be_limited_preview"],k.safe_hint_type.ALPHA));
         p.be_virgin_watchbill = bool.Parse(k.Safe(Request["be_virgin_watchbill"],k.safe_hint_type.ALPHA));
         p.member_agency_id = k.Safe(Request["member_agency_id"],k.safe_hint_type.NUM);
         p.member_id = k.Safe(Request["member_id"],k.safe_hint_type.NUM);
@@ -90,7 +92,7 @@ namespace report_commanded_member_schedule_detail
         SessionSet("mode:report",k.EMPTY);
         //
         UserControl_member_schedule_detail_control.SetInteractivity(false);
-        UserControl_member_schedule_detail_control.SetFilter(p.member_agency_id,p.relative_month,p.member_id,p.be_virgin_watchbill);
+        UserControl_member_schedule_detail_control.SetFilter(p.member_agency_id,p.relative_month,p.member_id,p.be_virgin_watchbill,p.be_limited_preview);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -127,28 +129,45 @@ namespace report_commanded_member_schedule_detail
         {
         other_squad_schedule_monitor_target = k.COMMA + other_squad_schedule_monitor_target;
         }
-      var member_email_address = p.biz_members.EmailAddressOf(p.member_id).Trim();
-      var cc_target = k.EMPTY;
+      var member_email_address = (p.be_limited_preview ? k.EMPTY : p.biz_members.EmailAddressOf(p.member_id).Trim());
+      var officer_target = k.EMPTY;
       if (!p.be_virgin_watchbill)
         {
-        cc_target = squad_scheduler_target
+        officer_target = squad_scheduler_target
         + squad_schedule_monitor_target
         + other_squad_schedule_coordinator_target
         + other_squad_schedule_monitor_target
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf((p.biz_members.BeReleased(p.member_id) ? "Department Chief Scheduler" : "Department Jump Seat Scheduler"),"EMS");
         }
-      k.SmtpMailSend
-        (
-        ConfigurationManager.AppSettings["sender_email_address"],
-        (member_email_address.Length > 0 ? member_email_address : "MEMBER_EMAIL_ADDRESS_NOT_KNOWN@frompaper2web.com"),
-        DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (REVISED)"),
-        body,
-        true,
-        cc_target,
-        k.EMPTY,
-        squad_scheduler_target
-        );
+      if (p.be_limited_preview)
+        {
+        k.SmtpMailSend
+          (
+          from:ConfigurationManager.AppSettings["sender_email_address"],
+          to:officer_target,
+          subject:DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (*PREVIEW*)"),
+          message_string:body,
+          be_html:true,
+          cc:k.EMPTY,
+          bcc:k.EMPTY,
+          reply_to:ConfigurationManager.AppSettings["bouncer_email_address"]
+          );
+        }
+      else
+        {
+        k.SmtpMailSend
+          (
+          from:ConfigurationManager.AppSettings["sender_email_address"],
+          to:(member_email_address.Length > 0 ? member_email_address : "MEMBER_EMAIL_ADDRESS_NOT_KNOWN@frompaper2web.com"),
+          subject:DateTime.Today.AddMonths(p.relative_month.val).ToString("MMMM").ToUpper() + " Schedule Assignments" + (p.be_virgin_watchbill ? k.EMPTY : " (REVISED)"),
+          message_string:body,
+          be_html:true,
+          cc:officer_target,
+          bcc:k.EMPTY,
+          reply_to:squad_scheduler_target
+          );
+        }
       Session.Abandon();
       }
 

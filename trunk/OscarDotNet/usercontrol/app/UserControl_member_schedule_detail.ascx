@@ -22,7 +22,9 @@
     <td>
       <table cellpadding="10" cellspacing="0">
         <tr>
-          <td bgcolor="WhiteSmoke"><strong>Member schedule detail</strong></td>
+          <td bgcolor="WhiteSmoke">
+            <strong>Member schedule detail&nbsp;<asp:Label ID="Label_preview_warning" runat="server" Text="-- Not yet published to member!" Font-Italic="True" ForeColor="Red" Visible="False"></asp:Label></strong>
+          </td>
         </tr>
         <tr>
           <td>

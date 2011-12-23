@@ -461,11 +461,12 @@ namespace Class_biz_schedule_assignments
         );
       }
 
-    internal void PublishPendingNotifications
+    private void PublishPendingNotifications
       (
       k.subtype<int> relative_month,
       bool be_virgin_watchbill,
-      string working_directory
+      string working_directory,
+      bool be_limited_preview
       )
       {
       var arguments = new ArrayList();
@@ -492,6 +493,7 @@ namespace Class_biz_schedule_assignments
           +   "&other_agency_ids=" + other_agency_ids
           +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
           +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(publisher_member_id) + k.SPACE + biz_members.LastNameOfMemberId(publisher_member_id) + "\""
+          +   "&be_limited_preview=" + be_limited_preview.ToString()
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx\""
           );
@@ -499,7 +501,14 @@ namespace Class_biz_schedule_assignments
         other_agency_ids_q.Enqueue(other_agency_ids);
         }
       k.RunCommandIteratedOverArguments("c:\\cygwin\\bin\\wget",arguments,working_directory,out stdout,out stderr);
-      db_schedule_assignments.MarkNotificationsMade(member_id_q,relative_month);
+      if (!be_limited_preview)
+        {
+        db_schedule_assignments.MarkNotificationsMade(member_id_q,relative_month);
+        }
+      }
+    internal void PublishPendingNotifications(k.subtype<int> relative_month,bool be_virgin_watchbill,string working_directory)
+      {
+      PublishPendingNotifications(relative_month,be_virgin_watchbill,working_directory,be_limited_preview:false);
       }
 
     internal void Purge()
@@ -583,9 +592,23 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
-    internal void Update(string relative_month)
+    internal void Update
+      (
+      string relative_month,
+      string working_directory
+      )
       {
       db_schedule_assignments.Update(relative_month,(relative_month == "0") || BeOkToWorkOnNextMonth());
+      //
+      // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automaticaly made by the Update.
+      //
+      var relative_month_int = int.Parse(relative_month);
+      var relative_month_subtype = new k.subtype<int>(relative_month_int,relative_month_int);
+      var be_virgin_watchbill = BeFullWatchbillPublishMandatory(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())),relative_month_subtype);
+      if (!be_virgin_watchbill)
+        {
+        PublishPendingNotifications(relative_month_subtype,be_virgin_watchbill,working_directory,be_limited_preview:true);
+        }
       }
 
     } // end TClass_biz_schedule_assignments

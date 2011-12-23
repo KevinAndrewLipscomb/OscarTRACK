@@ -13,6 +13,15 @@ namespace UserControl_member_schedule_detail {
     public partial class TWebUserControl_member_schedule_detail {
         
         /// <summary>
+        /// Label_preview_warning control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_preview_warning;
+        
+        /// <summary>
         /// Literal_name control.
         /// </summary>
         /// <remarks>

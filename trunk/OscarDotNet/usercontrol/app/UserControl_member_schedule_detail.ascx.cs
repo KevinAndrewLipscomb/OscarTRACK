@@ -24,6 +24,7 @@ namespace UserControl_member_schedule_detail
     public bool be_any_revisions;
     public bool be_datagrid_empty;
     public bool be_editable;
+    public bool be_limited_preview;
     public bool be_loaded;
     public bool be_my_watchbill_mode;
     public bool be_virgin_watchbill;
@@ -81,6 +82,8 @@ namespace UserControl_member_schedule_detail
       {
       if (!p.be_loaded)
         {
+        Label_preview_warning.Visible = p.be_limited_preview;
+        //
         var month_of_interest = DateTime.Now.AddMonths(p.relative_month.val);
         Literal_name.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
         Literal_name_2.Text = Literal_name.Text;
@@ -145,6 +148,7 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
         p.be_editable = ((Session["mode:report"] == null) && k.Has((Session["privilege_array"] as string[]),"edit-schedule"));
+        p.be_limited_preview = false;
         p.be_my_watchbill_mode = InstanceId().Contains("ASP.protected_overview_aspx");
         p.be_virgin_watchbill = true;
         p.member_agency_id = k.EMPTY;
@@ -483,29 +487,31 @@ namespace UserControl_member_schedule_detail
       CalendarDayRender(p.arraylist_revised_night_avail,p.arraylist_selected_night_avail,p.arraylist_unselected_night_avail,e);
       }
 
+
     internal void SetFilter
       (
       string member_agency_id,
       k.subtype<int> relative_month,
       string member_id,
-      bool be_virgin_watchbill
+      bool be_virgin_watchbill,
+      bool be_limited_preview
       )
       {
       p.member_id = member_id;
       p.member_agency_id = member_agency_id;
       p.relative_month = relative_month;
       p.be_virgin_watchbill = be_virgin_watchbill;
+      p.be_limited_preview = be_limited_preview;
       p.be_editable = p.biz_schedule_assignments.BeOkToEditPerExclusivityRules(Session,member_agency_id,relative_month);
       Bind();
       }
-    internal void SetFilter
-      (
-      string member_agency_id,
-      k.subtype<int> relative_month,
-      string member_id
-      )
+    internal void SetFilter(string member_agency_id,k.subtype<int> relative_month,string member_id,bool be_virgin_watchbill)
       {
-      SetFilter(member_agency_id,relative_month,member_id,true);
+      SetFilter(member_agency_id,relative_month,member_id,be_virgin_watchbill,be_limited_preview:false);
+      }
+    internal void SetFilter(string member_agency_id,k.subtype<int> relative_month,string member_id)
+      {
+      SetFilter(member_agency_id,relative_month,member_id,be_virgin_watchbill:true);
       }
 
     internal void SetInteractivity(bool be_interactive)
