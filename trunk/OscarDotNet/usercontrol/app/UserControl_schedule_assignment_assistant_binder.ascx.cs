@@ -6,11 +6,6 @@ using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
 using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
 using UserControl_schedule_assignment_assistant_intro;
@@ -35,6 +30,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public string agency_filter;
     public bool be_loaded;
     public bool be_ok_to_edit_schedule;
+    public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
@@ -44,6 +40,8 @@ namespace UserControl_schedule_assignment_assistant_binder
     public k.subtype<int> relative_month;
     public string release_filter;
     public uint tab_index;
+    public string user_member_id;
+    public string user_member_agency_id;
     }
 
   public partial class TWebUserControl_schedule_assignment_assistant_binder: ki_web_ui.usercontrol_class
@@ -57,6 +55,17 @@ namespace UserControl_schedule_assignment_assistant_binder
     protected TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
     protected TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
 
+    private void ManagePostPublishSubmissionDetection()
+      {
+      p.be_post_publish_submissions_detected = false;
+      if (!p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter, p.relative_month))
+        {
+        p.be_post_publish_submissions_detected =
+          p.biz_schedule_assignments.BePendingNotifications(p.relative_month, p.user_member_id, p.user_member_agency_id, be_virgin_watchbill:false,be_selected_only:true);
+        }
+      Label_post_publish_submissions.Visible = p.be_ok_to_edit_schedule && p.be_post_publish_submissions_detected;
+      }
+
     private void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
@@ -67,6 +76,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
         RadioButtonList_which_month.Enabled = ((p.be_ok_to_edit_schedule || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
+        ManagePostPublishSubmissionDetection();
         TabPanel_holdouts.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
@@ -104,10 +114,13 @@ namespace UserControl_schedule_assignment_assistant_binder
         //
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        p.agency_filter = (p.biz_schedule_assignments.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
+        p.user_member_id = Session["member_id"].ToString();
+        p.user_member_agency_id = p.biz_members.AgencyIdOfId(p.user_member_id);
+        p.agency_filter = (p.biz_schedule_assignments.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.user_member_agency_id);
         p.be_loaded = false;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        //
         if (p.be_ok_to_edit_schedule)
           {
           p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
@@ -116,6 +129,7 @@ namespace UserControl_schedule_assignment_assistant_binder
           {
           p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
           }
+        //
         FillPlaceHolder(true);
         }
       }
@@ -128,6 +142,10 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private void TWebUserControl_schedule_assignment_assistant_binder_PreRender(object sender, System.EventArgs e)
       {
+      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
+        {
+        ManagePostPublishSubmissionDetection();
+        }
       //
       // Indicate to children which content control was active on this pass, so that on subsequent passes a child can detect whether or
       // not it is already loaded in the user's browser.
@@ -145,12 +163,14 @@ namespace UserControl_schedule_assignment_assistant_binder
     protected void Button_refresh_Click(object sender, System.EventArgs e)
       {
       p.biz_schedule_assignments.Update(p.relative_month.val.ToString(),working_directory:Server.MapPath("scratch"));
+      ManagePostPublishSubmissionDetection();
       Bind();
       }
 
     protected void DropDownList_agency_filter_SelectedIndexChanged(object sender, System.EventArgs e)
       {
       p.agency_filter = k.Safe(DropDownList_agency_filter.SelectedValue,k.safe_hint_type.NUM);
+      ManagePostPublishSubmissionDetection();
       Bind();
       }
 
@@ -163,6 +183,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     protected void RadioButtonList_which_month_SelectedIndexChanged(object sender, System.EventArgs e)
       {
       p.relative_month.val = int.Parse(k.Safe(RadioButtonList_which_month.SelectedValue,k.safe_hint_type.NUM));
+      ManagePostPublishSubmissionDetection();
       Bind();
       }
 
@@ -177,7 +198,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       {
       if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
         {
-        UserControl_schedule_assignment_assistant_holdouts.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        UserControl_schedule_assignment_assistant_holdouts.SetFilter(p.agency_filter,p.release_filter,p.relative_month,p.be_post_publish_submissions_detected);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
         {
@@ -207,7 +228,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         var c = UserControl_schedule_assignment_assistant_holdouts;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_holdouts",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
-        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month,p.be_post_publish_submissions_detected);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
         {
@@ -242,7 +263,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
       {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
+      FillPlaceHolder(be_fresh_control_required,target:k.EMPTY);
       }
 
     public void SetTarget(string target)

@@ -190,7 +190,7 @@ namespace UserControl_efficipay
 
     private void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
-      if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+      if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
         p.msg_protected_efficipay_docket_detail.summary = p.biz_efficipay_dockets.Summary(k.Safe(e.Item.Cells[UserControl_efficipay_Static.TCI_ID].Text,k.safe_hint_type.NUM));
         MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_docket_detail");
@@ -202,7 +202,7 @@ namespace UserControl_efficipay
       LinkButton link_button;
       if (p.be_interactive)
         {
-        if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
+        if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
           {
           link_button = ((e.Item.Cells[UserControl_efficipay_Static.TCI_SELECT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);

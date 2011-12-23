@@ -138,7 +138,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
     protected void W_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
+      var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
         e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName

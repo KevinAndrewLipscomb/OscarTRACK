@@ -191,7 +191,7 @@ namespace UserControl_watchbill_maag
 
     void data_grid_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
-      var be_any_kind_of_item = (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}).Contains(e.Item.ItemType));
+      var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
         var current_unit_spec = e.Item.Cells[UserControl_watchbill_maag_Static.TCI_POST_DESIGNATOR].Text + "--" + e.Item.Cells[UserControl_watchbill_maag_Static.TCI_POST_CARDINALITY].Text;
