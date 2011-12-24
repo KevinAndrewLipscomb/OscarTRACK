@@ -36,6 +36,49 @@ namespace Class_db_schedule_assignments
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeAdventitiousChangeDetected
+      (
+      string user_id,
+      k.subtype<int> relative_month,
+      bool be_virgin_watchbill
+      )
+      {
+      var be_adventitious_change_detected = false;
+      var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = subject.agency_id or agency_satellite_station.agency_id = subject.agency_id");
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        be_adventitious_change_detected = "1" == new MySqlCommand
+          (
+          "select count(*)"
+          + " from schedule_assignment"
+          +   " join member subject on (subject.id=schedule_assignment.reviser_member_id)"
+          +   " join user_member_map on (user_member_map.member_id=subject.id)"
+          +   " join user on (user.id=user_member_map.user_id)"
+          +   " join member object on (object.id=schedule_assignment.member_id)"
+          +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
+          + " where be_selected"
+          +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+          +   " and (object.agency_id = subject.agency_id" + liberal_conditions + " )"
+          +   " and reviser_member_id is null or user.id <> '" + user_id + "'"
+          +   " and schedule_assignment.last_revised > user.last_login",
+          connection,
+          transaction
+          )
+          .ExecuteScalar().ToString();
+        new MySqlCommand("update user set last_login = NOW() where id = '" + user_id + "'",connection,transaction).ExecuteNonQuery(); // Deliberately not db_trail.Saved.
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
+      return be_adventitious_change_detected;
+      }
+
     internal bool BeNotificationPendingForAllInScope
       (
       string agency_filter,

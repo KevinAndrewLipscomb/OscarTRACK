@@ -1,0 +1,5 @@
+START TRANSACTION
+;
+ALTER TABLE `schedule_assignment` ADD COLUMN `last_revised` TIMESTAMP NOT NULL
+;
+COMMIT

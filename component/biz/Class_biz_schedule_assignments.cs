@@ -109,6 +109,16 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BePendingNotifications(relative_month,publisher_member_id,publisher_member_agency_id,be_virgin_watchbill,be_selected_only);
       }
 
+    internal bool BeAdventitiousChangeDetected
+      (
+      string user_id,
+      k.subtype<int> relative_month,
+      bool be_virgin_watchbill
+      )
+      {
+      return db_schedule_assignments.BeAdventitiousChangeDetected(user_id,relative_month,be_virgin_watchbill);
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       return db_schedule_assignments.Bind(partial_spec, target);

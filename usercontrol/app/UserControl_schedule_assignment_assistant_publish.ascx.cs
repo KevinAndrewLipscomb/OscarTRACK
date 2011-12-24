@@ -41,6 +41,14 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (!p.be_loaded)
         {
+        RequireConfirmation
+          (
+          c:Button_publish,
+          prompt:"During this login session, did you thoroughly review the Alerts, the Special requests, and the yellow highlighted portions of your Watchbill?  If not, you may have missed assignments we made to your schedule"
+          + " as a result of another editor performing a Refresh, which imports new availabilities." + k.NEW_LINE
+          + k.NEW_LINE
+          + "Click OK to proceed with publishing."
+          );
         p.be_loaded = true;
         }
       }
@@ -115,25 +123,43 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (Page.IsValid)
         {
-        var working_directory = Server.MapPath("scratch");
-        if (CheckBox_full.Checked)
+        if (p.biz_schedule_assignments.BeAdventitiousChangeDetected(p.biz_user.IdNum(),p.relative_month,p.be_virgin_watchbill))
           {
-          p.biz_schedule_assignments.PublishFullWatchbill
+          Alert
             (
-            p.agency_filter,
-            p.release_filter,
+            k.alert_cause_type.APPDATA,
+            k.alert_state_type.FAILURE,
+            key:"othrevdet",
+            value:"It turns out that after you logged in (or previously attempted to PUBLISH your schedule in this login session), another editor *did* perform a Refresh that imported new availabilities into your schedule,"
+            + " some of which have been selected for duty.  This may have occurred even *while* you were reading the previous prompt.  We strongly encourage you to review the Submitters list (sorted by time of submission), the"
+            + " Alerts, the Special requests, and the yellow highlighted areas of your Watchbill *again* before publishing." + k.NEW_LINE
+            + k.NEW_LINE
+            + "Publishing has been canceled.  The PUBLISH button will be disabled until you navigate away from the Publish tab.",
+            be_using_scriptmanager:true
+            );
+          }
+        else
+          {
+          var working_directory = Server.MapPath("scratch");
+          if (CheckBox_full.Checked)
+            {
+            p.biz_schedule_assignments.PublishFullWatchbill
+              (
+              p.agency_filter,
+              p.release_filter,
+              p.relative_month,
+              RadioButton_scalable.Checked,
+              working_directory
+              );
+            Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",be_using_scriptmanager:true);
+            }
+          p.biz_schedule_assignments.PublishPendingNotifications
+            (
             p.relative_month,
-            RadioButton_scalable.Checked,
+            p.be_virgin_watchbill,
             working_directory
             );
-          Alert(k.alert_cause_type.USER,k.alert_state_type.SUCCESS,"publishing","The server is now publishing the watchbill.",true);
           }
-        p.biz_schedule_assignments.PublishPendingNotifications
-          (
-          p.relative_month,
-          p.be_virgin_watchbill,
-          working_directory
-          );
         Button_publish.Enabled = false;
         }
       }
