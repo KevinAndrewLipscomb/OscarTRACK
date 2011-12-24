@@ -49,10 +49,10 @@
                           <asp:Image ID="Image_compliant" runat="server" ImageUrl="~/protected/image/dialog-clean.png" Visible="False" />
                           <asp:Image ID="Image_noncompliant" runat="server" ImageUrl="~/protected/image/appointment-missed.png" Visible="False" />
                         </ItemTemplate>
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
+                        <ItemStyle HorizontalAlign="Right" />
                       </asp:TemplateColumn>
                       <asp:ButtonColumn CommandName="Select" DataTextField="be_notification_pending" HeaderText="**" SortExpression="be_notification_pending%,member.last_name,member.first_name">
-                        <ItemStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" Wrap="False" />
+                        <ItemStyle Font-Bold="True" Wrap="False" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="email_address" HeaderText="Email address"></asp:BoundColumn>
                       <asp:BoundColumn DataField="phone_num" HeaderText="Phone #"></asp:BoundColumn>

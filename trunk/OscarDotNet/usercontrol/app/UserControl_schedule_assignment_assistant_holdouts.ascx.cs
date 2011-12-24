@@ -187,14 +187,14 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           }
         else
           {
-          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS].ForeColor = Color.Gray;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM].ForeColor = Color.Gray;
+          LabelizeAndSetTextForeColor(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED],Color.Gray);
+          LabelizeAndSetTextForeColor(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_EMAIL_ADDRESS],Color.Gray);
+          LabelizeAndSetTextForeColor(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_PHONE_NUM],Color.Gray);
           e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = (compliancy_text == "1");
           //
           if (p.be_post_publish_submissions_detected)
             {
-            e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].ForeColor = Color.Orange;
+            LabelizeAndSetTextForeColor(e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING],Color.DarkOrange);
             }
           }
         p.num_datagrid_rows++;

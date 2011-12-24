@@ -53,7 +53,7 @@
       <tr>
         <td>
           <small>
-            <asp:Label ID="Label_post_publish_submissions" runat="server" Text="**Post-publish submissions detected.  Check Compliancy:Submitters." ForeColor="Orange" Font-Bold="True" Font-Italic="True" Visible="False"></asp:Label>&nbsp;
+            <asp:Label ID="Label_post_publish_submissions" runat="server" Text="**Post-publish submissions detected.  Check Compliancy:Submitters." ForeColor="DarkOrange" Font-Bold="True" Font-Italic="True" Visible="False"></asp:Label>&nbsp;
           </small>
         </td>
       </tr>

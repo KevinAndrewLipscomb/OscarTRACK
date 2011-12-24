@@ -31,7 +31,7 @@ namespace verify_efficipay_signature
         {
         Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - verify_efficipay_signature";
         p.biz_efficipay_tokens.BindTimePeriodsToListControl(DropDownList_time_period);
-        Focus(TextBox_check_num, true);
+        TextBox_check_num.Focus();
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -97,6 +97,7 @@ namespace verify_efficipay_signature
       TextBox_signer_first_name.Text = k.EMPTY;
       TextBox_signer_last_name.Text = k.EMPTY;
       TextBox_hex_code.Text = k.EMPTY;
+      TextBox_check_num.Focus();
       }
 
     protected void LinkButton_go_back_Click(object sender, EventArgs e)
