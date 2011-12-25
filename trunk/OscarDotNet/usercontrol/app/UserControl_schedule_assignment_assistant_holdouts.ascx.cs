@@ -206,7 +206,6 @@ namespace UserControl_schedule_assignment_assistant_holdouts
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].Controls[0]) as LinkButton));
           //
           // Remove all cell controls from viewstate.
           //
