@@ -51,9 +51,9 @@
                         </ItemTemplate>
                         <ItemStyle HorizontalAlign="Right" />
                       </asp:TemplateColumn>
-                      <asp:ButtonColumn CommandName="Select" DataTextField="be_notification_pending" HeaderText="**" SortExpression="be_notification_pending%,member.last_name,member.first_name">
+                      <asp:BoundColumn DataField="be_notification_pending" HeaderText="**" SortExpression="be_notification_pending%,member.last_name,member.first_name">
                         <ItemStyle Font-Bold="True" Wrap="False" />
-                      </asp:ButtonColumn>
+                      </asp:BoundColumn>
                       <asp:BoundColumn DataField="email_address" HeaderText="Email address"></asp:BoundColumn>
                       <asp:BoundColumn DataField="phone_num" HeaderText="Phone #"></asp:BoundColumn>
                     </Columns>
