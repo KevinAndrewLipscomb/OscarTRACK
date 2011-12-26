@@ -44,7 +44,7 @@ namespace Class_db_schedule_assignments
       )
       {
       var be_adventitious_change_detected = false;
-      var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = subject.agency_id or agency_satellite_station.agency_id = subject.agency_id");
+      var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = this_member.agency_id or agency_satellite_station.agency_id = this_member.agency_id");
       Open();
       var transaction = connection.BeginTransaction();
       try
@@ -53,16 +53,19 @@ namespace Class_db_schedule_assignments
           (
           "select count(*)"
           + " from schedule_assignment"
-          +   " join member subject on (subject.id=schedule_assignment.reviser_member_id)"
-          +   " join user_member_map on (user_member_map.member_id=subject.id)"
-          +   " join user on (user.id=user_member_map.user_id)"
-          +   " join member object on (object.id=schedule_assignment.member_id)"
+          +   " join member reviser_member on (reviser_member.id=schedule_assignment.reviser_member_id)"
+          +   " join user_member_map reviser_user_member_map on (reviser_user_member_map.member_id=reviser_member.id)"
+          +   " join user reviser_user on (reviser_user.id=reviser_user_member_map.user_id)"
+          +   " join member assignment_member on (assignment_member.id=schedule_assignment.member_id)"
           +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=schedule_assignment.post_id)"
+          +   " join user this_user on (this_user.id = '" + user_id + "')"
+          +   " join user_member_map this_user_member_map on (this_user_member_map.user_id=this_user.id)"
+          +   " join member this_member on (this_member.id=this_user_member_map.member_id)"
           + " where be_selected"
           +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-          +   " and (object.agency_id = subject.agency_id" + liberal_conditions + " )"
-          +   " and reviser_member_id is null or user.id <> '" + user_id + "'"
-          +   " and schedule_assignment.last_revised > user.last_login",
+          +   " and (assignment_member.agency_id = this_member.agency_id" + liberal_conditions + " )"
+          +   " and (reviser_member_id is null or reviser_user.id <> '" + user_id + "')"
+          +   " and schedule_assignment.last_revised > this_user.last_login",
           connection,
           transaction
           )
