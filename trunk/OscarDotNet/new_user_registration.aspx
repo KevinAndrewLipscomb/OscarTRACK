@@ -4,15 +4,14 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-	<title/>
-      <!-- $Id$ -->
-    <link href="../css/standard.css" rel="stylesheet" type="text/css" />
-    <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
+    <!-- $Id$ -->
+    <title></title>
+    <link href="css/standard.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
+    <script type="text/javascript" src="js/sha1.js"></script>
   </head>
-
   <body bgcolor="white">
-     <form runat="server">
-
+     <form id="Form_control" runat="server">
      <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent><p>
         <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
             <tr>
@@ -38,7 +37,7 @@
                                   <p align="right">Enter your preferred <strong>password</strong>:
                                   </p></td>
                                 <td><ASP:TextBox id="TextBox_nominal_password" runat="server" maxlength="40" textmode="Password"></ASP:TextBox></td>
-                                <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" errormessage="Please enter a nominal password." font-bold="True" controltovalidate="TextBox_nominal_password">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_password" runat="server" errormessage="Please use only letter, number, hyphen ('-'), and underscore ('_') characters (or local equivalents) in your password." font-bold="True" controltovalidate="TextBox_nominal_password" validationexpression="[\w-]+">!ERR!</ASP:RegularExpressionValidator></td>
+                                <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" errormessage="Please enter a nominal password." font-bold="True" controltovalidate="TextBox_nominal_password">!ERR!</ASP:RequiredFieldValidator></td>
                               </tr>
                               <tr>
                                 <td>

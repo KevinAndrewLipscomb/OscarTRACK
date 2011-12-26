@@ -13,6 +13,15 @@ namespace login {
     public partial class TWebForm_login {
         
         /// <summary>
+        /// Form_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm Form_control;
+        
+        /// <summary>
         /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
@@ -101,15 +110,6 @@ namespace login {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_password;
-        
-        /// <summary>
-        /// RegularExpressionValidator_password control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_password;
         
         /// <summary>
         /// CheckBox_keep_me_logged_in control.

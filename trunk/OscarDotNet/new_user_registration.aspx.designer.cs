@@ -13,6 +13,15 @@ namespace new_user_registration {
     public partial class TWebForm_new_user_registration {
         
         /// <summary>
+        /// Form_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlForm Form_control;
+        
+        /// <summary>
         /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
@@ -83,15 +92,6 @@ namespace new_user_registration {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_nominal_password;
-        
-        /// <summary>
-        /// RegularExpressionValidator_nominal_password control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_nominal_password;
         
         /// <summary>
         /// TextBox_confirmation_password control.

@@ -5,11 +5,13 @@
 <html>
   <head runat="server">
     <!-- $Id$ -->
+    <title></title>
     <link href="css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
+    <script type="text/javascript" src="js/sha1.js"></script>
   </head>
   <body bgcolor="white">
-    <form runat="server">
+    <form id="Form_control" runat="server">
     <uc1:UserControl_precontent ID="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
     <table>
       <tr>
@@ -20,18 +22,16 @@
                 <table cellspacing="0" cellpadding="5" border="0">
                   <tr>
                     <td bgcolor="#f5f5f5">
-                      <strong>
-                        <table cellspacing="0" cellpadding="0" width="100%" border="0">
-                          <tr>
-                            <td><strong>Log in</strong></td>
-                            <td>
-                              <div align="right">
-                                <asp:CustomValidator ID="CustomValidator_account_exists" runat="server" ErrorMessage="Invalid user/password combination. Please try again." Font-Bold="True" OnServerValidate="CustomValidator_account_exists_ServerValidate">!ERR!</asp:CustomValidator>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                      </strong>
+                      <table cellspacing="0" cellpadding="0" width="100%" border="0">
+                        <tr>
+                          <td><strong>Log in</strong></td>
+                          <td>
+                            <div align="right">
+                              <asp:CustomValidator ID="CustomValidator_account_exists" runat="server" ErrorMessage="Invalid user/password combination. Please try again." Font-Bold="True" OnServerValidate="CustomValidator_account_exists_ServerValidate">!ERR!</asp:CustomValidator>
+                            </div>
+                          </td>
+                        </tr>
+                      </table>
                     </td>
                   </tr>
                   <tr>
@@ -43,7 +43,7 @@
                           <td>
                             <p>
                               <small>
-                                <asp:LinkButton ID="LinkButton_new_user" runat="server" CausesValidation="False" TabIndex="5" OnClick="LinkButton_new_user_Click">New user?</asp:LinkButton><br>
+                                <asp:LinkButton ID="LinkButton_new_user" runat="server" CausesValidation="False" TabIndex="5" OnClick="LinkButton_new_user_Click">New user?</asp:LinkButton><br />
                                 <asp:LinkButton ID="LinkButton_forgot_username" runat="server" CausesValidation="False" TabIndex="6" OnClick="LinkButton_forgot_username_Click">Forgot username?</asp:LinkButton>
                               </small>
                             </p>
@@ -59,7 +59,6 @@
                           <td><small><asp:LinkButton ID="LinkButton_forgot_password" runat="server" CausesValidation="False" TabIndex="7" OnClick="LinkButton_forgot_password_Click">Forgot password?</asp:LinkButton></small></td>
                           <td>
                             <asp:RequiredFieldValidator ID="RequiredFieldValidator_password" runat="server" ErrorMessage="Please enter a password." Font-Bold="True" ControlToValidate="TextBox_password">!ERR!</asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="RegularExpressionValidator_password" runat="server" ErrorMessage='Please use only letter, number, hyphen ("-"), and underscore ("_") characters (or local equivalents) in your password.' Font-Bold="True" ControlToValidate="TextBox_password" ValidationExpression="[\w-]+">!ERR!</asp:RegularExpressionValidator>
                           </td>
                         </tr>
                         <tr>

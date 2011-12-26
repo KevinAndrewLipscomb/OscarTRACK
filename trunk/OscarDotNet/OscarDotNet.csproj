@@ -85,6 +85,7 @@
     <Content Include="Default.aspx" />
     <Content Include="exception.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="js\sha1.js" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\end_of_month_tasks.aspx" />
