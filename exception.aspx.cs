@@ -35,7 +35,7 @@ namespace exception
             switch(NatureOfVisit(InstanceId() + ".p"))
             {
                 case nature_of_visit_type.VISIT_INITIAL:
-                    Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - exception";
                     var last_error = Server.GetLastError();
                     var base_exception = last_error.GetBaseException();
                     Table_db_down.Visible = false;

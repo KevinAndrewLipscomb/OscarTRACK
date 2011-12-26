@@ -25,6 +25,20 @@ namespace new_user_registration
             this.PreRender += this.TWebForm_new_user_registration_PreRender;
         }
 
+    private void InjectPersistentClientSideScript()
+      {
+      EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
+      EstablishClientSideFunction
+        (
+        "SecurePassword()",
+        k.EMPTY
+        + " if (El('" + TextBox_nominal_password.ClientID + "').value != '') El('" + TextBox_nominal_password.ClientID + "').value = new jsSHA(El('" + TextBox_nominal_password.ClientID + "').value,'ASCII').getHash('HEX');"
+        + " if (El('" + TextBox_confirmation_password.ClientID + "').value != '') El('" + TextBox_confirmation_password.ClientID + "').value = new jsSHA(El('" + TextBox_confirmation_password.ClientID + "').value,'ASCII').getHash('HEX');"
+        );
+      //
+      Form_control.Attributes.Add("onsubmit","SecurePassword()");
+      }
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (IsPostBack)
@@ -54,6 +68,7 @@ namespace new_user_registration
                     Focus(TextBox_username, true);
                 }
             }
+            InjectPersistentClientSideScript();
         }
 
         protected override void OnInit(EventArgs e)
@@ -74,7 +89,7 @@ namespace new_user_registration
             if (Page.IsValid)
             {
                 username = k.Safe(TextBox_username.Text, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
-                p.biz_users.RegisterNew(username, k.Digest(k.Safe(TextBox_nominal_password.Text, k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM)), k.Safe(TextBox_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS));
+                p.biz_users.RegisterNew(username, k.Safe(TextBox_nominal_password.Text, k.safe_hint_type.HEX), k.Safe(TextBox_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS));
                 SessionSet("username", username);
                 SessionSet("user_id", p.biz_users.IdOf(username));
                 FormsAuthentication.RedirectFromLoginPage(username, false);

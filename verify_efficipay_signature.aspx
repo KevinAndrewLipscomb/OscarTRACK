@@ -4,8 +4,8 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-    <link href="../css/standard.css" rel="stylesheet" type="text/css" />
-    <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
+    <link href="css/standard.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
     <!-- $Id$ -->
     <style type="text/css">
       .bordered_cell
@@ -13,7 +13,7 @@
         border: 1px solid gainsboro;
         }
     </style>
-    <title />
+    <title></title>
   </head>
   <body bgcolor="white">
     <form runat="server" defaultbutton="Button_verify">

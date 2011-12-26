@@ -66,7 +66,7 @@ namespace verify_efficipay_signature
             signer_member_id:k.Safe(TextBox_signer_member_id.Text,k.safe_hint_type.NUM),
             signer_first_name:k.Safe(TextBox_signer_first_name.Text,k.safe_hint_type.HUMAN_NAME),
             signer_last_name:k.Safe(TextBox_signer_last_name.Text,k.safe_hint_type.HUMAN_NAME),
-            hex_code:k.Safe(TextBox_hex_code.Text,k.safe_hint_type.ALPHANUM),
+            hex_code:k.Safe(TextBox_hex_code.Text,k.safe_hint_type.HEX),
             token_id:k.Safe(DropDownList_time_period.SelectedValue,k.safe_hint_type.NUM)
             )
           )

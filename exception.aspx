@@ -4,9 +4,11 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
-	  <!-- $Id$ -->
+  <head runat="server">
+    <!-- $Id$ -->
+    <title></title>
+    <link href="css/standard.css" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
 
   <body bgcolor="white">
