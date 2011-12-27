@@ -39,7 +39,7 @@ namespace Class_db_users
         {
             bool result;
             this.Open();
-            result = null != new MySqlCommand("SELECT 1 FROM user" + " where username = \"" + username + "\"" + " and encoded_password = \"" + encoded_password + "\"", this.connection).ExecuteScalar();
+            result = null != new MySqlCommand("SELECT 1 FROM user" + " where username = \"" + username + "\"" + " and encoded_password_hash = SHA1('" + encoded_password + "')", this.connection).ExecuteScalar();
             this.Close();
             return result;
         }
@@ -116,7 +116,7 @@ namespace Class_db_users
             last_login = k.EMPTY;
             result = false;
             this.Open();
-            dr = new MySqlCommand("select username" + " , IFNULL(encoded_password,\"\") as encoded_password" + " , be_stale_password" + " , password_reset_email_address" + " , be_active" + " , num_unsuccessful_login_attempts" + " , IFNULL(last_login,\"\") as last_login" + " from user" + " where username = \"" + username + "\"", this.connection).ExecuteReader();
+            dr = new MySqlCommand("select username" + " , IFNULL(encoded_password_hash,\"\") as encoded_password" + " , be_stale_password" + " , password_reset_email_address" + " , be_active" + " , num_unsuccessful_login_attempts" + " , IFNULL(last_login,\"\") as last_login" + " from user" + " where username = \"" + username + "\"", this.connection).ExecuteReader();
             if (dr.Read())
             {
                 username = dr["username"].ToString();
@@ -204,7 +204,7 @@ namespace Class_db_users
         public void RegisterNew(string username, string encoded_password, string email_address)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("insert into user" + " set username = \"" + username + "\"" + " , encoded_password = \"" + encoded_password + "\"" + " , be_stale_password = FALSE" + " , password_reset_email_address = \"" + email_address + "\"" + " , last_login = NOW()"), this.connection).ExecuteNonQuery();
+            new MySqlCommand(db_trail.Saved("insert into user" + " set username = \"" + username + "\"" + " , encoded_password_hash = SHA1('" + encoded_password + "')" + " , be_stale_password = FALSE" + " , password_reset_email_address = \"" + email_address + "\"" + " , last_login = NOW()"), this.connection).ExecuteNonQuery();
             this.Close();
         }
 
@@ -241,14 +241,14 @@ namespace Class_db_users
         public void SetPassword(string id, string encoded_password)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("update user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = FALSE " + " where id = " + id), this.connection).ExecuteNonQuery();
+            new MySqlCommand(db_trail.Saved("update user" + " set encoded_password_hash = SHA1('" + encoded_password + "')," + " be_stale_password = FALSE " + " where id = " + id), this.connection).ExecuteNonQuery();
             this.Close();
         }
 
         public void SetTemporaryPassword(string username, string encoded_password)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("update user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = TRUE " + " where username = \"" + username + "\""), this.connection).ExecuteNonQuery();
+            new MySqlCommand(db_trail.Saved("update user" + " set encoded_password_hash = SHA1('" + encoded_password + "')," + " be_stale_password = TRUE " + " where username = \"" + username + "\""), this.connection).ExecuteNonQuery();
             this.Close();
         }
 
