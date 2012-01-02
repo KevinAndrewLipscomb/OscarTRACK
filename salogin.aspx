@@ -58,7 +58,7 @@
 					<p align="right">SYSADMIN password:</p>
 				  </td>
 				  <td>
-					<asp:textbox id="TextBox_password" runat="server" textmode="Password" tabindex="2"></asp:textbox>
+					<asp:textbox id="TextBox_password" runat="server" textmode="Password" tabindex="2" autocomplete="off"></asp:textbox>
 				  </td>
                             <td><small><ASP:LinkButton id="LinkButton_forgot_password" runat="server" causesvalidation="False" tabindex="7" onclick="LinkButton_forgot_password_Click">Forgot password?</ASP:LinkButton></small></td>
                             <td><ASP:RequiredFieldValidator id="RequiredFieldValidator_password" runat="server" errormessage="Please enter a password." font-bold="True" controltovalidate="TextBox_password">!ERR!</ASP:RequiredFieldValidator>
