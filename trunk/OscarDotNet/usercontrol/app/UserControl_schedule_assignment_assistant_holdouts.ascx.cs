@@ -145,12 +145,12 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter);
+        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter,show_transferring_members:true);
         }
       else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,own_agency,p.release_filter,p.relative_month,p.compliancy_filter);
+        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,own_agency,p.release_filter,p.relative_month,p.compliancy_filter,show_transferring_members:false);
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;

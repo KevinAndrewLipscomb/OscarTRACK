@@ -221,10 +221,11 @@ namespace Class_biz_schedule_assignments
       string agency_filter,
       string release_filter,
       k.subtype<int> relative_month,
-      string compliancy_filter
+      string compliancy_filter,
+      bool show_transferring_members
       )
       {
-      db_schedule_assignments.BindSubmissionCompliancyBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month,compliancy_filter);
+      db_schedule_assignments.BindSubmissionCompliancyBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,release_filter,relative_month,compliancy_filter,show_transferring_members);
       }
 
     internal void BindTimeOffAlertBaseDataList
