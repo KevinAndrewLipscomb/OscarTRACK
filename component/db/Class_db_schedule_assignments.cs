@@ -830,7 +830,8 @@ namespace Class_db_schedule_assignments
       string agency_filter,
       string release_filter,
       k.subtype<int> relative_month,
-      string compliancy_filter
+      string compliancy_filter,
+      bool show_transferring_members
       )
       {
       var filter = " where"
@@ -841,7 +842,7 @@ namespace Class_db_schedule_assignments
       +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
       +   " )"
       + " or"
-      +   " (enrollment_level.description = 'Atypical')"
+      +   " (enrollment_level.description in ('Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
       + " )";
       //
       if (agency_filter != k.EMPTY)
@@ -860,7 +861,7 @@ namespace Class_db_schedule_assignments
       //
       if (compliancy_filter == "0") // holdouts
         {
-        filter += " and (enrollment_level.description <> 'Atypical') and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description not in ('Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "1") // submitters
         {
@@ -868,24 +869,16 @@ namespace Class_db_schedule_assignments
         }
       else if (compliancy_filter == "A") // atypicals
         {
-        filter += " and (enrollment_level.description = 'Atypical') and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description in ('Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       //
-      if (be_sort_order_ascending)
-        {
-        sort_order = sort_order.Replace("%", " asc");
-        }
-      else
-        {
-        sort_order = sort_order.Replace("%", " desc");
-        }
       Open();
       (target as BaseDataList).DataSource = new MySqlCommand
         (
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
-        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant"
+        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"
         + " , member.phone_num"
@@ -930,7 +923,7 @@ namespace Class_db_schedule_assignments
         +     " ) as condensed_schedule_assignment"
         +     " on (condensed_schedule_assignment.member_id=member.id)"
         + filter
-        + " order by " + sort_order,
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();
