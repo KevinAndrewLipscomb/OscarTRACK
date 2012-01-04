@@ -55,11 +55,10 @@
                         </tr>
                         <tr>
                           <td><p align="right">Password:</p></td>
-                          <td><asp:TextBox ID="TextBox_password" runat="server" TextMode="Password" TabIndex="2" autocomplete="off"></asp:TextBox></td>
+                          <td><asp:TextBox ID="TextBox_password" runat="server" TextMode="Password" TabIndex="2"></asp:TextBox><asp:HiddenField ID="HiddenField_hashed_password" runat="server" /></td>
                           <td><small><asp:LinkButton ID="LinkButton_forgot_password" runat="server" CausesValidation="False" TabIndex="7" OnClick="LinkButton_forgot_password_Click">Forgot password?</asp:LinkButton></small></td>
                           <td>
-                            <asp:RequiredFieldValidator ID="RequiredFieldValidator_password" runat="server" ErrorMessage="Please enter a password." Font-Bold="True" ControlToValidate="TextBox_password">!ERR!</asp:RequiredFieldValidator>
-                          </td>
+                            &nbsp;</td>
                         </tr>
                         <tr>
                           <td></td>
