@@ -10,10 +10,10 @@
           <td align="center">
             <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
               <tr>
-                <td>
+                <td align="center">
                   <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/scalable&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;scalable format&lt;br/&gt;RECOMMENDED&lt;/small&gt;" Target="_blank"></asp:HyperLink>
                 </td>
-                <td>
+                <td align="center">
                   <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/month-at-a-glance&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;month-at-a-glance format&lt;br/&gt;&lt;/small&gt;" Target="_blank"></asp:HyperLink>
                 </td>
                 <td align="right"><b><small>Filters:</small></b></td>
