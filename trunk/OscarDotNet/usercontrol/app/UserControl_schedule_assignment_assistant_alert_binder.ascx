@@ -8,8 +8,6 @@
             <cc1:TabPanel runat="server" headertext="Time off" id="TabPanel_time_off"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Time on" id="TabPanel_time_on"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Unexpected & cross-agency submissions" id="TabPanel_unexpected_submissions"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Paired haters" id="TabPanel_paired_haters"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Split friends" id="TabPanel_split_friends"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

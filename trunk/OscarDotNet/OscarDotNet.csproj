@@ -117,7 +117,6 @@
     <Content Include="protected\image\list-remove-4.png" />
     <Content Include="protected\image\mortarboard.gif" />
     <Content Include="protected\image\trophy-icon.gif" />
-    <Content Include="protected\likes_and_hates.aspx" />
     <Content Include="protected\member_schedule_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
@@ -156,8 +155,6 @@
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_binder.ascx" />
-    <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_paired_haters.ascx" />
-    <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_split_friends.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_off.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_on.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_unexpected_submissions.ascx" />
@@ -661,13 +658,6 @@
     </Compile>
     <Compile Include="protected\gripe_sheet.aspx.designer.cs">
       <DependentUpon>gripe_sheet.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="protected\likes_and_hates.aspx.cs">
-      <DependentUpon>likes_and_hates.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="protected\likes_and_hates.aspx.designer.cs">
-      <DependentUpon>likes_and_hates.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\member_schedule_detail.aspx.cs">
       <DependentUpon>member_schedule_detail.aspx</DependentUpon>
@@ -1228,20 +1218,6 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_binder.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_alert_binder.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_paired_haters.ascx.cs">
-      <DependentUpon>UserControl_schedule_assignment_assistant_alert_paired_haters.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_paired_haters.ascx.designer.cs">
-      <DependentUpon>UserControl_schedule_assignment_assistant_alert_paired_haters.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_split_friends.ascx.cs">
-      <DependentUpon>UserControl_schedule_assignment_assistant_alert_split_friends.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_split_friends.ascx.designer.cs">
-      <DependentUpon>UserControl_schedule_assignment_assistant_alert_split_friends.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_off.ascx.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_alert_time_off.ascx</DependentUpon>

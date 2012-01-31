@@ -320,73 +320,6 @@ namespace Class_db_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
-    internal void BindMelodramaToBaseDataList
-      (
-      string subject_member_id,
-      k.subtype<int> relative_month,
-      object target
-      )
-      {
-      Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
-        (
-        "select mo.id as object_member_id"
-        + " , IF(melodrama.be_friendly,'LIKE','') as be_liked"
-        + " , concat(mo.last_name,', ',mo.first_name) as name"
-        + " , IF(not melodrama.be_friendly,'HATE','') as be_hated"
-        + " from member ms"
-        +   " join member mo on (mo.agency_id=ms.agency_id and mo.id<>ms.id)"
-        +   " left join melodrama on (melodrama.subject_member_id=ms.id and melodrama.object_member_id=mo.id)"
-        +   " left join medical_release_code_description_map on (medical_release_code_description_map.code=mo.medical_release_code)"
-        +   " left join enrollment_history on"
-        +     " ("
-        +       " enrollment_history.member_id=mo.id"
-        +     " and"
-        +       " ("
-        +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-        +       " and"
-        +         " ("
-        +           " (enrollment_history.end_date is null)"
-        +         " or"
-        +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))"
-        +         " )"
-        +       " )"
-        +     " )"
-        +   " left join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
-        +   " left join leave_of_absence on"
-        +     " ("
-        +       " leave_of_absence.member_id=mo.id"
-        +     " and"
-        +       " ("
-        +         " (leave_of_absence.start_date is null)"
-        +       " or"
-        +         " ("
-        +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-        +         " and"
-        +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)))"
-        +         " )"
-        +       " )"
-        +     " )"
-        + " where ms.id = '" + subject_member_id + "'"
-        +   " and"
-        +     " ("
-        +       " ("
-        +         " enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
-        +       " and"
-        +         " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
-        +       " )"
-        +     " or"
-        +       " (enrollment_level.description = 'Atypical')"
-        +     " )"
-        + " order by mo.last_name,mo.first_name,mo.cad_num",
-        connection
-        )
-        .ExecuteReader();
-      (target as BaseDataList).DataBind();
-      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-      Close();
-      }
-
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             string from_where_phrase;
@@ -1120,13 +1053,6 @@ namespace Class_db_members
             return result;
         }
 
-    internal void ClearMelodrama(string subject_member_id)
-      {
-      Open();
-      new MySqlCommand(db_trail.Saved("delete from melodrama where subject_member_id = '" + subject_member_id + "'"),connection).ExecuteNonQuery();
-      Close();
-      }
-
       internal Queue HoldoutQueue()
         {
         var holdout_q = new Queue();
@@ -1590,17 +1516,6 @@ namespace Class_db_members
             return (summary as member_summary).peck_code;
         }
 
-        internal void RemoveMelodrama
-          (
-          string subject_member_id,
-          string object_member_id
-          )
-          {
-          Open();
-          new MySqlCommand(db_trail.Saved("delete from melodrama where subject_member_id = '" + subject_member_id + "' and object_member_id = '" + object_member_id + "'"),connection).ExecuteNonQuery();
-          Close();
-          }
-
         public string RetentionOf(object summary)
         {
             return (summary as member_summary).length_of_service;
@@ -1666,33 +1581,6 @@ namespace Class_db_members
             this.Close();
             (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
         }
-
-        internal void SetMelodrama
-          (
-          string subject_member_id,
-          string object_member_id,
-          bool be_friendly
-          )
-          {
-          var childless_field_assignments_clause = " subject_member_id = '" + subject_member_id + "'"
-          + " , object_member_id = '" + object_member_id + "'"
-          + " , be_friendly = " + be_friendly.ToString()
-          + k.EMPTY;
-          Open();
-          new MySqlCommand
-            (
-            db_trail.Saved
-              (
-              "insert melodrama"
-              + " set" + childless_field_assignments_clause
-              + " on duplicate key update "
-              + childless_field_assignments_clause
-              ),
-              connection
-            )
-            .ExecuteNonQuery();
-          Close();
-          }
 
         public void SetPhoneNum(string phone_num, object summary)
         {

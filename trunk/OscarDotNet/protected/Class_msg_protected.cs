@@ -21,11 +21,6 @@ namespace Class_msg_protected
       internal string agency_id = k.EMPTY;
       internal object summary = null;
       }
-    public class likes_and_hates
-      {
-      internal string navigate_url = k.EMPTY;
-      internal k.subtype<int> relative_month;
-      }
     public class member_schedule_detail
       {
       internal string member_id = k.EMPTY;

@@ -193,7 +193,7 @@ namespace add_member
                     {
                         agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
                     }
-                    if (p.biz_members.Add(k.Safe(TextBox_first_name.Text, k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_last_name.Text, k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM), k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)), agency_id, k.Safe(TextBox_email_address.Text, k.safe_hint_type.EMAIL_ADDRESS), UserControl_enrollment_date.selectedvalue, k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM)))
+                    if (p.biz_members.Add(k.Safe(TextBox_first_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_last_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM), k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)), agency_id, k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS), UserControl_enrollment_date.selectedvalue, k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM)))
                     {
                         result = true;
                     }

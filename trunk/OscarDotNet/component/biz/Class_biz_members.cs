@@ -185,16 +185,6 @@ namespace Class_biz_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
-    internal void BindMelodramaToBaseDataList
-      (
-      string subject_member_id,
-      k.subtype<int> relative_month,
-      object target
-      )
-      {
-      db_members.BindMelodramaToBaseDataList(subject_member_id,relative_month,target);
-      }
-
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             db_members.BindRankedCoreOpsSize(target, do_log);
@@ -329,11 +319,6 @@ namespace Class_biz_members
             result = db_members.CadNumOfMemberId(member_id);
             return result;
         }
-
-    internal void ClearMelodrama(string subject_member_id)
-      {
-      db_members.ClearMelodrama(subject_member_id);
-      }
 
         public Queue CurrentMemberEmailAddressesQueue
           (
@@ -568,15 +553,6 @@ namespace Class_biz_members
             return result;
         }
 
-        internal void RemoveMelodrama
-          (
-          string subject_member_id,
-          string object_member_id
-          )
-          {
-          db_members.RemoveMelodrama(subject_member_id,object_member_id);
-          }
-
         public string RetentionOf(object summary)
         {
             string result;
@@ -657,16 +633,6 @@ namespace Class_biz_members
             biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
             }
           return ok_so_far;
-          }
-
-        internal void SetMelodrama
-          (
-          string subject_member_id,
-          string object_member_id,
-          bool be_friendly
-          )
-          {
-          db_members.SetMelodrama(subject_member_id,object_member_id,be_friendly);
           }
 
         public void SetPhoneNum(string phone_num, object summary)
