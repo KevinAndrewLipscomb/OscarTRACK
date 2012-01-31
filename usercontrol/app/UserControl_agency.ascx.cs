@@ -48,7 +48,7 @@ namespace UserControl_agency
                 LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
                 LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
                 RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-                Focus(TextBox_id, true);
+                TextBox_id.Focus();
                 p.be_loaded = true;
             }
 
@@ -110,7 +110,7 @@ namespace UserControl_agency
       SetDependentFieldAblements(p.be_ok_to_config_agencies);
       Button_submit.Enabled = p.be_ok_to_config_agencies;
       Button_delete.Enabled = false;
-      Focus(TextBox_id, true);
+      TextBox_id.Focus();
       }
 
         private void SetLookupMode()
@@ -122,7 +122,7 @@ namespace UserControl_agency
             Label_lookup_hint.Enabled = true;
             LinkButton_reset.Enabled = false;
             LinkButton_new_record.Enabled = p.be_ok_to_config_agencies;
-            Focus(TextBox_id, true);
+            TextBox_id.Focus();
         }
 
         protected override void OnInit(System.EventArgs e)

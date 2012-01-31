@@ -194,7 +194,7 @@ namespace UserControl_agency_satellite_station
       SetDependentFieldAblements(p.be_ok_to_config_agency_satellite_stations);
       Button_submit.Enabled = p.be_ok_to_config_agency_satellite_stations;
       Button_delete.Enabled = false;
-      Focus(TextBox_id, true);
+      TextBox_id.Focus();
       }
 
     private void SetLookupMode()
@@ -206,7 +206,7 @@ namespace UserControl_agency_satellite_station
       Label_lookup_hint.Enabled = true;
       LinkButton_reset.Enabled = false;
       LinkButton_new_record.Enabled = true;
-      Focus(TextBox_id, true);
+      TextBox_id.Focus();
       }
 
     protected override void OnInit(System.EventArgs e)

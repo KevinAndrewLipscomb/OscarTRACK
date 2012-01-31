@@ -177,17 +177,6 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindMemberScheduleDetailBaseDataList(member_id,relative_month,agency_id,target);
       }
 
-    internal void BindPairedHatersAlertBaseDataList
-      (
-      string agency_filter,
-      string release_filter,
-      k.subtype<int> relative_month,
-      object target
-      )
-      {
-      db_schedule_assignments.BindPairedHatersAlertBaseDataList(agency_filter,release_filter,relative_month,target);
-      }
-
     internal void BindPostCardinalityListControl
       (
       string max_post_cardinality,
@@ -200,17 +189,6 @@ namespace Class_biz_schedule_assignments
         target.Items.Add(new ListItem(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val)),Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + i.val))));
         }
       target.SelectedValue = designator;
-      }
-
-    internal void BindSplitFriendsAlertBaseDataList
-      (
-      string agency_filter,
-      string release_filter,
-      k.subtype<int> relative_month,
-      object target
-      )
-      {
-      db_schedule_assignments.BindSplitFriendsAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
     internal void BindSubmissionCompliancyBaseDataList

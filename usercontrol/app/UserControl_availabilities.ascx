@@ -8,8 +8,7 @@
     <td valign="middle" nowrap="nowrap">
       <b>availabilities</b> to 
       <asp:DropDownList ID="DropDownList_coord_agency" runat="server" AutoPostBack="True" Font-Size="Small" onselectedindexchanged="DropDownList_coord_agency_SelectedIndexChanged"></asp:DropDownList>
-      for&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_next" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_next_Click"></asp:LinkButton>
-      &nbsp;or&nbsp;<asp:LinkButton ID="LinkButton_submit_avails_for_month_following" runat="server" CausesValidation="False" Font-Bold="True" Font-Underline="True" onclick="LinkButton_submit_avails_for_month_following_Click"></asp:LinkButton>
+      for&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td rowspan="3" valign="top">
@@ -123,7 +122,7 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <small><asp:HyperLink ID="HyperLink_contact" runat="server" href="mailto:oscartrack@frompaper2web.com">Contact</asp:HyperLink></small>
+      <small><asp:HyperLink ID="HyperLink_contact" runat="server" NavigateUrl="mailto:oscartrack@frompaper2web.com">Contact</asp:HyperLink></small>
     </td>
     <td valign="top">
       <small>the OSCAR System Administrator.</small>

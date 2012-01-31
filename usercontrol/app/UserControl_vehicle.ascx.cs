@@ -328,7 +328,7 @@ namespace UserControl_vehicle
         }
       else
         {
-        Focus(TextBox_id, true);
+        TextBox_id.Focus();
         }
       }
 

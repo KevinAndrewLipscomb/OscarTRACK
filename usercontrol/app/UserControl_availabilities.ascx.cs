@@ -1,11 +1,9 @@
 using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_user;
-using Class_msg_protected;
 using kix;
 using System;
 using System.Configuration;
-using System.Web.UI;
 
 namespace UserControl_availabilities
   {
@@ -23,7 +21,6 @@ namespace UserControl_availabilities
     public string specific_navigate_url_for_month_next;
     public string query_string_invariant_part;
     public string user_member_agency_id;
-    public TClass_msg_protected.likes_and_hates msg_protected_likes_and_hates;
     }
 
   public partial class TWebUserControl_availabilities: ki_web_ui.usercontrol_class
@@ -37,12 +34,12 @@ namespace UserControl_availabilities
         {
         p.biz_agencies.BindListControlShortDashLong(DropDownList_coord_agency,p.biz_members.AgencyIdOfId(p.member_id));
         //
-        LinkButton_submit_avails_for_month_next.Text = DateTime.Now.AddMonths(1).ToString("MMMM");
-        LinkButton_submit_avails_for_month_following.Text = DateTime.Now.AddMonths(2).ToString("MMMM");
+        HyperLink_submit_avails_for_month_next.Text = DateTime.Now.AddMonths(1).ToString("MMMM");
+        HyperLink_submit_avails_for_month_following.Text = DateTime.Now.AddMonths(2).ToString("MMMM");
         //
         var path_to_external_oscar = ConfigurationManager.AppSettings["path_to_external_oscar"];
-        p.base_navigate_url_for_month_next = path_to_external_oscar + "/form-submit-avails-2.phtml";
-        p.base_navigate_url_for_month_following = path_to_external_oscar + "/form-submit-avails-2.phtml";
+        p.base_navigate_url_for_month_next = HyperLink_submit_avails_for_month_next.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
+        p.base_navigate_url_for_month_following = HyperLink_submit_avails_for_month_following.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_vorps.NavigateUrl = HyperLink_vorps.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         HyperLink_more_stats.NavigateUrl = HyperLink_more_stats.NavigateUrl.Replace("$OSCAR",path_to_external_oscar);
         Img_mortarboard.Src = k.ExpandTildePath(Img_mortarboard.Src);
@@ -61,8 +58,6 @@ namespace UserControl_availabilities
         //
         p.be_loaded = true;
         }
-      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_next);
-      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_submit_avails_for_month_following);
       }
 
     private void UpdateSubmitAvailHyperLinks()
@@ -70,16 +65,16 @@ namespace UserControl_availabilities
       var coord_agency_id = k.Safe(DropDownList_coord_agency.SelectedValue,k.safe_hint_type.NUM);
       var url_encoded_coord_agency = Server.UrlEncode(p.biz_agencies.OscarClassicEnumeratorOf(coord_agency_id));
       var indicator_of_be_cross_agency_submission = (coord_agency_id != p.user_member_agency_id ? "TRUE" : k.EMPTY);
-      p.specific_navigate_url_for_month_next = p.base_navigate_url_for_month_next + p.query_string_invariant_part
+      HyperLink_submit_avails_for_month_next.NavigateUrl = p.base_navigate_url_for_month_next + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
       + "&applicable_month_num=" + (DateTime.Now.Month + 1).ToString()
       + "&be_cross_agency_submission=" + indicator_of_be_cross_agency_submission;
-      p.specific_navigate_url_for_month_following = p.base_navigate_url_for_month_following + p.query_string_invariant_part
+      HyperLink_submit_avails_for_month_following.NavigateUrl = p.base_navigate_url_for_month_following + p.query_string_invariant_part
       + "&coord_agency=" + url_encoded_coord_agency
       + "&applicable_month_num=" + (DateTime.Now.Month + 2).ToString()
       + "&be_cross_agency_submission=" + indicator_of_be_cross_agency_submission;
       //
-      LinkButton_submit_avails_for_month_next.Focus();
+      HyperLink_submit_avails_for_month_next.Focus();
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -98,7 +93,6 @@ namespace UserControl_availabilities
         p.biz_user = new TClass_biz_user();
         //
         p.member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
-        p.msg_protected_likes_and_hates = new TClass_msg_protected.likes_and_hates();
         p.user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         //
         var home_squad = (p.user_member_agency_id == "0" ? "ERS" : p.user_member_agency_id);
@@ -149,20 +143,6 @@ namespace UserControl_availabilities
     protected void DropDownList_coord_agency_SelectedIndexChanged(object sender, EventArgs e)
       {
       UpdateSubmitAvailHyperLinks();
-      }
-
-    protected void LinkButton_submit_avails_for_month_next_Click(object sender, EventArgs e)
-      {
-      p.msg_protected_likes_and_hates.navigate_url = p.specific_navigate_url_for_month_next;
-      p.msg_protected_likes_and_hates.relative_month = new k.subtype<int>(1,1);
-      MessageDropCrumbAndTransferTo(p.msg_protected_likes_and_hates,"protected","likes_and_hates");
-      }
-
-    protected void LinkButton_submit_avails_for_month_following_Click(object sender, EventArgs e)
-      {
-      p.msg_protected_likes_and_hates.navigate_url = p.specific_navigate_url_for_month_following;
-      p.msg_protected_likes_and_hates.relative_month = new k.subtype<int>(2,2);
-      MessageDropCrumbAndTransferTo(p.msg_protected_likes_and_hates,"protected","likes_and_hates");
       }
 
     }
