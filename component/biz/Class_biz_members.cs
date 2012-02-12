@@ -598,7 +598,7 @@ namespace Class_biz_members
         {
             db_members.SetEmailAddress(id, email_address);
             var user_id = UserIdOf(id);
-            if (user_id != k.EMPTY)
+            if ((user_id.Length > 0) && (email_address.Length > 0))
               {
               db_users.SetEmailAddress(user_id,email_address);
               }
