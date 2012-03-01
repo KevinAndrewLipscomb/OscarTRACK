@@ -230,7 +230,7 @@ namespace Class_db_agencies
             "select agency.id,agency.short_designator"
             + " from agency"
             +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=agency.id)"
-            + " where be_ems_post" + (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0," + post_footprint + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
+            + " where be_ems_post" + (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
             + " order by agency.id",
             connection
             )
