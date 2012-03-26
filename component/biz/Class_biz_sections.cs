@@ -1,6 +1,5 @@
 using kix;
-using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace Class_biz_sections
@@ -15,19 +14,18 @@ namespace Class_biz_sections
         }
         public void BindListControl(object target, string selected_description)
         {
-            uint i;
             ((target) as DropDownList).Items.Clear();
             if (selected_description == k.EMPTY)
             {
                 ((target) as DropDownList).Items.Add(new ListItem("-- Select --", ""));
             }
             ((target) as DropDownList).Items.Add(new ListItem("*", "0"));
-            for (i = 1; i <= 14; i ++ )
+            for (var i = new k.subtype<int>(1,int.Parse(ConfigurationManager.AppSettings["max_section_num"]) + 1); i.val < i.LAST; i.val++)
             {
-                ((target) as DropDownList).Items.Add(new ListItem(i.ToString(), i.ToString()));
-                if (i.ToString() == selected_description)
+                ((target) as DropDownList).Items.Add(new ListItem(i.val.ToString(), i.val.ToString()));
+                if (i.val.ToString() == selected_description)
                 {
-                    ((target) as DropDownList).SelectedValue = i.ToString();
+                    ((target) as DropDownList).SelectedValue = i.val.ToString();
                 }
             }
         }
