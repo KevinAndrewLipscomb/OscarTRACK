@@ -1,7 +1,11 @@
 Section change to <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has assigned <first_name/> <last_name/> (<cad_num/>) to Section <section_num/> of <agency_name/>.  If not already done, <first_name/> <last_name/> and <agency_name/> Section Sergeant <section_num/> are encouraged to contact each other to discuss <first_name/> <last_name/>'s typical scheduling profile and any other squad-related interests or concerns.
+<actor/> has assigned <first_name/> <last_name/> (<cad_num/>) to Section <section_num/> of <agency_name/>.
+
+If <first_name/> holds a red, yellow, or orange ID card, VBDEMS uses <first_name/>'s Section number to track which squad <first_name/> plans to join.  Being in Section <section_num/> of VBDEMS implies an intent to join Rescue <section_num/> once released.
+
+If <first_name/> holds a white ID card, <first_name/>'s squad uses <first_name/>'s Section number as a way to subdivide its membership into more manageable groups.  If not already done, <first_name/> and Section Sergeant <section_num/> at <first_name/>'s squad are encouraged to contact each other to discuss <first_name/>'s typical scheduling profile and any other squad-related interests or concerns.
 
 You can reach <actor/> at:
 
