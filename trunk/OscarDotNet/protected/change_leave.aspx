@@ -4,13 +4,13 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-    <title id="Title" runat="server"></title><!-- $Id$ -->
+    <title></title>
+    <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
   <body bgcolor="white">
 	<form runat="server">
-
 	  <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
 	  <table cellspacing="0" cellpadding="0" width="100%" border="1" bordercolor="#dcdcdc"><tr><td>
 		<table cellspacing="0" cellpadding="10" border="0">
@@ -31,17 +31,17 @@
 			  </tr>
 			  <tr>
 				<td>Starting:</td>
-				<td nowrap="true"><ASP:Label id="Label_saved_start_month" runat="server"></ASP:Label>
+				<td nowrap="nowrap"><ASP:Label id="Label_saved_start_month" runat="server"></ASP:Label>
 				  </td>
 				<td><ASP:DropDownList id="DropDownList_start_month" runat="server" onselectedindexchanged="DropDownList_start_month_SelectedIndexChanged"></ASP:DropDownList></td>
-				<td nowrap="true">
+				<td nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_start_month" runat="server" errormessage="Please select a starting month." font-bold="True" controltovalidate="DropDownList_start_month" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td>Ending:</td>
-				<td nowrap="true"><ASP:Label id="Label_saved_end_month" runat="server"></ASP:Label></td>
+				<td nowrap="nowrap"><ASP:Label id="Label_saved_end_month" runat="server"></ASP:Label></td>
 				<td><ASP:DropDownList id="DropDownList_end_month" runat="server"></ASP:DropDownList></td>
-				<td nowrap="true">
+				<td nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
 				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month" display="Dynamic" onservervalidate="CustomValidator_end_month_ServerValidate">!ERR!</ASP:CustomValidator></td>
 			  </tr>
@@ -49,37 +49,32 @@
 				<td>Kind:</td>
 				<td><ASP:Label id="Label_saved_kind_of_leave" runat="server"></ASP:Label></td>
 				<td><ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
-				<td nowrap="true">
+				<td nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
-				<td valign="top">Num duties required:</td>
+				<td valign="top" nowrap="nowrap">Num duties required:</td>
 				<td valign="top"><ASP:Label id="Label_saved_num_obliged_shifts" runat="server"></ASP:Label></td>
 				<td valign="top">
 				  <table cellspacing="0" cellpadding="0" border="0">
 					<tr>
 					  <td valign="top">
-						<ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server"></ASP:DropDownList></td>
+						<ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server" Enabled="false"></ASP:DropDownList></td>
 					  <td>
 						<table cellspacing="0" cellpadding="5" border="0">
 						  <tr>
-							<td valign="top">•</td>
-							<td>
-							  <small>For long-term purposes, consider changing
-								<ASP:Label id="Label_member_first_name" runat="server"></ASP:Label>
-							  's <ASP:LinkButton id="LinkButton1" runat="server">membership status</ASP:LinkButton>
-							  &nbsp;instead.
-							  </small></td>
-						  </tr>
-						  <tr>
-							<td valign="top">•</td>
-							<td>
-							  <small>To&nbsp;grant leave for less than a full month, specify a one-month leave, and specify the number of shifts they have run or should run in that month.</small></td>
+                <td valign="top">•</td>
+							  <td>
+                  <small>
+                    <em>Partial</em> leaves are no longer available.&nbsp; You can accomplish the same thing, however, by giving <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label> a Membership Status of
+                    <em>Reduced</em>.
+                  </small>
+                </td>
 						  </tr>
 						</table></td>
 					</tr>
 				  </table></td>
-				<td valign="top" nowrap="true">
+				<td valign="top" nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
@@ -99,6 +94,7 @@
 				<td></td>
 			  </tr>
 			</table>
+      </td>
 		</tr>
 		</table>
 		</td></tr>
