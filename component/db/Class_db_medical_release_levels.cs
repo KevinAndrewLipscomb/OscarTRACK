@@ -1,6 +1,5 @@
 using Class_db;
 using MySql.Data.MySqlClient;
-using System;
 using System.Web.UI.WebControls;
 
 namespace Class_db_medical_release_levels
@@ -25,14 +24,6 @@ namespace Class_db_medical_release_levels
             result = "1" == new MySqlCommand("select" + " (" + " select TRUE" + " from enrollment_level" + " where description = \"" + enrollment_level_description + "\"" + " and core_ops_commitment_level_code = 1" + " )" + " or" + " (" + " select TRUE" + " from medical_release_code_description_map" + " where code = \"" + code + "\"" + " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = \"BLS Intern\")" + " )", this.connection).ExecuteScalar().ToString();
             this.Close();
             return result;
-        }
-
-        public bool BeValidEnrollmentForCurrent(string enrollment_level_code, string description)
-        {
-            this.Open();
-            var be_valid_enrollment_for_current = "1" == new MySqlCommand("select" + " (" + " select TRUE" + " from enrollment_level" + " where code = \"" + enrollment_level_code + "\"" + " and core_ops_commitment_level_code = 1" + " )" + " or" + " (" + " select TRUE" + " from medical_release_code_description_map" + " where description = '" + description + "'" + " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'BLS Intern')" + " )", this.connection).ExecuteScalar().ToString();
-            this.Close();
-            return be_valid_enrollment_for_current;
         }
 
         internal void BindBaseDataList(object target)
@@ -85,7 +76,23 @@ namespace Class_db_medical_release_levels
           return peck_code_of;
           }
 
+        internal int PeckingOrderCompareTo
+          (
+          string description_x,
+          string description_y
+          )
+          {
+          Open();
+          var pecking_order_compare_to =
+            (
+              (int.Parse(new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_x + "'",connection).ExecuteScalar().ToString()))
+            .CompareTo
+              (int.Parse(new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_y + "'",connection).ExecuteScalar().ToString()))
+            );
+          Close();
+          return pecking_order_compare_to;
+          }
+
     } // end TClass_db_medical_release_levels
 
 }
-

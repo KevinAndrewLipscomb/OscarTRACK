@@ -11,6 +11,7 @@ using System.Web.UI.WebControls;
 
 namespace Class_db_enrollment
 {
+
     public class TClass_db_enrollment: TClass_db
     {
         private TClass_db_agencies db_agencies = null;
@@ -22,6 +23,23 @@ namespace Class_db_enrollment
             db_agencies = new TClass_db_agencies();
             db_trail = new TClass_db_trail();
         }
+
+        internal bool BeCoreOpsCommitted(string enrollment_level_code)
+          {
+          Open();
+          var be_core_ops_committed = "1" == new MySqlCommand
+            (
+            "select core_ops_commitment_level.name <> 'None'"
+            + " from enrollment_level"
+            +   " join core_ops_commitment_level on (core_ops_commitment_level.code=enrollment_level.core_ops_commitment_level_code)"
+            + " where enrollment_level.code = '" + enrollment_level_code + "'",
+            connection
+            )
+            .ExecuteScalar().ToString();
+          Close();
+          return be_core_ops_committed;
+          }
+
         public void BindMemberHistory(string member_id, object target)
         {
             this.Open();
@@ -296,16 +314,3 @@ namespace Class_db_enrollment
     } // end TClass_db_enrollment
 
 }
-
-namespace Class_db_enrollment.Units
-{
-    public class Class_db_enrollment
-    {
-        public const int TCCI_ID = 0;
-        public const int TCCI_START_DATE = 1;
-        public const int TCCI_DESCRIPTION = 2;
-        public const int TCCI_NOTE = 3;
-    } // end Class_db_enrollment
-
-}
-
