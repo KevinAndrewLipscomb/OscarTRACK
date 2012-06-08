@@ -64,7 +64,7 @@ namespace change_leave
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_leave";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
@@ -116,7 +116,8 @@ namespace change_leave
                     DropDownList_kind_of_leave.SelectedIndex = (int)i;
                     // Num obligated shifts
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
-                    DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
+                    //DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
+                    DropDownList_num_obligated_shifts.SelectedValue = "0"; // Force IAW the practice du jour.
                     // Note
                     TextBox_note.Text = p.saved_note;
                 }

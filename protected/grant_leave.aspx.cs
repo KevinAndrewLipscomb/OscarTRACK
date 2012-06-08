@@ -60,7 +60,7 @@ namespace grant_leave
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - grant_leave";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - grant_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
@@ -74,6 +74,7 @@ namespace grant_leave
                     p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month);
                     p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave);
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
+                    DropDownList_num_obligated_shifts.SelectedValue = "0"; // Force IAW the practice du jour.
                 }
             }
         }
