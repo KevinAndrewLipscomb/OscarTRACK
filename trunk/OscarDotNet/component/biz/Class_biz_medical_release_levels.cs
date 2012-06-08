@@ -1,16 +1,18 @@
+using Class_db_enrollment;
 using Class_db_medical_release_levels;
-using System;
 using System.Collections;
 
 namespace Class_biz_medical_release_levels
 {
     public class TClass_biz_medical_release_levels
     {
+        private TClass_db_enrollment db_enrollment = null;
         private TClass_db_medical_release_levels db_medical_release_levels = null;
         //Constructor  Create()
         public TClass_biz_medical_release_levels() : base()
         {
             // TODO: Add any constructor code here
+            db_enrollment = new TClass_db_enrollment();
             db_medical_release_levels = new TClass_db_medical_release_levels();
         }
 
@@ -60,10 +62,42 @@ namespace Class_biz_medical_release_levels
             return result;
         }
 
-        public bool BeValidEnrollmentForCurrent(string enrollment_level_code, string description)
-        {
-            return db_medical_release_levels.BeValidEnrollmentForCurrent(enrollment_level_code, description);
-        }
+        public bool BeValidEnrollmentForCurrent
+          (
+          string enrollment_level_code,
+          string description
+          )
+          {
+          var be_valid_enrollment_level_for_current = false;
+          if (!db_enrollment.BeCoreOpsCommitted(enrollment_level_code))
+            {
+            //
+            // Although not encouraged, anyone can transition into an enrollment level that has no core ops committment.
+            //
+            be_valid_enrollment_level_for_current = true;
+            }
+          else
+            {
+            //
+            // The member is transitioning into an enrollment level that *does* have a core ops committment.
+            //
+            if (db_enrollment.DescriptionOf(enrollment_level_code) == "Associate")
+              {
+              //
+              // An Associate must be EMT-E or higher.
+              //
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-E") >= 0);
+              }
+            else
+              {
+              //
+              // All other enrollment levels with a core ops committment require at least being a BLS Intern.
+              //
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"BLS Intern") >= 0);
+              }
+            }
+          return be_valid_enrollment_level_for_current;
+          }
 
         internal void BindBaseDataList(object target)
           {
@@ -85,6 +119,15 @@ namespace Class_biz_medical_release_levels
         internal string PeckCodeOf(string level_code)
           {
           return db_medical_release_levels.PeckCodeOf(level_code);
+          }
+
+        internal int PeckingOrderCompareTo
+          (
+          string description_x,
+          string description_y
+          )
+          {
+          return db_medical_release_levels.PeckingOrderCompareTo(description_x,description_y);
           }
 
     } // end TClass_biz_medical_release_levels

@@ -268,6 +268,10 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     public void SetTarget(string target)
       {
+      if ((p.relative_month.val == 1) && p.be_ok_to_edit_schedule)
+        {
+        Span_exclusivity_notice.Style.Clear();
+        }
       if (target != k.EMPTY)
         {
         if (target.ToLower().Contains("/compliance/"))
