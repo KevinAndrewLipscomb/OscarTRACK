@@ -58,6 +58,15 @@ namespace UserControl_serial_indicators_per_agency {
         protected global::System.Web.UI.HtmlControls.HtmlImage Img_third_slot_saturation;
         
         /// <summary>
+        /// Panel_third_slot_saturation_not_meaningful_here control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_third_slot_saturation_not_meaningful_here;
+        
+        /// <summary>
         /// Img_utilization control.
         /// </summary>
         /// <remarks>

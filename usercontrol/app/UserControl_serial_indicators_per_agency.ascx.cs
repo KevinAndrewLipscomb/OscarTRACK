@@ -132,10 +132,15 @@ namespace UserControl_serial_indicators_per_agency
       if (p.agency_id == "0")
         {
         passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=0";
+        Img_third_slot_saturation.Visible = true;
+        Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
+        Panel_third_slot_saturation_not_meaningful_here.Visible = false;
         }
       else
         {
         passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=1";
+        Img_third_slot_saturation.Visible = false;
+        Panel_third_slot_saturation_not_meaningful_here.Visible = true;
         }
       Img_core_ops_size.Attributes["src"] = p.expanded_img_core_ops_size_src + passthrough_parms;
       Img_num_members_in_pipeline.Attributes["src"] = p.expanded_img_num_members_in_pipeline_src + passthrough_parms;
@@ -144,7 +149,6 @@ namespace UserControl_serial_indicators_per_agency
       Img_standard_enrollment.Attributes["src"] = p.expanded_img_standard_enrollment_src + passthrough_parms;
       Img_median_length_of_service.Attributes["src"] = p.expanded_img_median_length_of_service_src + passthrough_parms;
       Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
-      Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
       Img_fleet_tracking_participation.Attributes["src"] = p.expanded_img_fleet_tracking_participation_src + passthrough_parms;
       Img_vehicles_up_and_current.Attributes["src"] = p.expanded_img_vehicles_up_and_current_src + passthrough_parms;
       }

@@ -6,7 +6,7 @@
         <tr bgcolor="#f5f5f5">
           <td>
                 <p><strong>Number of MEMBERS IN PIPELINE</strong><br>
-		<em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the number of recruits and trainees.</small></p>
+		<em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the number of recruits and BLS Interns.</small></p>
           </td>
         </tr>
         <tr>

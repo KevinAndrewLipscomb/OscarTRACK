@@ -255,7 +255,21 @@ namespace Class_db_agencies
         public void BindForControlCharts(string indicator, object target)
         {
             this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", this.connection).ExecuteReader();
+            if (indicator == "third_slot_saturation")
+              {
+              ((target) as DataGrid).DataSource = new MySqlCommand
+                (
+                "select distinct 'CITYWIDE' as designator"
+                + " , 0 as id"
+                + " , 0 as be_agency_id_applicable",
+                connection
+                )
+                .ExecuteReader();
+              }
+            else
+              {
+              ((target) as DataGrid).DataSource = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", this.connection).ExecuteReader();
+              }
             ((target) as DataGrid).DataBind();
             this.Close();
         }
