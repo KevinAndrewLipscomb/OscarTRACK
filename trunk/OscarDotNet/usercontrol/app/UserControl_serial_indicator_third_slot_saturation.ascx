@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_third_slot_saturation.ascx.cs" Inherits="UserControl_serial_indicator_third_slot_saturation.TWebUserControl_serial_indicator_third_slot_saturation"%>
-<p>These control charts show the degree to which the agency's ambulance crews were expected to include a BLS Intern or Student.&nbsp; A squad-by-squad breakdown is no longer meaningful for this metric.</p>
+<p>These control charts show the degree to which the agency's ambulance crews were expected to include a BLS Intern or Student.&nbsp; A squad-by-squad breakdown is not currently meaningful for this metric.</p>
 <p>
 <ASP:DataGrid id="DataGrid_control_charts" runat="server" showheader="False" autogeneratecolumns="False" cellpadding="20" bordercolor="Silver" borderwidth="1px">
   <Columns>

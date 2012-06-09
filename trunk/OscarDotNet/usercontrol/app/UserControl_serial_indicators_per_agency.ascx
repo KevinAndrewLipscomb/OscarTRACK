@@ -12,7 +12,8 @@
 <p><img id="Img_crew_shifts_forecast" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=crew_shifts_forecast' /></p>
 <p>&nbsp;</p>
 <p><b>4. Percentage of ambulance crews expected to include a BLS Intern or Student: </b></p>
-<p><img id="Img_third_slot_saturation" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=third_slot_saturation' /><asp:Panel ID="Panel_third_slot_saturation_not_meaningful_here" runat="server" Visible="false"><blockquote><small><em>(Not meaningful on a per-agency basis)</em></small></blockquote></asp:Panel></p>
+<asp:Panel ID="Panel_third_slot_saturation_image" runat="server"><p><img id="Img_third_slot_saturation" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=third_slot_saturation' /></p></asp:Panel>
+<asp:Panel ID="Panel_third_slot_saturation_not_meaningful_here" runat="server" Visible="false"><blockquote><small><em>A squad-by-squad breakdown is not currently meaningful for this metric.</em></small></blockquote></asp:Panel>
 <p>&nbsp;</p>
 <p><b>5. Percentage of released core operations personnel who were meeting their baseline duty requirements. The lower the data point, the more personnel were granted partial or full leaves-of-absence: </b></p>
 <p><img id="Img_utilization" runat="server" width="781" height="417" src='@serial_indicator_control_chart.aspx?indicator=utilization' /></p>

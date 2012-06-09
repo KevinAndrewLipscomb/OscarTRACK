@@ -132,14 +132,14 @@ namespace UserControl_serial_indicators_per_agency
       if (p.agency_id == "0")
         {
         passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=0";
-        Img_third_slot_saturation.Visible = true;
+        Panel_third_slot_saturation_image.Visible = true;
         Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
         Panel_third_slot_saturation_not_meaningful_here.Visible = false;
         }
       else
         {
         passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=1";
-        Img_third_slot_saturation.Visible = false;
+        Panel_third_slot_saturation_image.Visible = false;
         Panel_third_slot_saturation_not_meaningful_here.Visible = true;
         }
       Img_core_ops_size.Attributes["src"] = p.expanded_img_core_ops_size_src + passthrough_parms;

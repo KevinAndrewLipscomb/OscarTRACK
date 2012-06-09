@@ -10,7 +10,8 @@
           </td>
         </tr>
         <tr>
-          <td><p><ASP:DataGrid id="DataGrid_detail" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="5" bordercolor="Gainsboro" borderwidth="1px" font-size="X-Small">
+          <td>
+            <ASP:DataGrid id="DataGrid_detail" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="5" bordercolor="Gainsboro" borderwidth="1px" font-size="X-Small" Visible="false">
                     <Columns>
                       <ASP:BoundColumn datafield="rank" headertext="Rank">
                         <ItemStyle font-italic="True" horizontalalign="Right"></ItemStyle>
@@ -22,8 +23,8 @@
                         <ItemStyle font-bold="True" horizontalalign="Right"></ItemStyle>
                       </ASP:BoundColumn>
                     </Columns>
-</ASP:DataGrid>
-</p>
+            </ASP:DataGrid>
+            <blockquote><small><em>A squad-by-squad breakdown is not currently meaningful for this metric.</em></small></blockquote>
           </td>
         </tr>
       </table>
