@@ -49,6 +49,15 @@ namespace UserControl_serial_indicators_per_agency {
         protected global::System.Web.UI.HtmlControls.HtmlImage Img_crew_shifts_forecast;
         
         /// <summary>
+        /// Panel_third_slot_saturation_image control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_third_slot_saturation_image;
+        
+        /// <summary>
         /// Img_third_slot_saturation control.
         /// </summary>
         /// <remarks>
