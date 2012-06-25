@@ -404,6 +404,48 @@ namespace Class_db_agencies
           return keyclick_enumerator_of;
           }
 
+        internal void LogCommensurationData
+          (
+          k.decimal_nonnegative num_actual_crew_shifts_r01,
+          k.decimal_nonnegative num_actual_crew_shifts_r02,
+          k.decimal_nonnegative num_actual_crew_shifts_r04,
+          k.decimal_nonnegative num_actual_crew_shifts_r05,
+          k.decimal_nonnegative num_actual_crew_shifts_r06,
+          k.decimal_nonnegative num_actual_crew_shifts_r09,
+          k.decimal_nonnegative num_actual_crew_shifts_r13,
+          k.decimal_nonnegative num_actual_crew_shifts_r14,
+          k.decimal_nonnegative num_actual_crew_shifts_r16,
+          k.decimal_nonnegative num_actual_crew_shifts_r17,
+          k.decimal_nonnegative num_actual_crew_shifts_ems,
+          k.decimal_nonnegative num_actual_crew_shifts_all
+          )
+          {
+          var this_day_next_month = DateTime.Today.AddMonths(1);
+          var year = this_day_next_month.Year.ToString();
+          var month = this_day_next_month.Month.ToString();
+          Open();
+          new MySqlCommand
+            (
+            "replace indicator_commensuration (year,month,be_agency_id_applicable,agency_id,value) values"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "1" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r01.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '1'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "2" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r02.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '2'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "4" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r04.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '4'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "5" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r05.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '5'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "6" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r06.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '6'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "9" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r09.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '9'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "13" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r13.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '13'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "14" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r14.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '14'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "16" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r16.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '16'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "17" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_r17.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '17'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "0" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_ems.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '0'))),"
+            + " (" + year + k.COMMA + month + k.COMMA + "FALSE" + k.COMMA + "0" + k.COMMA + "ROUND(100*" + num_actual_crew_shifts_all.val + "/(select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + ")))"
+            ,
+            connection
+            )
+            .ExecuteNonQuery();
+          Close();
+          }
+
         public string LongDesignatorOf(string id)
         {
             string result;

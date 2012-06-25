@@ -4,6 +4,7 @@ using Class_biz_members;
 using Class_biz_notifications;
 using Class_biz_roles;
 using Class_biz_user;
+using Class_db_agencies;
 using Class_db_schedule_assignments;
 using kix;
 using System;
@@ -23,6 +24,7 @@ namespace Class_biz_schedule_assignments
     private TClass_biz_notifications biz_notifications = null;
     private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
+    private TClass_db_agencies db_agencies = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
     public TClass_biz_schedule_assignments() : base()
@@ -31,6 +33,7 @@ namespace Class_biz_schedule_assignments
       biz_notifications = new TClass_biz_notifications();
       biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
+      db_agencies = new TClass_db_agencies();
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
 
@@ -317,6 +320,172 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
+      }
+
+    internal void LogCommensurationData()
+      {
+      var dummy_basedatalist = new DataGrid();
+      var dummy_k_int_nonnegative = new k.int_nonnegative();
+      var num_crew_shifts_all = new k.decimal_nonnegative();
+      var num_crew_shifts_ems = new k.decimal_nonnegative();
+      var num_crew_shifts_r01 = new k.decimal_nonnegative();
+      var num_crew_shifts_r02 = new k.decimal_nonnegative();
+      var num_crew_shifts_r04 = new k.decimal_nonnegative();
+      var num_crew_shifts_r05 = new k.decimal_nonnegative();
+      var num_crew_shifts_r06 = new k.decimal_nonnegative();
+      var num_crew_shifts_r09 = new k.decimal_nonnegative();
+      var num_crew_shifts_r13 = new k.decimal_nonnegative();
+      var num_crew_shifts_r14 = new k.decimal_nonnegative();
+      var num_crew_shifts_r16 = new k.decimal_nonnegative();
+      var num_crew_shifts_r17 = new k.decimal_nonnegative();
+      //
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"1",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r01
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"2",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r02
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"4",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r04
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"5",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r05
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"6",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r06
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"9",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r09
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"13",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r13
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"14",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r14
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"16",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r16
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"17",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_r17
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:"0",
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_ems
+        );
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:k.EMPTY,
+        release_filter:"1",
+        depth_filter:"1",
+        relative_month:new k.subtype<int>(1,1),
+        nominal_day_filter:k.EMPTY,
+        target:dummy_basedatalist,
+        num_members:ref dummy_k_int_nonnegative,
+        num_crew_shifts:ref num_crew_shifts_all
+        );
+      db_agencies.LogCommensurationData
+        (
+        num_crew_shifts_r01,
+        num_crew_shifts_r02,
+        num_crew_shifts_r04,
+        num_crew_shifts_r05,
+        num_crew_shifts_r06,
+        num_crew_shifts_r09,
+        num_crew_shifts_r13,
+        num_crew_shifts_r14,
+        num_crew_shifts_r16,
+        num_crew_shifts_r17,
+        num_crew_shifts_ems,
+        num_crew_shifts_all
+        );
       }
 
     internal void MakeUpcomingDutyNotifications()
