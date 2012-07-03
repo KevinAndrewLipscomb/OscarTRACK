@@ -294,7 +294,7 @@ namespace UserControl_roster
             if (new ArrayList(new object[] {ListItemType.AlternatingItem, ListItemType.EditItem, ListItemType.Item, ListItemType.SelectedItem}).Contains(e.Item.ItemType))
             {
                 // We are dealing with a data row, not a header or footer row.
-                SessionSet("member_summary",p.biz_members.Summary(k.Safe(e.Item.Cells[Class_db_members_Static.TCCI_ID].Text,k.safe_hint_type.NUM)));
+                SessionSet("member_summary",p.biz_members.Summary(k.Safe(e.Item.Cells[Class_db_members_Static.TCCI_ID].Text,k.safe_hint_type.NUM),new k.subtype<int>((int)(p.relative_month),(int)(p.relative_month))));
                 DropCrumbAndTransferTo("member_detail.aspx");
             }
         }
