@@ -20,6 +20,7 @@
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_third_slot_saturation" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_commensuration" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_standard_enrollment" runat="server"></ASP:PlaceHolder></p>
+                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_avail_submission_compliance" runat="server"></ASP:PlaceHolder></p>
                 </td>
               </tr>
             </table>

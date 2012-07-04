@@ -34,6 +34,11 @@ namespace Class_biz_scheduled_tasks
       fs = new Class_fs();
       }
 
+    internal void DoAvailSubmissionDeadlineChores()
+      {
+      biz_schedule_assignments.LogAvailabilitySubmissionComplianceData();
+      }
+
     public void DoDailyChores(string current_working_directory_spec)
       {
       biz_enrollment.MakeSeniorityPromotions();

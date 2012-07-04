@@ -194,6 +194,11 @@ namespace Class_biz_schedule_assignments
       target.SelectedValue = designator;
       }
 
+    internal void BindRankedAvailabilitySubmissionCompliance(object target)
+      {
+      db_schedule_assignments.BindRankedAvailabilitySubmissionCompliance(target);
+      }
+
     internal void BindSubmissionCompliancyBaseDataList
       (
       string sort_order,
@@ -320,6 +325,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
+      }
+
+    internal void LogAvailabilitySubmissionComplianceData()
+      {
+      db_schedule_assignments.LogAvailabilitySubmissionComplianceData();
       }
 
     internal void LogCommensurationData()
@@ -538,6 +548,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       return db_schedule_assignments.NumCrewShifts(agency_filter,relative_month,nominal_day_filter,shift_name);
+      }
+
+    internal string OverallAvailabilitySubmissionCompliance()
+      {
+      return db_schedule_assignments.OverallAvailabilitySubmissionCompliance();
       }
 
     internal void PublishArchivalEndOfMonthWatchbill(string working_directory)

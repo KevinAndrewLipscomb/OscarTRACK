@@ -711,6 +711,27 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void BindRankedAvailabilitySubmissionCompliance(object target)
+      {
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "select NULL as rank"
+        + " , concat(medium_designator,' - ',long_designator) as agency"
+        + " , value"
+        + " from indicator_avail_submission_compliance"
+        +   " join agency on (agency.id=indicator_avail_submission_compliance.agency_id)"
+        + " where year = YEAR(CURDATE())"
+        +   " and month = MONTH(CURDATE())"
+        +   " and be_agency_id_applicable = TRUE"
+        + " order by value desc",
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
     internal void BindSubmissionCompliancyBaseDataList
       (
       string sort_order,
@@ -1384,6 +1405,106 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal void LogAvailabilitySubmissionComplianceData()
+      {
+      var metric_phrase = k.EMPTY
+      + " ("
+      +   " 100"
+      + " *"
+      +   " ("
+      +     " sum((enrollment_level.description in ('Atypical','Transferring')) or (condensed_schedule_assignment.member_id is not null))"
+      +   " /"
+      +     " count(member.id)"
+      +   " )"
+      + " )";
+      var from_where_phrase = k.EMPTY
+      + " from member"
+      +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+      +   " join enrollment_history on"
+      +     " ("
+      +       " enrollment_history.member_id=member.id"
+      +     " and"
+      +       " ("
+      +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+      +       " and"
+      +         " ("
+      +           " (enrollment_history.end_date is null)"
+      +         " or"
+      +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+      +         " )"
+      +       " )"
+      +     " )"
+      +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+      +   " left join leave_of_absence on"
+      +     " ("
+      +       " leave_of_absence.member_id=member.id"
+      +     " and"
+      +       " ("
+      +         " (leave_of_absence.start_date is null)"
+      +       " or"
+      +         " ("
+      +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+      +         " and"
+      +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+      +         " )"
+      +       " )"
+      +     " )"
+      +   " left join"
+      +     " ("
+      +     " select distinct member_id"
+      +     " from schedule_assignment"
+      +     " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))"
+      +     " ) as condensed_schedule_assignment"
+      +     " on (condensed_schedule_assignment.member_id=member.id)"
+      +   " join agency on (agency.id=member.agency_id)"
+      + " where"
+      +   " ("
+      +     " ("
+      +       " enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      +     " and"
+      +       " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
+      +     " )"
+      +   " or"
+      +     " (enrollment_level.description in ('Atypical','Transferring'))"
+      +   " )";
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "START TRANSACTION"
+          + ";"
+          //
+          // Log squad-by-squad indicators.
+          //
+          + " replace indicator_avail_submission_compliance (year,month,be_agency_id_applicable,agency_id,value)"
+          + " select YEAR(CURDATE())"
+          + " , MONTH(CURDATE())"
+          + " , TRUE"
+          + " , agency.id"
+          + " , " + metric_phrase
+          +   from_where_phrase
+          + " group by agency.id"
+          + ";"
+          //
+          // Log citywide indicator.
+          //
+          + " replace indicator_avail_submission_compliance (year,month,be_agency_id_applicable,agency_id,value)"
+          + " select YEAR(CURDATE())"
+          + " , MONTH(CURDATE())"
+          + " , FALSE"
+          + " , 0"
+          + " , " + metric_phrase
+          +   from_where_phrase
+          + ";"
+          + " COMMIT"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     internal void MarkMemberToBeReleased
       (
       string member_id,
@@ -1502,6 +1623,21 @@ namespace Class_db_schedule_assignments
       Close();
       return num_crew_shifts;
       //
+      }
+
+    internal string OverallAvailabilitySubmissionCompliance()
+      {
+      object overall_availability_submission_compliance_obj;
+      var result = k.EMPTY;
+      Open();
+      overall_availability_submission_compliance_obj = new MySqlCommand
+        ("select FORMAT(value,0) from indicator_avail_submission_compliance where year = YEAR(CURDATE()) and month = MONTH(CURDATE()) and not be_agency_id_applicable",connection).ExecuteScalar();
+      if (overall_availability_submission_compliance_obj != null)
+        {
+        result = overall_availability_submission_compliance_obj.ToString();
+        }
+      Close();
+      return result;
       }
 
     internal void PendingNotificationTargets
