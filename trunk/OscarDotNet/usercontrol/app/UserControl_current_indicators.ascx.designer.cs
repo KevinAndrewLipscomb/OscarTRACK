@@ -31,40 +31,13 @@ namespace UserControl_current_indicators {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_crew_shifts_forecast;
         
         /// <summary>
-        /// PlaceHolder_ranked_utilization control.
+        /// PlaceHolder_ranked_standard_enrollment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_utilization;
-        
-        /// <summary>
-        /// PlaceHolder_ranked_length_of_service control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_length_of_service;
-        
-        /// <summary>
-        /// PlaceHolder_ranked_num_members_in_pipeline control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_num_members_in_pipeline;
-        
-        /// <summary>
-        /// PlaceHolder_ranked_third_slot_saturation control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_third_slot_saturation;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_standard_enrollment;
         
         /// <summary>
         /// PlaceHolder_ranked_commensuration control.
@@ -76,13 +49,40 @@ namespace UserControl_current_indicators {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_commensuration;
         
         /// <summary>
-        /// PlaceHolder_ranked_standard_enrollment control.
+        /// PlaceHolder_ranked_third_slot_saturation control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_standard_enrollment;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_third_slot_saturation;
+        
+        /// <summary>
+        /// PlaceHolder_ranked_num_members_in_pipeline control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_num_members_in_pipeline;
+        
+        /// <summary>
+        /// PlaceHolder_ranked_length_of_service control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_length_of_service;
+        
+        /// <summary>
+        /// PlaceHolder_ranked_utilization control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_utilization;
         
         /// <summary>
         /// PlaceHolder_ranked_avail_submission_compliance control.

@@ -7,7 +7,6 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_schedule_assignments
   {
@@ -721,8 +720,7 @@ namespace Class_db_schedule_assignments
         + " , value"
         + " from indicator_avail_submission_compliance"
         +   " join agency on (agency.id=indicator_avail_submission_compliance.agency_id)"
-        + " where year = YEAR(CURDATE())"
-        +   " and month = MONTH(CURDATE())"
+        + " where concat(year,'-',LPAD(month,2,'0')) = (select max(concat(year,'-',LPAD(month,2,'0'))) from indicator_avail_submission_compliance)"
         +   " and be_agency_id_applicable = TRUE"
         + " order by value desc",
         connection
@@ -1631,7 +1629,14 @@ namespace Class_db_schedule_assignments
       var result = k.EMPTY;
       Open();
       overall_availability_submission_compliance_obj = new MySqlCommand
-        ("select FORMAT(value,0) from indicator_avail_submission_compliance where year = YEAR(CURDATE()) and month = MONTH(CURDATE()) and not be_agency_id_applicable",connection).ExecuteScalar();
+        (
+        "select FORMAT(value,0)"
+        + " from indicator_avail_submission_compliance"
+        + " where concat(year,'-',LPAD(month,2,'0')) = (select max(concat(year,'-',LPAD(month,2,'0'))) from indicator_avail_submission_compliance)"
+        +   " and not be_agency_id_applicable",
+        connection
+        )
+        .ExecuteScalar();
       if (overall_availability_submission_compliance_obj != null)
         {
         result = overall_availability_submission_compliance_obj.ToString();

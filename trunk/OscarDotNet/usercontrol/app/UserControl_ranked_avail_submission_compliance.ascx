@@ -9,7 +9,7 @@
               <strong>Availability submission compliance</strong><br/>
               <em>(Citywide = </em><asp:Label ID="Label_overall" runat="server" Font-Italic="True"></asp:Label>&nbsp;%<em>)</em>
             </p>
-            <p><small>This block shows the degree to which agency personnel submitted availability sheets by the deadline.</small></p>
+            <p><small>This block shows the degree to which agency personnel submitted availability sheets by the most recent deadline.</small></p>
           </td>
         </tr>
         <tr>
