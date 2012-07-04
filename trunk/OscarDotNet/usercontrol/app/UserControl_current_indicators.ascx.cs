@@ -1,3 +1,4 @@
+using UserControl_ranked_avail_submission_compliance;
 using UserControl_ranked_commensuration;
 using UserControl_ranked_core_ops_size;
 using UserControl_ranked_crew_shifts_forecast;
@@ -36,6 +37,7 @@ namespace UserControl_current_indicators
             else
             {
                 p.be_loaded = false;
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_avail_submission_compliance)(LoadControl("~/usercontrol/app/UserControl_ranked_avail_submission_compliance.ascx"))),"UserControl_ranked_avail_submission_compliance",PlaceHolder_ranked_avail_submission_compliance,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_core_ops_size)(LoadControl("~/usercontrol/app/UserControl_ranked_core_ops_size.ascx"))),"UserControl_ranked_core_ops_size",PlaceHolder_ranked_core_ops_size,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_crew_shifts_forecast)(LoadControl("~/usercontrol/app/UserControl_ranked_crew_shifts_forecast.ascx"))),"UserControl_ranked_crew_shifts_forecast",PlaceHolder_ranked_crew_shifts_forecast,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_standard_enrollment)(LoadControl("~/usercontrol/app/UserControl_ranked_standard_enrollment.ascx"))),"UserControl_ranked_standard_enrollment",PlaceHolder_ranked_standard_enrollment,InstanceId());
@@ -67,10 +69,8 @@ namespace UserControl_current_indicators
 
         public TWebUserControl_current_indicators Fresh()
         {
-            TWebUserControl_current_indicators result;
             Session.Remove(InstanceId() + ".p");
-            result = this;
-            return result;
+            return this;
         }
 
         private struct p_type

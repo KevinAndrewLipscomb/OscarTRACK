@@ -22,7 +22,7 @@ namespace UserControl_ranked_fleet_tracking_participation
         {
             if (!p.be_loaded)
             {
-                p.biz_members.BindRankedFleetTrackingParticipation(DataGrid_detail, (Session["mode:report/monthly-core-ops-dashboard"] != null));
+                p.biz_members.BindRankedFleetTrackingParticipation(DataGrid_detail,(Session["mode:report/monthly-core-ops-dashboard"] != null));
                 Label_overall.Text = p.biz_members.OverallFleetTrackingParticipation() + " %";
                 p.be_loaded = true;
             }
