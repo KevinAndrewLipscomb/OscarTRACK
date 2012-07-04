@@ -275,12 +275,26 @@ namespace Class_db_agencies
         }
 
         public void BindRankedCommensuration(object target)
-        {
-            this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as rank" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , value" + " from indicator_commensuration" + " join agency on (agency.id=indicator_commensuration.agency_id)" + " where year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by value desc", this.connection).ExecuteReader();
-            ((target) as DataGrid).DataBind();
-            this.Close();
-        }
+          {
+          Open();
+          ((target) as DataGrid).DataSource = new MySqlCommand
+            (
+            "select NULL as rank"
+            + " , concat(medium_designator,' - ',long_designator) as agency"
+            + " , value"
+            + " from indicator_commensuration"
+            +   " join agency on (agency.id=indicator_commensuration.agency_id)"
+            + " where year = YEAR(CURDATE())"
+            +   " and month = MONTH(CURDATE())"
+            +   " and agency_id <> 0"
+            +   " and be_agency_id_applicable = TRUE"
+            + " order by value desc",
+            connection
+            )
+            .ExecuteReader();
+          ((target) as DataGrid).DataBind();
+          Close();
+          }
 
         public void CycleFleetTrackingOpsTallies()
           {
