@@ -40,13 +40,13 @@ namespace UserControl_current_indicators {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_standard_enrollment;
         
         /// <summary>
-        /// PlaceHolder_ranked_commensuration control.
+        /// PlaceHolder_ranked_avail_submission_compliance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_commensuration;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_avail_submission_compliance;
         
         /// <summary>
         /// PlaceHolder_ranked_third_slot_saturation control.
@@ -85,13 +85,13 @@ namespace UserControl_current_indicators {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_utilization;
         
         /// <summary>
-        /// PlaceHolder_ranked_avail_submission_compliance control.
+        /// PlaceHolder_ranked_commensuration control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_avail_submission_compliance;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_commensuration;
         
         /// <summary>
         /// PlaceHolder_ranked_fleet_tracking_participation control.
