@@ -1603,10 +1603,52 @@ namespace Class_db_members
           string relative_month
           )
           {
-          this.Open();
-          var dr =
+          Open();
+          MySqlDataReader dr;
+          dr = new MySqlCommand
             (
-            new MySqlCommand
+            "select last_name" 
+            + " , first_name" 
+            + " , cad_num" 
+            + " , short_designator as agency" 
+            + " , section_num" 
+            + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
+            + " , medical_release_code_description_map.description as medical_release_description" 
+            + " , be_driver_qualified" 
+            + " , enrollment_level.description as enrollment" 
+            + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+            + " , phone_num" 
+            + " from member" 
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
+            +   " join enrollment_history on" 
+            +     " (" 
+            +       " enrollment_history.member_id=member.id" 
+            +     " and" 
+            +       " (" 
+            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +       " and" 
+            +         " (" 
+            +           " (enrollment_history.end_date is null)" 
+            +         " or" 
+            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+            +   " join agency on (agency.id=member.agency_id)"
+            + " where member.id = '" + member_id + "'",
+            connection
+            )
+            .ExecuteReader();
+          if (!dr.Read())
+            {
+            //
+            // This is the zebra case where the member has been set up to transition to a new status at date that is in the future but still within this month, and so will not match any row given the above query.  Since we must
+            // provide *some* summary, re-run the query without the call to LAST_DAY.  We could probably combine these two queries, but the above has proven so reliable for so long that we're reticent to modify it for the sake
+            // of a zebra case.
+            //
+            dr.Close();
+            dr = new MySqlCommand
               (
               "select last_name" 
               + " , first_name" 
@@ -1631,7 +1673,7 @@ namespace Class_db_members
               +         " (" 
               +           " (enrollment_history.end_date is null)" 
               +         " or" 
-              +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+              +           " (enrollment_history.end_date >= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" // no LAST_DAY
               +         " )" 
               +       " )" 
               +     " )" 
@@ -1640,9 +1682,9 @@ namespace Class_db_members
               + " where member.id = '" + member_id + "'",
               connection
               )
-              .ExecuteReader()
-            );
-          dr.Read();
+              .ExecuteReader();
+            dr.Read();
+            }
           var the_summary = new member_summary()
             {
             agency = dr["agency"].ToString(),
@@ -1659,7 +1701,7 @@ namespace Class_db_members
             section = dr["section_num"].ToString()
             };
           dr.Close();
-          this.Close();
+          Close();
           return the_summary;
           }
         public object Summary(string member_id)
