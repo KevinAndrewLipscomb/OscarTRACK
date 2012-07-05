@@ -49,6 +49,51 @@ namespace UserControl_serial_indicators_per_agency {
         protected global::System.Web.UI.HtmlControls.HtmlImage Img_crew_shifts_forecast;
         
         /// <summary>
+        /// Img_median_length_of_service control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_median_length_of_service;
+        
+        /// <summary>
+        /// Img_standard_enrollment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_standard_enrollment;
+        
+        /// <summary>
+        /// Img_utilization control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_utilization;
+        
+        /// <summary>
+        /// Img_avail_submission_compliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_avail_submission_compliance;
+        
+        /// <summary>
+        /// Img_commensuration control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_commensuration;
+        
+        /// <summary>
         /// Panel_third_slot_saturation_image control.
         /// </summary>
         /// <remarks>
@@ -74,42 +119,6 @@ namespace UserControl_serial_indicators_per_agency {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel Panel_third_slot_saturation_not_meaningful_here;
-        
-        /// <summary>
-        /// Img_utilization control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Img_utilization;
-        
-        /// <summary>
-        /// Img_standard_enrollment control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Img_standard_enrollment;
-        
-        /// <summary>
-        /// Img_median_length_of_service control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Img_median_length_of_service;
-        
-        /// <summary>
-        /// Img_commensuration control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlImage Img_commensuration;
         
         /// <summary>
         /// Img_fleet_tracking_participation control.

@@ -170,6 +170,7 @@
     <Content Include="usercontrol\app\UserControl_schedule_proposal.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_avail_submission_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_shift.ascx" />
@@ -1332,6 +1333,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicators_per_agency.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicators_per_agency.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_avail_submission_compliance.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_avail_submission_compliance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_avail_submission_compliance.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_avail_submission_compliance.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_commensuration.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_commensuration.ascx</DependentUpon>

@@ -12,7 +12,7 @@
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_core_ops_size" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_crew_shifts_forecast" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_standard_enrollment" runat="server"></ASP:PlaceHolder></p>
-                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_commensuration" runat="server"></ASP:PlaceHolder></p>
+                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_avail_submission_compliance" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_third_slot_saturation" runat="server"></ASP:PlaceHolder></p>
                 </td>
                 <td>&nbsp;&nbsp;</td>
@@ -20,7 +20,7 @@
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_num_members_in_pipeline" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_length_of_service" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_utilization" runat="server"></ASP:PlaceHolder></p>
-                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_avail_submission_compliance" runat="server"></ASP:PlaceHolder></p>
+                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_commensuration" runat="server"></ASP:PlaceHolder></p>
                 </td>
               </tr>
             </table>

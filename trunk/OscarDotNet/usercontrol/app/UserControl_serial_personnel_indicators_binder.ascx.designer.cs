@@ -31,15 +31,6 @@ namespace UserControl_serial_personnel_indicators_binder {
         protected global::AjaxControlToolkit.TabContainer TabContainer_control;
         
         /// <summary>
-        /// TabPanel_initial_schedule_completion control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_initial_schedule_completion;
-        
-        /// <summary>
         /// TabPanel_num_core_ops_members control.
         /// </summary>
         /// <remarks>
@@ -67,22 +58,13 @@ namespace UserControl_serial_personnel_indicators_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_num_potential_crew_shifts;
         
         /// <summary>
-        /// TabPanel_third_slot_saturation control.
+        /// TabPanel_median_years_of_service control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_third_slot_saturation;
-        
-        /// <summary>
-        /// TabPanel_roster_utilization control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_roster_utilization;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_median_years_of_service;
         
         /// <summary>
         /// TabPanel_core_ops_commitment control.
@@ -94,13 +76,40 @@ namespace UserControl_serial_personnel_indicators_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_core_ops_commitment;
         
         /// <summary>
-        /// TabPanel_median_years_of_service control.
+        /// TabPanel_roster_utilization control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_median_years_of_service;
+        protected global::AjaxControlToolkit.TabPanel TabPanel_roster_utilization;
+        
+        /// <summary>
+        /// TabPanel_avail_submission_compliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_avail_submission_compliance;
+        
+        /// <summary>
+        /// TabPanel_initial_schedule_completion control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_initial_schedule_completion;
+        
+        /// <summary>
+        /// TabPanel_third_slot_saturation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_third_slot_saturation;
         
         /// <summary>
         /// PlaceHolder_content control.
