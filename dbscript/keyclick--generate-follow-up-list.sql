@@ -1,5 +1,5 @@
 SELECT resident_base.id
-, IFNULL(resident_base.name,"CURRENT RESIDENT")
+, IFNULL(resident_base.name,"CURRENT RESIDENT") as name
 , concat(house_num,' ',street.name) as address1
 , city.name as city
 , state.abbreviation as state
