@@ -1,3 +1,14 @@
+START TRANSACTION
+;
+drop table if exists recent_donation
+;
+drop table if exists resident_follow_up
+;
+CREATE TABLE recent_donation SELECT id FROM donation WHERE date > '$year_num-$month_num-$day_num'
+;
+CREATE TABLE resident_follow_up
+;
+CREATE TABLE resident_follow_up
 SELECT resident_base.id
 , IFNULL(resident_base.name,"CURRENT RESIDENT") as name
 , concat(house_num,' ',street.name) as address1
@@ -18,3 +29,7 @@ WHERE recent_donation.id IS NULL
     )
   and resident_base.id <> 0
 order by state,city,street.name,house_num
+;
+drop table recent_donation
+;
+COMMIT
