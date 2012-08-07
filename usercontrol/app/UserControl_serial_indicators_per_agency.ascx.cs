@@ -15,17 +15,17 @@ namespace UserControl_serial_indicators_per_agency
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_user biz_user;
-    public string initial_img_avail_submission_compliance_src;
-    public string initial_img_commensuration_src;
-    public string initial_img_core_ops_size_src;
-    public string initial_img_crew_shifts_forecast_src;
-    public string initial_img_fleet_tracking_participation_src;
-    public string initial_img_median_length_of_service_src;
-    public string initial_img_num_members_in_pipeline_src;
-    public string initial_img_standard_enrollment_src;
-    public string initial_img_third_slot_saturation_src;
-    public string initial_img_utilization_src;
-    public string initial_img_vehicles_up_and_current_src;
+    public string expanded_img_avail_submission_compliance_src;
+    public string expanded_img_commensuration_src;
+    public string expanded_img_core_ops_size_src;
+    public string expanded_img_crew_shifts_forecast_src;
+    public string expanded_img_fleet_tracking_participation_src;
+    public string expanded_img_median_length_of_service_src;
+    public string expanded_img_num_members_in_pipeline_src;
+    public string expanded_img_standard_enrollment_src;
+    public string expanded_img_third_slot_saturation_src;
+    public string expanded_img_utilization_src;
+    public string expanded_img_vehicles_up_and_current_src;
     }
 
   public partial class TWebUserControl_serial_indicators_per_agency: ki_web_ui.usercontrol_class
@@ -80,17 +80,17 @@ namespace UserControl_serial_indicators_per_agency
         p.biz_user = new TClass_biz_user();
         //
         p.agency_id = "0";
-        p.initial_img_avail_submission_compliance_src = Img_avail_submission_compliance.Attributes["src"];
-        p.initial_img_commensuration_src = Img_commensuration.Attributes["src"];
-        p.initial_img_core_ops_size_src = Img_core_ops_size.Attributes["src"];
-        p.initial_img_crew_shifts_forecast_src = Img_crew_shifts_forecast.Attributes["src"];
-        p.initial_img_fleet_tracking_participation_src = Img_fleet_tracking_participation.Attributes["src"];
-        p.initial_img_median_length_of_service_src = Img_median_length_of_service.Attributes["src"];
-        p.initial_img_num_members_in_pipeline_src = Img_num_members_in_pipeline.Attributes["src"];
-        p.initial_img_standard_enrollment_src = Img_standard_enrollment.Attributes["src"];
-        p.initial_img_third_slot_saturation_src = Img_third_slot_saturation.Attributes["src"];
-        p.initial_img_utilization_src = Img_utilization.Attributes["src"];
-        p.initial_img_vehicles_up_and_current_src = Img_vehicles_up_and_current.Attributes["src"];
+        p.expanded_img_avail_submission_compliance_src = k.ExpandAsperand(Img_avail_submission_compliance.Attributes["src"]);
+        p.expanded_img_commensuration_src = k.ExpandAsperand(Img_commensuration.Attributes["src"]);
+        p.expanded_img_core_ops_size_src = k.ExpandAsperand(Img_core_ops_size.Attributes["src"]);
+        p.expanded_img_crew_shifts_forecast_src = k.ExpandAsperand(Img_crew_shifts_forecast.Attributes["src"]);
+        p.expanded_img_fleet_tracking_participation_src = k.ExpandAsperand(Img_fleet_tracking_participation.Attributes["src"]);
+        p.expanded_img_median_length_of_service_src = k.ExpandAsperand(Img_median_length_of_service.Attributes["src"]);
+        p.expanded_img_num_members_in_pipeline_src = k.ExpandAsperand(Img_num_members_in_pipeline.Attributes["src"]);
+        p.expanded_img_standard_enrollment_src = k.ExpandAsperand(Img_standard_enrollment.Attributes["src"]);
+        p.expanded_img_third_slot_saturation_src = k.ExpandAsperand(Img_third_slot_saturation.Attributes["src"]);
+        p.expanded_img_utilization_src = k.ExpandAsperand(Img_utilization.Attributes["src"]);
+        p.expanded_img_vehicles_up_and_current_src = k.ExpandAsperand(Img_vehicles_up_and_current.Attributes["src"]);
         }
       }
 
@@ -128,7 +128,7 @@ namespace UserControl_serial_indicators_per_agency
         {
         passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=0";
         Panel_third_slot_saturation_image.Visible = true;
-        Img_third_slot_saturation.Attributes["src"] = p.initial_img_third_slot_saturation_src + passthrough_parms;
+        Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
         Panel_third_slot_saturation_not_meaningful_here.Visible = false;
         }
       else
@@ -137,16 +137,16 @@ namespace UserControl_serial_indicators_per_agency
         Panel_third_slot_saturation_image.Visible = false;
         Panel_third_slot_saturation_not_meaningful_here.Visible = true;
         }
-      Img_avail_submission_compliance.Attributes["src"] = p.initial_img_avail_submission_compliance_src + passthrough_parms;
-      Img_core_ops_size.Attributes["src"] = p.initial_img_core_ops_size_src + passthrough_parms;
-      Img_num_members_in_pipeline.Attributes["src"] = p.initial_img_num_members_in_pipeline_src + passthrough_parms;
-      Img_crew_shifts_forecast.Attributes["src"] = p.initial_img_crew_shifts_forecast_src + passthrough_parms;
-      Img_utilization.Attributes["src"] = p.initial_img_utilization_src + passthrough_parms;
-      Img_standard_enrollment.Attributes["src"] = p.initial_img_standard_enrollment_src + passthrough_parms;
-      Img_median_length_of_service.Attributes["src"] = p.initial_img_median_length_of_service_src + passthrough_parms;
-      Img_commensuration.Attributes["src"] = p.initial_img_commensuration_src + passthrough_parms;
-      Img_fleet_tracking_participation.Attributes["src"] = p.initial_img_fleet_tracking_participation_src + passthrough_parms;
-      Img_vehicles_up_and_current.Attributes["src"] = p.initial_img_vehicles_up_and_current_src + passthrough_parms;
+      Img_avail_submission_compliance.Attributes["src"] = p.expanded_img_avail_submission_compliance_src + passthrough_parms;
+      Img_core_ops_size.Attributes["src"] = p.expanded_img_core_ops_size_src + passthrough_parms;
+      Img_num_members_in_pipeline.Attributes["src"] = p.expanded_img_num_members_in_pipeline_src + passthrough_parms;
+      Img_crew_shifts_forecast.Attributes["src"] = p.expanded_img_crew_shifts_forecast_src + passthrough_parms;
+      Img_utilization.Attributes["src"] = p.expanded_img_utilization_src + passthrough_parms;
+      Img_standard_enrollment.Attributes["src"] = p.expanded_img_standard_enrollment_src + passthrough_parms;
+      Img_median_length_of_service.Attributes["src"] = p.expanded_img_median_length_of_service_src + passthrough_parms;
+      Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
+      Img_fleet_tracking_participation.Attributes["src"] = p.expanded_img_fleet_tracking_participation_src + passthrough_parms;
+      Img_vehicles_up_and_current.Attributes["src"] = p.expanded_img_vehicles_up_and_current_src + passthrough_parms;
       }
 
     } // end TWebUserControl_serial_indicators_per_agency
