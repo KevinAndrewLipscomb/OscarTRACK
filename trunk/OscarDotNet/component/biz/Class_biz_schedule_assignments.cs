@@ -329,6 +329,7 @@ namespace Class_biz_schedule_assignments
 
     internal void LogAvailabilitySubmissionComplianceData()
       {
+      db_schedule_assignments.Update(relative_month:"1",be_official:true);
       db_schedule_assignments.LogAvailabilitySubmissionComplianceData();
       }
 
