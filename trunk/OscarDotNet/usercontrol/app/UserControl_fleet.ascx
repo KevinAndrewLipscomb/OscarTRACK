@@ -166,6 +166,7 @@
                 <asp:BoundColumn DataField="tag" HeaderText="Tag" ReadOnly="True" SortExpression="tag%"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vin" HeaderText="VIN" ReadOnly="True" SortExpression="vin%"></asp:BoundColumn>
                 <asp:BoundColumn DataField="be_target_pm_mileage_meaningful" ReadOnly="True" Visible="False"></asp:BoundColumn>
+                <asp:BoundColumn DataField="be_dmv_inspection_due_meaningful" ReadOnly="True" Visible="False"></asp:BoundColumn>
               </Columns>
             </asp:DataGrid>
           </td>

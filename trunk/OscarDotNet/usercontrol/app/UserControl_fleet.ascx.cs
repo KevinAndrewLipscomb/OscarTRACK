@@ -47,6 +47,7 @@ namespace UserControl_fleet
       public const int TCI_TAG = 23;
       public const int TCI_VIN = 24;
       public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 25;
+      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 26;
       }
 
     private struct p_type
@@ -363,6 +364,13 @@ namespace UserControl_fleet
             e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
             be_up_and_current = false;
             }
+          }
+        else if (e.Item.Cells[UserControl_fleet_Static.TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL].Text == "1")
+          {
+          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
+          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
+          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
+          be_up_and_current = false;
           }
         if (p.be_interactive)
           {
