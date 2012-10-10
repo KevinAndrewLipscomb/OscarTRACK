@@ -1274,7 +1274,7 @@ namespace Class_db_members
             // Note that tier_id=1 is the "highest" tier.
             this.Open();
             tier_id_obj = new MySqlCommand("select min(tier_id)" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role on (role.id=role_member_map.role_id)" + " where member.id = " + id, this.connection).ExecuteScalar();
-            if (tier_id_obj != null)
+            if ((tier_id_obj != null) && (tier_id_obj != DBNull.Value))
             {
                 result = tier_id_obj.ToString();
             }
