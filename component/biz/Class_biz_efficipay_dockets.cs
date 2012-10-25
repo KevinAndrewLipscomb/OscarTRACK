@@ -52,6 +52,11 @@ namespace Class_biz_efficipay_dockets
         }      
       }
 
+    internal bool BeNumInUse(string num)
+      {
+      return db_efficipay_dockets.BeNumInUse(num);
+      }
+
     internal bool BeOkToShowSigners
       (
       string id
