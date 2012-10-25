@@ -396,8 +396,21 @@ namespace UserControl_efficipay_docket
 
     protected void Button_continue_Click(object sender, EventArgs e)
       {
-      p.check_num = k.Safe(TextBox_num.Text,k.safe_hint_type.NUM);
-      ManageControlAblementsAndVisibilities();
+      if (p.biz_efficipay_dockets.BeNumInUse(num:k.Safe(TextBox_num.Text,k.safe_hint_type.NUM)))
+        {
+        Alert
+          (
+          cause:k.alert_cause_type.APPDATA,
+          state:k.alert_state_type.WARNING,
+          key:"numinuse",
+          value:"Sorry, a docket with the specified number already exists.  You cannot have two active dockets with the same docket number."
+          );
+        }
+      else
+        {
+        p.check_num = k.Safe(TextBox_num.Text,k.safe_hint_type.NUM);
+        ManageControlAblementsAndVisibilities();
+        }
       }
 
     protected void Button_apply_signature_Click(object sender, EventArgs e)

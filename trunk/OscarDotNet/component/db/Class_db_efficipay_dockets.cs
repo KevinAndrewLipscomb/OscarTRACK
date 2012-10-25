@@ -61,6 +61,15 @@ namespace Class_db_efficipay_dockets
       return apply_signature;
       }
 
+    internal bool BeNumInUse(string num)
+      {
+      var be_num_in_use = true;
+      Open();
+      be_num_in_use = "1" == new MySqlCommand("select IF(count(*) > 0,1,0) from efficipay_docket where num = '" + num + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return be_num_in_use;
+      }
+
     internal bool BeOkToSign(string id)
       {
       var be_ok_to_sign = false;
