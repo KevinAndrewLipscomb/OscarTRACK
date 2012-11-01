@@ -48,7 +48,12 @@ namespace Class_biz_agencies
 
         public bool BeImmediateOutTransfersAllowed(string agency)
           {
-          return (agency == "EMS");
+          //return (agency == "EMS");
+            //
+            // No longer appropriate.  Allowed a Squad Commander to "take a member away from EMS" without reliable due process on EMS's part that is now established.  Superceded by the mechanism built into the Transferring
+            // membership status transition.
+            //
+          return false;
           }
 
         internal bool BeOkToDefaultAgencyFilterToAll
