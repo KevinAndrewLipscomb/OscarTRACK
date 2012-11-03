@@ -29,6 +29,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     {
     public string agency_filter;
     public bool be_loaded;
+    public bool be_ok_to_audit_holdouts;
     public bool be_ok_to_edit_schedule;
     public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
@@ -77,7 +78,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         RadioButtonList_which_month.Enabled = ((p.be_ok_to_edit_schedule || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
         ManagePostPublishSubmissionDetection();
-        TabPanel_holdouts.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
@@ -112,6 +113,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
+        p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.user_member_id = Session["member_id"].ToString();
