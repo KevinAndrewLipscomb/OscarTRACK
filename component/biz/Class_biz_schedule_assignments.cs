@@ -97,7 +97,7 @@ namespace Class_biz_schedule_assignments
 
     internal bool BeOkToWorkOnNextMonth()
       {
-      return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]));
+      return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]));
       }
 
     internal bool BePendingNotifications
