@@ -2,8 +2,8 @@ using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_msg_protected;
 using kix;
-using System;
 using System.Collections;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -44,6 +44,7 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       {
       if (!p.be_loaded)
         {
+        Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         //
         Bind();
         //
