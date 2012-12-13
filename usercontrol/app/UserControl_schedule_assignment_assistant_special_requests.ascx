@@ -9,6 +9,13 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
+              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
+                <td>
+                  <b>Guidance:</b> Review these requests for serious unusual situations that <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> is unable to detect or correct by itself.&nbsp;
+                  <b><i>NOTE</i></b> that the conventional wisdom, developed over many scheduling cycles by experienced schedulers, is that you can safely <i>ignore</i> most requests related to interpersonal relations.&nbsp;
+                  In fact, changes made here usually <i>degrade</i> the overall quality of the schedule.
+                </td>
+              </tr>
               <tr>
                 <td>
                   <asp:datagrid id="Q" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="Q_ItemDataBound" onitemcommand="Q_ItemCommand" AllowSorting="True" OnSortCommand="Q_SortCommand">

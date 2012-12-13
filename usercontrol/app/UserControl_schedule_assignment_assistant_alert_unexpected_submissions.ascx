@@ -8,15 +8,18 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
+              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
+                <td>
+                  <b>Guidance:</b> The following members submitted availabilities, but <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> did not expect them to, and did not select them for any duties.
+                    <ul>
+                      <li>If a member <strong>may or should</strong> run duties, click their name and FORCE them ON for the correct number of shifts.&nbsp; Consider getting the member's status updated under the Personnel tab.</li>
+                      <li>If a member should <strong>not</strong> run duties, no action is required.</li>
+                    </ul>
+                  You should review these alerts before moving on to later steps, because each change may also solve other scheduling issues.
+                </td>
+              </tr>
               <tr>
                 <td>
-                  <p>The following members submitted availabilities, but <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> did not expect them to, and did not select them for any duties.</p>
-                  <small>
-                    <ul>
-                      <li><p>If a member <strong>may or should</strong> run duties, click their name and FORCE them ON for the correct number of shifts.&nbsp; Consider getting the member's status updated under the Personnel tab.</p></li>
-                      <li><p>If a member should <strong>not</strong> run duties, no action is required.</p></li>
-                    </ul>
-                  </small>
                   <asp:datagrid id="W" runat="server" border="0" autogeneratecolumns="False" useaccessibleheader="True" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand" ShowHeader="False" GridLines="None">
                     <Columns>
                       <asp:ButtonColumn DataTextField="name">
