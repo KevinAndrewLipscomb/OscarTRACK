@@ -54,6 +54,12 @@
                       </small>
                     </td>
                   </tr>
+                  <tr id="TableRow_guidance" runat="server" visible="false">
+                    <td align="right"><b>Guidance:</b></td>
+                    <td colspan="4" align="left">
+                      When developing the schedule, the way to get the best results with the least amount of work is to <b>perform the steps in the indicated numerical order</b>, just about each time you log in.
+                    </td>
+                  </tr>
                 </table>
               </td>
             </tr>

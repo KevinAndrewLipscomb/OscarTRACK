@@ -74,7 +74,7 @@ namespace process_paypal_donation
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_residents = new TClass_biz_residents();
-        p.incoming = Message<TClass_msg_protected.process_paypal_donation>("protected","process_paypal_donation");
+        p.incoming = ConsumedMessage<TClass_msg_protected.process_paypal_donation>("protected","process_paypal_donation");
         p.msg_protected_confirm_paypal_donation = new TClass_msg_protected.confirm_paypal_donation();
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
