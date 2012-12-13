@@ -9,6 +9,19 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
+              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
+                <td>
+                  <b>Guidance:</b> In the table below, the whole number in the middle column shows how much <i>rest time</i> the member will get between the indicated shifts.
+                  <ul>
+                    <li>If the member is assigned 0 (zero) hours of rest time, you should click <b>AutoFix</b> <i>unless the member specifically requests 24 hours shifts</i>.</li>
+                    <li>If the member is assigned 12 hours of rest time <i>between NIGHT shifts</i>, you should probably click <b>AutoFix</b> unless the member requests two nights in a row.</li>
+                    <li>If the member is assigned 12 hours of rest time between <i>DAY</i> shifts, you should probably do nothing, unless the member has asked <i>not</i> to run two days in a row.</li>
+                    <li>If the member is assigned 24 hours of rest time between shifts, you should probably do nothing.</li>
+                  </ul>
+                  <i>If the member's availabilities allow</i>, the <b>AutoFix</b> button will spread a member's assignments <i>in an optimal manner</i> to allow more rest time between shifts.&nbsp; You should review these alerts
+                  before moving on to later steps, because each change may also solve other scheduling issues.
+                </td>
+              </tr>
               <tr>
                 <td>
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">

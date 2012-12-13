@@ -56,12 +56,8 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       if (!p.be_loaded)
         {
         DropDownList_compliancy.SelectedValue = p.compliancy_filter;
-        if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
-          {
-          TableRow_guidance.Visible = true;
-          Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
-          Literal_application_name_2.Text = Literal_application_name.Text;
-          }
+        Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+        Literal_application_name_2.Text = Literal_application_name.Text;
         Bind();
         Literal_author_email_address.Text = p.biz_user.EmailAddress();
         p.be_loaded = true;

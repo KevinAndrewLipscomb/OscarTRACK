@@ -32,7 +32,7 @@
                   </table>
                 </td>
               </tr>
-              <tr id="TableRow_guidance" runat="server" bgcolor="#f5f5f5" visible="false">
+              <tr id="TableRow_guidance" runat="server" bgcolor="#f5f5f5">
                 <td>
                   <b>Guidance:</b> You should prompt holdouts <b>early</b> and <b>often</b> to submit their availabilities.&nbsp; Doing so will allow <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> to fix
                   many squad and system-wide scheduling issues automatically and optimally.&nbsp; You can use the QuickMessage feature, below, to send emails to holdouts, and each holdout's email address and phone number, if known,
