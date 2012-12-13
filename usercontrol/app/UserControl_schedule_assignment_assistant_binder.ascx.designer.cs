@@ -67,6 +67,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl Span_exclusivity_notice;
         
         /// <summary>
+        /// TableRow_guidance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance;
+        
+        /// <summary>
         /// Label_post_publish_submissions control.
         /// </summary>
         /// <remarks>

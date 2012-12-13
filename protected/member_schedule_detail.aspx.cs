@@ -46,7 +46,7 @@ namespace member_schedule_detail
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
         p.biz_user = new TClass_biz_user();
-        p.incoming = Message<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
+        p.incoming = ConsumedMessage<TClass_msg_protected.member_schedule_detail>("protected","member_schedule_detail");
         UserControl_member_schedule_detail_control.SetFilter(p.incoming.member_agency_id,p.incoming.relative_month,p.incoming.member_id);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)

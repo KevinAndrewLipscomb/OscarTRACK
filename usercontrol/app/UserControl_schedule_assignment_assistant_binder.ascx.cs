@@ -77,6 +77,14 @@ namespace UserControl_schedule_assignment_assistant_binder
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
         RadioButtonList_which_month.Enabled = ((p.be_ok_to_edit_schedule || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
+        if (p.be_ok_to_edit_schedule)
+          {
+          TableRow_guidance.Visible = true;
+          TabPanel_holdouts.HeaderText = "<b>STEP 1:</b> " + TabPanel_holdouts.HeaderText;
+          TabPanel_alert.HeaderText = "<b>STEP 2:</b> " + TabPanel_alert.HeaderText;
+          TabPanel_special_requests.HeaderText = "<b>STEP 3:</b> " + TabPanel_special_requests.HeaderText;
+          TabPanel_proposal.HeaderText = "<b>STEP 4:</b> " + TabPanel_proposal.HeaderText;
+          }
         ManagePostPublishSubmissionDetection();
         TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
@@ -84,6 +92,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
+        }
+      if (p.be_ok_to_edit_schedule)
+        {
+        Span_exclusivity_notice.Style.Clear();
         }
       }
 
@@ -270,10 +282,6 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     public void SetTarget(string target)
       {
-      if ((p.relative_month.val == 1) && p.be_ok_to_edit_schedule)
-        {
-        Span_exclusivity_notice.Style.Clear();
-        }
       if (target != k.EMPTY)
         {
         if (target.ToLower().Contains("/compliance/"))
