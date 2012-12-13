@@ -43,6 +43,9 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (!p.be_loaded)
         {
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
+        TabPanel_time_off.HeaderText = "<b>STEP 2a:</b> " + TabPanel_time_off.HeaderText;
+        TabPanel_time_on.HeaderText = "<b>STEP 2b:</b> " + TabPanel_time_on.HeaderText;
+        TabPanel_unexpected_submissions.HeaderText = "<b>STEP 2c:</b> " + TabPanel_unexpected_submissions.HeaderText;
         p.be_loaded = true;
         }
       }

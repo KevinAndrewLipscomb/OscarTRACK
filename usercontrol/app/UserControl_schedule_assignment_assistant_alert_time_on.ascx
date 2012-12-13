@@ -9,6 +9,14 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
+              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
+                <td>
+                  <b>Guidance:</b> Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.Maximum_Consecutive_Shift_Duty_Policy.pdf" target="_blank">policy</a></b>, no member may work more than 27
+                  continuous hours of patient care duty.&nbsp; You <b><i>must</i></b> resolve every alert listed below, otherwise the indicated duty assignments will be invalid.&nbsp; To resolve one of these alerts, click the
+                  member's name, and on the following page, SWAP one or more of the member's assignments to eliminate the policy violation.&nbsp; You should review these alerts before moving on to later steps, because each
+                  change may also solve other scheduling issues.
+                </td>
+              </tr>
               <tr>
                 <td>
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">

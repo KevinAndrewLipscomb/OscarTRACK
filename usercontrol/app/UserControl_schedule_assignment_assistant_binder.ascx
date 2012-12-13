@@ -47,7 +47,7 @@
                       <small>
                         <em>
                           <span id="Span_exclusivity_notice" runat="server" style="visibility:hidden">
-                            Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf">policy</a></b>, a squad gets exclusive access to its next-month schedule until publication, or
+                            Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad gets exclusive access to its next-month schedule until publication, or
                             through the 17th, whichever is earlier.&nbsp; Then the Department may revise it.
                           </span>
                         </em>
