@@ -31,6 +31,24 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.HtmlControls.HtmlTable Table_data;
         
         /// <summary>
+        /// TableRow_guidance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance;
+        
+        /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
         /// HyperLink_preview_print_scalable control.
         /// </summary>
         /// <remarks>

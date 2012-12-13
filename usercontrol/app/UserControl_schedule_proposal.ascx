@@ -6,6 +6,21 @@
   <tr bgcolor="#f5f5f5">
     <td>
       <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" width="100%">
+        <tr id="TableRow_guidance" runat="server" visible="false">
+          <td>
+            <blockquote>
+              <b>Guidance:</b> Complete all other steps before working on this tab, each time you log in.&nbsp; Focus your efforts on designating which station (home or satellite) and crew (a, b, etc) a member should report
+              to.&nbsp; <b>RESIST THE TEMPTATION</b> to fix partial crews or holes at the squad level.&nbsp; Partial crews and holes are much better fixed by:
+              <ul>
+                <li>Prompting holdouts to submit their availabilities;</li>
+                <li>Resolving alerts detected by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>;</li>
+                <li>Allowing the Department Chief Scheduler to convert partial crews into whole crews using other members of our department -- he has better visibility into the overall situation.</li>
+              </ul>
+              "Fixing" partial crews or holes by moving squad-level duty assignments to other times tends to <b><i>DEGRADE</i></b> the overall citywide schedule.&nbsp; Such degredation is noticable to the City Manager, City
+              Council, and the community we serve.
+            </blockquote>
+          </td>
+        </tr>
         <tr>
           <td align="center">
             <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">

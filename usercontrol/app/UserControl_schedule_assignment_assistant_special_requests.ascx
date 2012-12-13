@@ -13,7 +13,7 @@
                 <td>
                   <b>Guidance:</b> Review these requests for serious unusual situations that <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> is unable to detect or correct by itself.&nbsp;
                   <b><i>NOTE</i></b> that the conventional wisdom, developed over many scheduling cycles by experienced schedulers, is that you can safely <i>ignore</i> most requests related to interpersonal relations.&nbsp;
-                  In fact, changes made here usually <i>degrade</i> the overall quality of the schedule.
+                  In fact, changes made here usually <i>degrade</i> the overall quality of the schedule.&nbsp; <i>If you must</i> make changes here, make them before moving on to later steps.
                 </td>
               </tr>
               <tr>

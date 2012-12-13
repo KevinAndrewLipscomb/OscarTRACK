@@ -114,6 +114,11 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
+        if (p.be_ok_to_edit_post)
+          {
+          TableRow_guidance.Visible = true;
+          Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+          }
         Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
         DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
