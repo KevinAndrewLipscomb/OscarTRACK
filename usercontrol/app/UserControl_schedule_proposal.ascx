@@ -7,7 +7,7 @@
     <td>
       <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc" width="100%">
         <tr id="TableRow_guidance" runat="server" visible="false">
-          <td>
+          <td bgcolor="Khaki">
             <blockquote>
               <b>Guidance:</b> Complete all other steps before working on this tab, each time you log in.&nbsp; Focus your efforts on designating which station (home or satellite) and crew (a, b, etc) a member should report
               to.&nbsp; <b>RESIST THE TEMPTATION</b> to fix partial crews or holes at the squad level.&nbsp; Partial crews and holes are much better fixed by:

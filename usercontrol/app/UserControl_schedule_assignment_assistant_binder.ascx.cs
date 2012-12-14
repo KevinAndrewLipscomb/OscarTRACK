@@ -93,10 +93,6 @@ namespace UserControl_schedule_assignment_assistant_binder
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
-      if (p.be_ok_to_edit_schedule)
-        {
-        Span_exclusivity_notice.Style.Clear();
-        }
       }
 
     protected override void OnInit(System.EventArgs e)

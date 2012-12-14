@@ -9,7 +9,7 @@
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
-                <td>
+                <td bgcolor="Khaki">
                   <b>Guidance:</b> The following members submitted availabilities, but <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> did not expect them to, and did not select them for any duties.
                     <ul>
                       <li>If a member <strong>may or should</strong> run duties, click their name and FORCE them ON for the correct number of shifts.&nbsp; Consider getting the member's status updated under the Personnel tab.</li>
