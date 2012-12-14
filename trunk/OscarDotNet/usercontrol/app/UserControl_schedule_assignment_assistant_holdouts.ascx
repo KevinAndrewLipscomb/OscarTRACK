@@ -13,8 +13,9 @@
                 <td>
                   <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
                     <tr>
-                      <td align="right"><b><small>Filters:</small></b></td>
-                      <td align="center" nowrap="nowrap">
+                      <td width="48%">&nbsp;</td>
+                      <td width="1%"><b><small>Filters:</small></b></td>
+                      <td nowrap="nowrap" width="1%" align="center">
                         <small>Compliancy</small><br/>
                         <ASP:DropDownList id="DropDownList_compliancy" runat="server" autopostback="True" onselectedindexchanged="DropDownList_compliancy_SelectedIndexChanged">
                           <ASP:ListItem value="">All</ASP:ListItem>
@@ -23,6 +24,7 @@
                           <ASP:ListItem value="A">Atypicals</ASP:ListItem>
                         </ASP:DropDownList>
    							      </td>
+                      <td width="48%">&nbsp;</td>
                     </tr>
                   </table>
                   <table cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
@@ -33,10 +35,10 @@
                 </td>
               </tr>
               <tr id="TableRow_guidance" runat="server" bgcolor="#f5f5f5">
-                <td>
+                <td bgcolor="Khaki">
                   <b>Guidance:</b> You should prompt holdouts <b>early</b> and <b>often</b> to submit their availabilities.&nbsp; Doing so will allow <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> to fix
                   many squad and system-wide scheduling issues automatically and optimally.&nbsp; You can use the QuickMessage feature, below, to send emails to holdouts, and each holdout's email address and phone number, if known,
-                  are shown below for your convenience.&nbsp; <asp:Literal ID="Literal_application_name_2" runat="server"></asp:Literal> automatically emails the holdouts once per day that their submissions are late, but this should
+                  are shown below for your convenience.&nbsp; <asp:Literal ID="Literal_application_name_2" runat="server"></asp:Literal> automatically nags holdouts once per day via email that their submissions are late, but this should
                   not take the place of you making personal contact with the holdouts, too.
                 </td>
               </tr>

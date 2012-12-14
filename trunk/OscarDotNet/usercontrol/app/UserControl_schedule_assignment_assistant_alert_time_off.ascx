@@ -10,7 +10,7 @@
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
-                <td>
+                <td bgcolor="Khaki">
                   <b>Guidance:</b> In the table below, the whole number in the middle column shows how much <i>rest time</i> the member will get between the indicated shifts.
                   <ul>
                     <li>If the member is assigned 0 (zero) hours of rest time, you should click <b>AutoFix</b> <i>unless the member specifically requests 24 hours shifts</i>.</li>

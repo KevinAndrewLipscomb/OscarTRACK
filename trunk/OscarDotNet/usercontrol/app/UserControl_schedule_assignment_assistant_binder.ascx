@@ -9,8 +9,9 @@
               <td align="center">
                 <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
                   <tr>
-                    <td align="right"><b><small>Filters:</small></b></td>
-                    <td align="center">
+                    <td width="48%"></td>
+                    <td width="1%"><b><small>Filters:</small></b></td>
+                    <td align="center" width="1%">
                       <table border="1" bordercolor="#808080" cellpadding="0" cellspacing="0">
                         <tr>
                           <td>
@@ -31,11 +32,11 @@
                         </tr>
                       </table>
                     </td>
-                    <td id="TableData_agency_filter" runat="server" align="center">
+                    <td id="TableData_agency_filter" runat="server" align="center" width="1%">
                       <small>Agency</small><br/>
                       <asp:DropDownList ID="DropDownList_agency_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_agency_filter_SelectedIndexChanged"></asp:DropDownList>
                     </td>
-                    <td align="center" nowrap="nowrap">
+                    <td align="center" nowrap="nowrap" width="1%">
                       <small>Release level</small><br/>
                       <ASP:DropDownList id="DropDownList_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_release_filter_SelectedIndexChanged">
                         <ASP:ListItem value="" selected="True">All</ASP:ListItem>
@@ -43,21 +44,13 @@
                         <ASP:ListItem value="0">Not released</ASP:ListItem>
                       </ASP:DropDownList>
    							    </td>
-                    <td align="left">
-                      <small>
-                        <em>
-                          <span id="Span_exclusivity_notice" runat="server" style="visibility:hidden">
-                            Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad gets exclusive access to its next-month schedule until publication, or
-                            through the 17th, whichever is earlier.&nbsp; Then the Department may revise it.
-                          </span>
-                        </em>
-                      </small>
-                    </td>
+                    <td width="48%">&nbsp;</td>
                   </tr>
                   <tr id="TableRow_guidance" runat="server" visible="false">
-                    <td align="right"><b>Guidance:</b></td>
-                    <td colspan="4" align="left">
-                      When developing the schedule, the way to get the best results with the least amount of work is to <b>perform the steps in the indicated numerical order</b>, just about each time you log in.
+                    <td align="right" colspan="6" valign="top" bgcolor="Khaki" style="text-align: left">
+                      <b>Guidance:</b>&nbsp; Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad
+                      gets exclusive access to its next-month schedule until publication, or through the 17th, whichever is earlier.&nbsp; Then the Department may revise it.&nbsp; When developing the schedule, the way to get the
+                      best results with the least amount of work is to <b>perform the steps in the indicated numerical order</b>, just about each time you log in.
                     </td>
                   </tr>
                 </table>
