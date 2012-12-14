@@ -114,7 +114,7 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
-        if (p.be_ok_to_edit_post)
+        if (p.be_interactive && p.be_ok_to_edit_post)
           {
           TableRow_guidance.Visible = true;
           Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
