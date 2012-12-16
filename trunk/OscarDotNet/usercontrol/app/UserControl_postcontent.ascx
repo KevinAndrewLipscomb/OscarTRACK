@@ -58,6 +58,9 @@
                           <tr><td><small><strong><a name="ProcessImprovement"></a>Process improvement</strong></small></td></tr>
                           <tr><td><small>You can help us make this application better!</small></td></tr>
                           <tr><td><small>Send suggestions <a href="mailto:feedback@frompaper2web.com?subject=OSCAR%20suggestion">here</a>.</small></td></tr>
+                          <tr id="TableRow_bounty_program" runat="server" visible="false">
+                            <td><small><asp:HyperLink ID="HyperLink_bounty_program" runat="server" NavigateUrl="~/protected/bounty_program.aspx" Target="_blank">Make money as a bounty hunter.</asp:HyperLink></small></td>
+                          </tr>
                           <tr><td><small><strong>Thanks!</strong></small></td></tr>
                         </table>
                       </td>

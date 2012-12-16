@@ -7,27 +7,36 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_postcontent {
+namespace bounty_program {
     
     
-    public partial class TWebUserControl_postcontent {
+    public partial class TWebForm_bounty_program {
         
         /// <summary>
-        /// TableRow_bounty_program control.
+        /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_bounty_program;
+        protected global::UserControl_precontent.TWebUserControl_precontent UserControl_precontent;
         
         /// <summary>
-        /// HyperLink_bounty_program control.
+        /// UserControl_postcontent control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_bounty_program;
+        protected global::UserControl_postcontent.TWebUserControl_postcontent UserControl_postcontent;
+        
+        /// <summary>
+        /// UserControl_update_progress_blocker_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_update_progress_blocker.TWebUserControl_update_progress_blocker UserControl_update_progress_blocker_control;
     }
 }
