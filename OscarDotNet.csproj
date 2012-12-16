@@ -104,6 +104,7 @@
     <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
+    <Content Include="protected\bounty_program.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
@@ -529,6 +530,13 @@
     </Compile>
     <Compile Include="protected\append_vehicle_down_note.aspx.designer.cs">
       <DependentUpon>append_vehicle_down_note.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\bounty_program.aspx.cs">
+      <DependentUpon>bounty_program.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\bounty_program.aspx.designer.cs">
+      <DependentUpon>bounty_program.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\change_cad_num.aspx.cs">
       <DependentUpon>change_cad_num.aspx</DependentUpon>
