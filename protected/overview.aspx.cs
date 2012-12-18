@@ -75,7 +75,7 @@ namespace overview
                     DropCrumbAndTransferTo("change_password.aspx");
                 }
                 SessionSet("privilege_array", p.biz_user.Privileges());
-                p.incoming = ConsumedMessage<TClass_msg_protected.overview>("protected","overview");
+                p.incoming = Message<TClass_msg_protected.overview>("protected","overview");
             }
             if (p.biz_members.IdOfUserId(p.biz_user.IdNum()) == k.EMPTY)
             {
