@@ -50,7 +50,7 @@ namespace efficipay_docket_detail
       var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
-        p.incoming = ConsumedMessage<TClass_msg_protected.efficipay_docket_detail>("protected","efficipay_docket_detail");
+        p.incoming = Message<TClass_msg_protected.efficipay_docket_detail>("protected","efficipay_docket_detail");
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

@@ -69,7 +69,7 @@ namespace confirm_paypal_donation
         {
         p.biz_donations = new TClass_biz_donations();
         p.biz_notifications = new TClass_biz_notifications();
-        p.incoming = ConsumedMessage<TClass_msg_protected.confirm_paypal_donation>("protected","confirm_paypal_donation");
+        p.incoming = Message<TClass_msg_protected.confirm_paypal_donation>("protected","confirm_paypal_donation");
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
