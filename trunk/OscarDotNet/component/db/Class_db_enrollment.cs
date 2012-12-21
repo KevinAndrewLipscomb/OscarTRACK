@@ -229,39 +229,49 @@ namespace Class_db_enrollment
           }
         public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
         {
-            bool result;
             uint current_level_code;
             MySqlDataReader dr;
-            string effective_date_string;
             DateTime latest_start_date;
             MySqlTransaction transaction;
-            result = false;
-            effective_date_string = effective_date.ToString("yyyy-MM-dd");
-            this.Open();
-            transaction = this.connection.BeginTransaction();
+            var result = false;
+            var effective_date_string = effective_date.ToString("yyyy-MM-dd");
+            Open();
+            transaction = connection.BeginTransaction();
             try {
                 // No matter what, we need to know the latest start date of the member's enrollment history because we must make sure the new
                 // status does not take effect prior.  We might also need to know the current level.  Just retrieve both values.
-                dr = new MySqlCommand("select start_date,level_code from enrollment_history where member_id = \"" + member_id + "\" and end_date is null limit 1", this.connection, transaction).ExecuteReader();
+                dr = new MySqlCommand
+                  (
+                  "select DATE_FORMAT(start_date,'%Y-%m-%d') as start_date"
+                  + " , level_code"
+                  + " from enrollment_history"
+                  + " where member_id = '" + member_id + "'"
+                  +   " and end_date is null"
+                  + " limit 1",
+                  connection,
+                  transaction
+                  )
+                  .ExecuteReader();
                 dr.Read();
-                latest_start_date = (DateTime)(dr["start_date"]);
+                var start_date_string = dr["start_date"].ToString();
+                latest_start_date = (start_date_string == "0000-00-00" ? effective_date : DateTime.Parse(start_date_string));
                 current_level_code = uint.Parse(dr["level_code"].ToString());
                 dr.Close();
                 if (effective_date >= latest_start_date)
                 {
-                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", this.connection, transaction).ExecuteScalar()))
+                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction).ExecuteScalar()))
                     {
                         // This member's new status counts toward length-of-service, and the member has never had such a status before.
-                        new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), this.connection, transaction).ExecuteNonQuery();
+                        new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), connection, transaction).ExecuteNonQuery();
                     }
                     else if (new ArrayList(new uint[] {11, 12, 13, 14, 15, 16, 22}).Contains(current_level_code))
                     {
                         // The member has been spending time in a status that does not count toward length-of-service, so advance the member's
                         // equivalent_los_start_date.
-                        new MySqlCommand(db_trail.Saved("update member" + " set equivalent_los_start_date =" + " ADDDATE(equivalent_los_start_date,DATEDIFF(\"" + effective_date_string + "\",\"" + latest_start_date.ToString("yyyy-MM-dd") + "\"))" + " where id = \"" + member_id + "\""), this.connection, transaction).ExecuteNonQuery();
+                        new MySqlCommand(db_trail.Saved("update member" + " set equivalent_los_start_date =" + " ADDDATE(equivalent_los_start_date,DATEDIFF(\"" + effective_date_string + "\",\"" + latest_start_date.ToString("yyyy-MM-dd") + "\"))" + " where id = \"" + member_id + "\""), connection, transaction).ExecuteNonQuery();
                     }
-                    new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), this.connection, transaction).ExecuteNonQuery();
-                    new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), this.connection, transaction).ExecuteNonQuery();
+                    new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), connection, transaction).ExecuteNonQuery();
+                    new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), connection, transaction).ExecuteNonQuery();
                     var ok_so_far = true;
                     var be_member_squad_affiliation_weak = (new ArrayList(new uint[] {11,12,14,15,16,20,22}).Contains(current_level_code));
                     if (be_member_squad_affiliation_weak && !(new_level_code == "13"))
@@ -270,14 +280,14 @@ namespace Class_db_enrollment
                       // A transfer is being completed.
                       //
                       ok_so_far = (target_agency_id != k.EMPTY);
-                      new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), this.connection, transaction).ExecuteNonQuery();
+                      new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), connection, transaction).ExecuteNonQuery();
                       }
                     if ((new ArrayList(new string[] {"11","12","13","14","15","16","20","22"}).Contains(new_level_code)))
                       {
                       //
                       // A transfer or past status is being initiated.  Curtail any existing leave and cancel any future ones.  
                       //
-                      new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),this.connection,transaction).ExecuteNonQuery();
+                      new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),connection,transaction).ExecuteNonQuery();
                       new MySqlCommand
                         (
                         db_trail.Saved
@@ -287,7 +297,7 @@ namespace Class_db_enrollment
                           +   " , note = LEFT(CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to movement into a Transfer or Past status.]'),127)"
                           + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
                           ),
-                        this.connection,
+                        connection,
                         transaction
                         )
                         .ExecuteNonQuery();
@@ -307,7 +317,7 @@ namespace Class_db_enrollment
             catch {
                 transaction.Rollback();
             }
-            this.Close();
+            Close();
             return result;
         }
 
