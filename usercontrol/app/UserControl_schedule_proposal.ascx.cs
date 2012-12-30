@@ -239,7 +239,15 @@ namespace UserControl_schedule_proposal
       ManageDefaultDepth();
       //
       var relative_prep_month = DateTime.Today.AddMonths(p.relative_month.val - 1);
-      p.be_squad_exclusivity_expired = DateTime.Today > new DateTime(relative_prep_month.Year,relative_prep_month.Month,int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]));
+      p.be_squad_exclusivity_expired = DateTime.Now > new DateTime
+        (
+        year:relative_prep_month.Year,
+        month:relative_prep_month.Month,
+        day:int.Parse(ConfigurationManager.AppSettings["deadline_day_for_squad_to_publish_schedule"]),
+        hour:int.Parse(ConfigurationManager.AppSettings["deadline_hour_for_squad_to_publish_schedule"]),
+        minute:0,
+        second:0
+        );
       //
       HyperLink_preview_print_scalable.Text = k.ExpandTildePath(HyperLink_preview_print_scalable.Text);
       HyperLink_preview_print_scalable.NavigateUrl = "~/protected/watchbill.aspx"

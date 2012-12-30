@@ -56,8 +56,8 @@
                       <asp:Literal ID="Literal_partial_next_month_access_day" runat="server"></asp:Literal> of this month, start checking next month's availability submissions.&nbsp; Encourage holdouts to submit, and encourage
                       all members to be available for unpopular shifts.&nbsp; On day <asp:Literal ID="Literal_full_next_month_access_day" runat="server"></asp:Literal> of this month, start designating stations (home or
                       satellite) and crews (a, b, etc).&nbsp; Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad
-                      gets exclusive access to its next-month schedule until publication, or until noon on day <asp:Literal ID="Literal_dept_next_month_access_day" runat="server"></asp:Literal> of this month, whichever is
-                      earlier.&nbsp; Then the Department may revise it.
+                      gets exclusive access to its next-month schedule until publication, or until <asp:Literal ID="Literal_dept_next_month_access_hour" runat="server"></asp:Literal>00h on day
+                      <asp:Literal ID="Literal_dept_next_month_access_day" runat="server"></asp:Literal> of this month, whichever is earlier.&nbsp; Then the Department may revise it.
                     </td>
                   </tr>
                 </table>

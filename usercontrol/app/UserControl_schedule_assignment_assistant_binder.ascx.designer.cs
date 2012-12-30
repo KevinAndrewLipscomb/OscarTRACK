@@ -94,6 +94,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::System.Web.UI.WebControls.Literal Literal_full_next_month_access_day;
         
         /// <summary>
+        /// Literal_dept_next_month_access_hour control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_dept_next_month_access_hour;
+        
+        /// <summary>
         /// Literal_dept_next_month_access_day control.
         /// </summary>
         /// <remarks>
