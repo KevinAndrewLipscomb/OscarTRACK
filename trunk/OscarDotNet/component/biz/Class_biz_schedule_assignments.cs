@@ -37,6 +37,16 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
 
+    internal bool BeAdventitiousChangeDetected
+      (
+      string user_id,
+      k.subtype<int> relative_month,
+      bool be_virgin_watchbill
+      )
+      {
+      return db_schedule_assignments.BeAdventitiousChangeDetected(user_id,relative_month,be_virgin_watchbill);
+      }
+
     internal bool BeFullWatchbillPublishMandatory
       (
       string agency_filter,
@@ -44,6 +54,28 @@ namespace Class_biz_schedule_assignments
       )
       {
       return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
+      }
+
+    internal bool BeMemberScheduleDetailFullyEditable
+      (
+      bool be_partially_editable,
+      k.subtype<int> relative_month
+      )
+      {
+      return
+        (
+          be_partially_editable
+        &&
+          (
+            (relative_month.val == 0)
+          ||
+            (
+              BeOkToWorkOnNextMonthAssignments()
+            &&
+              BeProposalGeneratedForNextMonth()
+            )
+          )
+        );
       }
 
     internal bool BeOkToDefaultAgencyFilterToAll
@@ -95,9 +127,14 @@ namespace Class_biz_schedule_assignments
       return be_user_privileged_to_edit_schedule && ((biz_members.AgencyIdOfId(member_id) == agency_id) || (biz_roles.BeUserPeckingOrderAtLeast("Application Administrator")));
       }
 
-    internal bool BeOkToWorkOnNextMonth()
+    internal bool BeOkToWorkOnNextMonthAssignments()
       {
       return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]));
+      }
+
+    internal bool BeOkToWorkOnNextMonthAvailabilities()
+      {
+      return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]));
       }
 
     internal bool BePendingNotifications
@@ -112,14 +149,9 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BePendingNotifications(relative_month,publisher_member_id,publisher_member_agency_id,be_virgin_watchbill,be_selected_only);
       }
 
-    internal bool BeAdventitiousChangeDetected
-      (
-      string user_id,
-      k.subtype<int> relative_month,
-      bool be_virgin_watchbill
-      )
+    internal bool BeProposalGeneratedForNextMonth()
       {
-      return db_schedule_assignments.BeAdventitiousChangeDetected(user_id,relative_month,be_virgin_watchbill);
+      return db_schedule_assignments.BeProposalGeneratedForNextMonth();
       }
 
     public bool Bind(string partial_spec, object target)
@@ -329,7 +361,12 @@ namespace Class_biz_schedule_assignments
 
     internal void LogAvailabilitySubmissionComplianceData()
       {
-      db_schedule_assignments.Update(relative_month:"1",be_official:true);
+      db_schedule_assignments.Update
+        (
+        relative_month:"1",
+        be_official:true,
+        be_ok_to_work_on_next_month_assignments:false
+        );
       db_schedule_assignments.LogAvailabilitySubmissionComplianceData();
       }
 
@@ -784,7 +821,17 @@ namespace Class_biz_schedule_assignments
       string working_directory
       )
       {
-      db_schedule_assignments.Update(relative_month,(relative_month == "0") || BeOkToWorkOnNextMonth());
+      var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
+      if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
+        {
+        db_schedule_assignments.RigForProposalGeneration();
+        }
+      db_schedule_assignments.Update
+        (
+        relative_month:relative_month,
+        be_official:(relative_month == "0") || be_ok_to_work_on_next_month_assignments,
+        be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments
+        );
       //
       // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
       //

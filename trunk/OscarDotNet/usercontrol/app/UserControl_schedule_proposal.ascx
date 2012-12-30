@@ -13,6 +13,7 @@
               to.&nbsp; <b>RESIST THE TEMPTATION</b> to fix partial crews or holes at the squad level.&nbsp; Partial crews and holes are much better fixed by:
               <ul>
                 <li>Prompting holdouts to submit their availabilities;</li>
+                <li>Encouraging all members to submit even more availabilities;</li>
                 <li>Resolving alerts detected by <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>;</li>
                 <li>Allowing the Department Chief Scheduler to convert partial crews into whole crews using other members of our department -- he has better visibility into the overall situation.</li>
               </ul>

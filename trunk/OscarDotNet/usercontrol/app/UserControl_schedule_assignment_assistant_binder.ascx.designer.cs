@@ -13,6 +13,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
     public partial class TWebUserControl_schedule_assignment_assistant_binder {
         
         /// <summary>
+        /// TableRow_guidance_1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance_1;
+        
+        /// <summary>
         /// RadioButtonList_which_month control.
         /// </summary>
         /// <remarks>
@@ -58,13 +67,40 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_release_filter;
         
         /// <summary>
-        /// TableRow_guidance control.
+        /// TableRow_guidance_2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance_2;
+        
+        /// <summary>
+        /// Literal_partial_next_month_access_day control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_partial_next_month_access_day;
+        
+        /// <summary>
+        /// Literal_full_next_month_access_day control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_full_next_month_access_day;
+        
+        /// <summary>
+        /// Literal_dept_next_month_access_day control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_dept_next_month_access_day;
         
         /// <summary>
         /// Label_post_publish_submissions control.

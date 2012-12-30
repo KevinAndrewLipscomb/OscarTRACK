@@ -6,6 +6,7 @@ using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
 using System;
+using System.Configuration;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
 using UserControl_schedule_assignment_assistant_intro;
@@ -38,6 +39,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
     public string content_id;
+    public string full_next_month_access_day;
     public k.subtype<int> relative_month;
     public string release_filter;
     public uint tab_index;
@@ -71,25 +73,35 @@ namespace UserControl_schedule_assignment_assistant_binder
       {
       if (!p.be_loaded)
         {
+        var be_ok_to_work_on_next_month_assignments = p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments();
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter);
         DropDownList_agency_filter.SelectedValue = p.agency_filter;
         DropDownList_release_filter.SelectedValue = p.release_filter;
         RadioButtonList_which_month.SelectedValue = p.relative_month.val.ToString();
-        RadioButtonList_which_month.Enabled = ((p.be_ok_to_edit_schedule || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1))) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
+        RadioButtonList_which_month.Enabled =
+          (
+            (p.be_ok_to_edit_schedule && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAvailabilities())
+          ||
+            (!p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1)) && be_ok_to_work_on_next_month_assignments)
+          );
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
         if (p.be_ok_to_edit_schedule)
           {
-          TableRow_guidance.Visible = true;
-          TabPanel_holdouts.HeaderText = "<b>STEP 1:</b> " + TabPanel_holdouts.HeaderText;
-          TabPanel_alert.HeaderText = "<b>STEP 2:</b> " + TabPanel_alert.HeaderText;
-          TabPanel_special_requests.HeaderText = "<b>STEP 3:</b> " + TabPanel_special_requests.HeaderText;
-          TabPanel_proposal.HeaderText = "<b>STEP 4:</b> " + TabPanel_proposal.HeaderText;
+          TableRow_guidance_1.Visible = true;
+          TableRow_guidance_2.Visible = true;
+          Literal_partial_next_month_access_day.Text = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]) + 1).ToString();
+          Literal_full_next_month_access_day.Text = p.full_next_month_access_day;
+          Literal_dept_next_month_access_day.Text = int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]).ToString();
+          TabPanel_holdouts.HeaderText = "<b>STEP 3:</b> " + TabPanel_holdouts.HeaderText;
+          TabPanel_alert.HeaderText = "<b>STEP 4:</b> " + TabPanel_alert.HeaderText;
+          TabPanel_special_requests.HeaderText = "<b>STEP 5:</b> " + TabPanel_special_requests.HeaderText;
+          TabPanel_proposal.HeaderText = "<b>STEP 6:</b> " + TabPanel_proposal.HeaderText;
           }
         ManagePostPublishSubmissionDetection();
         TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
-        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule;
+        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule && be_ok_to_work_on_next_month_assignments;
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -124,6 +136,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
+        p.full_next_month_access_day = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) + 1).ToString();
         p.user_member_id = Session["member_id"].ToString();
         p.user_member_agency_id = p.biz_members.AgencyIdOfId(p.user_member_id);
         p.agency_filter = (p.biz_schedule_assignments.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.user_member_agency_id);
@@ -195,6 +208,27 @@ namespace UserControl_schedule_assignment_assistant_binder
       p.relative_month.val = int.Parse(k.Safe(RadioButtonList_which_month.SelectedValue,k.safe_hint_type.NUM));
       ManagePostPublishSubmissionDetection();
       Bind();
+      if ((p.relative_month.val == 1) && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments() && !p.biz_schedule_assignments.BeProposalGeneratedForNextMonth())
+        {
+        Button_refresh.Attributes.Add
+          (
+          "onclick",
+          "return alert(\"- - - ---------------------------------------------------- - - -\\n"
+          + "       issuer:  \\t" + ConfigurationManager.AppSettings["application_name"] + "\\n"
+          + "       state:   \\tnormal\\n"
+          + "       time:    \\t" + DateTime.Now.ToString("s") + "\\n"
+          + "- - - ---------------------------------------------------- - - -\\n\\n\\n"
+          + (
+            "If you are the first scheduler on or after day " + p.full_next_month_access_day
+            + " of this month to perform a Refresh on Next month, it may take a few minutes for the application to generate the initial proposal." + k.NEW_LINE
+            + k.NEW_LINE
+            + "Please be patient."
+            )
+            .Replace(Convert.ToString(k.NEW_LINE), "\\n")
+          + "\\n\\n\""
+          + ");"
+          );
+        }
       }
 
     private void TabContainer_control_ActiveTabChanged(object sender, System.EventArgs e)
