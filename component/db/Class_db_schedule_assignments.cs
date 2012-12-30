@@ -132,6 +132,15 @@ namespace Class_db_schedule_assignments
       return be_pending_notifications;
       }
 
+    internal bool BeProposalGeneratedForNextMonth()
+      {
+      Open();
+      var be_proposal_generated_for_next_month = "0" != new MySqlCommand
+        ("select count(*) from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH)) and be_selected",connection).ExecuteScalar().ToString();
+      Close();
+      return be_proposal_generated_for_next_month;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";
@@ -1539,6 +1548,23 @@ namespace Class_db_schedule_assignments
         }
       }
 
+    internal void RigForProposalGeneration()
+      {
+      Open();
+      new MySqlCommand
+        (
+        "update schedule_assignment join member on (member.id=schedule_assignment.member_id) set"
+        +   " be_selected = IF(post_id = agency_id,TRUE,FALSE)"
+        + " ,"
+        +   " be_new = IF(post_id = agency_id,TRUE,FALSE)"
+        + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))"
+        ,
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     internal void Purge()
       {
       Open();
@@ -2077,7 +2103,8 @@ namespace Class_db_schedule_assignments
     internal void Update
       (
       string relative_month,
-      bool be_official
+      bool be_official,
+      bool be_ok_to_work_on_next_month_assignments
       )
       {
       //
@@ -2106,9 +2133,9 @@ namespace Class_db_schedule_assignments
           + " , shift.id as shift_id"
           + " , @post_id := agency.id as post_id"
           + " , odnmid as member_id"
-          + " , @be_selected := (@post_id = member.agency_id) as be_selected"
+          + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
           + " , @be_selected as be_new"
-          + " , IF(@be_selected,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
+          + " , IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
           + " from (select @post_id := '', @be_selected := TRUE) as init, avail_sheet"
           +   " join shift on (shift.name='DAY')"
           +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
@@ -2138,9 +2165,9 @@ namespace Class_db_schedule_assignments
           + " , shift.id as shift_id"
           + " , @post_id := agency.id as post_id"
           + " , odnmid as member_id"
-          + " , @be_selected := (@post_id = member.agency_id) as be_selected"
+          + " , @be_selected := " + (be_ok_to_work_on_next_month_assignments ? "(@post_id = member.agency_id)" : "false") + " as be_selected"
           + " , @be_selected as be_new"
-          + " , IF(@be_selected,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
+          + " , IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
           + " from (select @post_id := '', @be_selected := TRUE) as init, avail_sheet"
           +   " join shift on (shift.name='NIGHT')"
           +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
@@ -2168,455 +2195,459 @@ namespace Class_db_schedule_assignments
           }
         new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
         //
-        // Determine initial shift popularities.  Do not save operations on temporary table to the db_trail.
-        //
-        new MySqlCommand
-          (
-          " create temporary table shift_popularity"
-          + " select nominal_day"
-          + " , shift_id"
-          + " , sum(medical_release_code_description_map.pecking_order >= 20) as num_released_members_available"
-          + " , sum(medical_release_code_description_map.pecking_order >= 30) as num_als_members_available"
-          + " , sum(be_driver_qualified) as num_driver_members_available"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          +   " join agency on (agency.id=schedule_assignment.post_id)"
-          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-          +   " and be_ems_post"
-          + " group by nominal_day,shift_id"
-          + ";"
-          + " alter table shift_popularity add primary key (nominal_day,shift_id)"
-          + " , add key (num_released_members_available desc)",
-          connection,
-          transaction
-          )
-          .ExecuteNonQuery();
-        //----
-        //
-        // RELEASED MEMBERS
-        //
-        //----
-        //--
-        //
-        // Factor in member flexibilities and shift popularities.
-        //
-        //--
-        //
-        // Determine released member flexibilities.
-        //
-        var dr = new MySqlCommand
-          (
-          "select member.id as member_id"
-          + " , ("
-          +     " count(*)"  // num avails submitted
-          +     " -"
-          +     " IFNULL"  // num duties supposed to run
-          +       " ("
-          +         " if"
-          +           " ("
-          +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"  // on leave
-          +           " ,"
-          +             " num_obliged_shifts"  // then num duties specified in terms of leave
-          +           " ,"
-          +             " IFNULL"  // else
-          +               " ("
-          +                 " num_shifts"  // if applicable, num standard obliged duties
-          +               " ,"
-          +                 " 0"  // else (like for Atypical members) zero
-          +               " )"
-          +           " )"
-          +         " +"  // plus
-          +           " (select IFNULL(min(num_extras),0) from avail_sheet where avail_sheet.odnmid = member.id and MONTH(avail_sheet.expiration) = MONTH(schedule_assignment.nominal_day))"  // num extras member indicated they wanted to run, if any
-          +       " ,"
-          +         " 0"
-          +       " )"
-          +   " )"
-          +   " as num_excess_avails"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          +   " join enrollment_history on" 
-          +     " (" 
-          +       " enrollment_history.member_id=member.id" 
-          +     " and" 
-          +       " (" 
-          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +       " and" 
-          +         " (" 
-          +           " (enrollment_history.end_date is null)" 
-          +         " or" 
-          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
-          +   " left join leave_of_absence on" 
-          +     " (" 
-          +       " leave_of_absence.member_id=member.id" 
-          +     " and " 
-          +       " (" 
-          +         " (leave_of_absence.start_date is null)" 
-          +       " or" 
-          +         " (" 
-          +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +         " and" 
-          +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-          +   " and medical_release_code_description_map.pecking_order >= 20"
-          + " group by member.id"
-          +   " having num_excess_avails > 0"
-          + " order by num_excess_avails desc",
-          connection,
-          transaction
-          )
-          .ExecuteReader();
-        var member_id_q = new Queue();
-        var quantity_of_interest_q = new Queue();
-        while (dr.Read())
-          {
-          member_id_q.Enqueue(dr["member_id"].ToString());
-          quantity_of_interest_q.Enqueue(dr["num_excess_avails"].ToString());
-          }
-        dr.Close();
-        //
-        // Trim assignments in excess of obligations from most flexible released members that fall on most popular shifts.
-        //
-        trimables = k.EMPTY;
-        while (member_id_q.Count > 0)
-          {
-          dr = new MySqlCommand
-            (
-            " select schedule_assignment.id as id"
-            + " from schedule_assignment"
-            +   " join shift_popularity on (shift_popularity.nominal_day=schedule_assignment.nominal_day and shift_popularity.shift_id=schedule_assignment.shift_id)"
-            +   " join shift on (shift.id=schedule_assignment.shift_id)"
-            + " where member_id = '" + member_id_q.Dequeue() + "'"
-            + " order by num_released_members_available desc, schedule_assignment.nominal_day desc, shift.start desc"
-            + " limit " + quantity_of_interest_q.Dequeue(),
-            connection,
-            transaction
-            )
-            .ExecuteReader();
-          while (dr.Read())
-            {
-            trimables += dr["id"].ToString() + k.COMMA;
-            }
-          dr.Close();
-          }
-        if (trimables != k.EMPTY)
-          {
-          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
-          }
-        //--
-        //
-        // Factor in need.
-        //
-        //--
-        var swappables = k.EMPTY;
-        var done = false;
-        while (!done)
+        if (be_ok_to_work_on_next_month_assignments)
           {
           //
-          // Determine shift wealth (how many released members are assigned to each shift).
+          // Determine initial shift popularities.  Do not save operations on temporary table to the db_trail.
           //
           new MySqlCommand
             (
-            "create temporary table shift_population"
+            " create temporary table shift_popularity"
             + " select nominal_day"
             + " , shift_id"
-            + " , count(*) as num_released_members_assigned"
+            + " , sum(medical_release_code_description_map.pecking_order >= 20) as num_released_members_available"
+            + " , sum(medical_release_code_description_map.pecking_order >= 30) as num_als_members_available"
+            + " , sum(be_driver_qualified) as num_driver_members_available"
             + " from schedule_assignment"
             +   " join member on (member.id=schedule_assignment.member_id)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where medical_release_code_description_map.pecking_order >= 20"
-            +   " and be_selected"
-            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+            +   " join agency on (agency.id=schedule_assignment.post_id)"
+            + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+            +   " and be_ems_post"
             + " group by nominal_day,shift_id"
             + ";"
-            + " create temporary table member_assignment_vs_shift_population"
-            + " SELECT member_id"
-            + " , schedule_assignment.id as schedule_assignment_id"
-            + " , be_selected"
-            + " , num_released_members_assigned"
-            + " FROM shift_population"
-            +   " join schedule_assignment on (schedule_assignment.nominal_day=shift_population.nominal_day and schedule_assignment.shift_id=shift_population.shift_id)"
-            +   " join member on (member.id=schedule_assignment.member_id)"
-            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where be_new"
-            +   " and pecking_order >= 20"
-            + ";"
-            + " create temporary table least_needed"
-            + " select member_id,schedule_assignment_id,num_released_members_assigned"
-            + " from"
-            +   " ("
-            +   " SELECT IF(member_id <> @hi_saved_member_id,@hi_rank := 1,@hi_rank := @hi_rank + 1) as rank"
-            +   " , @hi_saved_member_id := member_id as member_id"
-            +   " , schedule_assignment_id"
-            +   " , num_released_members_assigned"
-            +   " FROM (select @hi_saved_member_id := '', @hi_rank := 0) as dummy, member_assignment_vs_shift_population"
-            +   " where be_selected"
-            +   " order by member_id,num_released_members_assigned desc"
-            +   " ) as high_duty_populations"
-            + " where rank = 1"
-            + ";"
-            + " create temporary table most_needed"
-            + " select member_id,schedule_assignment_id,num_released_members_assigned"
-            + " from"
-            +   " ("
-            +   " SELECT IF(member_id <> @lo_saved_member_id,@lo_rank := 1,@lo_rank := @lo_rank + 1) as rank"
-            +   " , @lo_saved_member_id := member_id as member_id"
-            +   " , schedule_assignment_id"
-            +   " , num_released_members_assigned"
-            +   " FROM (select @lo_saved_member_id := '', @lo_rank := 0) as dummy, member_assignment_vs_shift_population"
-            +   " where not be_selected"
-            +   " order by member_id,num_released_members_assigned asc"
-            +   " ) as low_duty_populations"
-            + " where rank = 1",
+            + " alter table shift_popularity add primary key (nominal_day,shift_id)"
+            + " , add key (num_released_members_available desc)",
             connection,
             transaction
             )
             .ExecuteNonQuery();
-          dr = new MySqlCommand
+          //----
+          //
+          // RELEASED MEMBERS
+          //
+          //----
+          //--
+          //
+          // Factor in member flexibilities and shift popularities.
+          //
+          //--
+          //
+          // Determine released member flexibilities.
+          //
+          var dr = new MySqlCommand
             (
-            "select least_needed.schedule_assignment_id as least_needed_assignment_id"
-            + " , most_needed.schedule_assignment_id as most_needed_assignment_id"
-            + " from least_needed join most_needed using (member_id)"
-            + " where least_needed.num_released_members_assigned - most_needed.num_released_members_assigned > 1"
-            + " limit 1",
-            connection,
-            transaction
-            )
-            .ExecuteReader();
-          if (dr.Read())
-            {
-            swappables = dr["least_needed_assignment_id"].ToString() + k.COMMA + dr["most_needed_assignment_id"].ToString();
-            }
-          else
-            {
-            done = true;
-            }
-          dr.Close();
-          if (!done)
-            {
-            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected, reviser_member_id = null where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
-            }
-          new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction).ExecuteNonQuery();
-          }
-        //----
-        //
-        // NON-RELEASED MEMBERS
-        //
-        //----
-        //
-        // Determine flexibilities versus minimum intended assignments for thirds.
-        //
-        dr = new MySqlCommand
-          (
-          "select member.id as member_id"
-          + " , ("
-          +     " count(*)"
-          +     " -"
-          +     " IFNULL(if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),num_obliged_shifts,IF(medical_release_code = 9,2,num_shifts)),0)"
-          +   " )"
-          +   " as num_excess_avails"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          + "   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
-          +   " join enrollment_history on" 
-          +     " (" 
-          +       " enrollment_history.member_id=member.id" 
-          +     " and" 
-          +       " (" 
-          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +       " and" 
-          +         " (" 
-          +           " (enrollment_history.end_date is null)" 
-          +         " or" 
-          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
-          +   " left join leave_of_absence on" 
-          +     " (" 
-          +       " leave_of_absence.member_id=member.id" 
-          +     " and " 
-          +       " (" 
-          +         " (leave_of_absence.start_date is null)" 
-          +       " or" 
-          +         " (" 
-          +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +         " and" 
-          +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-          +   " and medical_release_code_description_map.pecking_order < 20"
-          + " group by member.id"
-          +   " having num_excess_avails > 0"
-          + " order by num_excess_avails desc",
-          connection,
-          transaction
-          )
-          .ExecuteReader();
-        member_id_q.Clear();
-        quantity_of_interest_q.Clear();
-        while (dr.Read())
-          {
-          member_id_q.Enqueue(dr["member_id"].ToString());
-          quantity_of_interest_q.Enqueue(dr["num_excess_avails"].ToString());
-          }
-        dr.Close();
-        //
-        // Trim assignments in excess of obligations from most flexible third members that fall on most popular shifts.
-        //
-        trimables = k.EMPTY;
-        while (member_id_q.Count > 0)
-          {
-          dr = new MySqlCommand
-            (
-            " select schedule_assignment.id as id"
+            "select member.id as member_id"
+            + " , ("
+            +     " count(*)"  // num avails submitted
+            +     " -"
+            +     " IFNULL"  // num duties supposed to run
+            +       " ("
+            +         " if"
+            +           " ("
+            +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"  // on leave
+            +           " ,"
+            +             " num_obliged_shifts"  // then num duties specified in terms of leave
+            +           " ,"
+            +             " IFNULL"  // else
+            +               " ("
+            +                 " num_shifts"  // if applicable, num standard obliged duties
+            +               " ,"
+            +                 " 0"  // else (like for Atypical members) zero
+            +               " )"
+            +           " )"
+            +         " +"  // plus
+            +           " (select IFNULL(min(num_extras),0) from avail_sheet where avail_sheet.odnmid = member.id and MONTH(avail_sheet.expiration) = MONTH(schedule_assignment.nominal_day))"  // num extras member indicated they wanted to run, if any
+            +       " ,"
+            +         " 0"
+            +       " )"
+            +   " )"
+            +   " as num_excess_avails"
             + " from schedule_assignment"
-            +   " join shift_popularity on (shift_popularity.nominal_day=schedule_assignment.nominal_day and shift_popularity.shift_id=schedule_assignment.shift_id)"
-            +   " join shift on (shift.id=schedule_assignment.shift_id)"
-            + " where member_id = '" + member_id_q.Dequeue() + "'"
-            + " order by num_released_members_available desc, schedule_assignment.nominal_day desc, shift.start desc"
-            + " limit " + quantity_of_interest_q.Dequeue(),
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            +   " join enrollment_history on" 
+            +     " (" 
+            +       " enrollment_history.member_id=member.id" 
+            +     " and" 
+            +       " (" 
+            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +       " and" 
+            +         " (" 
+            +           " (enrollment_history.end_date is null)" 
+            +         " or" 
+            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+            +   " left join leave_of_absence on" 
+            +     " (" 
+            +       " leave_of_absence.member_id=member.id" 
+            +     " and " 
+            +       " (" 
+            +         " (leave_of_absence.start_date is null)" 
+            +       " or" 
+            +         " (" 
+            +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +         " and" 
+            +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+            +   " and medical_release_code_description_map.pecking_order >= 20"
+            + " group by member.id"
+            +   " having num_excess_avails > 0"
+            + " order by num_excess_avails desc",
             connection,
             transaction
             )
             .ExecuteReader();
+          var member_id_q = new Queue();
+          var quantity_of_interest_q = new Queue();
           while (dr.Read())
             {
-            trimables += dr["id"].ToString() + k.COMMA;
+            member_id_q.Enqueue(dr["member_id"].ToString());
+            quantity_of_interest_q.Enqueue(dr["num_excess_avails"].ToString());
             }
           dr.Close();
-          }
-        if (trimables != k.EMPTY)
-          {
-          new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
-          }
-        //
-        // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
-        //
-        dr = new MySqlCommand
-          (
-          "select member.id as member_id"
-          + " , num_extras"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          + "   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
-          +   " join enrollment_history on" 
-          +     " (" 
-          +       " enrollment_history.member_id=member.id" 
-          +     " and" 
-          +       " (" 
-          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +       " and" 
-          +         " (" 
-          +           " (enrollment_history.end_date is null)" 
-          +         " or" 
-          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
-          +   " left join leave_of_absence on" 
-          +     " (" 
-          +       " leave_of_absence.member_id=member.id" 
-          +     " and " 
-          +       " (" 
-          +         " (leave_of_absence.start_date is null)" 
-          +       " or" 
-          +         " (" 
-          +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-          +         " and" 
-          +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-          +         " )" 
-          +       " )" 
-          +     " )" 
-          + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-          +   " and medical_release_code = 2"
-          + " group by member.id"
-          +   " having num_extras > 0"
-          + " order by num_extras",
-          connection,
-          transaction
-          )
-          .ExecuteReader();
-        member_id_q.Clear();
-        quantity_of_interest_q.Clear();
-        while (dr.Read())
-          {
-          member_id_q.Enqueue(dr["member_id"].ToString());
-          quantity_of_interest_q.Enqueue(dr["num_extras"].ToString());
-          }
-        dr.Close();
-        //
-        // Give extra assignments to interested thirds where possible
-        //
-        var member_id = k.EMPTY;
-        var num_extras = 0;
-        while (member_id_q.Count > 0)
-          {
-          member_id = member_id_q.Dequeue().ToString();
-          num_extras = int.Parse(quantity_of_interest_q.Dequeue().ToString());
-          var selectable_id_obj = new MySqlCommand
+          //
+          // Trim assignments in excess of obligations from most flexible released members that fall on most popular shifts.
+          //
+          trimables = k.EMPTY;
+          while (member_id_q.Count > 0)
+            {
+            dr = new MySqlCommand
+              (
+              " select schedule_assignment.id as id"
+              + " from schedule_assignment"
+              +   " join shift_popularity on (shift_popularity.nominal_day=schedule_assignment.nominal_day and shift_popularity.shift_id=schedule_assignment.shift_id)"
+              +   " join shift on (shift.id=schedule_assignment.shift_id)"
+              + " where member_id = '" + member_id_q.Dequeue() + "'"
+              + " order by num_released_members_available desc, schedule_assignment.nominal_day desc, shift.start desc"
+              + " limit " + quantity_of_interest_q.Dequeue(),
+              connection,
+              transaction
+              )
+              .ExecuteReader();
+            while (dr.Read())
+              {
+              trimables += dr["id"].ToString() + k.COMMA;
+              }
+            dr.Close();
+            }
+          if (trimables != k.EMPTY)
+            {
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+            }
+          //--
+          //
+          // Factor in need.
+          //
+          //--
+          var swappables = k.EMPTY;
+          var done = false;
+          while (!done)
+            {
+            //
+            // Determine shift wealth (how many released members are assigned to each shift).
+            //
+            new MySqlCommand
+              (
+              "create temporary table shift_population"
+              + " select nominal_day"
+              + " , shift_id"
+              + " , count(*) as num_released_members_assigned"
+              + " from schedule_assignment"
+              +   " join member on (member.id=schedule_assignment.member_id)"
+              +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+              + " where medical_release_code_description_map.pecking_order >= 20"
+              +   " and be_selected"
+              +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+              + " group by nominal_day,shift_id"
+              + ";"
+              + " create temporary table member_assignment_vs_shift_population"
+              + " SELECT member_id"
+              + " , schedule_assignment.id as schedule_assignment_id"
+              + " , be_selected"
+              + " , num_released_members_assigned"
+              + " FROM shift_population"
+              +   " join schedule_assignment on (schedule_assignment.nominal_day=shift_population.nominal_day and schedule_assignment.shift_id=shift_population.shift_id)"
+              +   " join member on (member.id=schedule_assignment.member_id)"
+              +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+              + " where be_new"
+              +   " and pecking_order >= 20"
+              + ";"
+              + " create temporary table least_needed"
+              + " select member_id,schedule_assignment_id,num_released_members_assigned"
+              + " from"
+              +   " ("
+              +   " SELECT IF(member_id <> @hi_saved_member_id,@hi_rank := 1,@hi_rank := @hi_rank + 1) as rank"
+              +   " , @hi_saved_member_id := member_id as member_id"
+              +   " , schedule_assignment_id"
+              +   " , num_released_members_assigned"
+              +   " FROM (select @hi_saved_member_id := '', @hi_rank := 0) as dummy, member_assignment_vs_shift_population"
+              +   " where be_selected"
+              +   " order by member_id,num_released_members_assigned desc"
+              +   " ) as high_duty_populations"
+              + " where rank = 1"
+              + ";"
+              + " create temporary table most_needed"
+              + " select member_id,schedule_assignment_id,num_released_members_assigned"
+              + " from"
+              +   " ("
+              +   " SELECT IF(member_id <> @lo_saved_member_id,@lo_rank := 1,@lo_rank := @lo_rank + 1) as rank"
+              +   " , @lo_saved_member_id := member_id as member_id"
+              +   " , schedule_assignment_id"
+              +   " , num_released_members_assigned"
+              +   " FROM (select @lo_saved_member_id := '', @lo_rank := 0) as dummy, member_assignment_vs_shift_population"
+              +   " where not be_selected"
+              +   " order by member_id,num_released_members_assigned asc"
+              +   " ) as low_duty_populations"
+              + " where rank = 1",
+              connection,
+              transaction
+              )
+              .ExecuteNonQuery();
+            dr = new MySqlCommand
+              (
+              "select least_needed.schedule_assignment_id as least_needed_assignment_id"
+              + " , most_needed.schedule_assignment_id as most_needed_assignment_id"
+              + " from least_needed join most_needed using (member_id)"
+              + " where least_needed.num_released_members_assigned - most_needed.num_released_members_assigned > 1"
+              + " limit 1",
+              connection,
+              transaction
+              )
+              .ExecuteReader();
+            if (dr.Read())
+              {
+              swappables = dr["least_needed_assignment_id"].ToString() + k.COMMA + dr["most_needed_assignment_id"].ToString();
+              }
+            else
+              {
+              done = true;
+              }
+            dr.Close();
+            if (!done)
+              {
+              new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected, reviser_member_id = null where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
+              }
+            new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction).ExecuteNonQuery();
+            }
+          //----
+          //
+          // NON-RELEASED MEMBERS
+          //
+          //----
+          //
+          // Determine flexibilities versus minimum intended assignments for thirds.
+          //
+          dr = new MySqlCommand
             (
-            "select id"
-            + " from schedule_assignment as x"
-            +   " join"
-            +     " ("
-            +     " SELECT nominal_day"
-            +      " , shift_id"
-            +      " , (sum(medical_release_code_description_map.pecking_order >= 20)/2 - sum(medical_release_code_description_map.pecking_order < 20))"
-            +        " as num_openings"
-            +     " FROM schedule_assignment"
-            +       " join member on (member.id=schedule_assignment.member_id)"
-            +       " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            +     " where be_selected"
-            +       " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-            +     " group by nominal_day,shift_id"
-            +       " having (sum(medical_release_code_description_map.pecking_order >= 20)/2 - sum(medical_release_code_description_map.pecking_order < 20)) > 0"
-            +     " )"
-            +     " as y on (y.nominal_day=x.nominal_day and y.shift_id=x.shift_id)"
-            + " where x.member_id = '" + member_id + "'"
-            +   " and not x.be_selected"
-            + " order by y.num_openings desc"
-            + " limit 1",
+            "select member.id as member_id"
+            + " , ("
+            +     " count(*)"
+            +     " -"
+            +     " IFNULL(if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),num_obliged_shifts,IF(medical_release_code = 9,2,num_shifts)),0)"
+            +   " )"
+            +   " as num_excess_avails"
+            + " from schedule_assignment"
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            + "   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
+            +   " join enrollment_history on" 
+            +     " (" 
+            +       " enrollment_history.member_id=member.id" 
+            +     " and" 
+            +       " (" 
+            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +       " and" 
+            +         " (" 
+            +           " (enrollment_history.end_date is null)" 
+            +         " or" 
+            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+            +   " left join leave_of_absence on" 
+            +     " (" 
+            +       " leave_of_absence.member_id=member.id" 
+            +     " and " 
+            +       " (" 
+            +         " (leave_of_absence.start_date is null)" 
+            +       " or" 
+            +         " (" 
+            +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +         " and" 
+            +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+            +   " and medical_release_code_description_map.pecking_order < 20"
+            + " group by member.id"
+            +   " having num_excess_avails > 0"
+            + " order by num_excess_avails desc",
             connection,
             transaction
             )
-            .ExecuteScalar();
-          if (selectable_id_obj != null)
+            .ExecuteReader();
+          member_id_q.Clear();
+          quantity_of_interest_q.Clear();
+          while (dr.Read())
             {
-            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE, reviser_member_id = null where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
-            if (num_extras > 1)
+            member_id_q.Enqueue(dr["member_id"].ToString());
+            quantity_of_interest_q.Enqueue(dr["num_excess_avails"].ToString());
+            }
+          dr.Close();
+          //
+          // Trim assignments in excess of obligations from most flexible third members that fall on most popular shifts.
+          //
+          trimables = k.EMPTY;
+          while (member_id_q.Count > 0)
+            {
+            dr = new MySqlCommand
+              (
+              " select schedule_assignment.id as id"
+              + " from schedule_assignment"
+              +   " join shift_popularity on (shift_popularity.nominal_day=schedule_assignment.nominal_day and shift_popularity.shift_id=schedule_assignment.shift_id)"
+              +   " join shift on (shift.id=schedule_assignment.shift_id)"
+              + " where member_id = '" + member_id_q.Dequeue() + "'"
+              + " order by num_released_members_available desc, schedule_assignment.nominal_day desc, shift.start desc"
+              + " limit " + quantity_of_interest_q.Dequeue(),
+              connection,
+              transaction
+              )
+              .ExecuteReader();
+            while (dr.Read())
               {
-              member_id_q.Enqueue(member_id);
-              quantity_of_interest_q.Enqueue(num_extras - 1);
+              trimables += dr["id"].ToString() + k.COMMA;
+              }
+            dr.Close();
+            }
+          if (trimables != k.EMPTY)
+            {
+            new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+            }
+          //
+          // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
+          //
+          dr = new MySqlCommand
+            (
+            "select member.id as member_id"
+            + " , num_extras"
+            + " from schedule_assignment"
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            + "   join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            +   " join avail_sheet on (avail_sheet.odnmid=member.id and MONTH(avail_sheet.expiration)=MONTH(schedule_assignment.nominal_day))"
+            +   " join enrollment_history on" 
+            +     " (" 
+            +       " enrollment_history.member_id=member.id" 
+            +     " and" 
+            +       " (" 
+            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +       " and" 
+            +         " (" 
+            +           " (enrollment_history.end_date is null)" 
+            +         " or" 
+            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+            +   " left join leave_of_absence on" 
+            +     " (" 
+            +       " leave_of_absence.member_id=member.id" 
+            +     " and " 
+            +       " (" 
+            +         " (leave_of_absence.start_date is null)" 
+            +       " or" 
+            +         " (" 
+            +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+            +         " and" 
+            +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+            +         " )" 
+            +       " )" 
+            +     " )" 
+            + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+            +   " and medical_release_code = 2"
+            + " group by member.id"
+            +   " having num_extras > 0"
+            + " order by num_extras",
+            connection,
+            transaction
+            )
+            .ExecuteReader();
+          member_id_q.Clear();
+          quantity_of_interest_q.Clear();
+          while (dr.Read())
+            {
+            member_id_q.Enqueue(dr["member_id"].ToString());
+            quantity_of_interest_q.Enqueue(dr["num_extras"].ToString());
+            }
+          dr.Close();
+          //
+          // Give extra assignments to interested thirds where possible
+          //
+          var member_id = k.EMPTY;
+          var num_extras = 0;
+          while (member_id_q.Count > 0)
+            {
+            member_id = member_id_q.Dequeue().ToString();
+            num_extras = int.Parse(quantity_of_interest_q.Dequeue().ToString());
+            var selectable_id_obj = new MySqlCommand
+              (
+              "select id"
+              + " from schedule_assignment as x"
+              +   " join"
+              +     " ("
+              +     " SELECT nominal_day"
+              +      " , shift_id"
+              +      " , (sum(medical_release_code_description_map.pecking_order >= 20)/2 - sum(medical_release_code_description_map.pecking_order < 20))"
+              +        " as num_openings"
+              +     " FROM schedule_assignment"
+              +       " join member on (member.id=schedule_assignment.member_id)"
+              +       " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+              +     " where be_selected"
+              +       " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+              +     " group by nominal_day,shift_id"
+              +       " having (sum(medical_release_code_description_map.pecking_order >= 20)/2 - sum(medical_release_code_description_map.pecking_order < 20)) > 0"
+              +     " )"
+              +     " as y on (y.nominal_day=x.nominal_day and y.shift_id=x.shift_id)"
+              + " where x.member_id = '" + member_id + "'"
+              +   " and not x.be_selected"
+              + " order by y.num_openings desc"
+              + " limit 1",
+              connection,
+              transaction
+              )
+              .ExecuteScalar();
+            if (selectable_id_obj != null)
+              {
+              new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE, reviser_member_id = null where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
+              if (num_extras > 1)
+                {
+                member_id_q.Enqueue(member_id);
+                quantity_of_interest_q.Enqueue(num_extras - 1);
+                }
               }
             }
+          //
+          // Mark all current assignments hands off for this routine, and clean up.
+          //
+          new MySqlCommand
+            (
+            Dispositioned("update schedule_assignment set be_new = FALSE")
+            + ";"
+            + " drop temporary table shift_popularity",
+            connection,
+            transaction
+            )
+            .ExecuteNonQuery();
           }
-        //
-        // Mark all current assignments hands off for this routine, and clean up.
-        //
-        new MySqlCommand
-          (
-          Dispositioned("update schedule_assignment set be_new = FALSE")
-          + ";"
-          + " drop temporary table shift_popularity",
-          connection,
-          transaction
-          )
-          .ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)

@@ -15,15 +15,16 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
   {
   public class UserControl_schedule_assignment_assistant_alert_binder_Static
     {
-    public const int TSSI_TIME_OFF = 0;
-    public const int TSSI_TIME_ON = 1;
-    public const int TSSI_UNEXPECTED_SUBMISSIONS = 2;
+    public const int TSSI_UNEXPECTED_SUBMISSIONS = 0;
+    public const int TSSI_TIME_OFF = 1;
+    public const int TSSI_TIME_ON = 2;
     }
 
   public struct p_type
     {
     public string agency_filter;
     public bool be_loaded;
+    public bool be_ok_to_work_on_next_month_assignments;
     public string content_id;
     public k.subtype<int> relative_month;
     public string release_filter;
@@ -43,9 +44,9 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       if (!p.be_loaded)
         {
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-        TabPanel_time_off.HeaderText = "<b>STEP 2a:</b> " + TabPanel_time_off.HeaderText;
-        TabPanel_time_on.HeaderText = "<b>STEP 2b:</b> " + TabPanel_time_on.HeaderText;
-        TabPanel_unexpected_submissions.HeaderText = "<b>STEP 2c:</b> " + TabPanel_unexpected_submissions.HeaderText;
+        TabPanel_unexpected_submissions.HeaderText = "<b>STEP 4a:</b> " + TabPanel_unexpected_submissions.HeaderText;
+        TabPanel_time_off.HeaderText = "<b>STEP 4b:</b> " + TabPanel_time_off.HeaderText;
+        TabPanel_time_on.HeaderText = "<b>STEP 4c:</b> " + TabPanel_time_on.HeaderText;
         p.be_loaded = true;
         }
       }
@@ -86,8 +87,9 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         p.be_loaded = false;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
-        p.tab_index = UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF;
-        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_off,"UserControl_schedule_assignment_assistant_alert_time_off",PlaceHolder_content,InstanceId());
+        //
+        p.tab_index = UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS;
+        p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_unexpected_submissions,"UserControl_schedule_assignment_assistant_alert_unexpected_submissions",PlaceHolder_content,InstanceId());
         }
       }
 

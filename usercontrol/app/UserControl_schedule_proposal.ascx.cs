@@ -120,7 +120,7 @@ namespace UserControl_schedule_proposal
           Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
           }
         Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
-        DropDownList_depth.SelectedValue = p.depth_filter;
+        ManageDefaultDepth();
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         DropDownList_depth.Enabled = p.be_interactive;
         Panel_warning_to_save.Visible = p.be_interactive && p.be_ok_to_edit_post;
@@ -174,14 +174,7 @@ namespace UserControl_schedule_proposal
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
-          {
-          p.depth_filter = k.EMPTY;
-          }
-        else
-          {
-          p.depth_filter = "1";
-          }
+        p.depth_filter = "1";
         p.max_post_cardinality_actual = k.EMPTY;
         p.max_post_cardinality_effective = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
@@ -243,6 +236,7 @@ namespace UserControl_schedule_proposal
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         }
       p.relative_month = relative_month;
+      ManageDefaultDepth();
       //
       var relative_prep_month = DateTime.Today.AddMonths(p.relative_month.val - 1);
       p.be_squad_exclusivity_expired = DateTime.Today > new DateTime(relative_prep_month.Year,relative_prep_month.Month,int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]));
@@ -262,6 +256,24 @@ namespace UserControl_schedule_proposal
       MakeDateCalculations();
       //
       Bind();
+      }
+
+    private void ManageDefaultDepth()
+      {
+      if(
+          HttpContext.Current.User.IsInRole("Squad Scheduler")
+        &&
+          (p.relative_month.val == 1)
+        &&
+          p.biz_schedule_assignments.BeOkToWorkOnNextMonthAvailabilities()
+        &&
+          !p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments()
+        )
+      //then
+        {
+        p.depth_filter = "0";
+        }
+      DropDownList_depth.SelectedValue = p.depth_filter;
       }
 
     internal void SetInteractivity(bool be_interactive)

@@ -23,10 +23,11 @@ namespace UserControl_member_schedule_detail
     public ArrayList arraylist_unselected_night_avail;
     public bool be_any_revisions;
     public bool be_datagrid_empty;
-    public bool be_editable;
+    public bool be_fully_editable;
     public bool be_limited_preview;
     public bool be_loaded;
     public bool be_my_watchbill_mode;
+    public bool be_partially_editable;
     public bool be_virgin_watchbill;
     public TClass_biz_availabilities biz_availabilities;
     public TClass_biz_leaves biz_leaves;
@@ -88,7 +89,8 @@ namespace UserControl_member_schedule_detail
         Literal_name.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
         Literal_name_2.Text = Literal_name.Text;
         Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
-        LinkButton_switch_month.Visible = (p.be_my_watchbill_mode && !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1)) && p.biz_schedule_assignments.BeOkToWorkOnNextMonth());
+        LinkButton_switch_month.Visible =
+          (p.be_my_watchbill_mode && !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1)) && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments());
         //
         Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
         //
@@ -99,14 +101,14 @@ namespace UserControl_member_schedule_detail
         HyperLink_email_address.Text = p.biz_members.EmailAddressOf(p.biz_members.IdOf(p.member_summary));
         HyperLink_email_address.NavigateUrl = "mailto:" + HyperLink_email_address.Text;
         //
-        if (p.be_editable)
+        if (p.be_fully_editable)
           {
           Panel_sensitive_submission_detail.Visible = true;
           //
           HtmlTableCell_button_done.Visible = !p.be_my_watchbill_mode;
           HtmlTableCell_scheduler_actions.Visible = !p.biz_members.BeReleased(p.biz_members.IdOf(p.member_summary));
           //
-          HtmlTableRow_instruction_for_calendars.Visible = p.be_editable;
+          HtmlTableRow_instruction_for_calendars.Visible = p.be_fully_editable;
           }
         //
         Calendar_day.VisibleDate = month_of_interest;
@@ -117,7 +119,7 @@ namespace UserControl_member_schedule_detail
         InjectPersistentClientSideScript();
         p.be_loaded = true;
         }
-      if (p.be_editable)
+      if (p.be_fully_editable)
         {
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
         }
@@ -147,7 +149,17 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_day_avail = new ArrayList();
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
-        p.be_editable = ((Session["mode:report"] == null) && k.Has((Session["privilege_array"] as string[]),"edit-schedule"));
+        p.be_partially_editable =
+          (
+            (Session["mode:report"] == null)
+          &&
+            k.Has((Session["privilege_array"] as string[]),"edit-schedule")
+          );
+        p.be_fully_editable = p.biz_schedule_assignments.BeMemberScheduleDetailFullyEditable
+          (
+          be_partially_editable:p.be_partially_editable,
+          relative_month:p.relative_month
+          );
         p.be_limited_preview = false;
         p.be_my_watchbill_mode = InstanceId().Contains("ASP.protected_overview_aspx");
         p.be_virgin_watchbill = true;
@@ -262,7 +274,7 @@ namespace UserControl_member_schedule_detail
           (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
         //
-        if (!p.be_editable && !p.be_virgin_watchbill && (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
+        if (!p.be_fully_editable && !p.be_virgin_watchbill && (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
           {
           ((e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_REVISED].Controls[0]) as Label).Visible = true;
           if (e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_SHIFT_NAME].Text == "DAY")
@@ -278,7 +290,7 @@ namespace UserControl_member_schedule_detail
         //
         p.num_datagrid_rows++;
         }
-      if (p.be_editable && be_any_kind_of_item)
+      if (p.be_fully_editable && be_any_kind_of_item)
         {
         LinkButton link_button;
         var comment_edit_update_cancel_controls = e.Item.Cells[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Controls;
@@ -414,24 +426,24 @@ namespace UserControl_member_schedule_detail
       p.arraylist_unselected_day_avail.Clear();
       p.arraylist_unselected_night_avail.Clear();
       p.biz_schedule_assignments.GetInfoAboutMemberInMonth(p.biz_members.IdOf(p.member_summary),p.relative_month,ref p.num,out p.start_of_earliest_unselected,out p.end_of_latest_unselected);
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_BEFORE].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_AFTER].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SWAP_LATER].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_OTHERS_AVAILABLE].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_editable;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_editable && !p.be_virgin_watchbill;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_DOOR_CODE].Visible = !p.be_editable || p.be_my_watchbill_mode;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_COMMENT_EDIT_UPDATE_CANCEL].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_BEFORE].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_TIME_OFF_AFTER].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_FROM_AGENCY].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SHIFT_POPULATION_CITYWIDE].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SWAP_EARLIER].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_SWAP_LATER].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_OTHERS_AVAILABLE].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_OFF].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_FORCE_ON].Visible = p.be_fully_editable;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_REVISED].Visible = !p.be_fully_editable && !p.be_virgin_watchbill;
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_DOOR_CODE].Visible = !p.be_fully_editable || p.be_my_watchbill_mode;
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;
       HtmlTableRow_none.Visible = p.be_datagrid_empty;
       Label_revision_explanation.Visible = p.be_any_revisions;
-      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_LAST_REVISER].Visible = (p.be_editable || p.be_any_revisions);
+      DataGrid_control.Columns[UserControl_member_schedule_detail_Static.TCI_LAST_REVISER].Visible = (p.be_fully_editable || p.be_any_revisions);
       HtmlTableRow_key_revised.Visible = p.be_any_revisions;
       p.num_datagrid_rows = 0;
       }
@@ -448,12 +460,12 @@ namespace UserControl_member_schedule_detail
       var be_revised_avail = arraylist_revised_avail.Contains(e.Day.Date);
       var be_selected_avail = arraylist_selected_avail.Contains(e.Day.Date);
       var be_unselected_avail = arraylist_unselected_avail.Contains(e.Day.Date);
-      if ((p.be_editable) && (e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_avail) && (!be_unselected_avail))
+      if ((p.be_partially_editable) && (e.Day.Date.Month == DateTime.Now.AddMonths(p.relative_month.val).Month) && (!be_selected_avail) && (!be_unselected_avail))
         {
         e.Day.IsSelectable = true;
         e.Cell.ForeColor = Color.Blue;
         }
-      if (!p.be_editable && be_revised_avail)
+      if (!p.be_fully_editable && be_revised_avail)
         {
         e.Cell.CssClass = "revised";
         }
@@ -502,7 +514,12 @@ namespace UserControl_member_schedule_detail
       p.relative_month = relative_month;
       p.be_virgin_watchbill = be_virgin_watchbill;
       p.be_limited_preview = be_limited_preview;
-      p.be_editable = p.biz_schedule_assignments.BeOkToEditPerExclusivityRules(Session,member_agency_id,relative_month);
+      p.be_partially_editable = p.biz_schedule_assignments.BeOkToEditPerExclusivityRules(Session,member_agency_id,relative_month);
+      p.be_fully_editable = p.biz_schedule_assignments.BeMemberScheduleDetailFullyEditable
+        (
+        be_partially_editable:p.be_partially_editable,
+        relative_month:p.relative_month
+        );
       Bind();
       }
     internal void SetFilter(string member_agency_id,k.subtype<int> relative_month,string member_id,bool be_virgin_watchbill)
@@ -516,7 +533,8 @@ namespace UserControl_member_schedule_detail
 
     internal void SetInteractivity(bool be_interactive)
       {
-      p.be_editable = p.be_editable && be_interactive;
+      p.be_fully_editable = p.be_fully_editable && be_interactive;
+      p.be_partially_editable = p.be_partially_editable && be_interactive;
       }
 
     protected void Button_mark_tbr_Click(object sender, EventArgs e)

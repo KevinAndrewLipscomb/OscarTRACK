@@ -16,6 +16,10 @@
                         <tr>
                           <td>
                             <table cellpadding="5" cellspacing="0">
+                              <tr id="TableRow_guidance_1" runat="server" visible="false" bgcolor="Khaki">
+                                <td nowrap="nowrap"><b>STEP 1:</b></td>
+                                <td nowrap="nowrap"><b>STEP 2:</b></td>
+                              </tr>
                               <tr>
                                 <td nowrap="nowrap">
                                   <asp:RadioButtonList ID="RadioButtonList_which_month" runat="server" AutoPostBack="True" Font-Size="Smaller" OnSelectedIndexChanged="RadioButtonList_which_month_SelectedIndexChanged" Enabled="false">
@@ -46,11 +50,14 @@
    							    </td>
                     <td width="48%">&nbsp;</td>
                   </tr>
-                  <tr id="TableRow_guidance" runat="server" visible="false">
+                  <tr id="TableRow_guidance_2" runat="server" visible="false">
                     <td align="right" colspan="6" valign="top" bgcolor="Khaki" style="text-align: left">
-                      <b>Guidance:</b>&nbsp; Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad
-                      gets exclusive access to its next-month schedule until publication, or through the 17th, whichever is earlier.&nbsp; Then the Department may revise it.&nbsp; When developing the schedule, the way to get the
-                      best results with the least amount of work is to <b>perform the steps in the indicated numerical order</b>, just about each time you log in.
+                      <b>Guidance:</b>&nbsp; When developing the schedule, <b>perform the steps in the indicated numerical order</b>, just about each time you log in.&nbsp; On day
+                      <asp:Literal ID="Literal_partial_next_month_access_day" runat="server"></asp:Literal> of this month, start checking next month's availability submissions.&nbsp; Encourage holdouts to submit, and encourage
+                      all members to be available for unpopular shifts.&nbsp; On day <asp:Literal ID="Literal_full_next_month_access_day" runat="server"></asp:Literal> of this month, start designating stations (home or
+                      satellite) and crews (a, b, etc).&nbsp; Per <b><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">policy</a></b>, a squad
+                      gets exclusive access to its next-month schedule until publication, or until noon on day <asp:Literal ID="Literal_dept_next_month_access_day" runat="server"></asp:Literal> of this month, whichever is
+                      earlier.&nbsp; Then the Department may revise it.
                     </td>
                   </tr>
                 </table>
