@@ -110,7 +110,15 @@ namespace Class_biz_schedule_assignments
               (
                 !BeFullWatchbillPublishMandatory(target_member_agency_id,relative_month)
               ||
-                DateTime.Today > new DateTime(relative_prep_month.Year,relative_prep_month.Month,int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]))
+                DateTime.Now > new DateTime
+                  (
+                  year:relative_prep_month.Year,
+                  month:relative_prep_month.Month,
+                  day:int.Parse(ConfigurationManager.AppSettings["deadline_day_for_squad_to_publish_schedule"]),
+                  hour:int.Parse(ConfigurationManager.AppSettings["deadline_hour_for_squad_to_publish_schedule"]),
+                  minute:0,
+                  second:0
+                  )
               )
             )
           )

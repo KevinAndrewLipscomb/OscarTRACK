@@ -91,7 +91,8 @@ namespace UserControl_schedule_assignment_assistant_binder
           TableRow_guidance_2.Visible = true;
           Literal_partial_next_month_access_day.Text = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_submit_schedule_availabilities"]) + 1).ToString();
           Literal_full_next_month_access_day.Text = p.full_next_month_access_day;
-          Literal_dept_next_month_access_day.Text = int.Parse(ConfigurationManager.AppSettings["last_day_of_month_for_squad_to_publish_schedule"]).ToString();
+          Literal_dept_next_month_access_hour.Text = int.Parse(ConfigurationManager.AppSettings["deadline_hour_for_squad_to_publish_schedule"]).ToString();
+          Literal_dept_next_month_access_day.Text = int.Parse(ConfigurationManager.AppSettings["deadline_day_for_squad_to_publish_schedule"]).ToString();
           TabPanel_holdouts.HeaderText = "<b>STEP 3:</b> " + TabPanel_holdouts.HeaderText;
           TabPanel_alert.HeaderText = "<b>STEP 4:</b> " + TabPanel_alert.HeaderText;
           TabPanel_special_requests.HeaderText = "<b>STEP 5:</b> " + TabPanel_special_requests.HeaderText;
