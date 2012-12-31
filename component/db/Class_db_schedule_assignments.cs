@@ -174,7 +174,8 @@ namespace Class_db_schedule_assignments
       string nominal_day_filter,
       object target,
       ref k.int_nonnegative num_members,
-      ref k.decimal_nonnegative num_crew_shifts
+      ref k.decimal_nonnegative num_crew_shifts,
+      bool do_limit_to_agency_members
       )
       {
       var agency_condition_clause = k.EMPTY;
@@ -205,6 +206,7 @@ namespace Class_db_schedule_assignments
         {
         nominal_day_condition_clause = " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'";
         }
+      var commensuration_condition_clause = (do_limit_to_agency_members ? " and member.agency_id = '" + agency_filter + "'" : k.EMPTY);
       var common_initial_field_list = k.EMPTY
       + " , num_units.from_agency as num_units_from_agency"
       + " , num_units.citywide as num_units_citywide"
@@ -230,7 +232,8 @@ namespace Class_db_schedule_assignments
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
       +     nominal_day_condition_clause
-      +     agency_condition_clause;
+      +     agency_condition_clause
+      +     commensuration_condition_clause;
       var common_initial_from_where_clause = common_from_where_clause + release_condition_clause + depth_condition_clause;
       var common_order_by_clause = k.EMPTY
       + " order by nominal_day"
