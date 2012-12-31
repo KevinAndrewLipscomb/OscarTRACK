@@ -179,7 +179,18 @@ namespace Class_biz_schedule_assignments
       ref k.decimal_nonnegative num_crew_shifts
       )
       {
-      db_schedule_assignments.BindBaseDataList(agency_filter,release_filter,depth_filter,relative_month,nominal_day_filter,target,ref num_members,ref num_crew_shifts);
+      db_schedule_assignments.BindBaseDataList
+        (
+        agency_filter:agency_filter,
+        release_filter:release_filter,
+        depth_filter:depth_filter,
+        relative_month:relative_month,
+        nominal_day_filter:nominal_day_filter,
+        target:target,
+        num_members:ref num_members,
+        num_crew_shifts:ref num_crew_shifts,
+        do_limit_to_agency_members:false
+        );
       }
 
     internal void BindBaseDataListForMaag
@@ -404,7 +415,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r01
+        num_crew_shifts:ref num_crew_shifts_r01,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -415,7 +427,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r02
+        num_crew_shifts:ref num_crew_shifts_r02,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -426,7 +439,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r04
+        num_crew_shifts:ref num_crew_shifts_r04,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -437,7 +451,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r05
+        num_crew_shifts:ref num_crew_shifts_r05,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -448,7 +463,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r06
+        num_crew_shifts:ref num_crew_shifts_r06,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -459,7 +475,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r09
+        num_crew_shifts:ref num_crew_shifts_r09,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -470,7 +487,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r13
+        num_crew_shifts:ref num_crew_shifts_r13,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -481,7 +499,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r14
+        num_crew_shifts:ref num_crew_shifts_r14,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -492,7 +511,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r16
+        num_crew_shifts:ref num_crew_shifts_r16,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -503,7 +523,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_r17
+        num_crew_shifts:ref num_crew_shifts_r17,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -514,7 +535,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_ems
+        num_crew_shifts:ref num_crew_shifts_ems,
+        do_limit_to_agency_members:true
         );
       db_schedule_assignments.BindBaseDataList
         (
@@ -525,7 +547,8 @@ namespace Class_biz_schedule_assignments
         nominal_day_filter:k.EMPTY,
         target:dummy_basedatalist,
         num_members:ref dummy_k_int_nonnegative,
-        num_crew_shifts:ref num_crew_shifts_all
+        num_crew_shifts:ref num_crew_shifts_all,
+        do_limit_to_agency_members:false
         );
       db_agencies.LogCommensurationData
         (
