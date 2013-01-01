@@ -102,7 +102,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
-        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule && be_ok_to_work_on_next_month_assignments;
+        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule && ((p.relative_month.val == 0) || be_ok_to_work_on_next_month_assignments);
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
