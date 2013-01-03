@@ -16,9 +16,9 @@ namespace Class_biz_shifts
       db_shifts = new TClass_db_shifts();
       }
 
-    internal bool BeNowDayShift()
+    internal bool BeInDayShift(TimeSpan time_of_day)
       {
-      return db_shifts.BeNowDayShift();
+      return db_shifts.BeInDayShift(time_of_day);
       }
 
     public bool Bind(string partial_spec, object target)

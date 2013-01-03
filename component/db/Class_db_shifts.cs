@@ -20,10 +20,10 @@ namespace Class_db_shifts
       db_trail = new TClass_db_trail();
       }
 
-    internal bool BeNowDayShift()
+    internal bool BeInDayShift(TimeSpan time_of_day)
       {
       Open();
-      var be_now_day_shift = "1" == new MySqlCommand("select IF(@t between start and end,1,0) from (select @t := CURTIME()) as init,shift where name = 'DAY'",connection).ExecuteScalar().ToString();
+      var be_now_day_shift = "1" == new MySqlCommand("select IF(@t between start and end,1,0) from (select @t := '" + time_of_day + "') as init,shift where name = 'DAY'",connection).ExecuteScalar().ToString();
       Close();
       return be_now_day_shift;
       }
