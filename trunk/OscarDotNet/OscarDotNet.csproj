@@ -121,6 +121,7 @@
     <Content Include="protected\image\list-remove-4.png" />
     <Content Include="protected\image\mortarboard.gif" />
     <Content Include="protected\image\trophy-icon.gif" />
+    <Content Include="protected\lineup.aspx" />
     <Content Include="protected\member_schedule_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
@@ -678,6 +679,13 @@
     </Compile>
     <Compile Include="protected\gripe_sheet.aspx.designer.cs">
       <DependentUpon>gripe_sheet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\lineup.aspx.cs">
+      <DependentUpon>lineup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\lineup.aspx.designer.cs">
+      <DependentUpon>lineup.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\member_schedule_detail.aspx.cs">
       <DependentUpon>member_schedule_detail.aspx</DependentUpon>

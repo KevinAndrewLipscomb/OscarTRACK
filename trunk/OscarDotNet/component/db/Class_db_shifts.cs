@@ -20,6 +20,14 @@ namespace Class_db_shifts
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeNowDayShift()
+      {
+      Open();
+      var be_now_day_shift = "1" == new MySqlCommand("select IF(@t between start and end,1,0) from (select @t := CURTIME()) as init,shift where name = 'DAY'",connection).ExecuteScalar().ToString();
+      Close();
+      return be_now_day_shift;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(start,'-'),'|',IFNULL(end,'-'),'|',IFNULL(name,'-'))";

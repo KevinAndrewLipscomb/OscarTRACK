@@ -24,13 +24,16 @@
         </tr>
         <tr>
           <td align="center">
-            <table cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
+            <table id="Table_filters" runat="server" cellspacing="0" cellpadding="5" border="0" align="center" width="100%">
               <tr>
-                <td align="center">
+                <td  id="TableCell_print_scalable" runat="server" align="center">
                   <asp:HyperLink ID="HyperLink_preview_print_scalable" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/scalable&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;scalable format&lt;br/&gt;RECOMMENDED&lt;/small&gt;" Target="_blank"></asp:HyperLink>
                 </td>
-                <td align="center">
+                <td id="TableCell_print_maag" runat="server"  align="center">
                   <asp:HyperLink ID="HyperLink_preview_print_month_at_a_glance" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/month-at-a-glance&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;month-at-a-glance format&lt;br/&gt;&lt;/small&gt;" Target="_blank"></asp:HyperLink>
+                </td>
+                <td id="TableCell_print_lineup" runat="server" align="center" visible="false">
+                  <asp:HyperLink ID="HyperLink_preview_print_lineup" runat="server" Text="Print&lt;br /&gt;&lt;IMG src=&quot;~/protected/image/printer-dot_matrix.png&quot; alt=&quot;Print/lineup&quot; border=&quot;0&quot; height=&quot;48&quot; width=&quot;48&quot; /&gt;&lt;br /&gt;&lt;small&gt;LINEUP&lt;br/&gt;&lt;/small&gt;" Target="_blank"></asp:HyperLink>
                 </td>
                 <td align="right"><b><small>Filters:</small></b></td>
                 <td id="Td_nominal_day_filter" runat="server" align="center" nowrap="nowrap">
@@ -77,7 +80,7 @@
    							</td>
               </tr>
             </table>
-            <table cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
+            <table id="Table_accumulators" runat="server" cellspacing="0" cellpadding="5" width="100%" border="0" align="center">
               <tr>
                 <td align="center" valign="middle"><small><b><asp:literal id="Literal_num_members" runat="server"></asp:literal></b>&nbsp;members</small></td>
                 <td>&nbsp;&nbsp;&nbsp;</td>
@@ -136,14 +139,14 @@
                       <asp:BoundColumn DataField="display_seq_num" ReadOnly="True" Visible="False"></asp:BoundColumn>
                       <asp:TemplateColumn><ItemTemplate><a id="Anchor_control" runat="server"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_num_units_from_agency" DataFormatString="{0:F1}" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn>
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>/</ItemTemplate>
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_num_units_citywide" DataFormatString="{0:F1}" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
@@ -160,22 +163,22 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_medical_release_description" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" HorizontalAlign="Center" />
+                        <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn>
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
                       <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" HeaderText="DAY" Visible="false">
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="d_name" HeaderText="DAY">
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_be_driver_qualified" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_member_agency_id" Visible="false"></asp:BoundColumn>
                       <asp:TemplateColumn>
@@ -184,19 +187,22 @@
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_be_selected" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="d_comment">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_be_challenge" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="d_phone_num" Visible="false">
+                        <ItemStyle VerticalAlign="Bottom" />
+                      </asp:BoundColumn>
                       <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_num_units_from_agency" DataFormatString="{0:F1}" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn>
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>/</ItemTemplate>
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_num_units_citywide" DataFormatString="{0:F1}" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_assignment_id" ReadOnly="True" Visible="False"></asp:BoundColumn>
@@ -213,22 +219,22 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_medical_release_description" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" HorizontalAlign="Center" />
+                        <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:TemplateColumn>
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
                       <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" HeaderText="NIGHT" Visible="false">
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="n_name" HeaderText="NIGHT">
                         <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_be_driver_qualified" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_member_agency_id" Visible="False"></asp:BoundColumn>
                       <asp:TemplateColumn>
@@ -237,9 +243,12 @@
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_be_selected" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="n_comment">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                        <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_be_challenge" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="n_phone_num" Visible="false">
+                        <ItemStyle VerticalAlign="Bottom" />
+                      </asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>
