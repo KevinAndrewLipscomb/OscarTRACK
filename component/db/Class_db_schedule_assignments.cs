@@ -221,7 +221,8 @@ namespace Class_db_schedule_assignments
       + " , IF(medical_release_code_description_map.pecking_order >= 20,IF(be_driver_qualified,'','Ð'),'') as be_driver_qualified"
       + " , be_selected"
       + " , IFNULL(comment,'') as comment"
-      + " , be_challenge";
+      + " , be_challenge"
+      + " , IFNULL(phone_num,'') as phone_num";
       var common_from_where_clause = k.EMPTY
       + " from schedule_assignment"
       +   " join agency on (agency.id=schedule_assignment.post_id)"
@@ -256,7 +257,8 @@ namespace Class_db_schedule_assignments
       + " , be_driver_qualified"
       + " , be_selected"
       + " , comment"
-      + " , be_challenge";
+      + " , be_challenge"
+      + " , phone_num";
       var common_final_fields = k.EMPTY
       // nominal_day
       // display_seq_num
@@ -274,6 +276,7 @@ namespace Class_db_schedule_assignments
       + " , d.be_selected as d_be_selected"
       + " , d.comment as d_comment"
       + " , d.be_challenge as d_be_challenge"
+      + " , d.phone_num as d_phone_num"
       + " , n.num_units_from_agency as n_num_units_from_agency"
       + " , n.num_units_citywide as n_num_units_citywide"
       + " , n.assignment_id as n_assignment_id"
@@ -287,7 +290,8 @@ namespace Class_db_schedule_assignments
       + " , n.be_driver_qualified as n_be_driver_qualified"
       + " , n.be_selected as n_be_selected"
       + " , n.comment as n_comment"
-      + " , n.be_challenge as n_be_challenge";
+      + " , n.be_challenge as n_be_challenge"
+      + " , n.phone_num as n_phone_num";
       //
       Open();
       var transaction = connection.BeginTransaction();
@@ -407,6 +411,7 @@ namespace Class_db_schedule_assignments
           + " , modify d_be_driver_qualified CHAR NULL"
           + " , modify d_comment VARCHAR(511) NULL"
           + " , modify d_be_challenge TINYINT NULL"
+          + " , modify d_phone_num VARCHAR(10) NULL"
           + ";"
           + " INSERT ignore this_month_schedule_assignment"
           + " select DATE_FORMAT(n.nominal_day,'%Y-%m-%d') as nominal_day , n.display_seq_num" + common_final_fields

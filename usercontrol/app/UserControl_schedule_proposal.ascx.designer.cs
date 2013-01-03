@@ -49,6 +49,24 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.Literal Literal_application_name;
         
         /// <summary>
+        /// Table_filters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_filters;
+        
+        /// <summary>
+        /// TableCell_print_scalable control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_print_scalable;
+        
+        /// <summary>
         /// HyperLink_preview_print_scalable control.
         /// </summary>
         /// <remarks>
@@ -58,6 +76,15 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_scalable;
         
         /// <summary>
+        /// TableCell_print_maag control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_print_maag;
+        
+        /// <summary>
         /// HyperLink_preview_print_month_at_a_glance control.
         /// </summary>
         /// <remarks>
@@ -65,6 +92,24 @@ namespace UserControl_schedule_proposal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_month_at_a_glance;
+        
+        /// <summary>
+        /// TableCell_print_lineup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_print_lineup;
+        
+        /// <summary>
+        /// HyperLink_preview_print_lineup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_preview_print_lineup;
         
         /// <summary>
         /// Td_nominal_day_filter control.
@@ -137,6 +182,15 @@ namespace UserControl_schedule_proposal {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_max_post_cardinality;
+        
+        /// <summary>
+        /// Table_accumulators control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_accumulators;
         
         /// <summary>
         /// Literal_num_members control.

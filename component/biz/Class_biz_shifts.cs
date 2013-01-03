@@ -16,6 +16,11 @@ namespace Class_biz_shifts
       db_shifts = new TClass_db_shifts();
       }
 
+    internal bool BeNowDayShift()
+      {
+      return db_shifts.BeNowDayShift();
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       return db_shifts.Bind(partial_spec, target);

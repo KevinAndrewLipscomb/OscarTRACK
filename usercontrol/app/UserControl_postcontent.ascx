@@ -35,10 +35,6 @@
                                 </tr>
                                 <tr>
                                   <td valign="top">&bull;</td>
-                                  <td><small><a href="http://www.vbvolunteers.com/" target="_blank">Virginia Beach Association of Rescue Squad Volunteers, Inc.</a></small></td>
-                                </tr>
-                                <tr>
-                                  <td valign="top">&bull;</td>
                                   <td><small><a href="http://www.vbems.com/deputychief/documents/Policies_PDF/103.01.01.EMS_Duty_Policy.pdf" target="_blank">EMS Duty Policy</a></small></td>
                                 </tr>
                               </table>
