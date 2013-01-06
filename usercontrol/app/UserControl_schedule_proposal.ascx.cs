@@ -136,7 +136,7 @@ namespace UserControl_schedule_proposal
         //
         p.biz_schedule_assignments.BindPostCardinalityListControl(Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + int.Parse(ConfigurationManager.AppSettings["max_num_units_per_post"]) - 1)),DropDownList_max_post_cardinality,p.max_post_cardinality_effective);
         //
-        TableCell_print_lineup.Visible = p.be_ok_to_see_other_member_schedule_detail;
+        TableCell_print_lineup.Visible = p.be_interactive && p.be_ok_to_see_other_member_schedule_detail;
         //
         if (!p.be_interactive)
           {
