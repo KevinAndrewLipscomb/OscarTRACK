@@ -28,8 +28,22 @@
                 <td align="center">
                   <asp:TextBox ID="TextBox_scene_visits" runat="server" Columns="45" Rows="30" TextMode="MultiLine" Wrap="False"></asp:TextBox>
                 </td>
-                <td style="text-align: center" valign="top">
-                  Batch designator:<br />
+                <td align="center" valign="top">
+                  <small>Last <asp:Literal ID="Literal_limit" runat="server"></asp:Literal> batches</small>
+                  <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="3" autogeneratecolumns="False">
+                    <Columns>
+                      <asp:BoundColumn datafield="id" Visible="false"></asp:BoundColumn>
+                      <asp:BoundColumn datafield="designator" HeaderText="Designator">
+                        <ItemStyle HorizontalAlign="Left" />
+                      </asp:BoundColumn>
+                      <asp:BoundColumn datafield="immune_scene_visits_factor" headertext="Immunity">
+                        <ItemStyle horizontalalign="Right"></ItemStyle>
+                      </asp:BoundColumn>
+                    </Columns>
+                    <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                  </asp:DataGrid>
+                  <br />
+                  New batch designator:<br />
                   <asp:TextBox ID="TextBox_batch_designator" runat="server" Columns="9" MaxLength="9"></asp:TextBox>
                   <br />
                   <br />

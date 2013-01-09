@@ -22,6 +22,24 @@ namespace UserControl_scene_visits_to_love_letter_targets {
         protected global::System.Web.UI.WebControls.TextBox TextBox_scene_visits;
         
         /// <summary>
+        /// Literal_limit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_limit;
+        
+        /// <summary>
+        /// DataGrid_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
+        
+        /// <summary>
         /// TextBox_batch_designator control.
         /// </summary>
         /// <remarks>
