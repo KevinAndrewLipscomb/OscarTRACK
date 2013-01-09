@@ -1,5 +1,6 @@
 // Derived from UserControl~template~std.ascx.cs~template
 
+using Class_biz_love_letter_batches;
 using Class_biz_residents;
 using kix;
 using System;
@@ -12,21 +13,40 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_scene_visits_to_love_letter_targets
   {
-  public struct p_type
-    {
-    public bool be_loaded;
-    public TClass_biz_residents biz_residents;
-    }
+    public static class UserControl_scene_visits_to_love_letter_targets_Static
+      {
+      public const int LIMIT = 10;
+      }
 
   public partial class TWebUserControl_scene_visits_to_love_letter_targets: ki_web_ui.usercontrol_class
     {
 
+    private struct p_type
+      {
+      public bool be_loaded;
+      public TClass_biz_love_letter_batches biz_love_letter_batches;
+      public TClass_biz_residents biz_residents;
+      public k.int_positive limit;
+      }
+
     private p_type p;
+
+    private void Bind()
+      {
+      p.biz_love_letter_batches.BindRecentToBaseDataList
+        (
+        limit:p.limit,
+        target:DataGrid_control
+        );
+      }
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
         {
+        Literal_limit.Text = p.limit.val.ToString();
+        Bind();
+        //
         p.be_loaded = true;
         }
       }
@@ -43,8 +63,11 @@ namespace UserControl_scene_visits_to_love_letter_targets
         }
       else
         {
+        p.biz_love_letter_batches = new TClass_biz_love_letter_batches();
         p.biz_residents = new TClass_biz_residents();
+        //
         p.be_loaded = false;
+        p.limit = new k.int_positive(UserControl_scene_visits_to_love_letter_targets_Static.LIMIT);
         }
       }
 

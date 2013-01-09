@@ -209,6 +209,7 @@
     <Compile Include="component\biz\Class_biz_indicator_shiftwise_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_leave.cs" />
     <Compile Include="component\biz\Class_biz_leaves.cs" />
+    <Compile Include="component\biz\Class_biz_love_letter_batches.cs" />
     <Compile Include="component\biz\Class_biz_medical_release_levels.cs" />
     <Compile Include="component\biz\Class_biz_members.cs" />
     <Compile Include="component\biz\Class_biz_milestones.cs" />
@@ -260,6 +261,7 @@
     <Compile Include="component\db\Class_db_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_indicator_shiftwise_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_leaves.cs" />
+    <Compile Include="component\db\Class_db_love_letter_batches.cs" />
     <Compile Include="component\db\Class_db_medical_release_levels.cs" />
     <Compile Include="component\db\Class_db_members.cs" />
     <Compile Include="component\db\Class_db_milestones.cs" />
