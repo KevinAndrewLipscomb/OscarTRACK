@@ -289,6 +289,7 @@ namespace UserControl_schedule_proposal
 
     private void ManageDefaultDepth()
       {
+      p.depth_filter = "1";
       if(
           HttpContext.Current.User.IsInRole("Squad Scheduler")
         &&
