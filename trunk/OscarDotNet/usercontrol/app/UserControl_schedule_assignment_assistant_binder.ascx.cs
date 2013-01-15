@@ -208,7 +208,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       {
       p.relative_month.val = int.Parse(k.Safe(RadioButtonList_which_month.SelectedValue,k.safe_hint_type.NUM));
       ManagePostPublishSubmissionDetection();
-      Bind();
+      Bind(be_for_month_change:true);
       if ((p.relative_month.val == 1) && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments() && !p.biz_schedule_assignments.BeProposalGeneratedForNextMonth())
         {
         Button_refresh.Attributes.Add
@@ -239,7 +239,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       FillPlaceHolder(true);
       }
 
-    private void Bind()
+    private void Bind(bool be_for_month_change)
       {
       if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
         {
@@ -255,12 +255,16 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
         {
-        UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month,be_for_month_change);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
         {
         UserControl_schedule_assignment_assistant_publish.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      }
+    private void Bind()
+      {
+      Bind(be_for_month_change:false);
       }
 
     private void FillPlaceHolder
