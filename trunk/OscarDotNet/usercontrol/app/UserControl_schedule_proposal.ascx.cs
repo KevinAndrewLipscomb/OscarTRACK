@@ -192,14 +192,7 @@ namespace UserControl_schedule_proposal
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
-          {
-          p.depth_filter = k.EMPTY;
-          }
-        else
-          {
-          p.depth_filter = "1";
-          }
+        p.depth_filter = "1";
         p.max_post_cardinality_actual = k.EMPTY;
         p.max_post_cardinality_effective = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
