@@ -126,7 +126,7 @@ namespace UserControl_schedule_proposal
           Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
           }
         Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
-        ManageDefaultDepth();
+        DropDownList_depth.SelectedValue = p.depth_filter;
         p.biz_medical_release_levels.BindBaseDataList(DataList_key);
         DropDownList_depth.Enabled = p.be_interactive;
         Panel_warning_to_save.Visible = p.be_interactive && p.be_ok_to_edit_post;
@@ -192,7 +192,14 @@ namespace UserControl_schedule_proposal
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        p.depth_filter = "1";
+        if (HttpContext.Current.User.IsInRole("Squad Scheduler"))
+          {
+          p.depth_filter = k.EMPTY;
+          }
+        else
+          {
+          p.depth_filter = "1";
+          }
         p.max_post_cardinality_actual = k.EMPTY;
         p.max_post_cardinality_effective = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
@@ -243,7 +250,8 @@ namespace UserControl_schedule_proposal
       (
       string agency_filter,
       string release_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      bool be_for_month_change
       )
       {
       p.agency_filter = agency_filter;
@@ -254,7 +262,10 @@ namespace UserControl_schedule_proposal
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         }
       p.relative_month = relative_month;
-      ManageDefaultDepth();
+      if (be_for_month_change)
+        {
+        ManageDefaultDepth();
+        }
       //
       var relative_prep_month = DateTime.Today.AddMonths(p.relative_month.val - 1);
       p.be_squad_exclusivity_expired = DateTime.Now > new DateTime
@@ -285,6 +296,15 @@ namespace UserControl_schedule_proposal
       MakeDateCalculations();
       //
       Bind();
+      }
+    internal void SetFilter
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      SetFilter(agency_filter,release_filter,relative_month,be_for_month_change:false);
       }
 
     private void ManageDefaultDepth()
