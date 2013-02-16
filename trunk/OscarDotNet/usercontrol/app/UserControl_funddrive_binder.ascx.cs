@@ -1,4 +1,7 @@
+using Class_biz_agencies;
 using Class_biz_manifest;
+using Class_biz_members;
+using Class_biz_user;
 using kix;
 using UserControl_funddrive_teaser;
 using UserControl_keyclick;
@@ -24,7 +27,10 @@ namespace UserControl_funddrive_binder
         private struct p_type
           {
           public bool be_loaded;
+          public TClass_biz_agencies biz_agencies;
           public TClass_biz_manifest biz_manifest;
+          public TClass_biz_members biz_members;
+          public TClass_biz_user biz_user;
           public string content_id;
           public uint tab_index;
           }
@@ -46,8 +52,10 @@ namespace UserControl_funddrive_binder
                   // Note that all tabs to the left of a visible tab must be visible in order for tab changing to work.
                   //
                   TabPanel_keyclick.Visible = true;
-                  TabPanel_love_letters.Visible = true;
-                  TabPanel_paypal_assistant.Visible = true;
+                  //
+                  var be_user_with_kvrs = (p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))) == "KVRS");
+                  TabPanel_love_letters.Visible = be_user_with_kvrs;  //true;
+                  TabPanel_paypal_assistant.Visible = be_user_with_kvrs;  //true;
                   //TabPanel_new_donation.Visible = true;
                   //TabPanel_old_donation.Visible = true;
                   }
@@ -106,7 +114,11 @@ namespace UserControl_funddrive_binder
             }
             else
             {
+                p.biz_agencies = new TClass_biz_agencies();
                 p.biz_manifest = new TClass_biz_manifest();
+                p.biz_members = new TClass_biz_members();
+                p.biz_user = new TClass_biz_user();
+                //
                 p.be_loaded = false;
                 if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
                 {
