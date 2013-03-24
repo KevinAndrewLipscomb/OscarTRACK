@@ -50,7 +50,8 @@ namespace salogin
             {
                 Title = ConfigurationManager.AppSettings["application_name"] + " - salogin";
                 p.biz_users = new TClass_biz_users();
-                Focus(TextBox_username, true);
+                RequireConfirmation(LinkButton_forgot_password,"Are you sure you want a new password?");
+                TextBox_username.Focus();
             }
             InjectPersistentClientSideScript();
         }
