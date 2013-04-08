@@ -1,4 +1,5 @@
-﻿using kix;
+﻿using Class_biz_evals;
+using kix;
 using System;
 
 namespace Class_msg_protected
@@ -21,11 +22,24 @@ namespace Class_msg_protected
       internal string agency_id = k.EMPTY;
       internal object summary = null;
       }
+    public class eval_detail
+      {
+      internal string id = k.EMPTY;
+      internal string user_member_id = k.EMPTY;
+      internal bool be_user_evaluatee = true;
+      }
     public class member_schedule_detail
       {
       internal string member_id = k.EMPTY;
       internal k.subtype<int> relative_month;
       internal string member_agency_id = k.EMPTY;
+      }
+    public class patient_encounter_detail
+      {
+      internal presentation_mode_enum presentation_mode = presentation_mode_enum.NONE;
+      internal string eval_id = k.EMPTY;
+      internal string eval_spec = k.EMPTY;
+      internal string id = k.EMPTY;
       }
     public class overview
       {

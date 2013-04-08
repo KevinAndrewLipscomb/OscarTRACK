@@ -136,8 +136,8 @@ MAILTO=kevin.lipscomb@kvrs.org
 30 06 14 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/monthly_tasks.aspx
 #30 02 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R01
 40 02 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R02
-#50 02 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R04
-#00 03 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R05
+50 02 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R04
+00 03 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R05
 #10 03 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R06
 20 03 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R09
 #30 03 20 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_current_phone_list.aspx?agency=R13

@@ -149,6 +149,11 @@ namespace Class_biz_agencies
           db_agencies.BindEmsPostListItemCollectionShort(tier,agency_filter,post_footprint,be_condensed,target);
           }
 
+        internal void BindEvalPostDirectToListControl(object target)
+          {
+          db_agencies.BindEvalPostDirectToListControl(target);
+          }
+
         public void BindForCommensuration(object target)
         {
             db_agencies.BindForCommensuration(target);

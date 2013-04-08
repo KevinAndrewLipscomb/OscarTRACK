@@ -244,6 +244,20 @@ namespace Class_db_agencies
           }
 
 
+        internal void BindEvalPostDirectToListControl(object target)
+          {
+          Open();
+          (target as ListControl).Items.Clear();
+          (target as ListControl).Items.Add(new ListItem("-- Post --",""));
+          var dr = new MySqlCommand("SELECT id,short_designator from agency where be_ems_post and agency.id > 0 and agency.id < 200 order by short_designator",connection).ExecuteReader();
+          while (dr.Read())
+            {
+            (target as ListControl).Items.Add(new ListItem(dr["short_designator"].ToString(), dr["id"].ToString()));
+            }
+          dr.Close();
+          Close();
+          }
+
         public void BindForCommensuration(object target)
         {
             this.Open();

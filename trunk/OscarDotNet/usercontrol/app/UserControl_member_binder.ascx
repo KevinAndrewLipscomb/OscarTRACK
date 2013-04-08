@@ -8,8 +8,9 @@
           <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
             <!-- The KiAspdotnetFramework does not support disabling tabs at this level. -->
             <cc1:TabPanel runat="server" headertext="Schedule" id="TabPanel_schedule"></cc1:TabPanel>
-            <cc1:TabPanel runat="server" headertext="Personnel" id="TabPanel_personnel"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Evals" id="TabPanel_evals"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Fleet" id="TabPanel_fleet"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Personnel" id="TabPanel_personnel"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Fund drive" id="TabPanel_funddrive"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="EfficiPay" id="TabPanel_efficipay"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Dashboard" id="TabPanel_dashboard"></cc1:TabPanel>

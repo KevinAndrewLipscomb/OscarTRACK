@@ -320,6 +320,113 @@ namespace Class_db_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
+        internal void BindEvaluateesDirectToListControl
+          (
+          object target,
+          string unselected_literal,
+          string selected_value
+          )
+          {
+          ((target) as ListControl).Items.Clear();
+          if (unselected_literal.Length > 0)
+            {
+            ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
+            }
+          Open();
+          var dr = new MySqlCommand
+            (
+            "select member.id as member_id"
+            + " , concat(last_name,', ',first_name,' (',IFNULL(cad_num,''),')') as member_designator"
+            + " from member"
+            +   " join enrollment_history"
+            +     " on"
+            +       " ("
+            +       "   enrollment_history.member_id=member.id"
+            +       " and"
+            +       "   (enrollment_history.end_date is null)"
+            +       " )"
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
+            +   " and medical_release_code_description_map.pecking_order > 0"
+            +   " and medical_release_code_description_map.pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            + " order by member_designator",
+            connection
+            )
+            .ExecuteReader();
+          while (dr.Read())
+            {
+            ((target) as ListControl).Items.Add(new ListItem(dr["member_designator"].ToString(), dr["member_id"].ToString()));
+            }
+          dr.Close();
+          Close();
+          if (selected_value != k.EMPTY)
+            {
+            ((target) as ListControl).SelectedValue = selected_value;
+            }
+          }
+        internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
+          {
+          BindEvaluateesDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
+          }
+        internal void BindEvaluateesDirectToListControl(object target)
+          {
+          BindEvaluateesDirectToListControl(target,"-- Evaluatee --");
+          }
+
+        internal void BindEvaluatorsDirectToListControl
+          (
+          object target,
+          string unselected_literal,
+          string selected_value
+          )
+          {
+          ((target) as ListControl).Items.Clear();
+          if (unselected_literal.Length > 0)
+            {
+            ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
+            }
+          Open();
+          var dr = new MySqlCommand
+            (
+            "select member.id as member_id"
+            + " , concat(last_name,', ',first_name,' (',IFNULL(cad_num,''),')') as member_designator"
+            + " from member"
+            +   " join enrollment_history"
+            +     " on"
+            +       " ("
+            +       "   enrollment_history.member_id=member.id"
+            +       " and"
+            +       "   (enrollment_history.end_date is null)"
+            +       " )"
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            + " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
+            +   " and medical_release_code_description_map.pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            + " order by member_designator",
+            connection
+            )
+            .ExecuteReader();
+          while (dr.Read())
+            {
+            ((target) as ListControl).Items.Add(new ListItem(dr["member_designator"].ToString(), dr["member_id"].ToString()));
+            }
+          dr.Close();
+          Close();
+          if (selected_value != k.EMPTY)
+            {
+            ((target) as ListControl).SelectedValue = selected_value;
+            }
+          }
+        internal void BindEvaluatorsDirectToListControl(object target, string unselected_literal)
+          {
+          BindEvaluatorsDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
+          }
+        internal void BindEvaluatorsDirectToListControl(object target)
+          {
+          BindEvaluatorsDirectToListControl(target,"-- Evaluator --");
+          }
+
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             string from_where_phrase;
@@ -1525,6 +1632,14 @@ namespace Class_db_members
         {
             return (summary as member_summary).section;
         }
+
+        internal string SectionOfId(string id)
+          {
+          Open();
+          var section_of_id = new MySqlCommand("select section_num from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
+          Close();
+          return section_of_id;
+          }
 
         public void SetAgency(string agency_id, object summary)
         {

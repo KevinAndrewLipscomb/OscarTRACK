@@ -1,0 +1,21 @@
+Eval archived
+This is an automatic notification from <application_name/>.
+
+The following eval has now been archived:
+
+   ID #:
+      <eval_id/>
+   Shift:
+      <nominal_day/> <shift_name/>
+   Station & crew:
+      <post_designator/> <post_cardinality/>
+   Unit:
+      <vehicle_name/>
+   Third:
+      <evaluatee_name/>
+   AIC:
+      <evaluator_name/>
+
+This means that the evaluatee and the evaluator have completed all their required steps, and the eval is now ready for review by field training reviewers.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

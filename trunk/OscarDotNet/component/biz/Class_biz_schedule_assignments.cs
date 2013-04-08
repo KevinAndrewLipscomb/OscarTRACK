@@ -378,6 +378,33 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.GetInfoAboutMemberInMonth(member_id,relative_month,ref num,out earliest_unselected,out latest_unselected);
       }
 
+    internal void GetMostLikelyForNewEval
+      (
+      double client_timezone_offset,
+      string user_member_id,
+      out string most_likely_nominal_day,
+      out string most_likely_shift_id,
+      out string most_likely_post_id,
+      out string most_likely_post_cardinality,
+      out string most_likely_time_in,
+      out string most_likely_time_out,
+      out string most_likely_aic_member_id
+      )
+      {
+      db_schedule_assignments.GetMostLikelyForNewEval
+        (
+        client_timezone_offset:client_timezone_offset,
+        user_member_id:user_member_id,
+        most_likely_nominal_day:out most_likely_nominal_day,
+        most_likely_shift_id:out most_likely_shift_id,
+        most_likely_post_id:out most_likely_post_id,
+        most_likely_post_cardinality:out most_likely_post_cardinality,
+        most_likely_time_in:out most_likely_time_in,
+        most_likely_time_out:out most_likely_time_out,
+        most_likely_aic_member_id:out most_likely_aic_member_id
+        );
+      }
+
     internal void LogAvailabilitySubmissionComplianceData()
       {
       db_schedule_assignments.Update

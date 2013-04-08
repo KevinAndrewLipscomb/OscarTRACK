@@ -136,11 +136,6 @@ namespace Class_biz_vehicles
       return db_vehicles.Bind(partial_spec, target);
       }
 
-    public void BindDirectToListControl(object target)
-      {
-      db_vehicles.BindDirectToListControl(target);
-      }
-
     public void BindBaseDataList
       (
       string sort_order,
@@ -152,7 +147,17 @@ namespace Class_biz_vehicles
       string quarters_filter
       )
       {
-        db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter);
+      db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter);
+      }
+
+    public void BindDirectToListControl(object target)
+      {
+      db_vehicles.BindDirectToListControl(target);
+      }
+
+    internal void BindActiveKindAndNameDirectToListControl(object target)
+      {
+      db_vehicles.BindActiveKindAndNameDirectToListControl(target);
       }
 
     internal void BindRankedUpAndCurrent(object target)

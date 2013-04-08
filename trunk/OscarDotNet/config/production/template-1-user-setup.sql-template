@@ -5,9 +5,20 @@ grant select
  , execute
  , create
  , alter
+ , create routine
+ , alter routine
  , create temporary tables
   on oscardotnetdb.*
   to 'ki-oscartrack'@'localhost' identified by '~ki-oscartrack-password~'
+;
+--
+-- Must grant PROCESS priv to primary user to include SHOW ENGINE INNODB
+-- STATUS output in MySQL-related exception reports.
+--
+;
+grant process
+  on *.*
+  to 'ki-oscartrack'@'localhost'
 ;
 grant select
   on homedb.*

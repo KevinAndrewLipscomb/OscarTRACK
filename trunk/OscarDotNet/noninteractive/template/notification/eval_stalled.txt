@@ -1,0 +1,19 @@
+Please complete trainee EVAL
+This is an automated notification from <application_name/>.
+
+Progress on the following evaluation has stalled.  Please log into <application_name/> at your earliest convenience to complete it:
+
+   ID#:
+      <eval_id/>
+   Evaluatee:
+      <evaluatee_first_name/> <evaluatee_last_name/> (<evaluatee_cad_num/>)
+   Nominal day:
+      <nominal_day/>
+   Shift:
+      <shift/>
+   Time in:
+      <time_in/>
+   Evaluator:
+      <evaluator_first_name/> <evaluator_last_name/> (<evaluator_cad_num/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -73,6 +73,28 @@ namespace Class_db_shifts
       this.Close();
       }
 
+    internal void BindDirectToListControlByPeckingOrder(object target)
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      ((target) as ListControl).Items.Add(new ListItem("-- Shift --",k.EMPTY));
+      var dr = new MySqlCommand
+        (
+        "SELECT id"
+        + " , concat(name,' (',TIME_FORMAT(start,'%H%i'),'-',TIME_FORMAT(end,'%H%i'),')') as spec"
+        + " FROM shift"
+        + " order by pecking_order",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
+        }
+      dr.Close();
+      Close();
+      }
+
     public bool Delete(string id)
       {
       bool result;
@@ -128,6 +150,14 @@ namespace Class_db_shifts
       dr.Close();
       this.Close();
       return result;
+      }
+
+    internal string NameOf(string id)
+      {
+      Open();
+      var name_of = new MySqlCommand("select name from shift where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return name_of;
       }
 
     public void Set
