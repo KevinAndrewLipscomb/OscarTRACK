@@ -1,0 +1,16 @@
+<evaluatee_name/> has been evaluated by <evaluator_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has submitted evaluation # <eval_id/> for your review.
+
+   Evaluatee:
+      <evaluatee_name/>
+
+   Evaluator:
+      <evaluator_name/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

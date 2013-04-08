@@ -31,6 +31,11 @@ namespace Class_biz_shifts
       db_shifts.BindDirectToListControl(target);
       }
 
+    internal void BindDirectToListControlByPeckingOrder(object target)
+      {
+      db_shifts.BindDirectToListControlByPeckingOrder(target);
+      }
+
     public bool Delete(string id)
       {
       return db_shifts.Delete(id);
@@ -53,6 +58,11 @@ namespace Class_biz_shifts
         out name,
         out pecking_order
         );
+      }
+
+    internal string NameOf(string id)
+      {
+      return db_shifts.NameOf(id);
       }
 
     public void Set

@@ -1,6 +1,7 @@
 using Class_biz_agencies;
 using Class_biz_chassis_models;
 using Class_biz_custom_models;
+using Class_biz_evals;
 using Class_biz_fuels;
 using Class_biz_members;
 using Class_biz_role_member_map;
@@ -504,6 +505,225 @@ namespace Class_biz_notifications
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("elective-departure", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
         }
+
+        private delegate string IssueForEvalArchived_Merge(string s);
+        internal void IssueForEvalArchived
+          (
+          string eval_id,
+          DateTime nominal_day,
+          string shift_name,
+          string post_designator,
+          string post_cardinality,
+          string vehicle_name,
+          string evaluatee_name,
+          string evaluatee_member_id,
+          string evaluator_name,
+          string evaluator_member_id
+          )
+          {
+
+          IssueForEvalArchived_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<eval_id/>", eval_id)
+              .Replace("<nominal_day/>", nominal_day.ToString("ddd yyyy-MM-dd"))
+              .Replace("<shift_name/>", shift_name)
+              .Replace("<post_designator/>", post_designator)
+              .Replace("<post_cardinality/>", post_cardinality)
+              .Replace("<vehicle_name/>", vehicle_name)
+              .Replace("<evaluatee_name/>", evaluatee_name)
+              .Replace("<evaluator_name/>", evaluator_name)
+              ;
+            };
+
+          var biz_members = new TClass_biz_members();
+          var template_reader = File.OpenText(path:HttpContext.Current.Server.MapPath(path:"template/notification/eval_archived.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:biz_members.EmailAddressOf(evaluator_member_id) + k.COMMA + db_notifications.TargetOf("eval-archived",evaluator_member_id),
+              // Provide evaluatEE_member_id to above TargetOf when dept returns to tracking Students and BLS Interns via the agency attribute rather than the section attribute.
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd()),
+            be_html:false,
+            cc:biz_members.EmailAddressOf(evaluatee_member_id)
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForEvalNeedsAicInput_Merge(string s);
+        internal void IssueForEvalNeedsAicInput
+          (
+          string eval_id,
+          DateTime nominal_day,
+          string shift_name,
+          string post_designator,
+          string post_cardinality,
+          string vehicle_name,
+          string evaluatee_name,
+          string evaluatee_member_id,
+          string evaluator_member_id
+          )
+          {
+
+          IssueForEvalNeedsAicInput_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<eval_id/>", eval_id)
+              .Replace("<nominal_day/>", nominal_day.ToString("ddd yyyy-MM-dd"))
+              .Replace("<shift_name/>", shift_name)
+              .Replace("<post_designator/>", post_designator)
+              .Replace("<post_cardinality/>", post_cardinality)
+              .Replace("<vehicle_name/>", vehicle_name)
+              .Replace("<evaluatee_name/>", evaluatee_name)
+              ;
+            };
+
+          var biz_members = new TClass_biz_members();
+          var template_reader = File.OpenText(path:HttpContext.Current.Server.MapPath(path:"../noninteractive/template/notification/eval_needs_aic_input.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:biz_members.EmailAddressOf(evaluator_member_id),
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd()),
+            be_html:false,
+            cc:biz_members.EmailAddressOf(evaluatee_member_id)
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForEvalNeedsEvaluateeRebuttal_Merge(string s);
+        internal void IssueForEvalNeedsEvaluateeRebuttal
+          (
+          string eval_id,
+          DateTime nominal_day,
+          string shift_name,
+          string post_designator,
+          string post_cardinality,
+          string vehicle_name,
+          string evaluator_name,
+          string evaluatee_member_id
+          )
+          {
+
+          IssueForEvalNeedsEvaluateeRebuttal_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<eval_id/>", eval_id)
+              .Replace("<nominal_day/>", nominal_day.ToString("ddd yyyy-MM-dd"))
+              .Replace("<shift_name/>", shift_name)
+              .Replace("<post_designator/>", post_designator)
+              .Replace("<post_cardinality/>", post_cardinality)
+              .Replace("<vehicle_name/>", vehicle_name)
+              .Replace("<evaluator_name/>", evaluator_name)
+              ;
+            };
+
+          var biz_members = new TClass_biz_members();
+          var template_reader = File.OpenText(path:HttpContext.Current.Server.MapPath(path:"../noninteractive/template/notification/eval_needs_evaluatee_rebuttal.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:biz_members.EmailAddressOf(evaluatee_member_id),
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd())
+            );
+          template_reader.Close();
+          }
+
+        private delegate string IssueForEvalStalled_Merge(string s);
+        internal void IssueForEvalStalled
+          (
+          string eval_id,
+          bool be_stalled_by_evaluatee
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_shifts = new TClass_biz_shifts();
+          //
+          var aic_member_id = k.EMPTY;
+          var nominal_day = DateTime.MinValue;
+          var shift_id = k.EMPTY;
+          var third_member_id = k.EMPTY;
+          var time_in = DateTime.MinValue;
+          //
+          IssueForEvalStalled_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<eval_id/>",eval_id)
+              .Replace("<evaluatee_first_name/>",biz_members.FirstNameOfMemberId(third_member_id))
+              .Replace("<evaluatee_last_name/>",biz_members.LastNameOfMemberId(third_member_id))
+              .Replace("<evaluatee_cad_num/>",biz_members.CadNumOfMemberId(third_member_id))
+              .Replace("<nominal_day/>",nominal_day.ToString("yyyy-MM-dd"))
+              .Replace("<shift/>",biz_shifts.NameOf(shift_id))
+              .Replace("<time_in/>",time_in.ToString("HH:mm"))
+              .Replace("<evaluator_first_name/>",biz_members.FirstNameOfMemberId(aic_member_id))
+              .Replace("<evaluator_last_name/>",biz_members.LastNameOfMemberId(aic_member_id))
+              .Replace("<evaluator_cad_num/>",biz_members.CadNumOfMemberId(aic_member_id))
+              ;
+            };
+          //
+          var dummy_bool = false;
+          var dummy_datetime = DateTime.MinValue;
+          var dummy_string = k.EMPTY;
+          new TClass_biz_evals().Get
+            (
+            id:eval_id,
+            third_member_id:out third_member_id,
+            nominal_day:out nominal_day,
+            shift_id:out shift_id,
+            post_id:out dummy_string,
+            post_cardinality:out dummy_string,
+            vehicle_id:out dummy_string,
+            aic_member_id:out aic_member_id,
+            alt_aic_reason:out dummy_string,
+            time_in:out time_in,
+            time_out:out dummy_datetime,
+            discussions:out dummy_string,
+            be_aic_ok_with_third_progress:out dummy_bool,
+            be_aic_ok_with_third_release:out dummy_bool,
+            be_third_ok_with_progress:out dummy_bool,
+            be_third_ok_with_release:out dummy_bool,
+            comments_on_driving:out dummy_string,
+            miles_driven_routine:out dummy_string,
+            miles_driven_emergency:out dummy_string,
+            road_conditions:out dummy_string,
+            be_aic_ok_with_third_being_driver:out dummy_bool,
+            be_third_ok_with_being_driver:out dummy_bool,
+            status_id:out dummy_string,
+            be_locked_by_third_initially:out dummy_bool,
+            be_locked_by_aic:out dummy_bool,
+            third_rebuttal:out dummy_string
+            );
+          var target_email_address = biz_members.EmailAddressOf((be_stalled_by_evaluatee ? third_member_id : aic_member_id));
+          if (target_email_address != k.EMPTY)
+            {
+            var biz_agencies = new TClass_biz_agencies();
+            var biz_role_member_map = new TClass_biz_role_member_map();
+            var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/eval_stalled.txt"));
+            k.SmtpMailSend
+              (
+              from:ConfigurationManager.AppSettings["sender_email_address"],
+              to:target_email_address,
+              subject:Merge(template_reader.ReadLine()),
+              message_string:Merge(template_reader.ReadToEnd()),
+              be_html:false,
+              cc:k.EMPTY,
+              bcc:k.EMPTY,
+              reply_to:biz_role_member_map.EmailTargetOf("Department BLS ID Coordinator","EMS")
+              );
+            template_reader.Close();
+            }
+          }
 
         private delegate string IssueForFailureToThriveDemotion_Merge(string s);
         public void IssueForFailureToThriveDemotion(string member_id, string first_name, string last_name, string cad_num)

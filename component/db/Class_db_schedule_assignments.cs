@@ -1396,6 +1396,80 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void GetMostLikelyForNewEval
+      (
+      double client_timezone_offset,
+      string user_member_id,
+      out string most_likely_nominal_day,
+      out string most_likely_shift_id,
+      out string most_likely_post_id,
+      out string most_likely_post_cardinality,
+      out string most_likely_time_in,
+      out string most_likely_time_out,
+      out string most_likely_aic_member_id
+      )
+      {
+      most_likely_nominal_day = k.EMPTY;
+      most_likely_shift_id = k.EMPTY;
+      most_likely_post_id = k.EMPTY;
+      most_likely_post_cardinality = k.EMPTY;
+      most_likely_time_in = k.EMPTY;
+      most_likely_time_out = k.EMPTY;
+      most_likely_aic_member_id = k.EMPTY;
+      //
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select DATE_FORMAT(nominal_day,'%Y-%m-%d') as most_likely_nominal_day"
+        + " , shift_id as most_likely_shift_id"
+        + " , post_id as most_likely_post_id"
+        + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as most_likely_post_cardinality"
+        + " , start as most_likely_start"
+        + " , end as most_likely_end"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where member_id = '" + user_member_id + "'"
+        +   " and be_selected"
+        +   " and (@shift_start := DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i')) < '" + DateTime.Now.ToUniversalTime().AddMinutes(-client_timezone_offset).ToString("yyyy-MM-dd HH:mm") + "'"
+        + " order by @shift_start desc"
+        + " limit 1",
+        connection
+        )
+        .ExecuteReader();
+      if (dr.Read())
+        {
+        most_likely_nominal_day = dr["most_likely_nominal_day"].ToString();
+        most_likely_shift_id = dr["most_likely_shift_id"].ToString();
+        most_likely_post_id = dr["most_likely_post_id"].ToString();
+        most_likely_post_cardinality = dr["most_likely_post_cardinality"].ToString();
+        most_likely_time_in = dr["most_likely_start"].ToString();
+        most_likely_time_out = dr["most_likely_end"].ToString();
+        dr.Close();
+        dr = new MySqlCommand
+          (
+          "select member_id as most_likely_aic_member_id"
+          + " from schedule_assignment"
+          +   " join member on (member.id=schedule_assignment.member_id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+          + " where nominal_day = '" + most_likely_nominal_day + "'"
+          +   " and shift_id = '" + most_likely_shift_id + "'"
+          +   " and post_id = '" + most_likely_post_id + "'"
+          +   " and post_cardinality = ASCII('" + most_likely_post_cardinality + "') - ASCII('a') + 1"
+          +   " and be_selected"
+          + " order by medical_release_code_description_map.pecking_order desc, member.equivalent_los_start_date"
+          + " limit 1",
+          connection
+          )
+          .ExecuteReader();
+        if (dr.Read())
+          {
+          most_likely_aic_member_id = dr["most_likely_aic_member_id"].ToString();
+          }
+        dr.Close();
+        }
+      Close();
+      }
+
     public bool GetNominalDayShiftNameOfId
       (
       string id,

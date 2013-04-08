@@ -5,6 +5,7 @@ using UserControl_about;
 using UserControl_config_binder;
 using UserControl_dashboard_binder;
 using UserControl_efficipay_binder;
+using UserControl_eval_overview;
 using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
@@ -12,17 +13,19 @@ using UserControl_schedule_binder;
 
 namespace UserControl_member_binder
 {
-    public class UserControl_member_binder_Static
+
+  public class UserControl_member_binder_Static
     {
-        public const int TSSI_SCHEDULE = 0;
-        public const int TSSI_PERSONNEL = 1;
-        public const int TSSI_FLEET = 2;
-        public const int TSSI_FUNDDRIVE = 3;
-        public const int TSSI_EFFICIPAY = 4;
-        public const int TSSI_DASHBOARD = 5;
-        public const int TSSI_CONFIG = 6;
-        public const int TSSI_ABOUT = 7;
-    } // end UserControl_member_binder
+    public const int TSSI_SCHEDULE = 0;
+    public const int TSSI_EVALS = 1;
+    public const int TSSI_FLEET = 2;
+    public const int TSSI_PERSONNEL = 3;
+    public const int TSSI_FUNDDRIVE = 4;
+    public const int TSSI_EFFICIPAY = 5;
+    public const int TSSI_DASHBOARD = 6;
+    public const int TSSI_CONFIG = 7;
+    public const int TSSI_ABOUT = 8;
+    }
 
     public struct p_type
     {
@@ -132,6 +135,11 @@ namespace UserControl_member_binder
             p.content_id = AddIdentifiedControlToPlaceHolder(c, "S", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
             c.SetTarget(target);
             }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_EVALS)
+            {
+            var c = ((TWebUserControl_eval_overview)(LoadControl("~/usercontrol/app/UserControl_eval_overview.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"P",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+            }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_PERSONNEL)
             {
             var c = ((TWebUserControl_personnel_binder)(LoadControl("~/usercontrol/app/UserControl_personnel_binder.ascx")));
@@ -180,6 +188,10 @@ namespace UserControl_member_binder
             if (target.ToLower().Contains("/schedule/"))
               {
               p.tab_index = UserControl_member_binder_Static.TSSI_SCHEDULE;
+              }
+            else if (target.ToLower().Contains("/eval/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_EVALS;
               }
             else if (target.ToLower().Contains("/personnel/"))
               {

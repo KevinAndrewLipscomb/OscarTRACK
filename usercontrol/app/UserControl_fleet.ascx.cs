@@ -166,7 +166,6 @@ namespace UserControl_fleet
         if (p.be_interactive)
           {
           LinkButton_add_vehicle.Visible = p.be_ok_to_config_vehicles;
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
           }
         else
           {
@@ -183,10 +182,10 @@ namespace UserControl_fleet
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
         RadioButtonList_interest.SelectedIndex = (p.be_interest_dynamic ? 0 : 1);
         Bind();
-
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
       }
 
     protected override void OnInit(System.EventArgs e)

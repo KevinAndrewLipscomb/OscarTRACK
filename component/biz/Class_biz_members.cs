@@ -185,6 +185,42 @@ namespace Class_biz_members
             BindCurrentDirectToListControl(target, agency_filter, unselected_literal, k.EMPTY);
         }
 
+        internal void BindEvaluateesDirectToListControl
+          (
+          object target,
+          string unselected_literal,
+          string selected_value
+          )
+          {
+          db_members.BindEvaluateesDirectToListControl(target,unselected_literal,selected_value);
+          }
+        internal void BindEvaluateesDirectToListControl(object target, string unselected_literal)
+          {
+          BindEvaluateesDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
+          }
+        internal void BindEvaluateesDirectToListControl(object target)
+          {
+          BindEvaluateesDirectToListControl(target,"-- Evaluatee --");
+          }
+
+        internal void BindEvaluatorsDirectToListControl
+          (
+          object target,
+          string unselected_literal,
+          string selected_value
+          )
+          {
+          db_members.BindEvaluatorsDirectToListControl(target,unselected_literal,selected_value);
+          }
+        internal void BindEvaluatorsDirectToListControl(object target, string unselected_literal)
+          {
+          BindEvaluatorsDirectToListControl(target,unselected_literal,selected_value:k.EMPTY);
+          }
+        internal void BindEvaluatorsDirectToListControl(object target)
+          {
+          BindEvaluatorsDirectToListControl(target,"-- Evaluator --");
+          }
+
         public void BindRankedCoreOpsSize(object target, bool do_log)
         {
             db_members.BindRankedCoreOpsSize(target, do_log);

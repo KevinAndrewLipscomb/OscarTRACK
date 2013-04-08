@@ -1,0 +1,19 @@
+Evaluation needs final comments
+This is an automatic notification from <application_name/>.
+
+Your final comments are needed on the following evaluation:
+
+   ID #:
+      <eval_id/>
+   Shift:
+      <nominal_day/> <shift_name/>
+   Station & crew:
+      <post_designator/> <post_cardinality/>
+   Unit:
+      <vehicle_name/>
+   AIC:
+      <evaluator_name/>
+
+Please log into <application_name/> to provide this input within 24 hours.  Scroll all the way to the bottom of the eval, enter your "Final comments", then click the "LOCK AND SUBMIT" button.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_agency;
 using UserControl_agency_satellite_station;
+using UserControl_eval_object_binder;
 using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
 using UserControl_shift;
@@ -22,6 +23,7 @@ namespace UserControl_business_objects_binder
     public const int TSSI_FLEET_OBJECTS = 2;
     public const int TSSI_FUND_DRIVE_OBJECTS = 3;
     public const int TSSI_SHIFTS = 4;
+    public const int TSSI_EVAL_OBJECTS = 5;
     }
 
   public struct p_type
@@ -59,6 +61,10 @@ namespace UserControl_business_objects_binder
           {
           TabPanel_shifts.Enabled = true;
           }
+        if (k.Has((string[])(Session["privilege_array"]), "config-eval-attributes"))
+          {
+          TabPanel_eval_objects.Enabled = true;
+          }
         p.be_loaded = true;
         }
       }
@@ -94,6 +100,10 @@ namespace UserControl_business_objects_binder
         else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SHIFTS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_shift)(LoadControl("~/usercontrol/app/UserControl_shift.ascx"))), "UserControl_shift", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_EVAL_OBJECTS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_eval_object_binder)(LoadControl("~/usercontrol/app/UserControl_eval_object_binder.ascx"))), "UserControl_eval_object_binder", PlaceHolder_content);
           }
         }
       else
@@ -154,6 +164,10 @@ namespace UserControl_business_objects_binder
       else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_SHIFTS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_shift)(LoadControl("~/usercontrol/app/UserControl_shift.ascx"))),"UserControl_shift",PlaceHolder_content,InstanceId());
+        }
+      else if (p.tab_index == UserControl_business_objects_binder_Static.TSSI_EVAL_OBJECTS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_eval_object_binder)(LoadControl("~/usercontrol/app/UserControl_eval_object_binder.ascx"))),"UserControl_eval_object_binder",PlaceHolder_content,InstanceId());
         }
       }
 

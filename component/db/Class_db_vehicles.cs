@@ -350,6 +350,22 @@ namespace Class_db_vehicles
       this.Close();
       }
 
+    internal void BindActiveKindAndNameDirectToListControl(object target)
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      ((target) as ListControl).Items.Add(new ListItem("-- Unit --",k.EMPTY));
+      var dr = new MySqlCommand
+        ("SELECT vehicle.id as vehicle_id, concat('Ambulance ',name) as spec FROM vehicle join vehicle_kind on (vehicle_kind.id=vehicle.kind_id) where be_active and description = 'Ambulance' order by name",connection)
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["vehicle_id"].ToString()));
+        }
+      dr.Close();
+      Close();
+      }
+
     internal void BindRankedUpAndCurrent(object target)
       {
       Open();

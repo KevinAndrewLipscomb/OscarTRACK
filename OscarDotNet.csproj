@@ -94,6 +94,7 @@
     <Content Include="noninteractive\end_of_month_tasks.aspx" />
     <Content Include="noninteractive\monthly_tasks.aspx" />
     <Content Include="noninteractive\report_archival_end_of_month_watchbill.aspx" />
+    <Content Include="noninteractive\report_commanded_eval.aspx" />
     <Content Include="noninteractive\report_commanded_gripe_sheet.aspx" />
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
@@ -101,6 +102,7 @@
     <Content Include="noninteractive\template\notification\availabilities_due_soon.txt" />
     <Content Include="noninteractive\template\notification\availabilities_due_today.txt" />
     <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
+    <Content Include="noninteractive\template\notification\eval_stalled.txt" />
     <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
@@ -108,6 +110,7 @@
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
+    <Content Include="protected\eval_detail.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
     <Content Include="protected\image\appointment-missed.png" />
@@ -123,12 +126,16 @@
     <Content Include="protected\image\trophy-icon.gif" />
     <Content Include="protected\lineup.aspx" />
     <Content Include="protected\member_schedule_detail.aspx" />
+    <Content Include="protected\patient_encounter_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
     <Content Include="protected\template\notification\death.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-final-imprint.txt" />
     <Content Include="protected\template\notification\elective_departure.txt" />
+    <Content Include="protected\template\notification\eval_archived.txt" />
+    <Content Include="protected\template\notification\eval_needs_aic_input.txt" />
+    <Content Include="protected\template\notification\eval_needs_evaluatee_rebuttal.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
@@ -144,17 +151,30 @@
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
+    <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
+    <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
+    <Content Include="usercontrol\app\UserControl_driver_skill.ascx" />
+    <Content Include="usercontrol\app\UserControl_driver_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_docket.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay_teaser.ascx" />
+    <Content Include="usercontrol\app\UserControl_eval.ascx" />
+    <Content Include="usercontrol\app\UserControl_evaluatee_overview.ascx" />
+    <Content Include="usercontrol\app\UserControl_evaluator_overview.ascx" />
+    <Content Include="usercontrol\app\UserControl_eval_object_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_eval_overview.ascx" />
+    <Content Include="usercontrol\app\UserControl_eval_status.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
+    <Content Include="usercontrol\app\UserControl_patient_age_unit.ascx" />
+    <Content Include="usercontrol\app\UserControl_patient_encounter.ascx" />
+    <Content Include="usercontrol\app\UserControl_patient_encounter_level.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
@@ -178,6 +198,7 @@
     <Content Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_shift.ascx" />
+    <Content Include="usercontrol\app\UserControl_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
@@ -190,10 +211,16 @@
     <Compile Include="appcommon.cs" />
     <Compile Include="component\biz\Class_biz_agency_satellite_stations.cs" />
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
+    <Compile Include="component\biz\Class_biz_care_skills.cs" />
+    <Compile Include="component\biz\Class_biz_care_skill_ratings.cs" />
     <Compile Include="component\biz\Class_biz_cities.cs" />
     <Compile Include="component\biz\Class_biz_donations.cs" />
+    <Compile Include="component\biz\Class_biz_driver_skills.cs" />
+    <Compile Include="component\biz\Class_biz_driver_skill_ratings.cs" />
     <Compile Include="component\biz\Class_biz_efficipay_dockets.cs" />
     <Compile Include="component\biz\Class_biz_efficipay_tokens.cs" />
+    <Compile Include="component\biz\Class_biz_evals.cs" />
+    <Compile Include="component\biz\Class_biz_eval_status.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
@@ -215,6 +242,9 @@
     <Compile Include="component\biz\Class_biz_milestones.cs" />
     <Compile Include="component\biz\Class_biz_notifications.cs" />
     <Compile Include="component\biz\Class_biz_officerships.cs" />
+    <Compile Include="component\biz\Class_biz_patient_age_units.cs" />
+    <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
+    <Compile Include="component\biz\Class_biz_patient_encounter_levels.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
     <Compile Include="component\biz\Class_biz_residents.cs" />
     <Compile Include="component\biz\Class_biz_roles.cs" />
@@ -225,6 +255,7 @@
     <Compile Include="component\biz\Class_biz_schedule_assignments.cs" />
     <Compile Include="component\biz\Class_biz_sections.cs" />
     <Compile Include="component\biz\Class_biz_shifts.cs" />
+    <Compile Include="component\biz\Class_biz_skill_ratings.cs" />
     <Compile Include="component\biz\Class_biz_states.cs" />
     <Compile Include="component\biz\Class_biz_streets.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
@@ -246,15 +277,21 @@
     <Compile Include="component\db\Class_db_accounts.cs" />
     <Compile Include="component\db\Class_db_agencies.cs" />
     <Compile Include="component\db\Class_db_agency_satellite_stations.cs" />
+    <Compile Include="component\db\Class_db_care_skills.cs" />
+    <Compile Include="component\db\Class_db_care_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_chassis_makes.cs" />
     <Compile Include="component\db\Class_db_chassis_models.cs" />
     <Compile Include="component\db\Class_db_cities.cs" />
     <Compile Include="component\db\Class_db_custom_makes.cs" />
     <Compile Include="component\db\Class_db_custom_models.cs" />
     <Compile Include="component\db\Class_db_donations.cs" />
+    <Compile Include="component\db\Class_db_driver_skills.cs" />
+    <Compile Include="component\db\Class_db_driver_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_efficipay_dockets.cs" />
     <Compile Include="component\db\Class_db_efficipay_tokens.cs" />
     <Compile Include="component\db\Class_db_enrollment.cs" />
+    <Compile Include="component\db\Class_db_evals.cs" />
+    <Compile Include="component\db\Class_db_eval_status.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_gripes.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
@@ -267,6 +304,9 @@
     <Compile Include="component\db\Class_db_milestones.cs" />
     <Compile Include="component\db\Class_db_notifications.cs" />
     <Compile Include="component\db\Class_db_officerships.cs" />
+    <Compile Include="component\db\Class_db_patient_age_units.cs" />
+    <Compile Include="component\db\Class_db_patient_encounters.cs" />
+    <Compile Include="component\db\Class_db_patient_encounter_levels.cs" />
     <Compile Include="component\db\Class_db_privileges.cs" />
     <Compile Include="component\db\Class_db_residents.cs" />
     <Compile Include="component\db\Class_db_roles.cs" />
@@ -275,6 +315,7 @@
     <Compile Include="component\db\Class_db_role_privilege_map.cs" />
     <Compile Include="component\db\Class_db_schedule_assignments.cs" />
     <Compile Include="component\db\Class_db_shifts.cs" />
+    <Compile Include="component\db\Class_db_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
@@ -291,6 +332,7 @@
     <Compile Include="component\db\Class_db_manifest.cs" />
     <Compile Include="component\db\Class_dboscar.cs" />
     <Compile Include="component\db\Class_db_availabilities.cs" />
+    <Compile Include="component\db\Class_db__information_schema.cs" />
     <Compile Include="component\fs\Class_fs.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -357,6 +399,13 @@
     </Compile>
     <Compile Include="noninteractive\report_archival_end_of_month_watchbill.aspx.designer.cs">
       <DependentUpon>report_archival_end_of_month_watchbill.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_commanded_eval.aspx.cs">
+      <DependentUpon>report_commanded_eval.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_commanded_eval.aspx.designer.cs">
+      <DependentUpon>report_commanded_eval.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_commanded_gripe_sheet.aspx.cs">
       <DependentUpon>report_commanded_gripe_sheet.aspx</DependentUpon>
@@ -661,6 +710,13 @@
     <Compile Include="protected\establish_membership_trouble.aspx.designer.cs">
       <DependentUpon>establish_membership_trouble.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\eval_detail.aspx.cs">
+      <DependentUpon>eval_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\eval_detail.aspx.designer.cs">
+      <DependentUpon>eval_detail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\grant_leave.aspx.cs">
       <DependentUpon>grant_leave.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -709,6 +765,13 @@
     </Compile>
     <Compile Include="protected\mark_vehicle_up.aspx.designer.cs">
       <DependentUpon>mark_vehicle_up.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\patient_encounter_detail.aspx.cs">
+      <DependentUpon>patient_encounter_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\patient_encounter_detail.aspx.designer.cs">
+      <DependentUpon>patient_encounter_detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\process_paypal_donation.aspx.cs">
       <DependentUpon>process_paypal_donation.aspx</DependentUpon>
@@ -857,6 +920,20 @@
     <Compile Include="usercontrol\app\UserControl_business_objects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_business_objects_binder.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_care_skill.ascx.cs">
+      <DependentUpon>UserControl_care_skill.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_care_skill.ascx.designer.cs">
+      <DependentUpon>UserControl_care_skill.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_care_skill_rating.ascx.cs">
+      <DependentUpon>UserControl_care_skill_rating.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_care_skill_rating.ascx.designer.cs">
+      <DependentUpon>UserControl_care_skill_rating.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_chassis_make.ascx.cs">
       <DependentUpon>UserControl_chassis_make.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -934,6 +1011,20 @@
     <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_driver_skill.ascx.cs">
+      <DependentUpon>UserControl_driver_skill.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_driver_skill.ascx.designer.cs">
+      <DependentUpon>UserControl_driver_skill.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_driver_skill_rating.ascx.cs">
+      <DependentUpon>UserControl_driver_skill_rating.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_driver_skill_rating.ascx.designer.cs">
+      <DependentUpon>UserControl_driver_skill_rating.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_efficipay.ascx.cs">
       <DependentUpon>UserControl_efficipay.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -968,6 +1059,48 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_establish_membership.ascx.designer.cs">
       <DependentUpon>UserControl_establish_membership.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval.ascx.cs">
+      <DependentUpon>UserControl_eval.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval.ascx.designer.cs">
+      <DependentUpon>UserControl_eval.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_evaluatee_overview.ascx.cs">
+      <DependentUpon>UserControl_evaluatee_overview.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_evaluatee_overview.ascx.designer.cs">
+      <DependentUpon>UserControl_evaluatee_overview.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_evaluator_overview.ascx.cs">
+      <DependentUpon>UserControl_evaluator_overview.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_evaluator_overview.ascx.designer.cs">
+      <DependentUpon>UserControl_evaluator_overview.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_object_binder.ascx.cs">
+      <DependentUpon>UserControl_eval_object_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_object_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_eval_object_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_overview.ascx.cs">
+      <DependentUpon>UserControl_eval_overview.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_overview.ascx.designer.cs">
+      <DependentUpon>UserControl_eval_overview.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_status.ascx.cs">
+      <DependentUpon>UserControl_eval_status.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_eval_status.ascx.designer.cs">
+      <DependentUpon>UserControl_eval_status.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_fleet.ascx.cs">
       <DependentUpon>UserControl_fleet.ascx</DependentUpon>
@@ -1052,6 +1185,27 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_schedule_detail.ascx.designer.cs">
       <DependentUpon>UserControl_member_schedule_detail.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_age_unit.ascx.cs">
+      <DependentUpon>UserControl_patient_age_unit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_age_unit.ascx.designer.cs">
+      <DependentUpon>UserControl_patient_age_unit.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_encounter.ascx.cs">
+      <DependentUpon>UserControl_patient_encounter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_encounter.ascx.designer.cs">
+      <DependentUpon>UserControl_patient_encounter.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_encounter_level.ascx.cs">
+      <DependentUpon>UserControl_patient_encounter_level.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_patient_encounter_level.ascx.designer.cs">
+      <DependentUpon>UserControl_patient_encounter_level.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_paypal_assistant.ascx.cs">
       <DependentUpon>UserControl_paypal_assistant.ascx</DependentUpon>
@@ -1444,6 +1598,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_shift.ascx.designer.cs">
       <DependentUpon>UserControl_shift.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_skill_rating.ascx.cs">
+      <DependentUpon>UserControl_skill_rating.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_skill_rating.ascx.designer.cs">
+      <DependentUpon>UserControl_skill_rating.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_state.ascx.cs">
       <DependentUpon>UserControl_state.ascx</DependentUpon>
