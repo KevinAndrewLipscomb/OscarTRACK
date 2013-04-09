@@ -63,8 +63,8 @@
     <form runat="server">
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr class="check_segment">
-          <td width="60%">&nbsp;</td>
-          <td width="40%">
+          <td width="55%">&nbsp;</td>
+          <td width="45%">
             <table class="right_cell_table" cellpadding="0" cellspacing="0">
               <tr class="check_right_cell_table_spacer_row"><td>&nbsp;</td></tr>
               <tr class="check_right_cell_table_payload_row">
