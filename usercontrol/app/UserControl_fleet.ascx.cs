@@ -185,7 +185,10 @@ namespace UserControl_fleet
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
-      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
+      if (Session["mode:report"] == null)
+        {
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_vehicle);
+        }
       }
 
     protected override void OnInit(System.EventArgs e)
