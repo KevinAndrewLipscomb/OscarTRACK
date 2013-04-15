@@ -674,6 +674,7 @@ namespace Class_biz_notifications
           //
           var dummy_bool = false;
           var dummy_datetime = DateTime.MinValue;
+          var dummy_int_sign_range = new k.int_sign_range();
           var dummy_string = k.EMPTY;
           new TClass_biz_evals().Get
             (
@@ -689,16 +690,16 @@ namespace Class_biz_notifications
             time_in:out time_in,
             time_out:out dummy_datetime,
             discussions:out dummy_string,
-            be_aic_ok_with_third_progress:out dummy_bool,
-            be_aic_ok_with_third_release:out dummy_bool,
-            be_third_ok_with_progress:out dummy_bool,
-            be_third_ok_with_release:out dummy_bool,
+            aic_ok_with_third_progress_null_false_true_condition:out dummy_int_sign_range,
+            aic_ok_with_third_release_null_false_true_condition:out dummy_int_sign_range,
+            third_ok_with_progress_null_false_true_condition:out dummy_int_sign_range,
+            third_ok_with_release_null_false_true_condition:out dummy_int_sign_range,
             comments_on_driving:out dummy_string,
             miles_driven_routine:out dummy_string,
             miles_driven_emergency:out dummy_string,
             road_conditions:out dummy_string,
-            be_aic_ok_with_third_being_driver:out dummy_bool,
-            be_third_ok_with_being_driver:out dummy_bool,
+            aic_ok_with_third_being_driver_null_false_true_condition:out dummy_int_sign_range,
+            third_ok_with_being_driver_null_false_true_condition:out dummy_int_sign_range,
             status_id:out dummy_string,
             be_locked_by_third_initially:out dummy_bool,
             be_locked_by_aic:out dummy_bool,
