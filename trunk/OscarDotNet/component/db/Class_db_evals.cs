@@ -244,16 +244,16 @@ namespace Class_db_evals
       out DateTime time_in,
       out DateTime time_out,
       out string discussions,
-      out bool be_aic_ok_with_third_progress,
-      out bool be_aic_ok_with_third_release,
-      out bool be_third_ok_with_progress,
-      out bool be_third_ok_with_release,
+      out k.int_sign_range aic_ok_with_third_progress_null_false_true_condition,
+      out k.int_sign_range aic_ok_with_third_release_null_false_true_condition,
+      out k.int_sign_range third_ok_with_progress_null_false_true_condition,
+      out k.int_sign_range third_ok_with_release_null_false_true_condition,
       out string comments_on_driving,
       out string miles_driven_routine,
       out string miles_driven_emergency,
       out string road_conditions,
-      out bool be_aic_ok_with_third_being_driver,
-      out bool be_third_ok_with_being_driver,
+      out k.int_sign_range aic_ok_with_third_being_driver_null_false_true_condition,
+      out k.int_sign_range third_ok_with_being_driver_null_false_true_condition,
       out string status_id,
       out bool be_locked_by_third_initially,
       out bool be_locked_by_aic,
@@ -271,16 +271,16 @@ namespace Class_db_evals
       time_in = DateTime.MinValue;
       time_out = DateTime.MinValue;
       discussions = k.EMPTY;
-      be_aic_ok_with_third_progress = false;
-      be_aic_ok_with_third_release = false;
-      be_third_ok_with_progress = false;
-      be_third_ok_with_release = false;
+      aic_ok_with_third_progress_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
+      aic_ok_with_third_release_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
+      third_ok_with_progress_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
+      third_ok_with_release_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
       comments_on_driving = k.EMPTY;
       miles_driven_routine = k.EMPTY;
       miles_driven_emergency = k.EMPTY;
       road_conditions = k.EMPTY;
-      be_aic_ok_with_third_being_driver = false;
-      be_third_ok_with_being_driver = false;
+      aic_ok_with_third_being_driver_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
+      third_ok_with_being_driver_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
       status_id = k.EMPTY;
       be_locked_by_third_initially = true;
       be_locked_by_aic = true;
@@ -333,16 +333,16 @@ namespace Class_db_evals
         time_in = DateTime.Parse(dr["time_in"].ToString());
         time_out = DateTime.Parse(dr["time_out"].ToString());
         discussions = dr["discussions"].ToString();
-        be_aic_ok_with_third_progress = (dr["be_aic_ok_with_third_progress"].ToString() == "1");
-        be_aic_ok_with_third_release = (dr["be_aic_ok_with_third_release"].ToString() == "1");
-        be_third_ok_with_progress = (dr["be_third_ok_with_progress"].ToString() == "1");
-        be_third_ok_with_release = (dr["be_third_ok_with_release"].ToString() == "1");
+        aic_ok_with_third_progress_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_aic_ok_with_third_progress"].ToString());
+        aic_ok_with_third_release_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_aic_ok_with_third_release"].ToString());
+        third_ok_with_progress_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_third_ok_with_progress"].ToString());
+        third_ok_with_release_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_third_ok_with_release"].ToString());
         comments_on_driving = dr["comments_on_driving"].ToString();
         miles_driven_routine = dr["miles_driven_routine"].ToString();
         miles_driven_emergency = dr["miles_driven_emergency"].ToString();
         road_conditions = dr["road_conditions"].ToString();
-        be_aic_ok_with_third_being_driver = (dr["be_aic_ok_with_third_being_driver"].ToString() == "1");
-        be_third_ok_with_being_driver = (dr["be_third_ok_with_being_driver"].ToString() == "1");
+        aic_ok_with_third_being_driver_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_aic_ok_with_third_being_driver"].ToString());
+        third_ok_with_being_driver_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_third_ok_with_being_driver"].ToString());
         status_id = dr["status_id"].ToString();
         be_locked_by_third_initially = (dr["be_locked_by_third_initially"].ToString() == "1");
         be_locked_by_aic = (dr["be_locked_by_aic"].ToString() == "1");
@@ -388,16 +388,16 @@ namespace Class_db_evals
       DateTime time_in,
       DateTime time_out,
       string discussions,
-      bool be_aic_ok_with_third_progress,
-      bool be_aic_ok_with_third_release,
-      bool be_third_ok_with_progress,
-      bool be_third_ok_with_release,
+      k.int_sign_range aic_ok_with_third_progress_null_false_true_condition,
+      k.int_sign_range aic_ok_with_third_release_null_false_true_condition,
+      k.int_sign_range third_ok_with_progress_null_false_true_condition,
+      k.int_sign_range third_ok_with_release_null_false_true_condition,
       string comments_on_driving,
       string miles_driven_routine,
       string miles_driven_emergency,
       string road_conditions,
-      bool be_aic_ok_with_third_being_driver,
-      bool be_third_ok_with_being_driver,
+      k.int_sign_range aic_ok_with_third_being_driver_null_false_true_condition,
+      k.int_sign_range third_ok_with_being_driver_null_false_true_condition,
       string status_id,
       bool be_locked_by_third_initially,
       bool be_locked_by_aic,
@@ -416,16 +416,16 @@ namespace Class_db_evals
       + " , time_in = NULLIF('" + time_in.ToString("HH:mm") + "','')"
       + " , time_out = NULLIF('" + time_out.ToString("HH:mm") + "','')"
       + " , discussions = NULLIF('" + discussions + "','')"
-      + " , be_aic_ok_with_third_progress = " + be_aic_ok_with_third_progress.ToString()
-      + " , be_aic_ok_with_third_release = " + be_aic_ok_with_third_release.ToString()
-      + " , be_third_ok_with_progress = " + be_third_ok_with_progress.ToString()
-      + " , be_third_ok_with_release = " + be_third_ok_with_release.ToString()
+      + " , be_aic_ok_with_third_progress = " + k.NoneFalseTrueOf(aic_ok_with_third_progress_null_false_true_condition,"NULL")
+      + " , be_aic_ok_with_third_release = " + k.NoneFalseTrueOf(aic_ok_with_third_release_null_false_true_condition,"NULL")
+      + " , be_third_ok_with_progress = " + k.NoneFalseTrueOf(third_ok_with_progress_null_false_true_condition,"NULL")
+      + " , be_third_ok_with_release = " + k.NoneFalseTrueOf(third_ok_with_release_null_false_true_condition,"NULL")
       + " , comments_on_driving = NULLIF('" + comments_on_driving + "','')"
       + " , miles_driven_routine = NULLIF('" + miles_driven_routine + "','')"
       + " , miles_driven_emergency = NULLIF('" + miles_driven_emergency + "','')"
       + " , road_conditions = NULLIF('" + road_conditions + "','')"
-      + " , be_aic_ok_with_third_being_driver = " + be_aic_ok_with_third_being_driver.ToString()
-      + " , be_third_ok_with_being_driver = " + be_third_ok_with_being_driver.ToString()
+      + " , be_aic_ok_with_third_being_driver = " + k.NoneFalseTrueOf(aic_ok_with_third_being_driver_null_false_true_condition,"NULL")
+      + " , be_third_ok_with_being_driver = " + k.NoneFalseTrueOf(third_ok_with_being_driver_null_false_true_condition,"NULL")
       + " , status_id = NULLIF('" + status_id + "','')"
       + " , be_locked_by_third_initially = " + be_locked_by_third_initially.ToString()
       + " , be_locked_by_aic = " + be_locked_by_aic.ToString()

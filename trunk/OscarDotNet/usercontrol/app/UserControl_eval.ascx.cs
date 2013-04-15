@@ -269,7 +269,11 @@ namespace UserControl_eval
             most_likely_time_out:out most_likely_time_out,
             most_likely_aic_member_id:out most_likely_aic_member_id
             );
-          UserControl_drop_down_date_nominal_day.selectedvalue = DateTime.Parse(most_likely_nominal_day);
+          DateTime most_likely_nominal_day_datetime;
+          if (DateTime.TryParse(most_likely_nominal_day,out most_likely_nominal_day_datetime))
+            {
+            UserControl_drop_down_date_nominal_day.selectedvalue = most_likely_nominal_day_datetime;
+            }
           DropDownList_shift.SelectedValue = most_likely_shift_id;
           DropDownList_post.SelectedValue = most_likely_post_id;
           DropDownList_post_cardinality.SelectedValue = most_likely_post_cardinality;
@@ -362,16 +366,16 @@ namespace UserControl_eval
       DateTime time_in;
       DateTime time_out;
       string discussions;
-      bool be_aic_ok_with_third_progress;
-      bool be_aic_ok_with_third_release;
-      bool be_third_ok_with_progress;
-      bool be_third_ok_with_release;
+      k.int_sign_range aic_ok_with_third_progress_null_false_true_condition;
+      k.int_sign_range aic_ok_with_third_release_null_false_true_condition;
+      k.int_sign_range third_ok_with_progress_null_false_true_condition;
+      k.int_sign_range third_ok_with_release_null_false_true_condition;
       string comments_on_driving;
       string miles_driven_routine;
       string miles_driven_emergency;
       string road_conditions;
-      bool be_aic_ok_with_third_being_driver;
-      bool be_third_ok_with_being_driver;
+      k.int_sign_range aic_ok_with_third_being_driver_null_false_true_condition;
+      k.int_sign_range third_ok_with_being_driver_null_false_true_condition;
       string status_id;
       bool be_locked_by_third_initially;
       bool be_locked_by_aic;
@@ -393,16 +397,16 @@ namespace UserControl_eval
           out time_in,
           out time_out,
           out discussions,
-          out be_aic_ok_with_third_progress,
-          out be_aic_ok_with_third_release,
-          out be_third_ok_with_progress,
-          out be_third_ok_with_release,
+          out aic_ok_with_third_progress_null_false_true_condition,
+          out aic_ok_with_third_release_null_false_true_condition,
+          out third_ok_with_progress_null_false_true_condition,
+          out third_ok_with_release_null_false_true_condition,
           out comments_on_driving,
           out miles_driven_routine,
           out miles_driven_emergency,
           out road_conditions,
-          out be_aic_ok_with_third_being_driver,
-          out be_third_ok_with_being_driver,
+          out aic_ok_with_third_being_driver_null_false_true_condition,
+          out third_ok_with_being_driver_null_false_true_condition,
           out status_id,
           out be_locked_by_third_initially,
           out be_locked_by_aic,
@@ -424,16 +428,16 @@ namespace UserControl_eval
         UserControl_drop_down_time_of_day_in.selectedvalue = time_in.ToString("HH:mm");
         UserControl_drop_down_time_of_day_out.selectedvalue = time_out.ToString("HH:mm");
         TextBox_discussions.Text = discussions;
-        RadioButtonList_be_aic_ok_with_third_progress.SelectedValue = k.YesNoOf(be_aic_ok_with_third_progress);
-        RadioButtonList_be_aic_ok_with_third_release.SelectedValue = k.YesNoOf(be_aic_ok_with_third_release);
-        RadioButtonList_be_third_ok_with_progress.SelectedValue = k.YesNoOf(be_third_ok_with_progress);
-        RadioButtonList_be_third_ok_with_release.SelectedValue = k.YesNoOf(be_third_ok_with_release);
+        RadioButtonList_be_aic_ok_with_third_progress.SelectedValue = k.NoneNoYesOf(aic_ok_with_third_progress_null_false_true_condition,k.EMPTY);
+        RadioButtonList_be_aic_ok_with_third_release.SelectedValue = k.NoneNoYesOf(aic_ok_with_third_release_null_false_true_condition,k.EMPTY);
+        RadioButtonList_be_third_ok_with_progress.SelectedValue = k.NoneNoYesOf(third_ok_with_progress_null_false_true_condition,k.EMPTY);
+        RadioButtonList_be_third_ok_with_release.SelectedValue = k.NoneNoYesOf(third_ok_with_release_null_false_true_condition,k.EMPTY);
         TextBox_comments_on_driving.Text = comments_on_driving;
         TextBox_miles_driven_routine.Text = miles_driven_routine;
         TextBox_miles_driven_emergency.Text = miles_driven_emergency;
         TextBox_road_conditions.Text = road_conditions;
-        RadioButtonList_be_aic_ok_with_third_being_driver.SelectedValue = k.YesNoOf(be_aic_ok_with_third_being_driver);
-        RadioButtonList_be_third_ok_with_being_driver.SelectedValue = k.YesNoOf(be_third_ok_with_being_driver);
+        RadioButtonList_be_aic_ok_with_third_being_driver.SelectedValue = k.NoneNoYesOf(aic_ok_with_third_being_driver_null_false_true_condition,k.EMPTY);
+        RadioButtonList_be_third_ok_with_being_driver.SelectedValue = k.NoneNoYesOf(third_ok_with_being_driver_null_false_true_condition,k.EMPTY);
         DropDownList_status.SelectedValue = status_id;
         p.be_locked_by_third_initially = be_locked_by_third_initially;
         p.be_locked_by_aic = be_locked_by_aic;
@@ -648,16 +652,16 @@ namespace UserControl_eval
         time_in,
         time_out,
         k.Safe(TextBox_discussions.Text, k.safe_hint_type.MEMO).Trim(),
-        k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_progress.SelectedValue),
-        k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_release.SelectedValue),
-        k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_progress.SelectedValue),
-        k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_release.SelectedValue),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_aic_ok_with_third_progress.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_progress.SelectedValue).ToString() : k.EMPTY)),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_aic_ok_with_third_release.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_release.SelectedValue).ToString() : k.EMPTY)),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_third_ok_with_progress.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_progress.SelectedValue).ToString() : k.EMPTY)),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_third_ok_with_release.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_release.SelectedValue).ToString() : k.EMPTY)),
         k.Safe(TextBox_comments_on_driving.Text, k.safe_hint_type.MEMO).Trim(),
         k.Safe(TextBox_miles_driven_routine.Text, k.safe_hint_type.REAL_NUM).Trim(),
         k.Safe(TextBox_miles_driven_emergency.Text, k.safe_hint_type.REAL_NUM).Trim(),
         k.Safe(TextBox_road_conditions.Text, k.safe_hint_type.PUNCTUATED).Trim(),
-        k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_being_driver.SelectedValue),
-        k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_being_driver.SelectedValue),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_aic_ok_with_third_being_driver.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_aic_ok_with_third_being_driver.SelectedValue).ToString() : k.EMPTY)),
+        k.IntsignrangeOfOptionalBoolean((RadioButtonList_be_third_ok_with_being_driver.SelectedValue.Length > 0 ? k.BooleanOfYesNo(RadioButtonList_be_third_ok_with_being_driver.SelectedValue).ToString() : k.EMPTY)),
         k.Safe(DropDownList_status.SelectedValue,k.safe_hint_type.NUM),
         p.be_locked_by_third_initially,
         p.be_locked_by_aic,
