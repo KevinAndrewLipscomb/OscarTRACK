@@ -231,6 +231,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_aic_member_id" runat="server" errormessage="Please enter Aic&nbsp;member&nbsp;id." font-bold="True" controltovalidate="DropDownList_aic">&lt;ERR!</ASP:RequiredFieldValidator>
+      <asp:CompareValidator ID="CompareValidator_aic" runat="server" ControlToCompare="DropDownList_evaluatee" ControlToValidate="DropDownList_aic" Display="Dynamic" ErrorMessage="Evaluator and evaluatee cannot be the same member." Font-Bold="True" Operator="NotEqual">&lt;ERR!</asp:CompareValidator>
     </td>
   </tr>
   <tr>
