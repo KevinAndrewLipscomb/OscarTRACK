@@ -874,9 +874,9 @@ namespace UserControl_eval
         RadioButtonList_be_aic_ok_with_third_release.Enabled = false;
         RequiredFieldValidator_be_aic_ok_with_third_release.Enabled = false;
         RadioButtonList_be_third_ok_with_progress.Enabled = ablement;
-        RequiredFieldValidator_be_third_ok_with_progress.Enabled = ablement;
+        RequiredFieldValidator_be_third_ok_with_progress.Enabled = ablement && !p.be_evaluatee_released;
         RadioButtonList_be_third_ok_with_release.Enabled = ablement;
-        RequiredFieldValidator_be_third_ok_with_release.Enabled = ablement;
+        RequiredFieldValidator_be_third_ok_with_release.Enabled = ablement && !p.be_evaluatee_released;
         Button_patient_care_summary_save.Enabled = ablement;
         //
         TextBox_comments_on_driving.Enabled = ablement;
@@ -886,51 +886,10 @@ namespace UserControl_eval
         RadioButtonList_be_aic_ok_with_third_being_driver.Enabled = false;
         RequiredFieldValidator_be_aic_ok_with_third_being_driver.Enabled = false;
         RadioButtonList_be_third_ok_with_being_driver.Enabled = ablement;
-        RequiredFieldValidator_be_third_ok_with_being_driver.Enabled = ablement;
+        RequiredFieldValidator_be_third_ok_with_being_driver.Enabled = ablement && !p.be_evaluatee_driver_qualified;
         Button_driving_summary_save.Enabled = ablement;
         //
         Button_lock_and_submit.Enabled = true;
-        }
-      else if (p.presentation_mode == presentation_mode_enum.EVALUATOR_INIT)
-        {
-        DropDownList_evaluatee.Enabled = ablement;
-        UserControl_drop_down_date_nominal_day.enabled = ablement;
-        DropDownList_shift.Enabled = ablement;
-        UserControl_drop_down_time_of_day_in.enabled = ablement;
-        UserControl_drop_down_time_of_day_out.enabled = ablement;
-        DropDownList_post.Enabled = ablement;
-        DropDownList_post_cardinality.Enabled = ablement;
-        DropDownList_vehicle.Enabled = ablement;
-        Button_basic_info_save.Enabled = ablement;
-        //
-        DropDownList_aic.Enabled = false;
-        TextBox_alt_aic_reason.Enabled = false;
-        TextBox_discussions.Enabled = ablement;
-        Button_interaction_info_save.Enabled = ablement;
-        //
-        LinkButton_add_a_patient_encounter.Enabled = false;
-        //
-        RadioButtonList_be_aic_ok_with_third_progress.Enabled = false;
-        RequiredFieldValidator_be_aic_ok_with_third_progress.Enabled = false;
-        RadioButtonList_be_aic_ok_with_third_release.Enabled = false;
-        RequiredFieldValidator_be_aic_ok_with_third_release.Enabled = false;
-        RadioButtonList_be_third_ok_with_progress.Enabled = false;
-        RequiredFieldValidator_be_third_ok_with_progress.Enabled = false;
-        RadioButtonList_be_third_ok_with_release.Enabled = false;
-        RequiredFieldValidator_be_third_ok_with_release.Enabled = false;
-        Button_patient_care_summary_save.Enabled = ablement;
-        //
-        TextBox_comments_on_driving.Enabled = false;
-        TextBox_miles_driven_routine.Enabled = false;
-        TextBox_miles_driven_emergency.Enabled = false;
-        TextBox_road_conditions.Enabled = false;
-        RadioButtonList_be_aic_ok_with_third_being_driver.Enabled = false;
-        RequiredFieldValidator_be_aic_ok_with_third_being_driver.Enabled = false;
-        RadioButtonList_be_third_ok_with_being_driver.Enabled = false;
-        RequiredFieldValidator_be_third_ok_with_being_driver.Enabled = false;
-        Button_driving_summary_save.Enabled = ablement;
-        //
-        Button_lock_and_submit.Enabled = false;
         }
       else if (p.presentation_mode == presentation_mode_enum.EVALUATOR_WORK)
         {
@@ -952,9 +911,9 @@ namespace UserControl_eval
         LinkButton_add_a_patient_encounter.Enabled = ablement;
         //
         RadioButtonList_be_aic_ok_with_third_progress.Enabled = ablement;
-        RequiredFieldValidator_be_aic_ok_with_third_progress.Enabled = ablement;
+        RequiredFieldValidator_be_aic_ok_with_third_progress.Enabled = ablement && !p.be_evaluatee_released;
         RadioButtonList_be_aic_ok_with_third_release.Enabled = ablement;
-        RequiredFieldValidator_be_aic_ok_with_third_release.Enabled = ablement;
+        RequiredFieldValidator_be_aic_ok_with_third_release.Enabled = ablement && !p.be_evaluatee_released;
         RadioButtonList_be_third_ok_with_progress.Enabled = false;
         RequiredFieldValidator_be_third_ok_with_progress.Enabled = false;
         RadioButtonList_be_third_ok_with_release.Enabled = false;
@@ -966,7 +925,7 @@ namespace UserControl_eval
         TextBox_miles_driven_emergency.Enabled = ablement;
         TextBox_road_conditions.Enabled = ablement;
         RadioButtonList_be_aic_ok_with_third_being_driver.Enabled = ablement;
-        RequiredFieldValidator_be_aic_ok_with_third_being_driver.Enabled = ablement;
+        RequiredFieldValidator_be_aic_ok_with_third_being_driver.Enabled = ablement && !p.be_evaluatee_driver_qualified;
         RadioButtonList_be_third_ok_with_being_driver.Enabled = false;
         RequiredFieldValidator_be_third_ok_with_being_driver.Enabled = false;
         Button_driving_summary_save.Enabled = ablement;
@@ -1315,6 +1274,13 @@ namespace UserControl_eval
             }
 //          }
         }
+      }
+
+    protected void DropDownList_evaluatee_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      var evaluatee_member_id = k.Safe(DropDownList_evaluatee.SelectedValue,k.safe_hint_type.NUM);
+      p.be_evaluatee_released = p.biz_members.BeReleased(evaluatee_member_id);
+      p.be_evaluatee_driver_qualified = p.biz_members.BeDriverQualifiedOfId(evaluatee_member_id);
       }
 
     } // end TWebUserControl_eval

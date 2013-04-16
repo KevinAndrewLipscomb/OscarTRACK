@@ -46,6 +46,17 @@ namespace UserControl_eval_overview
         }
       //
       var user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+      if (p.biz_members.BeReleased(user_member_id))
+        {
+        var c = (TWebUserControl_evaluator_overview)(LoadControl("~/usercontrol/app/UserControl_evaluator_overview.ascx"));
+        AddIdentifiedControlToPlaceHolder
+          (
+          c:c,
+          id:"UserControl_evaluator_overview",
+          p:PlaceHolder_evaluator_overview
+          );
+        c.SetEvaluatorMemberId(id:user_member_id);
+        }
       if (!p.biz_members.BeReleased(user_member_id) || !p.biz_members.BeDriverQualifiedOfId(user_member_id))
         {
         var c = (TWebUserControl_evaluatee_overview)(LoadControl("~/usercontrol/app/UserControl_evaluatee_overview.ascx"));
@@ -53,20 +64,9 @@ namespace UserControl_eval_overview
           (
           c:c,
           id:"UserControl_evaluatee_overview",
-          p:PlaceHolder_control
+          p:PlaceHolder_evaluatee_overview
           );
         c.SetEvaluateeMemberId(id:user_member_id);
-        }
-      else
-        {
-        var c = (TWebUserControl_evaluator_overview)(LoadControl("~/usercontrol/app/UserControl_evaluator_overview.ascx"));
-        AddIdentifiedControlToPlaceHolder
-          (
-          c:c,
-          id:"UserControl_evaluator_overview",
-          p:PlaceHolder_control
-          );
-        c.SetEvaluatorMemberId(id:user_member_id);
         }
       }
 

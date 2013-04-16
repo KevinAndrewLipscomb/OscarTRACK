@@ -63,7 +63,7 @@
   <tr>
     <td align="right"><font class="">Evaluatee:</font></td>
     <td>
-      <asp:DropDownList ID="DropDownList_evaluatee" runat="server">
+      <asp:DropDownList ID="DropDownList_evaluatee" runat="server" onselectedindexchanged="DropDownList_evaluatee_SelectedIndexChanged">
       </asp:DropDownList>
     </td>
     <td nowrap="nowrap">

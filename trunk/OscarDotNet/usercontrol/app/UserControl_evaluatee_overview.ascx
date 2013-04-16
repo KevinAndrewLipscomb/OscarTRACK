@@ -8,9 +8,10 @@
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
               <td bgcolor="#dcdcdc">
-                <table cellpadding="5" cellspacing="0" width="100%">
+                <table cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td></td>
+                    <td><b>Other member's evaluations <em>of you</em></b></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td align="right"><asp:LinkButton ID="LinkButton_add" runat="server" onclick="LinkButton_add_Click" Font-Bold="True">Add new eval</asp:LinkButton></td>
                   </tr>
                   <tr>
@@ -22,6 +23,7 @@
                         <asp:ListItem>All</asp:ListItem>
                       </asp:DropDownList>
                     </td>
+                    <td></td>
                     <td align="right"><asp:Literal ID="Literal_num_evals" runat="server"></asp:Literal>&nbsp;evals</td>
                   </tr>
                 </table>

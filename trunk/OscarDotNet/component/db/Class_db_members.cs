@@ -348,8 +348,16 @@ namespace Class_db_members
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
             + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
-            +   " and medical_release_code_description_map.pecking_order > 0"
-            +   " and medical_release_code_description_map.pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            +   " and"
+            +     " ("
+            +       " ("
+            +         " medical_release_code_description_map.pecking_order > 0"
+            +       " and"
+            +         " medical_release_code_description_map.pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+            +       " )"
+            +     " or"
+            +       " not be_driver_qualified"
+            +     " )"
             + " order by member_designator",
             connection
             )
