@@ -311,6 +311,7 @@ namespace Class_biz_evals
 
     internal presentation_mode_enum PresentationModeOfStatus
       (
+      string user_member_id,
       bool be_user_evaluatee,
       object summary
       )
@@ -322,21 +323,24 @@ namespace Class_biz_evals
         }
       else
         {
-        var status = db_evals.StatusDescriptionOf(summary);
-        if (status == "NEEDS_BOTH_LOCKS")
+        if (new ArrayList() {db_evals.EvaluateeMemberIdOf(summary),db_evals.EvaluatorMemberIdOf(summary)}.Contains(user_member_id))
           {
-          if (be_user_evaluatee)
+          var status = db_evals.StatusDescriptionOf(summary);
+          if (status == "NEEDS_BOTH_LOCKS")
             {
-            presentation_mode_of_status = (db_evals.BeLockedByThirdInitiallyOf(summary) ? presentation_mode_enum.REVIEW_ONLY : presentation_mode_enum.EVALUATEE_WORK);
+            if (be_user_evaluatee)
+              {
+              presentation_mode_of_status = (db_evals.BeLockedByThirdInitiallyOf(summary) ? presentation_mode_enum.REVIEW_ONLY : presentation_mode_enum.EVALUATEE_WORK);
+              }
+            else
+              {
+              presentation_mode_of_status = (db_evals.BeLockedByAicOf(summary) ? presentation_mode_enum.REVIEW_ONLY : presentation_mode_enum.EVALUATOR_WORK);
+              }
             }
-          else
+          else if ((status == "NEEDS_EVALUATEE_REBUTTAL") && be_user_evaluatee)
             {
-            presentation_mode_of_status = (db_evals.BeLockedByAicOf(summary) ? presentation_mode_enum.REVIEW_ONLY : presentation_mode_enum.EVALUATOR_WORK);
+            presentation_mode_of_status = presentation_mode_enum.EVALUATEE_RESPOND;
             }
-          }
-        else if ((status == "NEEDS_EVALUATEE_REBUTTAL") && be_user_evaluatee)
-          {
-          presentation_mode_of_status = presentation_mode_enum.EVALUATEE_RESPOND;
           }
         }
       return presentation_mode_of_status;

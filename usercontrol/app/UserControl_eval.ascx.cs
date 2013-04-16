@@ -476,7 +476,7 @@ namespace UserControl_eval
       p.user_member_id = user_member_id;
       p.be_user_evaluatee = be_user_evaluatee;
       //
-      p.presentation_mode = p.biz_evals.PresentationModeOfStatus(p.be_user_evaluatee,p.summary);
+      p.presentation_mode = p.biz_evals.PresentationModeOfStatus(p.user_member_id,p.be_user_evaluatee,p.summary);
       }
 
     private void ManageDriverSkillRatingsDataGrid()
