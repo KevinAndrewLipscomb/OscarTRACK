@@ -38,7 +38,7 @@ namespace Class_db_care_skills
         + " , description"
         + " FROM care_skill"
         + " WHERE concat(lpad(id,4,'0'),' -- ',description) like '%" + partial_spec + "%'"
-        + " order by description",
+        + " order by tier,description",
         connection
         )
         .ExecuteReader();
@@ -64,7 +64,7 @@ namespace Class_db_care_skills
         ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
         }
       Open();
-      var dr = new MySqlCommand("SELECT id,description FROM care_skill where description <> '(none specified)' order by id", connection).ExecuteReader();
+      var dr = new MySqlCommand("SELECT id,description FROM care_skill where description <> '(none specified)' order by tier,description", connection).ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["id"].ToString()));
