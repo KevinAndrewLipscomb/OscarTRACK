@@ -63,7 +63,7 @@ namespace Class_db_care_skill_ratings
           + " from care_skill"
           +   " left join care_skill_rating on (care_skill_rating.care_skill_id=care_skill.id and patient_encounter_id = '" + patient_encounter_id + "')"
           +   " left join skill_rating on (skill_rating.id=care_skill_rating.skill_rating_id)"
-          + " order by care_skill_description",
+          + " order by tier,care_skill_description",
           connection
           )
         .ExecuteReader()

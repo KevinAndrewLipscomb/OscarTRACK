@@ -64,7 +64,7 @@ namespace Class_db_patient_encounters
           + " , chief_complaint"
           + " , CONCAT(patient_age,' ',patient_age_unit.description) as patient_age_spec"
           + " , patient_encounter_level.description as patient_encounter_level"
-          + " , IFNULL(GROUP_CONCAT('<tt>',skill_rating.designator,'</tt> :',care_skill.description order by skill_rating.pecking_order desc, care_skill.description SEPARATOR '<br>'),'-- NONE --') as skill_performance"
+          + " , IFNULL(GROUP_CONCAT('<tt>',skill_rating.designator,'</tt> :',care_skill.description order by skill_rating.pecking_order desc, tier, care_skill.description SEPARATOR '<br>'),'-- NONE --') as skill_performance"
           + " from patient_encounter"
           +   " join patient_age_unit on (patient_age_unit.id=patient_encounter.patient_age_unit_id)"
           +   " join patient_encounter_level on (patient_encounter_level.id=patient_encounter.patient_encounter_level_id)"
