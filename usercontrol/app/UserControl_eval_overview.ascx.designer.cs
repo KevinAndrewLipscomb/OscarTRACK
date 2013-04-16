@@ -13,12 +13,21 @@ namespace UserControl_eval_overview {
     public partial class TWebUserControl_eval_overview {
         
         /// <summary>
-        /// PlaceHolder_control control.
+        /// PlaceHolder_evaluator_overview control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_control;
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_evaluator_overview;
+        
+        /// <summary>
+        /// PlaceHolder_evaluatee_overview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_evaluatee_overview;
     }
 }

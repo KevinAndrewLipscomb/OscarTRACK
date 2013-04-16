@@ -143,7 +143,7 @@ namespace UserControl_evaluatee_overview
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_UserControl_eval_overview_PlaceHolder_content"] as string) == "UserControl_evaluatee_overview");
+        p.be_loaded = IsPostBack;
         }
       else
         {

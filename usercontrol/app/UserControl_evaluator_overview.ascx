@@ -8,9 +8,10 @@
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
               <td bgcolor="#dcdcdc">
-                <table cellpadding="5" cellspacing="0" width="100%">
+                <table cellpadding="10" cellspacing="0" width="100%">
                   <tr>
-                    <td></td>
+                    <td><b>Your evaluations <em>of other members</em></b></td>
+                    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                     <td align="right"><asp:LinkButton ID="LinkButton_add" runat="server" onclick="LinkButton_add_Click" Font-Bold="True">Add new eval</asp:LinkButton></td>
                   </tr>
                   <tr>
@@ -24,6 +25,7 @@
                       &nbsp;&nbsp;&nbsp;
                       <asp:CheckBox ID="CheckBox_aic_me_only" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_aic_me_only_CheckedChanged" Text="AIC&nbsp;=&nbsp;Me" Visible="False" />
                     </td>
+                    <td></td>
                     <td align="right"><asp:Literal ID="Literal_num_evals" runat="server"></asp:Literal>&nbsp;evals</td>
                   </tr>
                 </table>
