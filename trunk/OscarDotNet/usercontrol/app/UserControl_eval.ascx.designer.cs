@@ -391,6 +391,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_aic_member_id;
         
         /// <summary>
+        /// CompareValidator_aic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator CompareValidator_aic;
+        
+        /// <summary>
         /// Label_alt_aic_reason control.
         /// </summary>
         /// <remarks>
