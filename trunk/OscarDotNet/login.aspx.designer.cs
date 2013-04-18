@@ -94,15 +94,6 @@ namespace login {
         protected global::System.Web.UI.WebControls.TextBox TextBox_password;
         
         /// <summary>
-        /// HiddenField_hashed_password control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HiddenField HiddenField_hashed_password;
-        
-        /// <summary>
         /// LinkButton_forgot_password control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace login {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_forgot_password;
+        
+        /// <summary>
+        /// RequiredFieldValidator_password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_password;
         
         /// <summary>
         /// CheckBox_keep_me_logged_in control.
