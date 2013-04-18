@@ -1,15 +1,5 @@
-using System.Configuration;
-
-
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
+using System.Configuration;
 
 namespace timeout
 {
@@ -28,14 +18,14 @@ namespace timeout
         {
             if (!IsPostBack)
             {
-                //if (Request.ServerVariables["URL"] == Request.CurrentExecutionFilePath)
-                //{
-                //    Session.Clear();
-                //    // Use Response.Redirect instead of Server.Transfer to, I hope, force IsPostBack to FALSE in the target login form.  The
-                //    // sequence of login -> timeout -> login may have been allowing IsPostBack to stay TRUE through, which I had not anticipated.
-                //    Response.Redirect("~/login.aspx");
-                //}
-                Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - timeout";
+                if (Request.ServerVariables["URL"] == Request.CurrentExecutionFilePath)
+                {
+                    Session.Clear();
+                    // Use Response.Redirect instead of Server.Transfer to, I hope, force IsPostBack to FALSE in the target login form.  The
+                    // sequence of login -> timeout -> login may have been allowing IsPostBack to stay TRUE through, which I had not anticipated.
+                    Response.Redirect("~/login.aspx");
+                }
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - timeout";
             }
         }
 
