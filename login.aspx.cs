@@ -28,7 +28,6 @@ namespace login
         private void InjectPersistentClientSideScript()
           {
           EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
-          EstablishClientSideFunction(k.client_side_function_enumeral_type.REMOVE_EL);
           EstablishClientSideFunction("SetClientTimezoneOffset()","El('" + Hidden_client_timezone_offset.ClientID + "').value = (new Date()).getTimezoneOffset();");
           Button_log_in.Attributes.Add("onclick","SetClientTimezoneOffset();");
           LinkButton_new_user.Attributes.Add("onclick","SetClientTimezoneOffset();");
@@ -36,11 +35,7 @@ namespace login
             (
             "SecurePassword()",
             k.EMPTY
-            + "if (El('" + TextBox_password.ClientID + "').value != '')"
-            +   " {"
-            +   " El('" + HiddenField_hashed_password.ClientID + "').value = new jsSHA(El('" + TextBox_password.ClientID + "').value,'ASCII').getHash('HEX');"
-            +   " RemoveEl('" + TextBox_password.ClientID + "');"
-            +   " }"
+            + "if (El('" + TextBox_password.ClientID + "').value != '') El('" + TextBox_password.ClientID + "').value = new jsSHA(El('" + TextBox_password.ClientID + "').value,'ASCII').getHash('HEX')"
             );
           //
           Form_control.Attributes.Add("onsubmit","SecurePassword()");
@@ -116,7 +111,7 @@ namespace login
 
         protected void CustomValidator_account_exists_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
         {
-            args.IsValid = p.biz_users.BeAuthorized(k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), k.Safe(HiddenField_hashed_password.Value, k.safe_hint_type.HEX));
+            args.IsValid = p.biz_users.BeAuthorized(k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM), k.Safe(TextBox_password.Text.Trim(), k.safe_hint_type.HEX));
         }
 
         protected void Button_log_in_Click(object sender, System.EventArgs e)
