@@ -93,7 +93,7 @@
             ROD record #
           </td>
           <td>
-            <asp:TextBox ID="TextBox_id" runat="server" MaxLength="5" Columns="5"></asp:TextBox><asp:Button ID="Button_modify_or_remove" runat="server" Text="Go!" onclick="Button_modify_or_remove_Click" />
+            <asp:TextBox ID="TextBox_id" runat="server" MaxLength="6" Columns="6"></asp:TextBox><asp:Button ID="Button_modify_or_remove" runat="server" Text="Go!" onclick="Button_modify_or_remove_Click" />
           </td>
         </tr>
       </table>
