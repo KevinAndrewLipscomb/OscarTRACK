@@ -279,6 +279,8 @@ namespace Class_db_residents
         + ";"
         + " update resident_base set name = NULL where name like '%TO%OUR%AT%'"
         + ";"
+        + " update resident_base set name = NULL where name like '%CURRENT%RESIDENT%'"
+        + ";"
         + " update resident_base set name = REPLACE(name,'  ',' ')"
         + ";"
         + " update resident_base set name = UPPER(name)"
