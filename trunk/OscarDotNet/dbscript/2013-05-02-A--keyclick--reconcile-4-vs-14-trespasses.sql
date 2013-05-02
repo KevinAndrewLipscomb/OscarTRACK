@@ -1,0 +1,36 @@
+START TRANSACTION
+;
+delete from resident_base where agency = 'VBVRS' and house_num = '4959' and street_id = (select id from street where name = 'ATHENS BLVD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4832' and street_id = (select id from street where name = 'BAY LANDING DR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4324' and street_id = (select id from street where name = 'BEN GUNN RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4505' and street_id = (select id from street where name = 'CHURCH POINT PL' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4605' and street_id = (select id from street where name = 'CORONET AVE' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4237' and street_id = (select id from street where name = 'COUNTRY CLUB CIR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '2408' and street_id = (select id from street where name = 'COURTYARD LN' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4845' and street_id = (select id from street where name = 'CULLEN RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4916' and street_id = (select id from street where name = 'CULLEN RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1700' and street_id = (select id from street where name = 'DALWOOD MEWS' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1617' and street_id = (select id from street where name = 'FIVE FORKS RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1416' and street_id = (select id from street where name = 'GARWOOD AVE' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4133' and street_id = (select id from street where name = 'HERMITAGE PT' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4312' and street_id = (select id from street where name = 'HERMITAGE RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4737' and street_id = (select id from street where name = 'HERMITAGE RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1700' and street_id = (select id from street where name = 'HOSSKINE MEWS' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1801' and street_id = (select id from street where name = 'JACK FROST RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1516' and street_id = (select id from street where name = 'LAKEVIEW DR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '5545' and street_id = (select id from street where name = 'LAMBDIN ARCH' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1700' and street_id = (select id from street where name = 'LAMBS CREEK LN' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4464' and street_id = (select id from street where name = 'LAUDERDALE AVE' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4534' and street_id = (select id from street where name = 'LAUDERDALE AVE' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4469' and street_id = (select id from street where name = 'LOOKOUT RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1709' and street_id = (select id from street where name = 'MAYCRAFT RD' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '1709' and street_id = (select id from street where name = 'MERCHANTS HOPE CT' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4825-102' and street_id = (select id from street where name = 'PLEASURE HOUSE CT' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4741' and street_id = (select id from street where name = 'PRICE CIR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '5041' and street_id = (select id from street where name = 'REGINA LN' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '2361' and street_id = (select id from street where name = 'ROOKERY WAY' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4629-210' and street_id = (select id from street where name = 'SHORE DR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4713' and street_id = (select id from street where name = 'THOROUGHGOOD DR' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+delete from resident_base where agency = 'VBVRS' and house_num = '4201' and street_id = (select id from street where name = 'THOROUGHGOOD LN' and city_id = (select id from city where name = 'VIRGINIA BEACH'));
+;
+COMMIT
