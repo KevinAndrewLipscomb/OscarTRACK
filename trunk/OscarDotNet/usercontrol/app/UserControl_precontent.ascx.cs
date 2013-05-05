@@ -62,6 +62,7 @@ namespace UserControl_precontent
         protected void LinkButton_logout_Click(object sender, System.EventArgs e)
         {
             FormsAuthentication.SignOut();
+            Session.Clear();
             Session.Abandon();
             Server.Transfer(k.ExpandTildePath("~/Default.aspx"));
         }
