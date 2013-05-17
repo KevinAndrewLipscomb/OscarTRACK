@@ -138,5 +138,21 @@
 	</td>
 				<td><asp:RegularExpressionValidator ID="RegularExpressionValidator_address" runat="server" ErrorMessage="Please enter a valid Address." ControlToValidate="TextBox_address" Font-Bold="True" display="Dynamic" ValidationExpression="[0-9a-zA-Z ]+">!ERR!</asp:RegularExpressionValidator></td>
   </tr>
+  <tr>
+	<td>Be KEYclick enabled:</td>
+	<td>
+	  <ASP:CheckBox id="CheckBox_be_keyclick_enabled" runat="server" enabled="False"></ASP:CheckBox>
+	</td>
+	<td>
+	</td>
+  </tr>
+  <tr>
+	<td>Be EfficiPay enabled:</td>
+	<td>
+	  <ASP:CheckBox id="CheckBox_be_efficipay_enabled" runat="server" enabled="False"></ASP:CheckBox>
+	</td>
+	<td>
+	</td>
+  </tr>
 </table>
 <ASP:Button id="Button_submit" text="Submit" runat="server" enabled="False" onclick="Button_submit_Click"></ASP:Button>&nbsp;&nbsp;<ASP:Button id="Button_delete" text="Delete" runat="server" enabled="False" onclick="Button_delete_Click"></ASP:Button>

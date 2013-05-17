@@ -1688,7 +1688,23 @@ namespace Class_biz_notifications
           var post_medium_designator = k.EMPTY;
           var post_long_designator = k.EMPTY;
           var address = k.EMPTY;
-          biz_agencies.Get(post_id,out dummy_string,out post_medium_designator,out post_long_designator,out dummy_bool,out dummy_string,out dummy_string,out dummy_bool,out door_code,out dummy_bool,out dummy_bool,out address);
+          biz_agencies.Get
+            (
+            id:post_id,
+            short_designator:out dummy_string,
+            medium_designator:out post_medium_designator,
+            long_designator:out post_long_designator,
+            be_active:out dummy_bool,
+            keyclick_enumerator:out dummy_string,
+            oscar_classic_enumerator:out dummy_string,
+            be_ems_post:out dummy_bool,
+            door_code:out door_code,
+            be_ok_to_nag:out dummy_bool,
+            be_ok_to_send_duty_reminders:out dummy_bool,
+            address:out address,
+            be_keyclick_enabled:out dummy_bool,
+            be_efficipay_enabled:out dummy_bool
+            );
           //
           var member_agency_id = biz_members.AgencyIdOfId(member_id);
           var rsvp_target = k.EMPTY;

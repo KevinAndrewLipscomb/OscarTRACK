@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
+using Class_biz_agencies;
 using Class_biz_efficipay_dockets;
 using Class_biz_members;
 using Class_biz_user;
@@ -32,11 +33,13 @@ namespace UserControl_efficipay
       public bool be_loaded;
       public string ready_for_review_filter;
       public bool be_sort_order_ascending;
+      public TClass_biz_agencies biz_agencies;
       public TClass_biz_efficipay_dockets biz_efficipay_dockets;
       public TClass_biz_members biz_members;
       public TClass_biz_user biz_user;
       public TClass_msg_protected.efficipay_docket_detail msg_protected_efficipay_docket_detail;
       public uint num_efficipay_dockets;
+      public string saved_agency_id;
       public string sort_order;
       }
 
@@ -129,7 +132,32 @@ namespace UserControl_efficipay
           {
           DataGrid_control.AllowSorting = false;
           }
-        LinkButton_add_docket.Visible = k.Has(Session["privilege_array"] as string[],"create-efficipay-docket");
+        //
+        var be_ok_to_perform_efficipay_ops_for_squad = p.biz_agencies.BeEfficipayEnabled(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum())))
+          && (k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") || k.Has(Session["privilege_array"] as string[],"sign-efficipay-docket"));
+        var be_ok_to_perform_efficipay_ops_for_rc = p.biz_agencies.BeEfficipayEnabled("0")
+          && (k.Has(Session["privilege_array"] as string[],"create-efficipay-docket-for-rc") || k.Has(Session["privilege_array"] as string[],"sign-efficipay-docket-for-rc"));
+        ListItem list_item;
+        if (be_ok_to_perform_efficipay_ops_for_squad)
+          {
+          list_item = RadioButtonList_tier.Items.FindByValue("Squad");
+          list_item.Enabled = true;
+          list_item.Selected = true;
+          }
+        if (be_ok_to_perform_efficipay_ops_for_rc)
+          {
+          list_item = RadioButtonList_tier.Items.FindByValue("RC");
+          list_item.Enabled = true;
+          if (!be_ok_to_perform_efficipay_ops_for_squad)
+            {
+            list_item.Selected = true;
+            p.agency_id = "0";
+            p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
+            }
+          }
+        RadioButtonList_tier.Visible = be_ok_to_perform_efficipay_ops_for_squad || be_ok_to_perform_efficipay_ops_for_rc;
+        //
+        LinkButton_add_docket.Visible = k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") || k.Has(Session["privilege_array"] as string[],"create-efficipay-docket-for-rc");
         Bind();
         p.be_loaded = true;
         }
@@ -145,10 +173,11 @@ namespace UserControl_efficipay
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_efficipay");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_efficipay_binder_PlaceHolder_content"] as string) == "UserControl_efficipay");
         }
       else
         {
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
         p.biz_members = new TClass_biz_members();
         p.biz_user = new TClass_biz_user();
@@ -160,6 +189,7 @@ namespace UserControl_efficipay
         p.be_sort_order_ascending = true;
         p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
         p.ready_for_review_filter = (k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") ? k.EMPTY : "1");
+        p.saved_agency_id = p.agency_id;
         p.sort_order = "num%";
         }
       }
@@ -260,6 +290,13 @@ namespace UserControl_efficipay
       {
       p.msg_protected_efficipay_docket_detail.summary = null;
       MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_docket_detail");
+      }
+
+    protected void RadioButtonList_tier_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.agency_id = ((sender as RadioButtonList).SelectedValue == "Squad" ? p.saved_agency_id : "0");
+      p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
+      Bind();
       }
 
     } // end TWebUserControl_efficipay

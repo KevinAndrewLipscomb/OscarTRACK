@@ -25,6 +25,8 @@ namespace UserControl_agency
             CheckBox_be_ok_to_nag.Checked = false;
             CheckBox_be_ok_to_send_duty_reminders.Checked = false;
             TextBox_address.Text = k.EMPTY;
+            CheckBox_be_keyclick_enabled.Checked = false;
+            CheckBox_be_efficipay_enabled.Checked = false;
             Literal_match_index.Text = k.EMPTY;
             Literal_num_matches.Text = k.EMPTY;
             Panel_match_numbers.Visible = false;
@@ -69,31 +71,53 @@ namespace UserControl_agency
             bool be_ok_to_nag;
             bool be_ok_to_send_duty_reminders;
             string address;
+            bool be_keyclick_enabled;
+            bool be_efficipay_enabled;
             result = false;
-            if (p.biz_agencies.Get(id,out short_designator,out medium_designator,out long_designator,out be_active,out keyclick_enumerator,out oscar_classic_enumerator,out be_ems_post,out door_code,out be_ok_to_nag,out be_ok_to_send_duty_reminders,out address))
-            {
-                TextBox_id.Text = id;
-                TextBox_id.Enabled = false;
-                TextBox_short_designator.Text = short_designator;
-                TextBox_medium_designator.Text = medium_designator;
-                TextBox_long_designator.Text = long_designator;
-                CheckBox_be_active.Checked = be_active;
-                TextBox_keyclick_enumerator.Text = keyclick_enumerator;
-                TextBox_oscar_classic_enumerator.Text = oscar_classic_enumerator;
-                CheckBox_be_ems_post.Checked = be_ems_post;
-                TextBox_door_code.Text = door_code;
-                CheckBox_be_ok_to_nag.Checked = be_ok_to_nag;
-                CheckBox_be_ok_to_send_duty_reminders.Checked = be_ok_to_send_duty_reminders;
-                TextBox_address.Text = address;
-                Button_lookup.Enabled = false;
-                Label_lookup_arrow.Enabled = false;
-                Label_lookup_hint.Enabled = false;
-                LinkButton_reset.Enabled = true;
-                SetDependentFieldAblements(p.be_ok_to_config_agencies);
-                Button_submit.Enabled = p.be_ok_to_config_agencies;
-                Button_delete.Enabled = p.be_ok_to_config_agencies;
-                result = true;
-            }
+            if(
+              p.biz_agencies.Get
+                (
+                id,
+                out short_designator,
+                out medium_designator,
+                out long_designator,
+                out be_active,
+                out keyclick_enumerator,
+                out oscar_classic_enumerator,
+                out be_ems_post,
+                out door_code,
+                out be_ok_to_nag,
+                out be_ok_to_send_duty_reminders,
+                out address,
+                out be_keyclick_enabled,
+                out be_efficipay_enabled
+                )
+              )
+              {
+              TextBox_id.Text = id;
+              TextBox_id.Enabled = false;
+              TextBox_short_designator.Text = short_designator;
+              TextBox_medium_designator.Text = medium_designator;
+              TextBox_long_designator.Text = long_designator;
+              CheckBox_be_active.Checked = be_active;
+              TextBox_keyclick_enumerator.Text = keyclick_enumerator;
+              TextBox_oscar_classic_enumerator.Text = oscar_classic_enumerator;
+              CheckBox_be_ems_post.Checked = be_ems_post;
+              TextBox_door_code.Text = door_code;
+              CheckBox_be_ok_to_nag.Checked = be_ok_to_nag;
+              CheckBox_be_ok_to_send_duty_reminders.Checked = be_ok_to_send_duty_reminders;
+              TextBox_address.Text = address;
+              CheckBox_be_keyclick_enabled.Checked = be_keyclick_enabled;
+              CheckBox_be_efficipay_enabled.Checked = be_efficipay_enabled;
+              Button_lookup.Enabled = false;
+              Label_lookup_arrow.Enabled = false;
+              Label_lookup_hint.Enabled = false;
+              LinkButton_reset.Enabled = true;
+              SetDependentFieldAblements(p.be_ok_to_config_agencies);
+              Button_submit.Enabled = p.be_ok_to_config_agencies;
+              Button_delete.Enabled = p.be_ok_to_config_agencies;
+              result = true;
+              }
             return result;
         }
 
@@ -183,7 +207,9 @@ namespace UserControl_agency
                   k.Safe(TextBox_door_code.Text, k.safe_hint_type.FINANCIAL_TERMS),
                   CheckBox_be_ok_to_nag.Checked,
                   CheckBox_be_ok_to_send_duty_reminders.Checked,
-                  k.Safe(TextBox_address.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS)
+                  k.Safe(TextBox_address.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS),
+                  CheckBox_be_keyclick_enabled.Checked,
+                  CheckBox_be_efficipay_enabled.Checked
                   );
                 Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
                 SetLookupMode();
@@ -257,6 +283,8 @@ namespace UserControl_agency
             CheckBox_be_ok_to_nag.Enabled = ablement;
             CheckBox_be_ok_to_send_duty_reminders.Enabled = ablement;
             TextBox_address.Enabled = ablement;
+            CheckBox_be_keyclick_enabled.Enabled = ablement;
+            CheckBox_be_efficipay_enabled.Enabled = ablement;
         }
 
         protected void Button_lookup_Click(object sender, System.EventArgs e)

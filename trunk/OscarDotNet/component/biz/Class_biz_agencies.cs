@@ -37,6 +37,11 @@ namespace Class_biz_agencies
             }
           }
 
+        internal bool BeEfficipayEnabled(string id)
+          {
+          return db_agencies.BeEfficipayEnabled(id);
+          }
+
         internal bool BeFullWatchbillPublishMandatory
           (
           string agency_filter,
@@ -187,10 +192,28 @@ namespace Class_biz_agencies
           out string door_code,
           out bool be_ok_to_nag,
           out bool be_ok_to_send_duty_reminders,
-          out string address
+          out string address,
+          out bool be_keyclick_enabled,
+          out bool be_efficipay_enabled
           )
           {
-          return db_agencies.Get(id,out short_designator,out medium_designator,out long_designator,out be_active,out keyclick_enumerator,out oscar_classic_enumerator,out be_ems_post,out door_code,out be_ok_to_nag,out be_ok_to_send_duty_reminders,out address);
+          return db_agencies.Get
+            (
+            id,
+            out short_designator,
+            out medium_designator,
+            out long_designator,
+            out be_active,
+            out keyclick_enumerator,
+            out oscar_classic_enumerator,
+            out be_ems_post,
+            out door_code,
+            out be_ok_to_nag,
+            out be_ok_to_send_duty_reminders,
+            out address,
+            out be_keyclick_enabled,
+            out be_efficipay_enabled
+            );
           }
 
         public string IdOfShortDesignator(string short_designator)
@@ -256,10 +279,28 @@ namespace Class_biz_agencies
           string door_code,
           bool be_ok_to_nag,
           bool be_ok_to_send_duty_reminders,
-          string address
+          string address,
+          bool be_keyclick_enabled,
+          bool be_efficipay_enabled
           )
           {
-          db_agencies.Set(id,short_designator,medium_designator,long_designator,be_active,keyclick_enumerator,oscar_classic_enumerator,be_ems_post,door_code,be_ok_to_nag,be_ok_to_send_duty_reminders,address);
+          db_agencies.Set
+            (
+            id,
+            short_designator,
+            medium_designator,
+            long_designator,
+            be_active,
+            keyclick_enumerator,
+            oscar_classic_enumerator,
+            be_ems_post,
+            door_code,
+            be_ok_to_nag,
+            be_ok_to_send_duty_reminders,
+            address,
+            be_keyclick_enabled,
+            be_efficipay_enabled
+            );
           }
 
         public void SetCommensuration(Queue commensuration_rec_q)

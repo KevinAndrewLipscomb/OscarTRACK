@@ -310,6 +310,24 @@ namespace UserControl_agency {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_address;
         
         /// <summary>
+        /// CheckBox_be_keyclick_enabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_keyclick_enabled;
+        
+        /// <summary>
+        /// CheckBox_be_efficipay_enabled control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_efficipay_enabled;
+        
+        /// <summary>
         /// Button_submit control.
         /// </summary>
         /// <remarks>

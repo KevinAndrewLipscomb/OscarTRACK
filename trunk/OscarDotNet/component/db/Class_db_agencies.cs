@@ -33,6 +33,14 @@ namespace Class_db_agencies
             db_trail = new TClass_db_trail();
         }
 
+        internal bool BeEfficipayEnabled(string id)
+          {
+          Open();
+          var be_efficipay_enabled = ("1" == new MySqlCommand("select be_efficipay_enabled from agency where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          Close();
+          return be_efficipay_enabled;
+          }
+
     internal bool BeNotificationPendingForAllInScope
       (
       string agency_filter,
@@ -353,7 +361,9 @@ namespace Class_db_agencies
           out string door_code,
           out bool be_ok_to_nag,
           out bool be_ok_to_send_duty_reminders,
-          out string address
+          out string address,
+          out bool be_keyclick_enabled,
+          out bool be_efficipay_enabled
           )
           {
           short_designator = k.EMPTY;
@@ -367,6 +377,8 @@ namespace Class_db_agencies
           be_ok_to_nag = true;
           be_ok_to_send_duty_reminders = false;
           address = k.EMPTY;
+          be_keyclick_enabled = false;
+          be_efficipay_enabled = false;
           var result = false;
           Open();
           var dr = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
@@ -383,6 +395,8 @@ namespace Class_db_agencies
             be_ok_to_nag = (dr["be_ok_to_nag"].ToString() == "1");
             be_ok_to_send_duty_reminders = (dr["be_ok_to_send_duty_reminders"].ToString() == "1");
             address = dr["address"].ToString();
+            be_keyclick_enabled = (dr["be_keyclick_enabled"].ToString() == "1");
+            be_efficipay_enabled = (dr["be_efficipay_enabled"].ToString() == "1");
             result = true;
             }
           dr.Close();
@@ -568,7 +582,9 @@ namespace Class_db_agencies
           string door_code,
           bool be_ok_to_nag,
           bool be_ok_to_send_duty_reminders,
-          string address
+          string address,
+          bool be_keyclick_enabled,
+          bool be_efficipay_enabled
           )
           {
           var childless_field_assignments_clause = k.EMPTY
@@ -583,6 +599,8 @@ namespace Class_db_agencies
           + " , be_ok_to_nag = " + be_ok_to_nag.ToString()
           + " , be_ok_to_send_duty_reminders = " + be_ok_to_send_duty_reminders.ToString()
           + " , address = NULLIF('" + address + "','')"
+          + " , be_keyclick_enabled = " + be_keyclick_enabled.ToString()
+          + " , be_efficipay_enabled = " + be_efficipay_enabled.ToString()
           + k.EMPTY;
           Open();
           new MySqlCommand

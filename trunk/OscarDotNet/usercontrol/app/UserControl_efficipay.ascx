@@ -18,6 +18,12 @@
                       </asp:DropDownList></strong>
                     </td>
                     <td align="center"><asp:Literal ID="Literal_num_efficipay_dockets" runat="server"></asp:Literal> dockets</td>
+                    <td>
+                      <asp:RadioButtonList ID="RadioButtonList_tier" runat="server" AutoPostBack="True" BorderColor="Gray" BorderWidth="1px" Font-Size="Smaller" onselectedindexchanged="RadioButtonList_tier_SelectedIndexChanged" RepeatDirection="Horizontal" Visible="False">
+                        <asp:ListItem Enabled="False">Squad</asp:ListItem>
+                        <asp:ListItem Enabled="False">RC</asp:ListItem>
+                      </asp:RadioButtonList>
+                    </td>
                     <td align="right"><asp:LinkButton ID="LinkButton_add_docket" runat="server" CausesValidation="False" onclick="LinkButton_add_docket_Click" Visible="False" Font-Bold="True">Add docket</asp:LinkButton></td>
                   </tr>
                 </table>
