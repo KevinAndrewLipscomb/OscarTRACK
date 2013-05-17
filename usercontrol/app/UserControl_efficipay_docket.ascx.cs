@@ -202,8 +202,8 @@ namespace UserControl_efficipay_docket
         //
         p.agency_id = k.EMPTY;
         p.attachment_key = k.EMPTY;
-        p.be_ok_to_create_efficipay_dockets = k.Has((string[])(Session["privilege_array"]), "create-efficipay-docket");
-        p.be_signer = k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket");
+        p.be_ok_to_create_efficipay_dockets = k.Has((string[])(Session["privilege_array"]), "create-efficipay-docket") || k.Has((string[])(Session["privilege_array"]), "create-efficipay-docket-for-rc");
+        p.be_signer = k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket") || k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket-for-rc");
         p.check_num = k.EMPTY;
         p.id = k.EMPTY;
         p.signer_1_member_id = k.EMPTY;
