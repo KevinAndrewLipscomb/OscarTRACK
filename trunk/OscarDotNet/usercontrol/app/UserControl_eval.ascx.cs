@@ -472,7 +472,18 @@ namespace UserControl_eval
       bool be_user_evaluatee
       )
       {
-      p.summary = (id.Length > 0 ? p.biz_evals.Summary(id) : null);
+      if (id.Length > 0)
+        {
+        p.summary = p.biz_evals.Summary(id);
+        p.be_locked_by_aic = p.biz_evals.BeLockedByAicOf(p.summary);
+        p.be_locked_by_third_initially = p.biz_evals.BeLockedByThirdInitiallyOf(p.summary);
+        }
+      else
+        {
+        p.summary = null;
+        p.be_locked_by_aic = false;
+        p.be_locked_by_third_initially = false;
+        }
       p.user_member_id = user_member_id;
       p.be_user_evaluatee = be_user_evaluatee;
       //

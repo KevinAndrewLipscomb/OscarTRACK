@@ -455,6 +455,7 @@ namespace Class_db_evals
           + " , shift.name as shift_name"
           + " , agency.short_designator as post_designator"
           + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
+          + " , agency.id as post_id"
           + " , vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
           + " , aic_member.id as aic_member_id"
@@ -481,6 +482,7 @@ namespace Class_db_evals
         shift_name = dr["shift_name"].ToString(),
         post_designator = dr["post_designator"].ToString(),
         post_cardinality = dr["post_cardinality"].ToString(),
+        post_id = dr["post_id"].ToString(),
         vehicle_id = dr["vehicle_id"].ToString(),
         vehicle_name = dr["vehicle_name"].ToString(),
         aic_member_id = dr["aic_member_id"].ToString(),
