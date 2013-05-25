@@ -52,6 +52,7 @@ namespace Class_db_streets
     public void BindDirectToListControl
       (
       object target,
+      string agency_keyclick_enumerator,
       string unselected_literal,
       string selected_value
       )
@@ -60,11 +61,13 @@ namespace Class_db_streets
       Open();
       (target as ListControl).DataSource = new MySqlCommand
         (
-        "SELECT street.id as id"
+        "SELECT DISTINCT street.id as id"
         + " , CONVERT(concat(street.name,', ',city.name,', ',state.abbreviation) USING utf8) as spec"
         + " FROM street"
         +   " join city on (city.id=street.city_id)"
         +   " join state on (state.id=city.state_id)"
+        +   " join resident_base on (resident_base.street_id=street.id)"
+        + " where resident_base.agency = '" + agency_keyclick_enumerator + "'"
         + " order by spec",
         connection
         )
@@ -83,13 +86,13 @@ namespace Class_db_streets
         ((target) as ListControl).SelectedValue = selected_value;
         }
       }
-    public void BindDirectToListControl(object target, string unselected_literal)
+    public void BindDirectToListControl(object target, string agency_keyclick_enumerator, string unselected_literal)
       {
-      BindDirectToListControl(target, unselected_literal, k.EMPTY);
+      BindDirectToListControl(target, agency_keyclick_enumerator, unselected_literal, k.EMPTY);
       }
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl(object target, string agency_keyclick_enumerator)
       {
-      BindDirectToListControl(target, "-- street --");
+      BindDirectToListControl(target, agency_keyclick_enumerator, "-- street --");
       }
 
 
