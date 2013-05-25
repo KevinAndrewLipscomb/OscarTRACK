@@ -1,4 +1,7 @@
+using Class_biz_agencies;
+using Class_biz_members;
 using Class_biz_streets;
+using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
@@ -11,7 +14,10 @@ namespace UserControl_paypal_assistant
   public struct p_type
     {
     public bool be_loaded;
+    public TClass_biz_agencies biz_agencies;
+    public TClass_biz_members biz_members;
     public TClass_biz_streets biz_streets;
+    public TClass_biz_user biz_user;
     public TClass_msg_protected.process_paypal_donation msg_protected_process_paypal_donation;
     }
 
@@ -25,7 +31,12 @@ namespace UserControl_paypal_assistant
       if (!p.be_loaded)
         {
         UserControl_drop_down_date_donation_date.selectedvalue = DateTime.Today;
-        p.biz_streets.BindDirectToListControl(DropDownList_donor_street,"-- street --");
+        p.biz_streets.BindDirectToListControl
+          (
+          target:DropDownList_donor_street,
+          agency_keyclick_enumerator:p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_user.IdNum())),
+          unselected_literal:"-- street --"
+          );
         TextBox_amount_donated.Focus();
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
         p.be_loaded = true;
@@ -45,7 +56,10 @@ namespace UserControl_paypal_assistant
       else
         {
         p.be_loaded = false;
+        p.biz_agencies = new TClass_biz_agencies();
+        p.biz_members = new TClass_biz_members();
         p.biz_streets = new TClass_biz_streets();
+        p.biz_user = new TClass_biz_user();
         p.msg_protected_process_paypal_donation = new TClass_msg_protected.process_paypal_donation();
         }
       }

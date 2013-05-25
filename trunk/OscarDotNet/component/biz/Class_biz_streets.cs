@@ -24,19 +24,20 @@ namespace Class_biz_streets
     public void BindDirectToListControl
       (
       object target,
+      string agency_keyclick_enumerator,
       string unselected_literal,
       string selected_value
       )
       {
-      db_streets.BindDirectToListControl(target,unselected_literal,selected_value);
+      db_streets.BindDirectToListControl(target,agency_keyclick_enumerator,unselected_literal,selected_value);
       }
-    public void BindDirectToListControl(object target, string unselected_literal)
+    public void BindDirectToListControl(object target, string agency_keyclick_enumerator, string unselected_literal)
       {
-      BindDirectToListControl(target, unselected_literal, k.EMPTY);
+      BindDirectToListControl(target, agency_keyclick_enumerator, unselected_literal, k.EMPTY);
       }
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl(object target, string agency_keyclick_enumerator)
       {
-      BindDirectToListControl(target, "-- street --");
+      BindDirectToListControl(target, agency_keyclick_enumerator, "-- street --");
       }
 
 
