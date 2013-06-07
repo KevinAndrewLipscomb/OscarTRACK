@@ -13,6 +13,7 @@
             <cc1:TabPanel runat="server" headertext="Custom makes" id="TabPanel_custom_makes"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Custom models" id="TabPanel_custom_models"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Fuels" id="TabPanel_fuels"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Quarters" id="TabPanel_quarters"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

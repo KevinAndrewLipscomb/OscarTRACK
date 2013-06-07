@@ -23,10 +23,21 @@
               </tr>
               <tr>
                 <td>
-                  <p>In this system, a vehicle's <i>Quarters</i> is the place the vehicle is kept when it is <i>UP</i> but not staffed.</p>
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
                       <td>
+                        <table bordercolor="#ffff00" cellspacing="0" cellpadding="5" bgcolor="#ffff00" border="1">
+                          <tr>
+                            <td>
+                              <p>
+                                In this system, a vehicle's <i>quarters</i> is the place the vehicle is kept when it is UP but not staffed.&nbsp; Do <strong>not</strong>&nbsp;use the "See note - Other" option to change a
+                                vehicle's quarters to the City Garage or other repair facility.
+                              </p>
+                              <p>To track a vehicle's location when it is DOWN, add comments to the vehicle's DOWN episode note.</p>
+                            </td>
+                          </tr>
+                        </table>
+                        <br />
                         *Change <asp:Literal ID="Literal_vehicle_name_2" runat="server"></asp:Literal>'s quarters to:
                         <table cellspacing="0" cellpadding="20" border="0"><tr><td><asp:DropDownList ID="DropDownList_quarters" runat="server"></asp:DropDownList></td></tr></table>
                       </td>

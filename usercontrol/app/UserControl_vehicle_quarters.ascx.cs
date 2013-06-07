@@ -126,8 +126,6 @@ namespace UserControl_vehicle_quarters
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-#warning Remove the following line if the vehicle_quarters will primarily be a reference table as opposed to a log or journal table.
-        SetDataEntryMode();
         if ((Session["mode:goto"] != null) && Session["mode:goto"].ToString().Contains("/vehicle_quarters/"))
           {
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
@@ -180,7 +178,6 @@ namespace UserControl_vehicle_quarters
     private void SetDataEntryMode()
       {
       Clear();
-#warning Only keep the following line if it exactly matches "TextBox_id.Text = "*";".
       TextBox_id.Text = "*";
       TextBox_id.Enabled = false;
       Button_lookup.Enabled = false;
@@ -214,8 +211,7 @@ namespace UserControl_vehicle_quarters
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-#warning Revise the following line if the usercontrol will not be a direct child of the member binder.
-        p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_vehicle_quarters");
+        p.be_loaded = IsPostBack && ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_fleet_object_binder_PlaceHolder_content"] as string) == "UserControl_vehicle_quarters");
         }
       else
         {
@@ -254,10 +250,9 @@ namespace UserControl_vehicle_quarters
         p.biz_vehicle_quarters.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-#warning Safe_hint values should be tightened.
-          k.Safe(TextBox_medium_designator.Text,k.safe_hint_type.PUNCTUATED).Trim(),
-          k.Safe(TextBox_long_designator.Text,k.safe_hint_type.PUNCTUATED).Trim(),
-          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.PUNCTUATED).Trim(),
+          k.Safe(TextBox_medium_designator.Text,k.safe_hint_type.ORG_NAME).Trim(),
+          k.Safe(TextBox_long_designator.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS).Trim(),
+          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM).Trim(),
           CheckBox_be_active.Checked
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
@@ -271,36 +266,31 @@ namespace UserControl_vehicle_quarters
 
     protected void DropDownList_id_SelectedIndexChanged(object sender, System.EventArgs e)
       {
-#warning Review safe-hint and tighten if necessary
-      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.PUNCTUATED));
+      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
       }
 
     protected void LinkButton_go_to_match_first_Click(object sender, System.EventArgs e)
       {
       DropDownList_id.SelectedIndex = 1;
-#warning Review safe-hint and tighten if necessary
-      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.PUNCTUATED));
+      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
       }
 
     protected void LinkButton_go_to_match_prior_Click(object sender, System.EventArgs e)
       {
       DropDownList_id.SelectedIndex = Math.Max(1, (DropDownList_id.SelectedIndex - 1));
-#warning Review safe-hint and tighten if necessary
-      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.PUNCTUATED));
+      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
       }
 
     protected void LinkButton_go_to_match_next_Click(object sender, System.EventArgs e)
       {
       DropDownList_id.SelectedIndex = Math.Min((DropDownList_id.SelectedIndex + 1), (DropDownList_id.Items.Count - 1));
-#warning Review safe-hint and tighten if necessary
-      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.PUNCTUATED));
+      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
       }
 
     protected void LinkButton_go_to_match_last_Click(object sender, System.EventArgs e)
       {
       DropDownList_id.SelectedIndex = DropDownList_id.Items.Count - 1;
-#warning Review safe-hint and tighten if necessary
-      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.PUNCTUATED));
+      PresentRecord(k.Safe(DropDownList_id.SelectedValue, k.safe_hint_type.NUM));
       }
 
     protected void Button_delete_Click(object sender, System.EventArgs e)

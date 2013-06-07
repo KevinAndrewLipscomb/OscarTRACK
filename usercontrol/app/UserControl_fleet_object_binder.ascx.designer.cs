@@ -85,6 +85,15 @@ namespace UserControl_fleet_object_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_fuels;
         
         /// <summary>
+        /// TabPanel_quarters control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_quarters;
+        
+        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>
