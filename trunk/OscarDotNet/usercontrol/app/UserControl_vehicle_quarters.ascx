@@ -16,7 +16,7 @@
                  <td>
       <ASP:TextBox id="TextBox_id" runat="server"  cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
                 </td>
-                <td nowrap="True"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
+                <td nowrap="nowrap"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
                 <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full field value</asp:Label></em></small></small></td>
               </tr>
             </table>
@@ -48,7 +48,7 @@
       </table>
     </font>
     </td>
-    <td nowrap="True" valign="top">
+    <td nowrap="nowrap" valign="top">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_id" runat="server" errormessage="Please enter id." font-bold="True" controltovalidate="TextBox_id">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
@@ -59,7 +59,7 @@
         <ASP:TextBox id="TextBox_medium_designator" runat="server" columns="31" maxlength="31" cssclass="" enabled="False"></ASP:TextBox>
       </font>
     </td>
-    <td nowrap="True">
+    <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_medium_designator" runat="server" errormessage="Please enter Medium&nbsp;designator." font-bold="True" controltovalidate="TextBox_medium_designator">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
@@ -70,7 +70,7 @@
         <ASP:TextBox id="TextBox_long_designator" runat="server" columns="63" maxlength="63" cssclass="" enabled="False"></ASP:TextBox>
       </font>
     </td>
-    <td nowrap="True">
+    <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_long_designator" runat="server" errormessage="Please enter Long&nbsp;designator." font-bold="True" controltovalidate="TextBox_long_designator">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
@@ -81,7 +81,7 @@
         <ASP:TextBox id="TextBox_pecking_order" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
       </font>
     </td>
-    <td nowrap="True">
+    <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_pecking_order" runat="server" errormessage="Please enter Pecking&nbsp;order." font-bold="True" controltovalidate="TextBox_pecking_order">!ERR!</ASP:RequiredFieldValidator>
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_pecking_order" runat="server" errormessage="Please enter a valid Pecking&nbsp;order." font-bold="True" controltovalidate="TextBox_pecking_order" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
     </td>
@@ -93,7 +93,7 @@
         <ASP:CheckBox id="CheckBox_be_active" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
       </font>
     </td>
-    <td nowrap="True">
+    <td nowrap="nowrap">
     </td>
   </tr>
       </table>

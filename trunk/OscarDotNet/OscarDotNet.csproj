@@ -42,6 +42,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\Microsoft ASP.NET\AjaxControlToolkit.Binary.NET35\AjaxControlToolkit.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.4.0.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Ionic.Zip, Version=1.9.1.8, Culture=neutral, PublicKeyToken=edbe51ad942a3f5c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Ionic.Zip.dll</HintPath>
@@ -201,6 +205,7 @@
     <Content Include="usercontrol\app\UserControl_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
+    <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
     <Content Include="verify_efficipay_signature.aspx" />
     <Content Include="Web.config">
@@ -334,6 +339,8 @@
     <Compile Include="component\db\Class_db_availabilities.cs" />
     <Compile Include="component\db\Class_db__information_schema.cs" />
     <Compile Include="component\fs\Class_fs.cs" />
+    <Compile Include="component\ss\Class_ss.cs" />
+    <Compile Include="component\ss\Class_ss_vbemsbridge.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1668,6 +1675,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_vehicle_kind.ascx.designer.cs">
       <DependentUpon>UserControl_vehicle_kind.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_quarters.ascx.cs">
+      <DependentUpon>UserControl_vehicle_quarters.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_vehicle_quarters.ascx.designer.cs">
+      <DependentUpon>UserControl_vehicle_quarters.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_watchbill_maag.ascx.cs">
       <DependentUpon>UserControl_watchbill_maag.ascx</DependentUpon>

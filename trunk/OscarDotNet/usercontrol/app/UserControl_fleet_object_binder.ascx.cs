@@ -14,6 +14,7 @@ using UserControl_custom_model;
 using UserControl_fuel;
 using UserControl_vehicle;
 using UserControl_vehicle_kind;
+using UserControl_vehicle_quarters;
 
 namespace UserControl_fleet_object_binder
   {
@@ -25,6 +26,7 @@ namespace UserControl_fleet_object_binder
     public const int TSSI_CUSTOM_MAKES = 3;
     public const int TSSI_CUSTOM_MODELS = 4;
     public const int TSSI_FUELS = 5;
+    public const int TSSI_QUARTERS = 6;
     }
 
   public struct p_type
@@ -81,6 +83,10 @@ namespace UserControl_fleet_object_binder
         else if (p.tab_index == UserControl_fleet_object_binder_Static.TSSI_CUSTOM_MODELS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))), "UserControl_custom_model", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_fleet_object_binder_Static.TSSI_QUARTERS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle_quarters)(LoadControl("~/usercontrol/app/UserControl_vehicle_quarters.ascx"))), "UserControl_vehicle_quarters", PlaceHolder_content);
           }
         }
       else
@@ -146,9 +152,12 @@ namespace UserControl_fleet_object_binder
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_custom_model)(LoadControl("~/usercontrol/app/UserControl_custom_model.ascx"))),"UserControl_custom_model",PlaceHolder_content,InstanceId());
         }
+      else if (p.tab_index == UserControl_fleet_object_binder_Static.TSSI_QUARTERS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_vehicle_quarters)(LoadControl("~/usercontrol/app/UserControl_vehicle_quarters.ascx"))),"UserControl_vehicle_quarters",PlaceHolder_content,InstanceId());
+        }
       }
 
     } // end TWebUserControl_fleet_object_binder
 
   }
-
