@@ -139,6 +139,51 @@ namespace login {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_verify_efficipay_signature;
         
         /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
+        /// HyperLink_open_source_software_definition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_open_source_software_definition;
+        
+        /// <summary>
+        /// HyperLink_software_repository_definition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_software_repository_definition;
+        
+        /// <summary>
+        /// HyperLink_repository_here control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_repository_here;
+        
+        /// <summary>
+        /// HyperLink_Frompaper2webDotCom control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_Frompaper2webDotCom;
+        
+        /// <summary>
         /// Hidden_client_timezone_offset control.
         /// </summary>
         /// <remarks>
