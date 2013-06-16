@@ -42,7 +42,8 @@ namespace exception
           }
         else if (!last_error.ToString().Contains("The client disconnected."))
           {
-          if (last_error.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+          var be_deadlock = last_error.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction");
+          if (be_deadlock)
             {
             Table_deadlock.Visible = true;
             Table_oops.Visible = false;
@@ -56,7 +57,7 @@ namespace exception
             the_exception:last_error,
             user_identity_name:User.Identity.Name,
             session:Session,
-            engine_innodb_status:(last_error.ToString().Contains("MySql") ? p.db__information_schema.EngineInnodbStatus() : k.EMPTY)
+            engine_innodb_status:(be_deadlock ? p.db__information_schema.EngineInnodbStatus() : k.EMPTY)
             );
           }
         }
