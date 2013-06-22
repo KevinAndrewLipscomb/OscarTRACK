@@ -6,7 +6,7 @@ ALTER TABLE `agency`
 insert into agency
 set enumeral = "SquadTruckTeam"
 , description = "Squad Truck Team"
-, be_active = TRUE
+, be_active = "TRUE"
 ;
 ALTER TABLE `authority`
   CHANGE COLUMN `coord_agency` `coord_agency` ENUM('EMS','Rescue1','Rescue2','Rescue4','Rescue5','Rescue6','Rescue9','Rescue13','Rescue14','Rescue15','Rescue16','Rescue17','DiveTeam','Support9','SupSvcs','SquadTruckTeam') NOT NULL DEFAULT 'EMS'
