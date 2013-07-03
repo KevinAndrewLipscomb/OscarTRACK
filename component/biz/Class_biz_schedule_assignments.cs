@@ -761,13 +761,19 @@ namespace Class_biz_schedule_assignments
       var member_id = k.EMPTY;
       var other_agency_ids = k.EMPTY;
 //
-k.SmtpMailSend
-  (
-  from:ConfigurationManager.AppSettings["sender_email_address"],
-  to:"debug@frompaper2web.com",
-  subject:biz_members.LastNameOfMemberId(publisher_member_id) + k.SPACE + " published month " + relative_month.val.ToString() + " virgin " + be_virgin_watchbill.ToString() + " preview " + be_limited_preview.ToString(),
-  message_string:k.EMPTY
-  );
+if (relative_month.val == 1)
+  {
+  k.SmtpMailSend
+    (
+    from:ConfigurationManager.AppSettings["sender_email_address"],
+    to:"debug@frompaper2web.com",
+    subject:biz_members.LastNameOfMemberId(publisher_member_id) + k.SPACE
+    + " published month " + relative_month.val.ToString()
+    + " virgin " + be_virgin_watchbill.ToString().ToUpper()
+    + " preview " + be_limited_preview.ToString().ToUpper(),
+    message_string:k.EMPTY
+    );
+  }
 //
       for (var i = new k.subtype<int>(0,num_targets); i.val < num_targets; i.val++)
         {
