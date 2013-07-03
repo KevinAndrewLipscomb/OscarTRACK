@@ -94,6 +94,7 @@
     <Content Include="js\sha1.js" />
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
+    <Content Include="noninteractive\all_call_agent.aspx" />
     <Content Include="noninteractive\avail_submission_deadline_tasks.aspx" />
     <Content Include="noninteractive\end_of_month_tasks.aspx" />
     <Content Include="noninteractive\monthly_tasks.aspx" />
@@ -106,6 +107,8 @@
     <Content Include="noninteractive\template\notification\availabilities_due_soon.txt" />
     <Content Include="noninteractive\template\notification\availabilities_due_today.txt" />
     <Content Include="noninteractive\template\notification\availabilities_overdue.txt" />
+    <Content Include="noninteractive\template\notification\eval_needs_aic_input.txt" />
+    <Content Include="noninteractive\template\notification\eval_needs_evaluatee_rebuttal.txt" />
     <Content Include="noninteractive\template\notification\eval_stalled.txt" />
     <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
@@ -138,8 +141,6 @@
     <Content Include="protected\template\notification\efficipay-docket-needs-final-imprint.txt" />
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\eval_archived.txt" />
-    <Content Include="protected\template\notification\eval_needs_aic_input.txt" />
-    <Content Include="protected\template\notification\eval_needs_evaluatee_rebuttal.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
@@ -378,6 +379,13 @@
     </Compile>
     <Compile Include="new_user_registration.aspx.designer.cs">
       <DependentUpon>new_user_registration.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\all_call_agent.aspx.cs">
+      <DependentUpon>all_call_agent.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\all_call_agent.aspx.designer.cs">
+      <DependentUpon>all_call_agent.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\avail_submission_deadline_tasks.aspx.cs">
       <DependentUpon>avail_submission_deadline_tasks.aspx</DependentUpon>
