@@ -133,16 +133,16 @@ namespace Class_biz_members
           return db_members.BeRoleHolder(id);
           }
 
-        internal bool BeRoleHolderByCadNum
+        internal bool BeRoleHolderBySharedSecret
           (
-          string cad_num,
+          string shared_secret,
           out string claimed_role_name,
           out string claimed_member_name,
           out string claimed_member_id,
           out string claimed_member_email_address
           )
           {
-          return db_members.BeRoleHolderByCadNum(cad_num,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address);
+          return db_members.BeRoleHolderBySharedSecret(shared_secret,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address);
           }
 
         public bool BeTransferring(object summary)
