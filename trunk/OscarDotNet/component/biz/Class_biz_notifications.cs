@@ -1140,7 +1140,6 @@ namespace Class_biz_notifications
           (
           string username,
           string user_id,
-          string shared_secret,
           string claimed_role_name,
           string claimed_member_name,
           string claimed_member_id,
@@ -1156,7 +1155,6 @@ namespace Class_biz_notifications
               .Replace("<username/>",username)
               .Replace("<user_id/>",user_id)
               .Replace("<user_email_address/>",user_email_address)
-              .Replace("<shared_secret/>",shared_secret)
               .Replace("<claimed_role_name/>",claimed_role_name)
               .Replace("<claimed_member_name/>",claimed_member_name)
               .Replace("<claimed_member_id/>",claimed_member_id)

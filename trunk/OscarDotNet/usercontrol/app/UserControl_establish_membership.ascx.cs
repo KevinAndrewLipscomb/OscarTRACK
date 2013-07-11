@@ -113,11 +113,18 @@ namespace UserControl_establish_membership
           var claimed_member_name = k.EMPTY;
           var claimed_member_id = k.EMPTY;
           var claimed_member_email_address = k.EMPTY;
-          var shared_secret = k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM);
-          if (p.biz_members.BeRoleHolderByCadNum(shared_secret,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address))
+          if(p.biz_members.BeRoleHolderBySharedSecret
+              (
+              k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM),
+              out claimed_role_name,
+              out claimed_member_name,
+              out claimed_member_id,
+              out claimed_member_email_address
+              )
+            )
             {
             args.IsValid = false;
-            p.biz_notifications.IssueForMembershipEstablishmentBlocked(Session["username"].ToString(),Session["user_id"].ToString(),shared_secret,claimed_role_name,claimed_member_name,claimed_member_id,claimed_member_email_address);
+            p.biz_notifications.IssueForMembershipEstablishmentBlocked(Session["username"].ToString(),Session["user_id"].ToString(),claimed_role_name,claimed_member_name,claimed_member_id,claimed_member_email_address);
             }
           else
             {

@@ -224,16 +224,16 @@ namespace Class_db_members
           return be_role_holder;
           }
 
-        internal bool BeRoleHolderByCadNum
+        internal bool BeRoleHolderBySharedSecret
           (
-          string cad_num,
+          string shared_secret,
           out string claimed_role_name,
           out string claimed_member_name,
           out string claimed_member_id,
           out string claimed_member_email_address
           )
           {
-          var be_role_holder_by_cad_num = false;
+          var be_role_holder_by_shared_secret = false;
           claimed_role_name = k.EMPTY;
           claimed_member_name = k.EMPTY;
           claimed_member_id = k.EMPTY;
@@ -248,7 +248,7 @@ namespace Class_db_members
             + " from member"
             +   " join role_member_map on (role_member_map.member_id=member.id)"
             +   " join role on (role.id=role_member_map.role_id)"
-            + " where cad_num = '" + cad_num + "'"
+            + " where cad_num = '" + shared_secret + "'"
             + " order by role.pecking_order"
             + " limit 1",
             connection
@@ -260,11 +260,11 @@ namespace Class_db_members
             claimed_member_name = dr["member_name"].ToString();
             claimed_member_id = dr["member_id"].ToString();
             claimed_member_email_address = dr["email_address"].ToString();
-            be_role_holder_by_cad_num = true;
+            be_role_holder_by_shared_secret = true;
             }
           dr.Close();
           Close();
-          return be_role_holder_by_cad_num;
+          return be_role_holder_by_shared_secret;
           }
 
         public bool BeValidProfile(string id)
