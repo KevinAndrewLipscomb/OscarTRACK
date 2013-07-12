@@ -54,6 +54,8 @@ where
     or
       (enrollment_level.description = 'Atypical')
     )
+  and
+    (agency.id <> 0)
   )
 group by member.id
 order by member.agency_id,be_released desc,last_name,first_name,cad_num
