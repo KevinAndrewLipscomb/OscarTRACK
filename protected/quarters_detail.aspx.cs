@@ -97,12 +97,16 @@ namespace quarters_detail
                 e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text = e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text.Replace(k.NEW_LINE,"<br>");
                 //
                 // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
+                // This arrangement is now an amalgamation of the standard MySQL duration format plus a workaround for the fact that a standard MySQL duration cannot exceed 838h 59m 59s.
                 //
                 var duration_component_array = new string[3];
                 if (e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Contains(k.PERIOD))
                   {
                   duration_component_array = e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {'.',':'});
-                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "d " + duration_component_array[1] + "h " + duration_component_array[2] + "m";
+                  var num_days = int.Parse(duration_component_array[0]);
+                  var num_hours = int.Parse(duration_component_array[1]);
+                  var num_minutes = int.Parse(duration_component_array[2]);
+                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = (num_days == 0 ? (num_hours == 0 ? num_minutes.ToString() + "m" : num_hours.ToString() + "h") : num_days.ToString() + "d");
                   }
                 else
                   {
