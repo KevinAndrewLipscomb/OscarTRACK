@@ -112,6 +112,15 @@ namespace mark_vehicle_down {
         protected global::System.Web.UI.WebControls.TextBox TextBox_note;
         
         /// <summary>
+        /// RequiredFieldValidator_note control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_note;
+        
+        /// <summary>
         /// RegularExpressionValidator_note control.
         /// </summary>
         /// <remarks>

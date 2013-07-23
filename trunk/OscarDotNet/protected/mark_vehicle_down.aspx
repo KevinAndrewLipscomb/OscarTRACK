@@ -81,7 +81,7 @@
                     </tr>
                     <tr>
                       <td>
-                        Enter any comments about this episode here, including <i>WHERE</i> the vehicle went (if applicable):
+                        *Enter any comments about this episode here, including <i>WHERE</i> the vehicle went (if applicable):
                         <table cellspacing="0" cellpadding="20" border="0">
                           <tr>
                             <td>
@@ -91,6 +91,7 @@
                         </table>
                       </td>
                       <td nowrap="nowrap" valign="top">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_note" runat="server" ControlToValidate="TextBox_note" Display="Dynamic" ErrorMessage="Please enter a Note explaining WHY the unit is DOWN and WHERE it will be." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
                         <asp:RegularExpressionValidator ID="RegularExpressionValidator_note" runat="server" ErrorMessage="Please restrict the Note entry to 16,777,215 characters." ControlToValidate="TextBox_note" Display="Dynamic" Font-Bold="True" ValidationExpression="^[\s\S]{0,16777215}$">!ERR!</asp:RegularExpressionValidator>
                       </td>
                     </tr>
