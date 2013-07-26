@@ -255,9 +255,9 @@ namespace UserControl_driver_skill_rating
         p.biz_driver_skill_ratings.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_driver_skill_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_skill_rating_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_eval_id.Text,k.safe_hint_type.NUM).Trim()
+          k.Safe(TextBox_driver_skill_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_skill_rating_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_eval_id.Text,k.safe_hint_type.NUM)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();

@@ -267,10 +267,10 @@ namespace UserControl_vehicle_usability_history
         p.biz_vehicle_usability_history.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_vehicle_id.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(TextBox_vehicle_id.Text,k.safe_hint_type.NUM),
           time_went_down,
-          k.Safe(TextBox_nature_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(TextBox_nature_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_mileage.Text,k.safe_hint_type.NUM),
           time_came_up,
           k.Safe(TextBox_note.Text,k.safe_hint_type.MEMO).Trim()
           );

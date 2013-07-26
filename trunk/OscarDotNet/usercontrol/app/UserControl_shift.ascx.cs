@@ -254,8 +254,8 @@ namespace UserControl_shift
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           start_time,
           end_time,
-          k.Safe(TextBox_name.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).Trim(),
-          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM).Trim()
+          k.Safe(TextBox_name.Text,k.safe_hint_type.HYPHENATED_ALPHANUM),
+          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();

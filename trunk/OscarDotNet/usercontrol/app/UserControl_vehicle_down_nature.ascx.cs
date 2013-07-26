@@ -251,7 +251,7 @@ namespace UserControl_vehicle_down_nature
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           k.Safe(TextBox_name.Text,k.safe_hint_type.ALPHA_WORDS).Trim(),
-          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM),
           CheckBox_be_failure.Checked,
           k.Safe(TextBox_elaboration.Text,k.safe_hint_type.PUNCTUATED).Trim()
           );

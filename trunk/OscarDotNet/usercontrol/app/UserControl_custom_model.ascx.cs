@@ -255,7 +255,7 @@ namespace UserControl_custom_model
         p.biz_custom_models.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(DropDownList_make.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_make.SelectedValue,k.safe_hint_type.NUM),
           k.Safe(TextBox_name.Text,k.safe_hint_type.MAKE_MODEL).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
