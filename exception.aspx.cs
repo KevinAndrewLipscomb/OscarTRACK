@@ -42,6 +42,13 @@ namespace exception
           }
         else if (!last_error.ToString().Contains("The client disconnected."))
           {
+//
+SessionSet
+  (
+  name:"last_error",
+  value:last_error.ToString()
+  );
+//
           var be_deadlock = last_error.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction");
           if (be_deadlock)
             {

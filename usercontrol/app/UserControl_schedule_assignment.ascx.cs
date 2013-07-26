@@ -270,13 +270,13 @@ namespace UserControl_schedule_assignment
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           UserControl_drop_down_date_nominal_day.selectedvalue,
-          k.Safe(TextBox_shift_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_post_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_post_cardinality.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_position_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_member_id.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(TextBox_shift_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_post_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_post_cardinality.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_position_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_member_id.Text,k.safe_hint_type.NUM),
           CheckBox_be_selected.Checked,
-          k.Safe(TextBox_comment.Text,k.safe_hint_type.HYPHENATED_ALPHANUM).Trim()
+          k.Safe(TextBox_comment.Text,k.safe_hint_type.HYPHENATED_ALPHANUM)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();

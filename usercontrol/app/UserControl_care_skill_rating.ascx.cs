@@ -255,9 +255,9 @@ namespace UserControl_care_skill_rating
         p.biz_care_skill_ratings.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_care_skill_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_skill_rating_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_patient_encounter_id.Text,k.safe_hint_type.NUM).Trim()
+          k.Safe(TextBox_care_skill_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_skill_rating_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_patient_encounter_id.Text,k.safe_hint_type.NUM)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();

@@ -289,7 +289,7 @@ namespace UserControl_efficipay_docket
             (
             p.id,
             p.agency_id,
-            k.Safe(TextBox_num.Text,k.safe_hint_type.NUM).Trim(),
+            k.Safe(TextBox_num.Text,k.safe_hint_type.NUM),
             p.attachment_key,
             CheckBox_be_ready_for_review.Checked,
             p.biz_efficipay_dockets.ExpirationDate()
