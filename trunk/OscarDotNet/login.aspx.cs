@@ -121,8 +121,10 @@ namespace login
             username = k.Safe(TextBox_username.Text.Trim(), k.safe_hint_type.HYPHENATED_UNDERSCORED_ALPHANUM);
             if (Page.IsValid)
             {
-                SessionSet("user_id", p.biz_users.IdOf(username));
+                var user_id = p.biz_users.IdOf(username);
+                SessionSet("user_id",user_id);
                 SessionSet("username", username);
+                SessionSet("password_reset_email_address",p.biz_users.PasswordResetEmailAddressOfId(user_id));
                 double client_timezone_offset;
                 try
                   {
