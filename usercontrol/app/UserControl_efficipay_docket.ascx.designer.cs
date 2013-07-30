@@ -13,6 +13,15 @@ namespace UserControl_efficipay_docket {
     public partial class TWebUserControl_efficipay_docket {
         
         /// <summary>
+        /// ValidationSummary_check_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_check_num;
+        
+        /// <summary>
         /// TextBox_num control.
         /// </summary>
         /// <remarks>

@@ -1,5 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_role.ascx.cs" Inherits="UserControl_role.TWebUserControl_role"%>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
+<asp:ValidationSummary ID="ValidationSummary_quick_message" runat="server" ValidationGroup="QuickMessage"/>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">

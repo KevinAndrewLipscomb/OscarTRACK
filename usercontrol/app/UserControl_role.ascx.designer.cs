@@ -13,6 +13,15 @@ namespace UserControl_role {
     public partial class TWebUserControl_role {
         
         /// <summary>
+        /// ValidationSummary_quick_message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_quick_message;
+        
+        /// <summary>
         /// TextBox_name control.
         /// </summary>
         /// <remarks>

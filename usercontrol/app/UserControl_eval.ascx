@@ -4,6 +4,7 @@
 <%@ Register src="../ki/UserControl_drop_down_time_of_day.ascx" tagname="UserControl_drop_down_time_of_day" tagprefix="uc2" %>
 <asp:UpdatePanel ID="UpdatePanel_control" runat="server">
   <ContentTemplate>
+<asp:ValidationSummary ID="ValidationSummary_add_patient_encounter" runat="server" ValidationGroup="add_patient_encounter"/>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">

@@ -13,6 +13,15 @@ namespace UserControl_schedule_assignment_assistant_holdouts {
     public partial class TWebUserControl_schedule_assignment_assistant_holdouts {
         
         /// <summary>
+        /// ValidationSummary_quick_message control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_quick_message;
+        
+        /// <summary>
         /// Panel_supressed control.
         /// </summary>
         /// <remarks>
