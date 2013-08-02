@@ -42,13 +42,10 @@ namespace exception
           }
         else if (!last_error.ToString().Contains("The client disconnected."))
           {
-//
-SessionSet
-  (
-  name:"last_error",
-  value:last_error.ToString()
-  );
-//
+          //
+          // NOTE that this is one of TWO places in the application that k.EscalatedException gets called.  The other place is in UserControl_precontent.ascx.cs ScriptManager_control_AsyncPostBackError().  Consider keeping them
+          // relatively consistent.
+          //
           var be_deadlock = last_error.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction");
           if (be_deadlock)
             {
