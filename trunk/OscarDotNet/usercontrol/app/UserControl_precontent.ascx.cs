@@ -49,6 +49,8 @@ namespace UserControl_precontent
             // NOTE that this is one of TWO places in the application that k.EscalatedException gets called.  The other place is in ~/exception.aspx.cs Page_Load().  Consider keeping them relatively consistent.
             //
             var engine_innodb_status = k.EMPTY;
+            var cause = k.alert_cause_type.LOGIC;
+            var key = "xparposbac";
             var alert_message_value = "OOPS!" + k.NEW_LINE
             + k.NEW_LINE
             + "The application encountered an unexpected error." + k.NEW_LINE
@@ -58,6 +60,8 @@ namespace UserControl_precontent
             if (e.Exception.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
               {
               engine_innodb_status = new TClass_db__information_schema().EngineInnodbStatus();
+              cause = k.alert_cause_type.DBMS;
+              key = "deadlock";
               alert_message_value = "DEADLOCK!" + k.NEW_LINE
               + k.NEW_LINE
               + "The application's database subsystem had to abort your operation to relieve a deadlock." + k.NEW_LINE
@@ -75,9 +79,9 @@ namespace UserControl_precontent
               );
             ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage
               (
-              cause:k.alert_cause_type.LOGIC,
+              cause:cause,
               state:k.alert_state_type.FAILURE,
-              key:"xparposbac",
+              key:key,
               value:alert_message_value
               );
             Server.ClearError();
