@@ -153,7 +153,7 @@ namespace UserControl_evaluatee_overview
         p.be_loaded = false;
         p.be_sort_order_ascending = false;
         p.range = "InProcess";
-        p.sort_order = "nominal_day desc,shift.start desc";
+        p.sort_order = "eval.nominal_day desc,shift.start desc";
         p.user_member_id = k.EMPTY;
         }
       }
