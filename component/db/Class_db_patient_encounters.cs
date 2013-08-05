@@ -194,7 +194,7 @@ namespace Class_db_patient_encounters
         key_field_name:"id",
         key_field_value:id,
         childless_field_assignments_clause:childless_field_assignments_clause,
-        additional_match_condition:"or guid = '" + guid + "'"
+        additional_match_condition:" or guid = '" + guid + "'"
         );
       }
 

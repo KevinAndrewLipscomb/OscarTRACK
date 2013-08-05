@@ -105,14 +105,15 @@
       <uc2:UserControl_drop_down_time_of_day ID="UserControl_drop_down_time_of_day_in" runat="server" />
     </td>
     <td nowrap="nowrap">
-      <asp:CustomValidator ID="CustomValidator_time_in" runat="server" ErrorMessage="Please specify Time in" Font-Bold="True">&lt;ERR!</asp:CustomValidator>
+      <asp:CustomValidator ID="CustomValidator_time_in" runat="server" ErrorMessage="Please specify a valid Time in" Font-Bold="True" onservervalidate="CustomValidator_time_in_ServerValidate">&lt;ERR!</asp:CustomValidator>
+      <asp:CustomValidator ID="CustomValidator_eval_uniqueness" runat="server" ErrorMessage="You may not save a second eval with the same Evaluatee, Evaluator, Nominal day, and Time in as an eval that is already in the system." Font-Bold="True" onservervalidate="CustomValidator_eval_uniqueness_ServerValidate">&lt;ERR!</asp:CustomValidator>
     </td>
     <td><font class="">Time&nbsp;out:</font></td>
     <td>
       <uc2:UserControl_drop_down_time_of_day ID="UserControl_drop_down_time_of_day_out" runat="server" />
     </td>
     <td nowrap="nowrap">
-      <asp:CustomValidator ID="CustomValidator_time_out" runat="server" ErrorMessage="Please specify Time out" Font-Bold="True">&lt;ERR!</asp:CustomValidator>
+      <asp:CustomValidator ID="CustomValidator_time_out" runat="server" ErrorMessage="Please specify a valid Time out" Font-Bold="True" onservervalidate="CustomValidator_time_out_ServerValidate">&lt;ERR!</asp:CustomValidator>
     </td>
           </tr>
       </table>

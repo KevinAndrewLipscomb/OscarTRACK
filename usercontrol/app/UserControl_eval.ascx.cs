@@ -785,6 +785,7 @@ namespace UserControl_eval
         UserControl_drop_down_date_nominal_day.enabled = ablement;
         DropDownList_shift.Enabled = ablement;
         UserControl_drop_down_time_of_day_in.enabled = ablement;
+        CustomValidator_eval_uniqueness.Enabled = ablement;
         UserControl_drop_down_time_of_day_out.enabled = ablement;
         DropDownList_post.Enabled = ablement;
         DropDownList_post_cardinality.Enabled = ablement;
@@ -826,6 +827,7 @@ namespace UserControl_eval
         UserControl_drop_down_date_nominal_day.enabled = ablement;
         DropDownList_shift.Enabled = ablement;
         UserControl_drop_down_time_of_day_in.enabled = ablement;
+        CustomValidator_eval_uniqueness.Enabled = ablement;
         UserControl_drop_down_time_of_day_out.enabled = ablement;
         DropDownList_post.Enabled = ablement;
         DropDownList_post_cardinality.Enabled = ablement;
@@ -867,6 +869,7 @@ namespace UserControl_eval
         UserControl_drop_down_date_nominal_day.enabled = false;
         DropDownList_shift.Enabled = false;
         UserControl_drop_down_time_of_day_in.enabled = false;
+        CustomValidator_eval_uniqueness.Enabled = false;
         UserControl_drop_down_time_of_day_out.enabled = ablement;
         DropDownList_post.Enabled = ablement;
         DropDownList_post_cardinality.Enabled = ablement;
@@ -908,6 +911,7 @@ namespace UserControl_eval
         UserControl_drop_down_date_nominal_day.enabled = false;
         DropDownList_shift.Enabled = false;
         UserControl_drop_down_time_of_day_in.enabled = false;
+        CustomValidator_eval_uniqueness.Enabled = false;
         UserControl_drop_down_time_of_day_out.enabled = ablement;
         DropDownList_post.Enabled = ablement;
         DropDownList_post_cardinality.Enabled = ablement;
@@ -949,6 +953,7 @@ namespace UserControl_eval
         UserControl_drop_down_date_nominal_day.enabled = false;
         DropDownList_shift.Enabled = false;
         UserControl_drop_down_time_of_day_in.enabled = false;
+        CustomValidator_eval_uniqueness.Enabled = false;
         UserControl_drop_down_time_of_day_out.enabled = false;
         DropDownList_post.Enabled = false;
         DropDownList_post_cardinality.Enabled = false;
@@ -1292,6 +1297,30 @@ namespace UserControl_eval
       var evaluatee_member_id = k.Safe(DropDownList_evaluatee.SelectedValue,k.safe_hint_type.NUM);
       p.be_evaluatee_released = p.biz_members.BeReleased(evaluatee_member_id);
       p.be_evaluatee_driver_qualified = p.biz_members.BeDriverQualifiedOfId(evaluatee_member_id);
+      }
+
+    protected void CustomValidator_time_in_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = (UserControl_drop_down_time_of_day_in.selectedvalue.Length > 0);
+      }
+
+    protected void CustomValidator_time_out_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = (UserControl_drop_down_time_of_day_out.selectedvalue.Length > 0);
+      }
+
+    protected void CustomValidator_eval_uniqueness_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid =
+        (
+          null == p.biz_evals.SummaryOfUnique
+            (
+            third_member_id:k.Safe(DropDownList_evaluatee.SelectedValue,k.safe_hint_type.NUM),
+            aic_member_id:k.Safe(DropDownList_aic.SelectedValue,k.safe_hint_type.NUM),
+            nominal_day:UserControl_drop_down_date_nominal_day.selectedvalue,
+            time_in:k.Safe(UserControl_drop_down_time_of_day_in.selectedvalue,k.safe_hint_type.DATE_TIME)
+            )
+        );
       }
 
     } // end TWebUserControl_eval
