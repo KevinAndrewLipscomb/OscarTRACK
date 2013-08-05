@@ -138,7 +138,7 @@ namespace UserControl_member_binder
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_EVALS)
             {
             var c = ((TWebUserControl_eval_overview)(LoadControl("~/usercontrol/app/UserControl_eval_overview.ascx")));
-            p.content_id = AddIdentifiedControlToPlaceHolder(c,"P",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_eval_overview",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_PERSONNEL)
             {

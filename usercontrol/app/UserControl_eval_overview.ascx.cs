@@ -35,7 +35,7 @@ namespace UserControl_eval_overview
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_eval_overview");
+        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_eval_overview");
         }
       else
         {
@@ -55,7 +55,10 @@ namespace UserControl_eval_overview
           id:"UserControl_evaluator_overview",
           p:PlaceHolder_evaluator_overview
           );
-        c.SetEvaluatorMemberId(id:user_member_id);
+        if (!p.be_loaded)
+          {
+          c.SetEvaluatorMemberId(id:user_member_id);
+          }
         }
       if (!p.biz_members.BeReleased(user_member_id) || !p.biz_members.BeDriverQualifiedOfId(user_member_id))
         {
@@ -66,7 +69,10 @@ namespace UserControl_eval_overview
           id:"UserControl_evaluatee_overview",
           p:PlaceHolder_evaluatee_overview
           );
-        c.SetEvaluateeMemberId(id:user_member_id);
+        if (!p.be_loaded)
+          {
+          c.SetEvaluateeMemberId(id:user_member_id);
+          }
         }
       }
 
