@@ -19,8 +19,8 @@
                       <strong>Range:</strong>
                       <asp:DropDownList id="DropDownList_range" runat="server" autopostback="True" onselectedindexchanged="DropDownList_range_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="InProcess">In process</asp:ListItem>
-                        <asp:ListItem>Archived</asp:ListItem>
-                        <asp:ListItem>All</asp:ListItem>
+                        <asp:ListItem Value="Archived">Archived</asp:ListItem>
+                        <asp:ListItem Value="">All</asp:ListItem>
                       </asp:DropDownList>
                     </td>
                     <td></td>
