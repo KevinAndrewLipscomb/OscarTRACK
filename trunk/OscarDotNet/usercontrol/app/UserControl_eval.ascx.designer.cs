@@ -229,6 +229,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_shift_id;
         
         /// <summary>
+        /// CustomValidator_eval_uniqueness control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_eval_uniqueness;
+        
+        /// <summary>
         /// UserControl_drop_down_time_of_day_in control.
         /// </summary>
         /// <remarks>
@@ -245,15 +254,6 @@ namespace UserControl_eval {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_time_in;
-        
-        /// <summary>
-        /// CustomValidator_eval_uniqueness control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_eval_uniqueness;
         
         /// <summary>
         /// UserControl_drop_down_time_of_day_out control.
