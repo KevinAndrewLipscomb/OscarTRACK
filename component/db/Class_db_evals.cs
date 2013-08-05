@@ -444,6 +444,7 @@ namespace Class_db_evals
 
     private object SummaryBase(string condition_clause)
       {
+      eval_summary the_summary_base = null;
       Open();
       var dr =
         (
@@ -473,23 +474,25 @@ namespace Class_db_evals
           )
           .ExecuteReader()
         );
-      dr.Read();
-      var the_summary_base = new eval_summary()
+      if (dr.Read())
         {
-        id = dr["id"].ToString(),
-        nominal_day = DateTime.Parse(dr["nominal_day"].ToString()),
-        shift_id = dr["shift_id"].ToString(),
-        shift_name = dr["shift_name"].ToString(),
-        post_designator = dr["post_designator"].ToString(),
-        post_cardinality = dr["post_cardinality"].ToString(),
-        post_id = dr["post_id"].ToString(),
-        vehicle_id = dr["vehicle_id"].ToString(),
-        vehicle_name = dr["vehicle_name"].ToString(),
-        aic_member_id = dr["aic_member_id"].ToString(),
-        aic_member_name = dr["aic_member_name"].ToString(),
-        third_member_id = dr["third_member_id"].ToString(),
-        third_member_name = dr["third_member_name"].ToString()
-        };
+        the_summary_base = new eval_summary()
+          {
+          id = dr["id"].ToString(),
+          nominal_day = DateTime.Parse(dr["nominal_day"].ToString()),
+          shift_id = dr["shift_id"].ToString(),
+          shift_name = dr["shift_name"].ToString(),
+          post_designator = dr["post_designator"].ToString(),
+          post_cardinality = dr["post_cardinality"].ToString(),
+          post_id = dr["post_id"].ToString(),
+          vehicle_id = dr["vehicle_id"].ToString(),
+          vehicle_name = dr["vehicle_name"].ToString(),
+          aic_member_id = dr["aic_member_id"].ToString(),
+          aic_member_name = dr["aic_member_name"].ToString(),
+          third_member_id = dr["third_member_id"].ToString(),
+          third_member_name = dr["third_member_name"].ToString()
+          };
+        }
       Close();
       return the_summary_base;
       }

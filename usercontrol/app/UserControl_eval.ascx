@@ -94,7 +94,9 @@
         </tr>
       </table>
     </td>
-    <td></td>
+    <td>
+      <asp:CustomValidator ID="CustomValidator_eval_uniqueness" runat="server" Display="Dynamic" ErrorMessage="You may not save a second eval with the same Evaluatee, Evaluator, Nominal day, and Time in as an eval that is already in the system." Font-Bold="True" onservervalidate="CustomValidator_eval_uniqueness_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
   </tr>
   <tr>
     <td align="right"><font class="">Time&nbsp;in:</font></td>
@@ -106,7 +108,6 @@
     </td>
     <td nowrap="nowrap">
       <asp:CustomValidator ID="CustomValidator_time_in" runat="server" ErrorMessage="Please specify a valid Time in" Font-Bold="True" onservervalidate="CustomValidator_time_in_ServerValidate">&lt;ERR!</asp:CustomValidator>
-      <asp:CustomValidator ID="CustomValidator_eval_uniqueness" runat="server" ErrorMessage="You may not save a second eval with the same Evaluatee, Evaluator, Nominal day, and Time in as an eval that is already in the system." Font-Bold="True" onservervalidate="CustomValidator_eval_uniqueness_ServerValidate">&lt;ERR!</asp:CustomValidator>
     </td>
     <td><font class="">Time&nbsp;out:</font></td>
     <td>

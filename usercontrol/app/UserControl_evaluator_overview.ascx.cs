@@ -164,7 +164,7 @@ namespace UserControl_evaluator_overview
         p.evaluation_tier_active = new k.int_positive(int.MaxValue);
         p.evaluation_tier_highest = new k.int_positive(int.MaxValue);
         p.range = "InProcess";
-        p.sort_order = "nominal_day desc,shift.start desc";
+        p.sort_order = "eval.nominal_day desc,shift.start desc";
         p.user_member_id = k.EMPTY;
         }
       }

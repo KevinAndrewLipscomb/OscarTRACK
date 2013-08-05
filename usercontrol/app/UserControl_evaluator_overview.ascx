@@ -19,8 +19,8 @@
                       <strong>Range:</strong>
                       <asp:DropDownList id="DropDownList_range" runat="server" autopostback="True" onselectedindexchanged="DropDownList_range_SelectedIndexChanged">
                         <asp:ListItem Selected="True" Value="InProcess">In process</asp:ListItem>
-                        <asp:ListItem>Archived</asp:ListItem>
-                        <asp:ListItem>All</asp:ListItem>
+                        <asp:ListItem Value="Archived">Archived</asp:ListItem>
+                        <asp:ListItem Value="">All</asp:ListItem>
                       </asp:DropDownList>
                       &nbsp;&nbsp;&nbsp;
                       <asp:CheckBox ID="CheckBox_aic_me_only" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_aic_me_only_CheckedChanged" Text="AIC&nbsp;=&nbsp;Me" Visible="False" />
