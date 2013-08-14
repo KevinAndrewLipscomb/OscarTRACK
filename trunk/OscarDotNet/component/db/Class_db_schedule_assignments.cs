@@ -1204,21 +1204,36 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "insert ignore schedule_assignment set nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'"
-          + " , shift_id = (select id from shift where name = '" + shift_name + "')"
-          + " , post_id = '" + post_id + "'"
-          + " , member_id = '" + member_id + "'"
-          + " , be_selected = FALSE"
-          + " , be_new = FALSE"
-          + " , reviser_member_id = '" + reviser_member_id + "'"
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
+      var be_done = false;
+      while (!be_done)
+        {
+        try
+          {
+          new MySqlCommand
+            (
+            db_trail.Saved
+              (
+              "insert ignore schedule_assignment set nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'"
+              + " , shift_id = (select id from shift where name = '" + shift_name + "')"
+              + " , post_id = '" + post_id + "'"
+              + " , member_id = '" + member_id + "'"
+              + " , be_selected = FALSE"
+              + " , be_new = FALSE"
+              + " , reviser_member_id = '" + reviser_member_id + "'"
+              ),
+            connection
+            )
+            .ExecuteNonQuery();
+          be_done = true;
+          }
+        catch (Exception e)
+          {
+          if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+            {
+            throw e;
+            }
+          }
+        }
       Close();
       }
 
