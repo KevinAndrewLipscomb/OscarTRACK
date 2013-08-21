@@ -298,167 +298,175 @@ namespace Class_db_schedule_assignments
       //
       // Since we are only using selects and temporary tables, do not save this to the db_trail.
       //
-      try
+      var be_done = false;
+      while (!be_done)
         {
-        new MySqlCommand
-          (
-          "create temporary table num_units"
-          + " select nominal_day"
-          + " , shift_id"
-          + " , sum(member.agency_id = '" + agency_filter + "')/2 as from_agency"
-          + " , count(*)/2 as citywide"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          + " where medical_release_code_description_map.pecking_order >= 20"
-          +   " and be_selected"
-          +   " and post_id < 200" // Only count ground ambulance assignments.
-          +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-          + " group by nominal_day,shift_id"
-          + ";"
-          //
-          // Generate the challenge analysis table
-          //
-          + " drop temporary table if exists challenge_analysis"
-          + ";"
-          + " create temporary table challenge_analysis"
-          + " select nominal_day"
-          + " , shift_id"
-          + " , post_id"
-          + " , post_cardinality"
-          + " , ("
-          +     " (sum(be_selected) = 0)" // No released members to partner with a third
-          +   " or"
-          +     " (sum(be_selected)%2 = 1)" // Odd number of released members
-          +   " or"
-          +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
-          +   " ) as be_challenge"
-          + " from schedule_assignment"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          + " where medical_release_code_description_map.pecking_order >= 20"
-          +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
-          +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-          + " group by nominal_day,shift_id,post_id,post_cardinality"
-          + ";"
-          //
-          // Generate the list of DAY schedule assignments for this month in the desired order.
-          //
-          + " drop temporary table if exists this_month_day_schedule_assignment"
-          + ";"
-          + " create temporary table this_month_day_schedule_assignment"
-          + " select schedule_assignment.nominal_day as nominal_day"
-          + common_initial_field_list
-          + common_initial_from_where_clause
-          +   " and shift.name = 'DAY'"
-          + common_order_by_clause
-          + ";"
-          //
-          // Generate the list of NIGHT schedule assignments for this month in the desired order.
-          //
-          + " drop temporary table if exists this_month_night_schedule_assignment"
-          + ";"
-          + " create temporary table this_month_night_schedule_assignment"
-          + " select schedule_assignment.nominal_day as nominal_day"
-          + common_initial_field_list
-          + common_initial_from_where_clause
-          +   " and shift.name = 'NIGHT'"
-          + common_order_by_clause
-          + ";"
-          //
-          // Set up special subqueries that use user variables to calculate and assign display sequence numbers to each day and night assignment, respectively, such that the display sequence numbers reset to 1 each time the nominal_day changes.  The display
-          // sequence numbers are thus used as the common attribute that allows an otherwise unassociated pair of day and night assignments to be displayed side by side for each particular nominal_day.
-          //
-          + " drop temporary table if exists this_month_day_schedule_assignment_with_dsn"
-          + ";"
-          + " create temporary table this_month_day_schedule_assignment_with_dsn"
-          + " select IF(nominal_day <> @d_nominal_day,@d_display_seq_num := 1,@d_display_seq_num := @d_display_seq_num + 1) as display_seq_num"
-          + " , @d_nominal_day := nominal_day as nominal_day"
-          + common_subsequent_field_list
-          + " from (select @d_nominal_day := '0000-00-00', @d_display_seq_num := 0) dummy, this_month_day_schedule_assignment"
-          + ";"
-          + " drop temporary table if exists this_month_night_schedule_assignment_with_dsn"
-          + ";"
-          + " create temporary table this_month_night_schedule_assignment_with_dsn"
-          + " select IF(nominal_day <> @n_nominal_day,@n_display_seq_num := 1,@n_display_seq_num := @n_display_seq_num + 1) as display_seq_num"
-          + " , @n_nominal_day := nominal_day as nominal_day"
-          + common_subsequent_field_list
-          + " from (select @n_nominal_day := '0000-00-00', @n_display_seq_num := 0) dummy, this_month_night_schedule_assignment"
-          + ";"
-          + " drop temporary table if exists this_month_schedule_assignment"
-          + ";"
-          //
-          // The following CREATE, ALTER, and INSERT statements accomplish a FULL OUTER JOIN hinged on nominal_day and display_seq_num.  (MySQL 5.5 does not directly support FULL OUTER JOINs.)
-          //
-          + " CREATE temporary table this_month_schedule_assignment"
-          + " select DATE_FORMAT(d.nominal_day,'%Y-%m-%d') as nominal_day , d.display_seq_num" + common_final_fields
-          + " from this_month_day_schedule_assignment_with_dsn as d"
-          +   " left join this_month_night_schedule_assignment_with_dsn as n"
-          +     " using (nominal_day,display_seq_num)"
-          + ";"
-          + " ALTER table this_month_schedule_assignment add primary key (nominal_day,display_seq_num)"
-          + " , modify d_num_units_from_agency FLOAT NULL"
-          + " , modify d_num_units_citywide FLOAT NULL"
-          + " , modify d_assignment_id BIGINT UNSIGNED NULL"
-          + " , modify d_post_id BIGINT UNSIGNED NULL"
-          + " , modify d_post_cardinality CHAR NULL"
-          + " , modify d_member_agency_id INT UNSIGNED NULL"
-          + " , modify d_agency_short_designator VARCHAR(3) NULL"
-          + " , modify d_member_id INT UNSIGNED NULL"
-          + " , modify d_medical_release_description VARCHAR(31) NULL"
-          + " , modify d_name VARCHAR(64) NULL"
-          + " , modify d_be_selected TINYINT NULL"
-          + " , modify d_be_driver_qualified CHAR NULL"
-          + " , modify d_comment VARCHAR(511) NULL"
-          + " , modify d_be_challenge TINYINT NULL"
-          + " , modify d_phone_num VARCHAR(10) NULL"
-          + ";"
-          + " INSERT ignore this_month_schedule_assignment"
-          + " select DATE_FORMAT(n.nominal_day,'%Y-%m-%d') as nominal_day , n.display_seq_num" + common_final_fields
-          + " from this_month_day_schedule_assignment_with_dsn as d"
-          +   " right join this_month_night_schedule_assignment_with_dsn as n"
-          +     " using (nominal_day,display_seq_num)",
-          connection,
-          transaction
-          )
-          .ExecuteNonQuery();
-        (target as BaseDataList).DataSource = new MySqlCommand("select * from this_month_schedule_assignment",connection,transaction).ExecuteReader();
-        (target as BaseDataList).DataBind();
-        ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-        //
-        var dr = new MySqlCommand
-          (
-          "select count(distinct member_id) as num_members"
-          + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
-          + common_from_where_clause,
-          connection,
-          transaction
-          )
-          .ExecuteReader();
-        dr.Read();
-        (num_members = new k.int_nonnegative()).val = int.Parse(dr["num_members"].ToString());
-        num_crew_shifts = new k.decimal_nonnegative();
-        object num_crew_shifts_obj;
-        if ((num_crew_shifts_obj = dr["num_crew_shifts"]) != DBNull.Value)
+        try
           {
-          (num_crew_shifts = new k.decimal_nonnegative()).val = decimal.Parse(num_crew_shifts_obj.ToString());
+          new MySqlCommand
+            (
+            "create temporary table num_units"
+            + " select nominal_day"
+            + " , shift_id"
+            + " , sum(member.agency_id = '" + agency_filter + "')/2 as from_agency"
+            + " , count(*)/2 as citywide"
+            + " from schedule_assignment"
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            + " where medical_release_code_description_map.pecking_order >= 20"
+            +   " and be_selected"
+            +   " and post_id < 200" // Only count ground ambulance assignments.
+            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+            + " group by nominal_day,shift_id"
+            + ";"
+            //
+            // Generate the challenge analysis table
+            //
+            + " drop temporary table if exists challenge_analysis"
+            + ";"
+            + " create temporary table challenge_analysis"
+            + " select nominal_day"
+            + " , shift_id"
+            + " , post_id"
+            + " , post_cardinality"
+            + " , ("
+            +     " (sum(be_selected) = 0)" // No released members to partner with a third
+            +   " or"
+            +     " (sum(be_selected)%2 = 1)" // Odd number of released members
+            +   " or"
+            +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
+            +   " ) as be_challenge"
+            + " from schedule_assignment"
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+            + " where medical_release_code_description_map.pecking_order >= 20"
+            +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
+            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+            + " group by nominal_day,shift_id,post_id,post_cardinality"
+            + ";"
+            //
+            // Generate the list of DAY schedule assignments for this month in the desired order.
+            //
+            + " drop temporary table if exists this_month_day_schedule_assignment"
+            + ";"
+            + " create temporary table this_month_day_schedule_assignment"
+            + " select schedule_assignment.nominal_day as nominal_day"
+            + common_initial_field_list
+            + common_initial_from_where_clause
+            +   " and shift.name = 'DAY'"
+            + common_order_by_clause
+            + ";"
+            //
+            // Generate the list of NIGHT schedule assignments for this month in the desired order.
+            //
+            + " drop temporary table if exists this_month_night_schedule_assignment"
+            + ";"
+            + " create temporary table this_month_night_schedule_assignment"
+            + " select schedule_assignment.nominal_day as nominal_day"
+            + common_initial_field_list
+            + common_initial_from_where_clause
+            +   " and shift.name = 'NIGHT'"
+            + common_order_by_clause
+            + ";"
+            //
+            // Set up special subqueries that use user variables to calculate and assign display sequence numbers to each day and night assignment, respectively, such that the display sequence numbers reset to 1 each time the nominal_day changes.  The display
+            // sequence numbers are thus used as the common attribute that allows an otherwise unassociated pair of day and night assignments to be displayed side by side for each particular nominal_day.
+            //
+            + " drop temporary table if exists this_month_day_schedule_assignment_with_dsn"
+            + ";"
+            + " create temporary table this_month_day_schedule_assignment_with_dsn"
+            + " select IF(nominal_day <> @d_nominal_day,@d_display_seq_num := 1,@d_display_seq_num := @d_display_seq_num + 1) as display_seq_num"
+            + " , @d_nominal_day := nominal_day as nominal_day"
+            + common_subsequent_field_list
+            + " from (select @d_nominal_day := '0000-00-00', @d_display_seq_num := 0) dummy, this_month_day_schedule_assignment"
+            + ";"
+            + " drop temporary table if exists this_month_night_schedule_assignment_with_dsn"
+            + ";"
+            + " create temporary table this_month_night_schedule_assignment_with_dsn"
+            + " select IF(nominal_day <> @n_nominal_day,@n_display_seq_num := 1,@n_display_seq_num := @n_display_seq_num + 1) as display_seq_num"
+            + " , @n_nominal_day := nominal_day as nominal_day"
+            + common_subsequent_field_list
+            + " from (select @n_nominal_day := '0000-00-00', @n_display_seq_num := 0) dummy, this_month_night_schedule_assignment"
+            + ";"
+            + " drop temporary table if exists this_month_schedule_assignment"
+            + ";"
+            //
+            // The following CREATE, ALTER, and INSERT statements accomplish a FULL OUTER JOIN hinged on nominal_day and display_seq_num.  (MySQL 5.5 does not directly support FULL OUTER JOINs.)
+            //
+            + " CREATE temporary table this_month_schedule_assignment"
+            + " select DATE_FORMAT(d.nominal_day,'%Y-%m-%d') as nominal_day , d.display_seq_num" + common_final_fields
+            + " from this_month_day_schedule_assignment_with_dsn as d"
+            +   " left join this_month_night_schedule_assignment_with_dsn as n"
+            +     " using (nominal_day,display_seq_num)"
+            + ";"
+            + " ALTER table this_month_schedule_assignment add primary key (nominal_day,display_seq_num)"
+            + " , modify d_num_units_from_agency FLOAT NULL"
+            + " , modify d_num_units_citywide FLOAT NULL"
+            + " , modify d_assignment_id BIGINT UNSIGNED NULL"
+            + " , modify d_post_id BIGINT UNSIGNED NULL"
+            + " , modify d_post_cardinality CHAR NULL"
+            + " , modify d_member_agency_id INT UNSIGNED NULL"
+            + " , modify d_agency_short_designator VARCHAR(3) NULL"
+            + " , modify d_member_id INT UNSIGNED NULL"
+            + " , modify d_medical_release_description VARCHAR(31) NULL"
+            + " , modify d_name VARCHAR(64) NULL"
+            + " , modify d_be_selected TINYINT NULL"
+            + " , modify d_be_driver_qualified CHAR NULL"
+            + " , modify d_comment VARCHAR(511) NULL"
+            + " , modify d_be_challenge TINYINT NULL"
+            + " , modify d_phone_num VARCHAR(10) NULL"
+            + ";"
+            + " INSERT ignore this_month_schedule_assignment"
+            + " select DATE_FORMAT(n.nominal_day,'%Y-%m-%d') as nominal_day , n.display_seq_num" + common_final_fields
+            + " from this_month_day_schedule_assignment_with_dsn as d"
+            +   " right join this_month_night_schedule_assignment_with_dsn as n"
+            +     " using (nominal_day,display_seq_num)",
+            connection,
+            transaction
+            )
+            .ExecuteNonQuery();
+          (target as BaseDataList).DataSource = new MySqlCommand("select * from this_month_schedule_assignment",connection,transaction).ExecuteReader();
+          (target as BaseDataList).DataBind();
+          ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+          //
+          var dr = new MySqlCommand
+            (
+            "select count(distinct member_id) as num_members"
+            + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
+            + common_from_where_clause,
+            connection,
+            transaction
+            )
+            .ExecuteReader();
+          dr.Read();
+          (num_members = new k.int_nonnegative()).val = int.Parse(dr["num_members"].ToString());
+          num_crew_shifts = new k.decimal_nonnegative();
+          object num_crew_shifts_obj;
+          if ((num_crew_shifts_obj = dr["num_crew_shifts"]) != DBNull.Value)
+            {
+            (num_crew_shifts = new k.decimal_nonnegative()).val = decimal.Parse(num_crew_shifts_obj.ToString());
+            }
+          dr.Close();
+          //
+          new MySqlCommand
+            (
+            "drop temporary table num_units,challenge_analysis,this_month_day_schedule_assignment,this_month_night_schedule_assignment,this_month_day_schedule_assignment_with_dsn,this_month_night_schedule_assignment_with_dsn,this_month_schedule_assignment",
+            connection,
+            transaction
+            )
+            .ExecuteNonQuery();
+          //
+          transaction.Commit();
+          be_done = true;
           }
-        dr.Close();
-        //
-        new MySqlCommand
-          (
-          "drop temporary table num_units,challenge_analysis,this_month_day_schedule_assignment,this_month_night_schedule_assignment,this_month_day_schedule_assignment_with_dsn,this_month_night_schedule_assignment_with_dsn,this_month_schedule_assignment",
-          connection,
-          transaction
-          )
-          .ExecuteNonQuery();
-        //
-        transaction.Commit();
-        }
-      catch (Exception e)
-        {
-        transaction.Rollback();
-        throw e;
+        catch (Exception e)
+          {
+          transaction.Rollback();
+          if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+            {
+            throw e;
+            }
+          }
         }
       Close();
       //
