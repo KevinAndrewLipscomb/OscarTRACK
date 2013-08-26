@@ -7,63 +7,54 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_schedule_assignment_assistant_alert_binder {
+namespace UserControl_schedule_assignment_assistant_alert_travel_gap {
     
     
-    public partial class TWebUserControl_schedule_assignment_assistant_alert_binder {
+    public partial class TWebUserControl_schedule_assignment_assistant_alert_travel_gap {
         
         /// <summary>
-        /// TabContainer_control control.
+        /// Panel_supressed control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabContainer TabContainer_control;
+        protected global::System.Web.UI.WebControls.Panel Panel_supressed;
         
         /// <summary>
-        /// TabPanel_unexpected_submissions control.
+        /// Table_data control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_unexpected_submissions;
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_data;
         
         /// <summary>
-        /// TabPanel_time_off control.
+        /// TableRow_guidance control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_time_off;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_guidance;
         
         /// <summary>
-        /// TabPanel_time_on control.
+        /// W control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_time_on;
+        protected global::System.Web.UI.WebControls.DataGrid W;
         
         /// <summary>
-        /// TabPanel_travel_gap control.
+        /// TableRow_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.TabPanel TabPanel_travel_gap;
-        
-        /// <summary>
-        /// PlaceHolder_content control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_content;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
     }
 }
