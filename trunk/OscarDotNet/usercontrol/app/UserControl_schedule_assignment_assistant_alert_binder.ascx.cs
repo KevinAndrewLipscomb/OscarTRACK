@@ -9,6 +9,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_time_off;
 using UserControl_schedule_assignment_assistant_alert_time_on;
+using UserControl_schedule_assignment_assistant_alert_travel_gap;
 using UserControl_schedule_assignment_assistant_alert_unexpected_submissions;
 
 namespace UserControl_schedule_assignment_assistant_alert_binder
@@ -18,6 +19,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
     public const int TSSI_UNEXPECTED_SUBMISSIONS = 0;
     public const int TSSI_TIME_OFF = 1;
     public const int TSSI_TIME_ON = 2;
+    public const int TSSI_TRAVEL_GAP = 3;
     }
 
   public struct p_type
@@ -37,6 +39,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
 
     TWebUserControl_schedule_assignment_assistant_alert_time_off UserControl_schedule_assignment_assistant_alert_time_off = null;
     TWebUserControl_schedule_assignment_assistant_alert_time_on UserControl_schedule_assignment_assistant_alert_time_on = null;
+    TWebUserControl_schedule_assignment_assistant_alert_travel_gap UserControl_schedule_assignment_assistant_alert_travel_gap = null;
     TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions UserControl_schedule_assignment_assistant_alert_unexpected_submissions = null;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -47,6 +50,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         TabPanel_unexpected_submissions.HeaderText = "<b>STEP 4a:</b> " + TabPanel_unexpected_submissions.HeaderText;
         TabPanel_time_off.HeaderText = "<b>STEP 4b:</b> " + TabPanel_time_off.HeaderText;
         TabPanel_time_on.HeaderText = "<b>STEP 4c:</b> " + TabPanel_time_on.HeaderText;
+        TabPanel_travel_gap.HeaderText = "<b>STEP 4d:</b> " + TabPanel_travel_gap.HeaderText;
         p.be_loaded = true;
         }
       }
@@ -59,6 +63,7 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
       //
       UserControl_schedule_assignment_assistant_alert_time_off = ((TWebUserControl_schedule_assignment_assistant_alert_time_off)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_off.ascx")));
       UserControl_schedule_assignment_assistant_alert_time_on = ((TWebUserControl_schedule_assignment_assistant_alert_time_on)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_time_on.ascx")));
+      UserControl_schedule_assignment_assistant_alert_travel_gap = ((TWebUserControl_schedule_assignment_assistant_alert_travel_gap)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_travel_gap.ascx")));
       UserControl_schedule_assignment_assistant_alert_unexpected_submissions = ((TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_unexpected_submissions.ascx")));
       //
       if (Session[InstanceId() + ".p"] != null)
@@ -75,6 +80,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_ON)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_time_on, "UserControl_schedule_assignment_assistant_alert_time_on", PlaceHolder_content);
+          }
+        else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TRAVEL_GAP)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(UserControl_schedule_assignment_assistant_alert_travel_gap, "UserControl_schedule_assignment_assistant_alert_travel_gap", PlaceHolder_content);
           }
         else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS)
           {
@@ -150,6 +159,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         {
         UserControl_schedule_assignment_assistant_alert_time_on.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TRAVEL_GAP)
+        {
+        UserControl_schedule_assignment_assistant_alert_travel_gap.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS)
         {
         UserControl_schedule_assignment_assistant_alert_unexpected_submissions.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
@@ -172,6 +185,12 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
         {
         var c = UserControl_schedule_assignment_assistant_alert_time_on;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_time_on",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
+        }
+      else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TRAVEL_GAP)
+        {
+        var c = UserControl_schedule_assignment_assistant_alert_travel_gap;
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_travel_gap",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
       else if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_UNEXPECTED_SUBMISSIONS)

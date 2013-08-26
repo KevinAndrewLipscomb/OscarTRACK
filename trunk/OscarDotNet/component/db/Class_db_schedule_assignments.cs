@@ -19,6 +19,7 @@ namespace Class_db_schedule_assignments
     + " , schedule_assignment.id as schedule_assignment_id"
     + " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
     + " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+    + " , post_id"
     + " FROM schedule_assignment"
     +   " join shift on (shift.id=schedule_assignment.shift_id)"
     +   " join member on (member.id=schedule_assignment.member_id)"
@@ -1051,6 +1052,93 @@ namespace Class_db_schedule_assignments
         }
       Close();
       //
+      }
+
+    internal void BindTravelGapAlertBaseDataList
+      (
+      string agency_filter,
+      string release_filter,
+      k.subtype<int> relative_month,
+      object target
+      )
+      {
+      var agency_condition_clause = k.EMPTY;
+      if (agency_filter != k.EMPTY)
+        {
+        agency_condition_clause = " and agency_id = '" + agency_filter + "'";
+        }
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
+      Open();
+      var transaction = connection.BeginTransaction();
+      try
+        {
+        //
+        // Since we are only using selects and temporary tables, do not save this to the db_trail.
+        //
+        new MySqlCommand
+          (
+          ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
+          + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+          + agency_condition_clause
+          + release_condition_clause
+          + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
+        //
+        // MySQL does not allow joining a temporary table to itself, so make a copy.
+        //
+        new MySqlCommand
+          (
+          "create temporary table a_to"
+          + " select * from assignment_start_and_end_datetimes_sorted_by_member_id a_from",
+          connection,
+          transaction
+          )
+          .ExecuteNonQuery();
+        //
+        // Now perform the SELECT that joins "a_from" to a_to.
+        //
+        (target as BaseDataList).DataSource = new MySqlCommand
+          (
+          "select DATE_FORMAT(a_to.on_duty,'%Y-%m-%d') as gap_day"
+          + " , DATE_FORMAT(a_to.on_duty,'%H:%i') as gap_time"
+          + " , concat(first_name,' ',last_name) as name"
+          + " , member.id as member_id"
+          + " , member.agency_id"
+          + " , post_from.short_designator as post_from"
+          + " , post_to.short_designator as post_to"
+          + " from assignment_start_and_end_datetimes_sorted_by_member_id a_from"
+          +   " join agency post_from on (post_from.id=a_from.post_id)"
+          +   " left join a_to on (a_to.member_id=a_from.member_id and a_to.on_duty=a_from.off_duty and a_to.post_id <> a_from.post_id)"
+          +   " left join agency post_to on (post_to.id=a_to.post_id)"
+          +   " join member on (member.id=a_from.member_id)"
+          + " where a_to.post_id is not null"
+          + " order by a_from.off_duty,a_from.post_id",
+          connection,
+          transaction
+          )
+          .ExecuteReader();
+        (target as BaseDataList).DataBind();
+        ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+        new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,a_to",connection,transaction).ExecuteNonQuery();
+        transaction.Commit();
+        }
+      catch (Exception e)
+        {
+        transaction.Rollback();
+        throw e;
+        }
+      Close();
       }
 
     internal void BindUnexpectedSubmissionsAlertBaseDataList
