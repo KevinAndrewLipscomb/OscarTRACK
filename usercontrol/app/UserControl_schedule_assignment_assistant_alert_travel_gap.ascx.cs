@@ -31,13 +31,21 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
 
     public class UserControl_schedule_assignment_assistant_alert_travel_gap_Static
       {
-      public const int TCI_GAP_DAY = 0;
-      public const int TCI_GAP_TIME = 1;
-      public const int TCI_NAME = 2;
-      public const int TCI_MEMBER_ID = 3;
-      public const int TCI_AGENCY_ID = 4;
-      public const int TCI_POST_FROM = 5;
-      public const int TCI_POST_TO = 6;
+      //
+      // Place invisible columns first so column-spanning will be more straightforward.
+      //
+      public const int TCI_MEMBER_ID = 0;
+      public const int TCI_AGENCY_ID = 1;
+      public const int TCI_GAP_DAY = 2;
+      public const int TCI_GAP_TIME = 3;
+      public const int TCI_SPACER_1 = 4;
+      public const int TCI_NAME = 5;
+      public const int TCI_SPACER_2 = 6;
+      public const int TCI_POST_FROM = 7;
+      public const int TCI_COMMENT_FROM = 8;
+      public const int TCI_SPACER_3 = 9;
+      public const int TCI_POST_TO = 10;
+      public const int TCI_COMMENT_TO = 11;
       }
 
     private p_type p;
@@ -140,10 +148,29 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       {
       LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
-      if (be_any_kind_of_item)
+      if (e.Item.ItemType == ListItemType.Header)
+        {
+        //
+        // Since indices will be pointing to moving targets, establish links to objects instead, and manipulate objects.  This is only straightforward if invisible columns are placed first.
+        //
+        var gap_day_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY];
+        var gap_time_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_TIME];
+        var post_from_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM];
+        var comment_from_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_COMMENT_FROM];
+        var post_to_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO];
+        var comment_to_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_COMMENT_TO];
+        gap_day_cell.ColumnSpan = 2;
+        e.Item.Cells.Remove(gap_time_cell);
+        post_from_cell.ColumnSpan = 2;
+        e.Item.Cells.Remove(comment_from_cell);
+        post_to_cell.ColumnSpan = 2;
+        e.Item.Cells.Remove(comment_to_cell);
+        }
+      else if (be_any_kind_of_item)
         {
         e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
-          (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text),"DAY");
+          (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text),"DAY")
+          .Replace(" DAY",k.EMPTY);
         //
         p.num_travel_gap_alert_datagrid_rows++;
         }
