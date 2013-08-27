@@ -1060,13 +1060,14 @@ namespace Class_db_schedule_assignments
       string agency_filter,
       string release_filter,
       k.subtype<int> relative_month,
-      object target
+      object target,
+      string post_footprint
       )
       {
       var agency_condition_clause = k.EMPTY;
       if (agency_filter != k.EMPTY)
         {
-        agency_condition_clause = " and agency_id = '" + agency_filter + "'";
+        agency_condition_clause = " and (agency_id = '" + agency_filter + "'" + (post_footprint.Length > 0 ? " or a_from.post_id in (" + post_footprint + ") or a_to.post_id in (" + post_footprint + ")" : k.EMPTY ) + ")";
         }
       var release_condition_clause = k.EMPTY;
       if (release_filter == "1")
@@ -1088,7 +1089,6 @@ namespace Class_db_schedule_assignments
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
           + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-          + agency_condition_clause
           + release_condition_clause
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
@@ -1126,6 +1126,7 @@ namespace Class_db_schedule_assignments
           +   " left join agency post_to on (post_to.id=a_to.post_id)"
           +   " join member on (member.id=a_from.member_id)"
           + " where a_to.post_id is not null"
+          +     agency_condition_clause
           + " order by a_from.off_duty,a_from.post_id",
           connection,
           transaction

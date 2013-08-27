@@ -125,16 +125,26 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
     private void Bind()
       {
       var be_suppressed = true;
+      var dummy_string = k.EMPTY;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      var post_footprint = k.EMPTY;
+      p.biz_schedule_assignments.GetAgencyFootprintInfo
+        (
+        agency_filter:p.agency_filter,
+        relative_month:p.relative_month,
+        nominal_day_filter:k.EMPTY,
+        posts:out post_footprint,
+        max_post_cardinality:out dummy_string
+        );
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W);
+        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W,post_footprint);
         }
       else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W);
+        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W,post_footprint);
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;
