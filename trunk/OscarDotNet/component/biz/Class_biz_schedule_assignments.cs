@@ -292,10 +292,11 @@ namespace Class_biz_schedule_assignments
       string agency_filter,
       string release_filter,
       k.subtype<int> relative_month,
-      object target
+      object target,
+      string post_footprint
       )
       {
-      db_schedule_assignments.BindTravelGapAlertBaseDataList(agency_filter,release_filter,relative_month,target);
+      db_schedule_assignments.BindTravelGapAlertBaseDataList(agency_filter,release_filter,relative_month,target,post_footprint);
       }
 
     internal void BindUnexpectedSubmissionsAlertBaseDataList
