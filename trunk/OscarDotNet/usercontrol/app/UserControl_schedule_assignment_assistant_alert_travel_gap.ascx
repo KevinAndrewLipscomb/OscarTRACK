@@ -18,24 +18,34 @@
               </tr>
               <tr>
                 <td>
+                  <!-- -->
+                  <!-- Place invisible columns first so column-spanning will be more straightforward. -->
+                  <!-- -->
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
+                      <asp:BoundColumn DataField="member_id" Visible="false"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="agency_id" Visible="false"></asp:BoundColumn>
                       <asp:BoundColumn DataField="gap_day" HeaderText="At about...">
                         <ItemStyle HorizontalAlign="Right" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="gap_time"></asp:BoundColumn>
+                      <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:BoundColumn DataField="name" HeaderText="...this member...">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:BoundColumn>
-                      <asp:BoundColumn DataField="member_id" Visible="false"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="agency_id" Visible="false"></asp:BoundColumn>
-                      <asp:ButtonColumn DataTextField="post_from" HeaderText="...must leave..." CommandName="PostFrom">
-                        <ItemStyle HorizontalAlign="Center" />
+                      <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
+                      <asp:ButtonColumn DataTextField="post_from" HeaderText="...leaves..." CommandName="PostFrom">
+                        <HeaderStyle HorizontalAlign="Left" />
+                        <ItemStyle Font-Bold="true" HorizontalAlign="Right" />
                       </asp:ButtonColumn>
+                      <asp:BoundColumn DataField="comment_from"></asp:BoundColumn>
+                      <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:ButtonColumn DataTextField="post_to" HeaderText="...to go to..." CommandName="PostTo">
-                        <ItemStyle HorizontalAlign="Center" />
+                        <HeaderStyle HorizontalAlign="Left" />
+                        <ItemStyle Font-Bold="true" HorizontalAlign="Right" />
                       </asp:ButtonColumn>
+                      <asp:BoundColumn DataField="comment_to"></asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>
