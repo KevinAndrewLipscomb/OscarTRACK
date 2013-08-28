@@ -9,7 +9,7 @@
         <tr>
           <td>
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
-              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
+              <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke" visible="false">
                 <td bgcolor="Khaki">
                   <b>Guidance:</b> In the following cases, a member may be scheduled to be in two different places at shift change.&nbsp; The member may have to end the first duty early and/or start the second duty late, causing
                   a gap in service that is not otherwise evident on the schedule.&nbsp; The most common way to resolve each case is to click one of the post designators, and on the following page, change the member's post

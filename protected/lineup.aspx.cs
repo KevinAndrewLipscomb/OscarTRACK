@@ -2,6 +2,7 @@ using Class_biz_agencies;
 using kix;
 using System;
 using System.Configuration;
+using UserControl_schedule_assignment_assistant_alert_travel_gap;
 using UserControl_schedule_proposal;
 
 namespace lineup
@@ -48,9 +49,46 @@ namespace lineup
         Session.Add("mode:report/commanded-lineup", k.EMPTY);
         //
         var UserControl_schedule_proposal_control = ((LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx") as TWebUserControl_schedule_proposal));
-        PlaceHolder_schedule_proposal.Controls.Add(UserControl_schedule_proposal_control);
+        AddIdentifiedControlToPlaceHolder
+          (
+          c:UserControl_schedule_proposal_control,
+          id:"UserControl_schedule_proposal_control",
+          p:PlaceHolder_schedule_proposal
+          );
         UserControl_schedule_proposal_control.SetInteractivity(false);
         UserControl_schedule_proposal_control.SetFilter
+          (
+          agency_filter:k.EMPTY,
+          release_filter:k.EMPTY,
+          relative_month:new k.subtype<int>(0,0)
+          );
+        //
+        var UserControl_schedule_assignment_assistant_alert_travel_gap_muster = ((LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_travel_gap.ascx") as TWebUserControl_schedule_assignment_assistant_alert_travel_gap));
+        AddIdentifiedControlToPlaceHolder
+          (
+          c:UserControl_schedule_assignment_assistant_alert_travel_gap_muster,
+          id:"UserControl_schedule_assignment_assistant_alert_travel_gap_muster",
+          p:PlaceHolder_schedule_assignment_assistant_alert_travel_gap_muster
+          );
+        UserControl_schedule_assignment_assistant_alert_travel_gap_muster.SetInteractivity(false);
+        UserControl_schedule_assignment_assistant_alert_travel_gap_muster.SetBeForMuster(true);
+        UserControl_schedule_assignment_assistant_alert_travel_gap_muster.SetFilter
+          (
+          agency_filter:k.EMPTY,
+          release_filter:k.EMPTY,
+          relative_month:new k.subtype<int>(0,0)
+          );
+        //
+        var UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal = ((LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_travel_gap.ascx") as TWebUserControl_schedule_assignment_assistant_alert_travel_gap));
+        AddIdentifiedControlToPlaceHolder
+          (
+          c:UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal,
+          id:"UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal",
+          p:PlaceHolder_schedule_assignment_assistant_alert_travel_gap_dismissal
+          );
+        UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal.SetInteractivity(false);
+        UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal.SetBeForMuster(false);
+        UserControl_schedule_assignment_assistant_alert_travel_gap_dismissal.SetFilter
           (
           agency_filter:k.EMPTY,
           release_filter:k.EMPTY,

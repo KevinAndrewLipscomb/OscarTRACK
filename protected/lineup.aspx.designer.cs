@@ -29,5 +29,23 @@ namespace lineup {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_schedule_proposal;
+        
+        /// <summary>
+        /// PlaceHolder_schedule_assignment_assistant_alert_travel_gap_muster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_schedule_assignment_assistant_alert_travel_gap_muster;
+        
+        /// <summary>
+        /// PlaceHolder_schedule_assignment_assistant_alert_travel_gap_dismissal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_schedule_assignment_assistant_alert_travel_gap_dismissal;
     }
 }
