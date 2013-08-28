@@ -40,12 +40,13 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       public const int TCI_GAP_TIME = 3;
       public const int TCI_SPACER_1 = 4;
       public const int TCI_NAME = 5;
-      public const int TCI_SPACER_2 = 6;
-      public const int TCI_POST_FROM = 7;
-      public const int TCI_COMMENT_FROM = 8;
-      public const int TCI_SPACER_3 = 9;
-      public const int TCI_POST_TO = 10;
-      public const int TCI_COMMENT_TO = 11;
+      public const int TCI_MEMBER_AGENCY_DESIGNATOR = 6;
+      public const int TCI_SPACER_2 = 7;
+      public const int TCI_POST_FROM = 8;
+      public const int TCI_COMMENT_FROM = 9;
+      public const int TCI_SPACER_3 = 10;
+      public const int TCI_POST_TO = 11;
+      public const int TCI_COMMENT_TO = 12;
       }
 
     private p_type p;
@@ -181,6 +182,13 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
           (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text),"DAY")
           .Replace(" DAY",k.EMPTY);
+        //
+        var member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        if (member_agency_id != k.EMPTY)
+          {
+          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_MEMBER_AGENCY_DESIGNATOR].Controls[0]) as Label).Text =
+            (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id + "&nbsp;&nbsp;");
+          }
         //
         p.num_travel_gap_alert_datagrid_rows++;
         }

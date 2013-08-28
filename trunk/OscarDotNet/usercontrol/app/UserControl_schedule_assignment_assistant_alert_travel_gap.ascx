@@ -34,6 +34,10 @@
                       <asp:BoundColumn DataField="name" HeaderText="...this member...">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:BoundColumn>
+                      <asp:TemplateColumn>
+                        <ItemTemplate><asp:Label ID="Label_member_agency_designator" runat="server" Font-Size="Small"></asp:Label></ItemTemplate>
+                        <ItemStyle VerticalAlign="Bottom" />
+                      </asp:TemplateColumn>
                       <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
                       <asp:ButtonColumn DataTextField="post_from" HeaderText="...leaves..." CommandName="PostFrom">
                         <HeaderStyle HorizontalAlign="Left" />
