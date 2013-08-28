@@ -293,10 +293,12 @@ namespace Class_biz_schedule_assignments
       string release_filter,
       k.subtype<int> relative_month,
       object target,
-      string post_footprint
+      string post_footprint,
+      bool be_lineup,
+      bool be_for_muster // ignored if not be_lineup
       )
       {
-      db_schedule_assignments.BindTravelGapAlertBaseDataList(agency_filter,release_filter,relative_month,target,post_footprint);
+      db_schedule_assignments.BindTravelGapAlertBaseDataList(agency_filter,release_filter,relative_month,target,post_footprint,be_lineup,be_for_muster);
       }
 
     internal void BindUnexpectedSubmissionsAlertBaseDataList

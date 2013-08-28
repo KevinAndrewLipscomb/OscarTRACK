@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/component/db/Class~db~template~kicrudhelped~items.cs~template
 
 using Class_db;
+using Class_db_shifts;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
@@ -30,10 +31,12 @@ namespace Class_db_schedule_assignments
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
+    private TClass_db_shifts db_shifts = null;
     private TClass_db_trail db_trail = null;
 
     public TClass_db_schedule_assignments() : base()
       {
+      db_shifts = new TClass_db_shifts();
       db_trail = new TClass_db_trail();
       }
 
@@ -1061,7 +1064,9 @@ namespace Class_db_schedule_assignments
       string release_filter,
       k.subtype<int> relative_month,
       object target,
-      string post_footprint
+      string post_footprint,
+      bool be_lineup,
+      bool be_for_muster // ignored if not be_lineup
       )
       {
       var agency_condition_clause = k.EMPTY;
@@ -1082,13 +1087,24 @@ namespace Class_db_schedule_assignments
       var transaction = connection.BeginTransaction();
       try
         {
+        var initial_time_window_condition_clause = k.EMPTY;
+        var subsequent_time_window_condition_clause = k.EMPTY;
+        if (be_lineup)
+          {
+          subsequent_time_window_condition_clause = " and a_to.on_duty = ADDDATE(CURDATE(),INTERVAL "
+          + (db_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0))) ? (be_for_muster ? "6" : "18") : (be_for_muster ? "18" : "30")) + " HOUR)";
+          }
+        else
+          {
+          initial_time_window_condition_clause = " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))";
+          }
         //
         // Since we are only using selects and temporary tables, do not save this to the db_trail.
         //
         new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
-          + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+          + initial_time_window_condition_clause
           + release_condition_clause
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
@@ -1127,6 +1143,7 @@ namespace Class_db_schedule_assignments
           +   " join member on (member.id=a_from.member_id)"
           + " where a_to.post_id is not null"
           +     agency_condition_clause
+          +     subsequent_time_window_condition_clause
           + " order by a_from.off_duty,a_from.post_id",
           connection,
           transaction

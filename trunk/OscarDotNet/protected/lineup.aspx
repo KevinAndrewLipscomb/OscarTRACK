@@ -26,6 +26,10 @@
     </table>
     <br />
     <p><asp:PlaceHolder ID="PlaceHolder_schedule_proposal" runat="server"></asp:PlaceHolder></p>
+    <h3>Travel gaps at MUSTER</h3>
+    <blockquote><asp:PlaceHolder ID="PlaceHolder_schedule_assignment_assistant_alert_travel_gap_muster" runat="server"></asp:PlaceHolder></blockquote>
+    <h3>Travel gaps at DISMISSAL</h3>
+    <blockquote><asp:PlaceHolder ID="PlaceHolder_schedule_assignment_assistant_alert_travel_gap_dismissal" runat="server"></asp:PlaceHolder></blockquote>
     </form>
     <script type="text/javascript">window.print();</script>
   </body>

@@ -13,7 +13,9 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
   public struct p_type
     {
     public string agency_filter;
+    public bool be_for_muster;
     public bool be_interactive;
+    public bool be_lineup;
     public bool be_loaded;
     public bool be_travel_gap_alert_datagrid_empty;
     public bool be_user_privileged_to_see_all_squads;
@@ -55,6 +57,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       {
       if (!p.be_loaded)
         {
+        TableRow_guidance.Visible = p.be_interactive;
         //
         Bind();
         //
@@ -67,10 +70,19 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[InstanceId() + ".p"] != null)
+      var instance_id = InstanceId();
+      if (Session[instance_id + ".p"] != null)
         {
-        p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_S_G_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_travel_gap");
+        p = (p_type)(Session[instance_id + ".p"]);
+        p.be_loaded = IsPostBack;  // This test is sufficient if this control is being used statically on its page.
+        //
+        // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
+        // had it loaded already.
+        //
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_schedule_assignment_assistant_alert_binder_schedule_assignment_assistant_alert_travel_gap")
+          {
+          p.be_loaded &= ((Session["M_S_G_UserControl_schedule_assignment_assistant_alert_binder_PlaceHolder_content"] as string) == "UserControl_schedule_assignment_assistant_alert_travel_gap");
+          }
         }
       else
         {
@@ -81,6 +93,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.msg_protected_overview = new TClass_msg_protected.overview();
         p.num_travel_gap_alert_datagrid_rows = 0;
@@ -110,6 +123,11 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       return this;
       }
 
+    internal void SetBeForMuster(bool be_for_muster)
+      {
+      p.be_for_muster = be_for_muster;
+      }
+
     internal void SetFilter
       (
       string agency_filter,
@@ -121,6 +139,11 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       p.release_filter = release_filter;
       p.relative_month = relative_month;
       Bind();
+      }
+
+    internal void SetInteractivity(bool be_interactive)
+      {
+      p.be_interactive = be_interactive;
       }
 
     private void Bind()
@@ -140,12 +163,12 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W,post_footprint);
+        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W,post_footprint,p.be_lineup,p.be_for_muster);
         }
       else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W,post_footprint);
+        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W,post_footprint,p.be_lineup,p.be_for_muster);
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;
