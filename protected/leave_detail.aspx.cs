@@ -1,24 +1,29 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
+using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_user;
-using appcommon;
 using Class_db_leaves;
+using kix;
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Web.UI.WebControls;
+
 namespace leave_detail
 {
+
+  public static class leave_detail_Static
+    {
+    public const int TCCI_ID = 0;
+    public const int TCCI_START_DATE = 1;
+    public const int TCCI_END_DATE = 2;
+    public const int TCCI_KIND_OF_LEAVE = 3;
+    public const int TCCI_NUM_OBLIGED_SHIFTS = 4;
+    public const int TCCI_NOTE = 5;
+    public const int TCCI_EDIT = 6;
+    public const int TCCI_DELETE = 7;
+    }
+
     public partial class TWebForm_leave_detail: ki_web_ui.page_class
     {
         private p_type p;
@@ -125,18 +130,37 @@ namespace leave_detail
                 switch(p.biz_leaves.RelativityOf(e.Item.Cells[Class_db_leaves_Static.TCCI_START_DATE].Text, e.Item.Cells[Class_db_leaves_Static.TCCI_END_DATE].Text))
                 {
                     case Class_biz_leaves.relativity_type.PAST:
-                        ((e.Item.Cells[Units.leave_detail.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-                        ((e.Item.Cells[Units.leave_detail.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+                        ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+                        ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
                         break;
                     case Class_biz_leaves.relativity_type.ESTABLISHED:
-                        ((e.Item.Cells[Units.leave_detail.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-                        ((e.Item.Cells[Units.leave_detail.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Units.leave_detail.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+                        ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !k.Has((string[])(Session["privilege_array"]),"clear-medical-leave"))
+                          {
+                          ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+                          }
+                        else
+                          {
+                          ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+                          }
                         break;
                     case Class_biz_leaves.relativity_type.FORMATIVE:
+                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !k.Has((string[])(Session["privilege_array"]),"clear-medical-leave"))
+                          {
+                          ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+                          ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+                          }
+                        else
+                          {
+                          ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
+                          RequireConfirmation(((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
+                          ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+                          }
+                        break;
                     case Class_biz_leaves.relativity_type.FUTURE:
-                        ((e.Item.Cells[Units.leave_detail.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Units.leave_detail.TCCI_DELETE].Controls[0]) as LinkButton).Text);
-                        RequireConfirmation(((e.Item.Cells[Units.leave_detail.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
-                        ((e.Item.Cells[Units.leave_detail.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Units.leave_detail.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+                        ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
+                        RequireConfirmation(((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
+                        ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
                         break;
                 }
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
@@ -160,9 +184,9 @@ namespace leave_detail
 
         private void Bind()
         {
-            DataGrid_leaves.Columns[Units.leave_detail.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
-            DataGrid_leaves.Columns[Units.leave_detail.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
-            DataGrid_leaves.Columns[Units.leave_detail.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
+            DataGrid_leaves.Columns[leave_detail_Static.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
+            DataGrid_leaves.Columns[leave_detail_Static.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
+            DataGrid_leaves.Columns[leave_detail_Static.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
             p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(Session["member_summary"]), p.sort_order, p.be_sort_order_ascending, DataGrid_leaves);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
@@ -188,17 +212,6 @@ namespace leave_detail
         } // end p_type
 
     } // end TWebForm_leave_detail
-
-}
-
-namespace leave_detail.Units
-{
-    public class leave_detail
-    {
-        public const int TCCI_NOTE = 5;
-        public const int TCCI_EDIT = 6;
-        public const int TCCI_DELETE = 7;
-    } // end leave_detail
 
 }
 
