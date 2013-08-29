@@ -41,8 +41,21 @@
 			  <tr>
 				<td>Kind:</td>
 				<td>
-				  <ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
-				<td nowrap="nowrap">
+				  <table cellspacing="0" cellpadding="0" border="0">
+            <tr>
+              <td valign="top"><ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
+					    <td>
+						    <table cellspacing="0" cellpadding="5" border="0">
+						      <tr>
+                    <td valign="top">•</td>
+							      <td><small>Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it.</small></td>
+						      </tr>
+						    </table>
+              </td>
+					  </tr>
+				  </table>
+        </td>
+        <td nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
