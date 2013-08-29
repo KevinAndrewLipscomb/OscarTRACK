@@ -26,6 +26,22 @@ namespace leave_detail
 
     public partial class TWebForm_leave_detail: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public bool be_datagrid_empty;
+      public bool be_sort_order_ascending;
+      public bool be_user_privileged_to_clear_medical_leave;
+      public bool be_user_privileged_to_grant_leave;
+      public bool be_user_privileged_to_see_personnel_status_notes;
+      public TClass_biz_leaves biz_leaves;
+      public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
+      public string cad_num_string;
+      public uint num_datagrid_rows;
+      public string sort_order;
+      }
+
         private p_type p;
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -82,6 +98,7 @@ namespace leave_detail
                     p.biz_members = new TClass_biz_members();
                     p.biz_user = new TClass_biz_user();
                     p.be_sort_order_ascending = false;
+                    p.be_user_privileged_to_clear_medical_leave = k.Has((string[])(Session["privilege_array"]),"clear-medical-leave");
                     p.be_user_privileged_to_grant_leave = k.Has((string[])(Session["privilege_array"]), "grant-leave") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
                     p.be_user_privileged_to_see_personnel_status_notes = k.Has((string[])(Session["privilege_array"]), "see-personnel-status-notes") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
                     p.num_datagrid_rows = 0;
@@ -135,7 +152,7 @@ namespace leave_detail
                         break;
                     case Class_biz_leaves.relativity_type.ESTABLISHED:
                         ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !k.Has((string[])(Session["privilege_array"]),"clear-medical-leave"))
+                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave)
                           {
                           ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
                           }
@@ -145,7 +162,7 @@ namespace leave_detail
                           }
                         break;
                     case Class_biz_leaves.relativity_type.FORMATIVE:
-                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !k.Has((string[])(Session["privilege_array"]),"clear-medical-leave"))
+                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave)
                           {
                           ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
                           ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
@@ -196,20 +213,6 @@ namespace leave_detail
             p.num_datagrid_rows = 0;
 
         }
-
-        private struct p_type
-        {
-            public bool be_datagrid_empty;
-            public bool be_sort_order_ascending;
-            public bool be_user_privileged_to_grant_leave;
-            public bool be_user_privileged_to_see_personnel_status_notes;
-            public TClass_biz_leaves biz_leaves;
-            public TClass_biz_members biz_members;
-            public TClass_biz_user biz_user;
-            public string cad_num_string;
-            public uint num_datagrid_rows;
-            public string sort_order;
-        } // end p_type
 
     } // end TWebForm_leave_detail
 
