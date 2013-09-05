@@ -120,8 +120,21 @@ namespace Class_db_members
             db_medical_release_levels = new TClass_db_medical_release_levels();
             db_trail = new TClass_db_trail();
         }
-        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num)
-        {
+        public void Add
+          (
+          string first_name,
+          string last_name,
+          string cad_num,
+          uint medical_release_code,
+          bool be_driver_qualified,
+          uint agency_id,
+          string email_address,
+          DateTime enrollment_date,
+          uint enrollment_code,
+          string phone_num,
+          string section_num
+          )
+          {
             string enrollment_date_string;
             string sql;
             enrollment_date_string = enrollment_date.ToString("yyyy-MM-dd");
@@ -135,17 +148,23 @@ namespace Class_db_members
             {
                 sql = sql + " , equivalent_los_start_date = \"" + enrollment_date_string + "\"";
             }
+            if (section_num.Length > 0)
+              {
+              sql += " , section_num = '" + section_num + "'";
+              }
             sql = sql + ";" + " insert into enrollment_history" + " set member_id = (select max(id) from member)" + " , level_code = " + enrollment_code.ToString() + " , start_date = \"" + enrollment_date_string + "\"" + ";" + " COMMIT";
             this.Open();
             new MySqlCommand(db_trail.Saved(sql), this.connection).ExecuteNonQuery();
             this.Close();
-        }
-
+          }
+        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num)
+          {
+          Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17, phone_num, section_num:k.EMPTY);
+          }
         public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date)
         {
             Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17);
         }
-
         public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code)
         {
             Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, "");

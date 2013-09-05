@@ -1,23 +1,15 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
 using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
+using Class_biz_sections;
 using Class_biz_user;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
 using UserControl_drop_down_date;
+
 namespace add_member
 {
     public struct p_type
@@ -26,13 +18,16 @@ namespace add_member
         public TClass_biz_enrollment biz_enrollment;
         public TClass_biz_medical_release_levels biz_medical_release_levels;
         public TClass_biz_members biz_members;
+        public TClass_biz_sections biz_sections;
         public TClass_biz_user biz_user;
     } // end p_type
 
     public partial class TWebForm_add_member: ki_web_ui.page_class
     {
         private p_type p;
+
         protected TWebUserControl_drop_down_date UserControl_enrollment_date = null;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -47,7 +42,7 @@ namespace add_member
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_member";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - add_member";
                 if (k.Has((string[])(Session["privilege_array"]), "see-all-squads"))
                 {
                     TableRow_agency.Visible = true;
@@ -57,6 +52,7 @@ namespace add_member
                 {
                     TableRow_agency.Visible = false;
                 }
+                p.biz_sections.BindListControl(DropDownList_section);
                 p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
                 UserControl_enrollment_date.minyear = "1940";
                 UserControl_enrollment_date.maxyear = DateTime.Today.Year.ToString();
@@ -95,6 +91,7 @@ namespace add_member
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
                     p.biz_members = new TClass_biz_members();
+                    p.biz_sections = new TClass_biz_sections();
                     p.biz_user = new TClass_biz_user();
                 }
             }
@@ -193,14 +190,29 @@ namespace add_member
                     {
                         agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
                     }
-                    if (p.biz_members.Add(k.Safe(TextBox_first_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_last_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME), k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM), k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM), k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)), agency_id, k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS), UserControl_enrollment_date.selectedvalue, k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM), k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM)))
-                    {
-                        result = true;
-                    }
+                    if(
+                      p.biz_members.Add
+                        (
+                        k.Safe(TextBox_first_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
+                        k.Safe(TextBox_last_name.Text.Trim(), k.safe_hint_type.HUMAN_NAME),
+                        k.Safe(TextBox_cad_num.Text, k.safe_hint_type.NUM),
+                        k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
+                        k.BooleanOfYesNo(k.Safe(RadioButtonList_driver_qualified_yes_no.SelectedValue, k.safe_hint_type.ALPHA)),
+                        agency_id,
+                        k.Safe(TextBox_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS),
+                        UserControl_enrollment_date.selectedvalue,
+                        k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM),
+                        k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM),
+                        k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM)
+                        )
+                      )
+                      {
+                      result = true;
+                      }
                     else
-                    {
-                        Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "alreadinsys", "NOT ADDED:  The specified name and/or CAD# is already in the system.", true);
-                    }
+                      {
+                      Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "alreadinsys", "NOT ADDED:  The specified name and/or CAD# is already in the system.", true);
+                      }
                 }
                 else
                 {
