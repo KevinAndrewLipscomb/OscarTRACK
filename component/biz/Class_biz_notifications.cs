@@ -1043,8 +1043,22 @@ namespace Class_biz_notifications
         }
 
         private delegate string IssueForMemberAdded_Merge(string s);
-        public void IssueForMemberAdded(string member_id, string first_name, string last_name, string cad_num, string medical_release_level, bool be_driver_qualified, string agency_name, string email_address, string enrollment_date, string enrollment_level, string phone_num)
-        {
+        public void IssueForMemberAdded
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string medical_release_level,
+          bool be_driver_qualified,
+          string agency_name,
+          string email_address,
+          string enrollment_date,
+          string enrollment_level,
+          string phone_num,
+          string section_num
+          )
+          {
             string actor = k.EMPTY;
             string actor_email_address = k.EMPTY;
             string actor_member_id;
@@ -1069,7 +1083,9 @@ namespace Class_biz_notifications
                 .Replace("<email_address/>", email_address)
                 .Replace("<enrollment_date/>", enrollment_date)
                 .Replace("<enrollment_level/>", enrollment_level)
-                .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num));
+                .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num))
+                .Replace("<section_num/>", section_num)
+                ;
               };
 
             biz_members = new TClass_biz_members();
@@ -1089,7 +1105,7 @@ namespace Class_biz_notifications
             // reply_to
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], email_address + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("member-added", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
             template_reader.Close();
-        }
+          }
 
         private delegate string IssueForMemberNameChange_Merge(string s);
         public void IssueForMemberNameChange(string member_id, string cad_num, string old_first_name, string old_last_name, string new_first_name, string new_last_name)
