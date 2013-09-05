@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="uc1" TagName="drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <html>
   <head runat="server">
-    <title id="Title" runat="server"></title>
+    <title></title>
     <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
@@ -26,32 +26,32 @@
                     <tr>
                       <td>First name:</td>
                       <td><ASP:TextBox id="TextBox_first_name" runat="server" maxlength="31" columns="20"></ASP:TextBox></td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_first_name" runat="server" errormessage="Please enter a first name." font-bold="True" controltovalidate="TextBox_first_name">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_first_name" runat="server" errormessage="Please enter a first name." font-bold="True" controltovalidate="TextBox_first_name">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
                     <tr>
                       <td>Last name:</td>
                       <td><ASP:TextBox id="TextBox_last_name" runat="server" maxlength="31" columns="20"></ASP:TextBox></td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_last_name" runat="server" errormessage="Please enter a last name." font-bold="True" controltovalidate="TextBox_last_name">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_last_name" runat="server" errormessage="Please enter a last name." font-bold="True" controltovalidate="TextBox_last_name">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
                     <tr>
                       <td>Phone # (cellular preferred):</td>
                       <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14"></ASP:TextBox></td>
-                      <td nowrap="true"><ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." font-bold="True" controltovalidate="TextBox_phone_num" onservervalidate="CustomValidator_phone_num_ServerValidate">!ERR!</ASP:CustomValidator></td>
+                      <td nowrap="nowrap"><ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." font-bold="True" controltovalidate="TextBox_phone_num" onservervalidate="CustomValidator_phone_num_ServerValidate">!ERR!</ASP:CustomValidator></td>
                     </tr>
                     <tr>
                       <td>Email address:</td>
                       <td><ASP:TextBox id="TextBox_email_address" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
-                      <td nowrap="true"><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a syntactically valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_ServerValidate">!ERR!</ASP:CustomValidator></td>
+                      <td nowrap="nowrap"><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a syntactically valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_ServerValidate">!ERR!</ASP:CustomValidator></td>
                     </tr>
                     <tr>
                       <td>CAD#:</td>
                       <td><ASP:TextBox id="TextBox_cad_num" runat="server" maxlength="6" columns="6"></ASP:TextBox></td>
-                      <td nowrap="true"><ASP:RegularExpressionValidator id="RegularExpressionValidator_cad_num" runat="server" errormessage="Please enter a valid CAD#." controltovalidate="TextBox_cad_num" validationexpression="\d{6}" font-bold="True">!ERR!</ASP:RegularExpressionValidator></td>
+                      <td nowrap="nowrap"><ASP:RegularExpressionValidator id="RegularExpressionValidator_cad_num" runat="server" errormessage="Please enter a valid CAD#." controltovalidate="TextBox_cad_num" validationexpression="\d{6}" font-bold="True">!ERR!</ASP:RegularExpressionValidator></td>
                     </tr>
                     <tr>
                       <td>Cert level at which member is released <u>to function in Virginia Beach</u>:</td>
                       <td><ASP:DropDownList id="DropDownList_medical_release_level" runat="server"></ASP:DropDownList></td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_medical_release_level" runat="server" errormessage="Please select a released cert level." font-bold="True" controltovalidate="DropDownList_medical_release_level">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_medical_release_level" runat="server" errormessage="Please select a released cert level." font-bold="True" controltovalidate="DropDownList_medical_release_level">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
                     <tr>
                       <td>Qualified driver:</td>
@@ -61,29 +61,34 @@
                           <ASP:ListItem value="No">No</ASP:ListItem>
                         </ASP:RadioButtonList>
                       </td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_qualified_driver_yes_no" runat="server" errormessage="Please indicate whether or not the member is a qualified driver." font-bold="True" controltovalidate="RadioButtonList_driver_qualified_yes_no">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_qualified_driver_yes_no" runat="server" errormessage="Please indicate whether or not the member is a qualified driver." font-bold="True" controltovalidate="RadioButtonList_driver_qualified_yes_no">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
                     <tr id="TableRow_agency" runat="server">
                       <td>Agency:</td>
                       <td><ASP:DropDownList id="DropDownList_agency" runat="server"></ASP:DropDownList></td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_agency" runat="server" errormessage="Please select an agency." font-bold="True" controltovalidate="DropDownList_agency">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_agency" runat="server" errormessage="Please select an agency." font-bold="True" controltovalidate="DropDownList_agency">!ERR!</ASP:RequiredFieldValidator></td>
+                    </tr>
+                    <tr id="TableRow_section" runat="server">
+                      <td>Section:</td>
+                      <td><ASP:DropDownList id="DropDownList_section" runat="server"></ASP:DropDownList></td>
+                      <td nowrap="nowrap"></td>
                     </tr>
                     <tr>
                       <td valign="top">Entry date:</td>
-                      <td nowrap="true">
+                      <td nowrap="nowrap">
                         <uc1:drop_down_date runat="server" id="UserControl_enrollment_date"></uc1:drop_down_date>
                       </td>
-                      <td nowrap="true">
+                      <td nowrap="nowrap">
                         <ASP:Label id="Label_invalid_enrollment_date" runat="server" font-bold="True" forecolor="Red" visible="False">!ERR!</ASP:Label>
                       </td>
                     </tr>
                     <tr>
-                      <td><p>Membership status:<br><small></small></p></td>
+                      <td>Membership status:</td>
                       <td><ASP:DropDownList id="DropDownList_enrollment_level" runat="server"></ASP:DropDownList></td>
-                      <td nowrap="true"><ASP:RequiredFieldValidator id="RequiredFieldValidator_enrollment_level" runat="server" errormessage="Please select a membership status." font-bold="True" controltovalidate="DropDownList_enrollment_level">!ERR!</ASP:RequiredFieldValidator></td>
+                      <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_enrollment_level" runat="server" errormessage="Please select a membership status." font-bold="True" controltovalidate="DropDownList_enrollment_level">!ERR!</ASP:RequiredFieldValidator></td>
                     </tr>
                   </table>
-                  <hr size="1">
+                  <hr size="1"/>
                   <table cellspacing="0" cellpadding="5" border="0">
                     <tr>
                       <td colspan="4"><i>Adding a member is now a 3-step process...</i></td>
