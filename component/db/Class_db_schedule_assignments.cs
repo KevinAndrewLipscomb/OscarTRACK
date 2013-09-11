@@ -2339,6 +2339,9 @@ namespace Class_db_schedule_assignments
       var month_yyyy_mm = convenient_datetime.ToString("yyyy-MM");
       string trimables;
       Open();
+      var be_done = false;
+      while (!be_done)
+        {
       var transaction = connection.BeginTransaction();
       try
         {
@@ -2870,11 +2873,16 @@ namespace Class_db_schedule_assignments
             .ExecuteNonQuery();
           }
         transaction.Commit();
+        be_done = true;
         }
       catch (Exception e)
         {
         transaction.Rollback();
+        if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+          {
         throw e;
+          }
+        }
         }
       Close();
       }
