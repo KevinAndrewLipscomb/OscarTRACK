@@ -2878,9 +2878,13 @@ namespace Class_db_schedule_assignments
         catch (Exception e)
           {
           transaction.Rollback();
-          if (!e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+          if (e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
-          throw e;
+            new MySqlCommand("drop temporary table shift_popularity",connection).ExecuteNonQuery();
+            }
+          else
+            {
+            throw e;
             }
           }
         }
