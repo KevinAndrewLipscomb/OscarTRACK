@@ -2,8 +2,10 @@ select agency.short_designator
  , concat(member.first_name,' ',member.last_name) as name
  , cad_num
  , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released
- , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant
+ , enrollment_level.description as membership_status
  , if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,num_shifts) as obliged
+ , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description <> 'Atypical',FALSE,NULL)) as be_compliant
+ , count(schedule_assignment.id) as num_avails
  , IFNULL(sum(be_selected),0) as assigned
  , IFNULL(sum(be_selected),0) - if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,num_shifts)as balance
 from member
