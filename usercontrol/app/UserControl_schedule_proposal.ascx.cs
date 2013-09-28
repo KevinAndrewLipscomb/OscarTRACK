@@ -700,6 +700,8 @@ namespace UserControl_schedule_proposal
                   p.be_squad_exclusivity_expired
                 )
               )
+            ||
+              p.be_ok_to_scheduler_squad_truck_team
             );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
@@ -721,6 +723,8 @@ namespace UserControl_schedule_proposal
                   p.be_squad_exclusivity_expired
                 )
               )
+            ||
+              p.be_ok_to_scheduler_squad_truck_team
             );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
