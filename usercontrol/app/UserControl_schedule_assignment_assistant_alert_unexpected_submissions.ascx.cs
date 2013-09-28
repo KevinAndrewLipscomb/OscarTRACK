@@ -1,3 +1,4 @@
+using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_msg_protected;
@@ -16,8 +17,10 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
     public string agency_filter;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_ok_to_schedule_squad_truck_team;
     public bool be_unexpected_submissions_alert_datagrid_empty;
     public bool be_user_privileged_to_see_all_squads;
+    public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
@@ -25,6 +28,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
     public string own_agency;
     public k.subtype<int> relative_month;
     public string release_filter;
+    public string sqt_agency_id;
     }
 
   public partial class TWebUserControl_schedule_assignment_assistant_alert_unexpected_submissions: ki_web_ui.usercontrol_class
@@ -63,17 +67,20 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
         {
         p.be_loaded = false;
         //
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_unexpected_submissions_alert_datagrid_rows = 0;
         p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        p.sqt_agency_id = p.biz_agencies.IdOfShortDesignator("SQT");
         }
       }
 
@@ -133,7 +140,14 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
           {
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.own_agency));
+          link_button.Enabled =
+            (
+              p.be_user_privileged_to_see_all_squads
+            ||
+              (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.own_agency)
+            ||
+              (p.be_ok_to_schedule_squad_truck_team && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.sqt_agency_id))
+            );
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.

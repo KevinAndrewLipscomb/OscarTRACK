@@ -28,7 +28,7 @@ namespace UserControl_schedule_proposal
     public bool be_now_day_shift;
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
-    public bool be_ok_to_scheduler_squad_truck_team;
+    public bool be_ok_to_schedule_squad_truck_team;
     public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_squad_exclusivity_expired;
     public bool be_user_privileged_to_see_all_squads;
@@ -190,7 +190,7 @@ namespace UserControl_schedule_proposal
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
-        p.be_ok_to_scheduler_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
+        p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
@@ -441,7 +441,7 @@ namespace UserControl_schedule_proposal
           agency_filter:p.agency_filter,
           post_footprint:p.post_footprint,
           be_condensed:!CheckBox_expand_posts.Checked,
-          be_user_squad_truck_team_scheduler:p.be_ok_to_scheduler_squad_truck_team,
+          be_user_squad_truck_team_scheduler:p.be_ok_to_schedule_squad_truck_team,
           target:proto_post_list_item_collection
           );
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
@@ -701,7 +701,7 @@ namespace UserControl_schedule_proposal
                 )
               )
             ||
-              p.be_ok_to_scheduler_squad_truck_team
+              p.be_ok_to_schedule_squad_truck_team
             );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
@@ -724,7 +724,7 @@ namespace UserControl_schedule_proposal
                 )
               )
             ||
-              p.be_ok_to_scheduler_squad_truck_team
+              p.be_ok_to_schedule_squad_truck_team
             );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
