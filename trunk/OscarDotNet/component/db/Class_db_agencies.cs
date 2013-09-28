@@ -228,6 +228,7 @@ namespace Class_db_agencies
           string agency_filter,
           string post_footprint,
           bool be_condensed,
+          bool be_user_squad_truck_team_scheduler,
           object target
           )
           {
@@ -238,7 +239,9 @@ namespace Class_db_agencies
             "select agency.id,agency.short_designator"
             + " from agency"
             +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=agency.id)"
-            + " where be_ems_post" + (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
+            + " where be_ems_post"
+            +     (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
+            +     (be_user_squad_truck_team_scheduler ? " or short_designator = 'SQT'" : k.EMPTY)
             + " order by agency.id",
             connection
             )
