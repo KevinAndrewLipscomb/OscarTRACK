@@ -28,6 +28,7 @@ namespace UserControl_schedule_proposal
     public bool be_now_day_shift;
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
+    public bool be_ok_to_scheduler_squad_truck_team;
     public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_squad_exclusivity_expired;
     public bool be_user_privileged_to_see_all_squads;
@@ -189,6 +190,7 @@ namespace UserControl_schedule_proposal
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_scheduler_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
@@ -433,7 +435,15 @@ namespace UserControl_schedule_proposal
         //
         p.biz_schedule_assignments.GetAgencyFootprintInfo(p.agency_filter,p.relative_month,p.nominal_day_filter_active,out p.post_footprint,out p.max_post_cardinality_actual);
         var proto_post_list_item_collection = new ListItemCollection();
-        p.biz_agencies.BindEmsPostListItemCollectionShort((p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),p.agency_filter,p.post_footprint,!CheckBox_expand_posts.Checked,proto_post_list_item_collection);
+        p.biz_agencies.BindEmsPostListItemCollectionShort
+          (
+          tier:(p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),
+          agency_filter:p.agency_filter,
+          post_footprint:p.post_footprint,
+          be_condensed:!CheckBox_expand_posts.Checked,
+          be_user_squad_truck_team_scheduler:p.be_ok_to_scheduler_squad_truck_team,
+          target:proto_post_list_item_collection
+          );
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
         proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
         var max_post_cardinality_commanded = k.Safe(DropDownList_max_post_cardinality.SelectedValue,k.safe_hint_type.ALPHA);

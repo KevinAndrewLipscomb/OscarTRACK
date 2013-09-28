@@ -148,10 +148,11 @@ namespace Class_biz_agencies
           string agency_filter,
           string post_footprint,
           bool be_condensed,
+          bool be_user_squad_truck_team_scheduler,
           object target
           )
           {
-          db_agencies.BindEmsPostListItemCollectionShort(tier,agency_filter,post_footprint,be_condensed,target);
+          db_agencies.BindEmsPostListItemCollectionShort(tier,agency_filter,post_footprint,be_condensed,be_user_squad_truck_team_scheduler,target);
           }
 
         internal void BindEvalPostDirectToListControl(object target)
