@@ -82,7 +82,7 @@ namespace Class_db_members
           +       " )"
           +   " join agency on (agency.id=member.agency_id)"
           + " where"
-          +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +   " and"
           +     " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
           }
@@ -304,7 +304,7 @@ namespace Class_db_members
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
-            where_clause = " where (enrollment_level.description in (\"Applicant\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\"," + "\"Recruit\",\"Admin\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\",\"New trainee\"))";
+            where_clause = " where (enrollment_level.description in (\"Applicant\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Staff\",\"ALS Intern\",\"College\",\"Atypical\"," + "\"Recruit\",\"Admin\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\",\"New trainee\"))";
             if (agency_filter != k.EMPTY)
             {
                 where_clause = where_clause + " and (agency_id = \"" + agency_filter + "\")";
@@ -366,7 +366,7 @@ namespace Class_db_members
             +       " )"
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
+            + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
             +   " and"
             +     " ("
             +       " ("
@@ -428,7 +428,7 @@ namespace Class_db_members
             +       " )"
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
+            + " where enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring')"
             +   " and medical_release_code_description_map.pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
             + " order by member_designator",
             connection
@@ -459,7 +459,7 @@ namespace Class_db_members
             string from_where_phrase;
             string metric_phrase;
             metric_phrase = " count(*)";
-            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
+            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
             this.Open();
             if (do_log)
             {
@@ -569,7 +569,7 @@ namespace Class_db_members
                 +         " )"
                 +     " join agency on (agency.id=member.agency_id)"
                 +   " where"
-                +       " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+                +       " enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
                 +     " and"
                 +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
                 +     " and agency.id <> 0"
@@ -641,7 +641,7 @@ namespace Class_db_members
             string from_where_phrase;
             string metric_phrase;
             metric_phrase = " count(if((core_ops_commitment_level_code = 3),1,NULL))/count(*)";
-            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and agency_id <> 0";
+            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and agency_id <> 0";
             this.Open();
             if (do_log)
             {
@@ -683,7 +683,7 @@ namespace Class_db_members
           +     " if"
           +       " ("
           +         " ("
-          +           " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +           " enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +         " and"
           +           " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
           +         " ),"
@@ -735,7 +735,7 @@ namespace Class_db_members
           +       " )"
           +   " join agency on (agency.id=member.agency_id)"
           + " where"
-          +     " enrollment_level.description in ('Associate','Recruit','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          +     " enrollment_level.description in ('Associate','Recruit','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +   " and"
           +     " ("
           +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
@@ -798,7 +798,7 @@ namespace Class_db_members
             +     " if"
             +       " ("
             +         " ("
-            +           " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+            +           " enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
             +         " and"
             +           " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
             +         " ),"
@@ -833,7 +833,7 @@ namespace Class_db_members
             string from_where_phrase;
             string metric_phrase;
             metric_phrase = " IFNULL(sum(" + " if" + " (" + " (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE()))," + " num_obliged_shifts," + " num_shifts" + " )" + " )/sum(num_shifts),0)";
-            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= CURDATE())" + " and" + " (leave_of_absence.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
+            from_where_phrase = " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= CURDATE())" + " and" + " (leave_of_absence.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString();
             this.Open();
             if (do_log)
             {
@@ -879,16 +879,22 @@ namespace Class_db_members
                 switch(enrollment_filter)
                 {
                     case Class_biz_enrollment.filter_type.CURRENT:
-                        filter = filter + " in (\"Applicant\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Recruit\",\"Admin\"" + ",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\",\"New trainee\") ";
+                        filter = filter + " in (\"Applicant\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Recruit\",\"Admin\"" + ",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\",\"New trainee\") ";
                         break;
                     case Class_biz_enrollment.filter_type.APPLICANT:
                         filter = filter + " = \"Applicant\" ";
                         break;
                     case Class_biz_enrollment.filter_type.OPERATIONAL:
-                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"SpecOps\",\"New trainee\") ";
+                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"SpecOps\",\"New trainee\") ";
                         break;
-                    case Class_biz_enrollment.filter_type.STANDARD_OPS:
-                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"New trainee\") ";
+                    case Class_biz_enrollment.filter_type.CORE_OPS:
+                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"New trainee\") ";
+                        break;
+                    case Class_biz_enrollment.filter_type.STANDARD:
+                        filter = filter + " in ('Regular','Life','Tenured') ";
+                        break;
+                    case Class_biz_enrollment.filter_type.LIBERAL:
+                        filter = filter + " in ('Associate','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)'" + ",'Reduced (3)','New trainee') ";
                         break;
                     case Class_biz_enrollment.filter_type.ASSOCIATE:
                         filter = filter + " = \"Associate\" ";
@@ -904,6 +910,15 @@ namespace Class_db_members
                         break;
                     case Class_biz_enrollment.filter_type.TENURED:
                         filter = filter + " = \"Tenured\" ";
+                        break;
+                    case Class_biz_enrollment.filter_type.STAFF:
+                        filter = filter + " = \"Staff\" ";
+                        break;
+                    case Class_biz_enrollment.filter_type.ALS_INTERN:
+                        filter = filter + " = \"ALS Intern\" ";
+                        break;
+                    case Class_biz_enrollment.filter_type.COLLEGE:
+                        filter = filter + " = \"College\" ";
                         break;
                     case Class_biz_enrollment.filter_type.ATYPICAL:
                         filter = filter + " = \"Atypical\" ";
@@ -1116,7 +1131,7 @@ namespace Class_db_members
         public void BindSpecialForRankedLengthOfService(object target)
         {
             this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand("select agency.id as agency" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= CURDATE())" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and" + " core_ops_commitment_level_code > 1", this.connection).ExecuteReader();
+            ((target) as DataGrid).DataSource = new MySqlCommand("select agency.id as agency" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= CURDATE())" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in (\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"New trainee\")" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and" + " core_ops_commitment_level_code > 1", this.connection).ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -1230,7 +1245,7 @@ namespace Class_db_members
           +     " (select distinct odnmid from avail_sheet where month = '" + DateTime.Now.AddMonths(1).ToString("MMM") + "') as condensed_avail_sheet on (condensed_avail_sheet.odnmid=member.id)"
           +   " left join"
           +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
-          + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+          + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
           +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts))"
           +   " and (condensed_avail_sheet.odnmid is null)"
           +   " and (condensed_schedule_assignment.member_id is null)"
@@ -1282,14 +1297,14 @@ namespace Class_db_members
             sql += k.EMPTY
             + " and"
             +   " ("
-            +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','New trainee')"
+            +     " enrollment_level.description in ('Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','New trainee')"
             +   " or"
             +     " (enrollment_level.description = 'Recruit' and medical_release_code = '9')"
             +   " )";
             }
           else
             {
-            sql += " and enrollment_level.description in ('Applicant','Associate','Regular','Life','Tenured','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee')";
+            sql += " and enrollment_level.description in ('Applicant','Associate','Regular','Life','Tenured','Staff','ALS Intern','College','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee')";
             }
           if (agency_short_designator != k.EMPTY)
             {
@@ -1525,7 +1540,7 @@ namespace Class_db_members
             string length_of_service;
             any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))";
             this.Open();
-            dr = new MySqlCommand("select last_name" + " , first_name" + " , cad_num" + " , short_designator as agency" + " , section_num" + " , medical_release_code_description_map.description as medical_release_description" + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" + " , enrollment_level.description as enrollment" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " , if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,\"\") as kind_of_leave" + " , if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts) as obliged_shifts" + " , email_address" + " , phone_num" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " join agency on (agency.id=member.agency_id)" + " where enrollment_level.description in (\"Applicant\",\"Operational\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",\"Atypical\"" + " , \"Recruit\",\"Admin\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\")" + " and email_address is not null" + " and TRIM(email_address) <> \"\"" + " order by RAND()", this.connection).ExecuteReader();
+            dr = new MySqlCommand("select last_name" + " , first_name" + " , cad_num" + " , short_designator as agency" + " , section_num" + " , medical_release_code_description_map.description as medical_release_description" + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" + " , enrollment_level.description as enrollment" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " , if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,\"\") as kind_of_leave" + " , if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts) as obliged_shifts" + " , email_address" + " , phone_num" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " join agency on (agency.id=member.agency_id)" + " where enrollment_level.description in (\"Applicant\",\"Operational\",\"Associate\",\"Regular\",\"Life\",\"Tenured\",'Staff','ALS Intern','College',\"Atypical\"" + " , \"Recruit\",\"Admin\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\")" + " and email_address is not null" + " and TRIM(email_address) <> \"\"" + " order by RAND()", this.connection).ExecuteReader();
             while (dr.Read())
             {
                 if (dr["length_of_service"] != DBNull.Value)

@@ -50,7 +50,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
       Note 3:  Liberal membership statuses for members with orange or
       white ID cards who ride on ambulances include "Associate",
-      "Reduced (#)", and "Atypical".
+      "Reduced (#)", "Staff", "ALS Intern", "College", and "Atypical".
 
       Note 4:  The following membership statuses are reserved for
       members who do not ride on the ambulances:  "Applicant", "Admin",
@@ -80,8 +80,8 @@ Your status in <application_name/> for *next month* has been recorded as follows
       approved by your squad commander that results in an equivalent
       number of hours is also acceptable.
 
-      Note 4:  This value will be blank for members with "Atypical"
-      membership status.
+      Note 4:  This value will be blank for members with "Staff", "ALS
+      Intern", "College", or "Atypical" membership status.
 
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
 
