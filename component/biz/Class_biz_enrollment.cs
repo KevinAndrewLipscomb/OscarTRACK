@@ -25,7 +25,7 @@ namespace Class_biz_enrollment
         {
             bool result;
             result = false;
-            if (!(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.CURRENT, filter_type.OPERATIONAL, filter_type.STANDARD_OPS, filter_type.PAST}).Contains(filter)))
+            if (!(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.CURRENT, filter_type.OPERATIONAL, filter_type.CORE_OPS, filter_type.STANDARD, filter_type.LIBERAL, filter_type.PAST}).Contains(filter)))
             {
                 result = true;
             }
@@ -171,12 +171,17 @@ namespace Class_biz_enrollment
         CURRENT,
         APPLICANT,
         OPERATIONAL,
-        STANDARD_OPS,
+        CORE_OPS,
+        STANDARD,
         TENURED,
         LIFE,
         REGULAR,
+        LIBERAL,
         REDUCED,
         ASSOCIATE,
+        STAFF,
+        ALS_INTERN,
+        COLLEGE,
         ATYPICAL,
         NEW_TRAINEE,
         SPECOPS,

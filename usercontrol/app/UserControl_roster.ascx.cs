@@ -157,7 +157,7 @@ namespace UserControl_roster
                 p.years_of_service_array_list = new ArrayList();
                 if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler") || (Session["mode:report/monthly-core-ops-roster"] != null))
                 {
-                    p.enrollment_filter = Class_biz_enrollment.filter_type.STANDARD_OPS;
+                    p.enrollment_filter = Class_biz_enrollment.filter_type.CORE_OPS;
                     p.relative_month = 1;
                 }
                 else if (Session["mode:report/monthly-emt-intern-roster"] != null)

@@ -46,13 +46,18 @@
                                     <ASP:ListItem value="all">All</ASP:ListItem>
                                     <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
                                     <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
-                                    <ASP:ListItem value="standard_ops">- - - CORE OPS</ASP:ListItem>
-                                    <ASP:ListItem value="tenured">- - - - Tenured</ASP:ListItem>
-                                    <ASP:ListItem value="life">- - - - Life</ASP:ListItem>
-                                    <ASP:ListItem value="regular">- - - - Regular</ASP:ListItem>
-                                    <ASP:ListItem value="reduced">- - - - Reduced</ASP:ListItem>
-                                    <ASP:ListItem value="associate">- - - - Associate</ASP:ListItem>
-                                    <ASP:ListItem value="atypical">- - - - Atypical</ASP:ListItem>
+                                    <ASP:ListItem value="core_ops">- - - CORE OPS</ASP:ListItem>
+                                    <ASP:ListItem value="standard">- - - - Standard</ASP:ListItem>
+                                    <ASP:ListItem value="tenured">- - - - - Tenured</ASP:ListItem>
+                                    <ASP:ListItem value="life">- - - - - Life</ASP:ListItem>
+                                    <ASP:ListItem value="regular">- - - - - Regular</ASP:ListItem>
+                                    <ASP:ListItem value="liberal">- - - - Liberal</ASP:ListItem>
+                                    <ASP:ListItem value="reduced">- - - - - Reduced</ASP:ListItem>
+                                    <ASP:ListItem value="associate">- - - - - Associate</ASP:ListItem>
+                                    <ASP:ListItem value="staff">- - - - - Staff</ASP:ListItem>
+                                    <ASP:ListItem value="als_intern">- - - - - ALS Intern</ASP:ListItem>
+                                    <ASP:ListItem value="college">- - - - - College</ASP:ListItem>
+                                    <ASP:ListItem value="atypical">- - - - - Atypical</ASP:ListItem>
                                     <ASP:ListItem value="specops">- - - Special ops</ASP:ListItem>
                                     <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
                                     <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
