@@ -42,7 +42,7 @@
   <h2>What is eligible for reward?</h2>
   <ul>
     <li>
-      <h3>REPORS OF VULNERABILITIES</h3>
+      <h3>REPORTS OF VULNERABILITIES</h3>
       <p>Any report of a vulnerability, subject to the following limitations, may be eligible:</p>
       <ul>
         <li>A vulnerability is an error, flaw, mistake, failure, or fault in the computer program or system that impacts the security of this system or its data. Any vulnerability may be considered for this program; however, it must
