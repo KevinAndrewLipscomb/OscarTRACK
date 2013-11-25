@@ -21,6 +21,17 @@ namespace Class_biz_donations
       db_donations = new TClass_db_donations();
       }
 
+    internal void BindBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string user_email_address
+      )
+      {
+      db_donations.BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address);
+      }
+
     internal void Process
       (
       TClass_msg_protected.confirm_paypal_donation incoming,
@@ -56,6 +67,7 @@ namespace Class_biz_donations
           );
         }
       }
+
     }
 
   }

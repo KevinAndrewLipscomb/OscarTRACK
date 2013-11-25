@@ -112,6 +112,15 @@ namespace UserControl_keyclick {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_export;
         
         /// <summary>
+        /// LinkButton_review control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_review;
+        
+        /// <summary>
         /// HyperLink_catch_up control.
         /// </summary>
         /// <remarks>
