@@ -134,6 +134,11 @@
     </td>
   </tr>
   <tr>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td align="right"><asp:LinkButton ID="LinkButton_review" runat="server" Font-Bold="True" onclick="LinkButton_review_Click">Review</asp:LinkButton></td>
+    <td><table border="0"><tr><td>your donation logging activity and get acknowledgement mailing label data</td></tr></table></td>
+  </tr>
+  <tr>
     <td colspan="5">
       <h3>
         <br>

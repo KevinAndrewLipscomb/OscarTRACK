@@ -1,6 +1,7 @@
+using AjaxControlToolkit;
 using Class_biz_members;
-using Class_biz_user;
 using Class_biz_residents;
+using Class_biz_user;
 using kix;
 using System.Configuration;
 using System.Web.UI;
@@ -47,6 +48,7 @@ namespace UserControl_keyclick
         //
         p.be_loaded = true;
         }
+      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_review);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -128,6 +130,11 @@ namespace UserControl_keyclick
           + ");",
         true
         );
+      }
+
+    protected void LinkButton_review_Click(object sender, System.EventArgs e)
+      {
+      DropCrumbAndTransferTo(the_path:"donation_log.aspx");
       }
 
     }

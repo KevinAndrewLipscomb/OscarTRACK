@@ -115,6 +115,7 @@
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\bounty_program.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
+    <Content Include="protected\donation_log.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
     <Content Include="protected\eval_detail.aspx" />
@@ -159,6 +160,7 @@
     <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
+    <Content Include="usercontrol\app\UserControl_donation_log.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_efficipay.ascx" />
@@ -698,6 +700,13 @@
     <Compile Include="protected\confirm_paypal_donation.aspx.designer.cs">
       <DependentUpon>confirm_paypal_donation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\donation_log.aspx.cs">
+      <DependentUpon>donation_log.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\donation_log.aspx.designer.cs">
+      <DependentUpon>donation_log.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\efficipay_docket_detail.aspx.cs">
       <DependentUpon>efficipay_docket_detail.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1026,6 +1035,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_donation_log.ascx.cs">
+      <DependentUpon>UserControl_donation_log.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_donation_log.ascx.designer.cs">
+      <DependentUpon>UserControl_donation_log.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_driver_skill.ascx.cs">
       <DependentUpon>UserControl_driver_skill.ascx</DependentUpon>
