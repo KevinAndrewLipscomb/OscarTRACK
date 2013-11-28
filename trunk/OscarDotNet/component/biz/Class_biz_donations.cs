@@ -26,10 +26,15 @@ namespace Class_biz_donations
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      string user_email_address
+      string user_email_address,
+      string watermark
       )
       {
-      db_donations.BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address);
+      db_donations.BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark);
+      }
+    internal void BindBaseDataList(string sort_order,bool be_sort_order_ascending,object target,string user_email_address)
+      {
+      BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark:k.EMPTY);
       }
 
     internal void Process

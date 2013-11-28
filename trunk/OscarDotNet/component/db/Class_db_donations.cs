@@ -23,7 +23,8 @@ namespace Class_db_donations
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      string user_email_address
+      string user_email_address,
+      string watermark
       )
       {
       Open();
@@ -44,6 +45,7 @@ namespace Class_db_donations
           +   " join state on (state.id=city.state_id)"
           + " where entered_by = '" + user_email_address + "'"
           +   " and donation.id > 0"
+          +   (watermark.Length > 0 ? " and per_clerk_seq_num >= '" + watermark + "'" : k.EMPTY)
           + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
           connection
           )
@@ -51,6 +53,10 @@ namespace Class_db_donations
         );
       (target as BaseDataList).DataBind();
       Close();
+      }
+    internal void BindBaseDataList(string sort_order,bool be_sort_order_ascending,object target,string user_email_address)
+      {
+      BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark:k.EMPTY);
       }
 
     internal void Log
