@@ -17,13 +17,13 @@ namespace UserControl_donation_log
     public static class UserControl_donation_log_Static
       {
       public const int TCI_SELECT = 0;
-      public const int TCI_PER_CLERK_SEQ_NUM = 2;
-      public const int TCI_AMOUNT = 4;
-      public const int TCI_NAME = 5;
-      public const int TCI_ADDRESS = 6;
-      public const int TCI_CITY = 7;
-      public const int TCI_ST = 8;
-      public const int TCI_WATERMARK = 9;
+      public const int TCI_PER_CLERK_SEQ_NUM = 1;
+      public const int TCI_AMOUNT = 2;
+      public const int TCI_NAME = 3;
+      public const int TCI_ADDRESS = 4;
+      public const int TCI_CITY = 5;
+      public const int TCI_ST = 6;
+      public const int TCI_WATERMARK = 7;
       }
 
     private struct p_type
@@ -36,6 +36,8 @@ namespace UserControl_donation_log
       public TClass_biz_user biz_user;
       public uint num_donations;
       public string sort_order;
+      public string user_email_address;
+      public string watermark;
       }
 
     private p_type p;
@@ -167,6 +169,8 @@ namespace UserControl_donation_log
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
         p.sort_order = "per_clerk_seq_num desc";
+        p.user_email_address = p.biz_user.EmailAddress();
+        p.watermark = k.EMPTY;
         }
       }
 
@@ -198,7 +202,9 @@ namespace UserControl_donation_log
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
+        p.watermark = k.Safe(e.Item.Cells[UserControl_donation_log_Static.TCI_PER_CLERK_SEQ_NUM].Text,k.safe_hint_type.NUM);
         }
+      Bind();
       }
 
     private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
@@ -212,14 +218,17 @@ namespace UserControl_donation_log
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
-          // Remove all cell controls from viewstate except for the one at TCI_ID.
-          //
-          foreach (TableCell cell in e.Item.Cells)
-            {
-            cell.EnableViewState = false;
-            }
-          //e.Item.Cells[UserControl_donation_log_Static.TCI_SUB_ID].EnableViewState = true;
-          //
+          link_button = ((e.Item.Cells[UserControl_donation_log_Static.TCI_WATERMARK].Controls[0]) as LinkButton);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ////
+          //// Remove all cell controls from viewstate except for the one at TCI_ID.
+          ////
+          //foreach (TableCell cell in e.Item.Cells)
+          //  {
+          //  cell.EnableViewState = false;
+          //  }
+          ////e.Item.Cells[UserControl_donation_log_Static.TCI_SUB_ID].EnableViewState = true;
+          ////
           p.num_donations++;
           }
         }
@@ -246,18 +255,38 @@ namespace UserControl_donation_log
 
     private void Bind()
       {
+      DataGrid_control.Columns[UserControl_donation_log_Static.TCI_WATERMARK].Visible = ((p.sort_order == "per_clerk_seq_num desc") || (p.sort_order == "per_clerk_seq_num%" && !p.be_sort_order_ascending));
       p.biz_donations.BindBaseDataList
         (
         sort_order:p.sort_order,
         be_sort_order_ascending:p.be_sort_order_ascending,
         target:DataGrid_control,
-        user_email_address:p.biz_user.EmailAddress()
+        user_email_address:p.user_email_address
         );
       p.be_datagrid_empty = (p.num_donations == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_donations.Text = p.num_donations.ToString();
       p.num_donations = 0;
+      //
+      if (p.watermark.Length > 0)
+        {
+        p.biz_donations.BindBaseDataList
+          (
+          sort_order:"per_clerk_seq_num desc",
+          be_sort_order_ascending:false,
+          target:DataGrid_entries_to_export,
+          user_email_address:p.user_email_address,
+          watermark:p.watermark
+          );
+        ExportToExcel
+          (
+          the_page:Page,
+          filename_sans_extension:"address_list",
+          excel_string:StringOfControl(DataGrid_entries_to_export)
+          );
+        p.watermark = k.EMPTY;
+        }
       }
 
     } // end TWebUserControl_donation_log

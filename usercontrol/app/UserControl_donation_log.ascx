@@ -23,29 +23,35 @@
                 <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" allowsorting="True">
                   <Columns>
                     <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Select" Visible="false"></asp:ButtonColumn>
-                    <asp:BoundColumn datafield="per_clerk_seq_num" ReadOnly="True" HeaderText="#">
-                      <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                      <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
+                    <asp:BoundColumn datafield="per_clerk_seq_num" ReadOnly="True" HeaderText="#" SortExpression="per_clerk_seq_num%">
+                      <HeaderStyle HorizontalAlign="Center" />
+                      <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="amount" dataformatstring="{0:C}" headertext="Amount" ReadOnly="True">
+                    <asp:BoundColumn datafield="amount" dataformatstring="{0:C}" headertext="Amount" ReadOnly="True" SortExpression="amount%">
                       <ItemStyle horizontalalign="Right"></ItemStyle>
                       <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="name" ReadOnly="True" headertext="Name">
-                      <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False"></HeaderStyle>
+                    <asp:BoundColumn datafield="name" ReadOnly="True" headertext="Name"></asp:BoundColumn>
+                    <asp:BoundColumn datafield="address" headertext="Address" ReadOnly="True" SortExpression="street.name%,house_num">
                     </asp:BoundColumn>
+                    <asp:BoundColumn datafield="city" headertext="City" ReadOnly="True" SortExpression="city%">
+                    </asp:BoundColumn>
+                    <asp:BoundColumn DataField="state" HeaderText="St" ReadOnly="True" SortExpression="state%"></asp:BoundColumn>
+                    <asp:ButtonColumn CommandName="Watermark" HeaderText="Mail merge all down to..." Text="Here">
+                      <ItemStyle HorizontalAlign="Center" />
+                    </asp:ButtonColumn>
+                  </Columns>
+                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                </asp:DataGrid>
+                <asp:DataGrid id="DataGrid_entries_to_export" runat="server" autogeneratecolumns="False" style="display:none">
+                  <Columns>
+                    <asp:BoundColumn datafield="name" ReadOnly="True" headertext="Name"></asp:BoundColumn>
                     <asp:BoundColumn datafield="address" headertext="Address" ReadOnly="True">
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="city" headertext="City" ReadOnly="True">
                     </asp:BoundColumn>
-                    <asp:BoundColumn DataField="state" HeaderText="St" ReadOnly="True">
-                      <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
-                    </asp:BoundColumn>
-                    <asp:ButtonColumn CommandName="Watermark" HeaderText="Mail merge all down to..." Text="Here">
-                      <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                    </asp:ButtonColumn>
+                    <asp:BoundColumn DataField="state" HeaderText="St" ReadOnly="True"></asp:BoundColumn>
                   </Columns>
-                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
               </td>
             </tr>
