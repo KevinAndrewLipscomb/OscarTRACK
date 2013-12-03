@@ -18,12 +18,13 @@ namespace UserControl_donation_log
       {
       public const int TCI_SELECT = 0;
       public const int TCI_PER_CLERK_SEQ_NUM = 1;
-      public const int TCI_AMOUNT = 2;
-      public const int TCI_NAME = 3;
-      public const int TCI_ADDRESS = 4;
-      public const int TCI_CITY = 5;
-      public const int TCI_ST = 6;
-      public const int TCI_WATERMARK = 7;
+      public const int TCI_TIMESTAMP = 2;
+      public const int TCI_AMOUNT = 3;
+      public const int TCI_NAME = 4;
+      public const int TCI_ADDRESS = 5;
+      public const int TCI_CITY = 6;
+      public const int TCI_ST = 7;
+      public const int TCI_WATERMARK = 8;
       }
 
     private struct p_type
@@ -271,19 +272,15 @@ namespace UserControl_donation_log
       //
       if (p.watermark.Length > 0)
         {
-        p.biz_donations.BindBaseDataList
-          (
-          sort_order:"per_clerk_seq_num desc",
-          be_sort_order_ascending:false,
-          target:DataGrid_entries_to_export,
-          user_email_address:p.user_email_address,
-          watermark:p.watermark
-          );
-        ExportToExcel
+        ExportToCsv
           (
           the_page:Page,
           filename_sans_extension:"address_list",
-          excel_string:StringOfControl(DataGrid_entries_to_export)
+          csv_string:p.biz_donations.RecentPerClerkAsCsv
+            (
+            clerk_email_address:p.user_email_address,
+            watermark:p.watermark
+            )
           );
         p.watermark = k.EMPTY;
         }
