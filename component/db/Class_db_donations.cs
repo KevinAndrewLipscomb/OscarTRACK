@@ -23,8 +23,7 @@ namespace Class_db_donations
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      string user_email_address,
-      string watermark
+      string user_email_address
       )
       {
       Open();
@@ -33,6 +32,7 @@ namespace Class_db_donations
         new MySqlCommand
           (
           "select per_clerk_seq_num"
+          + " , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp"
           + " , amount"
           + " , IFNULL(resident_base.name,'OUR FRIENDS AT') as name"
           + " , CONCAT(house_num,' ',street.name) as address"
@@ -45,7 +45,6 @@ namespace Class_db_donations
           +   " join state on (state.id=city.state_id)"
           + " where entered_by = '" + user_email_address + "'"
           +   " and donation.id > 0"
-          +   (watermark.Length > 0 ? " and per_clerk_seq_num >= '" + watermark + "'" : k.EMPTY)
           + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
           connection
           )
@@ -53,10 +52,6 @@ namespace Class_db_donations
         );
       (target as BaseDataList).DataBind();
       Close();
-      }
-    internal void BindBaseDataList(string sort_order,bool be_sort_order_ascending,object target,string user_email_address)
-      {
-      BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark:k.EMPTY);
       }
 
     internal void Log
@@ -114,6 +109,44 @@ namespace Class_db_donations
         throw e;
         }
       Close();
+      }
+
+    internal string RecentPerClerkAsCsv
+      (
+      string clerk_email_address,
+      string watermark
+      )
+      {
+      var recent_per_clerk = k.EMPTY;
+      Open();
+      recent_per_clerk = "entry_sub_id,amount,name,address,city,state" + k.NEW_LINE
+      + new MySqlCommand
+        (
+        "select GROUP_CONCAT("
+        + " CONCAT_WS('" + k.COMMA + "'"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(per_clerk_seq_num,'"                           + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(amount,'"                                      + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(IFNULL(resident_base.name,'OUR FRIENDS AT'),'" + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(CONCAT(house_num,' ',street.name),'"           + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(city.name,'"                                   + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " , CONCAT('" + k.QUOTE + "',REPLACE(abbreviation,'"                                + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
+        +   " )"
+        + " SEPARATOR '\n'"
+        + " )"
+        + " from donation"
+        +   " join resident_base using (id)"
+        +   " join street on (street.id=resident_base.street_id)"
+        +   " join city on (city.id=street.city_id)"
+        +   " join state on (state.id=city.state_id)"
+        + " where entered_by = '" + clerk_email_address + "'"
+        +   " and donation.id > 0"
+        +   " and per_clerk_seq_num >= '" + watermark + "'"
+        + " order by per_clerk_seq_num desc",
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return recent_per_clerk;
       }
 
     }

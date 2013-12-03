@@ -27,6 +27,7 @@
                       <HeaderStyle HorizontalAlign="Center" />
                       <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundColumn>
+                    <asp:BoundColumn DataField="timestamp" HeaderText="Time logged" ReadOnly="True"></asp:BoundColumn>
                     <asp:BoundColumn datafield="amount" dataformatstring="{0:C}" headertext="Amount" ReadOnly="True" SortExpression="amount%">
                       <ItemStyle horizontalalign="Right"></ItemStyle>
                       <ItemStyle HorizontalAlign="Right" />
@@ -42,16 +43,6 @@
                     </asp:ButtonColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                </asp:DataGrid>
-                <asp:DataGrid id="DataGrid_entries_to_export" runat="server" autogeneratecolumns="False" style="display:none">
-                  <Columns>
-                    <asp:BoundColumn datafield="name" ReadOnly="True" headertext="Name"></asp:BoundColumn>
-                    <asp:BoundColumn datafield="address" headertext="Address" ReadOnly="True">
-                    </asp:BoundColumn>
-                    <asp:BoundColumn datafield="city" headertext="City" ReadOnly="True">
-                    </asp:BoundColumn>
-                    <asp:BoundColumn DataField="state" HeaderText="St" ReadOnly="True"></asp:BoundColumn>
-                  </Columns>
                 </asp:DataGrid>
               </td>
             </tr>

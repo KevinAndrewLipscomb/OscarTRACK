@@ -26,15 +26,10 @@ namespace Class_biz_donations
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      string user_email_address,
-      string watermark
+      string user_email_address
       )
       {
-      db_donations.BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark);
-      }
-    internal void BindBaseDataList(string sort_order,bool be_sort_order_ascending,object target,string user_email_address)
-      {
-      BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address,watermark:k.EMPTY);
+      db_donations.BindBaseDataList(sort_order,be_sort_order_ascending,target,user_email_address);
       }
 
     internal void Process
@@ -71,6 +66,15 @@ namespace Class_biz_donations
           incoming.from_process_paypal_donation.donor_email_address
           );
         }
+      }
+
+    internal string RecentPerClerkAsCsv
+      (
+      string clerk_email_address,
+      string watermark
+      )
+      {
+      return db_donations.RecentPerClerkAsCsv(clerk_email_address,watermark);
       }
 
     }
