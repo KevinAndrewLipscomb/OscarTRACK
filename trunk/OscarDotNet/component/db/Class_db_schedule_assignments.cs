@@ -2880,7 +2880,7 @@ namespace Class_db_schedule_assignments
           transaction.Rollback();
           if (e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
-            new MySqlCommand("drop temporary table shift_popularity",connection).ExecuteNonQuery();
+            new MySqlCommand("drop temporary table if exists shift_popularity",connection).ExecuteNonQuery();
             }
           else
             {
