@@ -117,22 +117,18 @@ namespace Class_db_donations
       string watermark
       )
       {
-      var recent_per_clerk = k.EMPTY;
+      var recent_per_clerk = "entry_sub_id,amount,name,address,city,state" + k.NEW_LINE;
       Open();
-      recent_per_clerk = "entry_sub_id,amount,name,address,city,state" + k.NEW_LINE
-      + new MySqlCommand
+      var dr = new MySqlCommand
         (
-        "select GROUP_CONCAT("
-        + " CONCAT_WS('" + k.COMMA + "'"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(per_clerk_seq_num,'"                           + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(amount,'"                                      + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(IFNULL(resident_base.name,'OUR FRIENDS AT'),'" + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(CONCAT(house_num,' ',street.name),'"           + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(city.name,'"                                   + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " , CONCAT('" + k.QUOTE + "',REPLACE(abbreviation,'"                                + k.QUOTE + "','" + k.DOUBLE_QUOTE + "'),'" + k.QUOTE + "')"
-        +   " )"
-        + " SEPARATOR '\n'"
-        + " )"
+        "select CONCAT_WS('" + k.COMMA + "'"
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "per_clerk_seq_num" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "amount" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "IFNULL(resident_base.name,'OUR FRIENDS AT')" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "CONCAT(house_num,' ',street.name)" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "city.name" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "abbreviation" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " ) as record"
         + " from donation"
         +   " join resident_base using (id)"
         +   " join street on (street.id=resident_base.street_id)"
@@ -144,7 +140,12 @@ namespace Class_db_donations
         + " order by per_clerk_seq_num desc",
         connection
         )
-        .ExecuteScalar().ToString();
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        recent_per_clerk += dr["record"].ToString() + k.NEW_LINE;
+        }
+      dr.Close();
       Close();
       return recent_per_clerk;
       }
