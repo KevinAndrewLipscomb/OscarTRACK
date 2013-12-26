@@ -544,7 +544,7 @@ namespace Class_biz_members
           Issue = biz_notifications.IssueForAvailabilitiesOverdue;
           }
         //
-        var member_id_q = db_members.HoldoutQueue();
+        var member_id_q = db_members.HoldoutQueue(be_before_deadline:(days_until_deadline.val >= 0));
         var member_id_q_count = member_id_q.Count;
         for (var i = new k.subtype<int>(0,member_id_q_count); i.val < member_id_q_count; i.val++)
           {
