@@ -41,8 +41,8 @@ from member
       )
     )
   left join
-    (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(CURDATE()) + 1) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)
-  left join schedule_assignment on (schedule_assignment.member_id=member.id and MONTH(nominal_day) = MONTH(CURDATE()) + 1)
+    (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)
+  left join schedule_assignment on (schedule_assignment.member_id=member.id and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))
 where
   (
     ((MONTH(nominal_day) = MONTH(CURDATE()) + 1) or (nominal_day is null))
