@@ -45,33 +45,35 @@
                         <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px" onselectedindexchanged="DropDownList_enrollment_filter_SelectedIndexChanged">
                                     <ASP:ListItem value="all">All</ASP:ListItem>
                                     <ASP:ListItem value="current" selected="True">- Current</ASP:ListItem>
-                                    <ASP:ListItem value="operational">- - Operational</ASP:ListItem>
-                                    <ASP:ListItem value="core_ops">- - - CORE OPS</ASP:ListItem>
-                                    <ASP:ListItem value="standard">- - - - Standard</ASP:ListItem>
-                                    <ASP:ListItem value="tenured">- - - - - Tenured</ASP:ListItem>
-                                    <ASP:ListItem value="life">- - - - - Life</ASP:ListItem>
-                                    <ASP:ListItem value="regular">- - - - - Regular</ASP:ListItem>
-                                    <ASP:ListItem value="liberal">- - - - Liberal</ASP:ListItem>
-                                    <ASP:ListItem value="reduced">- - - - - Reduced</ASP:ListItem>
-                                    <ASP:ListItem value="associate">- - - - - Associate</ASP:ListItem>
-                                    <ASP:ListItem value="staff">- - - - - Staff</ASP:ListItem>
-                                    <ASP:ListItem value="als_intern">- - - - - ALS Intern</ASP:ListItem>
-                                    <ASP:ListItem value="college">- - - - - College</ASP:ListItem>
-                                    <ASP:ListItem value="atypical">- - - - - Atypical</ASP:ListItem>
-                                    <ASP:ListItem value="specops">- - - Special ops</ASP:ListItem>
-                                    <ASP:ListItem value="applicant">- - Applicant</ASP:ListItem>
-                                    <ASP:ListItem value="recruit">- - Recruit</ASP:ListItem>
-                                    <ASP:ListItem value="admin">- - Admin</ASP:ListItem>
-                                    <ASP:ListItem value="transferring">- - Transferring</ASP:ListItem>
-                                    <ASP:ListItem value="suspended">- - Suspended</ASP:ListItem>
-                                    <ASP:ListItem value="past">- Past</ASP:ListItem>
-                                    <ASP:ListItem value="withdrew_application">- - Withdrew application</ASP:ListItem>
-                                    <ASP:ListItem value="unknown">- - Unknown</ASP:ListItem>
-                                    <ASP:ListItem value="resigned">- - Resigned</ASP:ListItem>
-                                    <ASP:ListItem value="retired">- - Retired</ASP:ListItem>
-                                    <ASP:ListItem value="disabled">- - Disabled</ASP:ListItem>
-                                    <ASP:ListItem value="dismissed">- - Dismissed</ASP:ListItem>
-                                    <ASP:ListItem value="deceased">- - Deceased</ASP:ListItem>
+                                    <ASP:ListItem value="operational"            >- - Operational</ASP:ListItem>
+                                    <ASP:ListItem value="core_ops"               >- - - CORE OPS</ASP:ListItem>
+                                    <ASP:ListItem value="standard"               >- - - - Standard</ASP:ListItem>
+                                    <ASP:ListItem value="tenured_als"            >- - - - - Tenured ALS</ASP:ListItem>
+                                    <ASP:ListItem value="tenured_bls"            >- - - - - Tenured BLS</ASP:ListItem>
+                                    <ASP:ListItem value="senior"                 >- - - - - Senior</ASP:ListItem>
+                                    <ASP:ListItem value="life"                   >- - - - - Life</ASP:ListItem>
+                                    <ASP:ListItem value="regular"                >- - - - - Regular</ASP:ListItem>
+                                    <ASP:ListItem value="liberal"                >- - - - Liberal</ASP:ListItem>
+                                    <ASP:ListItem value="reduced"                >- - - - - Reduced</ASP:ListItem>
+                                    <ASP:ListItem value="associate"              >- - - - - Associate</ASP:ListItem>
+                                    <ASP:ListItem value="staff"                  >- - - - - Staff</ASP:ListItem>
+                                    <ASP:ListItem value="als_intern"             >- - - - - ALS Intern</ASP:ListItem>
+                                    <ASP:ListItem value="college"                >- - - - - College</ASP:ListItem>
+                                    <ASP:ListItem value="atypical"               >- - - - - Atypical</ASP:ListItem>
+                                    <ASP:ListItem value="specops"                >- - - Special ops</ASP:ListItem>
+                                    <ASP:ListItem value="applicant"              >- - Applicant</ASP:ListItem>
+                                    <ASP:ListItem value="recruit"                >- - Recruit</ASP:ListItem>
+                                    <ASP:ListItem value="admin"                  >- - Admin</ASP:ListItem>
+                                    <ASP:ListItem value="transferring"           >- - Transferring</ASP:ListItem>
+                                    <ASP:ListItem value="suspended"              >- - Suspended</ASP:ListItem>
+                                    <ASP:ListItem value="past"                   >- Past</ASP:ListItem>
+                                    <ASP:ListItem value="withdrew_application"   >- - Withdrew application</ASP:ListItem>
+                                    <ASP:ListItem value="unknown"                >- - Unknown</ASP:ListItem>
+                                    <ASP:ListItem value="resigned"               >- - Resigned</ASP:ListItem>
+                                    <ASP:ListItem value="retired"                >- - Retired</ASP:ListItem>
+                                    <ASP:ListItem value="disabled"               >- - Disabled</ASP:ListItem>
+                                    <ASP:ListItem value="dismissed"              >- - Dismissed</ASP:ListItem>
+                                    <ASP:ListItem value="deceased"               >- - Deceased</ASP:ListItem>
                         </asp:dropdownlist>
                                     </p>
                       </td>
@@ -103,7 +105,7 @@
                             <tr>
                               <td align="center" valign="middle"><small><asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label><br>members</small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
-                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Tenured"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Tenured">standard enrollment</ASP:Label></small></td>
+                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Senior">standard enrollment</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
                               <td align="center" valign="middle"><small><ASP:Label id="Label_utilization" runat="server" font-bold="True"></ASP:Label><br><ASP:Label id="Label_utilization_caption" runat="server"> utilization</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>

@@ -181,7 +181,78 @@ namespace Class_db_enrollment
             this.Open();
             watermark = new MySqlCommand("select max(id) from enrollment_history", this.connection).ExecuteScalar().ToString();
             // Deliberately not db_trail.Saved.
-            new MySqlCommand("START TRANSACTION;" + " insert into enrollment_history (member_id,level_code,start_date,end_date)" + " SELECT member_id,3,date_add(equivalent_los_start_date,interval 10 year),NULL" + " FROM enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " where level_code = 2" + " and end_date is null" + " and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)" + " and enrollment_history.id <= " + watermark + " ;" + " update enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " set end_date = date_add(equivalent_los_start_date,interval 10 year)" + " where level_code = 2" + " and end_date is null" + " and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)" + " and enrollment_history.id <= " + watermark + " ;" + " insert into enrollment_history (member_id,level_code,start_date,end_date)" + " SELECT member_id,4,date_add(equivalent_los_start_date,interval 20 year),NULL" + " FROM enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " where level_code = 3" + " and end_date is null" + " and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)" + " and enrollment_history.id <= " + watermark + " ;" + " update enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " set end_date = date_add(equivalent_los_start_date,interval 20 year)" + " where level_code = 3" + " and end_date is null" + " and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)" + " and enrollment_history.id <= " + watermark + " ;" + " COMMIT", this.connection).ExecuteNonQuery();
+            new MySqlCommand
+              (
+              "START TRANSACTION"
+              + ";"
+              + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+              + " SELECT member_id,(select code from enrollment_level where description = 'Life'),date_add(equivalent_los_start_date,interval 10 year),NULL"
+              + " FROM enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              + " where level_code = (select code from enrollment_level where description = 'Regular')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " update enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              + " set end_date = date_add(equivalent_los_start_date,interval 10 year)"
+              + " where level_code = (select code from enrollment_level where description = 'Regular')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 10 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+              + " SELECT member_id,(select code from enrollment_level where description = 'Senior'),date_add(equivalent_los_start_date,interval 20 year),NULL"
+              + " FROM enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              + " where level_code = (select code from enrollment_level where description = 'Life')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " update enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              + " set end_date = date_add(equivalent_los_start_date,interval 20 year)"
+              + " where level_code = (select code from enrollment_level where description = 'Life')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 20 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+              + " SELECT member_id,(select code from enrollment_level where description = 'Tenured BLS'),date_add(equivalent_los_start_date,interval 30 year),NULL"
+              + " FROM enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+              + " where level_code = (select code from enrollment_level where description = 'Senior')"
+              +   " and pecking_order <= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 30 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " insert into enrollment_history (member_id,level_code,start_date,end_date)"
+              + " SELECT member_id,(select code from enrollment_level where description = 'Tenured ALS'),date_add(equivalent_los_start_date,interval 30 year),NULL"
+              + " FROM enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+              + " where level_code = (select code from enrollment_level where description = 'Senior')"
+              +   " and pecking_order > (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 30 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " update enrollment_history"
+              +   " join member on (member.id=enrollment_history.member_id)"
+              + " set end_date = date_add(equivalent_los_start_date,interval 30 year)"
+              + " where level_code = (select code from enrollment_level where description = 'Senior')"
+              +   " and end_date is null"
+              +   " and equivalent_los_start_date <= date_sub(curdate(),interval 30 year)"
+              +   " and enrollment_history.id <= " + watermark
+              + ";"
+              + " COMMIT",
+              connection
+              )
+              .ExecuteNonQuery();
             this.Close();
             result = watermark;
             return result;
@@ -206,22 +277,28 @@ namespace Class_db_enrollment
         }
 
         public Queue SeniorityPromotionsSince(string watermark)
-        {
-            Queue result;
-            MySqlDataReader dr;
-            Queue member_id_q;
-            member_id_q = new Queue();
-            this.Open();
-            dr = new MySqlCommand("select member_id" + " from enrollment_history" + " where id > " + watermark + " and level_code in (3,4)" + " and end_date is null", this.connection).ExecuteReader();
-            while (dr.Read())
+          {
+          var member_id_q = new Queue();
+          Open();
+          var dr = new MySqlCommand
+            (
+            "select member_id"
+            + " from enrollment_history"
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+            + " where id > " + watermark
+            +   " and description in ('Life','Senior','Tenured BLS','Tenured ALS')"
+            +   " and end_date is null",
+            connection
+            )
+            .ExecuteReader();
+          while (dr.Read())
             {
-                member_id_q.Enqueue(dr["member_id"]);
+            member_id_q.Enqueue(dr["member_id"]);
             }
-            dr.Close();
-            this.Close();
-            result = member_id_q;
-            return result;
-        }
+          dr.Close();
+          Close();
+          return member_id_q;
+          }
 
         public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
           {

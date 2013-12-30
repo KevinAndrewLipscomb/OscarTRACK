@@ -46,7 +46,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
 
       Note 2:  Standard membership statuses for members with orange or
       white ID cards who ride on ambulances include "Regular", "Life",
-      and "Tenured".
+      "Senior", "Tenured BLS", and "Tenured ALS".
 
       Note 3:  Liberal membership statuses for members with orange or
       white ID cards who ride on ambulances include "Associate",

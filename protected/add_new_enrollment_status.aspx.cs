@@ -156,7 +156,7 @@ namespace add_new_enrollment_status
           else
             {
             CustomValidator_control.ErrorMessage = first_name + "'s current released cert level is '" + current_medical_release_level + "', which is incompatible with the Membership Status that you selected.  If " + first_name
-            + " has been released at a higher medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and increase " + first_name + "'s Released cert level appropriately.  Then perform your current action again.";
+            + " has been released at a different medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and change " + first_name + "'s Released cert level appropriately.  Then perform your current action again.";
             }
           }
 
