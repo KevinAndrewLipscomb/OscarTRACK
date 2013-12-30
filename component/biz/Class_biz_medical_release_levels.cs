@@ -91,11 +91,11 @@ namespace Class_biz_medical_release_levels
               }
             else if (enrollment_description == "Tenured BLS")
               {
-              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-B") == 0);
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-CT") < 0);
               }
             else if (enrollment_description == "Tenured ALS")
               {
-              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-B") > 0);
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-CT") >= 0);
               }
             else
               {

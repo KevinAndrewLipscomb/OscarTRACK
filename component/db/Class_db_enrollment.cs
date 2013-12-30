@@ -225,7 +225,7 @@ namespace Class_db_enrollment
               +   " join member on (member.id=enrollment_history.member_id)"
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
               + " where level_code = (select code from enrollment_level where description = 'Senior')"
-              +   " and pecking_order <= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+              +   " and pecking_order < (select pecking_order from medical_release_code_description_map where description = 'EMT-CT')"
               +   " and end_date is null"
               +   " and equivalent_los_start_date <= date_sub(curdate(),interval 30 year)"
               +   " and enrollment_history.id <= " + watermark
@@ -236,7 +236,7 @@ namespace Class_db_enrollment
               +   " join member on (member.id=enrollment_history.member_id)"
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
               + " where level_code = (select code from enrollment_level where description = 'Senior')"
-              +   " and pecking_order > (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
+              +   " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT-CT')"
               +   " and end_date is null"
               +   " and equivalent_los_start_date <= date_sub(curdate(),interval 30 year)"
               +   " and enrollment_history.id <= " + watermark
