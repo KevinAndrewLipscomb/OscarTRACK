@@ -8,11 +8,50 @@ using System.Collections;
 
 namespace Class_biz_enrollment
 {
-    public class TClass_biz_enrollment
+
+  public enum filter_type
     {
+    ALL,
+    CURRENT,
+    APPLICANT,
+    OPERATIONAL,
+    CORE_OPS,
+    STANDARD,
+    SENIOR,
+    TENURED_BLS,
+    TENURED_ALS,
+    LIFE,
+    REGULAR,
+    LIBERAL,
+    REDUCED,
+    ASSOCIATE,
+    STAFF,
+    ALS_INTERN,
+    COLLEGE,
+    ATYPICAL,
+    NEW_TRAINEE,
+    SPECOPS,
+    RECRUIT,
+    ADMIN,
+    TRANSFERRING,
+    SUSPENDED,
+    PAST,
+    WITHDREW_APPLICATION,
+    UNKNOWN,
+    RESIGNED,
+    RETIRED,
+    DISABLED,
+    DISMISSED,
+    DECEASED,
+    }
+
+  public class TClass_biz_enrollment
+    {
+
         private TClass_db_enrollment db_enrollment = null;
         private TClass_biz_agencies biz_agencies = null;
         private TClass_biz_notifications biz_notifications = null;
+
         //Constructor  Create()
         public TClass_biz_enrollment() : base()
         {
@@ -21,6 +60,7 @@ namespace Class_biz_enrollment
             biz_agencies = new TClass_biz_agencies();
             biz_notifications = new TClass_biz_notifications();
         }
+
         public bool BeLeaf(filter_type filter)
         {
             bool result;
@@ -117,6 +157,28 @@ namespace Class_biz_enrollment
             }
         }
 
+    internal void MakeSeniorityPromotionEarlysWarnings()
+      {
+      var biz_members = new TClass_biz_members();
+      //
+      var member_id_q = db_enrollment.NearlyPromotableMembers();
+      var member_id_q_count = new k.int_nonnegative(member_id_q.Count);
+      var member_id = k.EMPTY;
+      //
+      for (var i = new k.subtype<int>(0,member_id_q_count.val); i.val < member_id_q_count.val; i.val++ )
+        {
+        member_id = member_id_q.Dequeue().ToString();
+        biz_notifications.IssueForSeniorityPromotionEarlyWarning
+          (
+          member_id:member_id,
+          first_name:biz_members.FirstNameOfMemberId(member_id),
+          last_name:biz_members.LastNameOfMemberId(member_id),
+          cad_num:biz_members.CadNumOfMemberId(member_id),
+          current_level:biz_members.EnrollmentOfMemberId(member_id)
+          );
+        }
+      }
+
         public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
           {
           return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
@@ -162,43 +224,6 @@ namespace Class_biz_enrollment
             return result;
         }
 
-
     } // end TClass_biz_enrollment
-
-    public enum filter_type
-    {
-        ALL,
-        CURRENT,
-        APPLICANT,
-        OPERATIONAL,
-        CORE_OPS,
-        STANDARD,
-        SENIOR,
-        TENURED_BLS,
-        TENURED_ALS,
-        LIFE,
-        REGULAR,
-        LIBERAL,
-        REDUCED,
-        ASSOCIATE,
-        STAFF,
-        ALS_INTERN,
-        COLLEGE,
-        ATYPICAL,
-        NEW_TRAINEE,
-        SPECOPS,
-        RECRUIT,
-        ADMIN,
-        TRANSFERRING,
-        SUSPENDED,
-        PAST,
-        WITHDREW_APPLICATION,
-        UNKNOWN,
-        RESIGNED,
-        RETIRED,
-        DISABLED,
-        DISMISSED,
-        DECEASED,
-    } // end filter_type
 
 }

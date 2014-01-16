@@ -1644,6 +1644,42 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+    private delegate string IssueForSeniorityPromotionEarlyWarning_Merge(string s);
+    internal void IssueForSeniorityPromotionEarlyWarning
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string current_level
+      )
+      {
+      IssueForSeniorityPromotionEarlyWarning_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<member_id/>", member_id)
+          .Replace("<current_level/>", current_level);
+        };
+
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/seniority_promotion_early_warning.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:db_notifications.TargetOf("seniority-promotion-early-warning", member_id),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd())
+        );
+      template_reader.Close();
+      }
+
         private delegate string IssueForTemporaryPassword_Merge(string s);
         public void IssueForTemporaryPassword(string username, string client_host_name, string temporary_password)
         {
