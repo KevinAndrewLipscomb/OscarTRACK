@@ -6,6 +6,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -257,6 +258,73 @@ namespace Class_db_enrollment
             result = watermark;
             return result;
         }
+
+    internal Queue<string> NearlyPromotableMembers()
+      {
+      var member_id_q = new Queue<string>();
+      MySqlDataReader dr;
+      Open();
+      //
+      // Regular members approaching Life status
+      //
+      dr = new MySqlCommand
+        (
+        "select member_id"
+        + " FROM enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        + " where level_code = (select code from enrollment_level where description = 'Regular')"
+        +   " and end_date is null"
+        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 119 month)", // one month shy of 10 years
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        member_id_q.Enqueue(dr["member_id"].ToString());
+        }
+      dr.Close();
+      //
+      // Life members approaching Senior status
+      //
+      dr = new MySqlCommand
+        (
+        "select member_id"
+        + " FROM enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        + " where level_code = (select code from enrollment_level where description = 'Life')"
+        +   " and end_date is null"
+        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 239 month)", // one month shy of 20 years
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        member_id_q.Enqueue(dr["member_id"].ToString());
+        }
+      dr.Close();
+      //
+      // Senior members approaching Tenured status
+      //
+      dr = new MySqlCommand
+        (
+        "select member_id"
+        + " FROM enrollment_history"
+        +   " join member on (member.id=enrollment_history.member_id)"
+        + " where level_code = (select code from enrollment_level where description = 'Senior')"
+        +   " and end_date is null"
+        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 359 month)", // one month shy of 30 years
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        member_id_q.Enqueue(dr["member_id"].ToString());
+        }
+      dr.Close();
+      //
+      Close();
+      return member_id_q;
+      }
 
         public uint NumObligedShifts(string description)
         {

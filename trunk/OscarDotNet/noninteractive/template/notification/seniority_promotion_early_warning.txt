@@ -1,0 +1,8 @@
+Seniority promotion imminent (<cad_num/> <last_name/>, <first_name/>)
+This is an automatic notification from <application_name/>.
+
+<application_name/> is forecast to automatically give <current_level/> member <first_name/> <last_name/> a seniority promotion one month from now.  Any change to <first_name/>'s duty requirements would take effect *two* scheduling cycles from now.
+
+Any stakeholder wishing to delay such promotion must contact the Application Administrator (<application_name/>@frompaper2web.com) in the next *two weeks*.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
