@@ -85,7 +85,7 @@
                       </tr>
                       <tr>
                         <td valign="top">Years of service:</td>
-                        <td valign="top"></td>
+                        <td valign="top"><ASP:LinkButton id="LinkButton_adjust_years_of_service" runat="server" onclick="LinkButton_adjust_years_of_service_Click" Visible="False"><IMG src="~/protected/image/draw_freehand_16_h.png" alt="Adjust" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td valign="top"><ASP:Label id="Label_years_of_service" runat="server"></ASP:Label></td>
                       </tr>
                       <tr>
