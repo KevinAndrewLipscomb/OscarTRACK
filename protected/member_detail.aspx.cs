@@ -4,6 +4,7 @@ using Class_biz_enrollment;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_user;
+using Class_msg_protected;
 using kix;
 using System;
 using System.Configuration;
@@ -25,6 +26,7 @@ namespace member_detail
           public DateTime enrollment_effective_date;
           public string leave_next_month_description;
           public string leave_this_month_description;
+          public TClass_msg_protected.adjust_length_of_service msg_protected_adjust_length_of_service;
           public string raw_member_email_address;
           public string raw_member_phone_num;
           } // end p_type
@@ -90,6 +92,8 @@ namespace member_detail
                 if (p.biz_members.RetentionOf(Session["member_summary"]) != k.EMPTY)
                 {
                     Label_years_of_service.Text = p.biz_members.RetentionOf(Session["member_summary"]);
+                    LinkButton_adjust_years_of_service.Visible = k.Has((string[])(Session["privilege_array"]), "adjust-years-of-service") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+                    LinkButton_adjust_years_of_service.Text = k.ExpandTildePath(LinkButton_adjust_years_of_service.Text);
                 }
                 else
                 {
@@ -154,6 +158,8 @@ namespace member_detail
                     p.biz_leaves.DescribeThisAndNextMonthForMember(member_id, out p.leave_this_month_description, out p.leave_next_month_description, appcommon_Static.NOT_APPLICABLE_INDICATION_HTML);
                     p.biz_enrollment.CurrentDescriptionAndEffectiveDateForMember(member_id, out p.enrollment_description, out p.enrollment_effective_date);
                     p.agency = p.biz_members.AgencyOf(Session["member_summary"]);
+                    p.msg_protected_adjust_length_of_service = new TClass_msg_protected.adjust_length_of_service();
+                    p.msg_protected_adjust_length_of_service.summary = Session["member_summary"];
                 }
             }
         }
@@ -219,6 +225,16 @@ namespace member_detail
         {
             SessionSet(InstanceId() + ".p", p);
         }
+
+    protected void LinkButton_adjust_years_of_service_Click(object sender, EventArgs e)
+      {
+      MessageDropCrumbAndTransferTo
+        (
+        msg:p.msg_protected_adjust_length_of_service,
+        folder_name:"protected",
+        aspx_name:"adjust_length_of_service"
+        );
+      }
 
     } // end TWebForm_member_detail
 
