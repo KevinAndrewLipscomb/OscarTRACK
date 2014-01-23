@@ -39,7 +39,7 @@ namespace Class_db_users
         {
             bool result;
             this.Open();
-            result = null != new MySqlCommand("SELECT 1 FROM user" + " where username = \"" + username + "\"" + " and encoded_password_hash = SHA1('" + encoded_password + "')", this.connection).ExecuteScalar();
+            result = null != new MySqlCommand("SELECT 1 FROM user" + " where username = \"" + username + "\"" + " and encoded_password_hash = SHA1('" + encoded_password + "') and be_active", this.connection).ExecuteScalar();
             this.Close();
             return result;
         }
