@@ -92,8 +92,8 @@ namespace member_detail
                 if (p.biz_members.RetentionOf(Session["member_summary"]) != k.EMPTY)
                 {
                     Label_years_of_service.Text = p.biz_members.RetentionOf(Session["member_summary"]);
-                    LinkButton_adjust_years_of_service.Visible = k.Has((string[])(Session["privilege_array"]), "adjust-years-of-service") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
-                    LinkButton_adjust_years_of_service.Text = k.ExpandTildePath(LinkButton_adjust_years_of_service.Text);
+//                    LinkButton_adjust_years_of_service.Visible = k.Has((string[])(Session["privilege_array"]), "adjust-years-of-service") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+//                    LinkButton_adjust_years_of_service.Text = k.ExpandTildePath(LinkButton_adjust_years_of_service.Text);
                 }
                 else
                 {
