@@ -274,7 +274,7 @@ namespace Class_db_enrollment
         +   " join member on (member.id=enrollment_history.member_id)"
         + " where level_code = (select code from enrollment_level where description = 'Regular')"
         +   " and end_date is null"
-        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 119 month)", // one month shy of 10 years
+        +   " and equivalent_los_start_date = date_sub(curdate(),interval 119 month)", // one month shy of 10 years
         connection
         )
         .ExecuteReader();
@@ -293,7 +293,7 @@ namespace Class_db_enrollment
         +   " join member on (member.id=enrollment_history.member_id)"
         + " where level_code = (select code from enrollment_level where description = 'Life')"
         +   " and end_date is null"
-        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 239 month)", // one month shy of 20 years
+        +   " and equivalent_los_start_date = date_sub(curdate(),interval 239 month)", // one month shy of 20 years
         connection
         )
         .ExecuteReader();
@@ -312,7 +312,7 @@ namespace Class_db_enrollment
         +   " join member on (member.id=enrollment_history.member_id)"
         + " where level_code = (select code from enrollment_level where description = 'Senior')"
         +   " and end_date is null"
-        +   " and equivalent_los_start_date <= date_sub(curdate(),interval 359 month)", // one month shy of 30 years
+        +   " and equivalent_los_start_date = date_sub(curdate(),interval 359 month)", // one month shy of 30 years
         connection
         )
         .ExecuteReader();
