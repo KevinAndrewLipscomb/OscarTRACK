@@ -28,18 +28,39 @@
                   <td valign="top">
                     <p>Match yourself to a <asp:Label ID="Label_sponsor_3" runat="server"></asp:Label>&nbsp;membership record by entering <asp:Label ID="Label_shared_secret_description" runat="server"></asp:Label>&nbsp;here:</p>
                     <blockquote>
-                      <asp:TextBox ID="TextBox_nominal_shared_secret" runat="server" Columns="6" MaxLength="6"></asp:TextBox>
-                      <asp:RequiredFieldValidator ID="RequiredFieldValidator_nominal_shared_secret" runat="server" ErrorMessage="Please enter a nominal Officer Code (CAD number)" Font-Bold="True" ControlToValidate="TextBox_nominal_shared_secret" Display="Dynamic">!ERR!</asp:RequiredFieldValidator>
-                      <asp:RegularExpressionValidator ID="RegularExpressionValidator_nominal_shared_secret" runat="server" ErrorMessage="Please enter only numbers." Font-Bold="True" ControlToValidate="TextBox_nominal_shared_secret" ValidationExpression="\d{6}" Display="Dynamic">!ERR!</asp:RegularExpressionValidator>
-                      <asp:CustomValidator ID="CustomValidator_shared_secret" runat="server" Display="Dynamic" ErrorMessage="Sorry, because of privileges attached to the specified membership record, Application Administrator intervention is required to complete this match.  The Application Administrator has been notified and will be in touch with you." Font-Bold="True" OnServerValidate="CustomValidator_shared_secret_ServerValidate">!ERR!</asp:CustomValidator>
+                      <table>
+                        <tr>
+                          <td align="right">Officer code (CAD number):</td>
+                          <td><asp:TextBox ID="TextBox_nominal_cad_num" runat="server" Columns="6" MaxLength="6"></asp:TextBox></td>
+                          <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator_cad_num" runat="server" ErrorMessage="Please enter a nominal Officer Code (CAD number)" Font-Bold="True" ControlToValidate="TextBox_nominal_cad_num" Display="Dynamic">&lt;ERR!</asp:RequiredFieldValidator>
+                            <asp:RegularExpressionValidator ID="RegularExpressionValidator_cad_num" runat="server" ErrorMessage="Please enter only numbers." Font-Bold="True" ControlToValidate="TextBox_nominal_cad_num" ValidationExpression="\d{6}" Display="Dynamic">&lt;ERR!</asp:RegularExpressionValidator>
+                            <asp:CustomValidator ID="CustomValidator_shared_secret" runat="server" Display="Dynamic" ErrorMessage="Sorry, because of privileges attached to the specified membership record, Application Administrator intervention is required to complete this match.  The Application Administrator has been notified and will be in touch with you." Font-Bold="True" OnServerValidate="CustomValidator_shared_secret_ServerValidate">&lt;ERR!</asp:CustomValidator>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="right">Officer code (CAD number):</td>
+                          <td><asp:TextBox ID="TextBox_confirmation_cad_num" runat="server" Columns="6" MaxLength="6"></asp:TextBox> (again)</td>
+                          <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator_confirmation_cad_num" runat="server" ErrorMessage="Please enter a confirmation Officer Code (CAD number)" Font-Bold="True" ControlToValidate="TextBox_confirmation_cad_num" Display="Dynamic">&lt;ERR!</asp:RequiredFieldValidator>
+                            <asp:CompareValidator ID="CompareValidator_confirmation_cad_num" runat="server" ErrorMessage="Nominal and confirmation Officer Codes (CAD numbers) must match.  Please try again." Font-Bold="True" ControlToValidate="TextBox_confirmation_cad_num" ControlToCompare="TextBox_nominal_cad_num">&lt;ERR!</asp:CompareValidator>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td align="right">Last name:</td>
+                          <td><asp:TextBox ID="TextBox_last_name" runat="server" Columns="31" MaxLength="31"></asp:TextBox></td>
+                          <td>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator_last_name" runat="server" ErrorMessage="Please enter a Last name" Font-Bold="True" ControlToValidate="TextBox_last_name" Display="Dynamic">&lt;ERR!</asp:RequiredFieldValidator>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td></td>
+                          <td><asp:Button ID="Button_submit" runat="server" Text="Submit" Font-Bold="True" OnClick="Button_submit_Click"></asp:Button></td>
+                          <td>
+                            &nbsp;</td>
+                        </tr>
+                      </table>
                     </blockquote>
-                    <p>Re-enter <asp:Label ID="Label_shared_secret_description_2" runat="server"></asp:Label>&nbsp;to avoid typographical errors:</p>
-                    <blockquote>
-                      <asp:TextBox ID="TextBox_confirmation_shared_secret" runat="server" Columns="6" MaxLength="6"></asp:TextBox>
-                      <asp:RequiredFieldValidator ID="RequiredFieldValidator_confirmation_shared_secret" runat="server" ErrorMessage="Please enter a confirmation Officer Code (CAD number)" Font-Bold="True" ControlToValidate="TextBox_confirmation_shared_secret" Display="Dynamic">!ERR!</asp:RequiredFieldValidator>
-                      <asp:CompareValidator ID="CompareValidator_confirmation_shared_secret" runat="server" ErrorMessage="Nominal and confirmation Officer Codes (CAD numbers) must match.  Please try again." Font-Bold="True" ControlToValidate="TextBox_confirmation_shared_secret" ControlToCompare="TextBox_nominal_shared_secret">!ERR!</asp:CompareValidator>
-                    </blockquote>
-                    <asp:Button ID="Button_submit" runat="server" Text="Submit" Font-Bold="True" OnClick="Button_submit_Click"></asp:Button>
                     <p>&nbsp;</p>
                     <p>If you have trouble with this feature, <asp:LinkButton ID="LinkButton_trouble_handler" runat="server" CausesValidation="False" OnClick="LinkButton_trouble_handler_Click">click here</asp:LinkButton>.</p>
                     <p>&nbsp;</p>

@@ -10,30 +10,54 @@ namespace Class_db_users
 {
     public class TClass_db_users: TClass_db
     {
+
         private TClass_db_trail db_trail = null;
-        //Constructor  Create()
+
         public TClass_db_users() : base()
-        {
-            // TODO: Add any constructor code here
-            db_trail = new TClass_db_trail();
-        }
-        public bool AcceptAsMember(string shared_secret, string id)
-        {
-            bool result;
-            bool accept_as_member;
-            object member_id_obj;
-            accept_as_member = false;
-            this.Open();
-            member_id_obj = new MySqlCommand("select id from member where cad_num = \"" + shared_secret + "\"", this.connection).ExecuteScalar();
-            if (member_id_obj != null)
+          {
+          db_trail = new TClass_db_trail();
+          }
+
+        public bool AcceptAsMember
+          (
+          string cad_num,
+          string last_name,
+          string id
+          )
+          {
+          var accept_as_member = false;
+          Open();
+          var member_last_name_obj = new MySqlCommand("select last_name from member where cad_num = '" + cad_num + "'",connection).ExecuteScalar();
+          if ((member_last_name_obj != null) && (k.Safe(member_last_name_obj.ToString(),k.safe_hint_type.ALPHA).ToUpper() == k.Safe(last_name,k.safe_hint_type.ALPHA).ToUpper()))
             {
-                new MySqlCommand(db_trail.Saved("START TRANSACTION" + ";" + " insert user_member_map" + " set user_id = " + id + " , member_id = " + member_id_obj.ToString() + " on duplicate key update user_id = " + id + ";" + " update member" + " join user_member_map on (user_member_map.member_id=member.id)" + " join user on (user.id=user_member_map.user_id)" + " set email_address = password_reset_email_address" + " where member.id = " + member_id_obj.ToString() + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
-                accept_as_member = true;
+            var member_id = new MySqlCommand("select id from member where cad_num = '" + cad_num + "'",connection).ExecuteScalar().ToString();
+            new MySqlCommand
+              (
+              db_trail.Saved
+                (
+                "START TRANSACTION"
+                + ";"
+                + " insert user_member_map"
+                + " set user_id = '" + id + "'"
+                + " , member_id = '" + member_id + "'"
+                + " on duplicate key update user_id = '" + id + "'"
+                + ";"
+                + " update member"
+                +   " join user_member_map on (user_member_map.member_id=member.id)"
+                +   " join user on (user.id=user_member_map.user_id)"
+                + " set email_address = password_reset_email_address"
+                + " where member.id = '" + member_id + "'"
+                + ";"
+                + " COMMIT"
+                ),
+              connection
+              )
+              .ExecuteNonQuery();
+            accept_as_member = true;
             }
-            this.Close();
-            result = accept_as_member;
-            return result;
-        }
+          Close();
+          return accept_as_member;
+          }
 
         public bool BeAuthorized(string username, string encoded_password)
         {

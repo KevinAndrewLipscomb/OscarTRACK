@@ -245,7 +245,7 @@ namespace Class_db_members
 
         internal bool BeRoleHolderBySharedSecret
           (
-          string shared_secret,
+          string cad_num,
           out string claimed_role_name,
           out string claimed_member_name,
           out string claimed_member_id,
@@ -267,7 +267,7 @@ namespace Class_db_members
             + " from member"
             +   " join role_member_map on (role_member_map.member_id=member.id)"
             +   " join role on (role.id=role_member_map.role_id)"
-            + " where cad_num = '" + shared_secret + "'"
+            + " where cad_num = '" + cad_num + "'"
             + " order by role.pecking_order"
             + " limit 1",
             connection

@@ -30,8 +30,7 @@ namespace UserControl_establish_membership
                 Label_sponsor_2.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_sponsor_3.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_shared_secret_description.Text = ConfigurationManager.AppSettings["shared_secret_description"];
-                Label_shared_secret_description_2.Text = Label_shared_secret_description.Text;
-                Focus(TextBox_nominal_shared_secret, true);
+                TextBox_nominal_cad_num.Focus();
             }
 
         }
@@ -70,7 +69,16 @@ namespace UserControl_establish_membership
           {
           if (Page.IsValid)
             {
-            if (p.biz_users.AcceptAsMember(k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM), p.biz_user.IdNum(), Session["username"].ToString()))
+            if(
+              p.biz_users.AcceptAsMember
+                (
+                cad_num:k.Safe(TextBox_nominal_cad_num.Text,k.safe_hint_type.NUM),
+                last_name:k.Safe(TextBox_last_name.Text,k.safe_hint_type.HUMAN_NAME),
+                id:p.biz_user.IdNum(),
+                username:Session["username"].ToString()
+                )
+              )
+            //
               {
               SessionSet("privilege_array", p.biz_user.Privileges());
               // User was an unprivileged user until now, so reset privs.
@@ -115,7 +123,7 @@ namespace UserControl_establish_membership
           var claimed_member_email_address = k.EMPTY;
           if(p.biz_members.BeRoleHolderBySharedSecret
               (
-              k.Safe(TextBox_nominal_shared_secret.Text, k.safe_hint_type.NUM),
+              k.Safe(TextBox_nominal_cad_num.Text,k.safe_hint_type.NUM),
               out claimed_role_name,
               out claimed_member_name,
               out claimed_member_id,

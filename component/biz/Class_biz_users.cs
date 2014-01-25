@@ -24,13 +24,14 @@ namespace Class_biz_users
         }
         public bool AcceptAsMember
           (
-          string shared_secret,
+          string cad_num,
+          string last_name,
           string id,
           string username
           )
           {
-          var saved_member_email_address = db_members.EmailAddressByCadNum(shared_secret);
-          var accept_as_member = db_users.AcceptAsMember(shared_secret, id);
+          var saved_member_email_address = db_members.EmailAddressByCadNum(cad_num);
+          var accept_as_member = db_users.AcceptAsMember(cad_num,last_name,id);
           if (saved_member_email_address != k.EMPTY)
             {
             biz_notifications.IssueForMembershipReestablishment(saved_member_email_address,username,biz_user.EmailAddress());
