@@ -913,7 +913,7 @@ namespace UserControl_schedule_proposal
     protected void RadioButtonList_be_nominal_day_mode_specific_SelectedIndexChanged(object sender, EventArgs e)
       {
       p.be_nominal_day_mode_specific = (k.Safe(RadioButtonList_be_nominal_day_mode_specific.SelectedValue,k.safe_hint_type.NUM) == "1");
-      p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? p.nominal_day_filter_saved : k.EMPTY );
+      p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? (int.Parse(p.nominal_day_filter_saved) <= p.selected_month_day_last.Day ? p.nominal_day_filter_saved : "1") : k.EMPTY);
       Bind();
       }
 
