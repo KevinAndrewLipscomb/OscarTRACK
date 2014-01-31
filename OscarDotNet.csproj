@@ -110,6 +110,7 @@
     <Content Include="noninteractive\template\notification\eval_needs_aic_input.txt" />
     <Content Include="noninteractive\template\notification\eval_needs_evaluatee_rebuttal.txt" />
     <Content Include="noninteractive\template\notification\eval_stalled.txt" />
+    <Content Include="noninteractive\template\notification\seniority_promotion_early_warning.txt" />
     <Content Include="noninteractive\template\notification\upcoming_duty_reminder.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
@@ -147,6 +148,7 @@
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-review.txt" />
+    <Content Include="protected\template\notification\member_length_of_service_change.txt" />
     <Content Include="protected\template\notification\vehicle_added.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />

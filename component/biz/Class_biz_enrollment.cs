@@ -174,7 +174,9 @@ namespace Class_biz_enrollment
           first_name:biz_members.FirstNameOfMemberId(member_id),
           last_name:biz_members.LastNameOfMemberId(member_id),
           cad_num:biz_members.CadNumOfMemberId(member_id),
-          current_level:biz_members.EnrollmentOfMemberId(member_id)
+          current_level:biz_members.EnrollmentOfMemberId(member_id),
+          subject_email_address:biz_members.EmailAddressOf(member_id),
+          subject_phone_number:k.FormatAsNanpPhoneNum(digits:biz_members.PhoneNumOf(member_id))
           );
         }
       }

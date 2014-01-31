@@ -437,6 +437,11 @@ namespace Class_biz_members
             return result;
         }
 
+        internal DateTime EquivalentLengthOfServiceStartDateOf(object summary)
+          {
+          return db_members.EquivalentLengthOfServiceStartDateOf(summary);
+          }
+
         public string FirstNameOf(object summary)
         {
             string result;
@@ -655,6 +660,31 @@ namespace Class_biz_members
               db_users.SetEmailAddress(user_id,email_address);
               }
         }
+
+        internal void SetLengthOfService
+          (
+          string years_subtracted,
+          string months_subtracted,
+          string days_subtracted,
+          decimal length_of_service,
+          string rationale,
+          object summary
+          )
+          {
+          db_members.SetLengthOfService(length_of_service,summary);
+          biz_notifications.IssueForMemberLengthOfServiceChange
+            (
+            member_id:IdOf(summary),
+            first_name:FirstNameOf(summary),
+            last_name:LastNameOf(summary),
+            cad_num:CadNumOf(summary),
+            years_subtracted:years_subtracted,
+            months_subtracted:months_subtracted,
+            days_subtracted:days_subtracted,
+            new_length_of_service:length_of_service,
+            rationale:rationale
+            );
+          }
 
         public void SetName(string old_first, string old_last, string new_first, string new_last, object summary)
         {

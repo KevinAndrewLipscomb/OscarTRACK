@@ -3,6 +3,19 @@ This is an automatic notification from <application_name/>.
 
 <application_name/> is forecast to automatically give <current_level/> member <first_name/> <last_name/> a seniority promotion one month from now.  Any change to <first_name/>'s duty requirements would take effect *two* scheduling cycles from now.
 
-Any stakeholder wishing to delay such promotion must contact the Application Administrator (<application_name/>@frompaper2web.com) in the next *two weeks*.
+Any stakeholder wishing to DELAY such promotion should give advance notice to <first_name/>, cite the rationale for delaying the promotion, and address <first_name/>'s concerns, if any.  You can contact <first_name/> as follows:
+
+   Email address:
+      <subject_email_address/>
+
+   Phone #:
+      <subject_phone_number/>
+
+If still necessary after following the above procedure, sufficiently privileged users may use <application_name/> WITHIN THE NEXT MONTH to delay the promotion as follows:
+
+1. Go to the Personnel tab.
+2. Open <first_name/>'s detail record.
+3. Click the edit (little red pencil) icon next to the "Years of service" value.
+4. Follow the instructions on the adjust_length_of_service form.
 
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)
