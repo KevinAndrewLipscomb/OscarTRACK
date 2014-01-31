@@ -67,76 +67,76 @@ namespace adjust_length_of_service {
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_member_history;
         
         /// <summary>
-        /// Literal_years_of_service control.
+        /// Literal_base_years_of_service control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_years_of_service;
+        protected global::System.Web.UI.WebControls.Literal Literal_base_years_of_service;
         
         /// <summary>
-        /// TextBox_years_to_subtract control.
+        /// UpdatePanel_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_years_to_subtract;
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// NumericUpDownExtender_years_to_subtract control.
+        /// DropDownList_years_to_subtract control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.NumericUpDownExtender NumericUpDownExtender_years_to_subtract;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_years_to_subtract;
         
         /// <summary>
-        /// TextBox_months_to_subtract control.
+        /// DropDownList_months_to_subtract control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_months_to_subtract;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_months_to_subtract;
         
         /// <summary>
-        /// NumericUpDownExtender_months_to_subtract control.
+        /// DropDownList_days_to_subtract control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.NumericUpDownExtender NumericUpDownExtender_months_to_subtract;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_days_to_subtract;
         
         /// <summary>
-        /// TextBox_days_to_subtract control.
+        /// Literal_adjusted_length_of_service control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_days_to_subtract;
+        protected global::System.Web.UI.WebControls.Literal Literal_adjusted_length_of_service;
         
         /// <summary>
-        /// NumericUpDownExtender_days_to_subtract control.
+        /// TextBox_rationale control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.NumericUpDownExtender NumericUpDownExtender_days_to_subtract;
+        protected global::System.Web.UI.WebControls.TextBox TextBox_rationale;
         
         /// <summary>
-        /// CustomValidator_time_to_subtract control.
+        /// RequiredFieldValidator_rationale control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_time_to_subtract;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_rationale;
         
         /// <summary>
         /// Button_submit control.
