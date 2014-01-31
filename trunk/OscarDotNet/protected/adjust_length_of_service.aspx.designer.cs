@@ -67,6 +67,15 @@ namespace adjust_length_of_service {
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_member_history;
         
         /// <summary>
+        /// Literal_equivalent_los_start_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_equivalent_los_start_date;
+        
+        /// <summary>
         /// Literal_base_years_of_service control.
         /// </summary>
         /// <remarks>
@@ -137,6 +146,42 @@ namespace adjust_length_of_service {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_rationale;
+        
+        /// <summary>
+        /// Literal_member_first_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_member_first_name;
+        
+        /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
+        /// Literal_member_first_name_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_member_first_name_2;
+        
+        /// <summary>
+        /// Literal_application_name_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name_2;
         
         /// <summary>
         /// Button_submit control.

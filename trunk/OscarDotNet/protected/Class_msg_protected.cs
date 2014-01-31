@@ -6,10 +6,6 @@ namespace Class_msg_protected
 {
 	public class TClass_msg_protected
 	  {
-    public class adjust_length_of_service
-      {
-      internal object summary = null;
-      }
     public class confirm_paypal_donation
       {
       internal process_paypal_donation from_process_paypal_donation;

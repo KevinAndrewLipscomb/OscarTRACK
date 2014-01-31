@@ -1,0 +1,19 @@
+Length of service reduction for <first_name/> <last_name/> (<cad_num/>)
+This is an automatic notification from <application_name/>.
+
+<actor/> has made a subtraction to the length-of-service value stored in <application_name/> for <first_name/> <last_name/> (<cad_num/>), as follows:
+
+   Time subtracted:
+      <years_subtracted/> years <months_subtracted/> months <days_subtracted/> days
+
+   New length-of-service value:
+      <new_length_of_service/>
+
+   Rationale:
+      <rationale/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

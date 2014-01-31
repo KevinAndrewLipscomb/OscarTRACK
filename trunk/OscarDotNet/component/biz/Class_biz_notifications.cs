@@ -1107,6 +1107,73 @@ namespace Class_biz_notifications
             template_reader.Close();
           }
 
+        private delegate string IssueForMemberLengthOfServiceChange_Merge(string s);
+        internal void IssueForMemberLengthOfServiceChange
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string years_subtracted,
+          string months_subtracted,
+          string days_subtracted,
+          decimal new_length_of_service,
+          string rationale
+          )
+          {
+          var actor = k.EMPTY;
+          var actor_email_address = k.EMPTY;
+
+          IssueForMemberLengthOfServiceChange_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>",application_name)
+              .Replace("<host_domain_name/>",host_domain_name)
+              .Replace("<actor/>",actor)
+              .Replace("<actor_email_address/>",actor_email_address)
+              .Replace("<first_name/>",first_name)
+              .Replace("<last_name/>",last_name)
+              .Replace("<cad_num/>",cad_num)
+              .Replace("<years_subtracted/>",years_subtracted)
+              .Replace("<months_subtracted/>",months_subtracted)
+              .Replace("<days_subtracted/>",days_subtracted)
+              .Replace("<new_length_of_service/>",new_length_of_service.ToString("F4"))
+              .Replace
+                (
+                oldValue:"<rationale/>",
+                newValue:k.WrapText
+                  (
+                  t:rationale,
+                  insert_string:k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6),
+                  break_char_array:Class_biz_notifications_Static.BreakChars,
+                  max_line_len:short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])
+                  )
+                )
+              ;
+            };
+
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+          actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_length_of_service_change.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("member-length-of-service-change",member_id),
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd()),
+            be_html:
+            false,
+            cc:k.EMPTY,
+            bcc:k.EMPTY,
+            reply_to:actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueForMemberNameChange_Merge(string s);
         public void IssueForMemberNameChange(string member_id, string cad_num, string old_first_name, string old_last_name, string new_first_name, string new_last_name)
         {
@@ -1651,7 +1718,9 @@ namespace Class_biz_notifications
       string first_name,
       string last_name,
       string cad_num,
-      string current_level
+      string current_level,
+      string subject_email_address,
+      string subject_phone_number
       )
       {
       IssueForSeniorityPromotionEarlyWarning_Merge Merge = delegate (string s)
@@ -1663,7 +1732,10 @@ namespace Class_biz_notifications
           .Replace("<first_name/>", first_name)
           .Replace("<last_name/>", last_name)
           .Replace("<member_id/>", member_id)
-          .Replace("<current_level/>", current_level);
+          .Replace("<current_level/>", current_level)
+          .Replace("<subject_email_address/>",subject_email_address)
+          .Replace("<subject_phone_number/>",subject_phone_number)
+          ;
         };
 
       var biz_members = new TClass_biz_members();

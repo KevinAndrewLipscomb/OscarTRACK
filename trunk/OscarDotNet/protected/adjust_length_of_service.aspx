@@ -23,7 +23,7 @@
               <tr><td bgcolor="#f5f5f5"><strong>Adjust <asp:Label ID="Label_member_name" runat="server"></asp:Label>'s length of service</strong></td></tr>
               <tr>
                 <td>
-                  <p>Leave history (for reference only):</p>
+                  <p>Leave history:</p>
                   <blockquote>
                     <table>
 					            <tr id="TableRow_no_leave_history" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
@@ -54,7 +54,7 @@
                       </tr>
                     </table>
                   </blockquote>
-                  <p>Member status history (for reference only):</p>
+                  <p>Member status history:</p>
                   <blockquote>
                     <table>
 					            <tr id="TableRow_no_member_status_history" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
@@ -79,7 +79,9 @@
                       </tr>
                     </table>
                   </blockquote>
-                  <p>Base years-of-service calculation:</p>
+                  <p>Effective start date currently set to:</p>
+                  <blockquote><asp:Literal ID="Literal_equivalent_los_start_date" runat="server"></asp:Literal></blockquote>
+                  <p>Current years-of-service value:</p>
                   <blockquote><ASP:Literal id="Literal_base_years_of_service" runat="server"></ASP:Literal></blockquote>
                   <p>Adjustment:</p>
                   <blockquote>
@@ -87,7 +89,7 @@
                       <ContentTemplate>
                         <table cellspacing="0" cellpadding="5" border="0">
                           <tr>
-                            <td align="right">Time to subtract:</td>
+                            <td align="right" nowrap="nowrap">Time to subtract:</td>
                             <td>
                               <asp:DropDownList ID="DropDownList_years_to_subtract" runat="server" onselectedindexchanged="DropDownList_years_to_subtract_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
                               years
@@ -99,25 +101,37 @@
                             <td></td>
                           </tr>
                           <tr>
-                            <td align="right" valign="top">Adjusted years-of-service:</td>
+                            <td align="right" nowrap="nowrap" valign="top">Adjusted years-of-service value:</td>
                             <td><asp:Literal ID="Literal_adjusted_length_of_service" runat="server"></asp:Literal></td>
                             <td valign="top">&nbsp;</td>
                           </tr>
                           <tr>
-                            <td align="right" valign="top">Rationale:</td>
-                            <td>
-                              <asp:TextBox ID="TextBox_rationale" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
-                            </td>
+                            <td align="right" nowrap="nowrap" valign="top">Rationale:</td>
+                            <td><asp:TextBox ID="TextBox_rationale" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox></td>
                             <td valign="top">
-                              <asp:RequiredFieldValidator ID="RequiredFieldValidator_rationale" runat="server" ControlToValidate="TextBox_rationale" Display="Dynamic" ErrorMessage="Please enter a Rationale." Font-Bold="True">&lt;ERR!</asp:RequiredFieldValidator>
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator_rationale" runat="server" ControlToValidate="TextBox_rationale" ErrorMessage="Please enter a Rationale." Font-Bold="True">&lt;ERR!</asp:RequiredFieldValidator>
                             </td>
                           </tr>
                           <tr>
-                            <td></td>
-                            <td>
-                              <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>&nbsp;<asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
+                            <td>&nbsp;</td>
+                            <td style="font-style: italic">
+                              Please give <asp:Literal ID="Literal_member_first_name" runat="server"></asp:Literal> advance notice before submitting this change to
+                              <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>, and take the time to address <asp:Literal ID="Literal_member_first_name_2" runat="server"></asp:Literal>'s concerns, if
+                              any.&nbsp; The departmental EMS Duty Policy is not without ambiguities, making it subject to interpretation.&nbsp; The use of this form should be the <u>last</u> step in adjusting a member's
+                              length-of-service value, not the first.&nbsp; Reversal of this change, if required, will require the intervention of the Application Administrator.&nbsp;
+                              <asp:Literal ID="Literal_application_name_2" runat="server"></asp:Literal> will notify all stakeholders when you submit this change.
                             </td>
-                            <td></td>
+                            <td>&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td>
+                            </td>
+                            <td>
+                              <asp:Button ID="Button_submit" runat="server" OnClick="Button_submit_Click" Text="Submit" />
+                              &nbsp;<asp:Button ID="Button_cancel" runat="server" CausesValidation="False" OnClick="Button_cancel_Click" Text="Cancel" />
+                            </td>
+                            <td>
+                            </td>
                           </tr>
                         </table>
                       </ContentTemplate>
