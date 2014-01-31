@@ -22,6 +22,8 @@ namespace adjust_length_of_service
 
     private struct p_type
       {
+      public decimal adjusted_years_of_service;
+      public string base_years_of_service;
       public bool be_leave_datagrid_empty;
       public bool be_enrollment_datagrid_empty;
       public TClass_biz_enrollment biz_enrollment;
@@ -75,6 +77,22 @@ namespace adjust_length_of_service
         p.be_enrollment_datagrid_empty = (p.num_enrollment_datagrid_rows.val == 0);
         TableRow_no_member_status_history.Visible = p.be_enrollment_datagrid_empty;
         DataGrid_member_history.Visible = !p.be_enrollment_datagrid_empty;
+        //
+        Literal_base_years_of_service.Text = p.base_years_of_service;
+        Literal_adjusted_length_of_service.Text = p.base_years_of_service;
+        //
+        for (var i = new k.subtype<int>(-1,9); i.val < i.LAST; i.val++)
+          {
+          DropDownList_years_to_subtract.Items.Add(new ListItem((i.val + 1).ToString(),(i.val + 1).ToString()));
+          }
+        for (var i = new k.subtype<int>(-1,11); i.val < i.LAST; i.val++)
+          {
+          DropDownList_months_to_subtract.Items.Add(new ListItem((i.val + 1).ToString(),(i.val + 1).ToString()));
+          }
+        for (var i = new k.subtype<int>(-1,30); i.val < i.LAST; i.val++)
+          {
+          DropDownList_days_to_subtract.Items.Add(new ListItem((i.val + 1).ToString(),(i.val + 1).ToString()));
+          }
         }
       }
 
@@ -93,6 +111,8 @@ namespace adjust_length_of_service
         p.incoming = Message<TClass_msg_protected.adjust_length_of_service>("protected","adjust_length_of_service");
         p.num_enrollment_datagrid_rows = new k.int_nonnegative();
         p.num_leave_datagrid_rows = new k.int_nonnegative();
+        //
+        p.base_years_of_service = p.biz_members.RetentionOf(Session["member_summary"]);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
@@ -119,11 +139,6 @@ namespace adjust_length_of_service
       BackTrack();
       }
 
-    protected void CustomValidator_time_to_subtract_ServerValidate(object source, ServerValidateEventArgs args)
-      {
-
-      }
-
     protected void DataGrid_leaves_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       if (new ArrayList() {ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.Item,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
@@ -138,6 +153,41 @@ namespace adjust_length_of_service
         {
         p.num_enrollment_datagrid_rows.val++;
         }
+      }
+
+    protected void DropDownList_years_to_subtract_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      Recalculate();
+      }
+
+    protected void DropDownList_months_to_subtract_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      Recalculate();
+      }
+
+    protected void DropDownList_days_to_subtract_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      Recalculate();
+      }
+
+    private void Recalculate()
+      {
+      p.adjusted_years_of_service =
+        decimal.Parse(p.base_years_of_service)
+      -
+        decimal.Divide
+          (
+            (
+              int.Parse(k.Safe(DropDownList_years_to_subtract.Text,k.safe_hint_type.NUM))*365
+            +
+              int.Parse(k.Safe(DropDownList_months_to_subtract.Text,k.safe_hint_type.NUM))*30
+            +
+              int.Parse(k.Safe(DropDownList_days_to_subtract.Text,k.safe_hint_type.NUM))
+            )
+          ,
+          365
+          );
+      Literal_adjusted_length_of_service.Text = p.adjusted_years_of_service.ToString("F4");
       }
 
     } // end TWebForm_adjust_length_of_service

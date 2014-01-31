@@ -28,27 +28,29 @@
                     <table>
 					            <tr id="TableRow_no_leave_history" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
                       <tr>
-                        <asp:DataGrid ID="DataGrid_leaves" runat="server" AutoGenerateColumns="False" UseAccessibleHeader="True" CellPadding="5" GridLines="Horizontal" BorderColor="Gainsboro" BorderWidth="1px" onitemdatabound="DataGrid_leaves_ItemDataBound">
-                          <HeaderStyle BackColor="WhiteSmoke"></HeaderStyle>
-                          <Columns>
-                            <asp:BoundColumn DataField="start_date" SortExpression="start_date%" ReadOnly="True" HeaderText="Start month">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="end_date" SortExpression="end_date%" ReadOnly="True" HeaderText="End month">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="kind_of_leave" SortExpression="kind_of_leave%,start_date%" ReadOnly="True" HeaderText="Kind">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="num_obliged_shifts" SortExpression="num_obliged_shifts%,start_date%" ReadOnly="True" HeaderText="Num shifts">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="note" SortExpression="note%" ReadOnly="True" HeaderText="Note" Visible="false">
-                              <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
-                              <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                            </asp:BoundColumn>
-                          </Columns>
-                        </asp:DataGrid>
+                        <td>
+                          <asp:DataGrid ID="DataGrid_leaves" runat="server" AutoGenerateColumns="False" UseAccessibleHeader="True" CellPadding="5" GridLines="Horizontal" BorderColor="Gainsboro" BorderWidth="1px" onitemdatabound="DataGrid_leaves_ItemDataBound">
+                            <HeaderStyle BackColor="WhiteSmoke"></HeaderStyle>
+                            <Columns>
+                              <asp:BoundColumn DataField="start_date" SortExpression="start_date%" ReadOnly="True" HeaderText="Start month">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="end_date" SortExpression="end_date%" ReadOnly="True" HeaderText="End month">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="kind_of_leave" SortExpression="kind_of_leave%,start_date%" ReadOnly="True" HeaderText="Kind">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="num_obliged_shifts" SortExpression="num_obliged_shifts%,start_date%" ReadOnly="True" HeaderText="Num shifts">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="note" SortExpression="note%" ReadOnly="True" HeaderText="Note" Visible="false">
+                                <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                              </asp:BoundColumn>
+                            </Columns>
+                          </asp:DataGrid>
+                        </td>
                       </tr>
                     </table>
                   </blockquote>
@@ -57,52 +59,70 @@
                     <table>
 					            <tr id="TableRow_no_member_status_history" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
                       <tr>
-                        <asp:DataGrid ID="DataGrid_member_history" runat="server" AutoGenerateColumns="False" UseAccessibleHeader="True" CellPadding="5" GridLines="Horizontal" BorderColor="Gainsboro" BorderWidth="1px" onitemdatabound="DataGrid_member_history_ItemDataBound">
-                          <HeaderStyle BackColor="WhiteSmoke"></HeaderStyle>
-                          <Columns>
-                            <asp:BoundColumn DataField="start_date" SortExpression="start_date" ReadOnly="True" HeaderText="Date (yyyy-mm-dd)">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="description" SortExpression="description" ReadOnly="True" HeaderText="Level">
-                              <ItemStyle HorizontalAlign="Center"></ItemStyle>
-                            </asp:BoundColumn>
-                            <asp:BoundColumn DataField="note" SortExpression="note%" ReadOnly="True" HeaderText="Note" Visible="false">
-                              <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
-                              <ItemStyle HorizontalAlign="Left"></ItemStyle>
-                            </asp:BoundColumn>
-                          </Columns>
-                        </asp:DataGrid>
+                        <td>
+                          <asp:DataGrid ID="DataGrid_member_history" runat="server" AutoGenerateColumns="False" UseAccessibleHeader="True" CellPadding="5" GridLines="Horizontal" BorderColor="Gainsboro" BorderWidth="1px" onitemdatabound="DataGrid_member_history_ItemDataBound">
+                            <HeaderStyle BackColor="WhiteSmoke"></HeaderStyle>
+                            <Columns>
+                              <asp:BoundColumn DataField="start_date" SortExpression="start_date" ReadOnly="True" HeaderText="Date (yyyy-mm-dd)">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="description" SortExpression="description" ReadOnly="True" HeaderText="Level">
+                                <ItemStyle HorizontalAlign="Center"></ItemStyle>
+                              </asp:BoundColumn>
+                              <asp:BoundColumn DataField="note" SortExpression="note%" ReadOnly="True" HeaderText="Note" Visible="false">
+                                <HeaderStyle HorizontalAlign="Left"></HeaderStyle>
+                                <ItemStyle HorizontalAlign="Left"></ItemStyle>
+                              </asp:BoundColumn>
+                            </Columns>
+                          </asp:DataGrid>
+                        </td>
                       </tr>
                     </table>
                   </blockquote>
-                  Base length-of-service calculation:
-                  <blockquote><ASP:Literal id="Literal_years_of_service" runat="server"></ASP:Literal></blockquote>
-                  <table cellspacing="0" cellpadding="5" border="0">
-                    <tr>
-                      <td align="right">Time to subtract:</td>
-                      <td>
-                        <asp:TextBox ID="TextBox_years_to_subtract" runat="server" Columns="2" MaxLength="2"></asp:TextBox>
-                        <cc1:NumericUpDownExtender TargetControlID="TextBox_years_to_subtract" runat="server" ID="NumericUpDownExtender_years_to_subtract" Minimum="0" Maximum="99" Width="100"></cc1:NumericUpDownExtender>
-                        years,
-                        <asp:TextBox ID="TextBox_months_to_subtract" runat="server" Columns="2" MaxLength="2"></asp:TextBox>
-                        <cc1:NumericUpDownExtender TargetControlID="TextBox_months_to_subtract" runat="server" ID="NumericUpDownExtender_months_to_subtract" Minimum="0" Maximum="12" Width="100"></cc1:NumericUpDownExtender>
-                        months,
-                        <asp:TextBox ID="TextBox_days_to_subtract" runat="server" Columns="2" MaxLength="2"></asp:TextBox>
-                        <cc1:NumericUpDownExtender TargetControlID="TextBox_days_to_subtract" runat="server" ID="NumericUpDownExtender_days_to_subtract" Minimum="0" Maximum="31" Width="100"></cc1:NumericUpDownExtender>
-                        days
-                      </td>
-                      <td>
-                        <asp:CustomValidator ID="CustomValidator_time_to_subtract" runat="server" ErrorMessage="Please enter a valid Time to subtract." Font-Bold="True" onservervalidate="CustomValidator_time_to_subtract_ServerValidate">&lt;ERR!</asp:CustomValidator>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td></td>
-                      <td>
-                        <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>&nbsp;<asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
-                      </td>
-                      <td></td>
-                    </tr>
-                  </table>
+                  <p>Base years-of-service calculation:</p>
+                  <blockquote><ASP:Literal id="Literal_base_years_of_service" runat="server"></ASP:Literal></blockquote>
+                  <p>Adjustment:</p>
+                  <blockquote>
+                    <asp:UpdatePanel ID="UpdatePanel_control" runat="server" UpdateMode="Conditional">
+                      <ContentTemplate>
+                        <table cellspacing="0" cellpadding="5" border="0">
+                          <tr>
+                            <td align="right">Time to subtract:</td>
+                            <td>
+                              <asp:DropDownList ID="DropDownList_years_to_subtract" runat="server" onselectedindexchanged="DropDownList_years_to_subtract_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                              years
+                              <asp:DropDownList ID="DropDownList_months_to_subtract" runat="server" onselectedindexchanged="DropDownList_months_to_subtract_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                              months
+                              <asp:DropDownList ID="DropDownList_days_to_subtract" runat="server" onselectedindexchanged="DropDownList_days_to_subtract_SelectedIndexChanged" AutoPostBack="True"></asp:DropDownList>
+                              days
+                            </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td align="right" valign="top">Adjusted years-of-service:</td>
+                            <td><asp:Literal ID="Literal_adjusted_length_of_service" runat="server"></asp:Literal></td>
+                            <td valign="top">&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td align="right" valign="top">Rationale:</td>
+                            <td>
+                              <asp:TextBox ID="TextBox_rationale" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
+                            </td>
+                            <td valign="top">
+                              <asp:RequiredFieldValidator ID="RequiredFieldValidator_rationale" runat="server" ControlToValidate="TextBox_rationale" Display="Dynamic" ErrorMessage="Please enter a Rationale." Font-Bold="True">&lt;ERR!</asp:RequiredFieldValidator>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td>
+                              <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>&nbsp;<asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
+                            </td>
+                            <td></td>
+                          </tr>
+                        </table>
+                      </ContentTemplate>
+                    </asp:UpdatePanel>
+                  </blockquote>
                 </td>
               </tr>
             </table>
