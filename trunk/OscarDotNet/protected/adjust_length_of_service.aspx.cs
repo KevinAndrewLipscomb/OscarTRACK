@@ -19,7 +19,7 @@ namespace adjust_length_of_service
     private struct p_type
       {
       public decimal adjusted_years_of_service;
-      public DateTime base_equivalent_los_start_date;
+      public string base_equivalent_los_start_date;
       public string base_years_of_service;
       public bool be_leave_datagrid_empty;
       public bool be_enrollment_datagrid_empty;
@@ -73,7 +73,7 @@ namespace adjust_length_of_service
         TableRow_no_member_status_history.Visible = p.be_enrollment_datagrid_empty;
         DataGrid_member_history.Visible = !p.be_enrollment_datagrid_empty;
         //
-        Literal_equivalent_los_start_date.Text = p.base_equivalent_los_start_date.ToString("yyyy-MM-dd");
+        Literal_equivalent_los_start_date.Text = p.base_equivalent_los_start_date;
         Literal_base_years_of_service.Text = p.base_years_of_service;
         Literal_adjusted_length_of_service.Text = p.base_years_of_service;
         //

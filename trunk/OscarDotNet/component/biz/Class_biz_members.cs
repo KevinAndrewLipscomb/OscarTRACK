@@ -437,7 +437,7 @@ namespace Class_biz_members
             return result;
         }
 
-        internal DateTime EquivalentLengthOfServiceStartDateOf(object summary)
+        internal string EquivalentLengthOfServiceStartDateOf(object summary)
           {
           return db_members.EquivalentLengthOfServiceStartDateOf(summary);
           }

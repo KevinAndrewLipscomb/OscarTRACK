@@ -95,7 +95,7 @@ namespace Class_db_members
       public bool be_driver_qualified;
       public string cad_num;
       public string enrollment;
-      public DateTime equivalent_los_start_date;
+      public string equivalent_los_start_date;
       public string first_name;
       public string id;
       public string last_name;
@@ -1397,7 +1397,7 @@ namespace Class_db_members
             return result;
         }
 
-        internal DateTime EquivalentLengthOfServiceStartDateOf(object summary)
+        internal string EquivalentLengthOfServiceStartDateOf(object summary)
           {
           return (summary as member_summary).equivalent_los_start_date;
           }
@@ -1807,7 +1807,7 @@ namespace Class_db_members
             + " , enrollment_level.description as enrollment" 
             + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
             + " , phone_num" 
-            + " , equivalent_los_start_date"
+            + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
             +   " join enrollment_history on" 
@@ -1851,7 +1851,7 @@ namespace Class_db_members
               + " , enrollment_level.description as enrollment" 
               + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
               + " , phone_num" 
-              + " , equivalent_los_start_date"
+              + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
               +   " join enrollment_history on" 
@@ -1882,7 +1882,7 @@ namespace Class_db_members
             be_driver_qualified = (dr["be_driver_qualified"].ToString() == "1"),
             cad_num = dr["cad_num"].ToString(),
             enrollment = dr["enrollment"].ToString(),
-            equivalent_los_start_date = DateTime.Parse(dr["equivalent_los_start_date"].ToString()),
+            equivalent_los_start_date = dr["equivalent_los_start_date"].ToString(),
             first_name = dr["first_name"].ToString(),
             id = member_id,
             last_name = dr["last_name"].ToString(),
