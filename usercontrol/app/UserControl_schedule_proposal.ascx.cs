@@ -20,6 +20,7 @@ namespace UserControl_schedule_proposal
   public struct p_type
     {
     public string agency_filter;
+    public bool be_archival_end_of_month_watchbill;
     public bool be_commanded_watchbill_noninteractive;
     public bool be_datagrid_empty;
     public bool be_interactive;
@@ -184,6 +185,7 @@ namespace UserControl_schedule_proposal
         p.biz_shifts = new TClass_biz_shifts();
         //
         p.agency_filter = k.EMPTY;
+        p.be_archival_end_of_month_watchbill = (Session["mode:report/archival-end-of-month-watchbill-noninteractive"] != null);
         p.be_commanded_watchbill_noninteractive = (Session["mode:report/commanded-watchbill-noninteractive"] != null);
         p.be_interactive = (Session["mode:report"] == null);
         p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
@@ -257,7 +259,7 @@ namespace UserControl_schedule_proposal
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         }
       p.relative_month = relative_month;
-      if (be_for_month_change)
+      if (be_for_month_change || p.be_archival_end_of_month_watchbill)
         {
         ManageDefaultDepth();
         }
@@ -304,7 +306,7 @@ namespace UserControl_schedule_proposal
 
     private void ManageDefaultDepth()
       {
-      p.depth_filter = "1";
+      p.depth_filter = (p.be_archival_end_of_month_watchbill ? k.EMPTY : "1");
       if(
           HttpContext.Current.User.IsInRole("Squad Scheduler")
         &&
