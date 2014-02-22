@@ -64,7 +64,7 @@ namespace report_archival_end_of_month_watchbill
         p.relative_month = new k.subtype<int>(0,1);
         //
         Session.Add("mode:report", k.EMPTY);
-        Session.Add("mode:report/archival_end_of_month-watchbill-noninteractive", k.EMPTY);
+        Session.Add("mode:report/archival-end-of-month-watchbill-noninteractive", k.EMPTY);
         //
         var UserControl_schedule_proposal_control = ((LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx") as TWebUserControl_schedule_proposal));
         PlaceHolder_schedule_proposal.Controls.Add(UserControl_schedule_proposal_control);
