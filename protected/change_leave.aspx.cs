@@ -1,26 +1,20 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
+using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
-using appcommon;
+using Class_biz_schedule_assignments;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
 namespace change_leave
 {
     public struct p_type
     {
         public TClass_biz_leaves biz_leaves;
         public TClass_biz_members biz_members;
+        public TClass_biz_schedule_assignments biz_schedule_assignments;
         public string effective_start_month_offset;
         public string saved_effective_start_month_offset;
         public string saved_note;
@@ -29,6 +23,7 @@ namespace change_leave
     public partial class TWebForm_change_leave: ki_web_ui.page_class
     {
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -67,6 +62,7 @@ namespace change_leave
                     Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_leave";
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
+                    p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (cad_num_string == k.EMPTY)
                     {
@@ -173,6 +169,16 @@ namespace change_leave
         {
             SessionSet(InstanceId() + ".p", p);
         }
+
+    protected void CustomValidator_duty_selection_conflict_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
+        (
+        member_id:p.biz_members.IdOf(Session["member_summary"]),
+        relative_start_month:k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM),
+        relative_end_month:k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM)
+        );
+      }
 
     } // end TWebForm_change_leave
 

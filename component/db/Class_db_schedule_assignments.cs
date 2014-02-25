@@ -86,6 +86,29 @@ namespace Class_db_schedule_assignments
       return be_adventitious_change_detected;
       }
 
+    internal bool BeMemberSelectedDuringPeriod
+      (
+      string member_id,
+      DateTime period_start,
+      DateTime period_end
+      )
+      {
+      Open();
+      var be_member_selected_during_period = "0" != new MySqlCommand
+        (
+        "select count(*)"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where member_id = '" + member_id + "'"
+        +   " and be_selected"
+        +   " and ADDTIME(nominal_day,start) between '" + period_start.ToString("yyyy-MM-dd HH:mm") + "' and '" + period_end.ToString("yyyy-MM-dd HH:mm") + "'",
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return be_member_selected_during_period;
+      }
+
     internal bool BeNotificationPendingForAllInScope
       (
       string agency_filter,

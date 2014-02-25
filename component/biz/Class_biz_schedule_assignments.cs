@@ -78,6 +78,22 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal bool BeMemberSelectedDuringFuturePartOfPeriod
+      (
+      string member_id,
+      string relative_start_month,
+      string relative_end_month
+      )
+      {
+      var start_mark = DateTime.Now.AddMonths(int.Parse(relative_start_month));
+      var period_start = (relative_start_month == "0" ? DateTime.Now : new DateTime(start_mark.Year,start_mark.Month,1));
+      //
+      var end_mark = DateTime.Today.AddMonths(int.Parse(relative_end_month));
+      var period_end = new DateTime(end_mark.Year,end_mark.Month,DateTime.DaysInMonth(end_mark.Year,end_mark.Month));
+      //
+      return db_schedule_assignments.BeMemberSelectedDuringPeriod(member_id,period_start,period_end);
+      }
+
     internal bool BeOkToDefaultAgencyFilterToAll
       (
       bool be_user_privileged_to_see_all_squads,

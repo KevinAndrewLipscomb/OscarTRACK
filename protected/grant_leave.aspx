@@ -89,7 +89,9 @@
 				<td></td>
 			  </tr>
 			  <tr>
-				<td align="right"><ASP:CustomValidator id="CustomValidator_overlap" runat="server" errormessage="Please specify a leave that will not overlap an existing leave for this member." font-bold="True" onservervalidate="CustomValidator_overlap_ServerValidate">!ERR!</ASP:CustomValidator></td>
+				<td align="right">
+          <asp:CustomValidator ID="CustomValidator_duty_selection_conflict" runat="server" ErrorMessage="Sorry, the member is selected for duty during the future parts of the leave period. Please deselect them from such duties first." Font-Bold="True" onservervalidate="CustomValidator_duty_selection_conflict_ServerValidate">!ERR!</asp:CustomValidator>
+          <ASP:CustomValidator id="CustomValidator_overlap" runat="server" errormessage="Please specify a leave that will not overlap an existing leave for this member." font-bold="True" onservervalidate="CustomValidator_overlap_ServerValidate">!ERR!</ASP:CustomValidator></td>
 				<td>
 				  <ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>
 				&nbsp;

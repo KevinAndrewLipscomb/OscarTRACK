@@ -130,6 +130,15 @@ namespace grant_leave {
         protected global::System.Web.UI.WebControls.TextBox TextBox_note;
         
         /// <summary>
+        /// CustomValidator_duty_selection_conflict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_duty_selection_conflict;
+        
+        /// <summary>
         /// CustomValidator_overlap control.
         /// </summary>
         /// <remarks>
