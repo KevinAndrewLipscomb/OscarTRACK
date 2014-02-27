@@ -36,7 +36,7 @@ from
     where resident_base.id > 0
       and agency = "KVRS"                                                 -- ADJUST THIS
       and resident_base.id not in (select id from donation)
-      and city.name = "VIRGINIA BEACH"
+      and city.name = "VIRGINIA BEACH"                                    -- ADJUST THIS
     order by rand()
     limit 10384                                                           -- ADJUST THIS
     )
