@@ -16,7 +16,7 @@ from resident_base
   join state on (state.id=city.state_id)
   join donation on (donation.id=resident_base.id)
 where resident_base.id > 0
-  and agency = "KVRS"
+  and agency = "KVRS"                                        -- ADJUST THIS
 group by donation.id
   having sum(amount) > 0
 order by state.abbreviation,city.name,street.name,house_num

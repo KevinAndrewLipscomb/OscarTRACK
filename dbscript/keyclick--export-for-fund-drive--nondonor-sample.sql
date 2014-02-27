@@ -15,8 +15,8 @@ from resident_base
   join city on (city.id=street.city_id)
   join state on (state.id=city.state_id)
 where resident_base.id > 0
-  and agency = "KVRS"
+  and agency = "KVRS"                                               -- ADJUST THIS
   and resident_base.id not in (select id from donation)
-  and city.name = "VIRGINIA BEACH"
+  and city.name = "VIRGINIA BEACH"                                  -- ADJUST THIS
 order by state.abbreviation,city.name,street.name,house_num,rand()
-limit 10384
+limit 10384                                                         -- ADJUST THIS

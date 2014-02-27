@@ -14,7 +14,6 @@ from resident_base
   join street on (street.id=resident_base.street_id)
   join city on (city.id=street.city_id)
   join state on (state.id=city.state_id)
---  join donation on (donation.id=resident_base.id)
 where resident_base.id > 0
-  and agency = "VBVRS"
+  and agency = "VBVRS"                                       -- ADJUST THIS
 order by state.abbreviation,city.name,street.name,house_num
