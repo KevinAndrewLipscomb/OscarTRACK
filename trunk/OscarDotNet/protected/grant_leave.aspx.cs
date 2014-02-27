@@ -120,8 +120,8 @@ namespace grant_leave
       args.IsValid = !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
         (
         member_id:p.biz_members.IdOf(Session["member_summary"]),
-        relative_start_month:k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM),
-        relative_end_month:k.Safe(DropDownList_end_month.SelectedValue, k.safe_hint_type.NUM)
+        relative_start_month:int.Parse(k.Safe(DropDownList_start_month.SelectedValue,k.safe_hint_type.NUM)),
+        relative_end_month:int.Parse(k.Safe(DropDownList_end_month.SelectedValue,k.safe_hint_type.NUM))
         );
       }
 
