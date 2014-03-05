@@ -33,6 +33,10 @@
                         <ASP:DataGrid id="DataGrid_leaves" runat="server" allowsorting="True" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="10" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px">
                             <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                             <Columns>
+                              <asp:BoundColumn DataField="be_canonical" ReadOnly="True" HeaderText="Record type">
+                                <HeaderStyle HorizontalAlign="Center" />
+                                <ItemStyle HorizontalAlign="Center" />
+                              </asp:BoundColumn>
                               <ASP:BoundColumn visible="False" datafield="id" readonly="True"></ASP:BoundColumn>
                               <ASP:BoundColumn datafield="start_date" sortexpression="start_date%" readonly="True" headertext="Start month">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
@@ -40,10 +44,10 @@
                               <ASP:BoundColumn datafield="end_date" sortexpression="end_date%" readonly="True" headertext="End month">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
-                              <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date%" readonly="True" headertext="Kind">
+                              <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date" readonly="True" headertext="Kind">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
-                              <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date%" readonly="True" headertext="Num shifts">
+                              <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date" readonly="True" headertext="Num shifts">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
                               <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note" Visible="false">

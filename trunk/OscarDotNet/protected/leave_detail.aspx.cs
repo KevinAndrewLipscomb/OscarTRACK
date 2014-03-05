@@ -14,14 +14,15 @@ namespace leave_detail
 
   public static class leave_detail_Static
     {
-    public const int TCCI_ID = 0;
-    public const int TCCI_START_DATE = 1;
-    public const int TCCI_END_DATE = 2;
-    public const int TCCI_KIND_OF_LEAVE = 3;
-    public const int TCCI_NUM_OBLIGED_SHIFTS = 4;
-    public const int TCCI_NOTE = 5;
-    public const int TCCI_EDIT = 6;
-    public const int TCCI_DELETE = 7;
+    public const int TCCI_BE_CANONICAL = 0;
+    public const int TCCI_ID = 1;
+    public const int TCCI_START_DATE = 2;
+    public const int TCCI_END_DATE = 3;
+    public const int TCCI_KIND_OF_LEAVE = 4;
+    public const int TCCI_NUM_OBLIGED_SHIFTS = 5;
+    public const int TCCI_NOTE = 6;
+    public const int TCCI_EDIT = 7;
+    public const int TCCI_DELETE = 8;
     }
 
     public partial class TWebForm_leave_detail: ki_web_ui.page_class
@@ -124,7 +125,7 @@ namespace leave_detail
 
         private void DataGrid_leaves_DeleteCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
         {
-            p.biz_leaves.Delete(k.Safe(e.Item.Cells[(int)(p.biz_leaves.TcciOfId())].Text, k.safe_hint_type.NUM));
+            p.biz_leaves.Delete(k.Safe(e.Item.Cells[leave_detail_Static.TCCI_ID].Text, k.safe_hint_type.NUM));
             DataGrid_leaves.EditItemIndex =  -1;
             Bind();
         }
@@ -152,7 +153,7 @@ namespace leave_detail
                         break;
                     case Class_biz_leaves.relativity_type.ESTABLISHED:
                         ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave)
+                        if (((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Text == "0"))
                           {
                           ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
                           }
@@ -162,7 +163,7 @@ namespace leave_detail
                           }
                         break;
                     case Class_biz_leaves.relativity_type.FORMATIVE:
-                        if ((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave)
+                        if (((e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Text == "0"))
                           {
                           ((e.Item.Cells[leave_detail_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
                           ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
@@ -180,6 +181,16 @@ namespace leave_detail
                         ((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[leave_detail_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
                         break;
                 }
+                if (e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Text == "0")
+                  {
+                  e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Attributes.Add("style","color:gray");
+                  e.Item.Cells[leave_detail_Static.TCCI_START_DATE].Attributes.Add("style","color:gray");
+                  e.Item.Cells[leave_detail_Static.TCCI_END_DATE].Attributes.Add("style","color:gray");
+                  e.Item.Cells[leave_detail_Static.TCCI_KIND_OF_LEAVE].Attributes.Add("style","color:gray");
+                  e.Item.Cells[leave_detail_Static.TCCI_NUM_OBLIGED_SHIFTS].Attributes.Add("style","color:gray");
+                  e.Item.Cells[leave_detail_Static.TCCI_NOTE].Attributes.Add("style","color:gray");
+                  }
+                e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Text = (e.Item.Cells[leave_detail_Static.TCCI_BE_CANONICAL].Text == "1" ? "BIZ-CYCLE" : "PRECISION");
                 p.num_datagrid_rows = p.num_datagrid_rows + 1;
             }
         }
