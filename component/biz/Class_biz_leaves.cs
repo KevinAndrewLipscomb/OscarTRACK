@@ -312,8 +312,13 @@ namespace Class_biz_leaves
         public relativity_type RelativityOf(string start_month, string end_month)
         {
             relativity_type result;
-            string this_month;
-            this_month = DateTime.Today.ToString("yyyy-MM");
+            var this_month = DateTime.Today.ToString("yyyy-MM");
+            //
+            // The following two lines are necessary now that we're also processing mid-cycle leave data.
+            //
+            start_month = start_month.Substring(0,7);
+            end_month = end_month.Substring(0,7);
+            //
             if (end_month.CompareTo(this_month) < 0)
             {
                 result = relativity_type.PAST;
