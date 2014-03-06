@@ -155,6 +155,7 @@ namespace Class_biz_medical_release_levels
         EMT_CT,
         EMT_I,
         EMT_P,
+        EMT_P_RSI
     } // end filter_type
 
 }
