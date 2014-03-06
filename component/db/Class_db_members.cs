@@ -1003,7 +1003,7 @@ namespace Class_db_members
                         filter = filter + " = \"BLS Intern\" ";
                         break;
                     case Class_biz_medical_release_levels.filter_type.RELEASED:
-                        filter = filter + " in (\"EMT-B\",\"EMT-ST\",\"EMT-E\",\"EMT-CT\",\"EMT-I\",\"EMT-P\") ";
+                        filter = filter + " in ('EMT-B','EMT-ST','EMT-E','EMT-CT','EMT-I','EMT-P','EMT-P-RSI') ";
                         break;
                     case Class_biz_medical_release_levels.filter_type.EMT_B:
                         filter = filter + " = \"EMT-B\" ";
@@ -1022,6 +1022,9 @@ namespace Class_db_members
                         break;
                     case Class_biz_medical_release_levels.filter_type.EMT_P:
                         filter = filter + " = \"EMT-P\" ";
+                        break;
+                    case Class_biz_medical_release_levels.filter_type.EMT_P_RSI:
+                        filter = filter + " = 'EMT-P-RSI' ";
                         break;
                 }
             }
