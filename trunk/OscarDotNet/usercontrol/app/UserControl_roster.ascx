@@ -38,7 +38,8 @@
                                     <ASP:ListItem value="emt_e">- - EMT-E</ASP:ListItem>
                                     <ASP:ListItem value="emt_ct">- - EMT-CT</ASP:ListItem>
                                     <ASP:ListItem value="emt_i">- - EMT-I</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem></ASP:DropDownList>
+                                    <ASP:ListItem value="emt_p">- - EMT-P</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p_rsi">- - EMT-P-RSI</ASP:ListItem></ASP:DropDownList>
                                     </p>							</td>
                       <td>
                                     <p align="center"><small>Membership status</small><br>
