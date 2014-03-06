@@ -94,6 +94,8 @@
                 </ItemTemplate>
               </asp:DataList>
               Ð&nbsp;=&nbsp;non-driver
+              <br />
+              005&nbsp;=&nbsp;EMS-5&nbsp;etc,&nbsp; FM&nbsp;=&nbsp;Flight&nbsp;Medic,&nbsp; MM&nbsp;=&nbsp;Marine&nbsp;Medic,&nbsp; Q14&nbsp;=&nbsp;Squad-14&nbsp;etc
             </small>
           </td>
         </tr>
