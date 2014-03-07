@@ -95,6 +95,16 @@
                         <td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server" onclick="LinkButton_change_driver_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
                       </tr>
+                      <tr>
+                        <td>Flight medic:</td>
+                        <td><ASP:LinkButton id="LinkButton_change_flight_medic_qual" runat="server" onclick="LinkButton_change_flight_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+                        <td><ASP:Label id="Label_be_flight_medic" runat="server"></ASP:Label></td>
+                      </tr>
+                      <tr>
+                        <td>Marine medic:</td>
+                        <td><ASP:LinkButton id="LinkButton_change_marine_medic_qual" runat="server" onclick="LinkButton_change_marine_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+                        <td><ASP:Label id="Label_be_marine_medic" runat="server"></ASP:Label></td>
+                      </tr>
                     </table>
                   </td>
                 </tr>

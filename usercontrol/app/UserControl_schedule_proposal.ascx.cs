@@ -78,39 +78,43 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_POST_CARDINALITY_NONINTERACTIVE = 12;
       public const int TCI_D_POST_CARDINALITY_INTERACTIVE = 13;
       public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
-      public const int TCI_D_COLON = 15;
-      public const int TCI_D_NAME_INTERACTIVE = 16;
-      public const int TCI_D_NAME_NONINTERACTIVE = 17;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 18;
-      public const int TCI_D_MEMBER_AGENCY_ID = 19;
-      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 20;
-      public const int TCI_D_BE_SELECTED = 21;
-      public const int TCI_D_COMMENT = 22;
-      public const int TCI_D_BE_CHALLENGE = 23;
-      public const int TCI_D_PHONE_NUM = 24;
-      public const int TCI_N_SPACER_MAJOR = 25;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 26;
-      public const int TCI_N_SLASH = 27;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 28;
-      public const int TCI_N_SPACER_MINOR = 29;
-      public const int TCI_N_ASSIGNMENT_ID = 30;
-      public const int TCI_N_POST_ID = 31;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 32;
-      public const int TCI_N_MEMBER_ID = 33;
-      public const int TCI_N_POST_DESIGNATOR = 34;
-      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 35;
-      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 36;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 37;
-      public const int TCI_N_COLON = 38;
-      public const int TCI_N_NAME_INTERACTIVE = 39;
-      public const int TCI_N_NAME_NONINTERACTIVE = 40;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 41;
-      public const int TCI_N_MEMBER_AGENCY_ID = 42;
-      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 43;
-      public const int TCI_N_BE_SELECTED = 44;
-      public const int TCI_N_COMMENT = 45;
-      public const int TCI_N_BE_CHALLENGE = 46;
-      public const int TCI_N_PHONE_NUM = 47;
+      public const int TCI_D_BE_FLIGHT_MEDIC = 15;
+      public const int TCI_D_BE_MARINE_MEDIC = 16;
+      public const int TCI_D_COLON = 17;
+      public const int TCI_D_NAME_INTERACTIVE = 18;
+      public const int TCI_D_NAME_NONINTERACTIVE = 19;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 20;
+      public const int TCI_D_MEMBER_AGENCY_ID = 21;
+      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 22;
+      public const int TCI_D_BE_SELECTED = 23;
+      public const int TCI_D_COMMENT = 24;
+      public const int TCI_D_BE_CHALLENGE = 25;
+      public const int TCI_D_PHONE_NUM = 26;
+      public const int TCI_N_SPACER_MAJOR = 27;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 28;
+      public const int TCI_N_SLASH = 29;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 30;
+      public const int TCI_N_SPACER_MINOR = 31;
+      public const int TCI_N_ASSIGNMENT_ID = 32;
+      public const int TCI_N_POST_ID = 33;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 34;
+      public const int TCI_N_MEMBER_ID = 35;
+      public const int TCI_N_POST_DESIGNATOR = 36;
+      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 37;
+      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 38;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 39;
+      public const int TCI_N_BE_FLIGHT_MEDIC = 40;
+      public const int TCI_N_BE_MARINE_MEDIC = 41;
+      public const int TCI_N_COLON = 42;
+      public const int TCI_N_NAME_INTERACTIVE = 43;
+      public const int TCI_N_NAME_NONINTERACTIVE = 44;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 45;
+      public const int TCI_N_MEMBER_AGENCY_ID = 46;
+      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 47;
+      public const int TCI_N_BE_SELECTED = 48;
+      public const int TCI_N_COMMENT = 49;
+      public const int TCI_N_BE_CHALLENGE = 50;
+      public const int TCI_N_PHONE_NUM = 51;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 0;
       public const int CI_DESIGNATOR_LABEL = 1;
@@ -480,6 +484,8 @@ namespace UserControl_schedule_proposal
       bool be_ok_to_enable_controls,
       int tci_comment,
       int tci_medical_release_description,
+      int tci_be_flight_medic,
+      int tci_be_marine_medic,
       int tci_colon,
       int tci_name_interactive,
       int tci_name_noninteractive,
@@ -502,6 +508,8 @@ namespace UserControl_schedule_proposal
         if (p.be_interactive)
           {
           e.Item.Cells[tci_medical_release_description].Font.Bold = true;
+          e.Item.Cells[tci_be_flight_medic].Font.Bold = true;
+          e.Item.Cells[tci_be_marine_medic].Font.Bold = true;
           e.Item.Cells[tci_colon].Font.Bold = true;
           e.Item.Cells[tci_name_interactive].Font.Bold = true;
           e.Item.Cells[tci_be_driver_qualified].Font.Bold = true;
@@ -517,6 +525,8 @@ namespace UserControl_schedule_proposal
           {
           e.Item.Cells[tci_comment].BackColor = Color.Yellow;
           e.Item.Cells[tci_medical_release_description].BackColor = Color.Yellow;
+          e.Item.Cells[tci_be_flight_medic].BackColor = Color.Yellow;
+          e.Item.Cells[tci_be_marine_medic].BackColor = Color.Yellow;
           e.Item.Cells[tci_colon].BackColor = Color.Yellow;
           e.Item.Cells[tci_name_interactive].BackColor = Color.Yellow;
           e.Item.Cells[tci_name_noninteractive].BackColor = Color.Yellow;
@@ -528,6 +538,8 @@ namespace UserControl_schedule_proposal
         {
         e.Item.Cells[tci_member_agency_id].ForeColor = Color.Gray;
         e.Item.Cells[tci_medical_release_description].ForeColor = Color.Gray;
+        e.Item.Cells[tci_be_flight_medic].ForeColor = Color.Gray;
+        e.Item.Cells[tci_be_marine_medic].ForeColor = Color.Gray;
         e.Item.Cells[tci_colon].ForeColor = Color.Gray;
         e.Item.Cells[tci_be_driver_qualified].ForeColor = Color.Gray;
         e.Item.Cells[tci_be_selected].ForeColor = Color.Gray;
@@ -551,6 +563,11 @@ namespace UserControl_schedule_proposal
         e.Item.Cells[tci_colon].Text = k.EMPTY;
         }
       //
+      // Manage display of 'merit badge' columns.
+      //
+      e.Item.Cells[tci_be_flight_medic].Text = (e.Item.Cells[tci_be_flight_medic].Text == "&nbsp;" ? k.EMPTY : (e.Item.Cells[tci_be_flight_medic].Text == "0" ? "&nbsp;" : "&infin;"));
+      e.Item.Cells[tci_be_marine_medic].Text = (e.Item.Cells[tci_be_marine_medic].Text == "&nbsp;" ? k.EMPTY : (e.Item.Cells[tci_be_marine_medic].Text == "0" ? "&nbsp;" : "&asymp;"));
+      //
       // Manage ablement of interactive name linkbutton.
       //
       ((e.Item.Cells[tci_name_interactive].Controls[0]) as LinkButton).Enabled = be_ok_to_enable_controls;
@@ -571,6 +588,8 @@ namespace UserControl_schedule_proposal
         {
         e.Item.Cells[tci_comment].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_medical_release_description].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_be_flight_medic].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_be_marine_medic].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_colon].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_name_interactive].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_name_noninteractive].Style.Add("border-top","thin solid silver");
@@ -766,6 +785,8 @@ namespace UserControl_schedule_proposal
           d_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           UserControl_schedule_proposal_Static.TCI_D_COMMENT,
           UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION,
+          UserControl_schedule_proposal_Static.TCI_D_BE_FLIGHT_MEDIC,
+          UserControl_schedule_proposal_Static.TCI_D_BE_MARINE_MEDIC,
           UserControl_schedule_proposal_Static.TCI_D_COLON,
           UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE,
           UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE,
@@ -786,6 +807,8 @@ namespace UserControl_schedule_proposal
           n_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           UserControl_schedule_proposal_Static.TCI_N_COMMENT,
           UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION,
+          UserControl_schedule_proposal_Static.TCI_N_BE_FLIGHT_MEDIC,
+          UserControl_schedule_proposal_Static.TCI_N_BE_MARINE_MEDIC,
           UserControl_schedule_proposal_Static.TCI_N_COLON,
           UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE,
           UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE,

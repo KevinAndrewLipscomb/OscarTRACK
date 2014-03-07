@@ -265,6 +265,42 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_be_driver_qualified;
         
         /// <summary>
+        /// LinkButton_change_flight_medic_qual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_change_flight_medic_qual;
+        
+        /// <summary>
+        /// Label_be_flight_medic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_be_flight_medic;
+        
+        /// <summary>
+        /// LinkButton_change_marine_medic_qual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_change_marine_medic_qual;
+        
+        /// <summary>
+        /// Label_be_marine_medic control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_be_marine_medic;
+        
+        /// <summary>
         /// UserControl_postcontent control.
         /// </summary>
         /// <remarks>

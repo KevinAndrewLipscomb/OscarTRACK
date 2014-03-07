@@ -104,6 +104,9 @@ namespace Class_db_members
       public string peck_code;
       public string phone_num;
       public string section;
+      public bool be_placeholder;
+      public bool be_flight_medic;
+      public bool be_marine_medic;
       }
 
     public class TClass_db_members: TClass_db
@@ -206,6 +209,16 @@ namespace Class_db_members
         {
             return (summary as member_summary).be_driver_qualified;
         }
+
+    public bool BeFlightMedicQualifiedOf(object summary)
+      {
+      return (summary as member_summary).be_flight_medic;
+      }
+
+    public bool BeMarineMedicQualifiedOf(object summary)
+      {
+      return (summary as member_summary).be_marine_medic;
+      }
 
         public bool BeKnown(string cad_num)
         {
@@ -1729,6 +1742,30 @@ namespace Class_db_members
           Close();
           }
 
+    public void SetFlightMedicQualification
+      (
+      bool be_flight_medic,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("UPDATE member SET be_flight_medic = " + be_flight_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      Close();
+      (summary as member_summary).be_flight_medic = be_flight_medic;
+      }
+
+    public void SetMarineMedicQualification
+      (
+      bool be_marine_medic,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("UPDATE member SET be_marine_medic = " + be_marine_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      Close();
+      (summary as member_summary).be_marine_medic = be_marine_medic;
+      }
+
         public void SetName(string first, string last, object summary)
         {
             this.Open();
@@ -1811,6 +1848,9 @@ namespace Class_db_members
             + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
             + " , phone_num" 
             + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
+            + " , be_placeholder"
+            + " , be_flight_medic"
+            + " , be_marine_medic"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
             +   " join enrollment_history on" 
@@ -1855,6 +1895,9 @@ namespace Class_db_members
               + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
               + " , phone_num" 
               + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
+              + " , be_placeholder"
+              + " , be_flight_medic"
+              + " , be_marine_medic"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
               +   " join enrollment_history on" 
@@ -1893,7 +1936,10 @@ namespace Class_db_members
             length_of_service = dr["length_of_service"].ToString(),
             peck_code = dr["medical_release_peck_code"].ToString(),
             phone_num = dr["phone_num"].ToString(),
-            section = dr["section_num"].ToString()
+            section = dr["section_num"].ToString(),
+            be_placeholder = (dr["be_placeholder"].ToString() == "1"),
+            be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),
+            be_marine_medic = (dr["be_marine_medic"].ToString() == "1")
             };
           dr.Close();
           Close();
