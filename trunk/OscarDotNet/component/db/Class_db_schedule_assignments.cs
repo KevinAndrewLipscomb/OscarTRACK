@@ -373,7 +373,7 @@ namespace Class_db_schedule_assignments
             +   " or"
             +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
             +   " or"
-            +     " (sum(be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
+            +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
             +   " ) as be_challenge"
             + " from schedule_assignment"
             +   " join member on (member.id=schedule_assignment.member_id)"
@@ -543,6 +543,8 @@ namespace Class_db_schedule_assignments
         +     " (sum(be_selected)%2 = 1)" // Odd number of released members
         +   " or"
         +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
+        +   " or"
+        +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
         +   " ) as be_challenge"
         + " from schedule_assignment"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
