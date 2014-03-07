@@ -111,6 +111,12 @@ namespace member_detail
                 LinkButton_change_driver_qual.Visible = k.Has((string[])(Session["privilege_array"]), "change-driver-qual") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
                 LinkButton_change_agency.Visible = k.Has((string[])(Session["privilege_array"]), "change-agency") && p.biz_agencies.BeImmediateOutTransfersAllowed(p.agency);
                 LinkButton_change_section.Visible = k.Has((string[])(Session["privilege_array"]), "change-section") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+                Label_be_flight_medic.Text = k.YesNoOf(p.biz_members.BeFlightMedicQualifiedOf(Session["member_summary"]));
+                Label_be_marine_medic.Text = k.YesNoOf(p.biz_members.BeMarineMedicQualifiedOf(Session["member_summary"]));
+                LinkButton_change_flight_medic_qual.Text = k.ExpandTildePath(LinkButton_change_flight_medic_qual.Text);
+                LinkButton_change_marine_medic_qual.Text = k.ExpandTildePath(LinkButton_change_marine_medic_qual.Text);
+                LinkButton_change_flight_medic_qual.Visible = k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
+                LinkButton_change_marine_medic_qual.Visible = k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), target_member_id);
             }
         }
 
@@ -226,6 +232,16 @@ namespace member_detail
     protected void LinkButton_adjust_years_of_service_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("adjust_length_of_service.aspx");
+      }
+
+    protected void LinkButton_change_flight_medic_qual_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("change_member_flight_medic_qualification.aspx");
+      }
+
+    protected void LinkButton_change_marine_medic_qual_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("change_member_marine_medic_qualification.aspx");
       }
 
     } // end TWebForm_member_detail

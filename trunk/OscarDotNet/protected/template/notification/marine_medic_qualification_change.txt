@@ -1,0 +1,15 @@
+Marine Medic qual change to <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following change in <application_name/>:
+
+   <first_name/> <last_name/> (<cad_num/>) is fully qualified as a
+   Marine Medic in Virginia Beach:
+
+      <be_marine_medic/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

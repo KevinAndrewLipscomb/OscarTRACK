@@ -125,6 +125,16 @@ namespace Class_biz_members
             return result;
         }
 
+    public bool BeFlightMedicQualifiedOf(object summary)
+      {
+      return db_members.BeFlightMedicQualifiedOf(summary);
+      }
+
+    public bool BeMarineMedicQualifiedOf(object summary)
+      {
+      return db_members.BeMarineMedicQualifiedOf(summary);
+      }
+
         internal bool BeOkToDefaultAgencyFilterToAll
           (
           bool be_ok_to_see_all_squads,
@@ -661,6 +671,16 @@ namespace Class_biz_members
               }
         }
 
+    public void SetFlightMedicQualification
+      (
+      bool be_flight_medic,
+      object summary
+      )
+      {
+      db_members.SetFlightMedicQualification(be_flight_medic, summary);
+      biz_notifications.IssueForFlightMedicQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_flight_medic);
+      }
+
         internal void SetLengthOfService
           (
           string years_subtracted,
@@ -685,6 +705,16 @@ namespace Class_biz_members
             rationale:rationale
             );
           }
+
+    public void SetMarineMedicQualification
+      (
+      bool be_marine_medic,
+      object summary
+      )
+      {
+      db_members.SetMarineMedicQualification(be_marine_medic, summary);
+      biz_notifications.IssueForMarineMedicQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_marine_medic);
+      }
 
         public void SetName(string old_first, string old_last, string new_first, string new_last, object summary)
         {
