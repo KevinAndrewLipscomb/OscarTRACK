@@ -825,7 +825,7 @@ namespace Class_db_schedule_assignments
       +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
       +   " )"
       + " or"
-      +   " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
+      +   " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
       + " )";
       //
       if (agency_filter != k.EMPTY)
