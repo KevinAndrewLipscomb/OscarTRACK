@@ -54,7 +54,7 @@ where
         if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 0 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 0 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0
       )
     or
-      (enrollment_level.description in ('Staff','ALS Intern','College','Atypical'))
+      (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'))
     )
   and
     (agency.id <> 0)

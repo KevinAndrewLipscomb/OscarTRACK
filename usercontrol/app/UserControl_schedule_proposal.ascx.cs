@@ -415,6 +415,8 @@ namespace UserControl_schedule_proposal
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Visible = (!p.be_lineup || p.be_now_day_shift);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_BE_FLIGHT_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_D_BE_MARINE_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_COLON].Visible = (!p.be_lineup || p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift);
@@ -431,6 +433,8 @@ namespace UserControl_schedule_proposal
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Visible = !(p.be_lineup && p.be_now_day_shift);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_BE_FLIGHT_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift);
+        A.Columns[UserControl_schedule_proposal_Static.TCI_N_BE_MARINE_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_COLON].Visible = !(p.be_lineup && p.be_now_day_shift);
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
         A.Columns[UserControl_schedule_proposal_Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift);
