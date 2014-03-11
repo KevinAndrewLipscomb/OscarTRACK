@@ -90,17 +90,20 @@ namespace UserControl_eval
       UserControl_drop_down_time_of_day_in.Clear();
       UserControl_drop_down_time_of_day_out.Clear();
       TextBox_discussions.Text = k.EMPTY;
+      Literal_discussions.Text = k.EMPTY;
       RadioButtonList_be_aic_ok_with_third_progress.ClearSelection();
       RadioButtonList_be_aic_ok_with_third_release.ClearSelection();
       RadioButtonList_be_third_ok_with_progress.ClearSelection();
       RadioButtonList_be_third_ok_with_release.ClearSelection();
       TextBox_comments_on_driving.Text = k.EMPTY;
+      Literal_comments_on_driving.Text = k.EMPTY;
       TextBox_miles_driven_routine.Text = k.EMPTY;
       TextBox_miles_driven_emergency.Text = k.EMPTY;
       TextBox_road_conditions.Text = k.EMPTY;
       RadioButtonList_be_aic_ok_with_third_being_driver.ClearSelection();
       RadioButtonList_be_third_ok_with_being_driver.ClearSelection();
       TextBox_third_rebuttal.Text = k.EMPTY;
+      Literal_third_rebuttal.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -318,6 +321,8 @@ namespace UserControl_eval
           //
           Button_interaction_info_save.Visible = false;
           Panel_interaction_items.Enabled = false;
+          TextBox_discussions.Visible = false;
+          Literal_discussions.Visible = true;
           //
           LinkButton_add_a_patient_encounter.Visible = false;
           Panel_patient_encounters.Enabled = false;
@@ -327,8 +332,12 @@ namespace UserControl_eval
           //
           Button_driving_summary_save.Visible = false;
           Panel_driving_summary.Enabled = false;
+          TextBox_comments_on_driving.Visible = false;
+          Literal_comments_on_driving.Visible = true;
           //
           Panel_third_rebuttal.Enabled = false;
+          TextBox_third_rebuttal.Visible = false;
+          Literal_third_rebuttal.Visible = true;
           //
           Button_lock_and_submit.Visible = false;
           }
@@ -428,11 +437,13 @@ namespace UserControl_eval
         UserControl_drop_down_time_of_day_in.selectedvalue = time_in.ToString("HH:mm");
         UserControl_drop_down_time_of_day_out.selectedvalue = time_out.ToString("HH:mm");
         TextBox_discussions.Text = discussions;
+        Literal_discussions.Text = discussions;
         RadioButtonList_be_aic_ok_with_third_progress.SelectedValue = k.NoneNoYesOf(aic_ok_with_third_progress_null_false_true_condition,k.EMPTY);
         RadioButtonList_be_aic_ok_with_third_release.SelectedValue = k.NoneNoYesOf(aic_ok_with_third_release_null_false_true_condition,k.EMPTY);
         RadioButtonList_be_third_ok_with_progress.SelectedValue = k.NoneNoYesOf(third_ok_with_progress_null_false_true_condition,k.EMPTY);
         RadioButtonList_be_third_ok_with_release.SelectedValue = k.NoneNoYesOf(third_ok_with_release_null_false_true_condition,k.EMPTY);
         TextBox_comments_on_driving.Text = comments_on_driving;
+        Literal_comments_on_driving.Text = comments_on_driving;
         TextBox_miles_driven_routine.Text = miles_driven_routine;
         TextBox_miles_driven_emergency.Text = miles_driven_emergency;
         TextBox_road_conditions.Text = road_conditions;
@@ -442,6 +453,7 @@ namespace UserControl_eval
         p.be_locked_by_third_initially = be_locked_by_third_initially;
         p.be_locked_by_aic = be_locked_by_aic;
         TextBox_third_rebuttal.Text = third_rebuttal;
+        Literal_third_rebuttal.Text = third_rebuttal;
         //
         p.num_patient_encounters.val = 0;
         p.biz_patient_encounters.BindBaseDataList
@@ -1101,6 +1113,7 @@ namespace UserControl_eval
           {
           var third_rebuttal = k.Safe(TextBox_third_rebuttal.Text,k.safe_hint_type.MEMO);
           TextBox_third_rebuttal.Text = (third_rebuttal.Length > 0 ? third_rebuttal : "Concur");
+          Literal_third_rebuttal.Text = TextBox_third_rebuttal.Text;
           }
         SaveRecord();
         if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") && (p.presentation_mode == presentation_mode_enum.EVALUATEE_WORK))

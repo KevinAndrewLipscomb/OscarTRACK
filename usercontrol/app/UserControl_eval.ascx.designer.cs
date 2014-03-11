@@ -454,6 +454,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.TextBox TextBox_discussions;
         
         /// <summary>
+        /// Literal_discussions control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_discussions;
+        
+        /// <summary>
         /// RegularExpressionValidator_discussions control.
         /// </summary>
         /// <remarks>
@@ -607,6 +616,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.TextBox TextBox_comments_on_driving;
         
         /// <summary>
+        /// Literal_comments_on_driving control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_comments_on_driving;
+        
+        /// <summary>
         /// RegularExpressionValidator_comments_on_driving control.
         /// </summary>
         /// <remarks>
@@ -722,6 +740,15 @@ namespace UserControl_eval {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox TextBox_third_rebuttal;
+        
+        /// <summary>
+        /// Literal_third_rebuttal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_third_rebuttal;
         
         /// <summary>
         /// RegularExpressionValidator_third_rebuttal control.

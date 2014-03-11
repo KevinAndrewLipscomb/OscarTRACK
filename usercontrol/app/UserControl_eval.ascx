@@ -252,7 +252,8 @@
     <td valign="top" align="right"><font class="">Discussions:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_discussions" runat="server" columns="72" textmode="MultiLine" rows="4" cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:TextBox id="TextBox_discussions" runat="server" columns="72" textmode="MultiLine" rows="10" cssclass="" enabled="False"></ASP:TextBox>
+        <tt><asp:Literal ID="Literal_discussions" runat="server" Visible="false"></asp:Literal></tt>
       </font>
     </td>
     <td nowrap="nowrap">
@@ -373,7 +374,8 @@
     <td valign="top" align="right"><font class="">Comments&nbsp;on&nbsp;driving:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_comments_on_driving" runat="server" columns="72" textmode="MultiLine" rows="2" cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:TextBox id="TextBox_comments_on_driving" runat="server" columns="72" textmode="MultiLine" rows="10" cssclass="" enabled="False"></ASP:TextBox>
+        <tt><asp:Literal ID="Literal_comments_on_driving" runat="server" Visible="false"></asp:Literal></tt>
       </font>
     </td>
     <td nowrap="nowrap">
@@ -456,7 +458,8 @@
     <td valign="top" align="right"><font class="">Final comments:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_third_rebuttal" runat="server" columns="72" textmode="MultiLine" rows="4" cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:TextBox id="TextBox_third_rebuttal" runat="server" columns="72" textmode="MultiLine" rows="6" cssclass="" enabled="False"></ASP:TextBox>
+        <tt><asp:Literal ID="Literal_third_rebuttal" runat="server" Visible="false"></asp:Literal></tt>
       </font>
     </td>
     <td nowrap="nowrap">
