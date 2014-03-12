@@ -219,6 +219,7 @@ namespace Class_db_residents
           + " , '885 LITTLE NECK RD'"
           + " , '1468 NIMMO PKWY'"
           + " , '2837 SHORE DR'"
+          + " , '3513 BOW CREEK BLVD'" // Residence of a Plaza Life Member
           + " )"
       + ";"
       + " DELETE FROM love_letter_target WHERE address in (select address from immune_scene_visited)"
