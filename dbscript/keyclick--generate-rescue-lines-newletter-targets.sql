@@ -8,5 +8,6 @@ FROM donation
   join city on (city.id=street.city_id)
   join state on (state.id=city.state_id)
 WHERE date > DATE_ADD(CURDATE(),INTERVAL -1 YEAR)
+  and agency = 'KVRS'
 order by amount desc
 LIMIT 1000
