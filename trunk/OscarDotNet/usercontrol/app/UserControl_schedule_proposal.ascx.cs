@@ -3,6 +3,7 @@ using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_biz_shifts;
+using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
@@ -29,6 +30,7 @@ namespace UserControl_schedule_proposal
     public bool be_now_day_shift;
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
+    public bool be_ok_to_edit_schedule_liberally;
     public bool be_ok_to_schedule_squad_truck_team;
     public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_squad_exclusivity_expired;
@@ -38,6 +40,7 @@ namespace UserControl_schedule_proposal
     public TClass_biz_members biz_members;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_shifts biz_shifts;
+    public TClass_biz_user biz_user;
     public string depth_filter;
     public string max_post_cardinality_actual;
     public string max_post_cardinality_effective;
@@ -126,7 +129,7 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
-        if (p.be_interactive && p.be_ok_to_edit_post)
+        if (p.be_interactive && p.be_ok_to_edit_post && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
           {
           TableRow_guidance.Visible = true;
           Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
@@ -187,6 +190,7 @@ namespace UserControl_schedule_proposal
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_shifts = new TClass_biz_shifts();
+        p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
         p.be_archival_end_of_month_watchbill = (Session["mode:report/archival-end-of-month-watchbill-noninteractive"] != null);
@@ -196,6 +200,7 @@ namespace UserControl_schedule_proposal
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
@@ -717,7 +722,7 @@ namespace UserControl_schedule_proposal
               p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
             ||
               (
-                p.be_user_privileged_to_see_all_squads
+                p.be_ok_to_edit_schedule_liberally
               &&
                 (
                   !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,p.relative_month)
@@ -740,7 +745,7 @@ namespace UserControl_schedule_proposal
               p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
             ||
               (
-                p.be_user_privileged_to_see_all_squads
+                p.be_ok_to_edit_schedule_liberally
               &&
                 (
                   !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,p.relative_month)

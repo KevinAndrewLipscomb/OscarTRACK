@@ -6,6 +6,7 @@ using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
 using System;
+using System.Collections;
 using System.Configuration;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
@@ -85,7 +86,7 @@ namespace UserControl_schedule_assignment_assistant_binder
             (!p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1)) && be_ok_to_work_on_next_month_assignments)
           );
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
-        if (p.be_ok_to_edit_schedule)
+        if (p.be_ok_to_edit_schedule && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
           {
           TableRow_guidance_1.Visible = true;
           TableRow_guidance_2.Visible = true;
@@ -145,7 +146,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         //
-        if (p.be_ok_to_edit_schedule)
+        if (p.be_ok_to_edit_schedule && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
           {
           p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
           }
