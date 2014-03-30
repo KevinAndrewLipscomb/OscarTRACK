@@ -8,7 +8,17 @@
           <table border="0" cellspacing="0" cellpadding="10" width="100%">
             <tr><td bgcolor="#dcdcdc"><strong>My ROLES</strong></td></tr>
             <tr id="TableRow_no_roles" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
-            <tr><td><asp:BulletedList ID="BulletedList_role" runat="server"></asp:BulletedList></td></tr>
+            <tr id="TableRow_role_data" runat="server">
+              <td>
+                <asp:DataGrid id="DataGrid_role" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
+                  <Columns>
+                    <asp:BoundColumn datafield="role" headertext="Role" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                  </Columns>
+                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                </asp:DataGrid>
+              </td>
+            </tr>
           </table>
         </td>
       </tr>
@@ -17,7 +27,17 @@
           <table border="0" cellspacing="0" cellpadding="10" width="100%">
             <tr><td bgcolor="#dcdcdc"><strong>My PRIVILEGES</strong></td></tr>
             <tr id="TableRow_no_privileges" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
-            <tr><td><asp:BulletedList ID="BulletedList_privilege" runat="server"></asp:BulletedList></td></tr>
+            <tr id="TableRow_privilege_data" runat="server">
+              <td>
+                <asp:DataGrid id="DataGrid_privilege" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
+                  <Columns>
+                    <asp:BoundColumn datafield="privilege" headertext="Privilege" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                  </Columns>
+                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                </asp:DataGrid>
+              </td>
+            </tr>
           </table>
         </td>
       </tr>
@@ -26,7 +46,17 @@
           <table border="0" cellspacing="0" cellpadding="10" width="100%">
             <tr><td bgcolor="#dcdcdc"><strong>My NOTIFICATIONS</strong></td></tr>
             <tr id="TableRow_no_notifications" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
-            <tr><td><asp:BulletedList ID="BulletedList_notification" runat="server"></asp:BulletedList></td></tr>
+            <tr id="TableRow_notification_data" runat="server">
+              <td>
+                <asp:DataGrid id="DataGrid_notification" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
+                  <Columns>
+                    <asp:BoundColumn datafield="notification" headertext="Notification" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                  </Columns>
+                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                </asp:DataGrid>
+              </td>
+            </tr>
           </table>
         </td>
       </tr>

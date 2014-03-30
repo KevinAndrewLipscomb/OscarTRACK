@@ -57,34 +57,6 @@ namespace Class_db_notifications
             BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
-    public void BindDirectToListControlForMember
-      (
-      string member_id,
-      object target
-      )
-      {
-      ((target) as ListControl).Items.Clear();
-      Open();
-      var dr = new MySqlCommand
-        (
-        "select DISTINCT notification.id as notification_id"
-        + " , name as notification_name"
-        + " from notification"
-        +   " join role_notification_map on (role_notification_map.notification_id=notification.id)"
-        +   " join role_member_map using (role_id)"
-        + " where member_id = '" + member_id + "'"
-        + " order by notification_name",
-        connection
-        )
-        .ExecuteReader();
-      while (dr.Read())
-        {
-        ((target) as ListControl).Items.Add(new ListItem(dr["notification_name"].ToString(), dr["notification_id"].ToString()));
-        }
-      dr.Close();
-      Close();
-      }
-
         public void BindTallies(object DataGrid_for_cycle, object DataGrid_for_lifetime)
         {
             this.Open();

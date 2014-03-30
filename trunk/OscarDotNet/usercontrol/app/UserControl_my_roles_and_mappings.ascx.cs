@@ -32,16 +32,17 @@ namespace UserControl_my_roles_and_mappings
       {
       if (!p.be_loaded)
         {
-        BulletedList_role.DataSource = p.biz_user.Roles();
-        BulletedList_role.DataBind();
-        TableRow_no_roles.Visible = (BulletedList_role.Items.Count == 0);
+        p.biz_user.BindRolesToBaseDataList(DataGrid_role);
+        TableRow_no_roles.Visible = (DataGrid_role.Items.Count == 0);
+        TableRow_role_data.Visible = !TableRow_no_roles.Visible;
         //
-        BulletedList_privilege.DataSource = (Session["privilege_array"] as string[]);
-        BulletedList_privilege.DataBind();
-        TableRow_no_privileges.Visible = (BulletedList_privilege.Items.Count == 0);
+        p.biz_user.BindPrivilegesToBaseDataList(DataGrid_privilege);
+        TableRow_no_privileges.Visible = (DataGrid_privilege.Items.Count == 0);
+        TableRow_privilege_data.Visible = !TableRow_no_privileges.Visible;
         //
-        p.biz_notifications.BindDirectToListControlForMember(p.biz_members.IdOfUserId(p.biz_user.IdNum()),BulletedList_notification);
-        TableRow_no_notifications.Visible = (BulletedList_notification.Items.Count == 0);
+        p.biz_user.BindNotificationsToBaseDataList(DataGrid_notification);
+        TableRow_no_notifications.Visible = (DataGrid_notification.Items.Count == 0);
+        TableRow_notification_data.Visible = !TableRow_no_notifications.Visible;
         //
         p.be_loaded = true;
         }
