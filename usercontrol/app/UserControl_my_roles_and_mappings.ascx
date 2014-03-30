@@ -13,7 +13,9 @@
                 <asp:DataGrid id="DataGrid_role" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
                   <Columns>
                     <asp:BoundColumn datafield="role" headertext="Role" />
-                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" >
+                      <ItemStyle BackColor="WhiteSmoke"/>
+                    </asp:BoundColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
@@ -32,7 +34,9 @@
                 <asp:DataGrid id="DataGrid_privilege" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
                   <Columns>
                     <asp:BoundColumn datafield="privilege" headertext="Privilege" />
-                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" >
+                      <ItemStyle BackColor="WhiteSmoke"/>
+                    </asp:BoundColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
@@ -51,7 +55,9 @@
                 <asp:DataGrid id="DataGrid_notification" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
                   <Columns>
                     <asp:BoundColumn datafield="notification" headertext="Notification" />
-                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" />
+                    <asp:BoundColumn datafield="scope" headertext="Scope limitation, if any" >
+                      <ItemStyle BackColor="WhiteSmoke"/>
+                    </asp:BoundColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
