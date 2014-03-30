@@ -61,15 +61,6 @@ namespace Class_biz_notifications
             BindDirectToListControl(target, unselected_literal, k.EMPTY);
         }
 
-    public void BindDirectToListControlForMember
-      (
-      string member_id,
-      object target
-      )
-      {
-      db_notifications.BindDirectToListControlForMember(member_id,target);
-      }
-
         public void BindTallies(object DataGrid_for_cycle, object DataGrid_for_lifetime)
         {
             db_notifications.BindTallies(DataGrid_for_cycle, DataGrid_for_lifetime);

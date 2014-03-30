@@ -31,13 +31,22 @@ namespace UserControl_my_roles_and_mappings {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_roles;
         
         /// <summary>
-        /// BulletedList_role control.
+        /// TableRow_role_data control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList BulletedList_role;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_role_data;
+        
+        /// <summary>
+        /// DataGrid_role control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_role;
         
         /// <summary>
         /// TableRow_no_privileges control.
@@ -49,13 +58,22 @@ namespace UserControl_my_roles_and_mappings {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_privileges;
         
         /// <summary>
-        /// BulletedList_privilege control.
+        /// TableRow_privilege_data control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList BulletedList_privilege;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_privilege_data;
+        
+        /// <summary>
+        /// DataGrid_privilege control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_privilege;
         
         /// <summary>
         /// TableRow_no_notifications control.
@@ -67,12 +85,21 @@ namespace UserControl_my_roles_and_mappings {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_notifications;
         
         /// <summary>
-        /// BulletedList_notification control.
+        /// TableRow_notification_data control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.BulletedList BulletedList_notification;
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_notification_data;
+        
+        /// <summary>
+        /// DataGrid_notification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DataGrid DataGrid_notification;
     }
 }
