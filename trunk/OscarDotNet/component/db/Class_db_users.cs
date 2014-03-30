@@ -198,7 +198,7 @@ namespace Class_db_users
             MySqlDataReader dr;
             StringCollection privileges_of_string_collection = new StringCollection();
             this.Open();
-            dr = new MySqlCommand("select distinct name" + " from user_member_map" + " join role_member_map using (member_id)" + " join role_privilege_map using (role_id)" + " join privilege on (privilege.id=role_privilege_map.privilege_id)" + " where user_id = " + id, this.connection).ExecuteReader();
+            dr = new MySqlCommand("select distinct name from user_member_map join role_member_map using (member_id) join role_privilege_map using (role_id) join privilege on (privilege.id=role_privilege_map.privilege_id) where user_id = '" + id + "' order by name",connection).ExecuteReader();
             while (dr.Read())
             {
                 privileges_of_string_collection.Add(dr["name"].ToString());
