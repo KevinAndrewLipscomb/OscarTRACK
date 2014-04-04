@@ -199,7 +199,7 @@ namespace UserControl_schedule_proposal
         p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
-        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments");
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
@@ -869,7 +869,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
         {
         p.biz_schedule_assignments.SetPost
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
@@ -883,7 +883,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
         {
         p.biz_schedule_assignments.SetPost
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
@@ -897,7 +897,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
         {
         p.biz_schedule_assignments.SetPostCardinality
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
@@ -911,7 +911,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
         {
         p.biz_schedule_assignments.SetPostCardinality
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
