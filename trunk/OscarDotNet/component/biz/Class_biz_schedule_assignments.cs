@@ -116,7 +116,7 @@ namespace Class_biz_schedule_assignments
         (
           session["mode:report"] == null
         &&
-          (k.Has(session["privilege_array"] as string[],"edit-schedule-liberally") || be_ok_to_schedule_squad_truck_team)
+          (k.Has(session["privilege_array"] as string[],"edit-schedule") || be_ok_to_schedule_squad_truck_team)
         &&
           (
             (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())))
