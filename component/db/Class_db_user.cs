@@ -50,7 +50,7 @@ namespace Class_db_user
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select privilege.name as privilege"
+        "select distinct privilege.name as privilege"
         + " , 1 as tier" //IF(role_member_map_scope_column_c_name is not null,4,IF(role_member_map_scope_column_b_name is not null,3,IF(role_member_map_scope_column_a_name is not null,2,1))) as tier"
         + " , '' as scope" //IF(role_member_map_scope_column_c_name is not null,concat('role_member_map_scope_c `',role_member_map_scope_column_c_ref_table.name,'`'),IF(role_member_map_scope_column_b_name is not null,concat('role_member_map_scope_b `',role_member_map_scope_column_b_ref_table.name,'`'),IF(role_member_map_scope_column_a_name is not null,concat('role_member_map_scope_a `',role_member_map_scope_column_a_ref_table.name,'`'),''))) as scope"
         + " from user"
@@ -79,7 +79,7 @@ namespace Class_db_user
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select notification.name as notification"
+        "select distinct notification.name as notification"
         + " , 1 as tier" //IF(role_member_map_scope_column_c_name is not null,4,IF(role_member_map_scope_column_b_name is not null,3,IF(role_member_map_scope_column_a_name is not null,2,1))) as tier"
         + " , '' as scope" //IF(role_member_map_scope_column_c_name is not null,concat('role_member_map_scope_c `',role_member_map_scope_column_c_ref_table.name,'`'),IF(role_member_map_scope_column_b_name is not null,concat('role_member_map_scope_b `',role_member_map_scope_column_b_ref_table.name,'`'),IF(role_member_map_scope_column_a_name is not null,concat('role_member_map_scope_a `',role_member_map_scope_column_a_ref_table.name,'`'),''))) as scope"
         + " from user"
