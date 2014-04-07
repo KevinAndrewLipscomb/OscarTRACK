@@ -861,6 +861,7 @@ namespace Class_db_schedule_assignments
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , section_num as section"
         + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"

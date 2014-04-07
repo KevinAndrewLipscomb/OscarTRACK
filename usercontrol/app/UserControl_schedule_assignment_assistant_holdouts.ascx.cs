@@ -42,11 +42,12 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
       public const int TCI_BE_RELEASED = 2;
-      public const int TCI_BE_COMPLIANT = 3;
-      public const int TCI_COMPLIANCY_MARK = 4;
-      public const int TCI_BE_NOTIFICATION_PENDING = 5;
-      public const int TCI_EMAIL_ADDRESS = 6;
-      public const int TCI_PHONE_NUM = 7;
+      public const int TCI_SECTION = 3;
+      public const int TCI_BE_COMPLIANT = 4;
+      public const int TCI_COMPLIANCY_MARK = 5;
+      public const int TCI_BE_NOTIFICATION_PENDING = 6;
+      public const int TCI_EMAIL_ADDRESS = 7;
+      public const int TCI_PHONE_NUM = 8;
       }
 
     private p_type p;
