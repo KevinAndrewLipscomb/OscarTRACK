@@ -54,6 +54,9 @@
                       <asp:BoundColumn DataField="be_released" HeaderText="Released?" SortExpression="be_released%,member.last_name,member.first_name">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
+                      <asp:BoundColumn DataField="section" HeaderText="Sxn" ReadOnly="True" SortExpression="section%,member.last_name,member.first_name">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:BoundColumn DataField="be_compliant" Visible="false"></asp:BoundColumn>
                       <asp:TemplateColumn HeaderText="Compliant?">
                         <ItemTemplate>
