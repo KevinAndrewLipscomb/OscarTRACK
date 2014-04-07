@@ -67,6 +67,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Literal Literal_agency;
         
         /// <summary>
+        /// Literal_section control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_section;
+        
+        /// <summary>
         /// Literal_membership_status control.
         /// </summary>
         /// <remarks>
