@@ -93,6 +93,7 @@ namespace UserControl_member_schedule_detail
           (p.be_my_watchbill_mode && !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1)) && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments());
         //
         Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
+        Literal_section.Text = p.biz_members.SectionOf(p.member_summary);
         //
         Literal_released_cert_level.Text = p.biz_members.MedicalReleaseLevelOf(p.member_summary);
         Literal_be_driver.Text = k.YesNoOf(p.biz_members.BeDriverQualifiedOf(p.member_summary));

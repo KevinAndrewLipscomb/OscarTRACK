@@ -55,6 +55,8 @@
                                   <td>&nbsp;</td>
                                   <td><small>Agency:&nbsp;<strong><asp:Literal ID="Literal_agency" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
+                                  <td><small>Sxn:&nbsp;<strong><asp:Literal ID="Literal_section" runat="server"/></strong></small></td>
+                                  <td>&nbsp;</td>
                                   <td><small>Membership Status:&nbsp;<strong><asp:Literal ID="Literal_membership_status" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
                                   <td><small>Cert:&nbsp;<strong><asp:Literal ID="Literal_released_cert_level" runat="server"/></strong></small></td>
