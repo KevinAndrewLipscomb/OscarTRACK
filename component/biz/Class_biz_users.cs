@@ -32,7 +32,7 @@ namespace Class_biz_users
           {
           var saved_member_email_address = db_members.EmailAddressByCadNum(cad_num);
           var accept_as_member = db_users.AcceptAsMember(cad_num,last_name,id);
-          if (saved_member_email_address != k.EMPTY)
+          if ((saved_member_email_address != k.EMPTY) && accept_as_member)
             {
             biz_notifications.IssueForMembershipReestablishment(saved_member_email_address,username,biz_user.EmailAddress());
             }
