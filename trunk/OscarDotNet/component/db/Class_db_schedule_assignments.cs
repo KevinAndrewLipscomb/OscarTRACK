@@ -844,7 +844,7 @@ namespace Class_db_schedule_assignments
       //
       if (compliancy_filter == "0") // holdouts
         {
-        filter += " and (enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description not in ('Staff','ALS Intern','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "1") // submitters
         {
