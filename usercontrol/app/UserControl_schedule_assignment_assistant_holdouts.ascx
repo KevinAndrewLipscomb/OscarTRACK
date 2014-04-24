@@ -43,6 +43,10 @@
                   not take the place of you making personal contact with the holdouts, too.
                 </td>
               </tr>
+              <tr id="TableRow_restriction" runat="server" bgcolor="#f5f5f5" visible="false">
+                <td bgcolor="Khaki">
+                  In this context, only Released Staff members are shown below, regardless of the above <i>Release level</i> and <i>Compliancy</i> filters.</td>
+              </tr>
               <tr>
                 <td>
                   <asp:datagrid id="DataGrid_control" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="3" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="DataGrid_control_ItemDataBound" 
@@ -51,6 +55,9 @@
                     <Columns>
                       <asp:ButtonColumn CommandName="Select" DataTextField="name" HeaderText="Name" SortExpression="member.last_name%,member.first_name"></asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,member.last_name,member.first_name" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:BoundColumn DataField="be_released" HeaderText="Released?" SortExpression="be_released%,member.last_name,member.first_name">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>

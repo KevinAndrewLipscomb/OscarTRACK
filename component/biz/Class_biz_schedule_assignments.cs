@@ -112,14 +112,21 @@ namespace Class_biz_schedule_assignments
       {
       var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
       var be_ok_to_schedule_squad_truck_team = k.Has(session["privilege_array"] as string[],"schedule-squad-truck-team");
+      var be_from_same_agency = (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
       return
         (
           session["mode:report"] == null
         &&
-          (k.Has(session["privilege_array"] as string[],"edit-schedule") || be_ok_to_schedule_squad_truck_team)
+          (
+            k.Has(session["privilege_array"] as string[],"edit-schedule")
+          ||
+            be_ok_to_schedule_squad_truck_team
+          ||
+            (k.Has(session["privilege_array"] as string[],"edit-schedule-tier-department-only") && be_from_same_agency)
+          )
         &&
           (
-            (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())))
+            be_from_same_agency
           ||
             (
               (k.Has(session["privilege_array"] as string[],"see-all-squads") || be_ok_to_schedule_squad_truck_team)
