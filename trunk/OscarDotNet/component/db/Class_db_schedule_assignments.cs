@@ -854,18 +854,24 @@ namespace Class_db_schedule_assignments
         {
         filter += " and (enrollment_level.description in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
+      else if (compliancy_filter == "S") // staff
+        {
+        filter += " and (enrollment_level.description in ('Staff'))";
+        }
       //
       Open();
       (target as BaseDataList).DataSource = new MySqlCommand
         (
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
+        + " , agency.short_designator as agency"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
         + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"
         + " , member.phone_num"
         + " from member"
+        +   " join agency on (agency.id=member.agency_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join enrollment_history on"
         +     " ("

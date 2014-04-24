@@ -31,6 +31,7 @@ namespace UserControl_schedule_proposal
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
     public bool be_ok_to_edit_schedule_liberally;
+    public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_ok_to_schedule_squad_truck_team;
     public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_squad_exclusivity_expired;
@@ -129,7 +130,7 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
-        if (p.be_interactive && p.be_ok_to_edit_post && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
+        if (p.be_interactive && p.be_ok_to_edit_post && !p.be_ok_to_edit_schedule_tier_department_only)
           {
           TableRow_guidance.Visible = true;
           Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
@@ -199,8 +200,9 @@ namespace UserControl_schedule_proposal
         p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
-        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments");
+        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
+        p.be_ok_to_edit_schedule_tier_department_only = k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
@@ -717,7 +719,11 @@ namespace UserControl_schedule_proposal
           && p.be_ok_to_edit_post
           &&
             (
-              (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
+              (
+                (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
+              &&
+                (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
+              )
             ||
               p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
             ||
@@ -740,7 +746,11 @@ namespace UserControl_schedule_proposal
           && p.be_ok_to_edit_post
           &&
             (
-              (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
+              (
+                (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
+              &&
+                (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
+              )
             ||
               p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
             ||
@@ -869,7 +879,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
         {
         p.biz_schedule_assignments.SetPost
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
@@ -883,7 +893,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
         {
         p.biz_schedule_assignments.SetPost
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
@@ -897,7 +907,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
         {
         p.biz_schedule_assignments.SetPostCardinality
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
@@ -911,7 +921,7 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-post-assignments"))
+      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
         {
         p.biz_schedule_assignments.SetPostCardinality
           (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[UserControl_schedule_proposal_Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));

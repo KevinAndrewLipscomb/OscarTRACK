@@ -33,6 +33,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public bool be_loaded;
     public bool be_ok_to_audit_holdouts;
     public bool be_ok_to_edit_schedule;
+    public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
@@ -86,7 +87,7 @@ namespace UserControl_schedule_assignment_assistant_binder
             (!p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,new k.subtype<int>(1,1)) && be_ok_to_work_on_next_month_assignments)
           );
         Button_refresh.Enabled = p.be_ok_to_edit_schedule;
-        if (p.be_ok_to_edit_schedule && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
+        if (p.be_ok_to_edit_schedule && !p.be_ok_to_edit_schedule_tier_department_only)
           {
           TableRow_guidance_1.Visible = true;
           TableRow_guidance_2.Visible = true;
@@ -100,7 +101,7 @@ namespace UserControl_schedule_assignment_assistant_binder
           TabPanel_proposal.HeaderText = "<b>STEP 6:</b> " + TabPanel_proposal.HeaderText;
           }
         ManagePostPublishSubmissionDetection();
-        TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule;
+        TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule && ((p.relative_month.val == 0) || be_ok_to_work_on_next_month_assignments);
@@ -137,6 +138,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         //
         p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_edit_schedule_tier_department_only = k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.full_next_month_access_day = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) + 1).ToString();
         p.user_member_id = Session["member_id"].ToString();
@@ -146,7 +148,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         //
-        if (p.be_ok_to_edit_schedule && (!new ArrayList(p.biz_user.Roles()).Contains("Department Street Supervisor")))
+        if (p.be_ok_to_edit_schedule && !p.be_ok_to_edit_schedule_tier_department_only)
           {
           p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
           }

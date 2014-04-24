@@ -1,13 +1,12 @@
 using Class_ss;
-using HtmlAgilityPack;
-using kix;
+using ki_windows_forms;
 using System;
 using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Cache;
-using System.Web;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace OscarDotNet.component.ss
@@ -212,14 +211,16 @@ namespace OscarDotNet.component.ss
 
     internal void Login
       (
+      webbrowsercontext_class web_browser_context,
       string user_id,
       string password,
       CookieContainer cookie_container
       )
       {
-      var browser = new WebBrowser();
-      browser.Navigate("http://vbems.emsbridge.com/");
-      var hdn = browser.Document;
+      AutoResetEvent auto_reset_event = new AutoResetEvent(false); 
+      web_browser_context.browser.Navigate("http://vbems.emsbridge.com/");
+      EventWaitHandle.WaitAll(new AutoResetEvent[] { auto_reset_event }); 
+      var hdn = web_browser_context.browser.Document;
 
 
       //HttpWebResponse response;
@@ -254,13 +255,14 @@ namespace OscarDotNet.component.ss
 //        }
       }
 
-    internal ArrayList RecentIncidents()
+    internal ArrayList RecentIncidents(webbrowsercontext_class web_browser_context)
       {
       var recent_incidents = new ArrayList();
       var cookie_container = new CookieContainer();
       //
       Login
         (
+        web_browser_context:web_browser_context,
         user_id:ConfigurationManager.AppSettings["vbemsbridge_username"],
         password:ConfigurationManager.AppSettings["vbemsbridge_password"],
         cookie_container:cookie_container

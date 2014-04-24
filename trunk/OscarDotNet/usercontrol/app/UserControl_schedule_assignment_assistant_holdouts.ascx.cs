@@ -20,6 +20,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_datagrid_empty;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
@@ -41,12 +42,13 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       {
       public const int TCI_NAME = 0;
       public const int TCI_MEMBER_ID = 1;
-      public const int TCI_BE_RELEASED = 2;
-      public const int TCI_BE_COMPLIANT = 3;
-      public const int TCI_COMPLIANCY_MARK = 4;
-      public const int TCI_BE_NOTIFICATION_PENDING = 5;
-      public const int TCI_EMAIL_ADDRESS = 6;
-      public const int TCI_PHONE_NUM = 7;
+      public const int TCI_AGENCY = 2;
+      public const int TCI_BE_RELEASED = 3;
+      public const int TCI_BE_COMPLIANT = 4;
+      public const int TCI_COMPLIANCY_MARK = 5;
+      public const int TCI_BE_NOTIFICATION_PENDING = 6;
+      public const int TCI_EMAIL_ADDRESS = 7;
+      public const int TCI_PHONE_NUM = 8;
       }
 
     private p_type p;
@@ -55,9 +57,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       {
       if (!p.be_loaded)
         {
-        DropDownList_compliancy.SelectedValue = p.compliancy_filter;
+        DropDownList_compliancy.SelectedValue = (p.be_ok_to_edit_schedule_tier_department_only ? k.EMPTY : p.compliancy_filter);
         Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         Literal_application_name_2.Text = Literal_application_name.Text;
+        TableRow_guidance.Visible = !p.be_ok_to_edit_schedule_tier_department_only;
+        TableRow_restriction.Visible = p.be_ok_to_edit_schedule_tier_department_only;
         Bind(); // Is this needed, since there's already a Bind() call in SetFilter()?
         Literal_author_email_address.Text = p.biz_user.EmailAddress();
         p.be_loaded = true;
@@ -84,14 +88,15 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
-        p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads");
+        p.be_ok_to_edit_schedule_tier_department_only = k.Has((Session["privilege_array"] as string[]), "edit-schedule-tier-department-only");
+        p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads")  && !p.be_ok_to_edit_schedule_tier_department_only;
         p.be_sort_order_ascending = true;
-        p.compliancy_filter = "0";
+        p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : "0");
         p.distribution_list = k.EMPTY;
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_datagrid_rows = 0;
         p.relative_month = new k.subtype<int>(0,1);
-        p.release_filter = k.EMPTY;
+        p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "1" : k.EMPTY);
         p.sort_order = "member.last_name,member.first_name";
         }
       }
@@ -125,7 +130,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       )
       {
       p.agency_filter = agency_filter;
-      p.release_filter = release_filter;
+      p.release_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "1" : release_filter);
       p.relative_month = relative_month;
       p.be_post_publish_submissions_detected = be_post_publish_submissions_detected;
       Bind();
@@ -133,7 +138,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     protected void DropDownList_compliancy_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.compliancy_filter = k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.ALPHANUM);
+      p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : k.Safe(DropDownList_compliancy.SelectedValue,k.safe_hint_type.ALPHANUM));
       Bind();
       }
 
@@ -142,8 +147,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       p.distribution_list = k.EMPTY;
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_AGENCY].Visible = (p.agency_filter.Length == 0);
+      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].Visible = !p.be_ok_to_edit_schedule_tier_department_only;
+      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].Visible = !p.be_ok_to_edit_schedule_tier_department_only;
       DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].Visible =
-        p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1"}).Contains(p.compliancy_filter);
+        p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1","S"}).Contains(p.compliancy_filter);
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;

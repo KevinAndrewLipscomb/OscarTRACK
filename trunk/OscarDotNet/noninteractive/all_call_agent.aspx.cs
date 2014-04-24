@@ -1,6 +1,7 @@
+using ki_windows_forms;
 using OscarDotNet.component.ss;
 using System;
-using System.Web;
+using System.Threading;
 
 namespace all_call_agent
 {
@@ -16,7 +17,8 @@ namespace all_call_agent
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            new Class_ss_vbemsbridge().RecentIncidents();
+        var web_browser_context = new webbrowsercontext_class();
+        var recent_incidents = new Class_ss_vbemsbridge().RecentIncidents(web_browser_context);
         }
 
         protected override void OnInit(EventArgs e)
