@@ -88,7 +88,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
-        p.be_ok_to_edit_schedule_tier_department_only = k.Has((Session["privilege_array"] as string[]), "edit-schedule-tier-department-only");
+        p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads")  && !p.be_ok_to_edit_schedule_tier_department_only;
         p.be_sort_order_ascending = true;
         p.compliancy_filter = (p.be_ok_to_edit_schedule_tier_department_only ? "S" : "0");
@@ -147,11 +147,11 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       p.distribution_list = k.EMPTY;
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
-      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_AGENCY].Visible = (p.agency_filter.Length == 0);
+      DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_AGENCY].Visible = (p.agency_filter.Length == 0) && !p.be_ok_to_edit_schedule_tier_department_only;
       DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_RELEASED].Visible = !p.be_ok_to_edit_schedule_tier_department_only;
       DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_COMPLIANCY_MARK].Visible = !p.be_ok_to_edit_schedule_tier_department_only;
       DataGrid_control.Columns[UserControl_schedule_assignment_assistant_holdouts_Static.TCI_BE_NOTIFICATION_PENDING].Visible =
-        p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1","S"}).Contains(p.compliancy_filter);
+        p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1","S"}).Contains(p.compliancy_filter) && !p.be_ok_to_edit_schedule_tier_department_only;
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;

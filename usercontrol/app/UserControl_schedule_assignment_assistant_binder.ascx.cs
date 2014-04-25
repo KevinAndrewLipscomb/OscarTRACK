@@ -104,7 +104,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         TabPanel_holdouts.Enabled = p.be_ok_to_audit_holdouts || p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only;
         TabPanel_alert.Enabled = p.be_ok_to_edit_schedule;
         TabPanel_special_requests.Enabled = p.be_ok_to_edit_schedule;
-        TabPanel_publish_print.Enabled = p.be_ok_to_edit_schedule && ((p.relative_month.val == 0) || be_ok_to_work_on_next_month_assignments);
+        TabPanel_publish_print.Enabled = (p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only) && ((p.relative_month.val == 0) || be_ok_to_work_on_next_month_assignments);
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -138,7 +138,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         //
         p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
-        p.be_ok_to_edit_schedule_tier_department_only = k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
+        p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.full_next_month_access_day = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) + 1).ToString();
         p.user_member_id = Session["member_id"].ToString();

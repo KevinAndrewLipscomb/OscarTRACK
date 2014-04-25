@@ -18,6 +18,7 @@ namespace UserControl_schedule_assignment_assistant_publish
     public string agency_filter;
     public bool be_loaded;
     public bool be_ok_to_edit_schedule;
+    public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_user_privileged_to_see_all_squads;
     public bool be_virgin_watchbill;
     public TClass_biz_members biz_members;
@@ -73,6 +74,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         //
         p.agency_filter = k.EMPTY;
         p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
+        p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads");
         p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
@@ -183,7 +185,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         RadioButton_month_at_a_glance.Checked = false;
         RadioButton_month_at_a_glance.Enabled = false;
         }
-      Button_publish.Enabled = p.be_ok_to_edit_schedule && ((p.agency_filter == p.own_agency) || !p.be_virgin_watchbill);
+      Button_publish.Enabled = (p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only) && ((p.agency_filter == p.own_agency) || !p.be_virgin_watchbill);
       }
 
     }

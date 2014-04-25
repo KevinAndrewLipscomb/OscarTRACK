@@ -111,11 +111,12 @@ namespace Class_biz_schedule_assignments
       )
       {
       var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
+      var be_interactive = (session["mode:report"] == null);
       var be_ok_to_schedule_squad_truck_team = k.Has(session["privilege_array"] as string[],"schedule-squad-truck-team");
-      var be_from_same_agency = (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
+      var be_from_same_agency = (be_interactive ? (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum()))) : false);
       return
         (
-          session["mode:report"] == null
+          be_interactive
         &&
           (
             k.Has(session["privilege_array"] as string[],"edit-schedule")
@@ -147,6 +148,11 @@ namespace Class_biz_schedule_assignments
             )
           )
         );
+      }
+
+    internal bool BeOkToEditScheduleTierDepartmentOnly(string[] privilege_array)
+      {
+      return (k.Has(privilege_array,"edit-schedule-tier-department-only") && !k.Has(privilege_array,"edit-schedule-liberally"));
       }
 
     internal bool BeOkToPublishFullWatchbill
