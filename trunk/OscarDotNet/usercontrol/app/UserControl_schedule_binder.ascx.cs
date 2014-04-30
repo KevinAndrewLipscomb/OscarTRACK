@@ -178,6 +178,7 @@ namespace UserControl_schedule_binder
           p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
           }
         //
+        TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
         FillPlaceHolder(false,target);
         //

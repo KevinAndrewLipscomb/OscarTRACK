@@ -192,6 +192,7 @@ namespace UserControl_serial_personnel_indicators_binder
           p.tab_index = UserControl_serial_personnel_indicators_binder_Static.TSSI_THIRD_SLOT_SATURATION;
           }
         //
+        TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
         FillPlaceHolder(false,target);
         //

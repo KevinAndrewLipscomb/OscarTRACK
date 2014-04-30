@@ -1,285 +1,193 @@
-using Class_ss;
-using ki_windows_forms;
 using System;
-using System.Collections;
-using System.Configuration;
-using System.IO;
-using System.Net;
-using System.Net.Cache;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+using System.Configuration;
 
-namespace OscarDotNet.component.ss
+namespace Class_ss_vbemsbridge
   {
-  public static class Class_ss_vbemsbridge_Static
-    {
-    }
 
-  public class Class_ss_vbemsbridge : TClass_ss
+  public class TClass_ss_vbemsbridge : ApplicationContext
     {
 
-    //==
+    //--
     //
     // PRIVATE
     //
-    //==
+    //--
 
-    private bool Request_vbems_emsbridge_com
+    private WebBrowser browser;
+    private Thread browser_thread;
+    private Form form;
+    private int navigation_counter;
+
+    private void ajax_container_PropertyChange
       (
-      //--
-      //
-      // KI code
-      //
-      CookieContainer cookie_container,
-      //
-      //--
-      out HttpWebResponse response
-      )
-    {
-	    response = null;
-
-	    try
-	    {
-		    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://vbems.emsbridge.com/");
-        //--
-        //
-        // KI code
-        //
-        request.CookieContainer = cookie_container;
-        request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-        request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-        //
-        //--
-
-		    request.Accept = "text/html, application/xhtml+xml, */*";
-		    request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US");
-		    request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-		    request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
-		    request.Headers.Add("DNT", "1");
-		    // KI //request.Headers.Set(HttpRequestHeader.Cookie, @"SITEID=55d6b30b%2De25d%2D42ae%2Dbfdf%2Dc02e2a2f28a5");
-
-		    response = (HttpWebResponse)request.GetResponse();
-	    }
-	    catch (WebException e)
-	    {
-		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return false;
-	    }
-	    catch (Exception)
-	    {
-		    if(response != null) response.Close();
-		    return false;
-	    }
-
-	    return true;
-    }
-
-    private bool Request_vbems_emsbridge_com_CustomRelease_Yes
-      (
-      //--
-      //
-      // KI code
-      //
-      CookieContainer cookie_container,
-      //
-      //--
-      out HttpWebResponse response
-      )
-    {
-	    response = null;
-
-	    try
-	    {
-		    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://vbems.emsbridge.com/custom/release.cfm");
-        //--
-        //
-        // KI code
-        //
-        request.CookieContainer = cookie_container;
-        request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-        request.AutomaticDecompression = DecompressionMethods.GZip | DecompressionMethods.Deflate;
-        //
-        //--
-
-		    request.Accept = "text/html, application/xhtml+xml, */*";
-		    request.Referer = "https://vbems.emsbridge.com/custom/release.cfm";
-		    request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US");
-		    request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-		    request.ContentType = "application/x-www-form-urlencoded";
-		    request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
-		    request.Headers.Add("DNT", "1");
-		    request.Headers.Set(HttpRequestHeader.CacheControl, "no-cache");
-		    // KI //request.Headers.Set(HttpRequestHeader.Cookie, @"SITEID=55d6b30b%2De25d%2D42ae%2Dbfdf%2Dc02e2a2f28a5; JSESSIONID=84306c2e13c0987187e1d1f13461b7f3f353");
-
-		    request.Method = "POST";
-
-		    string postString = @"acc=+Yes+";
-		    byte[] postBytes = System.Text.Encoding.UTF8.GetBytes(postString);
-		    request.ContentLength = postBytes.Length;
-		    Stream stream = request.GetRequestStream();
-		    stream.Write(postBytes, 0, postBytes.Length);
-		    stream.Close();
-
-		    response = (HttpWebResponse)request.GetResponse();
-	    }
-	    catch (WebException e)
-	    {
-		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return false;
-	    }
-	    catch (Exception)
-	    {
-		    if(response != null) response.Close();
-		    return false;
-	    }
-
-	    return true;
-    }
-
-    private bool Request_vbems_emsbridge_com_Submit
-      (
-      //--
-      //
-      // KI code
-      //
-      CookieContainer cookie_container,
-      string security_token,
-      string timestamp_token,
-      string t,
-      string spd,
-      string user_id,
-      string password,
-      //
-      //--
-      out HttpWebResponse response
-      )
-    {
-	    response = null;
-
-	    try
-	    {
-		    HttpWebRequest request = (HttpWebRequest)WebRequest.Create("https://vbems.emsbridge.com/default.cfm");
-        //--
-        //
-        // KI code
-        //
-        request.CookieContainer = cookie_container;
-        request.CachePolicy = new RequestCachePolicy(RequestCacheLevel.NoCacheNoStore);
-        //
-        //--
-
-		    request.Accept = "text/html, application/xhtml+xml, */*";
-		    request.Referer = "https://vbems.emsbridge.com/";
-		    request.Headers.Set(HttpRequestHeader.AcceptLanguage, "en-US");
-		    request.UserAgent = "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; Trident/6.0)";
-		    request.ContentType = "application/x-www-form-urlencoded";
-		    request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
-		    request.Headers.Add("DNT", "1");
-		    request.Headers.Set(HttpRequestHeader.CacheControl, "no-cache");
-		    // KI //request.Headers.Set(HttpRequestHeader.Cookie, @"SITEID=55d6b30b%2De25d%2D42ae%2Dbfdf%2Dc02e2a2f28a5; JSESSIONID=84306c2e13c0987187e1d1f13461b7f3f353");
-
-		    request.Method = "POST";
-
-		    string postString = @"securityToken=" + security_token + "&timeStampToken=" + timestamp_token + "&UserID=" + user_id + "&Password=" + password + "&t=" + t + "&spd=" + spd + "&submit=Submit";
-		    byte[] postBytes = System.Text.Encoding.UTF8.GetBytes(postString);
-		    request.ContentLength = postBytes.Length;
-		    Stream stream = request.GetRequestStream();
-		    stream.Write(postBytes, 0, postBytes.Length);
-		    stream.Close();
-
-		    response = (HttpWebResponse)request.GetResponse();
-	    }
-	    catch (WebException e)
-	    {
-		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return false;
-	    }
-	    catch (Exception)
-	    {
-		    if(response != null) response.Close();
-		    return false;
-	    }
-
-	    return true;
-    }
-
-    //==
-    //
-    // INTERNAL
-    //
-    //==
-
-    internal void Login
-      (
-      webbrowsercontext_class web_browser_context,
-      string user_id,
-      string password,
-      CookieContainer cookie_container
+      object sender,
+      EventArgs e
       )
       {
-      AutoResetEvent auto_reset_event = new AutoResetEvent(false); 
-      web_browser_context.browser.Navigate("http://vbems.emsbridge.com/");
-      EventWaitHandle.WaitAll(new AutoResetEvent[] { auto_reset_event }); 
-      var hdn = web_browser_context.browser.Document;
-
-
-      //HttpWebResponse response;
-      //if (!Request_vbems_emsbridge_com(cookie_container,out response))
-      //  {
-      //  throw new Exception("Request_vbems_emsbridge_com() returned FALSE.");
-      //  }
-      //if(!Request_vbems_emsbridge_com_Submit
-      //    (
-      //    cookie_container:cookie_container,
-      //    security_token:hdn.SelectSingleNode("//input[@name='securityToken']").Attributes["value"].Value,
-      //    timestamp_token:hdn.SelectSingleNode("//input[@name='timeStampToken']").Attributes["value"].Value,
-      //    t:hdn.SelectSingleNode("//input[@name='t']").Attributes["value"].Value,
-      //    spd:hdn.SelectSingleNode("//input[@name='spd']").Attributes["value"].Value,
-      //    user_id:user_id,
-      //    password:password,
-      //    response:out response
-      //    )
-      //  )
-      //  {
-      //  throw new Exception("Request_vbems_emsbridge_com_Submit() returned FALSE.");
-      //  }
-      //response.Close();
-      //if (!Request_vbems_emsbridge_com_CustomRelease_Yes(cookie_container,out response))
-      //  {
-      //  throw new Exception("Request_ems_health_state_pa_us_EmsportalApplicationlist() returned FALSE.");
-      //  }
-      //response.Close();
-//      if (TitleOf(HtmlDocumentOf(ConsumedStreamOf(response))) != "EMS Login | Application List")
-//        {
-//        throw new Exception("Unexpected response from Request_ems_health_state_pa_us_EmsportalApplicationlist().");
-//        }
+      var juice = browser.Document.GetElementById("ajax_container").InnerHtml;
+      //
+      // Call biz layer to process, store, and analyze the juice, and to trigger notifications as appropriate.
+      //
+      Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
+      //
+      // Click the Refresh button.
+      //
+      browser.Document.GetElementsByTagName("input")[4].InvokeMember("click");
       }
 
-    internal ArrayList RecentIncidents(webbrowsercontext_class web_browser_context)
+    private void browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
       {
-      var recent_incidents = new ArrayList();
-      var cookie_container = new CookieContainer();
+      var doc = browser.Document;
       //
-      Login
-        (
-        web_browser_context:web_browser_context,
-        user_id:ConfigurationManager.AppSettings["vbemsbridge_username"],
-        password:ConfigurationManager.AppSettings["vbemsbridge_password"],
-        cookie_container:cookie_container
-        );
-      //
-      return recent_incidents;
+      if (navigation_counter == 1)
+        {
+        //
+        // Log in.
+        //
+        doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
+        doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
+        doc.GetElementById("submit").InvokeMember("click");
+        }
+      else if (navigation_counter == 2)
+        {
+        //
+        // Acknowledge the Data Privacy Statement.
+        //
+        doc.GetElementById("acc_yes").InvokeMember("click");
+        }
+      else if (navigation_counter == 4)
+        {
+        //
+        // Click the "Dispatch" link.
+        //
+        doc.Links[1].InvokeMember("click");
+        }
+      else if (navigation_counter == 6)
+        {
+        //
+        // Navigate to the source of the target iframe.
+        //
+        browser.Navigate("https://vbems.emsbridge.com/resource/apps/caddispatch/cad_dispatch_pages.cfm?item=Dispatch&noLayout");
+        }
+      else if (navigation_counter == 7)
+        {
+        //
+        // Set the "Records per page" dropdown to 300.
+        //
+        var records_per_page_dropdown = browser.Document.GetElementById("nblock");
+        records_per_page_dropdown.Children[0].SetAttribute("selected", "");
+        records_per_page_dropdown.Children[4].SetAttribute("selected", "selected");
+        records_per_page_dropdown.InvokeMember("onChange");
+        //
+        // Set the "Update every" dropdown to 15 minutes.  We'll be using the Refresh link for updates instead of the supplied timer, to prevent the site from considering us idle.
+        //
+        var update_every_dropdown = browser.Document.GetElementById("RunTime");
+        update_every_dropdown.Children[1].SetAttribute("selected", "");
+        update_every_dropdown.Children[4].SetAttribute("selected", "selected");
+        update_every_dropdown.InvokeMember("onChange");
+        //
+        // The site does not trigger the Navigating or DocumentCompleted events past this point, so set up an event handler to run when the target control is updated by ServiceBridge's AJAX code.
+        //
+        doc.GetElementById("ajax_container").AttachEventHandler("onpropertychange",new EventHandler(ajax_container_PropertyChange));
+        }
       }
 
-    //==
+    private void browser_Navigating
+      (
+      object sender,
+      WebBrowserNavigatingEventArgs e
+      )
+      {
+      navigation_counter++;
+      //
+      if (form != null)
+        {
+        form.Text = e.Url.ToString();
+        }
+      }
+
+    private void Kickoff(bool be_browser_surface_visible_for_debugging)
+      {
+      browser = new WebBrowser();
+      browser.DocumentCompleted += new WebBrowserDocumentCompletedEventHandler(browser_DocumentCompleted);
+      browser.Navigating += new WebBrowserNavigatingEventHandler(browser_Navigating);
+      //
+      if (be_browser_surface_visible_for_debugging)
+        {
+        form = new Form();
+        browser.Dock = DockStyle.Fill;
+        form.Controls.Add(browser);
+        form.Visible = true;
+        }
+      //
+      navigation_counter = 0;
+      //
+      var be_successful = false;
+      while (!be_successful)
+        {
+        try
+          {
+          browser.Navigate("https://vbems.emsbridge.com");
+          be_successful = true;
+          }
+        catch (Exception e)
+          {
+          Thread.Sleep(millisecondsTimeout:1000);
+          }
+        }
+      }
+
+    //--
+    //
+    // PROTECTED
+    //
+    //--
+
+    protected override void Dispose(bool disposing)
+      {
+      if (browser_thread == null)
+        {
+        Marshal.Release(browser.Handle);
+        browser.Dispose();
+        if (form != null)
+          {
+          form.Dispose();
+          }
+        base.Dispose(disposing);
+        }
+      else
+        {
+        browser_thread.Abort();
+        browser_thread = null;
+        }
+      }
+
+    //--
     //
     // PUBLIC
     //
-    //==
+    //--
 
-    public Class_ss_vbemsbridge() : base()
-      {      
+    public TClass_ss_vbemsbridge()
+      {
+      browser_thread = new Thread
+        (
+        new ThreadStart
+          (
+          delegate
+            {
+            Kickoff(be_browser_surface_visible_for_debugging:false);
+            Application.Run(this); 
+            }
+          )
+        );
+      browser_thread.SetApartmentState(ApartmentState.STA);
+      browser_thread.Start();
       }
 
     }
+
   }

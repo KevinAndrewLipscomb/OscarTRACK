@@ -180,6 +180,7 @@ namespace UserControl_eval_object_binder
           p.tab_index = UserControl_eval_object_binder_Static.TSSI_PATIENT_AGE_UNITS;
           }
         //
+        TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
         FillPlaceHolder(false,target);
         //
