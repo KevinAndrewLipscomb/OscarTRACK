@@ -162,6 +162,7 @@ namespace UserControl_efficipay_binder
           p.tab_index = UserControl_efficipay_binder_Static.TSSI_CURRENT;
           }
         //
+        TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
         FillPlaceHolder(false,target);
         //
