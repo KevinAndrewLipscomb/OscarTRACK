@@ -15,6 +15,7 @@ CREATE TABLE IF NOT EXISTS cad_record (
   time_at_hospital TIME,
   time_available TIME,
   time_downloaded DATETIME,
+  nature VARCHAR(63),
   PRIMARY KEY(id)
 )
 ENGINE = InnoDB
@@ -23,5 +24,11 @@ ALTER TABLE `cad_record`
   DROP INDEX `id`
 ,
   ADD UNIQUE INDEX `practical` (`incident_num` ASC, `call_sign` ASC)
+,
+  ADD INDEX `time_available` (`time_available` ASC)
+,
+  ADD INDEX `call_sign` (`call_sign` ASC) 
+,
+  ADD INDEX `freshness` (`incident_num` DESC, `id` DESC)
 ;
 COMMIT

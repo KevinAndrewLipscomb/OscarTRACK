@@ -116,6 +116,11 @@ namespace Class_biz_cad_records
       return db_cad_records.Summary(id);
       }
 
+    internal void Trim()
+      {
+      db_cad_records.Trim();
+      }
+
     } // end TClass_biz_cad_records
 
   }

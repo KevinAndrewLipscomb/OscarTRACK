@@ -181,6 +181,12 @@ namespace Class_db_cad_records
       string time_downloaded
       )
       {
+      //try
+      //  {
+
+      //
+      // Perform the Set in the usual fashion.
+      //
       var childless_field_assignments_clause = k.EMPTY
       + "incident_date = STR_TO_DATE(NULLIF('" + incident_date + "',''),'%m/%d/%y')"
       + " , incident_num = NULLIF('" + incident_num + "','')"
@@ -229,8 +235,20 @@ namespace Class_db_cad_records
       my_sql_script.Query = code;
       Open();
       my_sql_script.Execute();
+      ////
+      //// Determine if a Nature is known for this record.
+      ////
+      //var be_nature_unknown_after_set = DBNull.Value == new MySqlCommand
+      //  ("select nature from cad_record where id = '" + id + "' or (incident_num = '" + incident_num + "' and call_sign = '" + call_sign + "')",connection).ExecuteScalar();
+      ////
       Close();
-      //
+      ////
+      //return be_nature_unknown_after_set;
+
+      //  }
+      //catch (Exception the_exception)
+      //  {
+      //  }
       }
 
     internal object Summary(string id)
@@ -254,6 +272,32 @@ namespace Class_db_cad_records
         };
       Close();
       return the_summary;
+      }
+
+    internal void Trim()
+      {
+      //try
+      //  {
+
+      Open();
+      new MySqlCommand
+        (
+        k.EMPTY
+        + " delete ignore from cad_record where call_sign = 'FAST'"
+        + ";"
+        + " delete ignore a from cad_record a join cad_record b on (b.call_sign=a.call_sign and b.incident_num>a.incident_num)"
+        + ";"
+        + " delete ignore from cad_record where time_available is not null"
+        ,
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+
+      //  }
+      //catch (Exception the_exception)
+      //  {
+      //  }
       }
 
     } // end TClass_db_cad_records
