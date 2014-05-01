@@ -7,9 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace all_call_agent {
+namespace cad_activity_notification_agent {
     
     
-    public partial class TWebForm_all_call_agent {
+    public partial class TWebForm_cad_activity_notification_agent {
     }
 }
