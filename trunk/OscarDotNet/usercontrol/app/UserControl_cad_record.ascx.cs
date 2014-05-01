@@ -305,31 +305,31 @@ namespace UserControl_cad_record
       var time_available = DateTime.MinValue;
       var time_downloaded = DateTime.MinValue;
       //
-      if (Page.IsValid)
-        {
-        p.biz_cad_records.Set
-          (
-          k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          UserControl_drop_down_date_incident_date.selectedvalue.ToString(),
-          k.Safe(TextBox_incident_num.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_incident_address.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS).Trim(),
-          k.Safe(TextBox_call_sign.Text,k.safe_hint_type.ALPHANUM).Trim(),
-          k.Safe(TextBox_time_initialized.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_of_alarm.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_enroute.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_on_scene.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_transporting.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_at_hospital.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_available.Text,k.safe_hint_type.DATE_TIME),
-          k.Safe(TextBox_time_downloaded.Text,k.safe_hint_type.DATE_TIME)
-          );
-        Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        SetLookupMode();
-        }
-      else
-        {
+      //if (Page.IsValid)
+      //  {
+      //  p.biz_cad_records.Set
+      //    (
+      //    k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
+      //    UserControl_drop_down_date_incident_date.selectedvalue.ToString(),
+      //    k.Safe(TextBox_incident_num.Text,k.safe_hint_type.NUM).Trim(),
+      //    k.Safe(TextBox_incident_address.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS).Trim(),
+      //    k.Safe(TextBox_call_sign.Text,k.safe_hint_type.ALPHANUM).Trim(),
+      //    k.Safe(TextBox_time_initialized.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_of_alarm.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_enroute.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_on_scene.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_transporting.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_at_hospital.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_available.Text,k.safe_hint_type.DATE_TIME),
+      //    k.Safe(TextBox_time_downloaded.Text,k.safe_hint_type.DATE_TIME)
+      //    );
+      //  Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+      //  SetLookupMode();
+      //  }
+      //else
+      //  {
         ValidationAlert(true);
-        }
+      //  }
       }
 
     protected void DropDownList_id_SelectedIndexChanged(object sender, System.EventArgs e)
