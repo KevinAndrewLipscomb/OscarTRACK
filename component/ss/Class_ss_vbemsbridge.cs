@@ -135,7 +135,14 @@ namespace Class_ss_vbemsbridge
           }
         catch (Exception e)
           {
-          Thread.Sleep(millisecondsTimeout:1000);
+          if (e.Message == "Error HRESULT E_FAIL has been returned from a call to a COM component.")
+            {
+            Thread.Sleep(millisecondsTimeout:1000);
+            }
+          else
+            {
+            throw e;
+            }
           }
         }
       }
