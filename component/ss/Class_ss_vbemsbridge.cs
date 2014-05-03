@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Class_ss_vbemsbridge
+namespace Class_ac_cad_activity_notification_agent
   {
 
-  public class TClass_ss_vbemsbridge : ApplicationContext
+  public class TClass_ac_cad_activity_notification_agent : ApplicationContext
     {
 
     //--
@@ -74,6 +74,10 @@ namespace Class_ss_vbemsbridge
       // Trim the cad_records.
       //
       biz_cad_records.Trim();
+      //
+      // Notify members as appropriate.
+      //
+
       //
       Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
       //
@@ -241,7 +245,7 @@ namespace Class_ss_vbemsbridge
     //
     //--
 
-    public TClass_ss_vbemsbridge()
+    public TClass_ac_cad_activity_notification_agent()
       {
       biz_cad_records = new TClass_biz_cad_records();
       //
