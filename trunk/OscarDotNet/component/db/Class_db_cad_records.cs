@@ -283,11 +283,7 @@ namespace Class_db_cad_records
       new MySqlCommand
         (
         k.EMPTY
-        + " delete ignore from cad_record where call_sign = 'FAST'"
-        + ";"
-        + " delete ignore a from cad_record a join cad_record b on (b.call_sign=a.call_sign and b.incident_num>a.incident_num)"
-        + ";"
-        + " delete ignore from cad_record where time_available is not null"
+        + " delete from cad_record where incident_date < DATE_ADD(CURDATE(),INTERVAL -7 DAY)"
         ,
         connection
         )
