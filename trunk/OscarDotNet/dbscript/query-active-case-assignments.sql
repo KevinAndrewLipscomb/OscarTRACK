@@ -9,6 +9,7 @@ select id
 , DATE_FORMAT(time_on_scene,'%H:%i') as time_onscene
 , DATE_FORMAT(time_transporting,'%H:%i') as time_transporting
 , DATE_FORMAT(time_at_hospital,'%H:%i') as time_at_hospital
+, nature
 from cad_record detail inner join
   (
   SELECT call_sign

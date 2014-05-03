@@ -1,4 +1,5 @@
 using Class_biz_cad_records;
+using Class_biz_field_situations;
 using kix;
 using System;
 using System.Configuration;
@@ -19,6 +20,7 @@ namespace Class_ac_cad_activity_notification_agent
     //--
 
     private TClass_biz_cad_records biz_cad_records = null;
+    private TClass_biz_field_situations biz_field_situations = null;
     private WebBrowser master_browser;
     private Thread master_browser_thread;
     private Form form;
@@ -77,7 +79,7 @@ namespace Class_ac_cad_activity_notification_agent
       //
       // Notify members as appropriate.
       //
-
+      biz_field_situations.DetectAndNotify();
       //
       Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
       //
@@ -248,6 +250,7 @@ namespace Class_ac_cad_activity_notification_agent
     public TClass_ac_cad_activity_notification_agent()
       {
       biz_cad_records = new TClass_biz_cad_records();
+      biz_field_situations = new TClass_biz_field_situations();
       //
       master_browser_thread = new Thread
         (
