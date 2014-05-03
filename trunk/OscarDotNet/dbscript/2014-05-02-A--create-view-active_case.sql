@@ -17,7 +17,7 @@ SELECT id
 , DATE_FORMAT(time_available,'%H:%i') as avbl
 FROM cad_record
 where time_available is null
-  and call_sign not in ('ARSN','EYES','FAST')
+  and call_sign not in ('ARSN','EYES','FAST','FIGP','MISC')
 group by call_sign
 order by incident_num desc, id desc
 ;
