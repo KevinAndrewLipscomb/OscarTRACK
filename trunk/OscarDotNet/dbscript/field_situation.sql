@@ -1,7 +1,7 @@
 select incident_num as case_num
 , incident_address as address
 , GROUP_CONCAT(call_sign order by list_order,call_sign) as assignment
-, TIMESTAMP(incident_date,time_initialized) as time_initialized
+, DATE_FORMAT(TIMESTAMP(incident_date,time_initialized),'%Y-%m-%d %H:%i') as time_initialized
 , sum(call_sign REGEXP '^[[:digit:]]+[[:upper:]]+') as num_ambulances
 , sum(call_sign REGEXP '^Z[[:digit:]]+') as num_zone_cars
 , sum(call_sign REGEXP '^SQ[[:digit:]]+P?') as num_squad_trucks

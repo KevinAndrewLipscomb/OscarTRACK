@@ -162,12 +162,13 @@ namespace Class_db_field_situations
       {
       var digest_q = new Queue<digest>();
       //
+      Open();
       var dr = new MySqlCommand
         (
         "select incident_num as case_num"
         + " , incident_address as address"
         + " , GROUP_CONCAT(call_sign order by list_order,call_sign) as assignment"
-        + " , TIMESTAMP(incident_date,time_initialized) as time_initialized"
+        + " , DATE_FORMAT(TIMESTAMP(incident_date,time_initialized),'%Y-%m-%d %H:%i') as time_initialized"
         + " , sum(call_sign REGEXP '^[[:digit:]]+[[:upper:]]+') as num_ambulances"
         + " , sum(call_sign REGEXP '^Z[[:digit:]]+') as num_zone_cars"
         + " , sum(call_sign REGEXP '^SQ[[:digit:]]+P?') as num_squad_trucks"
@@ -317,6 +318,8 @@ namespace Class_db_field_situations
             }
           );
         }
+      dr.Close();
+      Close();
       return digest_q;
       }
 
@@ -543,14 +546,42 @@ namespace Class_db_field_situations
       + " , num_sups = NULLIF('" + num_sups + "','')"
       + " , num_tankers = NULLIF('" + num_tankers + "','')"
       + k.EMPTY;
-      db_trail.MimicTraditionalInsertOnDuplicateKeyUpdate
-        (
-        target_table_name:"field_situation",
-        key_field_name:"id",
-        key_field_value:id,
-        childless_field_assignments_clause:childless_field_assignments_clause,
-        additional_match_condition:" or case_num = '" + case_num + "'"
-        );
+      //
+      var target_table_name = "field_situation";
+      var key_field_name = "id";
+      var key_field_value = id;
+      var additional_match_condition = " or case_num = '" + case_num + "'";
+      //
+      // The following code is adapted from Class_db_trail.MimicTraditionalInsertOnDuplicateKeyUpdate, but does not journal its activity.
+      //
+      const string DELIMITER = "~";
+      var procedure_name = "MTIODKU_" + DateTime.Now.Ticks.ToString("D19");
+      var code = "/* DELIMITER '" + DELIMITER + "' */"
+      + " drop procedure if exists " + procedure_name
+      + DELIMITER
+      + " create procedure " + procedure_name + "() modifies sql data"
+      +   " BEGIN"
+      +   " start transaction;"
+      +   " if (select 1 from " + target_table_name + " where " + key_field_name + " = '" + key_field_value + "'" + (additional_match_condition.Length > 0 ? additional_match_condition : k.EMPTY) + " LOCK IN SHARE MODE) is null"
+      +   " then"
+      +     " insert " + target_table_name + " set " + key_field_name + " = NULLIF('" + key_field_value + "',''), " + childless_field_assignments_clause + ";"
+      +   " else"
+      +     " update " + target_table_name + " set " + childless_field_assignments_clause + " where " + key_field_name + " = '" + key_field_value + "'" + (additional_match_condition.Length > 0 ? additional_match_condition : k.EMPTY) + ";"
+      +   " end if;"
+      +   " commit;"
+      +   " END"
+      + DELIMITER
+      + " call " + procedure_name + "()"
+      + DELIMITER
+      + " drop procedure " + procedure_name + "";
+      var my_sql_script = new MySqlScript();
+      my_sql_script.Connection = connection;
+      my_sql_script.Delimiter = DELIMITER;
+      my_sql_script.Query = code;
+      Open();
+      my_sql_script.Execute();
+      //
+      Close();
       }
 
     internal object Summary(string id)
