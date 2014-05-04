@@ -4,12 +4,8 @@ using Class_biz_field_situations;
 using Class_biz_role_member_map;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_field_situation
   {
@@ -401,56 +397,56 @@ namespace UserControl_field_situation
       {
       if (Page.IsValid)
         {
-        var time_initialized = DateTime.MinValue;
-        //
-        if (TextBox_time_initialized.Text != k.EMPTY)
-          {
-          time_initialized = DateTime.Parse(k.Safe(TextBox_time_initialized.Text,k.safe_hint_type.DATE_TIME));
-          }
-        p.biz_field_situations.Set
-          (
-          k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_case_num.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_address.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-          k.Safe(TextBox_assignment.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-          time_initialized,
-          k.Safe(TextBox_nature.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-          k.Safe(TextBox_impression_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_ambulances.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_zone_cars.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_squad_trucks.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_supervisors.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_emtals.Checked,
-          CheckBox_be_etby.Checked,
-          k.Safe(TextBox_num_holds.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_hzcs.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_lifeguards.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_mci_trucks.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_mrt.Checked,
-          k.Safe(TextBox_num_mrtks.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_pio.Checked,
-          CheckBox_be_pu.Checked,
-          CheckBox_be_rescue_area.Checked,
-          k.Safe(TextBox_num_rbs.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_sqs.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_sqtm.Checked,
-          k.Safe(TextBox_num_tacs.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_bats.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_cars.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_engines.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_fboas.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_frsqs.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_ftby.Checked,
-          k.Safe(TextBox_num_hazs.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_ladders.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_mirt.Checked,
-          k.Safe(TextBox_num_safes.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_stech.Checked,
-          k.Safe(TextBox_num_sups.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_num_tankers.Text,k.safe_hint_type.NUM).Trim()
-          );
-        Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        SetLookupMode();
+        //var time_initialized = DateTime.MinValue;
+        ////
+        //if (TextBox_time_initialized.Text != k.EMPTY)
+        //  {
+        //  time_initialized = DateTime.Parse(k.Safe(TextBox_time_initialized.Text,k.safe_hint_type.DATE_TIME));
+        //  }
+        //p.biz_field_situations.Set
+        //  (
+        //  k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
+        //  k.Safe(TextBox_case_num.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_address.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
+        //  k.Safe(TextBox_assignment.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
+        //  time_initialized,
+        //  k.Safe(TextBox_nature.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
+        //  k.Safe(TextBox_impression_id.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_ambulances.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_zone_cars.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_squad_trucks.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_supervisors.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_emtals.Checked,
+        //  CheckBox_be_etby.Checked,
+        //  k.Safe(TextBox_num_holds.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_hzcs.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_lifeguards.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_mci_trucks.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_mrt.Checked,
+        //  k.Safe(TextBox_num_mrtks.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_pio.Checked,
+        //  CheckBox_be_pu.Checked,
+        //  CheckBox_be_rescue_area.Checked,
+        //  k.Safe(TextBox_num_rbs.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_sqs.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_sqtm.Checked,
+        //  k.Safe(TextBox_num_tacs.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_bats.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_cars.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_engines.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_fboas.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_frsqs.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_ftby.Checked,
+        //  k.Safe(TextBox_num_hazs.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_ladders.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_mirt.Checked,
+        //  k.Safe(TextBox_num_safes.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_stech.Checked,
+        //  k.Safe(TextBox_num_sups.Text,k.safe_hint_type.NUM).Trim(),
+        //  k.Safe(TextBox_num_tankers.Text,k.safe_hint_type.NUM).Trim()
+        //  );
+        //Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+        //SetLookupMode();
         }
       else
         {

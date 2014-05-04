@@ -1,5 +1,7 @@
 START TRANSACTION
 ;
+DROP TABLE IF EXISTS field_situation
+;
 DROP TABLE IF EXISTS field_situation_impression
 ;
 CREATE TABLE IF NOT EXISTS field_situation_impression (
@@ -37,10 +39,9 @@ insert ignore field_situation_impression (pecking_order,description) values
 (50000,'MciLarge'),
 (60000,'MciHuge')
 ;
-DROP TABLE IF EXISTS field_situation
-;
 CREATE TABLE IF NOT EXISTS field_situation (
   id SERIAL,
+  be_stale BOOLEAN DEFAULT FALSE NOT NULL,
   case_num CHAR(9) NOT NULL,
   address VARCHAR(127) NOT NULL,
   assignment TEXT NOT NULL,
@@ -63,6 +64,7 @@ CREATE TABLE IF NOT EXISTS field_situation (
   be_pu BOOLEAN DEFAULT FALSE NOT NULL,
   be_rescue_area BOOLEAN DEFAULT FALSE NOT NULL,
   num_rbs SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
+  num_sqs SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
   be_sqtm BOOLEAN DEFAULT FALSE NOT NULL,
   num_tacs SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
   num_bats SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
@@ -78,7 +80,8 @@ CREATE TABLE IF NOT EXISTS field_situation (
   be_stech BOOLEAN DEFAULT FALSE NOT NULL,
   num_sups SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
   num_tankers SMALLINT UNSIGNED DEFAULT 0 NOT NULL,
-  PRIMARY KEY(id)
+  PRIMARY KEY(id),
+  INDEX be_stale (be_stale)
 )
 ENGINE = InnoDB
 ;

@@ -3,7 +3,6 @@
 using Class_db_field_situations;
 using kix;
 using System;
-using System.Collections;
 
 namespace Class_biz_field_situations
   {
@@ -43,6 +42,59 @@ namespace Class_biz_field_situations
 
     internal void DetectAndNotify()
       {
+      //
+      // Digest CAD records.
+      //
+      db_field_situations.MarkAllStale();
+      TClass_db_field_situations.digest digest;
+      var digest_q = db_field_situations.DigestQ();
+      while (digest_q.Count > 0)
+        {
+        digest = digest_q.Dequeue();
+        db_field_situations.Set
+          (
+          id:k.EMPTY,
+          case_num:digest.case_num,
+          address:digest.address,
+          assignment:digest.assignment,
+          time_initialized:digest.time_initialized,
+          nature:k.EMPTY,
+          impression_id:k.EMPTY,
+          num_ambulances:digest.num_ambulances,
+          num_zone_cars:digest.num_zone_cars,
+          num_squad_trucks:digest.num_squad_trucks,
+          num_supervisors:digest.num_supervisors,
+          be_emtals:digest.be_emtals,
+          be_etby:digest.be_etby,
+          num_holds:digest.num_holds,
+          num_hzcs:digest.num_hzcs,
+          num_lifeguards:digest.num_lifeguards,
+          num_mci_trucks:digest.num_mci_trucks,
+          be_mrt:digest.be_mrt,
+          num_mrtks:digest.num_mrtks,
+          be_pio:digest.be_pio,
+          be_pu:digest.be_pu,
+          be_rescue_area:digest.be_rescue_area,
+          num_rbs:digest.num_rbs,
+          num_sqs:digest.num_sqs,
+          be_sqtm:digest.be_sqtm,
+          num_tacs:digest.num_tacs,
+          num_bats:digest.num_bats,
+          num_cars:digest.num_cars,
+          num_engines:digest.num_engines,
+          num_fboas:digest.num_fboas,
+          num_frsqs:digest.num_frsqs,
+          be_ftby:digest.be_ftby,
+          num_hazs:digest.num_hazs,
+          num_ladders:digest.num_ladders,
+          be_mirt:digest.be_mirt,
+          num_safes:digest.num_safes,
+          be_stech:digest.be_stech,
+          num_sups:digest.num_sups,
+          num_tankers:digest.num_tankers
+          );
+        }
+      db_field_situations.DeleteAnyStillStale();
       }
 
     public bool Get
@@ -138,39 +190,39 @@ namespace Class_biz_field_situations
       string case_num,
       string address,
       string assignment,
-      DateTime time_initialized,
+      string time_initialized,
       string nature,
       string impression_id,
       string num_ambulances,
       string num_zone_cars,
       string num_squad_trucks,
       string num_supervisors,
-      bool be_emtals,
-      bool be_etby,
+      string be_emtals,
+      string be_etby,
       string num_holds,
       string num_hzcs,
       string num_lifeguards,
       string num_mci_trucks,
-      bool be_mrt,
+      string be_mrt,
       string num_mrtks,
-      bool be_pio,
-      bool be_pu,
-      bool be_rescue_area,
+      string be_pio,
+      string be_pu,
+      string be_rescue_area,
       string num_rbs,
       string num_sqs,
-      bool be_sqtm,
+      string be_sqtm,
       string num_tacs,
       string num_bats,
       string num_cars,
       string num_engines,
       string num_fboas,
       string num_frsqs,
-      bool be_ftby,
+      string be_ftby,
       string num_hazs,
       string num_ladders,
-      bool be_mirt,
+      string be_mirt,
       string num_safes,
-      bool be_stech,
+      string be_stech,
       string num_sups,
       string num_tankers
       )
