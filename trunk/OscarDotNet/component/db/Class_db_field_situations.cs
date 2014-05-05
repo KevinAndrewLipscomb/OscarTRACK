@@ -451,41 +451,13 @@ namespace Class_db_field_situations
       return result;
       }
 
-    internal bool GetPriorImpression
-      (
-      string case_num,
-      out string prior_impression_id,
-      out string prior_impression_description,
-      out k.int_nonnegative prior_impression_pecking_order
-      )
+    internal k.int_nonnegative PriorImpressionPeckingOrder(string case_num)
       {
-      var get_prior_impression = false;
-      //
-      prior_impression_id = k.EMPTY;
-      prior_impression_description = k.EMPTY;
-      prior_impression_pecking_order = new k.int_nonnegative();
-      //
       Open();
-      var dr = new MySqlCommand
-        (
-        "select field_situation_impression.id as impression_id"
-        + " , field_situation_impression.description as impression_description"
-        + " , field_situation_impression.pecking_order as impression_pecking_order"
-        + " from field_situation"
-        +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"
-        + " where case_num = '" + case_num + "'",
-        connection
-        )
-        .ExecuteReader();
-      if (dr.Read()) // There should be no more than one matching record.
-        {
-        prior_impression_id = dr["impression_id"].ToString();
-        prior_impression_description = dr["impression_description"].ToString();
-        prior_impression_pecking_order.val = int.Parse(dr["impression_pecking_order"].ToString());
-        }
-      dr.Close();
+      var pecking_order_obj = new MySqlCommand
+        ("select pecking_order from field_situation join field_situation_impression on (field_situation_impression.id=field_situation.impression_id) where case_num = '" + case_num + "'",connection).ExecuteScalar();
       Close();
-      return get_prior_impression;
+      return new k.int_nonnegative((pecking_order_obj == null ? 0 : int.Parse(pecking_order_obj.ToString())));
       }
 
     internal void MarkAllStale()
