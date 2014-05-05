@@ -1,17 +1,191 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_db_field_situation_impressions;
 using Class_db_field_situations;
 using kix;
 using System;
 
 namespace Class_biz_field_situations
   {
+
   public class TClass_biz_field_situations
     {
+
+    //--
+    //
+    // PRIVATE
+    //
+    //--
+
+    private TClass_db_field_situation_impressions db_field_situation_impressions = null;
     private TClass_db_field_situations db_field_situations = null;
+
+    private string ImpressionIdOfCase(TClass_db_field_situations.digest digest)
+      {
+      var impression_pecking_order = new k.int_nonnegative();
+      //
+      // Set up the default impression.
+      //
+      if (digest.be_etby || digest.be_ftby)
+        {
+        impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Standby");
+        //
+        // No further analysis needed
+        //
+        }
+      else
+        {
+        impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Typical");
+        //
+        // Form current impression.
+        //
+        if (digest.num_zone_cars > 0)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AlsEms");
+          }
+        if (digest.be_mrt || (digest.num_fboas > 0) || (digest.num_rbs > 0))
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MrtCall");
+          }
+        //if ()
+        //  {
+        //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AirportAlert");
+        //  }
+        if (digest.num_holds > 0)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AmbNeeded");
+          }
+        if (digest.num_hzcs > 0)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AlsNeeded");
+          }
+        if(
+            (digest.num_ambulances + digest.num_holds == 1)
+          &&
+            (digest.num_engines + digest.num_ladders + digest.num_frsqs + digest.num_hazs + digest.num_squad_trucks == 1)
+          &&
+            (digest.num_supervisors > 0)
+          &&
+            (digest.num_zone_cars + digest.num_hzcs == 2 )
+          &&
+            (digest.num_hzcs > 0)
+          )
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("CardiacArrestAlsNeeded");
+          }
+        if(
+            (digest.num_holds == 1)
+          &&
+            (digest.num_engines + digest.num_ladders + digest.num_frsqs + digest.num_hazs + digest.num_squad_trucks == 1)
+          &&
+            (digest.num_supervisors > 0)
+          &&
+            (digest.num_zone_cars + digest.num_hzcs == 2)
+          )
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("CardiacArrestAmbNeeded");
+          }
+        if(
+            (digest.num_engines >= 4)
+          &&
+            (digest.num_ladders >= 2)
+          &&
+            (digest.num_frsqs > 0)
+          &&
+            (digest.num_tacs > 0)
+          &&
+            (digest.num_bats >= 2)
+          &&
+            (digest.num_ambulances + digest.num_holds > 0)
+          &&
+            (digest.num_supervisors > 0)
+          &&
+            (digest.num_safes > 0)
+          )
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("WorkingFire");
+          }
+        //if (false)
+        //  {
+        //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("TwoAlarmFire");
+        //  }
+        //if (false)
+        //  {
+        //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MajorFireIncident");
+        //  }
+        //if (false)
+        //  {
+        //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MultiAlarmFire");
+        //  }
+        if(
+            digest.be_sqtm
+          ||
+            (
+              (digest.num_ambulances + digest.num_holds > 0)
+            &&
+              (digest.num_zone_cars + digest.num_hzcs > 0)
+            &&
+              (digest.num_supervisors > 0)
+            &&
+              (digest.num_engines > 0)
+            &&
+              (digest.num_frsqs > 0)
+            &&
+              (digest.num_tacs > 0)
+            )
+          )
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Trap");
+          }
+        if (digest.num_ambulances + digest.num_holds > 3)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciSmall");
+          }
+        if (digest.num_ambulances + digest.num_holds > 6)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciMedium");
+          }
+        if (digest.num_ambulances + digest.num_holds > 10)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciLarge");
+          }
+        if (digest.num_ambulances + digest.num_holds > 15)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciHuge");
+          }
+        //
+        // Determine prior impression, if any.
+        //
+        var prior_impression_id = k.EMPTY;
+        var prior_impression_description = k.EMPTY;
+        k.int_nonnegative prior_impression_pecking_order;
+        //
+        if(db_field_situations.GetPriorImpression
+            (
+            case_num:digest.case_num,
+            prior_impression_id:out prior_impression_id,
+            prior_impression_description:out prior_impression_description,
+            prior_impression_pecking_order:out prior_impression_pecking_order
+            )
+          )
+        //then
+          {
+          impression_pecking_order.val = Math.Max(impression_pecking_order.val,prior_impression_pecking_order.val);
+          }
+        }
+      //
+      return db_field_situation_impressions.IdOfPeckingOrder(impression_pecking_order);
+      }
+
+    //--
+    //
+    // INTERNAL/PUBLIC
+    //
+    //--
 
     public TClass_biz_field_situations() : base()
       {
+      db_field_situation_impressions = new TClass_db_field_situation_impressions();
       db_field_situations = new TClass_db_field_situations();
       }
 
@@ -59,7 +233,7 @@ namespace Class_biz_field_situations
           assignment:digest.assignment,
           time_initialized:digest.time_initialized,
           nature:k.EMPTY,
-          impression_id:k.EMPTY,
+          impression_id:ImpressionIdOfCase(digest),
           num_ambulances:digest.num_ambulances,
           num_zone_cars:digest.num_zone_cars,
           num_squad_trucks:digest.num_squad_trucks,
@@ -76,7 +250,6 @@ namespace Class_biz_field_situations
           be_pu:digest.be_pu,
           be_rescue_area:digest.be_rescue_area,
           num_rbs:digest.num_rbs,
-          num_sqs:digest.num_sqs,
           be_sqtm:digest.be_sqtm,
           num_tacs:digest.num_tacs,
           num_bats:digest.num_bats,
@@ -122,7 +295,6 @@ namespace Class_biz_field_situations
       out bool be_pu,
       out bool be_rescue_area,
       out string num_rbs,
-      out string num_sqs,
       out bool be_sqtm,
       out string num_tacs,
       out string num_bats,
@@ -165,7 +337,6 @@ namespace Class_biz_field_situations
         out be_pu,
         out be_rescue_area,
         out num_rbs,
-        out num_sqs,
         out be_sqtm,
         out num_tacs,
         out num_bats,
@@ -190,41 +361,40 @@ namespace Class_biz_field_situations
       string case_num,
       string address,
       string assignment,
-      string time_initialized,
+      DateTime time_initialized,
       string nature,
       string impression_id,
-      string num_ambulances,
-      string num_zone_cars,
-      string num_squad_trucks,
-      string num_supervisors,
-      string be_emtals,
-      string be_etby,
-      string num_holds,
-      string num_hzcs,
-      string num_lifeguards,
-      string num_mci_trucks,
-      string be_mrt,
-      string num_mrtks,
-      string be_pio,
-      string be_pu,
-      string be_rescue_area,
-      string num_rbs,
-      string num_sqs,
-      string be_sqtm,
-      string num_tacs,
-      string num_bats,
-      string num_cars,
-      string num_engines,
-      string num_fboas,
-      string num_frsqs,
-      string be_ftby,
-      string num_hazs,
-      string num_ladders,
-      string be_mirt,
-      string num_safes,
-      string be_stech,
-      string num_sups,
-      string num_tankers
+      int num_ambulances,
+      int num_zone_cars,
+      int num_squad_trucks,
+      int num_supervisors,
+      bool be_emtals,
+      bool be_etby,
+      int num_holds,
+      int num_hzcs,
+      int num_lifeguards,
+      int num_mci_trucks,
+      bool be_mrt,
+      int num_mrtks,
+      bool be_pio,
+      bool be_pu,
+      bool be_rescue_area,
+      int num_rbs,
+      bool be_sqtm,
+      int num_tacs,
+      int num_bats,
+      int num_cars,
+      int num_engines,
+      int num_fboas,
+      int num_frsqs,
+      bool be_ftby,
+      int num_hazs,
+      int num_ladders,
+      bool be_mirt,
+      int num_safes,
+      bool be_stech,
+      int num_sups,
+      int num_tankers
       )
       {
       db_field_situations.Set
@@ -252,7 +422,6 @@ namespace Class_biz_field_situations
         be_pu,
         be_rescue_area,
         num_rbs,
-        num_sqs,
         be_sqtm,
         num_tacs,
         num_bats,

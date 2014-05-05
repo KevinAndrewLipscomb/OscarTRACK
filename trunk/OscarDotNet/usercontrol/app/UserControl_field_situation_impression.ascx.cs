@@ -1,22 +1,26 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_field_situations;
+using Class_biz_field_situation_impressions;
 using Class_biz_role_member_map;
 using kix;
 using System;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Collections;
+using UserControl_drop_down_date;
 
-namespace UserControl_field_situation
+namespace UserControl_field_situation_impression
   {
-  public partial class TWebUserControl_field_situation: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_field_situation_impression: ki_web_ui.usercontrol_class
     {
     private struct p_type
       {
       public bool be_loaded;
-      public TClass_biz_field_situations biz_field_situations;
+      public TClass_biz_field_situation_impressions biz_field_situation_impressions;
       public TClass_biz_role_member_map biz_role_member_map;
-      public bool be_ok_to_config_field_situations;
+      public bool be_ok_to_config_field_situation_impressions;
       } // end p_type
 
     private p_type p;
@@ -25,43 +29,8 @@ namespace UserControl_field_situation
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_case_num.Text = k.EMPTY;
-      TextBox_address.Text = k.EMPTY;
-      TextBox_assignment.Text = k.EMPTY;
-      TextBox_time_initialized.Text = k.EMPTY;
-      TextBox_nature.Text = k.EMPTY;
-      TextBox_impression_id.Text = k.EMPTY;
-      TextBox_num_ambulances.Text = k.EMPTY;
-      TextBox_num_zone_cars.Text = k.EMPTY;
-      TextBox_num_squad_trucks.Text = k.EMPTY;
-      TextBox_num_supervisors.Text = k.EMPTY;
-      CheckBox_be_emtals.Checked = false;
-      CheckBox_be_etby.Checked = false;
-      TextBox_num_holds.Text = k.EMPTY;
-      TextBox_num_hzcs.Text = k.EMPTY;
-      TextBox_num_lifeguards.Text = k.EMPTY;
-      TextBox_num_mci_trucks.Text = k.EMPTY;
-      CheckBox_be_mrt.Checked = false;
-      TextBox_num_mrtks.Text = k.EMPTY;
-      CheckBox_be_pio.Checked = false;
-      CheckBox_be_pu.Checked = false;
-      CheckBox_be_rescue_area.Checked = false;
-      TextBox_num_rbs.Text = k.EMPTY;
-      CheckBox_be_sqtm.Checked = false;
-      TextBox_num_tacs.Text = k.EMPTY;
-      TextBox_num_bats.Text = k.EMPTY;
-      TextBox_num_cars.Text = k.EMPTY;
-      TextBox_num_engines.Text = k.EMPTY;
-      TextBox_num_fboas.Text = k.EMPTY;
-      TextBox_num_frsqs.Text = k.EMPTY;
-      CheckBox_be_ftby.Checked = false;
-      TextBox_num_hazs.Text = k.EMPTY;
-      TextBox_num_ladders.Text = k.EMPTY;
-      CheckBox_be_mirt.Checked = false;
-      TextBox_num_safes.Text = k.EMPTY;
-      CheckBox_be_stech.Checked = false;
-      TextBox_num_sups.Text = k.EMPTY;
-      TextBox_num_tankers.Text = k.EMPTY;
+      TextBox_description.Text = k.EMPTY;
+      TextBox_pecking_order.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -157,7 +126,7 @@ namespace UserControl_field_situation
       {
       if (!p.be_loaded)
         {
-        LinkButton_new_record.Visible = p.be_ok_to_config_field_situations;
+        LinkButton_new_record.Visible = p.be_ok_to_config_field_situation_impressions;
         LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
@@ -172,135 +141,30 @@ namespace UserControl_field_situation
       {
       Literal_match_index.Text = DropDownList_id.SelectedIndex.ToString();
       bool result;
-      string case_num;
-      string address;
-      string assignment;
-      DateTime time_initialized;
-      string nature;
-      string impression_id;
-      string num_ambulances;
-      string num_zone_cars;
-      string num_squad_trucks;
-      string num_supervisors;
-      bool be_emtals;
-      bool be_etby;
-      string num_holds;
-      string num_hzcs;
-      string num_lifeguards;
-      string num_mci_trucks;
-      bool be_mrt;
-      string num_mrtks;
-      bool be_pio;
-      bool be_pu;
-      bool be_rescue_area;
-      string num_rbs;
-      bool be_sqtm;
-      string num_tacs;
-      string num_bats;
-      string num_cars;
-      string num_engines;
-      string num_fboas;
-      string num_frsqs;
-      bool be_ftby;
-      string num_hazs;
-      string num_ladders;
-      bool be_mirt;
-      string num_safes;
-      bool be_stech;
-      string num_sups;
-      string num_tankers;
+      string description;
+      string pecking_order;
       result = false;
       if
         (
-        p.biz_field_situations.Get
+        p.biz_field_situation_impressions.Get
           (
           id,
-          out case_num,
-          out address,
-          out assignment,
-          out time_initialized,
-          out nature,
-          out impression_id,
-          out num_ambulances,
-          out num_zone_cars,
-          out num_squad_trucks,
-          out num_supervisors,
-          out be_emtals,
-          out be_etby,
-          out num_holds,
-          out num_hzcs,
-          out num_lifeguards,
-          out num_mci_trucks,
-          out be_mrt,
-          out num_mrtks,
-          out be_pio,
-          out be_pu,
-          out be_rescue_area,
-          out num_rbs,
-          out be_sqtm,
-          out num_tacs,
-          out num_bats,
-          out num_cars,
-          out num_engines,
-          out num_fboas,
-          out num_frsqs,
-          out be_ftby,
-          out num_hazs,
-          out num_ladders,
-          out be_mirt,
-          out num_safes,
-          out be_stech,
-          out num_sups,
-          out num_tankers
+          out description,
+          out pecking_order
           )
         )
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_case_num.Text = case_num;
-        TextBox_address.Text = address;
-        TextBox_assignment.Text = assignment;
-        TextBox_time_initialized.Text = time_initialized.ToString();
-        TextBox_nature.Text = nature;
-        TextBox_impression_id.Text = impression_id;
-        TextBox_num_ambulances.Text = num_ambulances;
-        TextBox_num_zone_cars.Text = num_zone_cars;
-        TextBox_num_squad_trucks.Text = num_squad_trucks;
-        TextBox_num_supervisors.Text = num_supervisors;
-        CheckBox_be_emtals.Checked = be_emtals;
-        CheckBox_be_etby.Checked = be_etby;
-        TextBox_num_holds.Text = num_holds;
-        TextBox_num_hzcs.Text = num_hzcs;
-        TextBox_num_lifeguards.Text = num_lifeguards;
-        TextBox_num_mci_trucks.Text = num_mci_trucks;
-        CheckBox_be_mrt.Checked = be_mrt;
-        TextBox_num_mrtks.Text = num_mrtks;
-        CheckBox_be_pio.Checked = be_pio;
-        CheckBox_be_pu.Checked = be_pu;
-        CheckBox_be_rescue_area.Checked = be_rescue_area;
-        TextBox_num_rbs.Text = num_rbs;
-        CheckBox_be_sqtm.Checked = be_sqtm;
-        TextBox_num_tacs.Text = num_tacs;
-        TextBox_num_bats.Text = num_bats;
-        TextBox_num_cars.Text = num_cars;
-        TextBox_num_engines.Text = num_engines;
-        TextBox_num_fboas.Text = num_fboas;
-        TextBox_num_frsqs.Text = num_frsqs;
-        CheckBox_be_ftby.Checked = be_ftby;
-        TextBox_num_hazs.Text = num_hazs;
-        TextBox_num_ladders.Text = num_ladders;
-        CheckBox_be_mirt.Checked = be_mirt;
-        TextBox_num_safes.Text = num_safes;
-        CheckBox_be_stech.Checked = be_stech;
-        TextBox_num_sups.Text = num_sups;
-        TextBox_num_tankers.Text = num_tankers;
+        TextBox_description.Text = description;
+        TextBox_pecking_order.Text = pecking_order;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
         LinkButton_reset.Enabled = true;
-        SetDependentFieldAblements(p.be_ok_to_config_field_situations);
-        Button_submit.Enabled = p.be_ok_to_config_field_situations;
-        Button_delete.Enabled = p.be_ok_to_config_field_situations;
+        SetDependentFieldAblements(p.be_ok_to_config_field_situation_impressions);
+        Button_submit.Enabled = p.be_ok_to_config_field_situation_impressions;
+        Button_delete.Enabled = p.be_ok_to_config_field_situation_impressions;
         result = true;
         }
       return result;
@@ -316,8 +180,8 @@ namespace UserControl_field_situation
       Label_lookup_hint.Enabled = false;
       LinkButton_reset.Enabled = true;
       LinkButton_new_record.Enabled = false;
-      SetDependentFieldAblements(p.be_ok_to_config_field_situations);
-      Button_submit.Enabled = p.be_ok_to_config_field_situations;
+      SetDependentFieldAblements(p.be_ok_to_config_field_situation_impressions);
+      Button_submit.Enabled = p.be_ok_to_config_field_situation_impressions;
       Button_delete.Enabled = false;
       TextBox_id.Focus();
       }
@@ -349,22 +213,22 @@ namespace UserControl_field_situation
 //        // had it loaded already.
 //        //
 //#warning Revise the binder-related instance_id to this control appropriately.
-//        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_field_situation")
+//        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_field_situation_impression")
 //          {
 //#warning Revise the ClientID path to this control appropriately.
-//          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_field_situation");
+//          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_field_situation_impression");
 //          }
-//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_field_situation")
+//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_field_situation_impression")
 //        {
-//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_field_situation");
+//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_field_situation_impression");
 //        }
         }
       else
         {
         p.be_loaded = false;
-        p.biz_field_situations = new TClass_biz_field_situations();
+        p.biz_field_situation_impressions = new TClass_biz_field_situation_impressions();
         p.biz_role_member_map = new TClass_biz_role_member_map();
-        p.be_ok_to_config_field_situations = k.Has((string[])(Session["privilege_array"]), "config-field_situations");
+        p.be_ok_to_config_field_situation_impressions = k.Has((string[])(Session["privilege_array"]), "config-field_situation_impressions");
         }
       }
 
@@ -375,15 +239,15 @@ namespace UserControl_field_situation
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_field_situation_PreRender;
+      this.PreRender += this.TWebUserControl_field_situation_impression_PreRender;
       }
 
-    private void TWebUserControl_field_situation_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_field_situation_impression_PreRender(object sender, System.EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
 
-    public TWebUserControl_field_situation Fresh()
+    public TWebUserControl_field_situation_impression Fresh()
       {
       Session.Remove(InstanceId() + ".p");
       return this;
@@ -393,55 +257,14 @@ namespace UserControl_field_situation
       {
       if (Page.IsValid)
         {
-        //var time_initialized = DateTime.MinValue;
-        ////
-        //if (TextBox_time_initialized.Text != k.EMPTY)
-        //  {
-        //  time_initialized = DateTime.Parse(k.Safe(TextBox_time_initialized.Text,k.safe_hint_type.DATE_TIME));
-        //  }
-        //p.biz_field_situations.Set
-        //  (
-        //  k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-        //  k.Safe(TextBox_case_num.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_address.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-        //  k.Safe(TextBox_assignment.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-        //  time_initialized,
-        //  k.Safe(TextBox_nature.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-        //  k.Safe(TextBox_impression_id.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_ambulances.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_zone_cars.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_squad_trucks.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_supervisors.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_emtals.Checked,
-        //  CheckBox_be_etby.Checked,
-        //  k.Safe(TextBox_num_holds.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_hzcs.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_lifeguards.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_mci_trucks.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_mrt.Checked,
-        //  k.Safe(TextBox_num_mrtks.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_pio.Checked,
-        //  CheckBox_be_pu.Checked,
-        //  CheckBox_be_rescue_area.Checked,
-        //  k.Safe(TextBox_num_rbs.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_sqtm.Checked,
-        //  k.Safe(TextBox_num_tacs.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_bats.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_cars.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_engines.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_fboas.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_frsqs.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_ftby.Checked,
-        //  k.Safe(TextBox_num_hazs.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_ladders.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_mirt.Checked,
-        //  k.Safe(TextBox_num_safes.Text,k.safe_hint_type.NUM).Trim(),
-        //  CheckBox_be_stech.Checked,
-        //  k.Safe(TextBox_num_sups.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_tankers.Text,k.safe_hint_type.NUM).Trim()
-        //  );
-        //Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
-        //SetLookupMode();
+        p.biz_field_situation_impressions.Set
+          (
+          k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
+          k.Safe(TextBox_description.Text,k.safe_hint_type.ALPHANUM).Trim(),
+          k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM).Trim()
+          );
+        Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+        SetLookupMode();
         }
       else
         {
@@ -480,7 +303,7 @@ namespace UserControl_field_situation
 
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (p.biz_field_situations.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
+      if (p.biz_field_situation_impressions.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.ALPHANUM)))
         {
         SetLookupMode();
         }
@@ -502,43 +325,8 @@ namespace UserControl_field_situation
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_case_num.Enabled = ablement;
-      TextBox_address.Enabled = ablement;
-      TextBox_assignment.Enabled = ablement;
-      TextBox_time_initialized.Enabled = ablement;
-      TextBox_nature.Enabled = ablement;
-      TextBox_impression_id.Enabled = ablement;
-      TextBox_num_ambulances.Enabled = ablement;
-      TextBox_num_zone_cars.Enabled = ablement;
-      TextBox_num_squad_trucks.Enabled = ablement;
-      TextBox_num_supervisors.Enabled = ablement;
-      CheckBox_be_emtals.Enabled = ablement;
-      CheckBox_be_etby.Enabled = ablement;
-      TextBox_num_holds.Enabled = ablement;
-      TextBox_num_hzcs.Enabled = ablement;
-      TextBox_num_lifeguards.Enabled = ablement;
-      TextBox_num_mci_trucks.Enabled = ablement;
-      CheckBox_be_mrt.Enabled = ablement;
-      TextBox_num_mrtks.Enabled = ablement;
-      CheckBox_be_pio.Enabled = ablement;
-      CheckBox_be_pu.Enabled = ablement;
-      CheckBox_be_rescue_area.Enabled = ablement;
-      TextBox_num_rbs.Enabled = ablement;
-      CheckBox_be_sqtm.Enabled = ablement;
-      TextBox_num_tacs.Enabled = ablement;
-      TextBox_num_bats.Enabled = ablement;
-      TextBox_num_cars.Enabled = ablement;
-      TextBox_num_engines.Enabled = ablement;
-      TextBox_num_fboas.Enabled = ablement;
-      TextBox_num_frsqs.Enabled = ablement;
-      CheckBox_be_ftby.Enabled = ablement;
-      TextBox_num_hazs.Enabled = ablement;
-      TextBox_num_ladders.Enabled = ablement;
-      CheckBox_be_mirt.Enabled = ablement;
-      TextBox_num_safes.Enabled = ablement;
-      CheckBox_be_stech.Enabled = ablement;
-      TextBox_num_sups.Enabled = ablement;
-      TextBox_num_tankers.Enabled = ablement;
+      TextBox_description.Enabled = ablement;
+      TextBox_pecking_order.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
@@ -550,7 +338,7 @@ namespace UserControl_field_situation
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_field_situations.Bind(saved_id, DropDownList_id);
+        p.biz_field_situation_impressions.Bind(saved_id, DropDownList_id);
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -574,6 +362,6 @@ namespace UserControl_field_situation
         }
       }
 
-    } // end TWebUserControl_field_situation
+    } // end TWebUserControl_field_situation_impression
 
   }
