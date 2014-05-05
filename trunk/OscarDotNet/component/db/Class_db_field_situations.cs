@@ -88,8 +88,7 @@ namespace Class_db_field_situations
         (
         "select"
         + " IF((sum(num_engines) + sum(num_ladders) + sum(num_frsqs) > 7)"
-        +     " or (count(impression.description = 'WorkingFire')"
-        +   " )"
+        +     " or (sum(field_situation_impression.description = 'WorkingFire') > 1)"
         +   " , 1, 0)"
         + " from field_situation"
         +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"

@@ -128,23 +128,7 @@ namespace Class_biz_field_situations
         //  {
         //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MultiAlarmFire");
         //  }
-        if(
-            digest.be_sqtm
-          ||
-            (
-              (digest.num_ambulances + digest.num_holds > 0)
-            &&
-              (digest.num_zone_cars + digest.num_hzcs > 0)
-            &&
-              (digest.num_supervisors > 0)
-            &&
-              (digest.num_engines > 0)
-            &&
-              (digest.num_frsqs > 0)
-            &&
-              (digest.num_tacs > 0)
-            )
-          )
+        if(digest.be_sqtm)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("Trap");
           }
@@ -231,6 +215,9 @@ namespace Class_biz_field_situations
       ref DateTime saved_meta_surge_alert_timestamp_fire
       )
       {
+      const string BETA_RECIPIENTS = "7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7573762155@vtext.com,7572862269@pcs.ntelos.com";
+      //                              me                     tom harp             ed brazle            tom green            jason stroud         eric hoyt
+      //
       //
       // Digest CAD records.
       //
@@ -303,7 +290,7 @@ namespace Class_biz_field_situations
           k.SmtpMailSend
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
-            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
+            to:BETA_RECIPIENTS,
             //  me                     tom harp             ed brazle            tom green            eric hoyt
             subject:impression_description,
             message_string:impression_elaboration
@@ -322,8 +309,7 @@ namespace Class_biz_field_situations
           k.SmtpMailSend
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
-            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
-            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            to:BETA_RECIPIENTS,
             subject:"EmsSurge",
             message_string:"AUTOTEXT: Multiple calls holding for ambulances. Volunteers to your stations."
             );
@@ -334,8 +320,7 @@ namespace Class_biz_field_situations
           k.SmtpMailSend
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
-            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
-            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            to:BETA_RECIPIENTS,
             subject:"AlsSurge",
             message_string:"AUTOTEXT: Multiple calls holding for ALS. ALS to your stations."
             );
@@ -346,8 +331,7 @@ namespace Class_biz_field_situations
           k.SmtpMailSend
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
-            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
-            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            to:BETA_RECIPIENTS,
             subject:"FireSurge",
             message_string:"AUTOTEXT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations."
             );
