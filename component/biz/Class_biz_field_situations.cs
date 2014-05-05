@@ -154,24 +154,9 @@ namespace Class_biz_field_situations
           impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciHuge");
           }
         //
-        // Determine prior impression, if any.
+        // Determine prior impression, if any, and prevent impression downgrade.
         //
-        var prior_impression_id = k.EMPTY;
-        var prior_impression_description = k.EMPTY;
-        k.int_nonnegative prior_impression_pecking_order;
-        //
-        if(db_field_situations.GetPriorImpression
-            (
-            case_num:digest.case_num,
-            prior_impression_id:out prior_impression_id,
-            prior_impression_description:out prior_impression_description,
-            prior_impression_pecking_order:out prior_impression_pecking_order
-            )
-          )
-        //then
-          {
-          impression_pecking_order.val = Math.Max(impression_pecking_order.val,prior_impression_pecking_order.val);
-          }
+        impression_pecking_order.val = Math.Max(impression_pecking_order.val,db_field_situations.PriorImpressionPeckingOrder(case_num:digest.case_num).val);
         }
       //
       return db_field_situation_impressions.IdOfPeckingOrder(impression_pecking_order);
