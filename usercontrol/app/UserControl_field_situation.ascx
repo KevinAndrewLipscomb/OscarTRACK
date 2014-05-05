@@ -296,18 +296,6 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Num&nbsp;sqs:</font></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_num_sqs" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
-    </td>
-    <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_sqs" runat="server" errormessage="Please enter Num&nbsp;sqs." font-bold="True" controltovalidate="TextBox_num_sqs">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_num_sqs" runat="server" errormessage="Please enter a valid Num&nbsp;sqs." font-bold="True" controltovalidate="TextBox_num_sqs" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
-  </tr>
-  <tr>
     <td><font class="">Be&nbsp;sqtm:</font></td>
     <td>
       <font class="">
