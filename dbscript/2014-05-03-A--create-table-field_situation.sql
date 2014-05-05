@@ -7,6 +7,7 @@ DROP TABLE IF EXISTS field_situation_impression
 CREATE TABLE IF NOT EXISTS field_situation_impression (
   id SERIAL,
   description VARCHAR(31) NOT NULL,
+  elaboration VARCHAR(127) NOT NULL,
   pecking_order SMALLINT UNSIGNED NOT NULL,
   PRIMARY KEY(id)
 )
@@ -19,25 +20,25 @@ ALTER TABLE `field_situation_impression`
 ,
   ADD UNIQUE INDEX `pecking_order` (`pecking_order` ASC) 
 ;
-insert ignore field_situation_impression (pecking_order,description) values
-(00500,'Standby'),
-(01000,'Typical'),
-(01500,'AlsEms'),
-(02000,'MrtCall'),
-(02500,'AirportAlert'),
-(03000,'AmbNeeded'),
-(03500,'AlsNeeded'),
-(04000,'CardiacArrestAlsNeeded'),
-(04500,'CardiacArrestAmbNeeded'),
-(05000,'WorkingFire'),
-(05500,'TwoAlarmFire'),
-(06000,'MajorFireIncident'),
-(06500,'MultiAlarmFire'),
-(07000,'Trap'),
-(30000,'MciSmall'),
-(40000,'MciMedium'),
-(50000,'MciLarge'),
-(60000,'MciHuge')
+insert ignore field_situation_impression (pecking_order,description,elaboration) values
+(00500,'Standby','AUTOTEXT: Be advised, VB has created a Standby case. No action warranted.'),
+(01000,'Typical','AUTOTEXT: Be advised, VB has created a Typical case. No action warranted.'),
+(01500,'AlsEms','AUTOTEXT: VB has dispatched an ALS case at <address/>. *UNKNOWN IF SCENE IS SAFE* Contact VB before arriving.'),
+(02000,'MrtCall','AUTOTEXT: VB has dispatched a Marine Rescue Team case. MRT members respond on TAC-#.'),
+(02500,'AirportAlert','AUTOTEXT: Be advised, VB has dispatched an Airport Alert case.'),
+(03000,'AmbNeeded','AUTOTEXT: Ambulance needed. Volunteers to your stations.'),
+(03500,'AlsNeeded','AUTOTEXT: ALS needed. ALS to your stations.'),
+(04000,'CardiacArrestAlsNeeded','AUTOTEXT: ALS needed at a Cardiac Arrest. ALS to your stations.'),
+(04500,'CardiacArrestAmbNeeded','AUTOTEXT: Ambulance needed at a Cardiac Arrest. Volunteers to your stations.'),
+(05000,'WorkingFire','AUTOTEXT: Be advised, VBFD has a Working Fire or equivalent.'),
+(05500,'TwoAlarmFire','AUTOTEXT: VBFD has a 2-alarm fire or equivalent. EMS first response capacity reduced. Volunteers to your stations.'),
+(06000,'MajorFireIncident','AUTOTEXT: VBFD has a major fire incident. EMS first response capacity reduced. Volunteers to your stations.'),
+(06500,'MultiAlarmFire','AUTOTEXT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations.'),
+(07000,'Trap','AUTOTEXT: VB has dispatched a Trap case or equivalent. SQTM members to your stations.'),
+(30000,'MciSmall','AUTOTEXT: Small MCI case active. Volunteers to your stations.'),
+(40000,'MciMedium','AUTOTEXT: Medium MCI case active. Volunteers to your stations.'),
+(50000,'MciLarge','AUTOTEXT: LARGE MCI case active. Volunteers to your stations.'),
+(60000,'MciHuge','AUTOTEXT: HUGE MCI CASE ACTIVE. VOLUNTEERS TO YOUR STATIONS.')
 ;
 CREATE TABLE IF NOT EXISTS field_situation (
   id SERIAL,
