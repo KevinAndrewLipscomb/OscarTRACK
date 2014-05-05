@@ -83,6 +83,7 @@ HtmlElementCollection cells;
           }
         catch (Exception the_exception)
           {
+          k.EscalatedException(the_exception);
           }
         }
       //
@@ -119,13 +120,14 @@ HtmlElementCollection cells;
         }
       catch (Exception the_exception)
         {
+        k.EscalatedException(the_exception);
         }
       }
 
     private void master_browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
       {
-      //try
-      //  {
+      try
+        {
 
       var doc = master_browser.Document;
       //
@@ -193,10 +195,11 @@ HtmlElementCollection cells;
       //  browser.GoBack();
       //  }
 
-      //  }
-      //catch (Exception the_exception)
-      //  {        
-      //  }
+        }
+      catch (Exception the_exception)
+        {        
+        k.EscalatedException(the_exception);
+        }
       }
 
     private void master_browser_Navigating
@@ -235,15 +238,16 @@ HtmlElementCollection cells;
           master_browser.Navigate("https://vbems.emsbridge.com");
           be_successful = true;
           }
-        catch (Exception e)
+        catch (Exception the_exception)
           {
-          if (e.Message == "Error HRESULT E_FAIL has been returned from a call to a COM component.")
+          if (the_exception.Message == "Error HRESULT E_FAIL has been returned from a call to a COM component.")
             {
             Thread.Sleep(millisecondsTimeout:1000);
             }
           else
             {
-            throw e;
+            k.EscalatedException(the_exception);
+            throw the_exception;
             }
           }
         }
