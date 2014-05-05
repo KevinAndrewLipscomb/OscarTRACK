@@ -25,6 +25,10 @@ namespace Class_ac_cad_activity_notification_agent
     private Thread master_browser_thread;
     private Form form;
     private k.int_nonnegative master_navigation_counter = new k.int_nonnegative();
+    DateTime saved_day;
+    DateTime saved_meta_surge_alert_timestamp_ems;
+    DateTime saved_meta_surge_alert_timestamp_als;
+    DateTime saved_meta_surge_alert_timestamp_fire;
 
     private void ajax_container_PropertyChange
       (
@@ -32,15 +36,19 @@ namespace Class_ac_cad_activity_notification_agent
       EventArgs e
       )
       {
-      //try
-      //  {
+      try
+        {
 
       var doc = master_browser.Document;
       var rows = doc.GetElementById("ajax_container").GetElementsByTagName("tr");
+HtmlElementCollection cells;
       for (var i = new k.subtype<int>(2,rows.Count); i.val < i.LAST; i.val++)
         {
-        var cells = rows[i.val].GetElementsByTagName("td");
-        if (cells.Count == 17)
+        try
+          {
+
+        cells = rows[i.val].GetElementsByTagName("td"); //var cells = rows[i.val].GetElementsByTagName("td");
+        if ((cells.Count == 17) && (cells[5].InnerText != null)) // I don't know why the remote site sometimes provides a cell[5] with a null InnerText, but it does.
           {
           biz_cad_records.Set
               (
@@ -71,6 +79,11 @@ namespace Class_ac_cad_activity_notification_agent
           //  browser.Navigate("https://vbems.emsbridge.com/resource/apps/caddispatch/cad_dispatch_history_detail.cfm?IncidentID=" + incident_id);
           //  }
           }
+
+          }
+        catch (Exception the_exception)
+          {
+          }
         }
       //
       // Trim the cad_records.
@@ -79,18 +92,34 @@ namespace Class_ac_cad_activity_notification_agent
       //
       // Notify members as appropriate.
       //
-      biz_field_situations.DetectAndNotify();
+      biz_field_situations.DetectAndNotify
+        (
+        saved_meta_surge_alert_timestamp_ems:ref saved_meta_surge_alert_timestamp_ems,
+        saved_meta_surge_alert_timestamp_als:ref saved_meta_surge_alert_timestamp_als,
+        saved_meta_surge_alert_timestamp_fire:ref saved_meta_surge_alert_timestamp_fire
+        );
       //
       Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
       //
-      // Click the Refresh button.
-      //
-      doc.GetElementsByTagName("input")[4].InvokeMember("click");
+      if (DateTime.Today == saved_day) // if awakening on the same day...
+        {
+        //
+        // Click the Refresh button.
+        //
+        doc.GetElementsByTagName("input")[4].InvokeMember("click");
+        }
+      else
+        {
+        //
+        // The remote site seems to stop responding at midnight, so clicking Refresh seems not to work when awaking on the next day.  Time to die.
+        //
+        Dispose(disposing:true);
+        }
 
-      //  }
-      //catch (Exception the_exception)
-      //  {
-      //  }
+        }
+      catch (Exception the_exception)
+        {
+        }
       }
 
     private void master_browser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -150,6 +179,10 @@ namespace Class_ac_cad_activity_notification_agent
         // The site does not trigger the Navigating or DocumentCompleted events past this point, so set up an event handler to run when the target control is updated by ServiceBridge's AJAX code.
         //
         doc.GetElementById("ajax_container").AttachEventHandler("onpropertychange",new EventHandler(ajax_container_PropertyChange));
+        //
+        // Make a note of the current day, for comparison when waking up during ajax_container_PropertyChange().
+        //
+        saved_day = DateTime.Today;
         }
       //else if (navigation_counter.val > 7)
       //  {
@@ -268,6 +301,11 @@ namespace Class_ac_cad_activity_notification_agent
       //
       // I suspect a second thread with a second WebBrowser object will be required to navigate to the detail pages to get the natures.
       //
+
+      //
+      // Block until the master_browser_thread terminates.
+      //
+      master_browser_thread.Join();
       }
 
     }

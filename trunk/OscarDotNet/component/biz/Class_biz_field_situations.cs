@@ -4,6 +4,8 @@ using Class_db_field_situation_impressions;
 using Class_db_field_situations;
 using kix;
 using System;
+using System.Configuration;
+using System.Collections;
 
 namespace Class_biz_field_situations
   {
@@ -20,32 +22,41 @@ namespace Class_biz_field_situations
     private TClass_db_field_situation_impressions db_field_situation_impressions = null;
     private TClass_db_field_situations db_field_situations = null;
 
-    private string ImpressionIdOfCase(TClass_db_field_situations.digest digest)
+    private void FormImpression
+      (
+      TClass_db_field_situations.digest digest,
+      out string impression_id,
+      out string impression_description,
+      out string impression_elaboration,
+      out bool be_escalation
+      )
       {
+      be_escalation = false;
+      //
       var impression_pecking_order = new k.int_nonnegative();
       //
       // Set up the default impression.
       //
       if (digest.be_etby || digest.be_ftby)
         {
-        impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Standby");
+        impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("Standby");
         //
         // No further analysis needed
         //
         }
       else
         {
-        impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Typical");
+        impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("Typical");
         //
         // Form current impression.
         //
         if (digest.num_zone_cars > 0)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AlsEms");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AlsEms");
           }
         if (digest.be_mrt || (digest.num_fboas > 0) || (digest.num_rbs > 0))
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MrtCall");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MrtCall");
           }
         //if ()
         //  {
@@ -53,11 +64,11 @@ namespace Class_biz_field_situations
         //  }
         if (digest.num_holds > 0)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AmbNeeded");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AmbNeeded");
           }
         if (digest.num_hzcs > 0)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AlsNeeded");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AlsNeeded");
           }
         if(
             (digest.num_ambulances + digest.num_holds == 1)
@@ -71,7 +82,7 @@ namespace Class_biz_field_situations
             (digest.num_hzcs > 0)
           )
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("CardiacArrestAlsNeeded");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("CardiacArrestAlsNeeded");
           }
         if(
             (digest.num_holds == 1)
@@ -83,18 +94,18 @@ namespace Class_biz_field_situations
             (digest.num_zone_cars + digest.num_hzcs == 2)
           )
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("CardiacArrestAmbNeeded");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("CardiacArrestAmbNeeded");
           }
         if(
             (digest.num_engines >= 4)
           &&
-            (digest.num_ladders >= 2)
+            (digest.num_ladders >= 1)
           &&
             (digest.num_frsqs > 0)
           &&
             (digest.num_tacs > 0)
           &&
-            (digest.num_bats >= 2)
+            (digest.num_bats >= 1)
           &&
             (digest.num_ambulances + digest.num_holds > 0)
           &&
@@ -103,7 +114,7 @@ namespace Class_biz_field_situations
             (digest.num_safes > 0)
           )
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("WorkingFire");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("WorkingFire");
           }
         //if (false)
         //  {
@@ -135,31 +146,45 @@ namespace Class_biz_field_situations
             )
           )
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("Trap");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("Trap");
           }
         if (digest.num_ambulances + digest.num_holds > 3)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciSmall");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciSmall");
           }
         if (digest.num_ambulances + digest.num_holds > 6)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciMedium");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciMedium");
           }
         if (digest.num_ambulances + digest.num_holds > 10)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciLarge");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciLarge");
           }
         if (digest.num_ambulances + digest.num_holds > 15)
           {
-          impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("MciHuge");
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciHuge");
           }
         //
-        // Determine prior impression, if any, and prevent impression downgrade.
+        // Consider prior impression, identify escalation, prevent downgrade.
         //
-        impression_pecking_order.val = Math.Max(impression_pecking_order.val,db_field_situations.PriorImpressionPeckingOrder(case_num:digest.case_num).val);
+        var prior_impression_pecking_order = db_field_situations.PriorImpressionPeckingOrder(case_num:digest.case_num);
+        if (impression_pecking_order.val > prior_impression_pecking_order.val)
+          {
+          be_escalation = (impression_pecking_order.val > 1750);
+          }
+        else
+          {
+          impression_pecking_order.val = prior_impression_pecking_order.val;
+          }
         }
       //
-      return db_field_situation_impressions.IdOfPeckingOrder(impression_pecking_order);
+      db_field_situation_impressions.GetIdDescriptionElaborationOfPeckingOrder
+        (
+        pecking_order:impression_pecking_order,
+        id:out impression_id,
+        description:out impression_description,
+        elaboration:out impression_elaboration
+        );
       }
 
     //--
@@ -199,7 +224,12 @@ namespace Class_biz_field_situations
       return db_field_situations.Delete(id);
       }
 
-    internal void DetectAndNotify()
+    internal void DetectAndNotify
+      (
+      ref DateTime saved_meta_surge_alert_timestamp_ems,
+      ref DateTime saved_meta_surge_alert_timestamp_als,
+      ref DateTime saved_meta_surge_alert_timestamp_fire
+      )
       {
       //
       // Digest CAD records.
@@ -207,9 +237,24 @@ namespace Class_biz_field_situations
       db_field_situations.MarkAllStale();
       TClass_db_field_situations.digest digest;
       var digest_q = db_field_situations.DigestQ();
+      var impression_description = k.EMPTY;
+      var impression_elaboration = k.EMPTY;
+      var impression_id = k.EMPTY;
+      var be_escalation = false;
+      var be_any_case_escalated = false;
       while (digest_q.Count > 0)
         {
         digest = digest_q.Dequeue();
+        //
+        FormImpression
+          (
+          digest:digest,
+          impression_id:out impression_id,
+          impression_description:out impression_description,
+          impression_elaboration:out impression_elaboration,
+          be_escalation:out be_escalation
+          );
+        //
         db_field_situations.Set
           (
           id:k.EMPTY,
@@ -218,7 +263,7 @@ namespace Class_biz_field_situations
           assignment:digest.assignment,
           time_initialized:digest.time_initialized,
           nature:k.EMPTY,
-          impression_id:ImpressionIdOfCase(digest),
+          impression_id:impression_id,
           num_ambulances:digest.num_ambulances,
           num_zone_cars:digest.num_zone_cars,
           num_squad_trucks:digest.num_squad_trucks,
@@ -251,8 +296,64 @@ namespace Class_biz_field_situations
           num_sups:digest.num_sups,
           num_tankers:digest.num_tankers
           );
+        //
+        if (be_escalation) // && !new ArrayList() {"AirportAlert""AlsNeeded","AmbNeeded","WorkingFire"}.Contains(impression_description))
+          {
+          be_any_case_escalated = true;
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
+            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            subject:impression_description,
+            message_string:impression_elaboration
+            );
+          }
         }
       db_field_situations.DeleteAnyStillStale();
+      //
+      if (be_any_case_escalated)
+        {
+        //
+        // Meta analyses and notifications
+        //
+        if (db_field_situations.BeMetaSurgeEms() && (DateTime.Now - saved_meta_surge_alert_timestamp_ems > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_ems"])))
+          {
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
+            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            subject:"EmsSurge",
+            message_string:"AUTOTEXT: Multiple calls holding for ambulances. Volunteers to your stations."
+            );
+          saved_meta_surge_alert_timestamp_ems = DateTime.Now;
+          }
+        if (db_field_situations.BeMetaSurgeAls() && (DateTime.Now - saved_meta_surge_alert_timestamp_als > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_als"])))
+          {
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
+            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            subject:"AlsSurge",
+            message_string:"AUTOTEXT: Multiple calls holding for ALS. ALS to your stations."
+            );
+          saved_meta_surge_alert_timestamp_als = DateTime.Now;
+          }
+        if (db_field_situations.BeMetaSurgeFire() && (DateTime.Now - saved_meta_surge_alert_timestamp_fire > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_fire"])))
+          {
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:"7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7572862269@pcs.ntelos.com",
+            //  me                     tom harp             ed brazle            tom green            eric hoyt
+            subject:"FireSurge",
+            message_string:"AUTOTEXT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations."
+            );
+          saved_meta_surge_alert_timestamp_fire = DateTime.Now;
+          }
+        }
       }
 
     public bool Get

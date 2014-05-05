@@ -135,21 +135,31 @@ namespace Class_db_field_situation_impressions
       Close();
       return result;
       }
-
-    internal int GetPeckingOrderOfDescription(string description)
+    internal void GetIdDescriptionElaborationOfPeckingOrder
+      (
+      k.int_nonnegative pecking_order,
+      out string id,
+      out string description,
+      out string elaboration
+      )
       {
       Open();
-      var get_pecking_order_of_description = int.Parse(new MySqlCommand("select pecking_order from field_situation_impression where description = '" + description + "'",connection).ExecuteScalar().ToString());
+      var dr = new MySqlCommand("select id,description,elaboration from field_situation_impression where pecking_order = '" + pecking_order.val + "'",connection).ExecuteReader();
+      dr.Read();
+      id = dr["id"].ToString();
+      description = dr["description"].ToString();
+      elaboration = dr["elaboration"].ToString();
+      dr.Close();
       Close();
-      return get_pecking_order_of_description;
       }
 
-    internal string IdOfPeckingOrder(k.int_nonnegative pecking_order)
+
+    internal int PeckingOrderValOfDescription(string description)
       {
       Open();
-      var id_of_pecking_order = new MySqlCommand("select id from field_situation_impression where pecking_order = '" + pecking_order.val + "'",connection).ExecuteScalar().ToString();
+      var pecking_order_val_of_description = int.Parse(new MySqlCommand("select pecking_order from field_situation_impression where description = '" + description + "'",connection).ExecuteScalar().ToString());
       Close();
-      return id_of_pecking_order;
+      return pecking_order_val_of_description;
       }
 
     public void Set

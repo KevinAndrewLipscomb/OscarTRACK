@@ -65,6 +65,42 @@ namespace Class_db_field_situations
       db_trail = new TClass_db_trail();
       }
 
+    internal bool BeMetaSurgeAls()
+      {
+      Open();
+      var be_meta_surge_als = "1" == new MySqlCommand("select IF(sum(num_hzcs) > 1, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      Close();
+      return be_meta_surge_als;
+      }
+
+    internal bool BeMetaSurgeEms()
+      {
+      Open();
+      var be_meta_surge_ems = "1" == new MySqlCommand("select IF(sum(num_holds) > 1, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      Close();
+      return be_meta_surge_ems;
+      }
+
+    internal bool BeMetaSurgeFire()
+      {
+      Open();
+      var be_meta_surge_fire = "1" == new MySqlCommand
+        (
+        "select"
+        + " IF((sum(num_engines) + sum(num_ladders) + sum(num_frsqs) > 7)"
+        +     " or (count(impression.description = 'WorkingFire')"
+        +   " )"
+        +   " , 1, 0)"
+        + " from field_situation"
+        +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"
+        ,
+        connection
+        )
+        .ExecuteScalar().ToString();
+      Close();
+      return be_meta_surge_fire;
+      }
+
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(case_num,'-'),'|',IFNULL(address,'-'),'|',IFNULL(assignment,'-'),'|',IFNULL(time_initialized,'-'),'|',IFNULL(nature,'-'),'|',IFNULL(impression_id,'-'),'|',IFNULL(be_etby,'-'))";

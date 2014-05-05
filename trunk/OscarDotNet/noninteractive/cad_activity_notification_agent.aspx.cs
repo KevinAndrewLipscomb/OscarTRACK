@@ -9,12 +9,17 @@ namespace cad_activity_notification_agent
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      new TClass_ac_cad_activity_notification_agent();
-      //
-      //  Wake and sleep every 15 minutes to prevent Page_Load from ever completing, and therefore to avoid being considered idle by the server application pool.
       while (true)
         {
-        Thread.Sleep(millisecondsTimeout:900000);
+        //
+        // Start the agent.
+        //
+        new TClass_ac_cad_activity_notification_agent();
+        //
+        // When the agent terminates (which will happen each midnight), wait a full minute prior to launching a new one, to make sure the remote site has had time to properly reset itself (since we haven't built a login re-try
+        // mechanism).
+        //
+        Thread.Sleep(millisecondsTimeout:60000);
         }
       }
 
