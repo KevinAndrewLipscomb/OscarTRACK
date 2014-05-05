@@ -33,7 +33,7 @@ insert ignore field_situation_impression (pecking_order,description,elaboration)
 (05000,'WorkingFire','AUTOTEXT: Be advised, VBFD has a Working Fire or equivalent.'),
 (05500,'TwoAlarmFire','AUTOTEXT: VBFD has a 2-alarm fire or equivalent. EMS first response capacity reduced. Volunteers to your stations.'),
 (06000,'MajorFireIncident','AUTOTEXT: VBFD has a major fire incident. EMS first response capacity reduced. Volunteers to your stations.'),
-(06500,'MultiAlarmFire','AUTOTEXT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations.'),
+(06500,'MultiAlarmFire','AUTOTEXT: VBFD has a MULTI-alarm fire or equivalent. EMS first response capacity reduced. Volunteers to your stations.'),
 (07000,'Trap','AUTOTEXT: VB has dispatched a Trap case or equivalent. SQTM members to your stations.'),
 (30000,'MciSmall','AUTOTEXT: Small MCI case active. Volunteers to your stations.'),
 (40000,'MciMedium','AUTOTEXT: Medium MCI case active. Volunteers to your stations.'),
