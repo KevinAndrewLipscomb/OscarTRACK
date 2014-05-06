@@ -201,7 +201,10 @@ HtmlElementCollection cells;
         k.EscalatedException
           (
           the_exception:the_exception,
-          user_identity_name:master_browser.Document.ActiveElement.InnerHtml
+          user_identity_name:k.EMPTY
+          + "Username=" + ConfigurationManager.AppSettings["vbemsbridge_username"] + k.NEW_LINE
+          + "Password=" + ConfigurationManager.AppSettings["vbemsbridge_password"] + k.NEW_LINE
+          + master_browser.Document.ActiveElement.InnerHtml
           );
         }
       }
