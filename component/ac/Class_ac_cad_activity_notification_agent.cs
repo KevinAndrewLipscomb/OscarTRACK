@@ -136,8 +136,11 @@ HtmlElementCollection cells;
         //
         // Log in.
         //
+        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
+        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
+        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("submit").InvokeMember("click");
         }
       else if (master_navigation_counter.val == 2)
@@ -145,6 +148,7 @@ HtmlElementCollection cells;
         //
         // Acknowledge the Data Privacy Statement.
         //
+        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("acc_yes").InvokeMember("click");
         }
       else if (master_navigation_counter.val == 4)
