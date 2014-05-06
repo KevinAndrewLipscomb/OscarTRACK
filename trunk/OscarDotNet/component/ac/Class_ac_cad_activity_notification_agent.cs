@@ -197,8 +197,12 @@ HtmlElementCollection cells;
 
         }
       catch (Exception the_exception)
-        {        
-        k.EscalatedException(the_exception);
+        {
+        k.EscalatedException
+          (
+          the_exception:the_exception,
+          user_identity_name:master_browser.Document.ActiveElement.InnerHtml
+          );
         }
       }
 
