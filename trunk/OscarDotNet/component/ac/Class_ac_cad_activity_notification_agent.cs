@@ -123,21 +123,12 @@ namespace Class_ac_cad_activity_notification_agent
       //
       if (master_navigation_counter.val == 1)
         {
-k.SmtpMailSend
-  (
-  from:ConfigurationManager.AppSettings["sender_email_address"],
-  to:"kevinandrewlipscomb@mailworks.org",
-  subject:"master_browser_DocumentCompleted, master_navigation_counter == 1",
-  message_string:doc.ActiveElement.InnerHtml
-  );
         //
         // Log in.
         //
         doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
         doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
-        doc.GetElementById("t").SetAttribute("value","0.311 seconds");
-        doc.GetElementById("spd").SetAttribute("value","1475.1");
-        doc.GetElementById("submit").InvokeMember("click");
+        doc.All["submit"].InvokeMember("click");
         }
       else if (master_navigation_counter.val == 2)
         {
