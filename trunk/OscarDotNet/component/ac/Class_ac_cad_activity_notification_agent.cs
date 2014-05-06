@@ -135,6 +135,8 @@ k.SmtpMailSend
         //
         doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
         doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
+        doc.GetElementById("t").SetAttribute("value","0.311 seconds");
+        doc.GetElementById("spd").SetAttribute("value","1475.1");
         doc.GetElementById("submit").InvokeMember("click");
         }
       else if (master_navigation_counter.val == 2)
