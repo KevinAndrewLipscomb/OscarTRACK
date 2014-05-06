@@ -25,7 +25,6 @@ namespace Class_ac_cad_activity_notification_agent
     private Thread master_browser_thread;
     private Form form;
     private k.int_nonnegative master_navigation_counter = new k.int_nonnegative();
-    DateTime saved_day;
     DateTime saved_meta_surge_alert_timestamp_ems;
     DateTime saved_meta_surge_alert_timestamp_als;
     DateTime saved_meta_surge_alert_timestamp_fire;
@@ -41,13 +40,13 @@ namespace Class_ac_cad_activity_notification_agent
 
       var doc = master_browser.Document;
       var rows = doc.GetElementById("ajax_container").GetElementsByTagName("tr");
-HtmlElementCollection cells;
+      HtmlElementCollection cells; // If we declare this within the below for-loop, it's values can't be checked at exception-time in the debugger, so leave the declaration here.
       for (var i = new k.subtype<int>(2,rows.Count); i.val < i.LAST; i.val++)
         {
         try
           {
 
-        cells = rows[i.val].GetElementsByTagName("td"); //var cells = rows[i.val].GetElementsByTagName("td");
+        cells = rows[i.val].GetElementsByTagName("td");
         if ((cells.Count == 17) && (cells[5].InnerText != null)) // I don't know why the remote site sometimes provides a cell[5] with a null InnerText, but it does.
           {
           biz_cad_records.Set
@@ -102,20 +101,11 @@ HtmlElementCollection cells;
       //
       Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
       //
-      if (DateTime.Today == saved_day) // if awakening on the same day...
-        {
-        //
-        // Click the Refresh button.
-        //
-        doc.GetElementsByTagName("input")[4].InvokeMember("click");
-        }
-      else
-        {
-        //
-        // The remote site seems to stop responding at midnight, so clicking Refresh seems not to work when awaking on the next day.  Time to die.
-        //
-        Dispose(disposing:true);
-        }
+      // Update the date span (to account for crossing into the next day at midnight) and click the Refresh button.
+      //
+      master_browser.Document.GetElementById("DateFrom").SetAttribute("value",DateTime.Today.AddDays(-2).ToString("d"));
+      master_browser.Document.GetElementById("DateTo").SetAttribute("value",DateTime.Today.ToString("d"));
+      doc.GetElementsByTagName("input")[4].InvokeMember("click");
 
         }
       catch (Exception the_exception)
@@ -136,11 +126,8 @@ HtmlElementCollection cells;
         //
         // Log in.
         //
-        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
-        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
-        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("submit").InvokeMember("click");
         }
       else if (master_navigation_counter.val == 2)
@@ -148,7 +135,6 @@ HtmlElementCollection cells;
         //
         // Acknowledge the Data Privacy Statement.
         //
-        Thread.Sleep(millisecondsTimeout:10000);
         doc.GetElementById("acc_yes").InvokeMember("click");
         }
       else if (master_navigation_counter.val == 4)
@@ -168,16 +154,20 @@ HtmlElementCollection cells;
       else if (master_navigation_counter.val == 7)
         {
         //
+        // Maybe it will lighten the load on the remote site if we contract the date span from the default, which is at least a week.
+        //
+        doc.GetElementById("DateFrom").SetAttribute("value",DateTime.Today.AddDays(-2).ToString("d"));
+        //
         // Set the "Records per page" dropdown to 300.
         //
-        var records_per_page_dropdown = master_browser.Document.GetElementById("nblock");
+        var records_per_page_dropdown = doc.GetElementById("nblock");
         records_per_page_dropdown.Children[0].SetAttribute("selected", "");
         records_per_page_dropdown.Children[4].SetAttribute("selected", "selected");
         records_per_page_dropdown.InvokeMember("onChange");
         //
         // Set the "Update every" dropdown to 15 minutes.  We'll be using the Refresh link for updates instead of the supplied timer, to prevent the site from considering us idle.
         //
-        var update_every_dropdown = master_browser.Document.GetElementById("RunTime");
+        var update_every_dropdown = doc.GetElementById("RunTime");
         update_every_dropdown.Children[1].SetAttribute("selected", "");
         update_every_dropdown.Children[4].SetAttribute("selected", "selected");
         update_every_dropdown.InvokeMember("onChange");
@@ -185,10 +175,6 @@ HtmlElementCollection cells;
         // The site does not trigger the Navigating or DocumentCompleted events past this point, so set up an event handler to run when the target control is updated by ServiceBridge's AJAX code.
         //
         doc.GetElementById("ajax_container").AttachEventHandler("onpropertychange",new EventHandler(ajax_container_PropertyChange));
-        //
-        // Make a note of the current day, for comparison when waking up during ajax_container_PropertyChange().
-        //
-        saved_day = DateTime.Today;
         }
       //else if (navigation_counter.val > 7)
       //  {
@@ -205,10 +191,7 @@ HtmlElementCollection cells;
         k.EscalatedException
           (
           the_exception:the_exception,
-          user_identity_name:k.EMPTY
-          + "Username=" + ConfigurationManager.AppSettings["vbemsbridge_username"] + k.NEW_LINE
-          + "Password=" + ConfigurationManager.AppSettings["vbemsbridge_password"] + k.NEW_LINE
-          + master_browser.Document.ActiveElement.InnerHtml
+          user_identity_name:master_browser.Document.ActiveElement.InnerHtml
           );
         }
       }
