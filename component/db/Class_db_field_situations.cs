@@ -294,7 +294,7 @@ namespace Class_db_field_situations
         +     " SELECT call_sign"
         +     " , max(incident_num) as max_incident_num"
         +     " FROM cad_record"
-        +     " where call_sign not in ('ARSN','EYES','FAST','FIGP','MISC','NBRU','OVD2')"
+        +     " where call_sign not in ('ARSN','EYES','FAST','FIGP','MISC','NBRU','OVD2','UNCO')"
         +     " group by call_sign"
         +     " )"
         +     " as reduced"
