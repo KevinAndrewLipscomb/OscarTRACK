@@ -123,6 +123,13 @@ namespace Class_ac_cad_activity_notification_agent
       //
       if (master_navigation_counter.val == 1)
         {
+k.SmtpMailSend
+  (
+  from:ConfigurationManager.AppSettings["sender_email_address"],
+  to:"kevinandrewlipscomb@mailworks.org",
+  subject:"master_browser_DocumentCompleted, master_navigation_counter == 1",
+  message_string:doc.ActiveElement.InnerHtml
+  );
         //
         // Log in.
         //
