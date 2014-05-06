@@ -6,6 +6,6 @@
   <add key="dboscar_connection_string" value="Server=localhost;Database=oscar;Uid=ki-oscartracko;Pwd=~ki-oscartracko-password~;Treat Tiny As Boolean=false;Respect Binary Flags=false;Allow User Variables=true;Default Command Timeout=300;" />
   <add key="sysadmin_encoded_password" value="~" />
   <add key="query_string_protection_password" value="~"/>
-  <add key="vbemsbridge_password" value="~"/>
   <add key="vbemsbridge_username" value="~"/>
+  <add key="vbemsbridge_password" value="~"/>
 </appSettings>
