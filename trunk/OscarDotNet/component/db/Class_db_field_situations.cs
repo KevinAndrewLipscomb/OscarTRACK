@@ -205,33 +205,33 @@ namespace Class_db_field_situations
         + " , incident_address as address"
         + " , GROUP_CONCAT(call_sign order by list_order,call_sign) as assignment"
         + " , DATE_FORMAT(TIMESTAMP(incident_date,time_initialized),'%Y-%m-%d %H:%i') as time_initialized"
-        + " , sum(call_sign REGEXP '^[[:digit:]]+[[:upper:]]+') as num_ambulances"
-        + " , sum(call_sign REGEXP '^Z[[:digit:]]+') as num_zone_cars"
-        + " , sum(call_sign REGEXP '^SQ[[:digit:]]+') as num_squad_trucks"
-        + " , sum(call_sign REGEXP '^EMS[[:digit:]]+') as num_supervisors"
-        + " , sum(call_sign REGEXP '^HOLD[[:digit:]]+') as num_holds"
-        + " , sum(call_sign REGEXP '^HZC[[:digit:]]+') as num_hzcs"
-        + " , sum(call_sign REGEXP '^LG[[:alnum:]]+') as num_lifeguards"
-        + " , sum(call_sign REGEXP '^MCI[[:digit:]]+') as num_mci_trucks"
-        + " , sum(call_sign REGEXP '^MRTK[[:digit:]]+') as num_mrtks"
-        + " , sum(call_sign REGEXP '^RB[[:digit:]]+') as num_rbs"
-        + " , sum(call_sign REGEXP '^TAC[[:digit:]]+') as num_tacs"
-        + " , sum(call_sign REGEXP '^BAT[[:digit:]]+') as num_bats"
-        + " , sum(call_sign REGEXP '^CAR[[:digit:]]*') as num_cars"
-        + " , sum(call_sign REGEXP '^N?E[[:digit:]]+') as num_engines"
-        + " , sum(call_sign REGEXP '^FBOA[[:digit:]]+') as num_fboas"
-        + " , sum(call_sign REGEXP '^FRSQ[[:digit:]]+') as num_frsqs"
-        + " , sum(call_sign REGEXP '^HAZ[[:digit:]]+') as num_hazs"
-        + " , sum(call_sign REGEXP '^L[[:digit:]]+') as num_ladders"
-        + " , sum(call_sign REGEXP '^SAFE[[:digit:]]+') as num_safes"
-        + " , sum(call_sign REGEXP '^SUP[[:digit:]]+') as num_sups"
-        + " , sum(call_sign REGEXP '^T[[:digit:]]+') as num_tankers"
+        + " , sum(call_sign REGEXP '^[[:digit:]]') as num_ambulances"
+        + " , sum(call_sign REGEXP '^Z[[:digit:]]') as num_zone_cars"
+        + " , sum(call_sign REGEXP '^SQ[[:digit:]]') as num_squad_trucks"
+        + " , sum(call_sign REGEXP '^EMS[[:digit:]]') as num_supervisors"
+        + " , sum(call_sign REGEXP '^HOLD[[:digit:]]') as num_holds"
+        + " , sum(call_sign REGEXP '^HZC[[:digit:]]') as num_hzcs"
+        + " , sum(call_sign REGEXP '^LG[[:alnum:]]') as num_lifeguards"
+        + " , sum(call_sign REGEXP '^MCI[[:digit:]]') as num_mci_trucks"
+        + " , sum(call_sign REGEXP '^MRTK[[:digit:]]') as num_mrtks"
+        + " , sum(call_sign REGEXP '^RB[[:digit:]]') as num_rbs"
+        + " , sum(call_sign REGEXP '^TAC[[:digit:]]') as num_tacs"
+        + " , sum(call_sign REGEXP '^BAT[[:digit:]]') as num_bats"
+        + " , sum(call_sign REGEXP '^CAR[[:digit:]]?') as num_cars"
+        + " , sum(call_sign REGEXP '^N?E[[:digit:]]') as num_engines"
+        + " , sum(call_sign REGEXP '^FBOA[[:digit:]]') as num_fboas"
+        + " , sum(call_sign REGEXP '^FRSQ[[:digit:]]') as num_frsqs"
+        + " , sum(call_sign REGEXP '^HAZ[[:digit:]]') as num_hazs"
+        + " , sum(call_sign REGEXP '^L[[:digit:]]') as num_ladders"
+        + " , sum(call_sign REGEXP '^SAFE[[:digit:]]') as num_safes"
+        + " , sum(call_sign REGEXP '^SUP[[:digit:]]') as num_sups"
+        + " , sum(call_sign REGEXP '^T[[:digit:]]') as num_tankers"
         + " , sum(call_sign = 'EMTALS') as be_emtals"
         + " , sum(call_sign = 'ETBY') as be_etby"
         + " , sum(call_sign = 'MRT') as be_mrt"
         + " , sum(call_sign = 'PIO') as be_pio"
         + " , sum(call_sign = 'PU') as be_pu"
-        + " , sum(call_sign REGEXP '^R[[:digit:]]+') as be_rescue_area"
+        + " , sum(call_sign REGEXP '^R[[:digit:]]') as be_rescue_area"
         + " , sum(call_sign = 'SQTM') as be_sqtm"
         + " , sum(call_sign = 'FTBY') as be_ftby"
         + " , sum(call_sign = 'MIRT') as be_mirt"
@@ -243,25 +243,25 @@ namespace Class_db_field_situations
         +   " , incident_address"
         +   " , reduced.call_sign as call_sign"
         +   " , IF(reduced.call_sign in ('EMTALS','ETBY','FTBY','MIRT','MRT','SQTM'),0," // especially informative indicators
-        +        " IF(reduced.call_sign REGEXP '^R[[:digit:]]+',10," // rescue area
-        +           " IF(reduced.call_sign REGEXP '^TAC[[:digit:]]+',20," // tactical channel
-        +              " IF(reduced.call_sign REGEXP '^E[[:digit:]]+',30," // engine
-        +                 " IF(reduced.call_sign REGEXP '^NE[[:digit:]]+',40," // navy engine
-        +                    " IF(reduced.call_sign REGEXP '^L[[:digit:]]+',50," // ladder
-        +                       " IF(reduced.call_sign REGEXP '^FRSQ[[:digit:]]?',60," // fire squad
-        +                          " IF(reduced.call_sign REGEXP '^T[[:digit:]]?',70," // tanker
-        +                             " IF(reduced.call_sign REGEXP '^HAZ[[:digit:]]+',80," // hazmat truck
-        +                                " IF(reduced.call_sign REGEXP '^BTRK[[:digit:]]+',90," // brush truck
-        +                                   " IF(reduced.call_sign REGEXP '^SQ[[:digit:]]+',100," // squad truck
-        +                                      " IF(reduced.call_sign REGEXP '^[[:digit:]]+[[:upper:]]+',110," // ambulance
-        +                                         " IF(reduced.call_sign REGEXP '^NR[[:digit:]]+.*',120," // navy rescue
-        +                                            " IF(reduced.call_sign REGEXP '^HOLD[[:digit:]]+',130," // holding for ambulance
-        +                                               " IF(reduced.call_sign REGEXP '^Z[[:digit:]]+',140," // zone car
-        +                                                  " IF(reduced.call_sign REGEXP '^HZC[[:digit:]]+',150," // holding for zone car
-        +                                                     " IF(reduced.call_sign REGEXP '^EMS[[:digit:]]+',160," // EMS supervisor or chief
-        +                                                        " IF(reduced.call_sign REGEXP '^BRIG[[:digit:]]+',170," // brigade chief
-        +                                                           " IF(reduced.call_sign REGEXP '^BAT[[:digit:]]+',180," // battalion chief
-        +                                                              " IF(reduced.call_sign REGEXP '^CAR[[:digit:]]*',190," // fire >=div chief
+        +        " IF(reduced.call_sign REGEXP '^R[[:digit:]]',10," // rescue area
+        +           " IF(reduced.call_sign REGEXP '^TAC[[:digit:]]',20," // tactical channel
+        +              " IF(reduced.call_sign REGEXP '^E[[:digit:]]',30," // engine
+        +                 " IF(reduced.call_sign REGEXP '^NE[[:digit:]]',40," // navy engine
+        +                    " IF(reduced.call_sign REGEXP '^L[[:digit:]]',50," // ladder
+        +                       " IF(reduced.call_sign REGEXP '^FRSQ[[:digit:]]',60," // fire squad
+        +                          " IF(reduced.call_sign REGEXP '^T[[:digit:]]',70," // tanker
+        +                             " IF(reduced.call_sign REGEXP '^HAZ[[:digit:]]',80," // hazmat truck
+        +                                " IF(reduced.call_sign REGEXP '^BTRK[[:digit:]]',90," // brush truck
+        +                                   " IF(reduced.call_sign REGEXP '^SQ[[:digit:]]',100," // squad truck
+        +                                      " IF(reduced.call_sign REGEXP '^[[:digit:]]',110," // ambulance
+        +                                         " IF(reduced.call_sign REGEXP '^NR[[:digit:]]',120," // navy rescue
+        +                                            " IF(reduced.call_sign REGEXP '^HOLD[[:digit:]]',130," // holding for ambulance
+        +                                               " IF(reduced.call_sign REGEXP '^Z[[:digit:]]',140," // zone car
+        +                                                  " IF(reduced.call_sign REGEXP '^HZC[[:digit:]]',150," // holding for zone car
+        +                                                     " IF(reduced.call_sign REGEXP '^EMS[[:digit:]]',160," // EMS supervisor or chief
+        +                                                        " IF(reduced.call_sign REGEXP '^BRIG[[:digit:]]',170," // brigade chief
+        +                                                           " IF(reduced.call_sign REGEXP '^BAT[[:digit:]]',180," // battalion chief
+        +                                                              " IF(reduced.call_sign REGEXP '^CAR[[:digit:]]?',190," // fire >=div chief
         +                                                                 " 200" // anybody else, alphabetically
         +                                                                 " )"
         +                                                              " )"

@@ -4,8 +4,8 @@ using Class_db_field_situation_impressions;
 using Class_db_field_situations;
 using kix;
 using System;
-using System.Configuration;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_field_situations
   {
@@ -215,8 +215,8 @@ namespace Class_biz_field_situations
       ref DateTime saved_meta_surge_alert_timestamp_fire
       )
       {
-      const string BETA_RECIPIENTS = "7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7573762155@vtext.com,7572862269@pcs.ntelos.com";
-      //                              me                     tom harp             ed brazle            tom green            jason stroud         eric hoyt
+      const string BETA_RECIPIENTS = "7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7573762155@vtext.com,7572862269@pcs.ntelos.com,7578228375@messaging.sprintpcs.com";
+      //                              me                     tom harp             ed brazle            tom green            jason stroud         eric hoyt                 david jimerson
       //
       //
       // Digest CAD records.
@@ -287,9 +287,18 @@ namespace Class_biz_field_situations
         if (be_escalation) // && !new ArrayList() {"AirportAlert""AlsNeeded","AmbNeeded","WorkingFire"}.Contains(impression_description))
           {
           be_any_case_escalated = true;
+          //
+          if (new ArrayList() {"AlsEms","MrtCall","AlsNeeded","CardiacArrestAlsNeeded","Trap"}.Contains(impression_description))
+            {
+            impression_elaboration = impression_elaboration
+              .Replace("<address/>",digest.address)
+              .Replace("<assignment/>",digest.assignment)
+              ;
+            }
+          //
           k.SmtpMailSend
             (
-            from:ConfigurationManager.AppSettings["sender_email_address"],
+            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
             //  me                     tom harp             ed brazle            tom green            eric hoyt
             subject:impression_description,
@@ -308,10 +317,10 @@ namespace Class_biz_field_situations
           {
           k.SmtpMailSend
             (
-            from:ConfigurationManager.AppSettings["sender_email_address"],
+            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
             subject:"EmsSurge",
-            message_string:"AUTOTEXT: Multiple calls holding for ambulances. Volunteers to your stations."
+            message_string:"OSCALERT: Multiple calls holding for ambulances. Volunteers to your stations."
             );
           saved_meta_surge_alert_timestamp_ems = DateTime.Now;
           }
@@ -319,10 +328,10 @@ namespace Class_biz_field_situations
           {
           k.SmtpMailSend
             (
-            from:ConfigurationManager.AppSettings["sender_email_address"],
+            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
             subject:"AlsSurge",
-            message_string:"AUTOTEXT: Multiple calls holding for ALS. ALS to your stations."
+            message_string:"OSCALERT: Multiple calls holding for ALS. ALS to your stations."
             );
           saved_meta_surge_alert_timestamp_als = DateTime.Now;
           }
@@ -330,10 +339,10 @@ namespace Class_biz_field_situations
           {
           k.SmtpMailSend
             (
-            from:ConfigurationManager.AppSettings["sender_email_address"],
+            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
             subject:"FireSurge",
-            message_string:"AUTOTEXT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations."
+            message_string:"OSCALERT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations."
             );
           saved_meta_surge_alert_timestamp_fire = DateTime.Now;
           }

@@ -14,6 +14,8 @@ namespace cad_activity_notification_agent
         //
         // Start the agent.
         //
+        // NOTE: The app containing the agent apparently must run in an up-privileged application pool.
+        //
         new TClass_ac_cad_activity_notification_agent();
         //
         // If the agent terminates, wait one minute prior to launching a new one, to make sure the remote site has had time to properly reset itself (since we haven't built a login re-try
