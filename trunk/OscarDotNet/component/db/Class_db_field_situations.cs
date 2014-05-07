@@ -203,7 +203,7 @@ namespace Class_db_field_situations
         (
         "select incident_num as case_num"
         + " , incident_address as address"
-        + " , GROUP_CONCAT(call_sign order by list_order,call_sign) as assignment"
+        + " , GROUP_CONCAT(call_sign order by list_pecking_order,call_sign) as assignment"
         + " , DATE_FORMAT(TIMESTAMP(incident_date,time_initialized),'%Y-%m-%d %H:%i') as time_initialized"
         + " , sum(call_sign REGEXP '^[[:digit:]]') as num_ambulances"
         + " , sum(call_sign REGEXP '^Z[[:digit:]]') as num_zone_cars"
@@ -241,27 +241,27 @@ namespace Class_db_field_situations
         +   " select incident_date"
         +   " , incident_num"
         +   " , incident_address"
-        +   " , reduced.call_sign as call_sign"
-        +   " , IF(reduced.call_sign in ('EMTALS','ETBY','FTBY','MIRT','MRT','SQTM'),0," // especially informative indicators
-        +        " IF(reduced.call_sign REGEXP '^R[[:digit:]]',10," // rescue area
-        +           " IF(reduced.call_sign REGEXP '^TAC[[:digit:]]',20," // tactical channel
-        +              " IF(reduced.call_sign REGEXP '^E[[:digit:]]',30," // engine
-        +                 " IF(reduced.call_sign REGEXP '^NE[[:digit:]]',40," // navy engine
-        +                    " IF(reduced.call_sign REGEXP '^L[[:digit:]]',50," // ladder
-        +                       " IF(reduced.call_sign REGEXP '^FRSQ[[:digit:]]',60," // fire squad
-        +                          " IF(reduced.call_sign REGEXP '^T[[:digit:]]',70," // tanker
-        +                             " IF(reduced.call_sign REGEXP '^HAZ[[:digit:]]',80," // hazmat truck
-        +                                " IF(reduced.call_sign REGEXP '^BTRK[[:digit:]]',90," // brush truck
-        +                                   " IF(reduced.call_sign REGEXP '^SQ[[:digit:]]',100," // squad truck
-        +                                      " IF(reduced.call_sign REGEXP '^[[:digit:]]',110," // ambulance
-        +                                         " IF(reduced.call_sign REGEXP '^NR[[:digit:]]',120," // navy rescue
-        +                                            " IF(reduced.call_sign REGEXP '^HOLD[[:digit:]]',130," // holding for ambulance
-        +                                               " IF(reduced.call_sign REGEXP '^Z[[:digit:]]',140," // zone car
-        +                                                  " IF(reduced.call_sign REGEXP '^HZC[[:digit:]]',150," // holding for zone car
-        +                                                     " IF(reduced.call_sign REGEXP '^EMS[[:digit:]]',160," // EMS supervisor or chief
-        +                                                        " IF(reduced.call_sign REGEXP '^BRIG[[:digit:]]',170," // brigade chief
-        +                                                           " IF(reduced.call_sign REGEXP '^BAT[[:digit:]]',180," // battalion chief
-        +                                                              " IF(reduced.call_sign REGEXP '^CAR[[:digit:]]?',190," // fire >=div chief
+        +   " , call_sign"
+        +   " , IF(call_sign in ('EMTALS','ETBY','FTBY','MIRT','MRT','SQTM'),0," // especially informative indicators
+        +        " IF(call_sign REGEXP '^R[[:digit:]]',10," // rescue area
+        +           " IF(call_sign REGEXP '^TAC[[:digit:]]',20," // tactical channel
+        +              " IF(call_sign REGEXP '^E[[:digit:]]',30," // engine
+        +                 " IF(call_sign REGEXP '^NE[[:digit:]]',40," // navy engine
+        +                    " IF(call_sign REGEXP '^L[[:digit:]]',50," // ladder
+        +                       " IF(call_sign REGEXP '^FRSQ[[:digit:]]',60," // fire squad
+        +                          " IF(call_sign REGEXP '^T[[:digit:]]',70," // tanker
+        +                             " IF(call_sign REGEXP '^HAZ[[:digit:]]',80," // hazmat truck
+        +                                " IF(call_sign REGEXP '^BTRK[[:digit:]]',90," // brush truck
+        +                                   " IF(call_sign REGEXP '^SQ[[:digit:]]',100," // squad truck
+        +                                      " IF(call_sign REGEXP '^[[:digit:]]',110," // ambulance
+        +                                         " IF(call_sign REGEXP '^NR[[:digit:]]',120," // navy rescue
+        +                                            " IF(call_sign REGEXP '^HOLD[[:digit:]]',130," // holding for ambulance
+        +                                               " IF(call_sign REGEXP '^Z[[:digit:]]',140," // zone car
+        +                                                  " IF(call_sign REGEXP '^HZC[[:digit:]]',150," // holding for zone car
+        +                                                     " IF(call_sign REGEXP '^EMS[[:digit:]]',160," // EMS supervisor or chief
+        +                                                        " IF(call_sign REGEXP '^BRIG[[:digit:]]',170," // brigade chief
+        +                                                           " IF(call_sign REGEXP '^BAT[[:digit:]]',180," // battalion chief
+        +                                                              " IF(call_sign REGEXP '^CAR[[:digit:]]?',190," // fire >=div chief
         +                                                                 " 200" // anybody else, alphabetically
         +                                                                 " )"
         +                                                              " )"
@@ -282,24 +282,15 @@ namespace Class_db_field_situations
         +                 " )"
         +              " )"
         +           " )"
-        +        " ) as list_order"
+        +        " ) as list_pecking_order"
         +   " , DATE_FORMAT(time_initialized,'%H:%i') as time_initialized"
         +   " , DATE_FORMAT(time_of_alarm,'%H:%i') as time_of_alarm"
         +   " , DATE_FORMAT(time_enroute,'%H:%i') as time_enroute"
         +   " , DATE_FORMAT(time_on_scene,'%H:%i') as time_onscene"
         +   " , DATE_FORMAT(time_transporting,'%H:%i') as time_transporting"
         +   " , DATE_FORMAT(time_at_hospital,'%H:%i') as time_at_hospital"
-        +   " from cad_record detail inner join"
-        +     " ("
-        +     " SELECT call_sign"
-        +     " , max(incident_num) as max_incident_num"
-        +     " FROM cad_record"
-        +     " where call_sign not in ('ACPI','ARSN','EYES','FAST','FIGP','MISC','NBRU','OVD2','SICK','UNCO')"
-        +     " group by call_sign"
-        +     " )"
-        +     " as reduced"
-        +       " on (reduced.call_sign=detail.call_sign and reduced.max_incident_num=detail.incident_num)"
-        +   " where time_available is null"
+        +   " from cad_record"
+        +   " where be_current"
         +   " )"
         +   " as active_case_assignment"
         + " group by incident_num"

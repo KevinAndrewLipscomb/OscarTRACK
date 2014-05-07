@@ -274,7 +274,7 @@ namespace Class_db_cad_records
       return the_summary;
       }
 
-    internal void Trim()
+    internal void ValidateAndTrim()
       {
       //try
       //  {
@@ -283,6 +283,83 @@ namespace Class_db_cad_records
       new MySqlCommand
         (
         k.EMPTY
+        //
+        // Set be_current to FALSE on each record which is clearly not associated with the unit's latest incident, or where the unit has already gone available.
+        //
+        + " update cad_record left join"
+        +   " ("
+        +   " SELECT call_sign"
+        +   " , max(incident_num) as max_incident_num"
+        +   " FROM cad_record"
+        +   " where call_sign not in ('ACPI','ARSN','EYES','FAST','FIGP','MISC','NBRU','OVD2','SICK','UNCO')"
+        +   " group by call_sign"
+        +   " )"
+        +   " as valid_record"
+        +     " on (valid_record.call_sign=cad_record.call_sign and valid_record.max_incident_num=cad_record.incident_num)"
+        + " set be_current = FALSE"
+        + " where valid_record.max_incident_num is null"
+        +   " or time_available is not null"
+        + ";"
+        //
+        // Set be_current to FALSE on each additional record which really is not associated with the unit's latest incident, but which fact could not be determined in the earlier update because of variations on the unit's
+        // call_sign.
+        //
+        + " update cad_record full_table join cad_record invalid on"
+        +   " ("
+        +     " ("
+                  //--
+                  //
+                  // Unqualified transformation (ie, "120R"->"120", "L01"->"L01") of invalid.call_sign
+                  //
+        +       " IF(invalid.call_sign REGEXP '^[[:digit:]]'," // ambulances
+        +         " REPLACE("
+        +            " REPLACE("
+        +               " REPLACE("
+        +                  " REPLACE("
+        +                    " invalid.call_sign,"
+        +                    " 'R',''),"
+        +                  "'S',''),"
+        +               " 'P',''),"
+        +            " 'D',''),"
+        +         " IF(invalid.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])'," // engines, ladders, frsqs
+        +            " REPLACE(invalid.call_sign,'P',''),"
+        +            " invalid.call_sign"
+        +            " )"
+        +         " )"
+                  //
+                  //--
+        +     " ="
+                  //--
+                  //
+                  // Unqualified transformation (ie, "120S"->"120", "L01P"->"L01") of full_table.call_sign
+                  //
+        +       " IF(full_table.call_sign REGEXP '^[[:digit:]]'," // ambulances
+        +         " REPLACE("
+        +            " REPLACE("
+        +               " REPLACE("
+        +                  " REPLACE("
+        +                    " full_table.call_sign,"
+        +                    " 'R',''),"
+        +                 " 'S',''),"
+        +               " 'P',''),"
+        +            " 'D',''),"
+        +         " IF(full_table.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])'," // engines, ladders, frsqs
+        +            " REPLACE(full_table.call_sign,'P',''),"
+        +            " full_table.call_sign"
+        +            " )"
+        +         " )"
+                  //
+                  //--
+        +     " )"
+        +   " and"
+        +     " (invalid.incident_num < full_table.incident_num)"
+        +   " )"
+        + " set invalid.be_current = FALSE"
+        + " where invalid.be_current"
+        + ";"
+        //
+        // Delete records that are most likely inaccessible to us for updating.
+        //
         + " delete from cad_record where incident_date < DATE_ADD(CURDATE(),INTERVAL -7 DAY)"
         ,
         connection

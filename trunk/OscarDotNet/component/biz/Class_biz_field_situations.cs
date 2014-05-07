@@ -300,7 +300,6 @@ namespace Class_biz_field_situations
             (
             from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
-            //  me                     tom harp             ed brazle            tom green            eric hoyt
             subject:impression_description,
             message_string:impression_elaboration
             );
