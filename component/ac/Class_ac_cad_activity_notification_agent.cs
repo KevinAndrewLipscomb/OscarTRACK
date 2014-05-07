@@ -86,9 +86,9 @@ namespace Class_ac_cad_activity_notification_agent
           }
         }
       //
-      // Trim the cad_records.
+      // Validate and trim the cad_records.
       //
-      biz_cad_records.Trim();
+      biz_cad_records.ValidateAndTrim();
       //
       // Notify members as appropriate.
       //
