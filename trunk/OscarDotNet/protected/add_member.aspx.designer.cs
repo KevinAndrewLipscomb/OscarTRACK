@@ -76,6 +76,15 @@ namespace add_member {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_phone_num;
         
         /// <summary>
+        /// DropDownList_phone_service control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_phone_service;
+        
+        /// <summary>
         /// TextBox_email_address control.
         /// </summary>
         /// <remarks>

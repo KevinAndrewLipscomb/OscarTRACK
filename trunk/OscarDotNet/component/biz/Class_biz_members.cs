@@ -56,6 +56,7 @@ namespace Class_biz_members
           DateTime enrollment_date,
           string enrollment_level,
           string phone_num,
+          string phone_service_id,
           string section_num
           )
           {
@@ -67,15 +68,15 @@ namespace Class_biz_members
                 {
                     phone_num = "757" + phone_num;
                 }
-                db_members.Add(first_name, last_name, cad_num, uint.Parse(medical_release_code), be_driver_qualified, uint.Parse(agency_id), email_address, enrollment_date, uint.Parse(enrollment_level), phone_num, section_num);
+                db_members.Add(first_name, last_name, cad_num, uint.Parse(medical_release_code), be_driver_qualified, uint.Parse(agency_id), email_address, enrollment_date, uint.Parse(enrollment_level), phone_num, phone_service_id, section_num);
                 biz_notifications.IssueForMemberAdded(db_members.IdOfFirstnameLastnameCadnum(first_name, last_name, cad_num), first_name, last_name, cad_num, biz_medical_release_levels.DescriptionOf(medical_release_code), be_driver_qualified, biz_agencies.MediumDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id), email_address, enrollment_date.ToString("dd MMMM yyyy"), biz_enrollment.DescriptionOf(enrollment_level), phone_num, section_num);
                 result = true;
             }
             return result;
           }
-        public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level, string phone_num)
+        public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level, string phone_num, string phone_service_id)
           {
-          return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, "", phone_num, section_num:k.EMPTY);
+          return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, "", phone_num, phone_service_id, section_num:k.EMPTY);
           }
         public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date)
         {
@@ -84,7 +85,7 @@ namespace Class_biz_members
 
         public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level)
         {
-            return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_level, "");
+            return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_level, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
         }
 
         public string AgencyOf(object summary)

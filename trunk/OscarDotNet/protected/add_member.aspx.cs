@@ -3,6 +3,7 @@ using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_sections;
+using Class_biz_sms_gateways;
 using Class_biz_user;
 using kix;
 using System;
@@ -19,6 +20,7 @@ namespace add_member
         public TClass_biz_medical_release_levels biz_medical_release_levels;
         public TClass_biz_members biz_members;
         public TClass_biz_sections biz_sections;
+        public TClass_biz_sms_gateways biz_sms_gateways;
         public TClass_biz_user biz_user;
     } // end p_type
 
@@ -53,6 +55,11 @@ namespace add_member
                     TableRow_agency.Visible = false;
                 }
                 p.biz_sections.BindListControl(DropDownList_section);
+                p.biz_sms_gateways.BindDirectToListControl
+                  (
+                  target:DropDownList_phone_service,
+                  unselected_literal:"-- Select --"
+                  );
                 p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
                 UserControl_enrollment_date.minyear = "1940";
                 UserControl_enrollment_date.maxyear = DateTime.Today.Year.ToString();
@@ -92,6 +99,7 @@ namespace add_member
                     p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
                     p.biz_members = new TClass_biz_members();
                     p.biz_sections = new TClass_biz_sections();
+                    p.biz_sms_gateways = new TClass_biz_sms_gateways();
                     p.biz_user = new TClass_biz_user();
                 }
             }
@@ -203,6 +211,7 @@ namespace add_member
                         UserControl_enrollment_date.selectedvalue,
                         k.Safe(DropDownList_enrollment_level.SelectedValue, k.safe_hint_type.NUM),
                         k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM),
+                        k.Safe(DropDownList_phone_service.SelectedValue,k.safe_hint_type.NUM),
                         k.Safe(DropDownList_section.SelectedValue, k.safe_hint_type.NUM)
                         )
                       )
