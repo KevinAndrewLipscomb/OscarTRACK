@@ -50,11 +50,11 @@ namespace Class_biz_field_situations
         //
         // Form current impression.
         //
-        if (digest.num_zone_cars > 0)
+        if (digest.num_zone_cars >= 1)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AlsEms");
           }
-        if (digest.be_mrt || (digest.num_fboas > 0) || (digest.num_rbs > 0))
+        if (digest.be_mrt || (digest.num_fboas >= 1) || (digest.num_rbs >= 1))
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MrtCall");
           }
@@ -62,11 +62,11 @@ namespace Class_biz_field_situations
         //  {
         //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AirportAlert");
         //  }
-        if (digest.num_holds > 0)
+        if (digest.num_holds >= 1)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AmbNeeded");
           }
-        if (digest.num_hzcs > 0)
+        if (digest.num_hzcs >= 1)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("AlsNeeded");
           }
@@ -75,11 +75,11 @@ namespace Class_biz_field_situations
           &&
             (digest.num_engines + digest.num_ladders + digest.num_frsqs + digest.num_hazs + digest.num_squad_trucks == 1)
           &&
-            (digest.num_supervisors > 0)
+            (digest.num_supervisors >= 1)
           &&
-            (digest.num_zone_cars + digest.num_hzcs == 2 )
+            (digest.num_zone_cars + digest.num_hzcs == 2)
           &&
-            (digest.num_hzcs > 0)
+            (digest.num_hzcs >= 1)
           )
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("CardiacArrestAlsNeeded");
@@ -89,7 +89,7 @@ namespace Class_biz_field_situations
           &&
             (digest.num_engines + digest.num_ladders + digest.num_frsqs + digest.num_hazs + digest.num_squad_trucks == 1)
           &&
-            (digest.num_supervisors > 0)
+            (digest.num_supervisors >= 1)
           &&
             (digest.num_zone_cars + digest.num_hzcs == 2)
           )
@@ -101,17 +101,17 @@ namespace Class_biz_field_situations
           &&
             (digest.num_ladders >= 1)
           &&
-            (digest.num_frsqs > 0)
+            (digest.num_frsqs >= 1)
           &&
-            (digest.num_tacs > 0)
+            (digest.num_tacs >= 1)
           &&
             (digest.num_bats >= 1)
           &&
-            (digest.num_ambulances + digest.num_holds > 0)
+            (digest.num_ambulances + digest.num_holds >= 1)
           &&
-            (digest.num_supervisors > 0)
+            (digest.num_supervisors >= 1)
           &&
-            (digest.num_safes > 0)
+            (digest.num_safes >= 1)
           )
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("WorkingFire");
@@ -132,19 +132,19 @@ namespace Class_biz_field_situations
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("Trap");
           }
-        if (digest.num_ambulances + digest.num_holds > 3)
+        if (digest.num_ambulances + digest.num_holds >= 4)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciSmall");
           }
-        if (digest.num_ambulances + digest.num_holds > 6)
+        if (digest.num_ambulances + digest.num_holds >= 7)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciMedium");
           }
-        if (digest.num_ambulances + digest.num_holds > 10)
+        if (digest.num_ambulances + digest.num_holds >= 11)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciLarge");
           }
-        if (digest.num_ambulances + digest.num_holds > 15)
+        if (digest.num_ambulances + digest.num_holds >= 16)
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MciHuge");
           }
@@ -217,7 +217,6 @@ namespace Class_biz_field_situations
       {
       const string BETA_RECIPIENTS = "7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7573762155@vtext.com,7572862269@pcs.ntelos.com,7578228375@messaging.sprintpcs.com";
       //                              me                     tom harp             ed brazle            tom green            jason stroud         eric hoyt                 david jimerson
-      //
       //
       // Digest CAD records.
       //

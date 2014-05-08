@@ -39,6 +39,11 @@
                       <td nowrap="nowrap"><ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." font-bold="True" controltovalidate="TextBox_phone_num" onservervalidate="CustomValidator_phone_num_ServerValidate">!ERR!</ASP:CustomValidator></td>
                     </tr>
                     <tr>
+                      <td><font class="">Cellular provider:</font></td>
+                      <td><asp:DropDownList ID="DropDownList_phone_service" runat="server"></asp:DropDownList></td>
+                      <td nowrap="nowrap">&nbsp;</td>
+                    </tr>
+                    <tr>
                       <td>Email address:</td>
                       <td><ASP:TextBox id="TextBox_email_address" runat="server" maxlength="255" columns="40"></ASP:TextBox></td>
                       <td nowrap="nowrap"><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a syntactically valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator><ASP:CustomValidator id="CustomValidator_email_address" runat="server" errormessage="Please enter an email address with a valid domain name (the part after the @ sign)." font-bold="True" controltovalidate="TextBox_email_address" onservervalidate="CustomValidator_email_address_ServerValidate">!ERR!</ASP:CustomValidator></td>

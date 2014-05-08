@@ -103,6 +103,7 @@ namespace Class_db_members
       public string length_of_service;
       public string peck_code;
       public string phone_num;
+      public string phone_service_id;
       public string section;
       public bool be_placeholder;
       public bool be_flight_medic;
@@ -111,10 +112,12 @@ namespace Class_db_members
 
     public class TClass_db_members: TClass_db
     {
+
         private TClass_biz_notifications biz_notifications = null;
         private TClass_db_agencies db_agencies = null;
         private TClass_db_medical_release_levels db_medical_release_levels = null;
         private TClass_db_trail db_trail = null;
+
         //Constructor  Create()
         public TClass_db_members() : base()
         {
@@ -124,6 +127,7 @@ namespace Class_db_members
             db_medical_release_levels = new TClass_db_medical_release_levels();
             db_trail = new TClass_db_trail();
         }
+
         public void Add
           (
           string first_name,
@@ -136,6 +140,7 @@ namespace Class_db_members
           DateTime enrollment_date,
           uint enrollment_code,
           string phone_num,
+          string phone_service_id,
           string section_num
           )
           {
@@ -147,7 +152,7 @@ namespace Class_db_members
             {
                 sql = sql + " , cad_num = \"" + cad_num + "\"";
             }
-            sql = sql + " , email_address = \"" + email_address + "\"" + " , medical_release_code = " + medical_release_code.ToString() + " , be_driver_qualified = " + be_driver_qualified.ToString() + " , agency_id = " + agency_id.ToString() + " , phone_num = \"" + phone_num + "\"";
+            sql = sql + " , email_address = \"" + email_address + "\"" + " , medical_release_code = '" + medical_release_code.ToString() + "' , be_driver_qualified = " + be_driver_qualified.ToString() + " , agency_id = " + agency_id.ToString() + " , phone_num = \"" + phone_num + "\", phone_service_id = NULLIF'" + phone_service_id + "','')";
             if (new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(enrollment_code))
             {
                 sql = sql + " , equivalent_los_start_date = \"" + enrollment_date_string + "\"";
@@ -161,9 +166,9 @@ namespace Class_db_members
             new MySqlCommand(db_trail.Saved(sql), this.connection).ExecuteNonQuery();
             this.Close();
           }
-        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num)
+        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num, string phone_service_id)
           {
-          Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17, phone_num, section_num:k.EMPTY);
+          Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17, phone_num, phone_service_id, section_num:k.EMPTY);
           }
         public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date)
         {
@@ -171,7 +176,7 @@ namespace Class_db_members
         }
         public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code)
         {
-            Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, "");
+            Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
         }
 
         public string AgencyOf(object summary)
@@ -1847,6 +1852,7 @@ namespace Class_db_members
             + " , enrollment_level.description as enrollment" 
             + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
             + " , phone_num" 
+            + " , phone_service_id"
             + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
             + " , be_placeholder"
             + " , be_flight_medic"
@@ -1893,7 +1899,8 @@ namespace Class_db_members
               + " , be_driver_qualified" 
               + " , enrollment_level.description as enrollment" 
               + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
-              + " , phone_num" 
+              + " , phone_num"
+              + " , phone_service_id"
               + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
               + " , be_placeholder"
               + " , be_flight_medic"
@@ -1936,6 +1943,7 @@ namespace Class_db_members
             length_of_service = dr["length_of_service"].ToString(),
             peck_code = dr["medical_release_peck_code"].ToString(),
             phone_num = dr["phone_num"].ToString(),
+            phone_service_id = dr["phone_service_id"].ToString(),
             section = dr["section_num"].ToString(),
             be_placeholder = (dr["be_placeholder"].ToString() == "1"),
             be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),

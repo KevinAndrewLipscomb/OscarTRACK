@@ -256,6 +256,7 @@
     <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_skill_rating.ascx" />
+    <Content Include="usercontrol\app\UserControl_sms_gateway.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
@@ -318,6 +319,7 @@
     <Compile Include="component\biz\Class_biz_sections.cs" />
     <Compile Include="component\biz\Class_biz_shifts.cs" />
     <Compile Include="component\biz\Class_biz_skill_ratings.cs" />
+    <Compile Include="component\biz\Class_biz_sms_gateways.cs" />
     <Compile Include="component\biz\Class_biz_states.cs" />
     <Compile Include="component\biz\Class_biz_streets.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
@@ -381,6 +383,7 @@
     <Compile Include="component\db\Class_db_schedule_assignments.cs" />
     <Compile Include="component\db\Class_db_shifts.cs" />
     <Compile Include="component\db\Class_db_skill_ratings.cs" />
+    <Compile Include="component\db\Class_db_sms_gateways.cs" />
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
@@ -1748,6 +1751,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_skill_rating.ascx.designer.cs">
       <DependentUpon>UserControl_skill_rating.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_sms_gateway.ascx.cs">
+      <DependentUpon>UserControl_sms_gateway.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_sms_gateway.ascx.designer.cs">
+      <DependentUpon>UserControl_sms_gateway.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_state.ascx.cs">
       <DependentUpon>UserControl_state.ascx</DependentUpon>
