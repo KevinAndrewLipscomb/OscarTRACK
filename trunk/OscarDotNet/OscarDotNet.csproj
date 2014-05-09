@@ -177,6 +177,7 @@
     <Content Include="protected\image\mortarboard.gif" />
     <Content Include="protected\image\trophy-icon.gif" />
     <Content Include="protected\lineup.aspx" />
+    <Content Include="protected\member_profile.aspx" />
     <Content Include="protected\member_schedule_detail.aspx" />
     <Content Include="protected\patient_encounter_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
@@ -848,6 +849,9 @@
     </Compile>
     <Compile Include="protected\lineup.aspx.designer.cs">
       <DependentUpon>lineup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\member_profile.aspx.designer.cs">
+      <DependentUpon>member_profile.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\member_schedule_detail.aspx.cs">
       <DependentUpon>member_schedule_detail.aspx</DependentUpon>

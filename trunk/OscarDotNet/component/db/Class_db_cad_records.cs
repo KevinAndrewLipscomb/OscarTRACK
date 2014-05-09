@@ -291,7 +291,7 @@ namespace Class_db_cad_records
         +   " SELECT call_sign"
         +   " , max(incident_num) as max_incident_num"
         +   " FROM cad_record"
-        +   " where call_sign not in ('ACPI','ARSN','EYES','FAST','FIGP','MISC','NBRU','OVD2','SICK','UNCO')"
+        +   " where call_sign not in ('ACPI','ARSN','ECOMM','EYES','FAST','FCOMM','FIGP','INJ2','MISC','NBRU','OVD2','SICK','UNCO')"
         +   " group by call_sign"
         +   " )"
         +   " as valid_record"
@@ -321,7 +321,7 @@ namespace Class_db_cad_records
         +                  "'S',''),"
         +               " 'P',''),"
         +            " 'D',''),"
-        +         " IF(invalid.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])'," // engines, ladders, frsqs
+        +         " IF(invalid.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])|(^T[[:digit:]])'," // engines, ladders, frsqs, tankers
         +            " REPLACE(invalid.call_sign,'P',''),"
         +            " invalid.call_sign"
         +            " )"
@@ -343,7 +343,7 @@ namespace Class_db_cad_records
         +                 " 'S',''),"
         +               " 'P',''),"
         +            " 'D',''),"
-        +         " IF(full_table.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])'," // engines, ladders, frsqs
+        +         " IF(full_table.call_sign REGEXP '(^E[[:digit:]])|(^L[[:digit:]])|(^FRSQ[[:digit:]])|(^T[[:digit:]])'," // engines, ladders, frsqs, tankers
         +            " REPLACE(full_table.call_sign,'P',''),"
         +            " full_table.call_sign"
         +            " )"
