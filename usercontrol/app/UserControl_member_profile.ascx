@@ -60,22 +60,22 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro">Password:</td>
-    <td><ASP:TextBox id="TextBox_nominal_password" runat="server" textmode="Password"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_nominal_password" runat="server" textmode="Password" ValidationGroup="Password"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" font-bold="True" errormessage="Please enter a nominal password." controltovalidate="TextBox_nominal_password">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" font-bold="True" errormessage="Please enter a nominal password." controltovalidate="TextBox_nominal_password" ValidationGroup="Password">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro">Confirm password:</td>
-    <td><ASP:TextBox id="TextBox_confirmation_password" runat="server" textmode="Password"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_confirmation_password" runat="server" textmode="Password" ValidationGroup="Password"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_password" runat="server" font-bold="True" errormessage="Please enter a confirmation password." controltovalidate="TextBox_confirmation_password">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_confirmation_password" runat="server" errormessage="Nominal and confirmation passwords must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_password_ServerValidate">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_password" runat="server" font-bold="True" errormessage="Please enter a confirmation password." controltovalidate="TextBox_confirmation_password" ValidationGroup="Password">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_confirmation_password" runat="server" errormessage="Nominal and confirmation passwords must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_password_ServerValidate" ValidationGroup="Password">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
-    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_password" runat="server" text="Save password" onclick="Button_save_password_Click"></ASP:Button></td>
+    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_password" runat="server" text="Save password" onclick="Button_save_password_Click" ValidationGroup="Password"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr><td colspan="3">&nbsp;</td></tr>
@@ -87,23 +87,23 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro"><font class="">Email address:</font></td>
-    <td><font class=""><ASP:TextBox id="TextBox_nominal_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False"></ASP:TextBox></font></td>
+    <td><font class=""><ASP:TextBox id="TextBox_nominal_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False" ValidationGroup="EmailAddress"></ASP:TextBox></font></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_email_address" runat="server" font-bold="True" errormessage="Please enter a nominal email address." controltovalidate="TextBox_nominal_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_nominal_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator>
-      <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True" onservervalidate="CustomValidator_nominal_email_address_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="Sorry, that email address already belongs to a system member." font-bold="True" controltovalidate="TextBox_nominal_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_email_address" runat="server" font-bold="True" errormessage="Please enter a nominal email address." controltovalidate="TextBox_nominal_email_address" ValidationGroup="EmailAddress">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_nominal_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True" onservervalidate="CustomValidator_nominal_email_address_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="Sorry, that email address already belongs to a system member." font-bold="True" controltovalidate="TextBox_nominal_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate" ValidationGroup="EmailAddress">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro"><font class="">Confirm email address:</font></td>
-    <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False" ValidationGroup="EmailAddress"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_email_address_ServerValidate">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address" ValidationGroup="EmailAddress">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_email_address_ServerValidate" ValidationGroup="EmailAddress">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
-    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_email_address" runat="server" text="Save email address" onclick="Button_save_email_address_Click"></ASP:Button></td>
+    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_email_address" runat="server" text="Save email address" onclick="Button_save_email_address_Click" ValidationGroup="EmailAddress"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr><td colspan="3">&nbsp;</td></tr>
@@ -118,14 +118,16 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro" nowrap="nowrap"><font class="">Phone number (cellular preferred):</font></td>
-    <td>
-      <ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14"></ASP:TextBox>
-      <ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click"></ASP:Button>
-    </td>
+    <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="PhoneNumber"></ASP:TextBox>    </td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="PhoneNumber">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="PhoneNumber">!ERR!</ASP:CustomValidator>
     </td>
+  </tr>
+  <tr>
+    <td style="border-left: thin solid Gainsboro">&nbsp;</td>
+    <td><ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click" ValidationGroup="PhoneNumber"></ASP:Button></td>
+    <td style="border-right: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr>
     <td colspan="3" style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro; border-right: thin solid Gainsboro">
@@ -138,8 +140,8 @@
                   <td colspan="5" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
                     <p><strong>OSCALERTs</strong></p>
                     <small>
-                      OSCALERTs are automatic near-realtime notifications to your cellphone about certain situations in the field, as detailed below.&nbsp; OSCALERTs are individually configurable.&nbsp; To receive OSCALERTs,
-                      a member must set their cellphone number (above), plus their cellphone service provider (below).
+                      OSCALERTs are automatic near-realtime notifications to your cellphone about certain situations in the field, as detailed below.&nbsp; To receive OSCALERTs, a member must set their cellphone number
+                      (above), plus their cellphone service provider (below).&nbsp; A member may also configure OSCALERTs according to their preference.
                     </small>
                   </td>
                 </tr>
@@ -147,6 +149,11 @@
                 <tr>
                   <td nowrap="nowrap"><font class="">Cellular provider:</font></td>
                   <td colspan="3"><asp:DropDownList ID="DropDownList_phone_service" runat="server"></asp:DropDownList></td>
+                  <td nowrap="nowrap">&nbsp;</td>
+                </tr>
+                <tr>
+                  <td nowrap="nowrap"><font class="">&nbsp;</font></td>
+                  <td colspan="3"><asp:Button ID="Button_save_oscalert_settings" runat="server" Text="Save OSCALERT settings" ValidationGroup="OscalertSettings" onclick="Button_save_oscalert_settings_Click"/></td>
                   <td nowrap="nowrap">&nbsp;</td>
                 </tr>
                 <tr><td colspan="5">&nbsp;</td></tr>
@@ -208,7 +215,7 @@
                   <td align="center" valign="middle"><small><small>All the above plus</small><br />When any call is holding for an ambulance</small></td>
                 </tr>
                 <tr>
-                  <td valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButtonno_gen" runat="server" GroupName="GeneralThreshold" ForeColor="White"/></td>
+                  <td valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButton_no_gen" runat="server" GroupName="GeneralThreshold" ForeColor="White"/></td>
                   <td align="center" valign="middle" colspan="2"><i>None - Not interested in general alerts</i></td>
                 </tr>
                 <tr><td colspan="5">&nbsp;</td></tr>
@@ -250,6 +257,12 @@
                   <td valign="middle"><asp:CheckBox ID="CheckBox_mrt_call" runat="server" /></td>
                   <td align="center" valign="middle"><b>MrtCall</b></td>
                   <td align="center" valign="middle"><small>When the Marine Rescue Team is called out</small></td>
+                </tr>
+                <tr><td colspan="5">&nbsp;</td></tr>
+                <tr>
+                  <td nowrap="nowrap"><font class="">&nbsp;</font></td>
+                  <td colspan="3"><asp:Button ID="Button_save_oscalert_settings_2" runat="server" Text="Save OSCALERT settings" ValidationGroup="OscalertSettings"/></td>
+                  <td nowrap="nowrap">&nbsp;</td>
                 </tr>
               </table>
             </asp:Panel>

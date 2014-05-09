@@ -614,6 +614,16 @@ namespace Class_biz_members
             return result;
         }
 
+    public string PhoneServiceIdOf(object summary)
+      {
+      return db_members.PhoneServiceIdOf(summary);
+      }
+
+    public string PhoneServiceOf(object summary)
+      {
+      return db_members.PhoneServiceOf(summary);
+      }
+
         public string PeckCodeOf(object summary)
         {
             string result;
