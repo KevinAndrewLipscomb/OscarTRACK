@@ -8,6 +8,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 # Daily
 #
 15 00  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/daily_tasks.aspx
+30 03  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/cad_activity_notification_agent.aspx
 31 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R01
 32 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R02
 34 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R04

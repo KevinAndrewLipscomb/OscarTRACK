@@ -301,15 +301,6 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.TextBox TextBox_phone_num;
         
         /// <summary>
-        /// Button_save_phone_num control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_save_phone_num;
-        
-        /// <summary>
         /// RequiredFieldValidator_phone_num control.
         /// </summary>
         /// <remarks>
@@ -328,6 +319,15 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_phone_num;
         
         /// <summary>
+        /// Button_save_phone_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_save_phone_num;
+        
+        /// <summary>
         /// Panel_oscalert_settings control.
         /// </summary>
         /// <remarks>
@@ -344,6 +344,15 @@ namespace UserControl_member_profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_phone_service;
+        
+        /// <summary>
+        /// Button_save_oscalert_settings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_save_oscalert_settings;
         
         /// <summary>
         /// RadioButton_mci_huge control.
@@ -445,13 +454,13 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.RadioButton RadioButton_amb_needed;
         
         /// <summary>
-        /// RadioButtonno_gen control.
+        /// RadioButton_no_gen control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButtonno_gen;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_no_gen;
         
         /// <summary>
         /// RadioButton_als_surge control.
@@ -515,5 +524,14 @@ namespace UserControl_member_profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_mrt_call;
+        
+        /// <summary>
+        /// Button_save_oscalert_settings_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_save_oscalert_settings_2;
     }
 }

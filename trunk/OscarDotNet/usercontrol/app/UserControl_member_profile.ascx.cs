@@ -1,7 +1,10 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_member_profiles;
+using Class_biz_members;
 using Class_biz_role_member_map;
+using Class_biz_sms_gateways;
+using Class_biz_user;
+using Class_biz_users;
 using kix;
 using System;
 using System.Web;
@@ -18,10 +21,14 @@ namespace UserControl_member_profile
     private struct p_type
       {
       public bool be_loaded;
-      public TClass_biz_member_profiles biz_member_profiles;
+      public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_sms_gateways biz_sms_gateways;
+      public TClass_biz_users biz_users;
+      public TClass_biz_user biz_user;
       public bool be_ok_to_config_member_profiles;
-      } // end p_type
+      public object summary;
+      }
 
     private p_type p;
 
@@ -44,81 +51,16 @@ namespace UserControl_member_profile
 
     private void InjectPersistentClientSideScript()
       {
-      // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
-      // EstablishClientSideFunction(k.client_side_function_enumeral_type.KGS_TO_LBS);
-      // EstablishClientSideFunction(k.client_side_function_enumeral_type.LBS_TO_KGS);
-      // EstablishClientSideFunction
-      //   (
-      //   'RecalculateDependentValues()',
-      //   k.EMPTY
-      //   + 'El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_lbs.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value - El("' + TextBox_gross_invoiced_weight_in_kgs.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gain_or_loss_in_lbs.clientid + '").value - El("' + TextBox_franchise_in_lbs.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value ='
-      //   +  ' El("' + TextBox_gain_or_loss_in_kgs.clientid + '").value - El("' + TextBox_franchise_in_kgs.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_lbs.clientid + '").value ='
-      //   +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_actual_gain_or_loss_per_bale_in_kgs.clientid + '").value ='
-      //   +  ' El("' + TextBox_actual_gain_or_loss_in_kgs.clientid + '").value/El("' + TextBox_bales.clientid + '").value;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_percent_gain_or_loss.clientid + '").value ='
-      //   +  ' Math.round(El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value/El("' + TextBox_net_invoiced_in_lbs.clientid + '").value*100*100)/100;'
-      //   + k.NEW_LINE
-      //   + 'El("' + TextBox_monetary_gain_or_loss.clientid + '").value ='
-      //   +  ' El("' + TextBox_actual_gain_or_loss_in_lbs.clientid + '").value*El("' + TextBox_unit_price_in_cents_per_pound.clientid + '").value;'
-      //   );
-      // //
-      // TextBox_bales.attributes.Add('onkeyup','RecalculateDependentValues();');
-      // TextBox_gross_landed_weight_in_pounds.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value = LbsToKgs(El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
-      // TextBox_gross_landed_weight_in_kgs.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_gross_landed_weight_in_pounds.clientid + '").value = KgsToLbs(El("' + TextBox_gross_landed_weight_in_kgs.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
-      // TextBox_landed_or_ciq_tare.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_landed_or_ciq_tare_in_kgs.clientid + '").value = LbsToKgs(El("' + TextBox_landed_or_ciq_tare.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
-      // TextBox_landed_or_ciq_tare_in_kgs.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_landed_or_ciq_tare.clientid + '").value = KgsToLbs(El("' + TextBox_landed_or_ciq_tare_in_kgs.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
-      // TextBox_net_landed_in_pounds.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_net_landed_in_kgs.clientid + '").value = LbsToKgs(El("' + TextBox_net_landed_in_pounds.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
-      // TextBox_net_landed_in_kgs.attributes.Add
-      //   (
-      //   'onkeyup',
-      //   'El("' + TextBox_net_landed_in_pounds.clientid + '").value = KgsToLbs(El("' + TextBox_net_landed_in_kgs.clientid + '").value);'
-      //   + ' RecalculateDependentValues();'
-      //   );
+      EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
+      EstablishClientSideFunction
+        (
+        "SecurePassword()",
+        k.EMPTY
+        + " if (El('" + TextBox_nominal_password.ClientID + "').value != '') El('" + TextBox_nominal_password.ClientID + "').value = new jsSHA(El('" + TextBox_nominal_password.ClientID + "').value,'ASCII').getHash('HEX');"
+        + " if (El('" + TextBox_confirmation_password.ClientID + "').value != '') El('" + TextBox_confirmation_password.ClientID + "').value = new jsSHA(El('" + TextBox_confirmation_password.ClientID + "').value,'ASCII').getHash('HEX');"
+        );
+      //
+      Button_save_password.Attributes.Add("onclick","SecurePassword()");
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
@@ -133,6 +75,20 @@ namespace UserControl_member_profile
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
 #warning Remove the following line if the member_profile will primarily be a reference table as opposed to a log or journal table.
         SetDataEntryMode();
+        //
+        var email_address = p.biz_users.SelfEmailAddress();
+        TextBox_nominal_email_address.Text = email_address;
+        TextBox_confirmation_email_address.Text = email_address;
+        //
+        TextBox_phone_num.Text = k.FormatAsNanpPhoneNum(Session["member_phone_num"].ToString());
+        //
+        p.biz_sms_gateways.BindDirectToListControl
+          (
+          target:DropDownList_phone_service,
+          unselected_literal:"-- Select --",
+          selected_value:p.biz_members.PhoneServiceOf(p.summary)
+          );
+        //
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
@@ -225,9 +181,15 @@ namespace UserControl_member_profile
       else
         {
         p.be_loaded = false;
-        p.biz_member_profiles = new TClass_biz_member_profiles();
+        //
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_sms_gateways = new TClass_biz_sms_gateways();
+        p.biz_users = new TClass_biz_users();
+        p.biz_user = new TClass_biz_user();
+        //
         p.be_ok_to_config_member_profiles = k.Has((string[])(Session["privilege_array"]), "config-member_profiles");
+        p.summary = p.biz_members.Summary(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         }
       }
 
@@ -365,6 +327,107 @@ namespace UserControl_member_profile
             DropDownList_member_id.Items.Insert(0, new ListItem("-- Select --", k.EMPTY));
             }
           }
+        }
+      }
+
+    protected void CustomValidator_confirmation_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+      {
+      args.IsValid = (TextBox_nominal_email_address.Text.Trim() == TextBox_confirmation_email_address.Text.Trim());
+      }
+
+    protected void CustomValidator_confirmation_password_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+      {
+      args.IsValid = (TextBox_nominal_password.Text.Trim() == TextBox_confirmation_password.Text.Trim());
+      }
+
+    protected void CustomValidator_email_address_novelty_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+      {
+      args.IsValid = !p.biz_users.BeEmailAddressMappedToMember(k.Safe(args.Value, k.safe_hint_type.EMAIL_ADDRESS));
+      }
+
+    protected void CustomValidator_nominal_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+      {
+      args.IsValid = kix.k.BeValidDomainPartOfEmailAddress(args.Value);
+      }
+
+    protected void CustomValidator_phone_num_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+      {
+      args.IsValid = k.BeValidNanpNumber(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM));
+      }
+
+    protected void Button_save_password_Click(object sender, EventArgs e)
+      {
+      if (Page.IsValid)
+        {
+        p.biz_users.SetPassword(p.biz_user.IdNum(), k.Safe(TextBox_nominal_password.Text.Trim(), k.safe_hint_type.HEX));
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.SUCCESS,
+          key:"pwdsaved",
+          value:"Password saved."
+          );
+        }
+      else
+        {
+        ValidationAlert(true);
+        }
+      }
+
+    protected void Button_save_email_address_Click(object sender, EventArgs e)
+      {
+      if (Page.IsValid)
+        {
+        p.biz_users.SetEmailAddress(p.biz_user.IdNum(), k.Safe(TextBox_nominal_email_address.Text.Trim(), k.safe_hint_type.EMAIL_ADDRESS));
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.SUCCESS,
+          key:"emladrsaved",
+          value:"Email address saved."
+          );
+        }
+      else
+        {
+        ValidationAlert(true);
+        }
+      }
+
+    protected void Button_save_phone_num_Click(object sender, EventArgs e)
+      {
+      if (Page.IsValid)
+        {
+        p.biz_members.SetPhoneNum(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM),p.summary);
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.SUCCESS,
+          key:"phnumsaved",
+          value:"Phone number saved."
+          );
+        }
+      else
+        {
+        ValidationAlert(true);
+        }
+      }
+
+    protected void Button_save_oscalert_settings_Click(object sender, EventArgs e)
+      {
+      if (Page.IsValid)
+        {
+        p.biz_members.SetPhoneService(k.Safe(DropDownList_phone_service.SelectedValue,k.safe_hint_type.NUM),p.summary);
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.SUCCESS,
+          key:"phsvcsaved",
+          value:"Phone service saved."
+          );
+        }
+      else
+        {
+        ValidationAlert(true);
         }
       }
 

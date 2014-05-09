@@ -291,7 +291,7 @@ namespace Class_db_cad_records
         +   " SELECT call_sign"
         +   " , max(incident_num) as max_incident_num"
         +   " FROM cad_record"
-        +   " where call_sign not in ('ACPI','ARSN','ECOMM','EYES','FAST','FCOMM','FIGP','INJ2','MISC','NBRU','OVD2','SICK','UNCO')"
+        +   " where call_sign not in ('ACPI','ANSH','ARSN','ECOMM','EYES','FAST','FCOMM','FIGP','INJ2','MISC','NBRU','OVD2','SICK','UNCO')"
         +   " group by call_sign"
         +   " )"
         +   " as valid_record"

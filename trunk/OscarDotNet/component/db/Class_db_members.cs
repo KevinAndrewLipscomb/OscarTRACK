@@ -104,6 +104,7 @@ namespace Class_db_members
       public string peck_code;
       public string phone_num;
       public string phone_service_id;
+      public string phone_service;
       public string section;
       public bool be_placeholder;
       public bool be_flight_medic;
@@ -1698,6 +1699,16 @@ namespace Class_db_members
             return (summary as member_summary).peck_code;
         }
 
+    public string PhoneServiceIdOf(object summary)
+      {
+      return (summary as member_summary).phone_service_id;
+      }
+
+    public string PhoneServiceOf(object summary)
+      {
+      return (summary as member_summary).phone_service;
+      }
+
         public string RetentionOf(object summary)
         {
             return (summary as member_summary).length_of_service;
@@ -1852,7 +1863,8 @@ namespace Class_db_members
             + " , enrollment_level.description as enrollment" 
             + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
             + " , phone_num" 
-            + " , phone_service_id"
+            + " , IFNULL(phone_service_id,'') as phone_service_id"
+            + " , IFNULL(sms_gateway.carrier_name,'') as phone_service"
             + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
             + " , be_placeholder"
             + " , be_flight_medic"
@@ -1875,6 +1887,7 @@ namespace Class_db_members
             +     " )" 
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
             +   " join agency on (agency.id=member.agency_id)"
+            +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
             + " where member.id = '" + member_id + "'",
             connection
             )
@@ -1900,7 +1913,8 @@ namespace Class_db_members
               + " , enrollment_level.description as enrollment" 
               + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
               + " , phone_num"
-              + " , phone_service_id"
+              + " , IFNULL(phone_service_id,'') as phone_service_id"
+              + " , IFNULL(sms_gateway.carrier_name,'') as phone_service"
               + " , IFNULL(DATE_FORMAT(equivalent_los_start_date,'%Y-%m-%d'),'') as equivalent_los_start_date"
               + " , be_placeholder"
               + " , be_flight_medic"
@@ -1923,6 +1937,7 @@ namespace Class_db_members
               +     " )" 
               +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
               +   " join agency on (agency.id=member.agency_id)"
+              +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
               + " where member.id = '" + member_id + "'",
               connection
               )
@@ -1944,6 +1959,7 @@ namespace Class_db_members
             peck_code = dr["medical_release_peck_code"].ToString(),
             phone_num = dr["phone_num"].ToString(),
             phone_service_id = dr["phone_service_id"].ToString(),
+            phone_service = dr["phone_service"].ToString(),
             section = dr["section_num"].ToString(),
             be_placeholder = (dr["be_placeholder"].ToString() == "1"),
             be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),

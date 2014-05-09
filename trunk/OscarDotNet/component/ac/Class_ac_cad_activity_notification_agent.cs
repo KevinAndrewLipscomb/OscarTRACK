@@ -5,6 +5,7 @@ using System;
 using System.Configuration;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace Class_ac_cad_activity_notification_agent
@@ -23,11 +24,13 @@ namespace Class_ac_cad_activity_notification_agent
     private TClass_biz_field_situations biz_field_situations = null;
     private WebBrowser master_browser;
     private Thread master_browser_thread;
+    private System.Timers.Timer master_browser_timer;
     private Form form;
     private k.int_nonnegative master_navigation_counter = new k.int_nonnegative();
-    DateTime saved_meta_surge_alert_timestamp_ems;
-    DateTime saved_meta_surge_alert_timestamp_als;
-    DateTime saved_meta_surge_alert_timestamp_fire;
+    private DateTime saved_datetime_to_quit;
+    private DateTime saved_meta_surge_alert_timestamp_ems;
+    private DateTime saved_meta_surge_alert_timestamp_als;
+    private DateTime saved_meta_surge_alert_timestamp_fire;
 
     private void ajax_container_PropertyChange
       (
@@ -38,6 +41,8 @@ namespace Class_ac_cad_activity_notification_agent
       try
         {
 
+      master_browser_timer.Stop();
+      //
       var doc = master_browser.Document;
       var rows = doc.GetElementById("ajax_container").GetElementsByTagName("tr");
       HtmlElementCollection cells; // If we declare this within the below for-loop, it's values can't be checked at exception-time in the debugger, so leave the declaration here.
@@ -101,11 +106,21 @@ namespace Class_ac_cad_activity_notification_agent
       //
       Thread.Sleep(millisecondsTimeout:int.Parse(ConfigurationManager.AppSettings["vbemsbridge_refresh_rate_in_seconds"])*1000);
       //
-      // Update the date span (to account for crossing into the next day at midnight) and click the Refresh button.
-      //
-      master_browser.Document.GetElementById("DateFrom").SetAttribute("value",DateTime.Today.AddDays(-2).ToString("d"));
-      master_browser.Document.GetElementById("DateTo").SetAttribute("value",DateTime.Today.ToString("d"));
-      doc.GetElementsByTagName("input")[4].InvokeMember("click");
+      if (DateTime.Now < saved_datetime_to_quit)
+        {
+        //
+        // Update the date span (to account for crossing into the next day at midnight) and click the Refresh button.
+        //
+        master_browser.Document.GetElementById("DateFrom").SetAttribute("value",DateTime.Today.AddDays(-2).ToString("d"));
+        master_browser.Document.GetElementById("DateTo").SetAttribute("value",DateTime.Today.ToString("d"));
+        doc.GetElementsByTagName("input")[4].InvokeMember("click");
+        master_browser_timer.Start();
+        }
+      else
+        {
+        k.EscalatedException(new Exception("TClass_ac_cad_activity_notification_agent.ajax_container_PropertyChange reached datetime_to_quit"));
+        master_browser_thread.Abort();
+        }
 
         }
       catch (Exception the_exception)
@@ -119,6 +134,8 @@ namespace Class_ac_cad_activity_notification_agent
       try
         {
 
+      master_browser_timer.Stop();
+      //
       var doc = master_browser.Document;
       //
       if (master_navigation_counter.val == 1)
@@ -129,6 +146,7 @@ namespace Class_ac_cad_activity_notification_agent
         doc.GetElementById("UserId").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_username"]);
         doc.GetElementById("Password").SetAttribute("value", ConfigurationManager.AppSettings["vbemsbridge_password"]);
         doc.All["submit"].InvokeMember("click");
+        master_browser_timer.Start();
         }
       else if (master_navigation_counter.val == 2)
         {
@@ -136,6 +154,7 @@ namespace Class_ac_cad_activity_notification_agent
         // Acknowledge the Data Privacy Statement.
         //
         doc.GetElementById("acc_yes").InvokeMember("click");
+        master_browser_timer.Start();
         }
       else if (master_navigation_counter.val == 4)
         {
@@ -143,6 +162,7 @@ namespace Class_ac_cad_activity_notification_agent
         // Click the "Dispatch" link.
         //
         doc.Links[1].InvokeMember("click");
+        master_browser_timer.Start();
         }
       else if (master_navigation_counter.val == 6)
         {
@@ -150,20 +170,18 @@ namespace Class_ac_cad_activity_notification_agent
         // Navigate to the source of the target iframe.
         //
         master_browser.Navigate("https://vbems.emsbridge.com/resource/apps/caddispatch/cad_dispatch_pages.cfm?item=Dispatch&noLayout");
+        master_browser_timer.Start();
         }
       else if (master_navigation_counter.val == 7)
         {
         //
+        // The site does not trigger the Navigating or DocumentCompleted events past this point, so set up an event handler to run when the target control is updated by ServiceBridge's AJAX code.
+        //
+        doc.GetElementById("ajax_container").AttachEventHandler("onpropertychange",new EventHandler(ajax_container_PropertyChange));
+        //
         // Maybe it will lighten the load on the remote site if we contract the date span from the default, which is at least a week.
         //
         doc.GetElementById("DateFrom").SetAttribute("value",DateTime.Today.AddDays(-2).ToString("d"));
-        //
-        // Set the "Records per page" dropdown to 300.
-        //
-        var records_per_page_dropdown = doc.GetElementById("nblock");
-        records_per_page_dropdown.Children[0].SetAttribute("selected", "");
-        records_per_page_dropdown.Children[4].SetAttribute("selected", "selected");
-        records_per_page_dropdown.InvokeMember("onChange");
         //
         // Set the "Update every" dropdown to 15 minutes.  We'll be using the Refresh link for updates instead of the supplied timer, to prevent the site from considering us idle.
         //
@@ -172,9 +190,13 @@ namespace Class_ac_cad_activity_notification_agent
         update_every_dropdown.Children[4].SetAttribute("selected", "selected");
         update_every_dropdown.InvokeMember("onChange");
         //
-        // The site does not trigger the Navigating or DocumentCompleted events past this point, so set up an event handler to run when the target control is updated by ServiceBridge's AJAX code.
+        // Set the "Records per page" dropdown to 300.
         //
-        doc.GetElementById("ajax_container").AttachEventHandler("onpropertychange",new EventHandler(ajax_container_PropertyChange));
+        var records_per_page_dropdown = doc.GetElementById("nblock");
+        records_per_page_dropdown.Children[0].SetAttribute("selected", "");
+        records_per_page_dropdown.Children[4].SetAttribute("selected", "selected");
+        records_per_page_dropdown.InvokeMember("onChange");
+        master_browser_timer.Start();
         }
       //else if (navigation_counter.val > 7)
       //  {
@@ -210,6 +232,12 @@ namespace Class_ac_cad_activity_notification_agent
         }
       }
 
+    private void master_browser_timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+      {
+      k.EscalatedException(new Exception("TClass_ac_cad_activity_notification_agent.master_browser_timer_Elapsed"));
+      master_browser_thread.Abort();
+      }
+
     private void MasterKickoff(bool be_browser_surface_visible_for_debugging)
       {
       master_browser = new WebBrowser();
@@ -230,12 +258,14 @@ namespace Class_ac_cad_activity_notification_agent
         try
           {
           master_browser.Navigate("https://vbems.emsbridge.com");
+          master_browser_timer.Start();
           be_successful = true;
           }
         catch (Exception the_exception)
           {
           if (the_exception.Message == "Error HRESULT E_FAIL has been returned from a call to a COM component.")
             {
+            k.EscalatedException(the_exception);
             Thread.Sleep(millisecondsTimeout:1000);
             }
           else
@@ -278,10 +308,16 @@ namespace Class_ac_cad_activity_notification_agent
     //
     //--
 
-    public TClass_ac_cad_activity_notification_agent()
+    public TClass_ac_cad_activity_notification_agent(DateTime datetime_to_quit)
       {
+      saved_datetime_to_quit = datetime_to_quit;
+      //
       biz_cad_records = new TClass_biz_cad_records();
       biz_field_situations = new TClass_biz_field_situations();
+      //
+      master_browser_timer = new System.Timers.Timer(interval:120000); // 2 minutes
+      master_browser_timer.AutoReset = false;
+      master_browser_timer.Elapsed += new ElapsedEventHandler(master_browser_timer_Elapsed);
       //
       master_browser_thread = new Thread
         (
@@ -294,6 +330,7 @@ namespace Class_ac_cad_activity_notification_agent
             }
           )
         );
+      master_browser_thread.Name = "cad_activity_notification_agent__master_browser";
       master_browser_thread.SetApartmentState(ApartmentState.STA);
       master_browser_thread.Start();
       //
