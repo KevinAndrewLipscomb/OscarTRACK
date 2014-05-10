@@ -96,7 +96,7 @@
                   <hr size="1"/>
                   <table cellspacing="0" cellpadding="5" border="0">
                     <tr>
-                      <td colspan="4"><i>Adding a member is now a 3-step process...</i></td>
+                      <td colspan="4"><i>Adding a member is a 3-step process...</i></td>
                     </tr>
                     <tr>
                       <td>STEP&nbsp;1</td>
