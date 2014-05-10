@@ -49,6 +49,11 @@ namespace Class_biz_sms_gateways
       BindDirectToListControl(target,unselected_literal:"-- sms_gateway --");
       }
 
+    internal string CarrierNameOfId(string id)
+      {
+      return db_sms_gateways.CarrierNameOfId(id);
+      }
+
     public bool Delete(string id)
       {
       return db_sms_gateways.Delete(id);

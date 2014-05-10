@@ -1,57 +1,14 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_member_profile.ascx.cs" Inherits="UserControl_member_profile.TWebUserControl_member_profile"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~kicrudhelped~item.ascx-template -->
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
+<asp:ValidationSummary ID="ValidationSummary_password" runat="server" ValidationGroup="password"/>
+<asp:ValidationSummary ID="ValidationSummary_email_address" runat="server" ValidationGroup="email_address"/>
+<asp:ValidationSummary ID="ValidationSummary_phone_number" runat="server" ValidationGroup="phone_number"/>
+<asp:ValidationSummary ID="ValidationSummary_oscalert_settings" runat="server" ValidationGroup="oscalert_settings"/>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">
       <table cellspacing="0" cellpadding="5" border="0">
-  <tr id="TableRow_member_id" runat="server" visible="false">
-    <td bgcolor="gainsboro" valign="top"><font class="">member_id:</font></td>
-    <td valign="top"><font class="">
-      <table cellspacing="0" cellpadding="0" border="0">
-         <tr>
-           <td valign="middle">
-             <table cellspacing="0" cellpadding="0" border="0">
-               <tr>
-                 <td>
-      <ASP:TextBox id="TextBox_member_id" runat="server"  cssclass=""></ASP:TextBox><ASP:Button id="Button_lookup" runat="server" causesvalidation="False" text="LOOKUP" onclick="Button_lookup_Click"></ASP:Button>
-                </td>
-                <td nowrap="nowrap"><small><small><asp:Label id="Label_lookup_arrow" runat="server">&lt;--</asp:Label></small></small></td>
-                <td><small><small><em><asp:Label id="Label_lookup_hint" runat="server">Lookup by partial or full field value</asp:Label></em></small></small></td>
-              </tr>
-            </table>
-          </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td valign="middle">
-            <small>
-              <ASP:LinkButton id="LinkButton_reset" runat="server" causesvalidation="False" enabled="False" onclick="LinkButton_reset_Click">New lookup</ASP:LinkButton>
-            </small>
-          </td>
-          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-          <td valign="middle">
-            <small>
-              <ASP:LinkButton id="LinkButton_new_record" runat="server" causesvalidation="False" visible="False" onclick="LinkButton_new_record_Click">Enter&nbsp;brand&nbsp;new&nbsp;record</ASP:LinkButton>
-            </small>
-          </td>
-        </tr>
-      </table>
-      <table>
-        <tr>
-          <td><asp:Panel ID="Panel_match_numbers" runat="server" Visible="False"><small>(<asp:Literal ID="Literal_match_index" runat="server"></asp:Literal>/<asp:Literal ID="Literal_num_matches" runat="server"></asp:Literal>)</small></asp:Panel></td>
-          <td>
-            <asp:LinkButton id="LinkButton_go_to_match_first" runat="server" text="<IMG src=&quot;~/protected/image/first_track_blue16_h.png&quot; alt=&quot;First match&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; />" causesvalidation="False" visible="False" onclick="LinkButton_go_to_match_first_Click"></asp:LinkButton><asp:LinkButton id="LinkButton_go_to_match_prior" runat="server" text="<IMG src=&quot;~/protected/image/play_blue16_h-flipped.png&quot; alt=&quot;Prior match&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; />" causesvalidation="False" visible="False" onclick="LinkButton_go_to_match_prior_Click"></asp:LinkButton><asp:LinkButton id="LinkButton_go_to_match_next" runat="server" text="<IMG src=&quot;~/protected/image/play_blue16_h.png&quot; alt=&quot;Next match&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; />" causesvalidation="False" visible="False" onclick="LinkButton_go_to_match_next_Click"></asp:LinkButton><asp:LinkButton id="LinkButton_go_to_match_last" runat="server" text="<IMG src=&quot;~/protected/image/last_track_blue16_h.png&quot; alt=&quot;Last match&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; />" causesvalidation="False" visible="False" onclick="LinkButton_go_to_match_last_Click"></asp:LinkButton>
-          </td>
-          <td>
-            <div style="width:0px;white-space:nowrap;"><ASP:DropDownList id="DropDownList_member_id" runat="server" visible="False" autopostback="True" onselectedindexchanged="DropDownList_member_id_SelectedIndexChanged"></ASP:DropDownList></div>
-          </td>
-        </tr>
-      </table>
-    </font>
-    </td>
-    <td nowrap="nowrap" valign="top">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_member_id" runat="server" errormessage="Please enter member_id." font-bold="True" controltovalidate="TextBox_member_id">!ERR!</ASP:RequiredFieldValidator>
-    </td>
-  </tr>
   <tr>
     <td colspan="3" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
       <p><strong>Security</strong></p>
@@ -60,22 +17,22 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro">Password:</td>
-    <td><ASP:TextBox id="TextBox_nominal_password" runat="server" textmode="Password" ValidationGroup="Password"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_nominal_password" runat="server" textmode="Password" ValidationGroup="password"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" font-bold="True" errormessage="Please enter a nominal password." controltovalidate="TextBox_nominal_password" ValidationGroup="Password">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_password" runat="server" font-bold="True" errormessage="Please enter a nominal password." controltovalidate="TextBox_nominal_password" ValidationGroup="password">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro">Confirm password:</td>
-    <td><ASP:TextBox id="TextBox_confirmation_password" runat="server" textmode="Password" ValidationGroup="Password"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_confirmation_password" runat="server" textmode="Password" ValidationGroup="password"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_password" runat="server" font-bold="True" errormessage="Please enter a confirmation password." controltovalidate="TextBox_confirmation_password" ValidationGroup="Password">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_confirmation_password" runat="server" errormessage="Nominal and confirmation passwords must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_password_ServerValidate" ValidationGroup="Password">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_password" runat="server" font-bold="True" errormessage="Please enter a confirmation password." controltovalidate="TextBox_confirmation_password" ValidationGroup="password">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_confirmation_password" runat="server" errormessage="Nominal and confirmation passwords must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_password_ServerValidate" ValidationGroup="password">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
-    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_password" runat="server" text="Save password" onclick="Button_save_password_Click" ValidationGroup="Password"></ASP:Button></td>
+    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_password" runat="server" text="Save password" onclick="Button_save_password_Click" ValidationGroup="password" UseSubmitBehavior="False"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr><td colspan="3">&nbsp;</td></tr>
@@ -87,23 +44,23 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro"><font class="">Email address:</font></td>
-    <td><font class=""><ASP:TextBox id="TextBox_nominal_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False" ValidationGroup="EmailAddress"></ASP:TextBox></font></td>
+    <td><font class=""><ASP:TextBox id="TextBox_nominal_email_address" runat="server" columns="31" maxlength="31" cssclass="" ValidationGroup="email_address"></ASP:TextBox></font></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_email_address" runat="server" font-bold="True" errormessage="Please enter a nominal email address." controltovalidate="TextBox_nominal_email_address" ValidationGroup="EmailAddress">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_nominal_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator>
-      <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True" onservervalidate="CustomValidator_nominal_email_address_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="Sorry, that email address already belongs to a system member." font-bold="True" controltovalidate="TextBox_nominal_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate" ValidationGroup="EmailAddress">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_nominal_email_address" runat="server" font-bold="True" errormessage="Please enter a nominal email address." controltovalidate="TextBox_nominal_email_address" ValidationGroup="email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_nominal_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_nominal_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:CustomValidator id="CustomValidator_nominal_email_address" runat="server" errormessage="Please enter a valid domain name (the part after the @ sign)." controltovalidate="TextBox_nominal_email_address" font-bold="True" onservervalidate="CustomValidator_nominal_email_address_ServerValidate">!ERR!</ASP:CustomValidator><ASP:CustomValidator id="CustomValidator_email_address_novelty" runat="server" errormessage="Sorry, that email address already belongs to a system member." font-bold="True" controltovalidate="TextBox_nominal_email_address" onservervalidate="CustomValidator_email_address_novelty_ServerValidate" ValidationGroup="email_address">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro"><font class="">Confirm email address:</font></td>
-    <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server" columns="31" maxlength="31" cssclass="" enabled="False" ValidationGroup="EmailAddress"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_confirmation_email_address" runat="server" columns="31" maxlength="31" cssclass="" ValidationGroup="email_address"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address" ValidationGroup="EmailAddress">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_email_address_ServerValidate" ValidationGroup="EmailAddress">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_confirmation_email_address" runat="server" font-bold="True" errormessage="Please enter a confirmation email address." controltovalidate="TextBox_confirmation_email_address" ValidationGroup="email_address">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_confirmation_email_address" runat="server" errormessage="Nominal and confirmation email addresss must match.  Please try again." font-bold="True" onservervalidate="CustomValidator_confirmation_email_address_ServerValidate" ValidationGroup="email_address">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
-    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_email_address" runat="server" text="Save email address" onclick="Button_save_email_address_Click" ValidationGroup="EmailAddress"></ASP:Button></td>
+    <td style="border-bottom: thin solid Gainsboro"><ASP:Button id="Button_save_email_address" runat="server" text="Save email address" onclick="Button_save_email_address_Click" ValidationGroup="email_address" UseSubmitBehavior="False"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr><td colspan="3">&nbsp;</td></tr>
@@ -118,154 +75,170 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro" nowrap="nowrap"><font class="">Phone number (cellular preferred):</font></td>
-    <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="PhoneNumber"></ASP:TextBox>    </td>
+    <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="phone_number"></ASP:TextBox>    </td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="PhoneNumber">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="PhoneNumber">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="phone_number">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="phone_number">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro">&nbsp;</td>
-    <td><ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click" ValidationGroup="PhoneNumber"></ASP:Button></td>
+    <td><ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click" ValidationGroup="phone_number" UseSubmitBehavior="False"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr>
     <td colspan="3" style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro; border-right: thin solid Gainsboro">
-      <table cellpadding="20" cellspacing="0" width="100%">
+      <table cellpadding="20" cellspacing="0">
         <tr>
           <td>
-            <asp:Panel ID="Panel_oscalert_settings" runat="server" Enabled="false">
-              <table cellpadding="5" cellspacing="0" width="100%">
-                <tr>
-                  <td colspan="5" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
-                    <p><strong>OSCALERTs</strong></p>
-                    <small>
-                      OSCALERTs are automatic near-realtime notifications to your cellphone about certain situations in the field, as detailed below.&nbsp; To receive OSCALERTs, a member must set their cellphone number
-                      (above), plus their cellphone service provider (below).&nbsp; A member may also configure OSCALERTs according to their preference.
-                    </small>
-                  </td>
-                </tr>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr>
-                  <td nowrap="nowrap"><font class="">Cellular provider:</font></td>
-                  <td colspan="3"><asp:DropDownList ID="DropDownList_phone_service" runat="server"></asp:DropDownList></td>
-                  <td nowrap="nowrap">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td nowrap="nowrap"><font class="">&nbsp;</font></td>
-                  <td colspan="3"><asp:Button ID="Button_save_oscalert_settings" runat="server" Text="Save OSCALERT settings" ValidationGroup="OscalertSettings" onclick="Button_save_oscalert_settings_Click"/></td>
-                  <td nowrap="nowrap">&nbsp;</td>
-                </tr>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr>
-                  <td nowrap="nowrap" rowspan="12" valign="top"><font class="">General alerting threshold:</font></td>
-                  <td bgcolor="#FF5580" valign="middle"><asp:RadioButton ID="RadioButton_mci_huge" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MciHuge</b></td>
-                  <td align="center" valign="middle"><small>When a huge MCI case is active</small></td>
-                  <td align="center" nowrap="nowrap" rowspan="12" valign="top">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FF6680" valign="middle"><asp:RadioButton ID="RadioButton_mci_large" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MciLarge</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When a large MCI case is active</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FF7780" valign="middle"><asp:RadioButton ID="RadioButton_mci_medium" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MciMedium</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When a medium MCI case is active</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FF8880" valign="middle"><asp:RadioButton ID="RadioButton_mci_small" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MciSmall</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When a small MCI case is active</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FF9980" valign="middle"><asp:RadioButton ID="RadioButton_ems_surge" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>EmsSurge</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When multiple calls are holding for ambulances</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFAA80" valign="middle"><asp:RadioButton ID="RadioButton_multi_alarm_fire" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MultiAlarmFire</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a multiple-alarm fire</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFBB80" valign="middle"><asp:RadioButton ID="RadioButton_major_fire_incident" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>MajorFireIncident</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a major fire incident</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFCC80" valign="middle"><asp:RadioButton ID="RadioButton_two_alarm_fire" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>TwoAlarmFire</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a 2-alarm fire</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_fire_surge" runat="server" GroupName="GeneralThreshold" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;"/></td>
-                  <td align="center" valign="middle"><b>FireSurge</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to multiple working fires</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFEE80" valign="middle"><asp:RadioButton ID="RadioButton_cardiac_arrest_amb_needed" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>CardiacArrestAmbNeeded</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When a Cardiac Arrest is holding for an ambulance</small></td>
-                </tr>
-                <tr>
-                  <td bgcolor="#FFFF80" valign="middle"><asp:RadioButton ID="RadioButton_amb_needed" runat="server" GroupName="GeneralThreshold"/></td>
-                  <td align="center" valign="middle"><b>AmbNeeded</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When any call is holding for an ambulance</small></td>
-                </tr>
-                <tr>
-                  <td valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButton_no_gen" runat="server" GroupName="GeneralThreshold" ForeColor="White"/></td>
-                  <td align="center" valign="middle" colspan="2"><i>None - Not interested in general alerts</i></td>
-                </tr>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr>
-                  <td nowrap="nowrap" rowspan="4" valign="top"><font class="">ALS alerting threshold:</font></td>
-                  <td valign="middle" bgcolor="#8088FF"><asp:RadioButton ID="RadioButton_als_surge" runat="server" GroupName="AlsThreshold" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;ALS&lt;/small&gt;&lt;/small&gt;"/></td>
-                  <td align="center" valign="middle"><b>AlsSurge</b></td>
-                  <td align="center" valign="middle"><small>When multiple calls are holding for ALS</small></td>
-                  <td nowrap="nowrap" rowspan="4" valign="top">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td valign="middle" bgcolor="#80AAFF"><asp:RadioButton ID="RadioButton_cardiac_arrest_als_needed" runat="server" GroupName="AlsThreshold"/></td>
-                  <td align="center" valign="middle"><b>CardiacArrestAlsNeeded</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When a Cardiac Arrest is holding for ALS</small></td>
-                </tr>
-                <tr>
-                  <td valign="middle" bgcolor="#80CCFF"><asp:RadioButton ID="RadioButton_als_needed" runat="server" GroupName="AlsThreshold"/></td>
-                  <td align="center" valign="middle"><b>AlsNeeded</b></td>
-                  <td align="center" valign="middle"><small><small>All the above plus</small><br />When any call is holding for ALS</small></td>
-                </tr>
-                <tr>
-                  <td valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButton_no_als" runat="server" GroupName="AlsThreshold" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;BLS&lt;/small&gt;&lt;/small&gt;" ForeColor="White"/></td>
-                  <td align="center" valign="middle" colspan="2"><i>None - Not interested in ALS-related alerts</i></td>
-                </tr>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr>
-                  <td nowrap="nowrap" rowspan="3" valign="top"><font class="">Specific subscriptions:</font></td>
-                  <td valign="middle"><asp:CheckBox ID="CheckBox_trap" runat="server"/></td>
-                  <td align="center" valign="middle"><b>Trap</b></td>
-                  <td align="center" valign="middle"><small>When the Squad Truck Team is called out</small></td>
-                  <td nowrap="nowrap" rowspan="3" valign="top">&nbsp;</td>
-                </tr>
-                <tr>
-                  <td valign="middle"><asp:CheckBox ID="CheckBox_airport_alert" runat="server" /></td>
-                  <td align="center" valign="middle"><b>AirportAlert</b></td>
-                  <td align="center" valign="middle"><small>When an airport field alert has been declared</small></td>
-                </tr>
-                <tr>
-                  <td valign="middle"><asp:CheckBox ID="CheckBox_mrt_call" runat="server" /></td>
-                  <td align="center" valign="middle"><b>MrtCall</b></td>
-                  <td align="center" valign="middle"><small>When the Marine Rescue Team is called out</small></td>
-                </tr>
-                <tr><td colspan="5">&nbsp;</td></tr>
-                <tr>
-                  <td nowrap="nowrap"><font class="">&nbsp;</font></td>
-                  <td colspan="3"><asp:Button ID="Button_save_oscalert_settings_2" runat="server" Text="Save OSCALERT settings" ValidationGroup="OscalertSettings"/></td>
-                  <td nowrap="nowrap">&nbsp;</td>
-                </tr>
-              </table>
-            </asp:Panel>
+            <asp:UpdatePanel ID="UpdatePanel_oscalert_settings" runat="server" UpdateMode="Conditional">
+              <ContentTemplate>
+                <asp:Panel ID="Panel_oscalert_settings" runat="server" Enabled="false">
+                  <table cellpadding="5" cellspacing="0">
+                    <tr>
+                      <td colspan="5" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
+                        <p><strong>OSCALERTs</strong></p>
+                        <small>
+                          OSCALERTs are automatic near-realtime notifications to your cellphone about certain situations in the field, as detailed below.&nbsp; To receive OSCALERTs, a member must set their cellphone number
+                          (above), plus their cellphone service provider (below).&nbsp; A member may also configure OSCALERTs according to their preference.
+                        </small>
+                      </td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" style="border-left: thin solid Gainsboro" width="1%" align="right"><font class="">Cellular provider:</font></td>
+                      <td colspan="3"><asp:DropDownList ID="DropDownList_phone_service" runat="server" ValidationGroup="oscalert_settings"></asp:DropDownList></td>
+                      <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
+                        <asp:RequiredFieldValidator ID="RequiredFieldValidator_phone_service" runat="server" font-bold="True" ErrorMessage="Please specify a Cellular provider." ControlToValidate="DropDownList_phone_service" ValidationGroup="oscalert_settings">!ERR!</asp:RequiredFieldValidator>
+                      </td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" style="border-left: thin solid Gainsboro"><font class="">&nbsp;</font></td>
+                      <td colspan="3"><asp:Button ID="Button_save_oscalert_settings" runat="server" Text="Save OSCALERT settings" ValidationGroup="oscalert_settings" onclick="Button_save_oscalert_settings_Click" UseSubmitBehavior="False"/></td>
+                      <td nowrap="nowrap" style="border-right: thin solid Gainsboro">&nbsp;</td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" rowspan="12" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">General alerting threshold:</font></td>
+                      <td align="right" bgcolor="#FF5580" valign="middle" width="1%"><asp:RadioButton ID="RadioButton_MciHuge" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle" width="1%"><b>MciHuge</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle" width="1%"><small>When a huge MCI case is active</small></td>
+                      <td align="center" nowrap="nowrap" rowspan="12" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FF6680" valign="middle"><asp:RadioButton ID="RadioButton_MciLarge" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MciLarge</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a large MCI case is active</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FF7780" valign="middle"><asp:RadioButton ID="RadioButton_MciMedium" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MciMedium</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a medium MCI case is active</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FF8880" valign="middle"><asp:RadioButton ID="RadioButton_MciSmall" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MciSmall</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a small MCI case is active</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FF9980" valign="middle"><asp:RadioButton ID="RadioButton_MultiAlarmFire" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MultiAlarmFire</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a multiple-alarm fire</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFAA80" valign="middle"><asp:RadioButton ID="RadioButton_MajorFireIncident" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MajorFireIncident</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a major fire incident</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFBB80" valign="middle"><asp:RadioButton ID="RadioButton_TwoAlarmFire" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>TwoAlarmFire</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a 2-alarm fire</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFCC80" valign="middle" nowrap="nowrap"><asp:RadioButton ID="RadioButton_FireSurge" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>FireSurge</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to multiple working fires</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_MultAmbHolds" runat="server" GroupName="GeneralThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MultAmbHolds</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When multiple calls are holding for ambulances</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFEE80" valign="middle"><asp:RadioButton ID="RadioButton_CardiacArrestAmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>CardiacArrestAmbNeeded</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a Cardiac Arrest is holding for an ambulance</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" bgcolor="#FFFF80" valign="middle"><asp:RadioButton ID="RadioButton_AmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>AmbNeeded</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When any call is holding for an ambulance</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButton_no_general" runat="server" GroupName="GeneralThreshold" TextAlign="Left" ForeColor="White" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle" colspan="2" bgcolor="Silver"><i>-- None - Not interested in general alerts --</i></td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" rowspan="4" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">ALS alerting threshold:</font></td>
+                      <td align="right" valign="middle" bgcolor="#8088FF" nowrap="nowrap"><asp:RadioButton ID="RadioButton_MultAlsHolds" runat="server" GroupName="AlsThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;ALS&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>MultAlsHolds</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small>When multiple calls are holding for ALS</small></td>
+                      <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle" bgcolor="#80AAFF"><asp:RadioButton ID="RadioButton_CardiacArrestAlsNeeded" runat="server" GroupName="AlsThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>CardiacArrestAlsNeeded</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a Cardiac Arrest is holding for ALS</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle" bgcolor="#80CCFF"><asp:RadioButton ID="RadioButton_AlsNeeded" runat="server" GroupName="AlsThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle"><b>AlsNeeded</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When any call is holding for ALS</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle" bgcolor="#000000" nowrap="nowrap"><asp:RadioButton ID="RadioButton_no_als" runat="server" GroupName="AlsThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;BLS&lt;/small&gt;&lt;/small&gt;" ForeColor="White" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="center" valign="middle" colspan="2" bgcolor="Silver"><i>-- None - Not interested in ALS-related alerts --</i></td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" rowspan="4" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">Specific subscriptions:</font></td>
+                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_trap" runat="server" TextAlign="Left"/></td>
+                      <td align="center" valign="middle"><b>Trap</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small>When the Squad Truck Team is called out</small></td>
+                      <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_airport_alert" runat="server" TextAlign="Left"/></td>
+                      <td align="center" valign="middle"><b>AirportAlert</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small>When an airport field alert has been declared</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_mrt_call" runat="server" TextAlign="Left"/></td>
+                      <td align="center" valign="middle"><b>MrtCall</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small>When the Marine Rescue Team is called out</small></td>
+                    </tr>
+                    <tr>
+                      <td align="right" valign="middle"><asp:CheckBox ID="CheckBox_sar_call" runat="server" TextAlign="Left"/></td>
+                      <td align="center" valign="middle"><b>SarCall</b></td>
+                      <td align="center" nowrap="nowrap" valign="middle"><small>When the Search And Rescue Team is called out</small></td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr>
+                      <td nowrap="nowrap" style="border-left: thin solid Gainsboro"><font class="">&nbsp;</font></td>
+                      <td colspan="3"><asp:Button ID="Button_save_oscalert_settings_2" runat="server" Text="Save OSCALERT settings" ValidationGroup="oscalert_settings" onclick="Button_save_oscalert_settings_Click" UseSubmitBehavior="False"/></td>
+                      <td nowrap="nowrap" style="border-right: thin solid Gainsboro">&nbsp;</td>
+                    </tr>
+                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-bottom: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                  </table>
+                </asp:Panel>
+              </ContentTemplate>
+              <Triggers>
+                <asp:AsyncPostBackTrigger ControlID="Button_save_phone_num" />
+              </Triggers>
+            </asp:UpdatePanel>
           </td>
         </tr>
       </table>

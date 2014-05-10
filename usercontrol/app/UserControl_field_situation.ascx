@@ -467,6 +467,16 @@
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_num_tankers" runat="server" errormessage="Please enter a valid Num&nbsp;tankers." font-bold="True" controltovalidate="TextBox_num_tankers" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
     </td>
   </tr>
+  <tr>
+    <td><font class="">Be&nbsp;sart:</font></td>
+    <td>
+      <font class="">
+        <ASP:CheckBox id="CheckBox_be_sart" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
+      </font>
+    </td>
+    <td nowrap="nowrap">
+    </td>
+  </tr>
       </table>
     </td>
   </tr>

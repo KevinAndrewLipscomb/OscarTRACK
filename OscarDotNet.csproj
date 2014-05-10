@@ -227,6 +227,7 @@
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
+    <Content Include="usercontrol\app\UserControl_member_profile.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
     <Content Include="usercontrol\app\UserControl_my_roles_and_mappings.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_age_unit.ascx" />
@@ -850,6 +851,10 @@
     <Compile Include="protected\lineup.aspx.designer.cs">
       <DependentUpon>lineup.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\member_profile.aspx.cs">
+      <DependentUpon>member_profile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="protected\member_profile.aspx.designer.cs">
       <DependentUpon>member_profile.aspx</DependentUpon>
     </Compile>
@@ -1314,6 +1319,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_profile.ascx.cs">
+      <DependentUpon>UserControl_member_profile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_profile.ascx.designer.cs">
+      <DependentUpon>UserControl_member_profile.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_schedule_detail.ascx.cs">
       <DependentUpon>UserControl_member_schedule_detail.ascx</DependentUpon>

@@ -13,148 +13,40 @@ namespace UserControl_member_profile {
     public partial class TWebUserControl_member_profile {
         
         /// <summary>
-        /// TableRow_member_id control.
+        /// ValidationSummary_password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_member_id;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_password;
         
         /// <summary>
-        /// TextBox_member_id control.
+        /// ValidationSummary_email_address control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_member_id;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_email_address;
         
         /// <summary>
-        /// Button_lookup control.
+        /// ValidationSummary_phone_number control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_lookup;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_phone_number;
         
         /// <summary>
-        /// Label_lookup_arrow control.
+        /// ValidationSummary_oscalert_settings control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_lookup_arrow;
-        
-        /// <summary>
-        /// Label_lookup_hint control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_lookup_hint;
-        
-        /// <summary>
-        /// LinkButton_reset control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_reset;
-        
-        /// <summary>
-        /// LinkButton_new_record control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_new_record;
-        
-        /// <summary>
-        /// Panel_match_numbers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel_match_numbers;
-        
-        /// <summary>
-        /// Literal_match_index control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_match_index;
-        
-        /// <summary>
-        /// Literal_num_matches control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_num_matches;
-        
-        /// <summary>
-        /// LinkButton_go_to_match_first control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_go_to_match_first;
-        
-        /// <summary>
-        /// LinkButton_go_to_match_prior control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_go_to_match_prior;
-        
-        /// <summary>
-        /// LinkButton_go_to_match_next control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_go_to_match_next;
-        
-        /// <summary>
-        /// LinkButton_go_to_match_last control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_go_to_match_last;
-        
-        /// <summary>
-        /// DropDownList_member_id control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_member_id;
-        
-        /// <summary>
-        /// RequiredFieldValidator_member_id control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_member_id;
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_oscalert_settings;
         
         /// <summary>
         /// TextBox_nominal_password control.
@@ -328,6 +220,15 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.Button Button_save_phone_num;
         
         /// <summary>
+        /// UpdatePanel_oscalert_settings control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_oscalert_settings;
+        
+        /// <summary>
         /// Panel_oscalert_settings control.
         /// </summary>
         /// <remarks>
@@ -346,6 +247,15 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_phone_service;
         
         /// <summary>
+        /// RequiredFieldValidator_phone_service control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_phone_service;
+        
+        /// <summary>
         /// Button_save_oscalert_settings control.
         /// </summary>
         /// <remarks>
@@ -355,139 +265,139 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.Button Button_save_oscalert_settings;
         
         /// <summary>
-        /// RadioButton_mci_huge control.
+        /// RadioButton_MciHuge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_mci_huge;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MciHuge;
         
         /// <summary>
-        /// RadioButton_mci_large control.
+        /// RadioButton_MciLarge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_mci_large;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MciLarge;
         
         /// <summary>
-        /// RadioButton_mci_medium control.
+        /// RadioButton_MciMedium control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_mci_medium;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MciMedium;
         
         /// <summary>
-        /// RadioButton_mci_small control.
+        /// RadioButton_MciSmall control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_mci_small;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MciSmall;
         
         /// <summary>
-        /// RadioButton_ems_surge control.
+        /// RadioButton_MultiAlarmFire control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_ems_surge;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MultiAlarmFire;
         
         /// <summary>
-        /// RadioButton_multi_alarm_fire control.
+        /// RadioButton_MajorFireIncident control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_multi_alarm_fire;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MajorFireIncident;
         
         /// <summary>
-        /// RadioButton_major_fire_incident control.
+        /// RadioButton_TwoAlarmFire control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_major_fire_incident;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_TwoAlarmFire;
         
         /// <summary>
-        /// RadioButton_two_alarm_fire control.
+        /// RadioButton_FireSurge control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_two_alarm_fire;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_FireSurge;
         
         /// <summary>
-        /// RadioButton_fire_surge control.
+        /// RadioButton_MultAmbHolds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_fire_surge;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MultAmbHolds;
         
         /// <summary>
-        /// RadioButton_cardiac_arrest_amb_needed control.
+        /// RadioButton_CardiacArrestAmbNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_cardiac_arrest_amb_needed;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_CardiacArrestAmbNeeded;
         
         /// <summary>
-        /// RadioButton_amb_needed control.
+        /// RadioButton_AmbNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_amb_needed;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_AmbNeeded;
         
         /// <summary>
-        /// RadioButton_no_gen control.
+        /// RadioButton_no_general control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_no_gen;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_no_general;
         
         /// <summary>
-        /// RadioButton_als_surge control.
+        /// RadioButton_MultAlsHolds control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_als_surge;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MultAlsHolds;
         
         /// <summary>
-        /// RadioButton_cardiac_arrest_als_needed control.
+        /// RadioButton_CardiacArrestAlsNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_cardiac_arrest_als_needed;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_CardiacArrestAlsNeeded;
         
         /// <summary>
-        /// RadioButton_als_needed control.
+        /// RadioButton_AlsNeeded control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_als_needed;
+        protected global::System.Web.UI.WebControls.RadioButton RadioButton_AlsNeeded;
         
         /// <summary>
         /// RadioButton_no_als control.
@@ -524,6 +434,15 @@ namespace UserControl_member_profile {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_mrt_call;
+        
+        /// <summary>
+        /// CheckBox_sar_call control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_sar_call;
         
         /// <summary>
         /// Button_save_oscalert_settings_2 control.

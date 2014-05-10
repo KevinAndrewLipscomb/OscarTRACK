@@ -209,6 +209,7 @@ namespace UserControl_field_situation
       bool be_stech;
       string num_sups;
       string num_tankers;
+      bool be_sart;
       result = false;
       if
         (
@@ -251,7 +252,8 @@ namespace UserControl_field_situation
           out num_safes,
           out be_stech,
           out num_sups,
-          out num_tankers
+          out num_tankers,
+          out be_sart
           )
         )
         {
@@ -294,6 +296,7 @@ namespace UserControl_field_situation
         CheckBox_be_stech.Checked = be_stech;
         TextBox_num_sups.Text = num_sups;
         TextBox_num_tankers.Text = num_tankers;
+        CheckBox_be_sart.Checked = be_sart;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
@@ -438,7 +441,8 @@ namespace UserControl_field_situation
         //  k.Safe(TextBox_num_safes.Text,k.safe_hint_type.NUM).Trim(),
         //  CheckBox_be_stech.Checked,
         //  k.Safe(TextBox_num_sups.Text,k.safe_hint_type.NUM).Trim(),
-        //  k.Safe(TextBox_num_tankers.Text,k.safe_hint_type.NUM).Trim()
+        //  k.Safe(TextBox_num_tankers.Text,k.safe_hint_type.NUM).Trim(),
+        //  CheckBox_be_sart.Checked
         //  );
         //Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         //SetLookupMode();
@@ -539,6 +543,7 @@ namespace UserControl_field_situation
       CheckBox_be_stech.Enabled = ablement;
       TextBox_num_sups.Enabled = ablement;
       TextBox_num_tankers.Enabled = ablement;
+      CheckBox_be_sart.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
