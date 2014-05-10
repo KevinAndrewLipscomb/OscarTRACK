@@ -1,13 +1,15 @@
 using Class_biz_agencies;
+using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_notifications;
 using Class_db_enrollment;
+using Class_db_members;
 using kix;
 using System;
 using System.Collections;
 
 namespace Class_biz_enrollment
-{
+  {
 
   public enum filter_type
     {
@@ -48,17 +50,19 @@ namespace Class_biz_enrollment
   public class TClass_biz_enrollment
     {
 
-        private TClass_db_enrollment db_enrollment = null;
         private TClass_biz_agencies biz_agencies = null;
+        private TClass_biz_medical_release_levels biz_medical_release_levels = null;
         private TClass_biz_notifications biz_notifications = null;
+        private TClass_db_enrollment db_enrollment = null;
+        private TClass_db_members db_members = null;
 
-        //Constructor  Create()
         public TClass_biz_enrollment() : base()
         {
-            // TODO: Add any constructor code here
-            db_enrollment = new TClass_db_enrollment();
             biz_agencies = new TClass_biz_agencies();
+            biz_medical_release_levels = new TClass_biz_medical_release_levels();
             biz_notifications = new TClass_biz_notifications();
+            db_enrollment = new TClass_db_enrollment();
+            db_members = new TClass_db_members();
         }
 
         public bool BeLeaf(filter_type filter)
@@ -181,51 +185,54 @@ namespace Class_biz_enrollment
         }
       }
 
-        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
-          {
-          return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
-          }
-        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
+    public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
+      {
+      var set_level = false;
+      var first_name = db_members.FirstNameOfMemberId(member_id);
+      var last_name = db_members.LastNameOfMemberId(member_id);
+      var cad_num = db_members.CadNumOfMemberId(member_id);
+      var old_agency_short_designator = db_members.AgencyOf(summary);
+      if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary, target_agency_id))
         {
-            bool result;
-            TClass_biz_members biz_members;
-            result = false;
-            biz_members = new TClass_biz_members();
-            var first_name = biz_members.FirstNameOfMemberId(member_id);
-            var last_name = biz_members.LastNameOfMemberId(member_id);
-            var cad_num = biz_members.CadNumOfMemberId(member_id);
-            var old_agency_short_designator = biz_members.AgencyOf(summary);
-            if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary, target_agency_id))
+        set_level = true;
+        var be_past = BePastDescription(db_members.EnrollmentOf(summary));
+        db_members.SetOscalertThresholds
+          (
+          oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
+          oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(db_members.MedicalReleaseLevelOf(summary),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
+          summary:summary
+          );
+        if (target_agency_id != k.EMPTY)
+          {
+          var old_agency_medium_designator = biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator));
+          var new_agency_medium_designator = biz_agencies.MediumDesignatorOf(target_agency_id);
+          if (new_agency_medium_designator != old_agency_medium_designator)
             {
-                result = true;
-                if (target_agency_id != k.EMPTY)
-                  {
-                  var old_agency_medium_designator = biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator));
-                  var new_agency_medium_designator = biz_agencies.MediumDesignatorOf(target_agency_id);
-                  if (new_agency_medium_designator != old_agency_medium_designator)
-                    {
-                    biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,old_agency_medium_designator,new_agency_medium_designator);
-                    }
-                  }
-                var new_level_description = db_enrollment.DescriptionOf(new_level_code);
-                if (new_level_description == "Deceased")
-                  {
-                  biz_notifications.IssueForDeath(member_id, first_name, last_name, cad_num, effective_date.ToString("yyyy-MM-dd"), note);
-                  }
-                else
-                  {
-                  biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
-                  }
-                //
-                if ((new ArrayList() {"Transferring","Unknown","Resigned","Retired"}).Contains(new_level_description))
-                  {
-                  biz_notifications.IssueForElectiveDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
-                  }
+            biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,old_agency_medium_designator,new_agency_medium_designator);
             }
-
-            return result;
+          }
+        var new_level_description = db_enrollment.DescriptionOf(new_level_code);
+        if (new_level_description == "Deceased")
+          {
+          biz_notifications.IssueForDeath(member_id, first_name, last_name, cad_num, effective_date.ToString("yyyy-MM-dd"), note);
+          }
+        else
+          {
+          biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+          }
+        //
+        if ((new ArrayList() {"Transferring","Unknown","Resigned","Retired"}).Contains(new_level_description))
+          {
+          biz_notifications.IssueForElectiveDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+          }
         }
+      return set_level;
+      }
+    public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
+      {
+      return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
+      }
 
     } // end TClass_biz_enrollment
 
-}
+  }

@@ -193,6 +193,15 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.TextBox TextBox_phone_num;
         
         /// <summary>
+        /// RequiredFieldValidator_phone_num control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_phone_num;
+        
+        /// <summary>
         /// CustomValidator_phone_num control.
         /// </summary>
         /// <remarks>

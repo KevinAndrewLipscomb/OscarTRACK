@@ -803,7 +803,13 @@ namespace Class_biz_members
             biz_notifications.IssueForSectionChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), section_num);
         }
 
-        public bool SetMedicalReleaseCode(string old_level, string new_code, object summary, bool be_force_to_regular_required, DateTime effective_date)
+        public bool SetMedicalReleaseCode
+          (
+          string new_code,
+          object summary,
+          bool be_force_to_regular_required,
+          DateTime effective_date
+          )
           {
           var ok_so_far = true;
           if (be_force_to_regular_required)
@@ -813,19 +819,26 @@ namespace Class_biz_members
           if (ok_so_far)
             {
             db_members.SetMedicalReleaseCode(new_code, summary);
+            var be_past = BePast(summary);
+            db_members.SetOscalertThresholds
+              (
+              oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
+              oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(biz_medical_release_levels.DescriptionOf(new_code),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
+              summary:summary
+              );
             biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
             }
           return ok_so_far;
           }
 
-        public void SetPhoneNum(string phone_num, object summary)
+        public void SetPhoneNumAndClearCellularProvider(string phone_num, object summary)
         {
             string member_id;
             if (phone_num.Length == 7)
             {
                 phone_num = "757" + phone_num;
             }
-            db_members.SetPhoneNum(phone_num, summary);
+            db_members.SetPhoneNumAndClearCellularProvider(phone_num, summary);
             member_id = IdOf(summary);
             biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
         }

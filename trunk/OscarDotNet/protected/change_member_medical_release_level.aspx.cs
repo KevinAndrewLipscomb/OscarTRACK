@@ -114,7 +114,6 @@ namespace change_member_medical_release_level
               if(
                 p.biz_members.SetMedicalReleaseCode
                   (
-                  p.saved_level,
                   k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
                   Session["member_summary"],
                   Panel_effective_date.Visible,

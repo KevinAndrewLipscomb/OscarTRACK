@@ -219,14 +219,18 @@ namespace UserControl_member_profile
       if (Page.IsValid)
         {
         var phone_num = k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM);
-        p.biz_members.SetPhoneNum(phone_num,p.summary);
+        p.biz_members.SetPhoneNumAndClearCellularProvider(phone_num,p.summary);
+        DropDownList_phone_service.SelectedValue = k.EMPTY;
         Panel_oscalert_settings.Enabled = (phone_num.Length > 0);
         Alert
           (
           cause:k.alert_cause_type.USER,
           state:k.alert_state_type.SUCCESS,
           key:"phnumsaved",
-          value:"Phone number saved.",
+          value:k.EMPTY
+          + "Phone number saved." + k.NEW_LINE
+          + k.NEW_LINE
+          + "*NOTE* that this action also *cleared* your Cellular Provider setting, thus preventing you from receiving any OSCALERTs via cellphone.  To re-enable your OSCALERTs, set and save your Cellular Provider below.",
           be_using_scriptmanager:true
           );
         }

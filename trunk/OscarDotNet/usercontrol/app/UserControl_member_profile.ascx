@@ -81,6 +81,7 @@
     <td align="right" style="border-left: thin solid Gainsboro" nowrap="nowrap"><font class="">Phone number (cellular preferred):</font></td>
     <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="phone_number"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="phone_number" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
       <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="phone_number" Display="Dynamic">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
