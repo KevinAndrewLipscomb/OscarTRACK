@@ -51,6 +51,7 @@ namespace Class_db_field_situations
       internal bool be_ftby;
       internal bool be_mirt;
       internal bool be_stech;
+      internal bool be_sart;
       }
 
     private class field_situation_summary
@@ -68,7 +69,7 @@ namespace Class_db_field_situations
     internal bool BeMetaSurgeAls()
       {
       Open();
-      var be_meta_surge_als = "1" == new MySqlCommand("select IF(sum(num_hzcs) > 1, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      var be_meta_surge_als = "1" == new MySqlCommand("select IF(sum(num_hzcs) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
       Close();
       return be_meta_surge_als;
       }
@@ -76,7 +77,7 @@ namespace Class_db_field_situations
     internal bool BeMetaSurgeEms()
       {
       Open();
-      var be_meta_surge_ems = "1" == new MySqlCommand("select IF(sum(num_holds) > 1, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      var be_meta_surge_ems = "1" == new MySqlCommand("select IF(sum(num_holds) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
       Close();
       return be_meta_surge_ems;
       }
@@ -87,8 +88,8 @@ namespace Class_db_field_situations
       var be_meta_surge_fire = "1" == new MySqlCommand
         (
         "select"
-        + " IF((sum(num_engines) + sum(num_ladders) + sum(num_frsqs) > 7)"
-        +     " or (sum(field_situation_impression.description = 'WorkingFire') > 1)"
+        + " IF((sum(num_engines) + sum(num_ladders) + sum(num_frsqs) >= 8)"
+        +     " or (sum(field_situation_impression.description = 'WorkingFire') >= 2)"
         +   " , 1, 0)"
         + " from field_situation"
         +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"
@@ -232,17 +233,18 @@ namespace Class_db_field_situations
         + " , sum(call_sign = 'PIO') as be_pio"
         + " , sum(call_sign = 'PU') as be_pu"
         + " , sum(call_sign REGEXP '^R[[:digit:]]') as be_rescue_area"
-        + " , sum(call_sign = 'SQTM') as be_sqtm"
+        + " , sum(call_sign in ('SQTM','TECH')) as be_sqtm"
         + " , sum(call_sign = 'FTBY') as be_ftby"
         + " , sum(call_sign = 'MIRT') as be_mirt"
         + " , sum(call_sign = 'STECH') as be_stech"
+        + " , sum(call_sign = 'SART') as be_sart"
         + " from"
         +   " ("
         +   " select incident_date"
         +   " , incident_num"
         +   " , incident_address"
         +   " , call_sign"
-        +   " , IF(call_sign in ('EMTALS','ETBY','FTBY','MIRT','MRT','SQTM'),0," // especially informative indicators
+        +   " , IF(call_sign in ('EMTALS','ETBY','FTBY','MIRT','MRT','SQTM','SART','TECH'),0," // especially informative indicators
         +        " IF(call_sign REGEXP '^R[[:digit:]]',10," // rescue area
         +           " IF(call_sign REGEXP '^TAC[[:digit:]]',20," // tactical channel
         +              " IF(call_sign REGEXP '^E[[:digit:]]',30," // engine
@@ -339,7 +341,8 @@ namespace Class_db_field_situations
             be_sqtm = (dr["be_sqtm"].ToString() == "1"),
             be_ftby = (dr["be_ftby"].ToString() == "1"),
             be_mirt = (dr["be_mirt"].ToString() == "1"),
-            be_stech = (dr["be_stech"].ToString() == "1")
+            be_stech = (dr["be_stech"].ToString() == "1"),
+            be_sart = (dr["be_sart"].ToString() == "1")
             }
           );
         }
@@ -387,7 +390,8 @@ namespace Class_db_field_situations
       out string num_safes,
       out bool be_stech,
       out string num_sups,
-      out string num_tankers
+      out string num_tankers,
+      out bool be_sart
       )
       {
       case_num = k.EMPTY;
@@ -427,6 +431,7 @@ namespace Class_db_field_situations
       be_stech = false;
       num_sups = k.EMPTY;
       num_tankers = k.EMPTY;
+      be_sart = false;
       var result = false;
       //
       Open();
@@ -470,6 +475,7 @@ namespace Class_db_field_situations
         be_stech = (dr["be_stech"].ToString() == "1");
         num_sups = dr["num_sups"].ToString();
         num_tankers = dr["num_tankers"].ToString();
+        be_sart = (dr["be_sart"].ToString() == "1");
         result = true;
         }
       dr.Close();
@@ -532,7 +538,8 @@ namespace Class_db_field_situations
       int num_safes,
       bool be_stech,
       int num_sups,
-      int num_tankers
+      int num_tankers,
+      bool be_sart
       )
       {
       var childless_field_assignments_clause = k.EMPTY
@@ -574,6 +581,7 @@ namespace Class_db_field_situations
       + " , be_stech = " + be_stech.ToString()
       + " , num_sups = NULLIF('" + num_sups.ToString() + "','')"
       + " , num_tankers = NULLIF('" + num_tankers.ToString() + "','')"
+      + " , be_sart = " + be_sart.ToString()
       + k.EMPTY;
       //
       var target_table_name = "field_situation";

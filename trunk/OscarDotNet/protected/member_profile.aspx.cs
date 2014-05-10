@@ -20,7 +20,7 @@ namespace member_profile
 
     private struct p_type
       {
-      public TClass_msg_protected.member_profile incoming;
+      //public TClass_msg_protected.member_profile incoming;
       }
 
     private p_type p;
@@ -53,12 +53,12 @@ namespace member_profile
         //
         // Initialize p.~ objects here.
         //
-        p.incoming = Message<TClass_msg_protected.member_profile>
-          (
-          folder_name:"protected",
-          aspx_name:"member_profile"
-          );
-        UserControl_member_profile_control.Set(deployment_summary:p.incoming.summary);
+        //p.incoming = Message<TClass_msg_protected.member_profile>
+        //  (
+        //  folder_name:"protected",
+        //  aspx_name:"member_profile"
+        //  );
+        //UserControl_member_profile_control.Set(deployment_summary:p.incoming.summary);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

@@ -58,6 +58,10 @@ namespace Class_biz_field_situations
           {
           impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("MrtCall");
           }
+        if (digest.be_sart)
+          {
+          impression_pecking_order.val = db_field_situation_impressions.PeckingOrderValOfDescription("SarCall");
+          }
         //if ()
         //  {
         //  impression_pecking_order.val = db_field_situation_impressions.GetPeckingOrderOfDescription("AirportAlert");
@@ -280,14 +284,15 @@ namespace Class_biz_field_situations
           num_safes:digest.num_safes,
           be_stech:digest.be_stech,
           num_sups:digest.num_sups,
-          num_tankers:digest.num_tankers
+          num_tankers:digest.num_tankers,
+          be_sart:digest.be_sart
           );
         //
         if (be_escalation) // && !new ArrayList() {"AirportAlert""AlsNeeded","AmbNeeded","WorkingFire"}.Contains(impression_description))
           {
           be_any_case_escalated = true;
           //
-          if (new ArrayList() {"AlsEms","MrtCall","AlsNeeded","CardiacArrestAlsNeeded","Trap"}.Contains(impression_description))
+          if (new ArrayList() {"AlsEms","MrtCall","SarCall","AlsNeeded","CardiacArrestAlsNeeded","Trap"}.Contains(impression_description))
             {
             impression_elaboration = impression_elaboration
               .Replace("<address/>",digest.address)
@@ -317,7 +322,7 @@ namespace Class_biz_field_situations
             (
             from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
-            subject:"EmsSurge",
+            subject:"MultAmbHolds",
             message_string:"OSCALERT: Multiple calls holding for ambulances. Volunteers to your stations."
             );
           saved_meta_surge_alert_timestamp_ems = DateTime.Now;
@@ -328,7 +333,7 @@ namespace Class_biz_field_situations
             (
             from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:BETA_RECIPIENTS,
-            subject:"AlsSurge",
+            subject:"MultAlsHolds",
             message_string:"OSCALERT: Multiple calls holding for ALS. ALS to your stations."
             );
           saved_meta_surge_alert_timestamp_als = DateTime.Now;
@@ -386,7 +391,8 @@ namespace Class_biz_field_situations
       out string num_safes,
       out bool be_stech,
       out string num_sups,
-      out string num_tankers
+      out string num_tankers,
+      out bool be_sart
       )
       {
       return db_field_situations.Get
@@ -428,7 +434,8 @@ namespace Class_biz_field_situations
         out num_safes,
         out be_stech,
         out num_sups,
-        out num_tankers
+        out num_tankers,
+        out be_sart
         );
       }
 
@@ -471,7 +478,8 @@ namespace Class_biz_field_situations
       int num_safes,
       bool be_stech,
       int num_sups,
-      int num_tankers
+      int num_tankers,
+      bool be_sart
       )
       {
       db_field_situations.Set
@@ -513,7 +521,8 @@ namespace Class_biz_field_situations
         num_safes,
         be_stech,
         num_sups,
-        num_tankers
+        num_tankers,
+        be_sart
         );
       }
 

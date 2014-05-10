@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_sms_gateways
   {
@@ -109,6 +106,14 @@ namespace Class_db_sms_gateways
     public void BindDirectToListControl(object target)
       {
       BindDirectToListControl(target,unselected_literal:"-- sms_gateway --");
+      }
+
+    internal string CarrierNameOfId(string id)
+      {
+      Open();
+      var carrier_name_of_id_obj = new MySqlCommand("select carrier_name from sms_gateway where id = '" + id + "'",connection).ExecuteScalar();
+      Close();
+      return (carrier_name_of_id_obj == null ? k.EMPTY : carrier_name_of_id_obj.ToString());
       }
 
     public bool Delete(string id)

@@ -1,4 +1,5 @@
 using Class_biz_notifications;
+using Class_biz_sms_gateways;
 using Class_db;
 using Class_db_agencies;
 using Class_db_medical_release_levels;
@@ -11,8 +12,10 @@ using System.Web.UI.WebControls;
 
 namespace Class_db_members
 {
+
     public static class Class_db_members_Static
     {
+
         public const int TCCI_DRILLDOWN_LINKBUTTON = 0;
         public const int TCCI_ID = 1;
         public const int TCCI_LAST_NAME = 2;
@@ -115,15 +118,15 @@ namespace Class_db_members
     {
 
         private TClass_biz_notifications biz_notifications = null;
+        private TClass_biz_sms_gateways biz_sms_gateways = null;
         private TClass_db_agencies db_agencies = null;
         private TClass_db_medical_release_levels db_medical_release_levels = null;
         private TClass_db_trail db_trail = null;
 
-        //Constructor  Create()
         public TClass_db_members() : base()
         {
-            // TODO: Add any constructor code here
             biz_notifications = new TClass_biz_notifications();
+            biz_sms_gateways = new TClass_biz_sms_gateways();
             db_agencies = new TClass_db_agencies();
             db_medical_release_levels = new TClass_db_medical_release_levels();
             db_trail = new TClass_db_trail();
@@ -1672,6 +1675,11 @@ namespace Class_db_members
             return result;
         }
 
+        internal string PhoneNumOfSummary(object summary)
+          {
+          return (summary as member_summary).phone_num;
+          }
+
         public string OverallFleetTrackingParticipation()
           {
           var result = k.EMPTY;
@@ -1830,10 +1838,45 @@ namespace Class_db_members
         public void SetPhoneNum(string phone_num, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = " + phone_num + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
+            new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "' WHERE id = '" + (summary as member_summary).id) + "'", this.connection).ExecuteNonQuery();
             this.Close();
             (summary as member_summary).phone_num = k.FormatAsNanpPhoneNum(phone_num);
         }
+
+    internal void SetOscalertSettings
+      (
+      string phone_service_id,
+      string oscalert_threshold_general,
+      string oscalert_threshold_als,
+      bool do_oscalert_for_trap,
+      bool do_oscalert_for_airport_alert,
+      bool do_oscalert_for_mrt,
+      bool do_oscalert_for_sart,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "update member"
+          + " set phone_service_id = '" + phone_service_id + "'"
+          +   " , min_oscalert_peck_order_general = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "'),65535)"
+          +   " , min_oscalert_peck_order_als = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "'),65535)"
+          +   " , do_oscalert_for_trap = " + do_oscalert_for_trap.ToString()
+          +   " , do_oscalert_for_airport_alert = " + do_oscalert_for_airport_alert.ToString()
+          +   " , do_oscalert_for_mrt = " + do_oscalert_for_mrt.ToString()
+          +   " , do_oscalert_for_sart = " + do_oscalert_for_sart.ToString()
+          + " where id = '" + (summary as member_summary).id + "'"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      (summary as member_summary).phone_service_id = phone_service_id;
+      (summary as member_summary).phone_service = biz_sms_gateways.CarrierNameOfId(id:phone_service_id);
+      }
 
         public void SetProfile(string id, string name)
         {

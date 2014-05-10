@@ -15,8 +15,10 @@ using System.Configuration;
 
 namespace Class_biz_members
 {
+
     public class TClass_biz_members
     {
+
         private TClass_biz_agencies biz_agencies = null;
         private TClass_biz_enrollment biz_enrollment = null;
         private TClass_biz_medical_release_levels biz_medical_release_levels = null;
@@ -28,7 +30,6 @@ namespace Class_biz_members
         private TClass_db_members db_members = null;
         private TClass_db_users db_users = null;
 
-        //Constructor  Create()
         public TClass_biz_members() : base()
         {
             // TODO: Add any constructor code here
@@ -614,6 +615,11 @@ namespace Class_biz_members
             return result;
         }
 
+    internal string PhoneNumOfSummary(object summary)
+      {
+      return db_members.PhoneNumOfSummary(summary);
+      }
+
     public string PhoneServiceIdOf(object summary)
       {
       return db_members.PhoneServiceIdOf(summary);
@@ -769,6 +775,21 @@ namespace Class_biz_members
             member_id = IdOf(summary);
             biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
         }
+
+    internal void SetOscalertSettings
+      (
+      string phone_service_id,
+      string oscalert_threshold_general,
+      string oscalert_threshold_als,
+      bool do_oscalert_for_trap,
+      bool do_oscalert_for_airport_alert,
+      bool do_oscalert_for_mrt,
+      bool do_oscalert_for_sart,
+      object summary
+      )
+      {
+      db_members.SetOscalertSettings(phone_service_id,oscalert_threshold_general,oscalert_threshold_als,do_oscalert_for_trap,do_oscalert_for_airport_alert,do_oscalert_for_mrt,do_oscalert_for_sart,summary);
+      }
 
         public void SetProfile(string id, string name)
         {
