@@ -468,6 +468,29 @@ namespace Class_biz_members
             return result;
         }
 
+    internal void GetOscalertThresholdsAndSubscriptions
+      (
+      object summary,
+      out string oscalert_threshold_general,
+      out string oscalert_threshold_als,
+      out bool do_oscalert_for_trap,
+      out bool do_oscalert_for_airport_alert,
+      out bool do_oscalert_for_mrt,
+      out bool do_oscalert_for_sart
+      )
+      {
+      db_members.GetOscalertThresholdsAndSubscriptions
+        (
+        summary,
+        out oscalert_threshold_general,
+        out oscalert_threshold_als,
+        out do_oscalert_for_trap,
+        out do_oscalert_for_airport_alert,
+        out do_oscalert_for_mrt,
+        out do_oscalert_for_sart
+        );
+      }
+
         public void GetProfile(string id, out string name, out bool be_valid_profile)
         {
             db_members.GetProfile(id, out name, out be_valid_profile);

@@ -1441,6 +1441,52 @@ namespace Class_db_members
             return result;
         }
 
+    internal void GetOscalertThresholdsAndSubscriptions
+      (
+      object summary,
+      out string oscalert_threshold_general,
+      out string oscalert_threshold_als,
+      out bool do_oscalert_for_trap,
+      out bool do_oscalert_for_airport_alert,
+      out bool do_oscalert_for_mrt,
+      out bool do_oscalert_for_sart
+      )
+      {
+      oscalert_threshold_general = k.EMPTY;
+      oscalert_threshold_als = k.EMPTY;
+      do_oscalert_for_trap = false;
+      do_oscalert_for_airport_alert = false;
+      do_oscalert_for_mrt = false;
+      do_oscalert_for_sart = false;
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select IFNULL(general.description,'') as oscalert_threshold_general"
+        + " , IFNULL(als.description,'') as oscalert_threshold_als"
+        + " , do_oscalert_for_trap"
+        + " , do_oscalert_for_airport_alert"
+        + " , do_oscalert_for_mrt"
+        + " , do_oscalert_for_sart"
+        + " from member"
+        +   " left join field_situation_impression general on (general.pecking_order=member.min_oscalert_peck_order_general)"
+        +   " left join field_situation_impression als on (als.pecking_order=member.min_oscalert_peck_order_als)"
+        + " where member.id = '" + (summary as member_summary).id + "'",
+        connection
+        )
+        .ExecuteReader();
+      if (dr.Read())
+        {
+        oscalert_threshold_general = dr["oscalert_threshold_general"].ToString();
+        oscalert_threshold_als = dr["oscalert_threshold_als"].ToString();
+        do_oscalert_for_trap = (dr["do_oscalert_for_trap"].ToString() == "1");
+        do_oscalert_for_airport_alert = (dr["do_oscalert_for_airport_alert"].ToString() == "1");
+        do_oscalert_for_mrt = (dr["do_oscalert_for_mrt"].ToString() == "1");
+        do_oscalert_for_sart = (dr["do_oscalert_for_sart"].ToString() == "1");
+        }
+      dr.Close();
+      Close();
+      }
+
         public void GetProfile(string id, out string name, out bool be_valid_profile)
         {
             MySqlDataReader dr;

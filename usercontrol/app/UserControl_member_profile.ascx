@@ -162,7 +162,7 @@
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to multiple working fires</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_MultAmbHolds" runat="server" GroupName="GeneralThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_MultAmbHolds" runat="server" GroupName="GeneralThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>MultAmbHolds</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When multiple calls are holding for ambulances</small></td>
                     </tr>
@@ -183,7 +183,7 @@
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                     <tr>
                       <td nowrap="nowrap" rowspan="4" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">ALS alerting threshold:</font></td>
-                      <td align="right" valign="middle" bgcolor="#8088FF" nowrap="nowrap"><asp:RadioButton ID="RadioButton_MultAlsHolds" runat="server" GroupName="AlsThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;ALS&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" valign="middle" bgcolor="#8088FF" nowrap="nowrap"><asp:RadioButton ID="RadioButton_MultAlsHolds" runat="server" GroupName="AlsThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;ALS&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>MultAlsHolds</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small>When multiple calls are holding for ALS</small></td>
                       <td nowrap="nowrap" rowspan="4" style="border-right: thin solid Gainsboro" valign="top">&nbsp;</td>
@@ -199,7 +199,7 @@
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When any call is holding for ALS</small></td>
                     </tr>
                     <tr>
-                      <td align="right" valign="middle" bgcolor="#000000" nowrap="nowrap"><asp:RadioButton ID="RadioButton_no_als" runat="server" GroupName="AlsThreshold" TextAlign="Left" Checked="true" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;BLS&lt;/small&gt;&lt;/small&gt;" ForeColor="White" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" valign="middle" bgcolor="#000000" nowrap="nowrap"><asp:RadioButton ID="RadioButton_no_als" runat="server" GroupName="AlsThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;BLS&lt;/small&gt;&lt;/small&gt;" ForeColor="White" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle" colspan="2" bgcolor="Silver"><i>-- None - Not interested in ALS-related alerts --</i></td>
                     </tr>
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
