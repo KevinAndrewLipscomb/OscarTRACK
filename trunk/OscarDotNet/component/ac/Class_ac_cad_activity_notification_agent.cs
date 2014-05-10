@@ -118,10 +118,13 @@ namespace Class_ac_cad_activity_notification_agent
         }
       else
         {
-        k.EscalatedException(new Exception("TClass_ac_cad_activity_notification_agent.ajax_container_PropertyChange reached datetime_to_quit"));
         master_browser_thread.Abort();
         }
 
+        }
+      catch (ThreadAbortException)
+        {
+        // No need to escalate (that is, to email and SMS AppAdmin).
         }
       catch (Exception the_exception)
         {
