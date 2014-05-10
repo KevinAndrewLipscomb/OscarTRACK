@@ -63,6 +63,26 @@ namespace UserControl_member_profile
           unselected_literal:"-- Select --",
           selected_value:p.biz_members.PhoneServiceIdOf(p.summary)
           );
+        var do_oscalert_for_trap = false;
+        var do_oscalert_for_airport_alert = false;
+        var do_oscalert_for_mrt = false;
+        var do_oscalert_for_sart = false;
+        p.biz_members.GetOscalertThresholdsAndSubscriptions
+          (
+          summary:p.summary,
+          oscalert_threshold_general:out p.oscalert_threshold_general,
+          oscalert_threshold_als:out p.oscalert_threshold_als,
+          do_oscalert_for_trap:out do_oscalert_for_trap,
+          do_oscalert_for_airport_alert:out do_oscalert_for_airport_alert,
+          do_oscalert_for_mrt:out do_oscalert_for_mrt,
+          do_oscalert_for_sart:out do_oscalert_for_sart
+          );
+        (FindControl(id:"RadioButton_" + (p.oscalert_threshold_general.Length > 0 ? p.oscalert_threshold_general : "no_general")) as RadioButton).Checked = true;
+        (FindControl(id:"RadioButton_" + (p.oscalert_threshold_als.Length > 0 ? p.oscalert_threshold_als : "no_als")) as RadioButton).Checked = true;
+        CheckBox_trap.Checked = do_oscalert_for_trap;
+        CheckBox_airport_alert.Checked = do_oscalert_for_airport_alert;
+        CheckBox_mrt_call.Checked = do_oscalert_for_mrt;
+        CheckBox_sar_call.Checked = do_oscalert_for_sart;
         //
         p.be_loaded = true;
         }
@@ -104,6 +124,8 @@ namespace UserControl_member_profile
         p.biz_users = new TClass_biz_users();
         p.biz_user = new TClass_biz_user();
         //
+        p.oscalert_threshold_als = k.EMPTY;
+        p.oscalert_threshold_general = k.EMPTY;
         p.summary = p.biz_members.Summary(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         }
       }
@@ -158,7 +180,8 @@ namespace UserControl_member_profile
           cause:k.alert_cause_type.USER,
           state:k.alert_state_type.SUCCESS,
           key:"pwdsaved",
-          value:"Password saved."
+          value:"Password saved.",
+          be_using_scriptmanager:true
           );
         }
       else
@@ -177,7 +200,8 @@ namespace UserControl_member_profile
           cause:k.alert_cause_type.USER,
           state:k.alert_state_type.SUCCESS,
           key:"emladrsaved",
-          value:"Email address saved."
+          value:"Email address saved.",
+          be_using_scriptmanager:true
           );
         }
       else
@@ -198,7 +222,8 @@ namespace UserControl_member_profile
           cause:k.alert_cause_type.USER,
           state:k.alert_state_type.SUCCESS,
           key:"phnumsaved",
-          value:"Phone number saved."
+          value:"Phone number saved.",
+          be_using_scriptmanager:true
           );
         }
       else
@@ -227,7 +252,8 @@ namespace UserControl_member_profile
           cause:k.alert_cause_type.USER,
           state:k.alert_state_type.SUCCESS,
           key:"oscalertstngssaved",
-          value:"OSCALERT settings saved."
+          value:"OSCALERT settings saved.",
+          be_using_scriptmanager:true
           );
         }
       else
