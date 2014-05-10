@@ -1152,6 +1152,7 @@ namespace Class_biz_notifications
           string enrollment_date,
           string enrollment_level,
           string phone_num,
+          string phone_service,
           string section_num
           )
           {
@@ -1180,6 +1181,7 @@ namespace Class_biz_notifications
                 .Replace("<enrollment_date/>", enrollment_date)
                 .Replace("<enrollment_level/>", enrollment_level)
                 .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num))
+                .Replace("<phone_service/>", phone_service)
                 .Replace("<section_num/>", section_num)
                 ;
               };
@@ -2191,37 +2193,55 @@ namespace Class_biz_notifications
           }
 
         private delegate string IssueMemberStatusStatement_Merge(string s);
-        public void IssueMemberStatusStatement(string email_address, string first_name, string last_name, string cad_num, string agency, string section_num, string medical_release_description, string be_driver_qualified, string enrollment, string length_of_service, string kind_of_leave, string obliged_shifts, string phone_num)
-        {
-            StreamReader template_reader;
+        public void IssueMemberStatusStatement
+          (
+          string email_address,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string agency,
+          string section_num,
+          string medical_release_description,
+          string be_driver_qualified,
+          string enrollment,
+          string length_of_service,
+          string kind_of_leave,
+          string obliged_shifts,
+          string phone_num,
+          string phone_service
+          )
+          {
+          IssueMemberStatusStatement_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<first_name/>", first_name)
+              .Replace("<last_name/>", last_name)
+              .Replace("<cad_num/>", cad_num)
+              .Replace("<agency/>", agency)
+              .Replace("<section_num/>", section_num)
+              .Replace("<medical_release_description/>", medical_release_description)
+              .Replace("<be_driver_qualified/>", be_driver_qualified)
+              .Replace("<enrollment/>", enrollment)
+              .Replace("<length_of_service/>", length_of_service)
+              .Replace("<kind_of_leave/>", kind_of_leave)
+              .Replace("<obliged_shifts/>", obliged_shifts)
+              .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num))
+              .Replace("<phone_service/>", phone_service)
+              ;
+            };
 
-            IssueMemberStatusStatement_Merge Merge = delegate (string s)
-              {
-              return s
-                .Replace("<application_name/>", application_name)
-                .Replace("<host_domain_name/>", host_domain_name)
-                .Replace("<first_name/>", first_name)
-                .Replace("<last_name/>", last_name)
-                .Replace("<cad_num/>", cad_num)
-                .Replace("<agency/>", agency)
-                .Replace("<section_num/>", section_num)
-                .Replace("<medical_release_description/>", medical_release_description)
-                .Replace("<be_driver_qualified/>", be_driver_qualified)
-                .Replace("<enrollment/>", enrollment)
-                .Replace("<length_of_service/>", length_of_service)
-                .Replace("<kind_of_leave/>", kind_of_leave)
-                .Replace("<obliged_shifts/>", obliged_shifts)
-                .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num));
-              };
-
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_status_statement.txt"));
-            // from
-            // to
-            // subject
-            // body
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], email_address, Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
-            template_reader.Close();
-        }
+          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_status_statement.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:email_address,
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd())
+            );
+          template_reader.Close();
+          }
 
         private delegate string IssueGripeSheetReview_Merge(string s);
         public void IssueGripeSheetReview

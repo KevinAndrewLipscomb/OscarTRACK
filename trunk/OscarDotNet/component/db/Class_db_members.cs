@@ -1615,35 +1615,72 @@ namespace Class_db_members
             return result;
         }
 
-        public void MakeMemberStatusStatements()
+    public void MakeMemberStatusStatements()
+      {
+      var kind_of_leave = k.EMPTY;
+      var length_of_service = k.EMPTY;
+      var any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))";
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select last_name"
+        + " , first_name"
+        + " , cad_num"
+        + " , short_designator as agency"
+        + " , section_num"
+        + " , medical_release_code_description_map.description as medical_release_description"
+        + " , if(be_driver_qualified,'Yes','No') as be_driver_qualified"
+        + " , enrollment_level.description as enrollment"
+        + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+        + " , if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,'') as kind_of_leave"
+        + " , if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts) as obliged_shifts"
+        + " , email_address"
+        + " , phone_num"
+        + " , IFNULL(carrier_name,'') as phone_service"
+        + " from member"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )"
+        +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+        +   " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )"
+        +   " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where enrollment_level.description in ('Applicant','Operational','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended')"
+        +   " and email_address is not null"
+        +   " and TRIM(email_address) <> ''"
+        + " order by RAND()",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
         {
-            string any_relevant_leave;
-            MySqlDataReader dr;
-            string kind_of_leave;
-            string length_of_service;
-            any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))";
-            this.Open();
-            dr = new MySqlCommand("select last_name" + " , first_name" + " , cad_num" + " , short_designator as agency" + " , section_num" + " , medical_release_code_description_map.description as medical_release_description" + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" + " , enrollment_level.description as enrollment" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " , if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,\"\") as kind_of_leave" + " , if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts) as obliged_shifts" + " , email_address" + " , phone_num" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " left join leave_of_absence" + " on" + " (" + " leave_of_absence.member_id=member.id" + " and " + " (" + " (leave_of_absence.start_date is null)" + " or" + " (" + " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )" + " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " join agency on (agency.id=member.agency_id)" + " where enrollment_level.description in (\"Applicant\",\"Operational\",\"Associate\",\"Regular\",\"Life\",\"Senior\",'Tenured BLS','Tenured ALS','Staff','ALS Intern','College',\"Atypical\"" + " , \"Recruit\",\"Admin\",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\")" + " and email_address is not null" + " and TRIM(email_address) <> \"\"" + " order by RAND()", this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                if (dr["length_of_service"] != DBNull.Value)
-                {
-                    length_of_service = ((decimal)(dr["length_of_service"])).ToString("F2") + " years";
-                }
-                else
-                {
-                    length_of_service = k.EMPTY;
-                }
-                kind_of_leave = dr["kind_of_leave"].ToString().ToUpper();
-                if (kind_of_leave == k.EMPTY)
-                {
-                    kind_of_leave = "NONE";
-                }
-                biz_notifications.IssueMemberStatusStatement(dr["email_address"].ToString(), dr["first_name"].ToString().ToUpper(), dr["last_name"].ToString().ToUpper(), dr["cad_num"].ToString(), dr["agency"].ToString(), dr["section_num"].ToString(), dr["medical_release_description"].ToString().ToUpper(), dr["be_driver_qualified"].ToString().ToUpper(), dr["enrollment"].ToString().ToUpper(), length_of_service, kind_of_leave, dr["obliged_shifts"].ToString(), dr["phone_num"].ToString());
-            }
-            dr.Close();
-            this.Close();
+        length_of_service = (dr["length_of_service"] != DBNull.Value ? ((decimal)(dr["length_of_service"])).ToString("F2") + " years" : k.EMPTY);
+        kind_of_leave = dr["kind_of_leave"].ToString().ToUpper();
+        if (kind_of_leave == k.EMPTY)
+          {
+          kind_of_leave = "NONE";
+          }
+        biz_notifications.IssueMemberStatusStatement
+          (
+          dr["email_address"].ToString(),
+          dr["first_name"].ToString().ToUpper(),
+          dr["last_name"].ToString().ToUpper(),
+          dr["cad_num"].ToString(),
+          dr["agency"].ToString(),
+          dr["section_num"].ToString(),
+          dr["medical_release_description"].ToString().ToUpper(),
+          dr["be_driver_qualified"].ToString().ToUpper(),
+          dr["enrollment"].ToString().ToUpper(),
+          length_of_service,
+          kind_of_leave,
+          dr["obliged_shifts"].ToString(),
+          dr["phone_num"].ToString(),
+          dr["phone_service"].ToString()
+          );
         }
+      dr.Close();
+      Close();
+      }
 
         internal string MedicalReleaseLevelCodeOf(string id)
           {
@@ -1886,7 +1923,7 @@ namespace Class_db_members
             this.Open();
             new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "' WHERE id = '" + (summary as member_summary).id) + "'", this.connection).ExecuteNonQuery();
             this.Close();
-            (summary as member_summary).phone_num = k.FormatAsNanpPhoneNum(phone_num);
+            (summary as member_summary).phone_num = phone_num;
         }
 
     internal void SetOscalertSettings

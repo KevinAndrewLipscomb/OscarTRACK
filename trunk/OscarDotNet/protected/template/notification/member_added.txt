@@ -11,6 +11,8 @@ This is an automatic notification from <application_name/>.
       <cad_num/>
    Phone #:
       <phone_num/>
+   Cellular provider:
+      <phone_service/>
    Email address:
       <email_address/>
    Agency:
