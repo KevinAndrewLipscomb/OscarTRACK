@@ -5,9 +5,8 @@ using System.Web;
 using System.Web.Security;
 
 namespace UserControl_precontent
-  {
-
-  public partial class TWebUserControl_precontent: ki_web_ui.usercontrol_class
+{
+    public partial class TWebUserControl_precontent: ki_web_ui.usercontrol_class
     {
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -88,10 +87,15 @@ namespace UserControl_precontent
             Server.ClearError();
         }
 
-    protected void LinkButton_profile_Click(object sender, System.EventArgs e)
-      {
-      DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/member_profile.aspx"));
-      }
+        protected void LinkButton_change_email_address_Click(object sender, System.EventArgs e)
+        {
+            DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/change_email_address.aspx"));
+        }
+
+        protected void LinkButton_change_password_Click(object sender, System.EventArgs e)
+        {
+            DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/change_password.aspx"));
+        }
 
         protected void LinkButton_logout_Click(object sender, System.EventArgs e)
         {
@@ -103,4 +107,4 @@ namespace UserControl_precontent
 
     } // end TWebUserControl_precontent
 
-  }
+}

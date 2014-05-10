@@ -145,27 +145,27 @@ namespace UserControl_member_profile
       SessionSet(InstanceId() + ".p", p);
       }
 
-    protected void CustomValidator_confirmation_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    protected void CustomValidator_confirmation_email_address_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = (TextBox_nominal_email_address.Text.Trim() == TextBox_confirmation_email_address.Text.Trim());
       }
 
-    protected void CustomValidator_confirmation_password_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    protected void CustomValidator_confirmation_password_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = (TextBox_nominal_password.Text.Trim() == TextBox_confirmation_password.Text.Trim());
       }
 
-    protected void CustomValidator_email_address_novelty_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    protected void CustomValidator_email_address_novelty_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = !p.biz_users.BeEmailAddressMappedToMember(k.Safe(args.Value, k.safe_hint_type.EMAIL_ADDRESS));
       }
 
-    protected void CustomValidator_nominal_email_address_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    protected void CustomValidator_nominal_email_address_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = kix.k.BeValidDomainPartOfEmailAddress(args.Value);
+      args.IsValid = k.BeValidDomainPartOfEmailAddress(args.Value);
       }
 
-    protected void CustomValidator_phone_num_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+    protected void CustomValidator_phone_num_ServerValidate(object source, ServerValidateEventArgs args)
       {
       args.IsValid = k.BeValidNanpNumber(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM));
       }
