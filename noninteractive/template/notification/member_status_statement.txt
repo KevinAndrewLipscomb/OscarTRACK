@@ -24,6 +24,9 @@ Your status in <application_name/> for *next month* has been recorded as follows
    Primary phone number:
       <phone_num/>
 
+   Cellular provider:
+      <phone_service/>
+
    Released cert level:
       <medical_release_description/>
 
@@ -84,6 +87,8 @@ Your status in <application_name/> for *next month* has been recorded as follows
       Intern", "College", or "Atypical" membership status.
 
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
+
+To receive OSCALERTs, your phone number and cellular provider must be set correctly.  You can update these settings yourself by logging into <application_name/> and clicking the "profile" link near the upper left corner.
 
 FINALLY, personnel with required ambulance duties must submit availabilities to <application_name/> by the 10th of the month.  The web address for availability submissions is:
 

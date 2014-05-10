@@ -7,6 +7,7 @@ using Class_biz_sections;
 using Class_biz_user;
 using Class_db_leaves;
 using Class_db_members;
+using Class_db_sms_gateways;
 using Class_db_users;
 using kix;
 using System;
@@ -28,13 +29,14 @@ namespace Class_biz_members
         private TClass_biz_user biz_user = null;
         private TClass_db_leaves db_leaves = null;
         private TClass_db_members db_members = null;
+        private TClass_db_sms_gateways db_sms_gateways = null;
         private TClass_db_users db_users = null;
 
         public TClass_biz_members() : base()
         {
-            // TODO: Add any constructor code here
             db_leaves = new TClass_db_leaves();
             db_members = new TClass_db_members();
+            db_sms_gateways = new TClass_db_sms_gateways();
             db_users = new TClass_db_users();
             biz_agencies = new TClass_biz_agencies();
             biz_enrollment = new TClass_biz_enrollment();
@@ -69,8 +71,37 @@ namespace Class_biz_members
                 {
                     phone_num = "757" + phone_num;
                 }
-                db_members.Add(first_name, last_name, cad_num, uint.Parse(medical_release_code), be_driver_qualified, uint.Parse(agency_id), email_address, enrollment_date, uint.Parse(enrollment_level), phone_num, phone_service_id, section_num);
-                biz_notifications.IssueForMemberAdded(db_members.IdOfFirstnameLastnameCadnum(first_name, last_name, cad_num), first_name, last_name, cad_num, biz_medical_release_levels.DescriptionOf(medical_release_code), be_driver_qualified, biz_agencies.MediumDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id), email_address, enrollment_date.ToString("dd MMMM yyyy"), biz_enrollment.DescriptionOf(enrollment_level), phone_num, section_num);
+                db_members.Add
+                  (
+                  first_name,
+                  last_name,
+                  cad_num,
+                  uint.Parse(medical_release_code),
+                  be_driver_qualified,
+                  uint.Parse(agency_id),
+                  email_address,
+                  enrollment_date,
+                  uint.Parse(enrollment_level),
+                  phone_num,
+                  phone_service_id,
+                  section_num
+                  );
+                biz_notifications.IssueForMemberAdded
+                  (
+                  db_members.IdOfFirstnameLastnameCadnum(first_name, last_name, cad_num),
+                  first_name,
+                  last_name,
+                  cad_num,
+                  biz_medical_release_levels.DescriptionOf(medical_release_code),
+                  be_driver_qualified,
+                  biz_agencies.MediumDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id),
+                  email_address,
+                  enrollment_date.ToString("dd MMMM yyyy"),
+                  biz_enrollment.DescriptionOf(enrollment_level),
+                  phone_num,
+                  db_sms_gateways.CarrierNameOfId(id:phone_service_id),
+                  section_num
+                  );
                 result = true;
             }
             return result;
