@@ -90,7 +90,7 @@ namespace change_phone_num
         {
             if (Page.IsValid)
             {
-                p.biz_members.SetPhoneNum(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM), Session["member_summary"]);
+                p.biz_members.SetPhoneNumAndClearCellularProvider(k.Safe(TextBox_phone_num.Text, k.safe_hint_type.NUM), Session["member_summary"]);
                 BackTrack();
             }
             else

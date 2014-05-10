@@ -5,6 +5,13 @@ This is an automatic notification from <application_name/>.
 
    <phone_num/>
 
+NOTE that this action also *clears* <first_name/>'s Cellular Provider in <application_name/>, thus preventing <first_name/> from receiving any OSCALERTs via cellphone.  To re-enable <first_name/>'s OSCALERTs, <first_name/> must do the following:
+
+1. Log into <application_name/>.
+2. Click the "profile" link near the upper left corner.
+3. Pick a Cellular Provider in the OSCALERT section.
+4. Click the "Save OSCALERT settings" button.
+
 You can reach <actor/> at:
 
    <actor_email_address/> (mailto:<actor_email_address/>)

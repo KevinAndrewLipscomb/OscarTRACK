@@ -18,6 +18,18 @@
               <table cellspacing="0" cellpadding="10" width="%" border="0">
                 <tr><td bgcolor="#f5f5f5" colspan="3"><strong>Change phone number</strong></td></tr>
                 <tr>
+                  <td colspan="3">
+                    <table border="1" bordercolor="#ffff00" cellpadding="20" cellspacing="0" bgcolor="#ffff00">
+                      <tr>
+                        <td>
+                          <b>NOTE:</b>&nbsp; Clicking the Submit button on this page also <u>clears</u> the member's Cellular Provider setting, thus preventing the member from receiving any OSCALERTs via cellphone.&nbsp; To re-enable the
+                          member's OSCALERTs, the member must update his or her profile.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
                   <td>
                     <p align="right">Enter <asp:Label id="Label_name" runat="server"></asp:Label>'s phone number (cellular preferred):</p>
                   </td>

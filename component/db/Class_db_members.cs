@@ -1918,14 +1918,6 @@ namespace Class_db_members
             (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
         }
 
-        public void SetPhoneNum(string phone_num, object summary)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "' WHERE id = '" + (summary as member_summary).id) + "'", this.connection).ExecuteNonQuery();
-            this.Close();
-            (summary as member_summary).phone_num = phone_num;
-        }
-
     internal void SetOscalertSettings
       (
       string phone_service_id,
@@ -1959,6 +1951,39 @@ namespace Class_db_members
       Close();
       (summary as member_summary).phone_service_id = phone_service_id;
       (summary as member_summary).phone_service = biz_sms_gateways.CarrierNameOfId(id:phone_service_id);
+      }
+
+    internal void SetOscalertThresholds
+      (
+      string oscalert_threshold_general,
+      string oscalert_threshold_als,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "update member"
+          + " set min_oscalert_peck_order_general = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "'),65535)"
+          +   " , min_oscalert_peck_order_als = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "'),65535)"
+          + " where id = '" + (summary as member_summary).id + "'"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
+    public void SetPhoneNumAndClearCellularProvider(string phone_num, object summary)
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "', phone_service_id = NULL WHERE id = '" + (summary as member_summary).id) + "'",connection).ExecuteNonQuery();
+      Close();
+      (summary as member_summary).phone_num = phone_num;
+      (summary as member_summary).phone_service_id = k.EMPTY;
+      (summary as member_summary).phone_service = k.EMPTY;
       }
 
         public void SetProfile(string id, string name)
