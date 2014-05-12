@@ -200,6 +200,7 @@ namespace Class_biz_enrollment
           (
           oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
           oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(db_members.MedicalReleaseLevelOf(summary),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
+          do_clear_subscriptions:be_past,
           summary:summary
           );
         if (target_agency_id != k.EMPTY)
