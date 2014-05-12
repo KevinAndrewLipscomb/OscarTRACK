@@ -824,6 +824,7 @@ namespace Class_biz_members
               (
               oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
               oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(biz_medical_release_levels.DescriptionOf(new_code),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
+              do_clear_subscriptions:be_past,
               summary:summary
               );
             biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
