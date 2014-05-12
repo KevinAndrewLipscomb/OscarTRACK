@@ -2,6 +2,7 @@
 
 using Class_db_field_situation_impressions;
 using Class_db_field_situations;
+using Class_biz_notifications;
 using kix;
 using System;
 using System.Collections;
@@ -21,6 +22,7 @@ namespace Class_biz_field_situations
 
     private TClass_db_field_situation_impressions db_field_situation_impressions = null;
     private TClass_db_field_situations db_field_situations = null;
+    private TClass_biz_notifications biz_notifications = null;
 
     private void FormImpression
       (
@@ -185,6 +187,7 @@ namespace Class_biz_field_situations
       {
       db_field_situation_impressions = new TClass_db_field_situation_impressions();
       db_field_situations = new TClass_db_field_situations();
+      biz_notifications = new TClass_biz_notifications();
       }
 
     public bool Bind(string partial_spec, object target)
@@ -214,13 +217,11 @@ namespace Class_biz_field_situations
 
     internal void DetectAndNotify
       (
-      ref DateTime saved_meta_surge_alert_timestamp_ems,
-      ref DateTime saved_meta_surge_alert_timestamp_als,
-      ref DateTime saved_meta_surge_alert_timestamp_fire
+      ref DateTime saved_multambholds_alert_timestamp,
+      ref DateTime saved_multalsholds_alert_timestamp,
+      ref DateTime saved_firesurge_alert_timestamp
       )
       {
-      const string BETA_RECIPIENTS = "7576428668@mms.att.net,7572883398@vtext.com,7576357702@vtext.com,7572749476@vtext.com,7573762155@vtext.com,7572862269@pcs.ntelos.com,7578228375@messaging.sprintpcs.com";
-      //                              me                     tom harp             ed brazle            tom green            jason stroud         eric hoyt                 david jimerson
       //
       // Digest CAD records.
       //
@@ -288,24 +289,16 @@ namespace Class_biz_field_situations
           be_sart:digest.be_sart
           );
         //
-        if (be_escalation) // && !new ArrayList() {"AirportAlert""AlsNeeded","AmbNeeded","WorkingFire"}.Contains(impression_description))
+        if (be_escalation && (impression_description != "WorkingFire"))
           {
           be_any_case_escalated = true;
           //
-          if (new ArrayList() {"AlsEms","MrtCall","SarCall","AlsNeeded","CardiacArrestAlsNeeded","Trap"}.Contains(impression_description))
-            {
-            impression_elaboration = impression_elaboration
+          biz_notifications.IssueOscalert
+            (
+            description:impression_description,
+            elaboration:impression_elaboration
               .Replace("<address/>",digest.address)
               .Replace("<assignment/>",digest.assignment)
-              ;
-            }
-          //
-          k.SmtpMailSend
-            (
-            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
-            to:BETA_RECIPIENTS,
-            subject:impression_description,
-            message_string:impression_elaboration
             );
           }
         }
@@ -316,38 +309,32 @@ namespace Class_biz_field_situations
         //
         // Meta analyses and notifications
         //
-        if (db_field_situations.BeMetaSurgeEms() && (DateTime.Now - saved_meta_surge_alert_timestamp_ems > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_ems"])))
+        if (db_field_situations.BeMultAmbHolds() && (DateTime.Now - saved_multambholds_alert_timestamp > TimeSpan.Parse(ConfigurationManager.AppSettings["oscalert_inhibition_period_multambholds"])))
           {
-          k.SmtpMailSend
+          biz_notifications.IssueOscalert
             (
-            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
-            to:BETA_RECIPIENTS,
-            subject:"MultAmbHolds",
-            message_string:"OSCALERT: Multiple calls holding for ambulances. Volunteers to your stations."
+            description:"MultAmbHolds",
+            elaboration:impression_elaboration
             );
-          saved_meta_surge_alert_timestamp_ems = DateTime.Now;
+          saved_multambholds_alert_timestamp = DateTime.Now;
           }
-        if (db_field_situations.BeMetaSurgeAls() && (DateTime.Now - saved_meta_surge_alert_timestamp_als > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_als"])))
+        if (db_field_situations.BeMultAlsHolds() && (DateTime.Now - saved_multalsholds_alert_timestamp > TimeSpan.Parse(ConfigurationManager.AppSettings["oscalert_inhibition_period_multalsholds"])))
           {
-          k.SmtpMailSend
+          biz_notifications.IssueOscalert
             (
-            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
-            to:BETA_RECIPIENTS,
-            subject:"MultAlsHolds",
-            message_string:"OSCALERT: Multiple calls holding for ALS. ALS to your stations."
+            description:"MultAlsHolds",
+            elaboration:impression_elaboration
             );
-          saved_meta_surge_alert_timestamp_als = DateTime.Now;
+          saved_multalsholds_alert_timestamp = DateTime.Now;
           }
-        if (db_field_situations.BeMetaSurgeFire() && (DateTime.Now - saved_meta_surge_alert_timestamp_fire > TimeSpan.Parse(ConfigurationManager.AppSettings["meta_surge_alert_inhibition_period_fire"])))
+        if (db_field_situations.BeFireSurge() && (DateTime.Now - saved_firesurge_alert_timestamp > TimeSpan.Parse(ConfigurationManager.AppSettings["oscalert_inhibition_period_fire_surge"])))
           {
-          k.SmtpMailSend
+          biz_notifications.IssueOscalert
             (
-            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
-            to:BETA_RECIPIENTS,
-            subject:"FireSurge",
-            message_string:"OSCALERT: VBFD has multiple working incidents. EMS first response capacity reduced. Volunteers to your stations."
+            description:"FireSurge",
+            elaboration:impression_elaboration
             );
-          saved_meta_surge_alert_timestamp_fire = DateTime.Now;
+          saved_firesurge_alert_timestamp = DateTime.Now;
           }
         }
       }

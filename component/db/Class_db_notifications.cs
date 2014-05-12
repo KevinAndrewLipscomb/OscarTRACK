@@ -4,18 +4,21 @@ using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
+using System.Collections;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace Class_db_notifications
-{
+  {
+
     public class TClass_db_notifications: TClass_db
     {
+
         private TClass_biz_data_conditions biz_data_conditions = null;
         private TClass_db_trail db_trail = null;
         private string tier_2_match_field = String.Empty;
         private string tier_3_match_field = String.Empty;
-        //Constructor  Create()
+
         public TClass_db_notifications() : base()
         {
             // TODO: Add any constructor code here
@@ -24,6 +27,7 @@ namespace Class_db_notifications
             tier_2_match_field = ConfigurationManager.AppSettings["tier_2_match_field"];
             tier_3_match_field = ConfigurationManager.AppSettings["tier_3_match_field"];
         }
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             MySqlDataReader dr;
@@ -238,6 +242,40 @@ namespace Class_db_notifications
             return result;
         }
 
+    internal string TargetOfOscalert(string description)
+      {
+      var condition_clause = k.EMPTY;
+      if (new ArrayList() {"AlsNeeded","CardiacArrestAlsNeeded","MultAlsHolds"}.Contains(description))
+        {
+        condition_clause = " min_oscalert_peck_order_als <= (select pecking_order from field_situation_impression where description = '" + description + "')";
+        }
+      else if (description == "Trap")
+        {
+        condition_clause = " do_oscalert_for_trap";
+        }
+      else if (description == "AirportAlert")
+        {
+        condition_clause = " do_oscalert_for_airport_alert";
+        }
+      else if (description == "MrtCall")
+        {
+        condition_clause = " do_oscalert_for_mrt";
+        }
+      else if (description == "SarCall")
+        {
+        condition_clause = " do_oscalert_for_sart";
+        }
+      else
+        {
+        condition_clause = " min_oscalert_peck_order_general <= (select pecking_order from field_situation_impression where description = '" + description + "')";
+        }
+      Open();
+      var target_of_oscalert_obj = new MySqlCommand("select IFNULL(GROUP_CONCAT(CONCAT(phone_num,'@',hostname)),'') from member join sms_gateway on (sms_gateway.id=member.phone_service_id) where " + condition_clause,connection)
+        .ExecuteScalar();
+      Close();
+      return (target_of_oscalert_obj == null ? k.EMPTY : target_of_oscalert_obj.ToString());
+      }
+
     } // end TClass_db_notifications
 
-}
+  }
