@@ -66,23 +66,7 @@ namespace Class_db_field_situations
       db_trail = new TClass_db_trail();
       }
 
-    internal bool BeMetaSurgeAls()
-      {
-      Open();
-      var be_meta_surge_als = "1" == new MySqlCommand("select IF(sum(num_hzcs) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
-      Close();
-      return be_meta_surge_als;
-      }
-
-    internal bool BeMetaSurgeEms()
-      {
-      Open();
-      var be_meta_surge_ems = "1" == new MySqlCommand("select IF(sum(num_holds) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
-      Close();
-      return be_meta_surge_ems;
-      }
-
-    internal bool BeMetaSurgeFire()
+    internal bool BeFireSurge()
       {
       Open();
       var be_meta_surge_fire = "1" == new MySqlCommand
@@ -99,6 +83,22 @@ namespace Class_db_field_situations
         .ExecuteScalar().ToString();
       Close();
       return be_meta_surge_fire;
+      }
+
+    internal bool BeMultAlsHolds()
+      {
+      Open();
+      var be_meta_surge_als = "1" == new MySqlCommand("select IF(sum(num_hzcs) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      Close();
+      return be_meta_surge_als;
+      }
+
+    internal bool BeMultAmbHolds()
+      {
+      Open();
+      var be_meta_surge_ems = "1" == new MySqlCommand("select IF(sum(num_holds) >= 2, 1, 0) from field_situation",connection).ExecuteScalar().ToString();
+      Close();
+      return be_meta_surge_ems;
       }
 
     public bool Bind(string partial_spec, object target)

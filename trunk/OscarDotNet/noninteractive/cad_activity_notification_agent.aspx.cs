@@ -16,11 +16,11 @@ namespace cad_activity_notification_agent
       while (DateTime.Now < datetime_to_quit)
         {
         //
-        // Start the agent.  It will block until it terminates, at which time we should dispose it.
+        // Start the agent.  It will block until it terminates.
         //
         // NOTE: The app containing the agent apparently must run in an up-privileged application pool.
         //
-        new TClass_ac_cad_activity_notification_agent(datetime_to_quit).Dispose();
+        new TClass_ac_cad_activity_notification_agent(datetime_to_quit);
         //
         // If the agent terminates, wait one minute prior to launching a new one, to make sure the remote site has had time to properly reset itself (since we haven't built a login re-try
         // mechanism), then loop back to start a new agent (if it's not quitting time).
