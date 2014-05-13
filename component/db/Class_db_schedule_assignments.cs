@@ -802,6 +802,7 @@ namespace Class_db_schedule_assignments
         )
         .ExecuteReader();
       ((target) as DataGrid).DataBind();
+      ((target as DataGrid).DataSource as MySqlDataReader).Close();
       Close();
       }
 

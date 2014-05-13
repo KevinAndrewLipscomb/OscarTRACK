@@ -242,40 +242,6 @@ namespace Class_db_notifications
             return result;
         }
 
-    internal string TargetOfOscalert(string description)
-      {
-      var condition_clause = k.EMPTY;
-      if (new ArrayList() {"AlsNeeded","CardiacArrestAlsNeeded","MultAlsHolds"}.Contains(description))
-        {
-        condition_clause = " min_oscalert_peck_order_als <= (select pecking_order from field_situation_impression where description = '" + description + "')";
-        }
-      else if (description == "Trap")
-        {
-        condition_clause = " do_oscalert_for_trap";
-        }
-      else if (description == "AirportAlert")
-        {
-        condition_clause = " do_oscalert_for_airport_alert";
-        }
-      else if (description == "MrtCall")
-        {
-        condition_clause = " do_oscalert_for_mrt";
-        }
-      else if (description == "SarCall")
-        {
-        condition_clause = " do_oscalert_for_sart";
-        }
-      else
-        {
-        condition_clause = " min_oscalert_peck_order_general <= (select pecking_order from field_situation_impression where description = '" + description + "')";
-        }
-      Open();
-      var target_of_oscalert_obj = new MySqlCommand("select IFNULL(GROUP_CONCAT(CONCAT(phone_num,'@',hostname)),'') from member join sms_gateway on (sms_gateway.id=member.phone_service_id) where " + condition_clause,connection)
-        .ExecuteScalar();
-      Close();
-      return (target_of_oscalert_obj == null ? k.EMPTY : target_of_oscalert_obj.ToString());
-      }
-
     } // end TClass_db_notifications
 
   }
