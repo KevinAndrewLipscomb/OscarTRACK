@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarDotNet", "OscarDotNet.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ki", "lib\ki\ki.csproj", "{A20C347B-5154-47B9-A275-36157BF73352}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oscalib", "..\..\..\Users\KevinAndrewLipscomb\Documents\SANDBOX\kveo-it-project\oscalib\oscalib.csproj", "{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oscalib", "lib\oscalib\oscalib.csproj", "{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
