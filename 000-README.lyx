@@ -1,5 +1,5 @@
-#LyX 1.6.7 created this file. For more info see http://www.lyx.org/
-\lyxformat 345
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass article
@@ -7,28 +7,54 @@
 \date{}
 \end_preamble
 \use_default_options false
+\maintain_unincluded_children false
 \language english
+\language_package default
 \inputencoding auto
+\fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family sfdefault
+\use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \paperfontsize 12
 \spacing single
 \use_hyperref false
 \papersize default
 \use_geometry true
-\use_amsmath 1
-\use_esint 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 0
+\use_package esint 1
+\use_package mathdots 0
+\use_package mathtools 0
+\use_package mhchem 1
+\use_package stackrel 0
+\use_package stmaryrd 0
+\use_package undertilde 0
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \leftmargin 1in
 \topmargin 1in
 \rightmargin 1in
@@ -46,8 +72,9 @@
 \paperpagestyle empty
 \tracking_changes false
 \output_changes false
-\author "" 
-\author "" 
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
 \end_header
 
 \begin_body
@@ -58,8 +85,8 @@
 
 \begin_layout Abstract
 This document describes additional steps that you must perform, after checking
- out the OscarTRACK project from its repository, to achieve a
- clean compilation or to execute the application.
+ out the OscarTRACK project from its repository, to achieve a clean compilation
+ or to execute the application.
  This document does not cover how to meet other prerequisites, such as setting
  up an ASP.NET server, creating and populating the database schema, and setting
  up a cron daemon.
@@ -81,9 +108,9 @@ target "http://en.wikipedia.org/wiki/Junction_point"
  is recommended in this document because it allows Subversion operations
  to take place without undesirable impact to project environments, and without
  violating Subversion rules.
- If you simply exported OscarTRACK from its repository and you
- do not intend to perform subsequent updates or any other Subversion operations
- on it (not recommended), you can simply make copies instead of NTFS junction
+ If you simply exported OscarTRACK from its repository and you do not intend
+ to perform subsequent updates or any other Subversion operations on it
+ (not recommended), you can simply make copies instead of NTFS junction
  points.
 \end_layout
 
@@ -96,8 +123,7 @@ Hook up the KiUsercontrolFoundry project
 \end_layout
 
 \begin_layout Standard
-OscarTRACK uses UserControls from the KiUsercontrolFoundry adjunct
- project.
+OscarTRACK uses UserControls from the KiUsercontrolFoundry adjunct project.
  The KiUsercontrolFoundry is used by multiple production-eligible projects
  and is version controlled independently from those production-eligible
  projects.
@@ -185,8 +211,7 @@ Hook up the KiDotnetFoundation project (only if compiling)
 \end_layout
 
 \begin_layout Standard
-OscarTRACK uses object code from the KiDotnetFoundation adjunct
- project.
+OscarTRACK uses object code from the KiDotnetFoundation adjunct project.
  The KiDotnetFoundation is used by multiple production-eligible projects
  and its source code is version controlled independently from those production-e
 ligible projects.
@@ -194,9 +219,9 @@ ligible projects.
 \emph on
 OscarTRACK/bin/ki.dll
 \emph default
- to enable execution of OscarTRACK in a production environment,
- but to hook up the KiDotnetFoundation project for the sake of a clean compile
- of OscarTRACK, do the following:
+ to enable execution of OscarTRACK in a production environment, but to hook
+ up the KiDotnetFoundation project for the sake of a clean compile of OscarTRACK
+, do the following:
 \end_layout
 
 \begin_layout Enumerate
@@ -271,6 +296,95 @@ cd OscarTRACK/lib
 mklink /j ki KiDotnetFoundation
 \end_layout
 
+\begin_layout Subsection
+Hook up the oscalib project (only if compiling)
+\end_layout
+
+\begin_layout Standard
+OscarTRACK uses object code from the oscalib adjunct project.
+ The oscalib is used by multiple production-eligible projects and its source
+ code is version controlled independently from those production-eligible
+ projects.
+ The object code is already provided as 
+\emph on
+OscarTRACK/bin/oscalib.dll
+\emph default
+ to enable execution of OscarTRACK in a production environment, but to hook
+ up the oscalib project for the sake of a clean compile of OscarTRACK, do
+ the following:
+\end_layout
+
+\begin_layout Enumerate
+Check out the 
+\emph on
+https://svn.code.sf.net/p/kveo-it-project/code/trunk/oscalib
+\emph default
+ project.
+ Put it in a 
+\emph on
+oscalib
+\emph default
+ folder.
+ Make sure the 
+\emph on
+oscalib
+\emph default
+ folder is 
+\bar under
+not
+\bar default
+ inside the 
+\emph on
+OscarTRACK
+\emph default
+ folder tree.
+\end_layout
+
+\begin_layout Enumerate
+Create a junction point named 
+\emph on
+oscalib
+\emph default
+ inside the 
+\emph on
+OscarTRACK/lib
+\emph default
+ folder that points to the 
+\emph on
+oscalib
+\emph default
+ folder.
+ You should end up with a folder inside the 
+\emph on
+OscarTRACK/lib
+\emph default
+ folder called 
+\emph on
+oscalib
+\emph default
+.
+ You can make junction points with 
+\noun on
+Michael Elsdoerfer's NTFS Link
+\noun default
+ tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
+ and later systems), the prototype commands would be:
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\emph on
+cd OscarTRACK/lib
+\begin_inset Newline newline
+\end_inset
+
+mklink /j oscalib oscalib
+\end_layout
+
 \begin_layout Section
 Put appropriate config files in the application root folder
 \end_layout
@@ -286,9 +400,8 @@ unpublished.config
 \emph default
  files in its top-level folder.
  Because the contents of those files are environment-specific, and we wish
- to keep the canonical ASP.NET parts of the OscarTRACK folder tree
- environment-neutral, those config files are kept in a non-ASP.NET-canonical
- 
+ to keep the canonical ASP.NET parts of the OscarTRACK folder tree environment-ne
+utral, those config files are kept in a non-ASP.NET-canonical 
 \emph on
 OscarTRACK/config
 \emph default
@@ -409,8 +522,7 @@ target "http://en.wikipedia.org/wiki/Cron"
 
 \end_inset
 
- entries for any such jobs that are part of OscarTRACK are located
- in 
+ entries for any such jobs that are part of OscarTRACK are located in 
 \emph on
 noninteractive/.crontab
 \emph default
