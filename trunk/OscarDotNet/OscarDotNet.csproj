@@ -11,12 +11,13 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OscarDotNet</RootNamespace>
     <AssemblyName>OscarDotNet</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <UseIISExpress>false</UseIISExpress>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -62,19 +63,13 @@
     <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
     <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
     <Reference Include="System" />
-    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
-    <Reference Include="System.Web.Extensions.Design, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -83,9 +78,7 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Mobile" />
-    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
-    </Reference>
+    <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.aspx" />
@@ -95,7 +88,6 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\avail_submission_deadline_tasks.aspx" />
-    <Content Include="noninteractive\cad_activity_notification_agent.aspx" />
     <Content Include="noninteractive\end_of_month_tasks.aspx" />
     <Content Include="noninteractive\monthly_tasks.aspx" />
     <Content Include="noninteractive\report_archival_end_of_month_watchbill.aspx" />
@@ -203,7 +195,6 @@
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
-    <Content Include="usercontrol\app\UserControl_cad_record.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
@@ -220,8 +211,6 @@
     <Content Include="usercontrol\app\UserControl_eval_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_eval_overview.ascx" />
     <Content Include="usercontrol\app\UserControl_eval_status.ascx" />
-    <Content Include="usercontrol\app\UserControl_field_situation.ascx" />
-    <Content Include="usercontrol\app\UserControl_field_situation_impression.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
@@ -270,10 +259,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appcommon.cs" />
-    <Compile Include="component\ac\Class_ac_cad_activity_notification_agent.cs" />
     <Compile Include="component\biz\Class_biz_agency_satellite_stations.cs" />
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
-    <Compile Include="component\biz\Class_biz_cad_records.cs" />
     <Compile Include="component\biz\Class_biz_care_skills.cs" />
     <Compile Include="component\biz\Class_biz_care_skill_ratings.cs" />
     <Compile Include="component\biz\Class_biz_cities.cs" />
@@ -284,8 +271,6 @@
     <Compile Include="component\biz\Class_biz_efficipay_tokens.cs" />
     <Compile Include="component\biz\Class_biz_evals.cs" />
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
-    <Compile Include="component\biz\Class_biz_field_situations.cs" />
-    <Compile Include="component\biz\Class_biz_field_situation_impressions.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
@@ -305,7 +290,9 @@
     <Compile Include="component\biz\Class_biz_medical_release_levels.cs" />
     <Compile Include="component\biz\Class_biz_members.cs" />
     <Compile Include="component\biz\Class_biz_milestones.cs" />
-    <Compile Include="component\biz\Class_biz_notifications.cs" />
+    <Compile Include="component\biz\Class_biz_notifications.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="component\biz\Class_biz_officerships.cs" />
     <Compile Include="component\biz\Class_biz_patient_age_units.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
@@ -335,7 +322,6 @@
     <Compile Include="component\biz\Class_biz_vehicle_quarters_history.cs" />
     <Compile Include="component\biz\Class_biz_vehicle_usability_history.cs" />
     <Compile Include="component\biz\Class_biz_manifest.cs" />
-    <Compile Include="component\db\Class_db.cs" />
     <Compile Include="component\db\Class_dbhomedb.cs" />
     <Compile Include="component\db\Class_dbhomedb_trail.cs" />
     <Compile Include="component\db\Class_dbkeyclick.cs" />
@@ -343,7 +329,6 @@
     <Compile Include="component\db\Class_db_accounts.cs" />
     <Compile Include="component\db\Class_db_agencies.cs" />
     <Compile Include="component\db\Class_db_agency_satellite_stations.cs" />
-    <Compile Include="component\db\Class_db_cad_records.cs" />
     <Compile Include="component\db\Class_db_care_skills.cs" />
     <Compile Include="component\db\Class_db_care_skill_ratings.cs" />
     <Compile Include="component\db\Class_db_chassis_makes.cs" />
@@ -359,8 +344,6 @@
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_evals.cs" />
     <Compile Include="component\db\Class_db_eval_status.cs" />
-    <Compile Include="component\db\Class_db_field_situations.cs" />
-    <Compile Include="component\db\Class_db_field_situation_impressions.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_gripes.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
@@ -389,7 +372,6 @@
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
-    <Compile Include="component\db\Class_db_trail.cs" />
     <Compile Include="component\db\Class_db_user.cs" />
     <Compile Include="component\db\Class_db_users.cs" />
     <Compile Include="component\db\Class_db_user_member_map.cs" />
@@ -449,13 +431,6 @@
     </Compile>
     <Compile Include="noninteractive\avail_submission_deadline_tasks.aspx.designer.cs">
       <DependentUpon>avail_submission_deadline_tasks.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="noninteractive\cad_activity_notification_agent.aspx.cs">
-      <DependentUpon>cad_activity_notification_agent.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="noninteractive\cad_activity_notification_agent.aspx.designer.cs">
-      <DependentUpon>cad_activity_notification_agent.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\end_of_month_tasks.aspx.cs">
       <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
@@ -1033,13 +1008,6 @@
     <Compile Include="usercontrol\app\UserControl_business_objects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_business_objects_binder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_cad_record.ascx.cs">
-      <DependentUpon>UserControl_cad_record.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_cad_record.ascx.designer.cs">
-      <DependentUpon>UserControl_cad_record.ascx</DependentUpon>
-    </Compile>
     <Compile Include="usercontrol\app\UserControl_care_skill.ascx.cs">
       <DependentUpon>UserControl_care_skill.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1228,20 +1196,6 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_eval_status.ascx.designer.cs">
       <DependentUpon>UserControl_eval_status.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_field_situation.ascx.cs">
-      <DependentUpon>UserControl_field_situation.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_field_situation.ascx.designer.cs">
-      <DependentUpon>UserControl_field_situation.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_field_situation_impression.ascx.cs">
-      <DependentUpon>UserControl_field_situation_impression.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="usercontrol\app\UserControl_field_situation_impression.ascx.designer.cs">
-      <DependentUpon>UserControl_field_situation_impression.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_fleet.ascx.cs">
       <DependentUpon>UserControl_fleet.ascx</DependentUpon>
@@ -2105,6 +2059,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Users\KevinAndrewLipscomb\Documents\SANDBOX\kveo-it-project\oscalib\oscalib.csproj">
+      <Project>{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}</Project>
+      <Name>oscalib</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

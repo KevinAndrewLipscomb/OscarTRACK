@@ -1717,6 +1717,7 @@ namespace Class_db_members
             {
                 names_similar_to = names_similar_to + dr["hit"].ToString() + separator;
             }
+            dr.Close();
             this.Close();
             result = names_similar_to;
             return result;
