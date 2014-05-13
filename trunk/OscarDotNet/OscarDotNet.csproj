@@ -2060,7 +2060,7 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Users\KevinAndrewLipscomb\Documents\SANDBOX\kveo-it-project\oscalib\oscalib.csproj">
+    <ProjectReference Include="lib\oscalib\oscalib.csproj">
       <Project>{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}</Project>
       <Name>oscalib</Name>
     </ProjectReference>
