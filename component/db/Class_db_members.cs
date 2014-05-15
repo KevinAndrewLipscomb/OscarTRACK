@@ -1438,6 +1438,39 @@ namespace Class_db_members
             this.Close();
         }
 
+    internal void GetSmsInfoOfId
+      (
+      string id,
+      out string email_address,
+      out string phone_num_digits,
+      out string carrier_name
+      )
+      {
+      email_address = k.EMPTY;
+      phone_num_digits = k.EMPTY;
+      carrier_name = k.EMPTY;
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select IFNULL(concat(phone_num,'@',hostname),'') as email_address"
+        + " , IFNULL(phone_num,'') as phone_num_digits"
+        + " , IFNULL(carrier_name,'') as carrier_name"
+        + " from member"
+        +   " join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where member.id = '" + id + "'",
+        connection
+        )
+        .ExecuteReader();
+      if (dr.Read())
+        {
+        email_address = dr["email_address"].ToString();
+        phone_num_digits = dr["phone_num_digits"].ToString();
+        carrier_name = dr["carrier_name"].ToString();
+        }
+      dr.Close();
+      Close();
+      }
+
         public string HighestTierOf(string id)
         {
             string result;

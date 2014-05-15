@@ -111,7 +111,7 @@
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                     <tr>
                       <td nowrap="nowrap" style="border-left: thin solid Gainsboro" width="1%" align="right"><font class="">Cellular provider:</font></td>
-                      <td colspan="3"><asp:DropDownList ID="DropDownList_phone_service" runat="server" ValidationGroup="oscalert_settings"></asp:DropDownList></td>
+                      <td colspan="3"><asp:DropDownList ID="DropDownList_phone_service" runat="server" ValidationGroup="oscalert_settings" AutoPostBack="True" onselectedindexchanged="DropDownList_phone_service_SelectedIndexChanged"></asp:DropDownList></td>
                       <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
                         <asp:RequiredFieldValidator ID="RequiredFieldValidator_phone_service" runat="server" font-bold="True" ErrorMessage="Please specify a Cellular provider." ControlToValidate="DropDownList_phone_service" ValidationGroup="oscalert_settings" Display="Dynamic">!ERR!</asp:RequiredFieldValidator>
                       </td>
@@ -119,7 +119,15 @@
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                     <tr>
                       <td nowrap="nowrap" style="border-left: thin solid Gainsboro"><font class="">&nbsp;</font></td>
-                      <td colspan="3"><asp:Button ID="Button_save_oscalert_settings" runat="server" Text="Save OSCALERT settings" ValidationGroup="oscalert_settings" onclick="Button_save_oscalert_settings_Click" UseSubmitBehavior="False"/></td>
+                      <td colspan="3">
+                        <table cellpadding="0" cellspacing="0">
+                          <tr>
+                            <td valign="middle"><asp:Button ID="Button_save_oscalert_settings" runat="server" Text="Save OSCALERT settings" ValidationGroup="oscalert_settings" onclick="Button_save_oscalert_settings_Click" UseSubmitBehavior="False"/></td>
+                            <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                            <td valign="middle"><small><asp:Button ID="Button_test" runat="server" Enabled="False" onclick="Button_test_Click" ValidationGroup="oscalert_settings" Text="Send a test page to your cellphone"></asp:Button></small></td>
+                          </tr>
+                        </table>
+                      </td>
                       <td nowrap="nowrap" style="border-right: thin solid Gainsboro">&nbsp;</td>
                     </tr>
                     <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>

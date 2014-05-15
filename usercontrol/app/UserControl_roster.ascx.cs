@@ -220,7 +220,7 @@ namespace UserControl_roster
             // cc
             // bcc
             // reply_to
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], Label_distribution_list.Text, TextBox_quick_message_subject.Text, "-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text, false, k.EMPTY, p.biz_user.EmailAddress(), p.biz_user.EmailAddress());
+            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.distribution_list, TextBox_quick_message_subject.Text, "-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text, false, k.EMPTY, p.biz_user.EmailAddress(), p.biz_user.EmailAddress());
             TextBox_quick_message_subject.Text = k.EMPTY;
             TextBox_quick_message_body.Text = k.EMPTY;
             Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
@@ -393,6 +393,7 @@ namespace UserControl_roster
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list;
+            p.distribution_list = k.EMPTY;
             p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, R, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
             be_raw_shifts_nonzero = (p.num_raw_shifts > 0);
             Label_core_ops_commitment_factor.Visible = be_raw_shifts_nonzero;
@@ -419,9 +420,9 @@ namespace UserControl_roster
             TableRow_none.Visible = p.be_datagrid_empty;
             TableRow_data.Visible = !p.be_datagrid_empty;
             Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_datagrid_empty && !p.be_phone_list;
-            Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+            p.distribution_list = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+            Label_distribution_list.Text = p.distribution_list;
             // Clear aggregation vars for next bind, if any.
-            p.distribution_list = k.EMPTY;
             p.num_cooked_shifts = 0;
             p.num_core_ops_members = 0;
             p.num_datagrid_rows = 0;

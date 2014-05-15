@@ -7,12 +7,9 @@ using Class_biz_user;
 using Class_biz_users;
 using kix;
 using System;
-using System.Web;
+using System.Configuration;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_member_profile
   {
@@ -63,6 +60,7 @@ namespace UserControl_member_profile
           unselected_literal:"-- Select --",
           selected_value:p.biz_members.PhoneServiceIdOf(p.summary)
           );
+        Button_test.Enabled = ((phone_num.Length > 0) && (DropDownList_phone_service.SelectedValue.Length > 0));
         var oscalert_threshold_general = k.EMPTY;
         var oscalert_threshold_als = k.EMPTY;
         var do_oscalert_for_trap = false;
@@ -263,6 +261,7 @@ namespace UserControl_member_profile
           value:"OSCALERT settings saved.",
           be_using_scriptmanager:true
           );
+        Button_test.Enabled = true;
         }
       else
         {
@@ -280,6 +279,65 @@ namespace UserControl_member_profile
       {
       var choice = k.Safe((sender as RadioButton).ID.Replace("RadioButton_",k.EMPTY),k.safe_hint_type.ALPHANUM);
       p.oscalert_threshold_als = (choice == "no_als" ? k.EMPTY : choice);
+      }
+
+    protected void Button_test_Click(object sender, EventArgs e)
+      {
+      if (Page.IsValid)
+        {
+        var sms_target = k.EMPTY;
+        var phone_num_digits = k.EMPTY;
+        var carrier_name = k.EMPTY;
+        p.biz_members.GetSmsInfoOfId
+          (
+          id:p.biz_members.IdOf(p.summary),
+          email_address:out sms_target,
+          phone_num_digits:out phone_num_digits,
+          carrier_name:out carrier_name
+          );
+        if (sms_target.Length > 0)
+          {
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:sms_target,
+            subject:k.EMPTY,
+            message_string:"Congratulations! You are now registered to receive OSCALERTs.",
+            be_html:false,
+            cc:k.EMPTY,
+            bcc:k.EMPTY,
+            reply_to:ConfigurationManager.AppSettings["bouncer_email_address"]
+            );
+          Alert
+            (
+            cause:k.alert_cause_type.USER,
+            state:k.alert_state_type.SUCCESS,
+            key:"oscalerttstsnt",
+            value:"A test message has been sent to " + k.FormatAsNanpPhoneNum(phone_num_digits) + " via " + carrier_name + ".",
+            be_using_scriptmanager:true
+            );
+          }
+        else
+          {
+          Alert
+            (
+            cause:k.alert_cause_type.APPDATA,
+            state:k.alert_state_type.FAILURE,
+            key:"oscalerttstfail",
+            value:"Sorry, the application could not retrieve your SMS address from its database. The test message could NOT be sent. Have you SAVED your OSCALERT settings?",
+            be_using_scriptmanager:true
+            );
+          }
+        }
+      else
+        {
+        ValidationAlert(true);
+        }
+      }
+
+    protected void DropDownList_phone_service_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      Button_test.Enabled = false;
       }
 
     } // end TWebUserControl_member_profile
