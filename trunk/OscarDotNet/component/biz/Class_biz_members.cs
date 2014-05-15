@@ -527,6 +527,23 @@ namespace Class_biz_members
             db_members.GetProfile(id, out name, out be_valid_profile);
         }
 
+    internal void GetSmsInfoOfId
+      (
+      string id,
+      out string email_address,
+      out string phone_num_digits,
+      out string carrier_name
+      )
+      {
+      db_members.GetSmsInfoOfId
+        (
+        id:id,
+        email_address:out email_address,
+        phone_num_digits: out phone_num_digits,
+        carrier_name: out carrier_name
+        );
+      }
+
         public string HighestTierOf(string id)
         {
             string result;

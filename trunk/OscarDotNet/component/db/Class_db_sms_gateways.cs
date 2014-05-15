@@ -163,6 +163,14 @@ namespace Class_db_sms_gateways
       return result;
       }
 
+    internal string HostnameOfId(string id)
+      {
+      Open();
+      var hostname_of_id_obj = new MySqlCommand("select hostname from sms_gateway where id = '" + id + "'",connection).ExecuteScalar();
+      Close();
+      return (hostname_of_id_obj == null ? k.EMPTY : hostname_of_id_obj.ToString());
+      }
+
     public void Set
       (
       string id,

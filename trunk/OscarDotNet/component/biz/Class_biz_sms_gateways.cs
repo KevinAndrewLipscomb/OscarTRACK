@@ -74,6 +74,11 @@ namespace Class_biz_sms_gateways
         );
       }
 
+    internal string HostnameOfId(string id)
+      {
+      return db_sms_gateways.HostnameOfId(id);
+      }
+
     public void Set
       (
       string id,
