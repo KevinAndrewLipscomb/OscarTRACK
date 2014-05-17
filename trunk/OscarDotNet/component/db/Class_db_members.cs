@@ -1971,8 +1971,8 @@ namespace Class_db_members
           (
           "update member"
           + " set phone_service_id = '" + phone_service_id + "'"
-          +   " , min_oscalert_peck_order_general = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "'),65535)"
-          +   " , min_oscalert_peck_order_als = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "'),65535)"
+          +   " , min_oscalert_peck_order_general = (select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "')"
+          +   " , min_oscalert_peck_order_als = (select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "')"
           +   " , do_oscalert_for_trap = " + do_oscalert_for_trap.ToString()
           +   " , do_oscalert_for_airport_alert = " + do_oscalert_for_airport_alert.ToString()
           +   " , do_oscalert_for_mrt = " + do_oscalert_for_mrt.ToString()
@@ -1997,8 +1997,8 @@ namespace Class_db_members
       {
       var sql = k.EMPTY
       + "update member"
-      + " set min_oscalert_peck_order_general = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "'),65535)"
-      + " , min_oscalert_peck_order_als = IFNULL((select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "'),65535)";
+      + " set min_oscalert_peck_order_general = (select pecking_order from field_situation_impression where description = '" + oscalert_threshold_general + "')"
+      + " , min_oscalert_peck_order_als = (select pecking_order from field_situation_impression where description = '" + oscalert_threshold_als + "')";
       if (do_clear_subscriptions)
         {
         sql += k.EMPTY

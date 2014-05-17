@@ -319,15 +319,6 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.RadioButton RadioButton_MultiAlarmFire;
         
         /// <summary>
-        /// RadioButton_MajorFireIncident control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RadioButton RadioButton_MajorFireIncident;
-        
-        /// <summary>
         /// RadioButton_TwoAlarmFire control.
         /// </summary>
         /// <remarks>

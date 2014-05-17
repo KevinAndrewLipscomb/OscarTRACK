@@ -159,32 +159,27 @@
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a 3-alarm fire or greater</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFAA80" valign="middle"><asp:RadioButton ID="RadioButton_MajorFireIncident" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
-                      <td align="center" valign="middle"><b>MajorFireIncident</b></td>
-                      <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a major fire incident</small></td>
-                    </tr>
-                    <tr>
-                      <td align="right" bgcolor="#FFBB80" valign="middle"><asp:RadioButton ID="RadioButton_TwoAlarmFire" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFAA80" valign="middle"><asp:RadioButton ID="RadioButton_TwoAlarmFire" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>TwoAlarmFire</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to a 2-alarm fire</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFCC80" valign="middle" nowrap="nowrap"><asp:RadioButton ID="RadioButton_FireSurge" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFBB80" valign="middle" nowrap="nowrap"><asp:RadioButton ID="RadioButton_FireSurge" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>FireSurge</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When EMS first response capacity is reduced due to multiple working fires</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_MultAmbHolds" runat="server" GroupName="GeneralThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFCC80" valign="middle"><asp:RadioButton ID="RadioButton_MultAmbHolds" runat="server" GroupName="GeneralThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>MultAmbHolds</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When multiple calls are holding for ambulances</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFEE80" valign="middle"><asp:RadioButton ID="RadioButton_CardiacArrestAmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFDD80" valign="middle"><asp:RadioButton ID="RadioButton_CardiacArrestAmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>CardiacArrestAmbNeeded</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When a Cardiac Arrest is holding for an ambulance</small></td>
                     </tr>
                     <tr>
-                      <td align="right" bgcolor="#FFFF80" valign="middle"><asp:RadioButton ID="RadioButton_AmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
+                      <td align="right" bgcolor="#FFEE80" valign="middle"><asp:RadioButton ID="RadioButton_AmbNeeded" runat="server" GroupName="GeneralThreshold" TextAlign="Left" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle"><b>AmbNeeded</b></td>
                       <td align="center" nowrap="nowrap" valign="middle"><small><small>All the above plus</small><br />When any call is holding for an ambulance</small></td>
                     </tr>
