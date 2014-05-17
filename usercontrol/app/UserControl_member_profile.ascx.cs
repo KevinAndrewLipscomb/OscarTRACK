@@ -271,13 +271,13 @@ namespace UserControl_member_profile
 
     protected void RadioButton_oscalert_threshold_general_CheckedChanged(object sender, EventArgs e)
       {
-      var choice = k.Safe((sender as RadioButton).ID.Replace("RadioButton_",k.EMPTY),k.safe_hint_type.ALPHANUM);
+      var choice = k.Safe((sender as RadioButton).ID.Replace("RadioButton_",k.EMPTY),k.safe_hint_type.ECMASCRIPT_WORD);
       p.oscalert_threshold_general = (choice == "no_general" ? k.EMPTY : choice);
       }
 
     protected void RadioButton_oscalert_threshold_als_CheckedChanged(object sender, EventArgs e)
       {
-      var choice = k.Safe((sender as RadioButton).ID.Replace("RadioButton_",k.EMPTY),k.safe_hint_type.ALPHANUM);
+      var choice = k.Safe((sender as RadioButton).ID.Replace("RadioButton_",k.EMPTY),k.safe_hint_type.ECMASCRIPT_WORD);
       p.oscalert_threshold_als = (choice == "no_als" ? k.EMPTY : choice);
       }
 
