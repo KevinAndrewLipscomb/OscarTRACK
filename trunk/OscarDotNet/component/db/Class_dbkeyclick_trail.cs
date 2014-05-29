@@ -73,7 +73,7 @@ namespace Class_dbkeyclick_trail
       my_sql_script.Delimiter = DELIMITER;
       my_sql_script.Query = Saved(code);
       Open();
-      my_sql_script.Execute();
+      ExecuteOneOffProcedureScriptWithTolerance(procedure_name,my_sql_script);
       Close();
       }
     public void MimicTraditionalInsertOnDuplicateKeyUpdate(string target_table_name,string key_field_name,string key_field_value,string childless_field_assignments_clause)
