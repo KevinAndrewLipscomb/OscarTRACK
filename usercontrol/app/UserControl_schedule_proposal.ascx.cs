@@ -363,6 +363,7 @@ namespace UserControl_schedule_proposal
           //
           // We must've crossed into a new month (with fewer days than last month) since the last invocation.
           //
+          p.nominal_day_filter_active = "1";
           nominal_day_filter_active_int = 1;
           }
         var nominal_datetime_filter_active = new DateTime(p.selected_year_num,p.selected_month_num,nominal_day_filter_active_int);
