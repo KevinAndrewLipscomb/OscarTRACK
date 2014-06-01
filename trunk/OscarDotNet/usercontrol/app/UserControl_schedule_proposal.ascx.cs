@@ -357,7 +357,15 @@ namespace UserControl_schedule_proposal
       Calendar_nominal_day.VisibleDate = DateTime.Today.AddMonths(p.relative_month.val);
       if (p.be_nominal_day_mode_specific)
         {
-        var nominal_datetime_filter_active = new DateTime(p.selected_year_num,p.selected_month_num,int.Parse(p.nominal_day_filter_active));
+        var nominal_day_filter_active_int = int.Parse(p.nominal_day_filter_active);
+        if (nominal_day_filter_active_int > DateTime.DaysInMonth(p.selected_year_num,p.selected_month_num))
+          {
+          //
+          // We must've crossed into a new month (with fewer days than last month) since the last invocation.
+          //
+          nominal_day_filter_active_int = 1;
+          }
+        var nominal_datetime_filter_active = new DateTime(p.selected_year_num,p.selected_month_num,nominal_day_filter_active_int);
         Calendar_nominal_day.SelectedDates.SelectRange(nominal_datetime_filter_active,nominal_datetime_filter_active);
         }
       else
