@@ -49,7 +49,7 @@ namespace Class_dbkeyclick_trail
       //
       {
       const string DELIMITER = "~";
-      var procedure_name = "MTIODKU_" + DateTime.Now.Ticks.ToString("D19");
+      var procedure_name = "MTIODKU_" + ConfigurationManager.AppSettings["application_name"] + "_" + DateTime.Now.Ticks.ToString("D19");
       var code = "/* DELIMITER '" + DELIMITER + "' */"
       + " drop procedure if exists " + procedure_name
       + DELIMITER
@@ -67,7 +67,7 @@ namespace Class_dbkeyclick_trail
       + DELIMITER
       + " call " + procedure_name + "()"
       + DELIMITER
-      + " drop procedure " + procedure_name + "";
+      + " drop procedure if exists " + procedure_name;
       var my_sql_script = new MySqlScript();
       my_sql_script.Connection = connection;
       my_sql_script.Delimiter = DELIMITER;
