@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using System.Collections;
 using System.Configuration;
 using System.Data;
 
@@ -20,7 +21,7 @@ namespace Class_dbhomedb
       connection.Close();
       }
 
-    protected static void ExecuteOneOffProcedureScriptWithTolerance
+    protected void ExecuteOneOffProcedureScriptWithTolerance
       (
       string procedure_name,
       MySqlScript my_sql_script
@@ -36,7 +37,7 @@ namespace Class_dbhomedb
           }
         catch (MySqlException the_exception)
           {
-          if (the_exception.Message != "PROCEDURE " + procedure_name + " already exists")
+          if (!new ArrayList() {"PROCEDURE " + procedure_name + " already exists","PROCEDURE " + connection.Database + "." + procedure_name + " does not exist"}.Contains(the_exception.Message))
             {
             throw;
             }
