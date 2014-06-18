@@ -95,6 +95,7 @@ namespace Class_db_members
     public class member_summary
       {
       public string agency;
+      public string agency_id;
       public bool be_driver_qualified;
       public string cad_num;
       public string enrollment;
@@ -182,6 +183,11 @@ namespace Class_db_members
         {
             Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
         }
+
+    public string AgencyIdOf(object summary)
+      {
+      return (summary as member_summary).agency_id;
+      }
 
         public string AgencyOf(object summary)
         {
@@ -1471,24 +1477,32 @@ namespace Class_db_members
       Close();
       }
 
-        public string HighestTierOf(string id)
+    public string HighestTierOf(string id)
+      {
+      //
+      // Note that tier_id=1 is the "highest" tier.  The default return value, therefore, indicates the lowest representable tier.
+      //
+      var highest_tier_of = new k.subtype<int>(0,255);
+      highest_tier_of.val = highest_tier_of.LAST;
+      //
+      Open();
+      var standard_tier_id_obj = new MySqlCommand
+        ("select min(tier_id) from member join role_member_map on (role_member_map.member_id=member.id) join role on (role.id=role_member_map.role_id) where member.id = '" + id + "'",connection).ExecuteScalar();
+      if ((standard_tier_id_obj != null) && (standard_tier_id_obj != DBNull.Value))
         {
-            string result;
-            object tier_id_obj;
-            // Note that tier_id=1 is the "highest" tier.
-            this.Open();
-            tier_id_obj = new MySqlCommand("select min(tier_id)" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role on (role.id=role_member_map.role_id)" + " where member.id = " + id, this.connection).ExecuteScalar();
-            if ((tier_id_obj != null) && (tier_id_obj != DBNull.Value))
-            {
-                result = tier_id_obj.ToString();
-            }
-            else
-            {
-                result = Int32.MaxValue.ToString();
-            }
-            this.Close();
-            return result;
+        highest_tier_of.val = int.Parse(standard_tier_id_obj.ToString());
         }
+      var special_tier_id_obj = new MySqlCommand
+        ("select min(tier_id) from member join special_role_member_map on (special_role_member_map.member_id=member.id) join role on (role.id=special_role_member_map.role_id) where member.id = '" + id + "'",connection)
+        .ExecuteScalar();
+      if ((special_tier_id_obj != null) && (special_tier_id_obj != DBNull.Value))
+        {
+        highest_tier_of.val = Math.Min(highest_tier_of.val,int.Parse(special_tier_id_obj.ToString()));
+        }
+      Close();
+      //
+      return highest_tier_of.val.ToString();
+      }
 
       internal Queue HoldoutQueue(bool be_before_deadline)
         {
@@ -2043,6 +2057,7 @@ namespace Class_db_members
             + " , first_name" 
             + " , cad_num" 
             + " , short_designator as agency" 
+            + " , agency_id"
             + " , section_num" 
             + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
             + " , medical_release_code_description_map.description as medical_release_description" 
@@ -2093,6 +2108,7 @@ namespace Class_db_members
               + " , first_name" 
               + " , cad_num" 
               + " , short_designator as agency" 
+              + " , agency_id"
               + " , section_num" 
               + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
               + " , medical_release_code_description_map.description as medical_release_description" 
@@ -2134,6 +2150,7 @@ namespace Class_db_members
           var the_summary = new member_summary()
             {
             agency = dr["agency"].ToString(),
+            agency_id = dr["agency_id"].ToString(),
             be_driver_qualified = (dr["be_driver_qualified"].ToString() == "1"),
             cad_num = dr["cad_num"].ToString(),
             enrollment = dr["enrollment"].ToString(),
