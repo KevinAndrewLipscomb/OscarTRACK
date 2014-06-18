@@ -42,6 +42,16 @@ namespace Class_biz_privileges
             return result;
         }
 
+    internal bool HasForSpecialAgency
+      (
+      string member_id,
+      string privilege_name,
+      string agency_id
+      )
+      {
+      return (int.Parse(agency_id) > 200) && db_privileges.HasForSpecialAgency(member_id,privilege_name,agency_id);
+      }
+
     } // end TClass_biz_privileges
 
 }

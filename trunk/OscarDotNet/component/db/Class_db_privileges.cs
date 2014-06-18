@@ -86,6 +86,32 @@ namespace Class_db_privileges
             return result;
         }
 
+    internal bool HasForSpecialAgency
+      (
+      string member_id,
+      string privilege_name,
+      string agency_id
+      )
+      {
+      Open();
+      var has_for_special_agency_obj = new MySqlCommand
+        (
+        "select 1"
+        + " from member"
+        +   " join special_role_member_map on (special_role_member_map.member_id=member.id)"
+        +   " join role on (role.id=special_role_member_map.role_id)"
+        +   " join role_privilege_map on (role_privilege_map.role_id=role.id)"
+        +   " join privilege on (privilege.id=role_privilege_map.privilege_id)"
+        + " where member.id = '" + member_id + "'"
+        +   " and privilege.name = '" + privilege_name + "'"
+        +   " and (special_role_member_map.agency_id = '" + agency_id + "')",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (has_for_special_agency_obj != null);
+      }
+
     } // end TClass_db_privileges
 
 }

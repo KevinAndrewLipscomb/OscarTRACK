@@ -120,6 +120,11 @@ namespace Class_biz_members
             return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_level, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
         }
 
+    public string AgencyIdOf(object summary)
+      {
+      return db_members.AgencyIdOf(summary);
+      }
+
         public string AgencyOf(object summary)
         {
             string result;

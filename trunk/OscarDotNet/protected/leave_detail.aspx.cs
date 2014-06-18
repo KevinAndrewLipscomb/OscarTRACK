@@ -1,6 +1,7 @@
 using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_user;
 using Class_db_leaves;
 using kix;
@@ -37,6 +38,7 @@ namespace leave_detail
       public bool be_user_privileged_to_see_personnel_status_notes;
       public TClass_biz_leaves biz_leaves;
       public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
       public TClass_biz_user biz_user;
       public string cad_num_string;
       public uint num_datagrid_rows;
@@ -97,11 +99,29 @@ namespace leave_detail
                 {
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
+                    p.biz_privileges = new TClass_biz_privileges();
                     p.biz_user = new TClass_biz_user();
+                    //
+                    var priv_of_interest = k.EMPTY;
+                    var target_member_id = p.biz_members.IdOf(Session["member_summary"]);
+                    var target_member_agency_id = p.biz_members.AgencyIdOf(Session["member_summary"]);
+                    var user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+                    //
+                    var be_authorized_tier_or_same_agency = p.biz_members.BeAuthorizedTierOrSameAgency(user_member_id,target_member_id);
+                    //
                     p.be_sort_order_ascending = false;
-                    p.be_user_privileged_to_clear_medical_leave = k.Has((string[])(Session["privilege_array"]),"clear-medical-leave");
-                    p.be_user_privileged_to_grant_leave = k.Has((string[])(Session["privilege_array"]), "grant-leave") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
-                    p.be_user_privileged_to_see_personnel_status_notes = k.Has((string[])(Session["privilege_array"]), "see-personnel-status-notes") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
+                    //
+                    priv_of_interest = "clear-medical-leave";
+                    p.be_user_privileged_to_clear_medical_leave = k.Has((string[])(Session["privilege_array"]),priv_of_interest);
+                    //
+                    priv_of_interest = "grant-leave";
+                    p.be_user_privileged_to_grant_leave = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency)
+                      || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:target_member_agency_id);
+                    //
+                    priv_of_interest = "see-personnel-status-notes";
+                    p.be_user_privileged_to_see_personnel_status_notes = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && p.biz_members.BeAuthorizedTierOrSameAgency(user_member_id,p.biz_members.IdOf(Session["member_summary"])))
+                      || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:target_member_agency_id);
+                    //
                     p.num_datagrid_rows = 0;
                     p.sort_order = "start_date%";
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);

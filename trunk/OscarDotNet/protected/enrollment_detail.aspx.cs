@@ -1,6 +1,7 @@
 using appcommon;
 using Class_biz_enrollment;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_user;
 using kix;
 using System;
@@ -38,7 +39,9 @@ namespace enrollment_detail
             {
                 Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - enrollment_detail";
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + p.cad_num_string + ")";
-                LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["member_summary"], k.Has((string[])(Session["privilege_array"]), "edit-enrollments"), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"));
+                var priv_of_interest = "edit-enrollments";
+                LinkButton_add_new_enrollment_status.Visible = p.biz_members.BeUserAuthorizedToEditEnrollments(p.biz_members.IdOfUserId(p.biz_user.IdNum()), Session["member_summary"], k.Has((string[])(Session["privilege_array"]),priv_of_interest), k.Has((string[])(Session["privilege_array"]), "edit-enrollments-of-trainees-only"))
+                  || p.biz_privileges.HasForSpecialAgency(member_id:p.user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);
                 Bind();
             }
         }
@@ -71,8 +74,18 @@ namespace enrollment_detail
                 {
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_members = new TClass_biz_members();
+                    p.biz_privileges = new TClass_biz_privileges();
                     p.biz_user = new TClass_biz_user();
-                    p.be_user_privileged_to_see_personnel_status_notes = k.Has((string[])(Session["privilege_array"]), "see-personnel-status-notes") && p.biz_members.BeAuthorizedTierOrSameAgency(p.biz_members.IdOfUserId(p.biz_user.IdNum()), p.biz_members.IdOf(Session["member_summary"]));
+                    //
+                    var priv_of_interest = k.EMPTY;
+                    var target_member_id = p.biz_members.IdOf(Session["member_summary"]);
+                    //
+                    p.target_member_agency_id = p.biz_members.AgencyIdOf(Session["member_summary"]);
+                    p.user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+                    //
+                    priv_of_interest = "see-personnel-status-notes";
+                    p.be_user_privileged_to_see_personnel_status_notes = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && p.biz_members.BeAuthorizedTierOrSameAgency(p.user_member_id,target_member_id))
+                      || p.biz_privileges.HasForSpecialAgency(member_id:p.user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);;
                     p.num_datagrid_rows = 0;
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (p.cad_num_string == k.EMPTY)
@@ -134,9 +147,12 @@ namespace enrollment_detail
             public bool be_user_privileged_to_see_personnel_status_notes;
             public TClass_biz_enrollment biz_enrollment;
             public TClass_biz_members biz_members;
+            public TClass_biz_privileges biz_privileges;
             public TClass_biz_user biz_user;
             public string cad_num_string;
             public uint num_datagrid_rows;
+            public string target_member_agency_id;
+            public string user_member_id;
         } // end p_type
 
     } // end TWebForm_enrollment_detail

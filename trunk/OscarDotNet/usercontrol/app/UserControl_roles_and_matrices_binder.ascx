@@ -17,7 +17,7 @@
       <tr>
         <td style="BORDER-RIGHT: silver thin solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: silver thin solid; PADDING-TOP: 10px; BORDER-BOTTOM: silver thin solid">
           <p>&nbsp;</p>
-          <p>Have you read the <a href="~/doc/roles.aspx" target="_blank">Important Information About Roles</a>?&nbsp; <small>(opens new window)</small>
+          <p>Have you read the <a href="../doc/roles.aspx" target="_blank">Important Information About Roles</a>?&nbsp; <small>(opens new window)</small>
           </p>
           <ASP:PlaceHolder id="PlaceHolder_content" runat="server"></ASP:PlaceHolder>
         </td>
