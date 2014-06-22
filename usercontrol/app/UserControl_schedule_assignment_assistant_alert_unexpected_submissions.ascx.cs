@@ -1,6 +1,8 @@
 using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
+using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
@@ -22,7 +24,9 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
+    public TClass_biz_user biz_user;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_unexpected_submissions_alert_datagrid_rows;
     public string own_agency;
@@ -69,6 +73,8 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
         //
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
+        p.biz_user = new TClass_biz_user();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
@@ -144,9 +150,11 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
             (
               p.be_user_privileged_to_see_all_squads
             ||
-              (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.own_agency)
+              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.own_agency))
             ||
               (p.be_ok_to_schedule_squad_truck_team && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unexpected_submissions_Static.TCI_TARGET_AGENCY_ID].Text == p.sqt_agency_id))
+            ||
+              p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter)
             );
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //

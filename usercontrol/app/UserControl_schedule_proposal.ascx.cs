@@ -1,6 +1,7 @@
 using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
 using Class_biz_shifts;
 using Class_biz_user;
@@ -30,6 +31,7 @@ namespace UserControl_schedule_proposal
     public bool be_now_day_shift;
     public bool be_nominal_day_mode_specific;
     public bool be_ok_to_edit_post;
+    public bool be_ok_to_edit_schedule_for_any_special_agency;
     public bool be_ok_to_edit_schedule_liberally;
     public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_ok_to_schedule_squad_truck_team;
@@ -39,6 +41,7 @@ namespace UserControl_schedule_proposal
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_medical_release_levels biz_medical_release_levels;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_shifts biz_shifts;
     public TClass_biz_user biz_user;
@@ -189,6 +192,7 @@ namespace UserControl_schedule_proposal
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_shifts = new TClass_biz_shifts();
         p.biz_user = new TClass_biz_user();
@@ -201,6 +205,7 @@ namespace UserControl_schedule_proposal
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
+        p.be_ok_to_edit_schedule_for_any_special_agency = p.biz_privileges.HasForAnySpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule");
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
         p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
@@ -725,55 +730,69 @@ namespace UserControl_schedule_proposal
         var d_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
         var d_be_ok_to_enable_controls = (d_post_id != k.EMPTY)
           && p.be_interactive
-          && p.be_ok_to_edit_post
           &&
             (
               (
-                (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
-              &&
-                (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
-              )
-            ||
-              p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
-            ||
-              (
-                p.be_ok_to_edit_schedule_liberally
+                p.be_ok_to_edit_post
               &&
                 (
-                  !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,p.relative_month)
+                  (
+                    (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
+                  &&
+                    (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
+                  )
                 ||
-                  p.be_squad_exclusivity_expired
+                  p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
+                ||
+                  (
+                    p.be_ok_to_edit_schedule_liberally
+                  &&
+                    (
+                      !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,p.relative_month)
+                    ||
+                      p.be_squad_exclusivity_expired
+                    )
+                  )
                 )
               )
             ||
               p.be_ok_to_schedule_squad_truck_team
+            ||
+              p.be_ok_to_edit_schedule_for_any_special_agency
             );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
         var n_be_ok_to_enable_controls = (n_post_id != k.EMPTY)
           && p.be_interactive
-          && p.be_ok_to_edit_post
           &&
             (
               (
-                (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
-              &&
-                (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
-              )
-            ||
-              p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
-            ||
-              (
-                p.be_ok_to_edit_schedule_liberally
+                p.be_ok_to_edit_post
               &&
                 (
-                  !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,p.relative_month)
+                  (
+                    (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
+                  &&
+                    (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
+                  )
                 ||
-                  p.be_squad_exclusivity_expired
+                  p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
+                ||
+                  (
+                    p.be_ok_to_edit_schedule_liberally
+                  &&
+                    (
+                      !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,p.relative_month)
+                    ||
+                      p.be_squad_exclusivity_expired
+                    )
+                  )
                 )
               )
             ||
               p.be_ok_to_schedule_squad_truck_team
+            ||
+              p.be_ok_to_edit_schedule_for_any_special_agency
             );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;

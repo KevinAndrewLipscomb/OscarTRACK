@@ -1,5 +1,7 @@
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
+using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
@@ -15,15 +17,19 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
     public string agency_filter;
     public bool be_interactive;
     public bool be_loaded;
+    public bool be_ok_to_edit_schedule_for_selected_special_agency;
     public bool be_time_off_alert_datagrid_empty;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
+    public TClass_biz_user biz_user;
     public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
     public uint num_time_off_alert_datagrid_rows;
     public string own_agency;
     public k.subtype<int> relative_month;
     public string release_filter;
+    public string user_member_id;
     }
 
   public partial class TWebUserControl_schedule_assignment_assistant_alert_time_off: ki_web_ui.usercontrol_class
@@ -74,6 +80,8 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
+        p.biz_user = new TClass_biz_user();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
@@ -84,6 +92,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        p.user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
         }
       }
 
@@ -117,6 +126,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
       p.relative_month = relative_month;
+      p.be_ok_to_edit_schedule_for_selected_special_agency = p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter);
       Bind();
       }
 
@@ -129,10 +139,21 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         be_suppressed = false;
         p.biz_schedule_assignments.BindTimeOffAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W);
         }
-      else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+      else if
+        (
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+        ||
+          p.be_ok_to_edit_schedule_for_selected_special_agency
+        )
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTimeOffAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W);
+        p.biz_schedule_assignments.BindTimeOffAlertBaseDataList
+          (
+          agency_filter:(p.agency_filter.Length > 0 ? p.agency_filter : own_agency),
+          release_filter:p.release_filter,
+          relative_month:p.relative_month,
+          target:W
+          );
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;
@@ -159,13 +180,20 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         {
         if (be_any_kind_of_item)
           {
+          var be_ok_to_enable_controls = 
+            (
+              p.be_user_privileged_to_see_all_squads
+            ||
+              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency))
+            ||
+              p.be_ok_to_edit_schedule_for_selected_special_agency
+            );
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency));
+          link_button.Enabled = be_ok_to_enable_controls;
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
-          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AUTO_FIX_BUTTON].Controls[0]) as Button).Enabled =
-            (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AGENCY_ID].Text == p.own_agency));
+          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_off_Static.TCI_AUTO_FIX_BUTTON].Controls[0]) as Button).Enabled = be_ok_to_enable_controls;
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
