@@ -1,4 +1,5 @@
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
 using Class_msg_protected;
@@ -24,6 +25,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
     public bool be_post_publish_submissions_detected;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
     public string compliancy_filter;
@@ -83,6 +85,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
@@ -157,10 +160,25 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         be_suppressed = false;
         p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter,show_transferring_members:true);
         }
-      else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+      else if
+        (
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+        ||
+          p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter)
+        )
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,own_agency,p.release_filter,p.relative_month,p.compliancy_filter,show_transferring_members:false);
+        p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList
+          (
+          sort_order:p.sort_order,
+          be_sort_order_ascending:p.be_sort_order_ascending,
+          target:DataGrid_control,
+          agency_filter:(p.agency_filter.Length > 0 ? p.agency_filter : own_agency),
+          release_filter:p.release_filter,
+          relative_month:p.relative_month,
+          compliancy_filter:p.compliancy_filter,
+          show_transferring_members:false
+          );
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;

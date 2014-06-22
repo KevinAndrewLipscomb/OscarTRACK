@@ -1,4 +1,5 @@
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
 using Class_msg_protected;
@@ -18,15 +19,19 @@ namespace UserControl_schedule_assignment_assistant_publish
     public string agency_filter;
     public bool be_loaded;
     public bool be_ok_to_edit_schedule;
+    public bool be_ok_to_edit_schedule_for_selected_special_agency;
     public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_user_privileged_to_see_all_squads;
     public bool be_virgin_watchbill;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
     public string own_agency;
     public k.subtype<int> relative_month;
     public string release_filter;
+    public string user_member_id;
+    public string user_id;
     }
 
   public partial class TWebUserControl_schedule_assignment_assistant_publish: ki_web_ui.usercontrol_class
@@ -69,6 +74,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
@@ -79,6 +85,9 @@ namespace UserControl_schedule_assignment_assistant_publish
         p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        p.user_id = p.biz_user.IdNum();
+        //
+        p.user_member_id = p.biz_members.IdOfUserId(p.user_id);
         }
       }
 
@@ -113,6 +122,8 @@ namespace UserControl_schedule_assignment_assistant_publish
       p.release_filter = release_filter;
       p.relative_month = relative_month;
       //
+      p.be_ok_to_edit_schedule_for_selected_special_agency = p.biz_privileges.HasForSpecialAgency(member_id:p.user_member_id,privilege_name:"edit-schedule",agency_id:p.agency_filter);
+      //
       ManageAblements();
       }
 
@@ -125,7 +136,7 @@ namespace UserControl_schedule_assignment_assistant_publish
       {
       if (Page.IsValid)
         {
-        if (p.biz_schedule_assignments.BeAdventitiousChangeDetected(p.biz_user.IdNum(),p.relative_month,p.be_virgin_watchbill))
+        if (p.biz_schedule_assignments.BeAdventitiousChangeDetected(p.user_id,p.relative_month,p.be_virgin_watchbill))
           {
           Alert
             (
@@ -169,7 +180,7 @@ namespace UserControl_schedule_assignment_assistant_publish
     private void ManageAblements()
       {
       p.be_virgin_watchbill = p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month);
-      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(p.be_ok_to_edit_schedule,p.biz_members.IdOfUserId(p.biz_user.IdNum()),p.agency_filter))
+      if (p.biz_schedule_assignments.BeOkToPublishFullWatchbill(p.be_ok_to_edit_schedule,p.user_member_id,p.agency_filter))
         {
         CheckBox_full.Checked = p.be_virgin_watchbill;
         CheckBox_full.Enabled = !p.be_virgin_watchbill;
@@ -185,7 +196,7 @@ namespace UserControl_schedule_assignment_assistant_publish
         RadioButton_month_at_a_glance.Checked = false;
         RadioButton_month_at_a_glance.Enabled = false;
         }
-      Button_publish.Enabled = (p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only) && ((p.agency_filter == p.own_agency) || !p.be_virgin_watchbill);
+      Button_publish.Enabled = ((p.be_ok_to_edit_schedule || p.be_ok_to_edit_schedule_tier_department_only) && ((p.agency_filter == p.own_agency) || !p.be_virgin_watchbill)) || p.be_ok_to_edit_schedule_for_selected_special_agency;
       }
 
     }

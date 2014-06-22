@@ -1,6 +1,8 @@
 using AjaxControlToolkit;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
+using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
@@ -17,10 +19,13 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
     public bool be_interactive;
     public bool be_lineup;
     public bool be_loaded;
+    public bool be_ok_to_edit_schedule_for_selected_special_agency;
     public bool be_travel_gap_alert_datagrid_empty;
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
+    public TClass_biz_user biz_user;
     public TClass_msg_protected.overview msg_protected_overview;
     public uint num_travel_gap_alert_datagrid_rows;
     public string own_agency;
@@ -89,7 +94,9 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         p.be_loaded = false;
         //
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        p.biz_user = new TClass_biz_user();
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
@@ -138,6 +145,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       p.agency_filter = agency_filter;
       p.release_filter = release_filter;
       p.relative_month = relative_month;
+      p.be_ok_to_edit_schedule_for_selected_special_agency = p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter);
       Bind();
       }
 
@@ -165,10 +173,23 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         be_suppressed = false;
         p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(p.agency_filter,p.release_filter,p.relative_month,W,post_footprint,p.be_lineup,p.be_for_muster);
         }
-      else if (p.agency_filter == own_agency || p.agency_filter == k.EMPTY)
+      else if
+        (
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+        ||
+          p.be_ok_to_edit_schedule_for_selected_special_agency
+        )
         {
         be_suppressed = false;
-        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList(own_agency,p.release_filter,p.relative_month,W,post_footprint,p.be_lineup,p.be_for_muster);
+        p.biz_schedule_assignments.BindTravelGapAlertBaseDataList
+          (
+          agency_filter:(p.agency_filter.Length > 0 ? p.agency_filter : own_agency),
+          release_filter:p.release_filter,relative_month:p.relative_month,
+          target:W,
+          post_footprint:post_footprint,
+          be_lineup:p.be_lineup,
+          be_for_muster:p.be_for_muster
+          );
         }
       Panel_supressed.Visible = be_suppressed;
       Table_data.Visible = !be_suppressed;
@@ -219,12 +240,20 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         {
         if (be_any_kind_of_item)
           {
+          var be_ok_to_enable_controls = 
+            (
+              p.be_user_privileged_to_see_all_squads
+            ||
+              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text == p.own_agency))
+            ||
+              p.be_ok_to_edit_schedule_for_selected_special_agency
+            );
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].Controls[0]) as LinkButton);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text == p.own_agency));
+          link_button.Enabled = be_ok_to_enable_controls;
           ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].Controls[0]) as LinkButton);
-          link_button.Enabled = (p.be_user_privileged_to_see_all_squads || (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text == p.own_agency));
+          link_button.Enabled = be_ok_to_enable_controls;
           ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the ones at TCI_POST_{FROM|TO}.

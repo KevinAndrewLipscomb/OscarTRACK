@@ -2,6 +2,7 @@
 
 using Class_biz_agencies;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
@@ -38,6 +39,7 @@ namespace UserControl_schedule_assignment_assistant_binder
     public bool be_user_privileged_to_see_all_squads;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
+    public TClass_biz_privileges biz_privileges;
     public TClass_biz_schedule_assignments biz_schedule_assignments;
     public TClass_biz_user biz_user;
     public string content_id;
@@ -133,11 +135,11 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
         p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
-        p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]), "edit-schedule");
         p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.full_next_month_access_day = (int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) + 1).ToString();
@@ -147,6 +149,10 @@ namespace UserControl_schedule_assignment_assistant_binder
         p.be_loaded = false;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
+        //
+        var priv_of_interest = "edit-schedule";
+        p.be_ok_to_edit_schedule = k.Has((string[])(Session["privilege_array"]),priv_of_interest)
+          || p.biz_privileges.HasForAnySpecialAgency(member_id:p.user_member_id,privilege_name:priv_of_interest);
         //
         if (p.be_ok_to_edit_schedule && !p.be_ok_to_edit_schedule_tier_department_only)
           {
