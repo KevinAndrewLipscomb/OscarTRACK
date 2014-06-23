@@ -133,10 +133,15 @@ namespace UserControl_schedule_proposal
       {
       if (!p.be_loaded)
         {
-        if (p.be_interactive && p.be_ok_to_edit_post && !p.be_ok_to_edit_schedule_tier_department_only)
+        if (p.be_interactive)
           {
-          TableRow_guidance.Visible = true;
-          Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+          p.be_ok_to_edit_schedule_for_any_special_agency = p.biz_privileges.HasForAnySpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule");
+          //
+          if (p.be_ok_to_edit_post && !p.be_ok_to_edit_schedule_tier_department_only)
+            {
+            TableRow_guidance.Visible = true;
+            Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+            }
           }
         Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
         DropDownList_depth.SelectedValue = p.depth_filter;
@@ -205,7 +210,7 @@ namespace UserControl_schedule_proposal
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
-        p.be_ok_to_edit_schedule_for_any_special_agency = p.biz_privileges.HasForAnySpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule");
+        p.be_ok_to_edit_schedule_for_any_special_agency = false;
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
         p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
