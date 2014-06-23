@@ -113,17 +113,23 @@ namespace Class_biz_schedule_assignments
       k.subtype<int> relative_month
       )
       {
+      var be_from_same_agency = false;
       var be_interactive = (session["mode:report"] == null);
+      var be_ok_to_schedule_any_special_agency = false;
       var be_ok_to_schedule_squad_truck_team = k.Has(session["privilege_array"] as string[],"schedule-squad-truck-team");
       var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
-      var user_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      var user_member_id = k.EMPTY;
       //
-      var be_ok_to_schedule_any_special_agency = biz_privileges.HasForAnySpecialAgency
-        (
-        member_id:user_member_id,
-        privilege_name:"edit-schedule"
-        );
-      var be_from_same_agency = (be_interactive ? (target_member_agency_id == biz_members.AgencyIdOfId(user_member_id)) : false);
+      if (be_interactive)
+        {
+        user_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+        be_ok_to_schedule_any_special_agency = biz_privileges.HasForAnySpecialAgency
+          (
+          member_id:user_member_id,
+          privilege_name:"edit-schedule"
+          );
+        be_from_same_agency = (target_member_agency_id == biz_members.AgencyIdOfId(user_member_id));
+        }
       //
       return
         (
