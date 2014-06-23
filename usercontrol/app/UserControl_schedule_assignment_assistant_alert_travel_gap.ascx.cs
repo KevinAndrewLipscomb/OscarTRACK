@@ -104,7 +104,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.msg_protected_overview = new TClass_msg_protected.overview();
         p.num_travel_gap_alert_datagrid_rows = 0;
-        p.own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+        p.own_agency = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
         }
@@ -152,6 +152,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
     internal void SetInteractivity(bool be_interactive)
       {
       p.be_interactive = be_interactive;
+      p.own_agency = (be_interactive ? p.biz_members.AgencyIdOfId(Session["member_id"].ToString()) : k.EMPTY);
       }
 
     private void Bind()
