@@ -2,6 +2,7 @@
 
 using Class_biz_members;
 using Class_biz_notifications;
+using Class_biz_privileges;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_db_agencies;
@@ -22,6 +23,7 @@ namespace Class_biz_schedule_assignments
 
     private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
+    private TClass_biz_privileges biz_privileges = null;
     private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
@@ -31,6 +33,7 @@ namespace Class_biz_schedule_assignments
       {
       biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
+      biz_privileges = new TClass_biz_privileges();
       biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
@@ -110,10 +113,18 @@ namespace Class_biz_schedule_assignments
       k.subtype<int> relative_month
       )
       {
-      var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
       var be_interactive = (session["mode:report"] == null);
       var be_ok_to_schedule_squad_truck_team = k.Has(session["privilege_array"] as string[],"schedule-squad-truck-team");
-      var be_from_same_agency = (be_interactive ? (target_member_agency_id == biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum()))) : false);
+      var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
+      var user_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      //
+      var be_ok_to_schedule_any_special_agency = biz_privileges.HasForAnySpecialAgency
+        (
+        member_id:user_member_id,
+        privilege_name:"edit-schedule"
+        );
+      var be_from_same_agency = (be_interactive ? (target_member_agency_id == biz_members.AgencyIdOfId(user_member_id)) : false);
+      //
       return
         (
           be_interactive
@@ -123,6 +134,8 @@ namespace Class_biz_schedule_assignments
           ||
             be_ok_to_schedule_squad_truck_team
           ||
+            be_ok_to_schedule_any_special_agency
+          ||
             (k.Has(session["privilege_array"] as string[],"edit-schedule-tier-department-only") && be_from_same_agency)
           )
         &&
@@ -130,7 +143,7 @@ namespace Class_biz_schedule_assignments
             be_from_same_agency
           ||
             (
-              (k.Has(session["privilege_array"] as string[],"see-all-squads") || be_ok_to_schedule_squad_truck_team)
+              (k.Has(session["privilege_array"] as string[],"see-all-squads") || be_ok_to_schedule_squad_truck_team || be_ok_to_schedule_any_special_agency)
             &&
               (
                 !BeFullWatchbillPublishMandatory(target_member_agency_id,relative_month)
