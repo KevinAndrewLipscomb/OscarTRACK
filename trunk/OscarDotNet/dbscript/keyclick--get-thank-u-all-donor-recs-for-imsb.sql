@@ -1,5 +1,6 @@
 select resident_base.id as contactid
 , resident_base.name as name
+, 'OR CURRENT RESIDENT' as company
 , IF(
       street.name = "PO BOX"
     ,
