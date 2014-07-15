@@ -176,7 +176,7 @@ namespace change_leave
         (
         member_id:p.biz_members.IdOf(Session["member_summary"]),
         relative_start_month:int.Parse(p.effective_start_month_offset),
-        relative_end_month:int.Parse(k.Safe(DropDownList_end_month.SelectedValue,k.safe_hint_type.NUM))
+        relative_end_month:int.Parse(k.Safe(DropDownList_end_month.SelectedValue,k.safe_hint_type.HYPHENATED_NUM))
         );
       }
 
