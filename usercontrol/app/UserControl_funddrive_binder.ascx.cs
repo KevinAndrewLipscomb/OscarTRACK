@@ -27,12 +27,14 @@ namespace UserControl_funddrive_binder
         private struct p_type
           {
           public bool be_loaded;
+          public bool be_ok_to_use_keyclick;
           public TClass_biz_agencies biz_agencies;
           public TClass_biz_manifest biz_manifest;
           public TClass_biz_members biz_members;
           public TClass_biz_user biz_user;
           public string content_id;
           public uint tab_index;
+          public string user_member_agency_id;
           }
 
         private p_type p;
@@ -42,7 +44,7 @@ namespace UserControl_funddrive_binder
             if (!p.be_loaded)
             {
                 TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-                if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
+                if (p.be_ok_to_use_keyclick)
                   {
                   if (Session["keyclick_boarding_pass_number"] == null)
                     {
@@ -53,7 +55,7 @@ namespace UserControl_funddrive_binder
                   //
                   TabPanel_keyclick.Visible = true;
                   //
-                  var be_user_with_kvrs = (p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))) == "KVRS");
+                  var be_user_with_kvrs = (p.biz_agencies.KeyclickEnumeratorOf(p.user_member_agency_id) == "KVRS");
                   TabPanel_love_letters.Visible = be_user_with_kvrs;  //true;
                   TabPanel_paypal_assistant.Visible = be_user_with_kvrs;  //true;
                   //TabPanel_new_donation.Visible = true;
@@ -120,7 +122,12 @@ namespace UserControl_funddrive_binder
                 p.biz_user = new TClass_biz_user();
                 //
                 p.be_loaded = false;
-                if (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops"))
+                //
+                p.user_member_agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
+                //
+                p.be_ok_to_use_keyclick = (k.Has((string[])(Session["privilege_array"]), "perform-fund-drive-ops") && p.biz_agencies.BeKeyclickEnabled(p.user_member_agency_id));
+                //
+                if (p.be_ok_to_use_keyclick)
                 {
                     p.tab_index = UserControl_funddrive_binder_Static.TSSI_KEYCLICK;
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx"))),"UserControl_keyclick",PlaceHolder_content,InstanceId());

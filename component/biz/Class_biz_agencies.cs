@@ -72,6 +72,11 @@ namespace Class_biz_agencies
             return result;
         }
 
+    internal bool BeKeyclickEnabled(string id)
+      {
+      return db_agencies.BeKeyclickEnabled(id);
+      }
+
         public bool Bind(string partial_spec, object target)
           {
           return db_agencies.Bind(partial_spec, target);
