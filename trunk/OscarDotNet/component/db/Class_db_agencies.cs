@@ -63,6 +63,14 @@ namespace Class_db_agencies
       return be_notification_pending_for_all_in_scope;
       }
 
+    internal bool BeKeyclickEnabled(string id)
+      {
+      Open();
+      var be_keyclick_enabled = ("1" == new MySqlCommand("select be_keyclick_enabled from agency where id = '" + id + "'",connection).ExecuteScalar().ToString());
+      Close();
+      return be_keyclick_enabled;
+      }
+
         public bool Bind(string partial_spec, object target)
           {
           var concat_clause = "concat(id,'|',short_designator,'|',long_designator,'|',keyclick_enumerator,'|',oscar_classic_enumerator)";
