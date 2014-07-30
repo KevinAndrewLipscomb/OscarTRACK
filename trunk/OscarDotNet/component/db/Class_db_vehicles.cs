@@ -648,20 +648,29 @@ namespace Class_db_vehicles
       (
       string vehicle_id,
       DateTime time_came_up,
+      string new_target_pm_mileage,
       string up_comment,
       object summary
       )
       {
+      var sql = k.EMPTY
+      + "update vehicle_usability_history"
+      + " set time_came_up = '" + time_came_up.ToString("yyyy-MM-dd HH:mm") + "'"
+      + " , up_comment = NULLIF('" + up_comment + "','')"
+      + " where vehicle_id = '" + vehicle_id +"' and time_came_up is null";
+      if (new_target_pm_mileage.Length > 0)
+        {
+        sql = k.EMPTY
+        + "START TRANSACTION"
+        + ";"
+        + k.SPACE + sql
+        + ";"
+        + " update vehicle set target_pm_mileage = '" + new_target_pm_mileage + "' where id = '" + vehicle_id + "'"
+        + ";"
+        + " COMMIT";
+        }
       Open();
-      new MySqlCommand
-        (
-        db_trail.Saved
-          (
-          "update vehicle_usability_history set time_came_up = '" + time_came_up.ToString("yyyy-MM-dd HH:mm") + "', up_comment = NULLIF('" + up_comment + "','') where vehicle_id = '" + vehicle_id +"' and time_came_up is null"
-          ),
-        connection
-        )
-        .ExecuteNonQuery();
+      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
       Close();
       (summary as vehicle_summary).status = "UP";
       }
