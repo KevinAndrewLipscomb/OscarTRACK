@@ -323,6 +323,7 @@ namespace Class_biz_vehicles
       (
       string vehicle_id,
       DateTime time_came_up,
+      string new_target_pm_mileage,
       string down_comment,
       string up_comment,
       object summary
@@ -336,6 +337,7 @@ namespace Class_biz_vehicles
         (
         vehicle_id,
         time_came_up,
+        new_target_pm_mileage,
         biz_members.UserAttributionIndicator() + up_comment,
         summary
         );

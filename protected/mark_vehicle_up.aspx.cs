@@ -82,6 +82,7 @@ namespace mark_vehicle_up
           (
           p.vehicle_id,
           UserControl_drop_down_datetime_control.selectedvalue,
+          k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM),
           p.down_comment,
           k.Safe(TextBox_note_to_append.Text,k.safe_hint_type.MEMO).Trim(),
           Session["vehicle_summary"]
