@@ -44,6 +44,7 @@ namespace Class_biz_donations
           (incoming.resident_id,incoming.from_process_paypal_donation.amount_donated,incoming.from_process_paypal_donation.donation_date,k.EMPTY,k.EMPTY,biz_user.EmailAddress(),incoming.from_process_paypal_donation.donor_email_address);
         biz_notifications.IssuePayPalDonationAcknowledgmentToDonorRecognized
           (
+          incoming.from_process_paypal_donation.agency,
           incoming.from_process_paypal_donation.amount_donated,
           incoming.from_process_paypal_donation.donor_name,
           incoming.from_process_paypal_donation.donation_date,
@@ -60,6 +61,7 @@ namespace Class_biz_donations
           ("-1",incoming.from_process_paypal_donation.amount_donated,incoming.from_process_paypal_donation.donation_date,k.EMPTY,k.EMPTY,biz_user.EmailAddress(),incoming.from_process_paypal_donation.donor_email_address);
         biz_notifications.IssuePayPalDonationAcknowledgmentToDonorUnrecognized
           (
+          incoming.from_process_paypal_donation.agency,
           incoming.from_process_paypal_donation.amount_donated,
           incoming.from_process_paypal_donation.donor_name,
           incoming.from_process_paypal_donation.donation_date,

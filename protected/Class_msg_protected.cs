@@ -47,6 +47,7 @@ namespace Class_msg_protected
       }
     public class process_paypal_donation
       {
+      internal string agency = k.EMPTY;
       internal string amount_donated = k.EMPTY;
       internal string donor_email_address = k.EMPTY;
       internal string donor_name = k.EMPTY;

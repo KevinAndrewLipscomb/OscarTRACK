@@ -2278,6 +2278,7 @@ namespace Class_biz_notifications
         private delegate string IssuePayPalDonationAcknowledgmentToDonorRecognized_Merge(string s);
         internal void IssuePayPalDonationAcknowledgmentToDonorRecognized
           (
+          string agency_keyclick_enumerator,
           string amount_donated,
           string donor_name,
           DateTime donation_date,
@@ -2288,6 +2289,7 @@ namespace Class_biz_notifications
           string resident_state
           )
           {
+          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
           var biz_user = new TClass_biz_user();
           var biz_users = new TClass_biz_users();
@@ -2301,6 +2303,9 @@ namespace Class_biz_notifications
               .Replace("<application_name/>", application_name)
               .Replace("<actor/>", biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<agency_keyclick_enumerator/>", agency_keyclick_enumerator)
+              .Replace("<agency_long_designator/>", biz_agencies.LongDesignatorOfKeyclickEnumerator(agency_keyclick_enumerator))
+              .Replace("<agency_web_address/>", biz_agencies.WebAddressOfKeyclickEnumerator(agency_keyclick_enumerator))
               .Replace("<amount_donated/>", amount_donated)
               .Replace("<donor_name/>", donor_name)
               .Replace("<donation_date/>", donation_date.ToString("D"))
@@ -2329,12 +2334,14 @@ namespace Class_biz_notifications
         private delegate string IssuePayPalDonationAcknowledgmentToDonorUnrecognized_Merge(string s);
         internal void IssuePayPalDonationAcknowledgmentToDonorUnrecognized
           (
+          string agency_keyclick_enumerator,
           string amount_donated,
           string donor_name,
           DateTime donation_date,
           string donor_email_address
           )
           {
+          var biz_agencies = new TClass_biz_agencies();
           var biz_members = new TClass_biz_members();
           var biz_user = new TClass_biz_user();
           var biz_users = new TClass_biz_users();
@@ -2348,6 +2355,9 @@ namespace Class_biz_notifications
               .Replace("<application_name/>", application_name)
               .Replace("<actor/>", biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<agency_keyclick_enumerator/>", agency_keyclick_enumerator)
+              .Replace("<agency_long_designator/>", biz_agencies.LongDesignatorOfKeyclickEnumerator(agency_keyclick_enumerator))
+              .Replace("<agency_web_address/>", biz_agencies.WebAddressOfKeyclickEnumerator(agency_keyclick_enumerator))
               .Replace("<amount_donated/>", amount_donated)
               .Replace("<donor_name/>", donor_name)
               .Replace("<donation_date/>", donation_date.ToString("D"))

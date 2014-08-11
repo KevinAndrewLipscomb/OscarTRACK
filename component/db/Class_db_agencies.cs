@@ -508,6 +508,14 @@ namespace Class_db_agencies
             return result;
         }
 
+    internal string LongDesignatorOfKeyclickEnumerator(string keyclick_enumerator)
+      {
+      Open();
+      var long_designator_of_keyclick_enumerator = new MySqlCommand("select long_designator from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection).ExecuteScalar().ToString();
+      Close();
+      return long_designator_of_keyclick_enumerator;
+      }
+
         public string MediumDesignatorOf(string id)
         {
             string result;
@@ -661,6 +669,14 @@ namespace Class_db_agencies
             this.Close();
             return result;
         }
+
+    internal string WebAddressOfKeyclickEnumerator(string keyclick_enumerator)
+      {
+      Open();
+      var web_address_of_keyclick_enumerator = new MySqlCommand("select web_address from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection).ExecuteScalar().ToString();
+      Close();
+      return web_address_of_keyclick_enumerator;
+      }
 
     } // end TClass_db_agencies
 
