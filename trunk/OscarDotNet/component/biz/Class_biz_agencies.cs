@@ -246,6 +246,11 @@ namespace Class_biz_agencies
             return result;
         }
 
+    internal string LongDesignatorOfKeyclickEnumerator(string keyclick_enumerator)
+      {
+      return db_agencies.LongDesignatorOfKeyclickEnumerator(keyclick_enumerator);
+      }
+
         public string MediumDesignatorOf(string id)
         {
             string result;
@@ -320,6 +325,11 @@ namespace Class_biz_agencies
             result = db_agencies.ShortDesignatorOf(id);
             return result;
         }
+
+    internal string WebAddressOfKeyclickEnumerator(string keyclick_enumerator)
+      {
+      return db_agencies.WebAddressOfKeyclickEnumerator(keyclick_enumerator);
+      }
 
     } // end TClass_biz_agencies
 

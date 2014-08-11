@@ -32,6 +32,7 @@ namespace Class_db_residents
 
     internal void BindDirectToBaseDataList
       (
+      string agency,
       string email_address,
       string name,
       string house_num,
@@ -39,7 +40,8 @@ namespace Class_db_residents
       object target
       )
       {
-      var insert_where_clause = "insert possible_match (resident_id,web_donor_id) select resident_base.id,IFNULL(web_donor.id,0) from resident_base left join web_donor on (web_donor.resident_id=resident_base.id) where";
+      var insert_where_clause =
+        "insert possible_match (resident_id,web_donor_id) select resident_base.id,IFNULL(web_donor.id,0) from resident_base left join web_donor on (web_donor.resident_id=resident_base.id) where agency = '" + agency + "'";
       string condition_clause;
       var collision_clause = " on duplicate key update score = score + 1";
       var word_array = name.Split(new char[] {' '});
@@ -72,7 +74,7 @@ namespace Class_db_residents
           }
         condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
         }
-      new MySqlCommand(insert_where_clause + condition_clause + collision_clause,connection).ExecuteNonQuery();
+      new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection).ExecuteNonQuery();
       //
       // Match all words in the specified resident name.
       //
@@ -85,18 +87,18 @@ namespace Class_db_residents
           }
         condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
         }
-      new MySqlCommand(insert_where_clause + condition_clause + collision_clause,connection).ExecuteNonQuery();
+      new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection).ExecuteNonQuery();
       //
       // Match the specified house_num and street.
       //
       if ((house_num != k.EMPTY) && (street_id != k.EMPTY))
         {
-        new MySqlCommand(insert_where_clause + " house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection).ExecuteNonQuery();
+        new MySqlCommand(insert_where_clause + " and house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection).ExecuteNonQuery();
         }
       //
       // Match email address
       //
-      new MySqlCommand(insert_where_clause + " email_address = '" + email_address + "'" + collision_clause,connection).ExecuteNonQuery();
+      new MySqlCommand(insert_where_clause + " and email_address = '" + email_address + "'" + collision_clause,connection).ExecuteNonQuery();
       //
       // Match prior donations attributed to resident.
       //
@@ -152,19 +154,20 @@ namespace Class_db_residents
     internal string FilteredFromSceneVisits
       (
       string scene_visits,
-      string love_letter_batch_designator
+      string love_letter_batch_designator,
+      string agency
       )
       {
       var output = k.EMPTY;
       var script = k.EMPTY
       + "START TRANSACTION"
       + ";"
-      + " delete from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "'"
+      + " delete from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "'"
       + ";";
       var scene_visit_array = scene_visits.Split(new string[] {"\r\n","\n"},StringSplitOptions.RemoveEmptyEntries);
       foreach (var scene_visit in scene_visit_array)
         {
-        script += " insert into scene_visited set love_letter_batch_designator = '" + love_letter_batch_designator + "', address = '" + scene_visit + "';";
+        script += " insert into scene_visited set love_letter_batch_designator = '" + love_letter_batch_designator + "', agency = '" + agency + "', address = '" + scene_visit + "';";
         }
       script += k.EMPTY
       + " drop table if exists resident_immune_from_love_letter"
@@ -175,6 +178,7 @@ namespace Class_db_residents
         + " join street on (street.id=resident_base.street_id)"
         + " join donation on (donation.id=resident_base.id)"
       + " where date > DATE_SUB(CURDATE(),INTERVAL 1 YEAR)"
+      +   " and agency = '" + agency + "'"
       + ";"
       + " drop table if exists immune_scene_visited"
       + ";"
@@ -183,10 +187,11 @@ namespace Class_db_residents
       + " FROM scene_visited"
         + " join resident_immune_from_love_letter on (resident_immune_from_love_letter.address1=scene_visited.address)"
       + " where love_letter_batch_designator = '" + love_letter_batch_designator + "'"
+      +   " and agency = '" + agency + "'"
       + ";"
       + " drop table if exists love_letter_target"
       + ";"
-      + " CREATE TABLE love_letter_target SELECT distinct address from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "'"
+      + " CREATE TABLE love_letter_target SELECT distinct address from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "'"
       + ";"
       + " DELETE from love_letter_target"
       + " WHERE address like '100 264%'"
@@ -194,6 +199,7 @@ namespace Class_db_residents
         + " or address like '100 DN %'"
         + " or address like '%/%'"
         + " or address like '100 % CY'"
+        + " or address like '100 % WW'"
         + " or address in"
           + " ("
           + " '3769 E STRATFORD RD'"
@@ -221,15 +227,16 @@ namespace Class_db_residents
           + " , '1468 NIMMO PKWY'"
           + " , '2837 SHORE DR'"
           + " , '3513 BOW CREEK BLVD'" // Residence of a Plaza Life Member
+          + " , '100 MARSH CW'"
           + " )"
       + ";"
       + " DELETE FROM love_letter_target WHERE address in (select address from immune_scene_visited)"
       + ";"
       + " insert love_letter_batch"
-      + " set designator = '" + love_letter_batch_designator + "',"
-        + " immune_scene_visits_factor = (select count(*) from immune_scene_visited)/(select count(*) from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "')"
+      + " set designator = '" + love_letter_batch_designator + "', agency = '" + agency + "',"
+        + " immune_scene_visits_factor = (select count(*) from immune_scene_visited)/(select count(*) from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "')"
       + " on duplicate key update"
-        + " immune_scene_visits_factor = (select count(*) from immune_scene_visited)/(select count(*) from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "')"
+        + " immune_scene_visits_factor = (select count(*) from immune_scene_visited)/(select count(*) from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "')"
       + ";"
       + " drop table if exists resident_immune_from_love_letter"
       + ";"

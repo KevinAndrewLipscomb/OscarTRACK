@@ -61,7 +61,7 @@ namespace process_paypal_donation
         Literal_donation_date.Text = p.incoming.donation_date.ToString("yyyy-MM-dd");
         Literal_donor_house_num.Text = p.incoming.donor_house_num;
         Literal_donor_street.Text = p.incoming.donor_street_name;
-        p.biz_residents.BindDirectToBaseDataList(p.incoming.donor_email_address,p.incoming.donor_name,p.incoming.donor_house_num,p.incoming.donor_street_id,DataGrid_possible_match);
+        p.biz_residents.BindDirectToBaseDataList(p.incoming.agency,p.incoming.donor_email_address,p.incoming.donor_name,p.incoming.donor_house_num,p.incoming.donor_street_id,DataGrid_possible_match);
         }
       }
 

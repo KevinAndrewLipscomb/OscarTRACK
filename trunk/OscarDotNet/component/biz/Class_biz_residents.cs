@@ -23,6 +23,7 @@ namespace Class_biz_residents
 
       internal void BindDirectToBaseDataList
         (
+        string agency,
         string email_address,
         string name,
         string house_num,
@@ -30,16 +31,17 @@ namespace Class_biz_residents
         object target
         )
         {
-        db_residents.BindDirectToBaseDataList(email_address,name,house_num,street_id,target);
+        db_residents.BindDirectToBaseDataList(agency,email_address,name,house_num,street_id,target);
         }
 
       internal string FilteredFromSceneVisits
         (
         string scene_visits,
-        string love_letter_batch_designator
+        string love_letter_batch_designator,
+        string agency
         )
         {
-        return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator);
+        return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator,agency);
         }
 
       internal k.int_nonnegative NumForAgency(string agency_id)

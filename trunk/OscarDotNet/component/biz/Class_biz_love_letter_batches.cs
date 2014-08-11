@@ -28,11 +28,12 @@ namespace Class_biz_love_letter_batches
 
     internal void BindRecentToBaseDataList
       (
+      string agency,
       k.int_positive limit,
       object target
       )
       {
-      db_love_letter_batches.BindRecentToBaseDataList(limit,target);
+      db_love_letter_batches.BindRecentToBaseDataList(agency,limit,target);
       }
 
     public bool Delete(string id)

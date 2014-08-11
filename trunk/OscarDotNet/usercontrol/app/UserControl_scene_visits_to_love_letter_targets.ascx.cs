@@ -23,6 +23,7 @@ namespace UserControl_scene_visits_to_love_letter_targets
 
     private struct p_type
       {
+      public string agency;
       public bool be_loaded;
       public TClass_biz_love_letter_batches biz_love_letter_batches;
       public TClass_biz_residents biz_residents;
@@ -35,6 +36,7 @@ namespace UserControl_scene_visits_to_love_letter_targets
       {
       p.biz_love_letter_batches.BindRecentToBaseDataList
         (
+        agency:p.agency,
         limit:p.limit,
         target:DataGrid_control
         );
@@ -45,7 +47,6 @@ namespace UserControl_scene_visits_to_love_letter_targets
       if (!p.be_loaded)
         {
         Literal_limit.Text = p.limit.val.ToString();
-        Bind();
         //
         p.be_loaded = true;
         }
@@ -67,6 +68,8 @@ namespace UserControl_scene_visits_to_love_letter_targets
         p.biz_residents = new TClass_biz_residents();
         //
         p.be_loaded = false;
+        //
+        p.agency = k.EMPTY;
         p.limit = new k.int_positive(UserControl_scene_visits_to_love_letter_targets_Static.LIMIT);
         }
       }
@@ -98,10 +101,17 @@ namespace UserControl_scene_visits_to_love_letter_targets
         {
         TextBox_love_letter_targets.Text = p.biz_residents.FilteredFromSceneVisits
           (
-          k.Safe(TextBox_scene_visits.Text,k.safe_hint_type.MEMO),
-          k.Safe(TextBox_batch_designator.Text,k.safe_hint_type.HYPHENATED_ALPHANUM)
+          scene_visits:k.Safe(TextBox_scene_visits.Text,k.safe_hint_type.MEMO),
+          love_letter_batch_designator:k.Safe(TextBox_batch_designator.Text,k.safe_hint_type.HYPHENATED_ALPHANUM),
+          agency:p.agency
           );
         }
+      }
+
+    internal void SetTarget(string agency)
+      {
+      p.agency = agency;
+      Bind();
       }
 
     } // end TWebUserControl_scene_visits_to_love_letter_targets

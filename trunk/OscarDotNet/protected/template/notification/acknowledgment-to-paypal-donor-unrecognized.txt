@@ -1,9 +1,9 @@
-Receipt for donation to KVRS
+Receipt for donation to <agency_keyclick_enumerator/>
 Dear <donor_name/>,
 
 (This is a form letter response.)
 
-The Kempsville Volunteer Rescue Squad (KVRS) has received the $<amount_donated/> donation you made via PayPal on <donation_date/>.  Thank you!
+The <agency_long_designator/> Volunteer Rescue Squad (<agency_keyclick_enumerator/>) has received the $<amount_donated/> donation you made via the web on <donation_date/>.  Thank you!
 
 - We did not receive enough information to attribute your
   donation to a particular household or business in our
@@ -12,32 +12,17 @@ The Kempsville Volunteer Rescue Squad (KVRS) has received the $<amount_donated/>
   attributed in our tracking system, simply reply to this email
   (with this text included), and give us your street address.
 
-- US taxpayers, your donation is tax deductible -- KVRS is a
+- US taxpayers, your donation is tax deductible -- <agency_keyclick_enumerator/> is a
   501.C.3 organization (public charity).
 
-- If you made an In Memorium donation, KVRS will send an
+- If you made an In Memorium donation, <agency_keyclick_enumerator/> will send an
   acknowledgement to the bereaved on your behalf.
 
-- If you donated US$250 or more, KVRS will send a hardcopy
+- If you donated US$250 or more, <agency_keyclick_enumerator/> will send a hardcopy
   acknowledgement later in the year to comply with IRS rules.
 
-- KVRS wants to hear from you!  Please address your comments
-  to the appropriate squad officer, as follows:
-
-      president@kvrs.org
-
-      treasurer@kvrs.org
-
-      funddrive@kvrs.org
-
-      captain@kvrs.org
-
-      recruitment@kvrs.org
-
-      infotech@kvrs.org
-
--- Kempsville Volunteer Rescue Squad
--- http://www.kvrs.org
+-- <agency_long_designator/> Volunteer Rescue Squad
+-- <agency_web_address/>
 
 
-P.S.:  Your PayPal donation was processed by KVRS volunteer <actor/> using <application_name/>.
+P.S.:  Your PayPal donation was processed by <agency_keyclick_enumerator/> volunteer <actor/> using <application_name/>.

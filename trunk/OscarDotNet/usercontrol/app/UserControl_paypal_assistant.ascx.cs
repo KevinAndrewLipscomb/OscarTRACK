@@ -13,6 +13,7 @@ namespace UserControl_paypal_assistant
 
   public struct p_type
     {
+    public string agency;
     public bool be_loaded;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
@@ -61,6 +62,8 @@ namespace UserControl_paypal_assistant
         p.biz_streets = new TClass_biz_streets();
         p.biz_user = new TClass_biz_user();
         p.msg_protected_process_paypal_donation = new TClass_msg_protected.process_paypal_donation();
+        //
+        p.agency = k.EMPTY;
         }
       }
 
@@ -93,6 +96,7 @@ namespace UserControl_paypal_assistant
       {
       if (Page.IsValid)
         {
+        p.msg_protected_process_paypal_donation.agency = p.agency;
         p.msg_protected_process_paypal_donation.amount_donated = k.Safe(TextBox_amount_donated.Text,k.safe_hint_type.CURRENCY_USA);
         p.msg_protected_process_paypal_donation.donor_email_address = k.Safe(TextBox_donor_email_address.Text,k.safe_hint_type.EMAIL_ADDRESS).ToLower();
         p.msg_protected_process_paypal_donation.donor_name = k.Safe(TextBox_donor_name.Text,k.safe_hint_type.ORG_NAME).ToUpper();
@@ -105,6 +109,11 @@ namespace UserControl_paypal_assistant
           }
         MessageDropCrumbAndTransferTo(p.msg_protected_process_paypal_donation,"protected","process_paypal_donation");
         }
+      }
+
+    internal void SetTarget(string agency)
+      {
+      p.agency = agency;
       }
 
     }

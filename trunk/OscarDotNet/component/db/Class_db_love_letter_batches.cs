@@ -67,6 +67,7 @@ namespace Class_db_love_letter_batches
 
     internal void BindRecentToBaseDataList
       (
+      string agency,
       k.int_positive limit,
       object target
       )
@@ -81,6 +82,7 @@ namespace Class_db_love_letter_batches
         +   " , designator"
         +   " , CONCAT(FORMAT(immune_scene_visits_factor*100,1),'%') as immune_scene_visits_factor"
         +   " from love_letter_batch"
+        +     " where agency = '" + agency + "'"
         +   " order by designator desc"
         +   " limit " + limit.val.ToString()
         +   " ) as recentmost_first"
@@ -99,7 +101,7 @@ namespace Class_db_love_letter_batches
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from love_letter_batch where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("delete from love_letter_batch where id = '" + id + "'"), connection).ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
