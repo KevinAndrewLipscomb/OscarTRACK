@@ -35,7 +35,7 @@ namespace UserControl_paypal_assistant
         p.biz_streets.BindDirectToListControl
           (
           target:DropDownList_donor_street,
-          agency_keyclick_enumerator:p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_user.IdNum())),
+          agency_keyclick_enumerator:p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))),
           unselected_literal:"-- street --"
           );
         TextBox_amount_donated.Focus();
