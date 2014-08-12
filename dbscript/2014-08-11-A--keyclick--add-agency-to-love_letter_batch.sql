@@ -20,4 +20,6 @@ ALTER TABLE `scene_visited`
 ;
 update scene_visited set agency = 'PACHVRS' where love_letter_batch_designator like 'R05-%'
 ;
+update love_letter_batch set agency = 'PACHVRS' where designator like 'R05-%'
+;
 COMMIT

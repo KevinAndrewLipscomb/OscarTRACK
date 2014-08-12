@@ -26,13 +26,7 @@ namespace Class_biz_manifest
 
       internal string NewBoardingPass()
         {
-        var new_boarding_pass = k.EMPTY;
-        var agency_keyclick_enumerator = biz_agencies.KeyclickEnumeratorOf(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())));
-        if (new ArrayList(new string[] {"KVRS","PACHVRS"}).Contains(agency_keyclick_enumerator))
-          {
-          new_boarding_pass = db_manifest.NewBoardingPass(agency_keyclick_enumerator,biz_user.EmailAddress());
-          }
-        return new_boarding_pass;
+        return db_manifest.NewBoardingPass(biz_agencies.KeyclickEnumeratorOf(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum()))),biz_user.EmailAddress());
         }
 
       }
