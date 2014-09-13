@@ -139,8 +139,9 @@ namespace UserControl_member_profile
         //
         p.oscalert_threshold_als = k.EMPTY;
         p.oscalert_threshold_general = k.EMPTY;
-        p.summary = p.biz_members.Summary(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         }
+      p.summary = p.biz_members.Summary(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
+        // Must do this every time because user may have linked to a membership record since last time.
       }
 
     // / <summary>
