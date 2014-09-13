@@ -39,7 +39,7 @@
   <tr>
     <td colspan="3" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
       <p><strong>Email information</strong></p>
-      <small>Each member must keep their email address up to date in this system to receive temporary passwords, status reports, schedule assignment details, etc.</small>
+      <small>Each user must keep their email address up to date in this system to receive temporary passwords.&nbsp; A member will only receive status reports, schedule assignment details, etc, if the email address is correct.</small>
     </td>
   </tr>
   <tr>
@@ -68,6 +68,19 @@
     <td style="border-right: thin solid Gainsboro; border-bottom: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr><td colspan="3">&nbsp;</td></tr>
+  <tr id="TableRow_no_link_1" runat="server">
+    <td colspan="3" style="border-top: thin solid Gold; border-left: thin solid Gold; border-right: thin solid Gold" bgcolor="Gold">
+      <p><strong>No link to membership record</strong></p>
+    </td>
+  </tr>
+  <tr id="TableRow_no_link_2" runat="server">
+    <td colspan="3" style="border-left: thin solid Gold; border-bottom: thin solid Gold; border-right: thin solid Gold">
+      <small>
+        The rest of this form is disabled because your user account is not <i>linked </i>to a membership record.&nbsp; To establish a <i>link</i>, go back to the overview page.
+      </small>
+    </td>
+  </tr>
+  <tr id="TableRow_no_link_3" runat="server"><td colspan="3">&nbsp;</td></tr>
   <tr>
     <td colspan="3" style="border-top: thin solid Gainsboro; border-right: thin solid Gainsboro; border-left: thin solid Gainsboro" bgcolor="WhiteSmoke">
       <p><strong>Phone information</strong></p>
@@ -79,15 +92,15 @@
   </tr>
   <tr>
     <td align="right" style="border-left: thin solid Gainsboro" nowrap="nowrap"><font class="">Phone number (cellular preferred):</font></td>
-    <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="phone_number"></ASP:TextBox></td>
+    <td><ASP:TextBox id="TextBox_phone_num" runat="server" maxlength="14" columns="14" ValidationGroup="phone_number" Enabled="false"></ASP:TextBox></td>
     <td nowrap="nowrap" style="border-right: thin solid Gainsboro">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="phone_number" Display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="phone_number" Display="Dynamic">!ERR!</ASP:CustomValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_phone_num" runat="server" font-bold="True" errormessage="Please enter a phone number." controltovalidate="TextBox_phone_num" ValidationGroup="phone_number" Display="Dynamic" Enabled="false">!ERR!</ASP:RequiredFieldValidator>
+      <ASP:CustomValidator id="CustomValidator_phone_num" runat="server" errormessage="Please enter a valid phone number.  Premium and reserved numbers are not allowed." controltovalidate="TextBox_phone_num" font-bold="True" onservervalidate="CustomValidator_phone_num_ServerValidate" ValidationGroup="phone_number" Display="Dynamic" Enabled="false">!ERR!</ASP:CustomValidator>
     </td>
   </tr>
   <tr>
     <td style="border-left: thin solid Gainsboro">&nbsp;</td>
-    <td><ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click" ValidationGroup="phone_number" UseSubmitBehavior="False"></ASP:Button></td>
+    <td><ASP:Button id="Button_save_phone_num" runat="server" text="Save phone number" onclick="Button_save_phone_num_Click" ValidationGroup="phone_number" UseSubmitBehavior="False" Enabled="false"></ASP:Button></td>
     <td style="border-right: thin solid Gainsboro">&nbsp;</td>
   </tr>
   <tr>
@@ -187,7 +200,7 @@
                       <td align="right" valign="middle" bgcolor="#000000"><asp:RadioButton ID="RadioButton_no_general" runat="server" GroupName="GeneralThreshold" TextAlign="Left" ForeColor="White" oncheckedchanged="RadioButton_oscalert_threshold_general_CheckedChanged" AutoPostBack="True" /></td>
                       <td align="center" valign="middle" colspan="2" bgcolor="Silver"><i>-- None - Not interested in general alerts --</i></td>
                     </tr>
-                    <tr><td colspan="5" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
+                    <tr><td colspan="4" style="border-left: thin solid Gainsboro; border-right: thin solid Gainsboro">&nbsp;</td></tr>
                     <tr>
                       <td nowrap="nowrap" rowspan="4" style="border-left: thin solid Gainsboro" valign="top" align="right"><font class="">ALS alerting threshold:</font></td>
                       <td align="right" valign="middle" bgcolor="#8088FF" nowrap="nowrap"><asp:RadioButton ID="RadioButton_MultAlsHolds" runat="server" GroupName="AlsThreshold" TextAlign="Left" Text="&lt;small&gt;&lt;small&gt;RECOMMENDED&nbsp;FOR&nbsp;ALS&lt;/small&gt;&lt;/small&gt;" oncheckedchanged="RadioButton_oscalert_threshold_als_CheckedChanged" AutoPostBack="True" /></td>
