@@ -184,6 +184,33 @@ namespace UserControl_member_profile {
         protected global::System.Web.UI.WebControls.Button Button_save_email_address;
         
         /// <summary>
+        /// TableRow_no_link_1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_link_1;
+        
+        /// <summary>
+        /// TableRow_no_link_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_link_2;
+        
+        /// <summary>
+        /// TableRow_no_link_3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_no_link_3;
+        
+        /// <summary>
         /// TextBox_phone_num control.
         /// </summary>
         /// <remarks>

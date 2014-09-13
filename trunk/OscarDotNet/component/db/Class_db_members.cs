@@ -2049,9 +2049,10 @@ namespace Class_db_members
           string relative_month
           )
           {
+          member_summary the_summary = null;
+          var be_found = false;
           Open();
-          MySqlDataReader dr;
-          dr = new MySqlCommand
+          var dr = new MySqlCommand
             (
             "select last_name" 
             + " , first_name" 
@@ -2094,7 +2095,8 @@ namespace Class_db_members
             connection
             )
             .ExecuteReader();
-          if (!dr.Read())
+          be_found = dr.Read();
+          if (!be_found)
             {
             //
             // This is the zebra case where the member has been set up to transition to a new status at date that is in the future but still within this month, and so will not match any row given the above query.  Since we must
@@ -2145,30 +2147,33 @@ namespace Class_db_members
               connection
               )
               .ExecuteReader();
-            dr.Read();
+            be_found = dr.Read();
             }
-          var the_summary = new member_summary()
+          if (be_found)
             {
-            agency = dr["agency"].ToString(),
-            agency_id = dr["agency_id"].ToString(),
-            be_driver_qualified = (dr["be_driver_qualified"].ToString() == "1"),
-            cad_num = dr["cad_num"].ToString(),
-            enrollment = dr["enrollment"].ToString(),
-            equivalent_los_start_date = dr["equivalent_los_start_date"].ToString(),
-            first_name = dr["first_name"].ToString(),
-            id = member_id,
-            last_name = dr["last_name"].ToString(),
-            medical_release_level = dr["medical_release_description"].ToString(),
-            length_of_service = dr["length_of_service"].ToString(),
-            peck_code = dr["medical_release_peck_code"].ToString(),
-            phone_num = dr["phone_num"].ToString(),
-            phone_service_id = dr["phone_service_id"].ToString(),
-            phone_service = dr["phone_service"].ToString(),
-            section = dr["section_num"].ToString(),
-            be_placeholder = (dr["be_placeholder"].ToString() == "1"),
-            be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),
-            be_marine_medic = (dr["be_marine_medic"].ToString() == "1")
-            };
+            the_summary = new member_summary()
+              {
+              agency = dr["agency"].ToString(),
+              agency_id = dr["agency_id"].ToString(),
+              be_driver_qualified = (dr["be_driver_qualified"].ToString() == "1"),
+              cad_num = dr["cad_num"].ToString(),
+              enrollment = dr["enrollment"].ToString(),
+              equivalent_los_start_date = dr["equivalent_los_start_date"].ToString(),
+              first_name = dr["first_name"].ToString(),
+              id = member_id,
+              last_name = dr["last_name"].ToString(),
+              medical_release_level = dr["medical_release_description"].ToString(),
+              length_of_service = dr["length_of_service"].ToString(),
+              peck_code = dr["medical_release_peck_code"].ToString(),
+              phone_num = dr["phone_num"].ToString(),
+              phone_service_id = dr["phone_service_id"].ToString(),
+              phone_service = dr["phone_service"].ToString(),
+              section = dr["section_num"].ToString(),
+              be_placeholder = (dr["be_placeholder"].ToString() == "1"),
+              be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),
+              be_marine_medic = (dr["be_marine_medic"].ToString() == "1")
+              };
+            }
           dr.Close();
           Close();
           return the_summary;

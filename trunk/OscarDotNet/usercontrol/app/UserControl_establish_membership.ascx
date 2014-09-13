@@ -18,7 +18,7 @@
                   <td valign="top"><p align="center"><strong>NO</strong></p></td>
                   <td valign="top" nowrap="nowrap"><p>-&gt;</p></td>
                   <td valign="top">
-                    <p>Visit <a href="http://www.vabeachems.com/">www.VaBeachEms.com</a>&nbsp;and click "EMS Provider Application Process".</p>
+                    <p>Visit <a target="_blank" href="http://www.vabeachems.com/">www.VaBeachEms.com</a>&nbsp;and click "EMS Provider Application Process".</p>
                     <p>&nbsp;</p>
                   </td>
                 </tr>

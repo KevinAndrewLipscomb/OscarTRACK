@@ -51,40 +51,51 @@ namespace UserControl_member_profile
         var email_address = p.biz_users.SelfEmailAddress();
         TextBox_nominal_email_address.Text = email_address;
         TextBox_confirmation_email_address.Text = email_address;
-        var phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOfSummary(p.summary));
-        TextBox_phone_num.Text = phone_num;
-        Panel_oscalert_settings.Enabled = (phone_num.Length > 0);
-        p.biz_sms_gateways.BindDirectToListControl
-          (
-          target:DropDownList_phone_service,
-          unselected_literal:"-- Select --",
-          selected_value:p.biz_members.PhoneServiceIdOf(p.summary)
-          );
-        Button_test.Enabled = ((phone_num.Length > 0) && (DropDownList_phone_service.SelectedValue.Length > 0));
-        var oscalert_threshold_general = k.EMPTY;
-        var oscalert_threshold_als = k.EMPTY;
-        var do_oscalert_for_trap = false;
-        var do_oscalert_for_airport_alert = false;
-        var do_oscalert_for_mrt = false;
-        var do_oscalert_for_sart = false;
-        p.biz_members.GetOscalertThresholdsAndSubscriptions
-          (
-          summary:p.summary,
-          oscalert_threshold_general:out oscalert_threshold_general,
-          oscalert_threshold_als:out oscalert_threshold_als,
-          do_oscalert_for_trap:out do_oscalert_for_trap,
-          do_oscalert_for_airport_alert:out do_oscalert_for_airport_alert,
-          do_oscalert_for_mrt:out do_oscalert_for_mrt,
-          do_oscalert_for_sart:out do_oscalert_for_sart
-          );
-        p.oscalert_threshold_general = oscalert_threshold_general;
-        p.oscalert_threshold_als = oscalert_threshold_als;
-        (FindControl(id:"RadioButton_" + (p.oscalert_threshold_general.Length > 0 ? p.oscalert_threshold_general : "no_general")) as RadioButton).Checked = true;
-        (FindControl(id:"RadioButton_" + (p.oscalert_threshold_als.Length > 0 ? p.oscalert_threshold_als : "no_als")) as RadioButton).Checked = true;
-        CheckBox_trap.Checked = do_oscalert_for_trap;
-        CheckBox_airport_alert.Checked = do_oscalert_for_airport_alert;
-        CheckBox_mrt_call.Checked = do_oscalert_for_mrt;
-        CheckBox_sar_call.Checked = do_oscalert_for_sart;
+        //
+        if (p.summary != null)
+          {
+          TableRow_no_link_1.Visible = false;
+          TableRow_no_link_2.Visible = TableRow_no_link_1.Visible;
+          TableRow_no_link_3.Visible = TableRow_no_link_1.Visible;
+          TextBox_phone_num.Enabled = true;
+          RequiredFieldValidator_phone_num.Enabled = true;
+          CustomValidator_phone_num.Enabled = true;
+          Button_save_phone_num.Enabled = true;
+          var phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOfSummary(p.summary));
+          TextBox_phone_num.Text = phone_num;
+          Panel_oscalert_settings.Enabled = (phone_num.Length > 0);
+          p.biz_sms_gateways.BindDirectToListControl
+            (
+            target:DropDownList_phone_service,
+            unselected_literal:"-- Select --",
+            selected_value:p.biz_members.PhoneServiceIdOf(p.summary)
+            );
+          Button_test.Enabled = ((phone_num.Length > 0) && (DropDownList_phone_service.SelectedValue.Length > 0));
+          var oscalert_threshold_general = k.EMPTY;
+          var oscalert_threshold_als = k.EMPTY;
+          var do_oscalert_for_trap = false;
+          var do_oscalert_for_airport_alert = false;
+          var do_oscalert_for_mrt = false;
+          var do_oscalert_for_sart = false;
+          p.biz_members.GetOscalertThresholdsAndSubscriptions
+            (
+            summary:p.summary,
+            oscalert_threshold_general:out oscalert_threshold_general,
+            oscalert_threshold_als:out oscalert_threshold_als,
+            do_oscalert_for_trap:out do_oscalert_for_trap,
+            do_oscalert_for_airport_alert:out do_oscalert_for_airport_alert,
+            do_oscalert_for_mrt:out do_oscalert_for_mrt,
+            do_oscalert_for_sart:out do_oscalert_for_sart
+            );
+          p.oscalert_threshold_general = oscalert_threshold_general;
+          p.oscalert_threshold_als = oscalert_threshold_als;
+          (FindControl(id:"RadioButton_" + (p.oscalert_threshold_general.Length > 0 ? p.oscalert_threshold_general : "no_general")) as RadioButton).Checked = true;
+          (FindControl(id:"RadioButton_" + (p.oscalert_threshold_als.Length > 0 ? p.oscalert_threshold_als : "no_als")) as RadioButton).Checked = true;
+          CheckBox_trap.Checked = do_oscalert_for_trap;
+          CheckBox_airport_alert.Checked = do_oscalert_for_airport_alert;
+          CheckBox_mrt_call.Checked = do_oscalert_for_mrt;
+          CheckBox_sar_call.Checked = do_oscalert_for_sart;
+          }
         //
         p.be_loaded = true;
         }
