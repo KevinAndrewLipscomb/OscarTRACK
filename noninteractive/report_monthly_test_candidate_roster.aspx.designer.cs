@@ -13,15 +13,6 @@ namespace report_monthly_test_candidate_roster {
     public partial class TWebForm_report_monthly_test_candidate_roster {
         
         /// <summary>
-        /// Title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl Title;
-        
-        /// <summary>
         /// UserControl_common_header_bar control.
         /// </summary>
         /// <remarks>

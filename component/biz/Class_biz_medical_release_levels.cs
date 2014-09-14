@@ -34,7 +34,7 @@ namespace Class_biz_medical_release_levels
 
     public bool BeRecruitAdminOrSpecOpsBoundByCode(string level_code)
       {
-      return new ArrayList() {"1","9","14"}.Contains(level_code);
+      return new ArrayList() {"1","9","11"}.Contains(level_code);
         // none, Student, Test Candidate
       }
 
