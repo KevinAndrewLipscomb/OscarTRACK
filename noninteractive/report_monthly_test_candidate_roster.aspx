@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="report_monthly_in_class_roster.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_in_class_roster.TWebForm_report_monthly_in_class_roster" EnableViewState="false" %>
+<%@ Page language="c#" Debug="true" Codebehind="report_monthly_test_candidate_roster.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_test_candidate_roster.TWebForm_report_monthly_test_candidate_roster" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
@@ -16,19 +16,19 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" width="100%" border="0">
 					<tr>
-					  <td bgcolor="#f5f5f5"><strong>Monthly report of Student personnel</strong></td>
+					  <td bgcolor="#f5f5f5"><strong>Monthly report of Test Candidate personnel</strong></td>
 					</tr>
 					<tr>
 					  <td>
 						<small>
 						<p>Best practices:</p>
 						<ul>
-						  <li><p>These people should be scheduled for no more than <strong>two (2) shifts</strong>.</p></li>
-						  <li><p>It is critically important to place these people on the schedule prior to the citywide scheduling
+						  <li>
+                <p>It is critically important to place these people on the schedule prior to the citywide scheduling
 							meeting.</p></li>
 						  <li><p>Use <asp:label id="Label_application_name_2" runat="server"></asp:label>'s QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
-						  <li><p>Consider checking with these personnel at this time to see how they are doing in class, and if it
+						  <li><p>Consider checking with these personnel at this time to see if they have scheduled a test, and if it
 							would be useful for you to arrange any special study support for them.</p></li>
 						  <li><p>Consider reporting the aggregated calculations at your squad's business meeting and/or having this
 							report entered into your squad's corporate minutes.</p></li>

@@ -95,6 +95,7 @@
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill_maag.aspx" />
+    <Content Include="noninteractive\report_monthly_test_candidate_roster.aspx" />
     <Content Include="noninteractive\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
     <Content Include="noninteractive\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
     <Content Include="noninteractive\template\notification\agency_change.txt" />
@@ -486,6 +487,13 @@
     </Compile>
     <Compile Include="noninteractive\report_commanded_watchbill_maag.aspx.designer.cs">
       <DependentUpon>report_commanded_watchbill_maag.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_test_candidate_roster.aspx.cs">
+      <DependentUpon>report_monthly_test_candidate_roster.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_monthly_test_candidate_roster.aspx.designer.cs">
+      <DependentUpon>report_monthly_test_candidate_roster.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_monthly_transferees.aspx.cs">
       <DependentUpon>report_monthly_transferees.aspx</DependentUpon>
