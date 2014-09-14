@@ -832,7 +832,7 @@ namespace Class_db_schedule_assignments
       +   " ("
       +     " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
       +   " and"
-      +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
+      +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)) > 0"
       +   " )"
       + " or"
       +   " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
@@ -1301,9 +1301,9 @@ namespace Class_db_schedule_assignments
         +               " ("
         +                 " IF"
         +                   " ("
-        +                     " medical_release_code = 9"  // Student
+        +                     " medical_release_code_description_map.description in ('Student',Test Candidate')"
         +                   " ,"
-        +                     " 2"  // expect 2 even though not strictly required
+        +                     " 1"  // expect 1 even though not strictly required
         +                   " ,"
         +                     " num_shifts"  // num standard obliged duties
         +                   " )"
@@ -1746,7 +1746,7 @@ namespace Class_db_schedule_assignments
       +     " ("
       +       " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
       +     " and"
-      +       " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
+      +       " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)) > 0"
       +     " )"
       +   " or"
       +     " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','Transferring'))"
@@ -2855,7 +2855,7 @@ namespace Class_db_schedule_assignments
               +       " )" 
               +     " )" 
               + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-              +   " and medical_release_code = 2"
+              +   " and medical_release_code_description_map.description in ('Test Candidate','BLS Intern')"
               + " group by member.id"
               +   " having num_extras > 0"
               + " order by num_extras",

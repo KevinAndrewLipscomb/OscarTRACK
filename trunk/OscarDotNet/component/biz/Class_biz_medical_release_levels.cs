@@ -32,21 +32,16 @@ namespace Class_biz_medical_release_levels
             return result;
         }
 
-        public bool BeRecruitAdminOrSpecOpsBoundByCode(string level_code)
-        {
-            bool result;
-            result = (level_code == "1") || (level_code == "9");
-            return result;
-        }
+    public bool BeRecruitAdminOrSpecOpsBoundByCode(string level_code)
+      {
+      return new ArrayList() {"1","9","14"}.Contains(level_code);
+        // none, Student, Test Candidate
+      }
 
-        public bool BeRecruitAdminOrSpecOpsBoundByDescription(string level_description)
-        {
-            bool result;
-            string lowercase_level_description;
-            lowercase_level_description = level_description.ToLower();
-            result = (lowercase_level_description == "none") || (lowercase_level_description == "student");
-            return result;
-        }
+    public bool BeRecruitAdminOrSpecOpsBoundByDescription(string level_description)
+      {
+      return new ArrayList() {"none","student","test candidate"}.Contains(level_description.ToLower());
+      }
 
         public bool BeReleased(string peck_code)
         {
@@ -147,6 +142,7 @@ namespace Class_biz_medical_release_levels
         NOT_RELEASED,
         NONE,
         IN_CLASS,
+        TEST_CANDIDATE,
         TRAINEE,
         RELEASED,
         EMT_B,

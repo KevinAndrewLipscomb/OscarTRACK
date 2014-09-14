@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace report_monthly_in_class_roster {
+namespace report_monthly_test_candidate_roster {
     
     
-    public partial class TWebForm_report_monthly_in_class_roster {
+    public partial class TWebForm_report_monthly_test_candidate_roster {
         
         /// <summary>
         /// Title control.

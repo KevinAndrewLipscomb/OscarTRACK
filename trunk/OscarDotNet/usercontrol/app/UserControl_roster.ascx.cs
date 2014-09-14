@@ -166,6 +166,12 @@ namespace UserControl_roster
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.IN_CLASS;
                 }
+                else if (Session["mode:report/monthly-test-candidate-roster"] != null)
+                {
+                    p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
+                    p.relative_month = 0;
+                    p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.TEST_CANDIDATE;
+                }
                 else if (Session["mode:report/monthly-trainee-roster"] != null)
                 {
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
