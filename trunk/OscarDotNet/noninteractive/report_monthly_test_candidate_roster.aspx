@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head>
-	<title id="Title" runat="server"></title>
+	<title></title>
 	<!-- $Id$ -->
   </head>
   <body bgcolor="white">
@@ -47,7 +47,7 @@
 				</table></td>
 			</tr>
 		</table></p>
-	  <p<ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
+	  <p><ASP:PlaceHolder id="PlaceHolder_roster" runat="server"></ASP:PlaceHolder></p>
 	</form>
   </body>
 </html>
