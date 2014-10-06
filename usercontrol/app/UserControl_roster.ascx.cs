@@ -221,12 +221,12 @@ namespace UserControl_roster
             k.SmtpMailSend
               (
               from:ConfigurationManager.AppSettings["sender_email_address"],
-              to:k.EMPTY,
+              to:p.biz_user.EmailAddress(),
               subject:TextBox_quick_message_subject.Text,
               message_string:"-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
               be_html:false,
               cc:k.EMPTY,
-              bcc:p.distribution_list + k.COMMA + p.biz_user.EmailAddress(),
+              bcc:p.distribution_list,
               reply_to:p.biz_user.EmailAddress()
               );
             TextBox_quick_message_subject.Text = k.EMPTY;
