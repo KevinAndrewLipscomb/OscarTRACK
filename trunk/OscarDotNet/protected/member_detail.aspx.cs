@@ -65,11 +65,12 @@ namespace member_detail
                 }
                 if (p.raw_member_email_address != k.EMPTY)
                 {
-                    Label_email_address.Text = p.raw_member_email_address;
+                    HyperLink_email_address.Text = p.raw_member_email_address;
+                    HyperLink_email_address.NavigateUrl = "mailto:" + p.raw_member_email_address;
                 }
                 else
                 {
-                    Label_email_address.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
+                    HyperLink_email_address.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                 }
                 //
                 Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
