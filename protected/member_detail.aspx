@@ -35,7 +35,7 @@
                       <tr>
                         <td>Email address:</td>
                         <td><ASP:LinkButton id="LinkButton_change_member_email_address" runat="server" visible="False" onclick="LinkButton_change_member_email_address_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                        <td><ASP:Label id="Label_email_address" runat="server"></ASP:Label></td>
+                        <td><asp:HyperLink id="HyperLink_email_address" runat="server"></asp:HyperLink></td>
                       </tr>
                       <tr>
                         <td>Leave:</td>

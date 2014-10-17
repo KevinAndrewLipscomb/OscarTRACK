@@ -85,13 +85,13 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_change_member_email_address;
         
         /// <summary>
-        /// Label_email_address control.
+        /// HyperLink_email_address control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_email_address;
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_email_address;
         
         /// <summary>
         /// LinkButton_leave_detail control.
