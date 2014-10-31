@@ -1,13 +1,6 @@
-using AjaxControlToolkit;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using UserControl_user;
 using UserControl_user_member_mapping;
+
 namespace UserControl_users_and_mapping_binder
 {
     public struct p_type
@@ -58,8 +51,8 @@ namespace UserControl_users_and_mapping_binder
             else
             {
                 p.be_loaded = false;
-                p.tab_index = Units.UserControl_users_and_mapping_binder.TSSI_USERS;
-                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_user)(LoadControl("~/usercontrol/app/UserControl_user.ascx"))),"UserControl_user",PlaceHolder_content,InstanceId());
+                p.tab_index = Units.UserControl_users_and_mapping_binder.TSSI_USER_MEMBER_MAPPINGS;
+                p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_user_member_mapping)(LoadControl("~/usercontrol/app/UserControl_user_member_mapping.ascx"))),"UserControl_user_member_mapping",PlaceHolder_content,InstanceId());
             }
 
         }
