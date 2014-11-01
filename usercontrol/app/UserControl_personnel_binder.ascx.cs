@@ -1,5 +1,5 @@
 using kix;
-using UserControl_commensuration;
+using UserControl_schedule_assignments_audit;
 using UserControl_roster;
 
 namespace UserControl_personnel_binder
@@ -19,7 +19,7 @@ namespace UserControl_personnel_binder
             if (!p.be_loaded)
             {
                 TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
-                if (k.Has((string[])(Session["privilege_array"]), "enter-actual-crew-shifts"))
+                if (k.Has((string[])(Session["privilege_array"]), "audit-schedule-assignments"))
                 {
                     TabPanel_results.Enabled = true;
                 }
@@ -49,7 +49,7 @@ namespace UserControl_personnel_binder
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                         break;
                     case UserControl_personnel_binder_Static.TSSI_RESULTS:
-                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))), "UserControl_commensuration", PlaceHolder_content);
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignments_audit)(LoadControl("~/usercontrol/app/UserControl_schedule_assignments_audit.ascx"))), "UserControl_schedule_assignments_audit", PlaceHolder_content);
                         break;
                 }
             }
@@ -74,7 +74,7 @@ namespace UserControl_personnel_binder
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))), "R", PlaceHolder_content);
                     break;
                 case UserControl_personnel_binder_Static.TSSI_RESULTS:
-                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_commensuration)(LoadControl("~/usercontrol/app/UserControl_commensuration.ascx"))),"UserControl_commensuration",PlaceHolder_content,InstanceId());
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignments_audit)(LoadControl("~/usercontrol/app/UserControl_schedule_assignments_audit.ascx"))),"UserControl_schedule_assignments_audit",PlaceHolder_content,InstanceId());
                     break;
             }
         }
