@@ -227,6 +227,7 @@
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_assignments_audit.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_off.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_time_on.ascx" />
@@ -1518,6 +1519,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignments_audit.ascx.cs">
+      <DependentUpon>UserControl_schedule_assignments_audit.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignments_audit.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_assignments_audit.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_alert_binder.ascx.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_alert_binder.ascx</DependentUpon>

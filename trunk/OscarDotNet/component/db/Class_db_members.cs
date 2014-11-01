@@ -1169,6 +1169,87 @@ namespace Class_db_members
             BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, leave_filter, med_release_level_filter, section_filter, false);
         }
 
+    internal void BindScheduleAssignmentsAuditBaseDataList
+      (
+      string sort_order,
+      bool be_sort_ascending,
+      object target,
+      k.subtype<int> relative_month
+      )
+      {
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "select agency.short_designator as agency"
+        + " , concat(member.last_name,', ',member.first_name) as name"
+        + " , cad_num"
+        + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , enrollment_level.description as enrollment_level"
+        + " , if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,num_shifts) as obligation"
+        + " , IF(((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'),FALSE,NULL)),'yes','NO') as be_compliant"
+        + " , count(schedule_assignment.id) as num_avails"
+        + " , IFNULL(sum(be_selected),0) as num_assignments"
+        + " , IFNULL(sum(be_selected),0) - if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,num_shifts) as balance"
+        + " from member"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " join enrollment_history on"
+        +     " ("
+        +       " enrollment_history.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))"
+        +       " and"
+        +         " ("
+        +           " (enrollment_history.end_date is null)"
+        +         " or"
+        +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+        +   " left join leave_of_absence on"
+        +     " ("
+        +       " leave_of_absence.member_id=member.id"
+        +     " and"
+        +       " ("
+        +         " (leave_of_absence.start_date is null)"
+        +       " or"
+        +         " ("
+        +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))"
+        +         " and"
+        +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)))"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " left join"
+        +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
+        +   " left join schedule_assignment on (schedule_assignment.member_id=member.id and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)))"
+        + " where"
+        +   " ("
+        +     " ((MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))) or (nominal_day is null))"
+        +   " and"
+        +     " ("
+        +       " ("
+        +         " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+        +       " and"
+        +         " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',2,num_shifts)) > 0"
+        +       " )"
+        +     " or"
+        +       " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'))"
+        +     " )"
+        +   " and"
+        +     " (agency.id <> 0)"
+        +   " )"
+        + " group by member.id"
+        + " order by member.agency_id,be_released desc,last_name,first_name,cad_num",
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
         public void BindSpecialForRankedLengthOfService(object target)
         {
             this.Open();

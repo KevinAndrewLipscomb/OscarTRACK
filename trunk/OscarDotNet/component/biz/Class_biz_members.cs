@@ -388,6 +388,17 @@ namespace Class_biz_members
             BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, leave_filter, med_release_level_filter, section_filter, false);
         }
 
+    internal void BindScheduleAssignmentsAuditBaseDataList
+      (
+      string sort_order,
+      bool be_sort_ascending,
+      object target,
+      k.subtype<int> relative_month
+      )
+      {
+      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month);
+      }
+
         public void BindSpecialForRankedLengthOfService(object target)
         {
             db_members.BindSpecialForRankedLengthOfService(target);
