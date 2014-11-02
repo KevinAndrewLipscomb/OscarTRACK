@@ -47,6 +47,8 @@ namespace Class_biz_paypal_ipn_listener
       var response = stream_reader.ReadToEnd();
       stream_reader.Close();
       //
+      if (response.Equals("VERIFIED"))
+        {
 //
 k.SmtpMailSend
   (
@@ -56,8 +58,6 @@ k.SmtpMailSend
   message_string:message
   );
 //
-      if (response.Equals("VERIFIED"))
-        {
         //
         // paypal has verified the data, it is safe for us to perform processing now
         //
