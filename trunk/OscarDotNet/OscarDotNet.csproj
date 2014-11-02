@@ -145,6 +145,7 @@
     <Content Include="noninteractive\template\notification\vehicle_marked_up.txt" />
     <Content Include="noninteractive\template\notification\vehicle_quarters_change.txt" />
     <Content Include="noninteractive\weekly_tasks.aspx" />
+    <Content Include="paypal_ipn_listener.aspx" />
     <Content Include="protected\add_vehicle.aspx" />
     <Content Include="protected\adjust_length_of_service.aspx" />
     <Content Include="protected\bounty_program.aspx" />
@@ -157,6 +158,7 @@
     <Content Include="protected\eval_detail.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\paypal_ipn_listener_test.htm" />
     <Content Include="protected\image\appointment-missed.png" />
     <Content Include="protected\image\dialog-clean.png" />
     <Content Include="protected\image\dialog-warning.png" />
@@ -298,6 +300,7 @@
     <Compile Include="component\biz\Class_biz_patient_age_units.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounter_levels.cs" />
+    <Compile Include="component\biz\Class_biz_paypal_ipn_listener.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
     <Compile Include="component\biz\Class_biz_residents.cs" />
     <Compile Include="component\biz\Class_biz_roles.cs" />
@@ -614,6 +617,13 @@
     </Compile>
     <Compile Include="noninteractive\weekly_tasks.aspx.designer.cs">
       <DependentUpon>weekly_tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="paypal_ipn_listener.aspx.cs">
+      <DependentUpon>paypal_ipn_listener.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="paypal_ipn_listener.aspx.designer.cs">
+      <DependentUpon>paypal_ipn_listener.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="protected\add_member.aspx.cs">
