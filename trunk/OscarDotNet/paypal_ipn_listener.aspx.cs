@@ -1,4 +1,5 @@
 using Class_biz_paypal_ipn_listener;
+using kix;
 using System;
 using System.Text;
 
@@ -21,10 +22,14 @@ namespace paypal_ipn_listener
       new TClass_biz_paypal_ipn_listener().ProcessNotification
         (
         message:Encoding.ASCII.GetString(Request.BinaryRead(Request.ContentLength)),
-        payer_email:Request["payer_email"],
         payment_status:Request["payment_status"],
         receiver_email:Request["receiver_email"],
-        mc_gross:Request["mc_gross"]
+        amount_donated:Request["mc_gross"],
+        donor_email_address:Request["payer_email"],
+        donor_first_name:Request["first_name"],
+        donor_last_name:Request["last_name"],
+        date_of_donation:Request["payment_date"],
+        memo:Request["memo"]
         );
       }
 

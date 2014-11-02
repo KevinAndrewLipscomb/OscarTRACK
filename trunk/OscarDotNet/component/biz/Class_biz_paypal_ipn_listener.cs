@@ -17,10 +17,14 @@ namespace Class_biz_paypal_ipn_listener
     internal void ProcessNotification
       (
       string message,
-      string payer_email,
       string payment_status,
       string receiver_email,
-      string mc_gross
+      string amount_donated,
+      string donor_email_address,
+      string donor_first_name,
+      string donor_last_name,
+      string date_of_donation,
+      string memo
       )
       {
       //
@@ -56,7 +60,15 @@ k.SmtpMailSend
   from:ConfigurationManager.AppSettings["sender_email_address"],
   to:ConfigurationManager.AppSettings["sender_email_address"],
   subject:"PayPal IPN",
-  message_string:readback
+  message_string:message.Replace("&",k.NEW_LINE) + k.NEW_LINE
+  + "Parsed payment_status = " + payment_status + k.NEW_LINE
+  + "Parsed receiver_email = " + receiver_email + k.NEW_LINE
+  + "Parsed amount_donated = " + amount_donated + k.NEW_LINE
+  + "Parsed donor_email_address = " + donor_email_address + k.NEW_LINE
+  + "Parsed donor_first_name = " + donor_first_name + k.NEW_LINE
+  + "Parsed donor_last_name = " + donor_last_name + k.NEW_LINE
+  + "Parsed date_of_donation = " + date_of_donation + k.NEW_LINE
+  + "Parsed memo = " + memo + k.NEW_LINE
   );
 //
         //
