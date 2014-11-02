@@ -70,12 +70,26 @@ namespace process_paypal_donation
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
-      if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
+      var nature_of_visit = NatureOfVisitUnlimited(InstanceId() + ".p");
+      if (new ArrayList() {nature_of_visit_type.VISIT_INITIAL,nature_of_visit_type.VISIT_COLD_CALL}.Contains(nature_of_visit))
         {
         p.biz_residents = new TClass_biz_residents();
-        p.incoming = Message<TClass_msg_protected.process_paypal_donation>("protected","process_paypal_donation");
         p.msg_protected_confirm_paypal_donation = new TClass_msg_protected.confirm_paypal_donation();
+        //
+        p.incoming = Message<TClass_msg_protected.process_paypal_donation>("protected","process_paypal_donation");
+        if (p.incoming == null)
+          {
+          var hash_table = HashtableOfShieldedRequest();
+          p.incoming = new TClass_msg_protected.process_paypal_donation();
+          p.incoming.agency = hash_table["agency"].ToString();
+          p.incoming.amount_donated = hash_table["amount_donated"].ToString();
+          p.incoming.donation_date = DateTime.Parse(hash_table["donation_date"].ToString());
+          p.incoming.donor_email_address = hash_table["donor_email_address"].ToString();
+          p.incoming.donor_house_num = hash_table["donor_house_num"].ToString();
+          p.incoming.donor_name = hash_table["donor_name"].ToString();
+          p.incoming.donor_street_id = hash_table["donor_street_id"].ToString();
+          p.incoming.donor_street_name = hash_table["donor_street_name"].ToString();
+          }
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

@@ -300,7 +300,6 @@
     <Compile Include="component\biz\Class_biz_patient_age_units.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounter_levels.cs" />
-    <Compile Include="component\biz\Class_biz_paypal_ipn_listener.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
     <Compile Include="component\biz\Class_biz_residents.cs" />
     <Compile Include="component\biz\Class_biz_roles.cs" />

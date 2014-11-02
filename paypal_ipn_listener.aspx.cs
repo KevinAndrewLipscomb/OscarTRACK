@@ -1,13 +1,26 @@
-using Class_biz_paypal_ipn_listener;
+using Class_biz_streets;
 using kix;
 using System;
+using System.Collections;
+using System.Configuration;
+using System.IO;
+using System.Net;
 using System.Text;
+using System.Web;
+using System.Globalization;
 
 namespace paypal_ipn_listener
   {
 
-  public partial class TWebForm_paypal_ipn_listener: System.Web.UI.Page
+  public partial class TWebForm_paypal_ipn_listener: ki_web_ui.page_class
     {
+
+    public struct p_type
+      {
+      public TClass_biz_streets biz_streets;
+      }
+
+    private p_type p;
 
     // / <summary>
     // / Required method for Designer support -- do not modify
@@ -19,18 +32,84 @@ namespace paypal_ipn_listener
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      new TClass_biz_paypal_ipn_listener().ProcessNotification
-        (
-        message:Encoding.ASCII.GetString(Request.BinaryRead(Request.ContentLength)),
-        payment_status:Request["payment_status"],
-        receiver_email:Request["receiver_email"],
-        amount_donated:Request["mc_gross"],
-        donor_email_address:Request["payer_email"],
-        donor_first_name:Request["first_name"],
-        donor_last_name:Request["last_name"],
-        date_of_donation:Request["payment_date"],
-        memo:Request["memo"]
-        );
+      var message = Encoding.ASCII.GetString(Request.BinaryRead(Request.ContentLength));
+      var payment_status = HttpUtility.UrlDecode(Request["payment_status"]);
+      var receiver_email = HttpUtility.UrlDecode(Request["receiver_email"]);
+      var amount_donated = HttpUtility.UrlDecode(Request["mc_gross"]);
+      var donor_email_address = HttpUtility.UrlDecode(Request["payer_email"]);
+      var donor_first_name = HttpUtility.UrlDecode(Request["first_name"]);
+      var donor_last_name = HttpUtility.UrlDecode(Request["last_name"]);
+      var date_of_donation = HttpUtility.UrlDecode(Request["payment_date"]);
+      var memo = HttpUtility.UrlDecode(Request["memo"]);
+      //
+      // Prepend PayPal validation argument.
+      //
+      var readback = "cmd=_notify-validate&" + message;
+      //
+      // create an HttpRequest channel to perform handshake with PayPal
+      //
+      var application_name = ConfigurationManager.AppSettings["application_name"];
+      var http_web_request = (HttpWebRequest)WebRequest.Create("https://www" + (application_name.EndsWith("_d") || application_name.EndsWith("_x") ? ".sandbox" : k.EMPTY) + ".paypal.com/cgi-bin/webscr");
+      http_web_request.Method = "POST";
+      http_web_request.ContentType = "application/x-www-form-urlencoded";
+      http_web_request.ContentLength = readback.Length;
+      //
+      // send data back to PayPal to request verification
+      //
+      var stream_writer = new StreamWriter(http_web_request.GetRequestStream(), Encoding.ASCII);
+      stream_writer.Write(readback);
+      stream_writer.Close();
+      //
+      // receive response from PayPal
+      //
+      var stream_reader = new StreamReader(http_web_request.GetResponse().GetResponseStream());
+      var response = stream_reader.ReadToEnd();
+      stream_reader.Close();
+      //
+      if (response.Equals("VERIFIED"))
+        {
+        //
+        // paypal has verified the data, it is safe for us to perform processing now
+        //
+        if (payment_status.Equals("Completed"))
+          {
+          //
+          // if the seller email is us (we don't want anyone else getting our payment!)
+          //
+          if (new ArrayList() {"infotech@kvrs.org"}.Contains(receiver_email.ToLower()))
+            {
+            var hash_table = new Hashtable();
+            hash_table.Add("agency","KVRS");
+            hash_table.Add("amount_donated",amount_donated);
+            hash_table.Add("donor_email_address",donor_email_address);
+            hash_table.Add("donor_name",donor_first_name + k.SPACE + donor_last_name);
+            hash_table.Add("donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture));
+            //
+            var presumed_street_address = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
+            var presumed_house_num = k.Safe(presumed_street_address.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
+            //
+            hash_table.Add("donor_house_num",presumed_house_num);
+            hash_table.Add("donor_street_name",presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim());
+            //
+            hash_table.Add("donor_street_id",p.biz_streets.IdOf(street_name:hash_table["donor_street_name"].ToString(),city_name:"VIRGINIA BEACH"));
+            //
+            k.SmtpMailSend
+              (
+              from:ConfigurationManager.AppSettings["sender_email_address"],
+              to:ConfigurationManager.AppSettings["sender_email_address"],
+              subject:"PayPal IPN",
+              message_string:k.EMPTY
+              + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "protected/process_paypal_donation.aspx?" + ShieldedQueryStringOfHashtable(hash_table) + k.NEW_LINE
+              + k.NEW_LINE
+              + "memo" + k.NEW_LINE
+              + "----" + k.NEW_LINE
+              + memo + k.NEW_LINE
+              + k.NEW_LINE
+              + message.Replace("&",k.NEW_LINE) + k.NEW_LINE
+              );
+            }
+          }
+        } // VERIFIED
       }
 
     protected override void OnInit(EventArgs e)
@@ -38,6 +117,8 @@ namespace paypal_ipn_listener
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
+      //
+      p.biz_streets = new TClass_biz_streets();
       }
 
     } // end TWebForm_paypal_ipn_listener

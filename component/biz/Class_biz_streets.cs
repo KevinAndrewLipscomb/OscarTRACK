@@ -61,6 +61,15 @@ namespace Class_biz_streets
         );
       }
 
+    public string IdOf
+      (
+      string street_name,
+      string city_name
+      )
+      {
+      return db_streets.IdOf(street_name,city_name);
+      }
+
     public void Set
       (
       string id,
