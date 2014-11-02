@@ -147,6 +147,18 @@ namespace Class_db_streets
       return result;
       }
 
+    internal string IdOf
+      (
+      string street_name,
+      string city_name
+      )
+      {
+      Open();
+      var id_of_obj = new MySqlCommand("select street.id from street join city on (city.id=street.city_id) where street.name = '" + street_name + "' and city.name = '" + city_name + "'",connection).ExecuteScalar();
+      Close();
+      return (id_of_obj == null ? k.EMPTY : id_of_obj.ToString());
+      }
+
     public void Set
       (
       string id,
