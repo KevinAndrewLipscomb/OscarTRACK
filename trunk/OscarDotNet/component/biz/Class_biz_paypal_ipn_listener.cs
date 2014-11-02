@@ -47,17 +47,17 @@ namespace Class_biz_paypal_ipn_listener
       var response = stream_reader.ReadToEnd();
       stream_reader.Close();
       //
-      if (response.Equals("VERIFIED"))
-        {
 //
 k.SmtpMailSend
   (
   from:ConfigurationManager.AppSettings["sender_email_address"],
   to:ConfigurationManager.AppSettings["sender_email_address"],
   subject:"PayPal IPN",
-  message_string:message
+  message_string:readback
   );
 //
+      if (response.Equals("VERIFIED"))
+        {
         //
         // paypal has verified the data, it is safe for us to perform processing now
         //
