@@ -103,6 +103,15 @@ namespace UserControl_paypal_assistant {
         protected global::UserControl_drop_down_date.TWebUserControl_drop_down_date UserControl_drop_down_date_donation_date;
         
         /// <summary>
+        /// TextBox_memo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_memo;
+        
+        /// <summary>
         /// TextBox_donor_house_num control.
         /// </summary>
         /// <remarks>

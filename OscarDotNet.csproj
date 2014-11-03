@@ -158,6 +158,7 @@
     <Content Include="protected\eval_detail.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\paypal_assistant.aspx" />
     <Content Include="protected\paypal_ipn_listener_test.htm" />
     <Content Include="protected\image\appointment-missed.png" />
     <Content Include="protected\image\dialog-clean.png" />
@@ -877,6 +878,13 @@
     </Compile>
     <Compile Include="protected\patient_encounter_detail.aspx.designer.cs">
       <DependentUpon>patient_encounter_detail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\paypal_assistant.aspx.cs">
+      <DependentUpon>paypal_assistant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\paypal_assistant.aspx.designer.cs">
+      <DependentUpon>paypal_assistant.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\process_paypal_donation.aspx.cs">
       <DependentUpon>process_paypal_donation.aspx</DependentUpon>

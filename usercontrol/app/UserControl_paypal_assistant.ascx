@@ -46,6 +46,11 @@
                 <td></td>
               </tr>
               <tr>
+                <td align="right" valign="top">Memo:</td>
+                <td><asp:TextBox ID="TextBox_memo" runat="server" Enabled="false" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox></td>
+                <td></td>
+              </tr>
+              <tr>
                 <td align="right">Donor's house #:</td>
                 <td><asp:TextBox ID="TextBox_donor_house_num" runat="server" Columns="15"></asp:TextBox></td>
                 <td>

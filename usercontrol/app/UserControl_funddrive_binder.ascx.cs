@@ -71,7 +71,7 @@ namespace UserControl_funddrive_binder
         {
         var c = ((TWebUserControl_paypal_assistant)(LoadControl("~/usercontrol/app/UserControl_paypal_assistant.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_paypal_assistant",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
-        c.SetTarget(agency:p.user_member_agency_keyclick_enumerator);
+        c.Set(agency:p.user_member_agency_keyclick_enumerator);
         }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)

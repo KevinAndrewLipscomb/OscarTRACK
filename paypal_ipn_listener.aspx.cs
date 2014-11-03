@@ -1,13 +1,12 @@
-using Class_biz_streets;
 using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
-using System.Globalization;
 
 namespace paypal_ipn_listener
   {
@@ -15,12 +14,11 @@ namespace paypal_ipn_listener
   public partial class TWebForm_paypal_ipn_listener: ki_web_ui.page_class
     {
 
-    public struct p_type
-      {
-      public TClass_biz_streets biz_streets;
-      }
-
-    private p_type p;
+    //--
+    //
+    // PRIVATE
+    //
+    //--
 
     // / <summary>
     // / Required method for Designer support -- do not modify
@@ -28,6 +26,19 @@ namespace paypal_ipn_listener
     // / </summary>
     private void InitializeComponent()
       {
+      }
+
+    //--
+    //
+    // PROTECTED
+    //
+    //--
+
+    protected override void OnInit(EventArgs e)
+      {
+      // Required for Designer support
+      InitializeComponent();
+      base.OnInit(e);
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
@@ -80,18 +91,18 @@ namespace paypal_ipn_listener
             {
             var hash_table = new Hashtable();
             hash_table.Add("agency","KVRS");
-            hash_table.Add("amount_donated",amount_donated);
-            hash_table.Add("donor_email_address",donor_email_address);
-            hash_table.Add("donor_name",donor_first_name + k.SPACE + donor_last_name);
+            hash_table.Add("amount_donated",k.Safe(amount_donated,k.safe_hint_type.REAL_NUM_INCLUDING_NEGATIVE));
+            hash_table.Add("donor_email_address",k.Safe(donor_email_address,k.safe_hint_type.EMAIL_ADDRESS));
+            hash_table.Add("donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME));
             hash_table.Add("donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture));
+            hash_table.Add("memo",k.Safe(memo,k.safe_hint_type.PUNCTUATED));
             //
             var presumed_street_address = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
             var presumed_house_num = k.Safe(presumed_street_address.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
             //
             hash_table.Add("donor_house_num",presumed_house_num);
-            hash_table.Add("donor_street_name",presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim());
             //
-            hash_table.Add("donor_street_id",p.biz_streets.IdOf(street_name:hash_table["donor_street_name"].ToString(),city_name:"VIRGINIA BEACH"));
+            hash_table.Add("donor_street_name",k.Safe(presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim(),k.safe_hint_type.POSTAL_STREET_ADDRESS));
             //
             k.SmtpMailSend
               (
@@ -99,7 +110,7 @@ namespace paypal_ipn_listener
               to:ConfigurationManager.AppSettings["sender_email_address"],
               subject:"PayPal IPN",
               message_string:k.EMPTY
-              + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "protected/process_paypal_donation.aspx?" + ShieldedQueryStringOfHashtable(hash_table) + k.NEW_LINE
+              + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "protected/paypal_assistant.aspx?" + ShieldedQueryStringOfHashtable(hash_table) + k.NEW_LINE
               + k.NEW_LINE
               + "memo" + k.NEW_LINE
               + "----" + k.NEW_LINE
@@ -110,15 +121,6 @@ namespace paypal_ipn_listener
             }
           }
         } // VERIFIED
-      }
-
-    protected override void OnInit(EventArgs e)
-      {
-      // Required for Designer support
-      InitializeComponent();
-      base.OnInit(e);
-      //
-      p.biz_streets = new TClass_biz_streets();
       }
 
     } // end TWebForm_paypal_ipn_listener
