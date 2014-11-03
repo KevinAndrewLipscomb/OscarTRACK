@@ -5,6 +5,9 @@
 </head>
 <body>
   <form target="_new" method="post" action="../paypal_ipn_listener.aspx">
+<!--
+<!-- Variation #1 (payer_status=verified)
+<!--
     <input type="hidden" name="transaction_subject" value="" />
     <input type="hidden" name="payment_date" value="10:30:05 Nov 02, 2014 PST" />
     <input type="hidden" name="txn_type" value="web_accept" />
@@ -36,6 +39,51 @@
     <input type="hidden" name="charset" value="windows-1252" />
     <input type="hidden" name="notify_version" value="3.8" />
     <input type="hidden" name="ipn_track_id" value="31a4867e0e4d" />
+-->
+<!--
+<!-- Variation #2 (payer_status=unverified)
+<!--
+-->
+    <input type="hidden" name="mc_gross" value="500.00" />
+    <input type="hidden" name="protection_eligibility" value="Eligible" />
+    <input type="hidden" name="address_status" value="unconfirmed" />
+    <input type="hidden" name="payer_id" value="ZMHHSGZMRJFCG" />
+    <input type="hidden" name="tax" value="0.00" />
+    <input type="hidden" name="address_street" value="5912+Baynebridge+Drive" />
+    <input type="hidden" name="payment_date" value="09%3A42%3A57+Nov+03%2C+2014+PST" />
+    <input type="hidden" name="payment_status" value="Completed" />
+    <input type="hidden" name="charset" value="windows-1252" />
+    <input type="hidden" name="address_zip" value="23464" />
+    <input type="hidden" name="first_name" value="Joan" />
+    <input type="hidden" name="mc_fee" value="11.30" />
+    <input type="hidden" name="address_country_code" value="US" />
+    <input type="hidden" name="address_name" value="Joan+Shiflet" />
+    <input type="hidden" name="notify_version" value="3.8" />
+    <input type="hidden" name="custom" value="" />
+    <input type="hidden" name="payer_status" value="unverified" />
+    <input type="hidden" name="business" value="infotech%40kvrs.org" />
+    <input type="hidden" name="address_country" value="United+States" />
+    <input type="hidden" name="address_city" value="Virginia+Beach" />
+    <input type="hidden" name="quantity" value="0" />
+    <input type="hidden" name="verify_sign" value="AqoHtf-9ou72KnSG8v3.87oYuH7IAIK96IOjosLWX2pxKJcMpaCL4MEa" />
+    <input type="hidden" name="payer_email" value="Joshifle%40yahoo.com" />
+    <input type="hidden" name="txn_id" value="0T185674DX075070A" />
+    <input type="hidden" name="payment_type" value="instant" />
+    <input type="hidden" name="last_name" value="Shiflet" />
+    <input type="hidden" name="address_state" value="VA" />
+    <input type="hidden" name="receiver_email" value="infotech%40kvrs.org" />
+    <input type="hidden" name="payment_fee" value="11.30" />
+    <input type="hidden" name="receiver_id" value="Y99E5GMM7QM7C" />
+    <input type="hidden" name="txn_type" value="web_accept" />
+    <input type="hidden" name="item_name" value="Unrestricted+donation" />
+    <input type="hidden" name="mc_currency" value="USD" />
+    <input type="hidden" name="item_number" value="" />
+    <input type="hidden" name="residence_country" value="US" />
+    <input type="hidden" name="receipt_id" value="2166-0071-7554-2217" />
+    <input type="hidden" name="transaction_subject" value="" />
+    <input type="hidden" name="payment_gross" value="500.00" />
+    <input type="hidden" name="ipn_track_id" value="d48cfa85646eb" />
+<!-- button -->
     <input type="submit" />
   </form>
 </body>

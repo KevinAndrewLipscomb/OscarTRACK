@@ -5,7 +5,6 @@ using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
-using System.Configuration;
 using System.Web.UI;
 
 namespace UserControl_paypal_assistant
@@ -13,6 +12,13 @@ namespace UserControl_paypal_assistant
 
   public struct p_type
     {
+    public string address_name;
+    public string address_street;
+    public string address_city;
+    public string address_state;
+    public string address_zip;
+    public string address_country;
+    public string address_country_code;
     public string agency;
     public string amount_donated;
     public bool be_loaded;
@@ -49,7 +55,12 @@ namespace UserControl_paypal_assistant
         TextBox_amount_donated.Text = p.amount_donated;
         TextBox_donor_email_address.Text = p.donor_email_address;
         TextBox_donor_name.Text = p.donor_name;
-        TextBox_memo.Text = (p.memo.Length > 0 ? p.memo : "(disregard)");
+        TextBox_address_data.Text = k.EMPTY
+        + p.address_name + k.NEW_LINE
+        + p.address_street + k.NEW_LINE
+        + p.address_city + (p.address_city.Length > 0 ? k.COMMA_SPACE : k.EMPTY) + p.address_state + k.SPACE + p.address_zip + k.NEW_LINE
+        + p.address_country + k.SPACE + (p.address_country_code.Length > 0 ? "(" : k.EMPTY) + p.address_country_code + (p.address_country_code.Length > 0 ? ")" : k.EMPTY);
+        TextBox_memo.Text = p.memo;
         TextBox_donor_house_num.Text = p.donor_house_num;
         //
         if (p.donor_street_name.Length > 0)
@@ -72,10 +83,23 @@ namespace UserControl_paypal_assistant
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[InstanceId() + ".p"] != null)
+      var instance_id = InstanceId();
+      if (Session[instance_id + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_paypal_assistant");
+        p.be_loaded = IsPostBack;  // This test is sufficient if this control is being used statically on its page.
+        //
+        // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
+        // had it loaded already.
+        //
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_funddrive_binder_paypal_assistant")
+          {
+          p.be_loaded &= ((Session["M_UserControl_funddrive_binder_PlaceHolder_content"] as string) == "UserControl_paypal_assistant");
+          }
+        else if (instance_id == "ASP.protected_paypal_assistant_aspx.UserControl_paypal_assistant_control")
+          {
+          // This control is being used statically on its page.
+          }
         }
       else
         {
@@ -86,6 +110,13 @@ namespace UserControl_paypal_assistant
         p.biz_user = new TClass_biz_user();
         p.msg_protected_process_paypal_donation = new TClass_msg_protected.process_paypal_donation();
         //
+        p.address_name = k.EMPTY;
+        p.address_street = k.EMPTY;
+        p.address_city = k.EMPTY;
+        p.address_state = k.EMPTY;
+        p.address_zip = k.EMPTY;
+        p.address_country = k.EMPTY;
+        p.address_country_code = k.EMPTY;
         p.agency = k.EMPTY;
         p.amount_donated = k.EMPTY;
         p.donation_date = DateTime.MinValue;
@@ -148,40 +179,33 @@ namespace UserControl_paypal_assistant
       string donor_email_address,
       string donor_name,
       DateTime donation_date,
+      string address_name,
+      string address_street,
+      string address_city,
+      string address_state,
+      string address_zip,
+      string address_country,
+      string address_country_code,
       string memo,
       string donor_house_num,
       string donor_street_name
       )
       {
       p.agency = agency;
-      if (amount_donated.Length > 0)
-        {
-        p.amount_donated = amount_donated;
-        }
-      if (donor_email_address.Length > 0)
-        {
-        p.donor_email_address = donor_email_address;
-        }
-      if (donor_name.Length > 0)
-        {
-        p.donor_name = donor_name;
-        }
-      if (donation_date > DateTime.MinValue)
-        {
-        p.donation_date = donation_date;
-        }
-      if (memo.Length > 0)
-        {
-        p.memo = memo;
-        }
-      if (donor_house_num.Length > 0)
-        {
-        p.donor_house_num = donor_house_num;
-        }
-      if (donor_street_name.Length > 0)
-        {
-        p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
-        }
+      p.amount_donated = amount_donated;
+      p.donor_email_address = donor_email_address;
+      p.donor_name = donor_name;
+      p.donation_date = donation_date;
+      p.address_name = address_name;
+      p.address_street = address_street;
+      p.address_city = address_city;
+      p.address_state = address_state;
+      p.address_zip = address_zip;
+      p.address_country = address_country;
+      p.address_country_code = address_country_code;
+      p.memo = memo;
+      p.donor_house_num = donor_house_num;
+      p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
       }
     internal void Set(string agency)
       {
@@ -189,12 +213,19 @@ namespace UserControl_paypal_assistant
         (
         agency:agency,
         amount_donated:k.EMPTY,
-        donation_date:DateTime.MinValue,
         donor_email_address:k.EMPTY,
-        donor_house_num:k.EMPTY,
         donor_name:k.EMPTY,
-        donor_street_name:k.EMPTY,
-        memo:k.EMPTY
+        donation_date:DateTime.MinValue,
+        address_name:k.EMPTY,
+        address_street:k.EMPTY,
+        address_city:k.EMPTY,
+        address_state:k.EMPTY,
+        address_zip:k.EMPTY,
+        address_country:k.EMPTY,
+        address_country_code:k.EMPTY,
+        memo:k.EMPTY,
+        donor_house_num:k.EMPTY,
+        donor_street_name:k.EMPTY
         );
       }
 
