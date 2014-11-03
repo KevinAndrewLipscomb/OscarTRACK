@@ -14,11 +14,18 @@ namespace UserControl_paypal_assistant
   public struct p_type
     {
     public string agency;
+    public string amount_donated;
     public bool be_loaded;
     public TClass_biz_agencies biz_agencies;
     public TClass_biz_members biz_members;
     public TClass_biz_streets biz_streets;
     public TClass_biz_user biz_user;
+    public DateTime donation_date;
+    public string donor_email_address;
+    public string donor_house_num;
+    public string donor_name;
+    public string donor_street_name;
+    public string memo;
     public TClass_msg_protected.process_paypal_donation msg_protected_process_paypal_donation;
     }
 
@@ -31,13 +38,29 @@ namespace UserControl_paypal_assistant
       {
       if (!p.be_loaded)
         {
-        UserControl_drop_down_date_donation_date.selectedvalue = DateTime.Today;
+        UserControl_drop_down_date_donation_date.selectedvalue = (p.donation_date > DateTime.MinValue ? p.donation_date : DateTime.Today);
         p.biz_streets.BindDirectToListControl
           (
           target:DropDownList_donor_street,
           agency_keyclick_enumerator:p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))),
           unselected_literal:"-- street --"
           );
+        //
+        TextBox_amount_donated.Text = p.amount_donated;
+        TextBox_donor_email_address.Text = p.donor_email_address;
+        TextBox_donor_name.Text = p.donor_name;
+        TextBox_memo.Text = (p.memo.Length > 0 ? p.memo : "(disregard)");
+        TextBox_donor_house_num.Text = p.donor_house_num;
+        //
+        if (p.donor_street_name.Length > 0)
+          {
+          var list_item = DropDownList_donor_street.Items.FindByText(p.donor_street_name);
+          if (list_item != null)
+            {
+            list_item.Selected = true;
+            }
+          }
+        //
         TextBox_amount_donated.Focus();
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
         p.be_loaded = true;
@@ -64,6 +87,13 @@ namespace UserControl_paypal_assistant
         p.msg_protected_process_paypal_donation = new TClass_msg_protected.process_paypal_donation();
         //
         p.agency = k.EMPTY;
+        p.amount_donated = k.EMPTY;
+        p.donation_date = DateTime.MinValue;
+        p.donor_email_address = k.EMPTY;
+        p.donor_house_num = k.EMPTY;
+        p.donor_name = k.EMPTY;
+        p.donor_street_name = k.EMPTY;
+        p.memo = k.EMPTY;
         }
       }
 
@@ -111,9 +141,61 @@ namespace UserControl_paypal_assistant
         }
       }
 
-    internal void SetTarget(string agency)
+    internal void Set
+      (
+      string agency,
+      string amount_donated,
+      DateTime donation_date,
+      string donor_email_address,
+      string donor_house_num,
+      string donor_name,
+      string donor_street_name,
+      string memo
+      )
       {
       p.agency = agency;
+      if (amount_donated.Length > 0)
+        {
+        p.amount_donated = amount_donated;
+        }
+      if (donation_date > DateTime.MinValue)
+        {
+        p.donation_date = donation_date;
+        }
+      if (donor_email_address.Length > 0)
+        {
+        p.donor_email_address = donor_email_address;
+        }
+      if (donor_house_num.Length > 0)
+        {
+        p.donor_house_num = donor_house_num;
+        }
+      if (donor_name.Length > 0)
+        {
+        p.donor_name = donor_name;
+        }
+      if (donor_street_name.Length > 0)
+        {
+        p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
+        }
+      if (memo.Length > 0)
+        {
+        p.memo = memo;
+        }
+      }
+    internal void Set(string agency)
+      {
+      Set
+        (
+        agency:agency,
+        amount_donated:k.EMPTY,
+        donation_date:DateTime.MinValue,
+        donor_email_address:k.EMPTY,
+        donor_house_num:k.EMPTY,
+        donor_name:k.EMPTY,
+        donor_street_name:k.EMPTY,
+        memo:k.EMPTY
+        );
       }
 
     }
