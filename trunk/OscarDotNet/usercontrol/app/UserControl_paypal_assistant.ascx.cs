@@ -145,12 +145,12 @@ namespace UserControl_paypal_assistant
       (
       string agency,
       string amount_donated,
-      DateTime donation_date,
       string donor_email_address,
-      string donor_house_num,
       string donor_name,
-      string donor_street_name,
-      string memo
+      DateTime donation_date,
+      string memo,
+      string donor_house_num,
+      string donor_street_name
       )
       {
       p.agency = agency;
@@ -158,29 +158,29 @@ namespace UserControl_paypal_assistant
         {
         p.amount_donated = amount_donated;
         }
-      if (donation_date > DateTime.MinValue)
-        {
-        p.donation_date = donation_date;
-        }
       if (donor_email_address.Length > 0)
         {
         p.donor_email_address = donor_email_address;
-        }
-      if (donor_house_num.Length > 0)
-        {
-        p.donor_house_num = donor_house_num;
         }
       if (donor_name.Length > 0)
         {
         p.donor_name = donor_name;
         }
-      if (donor_street_name.Length > 0)
+      if (donation_date > DateTime.MinValue)
         {
-        p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
+        p.donation_date = donation_date;
         }
       if (memo.Length > 0)
         {
         p.memo = memo;
+        }
+      if (donor_house_num.Length > 0)
+        {
+        p.donor_house_num = donor_house_num;
+        }
+      if (donor_street_name.Length > 0)
+        {
+        p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
         }
       }
     internal void Set(string agency)
