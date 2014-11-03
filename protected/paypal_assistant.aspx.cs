@@ -20,6 +20,7 @@ namespace paypal_assistant
 
     private struct p_type
       {
+      public string agency;
       }
 
     private p_type p;
@@ -53,13 +54,21 @@ namespace paypal_assistant
         // Initialize p.~ objects here.
         //
         var hash_table = HashtableOfShieldedRequest();
+        p.agency = hash_table["agency"].ToString();
         UserControl_paypal_assistant_control.Set
           (
-          agency:hash_table["agency"].ToString(),
+          agency:p.agency,
           amount_donated:hash_table["amount_donated"].ToString(),
           donor_email_address:hash_table["donor_email_address"].ToString(),
           donor_name:hash_table["donor_name"].ToString(),
           donation_date:DateTime.Parse(hash_table["donation_date"].ToString()),
+          address_name:(hash_table.Contains("address_name") ? hash_table["address_name"].ToString() : k.EMPTY),
+          address_street:(hash_table.Contains("address_street") ? hash_table["address_street"].ToString() : k.EMPTY),
+          address_city:(hash_table.Contains("address_city") ? hash_table["address_city"].ToString() : k.EMPTY),
+          address_state:(hash_table.Contains("address_state") ? hash_table["address_state"].ToString() : k.EMPTY),
+          address_zip:(hash_table.Contains("address_zip") ? hash_table["address_zip"].ToString() : k.EMPTY),
+          address_country:(hash_table.Contains("address_country") ? hash_table["address_country"].ToString() : k.EMPTY),
+          address_country_code:(hash_table.Contains("address_country_code") ? hash_table["address_country_code"].ToString() : k.EMPTY),
           memo:(hash_table.Contains("memo") ? hash_table["memo"].ToString() : k.EMPTY),
           donor_house_num:(hash_table.Contains("donor_house_num") ? hash_table["donor_house_num"].ToString() : k.EMPTY),
           donor_street_name:(hash_table.Contains("donor_street_name") ? hash_table["donor_street_name"].ToString() : k.EMPTY)
@@ -68,6 +77,11 @@ namespace paypal_assistant
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
+        }
+      else if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
+        {
+        p = (p_type)(Session[InstanceId() + ".p"]);
+        UserControl_paypal_assistant_control.Set(agency:p.agency);
         }
       //
       // ToolkitScriptManager.GetCurrent(Page).EnablePartialRendering = false;

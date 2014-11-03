@@ -52,6 +52,13 @@ namespace paypal_ipn_listener
       var donor_last_name = HttpUtility.UrlDecode(Request["last_name"]);
       var date_of_donation = HttpUtility.UrlDecode(Request["payment_date"]);
       var memo = HttpUtility.UrlDecode(Request["memo"]);
+      var address_name = HttpUtility.UrlDecode(Request["address_name"]);
+      var address_street = HttpUtility.UrlDecode(Request["address_street"]);
+      var address_city = HttpUtility.UrlDecode(Request["address_city"]);
+      var address_state = HttpUtility.UrlDecode(Request["address_state"]);
+      var address_zip = HttpUtility.UrlDecode(Request["address_zip"]);
+      var address_country = HttpUtility.UrlDecode(Request["address_country"]);
+      var address_country_code = HttpUtility.UrlDecode(Request["address_country_code"]);
       //
       // Prepend PayPal validation argument.
       //
@@ -96,16 +103,28 @@ namespace paypal_ipn_listener
             hash_table.Add("donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME));
             hash_table.Add("donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture));
             //
+            var street_address_candidate = k.EMPTY;
             if (memo != null)
               {
+              street_address_candidate = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
               hash_table.Add("memo",k.Safe(memo,k.safe_hint_type.PUNCTUATED));
-              //
-              var presumed_street_address = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
-              var presumed_house_num = k.Safe(presumed_street_address.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
-              //
+              }
+            if (address_street != null)
+              {
+              street_address_candidate = address_street;
+              hash_table.Add("address_name",k.Safe(address_name,k.safe_hint_type.ORG_NAME));
+              hash_table.Add("address_street",k.Safe(address_street,k.safe_hint_type.POSTAL_STREET_ADDRESS));
+              hash_table.Add("address_city",k.Safe(address_city,k.safe_hint_type.POSTAL_CITY));
+              hash_table.Add("address_state",k.Safe(address_state,k.safe_hint_type.ALPHA));
+              hash_table.Add("address_zip",k.Safe(address_zip,k.safe_hint_type.HYPHENATED_NUM));
+              hash_table.Add("address_country",k.Safe(address_country,k.safe_hint_type.ALPHA_WORDS));
+              hash_table.Add("address_country_code",k.Safe(address_country_code,k.safe_hint_type.ALPHA));
+              }
+            if (street_address_candidate.Length > 0)
+              {
+              var presumed_house_num = k.Safe(street_address_candidate.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
               hash_table.Add("donor_house_num",presumed_house_num);
-              //
-              hash_table.Add("donor_street_name",k.Safe(presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim(),k.safe_hint_type.POSTAL_STREET_ADDRESS));
+              hash_table.Add("donor_street_name",k.Safe(street_address_candidate.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim(),k.safe_hint_type.POSTAL_STREET_ADDRESS));
               }
             //
             k.SmtpMailSend
