@@ -57,12 +57,12 @@ namespace paypal_assistant
           (
           agency:hash_table["agency"].ToString(),
           amount_donated:hash_table["amount_donated"].ToString(),
-          donation_date:DateTime.Parse(hash_table["donation_date"].ToString()),
           donor_email_address:hash_table["donor_email_address"].ToString(),
-          donor_house_num:hash_table["donor_house_num"].ToString(),
           donor_name:hash_table["donor_name"].ToString(),
-          donor_street_name:hash_table["donor_street_name"].ToString(),
-          memo:hash_table["memo"].ToString()
+          donation_date:DateTime.Parse(hash_table["donation_date"].ToString()),
+          memo:(hash_table.Contains("memo") ? hash_table["memo"].ToString() : k.EMPTY),
+          donor_house_num:(hash_table.Contains("donor_house_num") ? hash_table["donor_house_num"].ToString() : k.EMPTY),
+          donor_street_name:(hash_table.Contains("donor_street_name") ? hash_table["donor_street_name"].ToString() : k.EMPTY)
           );
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)

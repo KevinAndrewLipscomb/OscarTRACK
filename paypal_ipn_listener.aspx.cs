@@ -95,14 +95,18 @@ namespace paypal_ipn_listener
             hash_table.Add("donor_email_address",k.Safe(donor_email_address,k.safe_hint_type.EMAIL_ADDRESS));
             hash_table.Add("donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME));
             hash_table.Add("donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture));
-            hash_table.Add("memo",k.Safe(memo,k.safe_hint_type.PUNCTUATED));
             //
-            var presumed_street_address = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
-            var presumed_house_num = k.Safe(presumed_street_address.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
-            //
-            hash_table.Add("donor_house_num",presumed_house_num);
-            //
-            hash_table.Add("donor_street_name",k.Safe(presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim(),k.safe_hint_type.POSTAL_STREET_ADDRESS));
+            if (memo != null)
+              {
+              hash_table.Add("memo",k.Safe(memo,k.safe_hint_type.PUNCTUATED));
+              //
+              var presumed_street_address = memo.Split(new string[] {k.NEW_LINE,"\r\n"},StringSplitOptions.RemoveEmptyEntries)[0].Trim().ToUpper();
+              var presumed_house_num = k.Safe(presumed_street_address.Split(new string[] {k.SPACE},StringSplitOptions.RemoveEmptyEntries)[0],k.safe_hint_type.NUM);
+              //
+              hash_table.Add("donor_house_num",presumed_house_num);
+              //
+              hash_table.Add("donor_street_name",k.Safe(presumed_street_address.Replace(presumed_house_num + k.SPACE,k.EMPTY).Trim(),k.safe_hint_type.POSTAL_STREET_ADDRESS));
+              }
             //
             k.SmtpMailSend
               (
@@ -110,13 +114,17 @@ namespace paypal_ipn_listener
               to:ConfigurationManager.AppSettings["sender_email_address"],
               subject:"PayPal IPN",
               message_string:k.EMPTY
+              + "---begin-memo---" + k.NEW_LINE
+              + (memo == null ? k.EMPTY : memo + k.NEW_LINE)
+              + "---end-memo-----" + k.NEW_LINE
+              + k.NEW_LINE
+              + "---begin-paypal-assistant-link---" + k.NEW_LINE
               + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "protected/paypal_assistant.aspx?" + ShieldedQueryStringOfHashtable(hash_table) + k.NEW_LINE
+              + "---end-paypal-assistant-link-----" + k.NEW_LINE
               + k.NEW_LINE
-              + "memo" + k.NEW_LINE
-              + "----" + k.NEW_LINE
-              + memo + k.NEW_LINE
-              + k.NEW_LINE
+              + "---begin-ipn---" + k.NEW_LINE
               + message.Replace("&",k.NEW_LINE) + k.NEW_LINE
+              + "---end-ipn-----" + k.NEW_LINE
               );
             }
           }
