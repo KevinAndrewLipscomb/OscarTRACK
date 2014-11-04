@@ -65,7 +65,11 @@ namespace UserControl_paypal_assistant
         //
         if (p.donor_street_name.Length > 0)
           {
-          var list_item = DropDownList_donor_street.Items.FindByText(p.donor_street_name);
+          var list_item = DropDownList_donor_street.Items.FindByText(p.donor_street_name + ", VIRGINIA BEACH, VA");
+          if (list_item == null)
+            {
+            list_item = DropDownList_donor_street.Items.FindByText(p.biz_streets.NormalizedSuffixRendition(name:p.donor_street_name) + ", VIRGINIA BEACH, VA");
+            }
           if (list_item != null)
             {
             list_item.Selected = true;
@@ -205,7 +209,7 @@ namespace UserControl_paypal_assistant
       p.address_country_code = address_country_code;
       p.memo = memo;
       p.donor_house_num = donor_house_num;
-      p.donor_street_name = donor_street_name + ", VIRGINIA BEACH, VA";
+      p.donor_street_name = donor_street_name;
       }
     internal void Set(string agency)
       {

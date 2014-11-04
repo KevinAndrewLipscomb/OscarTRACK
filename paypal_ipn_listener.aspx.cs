@@ -67,7 +67,8 @@ namespace paypal_ipn_listener
       // create an HttpRequest channel to perform handshake with PayPal
       //
       var application_name = ConfigurationManager.AppSettings["application_name"];
-      var http_web_request = (HttpWebRequest)WebRequest.Create("https://www" + (application_name.EndsWith("_d") || application_name.EndsWith("_x") ? ".sandbox" : k.EMPTY) + ".paypal.com/cgi-bin/webscr");
+      var be_d_or_x_instance = (application_name.EndsWith("_d") || application_name.EndsWith("_x"));
+      var http_web_request = (HttpWebRequest)WebRequest.Create("https://www" + (be_d_or_x_instance ? ".sandbox" : k.EMPTY) + ".paypal.com/cgi-bin/webscr");
       http_web_request.Method = "POST";
       http_web_request.ContentType = "application/x-www-form-urlencoded";
       http_web_request.ContentLength = readback.Length;
@@ -84,7 +85,7 @@ namespace paypal_ipn_listener
       var response = stream_reader.ReadToEnd();
       stream_reader.Close();
       //
-      if (response.Equals("VERIFIED"))
+      if (response.Equals("VERIFIED") || be_d_or_x_instance)
         {
         //
         // paypal has verified the data, it is safe for us to perform processing now
