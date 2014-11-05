@@ -159,6 +159,14 @@ namespace Class_db_streets
       return (id_of_obj == null ? k.EMPTY : id_of_obj.ToString());
       }
 
+    internal string NormalizedSuffixRendition(string name)
+      {
+      Open();
+      var normalized_suffix_rendition = new MySqlCommand("select NORMALIZED_STREET_SUFFIX_RENDITION('" + name + "')",connection).ExecuteScalar().ToString();
+      Close();
+      return normalized_suffix_rendition;
+      }
+
     public void Set
       (
       string id,

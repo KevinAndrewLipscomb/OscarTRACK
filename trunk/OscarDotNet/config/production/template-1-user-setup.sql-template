@@ -31,6 +31,7 @@ grant select
  , create
  , drop
  , create temporary tables
+ , execute
   on keyclick.*
   to 'ki-oscartrackk'@'localhost' identified by '~ki-oscartrackk-password~'
 ;
