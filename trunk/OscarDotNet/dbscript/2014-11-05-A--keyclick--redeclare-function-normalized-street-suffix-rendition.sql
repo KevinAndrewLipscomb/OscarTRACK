@@ -24,7 +24,7 @@ BEGIN
   --
   WHILE i <= LENGTH(impure_simplified_name) DO
     SET c = SUBSTRING(impure_simplified_name,i,1);
-    IF c REGEXP '[a-zA-Z ]' THEN
+    IF c REGEXP '[0-9a-zA-Z/ -]' THEN
       SET simplified_name = CONCAT(simplified_name,c);
     END IF;
     SET i = i + 1;
@@ -37,7 +37,9 @@ BEGIN
   ELSE
     SET name_proper = SUBSTRING(simplified_name,1,last_space_pos - 1);
     SET last_word = SUBSTRING(simplified_name,last_space_pos + 1);
-    if last_word in ('AV','AVENUE') THEN
+    if last_word = 'AR' THEN
+      SET last_word = 'ARCH';
+    elseif last_word in ('AV','AVENUE') THEN
       SET last_word = 'AVE';
     elseif last_word = 'BOULEVARD' THEN
       SET last_word = 'BLVD';

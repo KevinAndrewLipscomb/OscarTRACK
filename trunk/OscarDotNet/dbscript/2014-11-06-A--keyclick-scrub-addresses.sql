@@ -44,6 +44,7 @@ delete from resident_base
 where street_id in (select id from street where name like '% C/O %')
   or street_id in (select id from street where name = '1608 1608 FOREST GLENN CIR')
   or street_id in (select id from street where name = 'GREAT NECK ROAD STATION 1272 BOX 168')
+  or street_id in (select id from street where name = 'P O OX 9851')
 ;
 update resident_base join street s on (s.id=resident_base.street_id) set street_id = (select id from street where name = '24TH ST' and city_id = s.city_id) where street_id = (select id from street where name = '-24TH ST');
 ;
@@ -55,7 +56,8 @@ where name like '% C/O %'
     'SHORE DR 111',
     'SHORE DR PH 56',
     '-24TH ST',
-    'GREAT NECK ROAD STATION 1272 BOX 168'
+    'GREAT NECK ROAD STATION 1272 BOX 168',
+    'P O OX 9851'
     )
 ;
 --
@@ -75,11 +77,10 @@ update resident_base set house_num = '5700-329', street_id = (select id from str
 update resident_base set house_num = '2364-REAR-17', street_id = (select id from street where name = 'COVENT GARDEN RD' and city_id = 2) where id = '66391'; delete from street where name = 'COVENT GARDEN RD REAR 17';
 update resident_base set house_num = '845-157', street_id = (select id from street where name = 'FIRST COLONIAL INN' and city_id = 2) where id = '69389'; delete from street where name = 'FIRST COLONIAL INN 157';
 update resident_base set house_num = '685-546', street_id = (select id from street where name = 'FLEET DR' and city_id = 2) where id = '68793'; delete from street where name = 'FLEET DRIVE 546';
-update resident_base set house_num = '411-201', street_id = (select id from street where name = 'HARBOUR POINTE CONDOS' and city_id = 2) where id = '67679'; delete from street where name = 'HARBOUR POINTE CONDOS 201';
 update resident_base set house_num = '1604-202', street_id = (select id from street where name = 'HILLTOP WEST EXECUTIVE CENTER' and city_id = 2) where id = '64963'; delete from street where name = 'HILLTOP WEST EXECTIVE CENTER 202';
 update resident_base set house_num = '1604-220', street_id = (select id from street where name = 'HILLTOP WEST EXECUTIVE CENTER' and city_id = 2) where id = '64965'; delete from street where name = 'HILLTOP WEST EXECUTIVE CENTER 220';
 update resident_base set house_num = '1604-311', street_id = (select id from street where name = 'HILLTOP WEST EXECUTIVE CENTER' and city_id = 2) where id = '64966'; delete from street where name = 'HILLTOP WEST EXECUTIVE CENTER 311';
-update resident_base set house_num = '2316-204', street_id = (select id from street where name = 'MARINERS WAY' and city_id = 2) where id = '66318'; delete from street where name = 'MARINERS WAY 204';
+update resident_base set house_num = '2316-204', street_id = (select id from street where name = 'MARINERS MARK WAY' and city_id = 2) where id = '66318'; delete from street where name = 'MARINERS WAY 204';
 update resident_base set house_num = '4004-1601', street_id = (select id from street where name = 'OCEAN FRONT AVE' and city_id = 2) where id = '67564'; delete from street where name = 'OCEAN FRONT 1601';
 update resident_base set house_num = '4004-504', street_id = (select id from street where name = 'OCEAN FRONT AVE' and city_id = 2) where id = '67563'; delete from street where name = 'OCEAN FRONT 504';
 update resident_base set house_num = '4004-PH-5', street_id = (select id from street where name = 'OCEAN FRONT AVE' and city_id = 2) where id = '67561'; delete from street where name = 'OCEAN FRONT AVENUE PH 5';
@@ -87,8 +88,6 @@ update resident_base set house_num = '4004-602', street_id = (select id from str
 update resident_base set house_num = '1168-111', street_id = (select id from street where name = 'OLD DONATION PKWY' and city_id = 2) where id = '63990'; delete from street where name = 'OLD DONATION PARKWAY 111';
 update resident_base set house_num = '1627-216', street_id = (select id from street where name = 'OLD DONATION PKWY' and city_id = 2) where id = '65033'; delete from street where name = 'OLD DONATION PARKWAY 216';
 update resident_base set house_num = '817-406', street_id = (select id from street where name = 'SALTMEADOW BAY DR' and city_id = 2) where id = '69286'; delete from street where name = 'SALTMEADOW BAY 406';
-update resident_base set house_num = '105-101', street_id = (select id from street where name = 'SEA TRACE CT' and city_id = 2) where id = '160173'; delete from street where name = 'SEA TRACE CT 101';
-update resident_base set house_num = '9851', street_id = (select id from street where name = 'PO BOX' and city_id = 2) where id = '154083'; delete from street where name = 'P O OX 9851';
 --
 -- Perform MORE COMPLEX street scrubs.
 --
@@ -103,8 +102,10 @@ select @name := name from resident_base where id = 18087; update resident_base s
 select @name := name from resident_base where id = 69511; update resident_base set name = @name where id = 98533;
 select @name := name from resident_base where id = 67271; update resident_base set name = @name where id = 79203;
 select @name := name from resident_base where id = 160178; update resident_base set name = @name where id = 86452;
+select @name := name from resident_base where id = 67679; update resident_base set name = @name where id = 85601;
+select @name := name from resident_base where id = 160173; update resident_base set name = @name where id = 71803;
 ;
-delete from resident_base where id in (74287,51056,50625,18087,69511,67271,160178)
+delete from resident_base where id in (74287,51056,50625,18087,69511,67271,160178,67679,160173)
 ;
 update resident_base join street s on (s.id=resident_base.street_id) set street_id = (select id from street where name = 'FIRST COLONIAL RD' and city_id = s.city_id) where street_id = (select id from street where name = '1ST COLONIAL RD');
 ;
