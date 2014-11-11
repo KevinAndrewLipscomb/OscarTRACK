@@ -107,6 +107,13 @@ namespace Class_db_states
             return result;
         }
 
+    internal void Prune()
+      {
+      Open();
+      new MySqlCommand("delete from state where id not in (select distinct state_id from city)",connection).ExecuteNonQuery();
+      Close();
+      }
+
         public void Set(string id, string abbreviation)
         {
             string childless_field_assignments_clause;

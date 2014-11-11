@@ -135,6 +135,13 @@ namespace Class_db_cities
       return result;
       }
 
+    internal void Prune()
+      {
+      Open();
+      new MySqlCommand("delete from city where id not in (select distinct city_id from street)",connection).ExecuteNonQuery();
+      Close();
+      }
+
     public void Set
       (
       string id,

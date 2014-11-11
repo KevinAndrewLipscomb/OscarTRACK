@@ -74,6 +74,11 @@ namespace Class_biz_streets
       return db_streets.NormalizedSuffixRendition(name);
       }
 
+    internal void Prune()
+      {
+      db_streets.Prune();
+      }
+
     public void Set
       (
       string id,

@@ -50,6 +50,11 @@ namespace Class_biz_cities
         );
       }
 
+    internal void Prune()
+      {
+      db_cities.Prune();
+      }
+
     public void Set
       (
       string id,
