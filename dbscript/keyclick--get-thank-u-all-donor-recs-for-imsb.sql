@@ -6,7 +6,7 @@ select resident_base.id as contactid
     ,
       concat(street.name,' ',house_num)
     ,  
-      concat(house_num,' ',REPLACE(street.name,' LDNG',' LNDG'))
+      concat(house_num,' ',street.name)
     )
     as address
 , city.name as city
@@ -17,6 +17,6 @@ from donation
   join city on (city.id=street.city_id)
   join state on (state.id=city.state_id)
 where resident_base.id > 0
-  and date > '2014-05-13'                                      -- ADJUST!
+  and date > '2014-11-03'                                      -- ADJUST!
   and agency = 'KVRS'                                          -- ADJUST!
 order by state.abbreviation, city.name, street.name, house_num
