@@ -167,6 +167,13 @@ namespace Class_db_streets
       return normalized_suffix_rendition;
       }
 
+    internal void Prune()
+      {
+      Open();
+      new MySqlCommand("delete from street where id not in (select distinct street_id from resident_base) and city_id <> (select id from city where name = 'VIRGINIA BEACH')",connection).ExecuteNonQuery();
+      Close();
+      }
+
     public void Set
       (
       string id,

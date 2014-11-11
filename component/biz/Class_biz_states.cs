@@ -49,6 +49,11 @@ namespace Class_biz_states
             return result;
         }
 
+    internal void Prune()
+      {
+      db_states.Prune();
+      }
+
         public void Set(string code, string abbreviation)
         {
             db_states.Set(code, abbreviation);
