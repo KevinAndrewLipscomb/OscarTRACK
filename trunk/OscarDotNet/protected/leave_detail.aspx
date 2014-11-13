@@ -18,7 +18,7 @@
 					  <td bgcolor="#f5f5f5"><strong>
 						  <table cellspacing="0" cellpadding="5" width="100%" border="0">
 							  <tr>
-                                <td><strong>Leave detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
+                                <td><strong>Leave/reduction detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
                                 <td>
                                   </td>
                               </tr>

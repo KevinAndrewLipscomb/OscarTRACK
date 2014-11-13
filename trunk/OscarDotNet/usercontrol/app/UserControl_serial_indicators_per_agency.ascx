@@ -17,13 +17,13 @@
 <p><b>5. Percentage of released core operations personnel who the agency enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS). The lower the data point, the more personnel the agency enrolled at liberal levels (Associate, Reduced, Staff, ALS Intern, College, Atypical). Standard enrollees commit more duty shifts per month than liberal enrollees: </b></p>
 <p><img id="Img_standard_enrollment" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=standard_enrollment" alt="standard_enrollment" /></p>
 <p>&nbsp;</p>
-<p><b>6. Percentage of released core operations personnel who were meeting their baseline duty requirements. The lower the data point, the more personnel were granted partial or full leaves-of-absence: </b></p>
+<p><b>6. Percentage of released core operations personnel who were meeting their baseline duty requirements. The lower the data point, the more personnel were granted leaves or reductions: </b></p>
 <p><img id="Img_utilization" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=utilization" alt="utilization" /></p>
 <p>&nbsp;</p>
 <p><b>7. Degree to which agency personnel submitted availability sheets by the most recent deadline: </b></p>
 <p><img id="Img_avail_submission_compliance" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=avail_submission_compliance" alt="avail_submission_compliance" /></p>
 <p>&nbsp;</p>
-<p><b>8. Degree to which the agency produced a complete initial schedule. A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave statuses: </b></p>
+<p><b>8. Degree to which the agency produced a complete initial schedule. A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave/reduction statuses: </b></p>
 <p><img id="Img_commensuration" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=commensuration" alt="commensuration" /></p>
 <p>&nbsp;</p>
 <p><b>9. Percentage of ambulance crews expected to include a BLS Intern or Student: </b></p>

@@ -15,12 +15,14 @@
 	  <table cellspacing="0" cellpadding="0" width="100%" border="1" bordercolor="#dcdcdc"><tr><td>
 		<table cellspacing="0" cellpadding="10" border="0">
 		<tr>
-		  <td bgcolor="#f5f5f5"><strong>Change&nbsp;leave for
+		  <td bgcolor="#f5f5f5"><strong>Change&nbsp;leave/reduction for
 			  <ASP:Label id="Label_member_designator" runat="server"></ASP:Label>
 			</strong></td>
 		</tr>
 		<tr>
 		  <td>
+        <asp:UpdatePanel ID="UpdatePanel_control" runat="server" UpdateMode="Conditional">
+          <ContentTemplate>
 			<table cellspacing="0" cellpadding="10" border="0">
 			  <tr>
 				<td></td>
@@ -48,34 +50,17 @@
 			  <tr>
 				<td>Kind:</td>
 				<td><ASP:Label id="Label_saved_kind_of_leave" runat="server"></ASP:Label></td>
-				<td><ASP:DropDownList id="DropDownList_kind_of_leave" runat="server"></ASP:DropDownList></td>
+				<td><ASP:DropDownList id="DropDownList_kind_of_leave" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_kind_of_leave_SelectedIndexChanged"></ASP:DropDownList></td>
 				<td nowrap="nowrap">
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave/reduction." font-bold="True" controltovalidate="DropDownList_kind_of_leave" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
 				<td valign="top" nowrap="nowrap">Num duties required:</td>
 				<td valign="top"><ASP:Label id="Label_saved_num_obliged_shifts" runat="server"></ASP:Label></td>
-				<td valign="top">
-				  <table cellspacing="0" cellpadding="0" border="0">
-					<tr>
-					  <td valign="top">
-						<ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server" Enabled="false"></ASP:DropDownList></td>
-					  <td>
-						<table cellspacing="0" cellpadding="5" border="0">
-						  <tr>
-                <td valign="top">•</td>
-							  <td>
-                  <small>
-                    <em>Partial</em> leaves are no longer available.&nbsp; You can accomplish the same thing, however, by giving <ASP:Label id="Label_member_first_name" runat="server"></ASP:Label> a Membership Status of
-                    <em>Reduced</em>.
-                  </small>
-                </td>
-						  </tr>
-						</table></td>
-					</tr>
-				  </table></td>
+				<td valign="top"><ASP:DropDownList id="DropDownList_num_obligated_shifts" runat="server"></ASP:DropDownList></td>
 				<td valign="top" nowrap="nowrap">
-				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
+				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_num_obligated_shifts" runat="server" errormessage="Please select the number of obligated shifts." font-bold="True" controltovalidate="DropDownList_num_obligated_shifts" display="Dynamic">!ERR!</ASP:RequiredFieldValidator>
+        </td>
 			  </tr>
 			  <tr>
 				<td>Note:</td>
@@ -96,6 +81,8 @@
 				<td></td>
 			  </tr>
 			</table>
+        </ContentTemplate>
+      </asp:UpdatePanel>
       </td>
 		</tr>
 		</table>

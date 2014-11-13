@@ -63,7 +63,7 @@ STANDARD NOTICE:  You are expected to stand this duty, or take responsibility fo
 
 --begin EMERGENCY LEAVE mailto link--
 mailto:<rsvp_target/>?Subject=Re:%20My%20duty%20<urlpathencoded_nominal_day_and_shift/>
---end EMERGENCY LEAVE mailto link--
+--end EMERGENCY LEAVE mailto link----
 
 
 -- <application_name/> (http://<host_domain_name/>/<application_name/>)

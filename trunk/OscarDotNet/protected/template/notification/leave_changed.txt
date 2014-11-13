@@ -1,7 +1,7 @@
-Leave changed for <cad_num/> <last_name/>, <first_name/>
+Leave/reduction changed for <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has changed a leave for <first_name/> <last_name/> in <application_name/> as follows:
+<actor/> has changed a leave/reduction for <first_name/> <last_name/> in <application_name/> as follows:
 
    Period:
       was:  <old_start_month/> - <old_end_month/>

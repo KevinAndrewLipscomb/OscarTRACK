@@ -1,9 +1,9 @@
-Leave DELETION: <cad_num/> <last_name/>, <first_name/>
+Leave/reduction DELETION: <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> is *deleting* a leave of absence for <first_name/> <last_name/> in <application_name/> as follows:
+<actor/> is *deleting* a leave/reduction for <first_name/> <last_name/> in <application_name/> as follows:
 
-   *Deleted* Kind of leave:
+   *Deleted* Kind of leave/reduction:
       <kind_of_leave/>
    *Deleted* Period:
       <start_month/> - <end_month/>

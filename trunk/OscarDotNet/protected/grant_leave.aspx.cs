@@ -1,3 +1,4 @@
+using AjaxControlToolkit;
 using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
@@ -64,15 +65,15 @@ namespace grant_leave
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]);
-                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
+                    Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     p.biz_leaves.BindStartMonthDropDownList(DropDownList_start_month);
                     p.biz_leaves.BindEndMonthDropDownList(DropDownList_end_month);
                     p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave);
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
-                    DropDownList_num_obligated_shifts.SelectedValue = "0"; // Force IAW the practice du jour.
                 }
             }
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
         }
 
         protected override void OnInit(EventArgs e)
@@ -117,12 +118,26 @@ namespace grant_leave
 
     protected void CustomValidator_duty_selection_conflict_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
+      args.IsValid = (DropDownList_num_obligated_shifts.SelectedItem.Text != "0") || !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
         (
         member_id:p.biz_members.IdOf(Session["member_summary"]),
         relative_start_month:int.Parse(k.Safe(DropDownList_start_month.SelectedValue,k.safe_hint_type.NUM)),
         relative_end_month:int.Parse(k.Safe(DropDownList_end_month.SelectedValue,k.safe_hint_type.NUM))
         );
+      }
+
+    protected void DropDownList_kind_of_leave_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      if (DropDownList_kind_of_leave.SelectedItem.Text == "Medical")
+        {
+        DropDownList_num_obligated_shifts.ClearSelection();
+        DropDownList_num_obligated_shifts.Items.FindByValue("0").Selected = true;
+        DropDownList_num_obligated_shifts.Enabled = false;
+        }
+      else
+        {
+        DropDownList_num_obligated_shifts.Enabled = true;
+        }
       }
 
     } // end TWebForm_grant_leave

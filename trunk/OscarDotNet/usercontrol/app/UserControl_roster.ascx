@@ -81,11 +81,11 @@
                       </td>
                       <td>
                                     <p align="center">
-                        <asp:label id="Label_leave_filter" runat="server"><small>Leave</small></asp:label><br>
+                        <asp:label id="Label_leave_filter" runat="server"><small>Leave/reduction</small></asp:label><br/>
                                 <asp:dropdownlist id="DropDownList_leave_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_leave_filter_SelectedIndexChanged">
                                   <asp:listitem value="both" selected="true">Both</asp:listitem>
-                                  <asp:listitem value="obligated">- Not on leave</asp:listitem>
-                                  <asp:listitem value="on_leave">- On leave</asp:listitem>
+                                  <asp:listitem value="obligated">- Not on leave/reduction</asp:listitem>
+                                  <asp:listitem value="on_leave">- On leave/reduction</asp:listitem>
                                 </asp:dropdownlist>
                                     </p>
                       </td>
@@ -177,7 +177,7 @@
                     </ASP:BoundColumn>
                     <ASP:BoundColumn visible="False" datafield="core_ops_commitment_level_code" readonly="True"></ASP:BoundColumn>
                     <ASP:BoundColumn visible="False" datafield="enrollment_obligation" readonly="True"></ASP:BoundColumn>
-                    <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,last_name,first_name,cad_num" readonly="True" headertext="Leave status">
+                    <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,last_name,first_name,cad_num" readonly="True" headertext="Leave/reduction">
                       <ItemStyle horizontalalign="Center"></ItemStyle>
                     </ASP:BoundColumn>
                     <ASP:BoundColumn datafield="obliged_shifts" sortexpression="obliged_shifts%,last_name,first_name,cad_num" readonly="True" headertext="Duties required">

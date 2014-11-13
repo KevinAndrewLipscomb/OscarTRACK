@@ -70,7 +70,7 @@
                                 <tr>
                                   <td><small>Email:&nbsp;<strong><asp:HyperLink ID="HyperLink_email_address" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
-                                  <td><small>Leave:&nbsp;<strong><asp:Literal ID="Literal_leave" runat="server"/></strong></small></td>
+                                  <td><small>Leave/reduction:&nbsp;<strong><asp:Literal ID="Literal_leave" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
                                   <td><small>Driver:&nbsp;<strong><asp:Literal ID="Literal_be_driver" runat="server"/></strong></small></td>
                                 </tr>

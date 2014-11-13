@@ -7,7 +7,7 @@
           <td>
 				<p><strong>Initial schedule completion</strong><br>
 				  <em>(Citywide = </em><ASP:Label id="Label_overall" runat="server" font-italic="True"></ASP:Label><em>)</em></p>
-				<p><small>This block shows the degree to which the agency produced a complete initial schedule.&nbsp; A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave statuses.</small></p>
+				<p><small>This block shows the degree to which the agency produced a complete initial schedule.&nbsp; A schedule is deemed 100% complete when each member has been scheduled for the number of duties required according to the membership and leave/reduction statuses.</small></p>
           </td>
         </tr>
         <tr>

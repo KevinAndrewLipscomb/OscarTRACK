@@ -1,3 +1,4 @@
+using AjaxControlToolkit;
 using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
@@ -68,8 +69,7 @@ namespace change_leave
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }
-                    Label_member_first_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]);
-                    Label_member_designator.Text = Label_member_first_name.Text + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
+                    Label_member_designator.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]) + " (CAD # " + cad_num_string + ")";
                     Label_saved_start_month.Text = DateTime.Parse(p.biz_leaves.StartMonthOf(Session["leave_item"]) + "-01").ToString("MMM yyyy");
                     Label_saved_end_month.Text = DateTime.Parse(p.biz_leaves.EndMonthOf(Session["leave_item"]) + "-01").ToString("MMM yyyy");
                     Label_saved_kind_of_leave.Text = p.biz_leaves.KindOf(Session["leave_item"]);
@@ -112,12 +112,13 @@ namespace change_leave
                     DropDownList_kind_of_leave.SelectedIndex = (int)i;
                     // Num obligated shifts
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
-                    //DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
-                    DropDownList_num_obligated_shifts.SelectedValue = "0"; // Force IAW the practice du jour.
+                    DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
                     // Note
                     TextBox_note.Text = p.saved_note;
                 }
             }
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
         }
 
         protected override void OnInit(EventArgs e)
@@ -172,12 +173,26 @@ namespace change_leave
 
     protected void CustomValidator_duty_selection_conflict_ServerValidate(object source, ServerValidateEventArgs args)
       {
-      args.IsValid = !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
+      args.IsValid = (DropDownList_num_obligated_shifts.SelectedItem.Text != "0") || !p.biz_schedule_assignments.BeMemberSelectedDuringFuturePartOfPeriod
         (
         member_id:p.biz_members.IdOf(Session["member_summary"]),
         relative_start_month:int.Parse(p.effective_start_month_offset),
         relative_end_month:int.Parse(k.Safe(DropDownList_end_month.SelectedValue,k.safe_hint_type.HYPHENATED_NUM))
         );
+      }
+
+    protected void DropDownList_kind_of_leave_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      if (DropDownList_kind_of_leave.SelectedItem.Text == "Medical")
+        {
+        DropDownList_num_obligated_shifts.ClearSelection();
+        DropDownList_num_obligated_shifts.Items.FindByValue("0").Selected = true;
+        DropDownList_num_obligated_shifts.Enabled = false;
+        }
+      else
+        {
+        DropDownList_num_obligated_shifts.Enabled = true;
+        }
       }
 
     } // end TWebForm_change_leave

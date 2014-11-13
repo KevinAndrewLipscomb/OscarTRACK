@@ -62,7 +62,7 @@ Your status in <application_name/> for *next month* has been recorded as follows
    Length of service:
       <length_of_service/>
 
-   Kind of leave:
+   Kind of leave/reduction:
       <kind_of_leave/>
 
    REQUIRED DUTIES:
@@ -77,7 +77,8 @@ Your status in <application_name/> for *next month* has been recorded as follows
       you must wear your ID card.
 
       Note 2:  This value already takes into account your membership
-      status and any leave that may have been granted to you.
+      status and any leave or reduction that may have been granted to
+      you.
 
       Note 3:  This number assumes 12 hour shifts.  Any arrangement
       approved by your squad commander that results in an equivalent

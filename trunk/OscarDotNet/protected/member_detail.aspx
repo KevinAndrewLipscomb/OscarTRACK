@@ -38,7 +38,7 @@
                         <td><asp:HyperLink id="HyperLink_email_address" runat="server"></asp:HyperLink></td>
                       </tr>
                       <tr>
-                        <td>Leave:</td>
+                        <td>Leave/reduction:</td>
                         <td><ASP:LinkButton id="LinkButton_leave_detail" runat="server" onclick="LinkButton_leave_detail_Click"><img src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td valign="middle">
                           <table cellspacing="0" cellpadding="1" border="0">

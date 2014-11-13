@@ -31,6 +31,15 @@ namespace change_leave {
         protected global::System.Web.UI.WebControls.Label Label_member_designator;
         
         /// <summary>
+        /// UpdatePanel_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
+        
+        /// <summary>
         /// Label_saved_start_month control.
         /// </summary>
         /// <remarks>
@@ -137,15 +146,6 @@ namespace change_leave {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_num_obligated_shifts;
-        
-        /// <summary>
-        /// Label_member_first_name control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_member_first_name;
         
         /// <summary>
         /// RequiredFieldValidator_num_obligated_shifts control.

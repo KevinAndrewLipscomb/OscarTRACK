@@ -110,7 +110,7 @@ namespace Class_db_leaves
         +   " , date_format(start_date,'%Y-%m-%d') as start_date"
         +   " , date_format(end_date,'%Y-%m-%d') as end_date"
         +   " , kind_of_leave_code_description_map.description as kind_of_leave"
-        +   " , 0 as num_obliged_shifts"
+        +   " , num_obliged_shifts"
         +   " , note"
         +   " , start_date as specific_start_date"
         +   " , end_date as specific_end_date"
@@ -164,11 +164,12 @@ namespace Class_db_leaves
       //then
         {
         manage_mid_cycle_start_sql = k.EMPTY
-        + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,note)"
+        + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)"
         + " select member_id"
         + " , kind_of_leave_code"
         + " , CURDATE() as start_date"
         + " , end_date"
+        + " , num_obliged_shifts"
         + " , note"
         + " from leave_of_absence"
         + " where id = '" + id + "'"
@@ -180,7 +181,12 @@ namespace Class_db_leaves
       var linked_mid_cycle_leave_id_obj = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection).ExecuteScalar();
       if (linked_mid_cycle_leave_id_obj != null)
         {
-        manage_mid_cycle_end_sql = " update mid_cycle_leave set end_date = " + common_new_end_date_phrase + " where id = '" + linked_mid_cycle_leave_id_obj.ToString() + "';";
+        manage_mid_cycle_end_sql = k.EMPTY
+        + " update mid_cycle_leave"
+        + " set num_obliged_shifts = '" + new_num_obligated_shifts + "'"
+        + " , end_date = " + common_new_end_date_phrase
+        + " where id = '" + linked_mid_cycle_leave_id_obj.ToString() + "'"
+        + ";";
         }
       //
       // Execute
@@ -223,11 +229,12 @@ namespace Class_db_leaves
           // This was not previously a mid-cycle leave event.  We must create a new such event.
           //
           mid_sql_prefix += k.EMPTY
-          + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,note)"
+          + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)"
           + " select member_id"
           + " , kind_of_leave_code"
           + " , start_date"
           + " , ADDDATE(CURDATE(),INTERVAL -1 DAY) as end_date"
+          + " , num_obliged_shifts"
           + " , note"
           + " from leave_of_absence"
           + " where id = '" + id + "'";
@@ -374,6 +381,7 @@ namespace Class_db_leaves
         + " , kind_of_leave_code = '" + kind_of_leave_code + "'"
         + " , start_date = CURDATE()"
         + " , end_date = LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))"
+        + " , num_obliged_shifts = '" + num_obligated_shifts + "'"
         + " , note = '" + note + "'"
         + ";"
         + " COMMIT";
