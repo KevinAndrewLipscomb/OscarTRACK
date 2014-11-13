@@ -1,9 +1,9 @@
-Leave granted to <cad_num/> <last_name/>, <first_name/>
+Leave/reduction granted to <cad_num/> <last_name/>, <first_name/>
 This is an automatic notification from <application_name/>.
 
-<actor/> has granted leave to <first_name/> <last_name/> in <application_name/> as follows:
+<actor/> has granted leave/reduction to <first_name/> <last_name/> in <application_name/> as follows:
 
-   Kind of leave:
+   Kind of leave/reduction:
       <kind_of_leave/>
    Period:
       <start_month/> - <end_month/>

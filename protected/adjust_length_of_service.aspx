@@ -23,7 +23,7 @@
               <tr><td bgcolor="#f5f5f5"><strong>Adjust <asp:Label ID="Label_member_name" runat="server"></asp:Label>'s length of service</strong></td></tr>
               <tr>
                 <td>
-                  <p>Leave history:</p>
+                  <p>Leave/reduction history:</p>
                   <blockquote>
                     <table>
 					            <tr id="TableRow_no_leave_history" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
