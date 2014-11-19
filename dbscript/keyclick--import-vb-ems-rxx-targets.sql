@@ -1,5 +1,20 @@
 START TRANSACTION
 ;
+-- --
+--
+-- ADJUST THE BELOW STATEMENT!!!
+--
+-- --
+;
+update resident_base set name = NULL where agency =   -- ADJUST!!!
+;
+-- --
+--
+-- ADJUST THE ABOVE STATEMENT!!!
+--
+-- --
+;
+;
 drop table if exists resident_import
 ;
 CREATE  TABLE `resident_import`
@@ -25,9 +40,20 @@ CREATE  TABLE `resident_import`
     `post_directional` VARCHAR(2)
   )
 ;
+-- --
+--
 --
 -- Insert output column from spreadsheet below this comment.
 --
+-- --
+;
+;
+-- --
+--
+--
+-- Insert output column from spreadsheet above this comment.
+--
+-- --
 ;
 --
 -- STATE
