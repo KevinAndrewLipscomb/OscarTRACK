@@ -282,31 +282,35 @@ namespace Class_db_leaves
           this.Close();
           }
 
-        public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
-        {
-            object this_month_description_obj;
-            object next_month_description_obj;
-            this.Open();
-            this_month_description_obj = new MySqlCommand("select description" + " from leave_of_absence" + " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " where member_id = " + member_id + " and start_date <= CONCAT(DATE_FORMAT(CURDATE(),\"%Y-%m-\"),\"01\")" + " and end_date >= LAST_DAY(CURDATE())", this.connection).ExecuteScalar();
-            if (this_month_description_obj == null)
-            {
-                this_month_description = null_description;
-            }
-            else
-            {
-                this_month_description = this_month_description_obj.ToString();
-            }
-            next_month_description_obj = new MySqlCommand("select description" + " from leave_of_absence" + " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" + " where member_id = " + member_id + " and start_date <= CONCAT(DATE_FORMAT(DATE_ADD(CURDATE(),INTERVAL 1 MONTH),\"%Y-%m-\"),\"01\")" + " and end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))", this.connection).ExecuteScalar();
-            if (next_month_description_obj == null)
-            {
-                next_month_description = null_description;
-            }
-            else
-            {
-                next_month_description = next_month_description_obj.ToString();
-            }
-            this.Close();
-        }
+    public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
+      {
+      Open();
+      var this_month_description_obj = new MySqlCommand
+        (
+        "select CONCAT(description,IF(num_obliged_shifts = '0',' Lv',CONCAT(' rdx (',num_obliged_shifts,')'))) as description"
+        + " from leave_of_absence"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where member_id = '" + member_id + "'"
+        +   " and start_date <= CONCAT(DATE_FORMAT(CURDATE(),'%Y-%m-'),'01')"
+        +   " and end_date >= LAST_DAY(CURDATE())",
+        connection
+        )
+        .ExecuteScalar();
+      this_month_description = (this_month_description_obj == null ? null_description : this_month_description_obj.ToString());
+      var next_month_description_obj = new MySqlCommand
+        (
+        "select CONCAT(description,IF(num_obliged_shifts = '0',' Lv',CONCAT(' rdx (',num_obliged_shifts,')'))) as description"
+        + " from leave_of_absence"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where member_id = '" + member_id + "'"
+        +   " and start_date <= CONCAT(DATE_FORMAT(DATE_ADD(CURDATE(),INTERVAL 1 MONTH),'%Y-%m-'),'01')"
+        +   " and end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))",
+        connection
+        )
+        .ExecuteScalar();
+      next_month_description = (next_month_description_obj == null ? null_description : next_month_description_obj.ToString());
+      Close();
+      }
 
         public string DescriptionOf(string code)
         {
