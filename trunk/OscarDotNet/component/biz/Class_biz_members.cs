@@ -393,10 +393,11 @@ namespace Class_biz_members
       string sort_order,
       bool be_sort_ascending,
       object target,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string agency_filter
       )
       {
-      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month);
+      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month,agency_filter);
       }
 
         public void BindSpecialForRankedLengthOfService(object target)

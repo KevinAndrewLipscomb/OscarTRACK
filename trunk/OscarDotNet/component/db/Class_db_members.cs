@@ -1174,7 +1174,8 @@ namespace Class_db_members
       string sort_order,
       bool be_sort_ascending,
       object target,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string agency_filter
       )
       {
       Open();
@@ -1239,7 +1240,7 @@ namespace Class_db_members
         +       " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'))"
         +     " )"
         +   " and"
-        +     " (agency.id <> 0)"
+        +     " (agency.id " + (agency_filter == k.EMPTY ? "<> 0" : "= '" + agency_filter + "'") + ")"
         +   " )"
         + " group by member.id"
         + " order by member.agency_id,be_released desc,last_name,first_name,cad_num",

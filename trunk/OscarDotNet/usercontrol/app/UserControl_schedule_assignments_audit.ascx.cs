@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_members;
+using Class_biz_user;
 using kix;
 using System;
 using System.Collections;
@@ -33,7 +34,9 @@ namespace UserControl_schedule_assignments_audit
       public bool be_interactive;
       public bool be_loaded;
       public bool be_sort_order_ascending;
+      public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
       public k.int_nonnegative num_members;
       public k.subtype<int> relative_month;
       public string sort_order;
@@ -160,6 +163,7 @@ namespace UserControl_schedule_assignments_audit
       else
         {
         p.biz_members = new TClass_biz_members();
+        p.biz_user = new TClass_biz_user();
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
@@ -167,6 +171,7 @@ namespace UserControl_schedule_assignments_audit
         p.num_members = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
         p.sort_order = k.EMPTY;
+        p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         }
       }
 
@@ -243,7 +248,8 @@ namespace UserControl_schedule_assignments_audit
         sort_order:p.sort_order,
         be_sort_ascending:p.be_sort_order_ascending,
         target:DataGrid_control,
-        relative_month:p.relative_month
+        relative_month:p.relative_month,
+        agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString())
         );
       p.be_datagrid_empty = (p.num_members.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
