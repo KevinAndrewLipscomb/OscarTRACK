@@ -794,6 +794,49 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void BindPotentialHelpersBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string schedule_assignment_id
+      )
+      {
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        " select concat(object_member.last_name,', ',object_member.first_name) as name"
+        + " , agency.short_designator as agency"
+        + " , medical_release_code_description_map.description as medical_release_level"
+        + " , IF(object_member.be_driver_qualified,'Yes','No') as be_driver"
+        + " , object_member.email_address as email_address"
+        + " , object_member.phone_num as phone_num"
+        + " , object_member.agency_id = subject_member.agency_id as be_same_agency"
+        + " from schedule_assignment subject_assignment"
+        +   " join schedule_assignment object_assignment on"
+        +     " ("
+        +       " object_assignment.nominal_day=subject_assignment.nominal_day"
+        +     " and"
+        +       " object_assignment.shift_id=subject_assignment.shift_id"
+        +     " and"
+        +       " object_assignment.post_id<>subject_assignment.post_id"
+        +     " and"
+        +       " not object_assignment.be_selected"
+        +     " )"
+        +   " join member subject_member on (subject_member.id=subject_assignment.member_id)"
+        +   " join member object_member on (object_member.id=object_assignment.member_id)"
+        +   " join agency on (agency.id=object_member.agency_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=object_member.medical_release_code)"
+        + " where subject_assignment.id = '" + schedule_assignment_id + "'"
+        ,
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      ((target as DataGrid).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindRankedAvailabilitySubmissionCompliance(object target)
       {
       Open();

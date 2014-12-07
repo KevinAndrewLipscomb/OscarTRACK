@@ -294,6 +294,17 @@ namespace Class_biz_schedule_assignments
       target.SelectedValue = designator;
       }
 
+    internal void BindPotentialHelpersBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string schedule_assignment_id
+      )
+      {
+      db_schedule_assignments.BindPotentialHelpersBaseDataList(sort_order,be_sort_order_ascending,target,schedule_assignment_id);
+      }
+
     internal void BindRankedAvailabilitySubmissionCompliance(object target)
       {
       db_schedule_assignments.BindRankedAvailabilitySubmissionCompliance(target);

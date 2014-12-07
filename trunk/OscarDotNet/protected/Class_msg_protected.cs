@@ -17,6 +17,10 @@ namespace Class_msg_protected
       internal string num_priors = k.EMPTY;
       internal string avg_amount = k.EMPTY;
       }
+    public class coverage_assistant
+      {
+      internal string schedule_assignment_id = k.EMPTY;
+      }
     public class efficipay_docket_detail
       {
       internal string agency_id = k.EMPTY;
