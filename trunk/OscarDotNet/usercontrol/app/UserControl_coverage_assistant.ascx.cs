@@ -1,14 +1,13 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
+using Class_biz_members;
 using Class_biz_schedule_assignments;
-using Class_msg_protected;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
+using System.Configuration;
+using System.Web.UI.WebControls;
 
 namespace UserControl_coverage_assistant
   {
@@ -16,12 +15,15 @@ namespace UserControl_coverage_assistant
     {
     private static class Static
       {
-      public const int TCI_NAME = 0;
-      public const int TCI_AGENCY = 1;
-      public const int TCI_RELEASED_CERT_LEVEL = 2;
-      public const int TCI_RELEASED_DRIVER = 3;
-      public const int TCI_EMAIL_ADDRESS = 4;
-      public const int TCI_PHONE_NUM = 5;
+      public const int TCI_SELECT_FOR_QUICKMESSAGE = 0;
+      public const int TCI_NAME = 1;
+      public const int TCI_AGENCY = 2;
+      public const int TCI_RELEASED_CERT_LEVEL = 3;
+      public const int TCI_RELEASED_DRIVER = 4;
+      public const int TCI_EMAIL_ADDRESS = 5;
+      public const int TCI_PHONE_NUM = 6;
+      public const int TCI_EMAIL_TARGET = 7;
+      public const int TCI_SMS_TARGET = 8;
       }
 
     private struct p_type
@@ -30,10 +32,16 @@ namespace UserControl_coverage_assistant
       public bool be_interactive;
       public bool be_loaded;
       public bool be_sort_order_ascending;
+      public TClass_biz_members biz_members;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public string distribution_list_email;
+      public string distribution_list_sms;
       public uint num_schedule_assignments;
-      public string schedule_assignment_id;
+      public object summary;
       public string sort_order;
+      public string user_target_email;
+      public string user_target_sms;
       }
 
     private p_type p;
@@ -121,6 +129,27 @@ namespace UserControl_coverage_assistant
       {
       if (!p.be_loaded)
         {
+        Literal_conventional_spec.Text = k.EMPTY
+        + p.biz_schedule_assignments.NominalDayOf(p.summary).ToString("MMMM, ddd/dd") + k.SPACE
+        + p.biz_schedule_assignments.ShiftNameOf(p.summary) + k.COMMA_SPACE
+        + p.biz_schedule_assignments.PostDesignatorOf(p.summary) + p.biz_schedule_assignments.PostCardinalityOf(p.summary);
+        Literal_comment.Text = p.biz_schedule_assignments.CommentOf(p.summary);
+        Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
+        var user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+        var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(user_member_id));
+        var user_member_first_name = p.biz_members.FirstNameOfMemberId(user_member_id);
+        TextBox_quick_message_body.Text = k.EMPTY
+        + "Hi," + k.NEW_LINE
+        + k.NEW_LINE
+        + "I'm looking to swap or get coverage for the following duty:" + k.NEW_LINE
+        + k.NEW_LINE
+        + "   " + Literal_conventional_spec.Text + (Literal_comment.Text.Length > 0 ? " {" + Literal_comment.Text + "}" : k.EMPTY) + k.NEW_LINE
+        + k.NEW_LINE
+        + "It looks like you told OSCAR you might be available then." + k.NEW_LINE
+        + k.NEW_LINE
+        + (user_member_phone_num.Length > 0 ? "My phone number is " + user_member_phone_num + ".  " : k.EMPTY) + "Can you help me?" + k.NEW_LINE
+        + k.NEW_LINE
+        + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
         if (!p.be_interactive)
           {
           DataGrid_control.AllowSorting = false;
@@ -158,13 +187,21 @@ namespace UserControl_coverage_assistant
         }
       else
         {
+        p.be_loaded = false;
+        //
+        p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        p.biz_user = new TClass_biz_user();
+        //
+        var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
         //
         p.be_interactive = (Session["mode:report"] == null);
-        p.be_loaded = false;
         p.be_sort_order_ascending = true;
-        p.schedule_assignment_id = k.EMPTY;
-        p.sort_order = "be_same_agency desc, medical_release_level.pecking_order desc";
+        p.distribution_list_email = k.EMPTY;
+        p.distribution_list_sms = k.EMPTY;
+        p.sort_order = "be_same_agency desc, object_medical_release_level.pecking_order desc";
+        p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
+        p.user_target_sms = k.EMPTY; //p.biz_members.SmsTargetOf(member_id:member_id);
         }
       }
 
@@ -202,13 +239,6 @@ namespace UserControl_coverage_assistant
         hyper_link_phone_num.Text = k.FormatAsNanpPhoneNum(k.Safe(hyper_link_phone_num.Text,k.safe_hint_type.PHONE_NUM));
         hyper_link_phone_num.NavigateUrl = "tel:" + hyper_link_phone_num.Text;
         //
-        // Remove all cell controls from viewstate except for the one at TCI_ID.
-        //
-        foreach (TableCell cell in e.Item.Cells)
-          {
-          cell.EnableViewState = false;
-          }
-        //
         p.num_schedule_assignments++;
         }
       }
@@ -230,17 +260,132 @@ namespace UserControl_coverage_assistant
 
     private void Bind()
       {
-      p.biz_schedule_assignments.BindPotentialHelpersBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.schedule_assignment_id);
+      p.biz_schedule_assignments.BindPotentialHelpersBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.biz_schedule_assignments.IdOf(p.summary));
       p.be_datagrid_empty = (p.num_schedule_assignments == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_potential_helpers.Text = p.num_schedule_assignments.ToString();
       p.num_schedule_assignments = 0;
+      //
+      BuildDistributionListAndRegisterPostBackControls();
       }
     
-    internal void Set(string schedule_assignment_id)
+    internal void Set(object summary)
       {
- 	    p.schedule_assignment_id = schedule_assignment_id;
+      p.summary = summary;
+      }
+
+    protected void CheckBox_force_all_CheckedChanged(object sender, EventArgs e)
+      {
+      for (var i = new k.subtype<int>(0,DataGrid_control.Items.Count); i.val < i.LAST; i.val++)
+        {
+        (DataGrid_control.Items[i.val].Cells[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked = (sender as CheckBox).Checked;
+        }
+      BuildDistributionListAndRegisterPostBackControls();
+      }
+
+    protected void CheckBox_selected_CheckedChanged(object sender, EventArgs e)
+      {
+      BuildDistributionListAndRegisterPostBackControls();
+      }
+
+    private void BuildDistributionListAndRegisterPostBackControls()
+      {
+      p.distribution_list_email = k.EMPTY;
+      p.distribution_list_sms = k.EMPTY;
+      TableCellCollection tcc;
+      for (var i = new k.subtype<int>(0, DataGrid_control.Items.Count); i.val < i.LAST; i.val++)
+        {
+        tcc = DataGrid_control.Items[i.val].Cells;
+        if ((tcc[Static.TCI_SELECT_FOR_QUICKMESSAGE].FindControl("CheckBox_selected") as CheckBox).Checked)
+          {
+          p.distribution_list_email += (tcc[Static.TCI_EMAIL_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          p.distribution_list_sms += (tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
+          }
+        //
+        // Calls to ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
+        //
+        }
+      Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});
+      }
+
+    protected void Button_send_Click(object sender, EventArgs e)
+      {
+      var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
+      var distribution_list = (be_email_mode ? p.distribution_list_email : p.distribution_list_sms);
+      if (distribution_list.Length > 0)
+        {
+        var attribution = k.EMPTY;
+        if (be_email_mode)
+          {
+          attribution += "-- From "
+          + p.biz_user.Roles()[0] + k.SPACE
+          + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString())
+          + " (" + p.biz_user.EmailAddress() + ")"
+          + " [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE
+          + k.NEW_LINE;
+          }
+        k.SmtpMailSend
+          (
+          from:ConfigurationManager.AppSettings["sender_email_address"],
+          to:distribution_list,
+          subject:(be_email_mode ? TextBox_quick_message_subject.Text : k.EMPTY),
+          message_string:attribution + k.Safe(TextBox_quick_message_body.Text,k.safe_hint_type.MEMO),
+          be_html:false,
+          cc:k.EMPTY,
+          bcc:k.Safe(Literal_author_target.Text,k.safe_hint_type.EMAIL_ADDRESS),
+          reply_to:(RadioButtonList_reply_to.SelectedValue == "bouncer" ? ConfigurationManager.AppSettings["bouncer_email_address"] : (RadioButtonList_reply_to.SelectedValue == "email" ? p.user_target_email : p.user_target_sms))
+          );
+        TextBox_quick_message_subject.Text = k.EMPTY;
+        TextBox_quick_message_body.Text = k.EMPTY;
+        Alert
+          (
+          cause:k.alert_cause_type.LOGIC,
+          state:k.alert_state_type.NORMAL,
+          key:"messagsnt",
+          value:"Message sent",
+          be_using_scriptmanager:true
+          );
+        }
+      else
+        {
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.FAILURE,
+          key:"noqmrecips",
+          value:"Message *NOT* sent.  No recipients are selected.",
+          be_using_scriptmanager:true
+          );
+        }
+      BuildDistributionListAndRegisterPostBackControls();
+      }
+
+    protected void RadioButtonList_quick_message_mode_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      if (RadioButtonList_quick_message_mode.SelectedValue == "email")
+        {
+        Literal_quick_message_kind_email.Visible = true;
+        Literal_quick_message_kind_sms.Visible = false;
+        Literal_author_target.Text = p.user_target_email;
+        RadioButtonList_reply_to.SelectedValue = "email";
+        TableRow_subject.Visible = true;
+        TextBox_quick_message_body.Columns = 72;
+        TextBox_quick_message_body.Rows = 18;
+        Label_distribution_list.Text = p.distribution_list_email;
+        }
+      else
+        {
+        Literal_quick_message_kind_email.Visible = false;
+        Literal_quick_message_kind_sms.Visible = true;
+        Literal_author_target.Text = p.user_target_sms;
+        RadioButtonList_reply_to.SelectedValue = "phone";
+        TableRow_subject.Visible = false;
+        TextBox_quick_message_body.Columns = 40;
+        TextBox_quick_message_body.Rows = 4;
+        Label_distribution_list.Text = p.distribution_list_sms;
+        }
+      BuildDistributionListAndRegisterPostBackControls();
       }
 
     } // end TWebUserControl_coverage_assistant

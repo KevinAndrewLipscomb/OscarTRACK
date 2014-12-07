@@ -19,7 +19,7 @@ namespace Class_msg_protected
       }
     public class coverage_assistant
       {
-      internal string schedule_assignment_id = k.EMPTY;
+      internal object summary = null;
       }
     public class efficipay_docket_detail
       {

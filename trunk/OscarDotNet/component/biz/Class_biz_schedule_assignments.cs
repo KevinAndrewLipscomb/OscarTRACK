@@ -372,6 +372,11 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindUnexpectedSubmissionsAlertBaseDataList(agency_filter,release_filter,relative_month,target);
       }
 
+    internal string CommentOf(object summary)
+      {
+      return db_schedule_assignments.CommentOf(summary);
+      }
+
     public bool Delete(string id)
       {
       return db_schedule_assignments.Delete(id);
@@ -477,6 +482,11 @@ namespace Class_biz_schedule_assignments
         most_likely_time_out:out most_likely_time_out,
         most_likely_aic_member_id:out most_likely_aic_member_id
         );
+      }
+
+    internal string IdOf(object summary)
+      {
+      return db_schedule_assignments.IdOf(summary);
       }
 
     internal void LogAvailabilitySubmissionComplianceData()
@@ -709,6 +719,11 @@ namespace Class_biz_schedule_assignments
       return nominal_day.ToString("ddd") + "/" + nominal_day.ToString("dd");
       }
 
+    internal DateTime NominalDayOf(object summary)
+      {
+      return db_schedule_assignments.NominalDayOf(summary);
+      }
+
     internal k.decimal_nonnegative NumCrewShifts
       (
       string agency_filter,
@@ -723,6 +738,16 @@ namespace Class_biz_schedule_assignments
     internal string OverallAvailabilitySubmissionCompliance()
       {
       return db_schedule_assignments.OverallAvailabilitySubmissionCompliance();
+      }
+
+    internal string PostCardinalityOf(object summary)
+      {
+      return db_schedule_assignments.PostCardinalityOf(summary);
+      }
+
+    internal string PostDesignatorOf(object summary)
+      {
+      return db_schedule_assignments.PostDesignatorOf(summary);
       }
 
     internal void PublishArchivalEndOfMonthWatchbill(string working_directory)
@@ -925,6 +950,11 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
+    internal string ShiftNameOf(object summary)
+      {
+      return db_schedule_assignments.ShiftNameOf(summary);
+      }
+
     internal void SpreadSelections
       (
       string member_id,
@@ -935,6 +965,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      }
+
+    internal object Summary(string id)
+      {
+      return db_schedule_assignments.Summary(id);
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
