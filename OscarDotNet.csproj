@@ -154,6 +154,7 @@
     <Content Include="protected\change_member_flight_medic_qualification.aspx" />
     <Content Include="protected\change_member_marine_medic_qualification.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
+    <Content Include="protected\coverage_assistant.aspx" />
     <Content Include="protected\donation_log.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
@@ -203,6 +204,7 @@
     <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
+    <Content Include="usercontrol\app\UserControl_coverage_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_log.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill_rating.ascx" />
@@ -776,6 +778,13 @@
     <Compile Include="protected\confirm_paypal_donation.aspx.designer.cs">
       <DependentUpon>confirm_paypal_donation.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\coverage_assistant.aspx.cs">
+      <DependentUpon>coverage_assistant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\coverage_assistant.aspx.designer.cs">
+      <DependentUpon>coverage_assistant.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\donation_log.aspx.cs">
       <DependentUpon>donation_log.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1090,6 +1099,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_config_binder.ascx.designer.cs">
       <DependentUpon>UserControl_config_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_coverage_assistant.ascx.cs">
+      <DependentUpon>UserControl_coverage_assistant.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_coverage_assistant.ascx.designer.cs">
+      <DependentUpon>UserControl_coverage_assistant.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.cs">
       <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>

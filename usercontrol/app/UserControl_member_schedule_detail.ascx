@@ -170,6 +170,7 @@
                       <ASP:BoundColumn datafield="door_code" ReadOnly="true" HeaderText="Door code">
                         <ItemStyle HorizontalAlign="Center" Font-Size="Small"/>
                       </ASP:BoundColumn>
+                      <ASP:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/help-2.png&quot; alt=&quot;Coverage assistant&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="CoverageAssistant" Visible="false"></ASP:ButtonColumn>
                     </Columns>
                   </ASP:DataGrid>
                   <small>
