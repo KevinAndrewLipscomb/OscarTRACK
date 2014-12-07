@@ -24,6 +24,7 @@ namespace UserControl_coverage_assistant
       public const int TCI_PHONE_NUM = 6;
       public const int TCI_EMAIL_TARGET = 7;
       public const int TCI_SMS_TARGET = 8;
+      public const int TCI_SWAPORTUNITIES = 9;
       }
 
     private struct p_type
@@ -238,6 +239,9 @@ namespace UserControl_coverage_assistant
         var hyper_link_phone_num = (e.Item.Cells[Static.TCI_PHONE_NUM].FindControl("HyperLink_phone_num") as HyperLink);
         hyper_link_phone_num.Text = k.FormatAsNanpPhoneNum(k.Safe(hyper_link_phone_num.Text,k.safe_hint_type.PHONE_NUM));
         hyper_link_phone_num.NavigateUrl = "tel:" + hyper_link_phone_num.Text;
+        //
+        var literal_swaportunities = (e.Item.Cells[Static.TCI_SWAPORTUNITIES].FindControl("Literal_swaportunities") as Literal);
+        literal_swaportunities.Text = literal_swaportunities.Text.Replace(k.COMMA,k.NEW_LINE);
         //
         p.num_schedule_assignments++;
         }
