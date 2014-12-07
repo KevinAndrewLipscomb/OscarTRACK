@@ -71,6 +71,9 @@
                     </asp:TemplateColumn>
                     <asp:BoundColumn datafield="email_target" Visible="false"></asp:BoundColumn>
                     <asp:BoundColumn datafield="sms_target" Visible="false"></asp:BoundColumn>
+                    <asp:TemplateColumn HeaderText="Swap-ortunities">
+                      <ItemTemplate><pre><asp:Literal ID="Literal_swaportunities" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.swaportunities") %>'></asp:Literal></pre></ItemTemplate>
+                    </asp:TemplateColumn>
                   </Columns>
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
