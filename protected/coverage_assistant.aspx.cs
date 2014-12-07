@@ -59,7 +59,7 @@ namespace coverage_assistant
           folder_name:"protected",
           aspx_name:"coverage_assistant"
           );
-        UserControl_coverage_assistant_control.Set(schedule_assignment_id:p.incoming.schedule_assignment_id);
+        UserControl_coverage_assistant_control.Set(summary:p.incoming.summary);
         }
       else if (nature_of_visit == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

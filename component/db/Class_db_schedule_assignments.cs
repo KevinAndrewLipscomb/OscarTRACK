@@ -31,6 +31,18 @@ namespace Class_db_schedule_assignments
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
+    private class schedule_assignment_summary
+      {
+      public string id;
+      public DateTime nominal_day;
+      public string shift_id;
+      public string shift_name;
+      public string post_id;
+      public string post_designator;
+      public string post_cardinality;
+      public string comment;
+      }
+
     private TClass_db_shifts db_shifts = null;
     private TClass_db_trail db_trail = null;
 
@@ -807,28 +819,29 @@ namespace Class_db_schedule_assignments
         (
         " select concat(object_member.last_name,', ',object_member.first_name) as name"
         + " , agency.short_designator as agency"
-        + " , medical_release_code_description_map.description as medical_release_level"
+        + " , object_medical_release_level.description as medical_release_level"
         + " , IF(object_member.be_driver_qualified,'Yes','No') as be_driver"
         + " , object_member.email_address as email_address"
         + " , object_member.phone_num as phone_num"
         + " , object_member.agency_id = subject_member.agency_id as be_same_agency"
+        + " , object_member.email_address as email_target"
+        + " , '' as sms_target"
         + " from schedule_assignment subject_assignment"
-        +   " join schedule_assignment object_assignment on"
-        +     " ("
-        +       " object_assignment.nominal_day=subject_assignment.nominal_day"
-        +     " and"
-        +       " object_assignment.shift_id=subject_assignment.shift_id"
-        +     " and"
-        +       " object_assignment.post_id<>subject_assignment.post_id"
-        +     " and"
-        +       " not object_assignment.be_selected"
-        +     " )"
+        +   " join schedule_assignment object_assignment"
         +   " join member subject_member on (subject_member.id=subject_assignment.member_id)"
         +   " join member object_member on (object_member.id=object_assignment.member_id)"
+        +   " join medical_release_code_description_map subject_medical_release_level on (subject_medical_release_level.code=subject_member.medical_release_code)"
+        +   " join medical_release_code_description_map object_medical_release_level on (object_medical_release_level.code=object_member.medical_release_code)"
         +   " join agency on (agency.id=object_member.agency_id)"
-        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=object_member.medical_release_code)"
         + " where subject_assignment.id = '" + schedule_assignment_id + "'"
-        ,
+        +   " and object_assignment.nominal_day=subject_assignment.nominal_day"
+        +   " and object_assignment.shift_id=subject_assignment.shift_id"
+        +   " and object_assignment.post_id<>subject_assignment.post_id"
+        +   " and not object_assignment.be_selected"
+        +   " and not object_member.be_placeholder"
+        +   " and IF(subject_medical_release_level.pecking_order >= 20,object_medical_release_level.pecking_order >= 20,object_medical_release_level.pecking_order between 5 and 19)"
+        +   " and IF(subject_assignment.post_id between 301 and 399,object_medical_release_level.pecking_order >= 50,TRUE)" // if subject is sched'd for zone, object must be ALS
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();
@@ -1384,6 +1397,11 @@ namespace Class_db_schedule_assignments
       //
       }
 
+    internal string CommentOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).comment;
+      }
+
     public bool Delete(string id)
       {
       bool result;
@@ -1732,6 +1750,11 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
+    internal string IdOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).id;
+      }
+
     internal void LogAvailabilitySubmissionComplianceData()
       {
       var metric_phrase = k.EMPTY
@@ -1885,6 +1908,16 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal string PostCardinalityOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).post_cardinality;
+      }
+
+    internal string PostDesignatorOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).post_designator;
+      }
+
     internal void Purge()
       {
       Open();
@@ -1925,6 +1958,11 @@ namespace Class_db_schedule_assignments
       Close();
       //
       return selected_and_notifiable_within_future_hours_id_q;
+      }
+
+    internal DateTime NominalDayOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).nominal_day;
       }
 
     internal k.decimal_nonnegative NumCrewShifts
@@ -2104,6 +2142,11 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal string ShiftNameOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).shift_name;
+      }
+
     internal void SpreadSelections
       (
       string member_id,
@@ -2188,6 +2231,44 @@ namespace Class_db_schedule_assignments
         }
       transaction.Commit();
       Close();
+      }
+
+    internal object Summary(string id)
+      {
+      Open();
+      var dr =
+        (
+        new MySqlCommand
+          (
+          "SELECT DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+          + " , shift_id"
+          + " , shift.name as shift_name"
+          + " , post_id"
+          + " , agency.short_designator as post_designator"
+          + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
+          + " , comment"
+          + " FROM schedule_assignment"
+          +   " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " join agency on (agency.id=schedule_assignment.post_id)"
+          + " where schedule_assignment.id = '" + id + "'",
+          connection
+          )
+          .ExecuteReader()
+        );
+      dr.Read();
+      var the_summary = new schedule_assignment_summary()
+        {
+        id = id,
+        nominal_day = DateTime.Parse(dr["nominal_day"].ToString()),
+        shift_id = dr["shift_id"].ToString(),
+        shift_name = dr["shift_name"].ToString(),
+        post_id = dr["post_id"].ToString(),
+        post_designator = dr["post_designator"].ToString(),
+        post_cardinality = dr["post_cardinality"].ToString(),
+        comment = dr["comment"].ToString()
+        };
+      Close();
+      return the_summary;
       }
 
     internal void SwapSelectedForMemberNextEarlierUnselected

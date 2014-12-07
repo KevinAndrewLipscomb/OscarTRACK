@@ -278,7 +278,13 @@ namespace UserControl_member_schedule_detail
         if (be_selected)
           {
           (e.Item.Cells[Static.TCI_FORCE_ON].Controls[0] as LinkButton).Text = k.EMPTY;
-          //
+          }
+        else
+          {
+          (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
+          }
+        if (be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
+          {
           link_button = ((e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Coverage assistant";
@@ -286,9 +292,7 @@ namespace UserControl_member_schedule_detail
           }
         else
           {
-          (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           (e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0] as LinkButton).Text = k.EMPTY;
-          //
           }
         //
         if (!p.be_fully_editable && !p.be_virgin_watchbill && (e.Item.Cells[Static.TCI_BE_NOTIFICATION_PENDING].Text == "1"))
@@ -362,7 +366,7 @@ namespace UserControl_member_schedule_detail
       if (e.CommandName == "CoverageAssistant")
         {
         var msg_protected_coverage_assistant = new TClass_msg_protected.coverage_assistant();
-        msg_protected_coverage_assistant.schedule_assignment_id = schedule_assignment_id;
+        msg_protected_coverage_assistant.summary = p.biz_schedule_assignments.Summary(schedule_assignment_id);
         MessageDropCrumbAndTransferTo
           (
           msg:msg_protected_coverage_assistant,
