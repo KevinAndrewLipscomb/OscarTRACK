@@ -283,7 +283,7 @@ namespace UserControl_member_schedule_detail
           {
           (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
-        if (be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
+        if (p.be_my_watchbill_mode && be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
           {
           link_button = ((e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
