@@ -31,30 +31,14 @@ This assignment carries the following comment, which may modify the above values
 
 STANDARD NOTICE:  You are expected to stand this duty, or take responsibility for getting it covered.
 
-   -  If you need coverage, OscarTRACK may be able to help, as follows:
+   -  If you need coverage, use OscarTRACK's Coverage Assistant as follows:
       1. Log into OscarTRACK:
             http://<host_domain_name/>/<application_name/>
       2. Select the "Schedule" tab.
-      3. Select the "Watchbill assistant" tab.
-      4. Select the "Watchbill" tab.
-      5. Set the Depth filter to "Not selected".
-      6. Scroll to <nominal_day/>.
-      7. Make a note of the members listed on the <shift_name/> of
-         <nominal_day/>.  These members originally said they would be
-         available for duty, but were not assigned for this shift.  If
-         their certification and driving status would make them suitable
-         replacements for you, try proposing a swap with them first, or
-         asking them to cover your shift second.  You may be able to
-         find contact information for them as follows:
-         a. Select the "Personnel" tab.
-         b. Check the "Phone list" checkbox.
-         c. Scroll to the person's name to find their phone number, or..
-         d. Click the yellow "open folder" icon to the left of their
-            name to bring up a page that shows their email address.
-
-   -  If the above process doesn't help, contact other members.  One-on-
-      one contacts -- especially in person or by phone -- are usually
-      much more effective than broadcast requests.
+      3. Select the "My assignments" tab.
+      4. Click the "live saver ring" icon next to this duty.
+      5. Read the Best Practices and contact the listed members using
+         the features available in the Coverage Assistant.
 
    -  If you legitimately can not meet the above expectations, click
       the following link to email your request for emergency leave to
