@@ -57,6 +57,7 @@ namespace UserControl_member_schedule_detail
       public bool be_any_revisions;
       public bool be_datagrid_empty;
       public bool be_fully_editable;
+      public bool be_interactive;
       public bool be_limited_preview;
       public bool be_loaded;
       public bool be_my_watchbill_mode;
@@ -154,9 +155,11 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_day_avail = new ArrayList();
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
+        p.be_interactive = (Session["mode:report"] == null);
+        //
         p.be_partially_editable =
           (
-            (Session["mode:report"] == null)
+            p.be_interactive
           &&
             (
               k.Has((Session["privilege_array"] as string[]),"edit-schedule")
@@ -283,7 +286,7 @@ namespace UserControl_member_schedule_detail
           {
           (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
-        if (p.be_my_watchbill_mode && be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
+        if (p.be_interactive && be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
           {
           link_button = ((e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
@@ -473,7 +476,7 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[Static.TCI_FORCE_ON].Visible = p.be_fully_editable;
       DataGrid_control.Columns[Static.TCI_REVISED].Visible = !p.be_fully_editable && !p.be_virgin_watchbill;
       DataGrid_control.Columns[Static.TCI_DOOR_CODE].Visible = !p.be_fully_editable || p.be_my_watchbill_mode;
-      DataGrid_control.Columns[Static.TCI_COVERAGE_ASSISTANT].Visible = p.be_my_watchbill_mode;
+      DataGrid_control.Columns[Static.TCI_COVERAGE_ASSISTANT].Visible = p.be_interactive;
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;
@@ -569,6 +572,7 @@ namespace UserControl_member_schedule_detail
 
     internal void SetInteractivity(bool be_interactive)
       {
+      p.be_interactive = be_interactive;
       p.be_fully_editable = p.be_fully_editable && be_interactive;
       p.be_partially_editable = p.be_partially_editable && be_interactive;
       }

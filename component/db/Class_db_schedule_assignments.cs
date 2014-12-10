@@ -40,6 +40,7 @@ namespace Class_db_schedule_assignments
       public string post_id;
       public string post_designator;
       public string post_cardinality;
+      public string member_id;
       public string comment;
       }
 
@@ -864,7 +865,6 @@ namespace Class_db_schedule_assignments
         + " where subject_assignment.id = '" + schedule_assignment_id + "'"
         +   " and object_assignment.nominal_day=subject_assignment.nominal_day"
         +   " and object_assignment.shift_id=subject_assignment.shift_id"
-        +   " and object_assignment.post_id<>subject_assignment.post_id"
         +   " and not object_assignment.be_selected"
         +   " and not object_member.be_placeholder"
         +   " and IF(subject_medical_release_level.pecking_order >= 20,object_medical_release_level.pecking_order >= 20,object_medical_release_level.pecking_order between 5 and 19)"
@@ -1989,6 +1989,11 @@ namespace Class_db_schedule_assignments
       return selected_and_notifiable_within_future_hours_id_q;
       }
 
+    internal string MemberIdOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).member_id;
+      }
+
     internal DateTime NominalDayOf(object summary)
       {
       return (summary as schedule_assignment_summary).nominal_day;
@@ -2275,6 +2280,7 @@ namespace Class_db_schedule_assignments
           + " , post_id"
           + " , agency.short_designator as post_designator"
           + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
+          + " , member_id"
           + " , comment"
           + " FROM schedule_assignment"
           +   " join shift on (shift.id=schedule_assignment.shift_id)"
@@ -2294,6 +2300,7 @@ namespace Class_db_schedule_assignments
         post_id = dr["post_id"].ToString(),
         post_designator = dr["post_designator"].ToString(),
         post_cardinality = dr["post_cardinality"].ToString(),
+        member_id = dr["member_id"].ToString(),
         comment = dr["comment"].ToString()
         };
       Close();

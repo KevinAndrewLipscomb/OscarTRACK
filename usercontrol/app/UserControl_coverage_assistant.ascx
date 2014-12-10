@@ -12,14 +12,16 @@
 				      <td>
                 <p>According to OSCAR data, the following member(s) might be available for the following assignment:</p>
                 <blockquote><strong><asp:Literal ID="Literal_conventional_spec" runat="server"></asp:Literal></strong> <asp:Literal ID="Literal_comment" runat="server"></asp:Literal></blockquote>
-				        <p>Best practices:</p>
-				        <ul>
-					        <li>You are expected to stand this duty, or take responsibility for getting it covered.</li>
-                  <li>If you are the only scheduled driver on the unit, you must be covered by a driver.</li>
-                  <li>One-on-one contacts -- especially in person or by phone -- are usually much more effective than broadcast requests.</li>
-					        <li>First, try proposing a <u>swap</u>.&nbsp;If that doesn't work out, ask for coverage.</li>
-                  <li>If no one on this list can help, go to the Personnel / Roster tab and start calling other members, first at your squad, then citywide.</li>
-				        </ul>
+                <asp:Panel ID="Panel_best_practices" runat="server" Visible="false">
+                  <p>Best practices:</p>
+				          <ul>
+					          <li>You are expected to stand this duty, or take responsibility for getting it covered.</li>
+                    <li>If you are the only scheduled driver on the unit, you must be covered by a driver.</li>
+                    <li>One-on-one contacts -- especially in person or by phone -- are usually much more effective than broadcast requests.</li>
+					          <li>First, try proposing a <u>swap</u>.&nbsp;If that doesn't work out, ask for coverage.</li>
+                    <li>If no one on this list can help, go to the Personnel / Roster tab and start calling other members, first at your squad, then citywide.</li>
+				          </ul>
+                </asp:Panel>
               </td>
 			      </tr>
 		      </table>
@@ -78,7 +80,7 @@
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
                 <br/>
-                <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
+                <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="false">
                   <tr>
                     <td>
                       <table cellspacing="0" cellpadding="10" width="100%" border="0">
