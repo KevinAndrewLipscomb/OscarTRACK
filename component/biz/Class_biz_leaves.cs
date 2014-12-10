@@ -4,7 +4,6 @@ using Class_db_enrollment;
 using Class_db_leaves;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -236,43 +235,54 @@ namespace Class_biz_leaves
             return result;
         }
 
-        public void MakeLeaveEndingSoonNotifications()
+    public void MakeLeaveEndingSoonNotifications()
+      {
+      expire_after_days_rec_class expire_after_days_rec;
+      var expire_after_days_rec_q = db_leaves.ExpireAfterDays(int.Parse(ConfigurationManager.AppSettings["days_advance_notice_for_leaves_ending"]));
+      var expire_after_days_rec_q_count = expire_after_days_rec_q.Count;
+      for (var i = new k.int_positive(); i.val <= expire_after_days_rec_q_count; i.val++ )
         {
-            uint i;
-            string member_id;
-            Queue member_id_q;
-            member_id_q = db_leaves.ExpireAfterDays(int.Parse(ConfigurationManager.AppSettings["days_advance_notice_for_leaves_ending"]));
-            uint member_id_q_count = (uint)(member_id_q.Count);
-            for (i = 1; i <= member_id_q_count; i ++ )
-            {
-                member_id = member_id_q.Dequeue().ToString();
-                if (!BeOverlap(member_id, "1", "1"))
-                {
-                    // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has
-                    // expired.
-                    biz_notifications.IssueForLeaveEndingSoon(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id));
-                }
-            }
+        expire_after_days_rec = expire_after_days_rec_q.Dequeue();
+        if (!BeOverlap(member_id:expire_after_days_rec.member_id, relative_start_month:"1", relative_end_month:"1"))
+          {
+          // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has
+          // expired.
+          biz_notifications.IssueForLeaveEndingSoon
+            (
+            member_id:expire_after_days_rec.member_id,
+            first_name:biz_members.FirstNameOfMemberId(expire_after_days_rec.member_id),
+            last_name:biz_members.LastNameOfMemberId(expire_after_days_rec.member_id),
+            cad_num:biz_members.CadNumOfMemberId(expire_after_days_rec.member_id),
+            kind_of_leave:expire_after_days_rec.kind_of_leave
+            );
+          }
         }
+      }
 
-        public void MakeLeaveExpirationNotifications()
+    public void MakeLeaveExpirationNotifications()
+      {
+      expire_after_days_rec_class expire_after_days_rec;
+      var expire_after_days_rec_q = db_leaves.ExpireAfterDays(-1);
+      var expire_after_days_rec_q_count = expire_after_days_rec_q.Count;
+      for (var i = new k.int_positive(); i.val <= expire_after_days_rec_q_count; i.val++ )
         {
-            uint i;
-            string member_id;
-            Queue member_id_q;
-            member_id_q = db_leaves.ExpireAfterDays( -1);
-            uint member_id_q_count = (uint)(member_id_q.Count);
-            for (i = 1; i <= member_id_q_count; i ++ )
-            {
-                member_id = member_id_q.Dequeue().ToString();
-                if (!BeOverlap(member_id, "0", "0"))
-                {
-                    // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has
-                    // expired.
-                    biz_notifications.IssueForLeaveExpiredYesterday(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id));
-                }
-            }
+        expire_after_days_rec = expire_after_days_rec_q.Dequeue();
+        if (!BeOverlap(member_id:expire_after_days_rec.member_id, relative_start_month:"0", relative_end_month:"0"))
+          {
+          //
+          // Back-to-back leaves are ruled out, so we won't be misleading anyone by declaring that this person's (generic) leave has expired.
+          //
+          biz_notifications.IssueForLeaveExpiredYesterday
+            (
+            member_id:expire_after_days_rec.member_id,
+            first_name:biz_members.FirstNameOfMemberId(expire_after_days_rec.member_id),
+            last_name:biz_members.LastNameOfMemberId(expire_after_days_rec.member_id),
+            cad_num:biz_members.CadNumOfMemberId(expire_after_days_rec.member_id),
+            kind_of_leave:expire_after_days_rec.kind_of_leave
+            );
+          }
         }
+      }
 
         public string MemberIdOf(string id)
         {

@@ -986,8 +986,15 @@ namespace Class_biz_notifications
         }
 
         private delegate string IssueForLeaveEndingSoon_Merge(string s);
-        public void IssueForLeaveEndingSoon(string member_id, string first_name, string last_name, string cad_num)
-        {
+        public void IssueForLeaveEndingSoon
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string kind_of_leave
+          )
+          {
             TClass_biz_members biz_members;
             TClass_biz_user biz_user;
             TClass_biz_users biz_users;
@@ -1001,7 +1008,9 @@ namespace Class_biz_notifications
                 .Replace("<cad_num/>", cad_num)
                 .Replace("<first_name/>", first_name)
                 .Replace("<last_name/>", last_name)
-                .Replace("<member_id/>", member_id);
+                .Replace("<member_id/>", member_id)
+                .Replace("<kind_of_leave/>", kind_of_leave.ToLower())
+                ;
               };
 
             biz_members = new TClass_biz_members();
@@ -1014,11 +1023,18 @@ namespace Class_biz_notifications
             // body
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-ending-soon", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
-        }
+          }
 
         private delegate string IssueForLeaveExpiredYesterday_Merge(string s);
-        public void IssueForLeaveExpiredYesterday(string member_id, string first_name, string last_name, string cad_num)
-        {
+        public void IssueForLeaveExpiredYesterday
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string kind_of_leave
+          )
+          {
             TClass_biz_members biz_members;
             TClass_biz_user biz_user;
             TClass_biz_users biz_users;
@@ -1032,7 +1048,9 @@ namespace Class_biz_notifications
                 .Replace("<cad_num/>", cad_num)
                 .Replace("<first_name/>", first_name)
                 .Replace("<last_name/>", last_name)
-                .Replace("<member_id/>", member_id);
+                .Replace("<member_id/>", member_id)
+                .Replace("<kind_of_leave/>", kind_of_leave.ToLower())
+                ;
               };
 
             biz_members = new TClass_biz_members();
@@ -1045,7 +1063,7 @@ namespace Class_biz_notifications
             // body
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-expired", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()));
             template_reader.Close();
-        }
+          }
 
     private delegate string IssueForMarineMedicQualificationChange_Merge(string s);
     public void IssueForMarineMedicQualificationChange
