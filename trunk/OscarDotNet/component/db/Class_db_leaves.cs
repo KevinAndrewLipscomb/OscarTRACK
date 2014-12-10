@@ -3,7 +3,7 @@ using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -22,8 +22,15 @@ namespace Class_db_leaves
     public const int TCCI_DELETE = 8;
     }
 
+  internal class expire_after_days_rec_class
+    {
+    internal string member_id = k.EMPTY;
+    internal string kind_of_leave = k.EMPTY;
+    }
+
     public class TClass_db_leaves: TClass_db
     {
+
         private TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_leaves() : base()
@@ -337,23 +344,31 @@ namespace Class_db_leaves
             return result;
         }
 
-        public Queue ExpireAfterDays(int n)
+    internal Queue<expire_after_days_rec_class> ExpireAfterDays(int n)
+      {
+      var expire_after_days_rec_q = new Queue<expire_after_days_rec_class>();
+      var expire_after_days_rec = new expire_after_days_rec_class();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select member_id"
+        + " , description as kind_of_leave"
+        + " from leave_of_absence"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where end_date = (CURDATE() + INTERVAL " + n.ToString() + " DAY)",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
         {
-            Queue result;
-            MySqlDataReader dr;
-            Queue member_id_q;
-            member_id_q = new Queue();
-            this.Open();
-            dr = new MySqlCommand("select member_id from leave_of_absence where end_date = (CURDATE() + INTERVAL " + n.ToString() + " DAY)", this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                member_id_q.Enqueue(dr["member_id"]);
-            }
-            dr.Close();
-            this.Close();
-            result = member_id_q;
-            return result;
+        expire_after_days_rec.member_id = dr["member_id"].ToString();
+        expire_after_days_rec.kind_of_leave = dr["kind_of_leave"].ToString();
+        expire_after_days_rec_q.Enqueue(expire_after_days_rec);
         }
+      dr.Close();
+      Close();
+      return expire_after_days_rec_q;
+      }
 
     public void Grant
       (
