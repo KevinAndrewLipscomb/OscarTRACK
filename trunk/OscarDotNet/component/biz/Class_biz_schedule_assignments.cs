@@ -697,6 +697,11 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.MarkMemberToBeReleased(member_id,relative_month);
       }
 
+    internal string MemberIdOf(object summary)
+      {
+      return db_schedule_assignments.MemberIdOf(summary);
+      }
+
     internal string MonthlessRenditionOfId(string id)
       {
       var nominal_day = DateTime.MinValue;

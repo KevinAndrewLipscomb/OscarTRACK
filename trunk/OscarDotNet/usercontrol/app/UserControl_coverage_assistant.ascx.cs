@@ -41,6 +41,7 @@ namespace UserControl_coverage_assistant
       public uint num_schedule_assignments;
       public object summary;
       public string sort_order;
+      public string user_member_id;
       public string user_target_email;
       public string user_target_sms;
       }
@@ -135,22 +136,27 @@ namespace UserControl_coverage_assistant
         + p.biz_schedule_assignments.ShiftNameOf(p.summary) + k.COMMA_SPACE
         + p.biz_schedule_assignments.PostDesignatorOf(p.summary) + p.biz_schedule_assignments.PostCardinalityOf(p.summary);
         Literal_comment.Text = p.biz_schedule_assignments.CommentOf(p.summary);
-        Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
-        var user_member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
-        var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(user_member_id));
-        var user_member_first_name = p.biz_members.FirstNameOfMemberId(user_member_id);
-        TextBox_quick_message_body.Text = k.EMPTY
-        + "Hi," + k.NEW_LINE
-        + k.NEW_LINE
-        + "I'm looking to swap or get coverage for the following duty:" + k.NEW_LINE
-        + k.NEW_LINE
-        + "   " + Literal_conventional_spec.Text + (Literal_comment.Text.Length > 0 ? " {" + Literal_comment.Text + "}" : k.EMPTY) + k.NEW_LINE
-        + k.NEW_LINE
-        + "It looks like you told OSCAR you might be available then." + k.NEW_LINE
-        + k.NEW_LINE
-        + (user_member_phone_num.Length > 0 ? "My phone number is " + user_member_phone_num + ".  " : k.EMPTY) + "Can you help me?" + k.NEW_LINE
-        + k.NEW_LINE
-        + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
+        //
+        if (p.user_member_id == p.biz_schedule_assignments.MemberIdOf(p.summary))
+          {
+          Panel_best_practices.Visible = true;
+          Table_quick_message.Visible = true;
+          Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
+          var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.user_member_id));
+          var user_member_first_name = p.biz_members.FirstNameOfMemberId(p.user_member_id);
+          TextBox_quick_message_body.Text = k.EMPTY
+          + "Hi," + k.NEW_LINE
+          + k.NEW_LINE
+          + "I'm looking to swap or get coverage for the following duty:" + k.NEW_LINE
+          + k.NEW_LINE
+          + "   " + Literal_conventional_spec.Text + (Literal_comment.Text.Length > 0 ? " {" + Literal_comment.Text + "}" : k.EMPTY) + k.NEW_LINE
+          + k.NEW_LINE
+          + "It looks like you told OSCAR you might be available then." + k.NEW_LINE
+          + k.NEW_LINE
+          + (user_member_phone_num.Length > 0 ? "My phone number is " + user_member_phone_num + ".  " : k.EMPTY) + "Can you help me?" + k.NEW_LINE
+          + k.NEW_LINE
+          + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
+          }
         if (!p.be_interactive)
           {
           DataGrid_control.AllowSorting = false;
@@ -194,15 +200,15 @@ namespace UserControl_coverage_assistant
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         p.biz_user = new TClass_biz_user();
         //
-        var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
-        //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_sort_order_ascending = true;
         p.distribution_list_email = k.EMPTY;
         p.distribution_list_sms = k.EMPTY;
         p.sort_order = "be_same_agency desc, object_medical_release_level.pecking_order desc";
-        p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
-        p.user_target_sms = k.EMPTY; //p.biz_members.SmsTargetOf(member_id:member_id);
+        p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+        //
+        p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
+        p.user_target_sms = k.EMPTY; //p.biz_members.SmsTargetOf(member_id:p.user_member_id);
         }
       }
 
