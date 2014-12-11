@@ -2598,8 +2598,7 @@ namespace Class_db_schedule_assignments
             +     " )"
             + " where avail_sheet.month = '" + month_abbreviation + "'"
             +   " and d" + (i.val + 1).ToString() + " = 'AVAILABLE'"
-            + " on duplicate key update schedule_assignment.id = schedule_assignment.id"
-            +   " , schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+            + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
             + ";"
             + " insert schedule_assignment (nominal_day,shift_id,post_id,member_id,be_selected,be_new,comment)"
             + " select str_to_date(concat('" + month_yyyy_mm + "-','" + (i.val + 1).ToString("d2") + "'),'%Y-%m-%d') as nominal_day"
@@ -2631,8 +2630,7 @@ namespace Class_db_schedule_assignments
             +     " )"
             + " where avail_sheet.month = '" + month_abbreviation + "'"
             +   " and n" + (i.val + 1).ToString() + " = 'AVAILABLE'"
-            + " on duplicate key update schedule_assignment.id = schedule_assignment.id"
-            +   " , schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
+            + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
             + ";";
             }
           new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
