@@ -1,5 +1,5 @@
-select resident_base.id as contactid
-, resident_base.name as name
+select DISTINCT resident_base.id as contactid
+, IFNULL(resident_base.name,'OUR FRIENDS AT') as name
 , 'OR CURRENT RESIDENT' as company
 , IF(
       street.name = "PO BOX"
@@ -17,6 +17,6 @@ from donation
   join city on (city.id=street.city_id)
   join state on (state.id=city.state_id)
 where resident_base.id > 0
-  and date > '2014-11-03'                                      -- ADJUST!
+  and date > '2014-11-01'                                      -- ADJUST!
   and agency = 'KVRS'                                          -- ADJUST!
 order by state.abbreviation, city.name, street.name, house_num
