@@ -90,7 +90,7 @@ namespace paypal_ipn_listener
         //
         // paypal has verified the data, it is safe for us to perform processing now
         //
-        if (payment_status.Equals("Completed"))
+        if ((payment_status != null) && payment_status.Equals("Completed"))
           {
           //
           // if the seller email is us (we don't want anyone else getting our payment!)
