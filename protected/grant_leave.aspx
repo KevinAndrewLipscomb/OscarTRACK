@@ -41,7 +41,7 @@
 				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month" onservervalidate="CustomValidator_end_month_ServerValidate">!ERR!</ASP:CustomValidator></td>
 			  </tr>
 			  <tr>
-				<td>Kind:</td>
+				<td valign="top">Kind:</td>
 				<td>
 				  <table cellspacing="0" cellpadding="0" border="0">
             <tr>
@@ -50,14 +50,19 @@
 						    <table cellspacing="0" cellpadding="5" border="0">
 						      <tr>
                     <td valign="top">•</td>
-							      <td><small>Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it.</small></td>
+							      <td>
+                      <small>
+                        Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it.  Also, EMS Admin will require the member to show medical clearance by submitting a
+                        doctor's note and/or to reporting to the Human Resources Department Occupational Health office.
+                      </small>
+							      </td>
 						      </tr>
 						    </table>
               </td>
 					  </tr>
 				  </table>
         </td>
-        <td nowrap="nowrap">
+        <td nowrap="nowrap" valign="top">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_kind_of_leave" runat="server" errormessage="Please select a kind of leave." font-bold="True" controltovalidate="DropDownList_kind_of_leave">!ERR!</ASP:RequiredFieldValidator></td>
 			  </tr>
 			  <tr>
