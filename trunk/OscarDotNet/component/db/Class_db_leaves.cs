@@ -347,7 +347,6 @@ namespace Class_db_leaves
     internal Queue<expire_after_days_rec_class> ExpireAfterDays(int n)
       {
       var expire_after_days_rec_q = new Queue<expire_after_days_rec_class>();
-      var expire_after_days_rec = new expire_after_days_rec_class();
       Open();
       var dr = new MySqlCommand
         (
@@ -361,6 +360,7 @@ namespace Class_db_leaves
         .ExecuteReader();
       while (dr.Read())
         {
+        var expire_after_days_rec = new expire_after_days_rec_class();
         expire_after_days_rec.member_id = dr["member_id"].ToString();
         expire_after_days_rec.kind_of_leave = dr["kind_of_leave"].ToString();
         expire_after_days_rec_q.Enqueue(expire_after_days_rec);

@@ -1009,7 +1009,7 @@ namespace Class_biz_notifications
                 .Replace("<first_name/>", first_name)
                 .Replace("<last_name/>", last_name)
                 .Replace("<member_id/>", member_id)
-                .Replace("<kind_of_leave/>", kind_of_leave.ToLower())
+                .Replace("<kind_of_leave/>", kind_of_leave)
                 ;
               };
 
@@ -1049,7 +1049,7 @@ namespace Class_biz_notifications
                 .Replace("<first_name/>", first_name)
                 .Replace("<last_name/>", last_name)
                 .Replace("<member_id/>", member_id)
-                .Replace("<kind_of_leave/>", kind_of_leave.ToLower())
+                .Replace("<kind_of_leave/>", kind_of_leave)
                 ;
               };
 
