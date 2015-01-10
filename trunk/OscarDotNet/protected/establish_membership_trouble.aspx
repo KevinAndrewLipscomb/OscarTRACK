@@ -33,7 +33,7 @@
                               </tr>
                               <tr>
                                 <td>
-						<p>Please explain why <ASP:Label id="Label_sponsor_1" runat="server"></ASP:Label>&nbsp;may not have correct data on file for you:</p>
+						<p>If you have some idea why <ASP:Label id="Label_sponsor_1" runat="server"></ASP:Label>&nbsp;may not have correct data on file for you, please explain:</p>
 						<blockquote>
 						  <p><ASP:TextBox id="TextBox_explanation" runat="server" columns="72" rows="7" textmode="MultiLine"></ASP:TextBox></p>
 						</blockquote></td>

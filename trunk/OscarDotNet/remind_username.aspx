@@ -3,8 +3,8 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
+  <head runat="server">
+	<title></title>
       <!-- $Id$ -->
     <link href="css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
@@ -24,14 +24,14 @@
                     <tr>
                       <td>
                         <table cellspacing="0" cellpadding="10" border="0">
-                            <tr><td valign="top">•</td>
+                            <tr><td valign="top">&bull;</td>
                               <td>
-								<p>If your email address has stayed the same, <ASP:Label id="Label_application_name_1" runat="server"></ASP:Label>&nbsp;can send you a reminder.&nbsp; What email address had you registered with <ASP:Label id="Label_application_name_2" runat="server"></ASP:Label>?</p><p><asp:textbox id="TextBox_noop_ie_behavior_workaround" runat="server" style="DISPLAY: none; VISIBILITY: hidden" width="2px" /><!-- To work around an IE bug that otherwise prevents Enter in a textbox from submitting a form. --><ASP:TextBox id="TextBox_email_address" runat="server" columns="40"></ASP:TextBox><ASP:RequiredFieldValidator id="RequiredFieldValidator_email_address" runat="server" errormessage="Please enter an email address." font-bold="True" controltovalidate="TextBox_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator></p><p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></p></td>
+								If your email address has stayed the same, <ASP:Label id="Label_application_name_1" runat="server"></ASP:Label>&nbsp;can send you a reminder.&nbsp; What email address had you registered with <ASP:Label id="Label_application_name_2" runat="server"></ASP:Label>?</p><p><asp:textbox id="TextBox_noop_ie_behavior_workaround" runat="server" style="DISPLAY: none; VISIBILITY: hidden" width="2px" /><!-- To work around an IE bug that otherwise prevents Enter in a textbox from submitting a form. --><ASP:TextBox id="TextBox_email_address" runat="server" columns="40"></ASP:TextBox><ASP:RequiredFieldValidator id="RequiredFieldValidator_email_address" runat="server" errormessage="Please enter an email address." font-bold="True" controltovalidate="TextBox_email_address">!ERR!</ASP:RequiredFieldValidator><ASP:RegularExpressionValidator id="RegularExpressionValidator_email_address" runat="server" errormessage="Please enter a valid email address." font-bold="True" controltovalidate="TextBox_email_address" validationexpression="\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*">!ERR!</ASP:RegularExpressionValidator></p><p><ASP:Button id="Button_submit" runat="server" text="Submit" onclick="Button_submit_Click"></ASP:Button>&nbsp; <ASP:Button id="Button_cancel" runat="server" text="Cancel" causesvalidation="False" onclick="Button_cancel_Click"></ASP:Button></td>
 							</tr>
 							<tr>
-							  <td valign="top">•</td>
+							  <td valign="top">&bull;</td>
 							  <td>
-                                <p>If your email address has changed, you must <ASP:LinkButton id="LinkButton_register_new_user" runat="server" causesvalidation="False" onclick="LinkButton_register_new_user_Click">register as a new user</ASP:LinkButton>.&nbsp; After re-registering, <ASP:Label id="Label_application_name_3" runat="server"></ASP:Label>&nbsp;will let you re-associate yourself with your existing profile.</p></td>
+                                If your email address has changed, you must <ASP:LinkButton id="LinkButton_register_new_user" runat="server" causesvalidation="False" onclick="LinkButton_register_new_user_Click">register as a new user</ASP:LinkButton>.&nbsp; After re-registering, <ASP:Label id="Label_application_name_3" runat="server"></ASP:Label>&nbsp;will let you re-associate yourself with your existing profile.</td>
                             </tr>
                         </table>
                         <p align="center"><table id="Table_return" runat="server" visible="False" bordercolor="#0000ff" cellspacing="0" cellpadding="10" border="3">
