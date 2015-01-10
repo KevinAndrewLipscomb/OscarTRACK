@@ -1,18 +1,20 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
+using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_notifications;
 using Class_biz_privileges;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_db_agencies;
+using Class_db_schedule_assignment_logs;
 using Class_db_schedule_assignments;
 using kix;
 using System;
 using System.Collections;
 using System.Configuration;
-using System.Web.UI.WebControls;
 using System.Web.SessionState;
+using System.Web.UI.WebControls;
 
 namespace Class_biz_schedule_assignments
   {
@@ -21,22 +23,26 @@ namespace Class_biz_schedule_assignments
 
     public const int MAX_PER_MONTH = 62;
 
+    private TClass_biz_agencies biz_agencies = null;
     private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
     private TClass_biz_privileges biz_privileges = null;
     private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
+    private TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
     public TClass_biz_schedule_assignments() : base()
       {
+      biz_agencies = new TClass_biz_agencies();
       biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
       biz_privileges = new TClass_biz_privileges();
       biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
+      db_schedule_assignment_logs = new TClass_db_schedule_assignment_logs();
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
 
@@ -400,6 +406,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.ForceSelection(id,be_selected,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"forced " + (be_selected ? "ON" : "OFF")
+        );
       }
 
     public bool Get
@@ -935,6 +946,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"set comment to `" + comment + "`"
+        );
       }
 
     internal void SetPost
@@ -944,6 +960,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"sent to " + biz_agencies.ShortDesignatorOf(post_id)
+        );
       }
 
     internal void SetPostCardinality
@@ -953,6 +974,11 @@ namespace Class_biz_schedule_assignments
       )
       {
       db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"set crew to `" + post_cardinality + "`"
+        );
       }
 
     internal string ShiftNameOf(object summary)
@@ -969,7 +995,15 @@ namespace Class_biz_schedule_assignments
       string intolerable_gap
       )
       {
-      db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      var affected_id = db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      if (affected_id.Length > 0)
+        {
+        db_schedule_assignment_logs.Enter
+          (
+          assignment_id:affected_id,
+          action:"deselected via AutoFix to resolve Time Off Alert"
+          );
+        }
       }
 
     internal object Summary(string id)
@@ -980,11 +1014,21 @@ namespace Class_biz_schedule_assignments
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
       db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"deselected via `Swap with earlier availability`"
+        );
       }
 
     internal void SwapSelectedForMemberNextLaterUnselected(string id)
       {
       db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
+      db_schedule_assignment_logs.Enter
+        (
+        assignment_id:id,
+        action:"deselected via `Swap with later availability`"
+        );
       }
 
     internal void Update

@@ -2181,7 +2181,7 @@ namespace Class_db_schedule_assignments
       return (summary as schedule_assignment_summary).shift_name;
       }
 
-    internal void SpreadSelections
+    internal string SpreadSelections
       (
       string member_id,
       bool be_member_released,
@@ -2191,6 +2191,7 @@ namespace Class_db_schedule_assignments
       string reviser_member_id
       )
       {
+      var spread_selections = k.EMPTY;
       //
       // The following two queries are related to NumCrewShifts()
       //
@@ -2262,9 +2263,11 @@ namespace Class_db_schedule_assignments
           transaction
           )
           .ExecuteNonQuery();
+        spread_selections = primary_selected_assignment_to_swap;
         }
       transaction.Commit();
       Close();
+      return spread_selections;
       }
 
     internal object Summary(string id)
