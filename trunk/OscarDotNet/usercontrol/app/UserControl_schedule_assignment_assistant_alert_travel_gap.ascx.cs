@@ -267,6 +267,14 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
           e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].EnableViewState = true;
           }
         }
+      else
+        {
+        if (be_any_kind_of_item)
+          {
+          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].Controls[0]) as LinkButton).Enabled = false;
+          }
+        }
       }
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)

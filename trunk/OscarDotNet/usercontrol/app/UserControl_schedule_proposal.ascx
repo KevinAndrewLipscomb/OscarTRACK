@@ -1,5 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_proposal.ascx.cs"
   Inherits="UserControl_schedule_proposal.TWebUserControl_schedule_proposal" %>
+<%@ Register Src="~/usercontrol/app/UserControl_schedule_assignment_log.ascx" TagPrefix="uc1" TagName="UserControl_schedule_assignment_log" %>
+
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <asp:Panel ID="Panel_supressed" runat="server"><p></p><em>--&nbsp;SUPRESSED&nbsp;--</em></asp:Panel>
 <table id="Table_data" runat="server" cellspacing="0" cellpadding="10" width="100%" border="0" visible="false">
@@ -265,6 +267,12 @@
                       </asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>
+                </td>
+              </tr>
+              <tr id="TableRow_log" runat="server" visible="false">
+                <td align="center">
+                  <br/>
+                  <uc1:UserControl_schedule_assignment_log runat="server" id="UserControl_schedule_assignment_log_control" />
                 </td>
               </tr>
             </table>

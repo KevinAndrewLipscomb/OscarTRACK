@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_schedule_assignment_logs;
+using kix;
 
 namespace Class_biz_schedule_assignment_logs
   {
@@ -20,13 +21,14 @@ namespace Class_biz_schedule_assignment_logs
 
     public void BindBaseDataList
       (
-      string sort_order,
-      bool be_sort_order_ascending,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      string shift_name,
       object target,
-      string assignment_id
+      string days_old
       )
       {
-      db_schedule_assignment_logs.BindBaseDataList(sort_order,be_sort_order_ascending,target,assignment_id);
+      db_schedule_assignment_logs.BindBaseDataList(relative_month,nominal_day_filter,shift_name,target,days_old);
       }
 
     public void BindDirectToListControl(object target)

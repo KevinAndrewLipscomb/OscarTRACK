@@ -54,23 +54,32 @@ namespace Class_db_schedule_assignment_logs
 
     internal void BindBaseDataList
       (
-      string sort_order,
-      bool be_sort_order_ascending,
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      string shift_name,
       object target,
-      string assignment_id
+      string days_old
       )
       {
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select schedule_assignment_log.id as id"
-        + " , DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as timestamp"
-        + " , CONCAT(last_name,', ',first_name,' (',LPAD(certification_number,6,'0'),')') as actor"
+        "SELECT DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as at"
+        + " , concat(actor.first_name,' ',actor.last_name) as scheduler"
         + " , action"
-        + " from schedule_assignment_log"
-        +   " join member on (member.id=schedule_assignment_log.actor_member_id)"
-        + " where assignment_id = '" + assignment_id + "'"
-        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
+        + " , concat('(',medical_release_code_description_map.watchbill_rendition,') ',provider.first_name,' ',provider.last_name) as provider"
+        + " , " + (shift_name.Length > 0 ? "''" : "shift.name") + " as shift"
+        + " FROM schedule_assignment_log"
+        +   " join schedule_assignment on (schedule_assignment.id=schedule_assignment_log.assignment_id)"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        +   " join member actor on (actor.id=schedule_assignment_log.actor_member_id)"
+        +   " join member provider on (provider.id=schedule_assignment.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=provider.medical_release_code)"
+        + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
+        +   (shift_name.Length > 0 ? " and shift.name = '" + shift_name + "'" : k.EMPTY)
+        +   " and timestamp > DATE_SUB(CURDATE(),INTERVAL " + days_old + " DAY)"
+        + " order by timestamp",
         connection
         )
         .ExecuteReader();
