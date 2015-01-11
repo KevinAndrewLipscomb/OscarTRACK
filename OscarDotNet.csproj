@@ -246,6 +246,7 @@
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_intro.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_publish.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_assignment_assistant_special_requests.ascx" />
+    <Content Include="usercontrol\app\UserControl_schedule_assignment_log.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_schedule_proposal.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
@@ -1640,6 +1641,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_special_requests.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_special_requests.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_log.ascx.cs">
+      <DependentUpon>UserControl_schedule_assignment_log.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_schedule_assignment_log.ascx.designer.cs">
+      <DependentUpon>UserControl_schedule_assignment_log.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_binder.ascx.cs">
       <DependentUpon>UserControl_schedule_binder.ascx</DependentUpon>

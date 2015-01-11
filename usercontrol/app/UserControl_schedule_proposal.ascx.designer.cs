@@ -292,6 +292,24 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.DataGrid A;
         
         /// <summary>
+        /// TableRow_log control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_log;
+        
+        /// <summary>
+        /// UserControl_schedule_assignment_log_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_schedule_assignment_log.TWebUserControl_schedule_assignment_log UserControl_schedule_assignment_log_control;
+        
+        /// <summary>
         /// LinkButton_next_top control.
         /// </summary>
         /// <remarks>

@@ -142,6 +142,7 @@ namespace UserControl_schedule_proposal
             TableRow_guidance.Visible = true;
             Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
             }
+          TableRow_log.Visible = (p.be_ok_to_edit_post || p.be_ok_to_edit_schedule_tier_department_only);
           }
         Td_nominal_day_filter.Visible = p.be_nominal_day_mode_specific;
         DropDownList_depth.SelectedValue = p.depth_filter;
@@ -492,6 +493,21 @@ namespace UserControl_schedule_proposal
         Literal_num_members.Text = num_members.val.ToString();
         Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
         ManageDayBumpLinkButtons();
+        //
+        if (p.be_nominal_day_mode_specific)
+          {
+          UserControl_schedule_assignment_log_control.Visible = true;
+          UserControl_schedule_assignment_log_control.Set
+            (
+            relative_month:p.relative_month,
+            nominal_day_filter:p.nominal_day_filter_active,
+            shift_name:(p.be_lineup ? (p.be_now_day_shift ? "DAY" : "NIGHT") : k.EMPTY)
+            );
+          }
+        else
+          {
+          UserControl_schedule_assignment_log_control.Visible = false;
+          }
         //
         p.max_post_cardinality_actual = k.EMPTY;
         p.post_footprint = k.EMPTY;

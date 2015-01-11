@@ -945,11 +945,12 @@ namespace Class_biz_schedule_assignments
       string comment
       )
       {
+      var saved_comment = db_schedule_assignments.CommentOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
       db_schedule_assignment_logs.Enter
         (
         assignment_id:id,
-        action:"set comment to `" + comment + "`"
+        action:"set comment from `" + saved_comment + "` to `" + comment + "`"
         );
       }
 
@@ -959,11 +960,12 @@ namespace Class_biz_schedule_assignments
       string post_id
       )
       {
+      var saved_post = db_schedule_assignments.PostDesignatorOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
       db_schedule_assignment_logs.Enter
         (
         assignment_id:id,
-        action:"sent to " + biz_agencies.ShortDesignatorOf(post_id)
+        action:"sent from " + saved_post + " to " + biz_agencies.ShortDesignatorOf(post_id)
         );
       }
 
@@ -973,11 +975,12 @@ namespace Class_biz_schedule_assignments
       string post_cardinality
       )
       {
+      var saved_crew = db_schedule_assignments.PostCardinalityOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
       db_schedule_assignment_logs.Enter
         (
         assignment_id:id,
-        action:"set crew to `" + post_cardinality + "`"
+        action:"set crew from `" + saved_crew + "` to `" + post_cardinality + "`"
         );
       }
 
@@ -995,13 +998,18 @@ namespace Class_biz_schedule_assignments
       string intolerable_gap
       )
       {
+      var saved_summary_a = db_schedule_assignments.Summary(id_a);
+      var saved_summary_b = db_schedule_assignments.Summary(id_b);
+      var saved_spec_a = db_schedule_assignments.PostDesignatorOf(saved_summary_a) + db_schedule_assignments.PostCardinalityOf(saved_summary_a);
+      var saved_spec_b = db_schedule_assignments.PostDesignatorOf(saved_summary_b) + db_schedule_assignments.PostCardinalityOf(saved_summary_b);
       var affected_id = db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
       if (affected_id.Length > 0)
         {
+        var saved_spec = (affected_id == id_a ? saved_spec_a : saved_spec_b);
         db_schedule_assignment_logs.Enter
           (
           assignment_id:affected_id,
-          action:"deselected via AutoFix to resolve Time Off Alert"
+          action:"deselected from " + saved_spec + " via Alerts / Time off / AutoFix"
           );
         }
       }
@@ -1013,21 +1021,25 @@ namespace Class_biz_schedule_assignments
 
     internal void SwapSelectedForMemberNextEarlierUnselected(string id)
       {
+      var saved_summary = db_schedule_assignments.Summary(id);
+      var saved_spec = db_schedule_assignments.PostDesignatorOf(saved_summary) + db_schedule_assignments.PostCardinalityOf(saved_summary);
       db_schedule_assignments.SwapSelectedForMemberNextEarlierUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
       db_schedule_assignment_logs.Enter
         (
         assignment_id:id,
-        action:"deselected via `Swap with earlier availability`"
+        action:"deselected from " + saved_spec + " via `Swap with earlier availability`"
         );
       }
 
     internal void SwapSelectedForMemberNextLaterUnselected(string id)
       {
+      var saved_summary = db_schedule_assignments.Summary(id);
+      var saved_spec = db_schedule_assignments.PostDesignatorOf(saved_summary) + db_schedule_assignments.PostCardinalityOf(saved_summary);
       db_schedule_assignments.SwapSelectedForMemberNextLaterUnselected(id,biz_members.IdOfUserId(biz_user.IdNum()));
       db_schedule_assignment_logs.Enter
         (
         assignment_id:id,
-        action:"deselected via `Swap with later availability`"
+        action:"deselected from " + saved_spec + " via `Swap with later availability`"
         );
       }
 
