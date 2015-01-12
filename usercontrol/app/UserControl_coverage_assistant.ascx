@@ -80,7 +80,7 @@
                   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                 </asp:DataGrid>
                 <br/>
-                <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" visible="false">
+                <table id="Table_quick_message" runat="server" bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
                   <tr>
                     <td>
                       <table cellspacing="0" cellpadding="10" width="100%" border="0">
@@ -131,7 +131,7 @@
                               </tr>
                               <tr id="TableRow_subject" runat="server">
                                 <td>Subject:</td>
-                                <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="72">Swap or coverage needed</ASP:TextBox></td>
+                                <td><ASP:TextBox id="TextBox_quick_message_subject" runat="server" maxlength="255" columns="72"></ASP:TextBox></td>
                                 <td></td>
                               </tr>
                               <tr>

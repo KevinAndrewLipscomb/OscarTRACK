@@ -137,26 +137,24 @@ namespace UserControl_coverage_assistant
         + p.biz_schedule_assignments.PostDesignatorOf(p.summary) + p.biz_schedule_assignments.PostCardinalityOf(p.summary);
         Literal_comment.Text = p.biz_schedule_assignments.CommentOf(p.summary);
         //
-        if (p.user_member_id == p.biz_schedule_assignments.MemberIdOf(p.summary))
-          {
-          Panel_best_practices.Visible = true;
-          Table_quick_message.Visible = true;
-          Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
-          var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.user_member_id));
-          var user_member_first_name = p.biz_members.FirstNameOfMemberId(p.user_member_id);
-          TextBox_quick_message_body.Text = k.EMPTY
-          + "Hi," + k.NEW_LINE
-          + k.NEW_LINE
-          + "I'm looking to swap or get coverage for the following duty:" + k.NEW_LINE
-          + k.NEW_LINE
-          + "   " + Literal_conventional_spec.Text + (Literal_comment.Text.Length > 0 ? " {" + Literal_comment.Text + "}" : k.EMPTY) + k.NEW_LINE
-          + k.NEW_LINE
-          + "It looks like you told OSCAR you might be available then." + k.NEW_LINE
-          + k.NEW_LINE
-          + (user_member_phone_num.Length > 0 ? "My phone number is " + user_member_phone_num + ".  " : k.EMPTY) + "Can you help me?" + k.NEW_LINE
-          + k.NEW_LINE
-          + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
-          }
+        Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
+        var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.user_member_id));
+        var user_member_first_name = p.biz_members.FirstNameOfMemberId(p.user_member_id);
+        var be_user_member_own_assignment = (p.user_member_id == p.biz_schedule_assignments.MemberIdOf(p.summary));
+        TextBox_quick_message_subject.Text = (be_user_member_own_assignment ? "Swap or c" : "C") + "overage needed";
+        TextBox_quick_message_body.Text = k.EMPTY
+        + "Hi," + k.NEW_LINE
+        + k.NEW_LINE
+        + (be_user_member_own_assignment ? "I'm" : "We're") + " looking to " + (be_user_member_own_assignment ? "swap or " : k.EMPTY) + "get coverage for the following duty:" + k.NEW_LINE
+        + k.NEW_LINE
+        + "   " + Literal_conventional_spec.Text + (Literal_comment.Text.Length > 0 ? " {" + Literal_comment.Text + "}" : k.EMPTY) + k.NEW_LINE
+        + k.NEW_LINE
+        + "It looks like you told OSCAR you might be available then." + k.NEW_LINE
+        + k.NEW_LINE
+        + (user_member_phone_num.Length > 0 ? "My phone number is " + user_member_phone_num + ".  " : k.EMPTY) + "Can you help me?" + k.NEW_LINE
+        + k.NEW_LINE
+        + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
+        Panel_best_practices.Visible = be_user_member_own_assignment;
         if (!p.be_interactive)
           {
           DataGrid_control.AllowSorting = false;
