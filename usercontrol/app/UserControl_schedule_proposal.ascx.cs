@@ -1,3 +1,4 @@
+using AjaxControlToolkit;
 using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
@@ -719,6 +720,29 @@ namespace UserControl_schedule_proposal
       if (e.Item.ItemType == ListItemType.Header)
         {
         e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
+        if (p.be_interactive)
+          {
+          var Label_day = new Label();
+          Label_day.Font.Bold = true;
+          Label_day.Text = "DAY&nbsp;&nbsp;&nbsp;";
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(Label_day);
+          var LinkButton_quickmessage_day = new LinkButton();
+          LinkButton_quickmessage_day.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
+          LinkButton_quickmessage_day.ToolTip = "Write QuickMessage to members shown in DAY column";
+          LinkButton_quickmessage_day.Click += LinkButton_quickmessage_day_Click;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_day);
+          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_day);
+          var Label_night = new Label();
+          Label_night.Font.Bold = true;
+          Label_night.Text = "NIGHT&nbsp;&nbsp;&nbsp;";
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(Label_night);
+          var LinkButton_quickmessage_night = new LinkButton();
+          LinkButton_quickmessage_night.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
+          LinkButton_quickmessage_night.ToolTip = "Write QuickMessage to members shown in NIGHT column";
+          LinkButton_quickmessage_night.Click += LinkButton_quickmessage_night_Click;
+          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_night);
+          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_night);
+          }
         }
       else if (be_any_kind_of_item)
         {
@@ -903,8 +927,8 @@ namespace UserControl_schedule_proposal
         {
         if (be_any_kind_of_item)
           {
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls[0]) as LinkButton));
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls[0]) as LinkButton));
+          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls[0]) as LinkButton));
+          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls[0]) as LinkButton));
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
@@ -924,6 +948,33 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_INTERACTIVE].EnableViewState = true;
           }
         }
+      }
+
+    private void LinkButton_quickmessage_Click(string shift_name)
+      {
+      var msg_protected_quickmessage_by_shift = new TClass_msg_protected.quickmessage_by_shift();
+      msg_protected_quickmessage_by_shift.agency_filter = p.agency_filter;
+      msg_protected_quickmessage_by_shift.release_filter = p.release_filter;
+      msg_protected_quickmessage_by_shift.depth_filter = p.depth_filter;
+      msg_protected_quickmessage_by_shift.relative_month = p.relative_month;
+      msg_protected_quickmessage_by_shift.nominal_day_filter = p.nominal_day_filter_active;
+      msg_protected_quickmessage_by_shift.shift_name = shift_name;
+      MessageDropCrumbAndTransferTo
+        (
+        msg:msg_protected_quickmessage_by_shift,
+        folder_name:"protected",
+        aspx_name:"quickmessage_by_shift"
+        );
+      }
+
+    private void LinkButton_quickmessage_day_Click(object sender, EventArgs e)
+      {
+      LinkButton_quickmessage_Click("DAY");
+      }
+
+    private void LinkButton_quickmessage_night_Click(object sender, EventArgs e)
+      {
+      LinkButton_quickmessage_Click("NIGHT");
       }
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)

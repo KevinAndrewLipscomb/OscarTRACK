@@ -60,5 +60,14 @@ namespace Class_msg_protected
       internal string donor_street_id = k.EMPTY;
       internal string donor_street_name = k.EMPTY;
       }
+    public class quickmessage_by_shift
+      {
+      internal string agency_filter = k.EMPTY;
+      internal string release_filter = k.EMPTY;
+      internal string depth_filter = k.EMPTY;
+      internal k.subtype<int> relative_month;
+      internal string nominal_day_filter = k.EMPTY;
+      internal string shift_name = k.EMPTY;
+      }
 	  }
 }

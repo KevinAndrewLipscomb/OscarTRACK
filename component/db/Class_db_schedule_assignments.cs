@@ -590,6 +590,9 @@ namespace Class_db_schedule_assignments
         + " , member.agency_id as member_agency_id"
         + " , IFNULL(comment,'') as comment"
         + " , be_challenge"
+        + " , be_selected" // for quickmessage_by_shift
+        + " , email_address as email_target" // for quickmessage_by_shift
+        + " , '' as sms_target" // for quickmessage_by_shift
         + " from schedule_assignment"
         +   " join agency on (agency.id=schedule_assignment.post_id)"
         +   " join member on (member.id=schedule_assignment.member_id)"
