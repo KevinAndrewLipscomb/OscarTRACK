@@ -179,6 +179,7 @@
     <Content Include="protected\member_schedule_detail.aspx" />
     <Content Include="protected\patient_encounter_detail.aspx" />
     <Content Include="protected\process_paypal_donation.aspx" />
+    <Content Include="protected\quickmessage_by_shift.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
     <Content Include="protected\template\notification\death.txt" />
@@ -230,6 +231,7 @@
     <Content Include="usercontrol\app\UserControl_patient_encounter.ascx" />
     <Content Include="usercontrol\app\UserControl_patient_encounter_level.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
+    <Content Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
@@ -942,6 +944,13 @@
     <Compile Include="protected\quarters_detail.aspx.designer.cs">
       <DependentUpon>quarters_detail.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\quickmessage_by_shift.aspx.cs">
+      <DependentUpon>quickmessage_by_shift.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\quickmessage_by_shift.aspx.designer.cs">
+      <DependentUpon>quickmessage_by_shift.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\update_vehicle_mileage.aspx.cs">
       <DependentUpon>update_vehicle_mileage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1389,6 +1398,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_precontent.ascx.designer.cs">
       <DependentUpon>UserControl_precontent.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx.cs">
+      <DependentUpon>UserControl_quickmessage_by_shift.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx.designer.cs">
+      <DependentUpon>UserControl_quickmessage_by_shift.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx.cs">
       <DependentUpon>UserControl_ranked_avail_submission_compliance.ascx</DependentUpon>
