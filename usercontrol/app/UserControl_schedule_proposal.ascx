@@ -179,12 +179,12 @@
                         <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
-                      <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" Visible="false">
+                      <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" HeaderText="DAY" Visible="false">
                         <HeaderStyle HorizontalAlign="Left" />
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="d_name" HeaderText="DAY">
-                        <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
+                        <HeaderStyle Font-Bold="True" />
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_be_driver_qualified" ReadOnly="True">
@@ -241,12 +241,12 @@
                         <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
-                      <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" Visible="false">
+                      <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" HeaderText="NIGHT" Visible="false">
                         <HeaderStyle HorizontalAlign="Left" />
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="n_name" HeaderText="NIGHT">
-                        <HeaderStyle Font-Bold="True" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" />
+                        <HeaderStyle Font-Bold="True" />
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_be_driver_qualified" ReadOnly="True">
