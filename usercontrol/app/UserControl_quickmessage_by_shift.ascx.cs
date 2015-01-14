@@ -158,6 +158,9 @@ namespace UserControl_quickmessage_by_shift
           DataGrid_control.AllowSorting = false;
           }
         Bind();
+        //
+        TextBox_quick_message_subject.Text = Literal_shift_spec.Text;
+        //
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
