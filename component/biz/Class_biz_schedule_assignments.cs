@@ -248,7 +248,7 @@ namespace Class_biz_schedule_assignments
         );
       }
 
-    internal void BindBaseDataListForMaag
+    internal void BindBaseDataListByShiftForMaag
       (
       string agency_filter,
       k.subtype<int> relative_month,
@@ -257,7 +257,20 @@ namespace Class_biz_schedule_assignments
       object target
       )
       {
-      db_schedule_assignments.BindBaseDataListForMaag(agency_filter,relative_month,shift_name,nominal_day_filter,target);
+      db_schedule_assignments.BindBaseDataListByShiftForMaag(agency_filter,relative_month,shift_name,nominal_day_filter,target);
+      }
+
+    internal void BindBaseDataListByShiftForQuickMessage
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string shift_name,
+      string nominal_day_filter,
+      string depth_filter,
+      object target
+      )
+      {
+      db_schedule_assignments.BindBaseDataListByShiftForQuickMessage(agency_filter,relative_month,shift_name,nominal_day_filter,depth_filter,target);
       }
 
     internal void BindInsufficientDriversAlertBaseDataList

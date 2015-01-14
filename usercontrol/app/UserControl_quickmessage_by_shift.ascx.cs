@@ -240,9 +240,20 @@ namespace UserControl_quickmessage_by_shift
           {
           e.Item.Style.Add("border-top","thin solid silver");
           }
-        if (e.Item.Cells[Static.TCI_BE_CHALLENGE].Text == "1")
+        if (e.Item.Cells[Static.TCI_BE_SELECTED].Text == "1")
           {
-          e.Item.BackColor = Color.Yellow;
+          e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
+          e.Item.Cells[Static.TCI_NAME].Font.Bold = true;
+          //
+          if (e.Item.Cells[Static.TCI_BE_CHALLENGE].Text == "1")
+            {
+            e.Item.BackColor = Color.Yellow;
+            }
+          }
+        else
+          {
+          e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text = k.EMPTY;
+          e.Item.Cells[Static.TCI_POST_CARDINALITY].Text = k.EMPTY;
           }
         e.Item.Cells[Static.TCI_BE_CHALLENGE].Visible = false;
         //
@@ -275,7 +286,15 @@ namespace UserControl_quickmessage_by_shift
 
     private void Bind()
       {
-      p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,p.shift_name,p.nominal_day_filter,DataGrid_control);
+      p.biz_schedule_assignments.BindBaseDataListByShiftForQuickMessage
+        (
+        agency_filter:p.agency_filter,
+        relative_month:p.relative_month,
+        shift_name:p.shift_name,
+        nominal_day_filter:p.nominal_day_filter,
+        depth_filter:p.depth_filter,
+        target:DataGrid_control
+        );
       p.be_datagrid_empty = (p.num_schedule_assignments == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
