@@ -31,40 +31,22 @@ namespace UserControl_quickmessage_by_shift {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_quick_message;
         
         /// <summary>
-        /// Literal_conventional_spec control.
+        /// Literal_num_members control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_conventional_spec;
+        protected global::System.Web.UI.WebControls.Literal Literal_num_members;
         
         /// <summary>
-        /// Literal_comment control.
+        /// Literal_shift_spec control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_comment;
-        
-        /// <summary>
-        /// Panel_best_practices control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel_best_practices;
-        
-        /// <summary>
-        /// Literal_num_potential_helpers control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_num_potential_helpers;
+        protected global::System.Web.UI.WebControls.Literal Literal_shift_spec;
         
         /// <summary>
         /// TableRow_none control.
@@ -218,6 +200,15 @@ namespace UserControl_quickmessage_by_shift {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_send;
+        
+        /// <summary>
+        /// Button_cancel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_cancel;
         
         /// <summary>
         /// Label_distribution_list control.

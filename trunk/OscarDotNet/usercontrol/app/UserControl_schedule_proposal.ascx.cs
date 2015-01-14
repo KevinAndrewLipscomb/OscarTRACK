@@ -720,7 +720,7 @@ namespace UserControl_schedule_proposal
       if (e.Item.ItemType == ListItemType.Header)
         {
         e.Item.Cells[UserControl_schedule_proposal_Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
-        if (p.be_interactive)
+        if (p.be_interactive && p.be_ok_to_edit_post)
           {
           var Label_day = new Label();
           Label_day.Font.Bold = true;
