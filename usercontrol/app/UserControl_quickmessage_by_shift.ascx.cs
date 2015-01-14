@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
+using AjaxControlToolkit;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
@@ -140,7 +141,14 @@ namespace UserControl_quickmessage_by_shift
       {
       if (!p.be_loaded)
         {
-        Literal_conventional_spec.Text = p.nominal_day_filter + k.SPACE + p.shift_name;
+        var target_month = DateTime.Today.AddMonths(p.relative_month.val);
+        Literal_shift_spec.Text = new DateTime
+          (
+          year:target_month.Year,
+          month:target_month.Month,
+          day:int.Parse(p.nominal_day_filter)
+          )
+          .ToString("MMMM, ddd/dd")  + k.SPACE + p.shift_name;
         //
         Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
         var user_member_phone_num = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(p.user_member_id));
@@ -153,6 +161,7 @@ namespace UserControl_quickmessage_by_shift
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
+      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -298,7 +307,7 @@ namespace UserControl_quickmessage_by_shift
       p.be_datagrid_empty = (p.num_schedule_assignments == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
-      Literal_num_potential_helpers.Text = p.num_schedule_assignments.ToString();
+      Literal_num_members.Text = p.num_schedule_assignments.ToString();
       p.num_schedule_assignments = 0;
       //
       BuildDistributionListAndRegisterPostBackControls();
@@ -434,6 +443,11 @@ namespace UserControl_quickmessage_by_shift
       p.nominal_day_filter = nominal_day_filter;
       p.shift_name = shift_name;
       Bind();
+      }
+
+    protected void Button_cancel_Click(object sender, EventArgs e)
+      {
+      BackTrack();
       }
 
     } // end TWebUserControl_quickmessage_by_shift

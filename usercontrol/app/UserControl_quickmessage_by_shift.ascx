@@ -3,43 +3,21 @@
 <asp:UpdatePanel id="UpdatePanel_control" runat="server" updatemode="Conditional">
   <ContentTemplate>
     <asp:ValidationSummary ID="ValidationSummary_quick_message" runat="server" ValidationGroup="quick_message"/>
-	  <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
-	    <tr>
-		    <td>
-		      <table cellspacing="0" cellpadding="10" width="100%" border="0">
-			      <tr><td bgcolor="#f5f5f5"><strong>QuickMessage By Shift</strong></td></tr>
-			      <tr>
-				      <td>
-                <p>According to OSCAR data, the following member(s) might be available for the following assignment:</p>
-                <blockquote><strong><asp:Literal ID="Literal_conventional_spec" runat="server"></asp:Literal></strong> <asp:Literal ID="Literal_comment" runat="server"></asp:Literal></blockquote>
-                <asp:Panel ID="Panel_best_practices" runat="server">
-                  <p>Best practices:</p>
-				          <ul>
-					          <li>You are expected to stand this duty, or take responsibility for getting it covered.</li>
-                    <li>If you are the only scheduled driver on the unit, you must be covered by a driver.</li>
-                    <li>One-on-one contacts -- especially in person or by phone -- are usually much more effective than broadcast requests.</li>
-					          <li>First, try proposing a <u>swap</u>.&nbsp;If that doesn't work out, ask for coverage.</li>
-                    <li>If no one on this list can help, go to the Personnel / Roster tab and start calling other members, first at your squad, then citywide.</li>
-				          </ul>
-                </asp:Panel>
-              </td>
-			      </tr>
-		      </table>
-		    </td>
-	    </tr>
-	  </table>
-    <br />
     <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
       <tr>
         <td>
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
-              <td bgcolor="#dcdcdc"><table cellspacing="0" cellpadding="0" border="0"><tr><td align="right"><asp:Literal ID="Literal_num_potential_helpers" runat="server"></asp:Literal> member(s)</td></tr></table></td>
+              <td bgcolor="#dcdcdc">
+                <p><strong>QuickMessage By Shift</strong></p>
+                <p><asp:Literal ID="Literal_num_members" runat="server"></asp:Literal> contact(s) for <strong><asp:Literal ID="Literal_shift_spec" runat="server"></asp:Literal></strong></p>
+                <p><small>The list of contacts shown below also depends on the <u>Agency</u>, <u>Release level</u>, and <u>Depth</u> filter settings on the prior page.</small></p>
+              </td>
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
               <td>
-                <asp:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" GridLines="None">
+                <asp:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" GridLines="None" CellPadding="2">
                   <Columns>
                     <asp:TemplateColumn HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center">
                       <HeaderTemplate>
@@ -127,7 +105,11 @@
                               </tr>
                               <tr>
                                 <td></td>
-                                <td><ASP:Button id="Button_send" runat="server" text="Send" validationgroup="quick_message" onclick="Button_send_Click"></ASP:Button></td>
+                                <td>
+                                  <ASP:Button id="Button_send" runat="server" text="Send" validationgroup="quick_message" onclick="Button_send_Click"></ASP:Button>
+                                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                  <asp:Button ID="Button_cancel" runat="server" Text="Cancel" OnClick="Button_cancel_Click" />
+                                </td>
                                 <td></td>
                               </tr>
                               <tr><td valign="top"><font color="#c0c0c0"><small>Resolves to:</small></font></td><td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver"></ASP:Label></small></td>
