@@ -29,6 +29,26 @@ namespace Class_db_schedule_assignments
     + " where member_id is not null"
     +   " and be_selected";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
+    private const string COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE = k.EMPTY
+    + " drop temporary table if exists challenge_analysis"
+    + ";"
+    + " create temporary table challenge_analysis"
+    + " select nominal_day"
+    + " , shift_id"
+    + " , post_id"
+    + " , post_cardinality"
+    + " , ("
+    +     " (sum(be_selected) = 0)" // No released members to partner with a third
+    +   " or"
+    +     " (sum(be_selected)%2 = 1)" // Odd number of released members
+    +   " or"
+    +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
+    +   " or"
+    +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
+    +   " ) as be_challenge"
+    + " from schedule_assignment"
+    +   " join member on (member.id=schedule_assignment.member_id)"
+    +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
     private class schedule_assignment_summary
@@ -46,6 +66,56 @@ namespace Class_db_schedule_assignments
 
     private TClass_db_shifts db_shifts = null;
     private TClass_db_trail db_trail = null;
+
+    private string CommonBindBaseDataListByShiftSelectClause(string first_name_clause)
+      {
+      return k.EMPTY
+      + " select short_designator as agency_short_designator"
+      + " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
+      + " , watchbill_rendition as medical_release_description"
+      + " , concat(last_name,', '," + first_name_clause + ") as name"
+      + " , IF(medical_release_code_description_map.pecking_order >= 20,IF(be_driver_qualified,'','Ð'),'') as be_driver_qualified"
+      + " , member.agency_id as member_agency_id"
+      + " , IFNULL(comment,'') as comment"
+      + " , be_challenge";
+      }
+
+    private string CommonBindBaseDataListByShiftFromWhereOrderByClause
+      (
+      k.subtype<int> relative_month,
+      string nominal_day_filter,
+      string shift_name,
+      string agency_filter,
+      string depth_filter
+      )
+      {
+      return k.EMPTY
+      + " from schedule_assignment"
+      +   " join agency on (agency.id=schedule_assignment.post_id)"
+      +   " join member on (member.id=schedule_assignment.member_id)"
+      +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+      +   " join shift on (shift.id=schedule_assignment.shift_id)"
+      +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
+      + " where TRUE"
+      +   (depth_filter.Length > 0 ? " and" + (depth_filter == "0" ? " not" : k.EMPTY) + " be_selected" : k.EMPTY)
+      +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+      +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
+      +   " and shift.name = '" + shift_name + "'"
+      +   (agency_filter.Length > 0 ? " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))" : k.EMPTY)
+      + " order by post_id"
+      + " , be_selected desc"
+      + " , post_cardinality"
+      + " , medical_release_code_description_map.pecking_order desc"
+      + " , equivalent_los_start_date";
+      }
+
+    private string CommonChallengeAnalysisWhereClause(k.subtype<int> relative_month)
+      {
+      return k.EMPTY
+      + " where medical_release_code_description_map.pecking_order >= 20"
+      +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
+      +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))";
+      }
 
     public TClass_db_schedule_assignments() : base()
       {
@@ -381,28 +451,8 @@ namespace Class_db_schedule_assignments
             //
             // Generate the challenge analysis table
             //
-            + " drop temporary table if exists challenge_analysis"
-            + ";"
-            + " create temporary table challenge_analysis"
-            + " select nominal_day"
-            + " , shift_id"
-            + " , post_id"
-            + " , post_cardinality"
-            + " , ("
-            +     " (sum(be_selected) = 0)" // No released members to partner with a third
-            +   " or"
-            +     " (sum(be_selected)%2 = 1)" // Odd number of released members
-            +   " or"
-            +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
-            +   " or"
-            +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
-            +   " ) as be_challenge"
-            + " from schedule_assignment"
-            +   " join member on (member.id=schedule_assignment.member_id)"
-            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-            + " where medical_release_code_description_map.pecking_order >= 20"
-            +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
-            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+            + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
+            + CommonChallengeAnalysisWhereClause(relative_month)
             + " group by nominal_day,shift_id,post_id,post_cardinality"
             + ";"
             //
@@ -535,7 +585,7 @@ namespace Class_db_schedule_assignments
       //
       }
 
-    internal void BindBaseDataListForMaag
+    internal void BindBaseDataListByShiftForMaag
       (
       string agency_filter,
       k.subtype<int> relative_month,
@@ -549,32 +599,12 @@ namespace Class_db_schedule_assignments
         (
         "START TRANSACTION"
         + ";"
-        ////
-        //// Generate the challenge analysis table
-        ////
-        + " drop temporary table if exists challenge_analysis"
-        + ";"
-        + " create temporary table challenge_analysis"
-        + " select nominal_day"
-        + " , shift_id"
-        + " , post_id"
-        + " , post_cardinality"
-        + " , ("
-        +     " (sum(be_selected) = 0)" // No released members to partner with a third
-        +   " or"
-        +     " (sum(be_selected)%2 = 1)" // Odd number of released members
-        +   " or"
-        +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
-        +   " or"
-        +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
-        +   " ) as be_challenge"
-        + " from schedule_assignment"
+        //
+        // Generate the challenge analysis table
+        //
+        + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        +   " join member on (member.id=schedule_assignment.member_id)"
-        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-        + " where medical_release_code_description_map.pecking_order >= 20"
-        +   " and (post_id > 0 and post_id < 200)" // Only count ground ambulance assignments.
-        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        + CommonChallengeAnalysisWhereClause(relative_month)
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         + " group by post_id,post_cardinality"
@@ -582,32 +612,67 @@ namespace Class_db_schedule_assignments
         //
         // Generate the list of assignments for this shift in the desired order.
         //
-        + " select short_designator as agency_short_designator"
-        + " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
-        + " , watchbill_rendition as medical_release_description"
-        + " , concat(last_name,', ',left(first_name,1),lower(right(left(first_name,2),1))) as name"
-        + " , IF(medical_release_code_description_map.pecking_order >= 20,IF(be_driver_qualified,'','Ð'),'') as be_driver_qualified"
-        + " , member.agency_id as member_agency_id"
-        + " , IFNULL(comment,'') as comment"
-        + " , be_challenge"
-        + " , be_selected" // for quickmessage_by_shift
-        + " , email_address as email_target" // for quickmessage_by_shift
-        + " , '' as sms_target" // for quickmessage_by_shift
-        + " from schedule_assignment"
-        +   " join agency on (agency.id=schedule_assignment.post_id)"
-        +   " join member on (member.id=schedule_assignment.member_id)"
-        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        + CommonBindBaseDataListByShiftSelectClause(first_name_clause:"left(first_name,1),lower(right(left(first_name,2),1))")
+        + CommonBindBaseDataListByShiftFromWhereOrderByClause
+            (
+            relative_month:relative_month,
+            nominal_day_filter:nominal_day_filter,
+            shift_name:shift_name,
+            agency_filter:agency_filter,
+            depth_filter:"1"
+            )
+        + ";"
+        + " drop temporary table challenge_analysis"
+        + ";"
+        + " COMMIT",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
+    internal void BindBaseDataListByShiftForQuickMessage
+      (
+      string agency_filter,
+      k.subtype<int> relative_month,
+      string shift_name,
+      string nominal_day_filter,
+      string depth_filter,
+      object target
+      )
+      {
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "START TRANSACTION"
+        + ";"
+        //
+        // Generate the challenge analysis table
+        //
+        + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
-        + " where be_selected"
-        +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        + CommonChallengeAnalysisWhereClause(relative_month)
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
-        +   " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))"
-        + " order by post_id"
-        + " , post_cardinality"
-        + " , medical_release_code_description_map.pecking_order desc"
-        + " , equivalent_los_start_date"
+        + " group by post_id,post_cardinality"
+        + ";"
+        //
+        // Generate the list of assignments for this shift in the desired order.
+        //
+        + CommonBindBaseDataListByShiftSelectClause(first_name_clause:"first_name")
+        + " , be_selected"
+        + " , email_address as email_target"
+        + " , '' as sms_target"
+        + CommonBindBaseDataListByShiftFromWhereOrderByClause
+            (
+            relative_month:relative_month,
+            nominal_day_filter:nominal_day_filter,
+            shift_name:shift_name,
+            agency_filter:agency_filter,
+            depth_filter:depth_filter
+            )
         + ";"
         + " drop temporary table challenge_analysis"
         + ";"

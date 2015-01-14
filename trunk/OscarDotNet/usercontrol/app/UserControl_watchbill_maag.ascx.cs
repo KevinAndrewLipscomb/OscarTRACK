@@ -140,7 +140,7 @@ namespace UserControl_watchbill_maag
           {
           var data_grid = new DataGrid();
           data_grid.ItemDataBound += new DataGridItemEventHandler(data_grid_ItemDataBound);
-          p.biz_schedule_assignments.BindBaseDataListForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
+          p.biz_schedule_assignments.BindBaseDataListByShiftForMaag(p.agency_filter,p.relative_month,shift_name,e.Day.DayNumberText,data_grid);
           data_grid.GridLines = GridLines.None;
           data_grid.ItemStyle.Font.Size = FontUnit.Point(8);
           data_grid.ItemStyle.HorizontalAlign = HorizontalAlign.Left;
