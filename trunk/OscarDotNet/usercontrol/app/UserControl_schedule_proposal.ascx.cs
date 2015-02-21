@@ -726,22 +726,25 @@ namespace UserControl_schedule_proposal
           Label_day.Font.Bold = true;
           Label_day.Text = "DAY&nbsp;&nbsp;&nbsp;";
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(Label_day);
-          var LinkButton_quickmessage_day = new LinkButton();
-          LinkButton_quickmessage_day.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
-          LinkButton_quickmessage_day.ToolTip = "Write QuickMessage to members shown in DAY column";
-          LinkButton_quickmessage_day.Click += LinkButton_quickmessage_day_Click;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_day);
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_day);
           var Label_night = new Label();
           Label_night.Font.Bold = true;
           Label_night.Text = "NIGHT&nbsp;&nbsp;&nbsp;";
           e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(Label_night);
-          var LinkButton_quickmessage_night = new LinkButton();
-          LinkButton_quickmessage_night.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
-          LinkButton_quickmessage_night.ToolTip = "Write QuickMessage to members shown in NIGHT column";
-          LinkButton_quickmessage_night.Click += LinkButton_quickmessage_night_Click;
-          e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_night);
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_night);
+          if (p.be_nominal_day_mode_specific)
+            {
+            var LinkButton_quickmessage_day = new LinkButton();
+            LinkButton_quickmessage_day.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
+            LinkButton_quickmessage_day.ToolTip = "Write QuickMessage to members shown in DAY column";
+            LinkButton_quickmessage_day.Click += LinkButton_quickmessage_day_Click;
+            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_day);
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_day);
+            var LinkButton_quickmessage_night = new LinkButton();
+            LinkButton_quickmessage_night.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
+            LinkButton_quickmessage_night.ToolTip = "Write QuickMessage to members shown in NIGHT column";
+            LinkButton_quickmessage_night.Click += LinkButton_quickmessage_night_Click;
+            e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_night);
+            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_night);
+            }
           }
         }
       else if (be_any_kind_of_item)
