@@ -165,6 +165,8 @@ namespace UserControl_member_schedule_detail
               k.Has((Session["privilege_array"] as string[]),"edit-schedule")
             ||
               k.Has((Session["privilege_array"] as string[]),"schedule-squad-truck-team")
+            ||
+              k.Has((Session["privilege_array"] as string[]),"schedule-volunteer-field-supervisor-team")
             )
           );
         p.be_fully_editable = p.biz_schedule_assignments.BeMemberScheduleDetailFullyEditable

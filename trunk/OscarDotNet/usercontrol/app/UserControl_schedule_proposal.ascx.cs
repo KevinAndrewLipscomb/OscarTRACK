@@ -36,6 +36,7 @@ namespace UserControl_schedule_proposal
     public bool be_ok_to_edit_schedule_liberally;
     public bool be_ok_to_edit_schedule_tier_department_only;
     public bool be_ok_to_schedule_squad_truck_team;
+    public bool be_ok_to_schedule_volunteer_field_supervisor_team;
     public bool be_ok_to_see_other_member_schedule_detail;
     public bool be_squad_exclusivity_expired;
     public bool be_user_privileged_to_see_all_squads;
@@ -216,6 +217,7 @@ namespace UserControl_schedule_proposal
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
         p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
+        p.be_ok_to_schedule_volunteer_field_supervisor_team = k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
@@ -480,6 +482,7 @@ namespace UserControl_schedule_proposal
           post_footprint:p.post_footprint,
           be_condensed:!CheckBox_expand_posts.Checked,
           be_user_squad_truck_team_scheduler:p.be_ok_to_schedule_squad_truck_team,
+          be_user_volunteer_field_supervisor_team_scheduler:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           target:proto_post_list_item_collection
           );
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
@@ -806,6 +809,8 @@ namespace UserControl_schedule_proposal
             ||
               p.be_ok_to_schedule_squad_truck_team
             ||
+              p.be_ok_to_schedule_volunteer_field_supervisor_team
+            ||
               p.be_ok_to_edit_schedule_for_any_special_agency
             );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
@@ -839,6 +844,8 @@ namespace UserControl_schedule_proposal
               )
             ||
               p.be_ok_to_schedule_squad_truck_team
+            ||
+              p.be_ok_to_schedule_volunteer_field_supervisor_team
             ||
               p.be_ok_to_edit_schedule_for_any_special_agency
             );
