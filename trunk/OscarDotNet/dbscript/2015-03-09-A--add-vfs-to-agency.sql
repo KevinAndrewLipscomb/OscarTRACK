@@ -16,9 +16,17 @@ insert ignore role set name = "Volunteer Field Supervisor Team Scheduler"
 insert ignore privilege set name = "schedule-volunteer-field-supervisor-team"
 ;
 insert ignore role_privilege_map (role_id,privilege_id) values
+((select id from role where name = "Volunteer Field Supervisor Team Scheduler"),(select id from privilege where name = "edit-schedule")),
 ((select id from role where name = "Volunteer Field Supervisor Team Scheduler"),(select id from privilege where name = "schedule-volunteer-field-supervisor-team")),
 ((select id from role where name = "Department Chief Scheduler"),(select id from privilege where name = "schedule-volunteer-field-supervisor-team")),
 ((select id from role where name = "Application Administrator"),(select id from privilege where name = "schedule-volunteer-field-supervisor-team")),
 ((select id from role where name = "Department Authority"),(select id from privilege where name = "schedule-volunteer-field-supervisor-team"))
+;
+--
+-- The following map should've been entered when the SQT Scheduler role was created.
+--
+;
+insert ignore role_privilege_map (privilege_id,role_id) values
+((select id from role where name = "Squad Truck Team Scheduler"),(select id from privilege where name = "edit-schedule"))
 ;
 COMMIT
