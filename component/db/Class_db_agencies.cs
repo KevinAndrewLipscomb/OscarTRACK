@@ -237,6 +237,7 @@ namespace Class_db_agencies
           string post_footprint,
           bool be_condensed,
           bool be_user_squad_truck_team_scheduler,
+          bool be_user_volunteer_field_supervisor_team_scheduler,
           object target
           )
           {
@@ -250,6 +251,7 @@ namespace Class_db_agencies
             + " where be_ems_post"
             +     (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
             +     (be_user_squad_truck_team_scheduler ? " or short_designator = 'SQT'" : k.EMPTY)
+            +     (be_user_volunteer_field_supervisor_team_scheduler ? " or short_designator = 'VFS'" : k.EMPTY)
             + " order by agency.id",
             connection
             )
