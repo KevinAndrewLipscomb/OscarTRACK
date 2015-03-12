@@ -1,5 +1,6 @@
 using AjaxControlToolkit;
 using appcommon;
+using Class_biz_agencies;
 using Class_biz_availabilities;
 using Class_biz_leaves;
 using Class_biz_members;
@@ -8,7 +9,9 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Drawing;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,27 +26,29 @@ namespace UserControl_member_schedule_detail
       public const int TCI_SCHEDULE_ASSIGNMENT_ID = 0;
       public const int TCI_NOMINAL_DAY = 1;
       public const int TCI_SHIFT_NAME = 2;
-      public const int TCI_POST_DESIGNATOR = 3;
-      public const int TCI_POST_CARDINALITY = 4;
-      public const int TCI_COMMENT = 5;
-      public const int TCI_COMMENT_EDIT_UPDATE_CANCEL = 6;
-      public const int TCI_BE_SELECTED = 7;
-      public const int TCI_ON_DUTY = 8;
-      public const int TCI_OFF_DUTY = 9;
-      public const int TCI_TIME_OFF_BEFORE = 10;
-      public const int TCI_TIME_OFF_AFTER = 11;
-      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 12;
-      public const int TCI_SHIFT_POPULATION_CITYWIDE = 13;
-      public const int TCI_SWAP_EARLIER = 14;
-      public const int TCI_SWAP_LATER = 15;
-      public const int TCI_OTHERS_AVAILABLE = 16;
-      public const int TCI_FORCE_OFF = 17;
-      public const int TCI_FORCE_ON = 18;
-      public const int TCI_BE_NOTIFICATION_PENDING = 19;
-      public const int TCI_REVISED = 20;
-      public const int TCI_LAST_REVISER = 21;
-      public const int TCI_DOOR_CODE = 22;
-      public const int TCI_COVERAGE_ASSISTANT = 23;
+      public const int TCI_POST_ID = 3;
+      public const int TCI_POST_DESIGNATOR = 4;
+      public const int TCI_POST_CARDINALITY_HIDDEN = 5;
+      public const int TCI_POST_CARDINALITY_DISPLAYED = 6;
+      public const int TCI_COMMENT = 7;
+      public const int TCI_COMMENT_EDIT_UPDATE_CANCEL = 8;
+      public const int TCI_BE_SELECTED = 9;
+      public const int TCI_ON_DUTY = 10;
+      public const int TCI_OFF_DUTY = 11;
+      public const int TCI_TIME_OFF_BEFORE = 12;
+      public const int TCI_TIME_OFF_AFTER = 13;
+      public const int TCI_SHIFT_POPULATION_FROM_AGENCY = 14;
+      public const int TCI_SHIFT_POPULATION_CITYWIDE = 15;
+      public const int TCI_SWAP_EARLIER = 16;
+      public const int TCI_SWAP_LATER = 17;
+      public const int TCI_OTHERS_AVAILABLE = 18;
+      public const int TCI_FORCE_OFF = 19;
+      public const int TCI_FORCE_ON = 20;
+      public const int TCI_BE_NOTIFICATION_PENDING = 21;
+      public const int TCI_REVISED = 22;
+      public const int TCI_LAST_REVISER = 23;
+      public const int TCI_DOOR_CODE = 24;
+      public const int TCI_COVERAGE_ASSISTANT = 25;
       }
 
     private struct p_type
@@ -63,6 +68,7 @@ namespace UserControl_member_schedule_detail
       public bool be_my_watchbill_mode;
       public bool be_partially_editable;
       public bool be_virgin_watchbill;
+      public TClass_biz_agencies biz_agencies;
       public TClass_biz_availabilities biz_availabilities;
       public TClass_biz_leaves biz_leaves;
       public TClass_biz_members biz_members;
@@ -74,6 +80,8 @@ namespace UserControl_member_schedule_detail
       public object member_summary;
       public k.subtype<int> num;
       public uint num_datagrid_rows;
+      public string post_footprint;
+      public ListItem[] proto_post_list_item_array;
       public  k.subtype<int> relative_month;
       }
 
@@ -143,6 +151,7 @@ namespace UserControl_member_schedule_detail
         }
       else
         {
+        p.biz_agencies = new TClass_biz_agencies();
         p.biz_availabilities = new TClass_biz_availabilities();
         p.biz_leaves = new TClass_biz_leaves();
         p.biz_members = new TClass_biz_members();
@@ -226,12 +235,12 @@ namespace UserControl_member_schedule_detail
       {
       LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
+      var be_selected = (e.Item.Cells[Static.TCI_BE_SELECTED].Text == "1");
       if (be_any_kind_of_item)
         {
         var nominal_day = DateTime.Parse(e.Item.Cells[Static.TCI_NOMINAL_DAY].Text);
         e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
         //
-        var be_selected = (e.Item.Cells[Static.TCI_BE_SELECTED].Text == "1");
         if (be_selected)
           {
           e.Item.Cells[Static.TCI_NOMINAL_DAY].CssClass = "selected_for_duty";
@@ -288,7 +297,14 @@ namespace UserControl_member_schedule_detail
           {
           (e.Item.Cells[Static.TCI_FORCE_OFF].Controls[0] as LinkButton).Text = k.EMPTY;
           }
-        if (p.be_interactive && be_selected && (new ArrayList() {'R','Z'}.Contains(e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text[0])))
+        if(
+            p.be_interactive
+          &&
+            be_selected
+          &&
+            (e.Item.ItemType != ListItemType.EditItem) && (new ArrayList() {'R','Z'}.Contains((e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("Label_post_designator") as Label).Text[0]))
+          )
+        // then
           {
           link_button = ((e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
@@ -335,6 +351,32 @@ namespace UserControl_member_schedule_detail
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Cancel edit";
           //
+          if (be_selected)
+            {
+            var post_id = e.Item.Cells[Static.TCI_POST_ID].Text;
+            var post_drop_down_list = e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("DropDownList_post_designator") as DropDownList;
+            var post_cardinality_drop_down_list = e.Item.Cells[Static.TCI_POST_CARDINALITY_DISPLAYED].FindControl("DropDownList_post_cardinality") as DropDownList;
+            foreach (ListItem list_item in p.proto_post_list_item_array)
+              {
+              post_drop_down_list.Items.Add(new ListItem(list_item.Text,list_item.Value));
+              post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = (list_item.Value == post_id);
+              }
+            var selected_post_list_item = new ListItem(p.biz_agencies.ShortDesignatorOf(post_id),post_id);
+            if (!post_drop_down_list.Items.Contains(selected_post_list_item))
+              {
+              post_drop_down_list.Items.Add(selected_post_list_item);
+              post_drop_down_list.Items[post_drop_down_list.Items.Count - 1].Selected = true;
+              }
+            post_drop_down_list.Visible = true;
+            p.biz_schedule_assignments.BindPostCardinalityListControl
+              (
+              max_post_cardinality:Convert.ToString(Convert.ToChar(Convert.ToInt16('a') + int.Parse(ConfigurationManager.AppSettings["max_num_units_per_post"]) - 1)),
+              target:post_cardinality_drop_down_list,
+              designator:e.Item.Cells[Static.TCI_POST_CARDINALITY_HIDDEN].Text
+              );
+            post_cardinality_drop_down_list.Visible = true;
+            }
+          //
           ((e.Item.Cells[Static.TCI_COMMENT].Controls[0]) as TextBox).Columns = 15;
           ((e.Item.Cells[Static.TCI_COMMENT].Controls[0]) as TextBox).MaxLength = 15;
           ((e.Item.Cells[Static.TCI_COMMENT].Controls[0]) as TextBox).Attributes.Add
@@ -355,13 +397,15 @@ namespace UserControl_member_schedule_detail
         link_button.ToolTip = "Force on";
         //
         //
-        // Remove all cell controls from viewstate except for the one at TCI_ID.
+        // Remove all cell controls from viewstate except for the one at TCI_ID -- and except for the editable dropdownlists.
         //
         foreach (TableCell cell in e.Item.Cells)
           {
           cell.EnableViewState = false;
           }
         e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
+        e.Item.Cells[Static.TCI_POST_DESIGNATOR].EnableViewState = true;
+        e.Item.Cells[Static.TCI_POST_CARDINALITY_DISPLAYED].EnableViewState = true;
         }
       }
 
@@ -403,6 +447,25 @@ namespace UserControl_member_schedule_detail
 
     private void DataGrid_control_UpdateCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
+      var ddl_post_designator = (e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("DropDownList_post_designator") as DropDownList);
+      if (ddl_post_designator.Visible)
+        {
+        p.biz_schedule_assignments.SetPost
+          (
+          id:k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_id:k.Safe(ddl_post_designator.SelectedItem.Value,k.safe_hint_type.NUM)
+          );
+        }
+      var ddl_post_cardinality = (e.Item.Cells[Static.TCI_POST_CARDINALITY_DISPLAYED].FindControl("DropDownList_post_cardinality") as DropDownList);
+      if (ddl_post_cardinality.Visible)
+        {
+        p.biz_schedule_assignments.SetPostCardinality
+          (
+          id:
+          k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_cardinality:k.Safe(ddl_post_cardinality.SelectedItem.Value,k.safe_hint_type.ALPHA)
+          );
+        }
       p.biz_schedule_assignments.SetComment
         (
         k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
@@ -479,6 +542,30 @@ namespace UserControl_member_schedule_detail
       DataGrid_control.Columns[Static.TCI_REVISED].Visible = !p.be_fully_editable && !p.be_virgin_watchbill;
       DataGrid_control.Columns[Static.TCI_DOOR_CODE].Visible = !p.be_fully_editable || p.be_my_watchbill_mode;
       DataGrid_control.Columns[Static.TCI_COVERAGE_ASSISTANT].Visible = p.be_interactive;
+      //
+      var dummy_string = k.EMPTY;
+      p.biz_schedule_assignments.GetAgencyFootprintInfo
+        (
+        agency_filter:p.member_agency_id,
+        relative_month:p.relative_month,
+        nominal_day_filter:k.EMPTY,
+        posts:out p.post_footprint,
+        max_post_cardinality:out dummy_string
+        );
+      var proto_post_list_item_collection = new ListItemCollection();
+      p.biz_agencies.BindEmsPostListItemCollectionShort
+        (
+        tier:(p.be_interactive ? p.biz_members.HighestTierOf(Session["member_id"].ToString()) : "1"),
+        agency_filter:p.member_agency_id,
+        post_footprint:p.post_footprint,
+        be_condensed:false,
+        be_user_squad_truck_team_scheduler:k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team"),
+        be_user_volunteer_field_supervisor_team_scheduler:k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team"),
+        target:proto_post_list_item_collection
+        );
+      p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
+      proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
+      //
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;

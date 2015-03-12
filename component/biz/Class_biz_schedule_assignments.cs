@@ -963,11 +963,14 @@ namespace Class_biz_schedule_assignments
       {
       var saved_comment = db_schedule_assignments.CommentOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
-      db_schedule_assignment_logs.Enter
-        (
-        assignment_id:id,
-        action:"set comment from `" + saved_comment + "` to `" + comment + "`"
-        );
+      if (comment != saved_comment)
+        {
+        db_schedule_assignment_logs.Enter
+          (
+          assignment_id:id,
+          action:"set comment from `" + saved_comment + "` to `" + comment + "`"
+          );
+        }
       }
 
     internal void SetPost
@@ -978,11 +981,15 @@ namespace Class_biz_schedule_assignments
       {
       var saved_post = db_schedule_assignments.PostDesignatorOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetPost(id,post_id,biz_members.IdOfUserId(biz_user.IdNum()));
-      db_schedule_assignment_logs.Enter
-        (
-        assignment_id:id,
-        action:"sent from " + saved_post + " to " + biz_agencies.ShortDesignatorOf(post_id)
-        );
+      var post = biz_agencies.ShortDesignatorOf(post_id);
+      if (post != saved_post)
+        {
+        db_schedule_assignment_logs.Enter
+          (
+          assignment_id:id,
+          action:"sent from " + saved_post + " to " + post
+          );
+        }
       }
 
     internal void SetPostCardinality
@@ -991,13 +998,16 @@ namespace Class_biz_schedule_assignments
       string post_cardinality
       )
       {
-      var saved_crew = db_schedule_assignments.PostCardinalityOf(db_schedule_assignments.Summary(id));
+      var saved_post_cardinality = db_schedule_assignments.PostCardinalityOf(db_schedule_assignments.Summary(id));
       db_schedule_assignments.SetPostCardinality(id,post_cardinality,biz_members.IdOfUserId(biz_user.IdNum()));
-      db_schedule_assignment_logs.Enter
-        (
-        assignment_id:id,
-        action:"set crew from `" + saved_crew + "` to `" + post_cardinality + "`"
-        );
+      if (post_cardinality != saved_post_cardinality)
+        {
+        db_schedule_assignment_logs.Enter
+          (
+          assignment_id:id,
+          action:"set crew from `" + saved_post_cardinality + "` to `" + post_cardinality + "`"
+          );
+        }
       }
 
     internal string ShiftNameOf(object summary)

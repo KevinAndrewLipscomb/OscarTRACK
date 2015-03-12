@@ -120,12 +120,26 @@
                         <ItemStyle HorizontalAlign="Right" />
                       </ASP:BoundColumn>
                       <ASP:BoundColumn datafield="shift_name" ReadOnly="true"></ASP:BoundColumn>
-                      <asp:BoundColumn DataField="post_designator" HeaderText="Station" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
-                      </asp:BoundColumn>
-                      <asp:BoundColumn DataField="post_cardinality" HeaderText="Crew" ReadOnly="True">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Left" />
-                      </asp:BoundColumn>
+                      <asp:BoundColumn DataField="post_id" ReadOnly="True" Visible="false"></asp:BoundColumn>
+                      <asp:TemplateColumn HeaderText="Station">
+                        <EditItemTemplate>
+                          <asp:DropDownList ID="DropDownList_post_designator" runat="server" Visible="false">
+                          </asp:DropDownList>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                          <asp:Label id="Label_post_designator" runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.post_designator") %>'></asp:Label>
+                        </ItemTemplate>
+                      </asp:TemplateColumn>
+                      <asp:BoundColumn DataField="post_cardinality" ReadOnly="True" Visible="false"></asp:BoundColumn>
+                      <asp:TemplateColumn HeaderText="Crew">
+                        <EditItemTemplate>
+                          <asp:DropDownList ID="DropDownList_post_cardinality" runat="server" Visible="false">
+                          </asp:DropDownList>
+                        </EditItemTemplate>
+                        <ItemTemplate>
+                          <asp:Label runat="server" Text='<%# DataBinder.Eval(Container, "DataItem.post_cardinality") %>'></asp:Label>
+                        </ItemTemplate>
+                      </asp:TemplateColumn>
                       <ASP:BoundColumn datafield="comment" HeaderText="Comment"></ASP:BoundColumn>
                       <ASP:EditCommandColumn buttontype="LinkButton" updatetext="&lt;IMG src=&quot;~/protected/image/document-save-5.png&quot; alt=&quot;Update&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" canceltext="&lt;IMG src=&quot;~/protected/image/edit-undo-8.png&quot; alt=&quot;Cancel&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" edittext="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Edit&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" Visible="false">
                         <ItemStyle Wrap="false" HorizontalAlign="Center" />
