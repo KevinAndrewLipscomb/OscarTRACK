@@ -7,6 +7,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignments
@@ -2046,7 +2047,7 @@ namespace Class_db_schedule_assignments
         +   " and ADDDATE(nominal_day,INTERVAL HOUR(start) HOUR) >= ADDDATE(NOW(),INTERVAL " + num_hours_til_window_open + " HOUR)"
         +   " and ADDDATE(nominal_day,INTERVAL HOUR(start) HOUR) <= ADDDATE(NOW(),INTERVAL " + num_hours_til_window_close + " HOUR)"
         +   " and post_id <> 0"
-        +   " and post_id not in (405,406,417)"
+        +   " and post_id not in (" + ConfigurationManager.AppSettings["upcoming_duty_notification_post_id_exclusion_target"] + ")"
         +   " and be_ok_to_send_duty_reminders"
         +   " and email_address is not null",
         connection
