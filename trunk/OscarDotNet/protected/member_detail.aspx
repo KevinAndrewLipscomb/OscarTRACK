@@ -13,7 +13,16 @@
           <tr>
             <td>
               <table cellspacing="0" cellpadding="10" width="100%" border="0">
-                <tr><td bgcolor="#f5f5f5"><strong>Member detail record</strong></td></tr>
+                <tr>
+                  <td bgcolor="#f5f5f5">
+                    <table width="100%">
+                      <tr>
+                        <td><strong>Member detail record</strong></td>
+                        <td align="right"><small><asp:LinkButton ID="LinkButton_schedule_detail" runat="server" Visible="false" OnClick="LinkButton_schedule_detail_Click">(schedule detail)</asp:LinkButton></small></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
                 <tr>
                   <td>
                     <table cellspacing="0" cellpadding="10" width="100%" border="0">

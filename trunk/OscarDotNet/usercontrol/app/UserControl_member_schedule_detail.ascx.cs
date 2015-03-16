@@ -133,9 +133,10 @@ namespace UserControl_member_schedule_detail
         InjectPersistentClientSideScript();
         p.be_loaded = true;
         }
+      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_personnel_record);
       if (p.be_fully_editable)
         {
-        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
+        ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
         }
       }
 
@@ -680,6 +681,16 @@ namespace UserControl_member_schedule_detail
       Calendar_day.VisibleDate = month_of_interest;
       Calendar_night.VisibleDate = month_of_interest;
       Bind();
+      }
+
+    protected void LinkButton_personnel_record_Click(object sender, EventArgs e)
+      {
+      SessionSet
+        (
+        name:"member_summary",
+        value:p.member_summary
+        );
+      DropCrumbAndTransferTo("member_detail.aspx");
       }
 
     }

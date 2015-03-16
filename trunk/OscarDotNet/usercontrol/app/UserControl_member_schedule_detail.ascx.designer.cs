@@ -22,6 +22,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Label Label_preview_warning;
         
         /// <summary>
+        /// LinkButton_personnel_record control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_personnel_record;
+        
+        /// <summary>
         /// Literal_name control.
         /// </summary>
         /// <remarks>
