@@ -133,7 +133,11 @@ namespace UserControl_member_schedule_detail
         InjectPersistentClientSideScript();
         p.be_loaded = true;
         }
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_personnel_record);
+      if (p.be_interactive)
+        {
+        LinkButton_personnel_record.Visible = true;
+        ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_personnel_record);
+        }
       if (p.be_fully_editable)
         {
         ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
