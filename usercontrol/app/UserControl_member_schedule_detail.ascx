@@ -23,7 +23,14 @@
       <table cellpadding="10" cellspacing="0">
         <tr>
           <td bgcolor="WhiteSmoke">
-            <strong>Member schedule detail&nbsp;<asp:Label ID="Label_preview_warning" runat="server" Text="-- Not yet published to member!" Font-Italic="True" ForeColor="Red" Visible="False"></asp:Label></strong>
+            <table width="100%">
+              <tr>
+                <td><strong>Member schedule detail&nbsp;<asp:Label ID="Label_preview_warning" runat="server" Text="-- Not yet published to member!" Font-Italic="True" ForeColor="Red" Visible="False"></asp:Label></strong></td>
+                <td align="right">
+                  <asp:LinkButton ID="LinkButton_personnel_record" runat="server" Text="(personnel record)" Font-Size="Small" CausesValidation="False"  UseSubmitBehavior="False" onclick="LinkButton_personnel_record_Click" />
+                </td>
+              </tr>
+            </table>
           </td>
         </tr>
         <tr>
