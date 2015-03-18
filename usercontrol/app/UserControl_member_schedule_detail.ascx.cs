@@ -243,11 +243,23 @@ namespace UserControl_member_schedule_detail
       var be_selected = (e.Item.Cells[Static.TCI_BE_SELECTED].Text == "1");
       if (be_any_kind_of_item)
         {
-        var nominal_day = DateTime.Parse(e.Item.Cells[Static.TCI_NOMINAL_DAY].Text);
-        e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
+        link_button = (e.Item.Cells[Static.TCI_NOMINAL_DAY].Controls[0] as LinkButton);
+        var nominal_day = DateTime.Parse(link_button.Text);
+        link_button.Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(nominal_day);
+        link_button.Enabled = false;
+        if (p.be_interactive)
+          {
+          link_button.ToolTip = "Jump to " + link_button.Text + " on Watchbill";
+          link_button.Enabled = true;
+          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          }
         //
         if (be_selected)
           {
+          if (p.be_interactive)
+            {
+            link_button.ForeColor = Color.LightBlue;
+            }
           e.Item.Cells[Static.TCI_NOMINAL_DAY].CssClass = "selected_for_duty";
           e.Item.Cells[Static.TCI_SHIFT_NAME].CssClass = "selected_for_duty";
           e.Item.Cells[Static.TCI_TIME_OFF_BEFORE].Font.Bold = true;
@@ -402,13 +414,14 @@ namespace UserControl_member_schedule_detail
         link_button.ToolTip = "Force on";
         //
         //
-        // Remove all cell controls from viewstate except for the one at TCI_ID -- and except for the editable dropdownlists.
+        // Remove all cell controls from viewstate except for the one at TCI_ID -- and except for the editable dropdownlists and the clickable nominal day.
         //
         foreach (TableCell cell in e.Item.Cells)
           {
           cell.EnableViewState = false;
           }
         e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].EnableViewState = true;
+        e.Item.Cells[Static.TCI_NOMINAL_DAY].EnableViewState = true;
         e.Item.Cells[Static.TCI_POST_DESIGNATOR].EnableViewState = true;
         e.Item.Cells[Static.TCI_POST_CARDINALITY_DISPLAYED].EnableViewState = true;
         }
@@ -417,7 +430,18 @@ namespace UserControl_member_schedule_detail
     protected void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
       {
       var schedule_assignment_id = k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM);
-      if (e.CommandName == "CoverageAssistant")
+      if (e.CommandName == "JumpToWatchbillNominalDay")
+        {
+        var msg_protected_overview = new TClass_msg_protected.overview();
+        msg_protected_overview.target = "/schedule/assignment-assistant/" + p.relative_month.val.ToString() + "/proposal/" + k.Safe((e.Item.Cells[Static.TCI_NOMINAL_DAY].Controls[0] as LinkButton).Text,k.safe_hint_type.NUM);
+        MessageDropCrumbAndTransferTo
+          (
+          msg:msg_protected_overview,
+          folder_name:"protected",
+          aspx_name:"overview"
+          );
+        }
+      else if (e.CommandName == "CoverageAssistant")
         {
         var msg_protected_coverage_assistant = new TClass_msg_protected.coverage_assistant();
         msg_protected_coverage_assistant.summary = p.biz_schedule_assignments.Summary(schedule_assignment_id);

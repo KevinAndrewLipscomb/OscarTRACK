@@ -7,7 +7,6 @@ using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
@@ -328,29 +327,38 @@ namespace UserControl_schedule_assignment_assistant_binder
       {
       if (target != k.EMPTY)
         {
-        if (target.ToLower().Contains("/compliance/"))
+        var relative_month_target = target.Substring
+          (
+          startIndex:target.IndexOf("assignment-assistant/") + "assignment-assistant/".Length,
+          length:1
+          );
+        if (relative_month_target.Length > 0)
           {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
-          }
-        else if (target.ToLower().Contains("/alert/"))
-          {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT;
-          }
-        else if (target.ToLower().Contains("/special-requests/"))
-          {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS;
-          }
-        else if (target.ToLower().Contains("/proposal/"))
-          {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
-          }
-        else if (target.ToLower().Contains("/publish/"))
-          {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH;
-          }
-        else if (target.ToLower().Contains("/about/"))
-          {
-          p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT;
+          p.relative_month.val = int.Parse(relative_month_target);
+          if (target.ToLower().Contains("/compliance/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
+            }
+          else if (target.ToLower().Contains("/alert/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT;
+            }
+          else if (target.ToLower().Contains("/special-requests/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS;
+            }
+          else if (target.ToLower().Contains("/proposal/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
+            }
+          else if (target.ToLower().Contains("/publish/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH;
+            }
+          else if (target.ToLower().Contains("/about/"))
+            {
+            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT;
+            }
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;

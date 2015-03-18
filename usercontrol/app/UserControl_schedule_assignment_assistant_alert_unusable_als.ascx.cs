@@ -154,7 +154,7 @@ namespace UserControl_schedule_assignment_assistant_alert_unusable_als
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      p.msg_protected_overview.target = "/schedule/assignment-assistant/proposal/";
+      p.msg_protected_overview.target = "/schedule/assignment-assistant/" + p.relative_month.val.ToString() + "/proposal/";
       MessageDropCrumbAndTransferTo(p.msg_protected_overview,"protected","overview",k.Safe(((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_unusable_als_Static.TCI_NOMINAL_DAY].Controls[0]) as LinkButton).Text,k.safe_hint_type.NUM));
       }
 
