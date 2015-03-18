@@ -122,10 +122,10 @@
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
                       <ASP:BoundColumn datafield="schedule_assignment_id" Visible="false" ReadOnly="true"></ASP:BoundColumn>
-                      <ASP:BoundColumn datafield="nominal_day" HeaderText="Shift" ReadOnly="true">
+                      <asp:ButtonColumn CommandName="JumpToWatchbillNominalDay" DataTextField="nominal_day" HeaderText="Shift">
                         <HeaderStyle HorizontalAlign="Right" />
                         <ItemStyle HorizontalAlign="Right" />
-                      </ASP:BoundColumn>
+                      </asp:ButtonColumn>
                       <ASP:BoundColumn datafield="shift_name" ReadOnly="true"></ASP:BoundColumn>
                       <asp:BoundColumn DataField="post_id" ReadOnly="True" Visible="false"></asp:BoundColumn>
                       <asp:TemplateColumn HeaderText="Station">

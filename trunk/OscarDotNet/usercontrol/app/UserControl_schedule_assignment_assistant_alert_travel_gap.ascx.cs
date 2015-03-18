@@ -291,7 +291,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         {
         offset.val = 0;
         }
-      p.msg_protected_overview.target = "/schedule/assignment-assistant/proposal/" + (int.Parse(day_num) + offset.val).ToString();
+      p.msg_protected_overview.target = "/schedule/assignment-assistant/" + p.relative_month.val.ToString() + "/proposal/" + (int.Parse(day_num) + offset.val).ToString();
       MessageDropCrumbAndTransferTo
         (
         msg:p.msg_protected_overview,
