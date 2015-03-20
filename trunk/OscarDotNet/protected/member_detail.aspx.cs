@@ -56,7 +56,18 @@ namespace member_detail
                 var be_authorized_tier_or_same_agency = p.biz_members.BeAuthorizedTierOrSameAgency(user_member_id,p.target_member_id);
                 var priv_of_interest = k.EMPTY;
                 //
-                //LinkButton_schedule_detail.Visible = !p.biz_members.BePast(Session["member_summary"]) && ~be_user_member_allowed_to_call_up_member_schedule_detail_from_schedule_proposal_~;
+                LinkButton_schedule_detail.Visible =
+                  !p.biz_members.BePast(Session["member_summary"])
+                &&
+                  (
+                    k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team")
+                  ||
+                    k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team")
+                  ||
+                    p.biz_privileges.HasForAnySpecialAgency(member_id:user_member_id,privilege_name:"edit-schedule")
+                  ||
+                    k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail")
+                  );
                 //
                 if (p.raw_member_phone_num != k.EMPTY)
                 {

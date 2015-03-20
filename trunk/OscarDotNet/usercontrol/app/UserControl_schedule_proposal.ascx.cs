@@ -779,76 +779,40 @@ namespace UserControl_schedule_proposal
         //
         var d_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_BE_SELECTED].Text == "1");
         var d_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM);
-        var d_be_ok_to_enable_controls = (d_post_id != k.EMPTY)
-          && p.be_interactive
-          &&
-            (
-              (
-                p.be_ok_to_edit_post
-              &&
-                (
-                  (
-                    (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text == p.own_agency)
-                  &&
-                    (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
-                  )
-                ||
-                  p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,d_post_id)
-                ||
-                  (
-                    p.be_ok_to_edit_schedule_liberally
-                  &&
-                    (
-                      !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,p.relative_month)
-                    ||
-                      p.be_squad_exclusivity_expired
-                    )
-                  )
-                )
-              )
-            ||
-              p.be_ok_to_schedule_squad_truck_team
-            ||
-              p.be_ok_to_schedule_volunteer_field_supervisor_team
-            ||
-              p.be_ok_to_edit_schedule_for_any_special_agency
-            );
+        var d_be_ok_to_enable_controls = p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:d_post_id,
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          );
         var n_be_selected = (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_BE_SELECTED].Text == "1");
         var n_post_id = k.Safe(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM);
-        var n_be_ok_to_enable_controls = (n_post_id != k.EMPTY)
-          && p.be_interactive
-          &&
-            (
-              (
-                p.be_ok_to_edit_post
-              &&
-                (
-                  (
-                    (e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text == p.own_agency)
-                  &&
-                    (!p.be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text[0])) // assumes non-released is always lowercase
-                  )
-                ||
-                  p.biz_agencies.BeAgencyResponsibleForPost(p.own_agency,n_post_id)
-                ||
-                  (
-                    p.be_ok_to_edit_schedule_liberally
-                  &&
-                    (
-                      !p.biz_agencies.BeFullWatchbillPublishMandatory(e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,p.relative_month)
-                    ||
-                      p.be_squad_exclusivity_expired
-                    )
-                  )
-                )
-              )
-            ||
-              p.be_ok_to_schedule_squad_truck_team
-            ||
-              p.be_ok_to_schedule_volunteer_field_supervisor_team
-            ||
-              p.be_ok_to_edit_schedule_for_any_special_agency
-            );
+        var n_be_ok_to_enable_controls = p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:n_post_id,
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          );
         //
         var current_d_unit_spec = monthless_rendition_of_nominal_day + "--" + d_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Text;
         var current_n_unit_spec = monthless_rendition_of_nominal_day + "--" + n_post_id + "--" + e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Text;
