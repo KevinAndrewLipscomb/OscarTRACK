@@ -183,6 +183,59 @@ namespace Class_biz_schedule_assignments
       return (k.Has(privilege_array,"edit-schedule-tier-department-only") && !k.Has(privilege_array,"edit-schedule-liberally"));
       }
 
+    internal bool BeOkToEnableControls
+      (
+      string post_id,
+      bool be_interactive,
+      bool be_ok_to_edit_post,
+      string agency_id,
+      string own_agency,
+      bool be_ok_to_edit_schedule_tier_department_only,
+      string medical_release_description,
+      bool be_ok_to_edit_schedule_liberally,
+      k.subtype<int> relative_month,
+      bool be_squad_exclusivity_expired,
+      bool be_ok_to_schedule_squad_truck_team,
+      bool be_ok_to_schedule_volunteer_field_supervisor_team,
+      bool be_ok_to_edit_schedule_for_any_special_agency
+      )
+      {
+      return (post_id != k.EMPTY)
+      && be_interactive
+      &&
+        (
+          (
+            be_ok_to_edit_post
+          &&
+            (
+              (
+                (agency_id == own_agency)
+              &&
+                (!be_ok_to_edit_schedule_tier_department_only || !Char.IsLower(medical_release_description[0])) // assumes non-released is always lowercase
+              )
+            ||
+              biz_agencies.BeAgencyResponsibleForPost(own_agency, post_id)
+            ||
+              (
+                be_ok_to_edit_schedule_liberally
+              &&
+                (
+                  !biz_agencies.BeFullWatchbillPublishMandatory(agency_id, relative_month)
+                ||
+                  be_squad_exclusivity_expired
+                )
+              )
+            )
+          )
+        ||
+          be_ok_to_schedule_squad_truck_team
+        ||
+          be_ok_to_schedule_volunteer_field_supervisor_team
+        ||
+          be_ok_to_edit_schedule_for_any_special_agency
+        );
+      }
+
     internal bool BeOkToPublishFullWatchbill
       (
       bool be_user_privileged_to_edit_schedule,
