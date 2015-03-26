@@ -39,8 +39,16 @@ namespace serial_indicator_control_chart
             // One data point per month
             // months wide
             // time distance between data points
-            var width_in_months = int.Parse(ConfigurationManager.AppSettings["serial_indicator_control_chart_width_in_months"]);
-            var chart = new SPCTimeVariableControlChart(SPCControlChartData.INDIVIDUAL_RANGE_CHART, 1, width_in_months, AVERAGE_NUM_MINUTES_PER_MONTH);
+            var width_in_months = new k.int_positive(27);
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["serial_indicator_control_chart_width_in_months"]))
+              {
+              width_in_months.val = int.Parse(ConfigurationManager.AppSettings["serial_indicator_control_chart_width_in_months"]);
+              }
+            if (!string.IsNullOrEmpty(Request["width_in_months"]))
+              {
+              width_in_months.val = int.Parse(k.Safe(Request["width_in_months"],k.safe_hint_type.NUM));
+              }
+            var chart = new SPCTimeVariableControlChart(SPCControlChartData.INDIVIDUAL_RANGE_CHART, 1, width_in_months.val, AVERAGE_NUM_MINUTES_PER_MONTH);
             chart.Bounds = new Rectangle(0, 0, 781, 417);
             SPCControlChartData.DefaultSampleValueString = k.EMPTY;
             chart.ChartAlarmEmphasisMode = SPCChartBase.ALARM_HIGHLIGHT_SYMBOL;
@@ -76,7 +84,7 @@ namespace serial_indicator_control_chart
             chart.AutoScalePrimaryChartYRange();
             chart.ChartData.SetSampleRowHeaderString(0, k.EMPTY);
             chart.HScrollBar1.Maximum = (int)(history_count);
-            chart.HScrollBar1.LargeChange = width_in_months;
+            chart.HScrollBar1.LargeChange = width_in_months.val;
             int potential_scrollbar_value = chart.HScrollBar1.Maximum - chart.HScrollBar1.LargeChange;
             if (potential_scrollbar_value < chart.HScrollBar1.Minimum)
               {

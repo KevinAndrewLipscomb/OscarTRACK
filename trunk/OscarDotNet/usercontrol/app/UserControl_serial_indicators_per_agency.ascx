@@ -1,6 +1,20 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserControl_serial_indicators_per_agency.ascx.cs" Inherits="UserControl_serial_indicators_per_agency.TWebUserControl_serial_indicators_per_agency" %>
 <p>&nbsp;</p>
-<p><b>Agency:</b>&nbsp;&nbsp;<asp:DropDownList ID="DropDownList_agency" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_agency_SelectedIndexChanged"></asp:DropDownList></p>
+<table width="100%">
+  <tr>
+    <td nowrap="nowrap"><b>Agency:</b>&nbsp;&nbsp;<asp:DropDownList ID="DropDownList_agency" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_agency_SelectedIndexChanged"></asp:DropDownList></td>
+    <td nowrap="nowrap" align="right">
+      <b>Width in months:</b>
+      <asp:TextBox ID="TextBox_width_in_months" runat="server" Columns="3" Text="27"></asp:TextBox>
+      <asp:Button ID="Button_go" runat="server" Text="Go" visible="false" OnClick="Button_go_Click"/>
+      <asp:Button ID="Button_max" runat="server" CausesValidation="False" OnClick="Button_max_Click" Text="Max" UseSubmitBehavior="False" Visible="False" />
+      <asp:Button ID="Button_default" runat="server" CausesValidation="False" OnClick="Button_default_Click" Text="Default" UseSubmitBehavior="False" Visible="False" />
+      <asp:RequiredFieldValidator ID="RequiredFieldValidator_width_in_months" runat="server" ControlToValidate="TextBox_width_in_months" ErrorMessage="Please specify a Width in months." Font-Bold="True">&lt;ERR!</asp:RequiredFieldValidator>
+      <asp:RegularExpressionValidator ID="RegularExpressionValidator_width_in_months" runat="server" ControlToValidate="TextBox_width_in_months" ErrorMessage="Please enter numeric values only for Width in months." Font-Bold="True" ValidationExpression="\d+">&lt;ERR!</asp:RegularExpressionValidator>
+      <asp:RangeValidator ID="RangeValidator_width_in_months" runat="server" ControlToValidate="TextBox_width_in_months" ErrorMessage="The Width in months must currently be between 2 and #." Font-Bold="True" MinimumValue="2" MaximumValue="27" Type="Integer">&lt;ERR!</asp:RangeValidator>
+    </td>
+  </tr>
+</table>
 <p>&nbsp;</p>
 <p><b>1. Number of released members scheduled to staff ambulances: </b></p>
 <p><img id="Img_core_ops_size" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=core_ops_size" alt="core_ops_size"/></p>
