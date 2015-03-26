@@ -4,32 +4,42 @@ using Class_biz_agencies;
 using Class_biz_members;
 using Class_biz_user;
 using kix;
+using System;
+using System.Configuration;
 
 namespace UserControl_serial_indicators_per_agency
   {
-  public struct p_type
-    {
-    public string agency_id;
-    public bool be_loaded;
-    public bool be_interactive_mode;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_members biz_members;
-    public TClass_biz_user biz_user;
-    public string expanded_img_avail_submission_compliance_src;
-    public string expanded_img_commensuration_src;
-    public string expanded_img_core_ops_size_src;
-    public string expanded_img_crew_shifts_forecast_src;
-    public string expanded_img_fleet_tracking_participation_src;
-    public string expanded_img_median_length_of_service_src;
-    public string expanded_img_num_members_in_pipeline_src;
-    public string expanded_img_standard_enrollment_src;
-    public string expanded_img_third_slot_saturation_src;
-    public string expanded_img_utilization_src;
-    public string expanded_img_vehicles_up_and_current_src;
-    }
-
   public partial class TWebUserControl_serial_indicators_per_agency: ki_web_ui.usercontrol_class
     {
+    private static class Static
+      {
+      public const int AVERAGE_NUM_MINUTES_PER_MONTH = 43829; // takes into account all scheduled leap days
+      public const string DEFAULT_WIDTH_IN_MONTHS = "27"; // should allow easy reading of top margin values
+      }
+
+    private struct p_type
+      {
+      public string agency_id;
+      public bool be_loaded;
+      public bool be_interactive_mode;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
+      public string expanded_img_avail_submission_compliance_src;
+      public string expanded_img_commensuration_src;
+      public string expanded_img_core_ops_size_src;
+      public string expanded_img_crew_shifts_forecast_src;
+      public string expanded_img_fleet_tracking_participation_src;
+      public string expanded_img_median_length_of_service_src;
+      public string expanded_img_num_members_in_pipeline_src;
+      public string expanded_img_standard_enrollment_src;
+      public string expanded_img_third_slot_saturation_src;
+      public string expanded_img_utilization_src;
+      public string expanded_img_vehicles_up_and_current_src;
+      public string width_in_months;
+      public string width_in_months_max;
+      }
+
     private p_type p;
 
     public string agency_id
@@ -55,7 +65,14 @@ namespace UserControl_serial_indicators_per_agency
           p.agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
           }
         DropDownList_agency.SelectedValue = p.agency_id;
-        DropDownList_agency.Enabled = p.be_interactive_mode;
+        DropDownList_agency.Enabled = p.be_interactive_mode;        
+        RangeValidator_width_in_months.MaximumValue = p.width_in_months_max;
+        RangeValidator_width_in_months.ErrorMessage = RangeValidator_width_in_months.ErrorMessage.Replace("#",p.width_in_months_max);
+        TextBox_width_in_months.Text = p.width_in_months;
+        TextBox_width_in_months.Enabled = p.be_interactive_mode;
+        Button_go.Visible = p.be_interactive_mode;
+        Button_max.Visible = p.be_interactive_mode;
+        Button_default.Visible = p.be_interactive_mode;
         Bind();
         p.be_loaded = true;
         }
@@ -91,6 +108,9 @@ namespace UserControl_serial_indicators_per_agency
         p.expanded_img_third_slot_saturation_src = k.ExpandAsperand(Img_third_slot_saturation.Attributes["src"]);
         p.expanded_img_utilization_src = k.ExpandAsperand(Img_utilization.Attributes["src"]);
         p.expanded_img_vehicles_up_and_current_src = k.ExpandAsperand(Img_vehicles_up_and_current.Attributes["src"]);
+        p.width_in_months = Static.DEFAULT_WIDTH_IN_MONTHS;
+        p.width_in_months_max =
+          Math.Truncate(DateTime.Today.Subtract(DateTime.Parse(ConfigurationManager.AppSettings["year_month_spec_of_first_serial_dashboard_data_point"] + "-01")).TotalMinutes/Static.AVERAGE_NUM_MINUTES_PER_MONTH).ToString();
         }
       }
 
@@ -123,17 +143,17 @@ namespace UserControl_serial_indicators_per_agency
 
     private void Bind()
       {
-      var passthrough_parms = k.EMPTY;
+      var passthrough_parms = "&width_in_months=" + p.width_in_months + "&agency=" + p.agency_id;
       if (p.agency_id == "0")
         {
-        passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=0";
+        passthrough_parms += "&be_agency_applicable=0";
         Panel_third_slot_saturation_image.Visible = true;
         Img_third_slot_saturation.Attributes["src"] = p.expanded_img_third_slot_saturation_src + passthrough_parms;
         Panel_third_slot_saturation_not_meaningful_here.Visible = false;
         }
       else
         {
-        passthrough_parms = "&agency=" + p.agency_id + "&be_agency_applicable=1";
+        passthrough_parms += "&be_agency_applicable=1";
         Panel_third_slot_saturation_image.Visible = false;
         Panel_third_slot_saturation_not_meaningful_here.Visible = true;
         }
@@ -147,6 +167,26 @@ namespace UserControl_serial_indicators_per_agency
       Img_commensuration.Attributes["src"] = p.expanded_img_commensuration_src + passthrough_parms;
       Img_fleet_tracking_participation.Attributes["src"] = p.expanded_img_fleet_tracking_participation_src + passthrough_parms;
       Img_vehicles_up_and_current.Attributes["src"] = p.expanded_img_vehicles_up_and_current_src + passthrough_parms;
+      }
+
+    protected void Button_go_Click(object sender, EventArgs e)
+      {
+      p.width_in_months = k.Safe(TextBox_width_in_months.Text,k.safe_hint_type.NUM);
+      Bind();
+      }
+
+    protected void Button_max_Click(object sender, EventArgs e)
+      {
+      p.width_in_months = p.width_in_months_max;
+      TextBox_width_in_months.Text = p.width_in_months_max;
+      Bind();
+      }
+
+    protected void Button_default_Click(object sender, EventArgs e)
+      {
+      p.width_in_months = Static.DEFAULT_WIDTH_IN_MONTHS;
+      TextBox_width_in_months.Text = Static.DEFAULT_WIDTH_IN_MONTHS;
+      Bind();
       }
 
     } // end TWebUserControl_serial_indicators_per_agency
