@@ -110,7 +110,12 @@ namespace UserControl_serial_indicators_per_agency
         p.expanded_img_vehicles_up_and_current_src = k.ExpandAsperand(Img_vehicles_up_and_current.Attributes["src"]);
         p.width_in_months = Static.DEFAULT_WIDTH_IN_MONTHS;
         p.width_in_months_max =
-          Math.Truncate(DateTime.Today.Subtract(DateTime.Parse(ConfigurationManager.AppSettings["year_month_spec_of_first_serial_dashboard_data_point"] + "-01")).TotalMinutes/Static.AVERAGE_NUM_MINUTES_PER_MONTH).ToString();
+          Math.Max
+            (
+            val1:double.Parse(Static.DEFAULT_WIDTH_IN_MONTHS),
+            val2:Math.Truncate(DateTime.Today.Subtract(DateTime.Parse(ConfigurationManager.AppSettings["year_month_spec_of_first_serial_dashboard_data_point"] + "-01")).TotalMinutes/Static.AVERAGE_NUM_MINUTES_PER_MONTH)
+            )
+            .ToString("f0");
         }
       }
 
