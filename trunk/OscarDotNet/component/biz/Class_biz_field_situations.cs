@@ -71,10 +71,12 @@ namespace Class_biz_field_situations
       int width
       )
       {
-      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&maptype=terrain&center=ROSEMONT+RD+%28+VIRGINIA+BEACH+BL,+23456&markers=";
+      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&maptype=terrain&center=ROSEMONT+RD+%28+VIRGINIA+BEACH+BL,+23456";
+      var label = 'A';
       while (marker_address_q.Count > 0)
         {
-        map_url += MapRenditionOf(marker_address_q.Dequeue()) + "|";
+        map_url += "&markers=label:" + label + "|" + MapRenditionOf(marker_address_q.Dequeue());
+        label = (label == 'Z' ? 'A' : (char)(((int)label) + 1));
         }
       return map_url;
       }

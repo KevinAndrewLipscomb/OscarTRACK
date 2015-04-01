@@ -13,10 +13,11 @@ namespace UserControl_field_situation
     {
     private static class Static
       {
-      public const int TCI_TIME_INITIATED = 0;
-      public const int TCI_ADDRESS = 1;
-      public const int TCI_ASSIGNMENT = 2;
-      public const int TCI_IMPRESSION = 3;
+      public const int TCI_PIN = 0;
+      public const int TCI_TIME_INITIATED = 1;
+      public const int TCI_ADDRESS = 2;
+      public const int TCI_ASSIGNMENT = 3;
+      public const int TCI_IMPRESSION = 4;
       }
 
     private struct p_type
@@ -30,6 +31,7 @@ namespace UserControl_field_situation
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
+      public char label;
       public Queue<string> marker_address_q;
       public uint num_field_situations;
       public string sort_order;
@@ -156,6 +158,7 @@ namespace UserControl_field_situation
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.label = 'A';
         p.marker_address_q = new Queue<string>();
         p.sort_order = "case_num desc, field_situation.id desc";
         }
@@ -186,6 +189,9 @@ namespace UserControl_field_situation
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
+        e.Item.Cells[Static.TCI_PIN].Text = p.label.ToString();
+        p.label = (p.label == 'Z' ? 'A' : (char)(((int)p.label) + 1));
+        //
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
         hyperlink_address.Text = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
         hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(hyperlink_address.Text);
@@ -217,6 +223,7 @@ namespace UserControl_field_situation
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_cases.Text = p.num_field_situations.ToString();
+      p.label = 'A';
       p.num_field_situations = 0;
       }
 
