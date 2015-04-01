@@ -3,6 +3,7 @@
 using Class_db_field_situations;
 using kix;
 using System.Collections.Generic;
+using System.Web;
 
 namespace Class_biz_field_situations
   {
@@ -71,7 +72,7 @@ namespace Class_biz_field_situations
       int width
       )
       {
-      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=ROSEMONT+RD+%28+VIRGINIA+BEACH+BL,+23456";
+      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("ROSEMONT RD & VIRGINIA BEACH BL, 23456");
       var label = 'A';
       while (marker_address_q.Count > 0)
         {
@@ -83,21 +84,26 @@ namespace Class_biz_field_situations
 
     internal string MapRenditionOf(string address)
       {
-      return address
-      .Replace("/"," & ")
-      .Replace(" CI"," CIR")
-      .Replace(" LD"," LNDG")
-      .Replace(" PW"," PKWY")
-      .Replace("100 64 ","I-64 & ")
-      .Replace("100 64E ","I-64 & ")
-      .Replace("100 64W ","I-64 & ")
-      .Replace("100 264 ","I-264 & ")
-      .Replace("100 264E ","I-264 & ")
-      .Replace("100 264W ","I-264 & ")
-      .Replace("100 NORFOLK CY","CITY OF NORFOLK")
-      .Replace("100 CHESAPEAKE CY","CITY OF CHESAPEAKE")
-      .Replace(k.SPACE,"+")
-      + ",+23456";
+      return HttpUtility.UrlEncode
+        (
+        address
+        .Replace("/"," & ")
+        .Replace(" CI"," CIR")
+        .Replace(" CW"," CAUSEWAY")
+        .Replace(" LD"," LNDG")
+        .Replace(" PW"," PKWY")
+        .Replace(" WW",k.EMPTY)
+        .Replace("100 64 ","I-64 & ")
+        .Replace("100 64E ","I-64 & ")
+        .Replace("100 64W ","I-64 & ")
+        .Replace("100 264 ","I-264 & ")
+        .Replace("100 264E ","I-264 & ")
+        .Replace("100 264W ","I-264 & ")
+        .Replace("100 DN ","DAM NECK NAVAL BASE ")
+        .Replace("100 NORFOLK CY","CITY OF NORFOLK")
+        .Replace("100 CHESAPEAKE CY","CITY OF CHESAPEAKE")
+        + ", Virginia Beach, VA"
+        );
       }
 
     } // end TClass_biz_field_situations
