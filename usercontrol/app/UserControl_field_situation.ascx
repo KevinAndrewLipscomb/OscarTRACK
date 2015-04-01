@@ -11,15 +11,14 @@
               <td bgcolor="#dcdcdc">
                 <table cellspacing="0" cellpadding="0" border="0" style="width: 100%">
                   <tr>
-                    <td>
-                      <strong>Field situation</strong>
-                    </td>
-                    <td align="right">
-                      <asp:Literal ID="Literal_num_cases" runat="server"></asp:Literal> cases
-                    </td>
+                    <td><strong>Field situation</strong></td>
+                    <td align="right"><asp:Literal ID="Literal_num_cases" runat="server"></asp:Literal> cases</td>
+                  </tr>
+                  <tr>
+                    <td><small><i>Not for responses or system status management</i></small></td>
+                    <td align="right"><small>Auto-refresh in about <span id="Span_countdown_clock">60</span> seconds</small></td>
                   </tr>
                 </table>
-                <small><center><i>Not for responses or system status management</i></center></small>
               </td>
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
