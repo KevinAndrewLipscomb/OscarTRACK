@@ -81,8 +81,14 @@
             </tr>
           </table>
         </td>
+        <td>&nbsp;&nbsp;&nbsp;</td>
+        <td align="center"><big><b><a href="pub/field_situation.aspx" target="_blank">_\|/_<br />Active<br />Case<br />Board<br />&macr;/|\&macr;</a></b></big></td>
       </tr>
-      <tr><td>&nbsp;</td></tr>
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
       <tr>
         <td>
           <table bordercolor="gainsboro" cellspacing="0" cellpadding="0" border="1" width="100%">
@@ -98,6 +104,8 @@
             </tr>
           </table>
         </td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
       </tr>
     </table>
     <br />

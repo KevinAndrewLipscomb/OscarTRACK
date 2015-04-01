@@ -6,6 +6,7 @@ using UserControl_config_binder;
 using UserControl_dashboard_binder;
 using UserControl_efficipay_binder;
 using UserControl_eval_overview;
+using UserControl_field_situation;
 using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
@@ -23,8 +24,9 @@ namespace UserControl_member_binder
     public const int TSSI_FUNDDRIVE = 4;
     public const int TSSI_EFFICIPAY = 5;
     public const int TSSI_DASHBOARD = 6;
-    public const int TSSI_CONFIG = 7;
-    public const int TSSI_ABOUT = 8;
+    public const int TSSI_ACTIVE_CASE_BOARD = 7;
+    public const int TSSI_CONFIG = 8;
+    public const int TSSI_ABOUT = 9;
     }
 
     public struct p_type
@@ -165,6 +167,11 @@ namespace UserControl_member_binder
             var c = ((TWebUserControl_dashboard_binder)(LoadControl("~/usercontrol/app/UserControl_dashboard_binder.ascx")));
             p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_dashboard_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
             }
+          else if (p.tab_index == UserControl_member_binder_Static.TSSI_ACTIVE_CASE_BOARD)
+            {
+            var c = ((TWebUserControl_field_situation)(LoadControl("~/usercontrol/app/UserControl_field_situation.ascx")));
+            p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_field_situation",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+            }
           else if (p.tab_index == UserControl_member_binder_Static.TSSI_CONFIG)
             {
             var c = ((TWebUserControl_config_binder)(LoadControl("~/usercontrol/app/UserControl_config_binder.ascx")));
@@ -212,6 +219,10 @@ namespace UserControl_member_binder
             else if (target.ToLower().Contains("/dashboard/"))
               {
               p.tab_index = UserControl_member_binder_Static.TSSI_DASHBOARD;
+              }
+            else if (target.ToLower().Contains("/field-situation/"))
+              {
+              p.tab_index = UserControl_member_binder_Static.TSSI_ACTIVE_CASE_BOARD;
               }
             else if (target.ToLower().Contains("/config/"))
               {
