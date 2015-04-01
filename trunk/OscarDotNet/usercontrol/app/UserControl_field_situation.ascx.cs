@@ -187,6 +187,8 @@ namespace UserControl_field_situation
         hyperlink_address.Text = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
         hyperlink_address.NavigateUrl = "http://google.com/maps/place/" + hyperlink_address.Text.Replace(k.SPACE,"+").Replace("/"," & ") + ",+Virginia+Beach,+VA";
         //
+        e.Item.Cells[Static.TCI_ASSIGNMENT].Text = e.Item.Cells[Static.TCI_ASSIGNMENT].Text.Replace(k.COMMA,k.SPACE);
+        //
         // Remove all cell controls from viewstate.
         //
         foreach (TableCell cell in e.Item.Cells)
