@@ -16,7 +16,7 @@
                   </tr>
                   <tr>
                     <td><small><i>Not for responses or system status management</i></small></td>
-                    <td align="right"><small>Auto-refresh in about <span id="Span_countdown_clock">60</span> seconds</small></td>
+                    <td align="right"><small>This control auto-refreshes about every minute.</small></td>
                   </tr>
                 </table>
               </td>
@@ -66,33 +66,29 @@
     <small>
       <br />
       <table>
-        <tr><td><asp:LinkButton ID="LinkButton_toggle_notes" runat="server" OnClick="LinkButton_toggle_notes_Click">[Show]</asp:LinkButton> THIS CONTROL</td></tr>
+        <tr><td><asp:LinkButton ID="LinkButton_toggle_notes" runat="server" OnClick="LinkButton_toggle_notes_Click">[Show]</asp:LinkButton> CAVEATS</td></tr>
         <tr id ="TableRow_notes_body" runat="server" visible="false">
           <td>
             <table>
               <tr>
                 <td>&bull;</td>
-                <td>Is updated about every minute.</td>
+                <td>This control shows addresses that are ambiguated to the hundred-block.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Shows addresses that are ambiguated to the hundred-block.</td>
+                <td>It pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after actual closure.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after actual closure.</td>
+                <td>It runs behind when the 911 center is very busy.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Runs behind when the 911 center is very busy.</td>
+                <td>It only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
-              </tr>
-              <tr>
-                <td>&bull;</td>
-                <td>Sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.</td>
+                <td>It sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.&nbsp; It is poor practice to "reclassify" your cases.&nbsp; Document the true nature in the medical record instead.</td>
               </tr>
             </table>
           </td>

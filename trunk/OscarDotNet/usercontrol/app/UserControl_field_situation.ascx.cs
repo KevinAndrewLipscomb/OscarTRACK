@@ -40,27 +40,6 @@ namespace UserControl_field_situation
 
     private p_type p;
 
-    private void InjectPersistentClientSideScript()
-      {
-      EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
-      EstablishClientSideFunction
-        (
-        profile:"Countdown()",
-        body:k.EMPTY
-        + " t = El('Span_countdown_clock').innerHTML;"
-        + " El('Span_countdown_clock').innerHTML = ((t > 10) || (t <= 0) ? t - 1 : '0'.concat(t - 1));"
-        + " setTimeout('Countdown()',1000);"
-        );
-      ToolkitScriptManager.RegisterStartupScript
-        (
-        control:Page,
-        type:Page.GetType(),
-        key:"StartCountdownClock",
-        script:"Countdown();",
-        addScriptTags:true
-        );
-      }
-
     protected void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
@@ -72,7 +51,6 @@ namespace UserControl_field_situation
         Bind();
         p.be_loaded = true;
         }
-      InjectPersistentClientSideScript();
       }
 
     protected override void OnInit(System.EventArgs e)
