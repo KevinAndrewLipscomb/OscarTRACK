@@ -30,10 +30,13 @@
                     <td>
                       <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
                         <Columns>
+                          <asp:TemplateColumn HeaderText="Pin">
+                            <ItemStyle HorizontalAlign="Center" />
+                          </asp:TemplateColumn>
                           <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
                           </asp:BoundColumn>
-                          <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for point map)" Target="_blank">
+                          <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dyn map)" Target="_blank">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
                             <ItemStyle Font-Bold="True"/>
                           </asp:HyperLinkColumn>
