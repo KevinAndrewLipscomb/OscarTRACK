@@ -196,6 +196,7 @@
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
     <Content Include="protected\watchbill.aspx" />
     <Content Include="protected\watchbill_maag.aspx" />
+    <Content Include="pub\field_situation.aspx" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
@@ -219,6 +220,7 @@
     <Content Include="usercontrol\app\UserControl_eval_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_eval_overview.ascx" />
     <Content Include="usercontrol\app\UserControl_eval_status.ascx" />
+    <Content Include="usercontrol\app\UserControl_field_situation.ascx" />
     <Content Include="usercontrol\app\UserControl_fleet_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
@@ -282,6 +284,7 @@
     <Compile Include="component\biz\Class_biz_efficipay_tokens.cs" />
     <Compile Include="component\biz\Class_biz_evals.cs" />
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
+    <Compile Include="component\biz\Class_biz_field_situations.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
@@ -356,6 +359,7 @@
     <Compile Include="component\db\Class_db_enrollment.cs" />
     <Compile Include="component\db\Class_db_evals.cs" />
     <Compile Include="component\db\Class_db_eval_status.cs" />
+    <Compile Include="component\db\Class_db_field_situations.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_gripes.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
@@ -986,6 +990,13 @@
     <Compile Include="protected\watchbill_maag.aspx.designer.cs">
       <DependentUpon>watchbill_maag.aspx</DependentUpon>
     </Compile>
+    <Compile Include="pub\field_situation.aspx.cs">
+      <DependentUpon>field_situation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pub\field_situation.aspx.designer.cs">
+      <DependentUpon>field_situation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="remind_username.aspx.cs">
       <DependentUpon>remind_username.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1251,6 +1262,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_eval_status.ascx.designer.cs">
       <DependentUpon>UserControl_eval_status.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_field_situation.ascx.cs">
+      <DependentUpon>UserControl_field_situation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_field_situation.ascx.designer.cs">
+      <DependentUpon>UserControl_field_situation.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_fleet.ascx.cs">
       <DependentUpon>UserControl_fleet.ascx</DependentUpon>
