@@ -51,6 +51,10 @@ namespace Class_biz_field_situations
           deidentified_rendition_of += k.SPACE + part_string_array[i.val];
           }
         }
+      else
+        {
+        deidentified_rendition_of = address;
+        }
       return deidentified_rendition_of;
       }
 
