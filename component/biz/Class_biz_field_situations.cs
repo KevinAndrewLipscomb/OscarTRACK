@@ -2,6 +2,7 @@
 
 using Class_db_field_situations;
 using kix;
+using System.Collections.Generic;
 
 namespace Class_biz_field_situations
   {
@@ -56,6 +57,37 @@ namespace Class_biz_field_situations
         deidentified_rendition_of = address;
         }
       return deidentified_rendition_of;
+      }
+
+    internal string MapUrlOf(string address)
+      {
+      return "http://google.com/maps/place/" + MapRenditionOf(address);
+      }
+
+    internal string MapUrl
+      (
+      Queue<string> marker_address_q,
+      int height,
+      int width
+      )
+      {
+      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&maptype=terrain&center=ROSEMONT+RD+%28+VIRGINIA+BEACH+BL,+23456&markers=";
+      while (marker_address_q.Count > 0)
+        {
+        map_url += MapRenditionOf(marker_address_q.Dequeue()) + "|";
+        }
+      return map_url;
+      }
+
+    internal string MapRenditionOf(string address)
+      {
+      return address
+      .Replace("/"," & ")
+      .Replace(" CI"," CIR")
+      .Replace(" LD"," LNDG")
+      .Replace(" PW"," PKWY")
+      .Replace(k.SPACE,"+")
+      + ",+23456";
       }
 
     } // end TClass_biz_field_situations
