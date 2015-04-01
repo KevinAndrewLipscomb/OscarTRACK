@@ -30,7 +30,7 @@
                     <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
                       <HeaderStyle horizontalalign="Left"></HeaderStyle>
                     </asp:BoundColumn>
-                    <asp:HyperLinkColumn DataTextField="address" HeaderText="Address" Target="_blank">
+                    <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for map)" Target="_blank">
                       <HeaderStyle horizontalalign="Left"></HeaderStyle>
                       <ItemStyle Font-Bold="True"/>
                     </asp:HyperLinkColumn>
