@@ -88,6 +88,14 @@ namespace Class_biz_field_situations
       .Replace(" CI"," CIR")
       .Replace(" LD"," LNDG")
       .Replace(" PW"," PKWY")
+      .Replace("100 64 ","I-64 & ")
+      .Replace("100 64E ","I-64 & ")
+      .Replace("100 64W ","I-64 & ")
+      .Replace("100 264 ","I-264 & ")
+      .Replace("100 264E ","I-264 & ")
+      .Replace("100 264W ","I-264 & ")
+      .Replace("100 NORFOLK CY","CITY OF NORFOLK")
+      .Replace("100 CHESAPEAKE CY","CITY OF CHESAPEAKE")
       .Replace(k.SPACE,"+")
       + ",+23456";
       }

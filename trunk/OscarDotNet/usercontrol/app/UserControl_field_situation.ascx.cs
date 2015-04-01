@@ -116,6 +116,7 @@ namespace UserControl_field_situation
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
         hyperlink_address.Text = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
         hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(hyperlink_address.Text);
+        hyperlink_address.ToolTip = "APPROXIMATE";
         p.marker_address_q.Enqueue(hyperlink_address.Text);
         //
         e.Item.Cells[Static.TCI_ASSIGNMENT].Text = e.Item.Cells[Static.TCI_ASSIGNMENT].Text.Replace(k.COMMA,k.SPACE);
