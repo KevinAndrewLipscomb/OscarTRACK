@@ -19,30 +19,37 @@
                     </td>
                   </tr>
                 </table>
-                <small><center><i>Not for system status management</i></center></small>
+                <small><center><i>Not for responses or system status management</i></center></small>
               </td>
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
               <td>
-                <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
-                  <Columns>
-                    <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
-                      <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                    </asp:BoundColumn>
-                    <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for map)" Target="_blank">
-                      <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                      <ItemStyle Font-Bold="True"/>
-                    </asp:HyperLinkColumn>
-                    <asp:BoundColumn datafield="assignment" headertext="Assignment">
-                      <ItemStyle horizontalalign="Left"></ItemStyle>
-                    </asp:BoundColumn>
-                    <asp:BoundColumn datafield="impression" headertext="Impression">
-                      <ItemStyle horizontalalign="Left"></ItemStyle>
-                    </asp:BoundColumn>
-                  </Columns>
-                  <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
-                </asp:DataGrid>
+                <table>
+                  <tr valign="top">
+                    <td>
+                      <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
+                        <Columns>
+                          <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
+                            <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                          </asp:BoundColumn>
+                          <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for point map)" Target="_blank">
+                            <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                            <ItemStyle Font-Bold="True"/>
+                          </asp:HyperLinkColumn>
+                          <asp:BoundColumn datafield="assignment" headertext="Assignment">
+                            <ItemStyle horizontalalign="Left"></ItemStyle>
+                          </asp:BoundColumn>
+                          <asp:BoundColumn datafield="impression" headertext="Impression">
+                            <ItemStyle horizontalalign="Left"></ItemStyle>
+                          </asp:BoundColumn>
+                        </Columns>
+                        <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
+                      </asp:DataGrid>
+                    </td>
+                    <td><asp:Image ID="Image_control" runat="server" AlternateText="Overview map" ToolTip="Overview map"/></td>
+                  </tr>
+                </table>
               </td>
             </tr>
           </table>
@@ -71,15 +78,15 @@
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after closure.</td>
+                <td>Pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after actual closure.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Runs behind when external data source is very busy.</td>
+                <td>Runs behind when the 911 center is very busy.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably indicate specific natures.</td>
+                <td>Only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
@@ -194,8 +201,8 @@
                             <td>Fire investigator</td>
                           </tr>
                           <tr>
-                            <td>FRSQ</td>
-                            <td>Fire rescue squad (crash/technical)</td>
+                            <td>FR</td>
+                            <td>Fire rescue (crash/technical)</td>
                           </tr>
                           <tr>
                             <td>HAZ</td>

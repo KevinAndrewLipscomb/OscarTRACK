@@ -4,6 +4,7 @@ using Class_biz_field_situations;
 using kix;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
 namespace UserControl_field_situation
@@ -29,6 +30,7 @@ namespace UserControl_field_situation
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
+      public Queue<string> marker_address_q;
       public uint num_field_situations;
       public string sort_order;
       }
@@ -154,6 +156,7 @@ namespace UserControl_field_situation
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.marker_address_q = new Queue<string>();
         p.sort_order = "case_num desc, field_situation.id desc";
         }
       }
@@ -185,7 +188,8 @@ namespace UserControl_field_situation
         {
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
         hyperlink_address.Text = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
-        hyperlink_address.NavigateUrl = "http://google.com/maps/place/" + hyperlink_address.Text.Replace(k.SPACE,"+").Replace("/"," & ") + ",+Virginia+Beach,+VA";
+        hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(hyperlink_address.Text);
+        p.marker_address_q.Enqueue(hyperlink_address.Text);
         //
         e.Item.Cells[Static.TCI_ASSIGNMENT].Text = e.Item.Cells[Static.TCI_ASSIGNMENT].Text.Replace(k.COMMA,k.SPACE);
         //
@@ -203,6 +207,12 @@ namespace UserControl_field_situation
     private void Bind()
       {
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
+      Image_control.ImageUrl = p.biz_field_situations.MapUrl
+        (
+        marker_address_q:p.marker_address_q,
+        height:400,
+        width:400
+        );
       p.be_datagrid_empty = (p.num_field_situations == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
