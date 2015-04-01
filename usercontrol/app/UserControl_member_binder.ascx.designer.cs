@@ -94,6 +94,15 @@ namespace UserControl_member_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_dashboard;
         
         /// <summary>
+        /// TabPanel_field_situation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_field_situation;
+        
+        /// <summary>
         /// TabPanel_config control.
         /// </summary>
         /// <remarks>

@@ -1,5 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_field_situation.ascx.cs" Inherits="UserControl_field_situation.TWebUserControl_field_situation"%>
+﻿<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_field_situation.ascx.cs" Inherits="UserControl_field_situation.TWebUserControl_field_situation"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
+<h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://vbrescuecouncil.org/pub/streaming_radio_traffic.aspx" target="_blank">&raquo;Listen!&laquo;</a></h2>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional">
   <ContentTemplate>
     <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
@@ -8,7 +9,7 @@
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
               <td bgcolor="#dcdcdc">
-                <table cellspacing="0" cellpadding="0" border="0" width="100%">
+                <table cellspacing="0" cellpadding="0" border="0" style="width: 100%">
                   <tr>
                     <td>
                       <strong>Field situation</strong>
@@ -18,6 +19,7 @@
                     </td>
                   </tr>
                 </table>
+                <small><center><i>Not for system status management</i></center></small>
               </td>
             </tr>
             <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
@@ -61,7 +63,7 @@
             <table>
               <tr>
                 <td>&bull;</td>
-                <td>Is updated about every 20 seconds.</td>
+                <td>Is updated about every minute.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
@@ -69,11 +71,19 @@
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.</td>
+                <td>Pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after closure.</td>
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>Only forms a rough "Impression" of the nature of the case, for OSCALERT purposes, because the external data source does not reliably indicate specific natures.</td>
+                <td>Runs behind when external data source is very busy.</td>
+              </tr>
+              <tr>
+                <td>&bull;</td>
+                <td>Only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably indicate specific natures.</td>
+              </tr>
+              <tr>
+                <td>&bull;</td>
+                <td>Sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.</td>
               </tr>
             </table>
           </td>
@@ -248,10 +258,6 @@
                             <td>~DR</td>
                             <td>Driver-only</td>
                           </tr>
-                          <tr>
-                            <td>~COMM</td>
-                            <td>Command staff group (info only)</td>
-                          </tr>
                         </table>
                       </td>
                     </tr>
@@ -395,10 +401,10 @@
     The format for an ambulance callsign is:
        [station number][twenty number][common suffix]
     Examples:
-       [ 1][20][R] &rarr;  120R
-       [ 2][21][S] &rarr;  221S
+       [ 1][20][R] →  120R (Ocean Park station, ambulance 20, staffed BLS)
+       [ 2][21][S] →  221S (Davis Corner station, ambulance 21, staffed Shock-trauma/Enhanced/Advanced)
        :
-       [22][29][P] &rarr; 2229P
+       [22][29][P] → 2229P (First Landing station, ambulance 29, staffed Intermediate/Paramedic)
     </pre>
           </td>
         </tr>

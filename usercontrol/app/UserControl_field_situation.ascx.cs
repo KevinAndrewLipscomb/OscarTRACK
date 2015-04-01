@@ -142,16 +142,10 @@ namespace UserControl_field_situation
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-//#warning Revise the binder-related instance_id to this control appropriately.
-//        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_field_situation")
-//          {
-//#warning Revise the ClientID path to this control appropriately.
-//          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_field_situation");
-//          }
-////      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_field_situation")
-////        {
-////        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_field_situation");
-////        }
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation")
+          {
+          p.be_loaded &= ((Session["M_PlaceHolder_content"] as string) == "UserControl_field_situation");
+          }
         }
       else
         {
