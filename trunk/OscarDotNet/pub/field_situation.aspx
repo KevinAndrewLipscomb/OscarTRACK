@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<%@ Page language="c#" Debug="true" Codebehind="Default.aspx.cs" AutoEventWireup="True" Inherits="Default.TWebForm_Default" %>
+<%@ Page language="c#" Debug="true" Codebehind="field_situation.aspx.cs" AutoEventWireup="True" Inherits="field_situation.TWebForm_field_situation" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register src="usercontrol/app/UserControl_field_situation.ascx" tagname="UserControl_field_situation" tagprefix="uc2" %>
