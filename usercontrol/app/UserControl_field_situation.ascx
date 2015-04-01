@@ -47,7 +47,7 @@
                         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                       </asp:DataGrid>
                     </td>
-                    <td><asp:Image ID="Image_control" runat="server" AlternateText="Overview map" ToolTip="Overview map"/></td>
+                    <td><asp:Image ID="Image_control" runat="server" AlternateText="Overview map" ToolTip="Overview map" EnableViewState="False" Height="400px" Width="400px"/></td>
                   </tr>
                 </table>
               </td>
