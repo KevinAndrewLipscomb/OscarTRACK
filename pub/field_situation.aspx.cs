@@ -1,9 +1,9 @@
 using System;
 using System.Configuration;
 
-namespace Default
+namespace field_situation
 {
-    public partial class TWebForm_Default: ki_web_ui.page_class
+    public partial class TWebForm_field_situation: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -18,7 +18,7 @@ namespace Default
         {
             if (!IsPostBack)
             {
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - Default";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - field_situation";
             }
         }
 
@@ -29,6 +29,6 @@ namespace Default
             base.OnInit(e);
         }
 
-    } // end TWebForm_Default
+    } // end TWebForm_field_situation
 
 }

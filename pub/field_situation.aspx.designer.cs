@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Default {
+namespace field_situation {
     
     
-    public partial class TWebForm_Default {
+    public partial class TWebForm_field_situation {
         
         /// <summary>
         /// UserControl_precontent control.
