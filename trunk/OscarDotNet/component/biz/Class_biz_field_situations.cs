@@ -62,7 +62,7 @@ namespace Class_biz_field_situations
 
     internal string MapUrlOf(string address)
       {
-      return "http://google.com/maps/place/" + MapRenditionOf(address);
+      return "http://google.com/maps?q=" + MapRenditionOf(address);
       }
 
     internal string MapUrl
