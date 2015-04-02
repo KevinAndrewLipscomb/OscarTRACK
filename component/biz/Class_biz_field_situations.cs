@@ -84,15 +84,19 @@ namespace Class_biz_field_situations
 
     internal string MapRenditionOf(string address)
       {
+      var map_rendition_of = address;
+      if (map_rendition_of.Contains(" WW"))
+        {
+        map_rendition_of = k.Safe(map_rendition_of.Replace(" WW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
+        }
       return HttpUtility.UrlEncode
         (
-        address
+        map_rendition_of
         .Replace("/"," & ")
         .Replace(" CI"," CIR")
         .Replace(" CW"," CAUSEWAY")
         .Replace(" LD"," LNDG")
         .Replace(" PW"," PKWY")
-        .Replace(" WW",k.EMPTY)
         .Replace("100 64 ","I-64 & ")
         .Replace("100 64E ","I-64 & ")
         .Replace("100 64W ","I-64 & ")
