@@ -72,7 +72,7 @@ namespace Class_biz_field_situations
       int width
       )
       {
-      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("ROSEMONT RD & VIRGINIA BEACH BL, 23456");
+      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("PRESIDENTIAL BL & OLD FORGE RD,23456");
       var label = 'A';
       while (marker_address_q.Count > 0)
         {
