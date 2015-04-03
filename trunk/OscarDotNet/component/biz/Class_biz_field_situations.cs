@@ -89,6 +89,10 @@ namespace Class_biz_field_situations
         {
         map_rendition_of = map_rendition_of.Replace(" BW",k.EMPTY);
         }
+      if (map_rendition_of.Contains("BOARDWALK"))
+        {
+        map_rendition_of = map_rendition_of.Replace("BOARDWALK","ATLANTIC AV");
+        }
       else if (map_rendition_of.Contains(" WW"))
         {
         map_rendition_of = k.Safe(map_rendition_of.Replace(" WW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
