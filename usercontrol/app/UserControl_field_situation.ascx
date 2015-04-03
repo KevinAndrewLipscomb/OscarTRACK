@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_field_situation.ascx.cs" Inherits="UserControl_field_situation.TWebUserControl_field_situation"%>
+<%@ Register src="UserControl_recent_oscalert_samples.ascx" tagname="UserControl_recent_oscalert_samples" tagprefix="uc1" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://vbrescuecouncil.org/pub/streaming_radio_traffic.aspx" target="_blank">&raquo;Listen!&laquo;</a></h2>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional">
@@ -414,7 +415,6 @@
           </td>
         </tr>
       </table>
-      <br />
     </small>
   </ContentTemplate>
 </asp:UpdatePanel>
