@@ -85,7 +85,11 @@ namespace Class_biz_field_situations
     internal string MapRenditionOf(string address)
       {
       var map_rendition_of = address;
-      if (map_rendition_of.Contains(" WW"))
+      if (map_rendition_of.Contains(" BW"))
+        {
+        map_rendition_of = k.Safe(map_rendition_of.Replace(" BW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
+        }
+      else if (map_rendition_of.Contains(" WW"))
         {
         map_rendition_of = k.Safe(map_rendition_of.Replace(" WW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
         }
