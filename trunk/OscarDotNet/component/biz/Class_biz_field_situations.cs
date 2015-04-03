@@ -101,6 +101,7 @@ namespace Class_biz_field_situations
         .Replace(" CW"," CAUSEWAY")
         .Replace(" LD"," LNDG")
         .Replace(" PW"," PKWY")
+        .Replace(" WF"," WHARF")
         .Replace("100 64 ","I-64 & ")
         .Replace("100 64E ","I-64 & ")
         .Replace("100 64W ","I-64 & ")
