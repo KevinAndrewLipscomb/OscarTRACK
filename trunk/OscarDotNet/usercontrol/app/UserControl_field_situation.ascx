@@ -104,7 +104,7 @@
       </table>
       <br />
       <table>
-        <tr><td><asp:LinkButton ID="LinkButton_toggle_assignment_designator_prefixes" runat="server" OnClick="LinkButton_toggle_assignment_designator_prefixes_Click">[Show]</asp:LinkButton> ASSIGNMENT DESIGNATOR PREFIXES</td></tr>
+        <tr><td><asp:LinkButton ID="LinkButton_toggle_assignment_designator_prefixes" runat="server" OnClick="LinkButton_toggle_assignment_designator_prefixes_Click">[Show]</asp:LinkButton> ASSIGNMENT DESIGNATOR AFFIXES</td></tr>
         <tr id ="TableRow_assignment_designator_prefixes_body" runat="server" visible="false">
           <td>
             <table>
@@ -201,6 +201,10 @@
                           <tr>
                             <td>FI</td>
                             <td>Fire investigator</td>
+                          </tr>
+                          <tr>
+                            <td>FM</td>
+                            <td>Fire marshal</td>
                           </tr>
                           <tr>
                             <td>FR</td>
