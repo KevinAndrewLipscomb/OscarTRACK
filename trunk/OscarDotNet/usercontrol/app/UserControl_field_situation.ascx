@@ -96,7 +96,7 @@
               </tr>
               <tr>
                 <td valign="top">&bull;</td>
-                <td>It sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.&nbsp; It is poor practice to "reclassify" your cases.&nbsp; Document the true nature in the medical record instead.</td>
+                <td>It sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.&nbsp; It is poor practice to "reclassify" your cases.&nbsp; Document the true nature in the run report instead.</td>
               </tr>
             </table>
           </td>
