@@ -87,7 +87,7 @@ namespace Class_biz_field_situations
       var map_rendition_of = address;
       if (map_rendition_of.Contains(" BW"))
         {
-        map_rendition_of = k.Safe(map_rendition_of.Replace(" BW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
+        map_rendition_of = map_rendition_of.Replace(" BW",k.EMPTY);
         }
       else if (map_rendition_of.Contains(" WW"))
         {
@@ -111,7 +111,7 @@ namespace Class_biz_field_situations
         .Replace("100 DN ","DAM NECK NAVAL BASE ")
         .Replace("100 NORFOLK CY","CITY OF NORFOLK")
         .Replace("100 CHESAPEAKE CY","CITY OF CHESAPEAKE")
-        + ", 23456"
+        + ",Va Bch,VA"
         );
       }
 
