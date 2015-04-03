@@ -22,13 +22,22 @@ namespace UserControl_recent_oscalert_samples {
         protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
         
         /// <summary>
-        /// DropDownList_filter control.
+        /// DropDownList_impression control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_filter;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_impression;
+        
+        /// <summary>
+        /// DropDownList_recency control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_recency;
         
         /// <summary>
         /// Literal_num_alerts control.

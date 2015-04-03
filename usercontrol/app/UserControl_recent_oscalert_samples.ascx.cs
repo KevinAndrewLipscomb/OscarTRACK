@@ -10,6 +10,7 @@ using System.Web.UI;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Collections;
+using System.Text.RegularExpressions;
 
 namespace UserControl_recent_oscalert_samples
   {
@@ -18,7 +19,7 @@ namespace UserControl_recent_oscalert_samples
     private static class Static
       {
       public const int TCI_TIME = 0;
-      public const int TCI_EVENT = 1;
+      public const int TCI_CONTENT = 1;
       }
 
     private struct p_type
@@ -28,7 +29,9 @@ namespace UserControl_recent_oscalert_samples
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_oscalert_logs biz_oscalert_logs;
+      public string impression_filter;
       public uint num_oscalert_logs;
+      public string recency_filter;
       public string sort_order;
       }
 
@@ -61,16 +64,10 @@ namespace UserControl_recent_oscalert_samples
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-#warning Revise the binder-related instance_id to this control appropriately.
-        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_recent_oscalert_samples")
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation_recent_oscalert_samples_control")
           {
-#warning Revise the ClientID path to this control appropriately.
-          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_recent_oscalert_samples");
+          p.be_loaded &= ((Session["M_PlaceHolder_content"] as string) == "UserControl_field_situation");
           }
-//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_recent_oscalert_samples")
-//        {
-//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_recent_oscalert_samples");
-//        }
         }
       else
         {
@@ -79,6 +76,8 @@ namespace UserControl_recent_oscalert_samples
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.impression_filter = k.EMPTY;
+        p.recency_filter = k.EMPTY;
         p.sort_order = "id desc";
         }
       }
@@ -108,12 +107,15 @@ namespace UserControl_recent_oscalert_samples
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        e.Item.Cells[Static.TCI_EVENT].Text = e.Item.Cells[Static.TCI_EVENT].Text
-        .Replace("OSCALERT: ",k.EMPTY)
-        .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
-        .Replace(" case active.",k.EMPTY)
-        .Replace(" Volunteers to your stations.",k.EMPTY)
-        ;
+        e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
+          (
+          input:e.Item.Cells[Static.TCI_CONTENT].Text
+            .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
+            .Replace(" case active.",k.EMPTY)
+            .Replace(" Volunteers to your stations.",k.EMPTY),
+          pattern:" \\d+ ",
+          replacement:k.SPACE
+          );
         //
         // Remove all cell controls from viewstate except for the one at TCI_ID.
         //
@@ -121,20 +123,39 @@ namespace UserControl_recent_oscalert_samples
           {
           cell.EnableViewState = false;
           }
-        e.Item.Cells[Static.TCI_EVENT].EnableViewState = true;
+        e.Item.Cells[Static.TCI_CONTENT].EnableViewState = true;
         //
         p.num_oscalert_logs++;
         }
       }
 
-    private void Bind()
+    internal void Bind()
       {
-      p.biz_oscalert_logs.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
+      p.biz_oscalert_logs.BindBaseDataList
+        (
+        sort_order:p.sort_order,
+        be_sort_order_ascending:p.be_sort_order_ascending,
+        target:DataGrid_control,
+        impression_filter:p.impression_filter,
+        recency_filter:p.recency_filter
+        );
       p.be_datagrid_empty = (p.num_oscalert_logs == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_alerts.Text = p.num_oscalert_logs.ToString();
       p.num_oscalert_logs = 0;
+      }
+
+    protected void DropDownList_impression_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.impression_filter = k.Safe(DropDownList_impression.SelectedValue,k.safe_hint_type.ALPHA);
+      Bind();
+      }
+
+    protected void DropDownList_recency_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.recency_filter = k.Safe(DropDownList_recency.SelectedValue,k.safe_hint_type.ALPHA);
+      Bind();
       }
 
     } // end TWebUserControl_recent_oscalert_samples

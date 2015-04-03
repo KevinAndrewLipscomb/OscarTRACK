@@ -1,5 +1,7 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_field_situation.ascx.cs" Inherits="UserControl_field_situation.TWebUserControl_field_situation"%>
 <%@ Register src="UserControl_recent_oscalert_samples.ascx" tagname="UserControl_recent_oscalert_samples" tagprefix="uc1" %>
+<%@ Register Src="~/usercontrol/app/UserControl_recent_oscalert_samples.ascx" TagPrefix="uc2" TagName="UserControl_recent_oscalert_samples" %>
+
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://vbrescuecouncil.org/pub/streaming_radio_traffic.aspx" target="_blank">&raquo;Listen!&laquo;</a></h2>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional">
@@ -36,7 +38,7 @@
                           <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
                           </asp:BoundColumn>
-                          <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dyn map)" Target="_blank">
+                          <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dynomap)" Target="_blank">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
                             <ItemStyle Font-Bold="True"/>
                           </asp:HyperLinkColumn>
@@ -53,6 +55,11 @@
                     <td><asp:Image ID="Image_control" runat="server" AlternateText="Overview map" ToolTip="Overview map" EnableViewState="False" Height="400px" Width="400px"/></td>
                   </tr>
                 </table>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <uc2:UserControl_recent_oscalert_samples runat="server" ID="UserControl_recent_oscalert_samples_control" />
               </td>
             </tr>
           </table>
@@ -72,23 +79,23 @@
           <td>
             <table>
               <tr>
-                <td>&bull;</td>
+                <td valign="top">&bull;</td>
                 <td>This control shows addresses that are ambiguated to the hundred-block.</td>
               </tr>
               <tr>
-                <td>&bull;</td>
+                <td valign="top">&bull;</td>
                 <td>It pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after actual closure.</td>
               </tr>
               <tr>
-                <td>&bull;</td>
+                <td valign="top">&bull;</td>
                 <td>It runs behind when the 911 center is very busy.</td>
               </tr>
               <tr>
-                <td>&bull;</td>
+                <td valign="top">&bull;</td>
                 <td>It only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
               </tr>
               <tr>
-                <td>&bull;</td>
+                <td valign="top">&bull;</td>
                 <td>It sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.&nbsp; It is poor practice to "reclassify" your cases.&nbsp; Document the true nature in the medical record instead.</td>
               </tr>
             </table>
@@ -186,10 +193,6 @@
                           <tr>
                             <td>E</td>
                             <td>Engine</td>
-                          </tr>
-                          <tr>
-                            <td>FAST</td>
-                            <td>Courtesy job (info only)</td>
                           </tr>
                           <tr>
                             <td>FBOA</td>

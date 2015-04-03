@@ -147,6 +147,7 @@ namespace UserControl_field_situation
       Literal_num_cases.Text = p.num_field_situations.ToString();
       p.label = 'A';
       p.num_field_situations = 0;
+      UserControl_recent_oscalert_samples_control.Bind();
       }
 
     protected void Timer_control_Tick(object sender, EventArgs e)
