@@ -18,7 +18,7 @@
                             <td>Filter:</td>
                             <td align="center">
                               Impression<br />
-                              <asp:DropDownList id="DropDownList_impression" runat="server" autopostback="True" OnSelectedIndexChanged="DropDownList_impression_SelectedIndexChanged">
+                              <asp:DropDownList id="DropDownList_impression" runat="server" autopostback="True" OnSelectedIndexChanged="DropDownList_impression_SelectedIndexChanged" Font-Size="Small">
                                 <asp:ListItem Value="">(all)</asp:ListItem>
                                 <asp:ListItem Value="AirportAlert">AirportAlert</asp:ListItem>
                                 <asp:ListItem Value="Fire">Fire-related</asp:ListItem>
@@ -37,8 +37,8 @@
                             </td>
                             <td align="center">
                               Recency<br />
-                              <asp:DropDownList ID="DropDownList_recency" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList_recency_SelectedIndexChanged">
-                                <asp:ListItem Value="" Selected="True">Today</asp:ListItem>
+                              <asp:DropDownList ID="DropDownList_recency" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList_recency_SelectedIndexChanged" Font-Size="Small">
+                                <asp:ListItem Value="" Selected="True">This 24 hours</asp:ListItem>
                                 <asp:ListItem Value="ThisWeek">This week</asp:ListItem>
                                 <asp:ListItem Value="ThisMonth">This month</asp:ListItem>
                                 <asp:ListItem Value="ThisQuarter">This quarter</asp:ListItem>
