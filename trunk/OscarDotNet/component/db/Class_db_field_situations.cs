@@ -26,8 +26,13 @@ namespace Class_db_field_situations
         + " , description as impression"
         + " from field_situation"
         +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"
-        + " where time_initialized >= DATE_SUB(NOW(),INTERVAL 3 HOUR)"
-        +   " or assignment like '%,%'"
+        + " where assignment not like '%FAST%'"
+        +   " and"
+        +     " ("
+        +       " time_initialized >= DATE_SUB(NOW(),INTERVAL 3 HOUR)"
+        +     " or"
+        +       " assignment like '%,%'"
+        +     " )"
         + " order by case_num desc, field_situation.id desc",
         connection
         )
