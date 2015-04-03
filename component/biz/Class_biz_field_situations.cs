@@ -111,7 +111,7 @@ namespace Class_biz_field_situations
         .Replace("100 DN ","DAM NECK NAVAL BASE ")
         .Replace("100 NORFOLK CY","CITY OF NORFOLK")
         .Replace("100 CHESAPEAKE CY","CITY OF CHESAPEAKE")
-        + ",Va Bch,VA"
+        + ",23456"
         );
       }
 
