@@ -40,6 +40,29 @@ namespace UserControl_field_situation
 
     private p_type p;
 
+    private void InjectPersistentClientSideScript()
+      {
+      ToolkitScriptManager.RegisterStartupScript
+        (
+        control:this,
+        type:this.GetType(),
+        key:"ClientSideAutorefreshCountdown",
+        script:k.EMPTY
+        + " function El(id)"
+        +   " {"
+        +   " return document.getElementById(id);"
+        +   " }"
+        + " function Countdown()"
+        +   " {"
+        +   " t = El('Span_countdown').innerHTML;"
+        +   " El('Span_countdown').innerHTML = ((t > 10) || (t <= 0) ? t - 1 : '0'.concat(t - 1));"
+        +   " setTimeout('Countdown()',1000);"
+        +   " }"
+        + " Countdown();",
+        addScriptTags:true
+        );
+      }
+
     protected void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
@@ -51,6 +74,7 @@ namespace UserControl_field_situation
         Bind();
         p.be_loaded = true;
         }
+      InjectPersistentClientSideScript();
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -144,7 +168,7 @@ namespace UserControl_field_situation
       p.be_datagrid_empty = (p.num_field_situations == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
-      Literal_num_cases.Text = p.num_field_situations.ToString();
+      Literal_num_cases.Text = p.num_field_situations.ToString() + " case" + (p.num_field_situations == 1 ? k.EMPTY : "s");
       p.label = 'A';
       p.num_field_situations = 0;
       UserControl_recent_oscalert_samples_control.Bind();
