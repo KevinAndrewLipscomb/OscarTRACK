@@ -107,40 +107,101 @@ namespace Class_biz_field_situations
         }
       else
         {
-        //--
+        //----
         //
         // The address is in Virginia Beach.  This is the usual case.
         //
+        //----
         //--
         //
-        // For a WaterWay, strip the WW suffix *and* strip out the house_num, if any.
-        //
-        if (map_rendition_of.Contains(" WW"))
-          {
-          map_rendition_of = k.Safe(map_rendition_of.Replace(" WW",k.EMPTY),k.safe_hint_type.ALPHA_WORDS).Trim();
-          }
-        //
         // Perform Regex operations.
+        //
+        //--
+        //
+        // Perform suffix replacements.  Account for when suffix...
+        // - is at end of string;
+        // - immediately precedes the intersection indicator ("/");
+        // - precedes a space followed by a directional (N/S/E/W) indicator.
         //
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
-          pattern:" AR$",
-          replacement:" ARCH"
+          pattern:"(?<prefix> )AR$|(?<prefix> )AR(?<suffix>/)|(?<prefix> )AR(?<suffix> )",
+          replacement:"${prefix}ARCH${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )AV$|(?<prefix> )AV(?<suffix>/)|(?<prefix> )AV(?<suffix> )",
+          replacement:"${prefix}AVE${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )BL$|(?<prefix> )BL(?<suffix>/)|(?<prefix> )BL(?<suffix> )",
+          replacement:"${prefix}BLVD${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )CI$|(?<prefix> )CI(?<suffix>/)|(?<prefix> )CI(?<suffix> )",
+          replacement:"${prefix}CIR${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix>/)|(?<prefix> )CW(?<suffix> )",
+          replacement:"${prefix}CAUSEWAY${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )LD$|(?<prefix> )LD(?<suffix>/)|(?<prefix> )LD(?<suffix> )",
+          replacement:"${prefix}LNDG${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )PW$|(?<prefix> )PW(?<suffix>/)|(?<prefix> )PW(?<suffix> )",
+          replacement:"${prefix}PKWY${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )TL$|(?<prefix> )TL(?<suffix>/)|(?<prefix> )TL(?<suffix> )",
+          replacement:"${prefix}TRL${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix>/)|(?<prefix> )WF(?<suffix> )",
+          replacement:"${prefix}WHARF${suffix}"
+          );
+        //
+        // Perform pattern elimination replacements
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:" BW$| BW(?<suffix>/)",
+          replacement:"${suffix}"
+          );
+        //
+        // For a WaterWay, strip the WW suffix *and* strip out the house_num, if any.
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<house_num>[0-9]+ )(?<name>[A-Z ]+ )WW$",
+          replacement:"${name}"
           );
         //
         // Perform simple replacements *and* append ',Va Beach,VA'.
         //
         map_rendition_of = map_rendition_of
+        .Replace("BOARDWALK/","ATLANTIC AVE/")
+        .Replace("/BOARDWALK","/ATLANTIC AVE")
         .Replace("/"," & ")
-        .Replace("BOARDWALK","ATLANTIC AV")
-        .Replace(" AR "," ARCH ")
-        .Replace(" BW",k.EMPTY)
-        .Replace(" CI"," CIR")
-        .Replace(" CW"," CAUSEWAY")
-        .Replace(" LD"," LNDG")
-        .Replace(" PW"," PKWY")
-        .Replace(" WF"," WHARF")
         .Replace("100 64 ","I-64 & ")
         .Replace("100 64E ","I-64 & ")
         .Replace("100 64W ","I-64 & ")
