@@ -1,3 +1,4 @@
+using AjaxControlToolkit;
 using System;
 using System.Configuration;
 
@@ -27,6 +28,10 @@ namespace field_situation
             // Required for Designer support
             InitializeComponent();
             base.OnInit(e);
+//
+// Uncomment the following line to disable partial page rendering.
+//
+//ToolkitScriptManager.GetCurrent(Page).EnablePartialRendering = false;
         }
 
     } // end TWebForm_field_situation

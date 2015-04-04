@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_field_situation.ascx.cs" Inherits="UserControl_field_situation.TWebUserControl_field_situation"%>
 <%@ Register src="UserControl_recent_oscalert_samples.ascx" tagname="UserControl_recent_oscalert_samples" tagprefix="uc1" %>
 <%@ Register Src="~/usercontrol/app/UserControl_recent_oscalert_samples.ascx" TagPrefix="uc2" TagName="UserControl_recent_oscalert_samples" %>
-
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://vbrescuecouncil.org/pub/streaming_radio_traffic.aspx" target="_blank">&raquo;Listen!&laquo;</a></h2>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional">
@@ -15,11 +14,11 @@
                 <table cellspacing="0" cellpadding="0" border="0" style="width: 100%">
                   <tr>
                     <td><strong>Field situation</strong></td>
-                    <td align="right"><asp:Literal ID="Literal_num_cases" runat="server"></asp:Literal> cases</td>
+                    <td align="right"><asp:Literal ID="Literal_num_cases" runat="server"></asp:Literal></td>
                   </tr>
                   <tr>
                     <td><small><i>Not for responses or system status management</i></small></td>
-                    <td align="right"><small>This control auto-refreshes about every minute.</small></td>
+                    <td align="right"><small>Auto-refresh: [<span id="Span_countdown">60</span>]</small></td>
                   </tr>
                 </table>
               </td>

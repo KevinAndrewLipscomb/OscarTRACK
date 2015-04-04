@@ -117,13 +117,12 @@ namespace UserControl_recent_oscalert_samples
           replacement:k.SPACE
           );
         //
-        // Remove all cell controls from viewstate except for the one at TCI_ID.
+        // Remove all cell controls from viewstate.
         //
         foreach (TableCell cell in e.Item.Cells)
           {
           cell.EnableViewState = false;
           }
-        e.Item.Cells[Static.TCI_CONTENT].EnableViewState = true;
         //
         p.num_oscalert_logs++;
         }

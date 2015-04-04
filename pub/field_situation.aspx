@@ -9,7 +9,7 @@
   <head runat="server">
     <!-- $Id$ -->
     <title></title>
-    <link rel="StyleSheet" href="css/standard.css" type="text/css" />
+    <link rel="StyleSheet" href="../css/standard.css" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
   <body bgcolor="white">
