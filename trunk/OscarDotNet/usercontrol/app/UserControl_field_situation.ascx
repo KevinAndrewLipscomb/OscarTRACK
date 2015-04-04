@@ -40,7 +40,7 @@
                           </asp:BoundColumn>
                           <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dynomap)" Target="_blank">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                            <ItemStyle Font-Bold="True"/>
+                            <ItemStyle Font-Bold="True" Wrap="False"/>
                           </asp:HyperLinkColumn>
                           <asp:BoundColumn datafield="assignment" headertext="Assignment">
                             <ItemStyle horizontalalign="Left"></ItemStyle>
