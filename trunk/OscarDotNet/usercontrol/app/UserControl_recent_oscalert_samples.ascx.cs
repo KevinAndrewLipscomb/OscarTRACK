@@ -41,10 +41,8 @@ namespace UserControl_recent_oscalert_samples
       {
       if (!p.be_loaded)
         {
-        if (!p.be_interactive)
-          {
-          DataGrid_control.AllowSorting = false;
-          }
+        DropDownList_impression.SelectedValue = p.impression_filter;
+        DropDownList_recency.SelectedValue = p.recency_filter;
         Bind();
         p.be_loaded = true;
         }
