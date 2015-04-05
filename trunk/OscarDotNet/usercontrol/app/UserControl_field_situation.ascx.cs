@@ -142,7 +142,7 @@ namespace UserControl_field_situation
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
         var deidentified_address = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
         hyperlink_address.Text = "<nobr>" + deidentified_address.Replace("/","/</nobr> <nobr>") + "</nobr>";
-        hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(deidentified_address);
+        hyperlink_address.NavigateUrl = p.biz_field_situations.DynomapUrlOf(deidentified_address);
         hyperlink_address.ToolTip = "APPROXIMATE";
         p.marker_address_q.Enqueue(deidentified_address);
         //
@@ -162,11 +162,13 @@ namespace UserControl_field_situation
     private void Bind()
       {
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
-      Image_control.ImageUrl = p.biz_field_situations.MapUrl
+      Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
         (
         marker_address_q:p.marker_address_q,
         height:400,
-        width:400
+        width:400,
+        server_mappath_tilde:Server.MapPath("~"),
+        tilde_path_prefix:"~/pub/scratch/field_situation"
         );
       p.be_datagrid_empty = (p.num_field_situations == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
