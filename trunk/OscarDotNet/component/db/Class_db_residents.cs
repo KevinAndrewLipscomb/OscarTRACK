@@ -171,7 +171,7 @@ namespace Class_db_residents
         }
       //**
       //
-      // When revising this script, also consider making corresponding revisions to Class_biz_field_situations.MapRenditionOf().
+      // When revising this script, also consider making corresponding revisions to Class_biz_field_situations.MapRenditionOf() and/or keyclick user-defined function `NORMALIZED_STREET_SUFFIX_RENDITION`.
       //
       //**
       script += k.EMPTY

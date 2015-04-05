@@ -87,7 +87,8 @@ namespace Class_biz_field_situations
       {
       //**
       //
-      // When revising this routine, also consider making corresponding revisions to Class_biz_residents.FilteredFromSceneVisits() and/or Class_db_residents.FilteredFromSceneVisits().
+      // When revising this routine, also consider making corresponding revisions to Class_biz_residents.FilteredFromSceneVisits() and/or Class_db_residents.FilteredFromSceneVisits() and/or keyclick user-defined function
+      // `NORMALIZED_STREET_SUFFIX_RENDITION`.
       //
       //**
       var map_rendition_of = address;
