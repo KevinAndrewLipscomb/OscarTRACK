@@ -113,6 +113,12 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )TP$|(?<prefix> )TP(?<suffix> )",
+          replacement:"${prefix}TPKE${suffix}"
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix> )",
           replacement:"${prefix}WHARF${suffix}"
           );
