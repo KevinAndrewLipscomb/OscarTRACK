@@ -18,7 +18,7 @@
                   </tr>
                   <tr>
                     <td><small><i>Not for responses or system status management</i></small></td>
-                    <td align="right"><small>Auto-refresh: [<span id="Span_countdown">60</span>]</small></td>
+                    <td align="right"><small>Auto-refresh: <span id="Span_countdown">60</span></small></td>
                   </tr>
                 </table>
               </td>
