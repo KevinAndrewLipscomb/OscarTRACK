@@ -2,7 +2,10 @@
 
 using Class_db_field_situations;
 using kix;
+using OscarDotNet.component.os;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 
@@ -19,6 +22,7 @@ namespace Class_biz_field_situations
     //--
 
     private TClass_db_field_situations db_field_situations = null;
+    private Class_fs fs = null;
 
     //--
     //
@@ -29,6 +33,7 @@ namespace Class_biz_field_situations
     public TClass_biz_field_situations() : base()
       {
       db_field_situations = new TClass_db_field_situations();
+      fs = new Class_fs();
       }
 
     public void BindBaseDataList
@@ -61,26 +66,54 @@ namespace Class_biz_field_situations
       return deidentified_rendition_of;
       }
 
-    internal string MapUrlOf(string address)
+    internal string DynomapUrlOf(string address)
       {
       return "http://google.com/maps?q=" + MapRenditionOf(address);
       }
 
-    internal string MapUrl
+    internal string MultiMarkerMapImageUrl
       (
       Queue<string> marker_address_q,
       int height,
-      int width
+      int width,
+      string server_mappath_tilde,
+      string tilde_path_prefix
       )
       {
-      var map_url = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("PRESIDENTIAL BL & OLD FORGE RD,23456");
+      var static_part = "http://google.com/maps/api/staticmap?size=" + width.ToString() + "x" + height.ToString() + "&zoom=11&center=" + HttpUtility.UrlEncode("PRESIDENTIAL BL & OLD FORGE RD,23456");
+      var dynamic_part = k.EMPTY;
       var label = 'A';
       while (marker_address_q.Count > 0)
         {
-        map_url += "&markers=label:" + label + "|" + MapRenditionOf(marker_address_q.Dequeue());
+        dynamic_part += "&markers=label:" + label + "|" + MapRenditionOf(marker_address_q.Dequeue());
         label = (label == 'Z' ? 'A' : (char)(((int)label) + 1));
         }
-      return map_url;
+      var file_name = k.Digest(dynamic_part) + ".png";
+      var disk_folder_spec = tilde_path_prefix.Replace("~",server_mappath_tilde);
+      var disk_file_spec = disk_folder_spec + "/" + file_name;
+      if (!File.Exists(disk_file_spec))
+        {
+        new WebClient().DownloadFile
+          (
+          address:static_part + dynamic_part,
+          fileName:disk_file_spec
+          );
+        //
+        // Delete stale files.
+        //
+        var time_until_stale = new System.TimeSpan
+          (
+          hours:0,
+          minutes:2,
+          seconds:0
+          );
+        fs.DeleteStaleFilesInFolder
+          (
+          path:disk_folder_spec,
+          time_until_stale:time_until_stale
+          );
+        }
+      return k.ExpandAsperand(tilde_path_prefix.Replace("~","@")) + "/" + file_name;
       }
 
     internal string MapRenditionOf(string address)

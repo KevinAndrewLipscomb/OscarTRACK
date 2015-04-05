@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 
 namespace OscarDotNet.component.os
@@ -15,6 +16,27 @@ namespace OscarDotNet.component.os
       if (Directory.Exists(spec))
         {
         File.Create(spec + "\\" + Class_os_Static.FOLDER_CONDEMNATION_FLAG_FILE_NAME);
+        }
+      }
+
+    internal void DeleteStaleFilesInFolder
+      (
+      string path,
+      TimeSpan time_until_stale
+      )
+      {
+      foreach (var file_info in new DirectoryInfo(path).GetFiles())
+        {
+        if (file_info.CreationTime < DateTime.Now.Subtract(time_until_stale))
+          {
+          try
+            {
+            file_info.Delete();
+            }
+          catch (IOException)
+            {
+            }
+          }
         }
       }
 
