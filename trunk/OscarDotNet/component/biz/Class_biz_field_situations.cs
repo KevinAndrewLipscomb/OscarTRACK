@@ -85,6 +85,11 @@ namespace Class_biz_field_situations
 
     internal string MapRenditionOf(string address)
       {
+      //**
+      //
+      // When revising this routine, also consider making corresponding revisions to Class_biz_residents.FilteredFromSceneVisits() and/or Class_db_residents.FilteredFromSceneVisits().
+      //
+      //**
       var map_rendition_of = address;
       //
       // Test whether the address only indicates mutual aid to another city.

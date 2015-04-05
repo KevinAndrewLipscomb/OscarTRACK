@@ -169,6 +169,11 @@ namespace Class_db_residents
         {
         script += " insert into scene_visited set love_letter_batch_designator = '" + love_letter_batch_designator + "', agency = '" + agency + "', address = '" + scene_visit + "';";
         }
+      //**
+      //
+      // When revising this script, also consider making corresponding revisions to Class_biz_field_situations.MapRenditionOf().
+      //
+      //**
       script += k.EMPTY
       + " drop table if exists resident_immune_from_love_letter"
       + ";"
@@ -194,12 +199,14 @@ namespace Class_db_residents
       + " CREATE TABLE love_letter_target SELECT distinct address from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "'"
       + ";"
       + " DELETE from love_letter_target"
-      + " WHERE address like '100 264%'"
-        + " or address like '100 64%'"
-        + " or address like '100 DN %'"
-        + " or address like '%/%'"
-        + " or address like '100 % CY'"
-        + " or address like '100 % WW'"
+      + " WHERE address like '100 264%'" // I-264
+        + " or address like '100 64%'" // I-64
+        + " or address like '100 DN %'" // Dam Neck base
+        + " or address like '100 LC %'" // Little Creek base
+        + " or address like '%/%'" // an intersection
+        + " or address like '100 % BW'" // the boardwalk
+        + " or address like '100 % CY'" // mutual aid to another city
+        + " or address like '100 % WW'" // waterway
         + " or address in"
           + " ("
           + " '3769 E STRATFORD RD'"
