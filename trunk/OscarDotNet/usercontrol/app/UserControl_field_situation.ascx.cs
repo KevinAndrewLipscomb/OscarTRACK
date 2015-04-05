@@ -137,11 +137,14 @@ namespace UserControl_field_situation
         e.Item.Cells[Static.TCI_PIN].Text = p.label.ToString();
         p.label = (p.label == 'Z' ? 'A' : (char)(((int)p.label) + 1));
         //
+        e.Item.Cells[Static.TCI_TIME_INITIATED].Text = "<nobr>" + e.Item.Cells[Static.TCI_TIME_INITIATED].Text.Replace(k.SPACE,"</nobr> <nobr>") + "</nobr>";
+        //
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
-        hyperlink_address.Text = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
-        hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(hyperlink_address.Text);
+        var deidentified_address = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
+        hyperlink_address.Text = "<nobr>" + deidentified_address.Replace("/","/</nobr> <nobr>") + "</nobr>";
+        hyperlink_address.NavigateUrl = p.biz_field_situations.MapUrlOf(deidentified_address);
         hyperlink_address.ToolTip = "APPROXIMATE";
-        p.marker_address_q.Enqueue(hyperlink_address.Text);
+        p.marker_address_q.Enqueue(deidentified_address);
         //
         e.Item.Cells[Static.TCI_ASSIGNMENT].Text = e.Item.Cells[Static.TCI_ASSIGNMENT].Text.Replace(k.COMMA,k.SPACE);
         //
