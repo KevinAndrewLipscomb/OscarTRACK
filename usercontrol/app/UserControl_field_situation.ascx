@@ -40,7 +40,7 @@
                           </asp:BoundColumn>
                           <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dynomap)" Target="_blank">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                            <ItemStyle Font-Bold="True" Wrap="False" VerticalAlign="Top"/>
+                            <ItemStyle Font-Bold="True" VerticalAlign="Top"/>
                           </asp:HyperLinkColumn>
                           <asp:BoundColumn datafield="assignment" headertext="Assignment">
                             <ItemStyle horizontalalign="Left" VerticalAlign="Top"></ItemStyle>
@@ -128,7 +128,7 @@
                           </tr>
                           <tr>
                             <td>AIR</td>
-                            <td>Medevac helicopter</td>
+                            <td>Va Beach air ambulance</td>
                           </tr>
                           <tr>
                             <td>BRIG</td>
@@ -153,6 +153,10 @@
                           <tr>
                             <td>MRTK</td>
                             <td>Marine rescue truck</td>
+                          </tr>
+                          <tr>
+                            <td>NGALE</td>
+                            <td>Nightingale air ambulance</td>
                           </tr>
                           <tr>
                             <td>NR</td>
