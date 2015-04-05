@@ -174,6 +174,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )TE$|(?<prefix> )TE(?<suffix>/)|(?<prefix> )TE(?<suffix> )",
+          replacement:"${prefix}TERR${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )TL$|(?<prefix> )TL(?<suffix>/)|(?<prefix> )TL(?<suffix> )",
           replacement:"${prefix}TRL${suffix}"
           );
