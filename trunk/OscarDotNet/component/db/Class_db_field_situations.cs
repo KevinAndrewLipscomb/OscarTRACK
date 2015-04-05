@@ -20,7 +20,7 @@ namespace Class_db_field_situations
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select DATE_FORMAT(time_initialized,'%Y-%m-%d %H:%i') as time_initialized"
+        "select DATE_FORMAT(time_initialized,'<nobr>%Y-%m-%d</nobr> <nobr>%H:%i</nobr>') as time_initialized"
         + " , address"
         + " , assignment"
         + " , description as impression"

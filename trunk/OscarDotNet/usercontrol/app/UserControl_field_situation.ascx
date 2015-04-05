@@ -32,20 +32,22 @@
                       <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
                         <Columns>
                           <asp:TemplateColumn HeaderText="Pin">
-                            <ItemStyle HorizontalAlign="Center" />
+                            <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
                           </asp:TemplateColumn>
                           <asp:BoundColumn datafield="time_initialized" HeaderText="Time initialized">
-                            <HeaderStyle horizontalalign="Left"></HeaderStyle>
+                            <HeaderStyle horizontalalign="Center"></HeaderStyle>
+                            <ItemStyle VerticalAlign="Top" Font-Size="Small"/>
                           </asp:BoundColumn>
                           <asp:HyperLinkColumn DataTextField="address" HeaderText="Address (click for dynomap)" Target="_blank">
                             <HeaderStyle horizontalalign="Left"></HeaderStyle>
-                            <ItemStyle Font-Bold="True" Wrap="False"/>
+                            <ItemStyle Font-Bold="True" Wrap="False" VerticalAlign="Top"/>
                           </asp:HyperLinkColumn>
                           <asp:BoundColumn datafield="assignment" headertext="Assignment">
-                            <ItemStyle horizontalalign="Left"></ItemStyle>
+                            <ItemStyle horizontalalign="Left" VerticalAlign="Top"></ItemStyle>
                           </asp:BoundColumn>
                           <asp:BoundColumn datafield="impression" headertext="Impression">
-                            <ItemStyle horizontalalign="Left"></ItemStyle>
+                            <HeaderStyle HorizontalAlign="Center" />
+                            <ItemStyle horizontalalign="Center" VerticalAlign="Top"></ItemStyle>
                           </asp:BoundColumn>
                         </Columns>
                         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
