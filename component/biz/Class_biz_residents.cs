@@ -42,78 +42,82 @@ namespace Class_biz_residents
         string agency
         )
         {
-        var filtered_from_scene_visits = db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator,agency);
         //
-        // When revising this section, also consider making corresponding revisions to Class_biz_field_situations.MapRenditionOf().
+        // First revise the incoming scene_visits list to match USPS standard address abbreviations, to match the way the residents table is maintained.
         //
-        filtered_from_scene_visits = Regex.Replace
+        //**
+        //
+        // When revising this section, also consider making corresponding revisions to Class_biz_field_situations.MapRenditionOf() and keyclick user-defined function `NORMALIZED_STREET_SUFFIX_RENDITION`.
+        //
+        //**
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )AR$|(?<prefix> )AR(?<suffix> )",
           replacement:"${prefix}ARCH${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )AV$|(?<prefix> )AV(?<suffix> )",
           replacement:"${prefix}AVE${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )BL$|(?<prefix> )BL(?<suffix> )",
           replacement:"${prefix}BLVD${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )CI$|(?<prefix> )CI(?<suffix> )",
           replacement:"${prefix}CIR${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix> )",
           replacement:"${prefix}CAUSEWAY${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )LD$|(?<prefix> )LD(?<suffix> )",
           replacement:"${prefix}LNDG${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )PW$|(?<prefix> )PW(?<suffix> )",
           replacement:"${prefix}PKWY${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )SC$|(?<prefix> )SC(?<suffix> )",
           replacement:"${prefix}SHOPPING CENTER${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )TE$|(?<prefix> )TE(?<suffix> )",
           replacement:"${prefix}TERR${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )TL$|(?<prefix> )TL(?<suffix> )",
           replacement:"${prefix}TRL${suffix}"
           );
-        filtered_from_scene_visits = Regex.Replace
+        scene_visits = Regex.Replace
           (
-          input:filtered_from_scene_visits,
+          input:scene_visits,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix> )",
           replacement:"${prefix}WHARF${suffix}"
           );
         //
-        return filtered_from_scene_visits;
+        return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator,agency);
         }
 
       internal k.int_nonnegative NumForAgency(string agency_id)
