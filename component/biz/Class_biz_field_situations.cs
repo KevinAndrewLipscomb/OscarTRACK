@@ -192,8 +192,41 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )TP$|(?<prefix> )TP(?<suffix>/)|(?<prefix> )TP(?<suffix> )",
+          replacement:"${prefix}TPKE${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix>/)|(?<prefix> )WF(?<suffix> )",
           replacement:"${prefix}WHARF${suffix}"
+          );
+        //
+        // Account for certain truncations that appear in data source.
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:" B$",
+          replacement:" BLVD"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:" P$",
+          replacement:" PKWY"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:" R$",
+          replacement:" RD"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"/VIRGINIA BEACH$",
+          replacement:"/VIRGINIA BEACH BLVD"
           );
         //
         // Perform pattern elimination replacements
