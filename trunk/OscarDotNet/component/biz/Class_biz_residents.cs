@@ -54,73 +54,85 @@ namespace Class_biz_residents
           (
           input:scene_visits,
           pattern:"(?<prefix> )AR$|(?<prefix> )AR(?<suffix> )",
-          replacement:"${prefix}ARCH${suffix}"
+          replacement:"${prefix}ARCH${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )AV$|(?<prefix> )AV(?<suffix> )",
-          replacement:"${prefix}AVE${suffix}"
+          replacement:"${prefix}AVE${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )BL$|(?<prefix> )BL(?<suffix> )",
-          replacement:"${prefix}BLVD${suffix}"
+          replacement:"${prefix}BLVD${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )CI$|(?<prefix> )CI(?<suffix> )",
-          replacement:"${prefix}CIR${suffix}"
+          replacement:"${prefix}CIR${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix> )",
-          replacement:"${prefix}CAUSEWAY${suffix}"
+          replacement:"${prefix}CAUSEWAY${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )LD$|(?<prefix> )LD(?<suffix> )",
-          replacement:"${prefix}LNDG${suffix}"
+          replacement:"${prefix}LNDG${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )PW$|(?<prefix> )PW(?<suffix> )",
-          replacement:"${prefix}PKWY${suffix}"
+          replacement:"${prefix}PKWY${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )SC$|(?<prefix> )SC(?<suffix> )",
-          replacement:"${prefix}SHOPPING CENTER${suffix}"
+          replacement:"${prefix}SHOPPING CENTER${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )TE$|(?<prefix> )TE(?<suffix> )",
-          replacement:"${prefix}TERR${suffix}"
+          replacement:"${prefix}TERR${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )TL$|(?<prefix> )TL(?<suffix> )",
-          replacement:"${prefix}TRL${suffix}"
+          replacement:"${prefix}TRL${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )TP$|(?<prefix> )TP(?<suffix> )",
-          replacement:"${prefix}TPKE${suffix}"
+          replacement:"${prefix}TPKE${suffix}",
+          options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace
           (
           input:scene_visits,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix> )",
-          replacement:"${prefix}WHARF${suffix}"
+          replacement:"${prefix}WHARF${suffix}",
+          options:RegexOptions.Multiline
           );
         //
         return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator,agency);
