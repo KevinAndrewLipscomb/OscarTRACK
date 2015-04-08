@@ -81,6 +81,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )CG$|(?<prefix> )CG(?<suffix> )",
+          replacement:"${prefix}XING${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix> )",
           replacement:"${prefix}CAUSEWAY${suffix}",
           options:RegexOptions.Multiline

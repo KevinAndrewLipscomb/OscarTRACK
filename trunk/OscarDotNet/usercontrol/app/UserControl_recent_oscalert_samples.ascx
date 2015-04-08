@@ -59,10 +59,11 @@
                     <Columns>
                       <asp:BoundColumn datafield="timestamp" headertext="Time">
                         <HeaderStyle Width="1%" />
-                        <ItemStyle Wrap="False" />
+                        <ItemStyle Wrap="False" VerticalAlign="Top" />
                       </asp:BoundColumn>
                       <asp:BoundColumn datafield="content" headertext="Content">
                         <HeaderStyle Width="99%" />
+                        <ItemStyle VerticalAlign="Top" />
                       </asp:BoundColumn>
                     </Columns>
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
