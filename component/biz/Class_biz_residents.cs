@@ -67,6 +67,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )BD$|(?<prefix> )BD(?<suffix> )",
+          replacement:"${prefix}BND${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )BL$|(?<prefix> )BL(?<suffix> )",
           replacement:"${prefix}BLVD${suffix}",
           options:RegexOptions.Multiline

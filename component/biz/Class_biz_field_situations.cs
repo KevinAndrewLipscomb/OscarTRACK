@@ -177,6 +177,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )BD$|(?<prefix> )BD(?<suffix>/)|(?<prefix> )BD(?<suffix> )",
+          replacement:"${prefix}BND${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )BL$|(?<prefix> )BL(?<suffix>/)|(?<prefix> )BL(?<suffix> )",
           replacement:"${prefix}BLVD${suffix}"
           );

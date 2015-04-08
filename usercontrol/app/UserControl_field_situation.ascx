@@ -220,6 +220,10 @@
                             <td>Hazmat</td>
                           </tr>
                           <tr>
+                            <td>INS</td>
+                            <td>Inspector</td>
+                          </tr>
+                          <tr>
                             <td>L</td>
                             <td>Ladder</td>
                           </tr>
