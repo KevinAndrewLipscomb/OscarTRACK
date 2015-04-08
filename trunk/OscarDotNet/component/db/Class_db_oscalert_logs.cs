@@ -84,7 +84,7 @@ namespace Class_db_oscalert_logs
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
         "select DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as timestamp"
-        + " , REPLACE(content,'OSCALERT: ','') as content"
+        + " , content"
         + " from oscalert_log"
         + " where content not like '%need%'"
         +   " and content not like '%hold%'"

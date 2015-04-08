@@ -108,6 +108,7 @@ namespace UserControl_recent_oscalert_samples
         e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
           (
           input:e.Item.Cells[Static.TCI_CONTENT].Text
+            .Replace("OSCALERT: ",k.EMPTY)
             .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
             .Replace(" case active.",k.EMPTY)
             .Replace(" Volunteers to your stations.",k.EMPTY),
