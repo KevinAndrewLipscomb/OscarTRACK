@@ -105,15 +105,40 @@ namespace UserControl_recent_oscalert_samples
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
+        //--
+        //
+        // Perform simple replacements.
+        //
+        //--
+        e.Item.Cells[Static.TCI_CONTENT].Text = e.Item.Cells[Static.TCI_CONTENT].Text
+        .Replace("OSCALERT: ",k.EMPTY)
+        .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
+        .Replace(" case active.",k.EMPTY)
+        .Replace(" Volunteers to your stations.",k.EMPTY)
+        .Replace("Assgnmt=","Assgnmt: ")
+        ;
+        //--
+        //
+        // Perform regular expression replacements.
+        //
+        //--
+        //
+        // Remove house numbers.
+        //
         e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
           (
-          input:e.Item.Cells[Static.TCI_CONTENT].Text
-            .Replace("OSCALERT: ",k.EMPTY)
-            .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
-            .Replace(" case active.",k.EMPTY)
-            .Replace(" Volunteers to your stations.",k.EMPTY),
+          input:e.Item.Cells[Static.TCI_CONTENT].Text,
           pattern:" \\d+ ",
           replacement:k.SPACE
+          );
+        //
+        // Make "Assgnmt" clauses (which are the only places we'll encounter a comma not followed by a space) wrapable.
+        //
+        e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
+          (
+          input:e.Item.Cells[Static.TCI_CONTENT].Text,
+          pattern:",([^ ])",
+          replacement:" $1"
           );
         //
         // Remove all cell controls from viewstate.
