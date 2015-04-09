@@ -171,7 +171,7 @@ namespace UserControl_field_situation
         tilde_path_prefix:"~/pub/scratch/field_situation"
         );
       p.be_datagrid_empty = (p.num_field_situations == 0);
-      TableRow_none.Visible = p.be_datagrid_empty;
+      TableData_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_cases.Text = p.num_field_situations.ToString() + " case" + (p.num_field_situations == 1 ? k.EMPTY : "s");
       p.label = 'A';

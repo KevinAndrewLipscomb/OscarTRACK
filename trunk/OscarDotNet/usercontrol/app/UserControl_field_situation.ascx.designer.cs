@@ -31,13 +31,13 @@ namespace UserControl_field_situation {
         protected global::System.Web.UI.WebControls.Literal Literal_num_cases;
         
         /// <summary>
-        /// TableRow_none control.
+        /// TableData_none control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_none;
         
         /// <summary>
         /// DataGrid_control control.

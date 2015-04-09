@@ -23,11 +23,11 @@
                 </table>
               </td>
             </tr>
-            <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             <tr>
               <td>
                 <table>
                   <tr valign="top">
+                    <td id="TableData_none" runat="server"><em>--&nbsp;NONE&nbsp;--</em></td>
                     <td>
                       <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
                         <Columns>
