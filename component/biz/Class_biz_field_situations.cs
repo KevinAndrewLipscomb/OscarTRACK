@@ -247,6 +247,15 @@ namespace Class_biz_field_situations
           replacement:"${prefix}WHARF${suffix}"
           );
         //
+        // Account for the special "BW" (boardwalk) case.
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )BW$|(?<prefix> )BW(?<suffix>/)|(?<prefix> )BW(?<suffix> )|^BW(?<suffix> )",
+          replacement:"${prefix}BOARDWALK${suffix}"
+          );
+        //
         // Account for certain truncations that appear in data source.
         //
         map_rendition_of = Regex.Replace
@@ -274,15 +283,6 @@ namespace Class_biz_field_situations
           replacement:"/VIRGINIA BEACH BLVD"
           );
         //
-        // Perform pattern elimination replacements
-        //
-        map_rendition_of = Regex.Replace
-          (
-          input:map_rendition_of,
-          pattern:" BW$| BW(?<suffix>/)",
-          replacement:"${suffix}"
-          );
-        //
         // For a WaterWay, strip the WW suffix *and* strip out the house_num, if any.
         //
         map_rendition_of = Regex.Replace
@@ -295,6 +295,7 @@ namespace Class_biz_field_situations
         // Perform simple replacements *and* append ',Va Beach,VA'.
         //
         map_rendition_of = map_rendition_of
+        .Replace("BOARDWALK BOARDWALK","BOARDWALK")
         .Replace("BOARDWALK/","ATLANTIC AVE/")
         .Replace("/BOARDWALK","/ATLANTIC AVE")
         .Replace("/"," & ")
