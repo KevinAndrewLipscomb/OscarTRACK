@@ -13,6 +13,15 @@ namespace field_situation {
     public partial class TWebForm_field_situation {
         
         /// <summary>
+        /// Meta_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlMeta Meta_control;
+        
+        /// <summary>
         /// UserControl_precontent control.
         /// </summary>
         /// <remarks>
