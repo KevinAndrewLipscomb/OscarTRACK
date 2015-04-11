@@ -11,6 +11,7 @@
     <title></title>
     <link rel="StyleSheet" href="../css/standard.css" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "css/standard-overrides-for-ie6.css";</style><![endif]-->
+    <meta id="Meta_control" runat="server" http-equiv="refresh" />
   </head>
   <body bgcolor="white">
     <form runat="server">

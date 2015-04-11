@@ -20,6 +20,7 @@ namespace field_situation
             if (!IsPostBack)
             {
                 Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - field_situation";
+                Meta_control.Content = ((Session.Timeout - 1)*60).ToString();
             }
         }
 

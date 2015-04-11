@@ -40,6 +40,11 @@ namespace exception
           Table_db_down.Visible = true;
           Table_oops.Visible = false;
           }
+        else if (last_error.ToString().Contains("Validation of viewstate MAC failed."))
+          {
+          Server.ClearError();
+          Server.Transfer("~/Default.aspx");
+          }
         else if (!last_error.ToString().Contains("The client disconnected."))
           {
           //

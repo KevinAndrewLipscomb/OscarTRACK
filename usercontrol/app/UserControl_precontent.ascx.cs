@@ -58,26 +58,35 @@ namespace UserControl_precontent
             + k.NEW_LINE
             + "The Application Administrator has been notified by pager and email.";
             //
-            if (e.Exception.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+            if (e.Exception.ToString().Contains("Validation of viewstate MAC failed."))
               {
-              engine_innodb_status = new TClass_db__information_schema().EngineInnodbStatus();
-              cause = k.alert_cause_type.DBMS;
-              key = "deadlock";
-              alert_message_value = "DEADLOCK!" + k.NEW_LINE
-              + k.NEW_LINE
-              + "The application's database subsystem had to abort your operation to relieve a deadlock." + k.NEW_LINE
-              + k.NEW_LINE
-              + "You and another user (or process) tried to access the same server data at the same time in an incompatible way." + k.NEW_LINE
-              + k.NEW_LINE
-              + "Please close and re-open your browser, log back in, and try again.";
+              cause = k.alert_cause_type.OTHER;
+              key = "invvwstmac";
+              alert_message_value = "To continue, please use your browser's Page Refresh/Reload feature after dismissing this message.";
               }
-            k.EscalatedException
-              (
-              the_exception:e.Exception,
-              user_identity_name:HttpContext.Current.User.Identity.Name,
-              session:Session,
-              engine_innodb_status:engine_innodb_status
-              );
+            else
+              {
+              if (e.Exception.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
+                {
+                engine_innodb_status = new TClass_db__information_schema().EngineInnodbStatus();
+                cause = k.alert_cause_type.DBMS;
+                key = "deadlock";
+                alert_message_value = "DEADLOCK!" + k.NEW_LINE
+                + k.NEW_LINE
+                + "The application's database subsystem had to abort your operation to relieve a deadlock." + k.NEW_LINE
+                + k.NEW_LINE
+                + "You and another user (or process) tried to access the same server data at the same time in an incompatible way." + k.NEW_LINE
+                + k.NEW_LINE
+                + "Please close and re-open your browser, log back in, and try again.";
+                }
+              k.EscalatedException
+                (
+                the_exception:e.Exception,
+                user_identity_name:HttpContext.Current.User.Identity.Name,
+                session:Session,
+                engine_innodb_status:engine_innodb_status
+                );
+              }
             ScriptManager_control.AsyncPostBackErrorMessage = AlertMessage
               (
               cause:cause,
