@@ -28,6 +28,7 @@ namespace Class_db_field_situations
         +   " join field_situation_impression on (field_situation_impression.id=field_situation.impression_id)"
         + " where assignment not like '%FAST%'"
         +   " and assignment not rlike '^R[[:digit:]]+$'"
+        +   " and assignment not in ('ECOMM','FCOMM')"
         +   " and"
         +     " ("
         +       " time_initialized >= DATE_SUB(NOW(),INTERVAL 3 HOUR)"
