@@ -13,6 +13,7 @@
             <cc1:TabPanel runat="server" headertext="Fund drive objects" id="TabPanel_fund_drive_objects" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Shifts" id="TabPanel_shifts" enabled="False"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Eval objects" id="TabPanel_eval_objects" enabled="False"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Incident natures" id="TabPanel_incident_natures" enabled="False"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>
