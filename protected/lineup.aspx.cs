@@ -43,6 +43,14 @@ namespace lineup
           (nature_of_visit_unlimited == nature_of_visit_type.VISIT_INITIAL)
         )
         {
+        //
+        // Handle the case where session variables, assumed to exist by code in this page, have been lost.
+        //
+        if (Session["member_id"] == null)
+          {
+          Server.Transfer("~/timeout.aspx");
+          }
+        //
         p.biz_agencies = new TClass_biz_agencies();
         //
         Session.Add("mode:report", k.EMPTY);
