@@ -247,6 +247,10 @@
                             <td>T</td>
                             <td>Tanker (water tender)</td>
                           </tr>
+                          <tr>
+                            <td>ZOD</td>
+                            <td>Zodiac boat</td>
+                          </tr>
                         </table>
                       </td>
                       <td>&nbsp;</td>

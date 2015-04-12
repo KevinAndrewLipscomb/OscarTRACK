@@ -225,6 +225,7 @@
     <Content Include="usercontrol\app\UserControl_fund_drive_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
+    <Content Include="usercontrol\app\UserControl_incident_nature.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
     <Content Include="usercontrol\app\UserControl_member_profile.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
@@ -287,6 +288,7 @@
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
     <Compile Include="component\biz\Class_biz_field_situations.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
+    <Compile Include="component\biz\Class_biz_incident_natures.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\biz\Class_biz_accounts.cs" />
     <Compile Include="component\biz\Class_biz_agencies.cs" />
@@ -364,6 +366,7 @@
     <Compile Include="component\db\Class_db_field_situations.cs" />
     <Compile Include="component\db\Class_db_fuels.cs" />
     <Compile Include="component\db\Class_db_gripes.cs" />
+    <Compile Include="component\db\Class_db_incident_natures.cs" />
     <Compile Include="component\db\Class_db_indicator_median_length_of_service.cs" />
     <Compile Include="component\db\Class_db_indicator_monthly_vehicles_up_and_current.cs" />
     <Compile Include="component\db\Class_db_indicator_shiftwise_vehicles_up_and_current.cs" />
@@ -1328,6 +1331,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_gripe_sheet.ascx.designer.cs">
       <DependentUpon>UserControl_gripe_sheet.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_incident_nature.ascx.cs">
+      <DependentUpon>UserControl_incident_nature.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_incident_nature.ascx.designer.cs">
+      <DependentUpon>UserControl_incident_nature.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_keyclick.ascx.cs">
       <DependentUpon>UserControl_keyclick.ascx</DependentUpon>
