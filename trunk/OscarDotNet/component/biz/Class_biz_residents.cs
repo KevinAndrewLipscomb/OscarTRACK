@@ -116,6 +116,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )QU$|(?<prefix> )QU(?<suffix> )",
+          replacement:"${prefix}QUAY${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )SC$|(?<prefix> )SC(?<suffix> )",
           replacement:"${prefix}SHOPPING CENTER${suffix}",
           options:RegexOptions.Multiline
@@ -139,6 +146,13 @@ namespace Class_biz_residents
           input:scene_visits,
           pattern:"(?<prefix> )TP$|(?<prefix> )TP(?<suffix> )",
           replacement:"${prefix}TPKE${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
+          pattern:"(?<prefix> )TU$|(?<prefix> )TU(?<suffix> )",
+          replacement:"${prefix}TURN${suffix}",
           options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace

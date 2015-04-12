@@ -225,6 +225,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )QU$|(?<prefix> )QU(?<suffix>/)|(?<prefix> )QU(?<suffix> )",
+          replacement:"${prefix}QUAY${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )SC$|(?<prefix> )SC(?<suffix>/)|(?<prefix> )SC(?<suffix> )",
           replacement:"${prefix}SHOPPING CENTER${suffix}"
           );
@@ -245,6 +251,12 @@ namespace Class_biz_field_situations
           input:map_rendition_of,
           pattern:"(?<prefix> )TP$|(?<prefix> )TP(?<suffix>/)|(?<prefix> )TP(?<suffix> )",
           replacement:"${prefix}TPKE${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )TU$|(?<prefix> )TU(?<suffix>/)|(?<prefix> )TU(?<suffix> )",
+          replacement:"${prefix}TURN${suffix}"
           );
         map_rendition_of = Regex.Replace
           (
