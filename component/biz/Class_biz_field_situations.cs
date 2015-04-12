@@ -93,11 +93,17 @@ namespace Class_biz_field_situations
       var disk_file_spec = disk_folder_spec + "/" + file_name;
       if (!File.Exists(disk_file_spec))
         {
-        new WebClient().DownloadFile
-          (
-          address:static_part + dynamic_part,
-          fileName:disk_file_spec
-          );
+        try
+          {
+          new WebClient().DownloadFile
+            (
+            address:static_part + dynamic_part,
+            fileName:disk_file_spec
+            );
+          }
+        catch (WebException)
+          {
+          }
         //
         // Delete stale files.
         //
