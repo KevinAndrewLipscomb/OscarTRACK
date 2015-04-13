@@ -326,6 +326,7 @@ namespace Class_biz_field_situations
         .Replace("100 264E ","I-264 & ")
         .Replace("100 264W ","I-264 & ")
         .Replace("100 DN ","DAM NECK NAVAL BASE ")
+        .Replace("4400 NORTHAMPTON BLVD","CHESAPEAKE BAY BRIDGE TUNNEL")
         + ",Va Beach,VA";
         }
       return HttpUtility.UrlEncode(map_rendition_of);
