@@ -355,7 +355,7 @@ namespace UserControl_patient_encounter
         patient_encounter_id,
         p.eval_id,
         k.Safe(TextBox_chief_complaint.Text, k.safe_hint_type.PUNCTUATED).Trim(),
-        k.Safe(TextBox_patient_age.Text, k.safe_hint_type.REAL_NUM).Trim(),
+        k.Safe(TextBox_patient_age.Text, k.safe_hint_type.NUM).Trim(),
         k.Safe(DropDownList_patient_age_unit.SelectedValue, k.safe_hint_type.NUM).Trim(),
         k.Safe(DropDownList_patient_encounter_level.SelectedValue, k.safe_hint_type.NUM).Trim(),
         p.guid

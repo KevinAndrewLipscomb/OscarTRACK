@@ -220,6 +220,15 @@ namespace UserControl_patient_encounter {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_patient_age_unit_id;
         
         /// <summary>
+        /// RangeValidator_patient_age control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RangeValidator RangeValidator_patient_age;
+        
+        /// <summary>
         /// DropDownList_patient_encounter_level control.
         /// </summary>
         /// <remarks>

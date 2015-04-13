@@ -85,6 +85,7 @@
     <td nowrap="nowrap">
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_patient_age" runat="server" errormessage="Please enter a valid Patient&nbsp;age." font-bold="True" controltovalidate="TextBox_patient_age" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
       <ASP:RegularExpressionValidator id="RegularExpressionValidator_patient_age_unit_id" runat="server" errormessage="Please select a valid Patient&nbsp;age&nbsp;unit." font-bold="True" controltovalidate="DropDownList_patient_age_unit" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <asp:RangeValidator ID="RangeValidator_patient_age" runat="server" ControlToValidate="TextBox_patient_age" ErrorMessage="The Patient&nbsp;age number cannot be greater than 255." Font-Bold="True" MaximumValue="255" MinimumValue="0" Type="Integer">!ERR!</asp:RangeValidator>
     </td>
   </tr>
   <tr>
