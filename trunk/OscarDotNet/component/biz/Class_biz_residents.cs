@@ -81,6 +81,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )CH$|(?<prefix> )CH(?<suffix> )",
+          replacement:"${prefix}CHASE${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )CI$|(?<prefix> )CI(?<suffix> )",
           replacement:"${prefix}CIR${suffix}",
           options:RegexOptions.Multiline
@@ -95,8 +102,29 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )CL$|(?<prefix> )CL(?<suffix> )",
+          replacement:"${prefix}CLUSTER${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix> )",
           replacement:"${prefix}CAUSEWAY${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
+          pattern:"(?<prefix> )GA$|(?<prefix> )GA(?<suffix> )",
+          replacement:"${prefix}GATE${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
+          pattern:"(?<prefix> )GR$|(?<prefix> )GR(?<suffix> )",
+          replacement:"${prefix}GRN${suffix}",
           options:RegexOptions.Multiline
           );
         scene_visits = Regex.Replace

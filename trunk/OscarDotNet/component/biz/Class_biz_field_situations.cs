@@ -195,6 +195,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )CH$|(?<prefix> )CH(?<suffix>/)|(?<prefix> )CH(?<suffix> )",
+          replacement:"${prefix}CHASE${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )CI$|(?<prefix> )CI(?<suffix>/)|(?<prefix> )CI(?<suffix> )",
           replacement:"${prefix}CIR${suffix}"
           );
@@ -207,8 +213,26 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )CL$|(?<prefix> )CL(?<suffix>/)|(?<prefix> )CL(?<suffix> )",
+          replacement:"${prefix}CLUSTER${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )CW$|(?<prefix> )CW(?<suffix>/)|(?<prefix> )CW(?<suffix> )",
           replacement:"${prefix}CAUSEWAY${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )GA$|(?<prefix> )GA(?<suffix>/)|(?<prefix> )GA(?<suffix> )",
+          replacement:"${prefix}GATE${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )GR$|(?<prefix> )GR(?<suffix>/)|(?<prefix> )GR(?<suffix> )",
+          replacement:"${prefix}GRN${suffix}"
           );
         map_rendition_of = Regex.Replace
           (
