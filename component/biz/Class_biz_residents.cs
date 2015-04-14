@@ -109,6 +109,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )MW$|(?<prefix> )MW(?<suffix> )",
+          replacement:"${prefix}MEWS${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )PW$|(?<prefix> )PW(?<suffix> )",
           replacement:"${prefix}PKWY${suffix}",
           options:RegexOptions.Multiline
