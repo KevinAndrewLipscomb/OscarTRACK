@@ -231,7 +231,7 @@ namespace UserControl_incident_nature
         p.be_loaded = false;
         p.biz_incident_natures = new TClass_biz_incident_natures();
         p.biz_role_member_map = new TClass_biz_role_member_map();
-        p.be_ok_to_config_incident_natures = k.Has((string[])(Session["privilege_array"]), "config-incident_natures");
+        p.be_ok_to_config_incident_natures = k.Has((string[])(Session["privilege_array"]), "config-incident-natures");
         p.id = k.EMPTY;
         p.summary = null;
         }
