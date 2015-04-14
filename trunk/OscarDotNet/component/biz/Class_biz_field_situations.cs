@@ -280,6 +280,15 @@ namespace Class_biz_field_situations
           replacement:"${prefix}BOARDWALK${suffix}"
           );
         //
+        // Account for beach-borough "half streets".
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
+          replacement:"${prefix}1/2 ST${suffix}"
+          );
+        //
         // Account for certain truncations that appear in data source.
         //
         map_rendition_of = Regex.Replace

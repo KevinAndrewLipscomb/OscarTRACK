@@ -170,6 +170,14 @@ namespace Class_biz_residents
           options:RegexOptions.Multiline
           );
         //
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
+          pattern:" HALF ST$",
+          replacement:" 1/2 ST",
+          options:RegexOptions.Multiline
+          );
+        //
         return db_residents.FilteredFromSceneVisits(scene_visits,love_letter_batch_designator,agency);
         }
 
