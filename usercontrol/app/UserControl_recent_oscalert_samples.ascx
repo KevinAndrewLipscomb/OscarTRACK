@@ -11,7 +11,7 @@
                 <td bgcolor="#dcdcdc">
                   <table cellspacing="0" cellpadding="0" border="0" width="100%">
                     <tr>
-                      <td><b>Selected recent OSCALERTs</b></td>
+                      <td><b>Selected recent <a href="http://frompaper2web.com/OscarTRACK">OSCALERT</a> / <a href="http://broadcastify.com" target="_blank">Broadcastify</a> activations</b></td>
                       <td>
                         <table align="center" cellpadding="2" cellspacing="0">
                           <tr>
@@ -47,7 +47,7 @@
                           </tr>
                         </table>
                       </td>
-                      <td align="right"><asp:Literal ID="Literal_num_alerts" runat="server"></asp:Literal>&nbsp;alerts</td>
+                      <td align="right"><asp:Literal ID="Literal_num_alerts" runat="server"></asp:Literal>&nbsp;cases</td>
                     </tr>
                   </table>
                 </td>
