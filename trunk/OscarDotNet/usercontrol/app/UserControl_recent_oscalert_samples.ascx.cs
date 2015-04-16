@@ -2,6 +2,7 @@
 
 using AjaxControlToolkit;
 using Class_biz_oscalert_logs;
+using Class_biz_publicity;
 using Class_msg_protected;
 using kix;
 using System;
@@ -29,6 +30,7 @@ namespace UserControl_recent_oscalert_samples
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_oscalert_logs biz_oscalert_logs;
+      public TClass_biz_publicity biz_publicity;
       public string impression_filter;
       public uint num_oscalert_logs;
       public string recency_filter;
@@ -70,6 +72,7 @@ namespace UserControl_recent_oscalert_samples
       else
         {
         p.biz_oscalert_logs = new TClass_biz_oscalert_logs();
+        p.biz_publicity = new TClass_biz_publicity();
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
@@ -105,41 +108,7 @@ namespace UserControl_recent_oscalert_samples
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        //--
-        //
-        // Perform simple replacements.
-        //
-        //--
-        e.Item.Cells[Static.TCI_CONTENT].Text = e.Item.Cells[Static.TCI_CONTENT].Text
-        .Replace("OSCALERT: ",k.EMPTY)
-        .Replace(" http://goo.gl/lvMvXs",k.EMPTY)
-        .Replace(" case active.",k.EMPTY)
-        .Replace(" Volunteers to your stations.",k.EMPTY)
-        .Replace("Assgnmt=","Assgnmt: ")
-        ;
-        //--
-        //
-        // Perform regular expression replacements.
-        //
-        //--
-        //
-        // Remove house numbers.
-        //
-        e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
-          (
-          input:e.Item.Cells[Static.TCI_CONTENT].Text,
-          pattern:" \\d+ ",
-          replacement:k.SPACE
-          );
-        //
-        // Make "Assgnmt" clauses (which are the only places we'll encounter a comma not followed by a space) wrapable.
-        //
-        e.Item.Cells[Static.TCI_CONTENT].Text = Regex.Replace
-          (
-          input:e.Item.Cells[Static.TCI_CONTENT].Text,
-          pattern:",([^ ])",
-          replacement:" $1"
-          );
+        e.Item.Cells[Static.TCI_CONTENT].Text = p.biz_publicity.RenditionOfOscalertLogContent(e.Item.Cells[Static.TCI_CONTENT].Text);
         //
         // Remove all cell controls from viewstate.
         //
