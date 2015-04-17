@@ -9,9 +9,9 @@ using System.Collections;
 using System.Web.UI.WebControls;
 using UserControl_drop_down_date;
 
-namespace Class_db_ephemeral_dispatchs
+namespace Class_db_ephemeral_dispatches
   {
-  public class TClass_db_ephemeral_dispatchs: TClass_db
+  public class TClass_db_ephemeral_dispatches: TClass_db
     {
     private class ephemeral_dispatch_summary
       {
@@ -20,7 +20,7 @@ namespace Class_db_ephemeral_dispatchs
 
     private TClass_db_trail db_trail = null;
 
-    public TClass_db_ephemeral_dispatchs() : base()
+    public TClass_db_ephemeral_dispatches() : base()
       {
       db_trail = new TClass_db_trail();
       }
@@ -179,6 +179,6 @@ namespace Class_db_ephemeral_dispatchs
       return the_summary;
       }
 
-    } // end TClass_db_ephemeral_dispatchs
+    } // end TClass_db_ephemeral_dispatches
 
   }
