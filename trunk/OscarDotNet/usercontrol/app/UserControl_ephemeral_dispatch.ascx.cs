@@ -1,23 +1,27 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using AjaxControlToolkit;
-using Class_biz_incident_natures;
+using Class_biz_ephemeral_dispatches;
 using Class_biz_role_member_map;
 using kix;
 using System;
+using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+using System.Collections;
+using UserControl_drop_down_date;
+using AjaxControlToolkit;
 
-namespace UserControl_incident_nature
+namespace UserControl_ephemeral_dispatch
   {
-  public partial class TWebUserControl_incident_nature: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_ephemeral_dispatch: ki_web_ui.usercontrol_class
     {
     private struct p_type
       {
       public bool be_loaded;
-      public TClass_biz_incident_natures biz_incident_natures;
+      public TClass_biz_ephemeral_dispatches biz_ephemeral_dispatches;
       public TClass_biz_role_member_map biz_role_member_map;
-      public bool be_ok_to_config_incident_natures;
+      public bool be_ok_to_config_ephemeral_dispatchs;
       public string id;
       public presentation_mode_enum presentation_mode;
       public object summary;
@@ -126,7 +130,7 @@ namespace UserControl_incident_nature
       {
       if (!p.be_loaded)
         {
-        LinkButton_new_record.Visible = p.be_ok_to_config_incident_natures;
+        LinkButton_new_record.Visible = p.be_ok_to_config_ephemeral_dispatchs;
         LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
@@ -155,7 +159,7 @@ namespace UserControl_incident_nature
       result = false;
       if
         (
-        p.biz_incident_natures.Get
+        p.biz_ephemeral_dispatches.Get
           (
           id,
           out designator,
@@ -171,9 +175,9 @@ namespace UserControl_incident_nature
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
         LinkButton_reset.Enabled = true;
-        SetDependentFieldAblements(p.be_ok_to_config_incident_natures);
-        Button_submit.Enabled = p.be_ok_to_config_incident_natures;
-        Button_delete.Enabled = p.be_ok_to_config_incident_natures;
+        SetDependentFieldAblements(p.be_ok_to_config_ephemeral_dispatchs);
+        Button_submit.Enabled = p.be_ok_to_config_ephemeral_dispatchs;
+        Button_delete.Enabled = p.be_ok_to_config_ephemeral_dispatchs;
         result = true;
         }
       return result;
@@ -189,8 +193,8 @@ namespace UserControl_incident_nature
       Label_lookup_hint.Enabled = false;
       LinkButton_reset.Enabled = true;
       LinkButton_new_record.Enabled = false;
-      SetDependentFieldAblements(p.be_ok_to_config_incident_natures);
-      Button_submit.Enabled = p.be_ok_to_config_incident_natures;
+      SetDependentFieldAblements(p.be_ok_to_config_ephemeral_dispatchs);
+      Button_submit.Enabled = p.be_ok_to_config_ephemeral_dispatchs;
       Button_delete.Enabled = false;
       TextBox_id.Focus();
       }
@@ -221,17 +225,18 @@ namespace UserControl_incident_nature
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_config_business_objects_binder_cad_object_binder_incident_nature")
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_config_business_objects_binder_cad_object_binder_ephemeral_dispatch")
           {
-          p.be_loaded &= ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_cad_object_binder_PlaceHolder_content"] as string) == "UserControl_incident_nature");
+          p.be_loaded &= ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_cad_object_binder_PlaceHolder_content"] as string) == "UserControl_ephemeral_dispatch");
           }
         }
       else
         {
-        p.be_loaded = false;
-        p.biz_incident_natures = new TClass_biz_incident_natures();
+        p.biz_ephemeral_dispatches = new TClass_biz_ephemeral_dispatches();
         p.biz_role_member_map = new TClass_biz_role_member_map();
-        p.be_ok_to_config_incident_natures = k.Has((string[])(Session["privilege_array"]), "config-cad-objects");
+        //
+        p.be_loaded = false;
+        p.be_ok_to_config_ephemeral_dispatchs = k.Has((string[])(Session["privilege_array"]), "config-cad-objects");
         p.id = k.EMPTY;
         p.summary = null;
         }
@@ -244,15 +249,15 @@ namespace UserControl_incident_nature
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_incident_nature_PreRender;
+      this.PreRender += this.TWebUserControl_ephemeral_dispatch_PreRender;
       }
 
-    private void TWebUserControl_incident_nature_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_ephemeral_dispatch_PreRender(object sender, System.EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
 
-    public TWebUserControl_incident_nature Fresh()
+    public TWebUserControl_ephemeral_dispatch Fresh()
       {
       Session.Remove(InstanceId() + ".p");
       return this;
@@ -262,11 +267,11 @@ namespace UserControl_incident_nature
       {
       if (Page.IsValid)
         {
-        p.biz_incident_natures.Set
+        p.biz_ephemeral_dispatches.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           k.Safe(TextBox_designator.Text,k.safe_hint_type.ALPHANUM).Trim(),
-          k.Safe(TextBox_description.Text,k.safe_hint_type.HYPHENATED_ALPHANUM_WORDS).Trim()
+          k.Safe(TextBox_description.Text,k.safe_hint_type.MAKE_MODEL).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
@@ -308,7 +313,7 @@ namespace UserControl_incident_nature
 
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (p.biz_incident_natures.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
+      if (p.biz_ephemeral_dispatches.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.NUM)))
         {
         SetLookupMode();
         }
@@ -338,12 +343,12 @@ namespace UserControl_incident_nature
       {
       uint num_matches;
       string saved_id;
-      saved_id = k.Safe(TextBox_id.Text,k.safe_hint_type.NUM);
+      saved_id = k.Safe(TextBox_id.Text,k.safe_hint_type.PUNCTUATED);
       Clear();
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_incident_natures.Bind(saved_id, DropDownList_id);
+        p.biz_ephemeral_dispatches.Bind(saved_id, DropDownList_id);
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -378,14 +383,14 @@ namespace UserControl_incident_nature
       if (id.Length > 0)
         {
         p.id = id;
-        p.summary = p.biz_incident_natures.Summary(id);
-        //p.be_ok_to_config_incident_natures = p.biz_privileges.HasForContainer
+        p.summary = p.biz_ephemeral_dispatches.Summary(id);
+        //p.be_ok_to_config_ephemeral_dispatchs = p.biz_privileges.HasForContainer
         //  (
         //  member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),
-        //  privilege_name:"config-incident_natures",
-        //  container_id:p.biz_incident_natures.ContainerIdOf(p.summary)
+        //  privilege_name:"config-ephemeral_dispatchs",
+        //  container_id:p.biz_ephemeral_dispatchs.ContainerIdOf(p.summary)
         //  );
-        p.presentation_mode = (p.be_ok_to_config_incident_natures ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
+        p.presentation_mode = (p.be_ok_to_config_ephemeral_dispatchs ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
         }
       else
         {
@@ -395,6 +400,6 @@ namespace UserControl_incident_nature
         }
       }
 
-    } // end TWebUserControl_incident_nature
+    } // end TWebUserControl_ephemeral_dispatch
 
   }
