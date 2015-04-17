@@ -152,7 +152,8 @@ namespace Class_db_ephemeral_dispatches
         target_table_name:"ephemeral_dispatch",
         key_field_name:"id",
         key_field_value:id,
-        childless_field_assignments_clause:childless_field_assignments_clause
+        childless_field_assignments_clause:childless_field_assignments_clause,
+        additional_match_condition:" or designator = '" + designator + "'"
         );
       }
 
