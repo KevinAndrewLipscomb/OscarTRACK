@@ -2,11 +2,19 @@ START TRANSACTION
 ;
 -- --
 --
+-- If this squad has no KEYclick donation history to lose and wants to completely refresh its target list, uncomment the following statement:
+--
+-- --
+;
+-- delete from resident_base where agency = ''  -- ADJUST!!!
+;
+-- --
+--
 -- ADJUST THE BELOW STATEMENT!!!
 --
 -- --
 ;
-update resident_base set name = NULL where agency =   -- ADJUST!!!
+update resident_base set name = NULL where agency = ''  -- ADJUST!!!
 ;
 -- --
 --
@@ -43,7 +51,7 @@ CREATE  TABLE `resident_import`
 -- --
 --
 --
--- Insert output column from spreadsheet below this comment.
+-- Insert output column from spreadsheet(s) below this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
 --
 -- --
 ;
@@ -51,7 +59,7 @@ CREATE  TABLE `resident_import`
 -- --
 --
 --
--- Insert output column from spreadsheet above this comment.
+-- Insert output column from spreadsheet(s) above this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
 --
 -- --
 ;
