@@ -322,7 +322,7 @@ namespace Class_biz_field_situations
           (
           input:map_rendition_of,
           pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
-          replacement:"${prefix}1/2 ST${suffix}"
+          replacement:"${prefix}1%2F2 ST${suffix}" // %2F is the URL encoded version of the slash ("/") character.
           );
         //
         // Account for certain truncations that appear in data source.
