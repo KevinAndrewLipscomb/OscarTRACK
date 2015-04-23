@@ -29,6 +29,8 @@ CREATE  TABLE `resident_import`
   ,
     `agency` ENUM('KVRS','PVRS','DCVRS','PACHVRS','CBVRS','VBVRS','OPVRS','CVRS','BVRS','SVRS') NOT NULL
   ,
+    `id_in_agency_system` VARCHAR(7)
+  ,
     `state_id` BIGINT UNSIGNED
   ,
     `city_id` BIGINT UNSIGNED
@@ -316,18 +318,19 @@ delete from resident_import where name is null and house_num is null
 -- APPEND resident_import TO resident_base
 --
 ;
-insert ignore resident_base (id,name,agency,house_num,street_id)
+insert ignore resident_base (id,name,agency,house_num,street_id,id_in_agency_system)
 select @id := @id + 1 as id
 , name
 , agency
 , house_num
 , street_id
+, id_in_agency_system
 from (select @id := max(id) from resident_base) as init, resident_import
 ;
 update resident_base
   join resident_import
     on (resident_import.street_id=resident_base.street_id and resident_import.house_num=resident_base.house_num and resident_import.agency=resident_base.agency)
-set resident_base.name = resident_import.name
+set resident_base.name = resident_import.name, resident_base.id_in_agency_system = resident_import.id_in_agency_system
 ;
 insert ignore donation (id,amount,note,entered_by,per_clerk_seq_num)
 select id
