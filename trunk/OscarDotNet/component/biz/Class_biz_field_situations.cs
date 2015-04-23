@@ -316,6 +316,15 @@ namespace Class_biz_field_situations
           replacement:"${prefix}BOARDWALK${suffix}"
           );
         //
+        // Account for beach-borough "half streets".
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
+          replacement:"${prefix}1/2 ST${suffix}"
+          );
+        //
         // Account for certain truncations that appear in data source.
         //
         map_rendition_of = Regex.Replace
@@ -352,7 +361,7 @@ namespace Class_biz_field_situations
           replacement:"${name}"
           );
         //
-        // Perform simple replacements *and* append ',Va Beach,VA'.
+        // Perform simple replacements.
         //
         map_rendition_of = map_rendition_of
         .Replace("BOARDWALK BOARDWALK","BOARDWALK")
@@ -360,7 +369,6 @@ namespace Class_biz_field_situations
         .Replace("/BOARDWALK","/ATLANTIC AVE")
         .Replace("OCEANFRONT/","ATLANTIC AVE/")
         .Replace("/OCEANFRONT","/ATLANTIC AVE")
-        .Replace("/"," & ")
         .Replace("100 64 ","I-64 & ")
         .Replace("100 64E ","I-64 & ")
         .Replace("100 64W ","I-64 & ")
@@ -370,14 +378,17 @@ namespace Class_biz_field_situations
         .Replace("100 DN ","DAM NECK NAVAL BASE ")
         .Replace("4400 NORTHAMPTON BLVD","CHESAPEAKE BAY BRIDGE TUNNEL");
         //
-        // Account for beach-borough "half streets".  Must do this after handling the CAD's "intersection" indicator ("/").
+        // Convert true intersection indicators (and not 1/2-street indicators) to Google format.
         //
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
-          pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
-          replacement:"${prefix}1/2 ST${suffix}"
+          pattern:"(^1/2)/",
+          replacement:" & "
           );
+        //
+        // Add context.
+        //
         map_rendition_of += ",Virginia Beach,VA";
         }
       return HttpUtility.UrlEncode(map_rendition_of);
