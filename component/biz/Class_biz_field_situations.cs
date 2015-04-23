@@ -383,8 +383,8 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
-          pattern:"(^1/2)/",
-          replacement:" & "
+          pattern:"(?<prefix>[^1])/(?<suffix>[^2])",
+          replacement:"${prefix} & ${suffix}"
           );
         //
         // Add context.
