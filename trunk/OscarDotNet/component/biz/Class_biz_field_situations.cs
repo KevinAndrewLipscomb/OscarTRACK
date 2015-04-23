@@ -316,15 +316,6 @@ namespace Class_biz_field_situations
           replacement:"${prefix}BOARDWALK${suffix}"
           );
         //
-        // Account for beach-borough "half streets".
-        //
-        map_rendition_of = Regex.Replace
-          (
-          input:map_rendition_of,
-          pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
-          replacement:"${prefix}1%2F2 ST${suffix}" // %2F is the URL encoded version of the slash ("/") character.
-          );
-        //
         // Account for certain truncations that appear in data source.
         //
         map_rendition_of = Regex.Replace
@@ -377,8 +368,17 @@ namespace Class_biz_field_situations
         .Replace("100 264E ","I-264 & ")
         .Replace("100 264W ","I-264 & ")
         .Replace("100 DN ","DAM NECK NAVAL BASE ")
-        .Replace("4400 NORTHAMPTON BLVD","CHESAPEAKE BAY BRIDGE TUNNEL")
-        + ",Va Beach,VA";
+        .Replace("4400 NORTHAMPTON BLVD","CHESAPEAKE BAY BRIDGE TUNNEL");
+        //
+        // Account for beach-borough "half streets".  Must do this after handling the CAD's "intersection" indicator ("/").
+        //
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
+          pattern:"(?<prefix> )HALF ST$|(?<prefix> )HALF ST(?<suffix>/)",
+          replacement:"${prefix}1/2 ST${suffix}"
+          );
+        map_rendition_of += ",Virginia Beach,VA";
         }
       return HttpUtility.UrlEncode(map_rendition_of);
       }
