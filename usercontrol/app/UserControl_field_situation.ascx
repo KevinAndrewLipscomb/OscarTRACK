@@ -264,6 +264,10 @@
                             <td>SUP</td>
                             <td>Support</td>
                           </tr>
+                          <tr>
+                            <td>U</td>
+                            <td>Utility</td>
+                          </tr>
                         </table>
                         <br />
                         <table>
