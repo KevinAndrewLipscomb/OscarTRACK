@@ -165,6 +165,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )RN$|(?<prefix> )RN(?<suffix> )",
+          replacement:"${prefix}RUN${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )SC$|(?<prefix> )SC(?<suffix> )",
           replacement:"${prefix}SHOPPING CENTER${suffix}",
           options:RegexOptions.Multiline
