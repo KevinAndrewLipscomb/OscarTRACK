@@ -400,6 +400,11 @@ namespace Class_biz_field_situations
       return HttpUtility.UrlEncode(map_rendition_of);
       }
 
+    internal void Remove(string id)
+      {
+      db_field_situations.Remove(id);
+      }
+
     } // end TClass_biz_field_situations
 
   }

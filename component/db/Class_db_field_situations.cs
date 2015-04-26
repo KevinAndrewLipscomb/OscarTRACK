@@ -20,7 +20,8 @@ namespace Class_db_field_situations
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select DATE_FORMAT(time_initialized,'%Y-%m-%d %H:%i') as time_initialized"
+        "select field_situation.id as id"
+        + " , DATE_FORMAT(time_initialized,'%Y-%m-%d %H:%i') as time_initialized"
         + " , address"
         + " , assignment"
         + " , description as impression"
@@ -40,6 +41,24 @@ namespace Class_db_field_situations
         )
         .ExecuteReader();
       ((target) as BaseDataList).DataBind();
+      Close();
+      }
+
+    internal void Remove(string id)
+      {
+      Open();
+      new MySqlCommand
+        (
+        "START TRANSACTION"
+        + ";"
+        + " update cad_record set be_current = false where incident_num = (select case_num from field_situation where id = '" + id + "')"
+        + ";"
+        + " delete from field_situation where id = '" + id + "'"
+        + ";"
+        + " COMMIT",
+        connection
+        )
+        .ExecuteNonQuery();
       Close();
       }
 

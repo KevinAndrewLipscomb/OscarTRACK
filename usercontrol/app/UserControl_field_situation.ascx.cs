@@ -14,11 +14,13 @@ namespace UserControl_field_situation
     {
     private static class Static
       {
-      public const int TCI_PIN = 0;
-      public const int TCI_TIME_INITIATED = 1;
-      public const int TCI_ADDRESS = 2;
-      public const int TCI_ASSIGNMENT = 3;
-      public const int TCI_IMPRESSION = 4;
+      public const int TCI_ID = 0;
+      public const int TCI_PIN = 1;
+      public const int TCI_TIME_INITIATED = 2;
+      public const int TCI_ADDRESS = 3;
+      public const int TCI_ASSIGNMENT = 4;
+      public const int TCI_IMPRESSION = 5;
+      public const int TCI_REMOVE = 6;
       }
 
     private struct p_type
@@ -29,6 +31,7 @@ namespace UserControl_field_situation
       public bool be_interactive;
       public bool be_loaded;
       public bool be_notes_body_visible;
+      public bool be_ok_to_fix_dangling;
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
@@ -102,6 +105,7 @@ namespace UserControl_field_situation
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
+        p.be_ok_to_fix_dangling = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation") && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
         p.be_sort_order_ascending = true;
         p.label = 'A';
         p.marker_address_q = new Queue<string>();
@@ -137,7 +141,14 @@ namespace UserControl_field_situation
         e.Item.Cells[Static.TCI_PIN].Text = p.label.ToString();
         p.label = (p.label == 'Z' ? 'A' : (char)(((int)p.label) + 1));
         //
-        e.Item.Cells[Static.TCI_TIME_INITIATED].Text = "<nobr>" + e.Item.Cells[Static.TCI_TIME_INITIATED].Text.Replace(k.SPACE,"</nobr> <nobr>") + "</nobr>";
+        var time_initiated_cell = e.Item.Cells[Static.TCI_TIME_INITIATED];
+        if (p.be_ok_to_fix_dangling && (DateTime.Parse(time_initiated_cell.Text) < DateTime.Now.AddHours(-6)))
+          {
+          var link_button_remove = (e.Item.Cells[Static.TCI_REMOVE].Controls[0] as LinkButton);
+          link_button_remove.Text = k.ExpandTildePath(link_button_remove.Text);
+          RequireConfirmation(link_button_remove,"Are you sure you want to remove this case?");
+          }
+        time_initiated_cell.Text = "<nobr>" + time_initiated_cell.Text.Replace(k.SPACE,"</nobr> <nobr>") + "</nobr>";
         //
         var hyperlink_address = (e.Item.Cells[Static.TCI_ADDRESS].Controls[0] as HyperLink);
         var deidentified_address = p.biz_field_situations.DeidentifiedRenditionOf(hyperlink_address.Text);
@@ -154,6 +165,7 @@ namespace UserControl_field_situation
           {
           cell.EnableViewState = false;
           }
+        e.Item.Cells[Static.TCI_ID].EnableViewState = true;
         //
         p.num_field_situations++;
         }
@@ -161,6 +173,7 @@ namespace UserControl_field_situation
 
     private void Bind()
       {
+      DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
       Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
         (
@@ -214,6 +227,15 @@ namespace UserControl_field_situation
       LinkButton_toggle_ambulance_callsigns.Text = "[" + (p.be_ambulance_callsigns_body_visible ? "Hide" : "Show") + "]";
       TableRow_ambulance_callsigns_body.Visible = p.be_ambulance_callsigns_body_visible;
       Bind();
+      }
+
+    protected void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
+      {
+      if (e.CommandName == "Remove")
+        {
+        p.biz_field_situations.Remove(k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM));
+        Bind();
+        }
       }
 
     } // end TWebUserControl_field_situation
