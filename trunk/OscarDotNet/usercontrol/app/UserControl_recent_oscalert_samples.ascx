@@ -21,6 +21,7 @@
                               <asp:DropDownList id="DropDownList_impression" runat="server" autopostback="True" OnSelectedIndexChanged="DropDownList_impression_SelectedIndexChanged" Font-Size="Small">
                                 <asp:ListItem Value="">(all)</asp:ListItem>
                                 <asp:ListItem Value="AirportAlert">AirportAlert</asp:ListItem>
+                                <asp:ListItem Value="CardiacArrest">CardiacArrest</asp:ListItem>
                                 <asp:ListItem Value="Fire">Fire-related</asp:ListItem>
                                 <asp:ListItem Value="FireSurge">- FireSurge</asp:ListItem>
                                 <asp:ListItem Value="TwoAlarmFire">- TwoAlarmFire</asp:ListItem>
