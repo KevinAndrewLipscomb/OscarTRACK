@@ -142,11 +142,15 @@ namespace UserControl_field_situation
         p.label = (p.label == 'Z' ? 'A' : (char)(((int)p.label) + 1));
         //
         var time_initiated_cell = e.Item.Cells[Static.TCI_TIME_INITIATED];
+        var link_button_remove = (e.Item.Cells[Static.TCI_REMOVE].Controls[0] as LinkButton);
         if (p.be_ok_to_fix_dangling && (DateTime.Parse(time_initiated_cell.Text) < DateTime.Now.AddHours(-6)))
           {
-          var link_button_remove = (e.Item.Cells[Static.TCI_REMOVE].Controls[0] as LinkButton);
           link_button_remove.Text = k.ExpandTildePath(link_button_remove.Text);
           RequireConfirmation(link_button_remove,"Are you sure you want to remove this case?");
+          }
+        else
+          {
+          link_button_remove.Visible = false;
           }
         time_initiated_cell.Text = "<nobr>" + time_initiated_cell.Text.Replace(k.SPACE,"</nobr> <nobr>") + "</nobr>";
         //
