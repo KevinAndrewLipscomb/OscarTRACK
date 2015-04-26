@@ -29,8 +29,9 @@
                   <tr valign="top">
                     <td id="TableData_none" runat="server"><em>--&nbsp;NONE&nbsp;--</em></td>
                     <td>
-                      <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True">
+                      <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True" OnItemCommand="DataGrid_control_ItemCommand">
                         <Columns>
+                          <asp:BoundColumn DataField="id" Visible="False"></asp:BoundColumn>
                           <asp:TemplateColumn HeaderText="Pin">
                             <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
                           </asp:TemplateColumn>
@@ -49,6 +50,7 @@
                             <HeaderStyle HorizontalAlign="Center" />
                             <ItemStyle horizontalalign="Center" VerticalAlign="Top"></ItemStyle>
                           </asp:BoundColumn>
+                          <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/delete_x16_h.png&quot; alt=&quot;Delete&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Remove" Visible="False"></asp:ButtonColumn>
                         </Columns>
                         <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                       </asp:DataGrid>
