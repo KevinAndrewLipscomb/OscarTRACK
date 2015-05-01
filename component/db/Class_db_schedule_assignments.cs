@@ -447,6 +447,7 @@ namespace Class_db_schedule_assignments
             +   " and be_selected"
             +   " and post_id < 200" // Only count ground ambulance assignments.
             +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+            +   " and (comment is null or comment not rlike '[[:digit:]]-[[:digit:]]')"
             + " group by nominal_day,shift_id"
             + ";"
             //
@@ -2091,7 +2092,7 @@ namespace Class_db_schedule_assignments
       Open();
       var num_crew_shifts_obj = new MySqlCommand
         (
-        "select sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
+        "select sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200 and (comment is null or comment not rlike '[[:digit:]]-[[:digit:]]'))/2 as num_crew_shifts"
         + " from schedule_assignment"
         +   " join agency on (agency.id=schedule_assignment.post_id)"
         +   " join member on (member.id=schedule_assignment.member_id)"
@@ -2270,7 +2271,7 @@ namespace Class_db_schedule_assignments
       //
       var citywide_population_select_from_where_prefix = k.EMPTY
       + " ("
-      + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200)/2"
+      + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200 and (s.comment is null or s.comment not rlike '[[:digit:]]-[[:digit:]]'))/2"
       + " from schedule_assignment t"
       +   " join schedule_assignment s on (s.nominal_day=t.nominal_day and s.shift_id=t.shift_id)"
       +   " join member on (member.id=s.member_id)"
@@ -2278,7 +2279,7 @@ namespace Class_db_schedule_assignments
       + " where t.id = '";
       var local_population_select_from_where_prefix = k.EMPTY
       + " ("
-      + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200)/2"
+      + " select sum(s.be_selected and medical_release_code_description_map.pecking_order >= 20 and s.post_id < 200 and (s.comment is null or s.comment not rlike '[[:digit:]]-[[:digit:]]'))/2"
       + " from schedule_assignment t"
       +   " join schedule_assignment s on (s.nominal_day=t.nominal_day and s.shift_id=t.shift_id)"
       +   " join member m on (m.id=s.member_id)"
