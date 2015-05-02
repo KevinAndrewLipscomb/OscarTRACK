@@ -866,6 +866,7 @@ namespace Class_db_schedule_assignments
         +           " where medical_release_code_description_map.pecking_order >= 20"
         +             " and be_selected"
         +             " and post_id < 200" // Only count ground ambulance assignments.
+        +             " and (comment is null or comment not rlike '[[:digit:]]-[[:digit:]]')"
         +           " group by nominal_day,shift_id"
         +           " ) msd_shift_populations_on_member_schedule_assignments"
         +             " using (nominal_day,shift_id)"
