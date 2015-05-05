@@ -1,5 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_vehicles_up_and_current.ascx.cs" Inherits="UserControl_serial_indicator_vehicles_up_and_current.TWebUserControl_serial_indicator_vehicles_up_and_current"%>
-<p>These control charts show the median length of service of released core operations personnel, in years.&nbsp; For each data point, half of such members have given fewer years of service than indicated, half more.</p>
+<p>These control charts show the degree to which vehicles in the agency's fleet were UP and within their PM and DMV inspection targets.</p>
 <table>
   <tr>
     <td nowrap="nowrap">
