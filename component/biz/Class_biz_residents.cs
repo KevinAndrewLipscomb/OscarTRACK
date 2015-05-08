@@ -137,6 +137,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )LO$|(?<prefix> )LO(?<suffix> )",
+          replacement:"${prefix}LOOP${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )MW$|(?<prefix> )MW(?<suffix> )",
           replacement:"${prefix}MEWS${suffix}",
           options:RegexOptions.Multiline

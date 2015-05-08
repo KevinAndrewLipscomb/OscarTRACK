@@ -243,6 +243,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )LO$|(?<prefix> )LO(?<suffix>/)|(?<prefix> )LO(?<suffix> )",
+          replacement:"${prefix}LOOP${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )MW$|(?<prefix> )MW(?<suffix>/)|(?<prefix> )MW(?<suffix> )",
           replacement:"${prefix}MEWS${suffix}"
           );
