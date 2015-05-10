@@ -113,6 +113,7 @@ namespace Class_db_members
       public bool be_placeholder;
       public bool be_flight_medic;
       public bool be_marine_medic;
+      public bool be_on_squad_truck_team;
       }
 
     public class TClass_db_members: TClass_db
@@ -314,6 +315,11 @@ namespace Class_db_members
           Close();
           return be_role_holder_by_shared_secret;
           }
+
+    public bool BeSquadTruckTeamQualifiedOf(object summary)
+      {
+      return (summary as member_summary).be_on_squad_truck_team;
+      }
 
         public bool BeValidProfile(string id)
         {
@@ -2128,6 +2134,18 @@ namespace Class_db_members
             this.Close();
         }
 
+    public void SetSquadTruckTeamQualification
+      (
+      bool be_on_squad_truck_team,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("UPDATE member SET be_on_squad_truck_team = " + be_on_squad_truck_team.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      Close();
+      (summary as member_summary).be_on_squad_truck_team = be_on_squad_truck_team;
+      }
+
         public object Summary
           (
           string member_id,
@@ -2157,6 +2175,7 @@ namespace Class_db_members
             + " , be_placeholder"
             + " , be_flight_medic"
             + " , be_marine_medic"
+            + " , be_on_squad_truck_team"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
             +   " join enrollment_history on" 
@@ -2209,6 +2228,7 @@ namespace Class_db_members
               + " , be_placeholder"
               + " , be_flight_medic"
               + " , be_marine_medic"
+              + " , be_on_squad_truck_team"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
               +   " join enrollment_history on" 
@@ -2256,7 +2276,8 @@ namespace Class_db_members
               section = dr["section_num"].ToString(),
               be_placeholder = (dr["be_placeholder"].ToString() == "1"),
               be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),
-              be_marine_medic = (dr["be_marine_medic"].ToString() == "1")
+              be_marine_medic = (dr["be_marine_medic"].ToString() == "1"),
+              be_on_squad_truck_team = (dr["be_on_squad_truck_team"].ToString() == "1")
               };
             }
           dr.Close();

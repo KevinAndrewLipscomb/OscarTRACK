@@ -153,6 +153,7 @@
     <Content Include="protected\bounty_program.aspx" />
     <Content Include="protected\change_member_flight_medic_qualification.aspx" />
     <Content Include="protected\change_member_marine_medic_qualification.aspx" />
+    <Content Include="protected\change_member_squad_truck_team_qualification.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\coverage_assistant.aspx" />
     <Content Include="protected\donation_log.aspx" />
@@ -186,11 +187,14 @@
     <Content Include="protected\template\notification\efficipay-docket-needs-final-imprint.txt" />
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\eval_archived.txt" />
+    <Content Include="protected\template\notification\flight_medic_qualification_change.txt" />
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
+    <Content Include="protected\template\notification\marine_medic_qualification_change.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-review.txt" />
     <Content Include="protected\template\notification\member_length_of_service_change.txt" />
+    <Content Include="protected\template\notification\squad_truck_team_qualification_change.txt" />
     <Content Include="protected\template\notification\vehicle_added.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
@@ -760,6 +764,13 @@
     </Compile>
     <Compile Include="protected\change_member_section.aspx.designer.cs">
       <DependentUpon>change_member_section.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\change_member_squad_truck_team_qualification.aspx.cs">
+      <DependentUpon>change_member_squad_truck_team_qualification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\change_member_squad_truck_team_qualification.aspx.designer.cs">
+      <DependentUpon>change_member_squad_truck_team_qualification.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\change_name.aspx.cs">
       <DependentUpon>change_name.aspx</DependentUpon>

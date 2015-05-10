@@ -274,6 +274,24 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_be_driver_qualified;
         
         /// <summary>
+        /// LinkButton_change_squad_truck_team_qual control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_change_squad_truck_team_qual;
+        
+        /// <summary>
+        /// Label_be_on_squad_truck_team control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_be_on_squad_truck_team;
+        
+        /// <summary>
         /// LinkButton_change_flight_medic_qual control.
         /// </summary>
         /// <remarks>

@@ -209,6 +209,11 @@ namespace Class_biz_members
           return db_members.BeRoleHolderBySharedSecret(cad_num,out claimed_role_name,out claimed_member_name,out claimed_member_id,out claimed_member_email_address);
           }
 
+    public bool BeSquadTruckTeamQualifiedOf(object summary)
+      {
+      return db_members.BeSquadTruckTeamQualifiedOf(summary);
+      }
+
         public bool BeTransferring(object summary)
           {
           return (EnrollmentOf(summary) == "Transferring");
@@ -897,6 +902,16 @@ namespace Class_biz_members
         {
             db_members.SetProfile(id, name);
         }
+
+    public void SetSquadTruckTeamQualification
+      (
+      bool be_on_squad_truck_team,
+      object summary
+      )
+      {
+      db_members.SetSquadTruckTeamQualification(be_on_squad_truck_team, summary);
+      biz_notifications.IssueForSquadTruckTeamQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_on_squad_truck_team);
+      }
 
         public object Summary
           (
