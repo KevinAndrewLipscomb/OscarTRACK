@@ -1,0 +1,6 @@
+START TRANSACTION
+;
+ALTER TABLE `member` 
+  ADD COLUMN `be_on_squad_truck_team` BOOLEAN NOT NULL DEFAULT FALSE
+;
+COMMIT

@@ -164,10 +164,13 @@ namespace member_detail
                 LinkButton_change_section.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency)
                   || p.biz_privileges.HasForSpecialAgency(member_id:user_member_id,privilege_name:priv_of_interest,agency_id:p.target_member_agency_id);
                 //
+                Label_be_on_squad_truck_team.Text = k.YesNoOf(p.biz_members.BeSquadTruckTeamQualifiedOf(Session["member_summary"]));
                 Label_be_flight_medic.Text = k.YesNoOf(p.biz_members.BeFlightMedicQualifiedOf(Session["member_summary"]));
                 Label_be_marine_medic.Text = k.YesNoOf(p.biz_members.BeMarineMedicQualifiedOf(Session["member_summary"]));
+                LinkButton_change_squad_truck_team_qual.Text = k.ExpandTildePath(LinkButton_change_squad_truck_team_qual.Text);
                 LinkButton_change_flight_medic_qual.Text = k.ExpandTildePath(LinkButton_change_flight_medic_qual.Text);
                 LinkButton_change_marine_medic_qual.Text = k.ExpandTildePath(LinkButton_change_marine_medic_qual.Text);
+                LinkButton_change_squad_truck_team_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-squad-truck-team-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_flight_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_marine_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && be_authorized_tier_or_same_agency);
             }
@@ -289,6 +292,11 @@ namespace member_detail
     protected void LinkButton_adjust_years_of_service_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("adjust_length_of_service.aspx");
+      }
+
+    protected void LinkButton_change_squad_truck_team_qual_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("change_member_squad_truck_team_qualification.aspx");
       }
 
     protected void LinkButton_change_flight_medic_qual_Click(object sender, EventArgs e)
