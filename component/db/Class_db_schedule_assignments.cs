@@ -2765,7 +2765,7 @@ namespace Class_db_schedule_assignments
               +           " ("
               +             " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))"  // on leave
               +           " ,"
-              +             " num_obliged_shifts"  // then num duties specified in terms of leave
+              +             " num_obliged_shifts - IF(enrollment_level.description in ('Regular','Life') and be_on_squad_truck_team,1,0)"  // then num duties specified in terms of leave, adjusted for squad truck team members
               +           " ,"
               +             " IFNULL"  // else
               +               " ("
