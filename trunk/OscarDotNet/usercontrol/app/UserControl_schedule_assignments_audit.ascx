@@ -42,6 +42,9 @@
                       <HeaderStyle HorizontalAlign="Center" />
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
+                    <asp:BoundColumn datafield="be_on_squad_truck_team" HeaderText="SQTM?">
+                      <ItemStyle HorizontalAlign="Center" />
+                    </asp:BoundColumn>
                     <asp:BoundColumn datafield="obligation" headertext="Obligation">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>

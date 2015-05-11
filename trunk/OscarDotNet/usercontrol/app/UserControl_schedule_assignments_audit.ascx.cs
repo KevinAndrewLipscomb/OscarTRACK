@@ -21,11 +21,12 @@ namespace UserControl_schedule_assignments_audit
       public const int TCI_CAD_NUM = 2;
       public const int TCI_BE_RELEASED = 3;
       public const int TCI_MEMBERSHIP_STATUS = 4;
-      public const int TCI_OBLIGATION = 5;
-      public const int TCI_BE_COMPLIANT = 6;
-      public const int TCI_AVAILABILITIES = 7;
-      public const int TCI_ASSIGNMENTS = 8;
-      public const int TCI_BALANCE = 9;
+      public const int TCI_BE_ON_SQUAD_TRUCK_TEAM = 5;
+      public const int TCI_OBLIGATION = 6;
+      public const int TCI_BE_COMPLIANT = 7;
+      public const int TCI_AVAILABILITIES = 8;
+      public const int TCI_ASSIGNMENTS = 9;
+      public const int TCI_BALANCE = 10;
       }
 
     private struct p_type
