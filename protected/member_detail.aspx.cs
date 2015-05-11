@@ -170,7 +170,8 @@ namespace member_detail
                 LinkButton_change_squad_truck_team_qual.Text = k.ExpandTildePath(LinkButton_change_squad_truck_team_qual.Text);
                 LinkButton_change_flight_medic_qual.Text = k.ExpandTildePath(LinkButton_change_flight_medic_qual.Text);
                 LinkButton_change_marine_medic_qual.Text = k.ExpandTildePath(LinkButton_change_marine_medic_qual.Text);
-                LinkButton_change_squad_truck_team_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-squad-truck-team-qual") && be_authorized_tier_or_same_agency);
+                LinkButton_change_squad_truck_team_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-squad-truck-team-qual") && be_authorized_tier_or_same_agency)
+                  || k.Has((string[])(Session["privilege_array"]), "schedule-squad-truck-team");
                 LinkButton_change_flight_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_marine_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && be_authorized_tier_or_same_agency);
             }
