@@ -388,7 +388,7 @@ namespace Class_biz_field_situations
         // Perform simple replacements.
         //
         map_rendition_of = map_rendition_of
-        .Replace("BOARDWALK BOARDWALK","BOARDWALK")
+        .Replace("BOARDWALK BOARDWALK","ATLANTIC AVE")
         .Replace("BOARDWALK/","ATLANTIC AVE/")
         .Replace("/BOARDWALK","/ATLANTIC AVE")
         .Replace("OCEANFRONT/","ATLANTIC AVE/")
