@@ -20,7 +20,7 @@
 					</tr>
 					<tr>
 					  <td>
-						<p>Is <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;fully qualified as a Squad Truck Team Member in Virginia Beach?</p>
+						<p>Is <ASP:Label id="Label_member_name_2" runat="server"></ASP:Label>&nbsp;a Squad Truck Team Member in good standing in Virginia Beach?</p>
 						<blockquote dir="ltr" style="MARGIN-RIGHT: 0px">
 						  <p>
 							<ASP:RadioButtonList id="RadioButtonList_squad_truck_team_qualified_yes_no" runat="server" repeatdirection="Horizontal">
