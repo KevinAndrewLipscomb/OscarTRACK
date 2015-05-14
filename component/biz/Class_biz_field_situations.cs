@@ -285,6 +285,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )RI$|(?<prefix> )RI(?<suffix>/)|(?<prefix> )RI(?<suffix> )",
+          replacement:"${prefix}RDG${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )RN$|(?<prefix> )RN(?<suffix>/)|(?<prefix> )RN(?<suffix> )",
           replacement:"${prefix}RUN${suffix}"
           );
