@@ -343,7 +343,7 @@ namespace UserControl_ephemeral_dispatch
       {
       uint num_matches;
       string saved_id;
-      saved_id = k.Safe(TextBox_id.Text,k.safe_hint_type.PUNCTUATED);
+      saved_id = k.Safe(TextBox_id.Text,k.safe_hint_type.PUNCTUATED); // Leave the hint PUNCTUATED since the TextBox is being used as a partial spec lookup value that we don't want to modify.
       Clear();
       if (!PresentRecord(saved_id))
         {
