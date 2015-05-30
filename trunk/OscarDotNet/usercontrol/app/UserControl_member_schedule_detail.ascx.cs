@@ -136,11 +136,11 @@ namespace UserControl_member_schedule_detail
       if (p.be_interactive)
         {
         LinkButton_personnel_record.Visible = true;
-        ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_personnel_record);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_personnel_record);
         }
       if (p.be_fully_editable)
         {
-        ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_done);
         }
       }
 
@@ -251,7 +251,7 @@ namespace UserControl_member_schedule_detail
           {
           link_button.ToolTip = "Jump to " + link_button.Text + " on Watchbill";
           link_button.Enabled = true;
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           }
         //
         if (be_selected)
@@ -326,7 +326,7 @@ namespace UserControl_member_schedule_detail
           link_button = ((e.Item.Cells[Static.TCI_COVERAGE_ASSISTANT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Coverage assistant";
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           }
         else
           {

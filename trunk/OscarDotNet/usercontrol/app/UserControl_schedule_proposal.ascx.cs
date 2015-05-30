@@ -740,13 +740,13 @@ namespace UserControl_schedule_proposal
             LinkButton_quickmessage_day.ToolTip = "Write QuickMessage to members shown in DAY column";
             LinkButton_quickmessage_day.Click += LinkButton_quickmessage_day_Click;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_day);
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_day);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_day);
             var LinkButton_quickmessage_night = new LinkButton();
             LinkButton_quickmessage_night.Text = k.ExpandTildePath("<IMG src='~/protected/image/mail-new3.png' alt='QuickMessage' border='0' height='16' width='16' />");
             LinkButton_quickmessage_night.ToolTip = "Write QuickMessage to members shown in NIGHT column";
             LinkButton_quickmessage_night.Click += LinkButton_quickmessage_night_Click;
             e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls.Add(LinkButton_quickmessage_night);
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_night);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_quickmessage_night);
             }
           }
         }
@@ -901,8 +901,8 @@ namespace UserControl_schedule_proposal
         {
         if (be_any_kind_of_item)
           {
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls[0]) as LinkButton));
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls[0]) as LinkButton));
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_D_NAME_INTERACTIVE].Controls[0]) as LinkButton));
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(((e.Item.Cells[UserControl_schedule_proposal_Static.TCI_N_NAME_INTERACTIVE].Controls[0]) as LinkButton));
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //

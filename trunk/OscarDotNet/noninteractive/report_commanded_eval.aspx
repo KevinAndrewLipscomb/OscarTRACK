@@ -11,7 +11,7 @@
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
   </head>
   <body bgcolor="white">
-     <!-- Noninteractive formulation --><asp:ToolkitScriptManager ID="ScriptManager_control" runat="server"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ToolkitScriptManager>
+     <!-- Noninteractive formulation --><asp:ScriptManager ID="ScriptManager_control" runat="server"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ScriptManager>
     <form runat="server">
       <uc1:UserControl_common_header_bar ID="UserControl_common_header_bar_control" runat="server" />
       <p>This evaluation is ready for your review.</p>

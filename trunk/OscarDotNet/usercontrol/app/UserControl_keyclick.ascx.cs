@@ -48,7 +48,7 @@ namespace UserControl_keyclick
         //
         p.be_loaded = true;
         }
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_review);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_review);
       }
 
     protected override void OnInit(System.EventArgs e)

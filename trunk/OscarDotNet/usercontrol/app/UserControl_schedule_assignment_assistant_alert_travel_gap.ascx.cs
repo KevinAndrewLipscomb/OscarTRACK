@@ -7,6 +7,7 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_assignment_assistant_alert_travel_gap
@@ -251,11 +252,11 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
             );
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].Controls[0]) as LinkButton);
           link_button.Enabled = be_ok_to_enable_controls;
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].Controls[0]) as LinkButton);
           link_button.Enabled = be_ok_to_enable_controls;
-          ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
           // Remove all cell controls from viewstate except for the ones at TCI_POST_{FROM|TO}.
           //

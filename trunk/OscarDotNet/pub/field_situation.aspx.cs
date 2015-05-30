@@ -32,7 +32,7 @@ namespace field_situation
 //
 // Uncomment the following line to disable partial page rendering.
 //
-//ToolkitScriptManager.GetCurrent(Page).EnablePartialRendering = false;
+//ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
         }
 
     } // end TWebForm_field_situation

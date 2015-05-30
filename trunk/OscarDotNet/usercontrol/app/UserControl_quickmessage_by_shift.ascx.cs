@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_quickmessage_by_shift
@@ -164,7 +165,7 @@ namespace UserControl_quickmessage_by_shift
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -344,7 +345,7 @@ namespace UserControl_quickmessage_by_shift
           p.distribution_list_sms += (tcc[Static.TCI_SMS_TARGET].Text + k.COMMA_SPACE).Replace("&nbsp;,",k.EMPTY);
           }
         //
-        // Calls to ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
+        // Calls to ScriptManager.GetCurrent(Page).RegisterPostBackControl() from DataGrid_control_ItemDataBound go here.
         //
         }
       Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).TrimEnd(new char[] {Convert.ToChar(k.COMMA),Convert.ToChar(k.SPACE)});

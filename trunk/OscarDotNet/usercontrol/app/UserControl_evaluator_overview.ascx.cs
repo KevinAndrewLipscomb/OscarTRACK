@@ -141,7 +141,7 @@ namespace UserControl_evaluator_overview
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add);
       }
 
     protected override void OnInit(System.EventArgs e)

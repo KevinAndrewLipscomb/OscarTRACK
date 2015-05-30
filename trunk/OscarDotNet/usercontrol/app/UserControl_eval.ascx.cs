@@ -356,8 +356,8 @@ namespace UserControl_eval
         p.be_loaded = true;
         }
       InjectPersistentClientSideScript();
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_a_patient_encounter);
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_lock_and_submit);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_a_patient_encounter);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_lock_and_submit);
       }
 
     private bool PresentRecord(string id)
