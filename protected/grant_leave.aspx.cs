@@ -72,8 +72,8 @@ namespace grant_leave
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
                 }
             }
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
         }
 
         protected override void OnInit(EventArgs e)

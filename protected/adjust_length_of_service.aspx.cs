@@ -9,6 +9,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace adjust_length_of_service
@@ -95,8 +96,8 @@ namespace adjust_length_of_service
         Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
         Literal_application_name_2.Text = Literal_application_name.Text;
         }
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
       }
 
     protected override void OnInit(EventArgs e)

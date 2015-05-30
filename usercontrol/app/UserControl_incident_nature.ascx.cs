@@ -141,8 +141,8 @@ namespace UserControl_incident_nature
           }
         p.be_loaded = true;
         }
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
-      ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_delete);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_delete);
       InjectPersistentClientSideScript();
       }
 

@@ -6,6 +6,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_field_situation
@@ -45,7 +46,7 @@ namespace UserControl_field_situation
 
     private void InjectPersistentClientSideScript()
       {
-      ToolkitScriptManager.RegisterStartupScript
+      ScriptManager.RegisterStartupScript
         (
         control:this,
         type:this.GetType(),

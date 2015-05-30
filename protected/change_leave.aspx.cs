@@ -117,8 +117,8 @@ namespace change_leave
                     TextBox_note.Text = p.saved_note;
                 }
             }
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
-            ToolkitScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_cancel);
         }
 
         protected override void OnInit(EventArgs e)

@@ -84,7 +84,7 @@ namespace paypal_assistant
         UserControl_paypal_assistant_control.Set(agency:p.agency);
         }
       //
-      // ToolkitScriptManager.GetCurrent(Page).EnablePartialRendering = false;
+      // ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
       //
       }
 

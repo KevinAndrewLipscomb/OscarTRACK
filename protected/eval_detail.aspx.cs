@@ -65,7 +65,7 @@ namespace eval_detail
 //
 // Uncomment the following line to disable partial page rendering.
 //
-//ToolkitScriptManager.GetCurrent(Page).EnablePartialRendering = false;
+//ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
           }
 
         private void TWebForm_eval_detail_PreRender(object sender, System.EventArgs e)
