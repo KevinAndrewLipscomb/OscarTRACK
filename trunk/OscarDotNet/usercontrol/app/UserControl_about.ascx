@@ -18,7 +18,6 @@
             <ul>
               <li>Virginia Beach Department of EMS </li>
               <li>Council of Virginia Beach Volunteer Rescue Squads, Inc. </li>
-              <li>Virginia Beach Association of Rescue Squad Volunteers Inc. </li>
               <li>All the squads, teams, and staff that make up the strongest volunteer-centric 911 agency in the world!</li>
             </ul>
             <uc3:UserControl_about_tools id="UserControl_about_tools_control" runat="server"></uc3:UserControl_about_tools>
