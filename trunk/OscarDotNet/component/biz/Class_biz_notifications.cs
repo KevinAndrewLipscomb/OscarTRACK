@@ -484,7 +484,9 @@ namespace Class_biz_notifications
                 .Replace("<last_name/>", last_name)
                 .Replace("<member_id/>", member_id)
                 .Replace("<new_level/>", new_level)
-                .Replace("<note/>", note);
+                .Replace("<note/>", note)
+                .Replace("<exit_survey_url/>", ConfigurationManager.AppSettings["exit_survey_url"])
+                ;
               };
 
             biz_members = new TClass_biz_members();
@@ -493,7 +495,7 @@ namespace Class_biz_notifications
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
             actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/new_enrollment_level.txt"));
+            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/elective_departure.txt"));
             // from
             // to
             // subject

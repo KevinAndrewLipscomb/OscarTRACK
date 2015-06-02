@@ -10,6 +10,10 @@ This is an automatic notification from <application_name/>.
    Note:
       <note/>
 
+<first_name/>:  If you are *leaving* Virginia Bach EMS, please complete this short anonymous survey:
+
+  <exit_survey_url/>
+
 You can reach <actor/> at:
 
    <actor_email_address/> (mailto:<actor_email_address/>)
