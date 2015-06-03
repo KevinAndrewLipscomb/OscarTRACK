@@ -198,6 +198,10 @@
                             <td>Division chief or higher command officer</td>
                           </tr>
                           <tr>
+                            <td>CHE</td>
+                            <td>Chesapeake engine</td>
+                          </tr>
+                          <tr>
                             <td>E</td>
                             <td>Engine</td>
                           </tr>
@@ -232,6 +236,10 @@
                           <tr>
                             <td>NE</td>
                             <td>Navy engine</td>
+                          </tr>
+                          <tr>
+                            <td>NFE</td>
+                            <td>Norfolk engine</td>
                           </tr>
                           <tr>
                             <td>PIO</td>
