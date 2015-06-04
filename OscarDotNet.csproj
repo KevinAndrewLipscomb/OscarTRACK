@@ -2181,7 +2181,6 @@
     <Content Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx" />
     <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
     <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
-    <Content Include="packages.config" />
     <None Include="work.bat" />
   </ItemGroup>
   <ItemGroup>

@@ -2050,13 +2050,27 @@ namespace Class_db_members
           (summary as member_summary).length_of_service = length_of_service.ToString("F4");
           }
 
-        public void SetMedicalReleaseCode(string code, object summary)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET medical_release_code = " + code + " WHERE id = '" + (summary as member_summary).id + "'"), this.connection).ExecuteNonQuery();
-            this.Close();
-            (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
-        }
+    public void SetMedicalReleaseCode
+      (
+      string code,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "UPDATE member SET medical_release_code = '" + code + "'"
+          + " , first_release_as_aic_date = IF(first_release_as_aic_date is null and (select pecking_order from medical_release_code_description_map where code = '" + code + "') >= 20,CURDATE(),first_release_as_aic_date)"
+          + " WHERE id = '" + (summary as member_summary).id + "'"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
+      }
 
     internal void SetOscalertSettings
       (
