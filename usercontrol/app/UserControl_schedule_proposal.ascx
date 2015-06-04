@@ -200,6 +200,7 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_be_challenge" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="d_be_greenhorns" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="d_phone_num" Visible="false">
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
@@ -262,6 +263,7 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_be_challenge" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="n_be_greenhorns" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="n_phone_num" Visible="false">
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:BoundColumn>

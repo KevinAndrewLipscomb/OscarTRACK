@@ -38,6 +38,7 @@
                     <asp:BoundColumn DataField="be_selected" Visible="False"></asp:BoundColumn>
                     <asp:BoundColumn DataField="comment"></asp:BoundColumn>
                     <asp:BoundColumn DataField="be_challenge" Visible="False"></asp:BoundColumn>
+                    <asp:BoundColumn DataField="be_greenhorns" Visible="False"></asp:BoundColumn>
                     <asp:BoundColumn datafield="email_target" Visible="false"></asp:BoundColumn>
                     <asp:BoundColumn datafield="sms_target" Visible="false"></asp:BoundColumn>
                   </Columns>

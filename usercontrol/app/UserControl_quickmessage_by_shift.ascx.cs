@@ -28,8 +28,9 @@ namespace UserControl_quickmessage_by_shift
       public const int TCI_BE_SELECTED = 7;
       public const int TCI_COMMENT = 8;
       public const int TCI_BE_CHALLENGE = 9;
-      public const int TCI_EMAIL_TARGET = 10;
-      public const int TCI_SMS_TARGET = 11;
+      public const int TCI_BE_GREENHORNS = 10;
+      public const int TCI_EMAIL_TARGET = 11;
+      public const int TCI_SMS_TARGET = 12;
       }
 
     private struct p_type
@@ -258,6 +259,10 @@ namespace UserControl_quickmessage_by_shift
           e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Bold = true;
           e.Item.Cells[Static.TCI_NAME].Font.Bold = true;
           //
+          if (e.Item.Cells[Static.TCI_BE_GREENHORNS].Text == "1")
+            {
+            e.Item.BackColor = Color.PaleGreen;
+            }
           if (e.Item.Cells[Static.TCI_BE_CHALLENGE].Text == "1")
             {
             e.Item.BackColor = Color.Yellow;
@@ -269,6 +274,7 @@ namespace UserControl_quickmessage_by_shift
           e.Item.Cells[Static.TCI_POST_CARDINALITY].Text = k.EMPTY;
           }
         e.Item.Cells[Static.TCI_BE_CHALLENGE].Visible = false;
+        e.Item.Cells[Static.TCI_BE_GREENHORNS].Visible = false;
         //
         e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (new ArrayList() {"P","I","C"}).Contains(e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Text);
         //

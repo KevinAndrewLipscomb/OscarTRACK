@@ -2,39 +2,20 @@ using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
-using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace UserControl_watchbill_maag
   {
 
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_loaded;
-    public bool be_user_privileged_to_see_all_squads;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_medical_release_levels biz_medical_release_levels;
-    public TClass_biz_members biz_members;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public k.int_nonnegative num_selections;
-    public k.subtype<int> relative_month;
-    public string report_compressed_font_family;
-    public string saved_unit_spec;
-    }
-
   public partial class TWebUserControl_watchbill_maag: ki_web_ui.usercontrol_class
     {
 
-    public static class UserControl_watchbill_maag_Static
+    public static class Static
       {
       public const int TCI_POST_DESIGNATOR = 0;
       public const int TCI_POST_CARDINALITY = 1;
@@ -44,6 +25,23 @@ namespace UserControl_watchbill_maag
       public const int TCI_MEMBER_AGENCY_ID = 5;
       public const int TCI_COMMENT = 6;
       public const int TCI_BE_CHALLENGE = 7;
+      public const int TCI_BE_GREENHORNS = 8;
+      }
+
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_loaded;
+      public bool be_ok_to_see_other_member_schedule_detail;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_medical_release_levels biz_medical_release_levels;
+      public TClass_biz_members biz_members;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public k.int_nonnegative num_selections;
+      public k.subtype<int> relative_month;
+      public string report_compressed_font_family;
+      public string saved_unit_spec;
       }
 
     private p_type p;
@@ -86,6 +84,7 @@ namespace UserControl_watchbill_maag
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
         p.agency_filter = k.EMPTY;
+        p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.num_selections = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
@@ -194,23 +193,28 @@ namespace UserControl_watchbill_maag
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
-        var current_unit_spec = e.Item.Cells[UserControl_watchbill_maag_Static.TCI_POST_DESIGNATOR].Text + "--" + e.Item.Cells[UserControl_watchbill_maag_Static.TCI_POST_CARDINALITY].Text;
+        var current_unit_spec = e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text + "--" + e.Item.Cells[Static.TCI_POST_CARDINALITY].Text;
         if (current_unit_spec != p.saved_unit_spec)
           {
           e.Item.Style.Add("border-top","thin solid silver");
           }
-        if (e.Item.Cells[UserControl_watchbill_maag_Static.TCI_BE_CHALLENGE].Text == "1")
+        if ((e.Item.Cells[Static.TCI_BE_GREENHORNS].Text == "1") && p.be_ok_to_see_other_member_schedule_detail)
+          {
+          e.Item.BackColor = Color.PaleGreen;
+          }
+        if (e.Item.Cells[Static.TCI_BE_CHALLENGE].Text == "1")
           {
           e.Item.BackColor = Color.Yellow;
           }
-        e.Item.Cells[UserControl_watchbill_maag_Static.TCI_BE_CHALLENGE].Visible = false;
+        e.Item.Cells[Static.TCI_BE_CHALLENGE].Visible = false;
+        e.Item.Cells[Static.TCI_BE_GREENHORNS].Visible = false;
         //
-        e.Item.Cells[UserControl_watchbill_maag_Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (new ArrayList() {"P","I","C"}).Contains(e.Item.Cells[UserControl_watchbill_maag_Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Text);
+        e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (new ArrayList() {"P","I","C"}).Contains(e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Text);
         //
-        var member_agency_id = k.Safe(e.Item.Cells[UserControl_watchbill_maag_Static.TCI_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
-        e.Item.Cells[UserControl_watchbill_maag_Static.TCI_MEMBER_AGENCY_ID].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id);
+        var member_agency_id = k.Safe(e.Item.Cells[Static.TCI_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        e.Item.Cells[Static.TCI_MEMBER_AGENCY_ID].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id);
         //
-        e.Item.Cells[UserControl_watchbill_maag_Static.TCI_COMMENT].Text = e.Item.Cells[UserControl_watchbill_maag_Static.TCI_COMMENT].Text.Substring(0,Math.Min(e.Item.Cells[UserControl_watchbill_maag_Static.TCI_COMMENT].Text.Length,15));
+        e.Item.Cells[Static.TCI_COMMENT].Text = e.Item.Cells[Static.TCI_COMMENT].Text.Substring(0,Math.Min(e.Item.Cells[Static.TCI_COMMENT].Text.Length,15));
         //
         p.saved_unit_spec = current_unit_spec;
         p.num_selections.val++;
