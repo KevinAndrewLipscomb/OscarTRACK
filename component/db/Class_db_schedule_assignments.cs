@@ -30,26 +30,6 @@ namespace Class_db_schedule_assignments
     + " where member_id is not null"
     +   " and be_selected";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
-    private const string COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE = k.EMPTY
-    + " drop temporary table if exists challenge_analysis"
-    + ";"
-    + " create temporary table challenge_analysis"
-    + " select nominal_day"
-    + " , shift_id"
-    + " , post_id"
-    + " , post_cardinality"
-    + " , ("
-    +     " (sum(be_selected) = 0)" // No released members to partner with a third
-    +   " or"
-    +     " (sum(be_selected)%2 = 1)" // Odd number of released members
-    +   " or"
-    +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
-    +   " or"
-    +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
-    +   " ) as be_challenge"
-    + " from schedule_assignment"
-    +   " join member on (member.id=schedule_assignment.member_id)"
-    +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
     private class schedule_assignment_summary
@@ -98,7 +78,6 @@ namespace Class_db_schedule_assignments
       +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
-      +   " left join greenhorn_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       + " where TRUE"
       +   (depth_filter.Length > 0 ? " and" + (depth_filter == "0" ? " not" : k.EMPTY) + " be_selected" : k.EMPTY)
       +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
@@ -112,7 +91,7 @@ namespace Class_db_schedule_assignments
       + " , equivalent_los_start_date";
       }
 
-    private string CommonAnalysisWhereClause(k.subtype<int> relative_month)
+    private string CommonChallengeAnalysisWhereClause(k.subtype<int> relative_month)
       {
       return k.EMPTY
       + " where medical_release_code_description_map.pecking_order >= 20"
@@ -120,16 +99,25 @@ namespace Class_db_schedule_assignments
       +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))";
       }
 
-    private string CommonGreenhornAnalysisDropCreateSelectFromClause()
+    private string CommonChallengeAnalysisDropCreateSelectFromClause()
       {
       return k.EMPTY
-      + " drop temporary table if exists greenhorn_analysis"
+      + " drop temporary table if exists challenge_analysis"
       + ";"
-      + " create temporary table greenhorn_analysis"
+      + " create temporary table challenge_analysis"
       + " select nominal_day"
       + " , shift_id"
       + " , post_id"
       + " , post_cardinality"
+      + " , ("
+      +     " (sum(be_selected) = 0)" // No released members to partner with a third
+      +   " or"
+      +     " (sum(be_selected)%2 = 1)" // Odd number of released members
+      +   " or"
+      +     " (sum(be_selected and ((medical_release_code_description_map.pecking_order > 20) or ((medical_release_code_description_map.pecking_order >= 20) and (not be_driver_qualified)))) > sum(be_selected and be_driver_qualified))" // Insufficient drivers
+      +   " or"
+      +     " (sum(be_selected and be_placeholder) > 0)" // Someone scheduled a 'member' who does not actually exist (like 'SHIFT MEDIC' or 'VACANT VACANT') for this slot
+      +   " ) as be_challenge"
       + " , sum(be_selected and (first_release_as_aic_date > DATE_SUB(CURDATE(),INTERVAL " + ConfigurationManager.AppSettings["greenhorn_period_in_months"] + " MONTH))) = sum(be_selected) as be_greenhorns"
       + " from schedule_assignment"
       +   " join member on (member.id=schedule_assignment.member_id)"
@@ -374,7 +362,6 @@ namespace Class_db_schedule_assignments
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
       +   " left join num_units using (nominal_day,shift_id)"
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
-      +   " left join greenhorn_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       + " where MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
       +     nominal_day_condition_clause
       +     agency_condition_clause
@@ -476,15 +463,8 @@ namespace Class_db_schedule_assignments
             //
             // Generate the challenge analysis table
             //
-            + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
-            + CommonAnalysisWhereClause(relative_month)
-            + " group by nominal_day,shift_id,post_id,post_cardinality"
-            + ";"
-            //
-            // Generate the greenhorn analysis table
-            //
-            + CommonGreenhornAnalysisDropCreateSelectFromClause()
-            + CommonAnalysisWhereClause(relative_month)
+            + CommonChallengeAnalysisDropCreateSelectFromClause()
+            + CommonChallengeAnalysisWhereClause(relative_month)
             + " group by nominal_day,shift_id,post_id,post_cardinality"
             + ";"
             //
@@ -598,7 +578,6 @@ namespace Class_db_schedule_assignments
             (
             "drop temporary table num_units"
             + " , challenge_analysis"
-            + " , greenhorn_analysis"
             + " , this_month_day_schedule_assignment"
             + " , this_month_night_schedule_assignment"
             + " , this_month_day_schedule_assignment_with_dsn"
@@ -642,19 +621,9 @@ namespace Class_db_schedule_assignments
         //
         // Generate the challenge analysis table
         //
-        + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
+        + CommonChallengeAnalysisDropCreateSelectFromClause()
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + CommonAnalysisWhereClause(relative_month)
-        +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
-        +   " and shift.name = '" + shift_name + "'"
-        + " group by post_id,post_cardinality"
-        + ";"
-        //
-        // Generate the greenhorn analysis table
-        //
-        + CommonGreenhornAnalysisDropCreateSelectFromClause()
-        +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + CommonAnalysisWhereClause(relative_month)
+        + CommonChallengeAnalysisWhereClause(relative_month)
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         + " group by post_id,post_cardinality"
@@ -672,7 +641,7 @@ namespace Class_db_schedule_assignments
             depth_filter:"1"
             )
         + ";"
-        + " drop temporary table challenge_analysis, greenhorn_analysis"
+        + " drop temporary table challenge_analysis"
         + ";"
         + " COMMIT",
         connection
@@ -701,19 +670,9 @@ namespace Class_db_schedule_assignments
         //
         // Generate the challenge analysis table
         //
-        + COMMON_CHALLENGE_ANALYSIS_DROP_CREATE_SELECT_FROM_CLAUSE
+        + CommonChallengeAnalysisDropCreateSelectFromClause()
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + CommonAnalysisWhereClause(relative_month)
-        +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
-        +   " and shift.name = '" + shift_name + "'"
-        + " group by post_id,post_cardinality"
-        + ";"
-        //
-        // Generate the greenhorn analysis table
-        //
-        + CommonGreenhornAnalysisDropCreateSelectFromClause()
-        +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + CommonAnalysisWhereClause(relative_month)
+        + CommonChallengeAnalysisWhereClause(relative_month)
         +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
         +   " and shift.name = '" + shift_name + "'"
         + " group by post_id,post_cardinality"
@@ -734,7 +693,7 @@ namespace Class_db_schedule_assignments
             depth_filter:depth_filter
             )
         + ";"
-        + " drop temporary table challenge_analysis, greenhorn_analysis"
+        + " drop temporary table challenge_analysis"
         + ";"
         + " COMMIT",
         connection
