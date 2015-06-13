@@ -16,5 +16,8 @@ mysql --host=%the_host% --user=%the_user% --password=%2 --execute="create schema
 mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% <"%USERPROFILE%\my-documents\SANDBOX\vocational\kalipso-infogistics\db-dump\%base_db_name%.sql"
 if "%db_instance%"=="%base_db_name%" goto :END
 mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% <0-render-safe-for-d-or-x.sql
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% --execute="drop view avail_sheet"
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% --execute="create view avail_sheet as select * from oscar_%1.avail_sheet"
+mysql --host=%the_host% --user=%the_user% --password=%2 --database=%db_instance% --execute="create view avail_comment as select * from oscar_%1.avail_comment"
 :END
 pause
