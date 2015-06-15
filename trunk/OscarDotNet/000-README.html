@@ -23,7 +23,7 @@ This document describes additional steps that you must perform, after checking o
 <a class="toc" name="toc-Section-1">1</a> Recommended methods
 </h1>
 <div class="Standard">
-The use of <a class="URL" href="http://en.wikipedia.org/wiki/Junction_point">NTFS junction points</a> is recommended in this document because it allows Subversion operations to take place without undesirable impact to project environments, and without violating Subversion rules. If you simply exported OscarTRACK from its repository and you do not intend to perform subsequent updates or any other Subversion operations on it (not recommended), you can simply make copies instead of NTFS junction points.
+The use of <a class="URL" href="https://en.wikipedia.org/wiki/NTFS_reparse_point">NTFS reparse points</a> is recommended in this document because it allows Subversion operations to take place without undesirable impact to project environments, and without violating Subversion rules. If you simply exported OscarTRACK from its repository and you do not intend to perform subsequent updates or any other Subversion operations on it (not recommended), you can simply make copies instead of NTFS reparse points.
 </div>
 <h1 class="Section">
 <a class="toc" name="toc-Section-2">2</a> Establish hooks to adjunct projects
@@ -39,7 +39,7 @@ OscarTRACK uses UserControls from the KiUsercontrolFoundry adjunct project. The 
 Check out the <i>https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-project/trunk/foundry/usercontrol/ki</i> project. Put it in a <i>KiUsercontrolFoundry</i> folder. Make sure the <i>KiUsercontrolFoundry</i> folder is <u>not</u> inside the <i>OscarTRACK</i> folder tree.
 </li>
 <li>
-Create a junction point named <i>ki</i> inside the <i>OscarTRACK/usercontrol</i> folder that points to the <i>KiUsercontrolFoundry/usercontrol/ki</i> folder. You should end up with two folders inside the <i>OscarTRACK/usercontrol</i> folder: <i>app</i> and <i>ki</i>. You can make junction points with <span class="versalitas">Michael Elsdoerfer’s NTFS Link</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<i><br/>
+Create a junction reparse point named <i>ki</i> inside the <i>OscarTRACK/usercontrol</i> folder that points to the <i>KiUsercontrolFoundry/usercontrol/ki</i> folder. You should end up with two folders inside the <i>OscarTRACK/usercontrol</i> folder: <i>app</i> and <i>ki</i>. You can make junction points with <span class="versalitas">Hermann Schinagl’s Link Shell Extension</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<i><br/>
 <br/>
 cd OscarTRACK/usercontrol<br/>
 mklink /j ki KiUserControlFoundry/usercontrol/ki</i>
@@ -57,7 +57,7 @@ OscarTRACK uses object code from the KiDotnetFoundation adjunct project. The KiD
 Check out the <i>https://kveo-it-project.svn.sourceforge.net/svnroot/kveo-it-project/trunk/foundation/dotnet/ki</i> project. Put it in a <i>KiDotnetFoundation</i> folder. Make sure the <i>KiDotnetFoundation</i> folder is <u>not</u> inside the <i>OscarTRACK</i> folder tree.
 </li>
 <li>
-Create a junction point named <i>ki</i> inside the <i>OscarTRACK/lib</i> folder that points to the <i>KiDotnetFoundation</i> folder. You should end up with a folder inside the <i>OscarTRACK/lib</i> folder called <i>ki</i>. You can make junction points with <span class="versalitas">Michael Elsdoerfer’s NTFS Link</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<br/>
+Create a junction reparse point named <i>ki</i> inside the <i>OscarTRACK/lib</i> folder that points to the <i>KiDotnetFoundation</i> folder. You should end up with a folder inside the <i>OscarTRACK/lib</i> folder called <i>ki</i>. You can make junction points with <span class="versalitas">Hermann Schinagl’s Link Shell Extension</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<br/>
 <br/>
 <i>cd OscarTRACK/lib<br/>
 mklink /j ki KiDotnetFoundation</i>
@@ -75,7 +75,7 @@ OscarTRACK uses object code from the oscalib adjunct project. The oscalib is use
 Check out the <i>https://svn.code.sf.net/p/kveo-it-project/code/trunk/oscalib</i> project. Put it in a <i>oscalib</i> folder. Make sure the <i>oscalib</i> folder is <u>not</u> inside the <i>OscarTRACK</i> folder tree.
 </li>
 <li>
-Create a junction point named <i>oscalib</i> inside the <i>OscarTRACK/lib</i> folder that points to the <i>oscalib</i> folder. You should end up with a folder inside the <i>OscarTRACK/lib</i> folder called <i>oscalib</i>. You can make junction points with <span class="versalitas">Michael Elsdoerfer’s NTFS Link</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<br/>
+Create a junction reparse point named <i>oscalib</i> inside the <i>OscarTRACK/lib</i> folder that points to the <i>oscalib</i> folder. You should end up with a folder inside the <i>OscarTRACK/lib</i> folder called <i>oscalib</i>. You can make junction points with <span class="versalitas">Hermann Schinagl’s Link Shell Extension</span> tool or, on Vista-based systems (including Windows 7, Windows Server 2008, and later systems), the prototype commands would be:<br/>
 <br/>
 <i>cd OscarTRACK/lib<br/>
 mklink /j oscalib oscalib</i>
@@ -96,7 +96,7 @@ If there is no <i>unpublished.config</i> file inside the <i>OscarTRACK/config</i
 Copy the appropriate <i>unpublished.config</i> file from within the <i>OscarTRACK/config</i> folder tree to the <i>OscarTRACK</i> top-level folder.
 </li>
 <li>
-Copy the appropriate <i>Web.config</i> file from within the <i>OscarTRACK/config</i> folder tree to the <i>OscarTRACK</i> top-level folder.
+Symlink the appropriate <i>Web.config</i> file from within the <i>OscarTRACK/config</i> folder tree to the <i>OscarTRACK</i> top-level folder.
 </li>
 
 </ol>
@@ -105,7 +105,7 @@ From the Windows command line, the prototype commands would be:<br/>
 <br/>
 <i>cd OscarTRACK<br/>
 copy config/</i>{appropriate-path}/<i>unpublished.config .<br/>
-copy config/</i>{appropriate-path}/<i>Web.config .</i>
+mklink Web.config config/</i>{appropriate-path}/<i>Web.config</i>
 </div>
 <h1 class="Section">
 <a class="toc" name="toc-Section-4">4</a> Set up cron jobs

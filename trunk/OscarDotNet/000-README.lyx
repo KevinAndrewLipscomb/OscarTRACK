@@ -100,8 +100,8 @@ Recommended methods
 The use of 
 \begin_inset CommandInset href
 LatexCommand href
-name "NTFS junction points"
-target "http://en.wikipedia.org/wiki/Junction_point"
+name "NTFS reparse points"
+target "https://en.wikipedia.org/wiki/NTFS_reparse_point"
 
 \end_inset
 
@@ -110,7 +110,7 @@ target "http://en.wikipedia.org/wiki/Junction_point"
  violating Subversion rules.
  If you simply exported OscarTRACK from its repository and you do not intend
  to perform subsequent updates or any other Subversion operations on it
- (not recommended), you can simply make copies instead of NTFS junction
+ (not recommended), you can simply make copies instead of NTFS reparse
  points.
 \end_layout
 
@@ -158,7 +158,7 @@ OscarTRACK
 \end_layout
 
 \begin_layout Enumerate
-Create a junction point named 
+Create a junction reparse point named 
 \emph on
 ki
 \emph default
@@ -186,7 +186,7 @@ ki
 .
  You can make junction points with 
 \noun on
-Michael Elsdoerfer's NTFS Link
+Hermann Schinagl's Link Shell Extension
 \noun default
  tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
  and later systems), the prototype commands would be:
@@ -252,7 +252,7 @@ OscarTRACK
 \end_layout
 
 \begin_layout Enumerate
-Create a junction point named 
+Create a junction reparse point named 
 \emph on
 ki
 \emph default
@@ -276,7 +276,7 @@ ki
 .
  You can make junction points with 
 \noun on
-Michael Elsdoerfer's NTFS Link
+Hermann Schinagl's Link Shell Extension
 \noun default
  tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
  and later systems), the prototype commands would be:
@@ -341,7 +341,7 @@ OscarTRACK
 \end_layout
 
 \begin_layout Enumerate
-Create a junction point named 
+Create a junction reparse point named 
 \emph on
 oscalib
 \emph default
@@ -365,7 +365,7 @@ oscalib
 .
  You can make junction points with 
 \noun on
-Michael Elsdoerfer's NTFS Link
+Hermann Schinagl's Link Shell Extension
 \noun default
  tool or, on Vista-based systems (including Windows 7, Windows Server 2008,
  and later systems), the prototype commands would be:
@@ -461,7 +461,7 @@ OscarTRACK
 \end_layout
 
 \begin_layout Enumerate
-Copy the appropriate 
+Symlink the appropriate 
 \emph on
 Web.config
 \emph default
@@ -499,11 +499,11 @@ unpublished.config .
 \begin_inset Newline newline
 \end_inset
 
-copy config/
+mklink Web.config config/
 \emph default
 {appropriate-path}/
 \emph on
-Web.config .
+Web.config
 \end_layout
 
 \begin_layout Section
