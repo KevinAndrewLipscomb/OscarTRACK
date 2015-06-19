@@ -107,7 +107,7 @@ namespace Class_biz_users
         {
             string temporary_password;
             // Build a suitably-random password string.
-            temporary_password = System.Guid.NewGuid().ToString().Substring(0, int.Parse(ConfigurationManager.AppSettings["temp_password_len"]));
+            temporary_password = k.UnambiguousPseudorandomLimitedAlphanumericString(length:int.Parse(ConfigurationManager.AppSettings["temp_password_len"]));
             // Make the password string the user's new temporary password, and set the stale flag to force an immediate password change.
             db_users.SetTemporaryPassword(username, k.Digest(temporary_password));
             // Send the new password to the user's email address of record.
