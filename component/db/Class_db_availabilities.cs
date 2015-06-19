@@ -52,6 +52,8 @@ namespace Class_db_availabilities
         + ";"
         + " delete from avail_sheet where expiration < CURRENT_DATE"
         + ";"
+        + " delete from avail_comment where timestamp < DATE_SUB(NOW(),INTERVAL 3 MONTH)" // Catches cases where the join to avail_sheet failed, probably involving the timestamp, but I haven't fully debugged the issue.
+        + ";"
         + " delete from report_cache where expiration < CURRENT_DATE"
         + ";"
         + " COMMIT",
