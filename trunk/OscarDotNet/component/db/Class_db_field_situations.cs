@@ -22,6 +22,7 @@ namespace Class_db_field_situations
         (
         "select field_situation.id as id"
         + " , DATE_FORMAT(time_initialized,'%Y-%m-%d %H:%i') as time_initialized"
+        + " , nature"
         + " , address"
         + " , assignment"
         + " , description as impression"
