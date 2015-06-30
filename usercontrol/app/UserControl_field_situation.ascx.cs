@@ -18,10 +18,11 @@ namespace UserControl_field_situation
       public const int TCI_ID = 0;
       public const int TCI_PIN = 1;
       public const int TCI_TIME_INITIATED = 2;
-      public const int TCI_ADDRESS = 3;
-      public const int TCI_ASSIGNMENT = 4;
-      public const int TCI_IMPRESSION = 5;
-      public const int TCI_REMOVE = 6;
+      public const int TCI_NATURE = 3;
+      public const int TCI_ADDRESS = 4;
+      public const int TCI_ASSIGNMENT = 5;
+      public const int TCI_IMPRESSION = 6;
+      public const int TCI_REMOVE = 7;
       }
 
     private struct p_type
@@ -33,6 +34,7 @@ namespace UserControl_field_situation
       public bool be_loaded;
       public bool be_notes_body_visible;
       public bool be_ok_to_fix_dangling;
+      public bool be_ok_to_show_nature;
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
@@ -106,11 +108,13 @@ namespace UserControl_field_situation
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
-        p.be_ok_to_fix_dangling = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation") && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
+        p.be_ok_to_show_nature = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation");
         p.be_sort_order_ascending = true;
         p.label = 'A';
         p.marker_address_q = new Queue<string>();
         p.sort_order = "case_num desc, field_situation.id desc";
+        //
+        p.be_ok_to_fix_dangling = p.be_ok_to_show_nature && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
         }
       }
 
@@ -178,6 +182,7 @@ namespace UserControl_field_situation
 
     private void Bind()
       {
+      DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature;
       DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
       Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
