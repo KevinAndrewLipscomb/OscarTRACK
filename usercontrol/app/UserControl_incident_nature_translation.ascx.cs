@@ -266,7 +266,7 @@ namespace UserControl_incident_nature_translation
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
           k.Safe(TextBox_foreign.Text,k.safe_hint_type.MAKE_MODEL).Trim(),
-          k.Safe(TextBox_local.Text,k.safe_hint_type.MAKE_MODEL).Trim()
+          k.Safe(TextBox_local.Text,k.safe_hint_type.PUNCTUATED).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         SetLookupMode();
