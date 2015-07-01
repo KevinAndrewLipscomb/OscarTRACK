@@ -3,6 +3,7 @@
 using kix;
 using UserControl_incident_nature;
 using UserControl_ephemeral_dispatch;
+using UserControl_incident_nature_translation;
 
 namespace UserControl_cad_object_binder
   {
@@ -20,6 +21,7 @@ namespace UserControl_cad_object_binder
       {
       public const int TSSI_INCIDENT_NATURES = 0;
       public const int TSSI_EPHEMERAL_DISPATCHES = 1;
+      public const int TSSI_INCIDENT_NATURE_TRANSLATIONS = 2;
       }
 
     private struct p_type
@@ -47,6 +49,12 @@ namespace UserControl_cad_object_binder
         {
         var c = ((TWebUserControl_ephemeral_dispatch)(LoadControl("~/usercontrol/app/UserControl_ephemeral_dispatch.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_ephemeral_dispatch",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        //c.SetTarget(target);
+        }
+      else if (p.tab_index == Static.TSSI_INCIDENT_NATURE_TRANSLATIONS)
+        {
+        var c = ((TWebUserControl_incident_nature_translation)(LoadControl("~/usercontrol/app/UserControl_incident_nature_translation.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_incident_nature_translation",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
       }
@@ -152,6 +160,10 @@ namespace UserControl_cad_object_binder
         else if (target.ToLower().Contains("/ephemeral-dispatches/"))
           {
           p.tab_index = Static.TSSI_EPHEMERAL_DISPATCHES;
+          }
+        else if (target.ToLower().Contains("/incident-nature-translations/"))
+          {
+          p.tab_index = Static.TSSI_INCIDENT_NATURE_TRANSLATIONS;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
