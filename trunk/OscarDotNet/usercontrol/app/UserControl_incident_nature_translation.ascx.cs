@@ -231,7 +231,7 @@ namespace UserControl_incident_nature_translation
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.be_loaded = false;
-        p.be_ok_to_config_incident_nature_translations = k.Has((string[])(Session["privilege_array"]), "config-incident_nature_translations");
+        p.be_ok_to_config_incident_nature_translations = k.Has((string[])(Session["privilege_array"]), "config-cad-objects");
         p.id = k.EMPTY;
         p.summary = null;
         }
