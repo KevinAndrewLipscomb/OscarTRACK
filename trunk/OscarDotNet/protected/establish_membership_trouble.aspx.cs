@@ -33,7 +33,7 @@ namespace establish_membership_trouble
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - establish_membership_trouble";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - establish_membership_trouble";
                 Label_sponsor_1.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_sponsor_2.Text = ConfigurationManager.AppSettings["sponsor"];
                 Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];

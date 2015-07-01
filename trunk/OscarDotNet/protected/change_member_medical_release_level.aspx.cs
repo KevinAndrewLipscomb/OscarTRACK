@@ -1,22 +1,13 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
 using Class_biz_medical_release_levels;
 using Class_biz_members;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
+
 namespace change_member_medical_release_level
-{
-    public struct p_type
+  {
+  public struct p_type
     {
         public TClass_biz_medical_release_levels biz_medical_release_levels;
         public TClass_biz_members biz_members;
@@ -60,7 +51,7 @@ namespace change_member_medical_release_level
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_medical_release_level";
+                    Page.Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_medical_release_level";
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;
                     Label_member_name_3.Text = Label_member_name_2.Text;

@@ -40,7 +40,7 @@ namespace report_monthly_core_ops_dashboard
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_core_ops_dashboard";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_core_ops_dashboard";
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
             HyperLink_web_site.Text = url;

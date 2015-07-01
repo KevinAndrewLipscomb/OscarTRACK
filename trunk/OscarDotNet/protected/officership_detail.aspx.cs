@@ -57,7 +57,7 @@ namespace officership_detail
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - officership_detail";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - officership_detail";
                     // Initialize implementation-wide vars.
                     p.biz_members = new TClass_biz_members();
                     p.biz_officerships = new TClass_biz_officerships();

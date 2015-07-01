@@ -39,7 +39,7 @@ namespace change_member_email_address
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_email_address";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_email_address";
                 Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 Label_member_name_2.Text = Label_member_name_1.Text;
                 Label_member_name_3.Text = Label_member_name_2.Text;

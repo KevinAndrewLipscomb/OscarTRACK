@@ -28,7 +28,7 @@ namespace Default
         {
             if (!IsPostBack)
             {
-                Title.InnerText = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - Default";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - Default";
                 Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
                 Response.Redirect("~/protected/overview.aspx");
             }

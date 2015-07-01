@@ -3,8 +3,8 @@
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
-  <head>
-	<title id="Title" runat="server"></title>
+  <head runat="server">
+	<title/>
 	<!-- $Id$ -->
   </head>
   <body bgcolor="white">

@@ -59,7 +59,7 @@ namespace change_member_agency
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_agency";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_agency";
                     p.biz_members = new TClass_biz_members();
                     p.biz_agencies = new TClass_biz_agencies();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
