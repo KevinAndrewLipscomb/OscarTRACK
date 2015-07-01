@@ -1,24 +1,12 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Web.UI;
 using Class_biz_user;
 using Class_biz_users;
+using kix;
+using System;
+using System.Configuration;
+
 namespace change_email_address
-{
-    public struct p_type
+  {
+  public struct p_type
     {
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
@@ -59,7 +47,7 @@ namespace change_email_address
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
-                Title.Text = ConfigurationManager.AppSettings["application_name"] + " - change_email_address";
+                Page.Title = ConfigurationManager.AppSettings["application_name"] + " - change_email_address";
                 p.biz_user = new TClass_biz_user();
                 p.biz_users = new TClass_biz_users();
                 // Preload email address fields

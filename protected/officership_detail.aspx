@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-	<title id="Title" runat="server"></title>
+	<title/>
       <!-- $Id$ -->
   </head>
   <body bgcolor="white">
@@ -15,7 +15,7 @@
 			  <td>
 				<table cellspacing="0" cellpadding="10" border="0">
 					<tr>
-                      <td bgcolor="#f5f5f5"><strong>Officership detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></td>
+                      <td bgcolor="#f5f5f5"><strong>Officership detail for <ASP:Label id="Label_member_designator" runat="server"></ASP:Label></strong></td>
 					</tr>
 					<tr id="TableRow_none" runat="server">
 					  <td><em>--&nbsp;NONE&nbsp;--</em></td>

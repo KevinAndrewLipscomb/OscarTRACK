@@ -57,7 +57,7 @@ namespace change_member_driver_qualification
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_driver_qualification";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_driver_qualification";
                     p.biz_members = new TClass_biz_members();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                     Label_member_name_2.Text = Label_member_name_1.Text;

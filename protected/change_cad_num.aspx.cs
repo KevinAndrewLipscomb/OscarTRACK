@@ -39,7 +39,7 @@ namespace change_cad_num
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_cad_num";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_cad_num";
                 Label_old_cad_num.Text = p.biz_members.CadNumOf(Session["member_summary"]);
                 Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 Label_member_name_2.Text = Label_member_name_1.Text;

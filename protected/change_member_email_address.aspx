@@ -5,7 +5,7 @@
 
 <html>
   <head runat="server">
-	<title id="Title" runat="server"></title>
+	<title/>
       <!-- $Id$ -->
   </head>
 

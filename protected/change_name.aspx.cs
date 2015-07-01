@@ -41,7 +41,7 @@ namespace change_name
         {
             if (!IsPostBack)
             {
-                Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_name";
+                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_name";
                 Label_member_name.Text = p.saved_first_name + k.SPACE + p.saved_last_name;
                 TextBox_first_name.Text = p.saved_first_name;
                 TextBox_last_name.Text = p.saved_last_name;

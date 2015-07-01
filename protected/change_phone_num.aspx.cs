@@ -1,23 +1,12 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Web.UI;
 using Class_biz_members;
+using kix;
+using System;
+using System.Configuration;
+using System.Web.UI;
+
 namespace change_phone_num
-{
-    public struct p_type
+  {
+  public struct p_type
     {
         public TClass_biz_members biz_members;
     } // end p_type
@@ -56,7 +45,7 @@ namespace change_phone_num
                     Session.Clear();
                     Server.Transfer("~/login.aspx");
                 }
-                Title.Text = ConfigurationManager.AppSettings["application_name"] + " - change_phone_num";
+                Page.Title = ConfigurationManager.AppSettings["application_name"] + " - change_phone_num";
                 p.biz_members = new TClass_biz_members();
                 Label_name.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
                 TextBox_phone_num.Text = k.FormatAsNanpPhoneNum(Session["member_phone_num"].ToString());

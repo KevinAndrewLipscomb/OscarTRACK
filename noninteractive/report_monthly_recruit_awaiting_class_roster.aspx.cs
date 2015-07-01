@@ -34,7 +34,7 @@ namespace report_monthly_recruit_awaiting_class_roster
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_recruit_awaiting_class_roster";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_recruit_awaiting_class_roster";
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];

@@ -34,7 +34,7 @@ namespace report_monthly_current_roster
         protected void Page_Load(object sender, System.EventArgs e)
         {
             string url;
-            Title.InnerText = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_current_roster";
+            Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_current_roster";
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_3.Text = ConfigurationManager.AppSettings["application_name"];

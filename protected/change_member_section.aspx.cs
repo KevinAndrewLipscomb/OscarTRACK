@@ -58,7 +58,7 @@ namespace change_member_section
                 }
                 else
                 {
-                    Title.Text = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_section";
+                    Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - change_member_section";
                     p.biz_members = new TClass_biz_members();
                     p.biz_sections = new TClass_biz_sections();
                     Label_member_name_1.Text = p.biz_members.FirstNameOf(Session["member_summary"]) + k.SPACE + p.biz_members.LastNameOf(Session["member_summary"]);
