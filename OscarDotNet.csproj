@@ -235,6 +235,7 @@
     <Content Include="usercontrol\app\UserControl_gripe.ascx" />
     <Content Include="usercontrol\app\UserControl_gripe_sheet.ascx" />
     <Content Include="usercontrol\app\UserControl_incident_nature.ascx" />
+    <Content Include="usercontrol\app\UserControl_incident_nature_translation.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
     <Content Include="usercontrol\app\UserControl_member_profile.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
@@ -1363,6 +1364,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_incident_nature.ascx.designer.cs">
       <DependentUpon>UserControl_incident_nature.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_incident_nature_translation.ascx.cs">
+      <DependentUpon>UserControl_incident_nature_translation.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_incident_nature_translation.ascx.designer.cs">
+      <DependentUpon>UserControl_incident_nature_translation.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_keyclick.ascx.cs">
       <DependentUpon>UserControl_keyclick.ascx</DependentUpon>

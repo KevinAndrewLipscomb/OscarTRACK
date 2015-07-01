@@ -1,6 +1,5 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using AjaxControlToolkit;
 using Class_biz_incident_natures;
 using Class_biz_role_member_map;
 using kix;
