@@ -82,8 +82,7 @@
     <td>
       <font class="">
         <small>Please be positive, professional, precise, and concise.&nbsp; Your comments may be displayed on a future shop work order.</small><br />
-        <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="72" Rows="6" TextMode="MultiLine"></asp:TextBox><br />
-        <small>Resulting note will be truncated at 16,777,215 characters.</small>
+        <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="72" Rows="6" TextMode="MultiLine"></asp:TextBox>
       </font>
     </td>
     <td nowrap="True" valign="top">
