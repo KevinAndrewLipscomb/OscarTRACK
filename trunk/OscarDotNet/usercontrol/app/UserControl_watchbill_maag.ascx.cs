@@ -210,6 +210,10 @@ namespace UserControl_watchbill_maag
         e.Item.Cells[Static.TCI_BE_GREENHORNS].Visible = false;
         //
         e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Font.Italic = (new ArrayList() {"P","I","C"}).Contains(e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Text);
+        if (new ArrayList() {"s","b"}.Contains(e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].Text))
+          {
+          e.Item.Cells[Static.TCI_MEDICAL_RELEASE_DESCRIPTION].BackColor = Color.LightGray;
+          }
         //
         var member_agency_id = k.Safe(e.Item.Cells[Static.TCI_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
         e.Item.Cells[Static.TCI_MEMBER_AGENCY_ID].Text = (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id);

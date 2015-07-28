@@ -625,11 +625,16 @@ namespace UserControl_schedule_proposal
         e.Item.Cells[tci_slash].Text = k.EMPTY;
         }
       //
-      // Italicize medical_release_description for zone-duty-capable ALS
+      // Make rendition adjustments according to medical release level.
       //
       if (e.Item.Cells[tci_medical_release_description].Text != "&nbsp;")
         {
         e.Item.Cells[tci_medical_release_description].Font.Italic = (new ArrayList() {"¶","P","I","C"}).Contains(e.Item.Cells[tci_medical_release_description].Text);
+        //
+        if (new ArrayList() {"s","b"}.Contains(e.Item.Cells[tci_medical_release_description].Text))
+          {
+          e.Item.Cells[tci_medical_release_description].BackColor = Color.LightGray;
+          }
         }
       else
         {
