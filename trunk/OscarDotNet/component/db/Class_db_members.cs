@@ -2182,7 +2182,7 @@ namespace Class_db_members
             + " , medical_release_code_description_map.description as medical_release_description" 
             + " , be_driver_qualified" 
             + " , enrollment_level.description as enrollment" 
-            + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+            + " , IF(enrollment_level.description in ('Withdrew application','Resigned','Retired','Disabled','Unknown','Dismissed','Deceased'),'',(TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365) as length_of_service"
             + " , phone_num" 
             + " , IFNULL(phone_service_id,'') as phone_service_id"
             + " , IFNULL(sms_gateway.carrier_name,'') as phone_service"
