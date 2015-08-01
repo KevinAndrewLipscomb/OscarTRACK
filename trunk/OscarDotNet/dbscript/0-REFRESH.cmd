@@ -4,6 +4,7 @@ set base_db_name=oscardotnetdb
 set the_host=localhost
 set the_user=root
 if "%COMPUTERNAME%"=="alpha" goto :OPS
+if "%COMPUTERNAME%"=="WIN-O968FBUMJDS" goto :OPS
 if "%1"=="x" set the_host=elm.phpwebhosting.com
 if "%1"=="x" set the_user=kalipso5
 :OPS
