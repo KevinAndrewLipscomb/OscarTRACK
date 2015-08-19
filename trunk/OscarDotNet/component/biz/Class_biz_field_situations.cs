@@ -261,6 +261,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )PA$|(?<prefix> )PA(?<suffix>/)|(?<prefix> )PA(?<suffix> )",
+          replacement:"${prefix}PATH${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )PK$|(?<prefix> )PK(?<suffix>/)|(?<prefix> )PK(?<suffix> )",
           replacement:"${prefix}PARK${suffix}"
           );
