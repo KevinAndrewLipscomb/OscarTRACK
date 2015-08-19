@@ -85,6 +85,15 @@ namespace UserControl_business_objects_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_eval_objects;
         
         /// <summary>
+        /// TabPanel_sms_gateways control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_sms_gateways;
+        
+        /// <summary>
         /// TabPanel_cad_objects control.
         /// </summary>
         /// <remarks>
