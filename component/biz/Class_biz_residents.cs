@@ -158,6 +158,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )PA$|(?<prefix> )PA(?<suffix> )",
+          replacement:"${prefix}PATH${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )PK$|(?<prefix> )PK(?<suffix> )",
           replacement:"${prefix}PARK${suffix}",
           options:RegexOptions.Multiline
