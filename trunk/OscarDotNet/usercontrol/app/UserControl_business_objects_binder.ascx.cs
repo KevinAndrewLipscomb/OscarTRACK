@@ -1,12 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
 using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_agency;
 using UserControl_agency_satellite_station;
 using UserControl_cad_object_binder;
@@ -14,6 +8,7 @@ using UserControl_eval_object_binder;
 using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
 using UserControl_shift;
+using UserControl_sms_gateway;
 
 namespace UserControl_business_objects_binder
   {
@@ -27,7 +22,8 @@ namespace UserControl_business_objects_binder
       public const int TSSI_FUND_DRIVE_OBJECTS = 3;
       public const int TSSI_SHIFTS = 4;
       public const int TSSI_EVAL_OBJECTS = 5;
-      public const int TSSI_CAD_OBJECTS = 6;
+      public const int TSSI_SMS_GATEWAYS = 6;
+      public const int TSSI_CAD_OBJECTS = 7;
       }
 
     private struct p_type
@@ -66,6 +62,10 @@ namespace UserControl_business_objects_binder
         if (k.Has((string[])(Session["privilege_array"]), "config-eval-attributes"))
           {
           TabPanel_eval_objects.Enabled = true;
+          }
+        if (k.Has((string[])(Session["privilege_array"]), "config-sms-gateways"))
+          {
+          TabPanel_sms_gateways.Enabled = true;
           }
         if (k.Has((string[])(Session["privilege_array"]), "config-cad-objects"))
           {
@@ -110,6 +110,10 @@ namespace UserControl_business_objects_binder
         else if (p.tab_index == Static.TSSI_EVAL_OBJECTS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_eval_object_binder)(LoadControl("~/usercontrol/app/UserControl_eval_object_binder.ascx"))), "UserControl_eval_object_binder", PlaceHolder_content);
+          }
+        else if (p.tab_index == Static.TSSI_SMS_GATEWAYS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_sms_gateway)(LoadControl("~/usercontrol/app/UserControl_sms_gateway.ascx"))), "UserControl_sms_gateway", PlaceHolder_content);
           }
         else if (p.tab_index == Static.TSSI_CAD_OBJECTS)
           {
@@ -178,6 +182,10 @@ namespace UserControl_business_objects_binder
       else if (p.tab_index == Static.TSSI_EVAL_OBJECTS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_eval_object_binder)(LoadControl("~/usercontrol/app/UserControl_eval_object_binder.ascx"))),"UserControl_eval_object_binder",PlaceHolder_content,InstanceId());
+        }
+      else if (p.tab_index == Static.TSSI_SMS_GATEWAYS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_sms_gateway)(LoadControl("~/usercontrol/app/UserControl_sms_gateway.ascx"))),"UserControl_sms_gateway",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == Static.TSSI_CAD_OBJECTS)
         {
