@@ -30,8 +30,10 @@
   </tr>
   <tr>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td>&nbsp;</td>
-    <td>&nbsp;</td>
+    <td align="right">
+      <asp:ImageButton ID="ImageButton_coverage_assistant" runat="server" AlternateText="Coverage Assistant" CausesValidation="False" ImageUrl="~/protected/image/help-2--48x48.png" OnClick="ImageButton_coverage_assistant_Click" />
+    </td>
+    <td><small>Learn about the <asp:LinkButton ID="LinkButton_coverage_assistant" runat="server" OnClick="LinkButton_coverage_assistant_Click">Coverage Assistant (with "Swap-ortunities"!)</asp:LinkButton></small></td>
   </tr>
   <tr>
     <td>
@@ -60,17 +62,6 @@
       <h3>
         <br/>
         Administrivia</h3>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </td>
-    <td align="right" valign="top">
-      <small><asp:HyperLink id="HyperLink_catch_up" runat="server" target="_blank" NavigateUrl="$OSCAR/whats-new.phtml">Catch up</asp:HyperLink></small>
-    </td>
-    <td valign="top">
-      <small>on what's new.</small>
     </td>
   </tr>
   <tr>
