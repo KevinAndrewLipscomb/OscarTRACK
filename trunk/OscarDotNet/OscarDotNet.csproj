@@ -159,12 +159,24 @@
     <Content Include="protected\change_member_squad_truck_team_qualification.aspx" />
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\coverage_assistant.aspx" />
+    <Content Include="protected\coverage_assistant_intro.aspx" />
     <Content Include="protected\donation_log.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
     <Content Include="protected\eval_detail.aspx" />
     <Content Include="protected\gripe.aspx" />
     <Content Include="protected\gripe_sheet.aspx" />
+    <Content Include="protected\image\coverage-assistant-intro\life-saving-ring.png" />
+    <Content Include="protected\image\coverage-assistant-intro\my-assignments-tab.png" />
+    <Content Include="protected\image\coverage-assistant-intro\quickmessage.png" />
+    <Content Include="protected\image\coverage-assistant-intro\right-column.png" />
+    <Content Include="protected\image\coverage-assistant-intro\schedule--my-assignments.png" />
+    <Content Include="protected\image\coverage-assistant-intro\schedule-tab.png" />
+    <Content Include="protected\image\coverage-assistant-intro\swaportunities-block-empty.png" />
+    <Content Include="protected\image\coverage-assistant-intro\swaportunities-block-populated.png" />
+    <Content Include="protected\image\coverage-assistant-intro\target-page.png" />
+    <Content Include="protected\image\help-2--48x48.png" />
+    <Content Include="protected\image\help-2.png" />
     <Content Include="protected\paypal_assistant.aspx" />
     <Content Include="protected\paypal_ipn_listener_test.htm" />
     <Content Include="protected\image\appointment-missed.png" />
@@ -215,6 +227,7 @@
     <Content Include="usercontrol\app\UserControl_care_skill_rating.ascx" />
     <Content Include="usercontrol\app\UserControl_city.ascx" />
     <Content Include="usercontrol\app\UserControl_coverage_assistant.ascx" />
+    <Content Include="usercontrol\app\UserControl_coverage_assistant_intro.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_log.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill_rating.ascx" />
@@ -819,6 +832,13 @@
     <Compile Include="protected\coverage_assistant.aspx.designer.cs">
       <DependentUpon>coverage_assistant.aspx</DependentUpon>
     </Compile>
+    <Compile Include="protected\coverage_assistant_intro.aspx.cs">
+      <DependentUpon>coverage_assistant_intro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\coverage_assistant_intro.aspx.designer.cs">
+      <DependentUpon>coverage_assistant_intro.aspx</DependentUpon>
+    </Compile>
     <Compile Include="protected\donation_log.aspx.cs">
       <DependentUpon>donation_log.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1160,6 +1180,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_coverage_assistant.ascx.designer.cs">
       <DependentUpon>UserControl_coverage_assistant.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_coverage_assistant_intro.ascx.cs">
+      <DependentUpon>UserControl_coverage_assistant_intro.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_coverage_assistant_intro.ascx.designer.cs">
+      <DependentUpon>UserControl_coverage_assistant_intro.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_current_indicators.ascx.cs">
       <DependentUpon>UserControl_current_indicators.ascx</DependentUpon>
