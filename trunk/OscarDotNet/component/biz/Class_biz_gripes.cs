@@ -116,6 +116,7 @@ namespace Class_biz_gripes
       string vehicle_id,
       string user_id,
       string urlencoded_work_order_coordinator_title,
+      string urlencoded_main_reason_for_visit,
       string urlencoded_serialized_gripe_inclusion_hashtable,
       string working_directory,
       string urlencoded_target
@@ -133,6 +134,7 @@ namespace Class_biz_gripes
           +   "=vehicle_id=" + vehicle_id
           +   "&user_id=" + user_id
           +   "&work_order_coordinator_title=" + urlencoded_work_order_coordinator_title
+          +   "&main_reason_for_visit=" + urlencoded_main_reason_for_visit
           +   "&serialized_gripe_inclusion_hashtable=\"" + urlencoded_serialized_gripe_inclusion_hashtable + "\""
           +   "&target=" + urlencoded_target
           + k.SPACE
