@@ -151,6 +151,14 @@ namespace Class_db_vehicle_down_natures
       return result;
       }
 
+    internal string IdOfName(string name)
+      {
+      Open();
+      var id_of_name_obj = new MySqlCommand("select id from vehicle_down_nature where name = '" + name + "'",connection).ExecuteScalar();
+      Close();
+      return (id_of_name_obj == null ? k.EMPTY : id_of_name_obj.ToString());
+      }
+
     public void Set
       (
       string id,

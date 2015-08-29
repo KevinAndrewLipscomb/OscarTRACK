@@ -60,6 +60,11 @@ namespace Class_biz_vehicle_down_natures
         );
       }
 
+    internal string IdOfName(string name)
+      {
+      return db_vehicle_down_natures.IdOfName(name);
+      }
+
     public void Set
       (
       string id,

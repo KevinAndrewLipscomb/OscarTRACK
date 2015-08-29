@@ -9,12 +9,15 @@
             <table cellspacing="0" cellpadding="10" border="0" width="100%">
               <tr>
                 <td nowrap="nowrap">
-                  <b>Gripes for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal></b>&nbsp; (<asp:Literal ID="Literal_num_requests" runat="server"></asp:Literal>&nbsp;items)
+                  <b>
+                    <asp:Literal ID="Literal_title_gripes" runat="server" Visible="false">Gripes</asp:Literal><asp:Literal ID="Literal_title_vir" runat="server" Visible="false">Rescue Squad <u>Vehicular Issue Report</u></asp:Literal>
+                    for vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>
+                  </b>
                 </td>
                 <td align="center">
                   <asp:Panel ID="Panel_generation_timestamp" runat="server" Visible="False"><small>Generated&nbsp;<asp:Literal ID="Literal_generation_timestamp" runat="server"></asp:Literal></small></asp:Panel>                      
                 </td>
-                <td align="center"><asp:CheckBox ID="CheckBox_be_work_order_mode" runat="server" AutoPostBack="True" Text="Work order mode" Visible="False" oncheckedchanged="CheckBox_be_work_order_mode_CheckedChanged" /></td>
+                <td align="center"><asp:CheckBox ID="CheckBox_be_work_order_mode" runat="server" AutoPostBack="True" Text="VIR mode" Visible="False" oncheckedchanged="CheckBox_be_work_order_mode_CheckedChanged" /></td>
               </tr>
             </table>
           </td>
@@ -34,16 +37,7 @@
         </tr>
         <tr id="TableRow_work_order_instructions" runat="server" visible="false">
           <td>
-            <table cellpadding="0" cellspacing="0" width="100%">
-              <tr>
-                <td width="99%"><big><big><b><u>TECHNICIAN and/or SERVICE ADVISOR:</u></b></big></big></td>
-                <td align="right" width="1%">
-                  <asp:Button ID="Button_send_to_city_garage" runat="server" Text="Email to City Garage" onclick="Button_send_to_city_garage_Click" Width="100%" />
-                  <br /><br />
-                  <asp:Button ID="Button_send_to_comit" runat="server" Text="Email to ComIT" onclick="Button_send_to_comit_Click" Width="100%" />
-                </td>
-              </tr>
-            </table>
+            <big><big><b><u>SERVICE WRITER:</u></b></big></big>
             <p>Reference this vehicle:</p>
             <blockquote>
               <small>
@@ -150,7 +144,33 @@
               </table>
             </blockquote>
             <p></p>
-            <b>PLEASE RESOLVE THE FOLLOWING ISSUES DOCUMENTED BY THE INDICATED MEMBERS:</b>
+            <b>MAIN REASON FOR THIS VISIT:</b>
+            <blockquote>
+              <table cellspacing="0" cellpadding="3" border="2" bordercolor="red">
+                <tr>
+                  <td>
+                    <table cellspacing ="0" cellpadding="3">
+                      <tr id="TableRow_main_reason_for_visit_interactive" runat="server">
+                        <td><asp:TextBox ID="TextBox_main_reason_for_visit" runat="server" Columns="60" Rows="10" TextMode="MultiLine"></asp:TextBox></td>
+                        <td valign="top"><asp:RequiredFieldValidator ID="RequiredFieldValidator_main_reason_for_visit" runat="server" ErrorMessage="Please enter a Main reason for visit" ControlToValidate="TextBox_main_reason_for_visit" Font-Bold="True">!ERR!</asp:RequiredFieldValidator></td>
+                        <td valign="top">
+                          <asp:Button ID="Button_send_to_city_garage" runat="server" Text="Email to City Garage" onclick="Button_send_to_city_garage_Click" Width="100%" />
+                          <br /><br />
+                          <asp:Button ID="Button_send_to_comit" runat="server" Text="Email to ComIT" onclick="Button_send_to_comit_Click" Width="100%" />
+                        </td>
+                      </tr>
+                      <tr id="TableRow_main_reason_for_visit_noninteractive" runat="server">
+                        <td><b><tt><asp:Literal ID="Literal_main_reason_for_visit" runat="server"></asp:Literal></tt></b></td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </blockquote>
+            <p></p>
+            <b>SECONDARY OUTSTANDING ISSUES:</b>
           </td>
         </tr>
         <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
@@ -186,5 +206,5 @@
     </td>
   </tr>
 </table>
-<p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click"></asp:Button></p>
+<p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click" UseSubmitBehavior="False"></asp:Button></p>
 <asp:Panel ID="Panel_page_break" runat="server" Visible="false"><i>--&nbsp;END&nbsp;--</i><div style="page-break-before:always;" /></asp:Panel>

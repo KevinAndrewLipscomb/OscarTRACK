@@ -60,10 +60,11 @@ namespace report_commanded_gripe_sheet
         PlaceHolder_gripe_sheet.Controls.Add(UserControl_gripe_sheet);
         UserControl_gripe_sheet.SetFilter
           (
-          k.Safe(Request["user_id"],k.safe_hint_type.NUM),
-          p.biz_vehicles.Summary(k.Safe(Request["vehicle_id"],k.safe_hint_type.NUM)),
-          k.Safe(Request["work_order_coordinator_title"],k.safe_hint_type.ALPHA_WORDS),
-          Request["serialized_gripe_inclusion_hashtable"]
+          user_id:k.Safe(Request["user_id"],k.safe_hint_type.NUM),
+          vehicle_summary:p.biz_vehicles.Summary(k.Safe(Request["vehicle_id"],k.safe_hint_type.NUM)),
+          work_order_coordinator_title:k.Safe(Request["work_order_coordinator_title"],k.safe_hint_type.ALPHA_WORDS),
+          serialized_gripe_inclusion_hashtable:Request["serialized_gripe_inclusion_hashtable"],
+          main_reason_for_visit:k.Safe(Request["main_reason_for_visit"],k.safe_hint_type.MEMO)
           );
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
@@ -90,7 +91,7 @@ namespace report_commanded_gripe_sheet
         (
         ConfigurationManager.AppSettings["sender_email_address"],
         Request["target"],
-        "VB EMS vehicle work order",
+        "Rescue Squad Vehicular Issue Report",
         body,
         true,
         squad_fleet_coordinator_target,

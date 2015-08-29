@@ -13,6 +13,24 @@ namespace UserControl_gripe_sheet {
     public partial class TWebUserControl_gripe_sheet {
         
         /// <summary>
+        /// Literal_title_gripes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_title_gripes;
+        
+        /// <summary>
+        /// Literal_title_vir control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_title_vir;
+        
+        /// <summary>
         /// Literal_vehicle_name control.
         /// </summary>
         /// <remarks>
@@ -20,15 +38,6 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_vehicle_name;
-        
-        /// <summary>
-        /// Literal_num_requests control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_num_requests;
         
         /// <summary>
         /// Panel_generation_timestamp control.
@@ -74,24 +83,6 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_work_order_instructions;
-        
-        /// <summary>
-        /// Button_send_to_city_garage control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_send_to_city_garage;
-        
-        /// <summary>
-        /// Button_send_to_comit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_send_to_comit;
         
         /// <summary>
         /// Literal_kind control.
@@ -290,6 +281,69 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_work_order_coordinator_email_address;
+        
+        /// <summary>
+        /// TableRow_main_reason_for_visit_interactive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_main_reason_for_visit_interactive;
+        
+        /// <summary>
+        /// TextBox_main_reason_for_visit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_main_reason_for_visit;
+        
+        /// <summary>
+        /// RequiredFieldValidator_main_reason_for_visit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_main_reason_for_visit;
+        
+        /// <summary>
+        /// Button_send_to_city_garage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_send_to_city_garage;
+        
+        /// <summary>
+        /// Button_send_to_comit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_send_to_comit;
+        
+        /// <summary>
+        /// TableRow_main_reason_for_visit_noninteractive control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_main_reason_for_visit_noninteractive;
+        
+        /// <summary>
+        /// Literal_main_reason_for_visit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_main_reason_for_visit;
         
         /// <summary>
         /// TableRow_none control.
