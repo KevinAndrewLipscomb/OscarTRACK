@@ -317,11 +317,7 @@ namespace UserControl_fleet
           e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
           be_up_and_current = false;
           var down_duration = e.Item.Cells[UserControl_fleet_Static.TCI_DOWN_DURATION].Text;
-          if (down_duration != "0")
-            {
-            link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton);
-            link_button.Text = "<small>" + link_button.Text + k.SPACE + down_duration + "d</small>";
-            }
+          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Text += (down_duration == "0" ? k.EMPTY : "<small> " + down_duration + "d</small>");
           }
         var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
         if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
