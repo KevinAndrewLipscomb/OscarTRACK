@@ -115,39 +115,40 @@
                 <asp:BoundColumn DataField="num_gripes" ReadOnly="True" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="status" ReadOnly="True" Visible="False"></asp:BoundColumn>
                 <asp:ButtonColumn CommandName="MarkDown" HeaderText="Up" SortExpression="status%,vehicle_name" Text="&lt;tt&gt;&amp;nbsp;UP&amp;nbsp;&lt;/tt&gt;">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle BackColor="Lime" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Middle"/>
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle BackColor="Lime" HorizontalAlign="Center" VerticalAlign="Middle"/>
                 </asp:ButtonColumn>
-                <asp:ButtonColumn CommandName="MarkUp" HeaderText="Down" SortExpression="status%,vehicle_name" Text="&lt;tt&gt;DOWN&lt;/tt&gt;">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle BackColor="LightGray" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Middle"/>
+                <asp:ButtonColumn CommandName="MarkUp" HeaderText="Down" SortExpression="down_duration%,vehicle_name" Text="&lt;tt&gt;DOWN&lt;/tt&gt;">
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle BackColor="LightGray" VerticalAlign="Middle"/>
                 </asp:ButtonColumn>
+                <asp:BoundColumn DataField="down_duration" Visible="False"></asp:BoundColumn>
                 <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Journal&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="AppendNote" Visible="false">
                   <ItemStyle BackColor="LightGray" HorizontalAlign="Center" VerticalAlign="Middle" />
                 </asp:ButtonColumn>
                 <asp:ButtonColumn CommandName="ChangeQuarters" DataTextField="quarters" HeaderText="Quarters" SortExpression="quarters%,vehicle_name" >
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle HorizontalAlign="Center" />
                 </asp:ButtonColumn>
                 <asp:ButtonColumn CommandName="UpdateMileage" DataTextField="last_known_mileage" HeaderText="Recent mileage" SortExpression="CAST(vehicle.recent_mileage AS unsigned)%,vehicle_name">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle HorizontalAlign="Right" />
                 </asp:ButtonColumn>
                 <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed))%,vehicle_name">
-                  <ItemStyle HorizontalAlign="Right" Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" Wrap="False" />
+                  <ItemStyle HorizontalAlign="Right" Wrap="False" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="dmv_inspection_due" HeaderText="DMV inspection due" ReadOnly="True" SortExpression="dmv_inspection_due%,vehicle_name">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="model_year" HeaderText="Model year" ReadOnly="True" SortExpression="model_year%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_make" HeaderText="Chassis make" ReadOnly="True" SortExpression="chassis_make%,chassis_model,vehicle_name">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Right" />
+                  <HeaderStyle HorizontalAlign="Right" />
+                  <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_model" HeaderText="Chassis model" ReadOnly="True" SortExpression="chassis_model%,chassis_make,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="be_four_or_all_wheel_drive" HeaderText="AWD / 4WD" ReadOnly="True" SortExpression="be_four_or_all_wheel_drive%,vehicle_name">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="custom_make" HeaderText="Custom make" ReadOnly="True" SortExpression="custom_make%,custom_model,vehicle_name">
                   <HeaderStyle HorizontalAlign="Right" />
@@ -161,7 +162,7 @@
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="bumper_number" HeaderText="Bumper #" ReadOnly="True" SortExpression="bumper_number%">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
+                  <HeaderStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="tag" HeaderText="Tag" ReadOnly="True" SortExpression="tag%"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vin" HeaderText="VIN" ReadOnly="True" SortExpression="vin%"></asp:BoundColumn>
