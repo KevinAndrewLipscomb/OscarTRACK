@@ -29,25 +29,26 @@ namespace UserControl_fleet
       public const int TCI_STATUS = 5;
       public const int TCI_STATUS_UP = 6;
       public const int TCI_STATUS_DOWN = 7;
-      public const int TCI_APPEND_NOTE = 8;
-      public const int TCI_QUARTERS = 9;
-      public const int TCI_RECENT_MILEAGE = 10;
-      public const int TCI_MILES_FROM_PM = 11;
-      public const int TCI_DMV_INSPECTION_DUE = 12;
-      public const int TCI_MODEL_YEAR = 13;
-      public const int TCI_CHASSIS_MAKE = 14;
-      public const int TCI_CHASSIS_MODEL = 15;
-      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 16;
-      public const int TCI_CUSTOM_MAKE = 17;
-      public const int TCI_CUSTOM_MODEL = 18;
-      public const int TCI_FUEL = 19;
-      public const int TCI_KIND = 20;
-      public const int TCI_AGENCY = 21;
-      public const int TCI_BUMPER_NUMBER = 22;
-      public const int TCI_TAG = 23;
-      public const int TCI_VIN = 24;
-      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 25;
-      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 26;
+      public const int TCI_DOWN_DURATION = 8;
+      public const int TCI_APPEND_NOTE = 9;
+      public const int TCI_QUARTERS = 10;
+      public const int TCI_RECENT_MILEAGE = 11;
+      public const int TCI_MILES_FROM_PM = 12;
+      public const int TCI_DMV_INSPECTION_DUE = 13;
+      public const int TCI_MODEL_YEAR = 14;
+      public const int TCI_CHASSIS_MAKE = 15;
+      public const int TCI_CHASSIS_MODEL = 16;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 17;
+      public const int TCI_CUSTOM_MAKE = 18;
+      public const int TCI_CUSTOM_MODEL = 19;
+      public const int TCI_FUEL = 20;
+      public const int TCI_KIND = 21;
+      public const int TCI_AGENCY = 22;
+      public const int TCI_BUMPER_NUMBER = 23;
+      public const int TCI_TAG = 24;
+      public const int TCI_VIN = 25;
+      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 26;
+      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 27;
       }
 
     private struct p_type
@@ -315,6 +316,12 @@ namespace UserControl_fleet
           ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
           e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
           be_up_and_current = false;
+          var down_duration = e.Item.Cells[UserControl_fleet_Static.TCI_DOWN_DURATION].Text;
+          if (down_duration != "0")
+            {
+            link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton);
+            link_button.Text = "<small>" + link_button.Text + k.SPACE + down_duration + "d</small>";
+            }
           }
         var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
         if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)

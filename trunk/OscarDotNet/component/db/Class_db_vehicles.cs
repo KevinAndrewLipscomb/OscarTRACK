@@ -275,6 +275,7 @@ namespace Class_db_vehicles
           + " , vehicle.name as vehicle_name"
           + " , count(gripe.vehicle_id) as num_gripes"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
+          + " , IF(vehicle_down_nature.id is null,-1,TIMESTAMPDIFF(MINUTE,time_went_down,NOW()) DIV 1440) as down_duration"
           + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
           + " , IFNULL(recent_mileage,'???') as last_known_mileage"
           + " , IFNULL(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed),'???') as miles_from_pm"
