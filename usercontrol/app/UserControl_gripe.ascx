@@ -81,7 +81,7 @@
     <td valign="top"><font class="">New/additional entry:</font></td>
     <td>
       <font class="">
-        <small>Please be positive, professional, precise, and concise.&nbsp; Your comments may be displayed on a future shop work order.</small><br />
+        <small>Please be positive, professional, precise, and concise.&nbsp; Your comments may be displayed on a future Vehicle Issue Report.</small><br />
         <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="72" Rows="6" TextMode="MultiLine"></asp:TextBox>
       </font>
     </td>
