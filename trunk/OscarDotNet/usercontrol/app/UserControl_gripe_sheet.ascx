@@ -170,7 +170,7 @@
               </table>
             </blockquote>
             <p></p>
-            <b>SECONDARY OUTSTANDING ISSUES:</b>
+            <b>SECONDARY ISSUES:</b>
           </td>
         </tr>
         <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>

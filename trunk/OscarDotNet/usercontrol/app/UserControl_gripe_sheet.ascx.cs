@@ -11,6 +11,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -299,7 +300,7 @@ namespace UserControl_gripe_sheet
           {
           p.gripe_inclusion_hashtable.Add(id,true);
           }
-        var be_ok_to_display = (!CheckBox_be_work_order_mode.Checked || (bool)(p.gripe_inclusion_hashtable[id]));
+        var be_ok_to_display = (!p.be_work_order_mode || (bool)(p.gripe_inclusion_hashtable[id]));
         if (p.be_interactive)
           {
           if (be_ok_to_display)
@@ -315,7 +316,21 @@ namespace UserControl_gripe_sheet
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
             }
           }
-        e.Item.Cells[Static.TCI_DESCRIPTION].Text = e.Item.Cells[Static.TCI_DESCRIPTION].Text.Replace(k.NEW_LINE,"<br>");
+        var description_cell = e.Item.Cells[Static.TCI_DESCRIPTION];
+        //
+        // The execution order of the following if block and the statement afterwards is critical because of line-ending issues.
+        //
+        description_cell.Text = description_cell.Text.Replace(k.NEW_LINE,"<br/>");
+        if (p.be_work_order_mode)
+          {
+          description_cell.Text = Regex.Replace
+            (
+            input:description_cell.Text,
+            pattern:" \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}<br/>", // yyyy-MM-dd HH:mm:ss
+            replacement:"<br/>"
+            );
+          }
+        //
         e.Item.Visible = be_ok_to_display;
         p.num_gripes++;
         }
