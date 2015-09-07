@@ -311,7 +311,7 @@ namespace UserControl_member_profile
           {
           k.SmtpMailSend
             (
-            from:ConfigurationManager.AppSettings["sender_email_address"],
+            from:ConfigurationManager.AppSettings["sender_email_address_oscalert"],
             to:sms_target,
             subject:k.EMPTY,
             message_string:"Congratulations! You are now registered to receive OSCALERTs.",

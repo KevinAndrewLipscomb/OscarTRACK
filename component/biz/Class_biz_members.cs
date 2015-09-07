@@ -858,14 +858,16 @@ namespace Class_biz_members
           if (ok_so_far)
             {
             db_members.SetMedicalReleaseCode(new_code, summary);
-            var be_past = BePast(summary);
-            db_members.SetOscalertThresholds
-              (
-              oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
-              oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(biz_medical_release_levels.DescriptionOf(new_code),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
-              do_clear_subscriptions:be_past,
-              summary:summary
-              );
+            if (BePast(summary))
+              {
+              db_members.SetOscalertThresholds
+                (
+                oscalert_threshold_general:k.EMPTY,
+                oscalert_threshold_als:k.EMPTY,
+                do_clear_subscriptions:true,
+                summary:summary
+                );
+              }
             biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
             }
           return ok_so_far;
