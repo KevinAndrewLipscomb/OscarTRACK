@@ -195,14 +195,16 @@ namespace Class_biz_enrollment
       if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary, target_agency_id))
         {
         set_level = true;
-        var be_past = BePastDescription(db_members.EnrollmentOf(summary));
-        db_members.SetOscalertThresholds
-          (
-          oscalert_threshold_general:(be_past ? k.EMPTY : "MultAmbHolds"),
-          oscalert_threshold_als:(be_past || biz_medical_release_levels.PeckingOrderCompareTo(db_members.MedicalReleaseLevelOf(summary),"EMT-CT") < 0 ? k.EMPTY : "MultAlsHolds"),
-          do_clear_subscriptions:be_past,
-          summary:summary
-          );
+        if (BePastDescription(db_members.EnrollmentOf(summary)))
+          {
+          db_members.SetOscalertThresholds
+            (
+            oscalert_threshold_general:k.EMPTY,
+            oscalert_threshold_als:k.EMPTY,
+            do_clear_subscriptions:true,
+            summary:summary
+            );
+          }
         if (target_agency_id != k.EMPTY)
           {
           var old_agency_medium_designator = biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator));
