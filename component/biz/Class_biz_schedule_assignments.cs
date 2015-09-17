@@ -33,6 +33,8 @@ namespace Class_biz_schedule_assignments
     private TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
+    private static readonly Object update_lock = new object();
+
     public TClass_biz_schedule_assignments() : base()
       {
       biz_agencies = new TClass_biz_agencies();
@@ -1128,26 +1130,29 @@ namespace Class_biz_schedule_assignments
       string working_directory
       )
       {
-      var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
-      if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
+      lock (update_lock)
         {
-        db_schedule_assignments.RigForProposalGeneration();
-        }
-      db_schedule_assignments.Update
-        (
-        relative_month:relative_month,
-        be_official:(relative_month == "0") || be_ok_to_work_on_next_month_assignments,
-        be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments
-        );
-      //
-      // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
-      //
-      var relative_month_int = int.Parse(relative_month);
-      var relative_month_subtype = new k.subtype<int>(relative_month_int,relative_month_int);
-      var be_virgin_watchbill = BeFullWatchbillPublishMandatory(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())),relative_month_subtype);
-      if (!be_virgin_watchbill)
-        {
-        PublishPendingNotifications(relative_month_subtype,be_virgin_watchbill,working_directory,be_limited_preview:true);
+        var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
+        if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
+          {
+          db_schedule_assignments.RigForProposalGeneration();
+          }
+        db_schedule_assignments.Update
+          (
+          relative_month:relative_month,
+          be_official:(relative_month == "0") || be_ok_to_work_on_next_month_assignments,
+          be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments
+          );
+        //
+        // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
+        //
+        var relative_month_int = int.Parse(relative_month);
+        var relative_month_subtype = new k.subtype<int>(relative_month_int,relative_month_int);
+        var be_virgin_watchbill = BeFullWatchbillPublishMandatory(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())),relative_month_subtype);
+        if (!be_virgin_watchbill)
+          {
+          PublishPendingNotifications(relative_month_subtype,be_virgin_watchbill,working_directory,be_limited_preview:true);
+          }
         }
       }
 

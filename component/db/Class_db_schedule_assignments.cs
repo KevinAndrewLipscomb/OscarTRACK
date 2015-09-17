@@ -2751,7 +2751,7 @@ namespace Class_db_schedule_assignments
               +   " and be_ems_post"
               + " group by nominal_day,shift_id"
               + ";"
-              + " alter table shift_popularity add primary key (nominal_day,shift_id)"
+              + " alter table shift_popularity add primary key (nominal_day,shift_id)" // Believe this causes an *IMPLICIT COMMIT*.
               + " , add key (num_released_members_available desc)",
               connection,
               transaction
