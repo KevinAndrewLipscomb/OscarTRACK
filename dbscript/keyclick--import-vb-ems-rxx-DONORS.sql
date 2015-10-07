@@ -45,7 +45,7 @@ CREATE  TABLE `resident_import`
 -- --
 --
 --
--- Insert output column from spreadsheet(s) below this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
+-- Insert output column from spreadsheet(s) below this comment.  If working with multiple lists, the order should be Residents, Businesses, Donors.
 --
 -- --
 ;
@@ -53,7 +53,7 @@ CREATE  TABLE `resident_import`
 -- --
 --
 --
--- Insert output column from spreadsheet(s) above this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
+-- Insert output column from spreadsheet(s) above this comment.  If working with multiple lists, the order should be Residents, Businesses, Donors.
 --
 -- --
 ;
@@ -88,6 +88,14 @@ update resident_import set address = REPLACE(address,'  ',' ')
 update resident_import set address = REPLACE(address,' 1/2','-1/2')
 ;
 update resident_import set address = REPLACE(address,'- ','-')
+;
+update resident_import set address = REPLACE(address,'1/2TH ','1/2 ')
+;
+update resident_import set address = REPLACE(address,'TH-1/2 ','-1/2 ')
+;
+update resident_import set address = REPLACE(address,' APT. ',' APT ')
+;
+update resident_import set address = REPLACE(address,' PH-',' PH ')
 ;
 --
 -- Extricate house_num and street from the address field, and convert Sub-Unit Designator phrases into house_num suffixes.
