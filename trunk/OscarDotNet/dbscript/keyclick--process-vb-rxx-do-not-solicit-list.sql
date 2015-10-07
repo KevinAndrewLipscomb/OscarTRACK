@@ -66,6 +66,14 @@ update resident_to_not_solicit set address = REPLACE(address,' 1/2','-1/2')
 ;
 update resident_to_not_solicit set address = REPLACE(address,'- ','-')
 ;
+update resident_import set address = REPLACE(address,'1/2TH ','1/2 ')
+;
+update resident_import set address = REPLACE(address,'TH-1/2 ','-1/2 ')
+;
+update resident_import set address = REPLACE(address,' APT. ',' APT ')
+;
+update resident_import set address = REPLACE(address,' PH-',' PH ')
+;
 --
 -- Extricate house_num and street from the address field, and convert Sub-Unit Designator phrases into house_num suffixes.
 --
@@ -286,7 +294,8 @@ delete from resident_to_not_solicit where name is null and house_num is null
 -- DELETE resident_to_not_solicit FROM resident_base
 --
 ;
-delete from resident_base
+delete resident_base
+from resident_base
   join resident_to_not_solicit
     on (resident_to_not_solicit.street_id=resident_base.street_id and resident_to_not_solicit.house_num=resident_base.house_num and resident_to_not_solicit.agency=resident_base.agency)
 ;
