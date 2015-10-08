@@ -1,5 +1,6 @@
-select resident_base_id as id
+select CONCAT('KI-',resident_base_id,IF(id_in_agency_system is not null,CONCAT('  X-',id_in_agency_system),'')) as id_clause
 , IFNULL(resident_base_name,"TO OUR FRIENDS AT") as name
+, 'OR CURRENT RESIDENT' as catchall_line
 , IF(
       street.name = "PO BOX"
     ,
@@ -17,6 +18,7 @@ from
     , resident_base.name as resident_base_name
     , resident_base.street_id as resident_base_street_id
     , resident_base.house_num as resident_base_house_num
+    , resident_base.id_in_agency_system as id_in_agency_system
     from resident_base
       join donation on (donation.id=resident_base.id)
     where resident_base.id > 0
@@ -30,6 +32,7 @@ from
     , resident_base.name as resident_base_name
     , resident_base.street_id as resident_base_street_id
     , resident_base.house_num as resident_base_house_num
+    , NULL as id_in_agency_system
     from resident_base
       join street on (street.id=resident_base.street_id)
       join city on (city.id=street.city_id)
