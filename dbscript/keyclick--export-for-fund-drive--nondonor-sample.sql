@@ -1,5 +1,6 @@
-select resident_base.id as id
+select CONCAT('KI-',resident_base.id,IF(id_in_agency_system is not null,CONCAT('  X-',id_in_agency_system),'')) as id_clause
 , IFNULL(resident_base.name,"TO OUR FRIENDS AT") as name
+, 'OR CURRENT RESIDENT' as catchall_line
 , IF(
       street.name = "PO BOX"
     ,
