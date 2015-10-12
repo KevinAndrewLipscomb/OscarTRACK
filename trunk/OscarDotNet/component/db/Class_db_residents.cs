@@ -4,7 +4,6 @@ using Class_dbkeyclick_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Web.UI.WebControls;
 
 namespace Class_db_residents
@@ -304,6 +303,8 @@ namespace Class_db_residents
         + " update resident_base set house_num = REPLACE(house_num,' -','-')"
         + ";"
         + " update resident_base set house_num = REPLACE(house_num,'- ','-')"
+        + ";"
+        + " update resident_base set house_num = CONCAT('0',house_num) where house_num rlike '^[1-9]-'"
         + ";"
         + " COMMIT",
         connection
