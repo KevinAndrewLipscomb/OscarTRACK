@@ -2786,7 +2786,7 @@ namespace Class_db_schedule_assignments
               +           " ,"
               +             " IFNULL"  // else
               +               " ("
-              +                 " num_shifts - IF(enrollment_level.description in ('Regular','Life') and be_on_squad_truck_team,1,0)"  // if applicable, num standard obliged duties, adjusted for squad truck team members
+              +                 " num_shifts"  // if applicable, num standard obliged duties
               +               " ,"
               +                 " 0"  // else (like for Atypical members) zero
               +               " )"
