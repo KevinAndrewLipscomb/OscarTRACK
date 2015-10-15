@@ -117,7 +117,7 @@ namespace Class_db_donations
       string watermark
       )
       {
-      var recent_per_clerk = "entry_sub_id,amount,name,address,city,state" + k.NEW_LINE;
+      var recent_per_clerk = "entry_sub_id,amount,name,address,city,state,date" + k.NEW_LINE;
       Open();
       var dr = new MySqlCommand
         (
@@ -128,6 +128,7 @@ namespace Class_db_donations
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "CONCAT(house_num,' ',street.name)" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "city.name" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "abbreviation" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "date" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " ) as record"
         + " from donation"
         +   " join resident_base using (id)"
