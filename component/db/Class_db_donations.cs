@@ -3,6 +3,7 @@ using Class_dbkeyclick_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
+using System.Text;
 using System.Web.UI.WebControls;
 
 namespace Class_db_donations
@@ -13,6 +14,24 @@ namespace Class_db_donations
 
     private TClass_dbkeyclick_trail dbkeyclick_trail = null;
     
+    private static string EnteredByConditionOf
+      (
+      string user_email_address,
+      string entered_by_filter
+      )
+      {
+      var entered_by_condition_of = "1=1";
+      if (entered_by_filter == "You")
+        {
+        entered_by_condition_of = "entered_by = '" + user_email_address + "'";
+        }
+      else if (entered_by_filter == "Others")
+        {
+        entered_by_condition_of = "entered_by <> '" + user_email_address + "'";
+        }
+      return entered_by_condition_of;
+      }
+
     public TClass_db_donations() : base()
       {
       dbkeyclick_trail = new TClass_dbkeyclick_trail();
@@ -23,15 +42,35 @@ namespace Class_db_donations
       string sort_order,
       bool be_sort_order_ascending,
       object target,
-      string user_email_address
+      string user_email_address,
+      string agency_scope,
+      string range,
+      string entered_by_filter
       )
       {
+      var range_condition = "1=1";
+      if (range == "LastThreeMonths")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 3 MONTH)";
+        }
+      else if (range == "LastSixMonths")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 6 MONTH)";
+        }
+      else if (range == "LastTwelveMonths")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 1 YEAR)";
+        }
+      else if (range.Length > 0) // range is a particular year
+        {
+        range_condition = "YEAR(timestamp) = '" + range + "'";
+        }
       Open();
-      (target as BaseDataList).DataSource = 
+      (target as BaseDataList).DataSource =
         (
         new MySqlCommand
           (
-          "select per_clerk_seq_num"
+          "select CONCAT(entered_by,'-',per_clerk_seq_num) as `key`"
           + " , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp"
           + " , amount"
           + " , IFNULL(resident_base.name,'OUR FRIENDS AT') as name"
@@ -39,13 +78,15 @@ namespace Class_db_donations
           + " , city.name as city"
           + " , abbreviation as state"
           + " from donation"
-          +   " join resident_base using (id)"
-          +   " join street on (street.id=resident_base.street_id)"
-          +   " join city on (city.id=street.city_id)"
-          +   " join state on (state.id=city.state_id)"
-          + " where entered_by = '" + user_email_address + "'"
-          +   " and donation.id > 0"
-          + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
+          + " join resident_base using (id)"
+          + " join street on (street.id=resident_base.street_id)"
+          + " join city on (city.id=street.city_id)"
+          + " join state on (state.id=city.state_id)"
+          + " where " + range_condition
+          + " and agency = '" + agency_scope + "'"
+          + " and donation.id > 0"
+          + " and " + EnteredByConditionOf(user_email_address,entered_by_filter)
+          + " order by " + sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc")),
           connection
           )
         .ExecuteReader()
@@ -114,15 +155,18 @@ namespace Class_db_donations
     internal string RecentPerClerkAsCsv
       (
       string clerk_email_address,
+      string agency_scope,
+      string entered_by_filter,
       string watermark
       )
       {
-      var recent_per_clerk = "entry_sub_id,amount,name,address,city,state,date" + k.NEW_LINE;
+      var recent_per_clerk = new StringBuilder("key,amount,name,address,city,state,date");
+      recent_per_clerk.AppendLine();
       Open();
       var dr = new MySqlCommand
         (
         "select CONCAT_WS('" + k.COMMA + "'"
-        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "per_clerk_seq_num" + k.SQL_CSV_FIELDIFY_SUFFIX
+        +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "CONCAT(entered_by,'-',per_clerk_seq_num)" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "amount" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "IFNULL(resident_base.name,'OUR FRIENDS AT')" + k.SQL_CSV_FIELDIFY_SUFFIX
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "CONCAT(house_num,' ',street.name)" + k.SQL_CSV_FIELDIFY_SUFFIX
@@ -135,20 +179,21 @@ namespace Class_db_donations
         +   " join street on (street.id=resident_base.street_id)"
         +   " join city on (city.id=street.city_id)"
         +   " join state on (state.id=city.state_id)"
-        + " where entered_by = '" + clerk_email_address + "'"
-        +   " and donation.id > 0"
-        +   " and per_clerk_seq_num >= '" + watermark + "'"
-        + " order by per_clerk_seq_num desc",
+        + " where donation.id > 0"
+        +   " and agency = '" + agency_scope + "'"
+        +   " and " + EnteredByConditionOf(clerk_email_address,entered_by_filter)
+        +   " and timestamp >= '" + watermark + "'"
+        + " order by timestamp desc, entered_by, per_clerk_seq_num",
         connection
         )
         .ExecuteReader();
       while (dr.Read())
         {
-        recent_per_clerk += dr["record"].ToString() + k.NEW_LINE;
+        recent_per_clerk.AppendLine(dr["record"].ToString());
         }
       dr.Close();
       Close();
-      return recent_per_clerk;
+      return recent_per_clerk.ToString();
       }
 
     }
