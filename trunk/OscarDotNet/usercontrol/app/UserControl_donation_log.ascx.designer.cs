@@ -31,13 +31,58 @@ namespace UserControl_donation_log {
         protected global::System.Web.UI.HtmlControls.HtmlTable Table_filter_and_count;
         
         /// <summary>
-        /// DropDownList_filter control.
+        /// Td_conditional_spacer_header control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList_filter;
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_conditional_spacer_header;
+        
+        /// <summary>
+        /// Td_entered_by_header control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_entered_by_header;
+        
+        /// <summary>
+        /// DropDownList_range control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_range;
+        
+        /// <summary>
+        /// Td_conditional_spacer_body control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_conditional_spacer_body;
+        
+        /// <summary>
+        /// Td_entered_by_body control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell Td_entered_by_body;
+        
+        /// <summary>
+        /// DropDownList_entered_by control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_entered_by;
         
         /// <summary>
         /// Literal_num_donations control.

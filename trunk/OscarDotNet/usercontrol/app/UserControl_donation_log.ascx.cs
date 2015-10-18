@@ -4,20 +4,18 @@ using Class_biz_donations;
 using Class_biz_user;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace UserControl_donation_log
   {
   public partial class TWebUserControl_donation_log: ki_web_ui.usercontrol_class
     {
-    public static class UserControl_donation_log_Static
+    private static class Static
       {
       public const int TCI_SELECT = 0;
-      public const int TCI_PER_CLERK_SEQ_NUM = 1;
+      public const int TCI_KEY = 1;
       public const int TCI_TIMESTAMP = 2;
       public const int TCI_AMOUNT = 3;
       public const int TCI_NAME = 4;
@@ -32,10 +30,13 @@ namespace UserControl_donation_log
       public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
+      public bool be_ok_to_see_other_fund_drive_cleark_activity;
       public bool be_sort_order_ascending;
       public TClass_biz_donations biz_donations;
       public TClass_biz_user biz_user;
+      public string entered_by_filter;
       public uint num_donations;
+      public string range;
       public string sort_order;
       public string user_email_address;
       public string watermark;
@@ -130,6 +131,20 @@ namespace UserControl_donation_log
           {
           DataGrid_control.AllowSorting = false;
           }
+        for (var i = new k.subtype<int>(2002,DateTime.Today.Year + 1); i.val < i.LAST; i.val++)
+          {
+          DropDownList_range.Items.Insert
+            (
+            index:3,
+            item:i.val.ToString()
+            );
+          }
+        DropDownList_range.SelectedValue = p.range;
+        Td_conditional_spacer_header.Visible = p.be_ok_to_see_other_fund_drive_cleark_activity;
+        Td_entered_by_header.Visible = p.be_ok_to_see_other_fund_drive_cleark_activity;
+        Td_conditional_spacer_body.Visible = p.be_ok_to_see_other_fund_drive_cleark_activity;
+        Td_entered_by_body.Visible = p.be_ok_to_see_other_fund_drive_cleark_activity;
+        DropDownList_entered_by.SelectedValue = p.entered_by_filter;
         Bind();
         p.be_loaded = true;
         }
@@ -168,8 +183,11 @@ namespace UserControl_donation_log
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
+        p.be_ok_to_see_other_fund_drive_cleark_activity = k.Has(Session["privilege_array"] as string[],"see-other-fund-drive-clerk-activity");
         p.be_sort_order_ascending = true;
-        p.sort_order = "per_clerk_seq_num desc";
+        p.entered_by_filter = "You";
+        p.range = "LastThreeMonths";
+        p.sort_order = "timestamp desc, entered_by, per_clerk_seq_num";
         p.user_email_address = p.biz_user.EmailAddress();
         p.watermark = k.EMPTY;
         }
@@ -203,7 +221,7 @@ namespace UserControl_donation_log
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        p.watermark = k.Safe(e.Item.Cells[UserControl_donation_log_Static.TCI_PER_CLERK_SEQ_NUM].Text,k.safe_hint_type.NUM);
+        p.watermark = k.Safe(e.Item.Cells[Static.TCI_TIMESTAMP].Text,k.safe_hint_type.DATE_TIME);
         }
       Bind();
       }
@@ -215,11 +233,11 @@ namespace UserControl_donation_log
         {
         if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
           {
-          link_button = ((e.Item.Cells[UserControl_donation_log_Static.TCI_SELECT].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
-          link_button = ((e.Item.Cells[UserControl_donation_log_Static.TCI_WATERMARK].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_WATERMARK].Controls[0]) as LinkButton);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           ////
           //// Remove all cell controls from viewstate except for the one at TCI_ID.
@@ -235,7 +253,7 @@ namespace UserControl_donation_log
         }
       else
         {
-        e.Item.Cells[UserControl_donation_log_Static.TCI_SELECT].Visible = false;
+        e.Item.Cells[Static.TCI_SELECT].Visible = false;
         }
       }
 
@@ -256,13 +274,16 @@ namespace UserControl_donation_log
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_donation_log_Static.TCI_WATERMARK].Visible = ((p.sort_order == "per_clerk_seq_num desc") || (p.sort_order == "per_clerk_seq_num%" && !p.be_sort_order_ascending));
+      DataGrid_control.Columns[Static.TCI_WATERMARK].Visible = (p.range.StartsWith("Last") || p.range.Length == 0)
+        && ((p.sort_order == "timestamp desc, entered_by, per_clerk_seq_num") || (p.sort_order == "timestamp%, entered_by, per_clerk_seq_num" && !p.be_sort_order_ascending));
       p.biz_donations.BindBaseDataList
         (
         sort_order:p.sort_order,
         be_sort_order_ascending:p.be_sort_order_ascending,
         target:DataGrid_control,
-        user_email_address:p.user_email_address
+        user_email_address:p.user_email_address,
+        range:p.range,
+        entered_by_filter:p.entered_by_filter
         );
       p.be_datagrid_empty = (p.num_donations == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -275,15 +296,28 @@ namespace UserControl_donation_log
         ExportToCsv
           (
           the_page:Page,
-          filename_sans_extension:"address_list",
+          filename_sans_extension:"donation_data_logged_by_" + (p.entered_by_filter.Length > 0 ? p.entered_by_filter.ToUpper() : "ALL"),
           csv_string:p.biz_donations.RecentPerClerkAsCsv
             (
             clerk_email_address:p.user_email_address,
+            entered_by_filter:p.entered_by_filter,
             watermark:p.watermark
             )
           );
         p.watermark = k.EMPTY;
         }
+      }
+
+    protected void DropDownList_range_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.range = k.Safe(DropDownList_range.SelectedValue,k.safe_hint_type.ALPHANUM);
+      Bind();
+      }
+
+    protected void DropDownList_entered_by_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.entered_by_filter = k.Safe(DropDownList_entered_by.SelectedValue,k.safe_hint_type.ALPHA);
+      Bind();
       }
 
     } // end TWebUserControl_donation_log
