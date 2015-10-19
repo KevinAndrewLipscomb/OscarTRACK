@@ -288,6 +288,7 @@ namespace Class_db_residents
           + " and house_num not like '7%'"
           + " and house_num not like '8%'"
           + " and house_num not like '9%'"
+          + " and house_num not rlike '^0[1-9]-'" // Allow the trick of prepending 0 to single digit house numbers with unit numbers, to force proper USPS interpretation/standardization.
           + " and street_id not in (select id from street where name = 'PO BOX')"
           + " and name is null"
           + " and id not in (select id from donation)"
