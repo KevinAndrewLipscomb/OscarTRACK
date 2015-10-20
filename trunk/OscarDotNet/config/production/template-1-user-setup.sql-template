@@ -39,3 +39,15 @@ grant select
  , delete
   on oscar.*
   to 'ki-oscartracko'@'localhost' identified by '~ki-oscartracko-password~'
+;
+--
+-- KEYclick needs access to oscardotnetdb.member for controlled out-of-area donation reporting
+--
+;
+grant select
+  on oscardotnetdb.member
+  to 'ki-keyclick'@'localhost' identified by '~ki-keyclick-password~'
+;
+grant select
+  on oscardotnetdb.member
+  to 'ki-keyclick'@'70.84.138.98' identified by '~ki-keyclick-password~'
