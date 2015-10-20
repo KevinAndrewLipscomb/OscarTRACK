@@ -186,7 +186,7 @@ namespace UserControl_donation_log
         p.be_ok_to_see_other_fund_drive_cleark_activity = k.Has(Session["privilege_array"] as string[],"see-other-fund-drive-clerk-activity");
         p.be_sort_order_ascending = true;
         p.entered_by_filter = "You";
-        p.range = "LastThreeMonths";
+        p.range = "LastTwoMonths";
         p.sort_order = "timestamp desc, entered_by, per_clerk_seq_num";
         p.user_email_address = p.biz_user.EmailAddress();
         p.watermark = k.EMPTY;

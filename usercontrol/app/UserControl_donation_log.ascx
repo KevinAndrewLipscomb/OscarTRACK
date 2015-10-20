@@ -25,6 +25,9 @@
                           <td align="center">
                             <small>
                               <asp:DropDownList id="DropDownList_range" runat="server" autopostback="True" OnSelectedIndexChanged="DropDownList_range_SelectedIndexChanged">
+                                <asp:ListItem Value="LastSevenDays">Last 7 days</asp:ListItem>
+                                <asp:ListItem Value="LastThirtyOneDays">Last 31 days</asp:ListItem>
+                                <asp:ListItem Value="LastTwoMonths" Selected="True">Last 2 months</asp:ListItem>
                                 <asp:ListItem Value="LastThreeMonths" Selected="True">Last 3 months</asp:ListItem>
                                 <asp:ListItem Value="LastSixMonths">Last 6 months</asp:ListItem>
                                 <asp:ListItem Value="LastTwelveMonths">Last 12 months</asp:ListItem>

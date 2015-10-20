@@ -49,7 +49,19 @@ namespace Class_db_donations
       )
       {
       var range_condition = "1=1";
-      if (range == "LastThreeMonths")
+      if (range == "LastSevenDays")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 7 DAY)";
+        }
+      else if (range == "LastThirtyOneDays")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 31 DAY)";
+        }
+      else if (range == "LastTwoMonths")
+        {
+        range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 2 MONTH)";
+        }
+      else if (range == "LastThreeMonths")
         {
         range_condition = "timestamp >= SUBDATE(CURDATE(),INTERVAL 3 MONTH)";
         }
