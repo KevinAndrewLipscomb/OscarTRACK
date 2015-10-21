@@ -158,6 +158,7 @@
     <Content Include="protected\process_paypal_donation.aspx" />
     <Content Include="protected\quickmessage_by_shift.aspx" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-recognized.txt" />
+    <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-out-of-area.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
     <Content Include="protected\template\notification\death.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-final-imprint.txt" />

@@ -112,6 +112,24 @@ namespace confirm_paypal_donation {
         protected global::System.Web.UI.WebControls.Literal Literal_avg_amount;
         
         /// <summary>
+        /// Panel_unknown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_unknown;
+        
+        /// <summary>
+        /// Panel_out_of_area control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_out_of_area;
+        
+        /// <summary>
         /// Literal_donor_email_address control.
         /// </summary>
         /// <remarks>

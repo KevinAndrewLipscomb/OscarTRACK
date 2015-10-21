@@ -1,30 +1,23 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
 using Class_biz_donations;
-using Class_msg_protected;
 using Class_biz_notifications;
+using Class_msg_protected;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace confirm_paypal_donation
   {
-  public struct p_type
-    {
-    public TClass_biz_donations biz_donations;
-    public TClass_biz_notifications biz_notifications;
-    public TClass_msg_protected.confirm_paypal_donation incoming;
-    }
-
   public partial class TWebForm_confirm_paypal_donation: ki_web_ui.page_class
     {
+    private struct p_type
+      {
+      public TClass_biz_donations biz_donations;
+      public TClass_biz_notifications biz_notifications;
+      public TClass_msg_protected.confirm_paypal_donation incoming;
+      }
+
     private p_type p;
 
     // / <summary>
@@ -34,7 +27,7 @@ namespace confirm_paypal_donation
     private void InitializeComponent()
       {
       //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_confirm_paypal_donation_PreRender;
+      PreRender += TWebForm_confirm_paypal_donation_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
@@ -46,7 +39,16 @@ namespace confirm_paypal_donation
         Literal_donor_name.Text = p.incoming.from_process_paypal_donation.donor_name;
         Literal_donation_date.Text = p.incoming.from_process_paypal_donation.donation_date.ToString("yyyy-MM-dd");
         Literal_donor_email_address.Text = p.incoming.from_process_paypal_donation.donor_email_address;
-        if (p.incoming.resident_id != k.EMPTY)
+        //
+        if (p.incoming.resident_id.Length == 0) // the donor's identity is unknown -- getting more info from them would be useful
+          {
+          Panel_unknown.Visible = true;
+          }
+        else if (p.incoming.resident_id == "0") // the donor is from out of the agency's fund drive area
+          {
+          Panel_out_of_area.Visible = true;
+          }
+        else if (p.incoming.resident_id.Length > 0) // the donor has been matched to a ROD record
           {
           Panel_selected.Visible = true;
           Literal_resident_name.Text = p.incoming.resident_name;

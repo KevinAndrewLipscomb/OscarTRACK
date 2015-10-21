@@ -36,10 +36,18 @@
                         <asp:Literal ID="Literal_resident_name" runat="server"></asp:Literal><br />
                         <asp:Literal ID="Literal_house_num_and_street" runat="server"></asp:Literal><br />
                         <asp:Literal ID="Literal_city" runat="server"></asp:Literal>&nbsp;<asp:Literal ID="Literal_state" runat="server"></asp:Literal><br />
+                        <br />
+                        (<asp:Literal ID="Literal_num_priors" runat="server"></asp:Literal> prior donations averaging <asp:Literal ID="Literal_avg_amount" runat="server"></asp:Literal>)
                       </asp:Panel>
                     </strong>
-                    <br />
-                    (<asp:Literal ID="Literal_num_priors" runat="server"></asp:Literal> prior donations averaging <asp:Literal ID="Literal_avg_amount" runat="server"></asp:Literal>)
+                    <asp:Panel ID="Panel_unknown" runat="server" Visible="false">
+                      <br />
+                      (otherwise unknown)
+                    </asp:Panel>
+                    <asp:Panel ID="Panel_out_of_area" runat="server" Visible="false">
+                      <br />
+                      (out of area)
+                    </asp:Panel>
                   </blockquote>
                   <p>and an acknowledgment message should be sent to:</p>
                   <blockquote><strong><i><asp:Literal ID="Literal_donor_email_address" runat="server"></asp:Literal></i></strong></blockquote>

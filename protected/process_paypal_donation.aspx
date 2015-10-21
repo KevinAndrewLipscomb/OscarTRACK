@@ -88,8 +88,12 @@
                       </ASP:BoundColumn>
                     </Columns>
                   </ASP:DataGrid>
-                  <br />
-                  <asp:Button ID="Button_unknown" runat="server" Font-Bold="true" Text="UNKNOWN" OnClick="Button_unknown_Click"/>
+                  <table cellpadding="10" cellspacing="0">
+                    <tr>
+                      <td><asp:Button ID="Button_out_of_area" runat="server" Font-Bold="true" Text="OUT OF AREA" OnClick="Button_out_of_area_Click"/></td>
+                      <td><asp:Button ID="Button_unknown" runat="server" Font-Bold="true" Text="UNKNOWN" OnClick="Button_unknown_Click"/></td>
+                    </tr>
+                  </table>
                 </td>
               </tr>
             </table>

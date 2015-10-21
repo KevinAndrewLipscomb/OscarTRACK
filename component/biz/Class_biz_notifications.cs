@@ -2343,6 +2343,54 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
+        private delegate string IssuePayPalDonationAcknowledgmentToDonorOutOfArea_Merge(string s);
+        internal void IssuePayPalDonationAcknowledgmentToDonorOutOfArea
+          (
+          string agency_keyclick_enumerator,
+          string amount_donated,
+          string donor_name,
+          DateTime donation_date,
+          string donor_email_address
+          )
+          {
+          var biz_agencies = new TClass_biz_agencies();
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssuePayPalDonationAcknowledgmentToDonorOutOfArea_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<actor/>", biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<agency_keyclick_enumerator/>", agency_keyclick_enumerator)
+              .Replace("<agency_long_designator/>", biz_agencies.LongDesignatorOfKeyclickEnumerator(agency_keyclick_enumerator))
+              .Replace("<agency_web_address/>", biz_agencies.WebAddressOfKeyclickEnumerator(agency_keyclick_enumerator))
+              .Replace("<amount_donated/>", amount_donated)
+              .Replace("<donor_name/>", donor_name)
+              .Replace("<donation_date/>", donation_date.ToString("D"))
+              ;
+            };
+
+          var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/acknowledgment-to-paypal-donor-out-of-area.txt"));
+          k.SmtpMailSend
+            (
+            ConfigurationManager.AppSettings["sender_email_address"],
+            donor_email_address,
+            Merge(template_reader.ReadLine()),
+            Merge(template_reader.ReadToEnd()),
+            false,
+            k.EMPTY,
+            k.EMPTY,
+            actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssuePayPalDonationAcknowledgmentToDonorRecognized_Merge(string s);
         internal void IssuePayPalDonationAcknowledgmentToDonorRecognized
           (
