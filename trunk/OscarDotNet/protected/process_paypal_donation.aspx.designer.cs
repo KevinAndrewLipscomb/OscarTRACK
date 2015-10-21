@@ -94,6 +94,15 @@ namespace process_paypal_donation {
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_possible_match;
         
         /// <summary>
+        /// Button_out_of_area control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_out_of_area;
+        
+        /// <summary>
         /// Button_unknown control.
         /// </summary>
         /// <remarks>

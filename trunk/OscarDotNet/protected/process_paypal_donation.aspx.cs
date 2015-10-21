@@ -117,6 +117,12 @@ namespace process_paypal_donation
       SessionSet(InstanceId() + ".p", p);
       }
 
+    protected void Button_out_of_area_Click(object sender, EventArgs e)
+      {
+      p.msg_protected_confirm_paypal_donation.from_process_paypal_donation = p.incoming;
+      p.msg_protected_confirm_paypal_donation.resident_id = "0";
+      MessageDropCrumbAndTransferTo(p.msg_protected_confirm_paypal_donation,"protected","confirm_paypal_donation");
+      }
     } // end TWebForm_process_paypal_donation
 
   }

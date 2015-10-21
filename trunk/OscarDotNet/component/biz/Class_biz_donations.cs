@@ -54,34 +54,71 @@ namespace Class_biz_donations
       string city
       )
       {
-      if (incoming.resident_id != k.EMPTY)
+      if (incoming.resident_id.Length == 0) // unknown
         {
         db_donations.Log
-          (incoming.resident_id,incoming.from_process_paypal_donation.amount_donated,incoming.from_process_paypal_donation.donation_date,k.EMPTY,k.EMPTY,biz_user.EmailAddress(),incoming.from_process_paypal_donation.donor_email_address);
-        biz_notifications.IssuePayPalDonationAcknowledgmentToDonorRecognized
           (
-          incoming.from_process_paypal_donation.agency,
-          incoming.from_process_paypal_donation.amount_donated,
-          incoming.from_process_paypal_donation.donor_name,
-          incoming.from_process_paypal_donation.donation_date,
-          incoming.from_process_paypal_donation.donor_email_address,
-          incoming.resident_name,
-          incoming.resident_house_num_and_street,
-          city,
-          incoming.resident_state
+          id:"-1",
+          amount:incoming.from_process_paypal_donation.amount_donated,
+          date:incoming.from_process_paypal_donation.donation_date,
+          in_mem_of:k.EMPTY,
+          note:"From " + incoming.from_process_paypal_donation.donor_name,
+          user_email_address:biz_user.EmailAddress(),
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
+          );
+        biz_notifications.IssuePayPalDonationAcknowledgmentToDonorUnrecognized
+          (
+          agency_keyclick_enumerator:incoming.from_process_paypal_donation.agency,
+          amount_donated:incoming.from_process_paypal_donation.amount_donated,
+          donor_name:incoming.from_process_paypal_donation.donor_name,
+          donation_date:incoming.from_process_paypal_donation.donation_date,
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
+          );
+        }
+      else if (incoming.resident_id == "0") // out of area
+        {
+        db_donations.Log
+          (
+          id:"0",
+          amount:incoming.from_process_paypal_donation.amount_donated,
+          date:incoming.from_process_paypal_donation.donation_date,
+          in_mem_of:k.EMPTY,
+          note:"From " + incoming.from_process_paypal_donation.donor_name,
+          user_email_address:biz_user.EmailAddress(),
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
+          );
+        biz_notifications.IssuePayPalDonationAcknowledgmentToDonorOutOfArea
+          (
+          agency_keyclick_enumerator:incoming.from_process_paypal_donation.agency,
+          amount_donated:incoming.from_process_paypal_donation.amount_donated,
+          donor_name:incoming.from_process_paypal_donation.donor_name,
+          donation_date:incoming.from_process_paypal_donation.donation_date,
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
           );
         }
       else
         {
         db_donations.Log
-          ("-1",incoming.from_process_paypal_donation.amount_donated,incoming.from_process_paypal_donation.donation_date,k.EMPTY,k.EMPTY,biz_user.EmailAddress(),incoming.from_process_paypal_donation.donor_email_address);
-        biz_notifications.IssuePayPalDonationAcknowledgmentToDonorUnrecognized
           (
-          incoming.from_process_paypal_donation.agency,
-          incoming.from_process_paypal_donation.amount_donated,
-          incoming.from_process_paypal_donation.donor_name,
-          incoming.from_process_paypal_donation.donation_date,
-          incoming.from_process_paypal_donation.donor_email_address
+          id:incoming.resident_id,
+          amount:incoming.from_process_paypal_donation.amount_donated,
+          date:incoming.from_process_paypal_donation.donation_date,
+          in_mem_of:k.EMPTY,
+          note:k.EMPTY,
+          user_email_address:biz_user.EmailAddress(),
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address
+          );
+        biz_notifications.IssuePayPalDonationAcknowledgmentToDonorRecognized
+          (
+          agency_keyclick_enumerator:incoming.from_process_paypal_donation.agency,
+          amount_donated:incoming.from_process_paypal_donation.amount_donated,
+          donor_name:incoming.from_process_paypal_donation.donor_name,
+          donation_date:incoming.from_process_paypal_donation.donation_date,
+          donor_email_address:incoming.from_process_paypal_donation.donor_email_address,
+          resident_name:incoming.resident_name,
+          resident_house_num_and_street:incoming.resident_house_num_and_street,
+          resident_city:city,
+          resident_state:incoming.resident_state
           );
         }
       }

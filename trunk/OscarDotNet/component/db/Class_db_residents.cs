@@ -130,16 +130,18 @@ namespace Class_db_residents
         + " , concat(house_num,' ',street.name) as house_num_and_street"
         + " , IF(city.name = 'VIRGINIA BEACH','VB',city.name) as city"
         + " , state.abbreviation as state"
-        + " , web_donor.email_address"
-        + " , score"
-        + " , num_priors"
-        + " , avg_amount"
+        + " , GROUP_CONCAT(DISTINCT web_donor.email_address SEPARATOR ', ') as email_address"
+        + " , ROUND(AVG(score)) as score"
+        + " , ROUND(AVG(num_priors)) as num_priors"
+        + " , ROUND(AVG(avg_amount)) as avg_amount"
         + " from possible_match"
         +   " join resident_base on (resident_base.id=possible_match.resident_id)"
         +   " join street on (street.id=resident_base.street_id)"
         +   " join city on (city.id=street.city_id)"
         +   " join state on (state.id=city.state_id)"
         +   " left join web_donor on (web_donor.resident_id=resident_base.id)"
+        + " where resident_base.id > 0"
+        + " group by resident_base.id"
         + " order by score desc, num_priors desc",
         connection
         )

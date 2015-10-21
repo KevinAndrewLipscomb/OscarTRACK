@@ -5,13 +5,6 @@ Dear <donor_name/>,
 
 The <agency_long_designator/> Volunteer Rescue Squad (<agency_keyclick_enumerator/>) has received the $<amount_donated/> donation you made via the web on <donation_date/>.  Thank you!
 
-- We did not receive enough information to attribute your
-  donation to a particular household or business in our
-  donation tracking system.  Although certainly not a
-  requirement, if you would like your donation to be fully
-  attributed in our tracking system, simply reply to this email
-  (with this text included), and give us your street address.
-
 - US taxpayers, your donation is tax deductible -- <agency_keyclick_enumerator/> is a
   501.C.3 organization (public charity).
 
