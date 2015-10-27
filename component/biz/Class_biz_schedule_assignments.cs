@@ -1143,7 +1143,6 @@ namespace Class_biz_schedule_assignments
           be_official:(relative_month == "0") || be_ok_to_work_on_next_month_assignments,
           be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments
           );
-        db_schedule_assignments.MakeWorkParameterAdjustments(relative_month:relative_month);
         //
         // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
         //
