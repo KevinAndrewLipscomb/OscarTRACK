@@ -7,6 +7,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Web.UI.WebControls;
 
@@ -31,6 +32,13 @@ namespace Class_db_schedule_assignments
     +   " and be_selected";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
+
+    private class adjustment_rec_type
+      {
+      internal string id;
+      internal TimeSpan work_start_offset;
+      internal TimeSpan work_duration;
+      }
 
     private class schedule_assignment_summary
       {
@@ -1973,6 +1981,88 @@ namespace Class_db_schedule_assignments
         connection
         )
         .ExecuteNonQuery();
+      Close();
+      }
+
+    internal void MakeWorkParameterAdjustments
+      (
+      string relative_month
+      )
+      {
+      MySqlDataReader dr;
+      var adjustment_rec_q = new Queue<adjustment_rec_type>();
+      var comment = k.EMPTY;
+      var THRESHOLD_WORK_START_OFFSET = new TimeSpan(hours:-6,minutes:0,seconds:0);
+      var SHIFT_ROLLOVER_FACTOR = new TimeSpan(hours:12,minutes:0,seconds:0);
+      var DAY_ROLLOVER_FACTOR = new TimeSpan(hours:24,minutes:0,seconds:0);
+      var work_start = DateTime.MinValue;
+      var work_start_offset = TimeSpan.MinValue;
+      var work_duration = TimeSpan.MinValue;
+      Open();
+      //
+      // Process HHmm-HHmm variant.
+      //
+      dr = new MySqlCommand
+        (
+        "select schedule_assignment.id as schedule_assignment_id"
+        + " , shift.start as shift_start"
+        + " , comment"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+        +   " and be_notification_pending" // which is true by default for any record inserted as a result of an Update()
+        +   " and comment rlike '^([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]$'",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        var adjustment_rec = new adjustment_rec_type();
+        adjustment_rec.id = dr["schedule_assignment_id"].ToString();
+        comment = dr["comment"].ToString();
+        work_start = DateTime.Parse((comment.Substring(0,2) + ":" + comment.Substring(2,2) + ":00").Replace("24:00:00","00:00:00"));
+        work_start_offset = work_start - DateTime.Parse(dr["shift_start"].ToString());
+        adjustment_rec.work_start_offset = (work_start_offset >= THRESHOLD_WORK_START_OFFSET ? work_start_offset : work_start_offset + SHIFT_ROLLOVER_FACTOR);
+        work_duration = DateTime.Parse((comment.Substring(5,2) + ":" + comment.Substring(7,2) + ":00").Replace("24:00:00","00:00:00")) - work_start;
+        adjustment_rec.work_duration = (TimeSpan.Compare(work_duration,TimeSpan.Zero) >= 0 ? work_duration : work_duration + DAY_ROLLOVER_FACTOR);
+        adjustment_rec_q.Enqueue(adjustment_rec);
+        }
+      dr.Close();
+      //
+      // Process HH-HH variant.
+      //
+      dr = new MySqlCommand
+        (
+        "select schedule_assignment.id as schedule_assignment_id"
+        + " , shift.start as shift_start"
+        + " , comment"
+        + " from schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
+        +   " and be_notification_pending" // which is true by default for any record inserted as a result of an Update()
+        +   " and comment rlike '^([0-1][0-9]|2[0-4])-([0-1][0-9]|2[0-4])$'",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        var adjustment_rec = new adjustment_rec_type();
+        adjustment_rec.id = dr["schedule_assignment_id"].ToString();
+        comment = dr["comment"].ToString();
+        work_start = DateTime.Parse((comment.Substring(0,2) + ":00:00").Replace("24:00:00","00:00:00"));
+        work_start_offset = work_start - DateTime.Parse(dr["shift_start"].ToString());
+        adjustment_rec.work_start_offset = (work_start_offset >= THRESHOLD_WORK_START_OFFSET ? work_start_offset : work_start_offset + SHIFT_ROLLOVER_FACTOR);
+        work_duration = DateTime.Parse((comment.Substring(3,2) + ":00:00").Replace("24:00:00","00:00:00")) - work_start;
+        adjustment_rec.work_duration = (TimeSpan.Compare(work_duration,TimeSpan.Zero) >= 0 ? work_duration : work_duration + DAY_ROLLOVER_FACTOR);
+        adjustment_rec_q.Enqueue(adjustment_rec);
+        }
+      dr.Close();
+      foreach (var adjustment_rec in adjustment_rec_q)
+        {
+        new MySqlCommand
+          ("update schedule_assignment set work_start_offset = '" + adjustment_rec.work_start_offset + "', work_duration = '" + adjustment_rec.work_duration + "' where id = '" + adjustment_rec.id + "'",connection)
+          .ExecuteNonQuery();
+        }
       Close();
       }
 
