@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignments
@@ -31,16 +32,9 @@ namespace Class_db_schedule_assignments
     + " where member_id is not null"
     +   " and be_selected";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
-    private const string BE_COMMENT_HH_RANGE = "comment rlike '^([0-1][0-9]|2[0-4])-([0-1][0-9]|2[0-4])$'";
-    private const string BE_COMMENT_HHMM_RANGE = "comment rlike '^([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]$'";
+    private const string HH_RANGE_PATTERN = "([0-1][0-9]|2[0-4])-([0-1][0-9]|2[0-4])";
+    private const string HHMM_RANGE_PATTERN = "([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
-    //
-    private const string LOGON_TIME = "CAST(IF(" + BE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(LEFT(comment,4),'2400','0000'),'00'),IF(" + BE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(LEFT(comment,2),'24','00'),'0000'),shift.start)) AS TIME)";
-    //
-    private const string MUSTER_TO_LOGOFF_TIMESPAN_RAW = "TIMEDIFF(CAST(IF(" + BE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(RIGHT(comment,4),'2400','0000'),'00'),IF(" + BE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(RIGHT(comment,2),'24','00'),'0000'),shift.end)) AS TIME),shift.start)";
-    private const string MUSTER_TO_LOGON_TIMESPAN_RAW = "TIMEDIFF(" + LOGON_TIME + ",shift.start)";
-    //
-    private const string MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SELECTION = " , IF(CAST(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  " AS TIME) >= CAST(0 AS TIME)," + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",DATE_ADD(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",INTERVAL 24 HOUR)) as work_duration";
 
     private class adjustment_rec_type
       {
@@ -55,6 +49,8 @@ namespace Class_db_schedule_assignments
       public DateTime nominal_day;
       public string shift_id;
       public string shift_name;
+      public TimeSpan shift_start;
+      public TimeSpan shift_end;
       public string post_id;
       public string post_designator;
       public string post_cardinality;
@@ -2338,8 +2334,58 @@ namespace Class_db_schedule_assignments
       string reviser_member_id
       )
       {
+      var hh_range = Regex.Match(comment,HH_RANGE_PATTERN).Value;
+      var hhmm_range = Regex.Match(comment,HHMM_RANGE_PATTERN).Value;
+      var muster_to_logon_timespan = TimeSpan.Zero;
+      var range_part_array = new string[2];
+      //
+      var be_hhmm_range_present = (hhmm_range.Length > 0);
+      var be_hh_range_present = (hh_range.Length > 0);
+      //
+      range_part_array = (be_hhmm_range_present ? hhmm_range : hh_range).Split(new char[] {Convert.ToChar(k.HYPHEN)});
+      //
+      var summary = Summary(id);
+      //
+      var shift_start_time = ShiftStartOf(summary);
+      //
+      var logon_time_spec = (be_hhmm_range_present ? range_part_array[0].Replace("2400","0000") : (be_hh_range_present ? range_part_array[0].Replace("24","00") + "00" : shift_start_time.ToString("hhmm")));
+      var logoff_time_spec = (be_hhmm_range_present ? range_part_array[1].Replace("2400","0000") : (be_hh_range_present ? range_part_array[1].Replace("24","00") + "00" : ShiftEndOf(summary).ToString("hhmm")));
+      //
+      var muster_to_logon_timespan_raw = new TimeSpan(hours:int.Parse(logon_time_spec.Substring(0,2)),minutes:int.Parse(logon_time_spec.Substring(2,2)),seconds:0) - shift_start_time;
+      var muster_to_logoff_timespan_raw = new TimeSpan(hours:int.Parse(logoff_time_spec.Substring(0,2)),minutes:int.Parse(logoff_time_spec.Substring(2,2)),seconds:0) - shift_start_time;
+      //
+      if (ShiftNameOf(summary) == "NIGHT")
+        {
+        if (muster_to_logon_timespan_raw >= new TimeSpan(hours:-18,minutes:0,seconds:0) && muster_to_logon_timespan <= new TimeSpan(hours:-12,minutes:0,seconds:0))
+          {
+          muster_to_logon_timespan = muster_to_logon_timespan_raw.Add(new TimeSpan(hours:24,minutes:0,seconds:0));
+          }
+        else
+          {
+          muster_to_logon_timespan = muster_to_logon_timespan_raw;
+          }
+        }
+      else
+        {
+        muster_to_logon_timespan = (muster_to_logon_timespan_raw >= new TimeSpan(hours:-6,minutes:0,seconds:0) ? muster_to_logon_timespan_raw : muster_to_logon_timespan_raw.Add(new TimeSpan(hours:12,minutes:0,seconds:0)));
+        }
+      //
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = '" + comment + "', be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "update schedule_assignment"
+          + " set comment = '" + comment + "'"
+          + " , be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW()"
+          + " , reviser_member_id = '" + reviser_member_id + "'"
+          + " , muster_to_logon_timespan = '" +  muster_to_logon_timespan + "'"
+          + " , muster_to_logoff_timespan = '" + (muster_to_logoff_timespan_raw >= TimeSpan.Zero ? muster_to_logoff_timespan_raw : muster_to_logoff_timespan_raw.Add(new TimeSpan(hours:24,minutes:0,seconds:0))) + "'"
+          + " where id = '" + id + "'"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
       Close();
       }
 
@@ -2367,9 +2413,19 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal TimeSpan ShiftEndOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).shift_end;
+      }
+
     internal string ShiftNameOf(object summary)
       {
       return (summary as schedule_assignment_summary).shift_name;
+      }
+
+    internal TimeSpan ShiftStartOf(object summary)
+      {
+      return (summary as schedule_assignment_summary).shift_start;
       }
 
     internal string SpreadSelections
@@ -2471,6 +2527,8 @@ namespace Class_db_schedule_assignments
           "SELECT DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
           + " , shift_id"
           + " , shift.name as shift_name"
+          + " , shift.start as shift_start"
+          + " , shift.end as shift_end"
           + " , post_id"
           + " , agency.short_designator as post_designator"
           + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
@@ -2491,6 +2549,8 @@ namespace Class_db_schedule_assignments
         nominal_day = DateTime.Parse(dr["nominal_day"].ToString()),
         shift_id = dr["shift_id"].ToString(),
         shift_name = dr["shift_name"].ToString(),
+        shift_start = TimeSpan.Parse(dr["shift_start"].ToString()),
+        shift_end = TimeSpan.Parse(dr["shift_end"].ToString()),
         post_id = dr["post_id"].ToString(),
         post_designator = dr["post_designator"].ToString(),
         post_cardinality = dr["post_cardinality"].ToString(),
@@ -2739,6 +2799,16 @@ namespace Class_db_schedule_assignments
       )
       {
       //
+      const string BE_WHOLE_COMMENT_HH_RANGE = "comment rlike '^" + HH_RANGE_PATTERN + "$'";
+      const string BE_WHOLE_COMMENT_HHMM_RANGE = "comment rlike '^" + HHMM_RANGE_PATTERN + "$'";
+      //
+      const string LOGON_TIME = "CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(LEFT(comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(LEFT(comment,2),'24','00'),'0000'),shift.start)) AS TIME)";
+      //
+      const string MUSTER_TO_LOGON_TIMESPAN_RAW = "TIMEDIFF(" + LOGON_TIME + ",shift.start)";
+      const string MUSTER_TO_LOGOFF_TIMESPAN_RAW = "TIMEDIFF(CAST(IF(" + BE_WHOLE_COMMENT_HHMM_RANGE + ",CONCAT(REPLACE(RIGHT(comment,4),'2400','0000'),'00'),IF(" + BE_WHOLE_COMMENT_HH_RANGE + ",CONCAT(REPLACE(RIGHT(comment,2),'24','00'),'0000'),shift.end)) AS TIME),shift.start)";
+      //
+      const string MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER = " , IF(CAST(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  " AS TIME) >= CAST(0 AS TIME)," + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",DATE_ADD(" + MUSTER_TO_LOGOFF_TIMESPAN_RAW +  ",INTERVAL 24 HOUR)) as muster_to_logoff_timespan";
+      //
       Update_Dispositioned Dispositioned = delegate (string sql)
         {
         return (be_official ? db_trail.Saved(sql) : sql);
@@ -2771,7 +2841,7 @@ namespace Class_db_schedule_assignments
             + " , @be_selected as be_new"
             + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
             + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) >= CAST('-06:00:00' AS TIME)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ",DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 12 HOUR)) as muster_to_logon_timespan"
-            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SELECTION
+            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
             + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
             +   " join shift on (shift.name='DAY')"
             +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
@@ -2805,7 +2875,7 @@ namespace Class_db_schedule_assignments
             + " , @be_selected as be_new"
             + " , @result_comment := IF(@post_id = member.agency_id,comment,IFNULL(concat(comment,'>',agency.short_designator),concat('>',agency.short_designator))) as comment"
             + " , IF(CAST(" + MUSTER_TO_LOGON_TIMESPAN_RAW + " AS TIME) BETWEEN CAST('-18:00:00' AS TIME) AND CAST('-12:00:00' AS TIME),DATE_ADD(" + MUSTER_TO_LOGON_TIMESPAN_RAW + ",INTERVAL 24 HOUR)," + MUSTER_TO_LOGON_TIMESPAN_RAW + ") as muster_to_logon_timespan"
-            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SELECTION
+            +     MUSTER_TO_LOGOFF_TIMESPAN_FIELD_SPECIFIER
             + " from (select @post_id := '', @be_selected := TRUE, @result_comment := '') as init, avail_sheet"
             +   " join shift on (shift.name='NIGHT')"
             +   " join agency on (agency.oscar_classic_enumerator=avail_sheet.coord_agency)"
