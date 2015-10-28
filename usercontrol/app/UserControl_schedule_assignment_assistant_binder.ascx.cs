@@ -8,6 +8,7 @@ using Class_biz_user;
 using kix;
 using System;
 using System.Configuration;
+using UserControl_ambulance_staffing_timeline_chart;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
 using UserControl_schedule_assignment_assistant_intro;
@@ -17,43 +18,47 @@ using UserControl_schedule_proposal;
 
 namespace UserControl_schedule_assignment_assistant_binder
   {
-  public class UserControl_schedule_assignment_assistant_binder_Static
-    {
-    public const int TSSI_HOLDOUTS = 0;
-    public const int TSSI_ALERT = 1;
-    public const int TSSI_SPECIAL_REQUESTS = 2;
-    public const int TSSI_WATCHBILL = 3;
-    public const int TSSI_PUBLISH = 4;
-    public const int TSSI_ABOUT = 5;
-    }
-
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_loaded;
-    public bool be_ok_to_audit_holdouts;
-    public bool be_ok_to_edit_schedule;
-    public bool be_ok_to_edit_schedule_tier_department_only;
-    public bool be_post_publish_submissions_detected;
-    public bool be_user_privileged_to_see_all_squads;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_members biz_members;
-    public TClass_biz_privileges biz_privileges;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_biz_user biz_user;
-    public string content_id;
-    public string full_next_month_access_day;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    public uint tab_index;
-    public string user_member_id;
-    public string user_member_agency_id;
-    }
 
   public partial class TWebUserControl_schedule_assignment_assistant_binder: ki_web_ui.usercontrol_class
     {
+
+    private static class Static
+      {
+      public const int TSSI_HOLDOUTS = 0;
+      public const int TSSI_ALERT = 1;
+      public const int TSSI_SPECIAL_REQUESTS = 2;
+      public const int TSSI_WATCHBILL = 3;
+      public const int TSSI_STENGTH_CHART = 4;
+      public const int TSSI_PUBLISH = 5;
+      public const int TSSI_ABOUT = 6;
+      }
+
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_loaded;
+      public bool be_ok_to_audit_holdouts;
+      public bool be_ok_to_edit_schedule;
+      public bool be_ok_to_edit_schedule_tier_department_only;
+      public bool be_post_publish_submissions_detected;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public string content_id;
+      public string full_next_month_access_day;
+      public k.subtype<int> relative_month;
+      public string release_filter;
+      public uint tab_index;
+      public string user_member_id;
+      public string user_member_agency_id;
+      }
+
     private p_type p;
 
+    protected TWebUserControl_ambulance_staffing_timeline_chart UserControl_ambulance_staffing_timeline_chart = null;
     protected TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
     protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
     protected TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro = null;
@@ -122,6 +127,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       UserControl_schedule_assignment_assistant_alert_binder = ((TWebUserControl_schedule_assignment_assistant_alert_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_binder.ascx")));
       UserControl_schedule_assignment_assistant_special_requests = ((TWebUserControl_schedule_assignment_assistant_special_requests)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_special_requests.ascx")));
       UserControl_schedule_proposal = ((TWebUserControl_schedule_proposal)(LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx")));
+      UserControl_ambulance_staffing_timeline_chart = ((TWebUserControl_ambulance_staffing_timeline_chart)(LoadControl("~/usercontrol/app/UserControl_ambulance_staffing_timeline_chart.ascx")));
       UserControl_schedule_assignment_assistant_publish = ((TWebUserControl_schedule_assignment_assistant_publish)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_publish.ascx")));
       //
       if (Session[InstanceId() + ".p"] != null)
@@ -155,11 +161,11 @@ namespace UserControl_schedule_assignment_assistant_binder
         //
         if (p.be_ok_to_edit_schedule && !p.be_ok_to_edit_schedule_tier_department_only)
           {
-          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
+          p.tab_index = (uint)Static.TSSI_HOLDOUTS;
           }
         else
           {
-          p.tab_index = (uint)UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
+          p.tab_index = (uint)Static.TSSI_WATCHBILL;
           }
         //
         FillPlaceHolder(true);
@@ -174,7 +180,7 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private void TWebUserControl_schedule_assignment_assistant_binder_PreRender(object sender, System.EventArgs e)
       {
-      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
+      if (p.tab_index == Static.TSSI_PUBLISH)
         {
         ManagePostPublishSubmissionDetection();
         }
@@ -249,23 +255,27 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private void Bind(bool be_for_month_change)
       {
-      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
+      if (p.tab_index == Static.TSSI_HOLDOUTS)
         {
         UserControl_schedule_assignment_assistant_holdouts.SetFilter(p.agency_filter,p.release_filter,p.relative_month,p.be_post_publish_submissions_detected);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
+      else if (p.tab_index == Static.TSSI_ALERT)
         {
         UserControl_schedule_assignment_assistant_alert_binder.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+      else if (p.tab_index == Static.TSSI_SPECIAL_REQUESTS)
         {
         UserControl_schedule_assignment_assistant_special_requests.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
+      else if (p.tab_index == Static.TSSI_WATCHBILL)
         {
         UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month,be_for_month_change);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
+      else if (p.tab_index == Static.TSSI_STENGTH_CHART)
+        {
+        UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month,be_for_month_change);
+        }
+      else if (p.tab_index == Static.TSSI_PUBLISH)
         {
         UserControl_schedule_assignment_assistant_publish.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
@@ -281,38 +291,44 @@ namespace UserControl_schedule_assignment_assistant_binder
       string target
       )
       {
-      if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS)
+      if (p.tab_index == Static.TSSI_HOLDOUTS)
         {
         var c = UserControl_schedule_assignment_assistant_holdouts;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_holdouts",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month,p.be_post_publish_submissions_detected);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT)
+      else if (p.tab_index == Static.TSSI_ALERT)
         {
         var c = UserControl_schedule_assignment_assistant_alert_binder;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_alert_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS)
+      else if (p.tab_index == Static.TSSI_SPECIAL_REQUESTS)
         {
         var c = UserControl_schedule_assignment_assistant_special_requests;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_special_requests",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL)
+      else if (p.tab_index == Static.TSSI_WATCHBILL)
         {
         var c = UserControl_schedule_proposal;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"C",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         c.SetTarget(target);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH)
+      else if (p.tab_index == Static.TSSI_STENGTH_CHART)
+        {
+        var c = UserControl_ambulance_staffing_timeline_chart;
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"S",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        c.SetP(p.agency_filter,p.relative_month);
+        }
+      else if (p.tab_index == Static.TSSI_PUBLISH)
         {
         var c = UserControl_schedule_assignment_assistant_publish;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_publish",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         }
-      else if (p.tab_index == UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT)
+      else if (p.tab_index == Static.TSSI_ABOUT)
         {
         var c = UserControl_schedule_assignment_assistant_intro;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_schedule_assignment_assistant_intro",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
@@ -337,27 +353,31 @@ namespace UserControl_schedule_assignment_assistant_binder
           p.relative_month.val = int.Parse(relative_month_target);
           if (target.ToLower().Contains("/compliance/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_HOLDOUTS;
+            p.tab_index = Static.TSSI_HOLDOUTS;
             }
           else if (target.ToLower().Contains("/alert/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ALERT;
+            p.tab_index = Static.TSSI_ALERT;
             }
           else if (target.ToLower().Contains("/special-requests/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_SPECIAL_REQUESTS;
+            p.tab_index = Static.TSSI_SPECIAL_REQUESTS;
             }
           else if (target.ToLower().Contains("/proposal/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_WATCHBILL;
+            p.tab_index = Static.TSSI_WATCHBILL;
+            }
+          else if (target.ToLower().Contains("/strength-chart/"))
+            {
+            p.tab_index = Static.TSSI_STENGTH_CHART;
             }
           else if (target.ToLower().Contains("/publish/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_PUBLISH;
+            p.tab_index = Static.TSSI_PUBLISH;
             }
           else if (target.ToLower().Contains("/about/"))
             {
-            p.tab_index = UserControl_schedule_assignment_assistant_binder_Static.TSSI_ABOUT;
+            p.tab_index = Static.TSSI_ABOUT;
             }
           }
         //
@@ -371,4 +391,3 @@ namespace UserControl_schedule_assignment_assistant_binder
     }
 
   }
-

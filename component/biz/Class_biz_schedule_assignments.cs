@@ -318,6 +318,18 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindBaseDataListByShiftForMaag(agency_filter,relative_month,shift_name,nominal_day_filter,target);
       }
 
+    internal void BindAmbulanceStaffingTimeLineChartBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      DataGrid target,
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      db_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,relative_month);
+      }
+
     internal void BindBaseDataListByShiftForQuickMessage
       (
       string agency_filter,

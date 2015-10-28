@@ -80,6 +80,7 @@
             <cc1:TabPanel runat="server" headertext="Alerts" id="TabPanel_alert" Enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Special requests" id="TabPanel_special_requests" Enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Watchbill" id="TabPanel_proposal"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Strength chart" id="TabPanel_strength_chart"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Publish" id="TabPanel_publish_print" Enabled="false"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="About" id="TabPanel_about"></cc1:TabPanel>
           </cc1:TabContainer>
