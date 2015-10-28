@@ -166,6 +166,15 @@ namespace UserControl_schedule_assignment_assistant_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_proposal;
         
         /// <summary>
+        /// TabPanel_strength_chart control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_strength_chart;
+        
+        /// <summary>
         /// TabPanel_publish_print control.
         /// </summary>
         /// <remarks>

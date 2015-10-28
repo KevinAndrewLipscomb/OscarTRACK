@@ -289,6 +289,108 @@ namespace Class_db_schedule_assignments
       return ((target) as ListControl).Items.Count > 0;
       }
 
+    internal void BindAmbulanceStaffingTimeLineChartBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      DataGrid target,
+      string agency_filter,
+      k.subtype<int> relative_month
+      )
+      {
+      Open();
+      target.DataSource = new MySqlCommand
+        (
+        "select nominal_day"
+        + " , d0000,d0030,d0100,d0130,d0200,d0230,d0300,d0330,d0400,d0430,d0500,d0530,d0600,d0630,d0700,d0730,d0800,d0830,d0900,d0930,d1000,d1030,d1100,d1130"
+        + " , n0000,n0030,n0100,n0130,n0200,n0230,n0300,n0330,n0400,n0430,n0500,n0530,n0600,n0630,n0700,n0730,n0800,n0830,n0900,n0930,n1000,n1030,n1100,n1130"
+        + " from"
+        +   " ("
+        +   " select nominal_day"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'000000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0000"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'003000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0030"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'010000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0100"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'013000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0130"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'020000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0200"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'023000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0230"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'030000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0300"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'033000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0330"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'040000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0400"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'043000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0430"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'050000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0500"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'053000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0530"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'060000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0600"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'063000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0630"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'070000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0700"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'073000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0730"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'080000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0800"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'083000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0830"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'090000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0900"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'093000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d0930"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'100000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d1000"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'103000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d1030"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'110000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d1100"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'113000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as d1130"
+        +   " from schedule_assignment"
+        +     " join shift on (shift.id=schedule_assignment.shift_id)"
+        +     " join member on (member.id=schedule_assignment.member_id)"
+        +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " where medical_release_code_description_map.pecking_order >= 20"
+        +     " and be_selected"
+        +     " and post_id < 200"
+        +     " and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +     " and shift.name = 'DAY'"
+        +   " group by nominal_day"
+        +   " )"
+        +   " as granular_coverage_levels_day"
+        + " join"
+        +   " ("
+        +   " select nominal_day"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'000000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0000"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'003000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0030"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'010000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0100"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'013000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0130"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'020000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0200"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'023000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0230"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'030000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0300"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'033000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0330"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'040000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0400"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'043000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0430"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'050000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0500"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'053000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0530"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'060000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0600"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'063000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0630"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'070000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0700"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'073000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0730"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'080000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0800"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'083000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0830"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'090000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0900"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'093000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n0930"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'100000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n1000"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'103000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n1030"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'110000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n1100"
+        +   " , FORMAT(SUM(ADDTIME(shift.start,'113000') BETWEEN ADDTIME(shift.start,muster_to_logon_timespan) AND ADDTIME(shift.start,muster_to_logoff_timespan))/2,1) as n1130"
+        +   " from schedule_assignment"
+        +     " join shift on (shift.id=schedule_assignment.shift_id)"
+        +     " join member on (member.id=schedule_assignment.member_id)"
+        +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +   " where medical_release_code_description_map.pecking_order >= 20"
+        +     " and be_selected"
+        +     " and post_id < 200"
+        +     " and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +     " and shift.name = 'NIGHT'"
+        +   " group by nominal_day"
+        +   " )"
+        +   " as granular_coverage_levels_night"
+        + " using (nominal_day)",
+        connection
+        )
+        .ExecuteReader();
+      target.DataBind();
+      (target.DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindBaseDataList
       (
       string agency_filter,

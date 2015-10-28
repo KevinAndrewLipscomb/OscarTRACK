@@ -183,6 +183,7 @@
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
+    <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_availabilities.ascx" />
     <Content Include="usercontrol\app\UserControl_cad_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_care_skill.ascx" />
@@ -1060,6 +1061,13 @@
     <Compile Include="usercontrol\app\UserControl_agency_satellite_station.ascx.designer.cs">
       <DependentUpon>UserControl_agency_satellite_station.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx.cs">
+      <DependentUpon>UserControl_ambulance_staffing_timeline_chart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx.designer.cs">
+      <DependentUpon>UserControl_ambulance_staffing_timeline_chart.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_availabilities.ascx.cs">
       <DependentUpon>UserControl_availabilities.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1696,6 +1704,7 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_binder.ascx.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_schedule_assignment_assistant_binder.ascx.designer.cs">
       <DependentUpon>UserControl_schedule_assignment_assistant_binder.ascx</DependentUpon>
