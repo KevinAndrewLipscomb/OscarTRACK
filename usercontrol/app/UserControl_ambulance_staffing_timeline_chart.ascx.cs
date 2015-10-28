@@ -111,7 +111,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
         //
         if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_S")
           {
-          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "UserControl_ambulance_staffing_timeline_chart");
+          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S");
           }
 //      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_ambulance_staffing_timeline_chart")
 //        {
@@ -246,6 +246,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
       {
       p.agency_filter = agency_filter;
       p.relative_month = relative_month;
+      Bind();
       }
     } // end TWebUserControl_ambulance_staffing_timeline_chart
 

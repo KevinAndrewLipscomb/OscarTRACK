@@ -28,7 +28,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       public const int TSSI_ALERT = 1;
       public const int TSSI_SPECIAL_REQUESTS = 2;
       public const int TSSI_WATCHBILL = 3;
-      public const int TSSI_STENGTH_CHART = 4;
+      public const int TSSI_STRENGTH_CHART = 4;
       public const int TSSI_PUBLISH = 5;
       public const int TSSI_ABOUT = 6;
       }
@@ -271,9 +271,9 @@ namespace UserControl_schedule_assignment_assistant_binder
         {
         UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month,be_for_month_change);
         }
-      else if (p.tab_index == Static.TSSI_STENGTH_CHART)
+      else if (p.tab_index == Static.TSSI_STRENGTH_CHART)
         {
-        UserControl_schedule_proposal.SetFilter(p.agency_filter,p.release_filter,p.relative_month,be_for_month_change);
+        UserControl_ambulance_staffing_timeline_chart.SetP(p.agency_filter,p.relative_month);
         }
       else if (p.tab_index == Static.TSSI_PUBLISH)
         {
@@ -316,7 +316,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         c.SetFilter(p.agency_filter,p.release_filter,p.relative_month);
         c.SetTarget(target);
         }
-      else if (p.tab_index == Static.TSSI_STENGTH_CHART)
+      else if (p.tab_index == Static.TSSI_STRENGTH_CHART)
         {
         var c = UserControl_ambulance_staffing_timeline_chart;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"S",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
@@ -369,7 +369,7 @@ namespace UserControl_schedule_assignment_assistant_binder
             }
           else if (target.ToLower().Contains("/strength-chart/"))
             {
-            p.tab_index = Static.TSSI_STENGTH_CHART;
+            p.tab_index = Static.TSSI_STRENGTH_CHART;
             }
           else if (target.ToLower().Contains("/publish/"))
             {
