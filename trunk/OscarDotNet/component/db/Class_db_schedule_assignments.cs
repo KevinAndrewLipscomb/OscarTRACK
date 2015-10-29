@@ -294,7 +294,8 @@ namespace Class_db_schedule_assignments
       bool be_sort_order_ascending,
       DataGrid target,
       string agency_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string nominal_day_filter = k.EMPTY
       )
       {
       Open();
@@ -338,6 +339,7 @@ namespace Class_db_schedule_assignments
         +     " and be_selected"
         +     " and post_id < 200"
         +     " and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +       (nominal_day_filter.Length == 0 ? k.EMPTY : " and DAY(nominal_day) = '" + nominal_day_filter + "'")
         +     " and shift.name = 'DAY'"
         +   " group by nominal_day"
         +   " )"
@@ -377,6 +379,7 @@ namespace Class_db_schedule_assignments
         +     " and be_selected"
         +     " and post_id < 200"
         +     " and MONTH(nominal_day) = MONTH(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +       (nominal_day_filter.Length == 0 ? k.EMPTY : " and DAY(nominal_day) = '" + nominal_day_filter + "'")
         +     " and shift.name = 'NIGHT'"
         +   " group by nominal_day"
         +   " )"

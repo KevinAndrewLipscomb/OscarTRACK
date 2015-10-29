@@ -8,13 +8,13 @@ using Class_biz_user;
 using kix;
 using System;
 using System.Configuration;
-using UserControl_ambulance_staffing_timeline_chart;
 using UserControl_schedule_assignment_assistant_alert_binder;
 using UserControl_schedule_assignment_assistant_holdouts;
 using UserControl_schedule_assignment_assistant_intro;
 using UserControl_schedule_assignment_assistant_publish;
 using UserControl_schedule_assignment_assistant_special_requests;
 using UserControl_schedule_proposal;
+using UserControl_strength_chart;
 
 namespace UserControl_schedule_assignment_assistant_binder
   {
@@ -58,13 +58,13 @@ namespace UserControl_schedule_assignment_assistant_binder
 
     private p_type p;
 
-    protected TWebUserControl_ambulance_staffing_timeline_chart UserControl_ambulance_staffing_timeline_chart = null;
     protected TWebUserControl_schedule_assignment_assistant_alert_binder UserControl_schedule_assignment_assistant_alert_binder = null;
     protected TWebUserControl_schedule_assignment_assistant_holdouts UserControl_schedule_assignment_assistant_holdouts = null;
     protected TWebUserControl_schedule_assignment_assistant_intro UserControl_schedule_assignment_assistant_intro = null;
     protected TWebUserControl_schedule_assignment_assistant_publish UserControl_schedule_assignment_assistant_publish = null;
     protected TWebUserControl_schedule_assignment_assistant_special_requests UserControl_schedule_assignment_assistant_special_requests = null;
     protected TWebUserControl_schedule_proposal UserControl_schedule_proposal = null;
+    protected TWebUserControl_strength_chart UserControl_strength_chart = null;
 
     private void ManagePostPublishSubmissionDetection()
       {
@@ -127,7 +127,7 @@ namespace UserControl_schedule_assignment_assistant_binder
       UserControl_schedule_assignment_assistant_alert_binder = ((TWebUserControl_schedule_assignment_assistant_alert_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_alert_binder.ascx")));
       UserControl_schedule_assignment_assistant_special_requests = ((TWebUserControl_schedule_assignment_assistant_special_requests)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_special_requests.ascx")));
       UserControl_schedule_proposal = ((TWebUserControl_schedule_proposal)(LoadControl("~/usercontrol/app/UserControl_schedule_proposal.ascx")));
-      UserControl_ambulance_staffing_timeline_chart = ((TWebUserControl_ambulance_staffing_timeline_chart)(LoadControl("~/usercontrol/app/UserControl_ambulance_staffing_timeline_chart.ascx")));
+      UserControl_strength_chart = ((TWebUserControl_strength_chart)(LoadControl("~/usercontrol/app/UserControl_strength_chart.ascx")));
       UserControl_schedule_assignment_assistant_publish = ((TWebUserControl_schedule_assignment_assistant_publish)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_publish.ascx")));
       //
       if (Session[InstanceId() + ".p"] != null)
@@ -273,7 +273,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       else if (p.tab_index == Static.TSSI_STRENGTH_CHART)
         {
-        UserControl_ambulance_staffing_timeline_chart.SetP(p.agency_filter,p.relative_month);
+        UserControl_strength_chart.SetP(p.agency_filter,p.relative_month);
         }
       else if (p.tab_index == Static.TSSI_PUBLISH)
         {
@@ -318,7 +318,7 @@ namespace UserControl_schedule_assignment_assistant_binder
         }
       else if (p.tab_index == Static.TSSI_STRENGTH_CHART)
         {
-        var c = UserControl_ambulance_staffing_timeline_chart;
+        var c = UserControl_strength_chart;
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"S",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetP(p.agency_filter,p.relative_month);
         }

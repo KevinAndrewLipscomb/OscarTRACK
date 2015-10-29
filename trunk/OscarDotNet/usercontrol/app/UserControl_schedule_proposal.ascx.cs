@@ -1,4 +1,3 @@
-using AjaxControlToolkit;
 using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
@@ -507,6 +506,21 @@ namespace UserControl_schedule_proposal
         Literal_num_members.Text = num_members.val.ToString();
         Literal_num_crew_shifts.Text = num_crew_shifts.val.ToString("F1");
         ManageDayBumpLinkButtons();
+        //
+        if (p.be_nominal_day_mode_specific && !p.be_lineup)
+          {
+          UserControl_ambulance_staffing_timeline_chart_control.Visible = true;
+          UserControl_ambulance_staffing_timeline_chart_control.SetP
+            (
+            agency_filter:p.agency_filter,
+            relative_month:p.relative_month,
+            nominal_day_filter:p.nominal_day_filter_active
+            );
+          }
+        else
+          {
+          UserControl_ambulance_staffing_timeline_chart_control.Visible = false;
+          }
         //
         if (p.be_nominal_day_mode_specific)
           {

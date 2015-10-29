@@ -1,7 +1,6 @@
-<%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_proposal.ascx.cs"
-  Inherits="UserControl_schedule_proposal.TWebUserControl_schedule_proposal" %>
+<%@ Control Language="c#" AutoEventWireup="True" CodeBehind="UserControl_schedule_proposal.ascx.cs" Inherits="UserControl_schedule_proposal.TWebUserControl_schedule_proposal" %>
 <%@ Register Src="~/usercontrol/app/UserControl_schedule_assignment_log.ascx" TagPrefix="uc1" TagName="UserControl_schedule_assignment_log" %>
-
+<%@ Register Src="~/usercontrol/app/UserControl_ambulance_staffing_timeline_chart.ascx" TagPrefix="uc1" TagName="UserControl_ambulance_staffing_timeline_chart" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <asp:Panel ID="Panel_supressed" runat="server"><p></p><em>--&nbsp;SUPRESSED&nbsp;--</em></asp:Panel>
 <table id="Table_data" runat="server" cellspacing="0" cellpadding="10" width="100%" border="0" visible="false">
@@ -111,10 +110,12 @@
         <tr>
           <td align="right" valign="top" Width="1%"><asp:LinkButton ID="LinkButton_previous_top" runat="server" onclick="LinkButton_previous_Click" Visible="False" Text="< < <" Font-Bold="True" ToolTip="Go to the prior day"/></td>
           <td rowspan="3" valign="top" Width="98%">
+            <uc1:UserControl_ambulance_staffing_timeline_chart runat="server" ID="UserControl_ambulance_staffing_timeline_chart_control" visible="false"/>
+            <br />
             <table>
               <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
               <tr id="TableRow_panel_and_datagrid" runat="server">
-                <td>
+                <td align="center">
                   <asp:Panel ID="Panel_warning_to_save" runat="server">
                     <table cellpadding="3" cellspacing="0">
                       <tr>

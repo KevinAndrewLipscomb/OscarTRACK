@@ -229,6 +229,15 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_previous_top;
         
         /// <summary>
+        /// UserControl_ambulance_staffing_timeline_chart_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_ambulance_staffing_timeline_chart.TWebUserControl_ambulance_staffing_timeline_chart UserControl_ambulance_staffing_timeline_chart_control;
+        
+        /// <summary>
         /// TableRow_none control.
         /// </summary>
         /// <remarks>
