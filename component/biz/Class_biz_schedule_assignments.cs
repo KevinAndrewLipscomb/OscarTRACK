@@ -1022,14 +1022,14 @@ namespace Class_biz_schedule_assignments
         );
       }
 
-    internal void SetComment
+    internal bool SetComment
       (
       string id,
       string comment
       )
       {
       var saved_comment = db_schedule_assignments.CommentOf(db_schedule_assignments.Summary(id));
-      db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
+      var set_comment = db_schedule_assignments.SetComment(id,comment,biz_members.IdOfUserId(biz_user.IdNum()));
       if (comment != saved_comment)
         {
         db_schedule_assignment_logs.Enter
@@ -1038,19 +1038,7 @@ namespace Class_biz_schedule_assignments
           action:"set comment from `" + saved_comment + "` to `" + comment + "`"
           );
         }
-      }
-
-    internal void SetMusterToLogOnAndOffTimeSpans()
-      {
-#warning Intended for one-time use only, as part of initial "Strength chart" implementation.
-      foreach (var rec in db_schedule_assignments.PartialShiftQ())
-        {
-        db_schedule_assignments.SetMusterToLogOnAndOffTimeSpan
-          (
-          id:rec.id,
-          comment:rec.comment
-          );
-        }
+      return set_comment;
       }
 
     internal void SetPost

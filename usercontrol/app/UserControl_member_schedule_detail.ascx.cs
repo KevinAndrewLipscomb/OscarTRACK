@@ -495,11 +495,29 @@ namespace UserControl_member_schedule_detail
           post_cardinality:k.Safe(ddl_post_cardinality.SelectedItem.Value,k.safe_hint_type.ALPHA)
           );
         }
-      p.biz_schedule_assignments.SetComment
-        (
-        k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
-        k.Safe(((e.Item.Cells[Static.TCI_COMMENT].Controls[0]) as TextBox).Text,k.safe_hint_type.PUNCTUATED)
-        );
+      if(
+        !p.biz_schedule_assignments.SetComment
+          (
+          k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          k.Safe(((e.Item.Cells[Static.TCI_COMMENT].Controls[0]) as TextBox).Text,k.safe_hint_type.PUNCTUATED)
+          )
+        )
+        {
+        Alert
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.WARNING,
+          key:"commentfmt",
+          value:"The comment you just entered looks like it could've been an attempt to specify alternative work hours." + k.NEW_LINE
+          + k.NEW_LINE
+          + "The *only* supported alternative work hour formats are HHMM-HHMM and HH-HH." + k.NEW_LINE
+          + k.NEW_LINE
+          + "Values that include colons (like '10:00-16:00'), single-digit hours (like '3-9'), mixtures (like '2000-23'), and other problems are *not* supported." + k.NEW_LINE
+          + k.NEW_LINE
+          + "Please double-check the comment you just entered.",
+          be_using_scriptmanager:true
+          );
+        }
       DataGrid_control.EditItemIndex =  -1;
       Bind();
       }
