@@ -5,7 +5,7 @@
     <td>
       <table cellspacing="0" cellpadding="10" border="0">
         <tr>
-          <td bgcolor="#dcdcdc">This control disregards the above Agency and Release level filters.</td>
+          <td bgcolor="#dcdcdc"><small>This control disregards the above Agency and Release level filters.</small></td>
         </tr>
         <tr>
           <td>

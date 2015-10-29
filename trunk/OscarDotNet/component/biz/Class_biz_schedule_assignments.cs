@@ -1040,6 +1040,19 @@ namespace Class_biz_schedule_assignments
         }
       }
 
+    internal void SetMusterToLogOnAndOffTimeSpans()
+      {
+#warning Intended for one-time use only, as part of initial "Strength chart" implementation.
+      foreach (var rec in db_schedule_assignments.PartialShiftQ())
+        {
+        db_schedule_assignments.SetMusterToLogOnAndOffTimeSpan
+          (
+          id:rec.id,
+          comment:rec.comment
+          );
+        }
+      }
+
     internal void SetPost
       (
       string id,
