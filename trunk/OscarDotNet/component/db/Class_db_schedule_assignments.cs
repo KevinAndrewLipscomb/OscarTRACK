@@ -7,7 +7,6 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
@@ -2263,30 +2262,6 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
-    internal class partial_shift_rec_type
-      {
-      public string id;
-      public string comment;
-      }
-    internal Queue<partial_shift_rec_type> PartialShiftQ()
-      {
-#warning Intended for one-time use only, as part of initial "Strength chart" implementation.
-      var partial_shift_q = new Queue<partial_shift_rec_type>();
-      Open();
-      var dr = new MySqlCommand
-        ("select id,comment from schedule_assignment where nominal_day >= '2015-10-01' and (comment rlike '" + HH_RANGE_PATTERN + "' or comment rlike '" + HHMM_RANGE_PATTERN + "')",connection).ExecuteReader();
-      while (dr.Read())
-        {
-        var partial_shift_rec = new partial_shift_rec_type();
-        partial_shift_rec.id = dr["id"].ToString();
-        partial_shift_rec.comment = dr["comment"].ToString();
-        partial_shift_q.Enqueue(partial_shift_rec);
-        }
-      dr.Close();
-      Close();
-      return partial_shift_q;
-      }
-
     internal void PendingNotificationTargets
       (
       k.subtype<int> relative_month,
@@ -2364,7 +2339,7 @@ namespace Class_db_schedule_assignments
       this.Close();
       }
 
-    internal void SetComment
+    internal bool SetComment
       (
       string id,
       string comment,
@@ -2424,62 +2399,17 @@ namespace Class_db_schedule_assignments
         )
         .ExecuteNonQuery();
       Close();
-      }
-
-    internal void SetMusterToLogOnAndOffTimeSpan
-      (
-      string id,
-      string comment
-      )
-      {
-#warning Intended for one-time use only, as part of initial "Strength chart" implementation.
-      var hh_range = Regex.Match(comment,HH_RANGE_PATTERN).Value;
-      var hhmm_range = Regex.Match(comment,HHMM_RANGE_PATTERN).Value;
-      var muster_to_logon_timespan = TimeSpan.Zero;
-      var range_part_array = new string[2];
       //
-      var be_hhmm_range_present = (hhmm_range.Length > 0);
-      var be_hh_range_present = (hh_range.Length > 0);
-      //
-      range_part_array = (be_hhmm_range_present ? hhmm_range : hh_range).Split(new char[] {Convert.ToChar(k.HYPHEN)});
-      //
-      var summary = Summary(id);
-      //
-      var shift_start_time = ShiftStartOf(summary);
-      //
-      var logon_time_spec = (be_hhmm_range_present ? range_part_array[0].Replace("2400","0000") : (be_hh_range_present ? range_part_array[0].Replace("24","00") + "00" : shift_start_time.ToString("hhmm")));
-      var logoff_time_spec = (be_hhmm_range_present ? range_part_array[1].Replace("2400","0000") : (be_hh_range_present ? range_part_array[1].Replace("24","00") + "00" : ShiftEndOf(summary).ToString("hhmm")));
-      //
-      var muster_to_logon_timespan_raw = new TimeSpan(hours:int.Parse(logon_time_spec.Substring(0,2)),minutes:int.Parse(logon_time_spec.Substring(2,2)),seconds:0) - shift_start_time;
-      var muster_to_logoff_timespan_raw = new TimeSpan(hours:int.Parse(logoff_time_spec.Substring(0,2)),minutes:int.Parse(logoff_time_spec.Substring(2,2)),seconds:0) - shift_start_time;
-      //
-      if (ShiftNameOf(summary) == "NIGHT")
-        {
-        if (muster_to_logon_timespan_raw >= new TimeSpan(hours:-18,minutes:0,seconds:0) && muster_to_logon_timespan <= new TimeSpan(hours:-12,minutes:0,seconds:0))
-          {
-          muster_to_logon_timespan = muster_to_logon_timespan_raw.Add(new TimeSpan(hours:24,minutes:0,seconds:0));
-          }
-        else
-          {
-          muster_to_logon_timespan = muster_to_logon_timespan_raw;
-          }
-        }
-      else
-        {
-        muster_to_logon_timespan = (muster_to_logon_timespan_raw >= new TimeSpan(hours:-6,minutes:0,seconds:0) ? muster_to_logon_timespan_raw : muster_to_logon_timespan_raw.Add(new TimeSpan(hours:12,minutes:0,seconds:0)));
-        }
-      //
-      Open();
-      new MySqlCommand
+      return
+        !Regex.IsMatch(comment,"[0-9]:[0-9]")
+      &&
         (
-        "update schedule_assignment"
-        + " set muster_to_logon_timespan = '" +  muster_to_logon_timespan + "'"
-        + " , muster_to_logoff_timespan = '" + (muster_to_logoff_timespan_raw >= TimeSpan.Zero ? muster_to_logoff_timespan_raw : muster_to_logoff_timespan_raw.Add(new TimeSpan(hours:24,minutes:0,seconds:0))) + "'"
-        + " where id = '" + id + "'",
-        connection
-        )
-        .ExecuteNonQuery();
-      Close();
+          !Regex.IsMatch(comment,"[0-9]-[0-9]")
+        ||
+          (be_hhmm_range_present && !Regex.IsMatch(comment,"[0-9]{5}-") && !Regex.IsMatch(comment,"-[0-9]{5}"))
+        ||
+          (be_hh_range_present && !Regex.IsMatch(comment,"[0-9]{3}-") && !Regex.IsMatch(comment,"-[0-9]{3}"))
+        );
       }
 
     internal void SetPost
