@@ -253,6 +253,7 @@
     <Content Include="usercontrol\app\UserControl_sms_gateway.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
+    <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
     <Content Include="verify_efficipay_signature.aspx" />
@@ -1901,6 +1902,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_street.ascx.designer.cs">
       <DependentUpon>UserControl_street.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.cs">
+      <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.designer.cs">
+      <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.cs">
       <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>

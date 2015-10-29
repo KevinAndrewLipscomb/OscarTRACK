@@ -324,10 +324,11 @@ namespace Class_biz_schedule_assignments
       bool be_sort_order_ascending,
       DataGrid target,
       string agency_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string nominal_day_filter = k.EMPTY
       )
       {
-      db_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,relative_month);
+      db_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter,relative_month,nominal_day_filter);
       }
 
     internal void BindBaseDataListByShiftForQuickMessage

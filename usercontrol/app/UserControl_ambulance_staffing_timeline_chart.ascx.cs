@@ -76,6 +76,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public string nominal_day_filter;
       public k.subtype<int> relative_month;
       public string sort_order;
       }
@@ -109,14 +110,10 @@ namespace UserControl_ambulance_staffing_timeline_chart
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_S")
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_S_T")
           {
-          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S");
+          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S"); // Use parent UserControl_strength_chart values since we're static on the parent control.
           }
-//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_ambulance_staffing_timeline_chart")
-//        {
-//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_ambulance_staffing_timeline_chart");
-//        }
         }
       else
         {
@@ -126,6 +123,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.nominal_day_filter = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.sort_order = k.EMPTY;
         }
@@ -169,7 +167,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
     private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      if (e.Item.ItemType == ListItemType.Header)
+      if ((e.Item.ItemType == ListItemType.Header) && p.nominal_day_filter.Length == 0)
         {
         e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
         }
@@ -235,19 +233,23 @@ namespace UserControl_ambulance_staffing_timeline_chart
 
     private void Bind()
       {
-      p.biz_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.relative_month);
+      DataGrid_control.Columns[Static.TCI_NOMINAL_DAY].Visible = (p.nominal_day_filter.Length == 0);
+      p.biz_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.relative_month,p.nominal_day_filter);
       }
 
     internal void SetP
       (
       string agency_filter,
-      k.subtype<int> relative_month
+      k.subtype<int> relative_month,
+      string nominal_day_filter = k.EMPTY
       )
       {
       p.agency_filter = agency_filter;
       p.relative_month = relative_month;
+      p.nominal_day_filter = nominal_day_filter;
       Bind();
       }
+
     } // end TWebUserControl_ambulance_staffing_timeline_chart
 
   }
