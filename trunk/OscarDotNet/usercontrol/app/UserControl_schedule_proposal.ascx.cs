@@ -509,7 +509,7 @@ namespace UserControl_schedule_proposal
         //
         if (p.be_nominal_day_mode_specific && !p.be_lineup)
           {
-          UserControl_ambulance_staffing_timeline_chart_control.Visible = true;
+          Panel_ambulance_staffing_timeline_chart.Visible = true;
           UserControl_ambulance_staffing_timeline_chart_control.SetP
             (
             agency_filter:p.agency_filter,
@@ -519,7 +519,7 @@ namespace UserControl_schedule_proposal
           }
         else
           {
-          UserControl_ambulance_staffing_timeline_chart_control.Visible = false;
+          Panel_ambulance_staffing_timeline_chart.Visible = false;
           }
         //
         if (p.be_nominal_day_mode_specific)
