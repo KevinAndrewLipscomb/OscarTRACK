@@ -2273,7 +2273,8 @@ namespace Class_db_schedule_assignments
 #warning Intended for one-time use only, as part of initial "Strength chart" implementation.
       var partial_shift_q = new Queue<partial_shift_rec_type>();
       Open();
-      var dr = new MySqlCommand("select id,comment from schedule_assignment where nominal_day >= '2015-10-01' and comment rlike '" + HH_RANGE_PATTERN + "'",connection).ExecuteReader();
+      var dr = new MySqlCommand
+        ("select id,comment from schedule_assignment where nominal_day >= '2015-10-01' and (comment rlike '" + HH_RANGE_PATTERN + "' or comment rlike '" + HHMM_RANGE_PATTERN + "')",connection).ExecuteReader();
       while (dr.Read())
         {
         var partial_shift_rec = new partial_shift_rec_type();
