@@ -52,32 +52,81 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_BE_CHALLENGE = 25;
       public const int TCI_D_BE_GREENHORNS = 26;
       public const int TCI_D_PHONE_NUM = 27;
-      public const int TCI_N_SPACER_MAJOR = 28;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 29;
-      public const int TCI_N_SLASH = 30;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 31;
-      public const int TCI_N_SPACER_MINOR = 32;
-      public const int TCI_N_ASSIGNMENT_ID = 33;
-      public const int TCI_N_POST_ID = 34;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 35;
-      public const int TCI_N_MEMBER_ID = 36;
-      public const int TCI_N_POST_DESIGNATOR = 37;
-      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 38;
-      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 39;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 40;
-      public const int TCI_N_BE_FLIGHT_MEDIC = 41;
-      public const int TCI_N_BE_MARINE_MEDIC = 42;
-      public const int TCI_N_COLON = 43;
-      public const int TCI_N_NAME_INTERACTIVE = 44;
-      public const int TCI_N_NAME_NONINTERACTIVE = 45;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 46;
-      public const int TCI_N_MEMBER_AGENCY_ID = 47;
-      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 48;
-      public const int TCI_N_BE_SELECTED = 49;
-      public const int TCI_N_COMMENT = 50;
-      public const int TCI_N_BE_CHALLENGE = 51;
-      public const int TCI_N_BE_GREENHORNS = 52;
-      public const int TCI_N_PHONE_NUM = 53;
+      public const int TCI_TIMELINE_SPACER_LEFT = 28;
+      public const int TCI_D0000 = 29;
+      public const int TCI_D0030 = 30;
+      public const int TCI_D0100 = 31;
+      public const int TCI_D0130 = 32;
+      public const int TCI_D0200 = 33;
+      public const int TCI_D0230 = 34;
+      public const int TCI_D0300 = 35;
+      public const int TCI_D0330 = 36;
+      public const int TCI_D0400 = 37;
+      public const int TCI_D0430 = 38;
+      public const int TCI_D0500 = 39;
+      public const int TCI_D0530 = 40;
+      public const int TCI_D0600 = 41;
+      public const int TCI_D0630 = 42;
+      public const int TCI_D0700 = 43;
+      public const int TCI_D0730 = 44;
+      public const int TCI_D0800 = 45;
+      public const int TCI_D0830 = 46;
+      public const int TCI_D0900 = 47;
+      public const int TCI_D0930 = 48;
+      public const int TCI_D1000 = 49;
+      public const int TCI_D1030 = 50;
+      public const int TCI_D1100 = 51;
+      public const int TCI_D1130 = 52;
+      public const int TCI_N0000 = 53;
+      public const int TCI_N0030 = 54;
+      public const int TCI_N0100 = 55;
+      public const int TCI_N0130 = 56;
+      public const int TCI_N0200 = 57;
+      public const int TCI_N0230 = 58;
+      public const int TCI_N0300 = 59;
+      public const int TCI_N0330 = 60;
+      public const int TCI_N0400 = 61;
+      public const int TCI_N0430 = 62;
+      public const int TCI_N0500 = 63;
+      public const int TCI_N0530 = 64;
+      public const int TCI_N0600 = 65;
+      public const int TCI_N0630 = 66;
+      public const int TCI_N0700 = 67;
+      public const int TCI_N0730 = 68;
+      public const int TCI_N0800 = 69;
+      public const int TCI_N0830 = 70;
+      public const int TCI_N0900 = 71;
+      public const int TCI_N0930 = 72;
+      public const int TCI_N1000 = 73;
+      public const int TCI_N1030 = 74;
+      public const int TCI_N1100 = 75;
+      public const int TCI_N1130 = 76;
+      public const int TCI_TIMELINE_SPACER_RIGHT = 77;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 78;
+      public const int TCI_N_SLASH = 79;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 80;
+      public const int TCI_N_SPACER_MINOR = 81;
+      public const int TCI_N_ASSIGNMENT_ID = 82;
+      public const int TCI_N_POST_ID = 83;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 84;
+      public const int TCI_N_MEMBER_ID = 85;
+      public const int TCI_N_POST_DESIGNATOR = 86;
+      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 87;
+      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 88;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 89;
+      public const int TCI_N_BE_FLIGHT_MEDIC = 90;
+      public const int TCI_N_BE_MARINE_MEDIC = 91;
+      public const int TCI_N_COLON = 92;
+      public const int TCI_N_NAME_INTERACTIVE = 93;
+      public const int TCI_N_NAME_NONINTERACTIVE = 94;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 95;
+      public const int TCI_N_MEMBER_AGENCY_ID = 96;
+      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 97;
+      public const int TCI_N_BE_SELECTED = 98;
+      public const int TCI_N_COMMENT = 99;
+      public const int TCI_N_BE_CHALLENGE = 100;
+      public const int TCI_N_BE_GREENHORNS = 101;
+      public const int TCI_N_PHONE_NUM = 102;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 0;
       public const int CI_DESIGNATOR_LABEL = 1;
@@ -111,6 +160,7 @@ namespace UserControl_schedule_proposal
       public TClass_biz_shifts biz_shifts;
       public TClass_biz_user biz_user;
       public string depth_filter;
+      public k.int_sign_range individual_work_timelines_mode;
       public string max_post_cardinality_actual;
       public string max_post_cardinality_effective;
       public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
@@ -234,6 +284,7 @@ namespace UserControl_schedule_proposal
         p.saved_d_unit_spec = k.EMPTY;
         p.saved_n_unit_spec = k.EMPTY;
         //
+        p.individual_work_timelines_mode = new k.int_sign_range((p.be_lineup ? (p.be_now_day_shift ? -1 : 1) : 0));
         p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         //
@@ -390,6 +441,10 @@ namespace UserControl_schedule_proposal
         }
       Calendar_nominal_day.Enabled = p.be_interactive;
       //
+      Button_show_day_timelines.Enabled = p.individual_work_timelines_mode.val != -1;
+      Button_hide_timelines.Enabled = p.individual_work_timelines_mode.val != 0;
+      Button_show_night_timelines.Enabled = p.individual_work_timelines_mode.val != 1;
+      //
       var be_suppressed = true;
       if(
           ((p.relative_month.val == 0) || !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.agency_filter,p.relative_month))
@@ -437,42 +492,50 @@ namespace UserControl_schedule_proposal
           A.Columns[Static.TCI_N_NAME_NONINTERACTIVE].HeaderStyle.Font.Size = noninteractive_major_font_size;
           }
         //
-        A.Columns[Static.TCI_D_SPACER_MAJOR].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-        A.Columns[Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-        A.Columns[Static.TCI_D_NUM_UNITS_CITYWIDE].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_SPACER_MINOR].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_POST_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
-        A.Columns[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_BE_FLIGHT_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_BE_MARINE_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_COLON].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive;
-        A.Columns[Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_BE_DRIVER_QUALIFIED].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_MEMBER_AGENCY_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_COMMENT].Visible = (!p.be_lineup || p.be_now_day_shift);
-        A.Columns[Static.TCI_D_PHONE_NUM].Visible = (p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_SPACER_MAJOR].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-        A.Columns[Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY);
-        A.Columns[Static.TCI_N_NUM_UNITS_CITYWIDE].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_SPACER_MINOR].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_POST_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive;
-        A.Columns[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_BE_FLIGHT_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_BE_MARINE_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_COLON].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive;
-        A.Columns[Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_BE_DRIVER_QUALIFIED].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_MEMBER_AGENCY_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_COMMENT].Visible = !(p.be_lineup && p.be_now_day_shift);
-        A.Columns[Static.TCI_N_PHONE_NUM].Visible = (p.be_lineup && !p.be_now_day_shift);
+        A.Columns[Static.TCI_D_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_NUM_UNITS_CITYWIDE].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_SPACER_MINOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_POST_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_BE_FLIGHT_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_BE_MARINE_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_COLON].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_NAME_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_BE_DRIVER_QUALIFIED].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_MEMBER_AGENCY_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_COMMENT].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_PHONE_NUM].Visible = (p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_TIMELINE_SPACER_LEFT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        for (var i = new k.subtype<int>(Static.TCI_D0000,Static.TCI_D1130 + 1); i.val < i.LAST; i.val++)
+          {
+          A.Columns[i.val].Visible = (p.individual_work_timelines_mode.val == -1);
+          }
+        for (var i = new k.subtype<int>(Static.TCI_N0000,Static.TCI_N1130 + 1); i.val < i.LAST; i.val++)
+          {
+          A.Columns[i.val].Visible = (p.individual_work_timelines_mode.val == 1);
+          }
+        A.Columns[Static.TCI_TIMELINE_SPACER_RIGHT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_NUM_UNITS_FROM_AGENCY].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_SLASH].Visible = p.be_interactive && (p.agency_filter != k.EMPTY) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_NUM_UNITS_CITYWIDE].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_SPACER_MINOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_POST_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_BE_FLIGHT_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_BE_MARINE_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_COLON].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_NAME_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_BE_DRIVER_QUALIFIED].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_MEMBER_AGENCY_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_COMMENT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_PHONE_NUM].Visible = (p.be_lineup && !p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         //
         p.biz_schedule_assignments.GetAgencyFootprintInfo(p.agency_filter,p.relative_month,p.nominal_day_filter_active,out p.post_footprint,out p.max_post_cardinality_actual);
         var proto_post_list_item_collection = new ListItemCollection();
@@ -510,6 +573,7 @@ namespace UserControl_schedule_proposal
         if (p.be_nominal_day_mode_specific && !p.be_lineup)
           {
           Panel_ambulance_staffing_timeline_chart.Visible = true;
+          Panel_timeline_mode.Visible = true;
           UserControl_ambulance_staffing_timeline_chart_control.SetP
             (
             agency_filter:p.agency_filter,
@@ -520,6 +584,7 @@ namespace UserControl_schedule_proposal
         else
           {
           Panel_ambulance_staffing_timeline_chart.Visible = false;
+          Panel_timeline_mode.Visible = false;
           }
         //
         if (p.be_nominal_day_mode_specific)
@@ -1163,6 +1228,23 @@ namespace UserControl_schedule_proposal
       LinkButton_next_bottom.Visible = be_interactive_nominal_day_mode_specific_and_not_day_of_month_last;
       }
 
+    protected void Button_show_day_timelines_Click(object sender, EventArgs e)
+      {
+      p.individual_work_timelines_mode.val = -1;
+      Bind();
+      }
+
+    protected void Button_show_night_timelines_Click(object sender, EventArgs e)
+      {
+      p.individual_work_timelines_mode.val = +1;
+      Bind();
+      }
+
+    protected void Button_hide_timelines_Click(object sender, EventArgs e)
+      {
+      p.individual_work_timelines_mode.val = 0;
+      Bind();
+      }
     }
 
   }
