@@ -301,6 +301,42 @@ namespace UserControl_schedule_proposal {
         protected global::System.Web.UI.WebControls.Literal Literal_publish_reminder;
         
         /// <summary>
+        /// Panel_timeline_mode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_timeline_mode;
+        
+        /// <summary>
+        /// Button_show_day_timelines control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_show_day_timelines;
+        
+        /// <summary>
+        /// Button_hide_timelines control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_hide_timelines;
+        
+        /// <summary>
+        /// Button_show_night_timelines control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_show_night_timelines;
+        
+        /// <summary>
         /// A control.
         /// </summary>
         /// <remarks>
