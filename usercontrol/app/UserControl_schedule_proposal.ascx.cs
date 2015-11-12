@@ -284,7 +284,7 @@ namespace UserControl_schedule_proposal
         p.saved_d_unit_spec = k.EMPTY;
         p.saved_n_unit_spec = k.EMPTY;
         //
-        p.individual_work_timelines_mode = new k.int_sign_range((p.be_lineup ? (p.be_now_day_shift ? -1 : 1) : 0));
+        p.individual_work_timelines_mode = new k.int_sign_range(0);
         p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
         //
