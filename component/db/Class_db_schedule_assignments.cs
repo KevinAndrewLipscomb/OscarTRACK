@@ -2493,7 +2493,7 @@ namespace Class_db_schedule_assignments
       //
       if (ShiftNameOf(summary) == "NIGHT")
         {
-        if (muster_to_logon_timespan_raw >= new TimeSpan(hours:-18,minutes:0,seconds:0) && muster_to_logon_timespan <= new TimeSpan(hours:-12,minutes:0,seconds:0))
+        if (muster_to_logon_timespan_raw >= new TimeSpan(hours:-18,minutes:0,seconds:0) && muster_to_logon_timespan_raw <= new TimeSpan(hours:-12,minutes:0,seconds:0))
           {
           muster_to_logon_timespan = muster_to_logon_timespan_raw.Add(new TimeSpan(hours:24,minutes:0,seconds:0));
           }
