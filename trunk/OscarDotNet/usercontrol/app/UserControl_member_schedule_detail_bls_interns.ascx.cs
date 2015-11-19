@@ -76,7 +76,7 @@ namespace UserControl_member_schedule_detail_bls_interns
     // / </summary>
     private void InitializeComponent()
       {
-      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
       PreRender += TWebUserControl_member_schedule_detail_bls_interns_PreRender;
       }
 
@@ -91,10 +91,12 @@ namespace UserControl_member_schedule_detail_bls_interns
       return this;
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
+        (e.Item.Cells[Static.TCI_CONTENT].FindControl("UserControl_member_schedule_detail") as TWebUserControl_member_schedule_detail).ShowSensitive();
+        //
         p.num_personnel++;
         }
       }

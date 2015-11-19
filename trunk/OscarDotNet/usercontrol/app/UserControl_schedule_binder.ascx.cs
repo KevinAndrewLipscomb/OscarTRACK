@@ -3,14 +3,10 @@
 using Class_biz_members;
 using Class_biz_user;
 using kix;
-using System;
 using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_availabilities;
 using UserControl_member_schedule_detail;
+using UserControl_member_schedule_detail_bls_interns;
 using UserControl_schedule_assignment_assistant_binder;
 
 namespace UserControl_schedule_binder
@@ -20,6 +16,7 @@ namespace UserControl_schedule_binder
     public const int TSSI_AVAILABILITIES = 0;
     public const int TSSI_MY_ASSIGNMENTS = 1;
     public const int TSSI_ASSIGNMENT_ASSISTANT = 2;
+    public const int TSSI_BLS_INTERN_ASSIGNMENTS = 3;
     }
 
   public struct p_type
@@ -38,11 +35,13 @@ namespace UserControl_schedule_binder
     protected TWebUserControl_availabilities UserControl_availabilities = null;
     protected TWebUserControl_member_schedule_detail UserControl_member_schedule_detail = null;
     protected TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
+    protected TWebUserControl_member_schedule_detail_bls_interns UserControl_member_schedule_detail_bls_interns = null;
 
     private void Page_Load(object sender, System.EventArgs e)
       {
       if (!p.be_loaded)
         {
+        TabPanel_bls_intern_assignments.Visible = k.Has(Session["privilege_array"] as string[],"see-bulk-bls-intern-schedule-detail");
         TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
         p.be_loaded = true;
         }
@@ -57,6 +56,7 @@ namespace UserControl_schedule_binder
       UserControl_availabilities = ((TWebUserControl_availabilities)(LoadControl("~/usercontrol/app/UserControl_availabilities.ascx")));
       UserControl_member_schedule_detail = ((TWebUserControl_member_schedule_detail)(LoadControl("~/usercontrol/app/UserControl_member_schedule_detail.ascx")));
       UserControl_schedule_assignment_assistant_binder = ((TWebUserControl_schedule_assignment_assistant_binder)(LoadControl("~/usercontrol/app/UserControl_schedule_assignment_assistant_binder.ascx")));
+      UserControl_member_schedule_detail_bls_interns = ((TWebUserControl_member_schedule_detail_bls_interns)(LoadControl("~/usercontrol/app/UserControl_member_schedule_detail_bls_interns.ascx")));
       //
       if (Session[InstanceId() + ".p"] != null)
         {
@@ -155,6 +155,11 @@ namespace UserControl_schedule_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c, "G", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetTarget(target);
         }
+      else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_BLS_INTERN_ASSIGNMENTS)
+        {
+        var c = UserControl_member_schedule_detail_bls_interns;
+        p.content_id = AddIdentifiedControlToPlaceHolder(c, "UserControl_member_schedule_detail_bls_interns", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
+        }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
       {
@@ -177,6 +182,10 @@ namespace UserControl_schedule_binder
           {
           p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
           }
+        else if (target.ToLower().Contains("/bls-intern-assignments/"))
+          {
+          p.tab_index = UserControl_schedule_binder_Static.TSSI_BLS_INTERN_ASSIGNMENTS;
+          }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
@@ -188,4 +197,3 @@ namespace UserControl_schedule_binder
     } // end TWebUserControl_schedule_binder
 
   }
-
