@@ -1,4 +1,3 @@
-using AjaxControlToolkit;
 using appcommon;
 using Class_biz_agencies;
 using Class_biz_availabilities;
@@ -11,7 +10,6 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -149,10 +147,19 @@ namespace UserControl_member_schedule_detail
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[InstanceId() + ".p"] != null)
+      var instance_id = InstanceId();
+      if (Session[instance_id + ".p"] != null)
         {
-        p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack;
+        p = (p_type)(Session[instance_id + ".p"]);
+        p.be_loaded = IsPostBack; // This test is sufficient if this control is being used statically on its page.
+        //
+        // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
+        // had it loaded already.
+        //
+        if (instance_id.StartsWith("ASP.protected_overview_aspx.UserControl_M_S_member_schedule_detail_bls_interns_DataGrid_control_ctl"))
+          {
+          p.be_loaded = false;
+          }
         }
       else
         {
@@ -737,6 +744,11 @@ namespace UserControl_member_schedule_detail
         value:p.member_summary
         );
       DropCrumbAndTransferTo("member_detail.aspx");
+      }
+
+    internal void ShowSensitive()
+      {
+      Panel_sensitive_submission_detail.Visible = true;
       }
 
     }
