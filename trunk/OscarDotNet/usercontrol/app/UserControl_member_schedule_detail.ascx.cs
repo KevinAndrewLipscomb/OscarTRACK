@@ -749,7 +749,7 @@ namespace UserControl_member_schedule_detail
     internal void SetBulkMode()
       {
       SetInteractivity(false);
-      Panel_sensitive_submission_detail.Visible = true;
+      Panel_sensitive_submission_detail.Visible = k.Has(Session["privilege_array"] as string[],"see-bulk-bls-intern-schedule-detail");
       }
 
     }
