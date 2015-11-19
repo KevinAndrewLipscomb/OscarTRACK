@@ -746,8 +746,9 @@ namespace UserControl_member_schedule_detail
       DropCrumbAndTransferTo("member_detail.aspx");
       }
 
-    internal void ShowSensitive()
+    internal void SetBulkMode()
       {
+      SetInteractivity(false);
       Panel_sensitive_submission_detail.Visible = true;
       }
 
