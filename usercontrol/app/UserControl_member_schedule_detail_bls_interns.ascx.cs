@@ -95,8 +95,6 @@ namespace UserControl_member_schedule_detail_bls_interns
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        (e.Item.Cells[Static.TCI_CONTENT].FindControl("UserControl_member_schedule_detail") as TWebUserControl_member_schedule_detail).ShowSensitive();
-        //
         p.num_personnel++;
         }
       }
@@ -115,14 +113,18 @@ namespace UserControl_member_schedule_detail_bls_interns
         leave_filter:Class_biz_leave.filter_type.OBLIGATED,
         med_release_level_filter:Class_biz_medical_release_levels.filter_type.TRAINEE
         );
+      TWebUserControl_member_schedule_detail member_schedule_detail;
       for (var i = 0; i < p.num_personnel; i++)
         {
-        (DataGrid_control.Items[i].Cells[Static.TCI_CONTENT].FindControl("UserControl_member_schedule_detail") as TWebUserControl_member_schedule_detail).SetFilter
+        member_schedule_detail = (DataGrid_control.Items[i].Cells[Static.TCI_CONTENT].FindControl("UserControl_member_schedule_detail") as TWebUserControl_member_schedule_detail);
+        member_schedule_detail.SetFilter
           (
           member_agency_id:"0",
           relative_month:new k.subtype<int>(1,1),
           member_id:DataGrid_control.Items[i].Cells[Static.TCI_MEMBER_ID].Text
           );
+        member_schedule_detail.SetBulkMode();
+        //
         }
       p.be_datagrid_empty = (p.num_personnel == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
