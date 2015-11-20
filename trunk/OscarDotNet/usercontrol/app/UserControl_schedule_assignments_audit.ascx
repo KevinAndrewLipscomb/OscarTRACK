@@ -45,19 +45,19 @@
                     <asp:BoundColumn datafield="be_on_squad_truck_team" HeaderText="SQTM?">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="obligation" headertext="Obligation">
+                    <asp:BoundColumn datafield="obligation" headertext="Obliged hours">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="be_compliant" headertext="Compliant?">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="num_avails" headertext="Availabilities">
+                    <asp:BoundColumn datafield="num_avails" headertext="Available hours">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="num_assignments" headertext="Assignments">
+                    <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours">
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="balance" headertext="Balance">
+                    <asp:BoundColumn datafield="balance" headertext="Balance hours">
                       <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundColumn>
                   </Columns>
