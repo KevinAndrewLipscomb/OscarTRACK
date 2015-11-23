@@ -101,7 +101,15 @@ namespace UserControl_member_schedule_detail
         Literal_name_2.Text = Literal_name.Text;
         Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
         LinkButton_switch_month.Visible =
-          (p.be_my_watchbill_mode && !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1)) && p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments());
+          (
+            p.be_interactive
+          &&
+            p.be_my_watchbill_mode
+          &&
+            !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1))
+          &&
+            p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments()
+          );
         //
         Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
         Literal_section.Text = p.biz_members.SectionOf(p.member_summary);
@@ -749,7 +757,6 @@ namespace UserControl_member_schedule_detail
     internal void SetBulkMode()
       {
       SetInteractivity(false);
-      LinkButton_switch_month.Visible = false;
       Panel_sensitive_submission_detail.Visible = k.Has(Session["privilege_array"] as string[],"see-bulk-bls-intern-schedule-detail");
       }
 
