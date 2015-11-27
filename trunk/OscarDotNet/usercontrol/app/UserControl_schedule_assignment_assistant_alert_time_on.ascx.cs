@@ -12,36 +12,37 @@ using System.Web.UI.WebControls;
 namespace UserControl_schedule_assignment_assistant_alert_time_on
   {
 
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_interactive;
-    public bool be_loaded;
-    public bool be_ok_to_edit_schedule_for_special_agency;
-    public bool be_time_on_alert_datagrid_empty;
-    public bool be_user_privileged_to_see_all_squads;
-    public TClass_biz_members biz_members;
-    public TClass_biz_privileges biz_privileges;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_biz_user biz_user;
-    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
-    public uint num_time_on_alert_datagrid_rows;
-    public string own_agency;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    }
-
   public partial class TWebUserControl_schedule_assignment_assistant_alert_time_on: ki_web_ui.usercontrol_class
     {
 
-    public class UserControl_schedule_assignment_assistant_alert_time_on_Static
+    private static class Static
       {
       public const int TCI_NOMINAL_DAY = 0;
       public const int TCI_SHIFT_NAME = 1;
-      public const int TCI_NAME = 2;
-      public const int TCI_MEMBER_ID = 3;
-      public const int TCI_AGENCY_ID = 4;
-      public const int TCI_TIME_ON = 5;
+      public const int TCI_COMMENT = 2;
+      public const int TCI_NAME = 3;
+      public const int TCI_MEMBER_ID = 4;
+      public const int TCI_AGENCY_ID = 5;
+      public const int TCI_TIME_ON = 6;
+      }
+
+    public struct p_type
+      {
+      public string agency_filter;
+      public bool be_interactive;
+      public bool be_loaded;
+      public bool be_ok_to_edit_schedule_for_special_agency;
+      public bool be_time_on_alert_datagrid_empty;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
+      public uint num_time_on_alert_datagrid_rows;
+      public string own_agency;
+      public k.subtype<int> relative_month;
+      public string release_filter;
       }
 
     private p_type p;
@@ -160,8 +161,8 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
-        e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
-          (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_NOMINAL_DAY].Text),e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_SHIFT_NAME].Text);
+        e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName(DateTime.Parse(e.Item.Cells[Static.TCI_NOMINAL_DAY].Text),e.Item.Cells[Static.TCI_SHIFT_NAME].Text)
+        + k.SPACE + e.Item.Cells[Static.TCI_COMMENT].Text;
         //
         p.num_time_on_alert_datagrid_rows++;
         }
@@ -169,13 +170,13 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
         {
         if (be_any_kind_of_item)
           {
-          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_NAME].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.Enabled =
             (
               p.be_user_privileged_to_see_all_squads
             ||
-              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_AGENCY_ID].Text == p.own_agency))
+              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[Static.TCI_AGENCY_ID].Text == p.own_agency))
             ||
               p.be_ok_to_edit_schedule_for_special_agency
             );
@@ -187,17 +188,17 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_MEMBER_ID].EnableViewState = true;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_AGENCY_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_MEMBER_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_AGENCY_ID].EnableViewState = true;
           }
         }
       }
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
+      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
       p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_time_on_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
+      p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
       MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 

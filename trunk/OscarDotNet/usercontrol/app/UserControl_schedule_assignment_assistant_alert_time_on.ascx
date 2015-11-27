@@ -26,12 +26,13 @@
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="shift_name" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="comment" Visible="False"></asp:BoundColumn>
                       <asp:ButtonColumn DataTextField="name" HeaderText="..this member...">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="time_on" HeaderText="..will have run this many hours.." ReadOnly="True">
+                      <asp:BoundColumn DataField="time_on" HeaderText="..may have run this many hours.." ReadOnly="True">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                     </Columns>
