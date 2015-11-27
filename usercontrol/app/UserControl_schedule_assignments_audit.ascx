@@ -7,9 +7,31 @@
         <td>
           <table cellspacing="0" cellpadding="10" border="0">
             <tr>
+              <td>
+                <small>
+                  <p>Best practices</p>
+                  <ul>
+                    <li><p>The data in this report is most useful at the very beginning of the scheduling cycle, then it rapidly becomes less useful.</p></li>
+                    <li>
+                      <p>
+                        The recommended practice is for a squad to be accountable for fielding the aggregate amount of crew-shifts that are commensurate with its overall manpower, and to manage the details internally.&nbsp; This
+                        control, however, accounts for duty hours scheduled per member.
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        There are many valid reasons why a member may show a deficit of duty hours even though they are compliant with policy.&nbsp; For instance, a member may have compliantly found coverage for a scheduled duty, and if the schedule was adjusted to show the change, the member will thereafter show a duty hour deficit.
+                      </p>
+                    </li>
+                  </ul>
+                </small>
+              </td>
+            </tr>
+            <tr>
               <td bgcolor="#dcdcdc">
                 <table cellspacing="0" cellpadding="0" border="0">
                   <tr>
+                    <td><b>Filter:</b></td>
                     <td>
                       <small>
                         <asp:RadioButtonList ID="RadioButtonList_relative_month" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonList_relative_month_SelectedIndexChanged">
