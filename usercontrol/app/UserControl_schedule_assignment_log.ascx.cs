@@ -1,15 +1,10 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
-using AjaxControlToolkit;
 using Class_biz_schedule_assignment_logs;
-using Class_msg_protected;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
+using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_assignment_log
   {
@@ -162,7 +157,7 @@ namespace UserControl_schedule_assignment_log
         p.be_loaded = false;
         //
         p.be_interactive = (Session["mode:report"] == null);
-        p.days_old = "6";
+        p.days_old = "4";
         p.nominal_day_filter = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.shift_name = k.EMPTY;
