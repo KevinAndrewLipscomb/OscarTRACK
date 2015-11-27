@@ -339,6 +339,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )WD$|(?<prefix> )WD(?<suffix>/)|(?<prefix> )WD(?<suffix> )",
+          replacement:"${prefix}WYND${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix>/)|(?<prefix> )WF(?<suffix> )",
           replacement:"${prefix}WHARF${suffix}"
           );
