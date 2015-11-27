@@ -249,6 +249,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )WD$|(?<prefix> )WD(?<suffix> )",
+          replacement:"${prefix}WYND${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )WF$|(?<prefix> )WF(?<suffix> )",
           replacement:"${prefix}WHARF${suffix}",
           options:RegexOptions.Multiline
