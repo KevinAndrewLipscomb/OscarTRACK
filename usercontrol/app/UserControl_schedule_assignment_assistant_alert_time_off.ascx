@@ -11,9 +11,9 @@
             <table cellspacing="0" cellpadding="10" width="100%" border="0">
               <tr id="TableRow_guidance" runat="server" bgcolor="WhiteSmoke">
                 <td bgcolor="Khaki">
-                  <b>Guidance:</b> In the table below, the whole number in the middle column shows how much <i>rest time</i> the member will get between the indicated shifts.
+                  <b>Guidance:</b> In the table below, the whole number in the middle column shows how much <i>rest time</i> the member will get between the indicated shifts (which sum up to more than 18 hours of work).
                   <ul>
-                    <li>If the member is assigned 0 (zero) hours of rest time, you should click <b>AutoFix</b> <i>unless the member specifically requests 24 hours shifts</i>.</li>
+                    <li>If the member is assigned 0 (zero) hours of rest time, you should click <b>AutoFix</b> <i>unless the member specifically requests back-to-back shifts</i>.</li>
                     <li>If the member is assigned 12 hours of rest time <i>between NIGHT shifts</i>, you should probably click <b>AutoFix</b> unless the member requests two nights in a row.</li>
                     <li>If the member is assigned 12 hours of rest time between <i>DAY</i> shifts, you should probably do nothing, unless the member has asked <i>not</i> to run two days in a row.</li>
                     <li>If the member is assigned 24 hours of rest time between shifts, you should probably do nothing.</li>
@@ -39,7 +39,7 @@
                       <asp:BoundColumn DataField="first_shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="first_schedule_assignment_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="first_comment"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="time_off" HeaderText="..with possibly this many hours.." ReadOnly="True">
+                      <asp:BoundColumn DataField="time_off" HeaderText="..with this many hours.." ReadOnly="True">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="second_nominal_day" HeaderText="..until this selected shift.." ReadOnly="True">
