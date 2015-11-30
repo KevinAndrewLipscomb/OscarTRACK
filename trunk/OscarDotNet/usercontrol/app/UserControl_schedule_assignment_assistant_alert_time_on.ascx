@@ -32,7 +32,7 @@
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="agency_id" Visible="False"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="time_on" HeaderText="..may have run this many hours.." ReadOnly="True">
+                      <asp:BoundColumn DataField="time_on" HeaderText="..will have run this many hours.." ReadOnly="True">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                     </Columns>

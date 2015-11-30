@@ -20,16 +20,18 @@ namespace Class_db_schedule_assignments
     + " select member_id"
     + " , medical_release_code_description_map.pecking_order >= 20 as be_member_released"
     + " , schedule_assignment.id as schedule_assignment_id"
-    + " , DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i') as on_duty"
-    + " , DATE_FORMAT(IF(start<end,ADDTIME(nominal_day,end),ADDTIME(ADDTIME(nominal_day,end),'24:00:00')),'%Y-%m-%d %H:%i') as off_duty"
+    + " , DATE_FORMAT(ADDTIME(ADDTIME(nominal_day,start),muster_to_logon_timespan),'%Y-%m-%d %H:%i') as on_duty"
+    + " , DATE_FORMAT(ADDTIME(ADDTIME(nominal_day,start),muster_to_logoff_timespan),'%Y-%m-%d %H:%i') as off_duty"
     + " , post_id"
     + " , comment"
     + " FROM schedule_assignment"
     +   " join shift on (shift.id=schedule_assignment.shift_id)"
     +   " join member on (member.id=schedule_assignment.member_id)"
     +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+    +   " join agency on (agency.id=schedule_assignment.post_id)"
     + " where member_id is not null"
-    +   " and be_selected";
+    +   " and be_selected"
+    +   " and short_designator <> '003'";
     private const string ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE = " order by member_id,nominal_day,start";
     private const string HH_RANGE_PATTERN = "([0-1][0-9]|2[0-4])-([0-1][0-9]|2[0-4])";
     private const string HHMM_RANGE_PATTERN = "([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]";
@@ -1418,7 +1420,8 @@ namespace Class_db_schedule_assignments
           +   " join shift as first_shift on (first_shift.id=first_schedule_assignment.shift_id)"
           +   " join shift as second_shift on (second_shift.id=second_schedule_assignment.shift_id)"
           +   " join avail_sheet on (avail_sheet.odnmid=member.id)"
-          + " where time_off < 36"
+          + " where ADDTIME(SUBTIME(first_schedule_assignment.muster_to_logoff_timespan,first_schedule_assignment.muster_to_logon_timespan),SUBTIME(second_schedule_assignment.muster_to_logoff_timespan,second_schedule_assignment.muster_to_logon_timespan)) > '18:00:00'"
+          +   " and time_off < 36"
           +   " and month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
           + " order by time_off,second_schedule_assignment.nominal_day,second_shift.start",
           connection,
