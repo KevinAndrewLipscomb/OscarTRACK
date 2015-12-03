@@ -31,6 +31,9 @@
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="gap_time"></asp:BoundColumn>
                       <asp:TemplateColumn><ItemTemplate>&nbsp;&nbsp;</ItemTemplate></asp:TemplateColumn>
+                      <asp:BoundColumn DataField="level" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:BoundColumn DataField="name" HeaderText="...this member...">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:BoundColumn>

@@ -17,21 +17,22 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
 
     private static class Static
       {
-      public const int TCI_NAME = 0;
-      public const int TCI_MEMBER_ID = 1;
-      public const int TCI_BE_MEMBER_RELEASED = 2;
-      public const int TCI_AGENCY_ID = 3;
-      public const int TCI_FIRST_NOMINAL_DAY = 4;
-      public const int TCI_FIRST_SHIFT_NAME = 5;
-      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 6;
-      public const int TCI_FIRST_COMMENT = 7;
-      public const int TCI_TIME_OFF = 8;
-      public const int TCI_SECOND_NOMINAL_DAY = 9;
-      public const int TCI_SECOND_SHIFT_NAME = 10;
-      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 11;
-      public const int TCI_SECOND_COMMENT = 12;
-      public const int TCI_AUTO_FIX_BUTTON = 13;
-      public const int TCI_NOTE = 14;
+      public const int TCI_LEVEL = 0;
+      public const int TCI_NAME = 1;
+      public const int TCI_MEMBER_ID = 2;
+      public const int TCI_BE_MEMBER_RELEASED = 3;
+      public const int TCI_AGENCY_ID = 4;
+      public const int TCI_FIRST_NOMINAL_DAY = 5;
+      public const int TCI_FIRST_SHIFT_NAME = 6;
+      public const int TCI_FIRST_SCHEDULE_ASSIGNMENT_ID = 7;
+      public const int TCI_FIRST_COMMENT = 8;
+      public const int TCI_TIME_OFF = 9;
+      public const int TCI_SECOND_NOMINAL_DAY = 10;
+      public const int TCI_SECOND_SHIFT_NAME = 11;
+      public const int TCI_SECOND_SCHEDULE_ASSIGNMENT_ID = 12;
+      public const int TCI_SECOND_COMMENT = 13;
+      public const int TCI_AUTO_FIX_BUTTON = 14;
+      public const int TCI_NOTE = 15;
       }
 
     private struct p_type
@@ -136,6 +137,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
       {
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "0");
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;

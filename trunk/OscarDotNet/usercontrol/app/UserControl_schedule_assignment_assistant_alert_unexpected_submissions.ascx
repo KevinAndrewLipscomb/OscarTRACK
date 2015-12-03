@@ -21,8 +21,11 @@
               </tr>
               <tr>
                 <td>
-                  <asp:datagrid id="W" runat="server" border="0" autogeneratecolumns="False" useaccessibleheader="True" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand" ShowHeader="False" GridLines="None">
+                  <asp:datagrid id="W" runat="server" border="0" autogeneratecolumns="False" cellpadding="3" GridLines="None" useaccessibleheader="True" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand" ShowHeader="false">
                     <Columns>
+                      <asp:BoundColumn DataField="level" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn DataTextField="name">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:ButtonColumn>

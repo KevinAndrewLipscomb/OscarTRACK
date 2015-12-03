@@ -12,34 +12,35 @@ using System.Web.UI.WebControls;
 namespace UserControl_schedule_assignment_assistant_special_requests
   {
 
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_datagrid_empty;
-    public bool be_interactive;
-    public bool be_loaded;
-    public bool be_sort_order_ascending;
-    public bool be_user_privileged_to_see_all_squads;
-    public TClass_biz_members biz_members;
-    public TClass_biz_privileges biz_privileges;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_biz_user biz_user;
-    public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
-    public uint num_datagrid_rows;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    public string sort_order;
-    }
-
   public partial class TWebUserControl_schedule_assignment_assistant_special_requests: ki_web_ui.usercontrol_class
     {
 
-    public class UserControl_schedule_assignment_assistant_special_requests_Static
+    private static class Static
       {
-      public const int TCI_NAME = 0;
-      public const int TCI_MEMBER_ID = 1;
-      public const int TCI_BE_RELEASED = 2;
-      public const int TCI_NOTE = 3;
+      public const int TCI_LEVEL = 0;
+      public const int TCI_NAME = 1;
+      public const int TCI_MEMBER_ID = 2;
+      public const int TCI_BE_RELEASED = 3;
+      public const int TCI_NOTE = 4;
+      }
+
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_datagrid_empty;
+      public bool be_interactive;
+      public bool be_loaded;
+      public bool be_sort_order_ascending;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
+      public uint num_datagrid_rows;
+      public k.subtype<int> relative_month;
+      public string release_filter;
+      public string sort_order;
       }
 
     private p_type p;
@@ -124,6 +125,8 @@ namespace UserControl_schedule_assignment_assistant_special_requests
       {
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      Q.Columns[Static.TCI_BE_RELEASED].Visible = p.release_filter.Length == 0;
+      Q.Columns[Static.TCI_LEVEL].Visible = p.release_filter == "0";
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
@@ -168,7 +171,7 @@ namespace UserControl_schedule_assignment_assistant_special_requests
         {
         if (be_any_kind_of_item)
           {
-          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_special_requests_Static.TCI_NAME].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_NAME].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -179,17 +182,20 @@ namespace UserControl_schedule_assignment_assistant_special_requests
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_schedule_assignment_assistant_special_requests_Static.TCI_MEMBER_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_MEMBER_ID].EnableViewState = true;
           }
         }
       }
 
     protected void Q_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_special_requests_Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
-      p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      p.msg_protected_member_schedule_detail.member_agency_id = p.biz_members.AgencyIdOfId(p.msg_protected_member_schedule_detail.member_id);
-      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+      if (e.Item.ItemType.ToString().EndsWith("Item"))
+        {
+        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM);
+        p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
+        p.msg_protected_member_schedule_detail.member_agency_id = p.biz_members.AgencyIdOfId(p.msg_protected_member_schedule_detail.member_id);
+        MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
+        }
       }
 
     protected void Q_SortCommand(object source, DataGridSortCommandEventArgs e)

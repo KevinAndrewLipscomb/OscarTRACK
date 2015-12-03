@@ -1286,7 +1286,9 @@ namespace Class_db_schedule_assignments
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
         + " , agency.short_designator as agency"
+        + " , section_num"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , medical_release_code_description_map.watchbill_rendition as level"
         + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"
@@ -1413,6 +1415,7 @@ namespace Class_db_schedule_assignments
           + " , second_schedule_assignment_id"
           + " , second_schedule_assignment.comment as second_comment"
           + " , note"
+          + " , medical_release_code_description_map.watchbill_rendition as level"
           + " from times_off"
           +   " join member on (member.id=times_off.member_id)"
           +   " join schedule_assignment as first_schedule_assignment on (first_schedule_assignment.id=times_off.first_schedule_assignment_id)"
@@ -1420,6 +1423,7 @@ namespace Class_db_schedule_assignments
           +   " join shift as first_shift on (first_shift.id=first_schedule_assignment.shift_id)"
           +   " join shift as second_shift on (second_shift.id=second_schedule_assignment.shift_id)"
           +   " join avail_sheet on (avail_sheet.odnmid=member.id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where ADDTIME(SUBTIME(first_schedule_assignment.muster_to_logoff_timespan,first_schedule_assignment.muster_to_logon_timespan),SUBTIME(second_schedule_assignment.muster_to_logoff_timespan,second_schedule_assignment.muster_to_logon_timespan)) > '18:00:00'"
           +   " and time_off < 36"
           +   " and month = '" + DateTime.Now.AddMonths(relative_month.val).ToString("MMM") + "'"
@@ -1503,10 +1507,12 @@ namespace Class_db_schedule_assignments
           + " , shift.name as shift_name"
           + " , comment"
           + " , time_on"
+          + " , medical_release_code_description_map.watchbill_rendition as level"
           + " from times_on"
           +   " join member on (member.id=times_on.member_id)"
           +   " join schedule_assignment on (schedule_assignment.id=times_on.schedule_assignment_id)"
           +   " join shift on (shift.id=schedule_assignment.shift_id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where time_on > 24"
           + " order by schedule_assignment.nominal_day,shift.start",
           connection,
@@ -1605,11 +1611,13 @@ namespace Class_db_schedule_assignments
           + " , a_from.comment as comment_from"
           + " , post_to.short_designator as post_to"
           + " , a_to.comment as comment_to"
+          + " , medical_release_code_description_map.watchbill_rendition as level"
           + " from assignment_start_and_end_datetimes_sorted_by_member_id a_from"
           +   " join agency post_from on (post_from.id=a_from.post_id)"
           +   " left join a_to on (a_to.member_id=a_from.member_id and a_to.on_duty=a_from.off_duty and a_to.post_id <> a_from.post_id)"
           +   " left join agency post_to on (post_to.id=a_to.post_id)"
           +   " join member on (member.id=a_from.member_id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where a_to.post_id is not null"
           +     agency_condition_clause
           +     subsequent_time_window_condition_clause
@@ -1669,6 +1677,7 @@ namespace Class_db_schedule_assignments
         + " , first_name"
         + " , member.id as member_id"
         + " , agency.id as target_agency_id" // Because of the way the join is coded below, this is the id of the agency to which the member belongs.
+        + " , medical_release_code_description_map.watchbill_rendition as level"
         + " from schedule_assignment"
         +   " join member on (member.id=schedule_assignment.member_id)"
         +   " join agency on (agency.id=member.agency_id)"
@@ -1740,6 +1749,7 @@ namespace Class_db_schedule_assignments
         + " , member.first_name"
         + " , member.id as member_id"
         + " , agency.id as target_agency_id" // Because of the way the join is coded below, this is the id of the agency to which the member submitted avails.
+        + " , medical_release_code_description_map.watchbill_rendition as level"
         + " from avail_sheet"
         +   " join member on (member.id=avail_sheet.odnmid)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"

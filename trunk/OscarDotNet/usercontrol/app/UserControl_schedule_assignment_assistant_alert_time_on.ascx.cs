@@ -20,10 +20,11 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
       public const int TCI_NOMINAL_DAY = 0;
       public const int TCI_SHIFT_NAME = 1;
       public const int TCI_COMMENT = 2;
-      public const int TCI_NAME = 3;
-      public const int TCI_MEMBER_ID = 4;
-      public const int TCI_AGENCY_ID = 5;
-      public const int TCI_TIME_ON = 6;
+      public const int TCI_LEVEL = 3;
+      public const int TCI_NAME = 4;
+      public const int TCI_MEMBER_ID = 5;
+      public const int TCI_AGENCY_ID = 6;
+      public const int TCI_TIME_ON = 7;
       }
 
     public struct p_type
@@ -126,6 +127,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
       {
       var be_suppressed = true;
       var own_agency = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "0");
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
