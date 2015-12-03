@@ -1,4 +1,3 @@
-using AjaxControlToolkit;
 using Class_biz_members;
 using Class_biz_privileges;
 using Class_biz_schedule_assignments;
@@ -13,31 +12,10 @@ using System.Web.UI.WebControls;
 namespace UserControl_schedule_assignment_assistant_alert_travel_gap
   {
 
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_for_muster;
-    public bool be_interactive;
-    public bool be_lineup;
-    public bool be_loaded;
-    public bool be_ok_to_edit_schedule_for_selected_special_agency;
-    public bool be_travel_gap_alert_datagrid_empty;
-    public bool be_user_privileged_to_see_all_squads;
-    public TClass_biz_members biz_members;
-    public TClass_biz_privileges biz_privileges;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_biz_user biz_user;
-    public TClass_msg_protected.overview msg_protected_overview;
-    public uint num_travel_gap_alert_datagrid_rows;
-    public string own_agency;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    }
-
   public partial class TWebUserControl_schedule_assignment_assistant_alert_travel_gap: ki_web_ui.usercontrol_class
     {
 
-    public class UserControl_schedule_assignment_assistant_alert_travel_gap_Static
+    private static class Static
       {
       //
       // Place invisible columns first so column-spanning will be more straightforward.
@@ -47,14 +25,36 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
       public const int TCI_GAP_DAY = 2;
       public const int TCI_GAP_TIME = 3;
       public const int TCI_SPACER_1 = 4;
-      public const int TCI_NAME = 5;
-      public const int TCI_MEMBER_AGENCY_DESIGNATOR = 6;
-      public const int TCI_SPACER_2 = 7;
-      public const int TCI_POST_FROM = 8;
-      public const int TCI_COMMENT_FROM = 9;
-      public const int TCI_SPACER_3 = 10;
-      public const int TCI_POST_TO = 11;
-      public const int TCI_COMMENT_TO = 12;
+      public const int TCI_LEVEL = 5;
+      public const int TCI_NAME = 6;
+      public const int TCI_MEMBER_AGENCY_DESIGNATOR = 7;
+      public const int TCI_SPACER_2 = 8;
+      public const int TCI_POST_FROM = 9;
+      public const int TCI_COMMENT_FROM = 10;
+      public const int TCI_SPACER_3 = 11;
+      public const int TCI_POST_TO = 12;
+      public const int TCI_COMMENT_TO = 13;
+      }
+
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_for_muster;
+      public bool be_interactive;
+      public bool be_lineup;
+      public bool be_loaded;
+      public bool be_ok_to_edit_schedule_for_selected_special_agency;
+      public bool be_travel_gap_alert_datagrid_empty;
+      public bool be_user_privileged_to_see_all_squads;
+      public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.overview msg_protected_overview;
+      public uint num_travel_gap_alert_datagrid_rows;
+      public string own_agency;
+      public k.subtype<int> relative_month;
+      public string release_filter;
       }
 
     private p_type p;
@@ -170,6 +170,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         posts:out post_footprint,
         max_post_cardinality:out dummy_string
         );
+      W.Columns[Static.TCI_LEVEL].Visible = (p.release_filter == "0");
       if (p.be_user_privileged_to_see_all_squads)
         {
         be_suppressed = false;
@@ -210,12 +211,12 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         //
         // Since indices will be pointing to moving targets, establish links to objects instead, and manipulate objects.  This is only straightforward if invisible columns are placed first.
         //
-        var gap_day_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY];
-        var gap_time_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_TIME];
-        var post_from_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM];
-        var comment_from_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_COMMENT_FROM];
-        var post_to_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO];
-        var comment_to_cell = e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_COMMENT_TO];
+        var gap_day_cell = e.Item.Cells[Static.TCI_GAP_DAY];
+        var gap_time_cell = e.Item.Cells[Static.TCI_GAP_TIME];
+        var post_from_cell = e.Item.Cells[Static.TCI_POST_FROM];
+        var comment_from_cell = e.Item.Cells[Static.TCI_COMMENT_FROM];
+        var post_to_cell = e.Item.Cells[Static.TCI_POST_TO];
+        var comment_to_cell = e.Item.Cells[Static.TCI_COMMENT_TO];
         gap_day_cell.ColumnSpan = 2;
         e.Item.Cells.Remove(gap_time_cell);
         post_from_cell.ColumnSpan = 2;
@@ -225,14 +226,14 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         }
       else if (be_any_kind_of_item)
         {
-        e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
-          (DateTime.Parse(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text),"DAY")
+        e.Item.Cells[Static.TCI_GAP_DAY].Text = p.biz_schedule_assignments.MonthlessRenditionOfNominalDayShiftName
+          (DateTime.Parse(e.Item.Cells[Static.TCI_GAP_DAY].Text),"DAY")
           .Replace(" DAY",k.EMPTY);
         //
-        var member_agency_id = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        var member_agency_id = k.Safe(e.Item.Cells[Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
         if (member_agency_id != k.EMPTY)
           {
-          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_MEMBER_AGENCY_DESIGNATOR].Controls[0]) as Label).Text =
+          ((e.Item.Cells[Static.TCI_MEMBER_AGENCY_DESIGNATOR].Controls[0]) as Label).Text =
             (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id + "&nbsp;&nbsp;");
           }
         //
@@ -246,15 +247,15 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
             (
               p.be_user_privileged_to_see_all_squads
             ||
-              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_AGENCY_ID].Text == p.own_agency))
+              (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (e.Item.Cells[Static.TCI_AGENCY_ID].Text == p.own_agency))
             ||
               p.be_ok_to_edit_schedule_for_selected_special_agency
             );
-          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_POST_FROM].Controls[0]) as LinkButton);
           link_button.Enabled = be_ok_to_enable_controls;
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
-          link_button = ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_POST_TO].Controls[0]) as LinkButton);
           link_button.Enabled = be_ok_to_enable_controls;
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -264,28 +265,28 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].EnableViewState = true;
-          e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].EnableViewState = true;
+          e.Item.Cells[Static.TCI_POST_FROM].EnableViewState = true;
+          e.Item.Cells[Static.TCI_POST_TO].EnableViewState = true;
           }
         }
       else
         {
         if (be_any_kind_of_item)
           {
-          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_FROM].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_POST_TO].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_POST_FROM].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_POST_TO].Controls[0]) as LinkButton).Enabled = false;
           }
         }
       }
 
     protected void W_ItemCommand(object source, DataGridCommandEventArgs e)
       {
-      var day_num = k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_DAY].Text,k.safe_hint_type.NUM);
+      var day_num = k.Safe(e.Item.Cells[Static.TCI_GAP_DAY].Text,k.safe_hint_type.NUM);
       var offset = new k.subtype<int>(-1,0);
       if(
           (e.CommandName == "PostTo")
         ||
-          (DateTime.Parse(k.Safe(e.Item.Cells[UserControl_schedule_assignment_assistant_alert_travel_gap_Static.TCI_GAP_TIME].Text,k.safe_hint_type.DATE_TIME)).ToString("HH").CompareTo("06") >= 0)
+          (DateTime.Parse(k.Safe(e.Item.Cells[Static.TCI_GAP_TIME].Text,k.safe_hint_type.DATE_TIME)).ToString("HH").CompareTo("06") >= 0)
         ||
           (day_num == "01")
         )

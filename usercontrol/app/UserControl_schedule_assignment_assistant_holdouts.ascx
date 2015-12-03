@@ -53,9 +53,15 @@
                     AllowSorting="True" OnSortCommand="DataGrid_control_SortCommand" onitemcommand="DataGrid_control_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
+                      <asp:BoundColumn DataField="level" HeaderText="~" SortExpression="medical_release_code_description_map.pecking_order%,member.last_name,member.first_name" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn CommandName="Select" DataTextField="name" HeaderText="Name" SortExpression="member.last_name%,member.first_name"></asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,member.last_name,member.first_name" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
+                      <asp:BoundColumn DataField="section_num" HeaderText="Section" ReadOnly="True" SortExpression="section_num%,member.last_name,member.first_name" Visible="False">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="be_released" HeaderText="Released?" SortExpression="be_released%,member.last_name,member.first_name">
@@ -72,8 +78,16 @@
                       <asp:BoundColumn DataField="be_notification_pending" HeaderText="**" SortExpression="be_notification_pending%,member.last_name,member.first_name">
                         <ItemStyle Font-Bold="True" Wrap="False" />
                       </asp:BoundColumn>
-                      <asp:BoundColumn DataField="email_address" HeaderText="Email address"></asp:BoundColumn>
-                      <asp:BoundColumn DataField="phone_num" HeaderText="Phone #"></asp:BoundColumn>
+                      <asp:TemplateColumn HeaderText="Email address">
+                        <ItemTemplate>
+                          <asp:HyperLink ID="HyperLink_email_address" runat="server" Text='<%# Eval("email_address") %>' NavigateUrl='<%# "mailto:" + Eval("email_address") %>' ></asp:HyperLink>
+                        </ItemTemplate>
+                      </asp:TemplateColumn>
+                      <asp:TemplateColumn HeaderText="Phone #">
+                        <ItemTemplate>
+                          <asp:HyperLink ID="HyperLink_phone_num" runat="server" Text='<%# Eval("phone_num") %>' NavigateUrl='<%# "tel:" + Eval("phone_num") %>' ></asp:HyperLink>
+                        </ItemTemplate>
+                      </asp:TemplateColumn>
                     </Columns>
                   </asp:datagrid>
                 </td>

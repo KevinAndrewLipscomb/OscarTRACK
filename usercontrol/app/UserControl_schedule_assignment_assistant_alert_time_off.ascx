@@ -27,6 +27,9 @@
                   <asp:datagrid id="W" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="W_ItemDataBound" onitemcommand="W_ItemCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
+                      <asp:BoundColumn DataField="level" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn DataTextField="name" HeaderText="This member..." CommandName="SeeDetail">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:ButtonColumn>

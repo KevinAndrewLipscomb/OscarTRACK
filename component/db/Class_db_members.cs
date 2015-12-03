@@ -1304,6 +1304,7 @@ namespace Class_db_members
         "select concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
+        + " , medical_release_code_description_map.watchbill_rendition as level"
         + " , note"
         + " from member"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"

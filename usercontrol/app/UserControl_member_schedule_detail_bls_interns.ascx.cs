@@ -1,10 +1,10 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
-using Class_biz_enrollment;
-using Class_biz_leave;
 using Class_biz_members;
 using kix;
+using System;
 using System.Collections;
+using System.Configuration;
 using System.Web.UI.WebControls;
 using UserControl_member_schedule_detail;
 
@@ -24,6 +24,7 @@ namespace UserControl_member_schedule_detail_bls_interns
       public bool be_loaded;
       public TClass_biz_members biz_members;
       public uint num_personnel;
+      public k.subtype<int> relative_month;
       }
 
     private p_type p;
@@ -66,6 +67,8 @@ namespace UserControl_member_schedule_detail_bls_interns
         {
         p.biz_members = new TClass_biz_members();
         //
+        p.relative_month = new k.subtype<int>(0,1);
+        //
         p.be_loaded = false;
         }
       }
@@ -101,13 +104,14 @@ namespace UserControl_member_schedule_detail_bls_interns
 
     private void Bind()
       {
+      p.relative_month.val = (DateTime.Today.Day <= int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) ? 0 : 1);
       p.biz_members.BindRoster
         (
         member_id:k.EMPTY,
         sort_order:"last_name,first_name,cad_num",
         be_sort_order_ascending:true,
         target:DataGrid_control,
-        relative_month:"1",
+        relative_month:p.relative_month.val.ToString(),
         agency_filter:k.EMPTY,
         enrollment_filter: Class_biz_enrollment.filter_type.CURRENT,
         leave_filter:Class_biz_leave.filter_type.OBLIGATED,
@@ -120,7 +124,7 @@ namespace UserControl_member_schedule_detail_bls_interns
         member_schedule_detail.SetFilter
           (
           member_agency_id:"0",
-          relative_month:new k.subtype<int>(1,1),
+          relative_month:p.relative_month,
           member_id:DataGrid_control.Items[i].Cells[Static.TCI_MEMBER_ID].Text
           );
         member_schedule_detail.SetBulkMode();

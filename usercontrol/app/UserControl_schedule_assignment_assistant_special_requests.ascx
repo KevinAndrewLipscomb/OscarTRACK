@@ -21,15 +21,18 @@
                   <asp:datagrid id="Q" runat="server" autogeneratecolumns="False" useaccessibleheader="True" cellpadding="2" gridlines="Horizontal" bordercolor="Gainsboro" borderwidth="1px" onitemdatabound="Q_ItemDataBound" onitemcommand="Q_ItemCommand" AllowSorting="True" OnSortCommand="Q_SortCommand">
                     <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
                     <Columns>
+                      <asp:BoundColumn DataField="level" HeaderText="~" SortExpression="medical_release_code_description_map.pecking_order%,member.last_name,member.first_name" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn CommandName="ReviewHandle" DataTextField="name" HeaderText="Name" SortExpression="member.last_name%,member.first_name">
-                        <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" Wrap="False" />
+                        <ItemStyle Wrap="False" />
                       </asp:ButtonColumn>
                       <asp:BoundColumn DataField="member_id" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="be_released" HeaderText="Released?" SortExpression="be_released%,member.last_name,member.first_name">
                         <ItemStyle HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="note" HeaderText="Note">
-                        <ItemStyle Font-Bold="False" Font-Italic="True" Font-Overline="False" Font-Size="Small" Font-Strikeout="False" Font-Underline="False" />
+                        <ItemStyle Font-Italic="True" Font-Size="Small" />
                       </asp:BoundColumn>
                     </Columns>
                   </asp:datagrid>

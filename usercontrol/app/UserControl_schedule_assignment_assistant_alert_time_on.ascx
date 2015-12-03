@@ -27,6 +27,9 @@
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="shift_name" Visible="False"></asp:BoundColumn>
                       <asp:BoundColumn DataField="comment" Visible="False"></asp:BoundColumn>
+                      <asp:BoundColumn DataField="level" Visible="False">
+                        <ItemStyle HorizontalAlign="Center" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn DataTextField="name" HeaderText="..this member...">
                         <HeaderStyle Font-Bold="True" HorizontalAlign="Left" />
                       </asp:ButtonColumn>
