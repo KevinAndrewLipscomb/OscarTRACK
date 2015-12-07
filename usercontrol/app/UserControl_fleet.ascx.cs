@@ -19,7 +19,7 @@ namespace UserControl_fleet
   {
   public partial class TWebUserControl_fleet: ki_web_ui.usercontrol_class
     {
-    public class UserControl_fleet_Static
+    private static class Static
       {
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
@@ -54,6 +54,7 @@ namespace UserControl_fleet
     private struct p_type
       {
       public string agency_filter;
+      public k.int_negative alternative_pm_alert_threshold;
       public bool be_four_or_all_wheel_drive_filter;
       public bool be_interactive;
       public bool be_interest_dynamic;
@@ -212,6 +213,7 @@ namespace UserControl_fleet
         p.biz_vehicles = new TClass_biz_vehicles();
         p.biz_vehicle_kinds = new TClass_biz_vehicle_kinds();
         //
+        p.alternative_pm_alert_threshold = new k.int_negative(int.Parse(ConfigurationManager.AppSettings["alternative_pm_alert_threshold"]));
         p.be_four_or_all_wheel_drive_filter = false;
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
@@ -259,7 +261,7 @@ namespace UserControl_fleet
       {
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
-        SessionSet("vehicle_summary",p.biz_vehicles.Summary(k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_ID].Text,k.safe_hint_type.NUM)));
+        SessionSet("vehicle_summary",p.biz_vehicles.Summary(k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM)));
         if (e.CommandName == "Select")
           {
           DropCrumbAndTransferTo("vehicle_detail.aspx");
@@ -300,106 +302,107 @@ namespace UserControl_fleet
         p.num_vehicles++;
         var be_up_and_current = true;
         //
-        link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
-        link_button.Text = "<small>" + link_button.Text + "<sub>:" + e.Item.Cells[UserControl_fleet_Static.TCI_NUM_GRIPES].Text + "</sub></small>";
+        link_button = ((e.Item.Cells[Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
+        link_button.Text = "<small>" + link_button.Text + "<sub>:" + e.Item.Cells[Static.TCI_NUM_GRIPES].Text + "</sub></small>";
         //
-        if (e.Item.Cells[UserControl_fleet_Static.TCI_STATUS].Text == "UP")
+        if (e.Item.Cells[Static.TCI_STATUS].Text == "UP")
           {
           p.num_usable++;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].BackColor = Color.White;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].BackColor = Color.White;
+          ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[Static.TCI_STATUS_DOWN].BackColor = Color.White;
+          ((e.Item.Cells[Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[Static.TCI_APPEND_NOTE].BackColor = Color.White;
           }
         else
           {
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
-          e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].BackColor = Color.White;
+          ((e.Item.Cells[Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Visible = false;
+          e.Item.Cells[Static.TCI_STATUS_UP].BackColor = Color.White;
           be_up_and_current = false;
-          var down_duration = e.Item.Cells[UserControl_fleet_Static.TCI_DOWN_DURATION].Text;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Text += (down_duration == "0" ? k.EMPTY : "<small> " + down_duration + "d</small>");
+          var down_duration = e.Item.Cells[Static.TCI_DOWN_DURATION].Text;
+          ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Text += (down_duration == "0" ? k.EMPTY : "<small> " + down_duration + "d</small>");
           }
-        var miles_from_pm_text = e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
+        var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+        var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
         if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
           {
           if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
             {
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Text;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
             }
           var miles_from_pm = int.Parse(miles_from_pm_text);
-          if (miles_from_pm >= p.miles_from_pm_alert_threshold)
+          if (miles_from_pm >= (be_target_pm_mileage_meaningful ? p.miles_from_pm_alert_threshold : p.alternative_pm_alert_threshold.val))
             {
-            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Yellow;
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Yellow;
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Yellow;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Yellow;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
             }
           if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
             {
-            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
-            e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
-            e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
             be_up_and_current = false;
             }
           }
-        else if (e.Item.Cells[UserControl_fleet_Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1")
+        else if (be_target_pm_mileage_meaningful)
           {
-          e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
-          e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
-          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
-          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
-          e.Item.Cells[UserControl_fleet_Static.TCI_MILES_FROM_PM].Font.Bold = true;
+          e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
+          e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
+          e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
+          e.Item.Cells[Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
+          e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
           be_up_and_current = false;
           }
-        var dmv_inspection_due_text = k.Safe(e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
+        var dmv_inspection_due_text = k.Safe(e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
         if (dmv_inspection_due_text != k.EMPTY)
           {
           var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
           var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString("D2");
-          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
+          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
           if (DateTime.Today.ToString("yyyy-MM-dd").CompareTo(dmv_inspection_due_month + "-01") >= 0)
             {
-            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
-            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Yellow;
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Yellow;
             }
           if (DateTime.Today >= dmv_inspection_due_date)
             {
-            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
-            e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
             be_up_and_current = false;
             }
           }
-        else if (e.Item.Cells[UserControl_fleet_Static.TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL].Text == "1")
+        else if (e.Item.Cells[Static.TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL].Text == "1")
           {
-          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
-          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
-          e.Item.Cells[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
+          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
+          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
+          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
           be_up_and_current = false;
           }
         if (p.be_interactive)
           {
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_SELECT].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Detail";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_GRIPESHEET].Controls[0]) as LinkButton);
           link_button.ToolTip = "Manage GripeSheet";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_STATUS_UP].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark DOWN";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton);
           link_button.ToolTip = "Mark UP";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           link_button.ToolTip = "Append note";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_QUARTERS].Controls[0]) as LinkButton);
           link_button.ToolTip = "Relocate";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton);
           link_button.ToolTip = "Update";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -409,17 +412,17 @@ namespace UserControl_fleet
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_fleet_Static.TCI_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_ID].EnableViewState = true;
           //
           }
         else
           {
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_GRIPESHEET].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_GRIPESHEET].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_STATUS_UP].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
+          ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
           }
         if (be_up_and_current)
           {
@@ -445,27 +448,27 @@ namespace UserControl_fleet
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_SELECT].Visible = (p.be_interactive);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_GRIPESHEET].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_DMV_INSPECTION_DUE].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE].Visible = (!p.be_interest_dynamic) && !p.be_four_or_all_wheel_drive_filter;
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_CUSTOM_MAKE].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_CUSTOM_MODEL].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_FUEL].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_KIND].Visible = (p.vehicle_kind_filter == k.EMPTY);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_BUMPER_NUMBER].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_TAG].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[UserControl_fleet_Static.TCI_VIN].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_SELECT].Visible = (p.be_interactive);
+      DataGrid_control.Columns[Static.TCI_GRIPESHEET].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;
+      DataGrid_control.Columns[Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_DMV_INSPECTION_DUE].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE].Visible = (!p.be_interest_dynamic) && !p.be_four_or_all_wheel_drive_filter;
+      DataGrid_control.Columns[Static.TCI_CUSTOM_MAKE].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_CUSTOM_MODEL].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_FUEL].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_KIND].Visible = (p.vehicle_kind_filter == k.EMPTY);
+      DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
+      DataGrid_control.Columns[Static.TCI_BUMPER_NUMBER].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_TAG].Visible = (!p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_VIN].Visible = (!p.be_interest_dynamic);
       p.biz_vehicles.BindBaseDataList(p.sort_order, p.be_sort_order_ascending, DataGrid_control, p.agency_filter, p.vehicle_kind_filter, p.be_four_or_all_wheel_drive_filter, p.quarters_filter);
       Literal_num_rows.Text = p.num_vehicles.ToString();
       Literal_num_usable.Text = p.num_usable.ToString();
