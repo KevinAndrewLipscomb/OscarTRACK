@@ -228,8 +228,6 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         else
           {
           LabelizeAndSetTextForeColor(e.Item.Cells[Static.TCI_BE_RELEASED],Color.Gray);
-          LabelizeAndSetTextForeColor(e.Item.Cells[Static.TCI_EMAIL_ADDRESS],Color.Gray);
-          LabelizeAndSetTextForeColor(e.Item.Cells[Static.TCI_PHONE_NUM],Color.Gray);
           e.Item.Cells[Static.TCI_COMPLIANCY_MARK].FindControl("Image_compliant").Visible = (compliancy_text == "1");
           //
           if (p.be_post_publish_submissions_detected)
