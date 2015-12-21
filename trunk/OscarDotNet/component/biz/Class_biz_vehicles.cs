@@ -238,7 +238,8 @@ namespace Class_biz_vehicles
       out string target_pm_mileage,
       out DateTime dmv_inspection_due,
       out DateTime recent_mileage_update_time,
-      out bool be_four_or_all_wheel_drive
+      out bool be_four_or_all_wheel_drive,
+      out string deployment_guidance
       )
       {
       return db_vehicles.Get
@@ -260,7 +261,8 @@ namespace Class_biz_vehicles
         out target_pm_mileage,
         out dmv_inspection_due,
         out recent_mileage_update_time,
-        out be_four_or_all_wheel_drive
+        out be_four_or_all_wheel_drive,
+        out deployment_guidance
         );
       }
 
@@ -423,7 +425,8 @@ namespace Class_biz_vehicles
       DateTime dmv_inspection_due,
       bool be_four_or_all_wheel_drive,
       bool be_mode_add,
-      string saved_kind_id
+      string saved_kind_id,
+      string deployment_guidance
       )
       {
       var effective_dmv_inspection_due = DateTime.MinValue;
@@ -449,7 +452,8 @@ namespace Class_biz_vehicles
         target_pm_mileage,
         effective_dmv_inspection_due,
         be_four_or_all_wheel_drive,
-        be_mode_add
+        be_mode_add,
+        deployment_guidance
         );
       if (saved_kind_id.Length == 0)
         {

@@ -5,9 +5,7 @@ using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_vehicles
   {
@@ -33,6 +31,7 @@ namespace Class_db_vehicles
     public string vin;
     public string recent_mileage_update_time;
     public bool be_four_or_all_wheel_drive;
+    public string deployment_guidance;
     }
 
   public class TClass_db_vehicles: TClass_db
@@ -273,6 +272,7 @@ namespace Class_db_vehicles
           (
           "select vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
+          + " , IFNULL(deployment_guidance,'') as deployment_guidance"
           + " , count(gripe.vehicle_id) as num_gripes"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IF(vehicle_down_nature.id is null,-1,TIMESTAMPDIFF(MINUTE,time_went_down,NOW()) DIV 1440) as down_duration"
@@ -535,7 +535,8 @@ namespace Class_db_vehicles
       out string target_pm_mileage,
       out DateTime dmv_inspection_due,
       out DateTime recent_mileage_update_time,
-      out bool be_four_or_all_wheel_drive
+      out bool be_four_or_all_wheel_drive,
+      out string deployment_guidance
       )
       {
       bool result;
@@ -558,6 +559,7 @@ namespace Class_db_vehicles
       dmv_inspection_due = DateTime.MinValue;
       recent_mileage_update_time = DateTime.MinValue;
       be_four_or_all_wheel_drive = false;
+      deployment_guidance = k.EMPTY;
       result = false;
       //
       this.Open();
@@ -595,6 +597,7 @@ namespace Class_db_vehicles
           recent_mileage_update_time = DateTime.MinValue;
           }
         be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1");
+        deployment_guidance = dr["deployment_guidance"].ToString();
         result = true;
         }
       dr.Close();
@@ -772,7 +775,8 @@ namespace Class_db_vehicles
       string target_pm_mileage,
       DateTime dmv_inspection_due,
       bool be_four_or_all_wheel_drive,
-      bool be_mode_add
+      bool be_mode_add,
+      string deployment_guidance
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -791,6 +795,7 @@ namespace Class_db_vehicles
       + " , target_pm_mileage = NULLIF('" + target_pm_mileage + "','')"
       + " , dmv_inspection_due = NULLIF('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "','0001-01-01')"
       + " , be_four_or_all_wheel_drive = " + be_four_or_all_wheel_drive.ToString()
+      + " , deployment_guidance = NULLIF('" + deployment_guidance + "','')"
       + k.EMPTY;
       var sql = k.EMPTY
       + "insert vehicle"
@@ -862,6 +867,7 @@ namespace Class_db_vehicles
           + " , IFNULL(vin,'') as vin"
           + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
           + " , be_four_or_all_wheel_drive"
+          + " , IFNULL(deployment_guidance,'') as deployment_guidance"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
@@ -911,7 +917,8 @@ namespace Class_db_vehicles
         tag = dr["tag"].ToString(),
         vin = dr["vin"].ToString(),
         recent_mileage_update_time = dr["recent_mileage_update_time"].ToString(),
-        be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1")
+        be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1"),
+        deployment_guidance = dr["deployment_guidance"].ToString()
         };
       Close();
       return the_summary;

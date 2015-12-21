@@ -109,6 +109,10 @@
                 <asp:ButtonColumn Text="&lt;IMG src=&quot;~/protected/image/open_document16_h.png&quot; alt=&quot;Detail&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="Select"></asp:ButtonColumn>
                 <asp:BoundColumn DataField="vehicle_id" ReadOnly="True" SortExpression="vehicle_id" Visible="False"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vehicle_name" HeaderText="Name" ReadOnly="True" SortExpression="vehicle_name%"></asp:BoundColumn>
+                <asp:BoundColumn DataField="deployment_guidance" ReadOnly="true" HeaderText="Deployment guidance&lt;sup&gt;*&lt;/sup&gt;">
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle Font-Size="Small" />
+                </asp:BoundColumn>
                 <asp:ButtonColumn CommandName="GripeSheet" HeaderText="Gripes" Text="GripeSheet" SortExpression="num_gripes%,status,vehicle_name">
                   <HeaderStyle HorizontalAlign="Center" />
                 </asp:ButtonColumn>
@@ -135,9 +139,11 @@
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:ButtonColumn>
                 <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed))%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Right" Wrap="False" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="dmv_inspection_due" HeaderText="DMV inspection due" ReadOnly="True" SortExpression="dmv_inspection_due%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="model_year" HeaderText="Model year" ReadOnly="True" SortExpression="model_year%,vehicle_name"></asp:BoundColumn>
@@ -170,6 +176,29 @@
                 <asp:BoundColumn DataField="be_dmv_inspection_due_meaningful" ReadOnly="True" Visible="False"></asp:BoundColumn>
               </Columns>
             </asp:DataGrid>
+            <asp:Panel ID="Panel_dynamic_best_practices" runat="server" Visible="true">
+              <br />
+              <table border="1" bordercolor="#dcdcdc" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <table cellspacing="0" cellpadding="10" border="0">
+                      <tr><td bgcolor="#f5f5f5"><b><sup>*</sup>Best practices for following <i>deployment guidance</i></b></td></tr>
+                      <tr>
+                        <td>
+                          <small>
+                            <ul>
+                              <li><p>Deployment guidance is only valid when normal operating conditions are in effect.</p></li>
+                              <li><p>If the unit specified by valid deployment guidance is present and UP, staff it.</p></li>
+                              <li><p>Otherwise, check off and staff another unit without delay.</p></li>
+                            </ul>
+                          </small>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </asp:Panel>
           </td>
         </tr>
       </table>

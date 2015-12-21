@@ -24,31 +24,32 @@ namespace UserControl_fleet
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
       public const int TCI_NAME = 2;
-      public const int TCI_GRIPESHEET = 3;
-      public const int TCI_NUM_GRIPES = 4;
-      public const int TCI_STATUS = 5;
-      public const int TCI_STATUS_UP = 6;
-      public const int TCI_STATUS_DOWN = 7;
-      public const int TCI_DOWN_DURATION = 8;
-      public const int TCI_APPEND_NOTE = 9;
-      public const int TCI_QUARTERS = 10;
-      public const int TCI_RECENT_MILEAGE = 11;
-      public const int TCI_MILES_FROM_PM = 12;
-      public const int TCI_DMV_INSPECTION_DUE = 13;
-      public const int TCI_MODEL_YEAR = 14;
-      public const int TCI_CHASSIS_MAKE = 15;
-      public const int TCI_CHASSIS_MODEL = 16;
-      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 17;
-      public const int TCI_CUSTOM_MAKE = 18;
-      public const int TCI_CUSTOM_MODEL = 19;
-      public const int TCI_FUEL = 20;
-      public const int TCI_KIND = 21;
-      public const int TCI_AGENCY = 22;
-      public const int TCI_BUMPER_NUMBER = 23;
-      public const int TCI_TAG = 24;
-      public const int TCI_VIN = 25;
-      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 26;
-      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 27;
+      public const int TCI_DEPLOYMENT_GUIDANCE = 3;
+      public const int TCI_GRIPESHEET = 4;
+      public const int TCI_NUM_GRIPES = 5;
+      public const int TCI_STATUS = 6;
+      public const int TCI_STATUS_UP = 7;
+      public const int TCI_STATUS_DOWN = 8;
+      public const int TCI_DOWN_DURATION = 9;
+      public const int TCI_APPEND_NOTE = 10;
+      public const int TCI_QUARTERS = 11;
+      public const int TCI_RECENT_MILEAGE = 12;
+      public const int TCI_MILES_FROM_PM = 13;
+      public const int TCI_DMV_INSPECTION_DUE = 14;
+      public const int TCI_MODEL_YEAR = 15;
+      public const int TCI_CHASSIS_MAKE = 16;
+      public const int TCI_CHASSIS_MODEL = 17;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 18;
+      public const int TCI_CUSTOM_MAKE = 19;
+      public const int TCI_CUSTOM_MODEL = 20;
+      public const int TCI_FUEL = 21;
+      public const int TCI_KIND = 22;
+      public const int TCI_AGENCY = 23;
+      public const int TCI_BUMPER_NUMBER = 24;
+      public const int TCI_TAG = 25;
+      public const int TCI_VIN = 26;
+      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 27;
+      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 28;
       }
 
     private struct p_type
@@ -449,6 +450,7 @@ namespace UserControl_fleet
     private void Bind()
       {
       DataGrid_control.Columns[Static.TCI_SELECT].Visible = (p.be_interactive);
+      DataGrid_control.Columns[Static.TCI_DEPLOYMENT_GUIDANCE].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_GRIPESHEET].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_STATUS_UP].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
@@ -504,6 +506,9 @@ namespace UserControl_fleet
           p.biz_indicator_shiftwise_vehicles_up_and_current.Log(p.agency_filter,decimal.Divide(Convert.ToDecimal(p.num_vehicles_up_and_current.val), decimal_num_vehicles));
           }
         }
+      //
+      Panel_dynamic_best_practices.Visible = p.be_interest_dynamic;
+      //
       p.num_usable = 0;
       p.num_vehicles = 0;
       }
