@@ -4,18 +4,13 @@ using Class_biz_agencies;
 using Class_biz_chassis_models;
 using Class_biz_custom_models;
 using Class_biz_fuels;
+using Class_biz_role_member_map;
 using Class_biz_vehicle_kinds;
 using Class_biz_vehicles;
-using Class_biz_role_member_map;
 using kix;
 using System;
-using System.Collections;
-using System.Drawing;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace UserControl_vehicle
   {
@@ -72,6 +67,7 @@ namespace UserControl_vehicle
       UserControl_drop_down_date_dmv_inspection_due.Clear();
       Literal_recent_mileage_update_time.Text = k.EMPTY;
       CheckBox_be_four_or_all_wheel_drive.Checked = false;
+      TextBox_deployment_guidance.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -245,6 +241,7 @@ namespace UserControl_vehicle
       DateTime dmv_inspection_due;
       DateTime recent_mileage_update_time;
       bool be_four_or_all_wheel_drive;
+      string deployment_guidance;
       result = false;
       if
         (
@@ -267,7 +264,8 @@ namespace UserControl_vehicle
           out target_pm_mileage,
           out dmv_inspection_due,
           out recent_mileage_update_time,
-          out be_four_or_all_wheel_drive
+          out be_four_or_all_wheel_drive,
+          out deployment_guidance
           )
         )
         {
@@ -297,6 +295,7 @@ namespace UserControl_vehicle
           Literal_recent_mileage_update_time.Text = "  (updated " + recent_mileage_update_time.ToString("yyyy-MM-dd HH:mm") + ")";
           }
         CheckBox_be_four_or_all_wheel_drive.Checked = be_four_or_all_wheel_drive;
+        TextBox_deployment_guidance.Text = deployment_guidance;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
@@ -417,7 +416,8 @@ namespace UserControl_vehicle
           UserControl_drop_down_date_dmv_inspection_due.selectedvalue,
           CheckBox_be_four_or_all_wheel_drive.Checked,
           p.be_mode_add,
-          p.saved_kind_id
+          p.saved_kind_id,
+          k.Safe(TextBox_deployment_guidance.Text,k.safe_hint_type.PUNCTUATED)
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();
@@ -496,6 +496,7 @@ namespace UserControl_vehicle
       TextBox_target_pm_mileage.Enabled = ablement;
       UserControl_drop_down_date_dmv_inspection_due.enabled = ablement;
       CheckBox_be_four_or_all_wheel_drive.Enabled = ablement;
+      TextBox_deployment_guidance.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)

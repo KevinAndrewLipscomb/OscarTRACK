@@ -445,6 +445,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_dmv_inspection_due;
         
         /// <summary>
+        /// TextBox_deployment_guidance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_deployment_guidance;
+        
+        /// <summary>
         /// Button_submit control.
         /// </summary>
         /// <remarks>

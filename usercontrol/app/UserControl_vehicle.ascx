@@ -3,9 +3,9 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
 <style type="text/css">
   .style1
-  {
+    {
     font-variant: small-caps;
-  }
+    }
 </style>
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
@@ -229,6 +229,17 @@
     </td>
     <td nowrap="nowrap">
       <asp:CustomValidator ID="CustomValidator_dmv_inspection_due" runat="server" Display="Dynamic" ErrorMessage="You cannot move the DMV inspection due date backwards." Font-Bold="True" onservervalidate="CustomValidator_dmv_inspection_due_ServerValidate">!ERR!</asp:CustomValidator>
+    </td>
+  </tr>
+  <tr>
+    <td><font class="">Deployment&nbsp;guidance:</font></td>
+    <td></td>
+    <td>
+      <font class="">
+        <ASP:TextBox id="TextBox_deployment_guidance" runat="server"  cssclass="" enabled="False" Columns="63" MaxLength="63"></ASP:TextBox>
+      </font>
+    </td>
+    <td nowrap="nowrap">
     </td>
   </tr>
   <tr>
