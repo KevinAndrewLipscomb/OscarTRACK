@@ -3322,7 +3322,7 @@ namespace Class_db_schedule_assignments
               + " , ("
               +     " count(*)"
               +     " -"
-              +     " IFNULL(if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),num_obliged_shifts,IF(medical_release_code = 9,2,num_shifts)),0)"
+              +     " IFNULL(if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)),0)"
               +   " )"
               +   " as num_excess_avails"
               + " from schedule_assignment"
