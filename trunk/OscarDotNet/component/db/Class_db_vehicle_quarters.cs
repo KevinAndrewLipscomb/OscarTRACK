@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_vehicle_quarters
   {
@@ -184,9 +181,9 @@ namespace Class_db_vehicle_quarters
       + "medium_designator = NULLIF('" + medium_designator + "','')"
       + " , long_designator = NULLIF('" + long_designator + "','')"
       + " , pecking_order = NULLIF('" + pecking_order + "','')"
-      + " , be_active = NULLIF('" + be_active.ToString() + "','')"
+      + " , be_active = " + be_active.ToString()
       + k.EMPTY;
-      this.Open();
+      Open();
       new MySqlCommand
         (
         db_trail.Saved
@@ -197,10 +194,10 @@ namespace Class_db_vehicle_quarters
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
         )
         .ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     } // end TClass_db_vehicle_quarters
