@@ -160,6 +160,40 @@ namespace Class_db_vehicle_quarters
       return result;
       }
 
+    internal string IdWithCompetingLongDesignator
+      (
+      string id,
+      string long_designator
+      )
+      {
+      Open();
+      var id_with_competing_long_designator_obj = new MySqlCommand
+        (
+        "select id from vehicle_quarters where long_designator = '" + long_designator + "' and id <> '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (id_with_competing_long_designator_obj == null ? k.EMPTY : id_with_competing_long_designator_obj.ToString());
+      }
+
+    internal string IdWithCompetingMediumDesignator
+      (
+      string id,
+      string medium_designator
+      )
+      {
+      Open();
+      var id_with_competing_medium_designator_obj = new MySqlCommand
+        (
+        "select id from vehicle_quarters where medium_designator = '" + medium_designator + "' and id <> '" + id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (id_with_competing_medium_designator_obj == null ? k.EMPTY : id_with_competing_medium_designator_obj.ToString());
+      }
+
     public string MediumDashLongDesignatorOfId(string id)
       {
       Open();

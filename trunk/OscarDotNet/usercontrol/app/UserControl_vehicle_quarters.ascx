@@ -61,7 +61,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_medium_designator" runat="server" errormessage="Please enter Medium&nbsp;designator." font-bold="True" controltovalidate="TextBox_medium_designator">!ERR!</ASP:RequiredFieldValidator>
-    </td>
+      <asp:CustomValidator ID="CustomValidator_medium_designator" runat="server" ErrorMessage="The specified Medium designator already belongs to vehicle quarters ID " Font-Bold="True" OnServerValidate="CustomValidator_medium_designator_ServerValidate" ControlToValidate="TextBox_medium_designator">!ERR!</asp:CustomValidator>
   </tr>
   <tr>
     <td><font class="">Long&nbsp;designator:</font></td>
@@ -72,6 +72,7 @@
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_long_designator" runat="server" errormessage="Please enter Long&nbsp;designator." font-bold="True" controltovalidate="TextBox_long_designator">!ERR!</ASP:RequiredFieldValidator>
+      <asp:CustomValidator ID="CustomValidator_long_designator" runat="server" ErrorMessage="The specified Long designator already belongs to vehicle quarters ID " Font-Bold="True" OnServerValidate="CustomValidator_long_designator_ServerValidate" ControlToValidate="TextBox_long_designator">!ERR!</asp:CustomValidator>
     </td>
   </tr>
   <tr>

@@ -279,6 +279,20 @@ namespace UserControl_vehicle_quarters
         }
       }
 
+    protected void CustomValidator_medium_designator_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      var id_with_competing_medium_designator = p.biz_vehicle_quarters.IdWithCompetingMediumDesignator(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_medium_designator.Text,k.safe_hint_type.ORG_NAME).Trim());
+      CustomValidator_medium_designator.ErrorMessage += id_with_competing_medium_designator;
+      args.IsValid = (id_with_competing_medium_designator.Length == 0);
+      }
+
+    protected void CustomValidator_long_designator_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      var id_with_competing_long_designator = p.biz_vehicle_quarters.IdWithCompetingLongDesignator(k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),k.Safe(TextBox_long_designator.Text,k.safe_hint_type.POSTAL_STREET_ADDRESS).Trim());
+      CustomValidator_long_designator.ErrorMessage += id_with_competing_long_designator;
+      args.IsValid = (id_with_competing_long_designator.Length == 0);
+      }
+
     } // end TWebUserControl_vehicle_quarters
 
   }
