@@ -70,6 +70,24 @@ namespace Class_biz_vehicle_quarters
         );
       }
 
+    internal string IdWithCompetingLongDesignator
+      (
+      string id,
+      string long_designator
+      )
+      {
+      return db_vehicle_quarters.IdWithCompetingLongDesignator(id,long_designator);
+      }
+
+    internal string IdWithCompetingMediumDesignator
+      (
+      string id,
+      string medium_designator
+      )
+      {
+      return db_vehicle_quarters.IdWithCompetingMediumDesignator(id,medium_designator);
+      }
+
     public string MediumDashLongDesignatorOfId(string id)
       {
       return db_vehicle_quarters.MediumDashLongDesignatorOfId(id);

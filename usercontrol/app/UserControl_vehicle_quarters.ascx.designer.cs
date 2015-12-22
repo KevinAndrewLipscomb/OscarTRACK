@@ -166,6 +166,15 @@ namespace UserControl_vehicle_quarters {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_medium_designator;
         
         /// <summary>
+        /// CustomValidator_medium_designator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_medium_designator;
+        
+        /// <summary>
         /// TextBox_long_designator control.
         /// </summary>
         /// <remarks>
@@ -182,6 +191,15 @@ namespace UserControl_vehicle_quarters {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_long_designator;
+        
+        /// <summary>
+        /// CustomValidator_long_designator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_long_designator;
         
         /// <summary>
         /// TextBox_pecking_order control.
