@@ -36,7 +36,7 @@ namespace fleet_status
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var agency = HashtableOfShieldedRequest()["agency_short_designator"].ToString();
+      var agency = Request["agency"].ToString();
       Session.Add("mode:report", k.EMPTY);
       Session.Add("member_id",new TClass_biz_members().IdOfAppropriateRoleHolder((agency == "EMS" ? "Department Fleet Supervisor" : "Squad Fleet Coordinator"),agency));
       PlaceHolder_fleet_status.Controls.Add(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))));
