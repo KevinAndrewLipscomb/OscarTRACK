@@ -199,10 +199,19 @@ namespace UserControl_fleet
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      if (Session[InstanceId() + ".p"] != null)
+      var instance_id = InstanceId();
+      if (Session[instance_id + ".p"] != null)
         {
-        p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_fleet");
+        p = (p_type)(Session[instance_id + ".p"]);
+        p.be_loaded = IsPostBack;  // This test is sufficient if this control is being used statically on its page.
+        //
+        // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
+        // had it loaded already.
+        //
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_fleet")
+          {
+          p.be_loaded &= ((Session["M_PlaceHolder_content"] as string) == "UserControl_fleet");
+          }
         }
       else
         {

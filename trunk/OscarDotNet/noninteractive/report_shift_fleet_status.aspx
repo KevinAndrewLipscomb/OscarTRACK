@@ -6,6 +6,7 @@
 <html>
   <head runat="server">
     <!-- $Id: report_shift_fleet_status.aspx 2817 2009-09-09 13:48:28Z KevinAnLipscomb $ -->
+    <title></title>
   </head>
   <body bgcolor="white">
     <form runat="server">
@@ -44,7 +45,6 @@
         </table>
       </p>
       <asp:PlaceHolder ID="PlaceHolder_fleet_status" runat="server"></asp:PlaceHolder>
-      </p>
     </form>
   </body>
 </html>
