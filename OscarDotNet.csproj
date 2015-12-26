@@ -177,6 +177,7 @@
     <Content Include="protected\watchbill.aspx" />
     <Content Include="protected\watchbill_maag.aspx" />
     <Content Include="pub\field_situation.aspx" />
+    <Content Include="pub\fleet_status.aspx" />
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
@@ -1011,6 +1012,13 @@
     </Compile>
     <Compile Include="pub\field_situation.aspx.designer.cs">
       <DependentUpon>field_situation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pub\fleet_status.aspx.cs">
+      <DependentUpon>fleet_status.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pub\fleet_status.aspx.designer.cs">
+      <DependentUpon>fleet_status.aspx</DependentUpon>
     </Compile>
     <Compile Include="remind_username.aspx.cs">
       <DependentUpon>remind_username.aspx</DependentUpon>

@@ -17,6 +17,7 @@ using Class_biz_vehicles;
 using Class_db_notifications;
 using kix;
 using System;
+using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Web;
@@ -2021,6 +2022,9 @@ namespace Class_biz_notifications
             + (new String(Convert.ToChar(k.SPACE), 3)) + address + k.NEW_LINE
             + (new String(Convert.ToChar(k.SPACE), 3)) + "Google map: http://google.com/maps?q=" + HttpUtility.UrlEncode(address + ", VIRGINIA BEACH, VA");
             }
+          var arg_hash_table = new Hashtable();
+          arg_hash_table.Add("agency_short_designator",biz_agencies.ShortDesignatorOf(agency_id_responsible_for_post));
+          var arg = HttpUtility.UrlEncode(k.ShieldedValueOfHashtable(arg_hash_table));
 
           IssueForUpcomingDuty_Merge Merge = delegate (string s)
             {
@@ -2039,6 +2043,7 @@ namespace Class_biz_notifications
               .Replace("<shift_name/>",shift_name)
               .Replace("<shift_start/>",shift_start.ToString("HH:mm"))
               .Replace("<rsvp_target/>",rsvp_target.Trim().Replace(k.SPACE + k.SPACE,k.SPACE).Replace(k.SPACE,k.COMMA))
+              .Replace("<arg/>",arg)
               ;
             };
 
