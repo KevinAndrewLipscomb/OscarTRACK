@@ -30,7 +30,7 @@ This assignment carries the following comment, which may modify the above values
 
 If not specified above, deployment guidance (information about which vehicle to staff) may be available here:
 
-   http://<host_domain_name/>/<application_name/>/pub/fleet_status.aspx?agency=<agency_short_designator/>
+   https://<host_domain_name/>/<application_name/>/pub/fleet_status.aspx?agency=<agency_short_designator/>
 
 
 STANDARD NOTICE:  You are expected to stand this duty, or take responsibility for getting it covered.
