@@ -272,7 +272,7 @@ namespace Class_db_vehicles
           (
           "select vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
-          + " , IFNULL(deployment_guidance,'') as deployment_guidance"
+          + " , IF(vehicle_down_nature.id is null,IFNULL(deployment_guidance,''),'') as deployment_guidance"
           + " , count(gripe.vehicle_id) as num_gripes"
           + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
           + " , IF(vehicle_down_nature.id is null,-1,TIMESTAMPDIFF(MINUTE,time_went_down,NOW()) DIV 1440) as down_duration"
