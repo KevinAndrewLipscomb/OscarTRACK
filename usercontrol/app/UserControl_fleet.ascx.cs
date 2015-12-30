@@ -228,7 +228,7 @@ namespace UserControl_fleet
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
         p.be_ok_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        p.be_interactive = (Session["mode:report"] == null);
+        p.be_interactive = ((Session["mode:report"] == null) && (Session["mode:report/pub-fleet-status"] == null));
         p.be_interest_dynamic = true;
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
