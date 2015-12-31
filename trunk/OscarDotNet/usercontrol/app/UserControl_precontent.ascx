@@ -15,9 +15,17 @@
         <tr id="TableRow_account_control" runat="server">
           <td align="left" colspan="3">
             <hr align="center" noshade="noshade" width="100%" size="1"/>
-            <small>
-              <ASP:Label id="Label_username" runat="server"></ASP:Label>:&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False" onclick="LinkButton_logout_Click">logout</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_profile" runat="server" causesvalidation="False" onclick="LinkButton_profile_Click">profile</ASP:LinkButton>
-            </small>
+            <table cellpadding="0" cellspacing="0" width="100%">
+              <tr>
+                <td align="left" valign="middle">
+                  <small>
+                    <ASP:Label id="Label_username" runat="server"></ASP:Label>:&nbsp;<ASP:LinkButton id="LinkButton_logout" runat="server" causesvalidation="False" onclick="LinkButton_logout_Click">logout</ASP:LinkButton>&nbsp;|&nbsp;<ASP:LinkButton id="LinkButton_profile" runat="server" causesvalidation="False" onclick="LinkButton_profile_Click">profile</ASP:LinkButton>
+                  </small>
+                </td>
+                <td>&nbsp;&nbsp;</td>
+                <td align="right" valign="middle"><asp:LinkButton ID="LinkButton_role_comms" runat="server" Visible="false" OnClick="LinkButton_role_comms_Click" CausesValidation="False">ROLE*COMMS</asp:LinkButton></td>
+              </tr>
+            </table>
             <hr align="center" noshade="noshade" width="100%" size="1"/>
             <small><i><uc1:UserControl_bread_crumb_trail id="UserControl_bread_crumb_trail" runat="server"></uc1:UserControl_bread_crumb_trail></i></small>
           </td>

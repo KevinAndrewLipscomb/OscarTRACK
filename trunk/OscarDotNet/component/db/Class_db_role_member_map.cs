@@ -97,22 +97,34 @@ namespace Class_db_role_member_map
 
         }
 
-        public void BindHolders(string role_name, object target, string sort_order, bool be_sort_order_ascending)
-        {
-            this.Open();
-            if (be_sort_order_ascending)
-            {
-                sort_order = sort_order.Replace("%", " asc");
-            }
-            else
-            {
-                sort_order = sort_order.Replace("%", " desc");
-            }
-            ((target) as GridView).DataSource = new MySqlCommand("select concat(last_name,\", \",first_name) as member_name" + " , short_designator as agency_designator" + " , email_address" + " from role_member_map" + " join member on (member.id=role_member_map.member_id)" + " join agency on (agency.id=member.agency_id)" + " join role on (role.id=role_member_map.role_id)" + " where role.name = \"" + role_name + "\"" + " order by " + sort_order, this.connection).ExecuteReader();
-            ((target) as GridView).DataBind();
-            this.Close();
-
-        }
+    public void BindHolders
+      (
+      string role_name,
+      object target,
+      string sort_order,
+      bool be_sort_order_ascending,
+      string agency_filter
+      )
+      {
+      Open();
+      ((target) as GridView).DataSource = new MySqlCommand
+        (
+        "select concat(last_name,', ',first_name) as member_name"
+        + " , short_designator as agency_designator"
+        + " , email_address"
+        + " from role_member_map"
+        +   " join member on (member.id=role_member_map.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join role on (role.id=role_member_map.role_id)"
+        + " where role.name = '" + role_name + "'"
+        +   (agency_filter.Length > 0 ? " and agency.id = '" + agency_filter + "'" : k.EMPTY)
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ?  " asc" : " desc")),
+        connection
+        )
+        .ExecuteReader();
+      ((target) as GridView).DataBind();
+      Close();
+      }
 
         public void BindHoldersPerAgency(string agency_id, object target)
         {

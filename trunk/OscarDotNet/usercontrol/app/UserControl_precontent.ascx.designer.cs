@@ -67,6 +67,15 @@ namespace UserControl_precontent {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_profile;
         
         /// <summary>
+        /// LinkButton_role_comms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_role_comms;
+        
+        /// <summary>
         /// UserControl_bread_crumb_trail control.
         /// </summary>
         /// <remarks>
