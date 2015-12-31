@@ -1,4 +1,6 @@
+using Class_biz_user;
 using Class_db__information_schema;
+using Class_msg_protected;
 using kix;
 using System.Configuration;
 using System.Web;
@@ -9,6 +11,16 @@ namespace UserControl_precontent
 
   public partial class TWebUserControl_precontent: ki_web_ui.usercontrol_class
     {
+
+    private struct p_type
+      {
+      public TClass_biz_user biz_user;
+      public TClass_msg_protected.overview msg_protected_overview;
+      }
+
+    private p_type p;
+
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             Response.Cache.SetCacheability(HttpCacheability.NoCache);
@@ -24,6 +36,7 @@ namespace UserControl_precontent
                 else
                 {
                     Label_username.Text = Session["username"].ToString();
+                    LinkButton_role_comms.Visible = (p.biz_user.Roles()[0] != "Member");
                 }
             }
             var timeout_page = k.ExpandTildePath("~/timeout.aspx");
@@ -42,6 +55,9 @@ namespace UserControl_precontent
         protected override void OnInit(System.EventArgs e)
         {
             base.OnInit(e);
+            //
+            p.biz_user = new TClass_biz_user();
+            p.msg_protected_overview = new TClass_msg_protected.overview();
         }
 
         protected void ScriptManager_control_AsyncPostBackError(object sender, System.Web.UI.AsyncPostBackErrorEventArgs e)
@@ -110,6 +126,16 @@ namespace UserControl_precontent
             Server.Transfer(k.ExpandTildePath("~/Default.aspx"));
         }
 
+    protected void LinkButton_role_comms_Click(object sender, System.EventArgs e)
+      {
+      p.msg_protected_overview.target = "/config/role-and-mappings/roles/";
+      MessageDropCrumbAndTransferTo
+        (
+        msg:p.msg_protected_overview,
+        folder_name: "protected",
+        aspx_name:"overview"
+        );
+      }
     } // end TWebUserControl_precontent
 
   }

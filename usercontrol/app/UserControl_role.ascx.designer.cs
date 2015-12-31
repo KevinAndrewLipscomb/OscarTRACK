@@ -283,15 +283,6 @@ namespace UserControl_role {
         protected global::System.Web.UI.WebControls.Button Button_delete;
         
         /// <summary>
-        /// Anchor_quick_message_shortcut control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Anchor_quick_message_shortcut;
-        
-        /// <summary>
         /// Table_holders control.
         /// </summary>
         /// <remarks>
@@ -308,6 +299,24 @@ namespace UserControl_role {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label_num_rows;
+        
+        /// <summary>
+        /// RadioButtonList_scope control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_scope;
+        
+        /// <summary>
+        /// TableRow_none control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_none;
         
         /// <summary>
         /// GridView_holders control.

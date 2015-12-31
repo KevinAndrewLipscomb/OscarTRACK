@@ -59,10 +59,17 @@ namespace Class_biz_role_member_map
             db_role_member_map.BindActuals(tier_quoted_value_list, agency_filter, sort_order, be_sort_order_ascending, target);
         }
 
-        public void BindHolders(string role_name, object target, string sort_order, bool be_sort_order_ascending)
-        {
-            db_role_member_map.BindHolders(role_name, target, sort_order, be_sort_order_ascending);
-        }
+    public void BindHolders
+      (
+      string role_name,
+      object target,
+      string sort_order,
+      bool be_sort_order_ascending,
+      string agency_filter
+      )
+      {
+      db_role_member_map.BindHolders(role_name,target,sort_order,be_sort_order_ascending,agency_filter);
+      }
 
         public void BindHoldersPerAgency(string agency_id, object target)
         {

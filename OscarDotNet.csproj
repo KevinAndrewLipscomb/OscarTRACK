@@ -1401,6 +1401,7 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
