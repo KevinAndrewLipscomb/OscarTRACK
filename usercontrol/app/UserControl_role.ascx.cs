@@ -389,7 +389,7 @@ namespace UserControl_role
         RadioButtonList_scope.SelectedValue = "your-agency-only";
         }
       RadioButtonList_scope.Visible = !be_specified_role_in_superior_tier_to_user;
-      RadioButtonList_scope.Enabled = be_role_held_by_user;
+      RadioButtonList_scope.Enabled = be_role_held_by_user || (int_tier_of_user_highest_role < 2);
       p.biz_role_member_map.BindHolders
         (
         role_name:p.role_name,
