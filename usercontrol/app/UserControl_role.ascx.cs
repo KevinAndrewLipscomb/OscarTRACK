@@ -5,7 +5,6 @@ using Class_biz_tiers;
 using Class_biz_user;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -376,9 +375,10 @@ namespace UserControl_role
     private void BindHolders()
       {
       var be_role_held_by_user = (Array.IndexOf(p.user_role_string_array,p.role_name) > -1);
-      var be_specified_role_in_superior_tier_to_user = (int.Parse(p.biz_roles.TierOfName(p.role_name)) < int.Parse(p.biz_roles.TierOfName(p.user_role_string_array[0])));
+      var int_tier_of_user_highest_role = int.Parse(p.biz_roles.TierOfName(p.user_role_string_array[0]));
+      var be_specified_role_in_superior_tier_to_user = (int.Parse(p.biz_roles.TierOfName(p.role_name)) < int_tier_of_user_highest_role);
       var agency_filter = k.EMPTY;
-      p.be_scope_cross_agency = ((be_role_held_by_user && p.be_scope_cross_agency) || be_specified_role_in_superior_tier_to_user);
+      p.be_scope_cross_agency = ((be_role_held_by_user && p.be_scope_cross_agency) || be_specified_role_in_superior_tier_to_user || (int_tier_of_user_highest_role < 2));
       if (p.be_scope_cross_agency)
         {
         RadioButtonList_scope.SelectedValue = "cross-agency";
