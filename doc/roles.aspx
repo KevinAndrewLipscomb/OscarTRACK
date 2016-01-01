@@ -11,7 +11,7 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_common_header_bar id="UserControl_common_header_bar" runat="server"></uc1:UserControl_common_header_bar>
-      <uc2:UserControl_role_help id="UserControl_role_help1" runat="server"></uc2:UserControl_role_help>
+      <uc2:UserControl_role_help id="UserControl_role_help_control" runat="server"></uc2:UserControl_role_help>
     </form>
   </body>
 </html>

@@ -162,7 +162,7 @@ namespace Class_db_streets
     internal string NormalizedSuffixRendition(string name)
       {
       Open();
-      var normalized_suffix_rendition = new MySqlCommand("select NORMALIZED_STREET_SUFFIX_RENDITION('" + name + "')",connection).ExecuteScalar().ToString();
+      var normalized_suffix_rendition = new MySqlCommand("select NORMALIZED_STREET_SUFFIX_RENDITION('" + name.Substring(0,127) + "')",connection).ExecuteScalar().ToString();
       Close();
       return normalized_suffix_rendition;
       }
