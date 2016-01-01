@@ -1,80 +1,58 @@
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using System.Web.UI.HtmlControls;
 
 namespace roles
-{
+  {
+
+  public partial class TWebForm_roles: ki_web_ui.page_class
+    {
+
     public struct p_type
-    {
-    } // end p_type
+      {
+      }
 
-    public partial class TWebForm_roles: ki_web_ui.page_class
-    {
-        private p_type p;
-        // / <summary>
-        // / Required method for Designer support -- do not modify
-        // / the contents of this method with the code editor.
-        // / </summary>
-        private void InitializeComponent()
+    private p_type p;
+
+    // / <summary>
+    // / Required method for Designer support -- do not modify
+    // / the contents of this method with the code editor.
+    // / </summary>
+    private void InitializeComponent()
+      {
+      PreRender += TWebForm_roles_PreRender;
+      }
+
+    protected void Page_Load(object sender, System.EventArgs e)
+      {
+      if (!IsPostBack)
         {
-            this.PreRender += this.TWebForm_roles_PreRender;
+        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - roles";
         }
+      }
 
-        protected void Page_Load(object sender, System.EventArgs e)
+    protected override void OnInit(EventArgs e)
+      {
+      // Required for Designer support
+      InitializeComponent();
+      base.OnInit(e);
+      if (IsPostBack)
         {
-            //@ Undeclared identifier(3): 'IsPostback'
-            if (!IsPostBack)
-            {
-                //@ Undeclared identifier(3): 'configurationmanager'
-                //@ Unsupported property or method(A): 'appsettings'
-                //@ Undeclared identifier(3): 'server'
-                //@ Unsupported property or method(A): 'HtmlEncode'
-                Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - roles";
-            }
+        if ((Session[InstanceId() + ".p"] != null))
+          {
+          p = (p_type)(Session[InstanceId() + ".p"]);
+          }
+        else
+          {
+          Server.Transfer("~/timeout.aspx");
+          }
         }
+      }
 
-        protected override void OnInit(EventArgs e)
-        {
-            // Required for Designer support
-            InitializeComponent();
-            base.OnInit(e);
-            //@ Undeclared identifier(3): 'IsPostback'
-            if (IsPostBack)
-            {
-                //@ Undeclared identifier(3): 'session'
-                if ((Session[InstanceId() + ".p"] != null))
-                {
-                    //@ Undeclared identifier(3): 'session'
-                    p = (p_type)(Session[InstanceId() + ".p"]);
-                }
-                else
-                {
-                    //@ Undeclared identifier(3): 'server'
-                    //@ Unsupported property or method(A): 'Transfer'
-                    Server.Transfer("~/timeout.aspx");
-                }
-            }
-            else
-            {
-            }
-
-        }
-
-        private void TWebForm_roles_PreRender(object sender, System.EventArgs e)
-        {
-            //@ Undeclared identifier(3): 'SessionSet'
-            SessionSet(InstanceId() + ".p", p);
-        }
+    private void TWebForm_roles_PreRender(object sender, System.EventArgs e)
+      {
+      SessionSet(InstanceId() + ".p", p);
+      }
 
     } // end TWebForm_roles
 
-}
-
+  }

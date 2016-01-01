@@ -9,7 +9,79 @@
           </tr>
           <tr>
             <td>
-              <p><asp:Label id="Label_application_name_1" runat="server"></asp:Label>&nbsp;is primarily a scheduling adjunct.&nbsp; With this in mind, it fully recognizes some roles (like Squad Schedule Coordinator); it disregards some roles (like Treasurer); and to consolidate other roles, it uses <strong>special terminology</strong> as follows:</p>
+              <p><asp:Label id="Label_application_name_1" runat="server"></asp:Label>&nbsp;has evolved from primarily being a scheduling adjunct.&nbsp; With this in mind, it fully recognizes some roles (like Squad Scheduler); it disregards some roles (like Infection Control Officer); and to consolidate other roles, it uses <strong>special terminology</strong> as follows:</p>
+              <h3>Section-level</h3>
+              <p>
+                <table cellspacing="0" cellpadding="5" border="0" style="FONT-SIZE: x-small" bordercolor="#dcdcdc">
+                  <tr bgcolor="whitesmoke">
+                    <th valign="top">Title</th>
+                    <th valign="top">Description</th>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Section Sergeant</strong></td>
+                    <td valign="top">Someone who manages a subset of the members ("section") of a squad.&nbsp; Establishing sections and a tier of Section Sergeants may result in a better ratio of supervisors to subordinates, allowing for a more manageable <i>span of control</i> arrangement.</td>
+                  </tr>
+                </table>
+              </p>
+              <h3>Squad-level</h3>
+              <p>
+                <table cellspacing="0" cellpadding="5" border="0" style="FONT-SIZE: x-small" bordercolor="#dcdcdc">
+                  <tr bgcolor="whitesmoke">
+                    <th valign="top">Title</th>
+                    <th valign="top">Description</th>
+                  </tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Manager (possibly paid)</strong></td>
+                    <td valign="top"><p>Someone who is (or might as well be) hired by a squad to execute many or most of the Squad Commander's responsibilities.&nbsp; <asp:Label id="Label4" runat="server"></asp:Label>&nbsp;copies Squad Managers on all notifications and reports sent to Squad Commanders.&nbsp; Squad Managers have all the <asp:Label id="Label5" runat="server"></asp:Label> privileges that a Squad Commander has <i>except</i> for the privilege of assigning roles.</p></td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Assistant Manager (possibly paid)</strong></td>
+                    <td valign="top"><p>Someone who is (or might as well be) hired by a squad to execute secretarial work, possibly including making updates to the schedule, to member contact information, and collecting field performance evaluations.&nbsp; <asp:Label id="Label1" runat="server"></asp:Label>&nbsp;copies Squad Managers on all notifications and reports sent to Squad Commanders.</p></td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Analyst</strong></td>
+                    <td valign="top">Someone who examines (but does not change) squad data, and who is allowed to use the QuickMessage feature to send email broadcasts to filtered groups of members.&nbsp; Often includes Lieutenants, Quality Coordinators, etc.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Fleet Coordinator</strong></td>
+                    <td valign="top">An officer who is responsible for the overall readiness of the squad's fleet of vehicles.&nbsp; A squad's internal title for this officer might be Logistics Officer, Maintenance Officer, Logistics Officer, or Engineer.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Fleet Assistant</strong></td>
+                    <td valign="top">Someone who answers to the Squad Fleet Coordinator and is typically responsible for the overall readiness of <u>one</u> of the squad's vehicles.&nbsp; A squad's internal title for this officer might be Crew Chief.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Equipment Officer</strong></td>
+                    <td valign="top">An officer who is responsible for the overall readiness of the durable field equipment carried within the squad's vehicles, such as monitor/defibrillators, stair chairs, splints, lifting & carrying devices, etc.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Board Director</strong></td>
+                    <td valign="top">This role should be assigned to each member of the squad's Board Of Directors, even if he or she is on the board by virtue of holding another office, like President, VP, etc.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Bookkeeper</strong></td>
+                    <td valign="top">Someone who is hired (or might as well be) to maintain the squad's financial books.&nbsp; This person reports to (and may actually be) the Squad Treasurer.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Check Signer</strong></td>
+                    <td valign="top">Someone who needs the ability to "sign" checks using the <i>EfficiPay</i> module.</td>
+                  </tr>
+                  <tr><td colspan="2"><hr color="whitesmoke"></td></tr>
+                  <tr>
+                    <td align="right" valign="top"><strong>Squad Fund Drive Clerk</strong></td>
+                    <td valign="top">Someone who needs the ability to enter donations and run reports using the <i>KEYclick</i> module.</td>
+                  </tr>
+                </table>
+              </p>
+              <h3>Department-level</h3>
               <p>
                 <table cellspacing="0" cellpadding="5" border="0" style="FONT-SIZE: x-small" bordercolor="#dcdcdc">
                   <tr bgcolor="whitesmoke">

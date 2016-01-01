@@ -22,12 +22,12 @@ namespace roles {
         protected global::UserControl_common_header_bar.TWebUserControl_common_header_bar UserControl_common_header_bar;
         
         /// <summary>
-        /// UserControl_role_help1 control.
+        /// UserControl_role_help_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_role_help.TWebUserControl_role_help UserControl_role_help1;
+        protected global::UserControl_role_help.TWebUserControl_role_help UserControl_role_help_control;
     }
 }
