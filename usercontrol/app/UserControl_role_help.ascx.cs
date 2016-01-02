@@ -17,12 +17,11 @@ namespace UserControl_role_help
       {
       if (!p.be_loaded)
         {
-        Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
-        Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
-        Label_application_name_3.Text = ConfigurationManager.AppSettings["application_name"];
-        Label_application_name_4.Text = ConfigurationManager.AppSettings["application_name"];
-        Label_application_name_5.Text = ConfigurationManager.AppSettings["application_name"];
-        Label_application_name_6.Text = ConfigurationManager.AppSettings["application_name"];
+        Label_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+        Label_application_name_2.Text = Label_application_name.Text;
+        Label_application_name_3.Text = Label_application_name.Text;
+        Label_application_name_4.Text = Label_application_name.Text;
+        Label_application_name_5.Text = Label_application_name.Text;
         p.be_loaded = true;
         }
       }
@@ -35,7 +34,7 @@ namespace UserControl_role_help
       if (Session[InstanceId() + ".p"] != null)
         {
         p = (p_type)(Session[InstanceId() + ".p"]);
-        p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_role_help");
+        p.be_loaded = IsPostBack;
         }
       else
         {

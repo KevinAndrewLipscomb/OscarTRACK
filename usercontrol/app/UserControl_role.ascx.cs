@@ -68,6 +68,9 @@ namespace UserControl_role
           Label_author_email_address.Text = p.biz_user.EmailAddress();
           if (p.be_ok_to_config_roles)
             {
+            Table_lookup_controls.Visible = true;
+            TableData_match_controls.Visible = true;
+            TableData_goto_controls.Visible = true;
             LinkButton_new_record.Visible = true;
             TableRow_pecking_order.Visible = true;
             TableRow_soft_hyphenation_text.Visible = true;
