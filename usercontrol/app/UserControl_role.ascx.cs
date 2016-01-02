@@ -374,11 +374,19 @@ namespace UserControl_role
 
     private void BindHolders()
       {
-      var be_role_held_by_user = (Array.IndexOf(p.user_role_string_array,p.role_name) > -1);
-      var int_tier_of_user_highest_role = int.Parse(p.biz_roles.TierOfName(p.user_role_string_array[0]));
-      var be_specified_role_in_superior_tier_to_user = (int.Parse(p.biz_roles.TierOfName(p.role_name)) < int_tier_of_user_highest_role);
       var agency_filter = k.EMPTY;
-      p.be_scope_cross_agency = ((be_role_held_by_user && p.be_scope_cross_agency) || be_specified_role_in_superior_tier_to_user || (int_tier_of_user_highest_role < 2));
+      bool be_role_held_by_user;
+      bool be_specified_role_in_superior_tier_to_user;
+      bool be_scope_change_allowable;
+      p.biz_roles.AnalyzeForRoleComms
+        (
+        user_role_string_array: p.user_role_string_array,
+        selected_role_name: p.role_name,
+        be_scope_cross_agency: ref p.be_scope_cross_agency,
+        be_role_held_by_user: out be_role_held_by_user,
+        be_selected_role_in_superior_tier_to_user: out be_specified_role_in_superior_tier_to_user,
+        be_scope_change_allowable: out be_scope_change_allowable
+        );
       if (p.be_scope_cross_agency)
         {
         RadioButtonList_scope.SelectedValue = "cross-agency";
@@ -389,37 +397,31 @@ namespace UserControl_role
         RadioButtonList_scope.SelectedValue = "your-agency-only";
         }
       RadioButtonList_scope.Visible = !be_specified_role_in_superior_tier_to_user;
-      RadioButtonList_scope.Enabled = be_role_held_by_user || (int_tier_of_user_highest_role < 2);
+      RadioButtonList_scope.Enabled = be_scope_change_allowable;
       p.biz_role_member_map.BindHolders
         (
-        role_name:p.role_name,
-        target:GridView_holders,
-        sort_order:p.sort_order,
-        be_sort_order_ascending:p.be_sort_order_ascending,
-        agency_filter:agency_filter
+        role_name: p.role_name,
+        target: GridView_holders,
+        sort_order: p.sort_order,
+        be_sort_order_ascending: p.be_sort_order_ascending,
+        agency_filter: agency_filter
         );
       p.be_gridview_empty = (p.num_gridview_rows == 0);
       Table_holders.Visible = true;
       TableRow_none.Visible = p.be_gridview_empty;
       GridView_holders.Visible = !p.be_gridview_empty;
-      Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+      Label_distribution_list.Text = (p.distribution_list + k.SPACE).TrimEnd(new char[] { Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE) });
       Label_num_rows.Text = p.num_gridview_rows.ToString();
-      var be_user_authorized_to_send_quickmessages =
+      Table_quick_message.Visible = p.biz_roles.BeOkToAllowRoleCommsQuickMessaging
         (
-          (
-            (
-              k.Has((string[])(Session["privilege_array"]), "send-quickmessages")
-            &&
-              !be_specified_role_in_superior_tier_to_user
-            )
-          ||
-            be_role_held_by_user
-          )
-        &&
-          !p.be_gridview_empty
+        has_user_quickmessage_priv:k.Has((string[])(Session["privilege_array"]), "send-quickmessages"),
+        be_role_held_by_user:be_role_held_by_user,
+        be_specified_role_in_superior_tier_to_user:be_specified_role_in_superior_tier_to_user,
+        be_any_role_holders:!p.be_gridview_empty
         );
-      Table_quick_message.Visible = be_user_authorized_to_send_quickmessages;
-      // Clear aggregation vars for next bind, if any.
+      //
+      // Clear aggregation vars for next bind.
+      //
       p.distribution_list = k.EMPTY;
       p.num_gridview_rows = 0;
       }
@@ -429,6 +431,7 @@ namespace UserControl_role
       p.be_scope_cross_agency = (k.Safe(RadioButtonList_scope.SelectedValue,k.safe_hint_type.HYPHENATED_ALPHA) == "cross-agency");
       BindHolders();
       }
+
     } // end TWebUserControl_role
 
   }
