@@ -22,6 +22,15 @@ namespace UserControl_role {
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_quick_message;
         
         /// <summary>
+        /// Table_lookup_controls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_lookup_controls;
+        
+        /// <summary>
         /// TextBox_name control.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,15 @@ namespace UserControl_role {
         protected global::System.Web.UI.WebControls.LinkButton LinkButton_new_record;
         
         /// <summary>
+        /// TableData_match_controls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_match_controls;
+        
+        /// <summary>
         /// Panel_match_numbers control.
         /// </summary>
         /// <remarks>
@@ -101,6 +119,15 @@ namespace UserControl_role {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_num_matches;
+        
+        /// <summary>
+        /// TableData_goto_controls control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_goto_controls;
         
         /// <summary>
         /// LinkButton_go_to_match_first control.
