@@ -73,6 +73,7 @@ namespace UserControl_business_objects_binder
           }
         p.be_loaded = true;
         }
+      TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
       }
 
     protected override void OnInit(System.EventArgs e)

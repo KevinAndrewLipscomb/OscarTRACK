@@ -49,7 +49,7 @@
   <tr>
 	<td>Short designator:</td>
 	<td>
-	  <ASP:TextBox id="TextBox_short_designator" runat="server" columns="3" maxlength="3"></ASP:TextBox>
+	  <ASP:TextBox id="TextBox_short_designator" runat="server" columns="3" maxlength="3" Enabled="false"></ASP:TextBox>
 	</td>
 	<td><ASP:RequiredFieldValidator id="RequiredFieldValidator_short_designator" runat="server" errormessage="Please enter a Short designator." display="Dynamic" font-bold="True" controltovalidate="TextBox_short_designator">!ERR!</ASP:RequiredFieldValidator>
 	</td>

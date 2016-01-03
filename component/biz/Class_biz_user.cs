@@ -1,23 +1,22 @@
-using System;
-using System.Web;
 using Class_db_user;
 using Class_db_users;
+using kix;
+using System.Web;
 
 namespace Class_biz_user
-{
+  {
 
-    public class TClass_biz_user
+  public class TClass_biz_user
     {
-        private TClass_db_user db_user = null;
-        private TClass_db_users db_users = null;
+  
+    private TClass_db_user db_user = null;
+    private TClass_db_users db_users = null;
 
-        //Constructor  Create()
-        public TClass_biz_user() : base()
-        {
-            // TODO: Add any constructor code here
-            db_user = new TClass_db_user();
-            db_users = new TClass_db_users();
-        }
+    public TClass_biz_user() : base()
+      {
+      db_user = new TClass_db_user();
+      db_users = new TClass_db_users();
+      }
 
     public void BindNotificationsToBaseDataList(object target)
       {
@@ -34,37 +33,61 @@ namespace Class_biz_user
       db_user.BindRolesToBaseDataList(IdNum(),target);
       }
 
-        public string EmailAddress()
-        {
-            string result;
-            result = db_users.PasswordResetEmailAddressOfId(IdNum());
-            return result;
-        }
+    public string EmailAddress()
+      {
+      return db_users.PasswordResetEmailAddressOfId(IdNum());
+      }
 
-        public string IdNum()
+    internal string FullTitle()
+      {
+      var full_title = k.EMPTY;
+      var user_id_num = IdNum();
+      var tier_3_role_array = db_user.RolesOf
+        (
+        id:user_id_num,
+        id_of_highest_tier_of_interest:"3"
+        );
+      if (tier_3_role_array.Length > 0)
         {
-            string result;
-            result = db_users.IdOf(HttpContext.Current.User.Identity.Name);
-            return result;
+        full_title = tier_3_role_array[0];
         }
-
-        public string[] Privileges()
+      var tier_2_role_array = db_user.RolesOf
+        (
+        id:user_id_num,
+        id_of_highest_tier_of_interest:"2"
+        );
+      if (tier_2_role_array.Length > 0)
         {
-            string[] result;
-            result = db_users.PrivilegesOf(IdNum());
-            return result;
+        full_title = tier_2_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
         }
+      var tier_1_role_array = db_user.RolesOf(id:user_id_num);
+      if (tier_1_role_array.Length > 0)
+        {
+        full_title = tier_1_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
+        }
+      return (full_title.Length > 0 ? full_title : "Member");
+      }
 
-        public string[] Roles()
-          {
-          var role_array = db_user.RolesOf(IdNum());
-          if (role_array.Length == 0)
-            {
-            role_array = (new string[] {"Member"});
-            }
-          return role_array;
-          }
+    public string IdNum()
+      {
+      return db_users.IdOf(HttpContext.Current.User.Identity.Name);
+      }
+
+    public string[] Privileges()
+      {
+      return db_users.PrivilegesOf(IdNum());
+      }
+
+    public string[] Roles(string id_of_highest_tier_of_interest = k.EMPTY)
+      {
+      var role_array = db_user.RolesOf
+        (
+        id:IdNum(),
+        id_of_highest_tier_of_interest:id_of_highest_tier_of_interest
+        );
+      return (role_array.Length == 0 ? new string[] {"Member"} : role_array);
+      }
 
     } // end TClass_biz_user
 
-}
+  }

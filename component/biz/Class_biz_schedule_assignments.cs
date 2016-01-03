@@ -931,7 +931,7 @@ namespace Class_biz_schedule_assignments
           +   "=agency_id=" + agency_filter
           +   "&release_filter=" + release_filter
           +   "&relative_month=" + relative_month.val
-          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(member_id) + k.SPACE + biz_members.LastNameOfMemberId(member_id) + "\""
+          +   "&publisher=\"" + biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(member_id) + k.SPACE + biz_members.LastNameOfMemberId(member_id) + "\""
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_watchbill" + (be_scalable_format_selected ? k.EMPTY : "_maag") + ".aspx\""
           },
@@ -972,7 +972,7 @@ namespace Class_biz_schedule_assignments
           +   "&member_agency_id=" + biz_members.AgencyIdOfId(member_id)
           +   "&other_agency_ids=" + other_agency_ids
           +   "&be_virgin_watchbill=" + be_virgin_watchbill.ToString()
-          +   "&publisher=\"" + biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(publisher_member_id) + k.SPACE + biz_members.LastNameOfMemberId(publisher_member_id) + "\""
+          +   "&publisher=\"" + biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(publisher_member_id) + k.SPACE + biz_members.LastNameOfMemberId(publisher_member_id) + "\""
           +   "&be_limited_preview=" + be_limited_preview.ToString()
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_member_schedule_detail.aspx\""

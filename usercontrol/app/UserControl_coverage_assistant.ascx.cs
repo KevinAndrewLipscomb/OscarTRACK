@@ -327,7 +327,7 @@ namespace UserControl_coverage_assistant
         if (be_email_mode)
           {
           attribution += "-- From "
-          + p.biz_user.Roles()[0] + k.SPACE
+          + p.biz_user.FullTitle() + k.SPACE
           + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString())
           + " (" + p.biz_user.EmailAddress() + ")"
           + " [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE

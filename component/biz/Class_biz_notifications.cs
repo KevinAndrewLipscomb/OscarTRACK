@@ -101,7 +101,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/agency_change.txt"));
             // from
@@ -272,7 +272,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/cad_num_change.txt"));
             // from
@@ -321,7 +321,7 @@ namespace Class_biz_notifications
           var biz_user = new TClass_biz_user();
           var biz_users = new TClass_biz_users();
           actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-          actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+          actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
           actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/death.txt"));
           k.SmtpMailSend
@@ -366,7 +366,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/driver_qualification_change.txt"));
             // from
@@ -444,7 +444,7 @@ namespace Class_biz_notifications
           biz_user = new TClass_biz_user();
           biz_users = new TClass_biz_users();
           actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-          actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+          actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
           actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
           template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/efficipay-docket-needs-review.txt"));
           k.SmtpMailSend
@@ -494,7 +494,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/elective_departure.txt"));
             // from
@@ -879,7 +879,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/leave_changed.txt"));
             // from
@@ -926,7 +926,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/leave_deleted.txt"));
             // from
@@ -973,7 +973,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/leave_granted.txt"));
             // from
@@ -1144,7 +1144,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/medical_release_level_change.txt"));
             // from
@@ -1211,7 +1211,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_added.txt"));
             // from
@@ -1275,7 +1275,7 @@ namespace Class_biz_notifications
           var biz_user = new TClass_biz_user();
           var biz_users = new TClass_biz_users();
           var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-          actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+          actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
           actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_length_of_service_change.txt"));
           k.SmtpMailSend
@@ -1322,7 +1322,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_name_change.txt"));
             // from
@@ -1455,7 +1455,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<description/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
@@ -1505,7 +1505,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/needs_enrollment_review.txt"));
             // from
@@ -1551,7 +1551,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/new_enrollment_level.txt"));
             // from
@@ -1602,7 +1602,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<agency/>",biz_agencies.ShortDesignatorOf(agency_id) + k.SPACE_HYPHEN_SPACE + biz_agencies.LongDesignatorOf(agency_id))
               .Replace("<name/>",name)
@@ -1666,7 +1666,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/phone_num_change.txt"));
             // from
@@ -1724,7 +1724,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             agency_name = biz_agencies.MediumDesignatorOf(biz_members.AgencyIdOfId(member_id));
             cad_num = biz_members.CadNumOfMemberId(member_id);
@@ -1783,7 +1783,7 @@ namespace Class_biz_notifications
             biz_user = new TClass_biz_user();
             biz_users = new TClass_biz_users();
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
             template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/section_change.txt"));
             // from
@@ -1902,7 +1902,7 @@ namespace Class_biz_notifications
       var biz_user = new TClass_biz_user();
       var biz_users = new TClass_biz_users();
       actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-      actor = biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
       actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
       var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/squad_truck_team_qualification_change.txt"));
       k.SmtpMailSend
@@ -2075,7 +2075,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
@@ -2118,7 +2118,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<old_kind/>", biz_vehicle_kinds.DescriptionOf(old_kind_id))
@@ -2157,7 +2157,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<time_went_down/>", time_went_down.ToString("yyyy-MM-dd HH:mm"))
@@ -2198,7 +2198,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<time_came_up/>", time_came_up.ToString("yyyy-MM-dd HH:mm"))
@@ -2238,7 +2238,7 @@ namespace Class_biz_notifications
             return s
               .Replace("<application_name/>", application_name)
               .Replace("<host_domain_name/>", host_domain_name)
-              .Replace("<actor/>", biz_user.Roles()[0] + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<quarters_designator/>", biz_vehicle_quarters.MediumDashLongDesignatorOfId(quarters_id))
