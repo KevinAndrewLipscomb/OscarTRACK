@@ -1,4 +1,5 @@
 using Class_db;
+using kix;
 using MySql.Data.MySqlClient;
 using System.Collections.Specialized;
 using System.Web.UI.WebControls;
@@ -99,7 +100,11 @@ namespace Class_db_user
       Close();
       }
 
-    public string[] RolesOf(string id)
+    public string[] RolesOf
+      (
+      string id,
+      string id_of_highest_tier_of_interest = k.EMPTY
+      )
       {
       var roles_of_string_collection = new StringCollection();
       Open();
@@ -111,6 +116,7 @@ namespace Class_db_user
         +   " join user_member_map on (user_member_map.member_id=role_member_map.member_id)"
         + " where user_member_map.user_id = '" + id + "'"
         +   " and not be_occasional"
+        +   (id_of_highest_tier_of_interest.Length > 0 ? " and tier_id >= '" + id_of_highest_tier_of_interest + "'" : k.EMPTY)
         + " order by pecking_order",
         connection
         )

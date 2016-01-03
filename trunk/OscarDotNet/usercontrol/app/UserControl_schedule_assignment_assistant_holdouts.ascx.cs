@@ -278,7 +278,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         ConfigurationManager.AppSettings["sender_email_address"],
         p.distribution_list.Trim(new char[] {Convert.ToChar(k.COMMA)}),
         TextBox_quick_message_subject.Text,
-         "-- From " + p.biz_user.Roles()[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
+         "-- From " + p.biz_user.FullTitle() + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
         false,
         k.EMPTY,
         p.biz_user.EmailAddress(),

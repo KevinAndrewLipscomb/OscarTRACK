@@ -208,11 +208,11 @@ namespace Class_db_roles
 
         internal string TierOfName(string name)
           {
-          var tier_of_name = k.EMPTY;
+          const string LOWEST_POSSIBLE_TIER_STRING = "255";
           Open();
-          tier_of_name = new MySqlCommand("select IFNULL(tier_id,255) as tier_id from role where name = '" + name + "'",connection).ExecuteScalar().ToString();
+          var tier_of_name_obj = new MySqlCommand("select IFNULL(tier_id," + LOWEST_POSSIBLE_TIER_STRING + ") as tier_id from role where name = '" + name + "'",connection).ExecuteScalar().ToString();
           Close();
-          return tier_of_name;
+          return (tier_of_name_obj == null ? LOWEST_POSSIBLE_TIER_STRING : tier_of_name_obj.ToString());
           }
 
     } // end TClass_db_roles

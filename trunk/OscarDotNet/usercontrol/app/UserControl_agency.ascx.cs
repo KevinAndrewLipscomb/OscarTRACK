@@ -273,6 +273,7 @@ namespace UserControl_agency
 
         private void SetDependentFieldAblements(bool ablement)
         {
+            TextBox_short_designator.Enabled = ablement;
             TextBox_medium_designator.Enabled = ablement;
             TextBox_long_designator.Enabled = ablement;
             CheckBox_be_active.Enabled = ablement;
