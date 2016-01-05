@@ -25,10 +25,7 @@ namespace fleet_status
         Meta_control.Content = ((Session.Timeout - 2)*60).ToString();
         LinkButton_log_in.Text += ConfigurationManager.AppSettings["application_name"];
         //
-        Session.Remove("member_id");
         Session.Remove("mode:report/pub-fleet-status");
-        Session.Clear();
-        Session.Abandon();
         //
         }
       }
@@ -38,10 +35,10 @@ namespace fleet_status
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      var agency = Request["agency"].ToString();
       Session.Add("mode:report/pub-fleet-status", k.EMPTY);
-      Session.Add("member_id",new TClass_biz_members().IdOfAppropriateRoleHolder((agency == "EMS" ? "Department Fleet Supervisor" : "Squad Fleet Coordinator"),agency));
-      PlaceHolder_fleet_status.Controls.Add(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))));
+      var c = ((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx")));
+      PlaceHolder_fleet_status.Controls.Add(c);
+      c.SetP(agency_short_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM));
 //
 // Uncomment the following line to disable partial page rendering.
 //

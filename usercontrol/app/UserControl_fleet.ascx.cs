@@ -239,7 +239,11 @@ namespace UserControl_fleet
         p.sort_order = "vehicle_name%";
         p.vehicle_kind_filter = k.EMPTY;
         //
-        p.agency_filter = (p.be_interactive && p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
+        p.agency_filter = k.EMPTY;
+        if (!(p.be_interactive && p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles())) && (Session["member_id"] != null))
+          {
+          p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+          }
         }
       }
 
@@ -555,6 +559,11 @@ namespace UserControl_fleet
       {
       p.be_four_or_all_wheel_drive_filter = CheckBox_be_four_or_all_wheel_drive_filter.Checked;
       Bind();
+      }
+
+    internal void SetP(string agency_short_designator)
+      {
+      p.agency_filter = p.biz_agencies.IdOfShortDesignator(agency_short_designator);
       }
 
     } // end TWebUserControl_fleet

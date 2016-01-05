@@ -30,7 +30,7 @@
                     <small>
                       <p>Best practices:</p>
                       <ul>
-                        <li><p><asp:LinkButton ID="LinkButton_log_in" runat="server" OnClick="LinkButton_log_in_Click">LOG INTO </asp:LinkButton> to update this data directly.&nbsp; Update your unit's mileage once per shift.</p></li>
+                        <li><p><asp:LinkButton ID="LinkButton_log_in" runat="server" OnClick="LinkButton_log_in_Click">LOG IN OR RETURN TO </asp:LinkButton> to update this data directly.&nbsp; Update your unit's mileage once per shift.</p></li>
                       </ul>
                     </small>
                   </td>
