@@ -2,7 +2,7 @@ select resident_base.name
 , IF(street.name = 'PO BOX',concat(street.name,' ',house_num),concat(house_num,' ',street.name)) as address
 , city.name
 , state.abbreviation as state
-, IFNULL(email_address,'') as email_address
+, IFNULL(GROUP_CONCAT(email_address),'') as email_address
 , amount
 , date
 , method
@@ -20,5 +20,6 @@ from resident_base
 where agency = 'KVRS'                                                                                       -- !ADJUST!
   and resident_base.id > 0
   and amount >= 250.00
-  and date between '2014-01-01' and '2014-12-31'                                                            -- !ADJUST!
+  and date between '2015-01-01' and '2016-01-01'                                                            -- !ADJUST!
+group by entered_by,per_clerk_seq_num
 order by resident_base.name, date, timestamp
