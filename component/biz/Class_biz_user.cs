@@ -47,7 +47,8 @@ namespace Class_biz_user
         id:user_id_num,
         id_of_highest_tier_of_interest:"3"
         );
-      if (tier_3_role_array.Length > 0)
+      var tier_3_role_array_length = tier_3_role_array.Length;
+      if (tier_3_role_array_length > 0)
         {
         full_title = tier_3_role_array[0];
         }
@@ -56,12 +57,13 @@ namespace Class_biz_user
         id:user_id_num,
         id_of_highest_tier_of_interest:"2"
         );
-      if (tier_2_role_array.Length > 0)
+      var tier_2_role_array_length = tier_2_role_array.Length;
+      if (tier_2_role_array_length > tier_3_role_array_length)
         {
         full_title = tier_2_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
         }
       var tier_1_role_array = db_user.RolesOf(id:user_id_num);
-      if (tier_1_role_array.Length > 0)
+      if (tier_1_role_array.Length > tier_2_role_array_length)
         {
         full_title = tier_1_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
         }
