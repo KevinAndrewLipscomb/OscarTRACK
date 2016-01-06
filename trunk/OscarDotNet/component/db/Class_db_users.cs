@@ -157,14 +157,13 @@ namespace Class_db_users
             return result;
         }
 
-        public string IdOf(string username)
-        {
-            string result;
-            this.Open();
-            result = new MySqlCommand("select id from user where username = \"" + username + "\"", this.connection).ExecuteScalar().ToString();
-            this.Close();
-            return result;
-        }
+    public string IdOf(string username)
+      {
+      Open();
+      var result = new MySqlCommand("select id from user where username = '" + username + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return result;
+      }
 
         public uint NumUnsuccessfulLoginAttemptsOf(string username)
         {
