@@ -36,7 +36,7 @@ namespace UserControl_precontent
                 else
                 {
                     Label_username.Text = Session["username"].ToString();
-                    LinkButton_role_comms.Visible = ((Page.User.Identity.Name.Length > 0) && (p.biz_user.Roles()[0] != "Member"));
+                    LinkButton_role_comms.Visible = (p.biz_user.Roles()[0] != "Member");
                 }
             }
             var timeout_page = k.ExpandTildePath("~/timeout.aspx");
