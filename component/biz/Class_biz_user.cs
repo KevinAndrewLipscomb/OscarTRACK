@@ -82,11 +82,15 @@ namespace Class_biz_user
 
     public string[] Roles(string id_of_highest_tier_of_interest = k.EMPTY)
       {
-      var role_array = db_user.RolesOf
-        (
-        id:IdNum(),
-        id_of_highest_tier_of_interest:id_of_highest_tier_of_interest
-        );
+      var role_array = new string[] {};
+      if (HttpContext.Current.User.Identity.Name.Length > 0)
+        {
+        role_array = db_user.RolesOf
+          (
+          id:IdNum(),
+          id_of_highest_tier_of_interest:id_of_highest_tier_of_interest
+          );
+        }
       return (role_array.Length == 0 ? new string[] {"Member"} : role_array);
       }
 
