@@ -42,7 +42,6 @@ namespace UserControl_role
       DropDownList_name.Visible = false;
       DropDownList_tier.ClearSelection();
       TextBox_pecking_order.Text = k.EMPTY;
-      TextBox_soft_hyphenation_text.Text = k.EMPTY;
       CheckBox_be_occasional.Checked = false;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
@@ -73,7 +72,6 @@ namespace UserControl_role
             TableData_goto_controls.Visible = true;
             LinkButton_new_record.Visible = true;
             TableRow_pecking_order.Visible = true;
-            TableRow_soft_hyphenation_text.Visible = true;
             TableRow_be_occasional.Visible = true;
             }
           }
@@ -99,17 +97,15 @@ namespace UserControl_role
       Literal_match_index.Text = DropDownList_name.SelectedIndex.ToString();
       bool result;
       string tier_id;
-      string soft_hyphenation_text;
       string pecking_order;
       bool be_occasional;
       result = false;
-      if (p.biz_roles.Get(name,out tier_id,out soft_hyphenation_text,out pecking_order,out be_occasional))
+      if (p.biz_roles.Get(name,out tier_id,out pecking_order,out be_occasional))
         {
         TextBox_name.Text = name;
         p.role_name = name;
         DropDownList_tier.SelectedValue = tier_id;
         TextBox_pecking_order.Text = pecking_order;
-        TextBox_soft_hyphenation_text.Text = soft_hyphenation_text;
         CheckBox_be_occasional.Checked = be_occasional;
         TextBox_name.Enabled = false;
         Button_lookup.Enabled = false;
@@ -248,7 +244,6 @@ namespace UserControl_role
           (
           k.Safe(TextBox_name.Text, k.safe_hint_type.HUMAN_NAME).Trim(),
           k.Safe(DropDownList_tier.SelectedValue, k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_soft_hyphenation_text.Text, k.safe_hint_type.PUNCTUATED).Trim(),
           k.Safe(TextBox_pecking_order.Text, k.safe_hint_type.NUM).Trim(),
           CheckBox_be_occasional.Checked
           );
@@ -327,7 +322,6 @@ namespace UserControl_role
       {
       DropDownList_tier.Enabled = ablement;
       TextBox_pecking_order.Enabled = ablement;
-      TextBox_soft_hyphenation_text.Enabled = ablement;
       CheckBox_be_occasional.Enabled = ablement;
       }
 

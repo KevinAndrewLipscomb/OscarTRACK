@@ -132,13 +132,11 @@ namespace Class_db_roles
           (
           string name,
           out string tier_id,
-          out string soft_hyphenation_text,
           out string pecking_order,
           out bool be_occasional
           )
           {
           tier_id = k.EMPTY;
-          soft_hyphenation_text = k.EMPTY;
           pecking_order = k.EMPTY;
           be_occasional = false;
           var result = false;
@@ -148,7 +146,6 @@ namespace Class_db_roles
             {
             name = dr["name"].ToString();
             tier_id = dr["tier_id"].ToString();
-            soft_hyphenation_text = dr["soft_hyphenation_text"].ToString();
             pecking_order = dr["pecking_order"].ToString();
             be_occasional = (dr["be_occasional"].ToString() == "1");
             result = true;
@@ -171,13 +168,11 @@ namespace Class_db_roles
           (
           string name,
           string tier_id,
-          string soft_hyphenation_text,
           string pecking_order,
           bool be_occasional
           )
           {
           var childless_field_assignments_clause = " tier_id = NULLIF('" + tier_id + "','')"
-          + " , soft_hyphenation_text = NULLIF('" + soft_hyphenation_text + "','')"
           + " , pecking_order = NULLIF('" + pecking_order + "','')"
           + " , be_occasional = " + be_occasional.ToString();
           Open();
