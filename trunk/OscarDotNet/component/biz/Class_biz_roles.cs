@@ -91,12 +91,11 @@ namespace Class_biz_roles
       (
       string name,
       out string tier_id,
-      out string soft_hyphenation_text,
       out string pecking_order,
       out bool be_occasional
       )
       {
-      return db_roles.Get(name,out tier_id,out soft_hyphenation_text,out pecking_order,out be_occasional);
+      return db_roles.Get(name,out tier_id,out pecking_order,out be_occasional);
       }
 
     public string NameOfId(string id)
@@ -108,12 +107,11 @@ namespace Class_biz_roles
       (
       string name,
       string tier_id,
-      string soft_hyphenation_text,
       string pecking_order,
       bool be_occasional
       )
       {
-      db_roles.Set(name,tier_id,soft_hyphenation_text,pecking_order,be_occasional);
+      db_roles.Set(name,tier_id,pecking_order,be_occasional);
       }
 
     public string TierOfId(string id)

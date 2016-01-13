@@ -247,33 +247,6 @@ namespace UserControl_role {
         protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionValidator_pecking_order;
         
         /// <summary>
-        /// TableRow_soft_hyphenation_text control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_soft_hyphenation_text;
-        
-        /// <summary>
-        /// TextBox_soft_hyphenation_text control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_soft_hyphenation_text;
-        
-        /// <summary>
-        /// RequiredFieldValidator_soft_hyphenation_text control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_soft_hyphenation_text;
-        
-        /// <summary>
         /// TableRow_be_occasional control.
         /// </summary>
         /// <remarks>

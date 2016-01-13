@@ -66,11 +66,6 @@
             <asp:RegularExpressionValidator id="RegularExpressionValidator_pecking_order" runat="server" errormessage="Please enter a valid Pecking order." display="Dynamic" font-bold="True" controltovalidate="TextBox_pecking_order" validationexpression="\d{1,10}">!ERR!</asp:RegularExpressionValidator>
           </td>
         </tr>
-        <tr id="TableRow_soft_hyphenation_text" runat="server" visible="False">
-          <td><font class="">Soft hyphenation text:</font></td>
-          <td><font class=""><ASP:TextBox id="TextBox_soft_hyphenation_text" runat="server" columns="72" maxlength="127" cssclass="" enabled="False"></ASP:TextBox></font></td>
-          <td nowrap="nowrap"><ASP:RequiredFieldValidator id="RequiredFieldValidator_soft_hyphenation_text" runat="server" errormessage="Please enter Soft hyphenation text." font-bold="True" controltovalidate="TextBox_soft_hyphenation_text" display="Dynamic">!ERR!</ASP:RequiredFieldValidator></td>
-        </tr>
         <tr id="TableRow_be_occasional" runat="server" visible="False">
           <td><font class="">Be occasional:</font></td>
           <td><font class=""><ASP:CheckBox id="CheckBox_be_occasional" runat="server" cssclass="" enabled="False"></ASP:CheckBox></font></td>
