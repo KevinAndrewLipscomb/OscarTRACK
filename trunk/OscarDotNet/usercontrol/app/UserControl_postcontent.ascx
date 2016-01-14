@@ -23,11 +23,7 @@
                               <table cellspacing="0" cellpadding="5" border="0">
                                 <tr>
                                   <td valign="top">&bull;</td>
-                                  <td><small><a href="http://www.vbems.com/" target="_blank">vbems.com (non-government site)</a></small></td>
-                                </tr>
-                                <tr>
-                                  <td valign="top">&bull;</td>
-                                  <td><small><a href="http://www.vabeachems.com/" target="_blank">VaBeachEMS.com (government site)</a></small></td>
+                                  <td><small><a href="http://www.vbems.com/" target="_blank">Va Beach Dept of EMS</a></small></td>
                                 </tr>
                                 <tr>
                                   <td valign="top">&bull;</td>
