@@ -2,6 +2,7 @@ using Class_biz_agencies;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_notifications;
+using Class_biz_role_member_map;
 using Class_db_enrollment;
 using Class_db_members;
 using kix;
@@ -185,7 +186,15 @@ namespace Class_biz_enrollment
         }
       }
 
-    public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
+    public bool SetLevel
+      (
+      string new_level_code,
+      DateTime effective_date,
+      string note,
+      string member_id,
+      object summary,
+      string target_agency_id = k.EMPTY
+      )
       {
       var set_level = false;
       var first_name = db_members.FirstNameOfMemberId(member_id);
@@ -204,6 +213,7 @@ namespace Class_biz_enrollment
             do_clear_subscriptions:true,
             summary:summary
             );
+          new TClass_biz_role_member_map().PurgeMember(member_id); // Pre-instantiating biz_role_member_map would cause a circularity.
           }
         if (target_agency_id != k.EMPTY)
           {
@@ -230,10 +240,6 @@ namespace Class_biz_enrollment
           }
         }
       return set_level;
-      }
-    public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary)
-      {
-      return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
       }
 
     } // end TClass_biz_enrollment
