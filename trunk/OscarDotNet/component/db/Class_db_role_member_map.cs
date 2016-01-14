@@ -1,23 +1,25 @@
-using MySql.Data.MySqlClient;
-using kix;
-using System;
-
-
-using System.Collections;
-using System.Web.UI.WebControls;
 using Class_db;
-using Class_db_trail;
 using Class_db_roles;
+using Class_db_trail;
+using kix;
+using MySql.Data.MySqlClient;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web.UI.WebControls;
+
 namespace Class_db_role_member_map
-{
-    public class TClass_db_role_member_map: TClass_db
+  {
+
+  public class TClass_db_role_member_map: TClass_db
     {
         private TClass_db_trail db_trail = null;
-        //Constructor  Create()
+
         public TClass_db_role_member_map() : base()
         {
             db_trail = new TClass_db_trail();
         }
+
         public void Bind(string tier_quoted_value_list, string agency_filter, string sort_order, bool be_sort_order_descending, object target, out ArrayList crosstab_metadata_rec_arraylist)
         {
             crosstab_metadata_rec_type crosstab_metadata_rec;
@@ -266,6 +268,19 @@ namespace Class_db_role_member_map
             return result;
         }
 
+    internal Queue<string> RolesHeldIdQueue(string member_id)
+      {
+      var ids_of_roles_held = new Queue<string>();
+      Open();
+      var dr = new MySqlCommand("select role_id from role_member_map where member_id = '" + member_id + "'",connection).ExecuteReader();
+      while (dr.Read())
+        {
+        ids_of_roles_held.Enqueue(dr["role_id"].ToString());
+        }
+      Close();
+      return ids_of_roles_held;
+      }
+
         public void Save(string member_id, string role_id, bool be_granted)
         {
             this.Open();
@@ -285,14 +300,13 @@ namespace Class_db_role_member_map
 }
 
 namespace Class_db_role_member_map.Units
-{
-    public class Class_db_role_member_map
+  {
+  public class Class_db_role_member_map
     {
-        public const int CI_MEMBER_ID = 0;
-        public const int CI_MEMBER_NAME = 1;
-        public const int CI_FIRST_CROSSTAB = 2;
-        public const int ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
-    } // end Class_db_role_member_map
-
-}
+    public const int CI_MEMBER_ID = 0;
+    public const int CI_MEMBER_NAME = 1;
+    public const int CI_FIRST_CROSSTAB = 2;
+    public const int ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
+    }
+  }
 
