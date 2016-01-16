@@ -58,12 +58,12 @@ namespace Class_biz_user
         id_of_highest_tier_of_interest:"2"
         );
       var tier_2_role_array_length = tier_2_role_array.Length;
-      if (tier_2_role_array_length > tier_3_role_array_length)
+      if ((tier_2_role_array_length > tier_3_role_array_length) && (!full_title.Contains(tier_2_role_array[0])))
         {
         full_title = tier_2_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
         }
       var tier_1_role_array = db_user.RolesOf(id:user_id_num);
-      if (tier_1_role_array.Length > tier_2_role_array_length)
+      if ((tier_1_role_array.Length > tier_2_role_array_length) && (!full_title.Contains(tier_1_role_array[0])))
         {
         full_title = tier_1_role_array[0] + (full_title.Length > 0 ? " and " + full_title : k.EMPTY);
         }

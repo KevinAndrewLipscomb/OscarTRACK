@@ -105,7 +105,7 @@ namespace report_archival_end_of_month_watchbill
         {
         email_target = p.biz_role_member_map.EmailTargetOf("Squad Scheduler",p.agency_short_designator)
         + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Squad Manager",p.agency_short_designator)
+        + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)",p.agency_short_designator)
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf("Squad Commander",p.agency_short_designator);
         }

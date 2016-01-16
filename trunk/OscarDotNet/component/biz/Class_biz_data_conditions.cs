@@ -17,7 +17,7 @@ namespace Class_biz_data_conditions
 
     public bool BeRolePersonnelRelated(string role_name)
       {
-      return (new ArrayList() {"Squad Commander","Squad Manager","Squad Membership Coordinator","Squad Training Officer"}).Contains(role_name);
+      return (new ArrayList() {"Squad Commander","Squad Manager (possibly paid)","Assistant Squad Commander","Squad Membership Coordinator","Squad Training Officer"}).Contains(role_name);
       }
 
     } // end TClass_biz_data_conditions
