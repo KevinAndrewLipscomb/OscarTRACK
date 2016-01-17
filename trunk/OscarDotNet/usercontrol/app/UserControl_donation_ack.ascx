@@ -19,7 +19,7 @@
       <asp:Literal ID="Literal_city" runat="server"></asp:Literal> <asp:Literal ID="Literal_state" runat="server"></asp:Literal><br />
       <br />
       <p>
-        Thank you for your recent donation of $<asp:Label ID="Label_amount" runat="server" Font-Bold="True"></asp:Label>.&nbsp; Please keep this written acknowledgment for your tax records.&nbsp; We hereby confirm that no goods or
+        Thank you for your recent donation of <asp:Label ID="Label_amount" runat="server" Font-Bold="True"></asp:Label>.&nbsp; Please keep this written acknowledgment for your tax records.&nbsp; We hereby confirm that no goods or
         services as defined by the United States Internal Revenue Service have been exchanged in consideration of this contribution.
       </p>
       <p>
