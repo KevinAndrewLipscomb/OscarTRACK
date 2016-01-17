@@ -85,13 +85,13 @@ namespace UserControl_donation_ack {
         protected global::System.Web.UI.WebControls.Literal Literal_member_name;
         
         /// <summary>
-        /// Literal_member_full_title control.
+        /// Literal_member_title control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_member_full_title;
+        protected global::System.Web.UI.WebControls.Literal Literal_member_title;
         
         /// <summary>
         /// Label_member_email_address control.
