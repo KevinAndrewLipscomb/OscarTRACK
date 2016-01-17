@@ -11,15 +11,16 @@ namespace UserControl_donation_ack
 
     private struct p_type
       {
+      public string address;
       public string agency_short_designator;
+      public string amount;
       public bool be_loaded;
       public TClass_biz_members biz_members;
       public TClass_biz_user biz_user;
-      public string donor_name;
-      public string address;
       public string city;
+      public string donation_date;
+      public string donor_name;
       public string state;
-      public string amount;
       }
 
     private p_type p;
@@ -28,13 +29,14 @@ namespace UserControl_donation_ack
       {
       if (!p.be_loaded)
         {
-        Literal_date.Text = DateTime.Today.ToString("dddd d MMMM yyyy");
+        Literal_ack_date.Text = DateTime.Today.ToString("dddd d MMMM yyyy");
         //
         Literal_donor_name.Text = p.donor_name;
         Literal_address.Text = p.address;
         Literal_city.Text = p.city;
         Literal_state.Text = p.state;
         Label_amount.Text = decimal.Parse(p.amount).ToString("C");
+        Label_donation_date.Text = p.donation_date;
         //
         var member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
         var member_summary = p.biz_members.Summary(member_id);
@@ -108,7 +110,8 @@ namespace UserControl_donation_ack
       string address,
       string city,
       string state,
-      string amount
+      string amount,
+      string donation_date
       )
       {
       p.agency_short_designator = agency_short_designator;
@@ -117,6 +120,7 @@ namespace UserControl_donation_ack
       p.city = city;
       p.state = state;
       p.amount = amount;
+      p.donation_date = (donation_date.Length > 0 ? DateTime.Parse(donation_date) : DateTime.Today).ToString("d MMMM yyyy");
       }
 
     }
