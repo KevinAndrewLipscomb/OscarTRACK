@@ -13,13 +13,13 @@ namespace UserControl_donation_ack {
     public partial class TWebUserControl_donation_ack {
         
         /// <summary>
-        /// Literal_date control.
+        /// Literal_ack_date control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_date;
+        protected global::System.Web.UI.WebControls.Literal Literal_ack_date;
         
         /// <summary>
         /// Literal_donor_name control.
@@ -65,6 +65,15 @@ namespace UserControl_donation_ack {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label_amount;
+        
+        /// <summary>
+        /// Label_donation_date control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_donation_date;
         
         /// <summary>
         /// Literal_member_name control.

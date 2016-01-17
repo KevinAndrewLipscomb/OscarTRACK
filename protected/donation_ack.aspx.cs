@@ -35,7 +35,8 @@ namespace donation_ack
         address:k.Safe(Request["address"].ToString(),k.safe_hint_type.POSTAL_STREET_ADDRESS),
         city:k.Safe(Request["city"].ToString(),k.safe_hint_type.POSTAL_CITY),
         state:k.Safe(Request["state"].ToString(),k.safe_hint_type.ALPHA),
-        amount:k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM)
+        amount:k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM),
+        donation_date:k.Safe(Request["date"].ToString(),k.safe_hint_type.HYPHENATED_NUM)
         );
 //
 // Uncomment the following line to disable partial page rendering.
