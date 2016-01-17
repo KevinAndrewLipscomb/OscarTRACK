@@ -1,6 +1,7 @@
 using Class_biz_members;
 using Class_biz_user;
 using kix;
+using System;
 
 namespace UserControl_donation_ack
   {
@@ -27,6 +28,8 @@ namespace UserControl_donation_ack
       {
       if (!p.be_loaded)
         {
+        Literal_date.Text = DateTime.Today.ToString("dddd d MMMM yyyy");
+        //
         Literal_donor_name.Text = p.donor_name;
         Literal_address.Text = p.address;
         Literal_city.Text = p.city;
@@ -38,7 +41,7 @@ namespace UserControl_donation_ack
         Literal_member_name.Text = p.biz_members.FirstNameOf(member_summary) + k.SPACE + p.biz_members.LastNameOf(member_summary);
         Literal_member_full_title.Text = p.biz_user.FullTitle();
         Label_member_email_address.Text = p.biz_members.EmailAddressOf(member_id);
-        Literal_member_phone_number.Text = p.biz_members.PhoneNumOfSummary(member_summary);
+        Literal_member_phone_number.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOfSummary(member_summary));
         //
         p.be_loaded = true;
         }
