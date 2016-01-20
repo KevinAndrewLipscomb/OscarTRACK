@@ -2,9 +2,9 @@ using kix;
 using System;
 using System.Configuration;
 
-namespace donation_ack
+namespace donation_ack_letter
   {
-  public partial class TWebForm_donation_ack: ki_web_ui.page_class
+  public partial class TWebForm_donation_ack_letter: ki_web_ui.page_class
     {
 
     // / <summary>
@@ -19,7 +19,7 @@ namespace donation_ack
       {
       if (!IsPostBack)
         {
-        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - donation_ack";
+        Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - donation_ack_letter";
         }
       }
 
@@ -28,7 +28,7 @@ namespace donation_ack
       // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
-      UserControl_donation_ack_control.SetP
+      UserControl_donation_ack_letter_control.SetP
         (
         agency_short_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM),
         donor_name:k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED),
@@ -48,6 +48,6 @@ namespace donation_ack
       {
       Server.Transfer("~/Default.aspx");
       }
-    } // end TWebForm_donation_ack
+    } // end TWebForm_donation_ack_letter
 
   }
