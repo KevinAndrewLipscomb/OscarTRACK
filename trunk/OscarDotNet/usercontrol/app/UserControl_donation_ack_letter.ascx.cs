@@ -3,16 +3,16 @@ using Class_biz_user;
 using kix;
 using System;
 
-namespace UserControl_donation_ack
+namespace UserControl_donation_ack_letter
   {
 
-  public partial class TWebUserControl_donation_ack: ki_web_ui.usercontrol_class
+  public partial class TWebUserControl_donation_ack_letter: ki_web_ui.usercontrol_class
     {
 
     private struct p_type
       {
       public string address;
-      public string agency_short_designator;
+      public string agency_keyclick_designator;
       public string amount;
       public bool be_loaded;
       public TClass_biz_members biz_members;
@@ -62,14 +62,14 @@ namespace UserControl_donation_ack
         // had it loaded already.
         //
 //#warning Revise the binder-related instance_id to this control appropriately.
-//        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_donation_ack")
+//        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_donation_ack_letter")
 //          {
 //#warning Revise the ClientID path to this control appropriately.
-//          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_donation_ack");
+//          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_donation_ack_letter");
 //          }
-//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_donation_ack")
+//      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_donation_ack_letter")
 //        {
-//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_donation_ack");
+//        p.be_loaded &= ((Session["UserControl_~_binder_PlaceHolder_content"] as string) == "UserControl_donation_ack_letter");
 //        }
         }
       else
@@ -87,15 +87,15 @@ namespace UserControl_donation_ack
     // / </summary>
     private void InitializeComponent()
       {
-      PreRender += TWebUserControl_donation_ack_PreRender;
+      PreRender += TWebUserControl_donation_ack_letter_PreRender;
       }
 
-    private void TWebUserControl_donation_ack_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_donation_ack_letter_PreRender(object sender, System.EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
 
-    public TWebUserControl_donation_ack Fresh()
+    public TWebUserControl_donation_ack_letter Fresh()
       {
       Session.Remove(InstanceId() + ".p");
       return this;
@@ -103,7 +103,7 @@ namespace UserControl_donation_ack
 
     internal void SetP
       (
-      string agency_short_designator,
+      string agency_keyclick_designator,
       string donor_name,
       string address,
       string city,
@@ -112,7 +112,7 @@ namespace UserControl_donation_ack
       string donation_date
       )
       {
-      p.agency_short_designator = agency_short_designator;
+      p.agency_keyclick_designator = agency_keyclick_designator;
       p.donor_name = donor_name;
       p.address = address;
       p.city = city;

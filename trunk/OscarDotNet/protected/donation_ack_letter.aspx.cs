@@ -30,7 +30,7 @@ namespace donation_ack_letter
       base.OnInit(e);
       UserControl_donation_ack_letter_control.SetP
         (
-        agency_short_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM),
+        agency_keyclick_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM),
         donor_name:k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED),
         address:k.Safe(Request["address"].ToString(),k.safe_hint_type.POSTAL_STREET_ADDRESS),
         city:k.Safe(Request["city"].ToString(),k.safe_hint_type.POSTAL_CITY),

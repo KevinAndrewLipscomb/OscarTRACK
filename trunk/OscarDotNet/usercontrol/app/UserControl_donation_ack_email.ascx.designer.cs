@@ -7,19 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace UserControl_donation_ack {
+namespace UserControl_donation_ack_email {
     
     
-    public partial class TWebUserControl_donation_ack {
-        
-        /// <summary>
-        /// Literal_ack_date control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_ack_date;
+    public partial class TWebUserControl_donation_ack_email {
         
         /// <summary>
         /// Literal_donor_name control.
@@ -29,33 +20,6 @@ namespace UserControl_donation_ack {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_donor_name;
-        
-        /// <summary>
-        /// Literal_address control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_address;
-        
-        /// <summary>
-        /// Literal_city control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_city;
-        
-        /// <summary>
-        /// Literal_state control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_state;
         
         /// <summary>
         /// Label_amount control.
@@ -92,5 +56,14 @@ namespace UserControl_donation_ack {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_member_title;
+        
+        /// <summary>
+        /// Literal_member_agency_long_designator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_member_agency_long_designator;
     }
 }
