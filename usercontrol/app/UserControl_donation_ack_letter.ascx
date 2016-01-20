@@ -1,4 +1,4 @@
-<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_donation_ack.ascx.cs" Inherits="UserControl_donation_ack.TWebUserControl_donation_ack"%>
+<%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_donation_ack_letter.ascx.cs" Inherits="UserControl_donation_ack_letter.TWebUserControl_donation_ack_letter"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <table>
   <tr>

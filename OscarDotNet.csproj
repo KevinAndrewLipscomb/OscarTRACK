@@ -120,7 +120,8 @@
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\coverage_assistant.aspx" />
     <Content Include="protected\coverage_assistant_intro.aspx" />
-    <Content Include="protected\donation_ack.aspx" />
+    <Content Include="protected\donation_ack_email.aspx" />
+    <Content Include="protected\donation_ack_letter.aspx" />
     <Content Include="protected\donation_log.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
     <Content Include="protected\efficipay_final_check_imprint.aspx" />
@@ -192,7 +193,8 @@
     <Content Include="usercontrol\app\UserControl_city.ascx" />
     <Content Include="usercontrol\app\UserControl_coverage_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_coverage_assistant_intro.ascx" />
-    <Content Include="usercontrol\app\UserControl_donation_ack.ascx" />
+    <Content Include="usercontrol\app\UserControl_donation_ack_email.ascx" />
+    <Content Include="usercontrol\app\UserControl_donation_ack_letter.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_log.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill.ascx" />
     <Content Include="usercontrol\app\UserControl_driver_skill_rating.ascx" />
@@ -813,12 +815,19 @@
     <Compile Include="protected\coverage_assistant_intro.aspx.designer.cs">
       <DependentUpon>coverage_assistant_intro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="protected\donation_ack.aspx.cs">
-      <DependentUpon>donation_ack.aspx</DependentUpon>
+    <Compile Include="protected\donation_ack_email.aspx.cs">
+      <DependentUpon>donation_ack_email.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="protected\donation_ack.aspx.designer.cs">
-      <DependentUpon>donation_ack.aspx</DependentUpon>
+    <Compile Include="protected\donation_ack_email.aspx.designer.cs">
+      <DependentUpon>donation_ack_email.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="protected\donation_ack_letter.aspx.cs">
+      <DependentUpon>donation_ack_letter.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="protected\donation_ack_letter.aspx.designer.cs">
+      <DependentUpon>donation_ack_letter.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\donation_log.aspx.cs">
       <DependentUpon>donation_log.aspx</DependentUpon>
@@ -1217,12 +1226,19 @@
     <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_donation_ack.ascx.cs">
-      <DependentUpon>UserControl_donation_ack.ascx</DependentUpon>
+    <Compile Include="usercontrol\app\UserControl_donation_ack_email.ascx.cs">
+      <DependentUpon>UserControl_donation_ack_email.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="usercontrol\app\UserControl_donation_ack.ascx.designer.cs">
-      <DependentUpon>UserControl_donation_ack.ascx</DependentUpon>
+    <Compile Include="usercontrol\app\UserControl_donation_ack_email.ascx.designer.cs">
+      <DependentUpon>UserControl_donation_ack_email.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_donation_ack_letter.ascx.cs">
+      <DependentUpon>UserControl_donation_ack_letter.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_donation_ack_letter.ascx.designer.cs">
+      <DependentUpon>UserControl_donation_ack_letter.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_donation_log.ascx.cs">
       <DependentUpon>UserControl_donation_log.ascx</DependentUpon>
