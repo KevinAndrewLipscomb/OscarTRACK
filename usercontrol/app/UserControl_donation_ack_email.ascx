@@ -25,8 +25,8 @@
           <td>
             Sincerely,<br />
             <asp:Literal ID="Literal_member_name" runat="server"></asp:Literal><br />
-            <asp:Literal ID="Literal_member_title" runat="server"></asp:Literal>
-            <asp:Literal ID="Literal_member_agency_long_designator" runat="server"></asp:Literal>
+            <asp:Literal ID="Literal_member_title" runat="server"></asp:Literal><br />
+            <asp:Literal ID="Literal_member_agency_long_designator" runat="server"></asp:Literal> Volunteer Rescue Squad
           </td>
         </tr>
       </table>
