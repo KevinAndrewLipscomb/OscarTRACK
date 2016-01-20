@@ -7,18 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace donation_ack {
+namespace donation_ack_letter {
     
     
-    public partial class TWebForm_donation_ack {
+    public partial class TWebForm_donation_ack_letter {
         
         /// <summary>
-        /// UserControl_donation_ack_control control.
+        /// UserControl_donation_ack_letter_control control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::UserControl_donation_ack.TWebUserControl_donation_ack UserControl_donation_ack_control;
+        protected global::UserControl_donation_ack_letter.TWebUserControl_donation_ack_letter UserControl_donation_ack_letter_control;
     }
 }
