@@ -36,12 +36,12 @@ namespace donation_ack_email_trigger
         p.biz_donations.SendAck
           (
           working_directory:Server.MapPath("scratch"),
-          agency_keyclick_designator:k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM),
-          member_email_address:k.Safe(Request["member_email_address"].ToString(),k.safe_hint_type.EMAIL_ADDRESS),
-          donor_name:k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED),
-          amount:k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM),
-          date:k.Safe(Request["date"].ToString(),k.safe_hint_type.HYPHENATED_NUM),
-          donor_email_address:k.Safe(Request["donor_email_address"],k.safe_hint_type.EMAIL_ADDRESS_CSV)
+          urlencoded_agency_keyclick_designator:Server.UrlEncode(k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM)),
+          urlencoded_member_email_address:Server.UrlEncode(k.Safe(Request["member_email_address"].ToString(),k.safe_hint_type.EMAIL_ADDRESS)),
+          urlencoded_donor_name:Server.UrlEncode(k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED)),
+          urlencoded_amount:Server.UrlEncode(k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM)),
+          urlencoded_date:Server.UrlEncode(k.Safe(Request["date"].ToString(),k.safe_hint_type.HYPHENATED_NUM)),
+          urlencoded_donor_email_address:Server.UrlEncode(k.Safe(Request["donor_email_address"],k.safe_hint_type.EMAIL_ADDRESS_CSV))
           );
         AlertAndWindowHistoryBack(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "donacksent", "Donation acknowledgment sent.");
         }
