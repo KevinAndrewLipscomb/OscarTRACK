@@ -13,7 +13,6 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_donation_ack_email runat="server" id="UserControl_donation_ack_email_control" />
-      <script type="text/javascript">window.print();</script>
     </form>
   </body>
 </html>
