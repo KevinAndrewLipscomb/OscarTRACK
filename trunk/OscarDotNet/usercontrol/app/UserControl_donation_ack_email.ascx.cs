@@ -20,6 +20,7 @@ namespace UserControl_donation_ack_email
       public TClass_biz_user biz_user;
       public string donation_date;
       public string donor_name;
+      public string member_email_address;
       }
 
     private p_type p;
@@ -32,10 +33,8 @@ namespace UserControl_donation_ack_email
         Label_amount.Text = decimal.Parse(p.amount).ToString("C");
         Label_donation_date.Text = p.donation_date;
         //
-        var member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
-        var member_summary = p.biz_members.Summary(member_id);
+        var member_summary = p.biz_members.Summary(p.biz_members.IdOfEmailAddress(p.member_email_address));
         Literal_member_name.Text = p.biz_members.FirstNameOf(member_summary) + k.SPACE + p.biz_members.LastNameOf(member_summary);
-        Literal_member_title.Text = p.biz_user.Roles(id_of_highest_tier_of_interest:"2")[0];
         Literal_member_agency_long_designator.Text = p.biz_agencies.LongDesignatorOfKeyclickEnumerator(p.agency_keyclick_designator);
         //
         p.be_loaded = true;
@@ -100,12 +99,14 @@ namespace UserControl_donation_ack_email
     internal void SetP
       (
       string agency_keyclick_designator,
+      string member_email_address,
       string donor_name,
       string amount,
       string donation_date
       )
       {
       p.agency_keyclick_designator = agency_keyclick_designator;
+      p.member_email_address = member_email_address;
       p.donor_name = donor_name;
       p.amount = amount;
       p.donation_date = (donation_date.Length > 0 ? DateTime.Parse(donation_date) : DateTime.Today).ToString("d MMMM yyyy");

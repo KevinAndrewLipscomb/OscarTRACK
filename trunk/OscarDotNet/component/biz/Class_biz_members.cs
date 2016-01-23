@@ -594,6 +594,11 @@ namespace Class_biz_members
             return result;
         }
 
+    internal string IdOfEmailAddress(string email_address)
+      {
+      return db_members.IdOfEmailAddress(email_address);
+      }
+
         public string IdOfUserId(string user_id)
         {
             string result;

@@ -508,7 +508,7 @@ namespace Class_db_members
             this.Close();
         }
 
-        public void BindRankedCoreOpsSize(object target)
+    public void BindRankedCoreOpsSize(object target)
         {
             BindRankedCoreOpsSize(target, true);
         }
@@ -1662,6 +1662,14 @@ namespace Class_db_members
         {
             return (summary as member_summary).id;
         }
+
+    internal string IdOfEmailAddress(string email_address)
+      {
+      Open();
+      var id_of_email_address_obj = new MySqlCommand("select id from member where email_address = '" + email_address + "'",connection).ExecuteScalar();
+      Close();
+      return (id_of_email_address_obj == null ? k.EMPTY : id_of_email_address_obj.ToString());
+      }
 
         public string IdOfFirstnameLastnameCadnum(string first_name, string last_name, string cad_num)
         {

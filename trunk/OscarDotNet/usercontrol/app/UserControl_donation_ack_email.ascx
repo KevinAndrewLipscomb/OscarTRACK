@@ -7,7 +7,7 @@
       <table width="100%">
         <tr>
           <td>
-            <asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal><br />
+            <asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal>,<br />
             <p>
               Thank you for the <asp:Label ID="Label_amount" runat="server" Font-Bold="True"></asp:Label> donation you made on <asp:Label ID="Label_donation_date" runat="server" Font-Bold="True"></asp:Label>.&nbsp; Please keep this written
               acknowledgment for your tax records.&nbsp; We hereby confirm that no goods or services as defined by the United States Internal Revenue Service have been exchanged in consideration of this contribution.
@@ -18,15 +18,15 @@
               injured every day.&nbsp; You've helped pay for the ambulances, the medical gear -- even the uniforms our volunteers wear.
             </p>
             <p>Thanks again for your compassionate committment to partnering with us for the benefit of our community.&nbsp; With your help, we'll be there when seconds count!</p>
-            <br />
           </td>
         </tr>
         <tr>
           <td>
+            <br />
             Sincerely,<br />
             <asp:Literal ID="Literal_member_name" runat="server"></asp:Literal><br />
-            <asp:Literal ID="Literal_member_title" runat="server"></asp:Literal><br />
-            <asp:Literal ID="Literal_member_agency_long_designator" runat="server"></asp:Literal> Volunteer Rescue Squad
+            <asp:Literal ID="Literal_member_agency_long_designator" runat="server"></asp:Literal> Volunteer Rescue Squad<br />
+            Virginia Beach, VA
           </td>
         </tr>
       </table>

@@ -15,6 +15,7 @@ namespace donation_ack_email
       {
       public string agency_keyclick_designator;
       public TClass_biz_user biz_user;
+      public string member_email_address;
       }
 
     private p_type p;
@@ -44,10 +45,12 @@ namespace donation_ack_email
       p.biz_user = new TClass_biz_user();
       //
       p.agency_keyclick_designator = k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM);
+      p.member_email_address = k.Safe(Request["member_email_address"].ToString(),k.safe_hint_type.EMAIL_ADDRESS);
       //
       UserControl_donation_ack_email_control.SetP
         (
         agency_keyclick_designator:p.agency_keyclick_designator,
+        member_email_address:p.member_email_address,
         donor_name:k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED),
         amount:k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM),
         donation_date:k.Safe(Request["date"].ToString(),k.safe_hint_type.HYPHENATED_NUM)
@@ -71,17 +74,16 @@ namespace donation_ack_email
       // writer.Write(sb.ToString());
       // //
       var body = sb.ToString();
-      var user_email_address = p.biz_user.EmailAddress();
       k.SmtpMailSend
         (
         from:p.agency_keyclick_designator + "@" + ConfigurationManager.AppSettings["host_domain_name"],
         to:k.Safe(Request["donor_email_address"],k.safe_hint_type.EMAIL_ADDRESS_CSV),
-        subject:"Donation acknowledgement",
+        subject:"THANKS for your donation!",
         message_string:body,
         be_html:true,
-        cc:user_email_address,
+        cc:p.member_email_address,
         bcc:k.EMPTY,
-        reply_to:user_email_address
+        reply_to:p.member_email_address
         );
       }
 
