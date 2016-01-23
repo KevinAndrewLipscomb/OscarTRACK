@@ -75,7 +75,7 @@ namespace donation_ack_email
       k.SmtpMailSend
         (
         from:p.agency_keyclick_designator + "@" + ConfigurationManager.AppSettings["host_domain_name"],
-        to:Request["donor_email_address"],
+        to:k.Safe(Request["donor_email_address"],k.safe_hint_type.EMAIL_ADDRESS_CSV),
         subject:"Donation acknowledgement",
         message_string:body,
         be_html:true,
