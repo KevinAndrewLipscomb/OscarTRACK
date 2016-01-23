@@ -49,15 +49,6 @@ namespace UserControl_donation_ack_email {
         protected global::System.Web.UI.WebControls.Literal Literal_member_name;
         
         /// <summary>
-        /// Literal_member_title control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_member_title;
-        
-        /// <summary>
         /// Literal_member_agency_long_designator control.
         /// </summary>
         /// <remarks>

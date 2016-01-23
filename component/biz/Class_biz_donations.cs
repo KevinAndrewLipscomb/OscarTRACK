@@ -5,6 +5,8 @@ using Class_biz_user;
 using Class_db_donations;
 using Class_msg_protected;
 using kix;
+using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_donations
   {
@@ -136,6 +138,41 @@ namespace Class_biz_donations
         agency_scope:biz_agencies.KeyclickEnumeratorOf(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum()))),
         entered_by_filter:entered_by_filter,
         watermark:watermark
+        );
+      }
+
+    internal void SendAck
+      (
+      string working_directory,
+      string agency_keyclick_designator,
+      string member_email_address,
+      string donor_name,
+      string amount,
+      string date,
+      string donor_email_address
+      )
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+          "--output-document=/dev/null --no-check-certificate"
+          + " --post-data"
+          +   "=agency=" + agency_keyclick_designator
+          +   "&member_email_address=" + member_email_address
+          +   "&donor_name=" + donor_name
+          +   "&amount=" + amount
+          +   "&date=" + date
+          +   "&donor_email_address=" + donor_email_address
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/donation_ack_email.aspx\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
         );
       }
 

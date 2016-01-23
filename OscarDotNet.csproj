@@ -91,6 +91,7 @@
     <Content Include="login.aspx" />
     <Content Include="new_user_registration.aspx" />
     <Content Include="noninteractive\avail_submission_deadline_tasks.aspx" />
+    <Content Include="noninteractive\donation_ack_email.aspx" />
     <Content Include="noninteractive\end_of_month_tasks.aspx" />
     <Content Include="noninteractive\monthly_tasks.aspx" />
     <Content Include="noninteractive\report_archival_end_of_month_watchbill.aspx" />
@@ -120,7 +121,7 @@
     <Content Include="protected\confirm_paypal_donation.aspx" />
     <Content Include="protected\coverage_assistant.aspx" />
     <Content Include="protected\coverage_assistant_intro.aspx" />
-    <Content Include="protected\donation_ack_email.aspx" />
+    <Content Include="protected\donation_ack_email_trigger.aspx" />
     <Content Include="protected\donation_ack_letter.aspx" />
     <Content Include="protected\donation_log.aspx" />
     <Content Include="protected\efficipay_docket_detail.aspx" />
@@ -448,6 +449,13 @@
     </Compile>
     <Compile Include="noninteractive\avail_submission_deadline_tasks.aspx.designer.cs">
       <DependentUpon>avail_submission_deadline_tasks.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\donation_ack_email.aspx.cs">
+      <DependentUpon>donation_ack_email.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\donation_ack_email.aspx.designer.cs">
+      <DependentUpon>donation_ack_email.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\end_of_month_tasks.aspx.cs">
       <DependentUpon>end_of_month_tasks.aspx</DependentUpon>
@@ -815,12 +823,12 @@
     <Compile Include="protected\coverage_assistant_intro.aspx.designer.cs">
       <DependentUpon>coverage_assistant_intro.aspx</DependentUpon>
     </Compile>
-    <Compile Include="protected\donation_ack_email.aspx.cs">
-      <DependentUpon>donation_ack_email.aspx</DependentUpon>
+    <Compile Include="protected\donation_ack_email_trigger.aspx.cs">
+      <DependentUpon>donation_ack_email_trigger.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="protected\donation_ack_email.aspx.designer.cs">
-      <DependentUpon>donation_ack_email.aspx</DependentUpon>
+    <Compile Include="protected\donation_ack_email_trigger.aspx.designer.cs">
+      <DependentUpon>donation_ack_email_trigger.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\donation_ack_letter.aspx.cs">
       <DependentUpon>donation_ack_letter.aspx</DependentUpon>
