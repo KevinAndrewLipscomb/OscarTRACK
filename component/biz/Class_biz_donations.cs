@@ -144,12 +144,12 @@ namespace Class_biz_donations
     internal void SendAck
       (
       string working_directory,
-      string agency_keyclick_designator,
-      string member_email_address,
-      string donor_name,
-      string amount,
-      string date,
-      string donor_email_address
+      string urlencoded_agency_keyclick_designator,
+      string urlencoded_member_email_address,
+      string urlencoded_donor_name,
+      string urlencoded_amount,
+      string urlencoded_date,
+      string urlencoded_donor_email_address
       )
       {
       var stdout = k.EMPTY;
@@ -161,12 +161,12 @@ namespace Class_biz_donations
           {
           "--output-document=/dev/null --no-check-certificate"
           + " --post-data"
-          +   "=agency=" + agency_keyclick_designator
-          +   "&member_email_address=" + member_email_address
-          +   "&donor_name=" + donor_name
-          +   "&amount=" + amount
-          +   "&date=" + date
-          +   "&donor_email_address=" + donor_email_address
+          +   "=agency=" + urlencoded_agency_keyclick_designator
+          +   "&member_email_address=" + urlencoded_member_email_address
+          +   "&donor_name=" + urlencoded_donor_name
+          +   "&amount=" + urlencoded_amount
+          +   "&date=" + urlencoded_date
+          +   "&donor_email_address=" + urlencoded_donor_email_address
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/donation_ack_email.aspx\""
           },
