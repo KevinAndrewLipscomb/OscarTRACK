@@ -40,16 +40,23 @@ namespace donation_ack_email
       InitializeComponent();
       base.OnInit(e);
       //
-      p.agency_keyclick_designator = k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM);
-      p.member_email_address = k.Safe(Request["member_email_address"].ToString(),k.safe_hint_type.EMAIL_ADDRESS);
+      SessionSet("dae_agency",Request["agency"]);
+      SessionSet("dae_member_email_address",Request["member_email_address"]);
+      SessionSet("dae_donor_name",Request["donor_name"]);
+      SessionSet("dae_amount",Request["amount"]);
+      SessionSet("dae_date",Request["date"]);
+      SessionSet("dae_donor_email_address",Request["donor_email_address"]);
+      //
+      p.agency_keyclick_designator = k.Safe(Request["agency"],k.safe_hint_type.ALPHANUM);
+      p.member_email_address = k.Safe(Request["member_email_address"],k.safe_hint_type.EMAIL_ADDRESS);
       //
       UserControl_donation_ack_email_control.SetP
         (
         agency_keyclick_designator:p.agency_keyclick_designator,
         member_email_address:p.member_email_address,
-        donor_name:k.Safe(Request["donor_name"].ToString(),k.safe_hint_type.ORG_NAME_ASTERICIZED),
-        amount:k.Safe(Request["amount"].ToString(),k.safe_hint_type.REAL_NUM),
-        donation_date:k.Safe(Request["date"].ToString(),k.safe_hint_type.HYPHENATED_NUM)
+        donor_name:k.Safe(Request["donor_name"],k.safe_hint_type.ORG_NAME_ASTERICIZED),
+        amount:k.Safe(Request["amount"],k.safe_hint_type.REAL_NUM),
+        donation_date:k.Safe(Request["date"],k.safe_hint_type.HYPHENATED_NUM)
         );
 //
 // Uncomment the following line to disable partial page rendering.
