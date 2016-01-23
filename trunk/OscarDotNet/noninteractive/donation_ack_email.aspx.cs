@@ -1,4 +1,3 @@
-using Class_biz_user;
 using kix;
 using System;
 using System.Configuration;
@@ -14,7 +13,6 @@ namespace donation_ack_email
     private struct p_type
       {
       public string agency_keyclick_designator;
-      public TClass_biz_user biz_user;
       public string member_email_address;
       }
 
@@ -42,8 +40,6 @@ namespace donation_ack_email
       InitializeComponent();
       base.OnInit(e);
       //
-      p.biz_user = new TClass_biz_user();
-      //
       p.agency_keyclick_designator = k.Safe(Request["agency"].ToString(),k.safe_hint_type.ALPHANUM);
       p.member_email_address = k.Safe(Request["member_email_address"].ToString(),k.safe_hint_type.EMAIL_ADDRESS);
       //
@@ -59,11 +55,6 @@ namespace donation_ack_email
 // Uncomment the following line to disable partial page rendering.
 //
 //ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
-      }
-
-    protected void LinkButton_log_in_Click(object sender, EventArgs e)
-      {
-      Server.Transfer("~/Default.aspx");
       }
 
     protected override void Render(HtmlTextWriter writer)
