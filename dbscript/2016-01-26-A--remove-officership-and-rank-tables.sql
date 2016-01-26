@@ -1,0 +1,7 @@
+START TRANSACTION
+;
+DROP TABLE `officership`
+;
+DROP TABLE `rank`
+;
+COMMIT

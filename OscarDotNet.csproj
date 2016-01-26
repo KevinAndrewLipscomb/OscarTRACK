@@ -304,7 +304,6 @@
     <Compile Include="component\biz\Class_biz_notifications.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="component\biz\Class_biz_officerships.cs" />
     <Compile Include="component\biz\Class_biz_oscalert_logs.cs" />
     <Compile Include="component\biz\Class_biz_patient_age_units.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
@@ -371,7 +370,6 @@
     <Compile Include="component\db\Class_db_members.cs" />
     <Compile Include="component\db\Class_db_milestones.cs" />
     <Compile Include="component\db\Class_db_notifications.cs" />
-    <Compile Include="component\db\Class_db_officerships.cs" />
     <Compile Include="component\db\Class_db_oscalert_logs.cs" />
     <Compile Include="component\db\Class_db_patient_age_units.cs" />
     <Compile Include="component\db\Class_db_patient_encounters.cs" />
@@ -961,13 +959,6 @@
     </Compile>
     <Compile Include="protected\member_detail.aspx.designer.cs">
       <DependentUpon>member_detail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="protected\officership_detail.aspx.cs">
-      <DependentUpon>officership_detail.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="protected\officership_detail.aspx.designer.cs">
-      <DependentUpon>officership_detail.aspx</DependentUpon>
     </Compile>
     <Compile Include="protected\overview.aspx.cs">
       <DependentUpon>overview.aspx</DependentUpon>
@@ -2149,7 +2140,6 @@
     <Content Include="protected\leave_detail.aspx" />
     <Content Include="protected\mark_vehicle_up.aspx" />
     <Content Include="protected\member_detail.aspx" />
-    <Content Include="protected\officership_detail.aspx" />
     <Content Include="protected\overview.aspx" />
     <Content Include="protected\quarters_detail.aspx" />
     <Content Include="protected\template\notification\agency_change.txt" />

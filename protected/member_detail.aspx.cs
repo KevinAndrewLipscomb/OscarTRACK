@@ -103,13 +103,6 @@ namespace member_detail
                 Label_leave_next_month.Text = p.leave_next_month_description;
                 LinkButton_leave_detail.Text = k.ExpandTildePath(LinkButton_leave_detail.Text);
                 //
-                Label_officership.Text = p.biz_members.OfficershipOf(p.biz_members.IdOf(Session["member_summary"]));
-                if (Label_officership.Text == k.EMPTY)
-                {
-                    Label_officership.Text = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
-                }
-                LinkButton_officership_detail.Text = k.ExpandTildePath(LinkButton_officership_detail.Text);
-                //
                 Label_agency.Text = p.agency;
                 LinkButton_change_agency.Text = k.ExpandTildePath(LinkButton_change_agency.Text);
                 //
@@ -267,11 +260,6 @@ namespace member_detail
         protected void LinkButton_change_medical_release_level_Click(object sender, System.EventArgs e)
         {
             DropCrumbAndTransferTo("change_member_medical_release_level.aspx");
-        }
-
-        protected void LinkButton_officership_detail_Click(object sender, System.EventArgs e)
-        {
-            DropCrumbAndTransferTo("officership_detail.aspx");
         }
 
         protected void LinkButton_leave_detail_Click(object sender, System.EventArgs e)

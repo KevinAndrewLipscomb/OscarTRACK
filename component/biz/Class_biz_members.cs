@@ -694,13 +694,6 @@ namespace Class_biz_members
             return result;
         }
 
-        public string OfficershipOf(string member_id)
-        {
-            string result;
-            result = db_members.OfficershipOf(member_id);
-            return result;
-        }
-
         public string OverallFleetTrackingParticipation()
           {
           return db_members.OverallFleetTrackingParticipation();

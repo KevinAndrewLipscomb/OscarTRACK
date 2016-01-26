@@ -1871,24 +1871,6 @@ namespace Class_db_members
             return result;
         }
 
-        public string OfficershipOf(string member_id)
-        {
-            string result;
-            object rank_name_obj;
-            this.Open();
-            rank_name_obj = new MySqlCommand("select rank.name" + " from member join officership on (officership.member_id=member.id)" + " join rank on (rank.code=officership.rank_code)" + " where member.id = " + member_id, this.connection).ExecuteScalar();
-            if (rank_name_obj != null)
-            {
-                result = rank_name_obj.ToString();
-            }
-            else
-            {
-                result = k.EMPTY;
-            }
-            this.Close();
-            return result;
-        }
-
         public string PhoneNumOf(string member_id)
         {
             string result;

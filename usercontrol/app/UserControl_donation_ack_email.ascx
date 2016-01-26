@@ -13,9 +13,9 @@
               acknowledgment for your tax records.&nbsp; We hereby confirm that no goods or services as defined by the United States Internal Revenue Service have been exchanged in consideration of this contribution.
             </p>
             <p>
-              We know you share a wish to support the general welfare of our area and our city.&nbsp; And you know we can do this by maintaining an institutional platform of the highest caliber for volunteer activism in the mitigation
-              of emergencies, for leadership development, and for community self-sufficiency.&nbsp; Your contribution enables our volunteer-based system to provide quality care and emergency transportation to the seriously ill and
-              injured every day.&nbsp; You've helped pay for the ambulances, the medical gear -- even the uniforms our volunteers wear.
+              We know you share a wish to support the general welfare of our area and our city.&nbsp; And you know <u>we</u> can do this by maintaining an institutional platform of the highest caliber for volunteer activism in the
+              mitigation of emergencies, for leadership development, and for community self-sufficiency.&nbsp; Your contribution enables our volunteer-based system to provide quality care and emergency transportation to the
+              seriously ill and injured every day.&nbsp; You've helped pay for the ambulances, the medical gear -- even the uniforms our volunteers wear.
             </p>
             <p>Thanks again for your compassionate committment to partnering with us for the benefit of our community.&nbsp; With your help, we'll be there when seconds count!</p>
           </td>
