@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-    <title/>
+    <title></title>
   </head>
   <body bgcolor="white">
     <form runat="server">
@@ -63,11 +63,6 @@
                               </tr>
                           </table>
                           </td>
-                      </tr>
-                      <tr>
-                        <td>Officership:</td>
-                        <td><ASP:LinkButton id="LinkButton_officership_detail" runat="server" onclick="LinkButton_officership_detail_Click"><img src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                        <td><ASP:Label id="Label_officership" runat="server"></ASP:Label></td>
                       </tr>
                       <tr>
                         <td>Agency:</td>

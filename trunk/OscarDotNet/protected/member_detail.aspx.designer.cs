@@ -130,24 +130,6 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_leave_next_month;
         
         /// <summary>
-        /// LinkButton_officership_detail control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_officership_detail;
-        
-        /// <summary>
-        /// Label_officership control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_officership;
-        
-        /// <summary>
         /// LinkButton_change_agency control.
         /// </summary>
         /// <remarks>
