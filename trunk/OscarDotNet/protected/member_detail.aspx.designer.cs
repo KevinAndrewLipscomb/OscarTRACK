@@ -310,6 +310,15 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_be_marine_medic;
         
         /// <summary>
+        /// UserControl_role_member_map_log_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_role_member_map_log.TWebUserControl_role_member_map_log UserControl_role_member_map_log_control;
+        
+        /// <summary>
         /// UserControl_postcontent control.
         /// </summary>
         /// <remarks>

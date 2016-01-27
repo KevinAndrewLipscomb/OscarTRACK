@@ -2,6 +2,8 @@
 <%@ Page language="c#" Debug="true" Codebehind="member_detail.aspx.cs" AutoEventWireup="True" Inherits="member_detail.TWebForm_member_detail" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
+<%@ Register Src="~/usercontrol/app/UserControl_role_member_map_log.ascx" TagPrefix="uc1" TagName="UserControl_role_member_map_log" %>
+
 <html>
   <head runat="server">
     <title></title>
@@ -115,6 +117,8 @@
                         <td><ASP:Label id="Label_be_marine_medic" runat="server"></ASP:Label></td>
                       </tr>
                     </table>
+                    <br/>
+                    <uc1:UserControl_role_member_map_log runat="server" ID="UserControl_role_member_map_log_control" />
                   </td>
                 </tr>
               </table>
