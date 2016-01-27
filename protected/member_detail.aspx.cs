@@ -167,6 +167,8 @@ namespace member_detail
                   || k.Has((string[])(Session["privilege_array"]), "schedule-squad-truck-team");
                 LinkButton_change_flight_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_marine_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && be_authorized_tier_or_same_agency);
+                //
+                UserControl_role_member_map_log_control.SetP(subject_member_id:p.target_member_id);
             }
         }
 
