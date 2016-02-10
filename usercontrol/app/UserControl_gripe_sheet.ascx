@@ -30,6 +30,7 @@
                 <li>This is a log of requested <b>vehicular</b> repairs or improvements that do not require putting the vehicle DOWN immediately.</li>
                 <li>Do not use this log to request work relating to supplies or portable or EMS-specific equipment.</li>
                 <li>Check to see if known issues are already documented.</li>
+                <li>The system will automatically delete any gripe whose last entry was more than 4 months ago.</li>
                 <li>To enter a new gripe, scroll to the bottom of this page and click the NEW GRIPE button.</li>
               </ul>
             </small>

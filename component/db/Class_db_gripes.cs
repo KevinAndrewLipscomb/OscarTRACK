@@ -116,6 +116,13 @@ namespace Class_db_gripes
       Close();
       }
 
+    internal void DeleteStalled()
+      {
+      Open();
+      new MySqlCommand("delete from gripe where last_entry_datetime < DATE_SUB(CURDATE(),INTERVAL 4 MONTH)",connection).ExecuteNonQuery();
+      Close();
+      }
+
     public bool Delete(string id)
       {
       bool result;

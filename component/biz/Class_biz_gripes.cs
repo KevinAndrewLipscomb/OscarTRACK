@@ -91,6 +91,11 @@ namespace Class_biz_gripes
       return vehicle_log;
       }
 
+    internal void ManageStalled()
+      {
+      db_gripes.DeleteStalled();
+      }
+
     public bool Delete(string id)
       {
       return db_gripes.Delete(id);
