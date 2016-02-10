@@ -151,6 +151,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )LS$|(?<prefix> )LS(?<suffix> )",
+          replacement:"${prefix}LAST${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )MW$|(?<prefix> )MW(?<suffix> )",
           replacement:"${prefix}MEWS${suffix}",
           options:RegexOptions.Multiline

@@ -179,6 +179,7 @@ namespace UserControl_gripe_sheet
         SetWorkOrderMode(!p.be_interactive);
         Button_send_to_city_garage.Visible = p.be_interactive;
         Button_send_to_comit.Visible = p.be_interactive;
+        Button_send_to_boat_shop.Visible = p.be_interactive && (p.biz_agencies.ShortDesignatorOf(agency_id) == "MRT");
         RequireConfirmation
           (
           c:Button_send_to_city_garage,
@@ -187,6 +188,11 @@ namespace UserControl_gripe_sheet
         RequireConfirmation
           (
           c:Button_send_to_comit,
+          prompt:Static.GRIPE_DISCRETION_PROMPT
+          );
+        RequireConfirmation
+          (
+          c:Button_send_to_boat_shop,
           prompt:Static.GRIPE_DISCRETION_PROMPT
           );
         if (p.be_interactive)
@@ -201,6 +207,7 @@ namespace UserControl_gripe_sheet
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_new);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_city_garage);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_comit);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_boat_shop);
         }
       InjectPersistentClientSideScript();
       }
@@ -461,6 +468,11 @@ namespace UserControl_gripe_sheet
     protected void Button_send_to_comit_Click(object sender, EventArgs e)
       {
       Button_send_Click("comit_work_order_target");
+      }
+
+    protected void Button_send_to_boat_shop_Click(object sender, EventArgs e)
+      {
+      Button_send_Click("boat_shop_work_order_target");
       }
 
     } // end TWebUserControl_gripe_sheet
