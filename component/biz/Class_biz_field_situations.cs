@@ -255,6 +255,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )LS$|(?<prefix> )LS(?<suffix>/)|(?<prefix> )LS(?<suffix> )",
+          replacement:"${prefix}LAST${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )MW$|(?<prefix> )MW(?<suffix>/)|(?<prefix> )MW(?<suffix> )",
           replacement:"${prefix}MEWS${suffix}"
           );
