@@ -2,6 +2,7 @@ using Class_biz_availabilities;
 using Class_biz_cities;
 using Class_biz_enrollment;
 using Class_biz_evals;
+using Class_biz_gripes;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_residents;
@@ -21,6 +22,7 @@ namespace Class_biz_scheduled_tasks
     private TClass_biz_cities biz_cities = null;
     private TClass_biz_enrollment biz_enrollment = null;
     private TClass_biz_evals biz_evals = null;
+    private TClass_biz_gripes biz_gripes = null;
     private TClass_biz_leaves biz_leaves = null;
     private TClass_biz_members biz_members = null;
     private TClass_biz_residents biz_residents = null;
@@ -36,6 +38,7 @@ namespace Class_biz_scheduled_tasks
       biz_cities = new TClass_biz_cities();
       biz_enrollment = new TClass_biz_enrollment();
       biz_evals = new TClass_biz_evals();
+      biz_gripes = new TClass_biz_gripes();
       biz_leaves = new TClass_biz_leaves();
       biz_members = new TClass_biz_members();
       biz_residents = new TClass_biz_residents();
@@ -61,6 +64,7 @@ namespace Class_biz_scheduled_tasks
       biz_members.MakeAvailabilitySubmissionDeadlineRelatedNotifications();
       biz_schedule_assignments.MakeUpcomingDutyNotifications();
       biz_evals.ManageStalled(current_working_directory_spec);
+      biz_gripes.ManageStalled();
       fs.DeleteCondemnedFolders(current_working_directory_spec + "/../protected/attachment");
       }
 
