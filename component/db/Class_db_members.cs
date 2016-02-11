@@ -1785,6 +1785,7 @@ namespace Class_db_members
         + " , email_address"
         + " , phone_num"
         + " , IFNULL(carrier_name,'') as phone_service"
+        + " , IFNULL(GROUP_CONCAT(role.name ORDER BY role.pecking_order SEPARATOR ', '),'Member') as role_list"
         + " from member"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
         +   " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))" + " )" + " )" + " )"
@@ -1793,9 +1794,12 @@ namespace Class_db_members
         +   " left join kind_of_leave_code_description_map" + " on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
         +   " join agency on (agency.id=member.agency_id)"
         +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        +   " left join role_member_map on (role_member_map.member_id=member.id)"
+        +   " left join role on (role.id=role_member_map.role_id)"
         + " where enrollment_level.description in ('Applicant','Operational','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended')"
         +   " and email_address is not null"
         +   " and TRIM(email_address) <> ''"
+        + " group by member.id"
         + " order by RAND()",
         connection
         )
@@ -1823,7 +1827,8 @@ namespace Class_db_members
           kind_of_leave,
           dr["obliged_shifts"].ToString(),
           dr["phone_num"].ToString(),
-          dr["phone_service"].ToString()
+          dr["phone_service"].ToString(),
+          dr["role_list"].ToString()
           );
         }
       dr.Close();

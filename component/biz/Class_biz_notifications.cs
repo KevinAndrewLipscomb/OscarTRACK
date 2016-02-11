@@ -2278,7 +2278,8 @@ namespace Class_biz_notifications
           string kind_of_leave,
           string obliged_shifts,
           string phone_num,
-          string phone_service
+          string phone_service,
+          string role_list
           )
           {
           IssueMemberStatusStatement_Merge Merge = delegate (string s)
@@ -2299,10 +2300,11 @@ namespace Class_biz_notifications
               .Replace("<obliged_shifts/>", obliged_shifts)
               .Replace("<phone_num/>", k.FormatAsNanpPhoneNum(phone_num))
               .Replace("<phone_service/>", phone_service)
+              .Replace("<role_list/>", role_list)
               ;
             };
 
-          var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_status_statement.txt"));
+          var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/member_status_statement.txt"));
           k.SmtpMailSend
             (
             from:ConfigurationManager.AppSettings["sender_email_address"],
