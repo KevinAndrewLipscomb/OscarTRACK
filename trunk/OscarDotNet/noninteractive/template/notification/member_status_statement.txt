@@ -87,6 +87,9 @@ Your status in <application_name/> for *next month* has been recorded as follows
       Note 4:  This value will be blank for members with "Staff", "ALS
       Intern", "College", or "Atypical" membership status.
 
+   Assigned roles:
+      <role_list/>
+
 Remember, the above details apply to *next month*.  If any of the above details are incorrect, notify your squad commander (or appropriate designee) *immediately*.
 
 To receive OSCALERTs, your phone number and cellular provider must be set correctly.  You can update these settings yourself by logging into <application_name/> and clicking the "profile" link near the upper left corner.
