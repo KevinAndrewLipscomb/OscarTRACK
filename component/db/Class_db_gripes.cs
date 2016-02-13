@@ -6,6 +6,7 @@ using kix;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web.UI.WebControls;
 using UserControl_drop_down_date;
 
@@ -113,13 +114,6 @@ namespace Class_db_gripes
         )
         .ExecuteReader();
       ((target) as BaseDataList).DataBind();
-      Close();
-      }
-
-    internal void DeleteStalled()
-      {
-      Open();
-      new MySqlCommand("delete from gripe where last_entry_datetime < DATE_SUB(CURDATE(),INTERVAL 4 MONTH)",connection).ExecuteNonQuery();
       Close();
       }
 
@@ -245,6 +239,20 @@ namespace Class_db_gripes
         )
         .ExecuteNonQuery();
       this.Close();
+      }
+
+    internal Queue<string> StalledIdQ()
+      {
+      var stalled_id_q = new Queue<string>();
+      Open();
+      var dr = new MySqlCommand("select id from gripe where last_entry_datetime < DATE_SUB(CURDATE(),INTERVAL 4 MONTH)",connection).ExecuteReader();
+      while (dr.Read())
+        {
+        stalled_id_q.Enqueue(dr["id"].ToString());
+        }
+      dr.Close();
+      Close();
+      return stalled_id_q;
       }
 
     } // end TClass_db_gripes
