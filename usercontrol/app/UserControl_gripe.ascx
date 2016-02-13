@@ -1,6 +1,8 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe.ascx.cs" Inherits="UserControl_gripe.TWebUserControl_gripe"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~kicrudhelped~item.ascx-template -->
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>
+<%@ Register Src="~/usercontrol/ki/UserControl_iva_attachment_explorer.ascx" TagPrefix="uc1" TagName="UserControl_iva_attachment_explorer" %>
+
 <table cellspacing="0" cellpadding="5" width="100%" border="0">
   <tr>
     <td valign="top">
@@ -63,7 +65,7 @@
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_vehicle_id" runat="server" errormessage="Please enter Vehicle&nbsp;id." font-bold="True" controltovalidate="TextBox_vehicle_name">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
-  <tr>
+  <tr id="TableRow_prior_entry" runat="server">
     <td valign="top">
       <asp:Label ID="Label_prior_entry" runat="server" Text="Prior entry:" Enabled="False"></asp:Label>
     </td>
@@ -88,6 +90,15 @@
     <td nowrap="True" valign="top">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_note_to_append" runat="server" errormessage="Please enter New/additional entry." font-bold="True" controltovalidate="TextBox_note_to_append">!ERR!</ASP:RequiredFieldValidator>
     </td>
+  </tr>
+  <tr>
+    <td valign="top"><font class="">Image/video/audio media:</font></td>
+    <td>
+      <asp:Literal ID="Literal_iva_attachments_available_later" runat="server">After you submit a new entry, you can return here to add media attachments.</asp:Literal>
+      <uc1:UserControl_iva_attachment_explorer runat="server" ID="UserControl_iva_attachment_explorer_control" visible="false"/>
+      <asp:Literal ID="Literal_large_upload_warning" runat="server" Visible="false">If your upload is too large, you'll receive an "HTTP Error 404.13 - Not Found" page.</asp:Literal>
+    </td>
+    <td nowrap="True" valign="top"></td>
   </tr>
       </table>
     </td>

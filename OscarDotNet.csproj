@@ -261,6 +261,7 @@
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
+    <Content Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx" />
     <Content Include="verify_efficipay_signature.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -2029,6 +2030,7 @@
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.cs">
       <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_attachment_explorer.ascx.designer.cs">
       <DependentUpon>UserControl_attachment_explorer.ascx</DependentUpon>
@@ -2065,6 +2067,13 @@
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.designer.cs">
       <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx.cs">
+      <DependentUpon>UserControl_iva_attachment_explorer.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx.designer.cs">
+      <DependentUpon>UserControl_iva_attachment_explorer.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_print_div.ascx.cs">
       <DependentUpon>UserControl_print_div.ascx</DependentUpon>

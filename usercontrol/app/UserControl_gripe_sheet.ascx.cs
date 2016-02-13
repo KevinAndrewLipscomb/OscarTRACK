@@ -12,15 +12,19 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using UserControl_iva_attachment_explorer;
 
 namespace UserControl_gripe_sheet
   {
+
   public partial class TWebUserControl_gripe_sheet: ki_web_ui.usercontrol_class
     {
-    private class Static
+
+    private static class Static
       {
       public const string GRIPE_DISCRETION_PROMPT = "You should review the list of gripes to make sure it is appropriate, and append to, or remove, any gripes, as necessary." + k.NEW_LINE
       + k.NEW_LINE
@@ -30,6 +34,7 @@ namespace UserControl_gripe_sheet
       public const int TCI_ID = 2;
       public const int TCI_DESCRIPTION = 3;
       public const int TCI_APPEND = 4;
+      public const int TCI_IVA_MEDIA = 5;
       }
 
     private struct p_type
@@ -137,7 +142,7 @@ namespace UserControl_gripe_sheet
       // );
       }
 
-    protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
       {
       if (!p.be_loaded)
         {
@@ -212,7 +217,7 @@ namespace UserControl_gripe_sheet
       InjectPersistentClientSideScript();
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();
@@ -249,14 +254,13 @@ namespace UserControl_gripe_sheet
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-      this.DataGrid_control.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_control_ItemCommand);
-      this.PreRender += this.TWebUserControl_gripe_sheet_PreRender;
-      //this.Load += this.Page_Load;
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      DataGrid_control.ItemCommand += new DataGridCommandEventHandler(DataGrid_control_ItemCommand);
+      PreRender += TWebUserControl_gripe_sheet_PreRender;
       }
 
-    private void TWebUserControl_gripe_sheet_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_gripe_sheet_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -267,7 +271,7 @@ namespace UserControl_gripe_sheet
       return this;
       }
 
-    private void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
       {
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
@@ -293,7 +297,7 @@ namespace UserControl_gripe_sheet
         }
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
@@ -322,6 +326,10 @@ namespace UserControl_gripe_sheet
             link_button.ToolTip = "Append note";
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
             }
+          //
+          var iva_attachment_explorer = (e.Item.Cells[Static.TCI_IVA_MEDIA].FindControl("UserControl_iva_attachment_explorer") as TWebUserControl_iva_attachment_explorer);
+          iva_attachment_explorer.path = HttpContext.Current.Server.MapPath("attachment/gripe/" + id);
+          ScriptManager.GetCurrent(Page).RegisterPostBackControl(iva_attachment_explorer);
           }
         var description_cell = e.Item.Cells[Static.TCI_DESCRIPTION];
         //
@@ -343,7 +351,7 @@ namespace UserControl_gripe_sheet
         }
       }
 
-    private void DataGrid_control_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+    private void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
       {
       if (e.SortExpression == p.sort_order)
         {
@@ -363,6 +371,7 @@ namespace UserControl_gripe_sheet
       DataGrid_control.Columns[Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
+      DataGrid_control.Columns[Static.TCI_IVA_MEDIA].Visible = p.be_interactive;
       p.biz_gripes.BindLog(p.biz_vehicles.IdOf((p.vehicle_summary)),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
       p.be_datagrid_empty = (p.num_gripes == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
