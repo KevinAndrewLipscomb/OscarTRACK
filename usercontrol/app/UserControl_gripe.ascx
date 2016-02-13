@@ -95,8 +95,21 @@
     <td valign="top"><font class="">Image/video/audio media:</font></td>
     <td>
       <asp:Literal ID="Literal_iva_attachments_available_later" runat="server">After you submit a new entry, you can return here to add media attachments.</asp:Literal>
-      <uc1:UserControl_iva_attachment_explorer runat="server" ID="UserControl_iva_attachment_explorer_control" visible="false"/>
-      <asp:Literal ID="Literal_large_upload_warning" runat="server" Visible="false">If your upload is too large, you'll receive an "HTTP Error 404.13 - Not Found" page.</asp:Literal>
+      <table id="Table_iva_attachment_explorer" runat="server" cellpadding="5" cellspacing="0" style="border:1px solid gray;" visible="false">
+        <tr>
+          <td>
+            <small>
+              INSTRUCTIONS:
+              <ol>
+                <li>Click (depending on your browser) "Browse" or "Choose file" to start capturing media.</li>
+                <li>Click "<== Upload" to send captured media to the server.</li>
+              </ol>
+            </small>
+            <uc1:UserControl_iva_attachment_explorer runat="server" ID="UserControl_iva_attachment_explorer_control"/>
+            <small>If your upload is too large, you'll receive an "HTTP Error 404.13 - Not Found" page.</small>
+          </td>
+        </tr>
+      </table>
     </td>
     <td nowrap="True" valign="top"></td>
   </tr>
