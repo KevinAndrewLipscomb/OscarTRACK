@@ -310,6 +310,7 @@ namespace UserControl_gripe_sheet
         var id = k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM);
         var iva_attachment_explorer = (e.Item.Cells[Static.TCI_IVA_MEDIA].FindControl("UserControl_iva_attachment_explorer") as TWebUserControl_iva_attachment_explorer);
         iva_attachment_explorer.path = HttpContext.Current.Server.MapPath(Class_biz_gripes_Static.ATTACHMENT_FOLDER_SPEC + id);
+        iva_attachment_explorer.be_for_persistence = !p.be_interactive;
         //
         if (p.gripe_inclusion_hashtable.ContainsKey(id))
           {
