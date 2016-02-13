@@ -238,6 +238,15 @@ namespace UserControl_gripe {
         protected global::System.Web.UI.WebControls.Literal Literal_iva_attachments_available_later;
         
         /// <summary>
+        /// Table_iva_attachment_explorer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_iva_attachment_explorer;
+        
+        /// <summary>
         /// UserControl_iva_attachment_explorer_control control.
         /// </summary>
         /// <remarks>
@@ -245,15 +254,6 @@ namespace UserControl_gripe {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::UserControl_iva_attachment_explorer.TWebUserControl_iva_attachment_explorer UserControl_iva_attachment_explorer_control;
-        
-        /// <summary>
-        /// Literal_large_upload_warning control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_large_upload_warning;
         
         /// <summary>
         /// Button_submit control.

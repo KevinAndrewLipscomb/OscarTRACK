@@ -169,7 +169,7 @@ namespace UserControl_gripe
         UserControl_iva_attachment_explorer_control.be_ok_to_add = true;
         UserControl_iva_attachment_explorer_control.be_ok_to_delete = true;
         UserControl_iva_attachment_explorer_control.Visible = true;
-        Literal_large_upload_warning.Visible = true;
+        Table_iva_attachment_explorer.Visible = true;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;

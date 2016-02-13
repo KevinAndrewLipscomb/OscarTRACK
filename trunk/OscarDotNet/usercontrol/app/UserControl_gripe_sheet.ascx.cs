@@ -285,6 +285,11 @@ namespace UserControl_gripe_sheet
         else if (e.CommandName == "Delete")
           {
           p.biz_gripes.Delete(id);
+          //
+          // Without Bind()-ing twice, the UserControl_iva_attachment_explorer for the row that just got deleted refuses to disappear, and pushes later UserControl_iva_attachment_explorer elements one row further down than
+          // they should be.  I suspect UserControl_attachment_explorer is loading the wrong instance of its p object.
+          //
+          Bind();
           Bind();
           }
         else if (e.CommandName == "ToggleInclusion")
