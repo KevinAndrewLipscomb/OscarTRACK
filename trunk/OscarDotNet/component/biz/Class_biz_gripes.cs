@@ -101,13 +101,17 @@ namespace Class_biz_gripes
 
     internal void ManageStalled()
       {
-      db_gripes.DeleteStalled();
+      var stalled_id_q = db_gripes.StalledIdQ();
+      while (stalled_id_q.Count > 0)
+        {
+        Delete(stalled_id_q.Dequeue());
+        }
       }
 
     public bool Delete(string id)
       {
       var the_delete = db_gripes.Delete(id);
-      fs.CondemnFolder(spec:HttpContext.Current.Server.MapPath("attachment/gripe/" + id));
+      fs.CondemnFolder(spec:HttpContext.Current.Server.MapPath(Class_biz_gripes_Static.ATTACHMENT_FOLDER_SPEC + id));
       return the_delete;
       }
 

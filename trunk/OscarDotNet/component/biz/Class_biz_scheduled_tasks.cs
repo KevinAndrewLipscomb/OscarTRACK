@@ -66,6 +66,7 @@ namespace Class_biz_scheduled_tasks
       biz_evals.ManageStalled(current_working_directory_spec);
       biz_gripes.ManageStalled();
       fs.DeleteCondemnedFolders(current_working_directory_spec + "/../protected/attachment");
+      fs.DeleteCondemnedFolders(current_working_directory_spec + "/../pub/attachment");
       }
 
     internal void DoEndOfMonthChores(string working_directory)
