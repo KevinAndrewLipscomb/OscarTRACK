@@ -12,12 +12,16 @@ using System.Web;
 
 namespace Class_biz_gripes
   {
+
   public static class Class_biz_gripes_Static
     {
-    public static string COMMENT_SEPARATOR = k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
+    public const string ATTACHMENT_FOLDER_SPEC = "../pub/attachment/gripe/";
+    public const string COMMENT_SEPARATOR = k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
     }
+
   public class TClass_biz_gripes
     {
+
     private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
     private TClass_db_gripes db_gripes = null;

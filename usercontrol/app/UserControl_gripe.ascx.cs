@@ -165,7 +165,7 @@ namespace UserControl_gripe
         TextBox_description.Text = description;
         TextBox_note_to_append.Text = k.EMPTY;
         Literal_iva_attachments_available_later.Visible = false;
-        UserControl_iva_attachment_explorer_control.path = HttpContext.Current.Server.MapPath("attachment/gripe/" + id);
+        UserControl_iva_attachment_explorer_control.path = HttpContext.Current.Server.MapPath(Class_biz_gripes_Static.ATTACHMENT_FOLDER_SPEC + id);
         UserControl_iva_attachment_explorer_control.be_ok_to_add = true;
         UserControl_iva_attachment_explorer_control.be_ok_to_delete = true;
         UserControl_iva_attachment_explorer_control.Visible = true;
