@@ -303,6 +303,9 @@ namespace UserControl_gripe_sheet
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
         var id = k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        var iva_attachment_explorer = (e.Item.Cells[Static.TCI_IVA_MEDIA].FindControl("UserControl_iva_attachment_explorer") as TWebUserControl_iva_attachment_explorer);
+        iva_attachment_explorer.path = HttpContext.Current.Server.MapPath(Class_biz_gripes_Static.ATTACHMENT_FOLDER_SPEC + id);
+        //
         if (p.gripe_inclusion_hashtable.ContainsKey(id))
           {
           (e.Item.Cells[Static.TCI_INCLUDE].Controls[0] as LinkButton).Text = (((bool)(p.gripe_inclusion_hashtable[id])) ? "YES" : "no");
@@ -325,11 +328,9 @@ namespace UserControl_gripe_sheet
             link_button.Text = k.ExpandTildePath(link_button.Text);
             link_button.ToolTip = "Append note";
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+            //
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(iva_attachment_explorer);
             }
-          //
-          var iva_attachment_explorer = (e.Item.Cells[Static.TCI_IVA_MEDIA].FindControl("UserControl_iva_attachment_explorer") as TWebUserControl_iva_attachment_explorer);
-          iva_attachment_explorer.path = HttpContext.Current.Server.MapPath("attachment/gripe/" + id);
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(iva_attachment_explorer);
           }
         var description_cell = e.Item.Cells[Static.TCI_DESCRIPTION];
         //
@@ -371,7 +372,6 @@ namespace UserControl_gripe_sheet
       DataGrid_control.Columns[Static.TCI_INCLUDE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[Static.TCI_DELETE].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked && p.be_ok_to_config_gripes);
       DataGrid_control.Columns[Static.TCI_APPEND].Visible = (p.be_interactive && !CheckBox_be_work_order_mode.Checked);
-      DataGrid_control.Columns[Static.TCI_IVA_MEDIA].Visible = p.be_interactive;
       p.biz_gripes.BindLog(p.biz_vehicles.IdOf((p.vehicle_summary)),p.sort_order, p.be_sort_order_ascending, DataGrid_control);
       p.be_datagrid_empty = (p.num_gripes == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
