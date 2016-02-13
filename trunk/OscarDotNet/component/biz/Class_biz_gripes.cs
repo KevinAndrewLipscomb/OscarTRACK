@@ -4,9 +4,11 @@ using Class_biz_members;
 using Class_biz_notifications;
 using Class_db_gripes;
 using kix;
+using OscarDotNet.component.os;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.Web;
 
 namespace Class_biz_gripes
   {
@@ -16,15 +18,17 @@ namespace Class_biz_gripes
     }
   public class TClass_biz_gripes
     {
-    private TClass_db_gripes db_gripes = null;
     private TClass_biz_members biz_members = null;
     private TClass_biz_notifications biz_notifications = null;
+    private TClass_db_gripes db_gripes = null;
+    private Class_fs fs = null;
 
     public TClass_biz_gripes() : base()
       {
-      db_gripes = new TClass_db_gripes();
       biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
+      db_gripes = new TClass_db_gripes();
+      fs = new Class_fs();
       }
 
     public void Append
@@ -98,7 +102,9 @@ namespace Class_biz_gripes
 
     public bool Delete(string id)
       {
-      return db_gripes.Delete(id);
+      var the_delete = db_gripes.Delete(id);
+      fs.CondemnFolder(spec:HttpContext.Current.Server.MapPath("attachment/gripe/" + id));
+      return the_delete;
       }
 
     public bool Get

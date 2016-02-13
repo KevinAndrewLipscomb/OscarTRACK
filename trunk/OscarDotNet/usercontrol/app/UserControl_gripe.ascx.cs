@@ -6,6 +6,7 @@ using Class_biz_vehicles;
 using kix;
 using System;
 using System.Configuration;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -131,6 +132,10 @@ namespace UserControl_gripe
           PresentRecord(Session["mode:goto"].ToString().Substring(Session["mode:goto"].ToString().LastIndexOf("/") + 1));
           Session.Remove("mode:goto");
           }
+        else
+          {
+          TableRow_prior_entry.Visible = false;
+          }
         TextBox_note_to_append.Focus();
         p.be_loaded = true;
         }
@@ -159,6 +164,12 @@ namespace UserControl_gripe
         TextBox_vehicle_name.Text = vehicle_name;
         TextBox_description.Text = description;
         TextBox_note_to_append.Text = k.EMPTY;
+        Literal_iva_attachments_available_later.Visible = false;
+        UserControl_iva_attachment_explorer_control.path = HttpContext.Current.Server.MapPath("attachment/gripe/" + id);
+        UserControl_iva_attachment_explorer_control.be_ok_to_add = true;
+        UserControl_iva_attachment_explorer_control.be_ok_to_delete = true;
+        UserControl_iva_attachment_explorer_control.Visible = true;
+        Literal_large_upload_warning.Visible = true;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;

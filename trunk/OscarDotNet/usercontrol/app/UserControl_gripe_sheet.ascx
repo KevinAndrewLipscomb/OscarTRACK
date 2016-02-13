@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe_sheet.ascx.cs" Inherits="UserControl_gripe_sheet.TWebUserControl_gripe_sheet"%>
+<%@ Register Src="~/usercontrol/ki/UserControl_iva_attachment_explorer.ascx" TagPrefix="uc1" TagName="UserControl_iva_attachment_explorer" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
@@ -183,24 +184,29 @@
               <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
               <Columns>
                 <asp:ButtonColumn text="YES" commandname="ToggleInclusion" HeaderText="Include on work order">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" HorizontalAlign="Center" />
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle VerticalAlign="Top" HorizontalAlign="Center" />
                 </asp:ButtonColumn>
                 <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/delete_x16_h.png&quot; alt=&quot;Delete&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Delete" Visible="False" HeaderText="Delete">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Bottom" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" />
+                  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+                  <ItemStyle VerticalAlign="Top" HorizontalAlign="Center" />
                 </asp:ButtonColumn>
-                <asp:BoundColumn datafield="id" headertext="#" SortExpression="id%">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Bottom" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" HorizontalAlign="Right" />
+                <asp:BoundColumn datafield="id" headertext="#" SortExpression="id%" ReadOnly="True">
+                  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+                  <ItemStyle VerticalAlign="Top" HorizontalAlign="Right" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="description" headertext="Description">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Bottom" />
+                <asp:BoundColumn datafield="description" headertext="Description" ReadOnly="True">
+                  <HeaderStyle VerticalAlign="Bottom" />
                 </asp:BoundColumn>
-                <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Append&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Append" HeaderText="Append note">
-                  <HeaderStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" HorizontalAlign="Center" VerticalAlign="Bottom" />
-                  <ItemStyle Font-Bold="False" Font-Italic="False" Font-Overline="False" Font-Strikeout="False" Font-Underline="False" VerticalAlign="Top" HorizontalAlign="Center" />
+                <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/draw_freehand_16_h.png&quot; alt=&quot;Append&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" commandname="Append" HeaderText="Append note / attach media">
+                  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom" />
+                  <ItemStyle VerticalAlign="Top" HorizontalAlign="Center" />
                 </asp:ButtonColumn>
+                <asp:TemplateColumn HeaderText="Image/video/audio media">
+                  <ItemTemplate><uc1:UserControl_iva_attachment_explorer runat="server" id="UserControl_iva_attachment_explorer" /></ItemTemplate>
+                  <ItemStyle VerticalAlign="Top" />
+                  <HeaderStyle HorizontalAlign="Center" VerticalAlign="Bottom"/>
+                </asp:TemplateColumn>
               </Columns>
             </asp:DataGrid>
           </td>
