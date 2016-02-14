@@ -183,7 +183,7 @@
             <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" allowsorting="True">
               <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
               <Columns>
-                <asp:ButtonColumn text="YES" commandname="ToggleInclusion" HeaderText="Include on work order">
+                <asp:ButtonColumn text="YES" commandname="ToggleInclusion" HeaderText="Include on VIR">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle VerticalAlign="Top" HorizontalAlign="Center" />
                 </asp:ButtonColumn>
