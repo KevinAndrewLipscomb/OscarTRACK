@@ -426,6 +426,13 @@ namespace UserControl_eval
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
         DropDownList_evaluatee.SelectedValue = third_member_id;
+        if (DropDownList_evaluatee.SelectedValue.Length == 0)
+          {
+          Literal_released_evaluatee.Text =
+            p.biz_members.LastNameOfMemberId(third_member_id) + k.COMMA_SPACE + p.biz_members.FirstNameOfMemberId(third_member_id) + " (" + p.biz_members.CadNumOfMemberId(third_member_id) + ")";
+          Literal_released_evaluatee.Visible = true;
+          DropDownList_evaluatee.Visible = false;
+          }
         UserControl_drop_down_date_nominal_day.selectedvalue = nominal_day;
         DropDownList_shift.SelectedValue = shift_id;
         DropDownList_post.SelectedValue = post_id;

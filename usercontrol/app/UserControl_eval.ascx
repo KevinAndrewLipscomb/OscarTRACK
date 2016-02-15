@@ -63,9 +63,9 @@
   </tr>
   <tr>
     <td align="right"><font class="">Evaluatee:</font></td>
-    <td>
-      <asp:DropDownList ID="DropDownList_evaluatee" runat="server" onselectedindexchanged="DropDownList_evaluatee_SelectedIndexChanged">
-      </asp:DropDownList>
+    <td valign="middle">
+      <asp:DropDownList ID="DropDownList_evaluatee" runat="server" onselectedindexchanged="DropDownList_evaluatee_SelectedIndexChanged"></asp:DropDownList>
+      <asp:Literal ID="Literal_released_evaluatee" runat="server" Visible="false"></asp:Literal>
     </td>
     <td nowrap="nowrap">
       <ASP:RequiredFieldValidator id="RequiredFieldValidator_third_member_id" runat="server" errormessage="Please select an Evaluatee." font-bold="True" controltovalidate="DropDownList_evaluatee">&lt;ERR!</ASP:RequiredFieldValidator>
