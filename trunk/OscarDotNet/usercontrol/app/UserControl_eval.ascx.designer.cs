@@ -193,6 +193,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_evaluatee;
         
         /// <summary>
+        /// Literal_released_evaluatee control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_released_evaluatee;
+        
+        /// <summary>
         /// RequiredFieldValidator_third_member_id control.
         /// </summary>
         /// <remarks>
