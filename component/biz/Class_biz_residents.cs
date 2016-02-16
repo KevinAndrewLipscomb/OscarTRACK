@@ -137,6 +137,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )HE$|(?<prefix> )HE(?<suffix> )",
+          replacement:"${prefix}HEATH${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )LD$|(?<prefix> )LD(?<suffix> )",
           replacement:"${prefix}LNDG${suffix}",
           options:RegexOptions.Multiline
