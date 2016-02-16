@@ -174,6 +174,38 @@
               </table>
             </blockquote>
             <p></p>
+            <asp:Panel ID="Panel_down_nature" runat="server">
+              The following choices are situations in which a unit might go down.&nbsp; Choose the situation that best applies.&nbsp; Severity is indicated with respect to mission impact and controllability.
+              <blockquote>
+                <table cellpadding="0" cellspacing="0" border="1" bordercolor="Gainsboro">
+                  <tr>
+                    <td>
+                      <table cellspacing="0" cellpadding="10">
+                        <tr>
+                          <td>
+                            <table cellspacing="0" cellpadding="20" border="0">
+                              <tr>
+                                <td valign="top"><small>MOST&nbsp;SEVERE&nbsp;>>></small></td>
+                                <td rowspan="2" valign="middle">
+                                  <asp:RadioButtonList ID="RadioButtonList_nature" runat="server"></asp:RadioButtonList>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td valign="bottom"><small>LEAST&nbsp;SEVERE&nbsp;>>></small></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td nowrap="nowrap" valign="top">
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator_nature" runat="server" ControlToValidate="RadioButtonList_nature" ErrorMessage="Please select a Severity." Font-Bold="True">!ERR!</asp:RequiredFieldValidator>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </blockquote>
+              <p></p>
+            </asp:Panel>
             <b>SECONDARY ISSUES:</b>
           </td>
         </tr>

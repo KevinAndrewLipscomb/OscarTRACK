@@ -355,6 +355,33 @@ namespace UserControl_gripe_sheet {
         protected global::System.Web.UI.WebControls.Literal Literal_main_reason_for_visit;
         
         /// <summary>
+        /// Panel_down_nature control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_down_nature;
+        
+        /// <summary>
+        /// RadioButtonList_nature control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_nature;
+        
+        /// <summary>
+        /// RequiredFieldValidator_nature control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_nature;
+        
+        /// <summary>
         /// TableRow_none control.
         /// </summary>
         /// <remarks>
