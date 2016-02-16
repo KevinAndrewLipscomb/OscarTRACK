@@ -180,6 +180,7 @@ namespace UserControl_gripe_sheet
         TableRow_main_reason_for_visit_interactive.Visible = p.be_interactive;
         TableRow_main_reason_for_visit_noninteractive.Visible = !p.be_interactive;
         Literal_main_reason_for_visit.Text = p.main_reason_for_visit;
+        p.biz_vehicle_down_natures.BindDirectToListControlForMarkDown(target:RadioButtonList_nature);
         DataGrid_control.AllowSorting = p.be_interactive;
         SetWorkOrderMode(!p.be_interactive);
         Button_send_to_city_garage.Visible = p.be_interactive;
@@ -425,6 +426,7 @@ namespace UserControl_gripe_sheet
       Panel_generation_timestamp.Visible = value;
       TableRow_best_practices.Visible = !value;
       TableRow_work_order_instructions.Visible = value;
+      Panel_down_nature.Visible = p.be_interactive && !p.biz_vehicles.BeDown(p.biz_vehicles.IdOf(p.vehicle_summary));
       Bind();
       Button_new.Visible = !value;
       Panel_page_break.Visible = value;
@@ -449,7 +451,7 @@ namespace UserControl_gripe_sheet
           (
           vehicle_id:vehicle_id,
           time_went_down:DateTime.Now,
-          nature_id:p.biz_vehicle_down_natures.IdOfName("UNVALIDATED"),
+          nature_id:k.Safe(RadioButtonList_nature.SelectedValue,k.safe_hint_type.NUM),
           mileage:k.EMPTY,
           down_comment:main_reason_for_visit,
           summary:p.vehicle_summary
