@@ -186,6 +186,8 @@ namespace UserControl_gripe_sheet
         Button_send_to_city_garage.Visible = p.be_interactive;
         Button_send_to_comit.Visible = p.be_interactive;
         Button_send_to_boat_shop.Visible = p.be_interactive && (p.biz_agencies.ShortDesignatorOf(agency_id) == "MRT");
+        Button_send_to_liaison.Visible = p.be_interactive;
+        Literal_liaison_name.Text = ConfigurationManager.AppSettings["vehicular_issue_report_target_name"];
         RequireConfirmation
           (
           c:Button_send_to_city_garage,
@@ -201,6 +203,11 @@ namespace UserControl_gripe_sheet
           c:Button_send_to_boat_shop,
           prompt:Static.GRIPE_DISCRETION_PROMPT
           );
+        RequireConfirmation
+          (
+          c:Button_send_to_liaison,
+          prompt:Static.GRIPE_DISCRETION_PROMPT
+          );
         if (p.be_interactive)
           {
           p.gripe_inclusion_hashtable.Clear();
@@ -214,6 +221,7 @@ namespace UserControl_gripe_sheet
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_city_garage);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_comit);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_boat_shop);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_liaison);
         }
       InjectPersistentClientSideScript();
       }
@@ -492,6 +500,10 @@ namespace UserControl_gripe_sheet
       Button_send_Click("boat_shop_work_order_target");
       }
 
+    protected void Button_send_to_liaison_Click(object sender, EventArgs e)
+      {
+      Button_send_Click("vehicular_issue_report_target");
+      }
     } // end TWebUserControl_gripe_sheet
 
   }
