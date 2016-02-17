@@ -310,6 +310,24 @@ namespace UserControl_gripe_sheet {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_main_reason_for_visit;
         
         /// <summary>
+        /// Button_send_to_liaison control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_send_to_liaison;
+        
+        /// <summary>
+        /// Literal_liaison_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_liaison_name;
+        
+        /// <summary>
         /// Button_send_to_city_garage control.
         /// </summary>
         /// <remarks>
