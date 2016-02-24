@@ -179,7 +179,7 @@ namespace UserControl_member_binder
           {
           p.tab_index = Static.TSSI_FUNDDRIVE;
           }
-        else if ((new ArrayList{"Department Authority","Squad Commander"}).Contains(p.biz_user.Roles()[0]))
+        else if ((new ArrayList{"Department Authority","Squad Commander","Squad President"}).Contains(p.biz_user.Roles()[0]))
           {
           p.tab_index = Static.TSSI_CONFIG;
           }

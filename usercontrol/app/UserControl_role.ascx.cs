@@ -258,7 +258,7 @@ namespace UserControl_role
 
     protected void DropDownList_name_SelectedIndexChanged(object sender, EventArgs e)
       {
-      p.role_name = k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.MAKE_MODEL);
+      p.role_name = k.Safe(DropDownList_name.SelectedValue, k.safe_hint_type.PUNCTUATED);
       PresentRecord(p.role_name);
       }
 
