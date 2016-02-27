@@ -555,40 +555,48 @@ namespace Class_db_agencies
             return result;
         }
 
-        public Queue SerialIndicatorData(string indicator, string agency_id, string be_agency_id_applicable)
+    public Queue SerialIndicatorData
+      (
+      string indicator,
+      string agency_id,
+      string be_agency_id_applicable
+      )
+      {
+      var additional_where_clause = k.EMPTY;
+      var dependent_parameter_name = k.EMPTY;
+      serial_indicator_rec_type serial_indicator_rec;
+      if (indicator == "median_length_of_service")
         {
-            Queue result;
-            string additional_where_clause;
-            MySqlDataReader dr;
-            string dependent_parameter_name;
-            serial_indicator_rec_type serial_indicator_rec;
-            Queue serial_indicator_rec_q;
-            if (indicator == "median_length_of_service")
-            {
-                dependent_parameter_name = "m";
-                additional_where_clause = " and be_trendable";
-            }
-            else
-            {
-                dependent_parameter_name = "value";
-                additional_where_clause = k.EMPTY;
-            }
-            serial_indicator_rec_q = new Queue();
-            this.Open();
-            dr = new MySqlCommand("select year,month," + dependent_parameter_name + " from indicator_" + indicator + " where agency_id = " + agency_id + " and be_agency_id_applicable = " + be_agency_id_applicable + additional_where_clause, this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                serial_indicator_rec.year = uint.Parse(dr["year"].ToString());
-                serial_indicator_rec.month = uint.Parse(dr["month"].ToString());
-                serial_indicator_rec.value = System.Double.Parse(dr[dependent_parameter_name].ToString());
-                serial_indicator_rec_q.Enqueue(serial_indicator_rec);
-            }
-            dr.Close();
-            this.Close();
-            result = serial_indicator_rec_q;
-
-            return result;
+        dependent_parameter_name = "m";
+        additional_where_clause = " and be_trendable";
         }
+      else
+        {
+        dependent_parameter_name = "value";
+        }
+      var serial_indicator_rec_q = new Queue();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select year,month," + dependent_parameter_name
+        + " from indicator_" + indicator
+        + " where agency_id = '" + agency_id + "'"
+        +   " and be_agency_id_applicable = '" + be_agency_id_applicable + "'"
+        +     additional_where_clause,
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        serial_indicator_rec.year = uint.Parse(dr["year"].ToString());
+        serial_indicator_rec.month = uint.Parse(dr["month"].ToString());
+        serial_indicator_rec.value = Double.Parse(dr[dependent_parameter_name].ToString());
+        serial_indicator_rec_q.Enqueue(serial_indicator_rec);
+        }
+      dr.Close();
+      Close();
+      return serial_indicator_rec_q;
+      }
 
         public void Set
           (
