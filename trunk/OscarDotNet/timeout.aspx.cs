@@ -26,6 +26,7 @@ namespace timeout
                     Response.Redirect("~/login.aspx");
                 }
                 Title = Server.HtmlEncode(ConfigurationManager.AppSettings["application_name"]) + " - timeout";
+                Meta_control.Content = ((Session.Timeout - 2)*60).ToString();
             }
         }
 
