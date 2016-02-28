@@ -40,6 +40,7 @@ namespace overview
             if (!IsPostBack)
             {
                 Title = ConfigurationManager.AppSettings["application_name"] + " - overview";
+                Meta_control.Content = ((Session.Timeout - 2)*60).ToString();
             }
         }
 
