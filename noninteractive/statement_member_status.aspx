@@ -3,7 +3,7 @@
 
 <html>
   <head runat="server">
-    <title/>
+    <title></title>
   </head>
 
   <body bgcolor="white">

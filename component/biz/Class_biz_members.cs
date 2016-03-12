@@ -617,7 +617,12 @@ namespace Class_biz_members
           var be_transfer_initiated = false;
           if (biz_enrollment.SetLevel(biz_enrollment.CodeOf("Transferring"),effective_date,note,IdOf(summary),summary))
             {
-            db_leaves.CurtailOnEffectiveDate(IdOf(summary),effective_date);
+            db_leaves.CurtailOnEffectiveDate
+              (
+              member_id:IdOf(summary),
+              effective_date:effective_date,
+              due_to_phrase:"initiation of transfer"
+              );
             be_transfer_initiated = true;
             }
           return be_transfer_initiated;

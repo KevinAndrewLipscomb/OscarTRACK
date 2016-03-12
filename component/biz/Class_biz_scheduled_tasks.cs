@@ -75,6 +75,11 @@ namespace Class_biz_scheduled_tasks
       biz_schedule_assignments.LogCommensurationData();
       }
 
+    internal void DoFirstOfMonthChores(string v)
+      {
+      biz_leaves.KeepMedicalsExtendedIntoNextMonth();
+      }
+
     public void DoMemberStatusStatements()
       {
       biz_members.MakeMemberStatusStatements();

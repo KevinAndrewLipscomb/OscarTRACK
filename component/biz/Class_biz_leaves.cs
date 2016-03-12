@@ -15,8 +15,9 @@ namespace Class_biz_leaves
         private TClass_db_leaves db_leaves = null;
         private TClass_biz_members biz_members = null;
         private TClass_biz_notifications biz_notifications = null;
-        //Constructor  Create()
-        public TClass_biz_leaves() : base()
+
+    //Constructor  Create()
+    public TClass_biz_leaves() : base()
         {
             // TODO: Add any constructor code here
             db_enrollment = new TClass_db_enrollment();
@@ -46,6 +47,15 @@ namespace Class_biz_leaves
             return result;
         }
 
+    internal bool BeValidMedical
+      (
+      string kind_of_leave_description,
+      string end_month
+      )
+      {
+      return (kind_of_leave_description != "Medical") || (int.Parse(end_month) >= 1);
+      }
+
         public void BindEndMonthDropDownList(object target, bool use_select, bool include_last_month)
         {
             int lowest_offset;
@@ -69,7 +79,63 @@ namespace Class_biz_leaves
             }
         }
 
-        public void BindEndMonthDropDownList(object target)
+    internal void KeepMedicalsExtendedIntoNextMonth()
+      {
+      medical_expiring_this_month_rec_class medical_expiring_this_month_rec;
+      var convenient_next_month_date = DateTime.Today.AddMonths(1);
+      var first_of_next_month = new DateTime
+        (
+        year:convenient_next_month_date.Year,
+        month:convenient_next_month_date.Month,
+        day:1
+        );
+      var medical_expiring_this_month_rec_q = db_leaves.MedicalExpiringThisMonthRecQ();
+      var medical_expiring_this_month_rec_q_count = medical_expiring_this_month_rec_q.Count;
+      for (var i = new k.subtype<int>(0,medical_expiring_this_month_rec_q_count); i.val < i.LAST; i.val++)
+        {
+        medical_expiring_this_month_rec = medical_expiring_this_month_rec_q.Dequeue();
+        if (BeOverlap(member_id:medical_expiring_this_month_rec.member_id, relative_start_month:"1", relative_end_month:"1"))
+          {
+          //
+          // That leave must be canceled so it can be replaced with an extension of the current medical leave.
+          //
+          db_leaves.CurtailOnEffectiveDate
+            (
+            member_id:medical_expiring_this_month_rec.member_id,
+            effective_date:first_of_next_month,
+            due_to_phrase:"medical leave"
+            );
+          }
+        else
+          {
+          Change
+            (
+            id:medical_expiring_this_month_rec.id,
+            member_id:medical_expiring_this_month_rec.member_id,
+            old_start_month:DateTime.Today.AddMonths(int.Parse(medical_expiring_this_month_rec.start_month)).ToString("MMM yyyy"),
+            old_end_month:DateTime.Today.ToString("MMM yyyy"),
+            old_kind_of_leave:"Medical",
+            old_num_obliged_shifts:"0",
+            old_note:medical_expiring_this_month_rec.note,
+            new_relative_start_month:medical_expiring_this_month_rec.start_month,
+            new_relative_end_month:"1",
+            new_kind_of_leave_code:db_leaves.KindOfLeaveCodeOf(id:medical_expiring_this_month_rec.id),
+            new_num_obligated_shifts:"0",
+            new_note:medical_expiring_this_month_rec.note,
+            be_interactive:false
+            );
+          biz_notifications.IssueForMedicalLeaveAutomaticallyExtendedIntoNextMonth
+            (
+            member_id:medical_expiring_this_month_rec.member_id,
+            first_name:biz_members.FirstNameOfMemberId(medical_expiring_this_month_rec.member_id),
+            last_name:biz_members.LastNameOfMemberId(medical_expiring_this_month_rec.member_id),
+            cad_num:biz_members.CadNumOfMemberId(medical_expiring_this_month_rec.member_id)
+            );
+          }
+        }
+      }
+
+    public void BindEndMonthDropDownList(object target)
         {
             BindEndMonthDropDownList(target, true);
         }
@@ -126,51 +192,59 @@ namespace Class_biz_leaves
             BindStartMonthDropDownList(target, true);
         }
 
-        public void Change(string id, string member_id, string old_start_month, string old_end_month, string old_kind_of_leave, string old_num_obliged_shifts, string old_note, string new_relative_start_month, string new_relative_end_month, string new_kind_of_leave_code, string new_num_obligated_shifts, string new_note)
-        {
-            const string AFFIRMATIVE_CHANGE_INDICATOR = "  <==";
-            string change_indicator_end_month;
-            string change_indicator_kind_of_leave;
-            string change_indicator_note;
-            string change_indicator_num_obliged_shifts;
-            string change_indicator_start_month;
-            string new_end_month;
-            string new_kind_of_leave;
-            string new_start_month;
-            db_leaves.Change(id, new_relative_start_month, new_relative_end_month, new_kind_of_leave_code, new_num_obligated_shifts, new_note);
-            new_start_month = DateTime.Today.AddMonths(int.Parse(new_relative_start_month)).ToString("MMM yyyy");
-            // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
-            new_end_month = DateTime.Today.AddMonths(int.Parse(new_relative_end_month)).ToString("MMM yyyy");
-            // new_relative_end_month may be negative if we are changing the end month to last month
-            new_kind_of_leave = DescriptionOf(new_kind_of_leave_code);
-            change_indicator_start_month = k.EMPTY;
-            change_indicator_end_month = k.EMPTY;
-            change_indicator_kind_of_leave = k.EMPTY;
-            change_indicator_num_obliged_shifts = k.EMPTY;
-            change_indicator_note = k.EMPTY;
-            if (old_start_month != new_start_month)
-            {
-                change_indicator_start_month = AFFIRMATIVE_CHANGE_INDICATOR;
-            }
-            if (old_end_month != new_end_month)
-            {
-                change_indicator_end_month = AFFIRMATIVE_CHANGE_INDICATOR;
-            }
-            if (old_kind_of_leave != new_kind_of_leave)
-            {
-                change_indicator_kind_of_leave = AFFIRMATIVE_CHANGE_INDICATOR;
-            }
-            if (old_num_obliged_shifts != new_num_obligated_shifts)
-            {
-                change_indicator_num_obliged_shifts = AFFIRMATIVE_CHANGE_INDICATOR;
-            }
-            if (old_note != new_note)
-            {
-                change_indicator_note = AFFIRMATIVE_CHANGE_INDICATOR;
-            }
-            biz_notifications.IssueForLeaveChanged(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), old_start_month, old_end_month, old_kind_of_leave, old_num_obliged_shifts, old_note, new_start_month, new_end_month, new_kind_of_leave, new_num_obligated_shifts, new_note, change_indicator_start_month, change_indicator_end_month, change_indicator_kind_of_leave, change_indicator_num_obliged_shifts, change_indicator_note);
-
-        }
+    public void Change
+      (
+      string id,
+      string member_id,
+      string old_start_month,
+      string old_end_month,
+      string old_kind_of_leave,
+      string old_num_obliged_shifts,
+      string old_note,
+      string new_relative_start_month,
+      string new_relative_end_month,
+      string new_kind_of_leave_code,
+      string new_num_obligated_shifts,
+      string new_note,
+      bool be_interactive = true
+      )
+      {
+      const string AFFIRMATIVE_CHANGE_INDICATOR = "  <==";
+      db_leaves.Change(id,new_relative_start_month,new_relative_end_month,new_kind_of_leave_code,new_num_obligated_shifts,new_note);
+      var new_start_month = DateTime.Today.AddMonths(int.Parse(new_relative_start_month)).ToString("MMM yyyy");
+        // new_relative_start_month may be negative if we are changing an existing leave that started in a prior month
+      var new_end_month = DateTime.Today.AddMonths(int.Parse(new_relative_end_month)).ToString("MMM yyyy");
+        // new_relative_end_month may be negative if we are changing the end month to last month
+      var new_kind_of_leave = DescriptionOf(new_kind_of_leave_code);
+      var change_indicator_end_month = (old_end_month != new_end_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_kind_of_leave = (old_kind_of_leave != new_kind_of_leave ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_num_obliged_shifts = (old_num_obliged_shifts != new_num_obligated_shifts ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_note = (old_note != new_note ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      var change_indicator_start_month = (old_start_month != new_start_month ? AFFIRMATIVE_CHANGE_INDICATOR : k.EMPTY);
+      biz_notifications.IssueForLeaveChanged
+        (
+        member_id:member_id,
+        first_name:biz_members.FirstNameOfMemberId(member_id),
+        last_name:biz_members.LastNameOfMemberId(member_id),
+        cad_num:biz_members.CadNumOfMemberId(member_id),
+        old_start_month:old_start_month,
+        old_end_month:old_end_month,
+        old_kind_of_leave:old_kind_of_leave,
+        old_num_obligated_shifts:old_num_obliged_shifts,
+        old_note:old_note,
+        new_start_month:new_start_month,
+        new_end_month:new_end_month,
+        new_kind_of_leave:new_kind_of_leave,
+        new_num_obligated_shifts:new_num_obligated_shifts,
+        new_note:new_note,
+        change_indicator_start_month:change_indicator_start_month,
+        change_indicator_end_month:change_indicator_end_month,
+        change_indicator_kind_of_leave:change_indicator_kind_of_leave,
+        change_indicator_num_obliged_shifts:change_indicator_num_obliged_shifts,
+        change_indicator_note:change_indicator_note,
+        be_interactive:be_interactive
+        );
+      }
 
         public void Delete(string id)
         {

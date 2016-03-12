@@ -42,6 +42,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 #
 # Monthly
 #
+00 00 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/monthly_tasks.aspx
 01 01 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_role_holders.aspx?agency=R01
 02 01 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_role_holders.aspx?agency=R02
 04 01 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_role_holders.aspx?agency=R04

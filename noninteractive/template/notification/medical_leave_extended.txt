@@ -1,0 +1,8 @@
+Medical leave extended for <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<application_name/> has extended <first_name/> <last_name/>'s current medical leave into *next* month.
+
+This action prevents <first_name/> from being inadvertently scheduled for any duties until EMS Admin has cleared <first_name/> to return to duty.
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

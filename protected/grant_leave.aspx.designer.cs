@@ -85,6 +85,15 @@ namespace grant_leave {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_end_month;
         
         /// <summary>
+        /// CustomValidator_end_month_medical control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_end_month_medical;
+        
+        /// <summary>
         /// DropDownList_kind_of_leave control.
         /// </summary>
         /// <remarks>

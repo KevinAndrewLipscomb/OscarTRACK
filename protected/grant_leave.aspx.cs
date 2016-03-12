@@ -111,6 +111,15 @@ namespace grant_leave
             args.IsValid = p.biz_leaves.BeValid(DropDownList_start_month.SelectedValue, args.Value);
         }
 
+    protected void CustomValidator_end_month_medical_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = p.biz_leaves.BeValidMedical
+        (
+        kind_of_leave_description:k.Safe(DropDownList_kind_of_leave.SelectedItem.Text,k.safe_hint_type.ALPHA),
+        end_month:DropDownList_end_month.SelectedValue
+        );
+      }
+
         private void TWebForm_grant_leave_PreRender(object sender, System.EventArgs e)
         {
             SessionSet(InstanceId() + ".p", p);

@@ -837,62 +837,78 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
-        private delegate string IssueForLeaveChanged_Merge(string s);
-        public void IssueForLeaveChanged(string member_id, string first_name, string last_name, string cad_num, string old_start_month, string old_end_month, string old_kind_of_leave, string old_num_obligated_shifts, string old_note, string new_start_month, string new_end_month, string new_kind_of_leave, string new_num_obligated_shifts, string new_note, string change_indicator_start_month, string change_indicator_end_month, string change_indicator_kind_of_leave, string change_indicator_num_obliged_shifts, string change_indicator_note)
+    private delegate string IssueForLeaveChanged_Merge(string s);
+    public void IssueForLeaveChanged
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string old_start_month,
+      string old_end_month,
+      string old_kind_of_leave,
+      string old_num_obligated_shifts,
+      string old_note,
+      string new_start_month,
+      string new_end_month,
+      string new_kind_of_leave,
+      string new_num_obligated_shifts,
+      string new_note,
+      string change_indicator_start_month,
+      string change_indicator_end_month,
+      string change_indicator_kind_of_leave,
+      string change_indicator_num_obliged_shifts,
+      string change_indicator_note,
+      bool be_interactive = true
+      )
+      {
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+
+      IssueForLeaveChanged_Merge Merge = delegate (string s)
         {
-            string actor = k.EMPTY;
-            string actor_email_address = k.EMPTY;
-            string actor_member_id;
-            TClass_biz_members biz_members;
-            TClass_biz_user biz_user;
-            TClass_biz_users biz_users;
-            StreamReader template_reader;
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<old_start_month/>", old_start_month)
+          .Replace("<old_end_month/>", old_end_month)
+          .Replace("<old_kind_of_leave/>", old_kind_of_leave)
+          .Replace("<old_num_obligated_shifts/>", old_num_obligated_shifts)
+          .Replace("<old_note/>", old_note)
+          .Replace("<new_start_month/>", new_start_month)
+          .Replace("<new_end_month/>", new_end_month)
+          .Replace("<new_kind_of_leave/>", new_kind_of_leave)
+          .Replace("<new_num_obligated_shifts/>", new_num_obligated_shifts)
+          .Replace("<new_note/>", new_note)
+          .Replace("<change_indicator_start_month/>", change_indicator_start_month)
+          .Replace("<change_indicator_end_month/>", change_indicator_end_month)
+          .Replace("<change_indicator_kind_of_leave/>", change_indicator_kind_of_leave)
+          .Replace("<change_indicator_num_obliged_shifts/>", change_indicator_num_obliged_shifts)
+          .Replace("<change_indicator_note/>", change_indicator_note);
+        };
 
-            IssueForLeaveChanged_Merge Merge = delegate (string s)
-              {
-              return s
-                .Replace("<application_name/>", application_name)
-                .Replace("<host_domain_name/>", host_domain_name)
-                .Replace("<actor/>", actor)
-                .Replace("<actor_email_address/>", actor_email_address)
-                .Replace("<cad_num/>", cad_num)
-                .Replace("<first_name/>", first_name)
-                .Replace("<last_name/>", last_name)
-                .Replace("<old_start_month/>", old_start_month)
-                .Replace("<old_end_month/>", old_end_month)
-                .Replace("<old_kind_of_leave/>", old_kind_of_leave)
-                .Replace("<old_num_obligated_shifts/>", old_num_obligated_shifts)
-                .Replace("<old_note/>", old_note)
-                .Replace("<new_start_month/>", new_start_month)
-                .Replace("<new_end_month/>", new_end_month)
-                .Replace("<new_kind_of_leave/>", new_kind_of_leave)
-                .Replace("<new_num_obligated_shifts/>", new_num_obligated_shifts)
-                .Replace("<new_note/>", new_note)
-                .Replace("<change_indicator_start_month/>", change_indicator_start_month)
-                .Replace("<change_indicator_end_month/>", change_indicator_end_month)
-                .Replace("<change_indicator_kind_of_leave/>", change_indicator_kind_of_leave)
-                .Replace("<change_indicator_num_obliged_shifts/>", change_indicator_num_obliged_shifts)
-                .Replace("<change_indicator_note/>", change_indicator_note);
-              };
-
-            biz_members = new TClass_biz_members();
-            biz_user = new TClass_biz_user();
-            biz_users = new TClass_biz_users();
-            actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
-            actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/leave_changed.txt"));
-            // from
-            // to
-            // subject
-            // body
-            // be_html
-            // cc
-            // bcc
-            // reply_to
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("leave-modified", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
-            template_reader.Close();
-        }
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var actor_member_id = (be_interactive ? biz_members.IdOfUserId(biz_user.IdNum()) : k.EMPTY);
+      actor = (be_interactive ? biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id) : k.EMPTY);
+      actor_email_address = (be_interactive ? biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum()) : k.EMPTY);
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/leave_changed.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-modified", member_id) + (be_interactive ? k.COMMA + actor_email_address : k.EMPTY),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
 
         private delegate string IssueForLeaveDeleted_Merge(string s);
         public void IssueForLeaveDeleted(string member_id, string first_name, string last_name, string cad_num, string start_month, string end_month, string kind_of_leave, string num_obligated_shifts, string note)
@@ -1112,6 +1128,39 @@ namespace Class_biz_notifications
         cc:k.EMPTY,
         bcc:k.EMPTY,
         reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
+
+    private delegate string IssueForMedicalLeaveAutomaticallyExtendedIntoNextMonth_Merge(string s);
+    internal void IssueForMedicalLeaveAutomaticallyExtendedIntoNextMonth
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num
+      )
+      {
+      IssueForLeaveChanged_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          ;
+        };
+
+      var biz_members = new TClass_biz_members();
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/medical_leave_extended.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-modified", member_id),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        be_html:false
         );
       template_reader.Close();
       }

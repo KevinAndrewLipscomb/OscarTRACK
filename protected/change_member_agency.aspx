@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-	<title/>
+	<title></title>
       <!-- $Id$ -->
   </head>
   <body bgcolor="white">
