@@ -13,7 +13,7 @@
         border: 1px solid gainsboro;
         }
     </style>
-    <title/>
+    <title></title>
   </head>
   <body bgcolor="white">
     <form runat="server" defaultbutton="Button_verify">

@@ -28,6 +28,14 @@ namespace Class_db_leaves
     internal string kind_of_leave = k.EMPTY;
     }
 
+  internal class medical_expiring_this_month_rec_class
+    {
+    internal string id = k.EMPTY;
+    internal string member_id = k.EMPTY;
+    internal string start_month = k.EMPTY;
+    internal string note = k.EMPTY;
+    }
+
     public class TClass_db_leaves: TClass_db
     {
 
@@ -77,7 +85,38 @@ namespace Class_db_leaves
             this.Close();
         }
 
-        public void BindKindDropDownList(object target)
+    internal Queue<medical_expiring_this_month_rec_class> MedicalExpiringThisMonthRecQ()
+      {
+      var medical_expiring_this_month_rec_q = new Queue<medical_expiring_this_month_rec_class>();
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select id"
+        + " , member_id"
+        + " , PERIOD_DIFF(DATE_FORMAT(start_date,'%Y%m'),DATE_FORMAT(CURDATE(),'%Y%m')) as start_month"
+        + " , note"
+        + " from leave_of_absence"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where description = 'Medical'"
+        +   " and end_date = LAST_DAY(CURDATE())",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        var medical_expiring_this_month_rec = new medical_expiring_this_month_rec_class();
+        medical_expiring_this_month_rec.id = dr["id"].ToString();
+        medical_expiring_this_month_rec.member_id = dr["member_id"].ToString();
+        medical_expiring_this_month_rec.start_month = dr["start_month"].ToString();
+        medical_expiring_this_month_rec.note = dr["note"].ToString();
+        medical_expiring_this_month_rec_q.Enqueue(medical_expiring_this_month_rec);
+        }
+      dr.Close();
+      Close();
+      return medical_expiring_this_month_rec_q;
+      }
+
+    public void BindKindDropDownList(object target)
         {
             BindKindDropDownList(target, true);
         }
@@ -265,7 +304,8 @@ namespace Class_db_leaves
         public void CurtailOnEffectiveDate
           (
           string member_id,
-          DateTime effective_date
+          DateTime effective_date,
+          string due_to_phrase
           )
           {
           this.Open();
@@ -278,7 +318,7 @@ namespace Class_db_leaves
               + "; "
               + " update leave_of_absence"
               + " set end_date = LAST_DAY(DATE_SUB('" + effective_date.ToString("yyyy-MM-dd") + "',INTERVAL 1 MONTH))"
-              +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to initiation of transfer.]')"
+              +   " , note = CONCAT(note,'  [Curtailed by " + ConfigurationManager.AppSettings["application_name"] + " due to " + due_to_phrase + ".]')"
               + " where member_id = '" + member_id + "' and end_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"
               + "; "
               + "COMMIT"

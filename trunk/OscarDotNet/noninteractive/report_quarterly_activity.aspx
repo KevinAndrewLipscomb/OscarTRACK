@@ -4,7 +4,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html>
   <head runat="server">
-    <title/>
+    <title></title>
     <!-- $Id: report_quarterly_activity.aspx 2649 2008-10-17 19:21:01Z kevinanlipscomb $ -->
   </head>
   <body bgcolor="white">

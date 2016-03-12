@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>
   <head runat="server">
-    <title/>
+    <title></title>
     <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
@@ -38,7 +38,9 @@
 				  <ASP:DropDownList id="DropDownList_end_month" runat="server"></ASP:DropDownList></td>
 				<td nowrap="nowrap">
 				  <ASP:RequiredFieldValidator id="RequiredFieldValidator_end_month" runat="server" errormessage="Please select an ending month." font-bold="True" controltovalidate="DropDownList_end_month">!ERR!</ASP:RequiredFieldValidator>
-				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be after start month" font-bold="True" controltovalidate="DropDownList_end_month" onservervalidate="CustomValidator_end_month_ServerValidate">!ERR!</ASP:CustomValidator></td>
+				  <ASP:CustomValidator id="CustomValidator_end_month" runat="server" errormessage="End month must be same as or after start month." font-bold="True" controltovalidate="DropDownList_end_month" onservervalidate="CustomValidator_end_month_ServerValidate">!ERR!</ASP:CustomValidator>
+				  <ASP:CustomValidator id="CustomValidator_end_month_medical" runat="server" errormessage="A Medical Leave must initially extend at least into next month." font-bold="True" controltovalidate="DropDownList_end_month" onservervalidate="CustomValidator_end_month_medical_ServerValidate">!ERR!</ASP:CustomValidator>
+        </td>
 			  </tr>
 			  <tr>
 				<td valign="top">Kind:</td>
@@ -52,8 +54,8 @@
                     <td valign="top">•</td>
 							      <td>
                       <small>
-                        Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it.  Also, EMS Admin will require the member to show medical clearance by submitting a
-                        doctor's note and/or to reporting to the Human Resources Department Occupational Health office.
+                        Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it. A Medical leave <u>must</u> extend at least into <u>next</u> month.&nbsp; Also, EMS Admin
+                        will require the member to show medical clearance by submitting a doctor's note and/or to reporting to the Human Resources Department Occupational Health office.
                       </small>
 							      </td>
 						      </tr>

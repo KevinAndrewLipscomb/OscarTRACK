@@ -7,7 +7,7 @@
 <%@ Register src="../usercontrol/app/UserControl_patient_encounter.ascx" tagname="UserControl_patient_encounter" tagprefix="uc2" %>
 <html>
   <head runat="server">
-    <title/>
+    <title></title>
     <!-- $Id$ -->
     <link href="../css/standard.css" rel="stylesheet" type="text/css" />
     <!--[if lt IE 7]> <style type="text/css">@import "../css/standard-overrides-for-ie6.css";</style><![endif]-->
