@@ -352,15 +352,18 @@ namespace UserControl_gripe_sheet
         // The execution order of the following if block and the statement afterwards is critical because of line-ending issues.
         //
         description_cell.Text = description_cell.Text.Replace(k.NEW_LINE,"<br/>");
-        if (p.be_work_order_mode)
-          {
-          description_cell.Text = Regex.Replace
-            (
-            input:description_cell.Text,
-            pattern:" \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}<br/>", // yyyy-MM-dd HH:mm:ss
-            replacement:"<br/>"
-            );
-          }
+        ////
+        //// Hide timestamps on gripe descriptions.
+        ////
+        //if (p.be_work_order_mode)
+        //  {
+        //  description_cell.Text = Regex.Replace
+        //    (
+        //    input:description_cell.Text,
+        //    pattern:" \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}<br/>", // yyyy-MM-dd HH:mm:ss
+        //    replacement:"<br/>"
+        //    );
+        //  }
         //
         e.Item.Visible = be_ok_to_display;
         p.num_gripes++;
