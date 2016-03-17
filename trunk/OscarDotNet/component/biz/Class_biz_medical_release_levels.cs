@@ -148,9 +148,9 @@ namespace Class_biz_medical_release_levels
         EMT_B,
         EMT_ST,
         EMT_E,
+        AEMT,
         EMT_CT,
         EMT_I,
-        AEMT,
         EMT_P,
         EMT_P_RSI
     } // end filter_type
