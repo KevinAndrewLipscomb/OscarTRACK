@@ -37,10 +37,10 @@
                                     <ASP:ListItem value="emt_b"         >- - EMT-B</ASP:ListItem>
                                     <ASP:ListItem value="emt_st"        >- - EMT-ST</ASP:ListItem>
                                     <ASP:ListItem value="emt_e"         >- - EMT-E</ASP:ListItem>
+                                    <ASP:ListItem value="aemt"          >- - AEMT</ASP:ListItem>
                                     <ASP:ListItem value="emt_ct"        >- - EMT-CT</ASP:ListItem>
                                     <ASP:ListItem value="emt_i"         >- - EMT-I</ASP:ListItem>
                                     <ASP:ListItem value="emt_i"         >- - EMT-I</ASP:ListItem>
-                                    <ASP:ListItem value="aemt"          >- - AEMT</ASP:ListItem>
                                     <ASP:ListItem value="emt_p"         >- - EMT-P</ASP:ListItem>
                                     <ASP:ListItem value="emt_p_rsi"     >- - EMT-P-RSI</ASP:ListItem></ASP:DropDownList>
                                     </p>							</td>
