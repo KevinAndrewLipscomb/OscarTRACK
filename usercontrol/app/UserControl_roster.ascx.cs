@@ -174,6 +174,12 @@ namespace UserControl_roster
                 }
                 else if (Session["mode:report/monthly-trainee-roster"] != null)
                 {
+                    //
+                    // These statements are a kludge to account for the way trainees are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    //
+                    p.section_filter = uint.Parse(p.agency_filter);
+                    p.agency_filter = "0";
+                    //
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.TRAINEE;
