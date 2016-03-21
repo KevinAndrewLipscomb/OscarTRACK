@@ -1,5 +1,13 @@
-SELECT DISTINCT IFNULL(resident_base.name,"CURRENT RESIDENT") as name
-, concat(house_num,' ',street.name) as address1
+SELECT DISTINCT , IFNULL(resident_base.name,"TO OUR FRIENDS AT") as name
+, 'OR CURRENT RESIDENT' as catchall_line
+, IF(
+      street.name = "PO BOX"
+    ,
+      concat(street.name,' ',house_num)
+    ,  
+      concat(house_num,' ',street.name)
+    )
+    as address
 , city.name as city
 , state.abbreviation as state
 FROM donation
