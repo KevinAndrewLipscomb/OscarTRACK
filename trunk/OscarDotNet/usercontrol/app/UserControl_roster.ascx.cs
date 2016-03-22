@@ -27,6 +27,7 @@ namespace UserControl_roster
             public bool be_datagrid_empty;
             public bool be_loaded;
             public bool be_phone_list;
+            public bool be_reporting_personnel_in_pipeline;
             public bool be_sort_order_ascending;
             public bool be_transferee_report;
             public bool be_user_privileged_to_see_all_squads;
@@ -95,6 +96,7 @@ namespace UserControl_roster
                     DropDownList_agency_filter.Enabled = false;
                     CheckBox_running_only.Enabled = false;
                     CheckBox_phone_list.Enabled = false;
+                    CheckBox_phone_list.Visible = !p.be_reporting_personnel_in_pipeline;
                 }
                 Bind();
                 Anchor_quick_message_shortcut.HRef = p.page_request_rawurl + "#QuickMessage";
@@ -143,6 +145,7 @@ namespace UserControl_roster
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
                 p.be_phone_list = (Session["mode:report/monthly-current-phone-list"] != null);
+                p.be_reporting_personnel_in_pipeline = false;
                 p.be_transferee_report = (Session["mode:report/monthly-transferees"] != null);
                 p.section_filter = 0;
                 p.num_cooked_shifts = 0;
@@ -162,12 +165,28 @@ namespace UserControl_roster
                 }
                 else if (Session["mode:report/monthly-emt-intern-roster"] != null)
                 {
+                    //
+                    // These statements are a kludge to account for the way these personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    // The order of the first two statements is critical.
+                    //
+                    p.section_filter = uint.Parse(p.agency_filter);
+                    p.agency_filter = "0";
+                    p.be_reporting_personnel_in_pipeline = true;
+                    //
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.IN_CLASS;
                 }
                 else if (Session["mode:report/monthly-test-candidate-roster"] != null)
                 {
+                    //
+                    // These statements are a kludge to account for the way these personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    // The order of the first two statements is critical.
+                    //
+                    p.section_filter = uint.Parse(p.agency_filter);
+                    p.agency_filter = "0";
+                    p.be_reporting_personnel_in_pipeline = true;
+                    //
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.TEST_CANDIDATE;
@@ -175,10 +194,12 @@ namespace UserControl_roster
                 else if (Session["mode:report/monthly-trainee-roster"] != null)
                 {
                     //
-                    // These statements are a kludge to account for the way trainees are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    // These statements are a kludge to account for the way these personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    // The order of the first two statements is critical.
                     //
                     p.section_filter = uint.Parse(p.agency_filter);
                     p.agency_filter = "0";
+                    p.be_reporting_personnel_in_pipeline = true;
                     //
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                     p.relative_month = 0;
@@ -191,6 +212,14 @@ namespace UserControl_roster
                 }
                 else if (Session["mode:report/monthly-recruits-who-are-not-yet-emt-interns-roster"] != null)
                 {
+                    //
+                    // These statements are a kludge to account for the way these personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+                    // The order of the first two statements is critical.
+                    //
+                    p.section_filter = uint.Parse(p.agency_filter);
+                    p.agency_filter = "0";
+                    p.be_reporting_personnel_in_pipeline = true;
+                    //
                     p.enrollment_filter = Class_biz_enrollment.filter_type.RECRUIT;
                     p.relative_month = 0;
                     p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.NONE;
@@ -406,7 +435,7 @@ namespace UserControl_roster
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
             R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list;
+            R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
             p.distribution_list = k.EMPTY;
             p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, R, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
             be_raw_shifts_nonzero = (p.num_raw_shifts > 0);
