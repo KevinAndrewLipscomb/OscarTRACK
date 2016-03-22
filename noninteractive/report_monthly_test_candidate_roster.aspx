@@ -24,8 +24,11 @@
 						<p>Best practices:</p>
 						<ul>
 						  <li>
-                <p>It is critically important to place these people on the schedule prior to the citywide scheduling
-							meeting.</p></li>
+                <p>
+                  These personnel have graduated from class, but are waiting to test, and have not yet received their state certification.&nbsp; They cannot be placed on the schedule.&nbsp; It's important to keep them otherwise
+                  engaged with us.
+                </p>
+						  </li>
 						  <li><p>Use <asp:label id="Label_application_name_2" runat="server"></asp:label>'s QuickMessage
 							feature or other methods to maintain an appropriate dialog with these personnel.</p></li>
 						  <li><p>Consider checking with these personnel at this time to see if they have scheduled a test, and if it
