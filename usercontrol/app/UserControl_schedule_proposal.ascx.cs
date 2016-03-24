@@ -1071,10 +1071,30 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
+      var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      if(p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM),
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          )
+        )
         {
         p.biz_schedule_assignments.SetPost
-          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+          (
+          id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_id:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM)
+          );
         }
       else
         {
@@ -1085,10 +1105,30 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
+      var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      if(p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM),
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          )
+        )
         {
         p.biz_schedule_assignments.SetPost
-          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM));
+          (
+          id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_id:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.NUM)
+          );
         }
       else
         {
@@ -1099,10 +1139,30 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_d_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
+      var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      if(p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_POST_ID].Text,k.safe_hint_type.NUM),
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          )
+        )
         {
         p.biz_schedule_assignments.SetPostCardinality
-          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+          (
+          id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_D_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_cardinality:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA)
+          );
         }
       else
         {
@@ -1113,10 +1173,30 @@ namespace UserControl_schedule_proposal
 
     protected void DropDownList_n_post_cardinality_SelectedIndexChanged(object sender, EventArgs e)
       {
-      if (k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only"))
+      var sender_grandparent_datagriditem = (sender as DropDownList).Parent.Parent as DataGridItem;
+      if(p.biz_schedule_assignments.BeOkToEnableControls
+          (
+          post_id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_POST_ID].Text,k.safe_hint_type.NUM),
+          be_interactive:p.be_interactive,
+          be_ok_to_edit_post:p.be_ok_to_edit_post,
+          agency_id:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEMBER_AGENCY_ID].Text,
+          own_agency:p.own_agency,
+          be_ok_to_edit_schedule_tier_department_only:p.be_ok_to_edit_schedule_tier_department_only,
+          medical_release_description:sender_grandparent_datagriditem.Cells[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Text,
+          be_ok_to_edit_schedule_liberally:p.be_ok_to_edit_schedule_liberally,
+          relative_month:p.relative_month,
+          be_squad_exclusivity_expired:p.be_squad_exclusivity_expired,
+          be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
+          be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
+          be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
+          )
+        )
         {
         p.biz_schedule_assignments.SetPostCardinality
-          (k.Safe(((sender as DropDownList).Parent.Parent as DataGridItem).Cells[Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA));
+          (
+          id:k.Safe(sender_grandparent_datagriditem.Cells[Static.TCI_N_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          post_cardinality:k.Safe((sender as DropDownList).SelectedValue,k.safe_hint_type.ALPHA)
+          );
         }
       else
         {
