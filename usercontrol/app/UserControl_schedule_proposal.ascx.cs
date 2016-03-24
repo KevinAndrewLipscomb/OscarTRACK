@@ -1099,7 +1099,7 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
-        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        throw k.PRIVILEGE_VIOLATION;
         }
       }
 
@@ -1133,7 +1133,7 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
-        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        throw k.PRIVILEGE_VIOLATION;
         }
       }
 
@@ -1167,7 +1167,7 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
-        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        throw k.PRIVILEGE_VIOLATION;
         }
       }
 
@@ -1201,7 +1201,7 @@ namespace UserControl_schedule_proposal
       else
         {
         SessionSet("ip_address",HttpContext.Current.Request.UserHostAddress);
-        k.EscalatedException(k.PRIVILEGE_VIOLATION,Page.User.Identity.Name,Session);
+        throw k.PRIVILEGE_VIOLATION;
         }
       }
 
