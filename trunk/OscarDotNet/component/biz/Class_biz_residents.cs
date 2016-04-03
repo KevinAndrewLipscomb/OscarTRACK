@@ -81,6 +81,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )CE$|(?<prefix> )CE(?<suffix> )",
+          replacement:"${prefix}CRST${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )CH$|(?<prefix> )CH(?<suffix> )",
           replacement:"${prefix}CHASE${suffix}",
           options:RegexOptions.Multiline

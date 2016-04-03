@@ -195,6 +195,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )CE$|(?<prefix> )CE(?<suffix>/)|(?<prefix> )CE(?<suffix> )",
+          replacement:"${prefix}CRST${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )CH$|(?<prefix> )CH(?<suffix>/)|(?<prefix> )CH(?<suffix> )",
           replacement:"${prefix}CHASE${suffix}"
           );
