@@ -229,6 +229,11 @@ namespace UserControl_roster
                     p.enrollment_filter = Class_biz_enrollment.filter_type.TRANSFERRING;
                     p.relative_month = 0;
                 }
+                else if (Session["mode:report/monthly-als-interns"] != null)
+                  {
+                  p.enrollment_filter = Class_biz_enrollment.filter_type.ALS_INTERN;
+                  p.relative_month = 0;
+                  }
             }
 
         }

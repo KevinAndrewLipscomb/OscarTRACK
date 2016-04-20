@@ -133,6 +133,7 @@ MAILTO=kevin.lipscomb@kvrs.org
 57 04 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_per_agency_serial_indicators.aspx?agency=R17
 00 05 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_per_agency_serial_indicators.aspx?agency=EMS
 15 05 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_transferees.aspx
+20 05 01 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_als_interns.aspx
 00 01 07 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/statement_member_status.aspx
 01 02 11 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_core_ops_roster.aspx?agency=R01
 02 02 11 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_monthly_core_ops_roster.aspx?agency=R02
