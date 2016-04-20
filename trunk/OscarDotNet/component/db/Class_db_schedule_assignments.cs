@@ -1241,12 +1241,12 @@ namespace Class_db_schedule_assignments
       var filter = " where"
       + " ("
       +   " ("
-      +     " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
+      +     " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee','ALS Intern')"
       +   " and"
       +     " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)) > 0"
       +   " )"
       + " or"
-      +   " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
+      +   " (enrollment_level.description in ('Staff','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "))"
       + " )";
       //
       if (agency_filter != k.EMPTY)
@@ -1265,7 +1265,7 @@ namespace Class_db_schedule_assignments
       //
       if (compliancy_filter == "0") // holdouts
         {
-        filter += " and (enrollment_level.description not in ('Staff','ALS Intern','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description not in ('Staff','College','Atypical','SpecOps'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "1") // submitters
         {
@@ -1273,7 +1273,7 @@ namespace Class_db_schedule_assignments
         }
       else if (compliancy_filter == "A") // atypicals
         {
-        filter += " and (enrollment_level.description in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
+        filter += " and (enrollment_level.description in ('Staff','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + ")) and (condensed_schedule_assignment.member_id is null)";
         }
       else if (compliancy_filter == "S") // staff
         {
@@ -1289,7 +1289,7 @@ namespace Class_db_schedule_assignments
         + " , section_num"
         + " , IF(medical_release_code_description_map.pecking_order >= 20,'YES','no') as be_released"
         + " , medical_release_code_description_map.watchbill_rendition as level"
-        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','ALS Intern','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
+        + " , ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','College','Atypical'" + (show_transferring_members ? ",'Transferring'" : k.EMPTY) + "),FALSE,NULL)) as be_compliant"
         + " , be_notification_pending"
         + " , member.email_address"
         + " , member.phone_num"
@@ -2131,7 +2131,7 @@ namespace Class_db_schedule_assignments
       +   " 100"
       + " *"
       +   " ("
-      +     " sum((enrollment_level.description in ('Staff','ALS Intern','College','Atypical','Transferring')) or (condensed_schedule_assignment.member_id is not null))"
+      +     " sum((enrollment_level.description in ('Staff','College','Atypical','Transferring')) or (condensed_schedule_assignment.member_id is not null))"
       +   " /"
       +     " count(member.id)"
       +   " )"
@@ -2184,7 +2184,7 @@ namespace Class_db_schedule_assignments
       +       " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)) > 0"
       +     " )"
       +   " or"
-      +     " (enrollment_level.description in ('Staff','ALS Intern','College','Atypical','Transferring'))"
+      +     " (enrollment_level.description in ('Staff','College','Atypical','Transferring'))"
       +   " )";
       Open();
       new MySqlCommand
