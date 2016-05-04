@@ -1201,6 +1201,7 @@ namespace Class_db_members
         + " , FORMAT(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600),1) as num_avails"
         + " , FORMAT(IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0),1) as num_assignments"
         + " , FORMAT(IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected),0) - if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,num_shifts)*12,1) as balance"
+        + " , FORMAT(IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected*(post_id between 1 and 199)),0),1) as num_ambulance_hours"
         + " from member"
         +   " join agency on (agency.id=member.agency_id)"
         +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
