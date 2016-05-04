@@ -20,9 +20,11 @@
                     </li>
                     <li>
                       <p>
-                        There are many valid reasons why a member may show a deficit of duty hours even though they are compliant with policy.&nbsp; For instance, a member may have compliantly found coverage for a scheduled duty, and if the schedule was adjusted to show the change, the member will thereafter show a duty hour deficit.
+                        There are many valid reasons why a member may show a deficit of duty hours even though they are compliant with policy.&nbsp; For instance, a member may have compliantly found coverage for a scheduled duty,
+                        and if the schedule was adjusted to show the change, the member will thereafter show a duty hour deficit.
                       </p>
                     </li>
+                    <li><p>The <i>Ambulance hours</i> metric is only provided to support certain incentive programs.&nbsp; It is <u>not</u> a valid measure of patient care hours.</p></li>
                   </ul>
                 </small>
               </td>
@@ -80,6 +82,9 @@
                       <ItemStyle HorizontalAlign="Center" />
                     </asp:BoundColumn>
                     <asp:BoundColumn datafield="balance" headertext="Balance hours">
+                      <ItemStyle HorizontalAlign="Right" />
+                    </asp:BoundColumn>
+                    <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours">
                       <ItemStyle HorizontalAlign="Right" />
                     </asp:BoundColumn>
                   </Columns>
