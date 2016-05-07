@@ -12,7 +12,7 @@
       <ul>
         <li><strong>Ask-Thank-Inform</strong> cycle</li>
         <li><strong>Love Letter</strong> program</li>
-        <li><strong>PayPal</strong> (or other online payment service) donation notification processing</li>
+        <li><strong>PayPal</strong> (or other online payment service) processing</li>
       </ul>
       <p>This module also provides:</p>
       <ul>
