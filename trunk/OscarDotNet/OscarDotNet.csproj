@@ -145,6 +145,7 @@
     <Content Include="protected\image\coverage-assistant-intro\target-page.png" />
     <Content Include="protected\image\help-2--48x48.png" />
     <Content Include="protected\image\help-2.png" />
+    <Content Include="protected\image\oscartrack-keyclick--ask-thank-inform.png" />
     <Content Include="protected\paypal_assistant.aspx" />
     <Content Include="protected\paypal_ipn_listener_test.htm" />
     <Content Include="protected\image\appointment-missed.png" />
