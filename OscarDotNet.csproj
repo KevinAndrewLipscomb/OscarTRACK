@@ -267,6 +267,9 @@
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx" />
+    <Content Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx" />
     <Content Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx" />
     <Content Include="verify_efficipay_signature.aspx" />
     <Content Include="Web.config">
@@ -2087,6 +2090,27 @@
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx.designer.cs">
       <DependentUpon>UserControl_drop_down_time_of_day.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_basic_concept.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_basic_concept.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_basic_concept.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_signatures.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_signatures.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_signatures.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx.cs">
+      <DependentUpon>UserControl_efficipay_intro_slogan.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\ki\UserControl_efficipay_intro_slogan.ascx.designer.cs">
+      <DependentUpon>UserControl_efficipay_intro_slogan.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\ki\UserControl_iva_attachment_explorer.ascx.cs">
       <DependentUpon>UserControl_iva_attachment_explorer.ascx</DependentUpon>
