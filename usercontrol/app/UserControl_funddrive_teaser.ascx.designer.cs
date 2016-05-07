@@ -11,5 +11,14 @@ namespace UserControl_funddrive_teaser {
     
     
     public partial class TWebUserControl_funddrive_teaser {
+        
+        /// <summary>
+        /// Image_ask_thank_inform control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image_ask_thank_inform;
     }
 }
