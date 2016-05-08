@@ -92,15 +92,15 @@ namespace UserControl_efficipay_teaser
 
         }
 
-        protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, System.EventArgs e)
+      {
+      if (!p.be_loaded)
         {
-            if (!p.be_loaded)
-            {
-                p.be_loaded = true;
-            }
-            InjectPersistentClientSideScript();
-
+        p.be_loaded = true;
         }
+      InjectPersistentClientSideScript();
+      ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_learn);
+      }
 
         protected override void OnInit(System.EventArgs e)
         {
@@ -146,6 +146,11 @@ namespace UserControl_efficipay_teaser
         {
             public bool be_loaded;
         } // end p_type
+
+    protected void Button_learn_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("efficipay_tutorial.aspx");
+      }
 
     } // end TWebUserControl_efficipay_teaser
 

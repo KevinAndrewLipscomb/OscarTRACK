@@ -10,7 +10,7 @@
       </ul>
       <p>Use this module to vastly simplify your...</p>
       <ul>
-        <li><strong>Ask-Thank-Inform</strong> cycle</li>
+        <li><strong>Ask-Thank-Inform</strong> fund drive cycles</li>
         <li><strong>Love Letter</strong> program</li>
         <li><strong>PayPal</strong> (or other online payment service) processing</li>
       </ul>

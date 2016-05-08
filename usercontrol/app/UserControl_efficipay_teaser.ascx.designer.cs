@@ -31,6 +31,15 @@ namespace UserControl_efficipay_teaser {
         protected global::UserControl_efficipay_intro_basic_concept.TWebUserControl_efficipay_intro_basic_concept UserControl_efficipay_intro_basic_concept_control;
         
         /// <summary>
+        /// Button_learn control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_learn;
+        
+        /// <summary>
         /// UserControl_efficipay_intro_signatures_control control.
         /// </summary>
         /// <remarks>
