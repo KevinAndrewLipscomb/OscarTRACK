@@ -194,7 +194,7 @@
                             <td>Battalion chief</td>
                           </tr>
                           <tr>
-                            <td>BTRK</td>
+                            <td>BRU</td>
                             <td>Brush truck</td>
                           </tr>
                           <tr>
@@ -204,6 +204,14 @@
                           <tr>
                             <td>CHE</td>
                             <td>Chesapeake engine</td>
+                          </tr>
+                          <tr>
+                            <td>COCH</td>
+                            <td>City Of Chesapeake auto-aid</td>
+                          </tr>
+                          <tr>
+                            <td>CONF</td>
+                            <td>City Of Norfolk auto-aid</td>
                           </tr>
                           <tr>
                             <td>E</td>
