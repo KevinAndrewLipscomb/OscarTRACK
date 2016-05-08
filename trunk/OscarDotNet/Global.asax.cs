@@ -1,75 +1,76 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-
-
-
-using System.Threading;
-using System.Security.Principal;
 using Class_biz_user;
+using System;
+using System.Threading;
+using System.Web;
+
 namespace Global
-{
-    public class TGlobal: System.Web.HttpApplication
+  {
+  public class TGlobal: HttpApplication
     {
-        // / <summary>
-        // / Required method for Designer support -- do not modify
-        // / the contents of this method with the code editor.
-        // / </summary>
-        private void InitializeComponent()
-        {
-        }
 
-        //Constructor  Create()
-        public TGlobal() : base()
-        {
-            // Required for Designer support
-            InitializeComponent();
-            // TODO: Add any constructor code after InitializeComponent call
+    // / <summary>
+    // / Required method for Designer support -- do not modify
+    // / the contents of this method with the code editor.
+    // / </summary>
+    private void InitializeComponent()
+      {
+      }
 
-        }
-        protected void Application_Start(object sender, EventArgs e)
-        {
-            //chartview.SetLicensePath(this.Server.MapPath("bin"));
-            // Establish an application-scoped object to allows synchronized control of nonreentrant spcchartnet code.
-            this.Application.Add("spcchartnet_avail", new AutoResetEvent(true));
+    public TGlobal() : base()
+      {
+      InitializeComponent();
+      }
 
-        }
+    protected void Application_Start(object sender, EventArgs e)
+      {
+      //chartview.SetLicensePath(this.Server.MapPath("bin"));
+      //
+      // Establish an application-scoped object to allow synchronized control of nonreentrant spcchartnet code.
+      //
+      Application.Add
+        (
+        name:"spcchartnet_avail",
+        value:new AutoResetEvent(initialState:true)
+        );
+      }
 
-        protected void Session_Start(object sender, EventArgs e)
-        {
-        }
+    protected void Session_Start(object sender, EventArgs e)
+      {
+      }
 
-        protected void Application_BeginRequest(object sender, EventArgs e)
-        {
-        }
+    protected void Application_BeginRequest(object sender, EventArgs e)
+      {
+      }
 
-        protected void Application_EndRequest(object sender, EventArgs e)
-        {
-        }
+    protected void Application_EndRequest(object sender, EventArgs e)
+      {
+      }
 
-        protected void Application_AuthenticateRequest(object sender, EventArgs e)
+    protected void Application_AuthenticateRequest(object sender, EventArgs e)
+      {
+      if (Request.IsAuthenticated)
         {
-            if (this.Request.IsAuthenticated)
-            {
-                HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(this.User.Identity, new TClass_biz_user().Roles());
-            }
+        HttpContext.Current.User = new System.Security.Principal.GenericPrincipal
+          (
+          identity:User.Identity,
+          roles:new TClass_biz_user().Roles()
+          );
         }
+      }
 
-        protected void Application_Error(object sender, EventArgs e)
-        {
-            this.Server.Transfer("~/exception.aspx");
-        }
+    protected void Application_Error(object sender, EventArgs e)
+      {
+      Server.Transfer(path:"~/exception.aspx");
+      }
 
-        protected void Session_End(object sender, EventArgs e)
-        {
-        }
+    protected void Session_End(object sender, EventArgs e)
+      {
+      }
 
-        protected void Application_End(object sender, EventArgs e)
-        {
-        }
+    protected void Application_End(object sender, EventArgs e)
+      {
+      }
 
     } // end TGlobal
 
-}
+  }
