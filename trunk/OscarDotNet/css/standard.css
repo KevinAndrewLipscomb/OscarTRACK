@@ -30,6 +30,10 @@
 /*
 ** AJAX__TAB_KI and KI_TAB_BODY (horizontal)
 */
+.ajax__tab_ki .ajax__tab
+  {
+  height: auto !important;
+  }
 .ajax__tab_ki .ajax__tab_header {}
 .ajax__tab_ki .ajax__tab_outer
   {
@@ -59,6 +63,13 @@
   {
   background-color:white;
   font-weight:bold;
+  }
+.ki_tab_body
+  {
+  padding: 4px;
+  border-right: silver thin solid;
+  border-left: silver thin solid;
+  border-bottom: silver thin solid;
   }
 
 /*

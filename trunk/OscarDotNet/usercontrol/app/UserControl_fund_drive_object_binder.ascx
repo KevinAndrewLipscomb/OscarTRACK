@@ -14,7 +14,7 @@
         </td>
       </tr>
       <tr>
-        <td style="PADDING:8px; BORDER-BOTTOM:thin solid silver; BORDER-LEFT:thin solid silver; BORDER-RIGHT:thin solid silver;">
+        <td class="ki_tab_body">
           <ASP:PlaceHolder id="PlaceHolder_content" runat="server"></ASP:PlaceHolder>
         </td>
       </tr>
