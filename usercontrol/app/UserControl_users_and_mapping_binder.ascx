@@ -11,7 +11,7 @@
             </cc1:TabContainer></td>
         </tr>
         <tr>
-          <td style="BORDER-RIGHT: silver thin solid; PADDING-RIGHT: 10px; PADDING-LEFT: 10px; PADDING-BOTTOM: 10px; BORDER-LEFT: silver thin solid; PADDING-TOP: 10px; BORDER-BOTTOM: silver thin solid">
+          <td class="ki_tab_body">
             <ASP:PlaceHolder id="PlaceHolder_content" runat="server"></ASP:PlaceHolder></td>
         </tr>
     </table>
