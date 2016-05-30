@@ -55,7 +55,7 @@
 							      <td>
                       <small>
                         Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Admin can edit or delete it. A Medical leave <u>must</u> extend at least into <u>next</u> month.&nbsp; Also, EMS Admin
-                        will require the member to show medical clearance by submitting a doctor's note and/or to reporting to the Human Resources Department Occupational Health office.
+                        will require the member to show medical clearance by submitting a doctor's note and/or by reporting to the Human Resources Department Occupational Health office.
                       </small>
 							      </td>
 						      </tr>

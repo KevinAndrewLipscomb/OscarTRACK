@@ -479,7 +479,17 @@ namespace UserControl_member_schedule_detail
           }
         else if (e.CommandName == "ForceOn")
           {
-          p.biz_schedule_assignments.ForceSelection(schedule_assignment_id,true);
+          if (!p.biz_schedule_assignments.ForceSelection(schedule_assignment_id,true))
+            {
+            Alert
+              (
+              cause:k.alert_cause_type.LOGIC,
+              state:k.alert_state_type.FAILURE,
+              key:"cantforceon",
+              value:"Sorry, you cannot select the member for duty on this shift because it would violate a business rule.  Check whether the member has a conflicting Medical Leave in effect.",
+              be_using_scriptmanager:true
+              );
+            };
           }
         else if (e.CommandName == "ForceOff")
           {

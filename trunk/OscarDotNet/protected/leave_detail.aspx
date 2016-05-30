@@ -44,12 +44,14 @@
                               <ASP:BoundColumn datafield="end_date" sortexpression="end_date%" readonly="True" headertext="End month">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
+                              <asp:BoundColumn DataField="specific_end_date" Visible="False"></asp:BoundColumn>
                               <ASP:BoundColumn datafield="kind_of_leave" sortexpression="kind_of_leave%,start_date" readonly="True" headertext="Kind">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
                               <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date" readonly="True" headertext="Num shifts">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
+                              <asp:ButtonColumn CommandName="ClearToReturnToDuty" Text="ClearToReturnToDuty"></asp:ButtonColumn>
                               <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note" Visible="false">
                                 <HeaderStyle horizontalalign="Left"></HeaderStyle>
                                 <ItemStyle horizontalalign="Left"></ItemStyle>

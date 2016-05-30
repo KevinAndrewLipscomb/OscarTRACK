@@ -177,6 +177,7 @@
     <Content Include="protected\template\notification\gripe_sheet_review.txt" />
     <Content Include="protected\template\notification\gripe_submission.txt" />
     <Content Include="protected\template\notification\marine_medic_qualification_change.txt" />
+    <Content Include="protected\template\notification\medical_leave_cleared.txt" />
     <Content Include="protected\template\notification\membership_establishment_blocked.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-review.txt" />
     <Content Include="protected\template\notification\member_length_of_service_change.txt" />
@@ -989,6 +990,7 @@
     </Compile>
     <Compile Include="protected\leave_detail.aspx.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="protected\leave_detail.aspx.designer.cs">
       <DependentUpon>leave_detail.aspx</DependentUpon>

@@ -56,7 +56,7 @@ namespace Class_biz_scheduled_tasks
 
     public void DoDailyChores(string current_working_directory_spec)
       {
-      biz_enrollment.MakeSeniorityPromotionEarlysWarnings();
+      biz_enrollment.MakeSeniorityPromotionEarlyWarnings();
       biz_enrollment.MakeSeniorityPromotions();
       biz_leaves.MakeLeaveEndingSoonNotifications();
       biz_leaves.MakeLeaveExpirationNotifications();

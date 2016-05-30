@@ -245,7 +245,7 @@ namespace Class_biz_notifications
             }
           }
 
-        private delegate string IssueForCadNumChange_Merge(string s);
+    private delegate string IssueForCadNumChange_Merge(string s);
         public void IssueForCadNumChange(string member_id, string first_name, string last_name, string cad_num)
         {
             string actor = k.EMPTY;
@@ -903,6 +903,49 @@ namespace Class_biz_notifications
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
         to:biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-modified", member_id) + (be_interactive ? k.COMMA + actor_email_address : k.EMPTY),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
+
+    private delegate string IssueForLeaveClearedImmediately_Merge(string s);
+    internal void IssueForLeaveClearedImmediately
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num
+      )
+      {
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+
+      IssueForLeaveClearedImmediately_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          ;
+        };
+
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/medical_leave_cleared.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id) + k.COMMA + db_notifications.TargetOf("leave-modified", member_id) + k.COMMA + actor_email_address,
         subject:Merge(template_reader.ReadLine()),
         message_string:Merge(template_reader.ReadToEnd()),
         reply_to:actor_email_address

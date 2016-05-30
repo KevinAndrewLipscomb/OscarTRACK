@@ -483,18 +483,29 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
-    internal void ForceSelection
+    internal bool ForceSelection
       (
       string id,
       bool be_selected
       )
       {
-      db_schedule_assignments.ForceSelection(id,be_selected,biz_members.IdOfUserId(biz_user.IdNum()));
-      db_schedule_assignment_logs.Enter
-        (
-        assignment_id:id,
-        action:"forced " + (be_selected ? "ON" : "OFF")
-        );
+      var force_selection = true;
+      //
+      if (be_selected && db_schedule_assignments.BeMemberOnMedicalLeaveFor(id))
+        {
+        force_selection = false;
+        }
+      else
+        {
+        db_schedule_assignments.ForceSelection(id,be_selected,biz_members.IdOfUserId(biz_user.IdNum()));
+        db_schedule_assignment_logs.Enter
+          (
+          assignment_id:id,
+          action:"forced " + (be_selected ? "ON" : "OFF")
+          );
+        }
+      //
+      return force_selection;
       }
 
     public bool Get
