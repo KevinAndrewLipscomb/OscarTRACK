@@ -183,6 +183,31 @@ namespace Class_db_schedule_assignments
       return be_adventitious_change_detected;
       }
 
+    internal bool BeMemberOnMedicalLeaveFor(string id)
+      {
+      var be_member_on_medical_leave_for = false;
+      Open();
+      be_member_on_medical_leave_for = null != 
+        new MySqlCommand
+          (
+          "select 1"
+          + " from schedule_assignment"
+          +   " join leave_of_absence on (leave_of_absence.member_id=schedule_assignment.member_id)"
+          +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+          + " where"
+          +     " (schedule_assignment.id = '" + id + "')"
+          +   " and"
+          +     " (description = 'Medical')"
+          +   " and"
+          +     " (nominal_day between start_date and end_date)"
+          + " limit 1",
+          connection
+          )
+          .ExecuteScalar();
+      Close();
+      return be_member_on_medical_leave_for;
+      }
+
     internal bool BeMemberSelectedDuringPeriod
       (
       string member_id,

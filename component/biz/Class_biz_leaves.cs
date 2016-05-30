@@ -173,7 +173,7 @@ namespace Class_biz_leaves
             }
         }
 
-        public void BindStartMonthDropDownList(object target, bool use_select)
+    public void BindStartMonthDropDownList(object target, bool use_select)
         {
             uint month_offset;
             ((target) as DropDownList).Items.Clear();
@@ -243,6 +243,35 @@ namespace Class_biz_leaves
         change_indicator_num_obliged_shifts:change_indicator_num_obliged_shifts,
         change_indicator_note:change_indicator_note,
         be_interactive:be_interactive
+        );
+      }
+
+    internal bool BeOkToClearImmediately
+      (
+      string kind_of_leave,
+      bool be_user_privileged_to_clear_medical_leave,
+      bool be_canonical,DateTime specific_end_date
+      )
+      {
+      return (kind_of_leave == "Medical")
+      && be_user_privileged_to_clear_medical_leave
+      && be_canonical
+      && (specific_end_date >= DateTime.Today);
+      }
+
+    internal void ClearImmediately
+      (
+      string id,
+      string member_id
+      )
+      {
+      db_leaves.ClearImmediately(id);
+      biz_notifications.IssueForLeaveClearedImmediately
+        (
+        member_id:member_id,
+        first_name:biz_members.FirstNameOfMemberId(member_id),
+        last_name:biz_members.LastNameOfMemberId(member_id),
+        cad_num:biz_members.CadNumOfMemberId(member_id)
         );
       }
 

@@ -1,0 +1,10 @@
+Medical Leave cleared for <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has cleared <first_name/> <last_name/>'s current Medical Leave in <application_name/>.  <first_name/> may return to duty immediately.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

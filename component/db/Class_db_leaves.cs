@@ -132,7 +132,7 @@ namespace Class_db_leaves
       Open();
       ((target) as DataGrid).DataSource = new MySqlCommand
         (
-        "select be_canonical,id,start_date,end_date,kind_of_leave,num_obliged_shifts,note from"
+        "select be_canonical,id,start_date,end_date,specific_end_date,kind_of_leave,num_obliged_shifts,note from"
         + " ("
         +   " ("
         +   " select TRUE as be_canonical"
@@ -253,6 +253,46 @@ namespace Class_db_leaves
       Close();
       }
 
+    internal void ClearImmediately(string id)
+      {
+      var common_new_end_date_phrase = "DATE_ADD(CURDATE(),INTERVAL -1 DAY)";
+      var main_sql = k.EMPTY
+      + " update leave_of_absence"
+      + " set end_date = " + common_new_end_date_phrase
+      + " where id = '" + id + "'"
+      + ";";
+      var manage_mid_cycle_end_sql = k.EMPTY;
+      Open();
+      //
+      // Manage mid-cycle end.
+      //
+      var linked_mid_cycle_leave_id_obj = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection).ExecuteScalar();
+      if (linked_mid_cycle_leave_id_obj != null)
+        {
+        manage_mid_cycle_end_sql = k.EMPTY
+        + " update mid_cycle_leave"
+        + " set end_date = " + common_new_end_date_phrase
+        + " where id = '" + linked_mid_cycle_leave_id_obj.ToString() + "'"
+        + ";";
+        }
+      //
+      // Execute
+      //
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "START TRANSACTION;"
+          + manage_mid_cycle_end_sql
+          + main_sql
+          + " COMMIT"
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
     public void Delete(string id)
       {
       var mid_sql_prefix = k.EMPTY;
@@ -301,7 +341,8 @@ namespace Class_db_leaves
       Close();
       }
 
-        public void CurtailOnEffectiveDate
+
+    public void CurtailOnEffectiveDate
           (
           string member_id,
           DateTime effective_date,

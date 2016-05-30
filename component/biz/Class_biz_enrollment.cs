@@ -162,7 +162,7 @@ namespace Class_biz_enrollment
             }
         }
 
-    internal void MakeSeniorityPromotionEarlysWarnings()
+    internal void MakeSeniorityPromotionEarlyWarnings()
       {
       var biz_members = new TClass_biz_members();
       //
