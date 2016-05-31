@@ -26,7 +26,7 @@ namespace Class_biz_notifications
 {
     public static class Class_biz_notifications_Static
     {
-        public static char[] BreakChars = new char[3 + 1] {Convert.ToChar(k.SPACE),Convert.ToChar(k.TAB),Convert.ToChar(k.HYPHEN),Convert.ToChar(0)};
+        public static char[] BreakChars = new char[2 + 1] {Convert.ToChar(k.SPACE),Convert.ToChar(k.TAB),Convert.ToChar(0)};
     }
 
     public class TClass_biz_notifications
