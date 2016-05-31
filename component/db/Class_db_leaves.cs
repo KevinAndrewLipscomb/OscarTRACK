@@ -264,6 +264,8 @@ namespace Class_db_leaves
       var manage_mid_cycle_end_sql = k.EMPTY;
       Open();
       //
+      var mid_sql_prefix = MidSqlPrefix(id);
+      //
       // Manage mid-cycle end.
       //
       var linked_mid_cycle_leave_id_obj = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection).ExecuteScalar();
@@ -282,7 +284,7 @@ namespace Class_db_leaves
         (
         db_trail.Saved
           (
-          "START TRANSACTION;"
+          mid_sql_prefix
           + manage_mid_cycle_end_sql
           + main_sql
           + " COMMIT"
@@ -308,39 +310,44 @@ namespace Class_db_leaves
         //
         // This is a mid-cycle leave event.
         //
-        mid_sql_prefix = "START TRANSACTION;";
-        if (null == new MySqlCommand("select id from mid_cycle_leave where CURDATE() between start_date and end_date",connection).ExecuteScalar())
-          {
-          //
-          // This was not previously a mid-cycle leave event.  We must create a new such event.
-          //
-          mid_sql_prefix += k.EMPTY
-          + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)"
-          + " select member_id"
-          + " , kind_of_leave_code"
-          + " , start_date"
-          + " , ADDDATE(CURDATE(),INTERVAL -1 DAY) as end_date"
-          + " , num_obliged_shifts"
-          + " , note"
-          + " from leave_of_absence"
-          + " where id = '" + id + "'";
-          }
-        else
-          {
-          //
-          // This affects an existing mid-cycle leave event.  We must update it.
-          //
-          mid_sql_prefix += k.EMPTY
-          + " update mid_cycle_leave set end_date = ADDDATE(CURDATE(),INTERVAL -1 DAY) where CURDATE() between start_date and end_date"
-          + ";"
-          + " delete from mid_cycle_leave where start_date > end_date"; // Catches cases of -1 day long leaves that result from use of ADDDATE(~,-1) above.
-          }
-        mid_sql_prefix += ";";
+        mid_sql_prefix = MidSqlPrefix(id);
         }
       new MySqlCommand(db_trail.Saved(mid_sql_prefix + " delete from leave_of_absence where id = '" + id + "'" + (mid_sql_prefix.Length > 0 ? "; COMMIT" : k.EMPTY)),connection).ExecuteNonQuery();
       Close();
       }
 
+    private string MidSqlPrefix(string id)
+      {
+      var mid_sql_prefix = "START TRANSACTION;";
+      if (null == new MySqlCommand("select id from mid_cycle_leave where CURDATE() between start_date and end_date",connection).ExecuteScalar())
+        {
+        //
+        // This was not previously a mid-cycle leave event.  We must create a new such event.
+        //
+        mid_sql_prefix += k.EMPTY
+        + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)"
+        + " select member_id"
+        + " , kind_of_leave_code"
+        + " , start_date"
+        + " , ADDDATE(CURDATE(),INTERVAL -1 DAY) as end_date"
+        + " , num_obliged_shifts"
+        + " , note"
+        + " from leave_of_absence"
+        + " where id = '" + id + "'";
+        }
+      else
+        {
+        //
+        // This affects an existing mid-cycle leave event.  We must update it.
+        //
+        mid_sql_prefix += k.EMPTY
+        + " update mid_cycle_leave set end_date = ADDDATE(CURDATE(),INTERVAL -1 DAY) where CURDATE() between start_date and end_date"
+        + ";"
+        + " delete from mid_cycle_leave where start_date > end_date"; // Catches cases of -1 day long leaves that result from use of ADDDATE(~,-1) above.
+        }
+      mid_sql_prefix += ";";
+      return mid_sql_prefix;
+      }
 
     public void CurtailOnEffectiveDate
           (

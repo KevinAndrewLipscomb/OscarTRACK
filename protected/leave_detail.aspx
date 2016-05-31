@@ -51,7 +51,7 @@
                               <ASP:BoundColumn datafield="num_obliged_shifts" sortexpression="num_obliged_shifts%,start_date" readonly="True" headertext="Num shifts">
                                 <ItemStyle horizontalalign="Center"></ItemStyle>
                               </ASP:BoundColumn>
-                              <asp:ButtonColumn CommandName="ClearToReturnToDuty" Text="ClearToReturnToDuty"></asp:ButtonColumn>
+                              <asp:ButtonColumn text="&lt;IMG src=&quot;~/protected/image/ksysv.png&quot; alt=&quot;ClearToRun&quot; border=&quot;0&quot; height=&quot;16&quot; width=&quot;16&quot; /&gt;" CommandName="ClearToReturnToDuty"></asp:ButtonColumn>
                               <ASP:BoundColumn datafield="note" sortexpression="note%" readonly="True" headertext="Note" Visible="false">
                                 <HeaderStyle horizontalalign="Left"></HeaderStyle>
                                 <ItemStyle horizontalalign="Left"></ItemStyle>

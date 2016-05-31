@@ -213,6 +213,8 @@ namespace leave_detail
           //then
             {
             ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
+            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
             RequireConfirmation
               (
               c: (e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
@@ -244,6 +246,8 @@ namespace leave_detail
           //then
             {
             ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
+            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
             RequireConfirmation
               (
               c: (e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
