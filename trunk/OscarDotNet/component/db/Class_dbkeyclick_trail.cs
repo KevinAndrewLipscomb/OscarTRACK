@@ -56,7 +56,7 @@ namespace Class_dbkeyclick_trail
       + " create procedure " + procedure_name + "() modifies sql data"
       +   " BEGIN"
       +   " start transaction;"
-      +   " if (select 1 from " + target_table_name + " where " + key_field_name + " = '" + key_field_value + "'" + (additional_match_condition.Length > 0 ? additional_match_condition : k.EMPTY) + " LOCK IN SHARE MODE) is null"
+      +   " if (select 1 from " + target_table_name + " where " + key_field_name + " = '" + key_field_value + "'" + (additional_match_condition.Length > 0 ? additional_match_condition : k.EMPTY) + " limit 1 LOCK IN SHARE MODE) is null"
       +   " then"
       +     " insert " + target_table_name + " set " + key_field_name + " = NULLIF('" + key_field_value + "',''), " + childless_field_assignments_clause + ";"
       +   " else"
