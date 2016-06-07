@@ -1,6 +1,7 @@
 using Class_biz_user;
 using kix;
 using System.Collections;
+using System.Configuration;
 using UserControl_about;
 using UserControl_config_binder;
 using UserControl_dashboard_binder;
@@ -122,6 +123,7 @@ namespace UserControl_member_binder
       {
       if (!p.be_loaded)
         {
+        TabPanel_field_situation.Visible = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]);
         p.be_loaded = true;
         }
       TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
