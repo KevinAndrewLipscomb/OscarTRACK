@@ -22,6 +22,9 @@ namespace leave_detail
       + "This will clear the member's Medical Leave and allow the member to be scheduled for duty effective immediately." + k.NEW_LINE
       + k.NEW_LINE
       + "Proceed?";
+      //
+      // Must keep these in sync with definitions in Class_db_leaves.cs.
+      //
       public const int TCCI_BE_CANONICAL = 0;
       public const int TCCI_ID = 1;
       public const int TCCI_START_DATE = 2;
