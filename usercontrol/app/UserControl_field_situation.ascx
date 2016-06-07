@@ -3,7 +3,7 @@
 <%@ Register Src="~/usercontrol/app/UserControl_recent_oscalert_samples.ascx" TagPrefix="uc2" TagName="UserControl_recent_oscalert_samples" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://vbrescuecouncil.org/pub/streaming_radio_traffic.aspx" target="_blank">&raquo;Listen!&laquo;</a></h2>
-<asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional">
+<asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional" Visible="false">
   <ContentTemplate>
     <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
       <tr>
@@ -80,7 +80,7 @@
   <ContentTemplate>
     <small>
       <br />
-      <table>
+      <table id="Table_notes" runat="server" visible="false">
         <tr><td><asp:LinkButton ID="LinkButton_toggle_notes" runat="server" OnClick="LinkButton_toggle_notes_Click">[Show]</asp:LinkButton> CAVEATS</td></tr>
         <tr id ="TableRow_notes_body" runat="server" visible="false">
           <td>
