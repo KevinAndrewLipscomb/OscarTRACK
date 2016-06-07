@@ -6,6 +6,7 @@ using kix;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -30,6 +31,7 @@ namespace UserControl_field_situation
       public bool be_ambulance_callsigns_body_visible;
       public bool be_assignment_designator_prefixes_body_visible;
       public bool be_datagrid_empty;
+      public bool be_field_situation_enabled;
       public bool be_interactive;
       public bool be_loaded;
       public bool be_notes_body_visible;
@@ -73,6 +75,8 @@ namespace UserControl_field_situation
       {
       if (!p.be_loaded)
         {
+        UpdatePanel_cases.Visible = p.be_field_situation_enabled;
+        Table_notes.Visible = p.be_field_situation_enabled;
         if (!p.be_interactive)
           {
           DataGrid_control.AllowSorting = false;
@@ -106,6 +110,7 @@ namespace UserControl_field_situation
         {
         p.biz_field_situations = new TClass_biz_field_situations();
         //
+        p.be_field_situation_enabled = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]);
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_ok_to_show_nature = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation");

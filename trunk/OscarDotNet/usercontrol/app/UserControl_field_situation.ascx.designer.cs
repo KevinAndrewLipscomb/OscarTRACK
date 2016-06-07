@@ -85,6 +85,15 @@ namespace UserControl_field_situation {
         protected global::System.Web.UI.UpdatePanel UpdatePanel_explanations;
         
         /// <summary>
+        /// Table_notes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_notes;
+        
+        /// <summary>
         /// LinkButton_toggle_notes control.
         /// </summary>
         /// <remarks>
