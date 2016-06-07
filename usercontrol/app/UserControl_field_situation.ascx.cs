@@ -50,25 +50,28 @@ namespace UserControl_field_situation
 
     private void InjectPersistentClientSideScript()
       {
-      ScriptManager.RegisterStartupScript
-        (
-        control:this,
-        type:this.GetType(),
-        key:"ClientSideAutorefreshCountdown",
-        script:k.EMPTY
-        + " function El(id)"
-        +   " {"
-        +   " return document.getElementById(id);"
-        +   " }"
-        + " function Countdown()"
-        +   " {"
-        +   " t = El('Span_countdown').innerHTML;"
-        +   " El('Span_countdown').innerHTML = ((t > 10) || (t <= 0) ? t - 1 : '0'.concat(t - 1));"
-        +   " setTimeout('Countdown()',1000);"
-        +   " }"
-        + " Countdown();",
-        addScriptTags:true
-        );
+      if (p.be_field_situation_enabled)
+        {
+        ScriptManager.RegisterStartupScript
+          (
+          control:this,
+          type:this.GetType(),
+          key:"ClientSideAutorefreshCountdown",
+          script:k.EMPTY
+          + " function El(id)"
+          +   " {"
+          +   " return document.getElementById(id);"
+          +   " }"
+          + " function Countdown()"
+          +   " {"
+          +   " t = El('Span_countdown').innerHTML;"
+          +   " El('Span_countdown').innerHTML = ((t > 10) || (t <= 0) ? t - 1 : '0'.concat(t - 1));"
+          +   " setTimeout('Countdown()',1000);"
+          +   " }"
+          + " Countdown();",
+          addScriptTags:true
+          );
+        }
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
@@ -110,7 +113,6 @@ namespace UserControl_field_situation
         {
         p.biz_field_situations = new TClass_biz_field_situations();
         //
-        p.be_field_situation_enabled = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]);
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_ok_to_show_nature = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation");
@@ -120,6 +122,8 @@ namespace UserControl_field_situation
         p.sort_order = "case_num desc, field_situation.id desc";
         //
         p.be_ok_to_fix_dangling = p.be_ok_to_show_nature && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
+        //
+        p.be_field_situation_enabled = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]) || p.be_ok_to_fix_dangling;
         }
       }
 

@@ -130,15 +130,6 @@ namespace login {
         protected global::System.Web.UI.WebControls.Button Button_log_in;
         
         /// <summary>
-        /// TableCell_active_case_board control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_active_case_board;
-        
-        /// <summary>
         /// LinkButton_verify_efficipay_signature control.
         /// </summary>
         /// <remarks>
