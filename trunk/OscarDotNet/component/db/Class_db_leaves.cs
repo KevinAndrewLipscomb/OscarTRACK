@@ -11,15 +11,20 @@ namespace Class_db_leaves
 {
     public static class Class_db_leaves_Static
     {
+    //
+    // Must keep these in sync with definitions in leave_detail.aspx.cs.
+    //
     public const int TCCI_BE_CANONICAL = 0;
     public const int TCCI_ID = 1;
     public const int TCCI_START_DATE = 2;
     public const int TCCI_END_DATE = 3;
-    public const int TCCI_KIND_OF_LEAVE = 4;
-    public const int TCCI_NUM_SHIFTS = 5;
-    public const int TCCI_NOTE = 6;
-    public const int TCCI_EDIT = 7;
-    public const int TCCI_DELETE = 8;
+    public const int TCCI_SPECIFIC_END_DATE = 4;
+    public const int TCCI_KIND_OF_LEAVE = 5;
+    public const int TCCI_NUM_SHIFTS = 6;
+    public const int TCCI_CLEAR_TO_RETURN_TO_DUTY = 7;
+    public const int TCCI_NOTE = 8;
+    public const int TCCI_EDIT = 9;
+    public const int TCCI_DELETE = 10;
     }
 
   internal class expire_after_days_rec_class
