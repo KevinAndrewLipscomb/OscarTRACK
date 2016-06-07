@@ -82,7 +82,7 @@
           </table>
         </td>
         <td>&nbsp;&nbsp;&nbsp;</td>
-        <td id="TableCell_active_case_board" runat="server" visible="false" align="center"><big><b><a href="pub/field_situation.aspx" target="_blank">_\|/_<br />Active<br />Case<br />Board<br />&macr;/|\&macr;</a></b></big></td>
+        <td align="center"><big><b><a href="pub/field_situation.aspx" target="_blank">_\|/_<br />Active<br />Case<br />Board<br />&macr;/|\&macr;</a></b></big></td>
       </tr>
       <tr>
         <td>&nbsp;</td>

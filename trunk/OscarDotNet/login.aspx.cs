@@ -58,7 +58,6 @@ namespace login
             {
               Title = ConfigurationManager.AppSettings["application_name"] + " - login";
               Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
-              TableCell_active_case_board.Visible = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]);
               p.biz_users = new TClass_biz_users();
                 RequireConfirmation(LinkButton_forgot_password,"Are you sure you want a new password?");
                 TextBox_username.Focus();
