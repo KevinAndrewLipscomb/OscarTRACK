@@ -1245,7 +1245,7 @@ namespace Class_db_members
         +       " ("
         +         " enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Reduced (1)','Reduced (2)','Reduced (3)','New trainee','ALS Intern')"
         +       " and"
-        +         " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,num_shifts)) > 0"
+        +         " if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month.val.ToString() + " MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,num_shifts)) > 0"
         +       " )"
         +     " or"
         +       " (enrollment_level.description in ('Staff','College','Atypical','SpecOps'))"
