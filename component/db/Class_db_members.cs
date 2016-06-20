@@ -701,7 +701,7 @@ namespace Class_db_members
           + " sum("
           +   " if"
           +     " ("
-          +     " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('Student','Test Candidate','BLS Intern'),"
+          +     " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('Student','BLS Intern'),"
           +     " if"
           +       " (" 
           +         " (leave_of_absence.start_date <= CURDATE())"
@@ -775,7 +775,7 @@ namespace Class_db_members
           +     " ("
           +       " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString()
           +     " or"
-          +       " medical_release_code_description_map.description in ('Student','Test Candidate','BLS Intern')"
+          +       " medical_release_code_description_map.description in ('Student','BLS Intern')"
           +     " )";
           Open();
           if (do_log)
@@ -818,7 +818,7 @@ namespace Class_db_members
             + " , sum("
             +     " if"
             +       " ("
-            +       " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('Student','Test Candidate','BLS Intern'),"
+            +       " enrollment_level.description in ('Recruit','Regular') and medical_release_code_description_map.description in ('Student','BLS Intern'),"
             +       " if"
             +         " (" 
             +           " (leave_of_absence.start_date <= CURDATE())"
@@ -1645,7 +1645,7 @@ namespace Class_db_members
           +   " left join"
           +     " (select distinct member_id from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))) as condensed_schedule_assignment on (condensed_schedule_assignment.member_id=member.id)"
           + " where enrollment_level.description in ('Recruit','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')"
-          +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description in ('Student','Test Candidate'),1,IF((enrollment_level.description = 'College' and " + be_before_deadline.ToString() + "),TRUE,num_shifts)))"
+          +   " and if((leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH)) and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))),num_obliged_shifts,IF(medical_release_code_description_map.description = 'Student',1,IF((enrollment_level.description = 'College' and " + be_before_deadline.ToString() + "),TRUE,num_shifts)))"
           +   " and (condensed_avail_sheet.odnmid is null)"
           +   " and (condensed_schedule_assignment.member_id is null)"
           +   " and be_ok_to_nag"

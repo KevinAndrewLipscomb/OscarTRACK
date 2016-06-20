@@ -1750,7 +1750,7 @@ namespace Class_db_schedule_assignments
         +               " ("
         +                 " IF"
         +                   " ("
-        +                     " medical_release_code_description_map.description in ('Student','Test Candidate')"
+        +                     " medical_release_code_description_map.description = 'Student'"
         +                   " ,"
         +                     " 1"  // expect 1 even though not strictly required
         +                   " ,"
