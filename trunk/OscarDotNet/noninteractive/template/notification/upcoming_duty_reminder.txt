@@ -40,7 +40,7 @@ STANDARD NOTICE:  You are expected to stand this duty, or take responsibility fo
             http://<host_domain_name/>/<application_name/>
       2. Select the "Schedule" tab.
       3. Select the "My assignments" tab.
-      4. Click the "live saver ring" icon next to this duty.
+      4. Click the "life saver ring" icon next to this duty.
       5. Read the Best Practices and contact the listed members using
          the features available in the Coverage Assistant.
 

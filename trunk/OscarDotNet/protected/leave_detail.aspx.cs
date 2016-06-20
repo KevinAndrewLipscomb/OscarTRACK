@@ -22,20 +22,6 @@ namespace leave_detail
       + "This will clear the member's Medical Leave and allow the member to be scheduled for duty effective immediately." + k.NEW_LINE
       + k.NEW_LINE
       + "Proceed?";
-      //
-      // Must keep these in sync with definitions in Class_db_leaves.cs.
-      //
-      public const int TCCI_BE_CANONICAL = 0;
-      public const int TCCI_ID = 1;
-      public const int TCCI_START_DATE = 2;
-      public const int TCCI_END_DATE = 3;
-      public const int TCCI_SPECIFIC_END_DATE = 4;
-      public const int TCCI_KIND_OF_LEAVE = 5;
-      public const int TCCI_NUM_OBLIGED_SHIFTS = 6;
-      public const int TCCI_CLEAR_TO_RETURN_TO_DUTY = 7;
-      public const int TCCI_NOTE = 8;
-      public const int TCCI_EDIT = 9;
-      public const int TCCI_DELETE = 10;
       }
 
     private struct p_type
@@ -155,7 +141,7 @@ namespace leave_detail
         {
         p.biz_leaves.ClearImmediately
           (
-          id:e.Item.Cells[Static.TCCI_ID].Text,
+          id:e.Item.Cells[Class_db_leaves_Static.TCCI_ID].Text,
           member_id:p.biz_members.IdOf(Session["member_summary"])
           );
         Bind();
@@ -164,7 +150,7 @@ namespace leave_detail
 
         private void DataGrid_leaves_DeleteCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
         {
-            p.biz_leaves.Delete(k.Safe(e.Item.Cells[Static.TCCI_ID].Text, k.safe_hint_type.NUM));
+            p.biz_leaves.Delete(k.Safe(e.Item.Cells[Class_db_leaves_Static.TCCI_ID].Text, k.safe_hint_type.NUM));
             DataGrid_leaves.EditItemIndex =  -1;
             Bind();
         }
@@ -186,94 +172,96 @@ namespace leave_detail
         //
         // We are dealing with a data row, not a header or footer row.
         //
-        ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = false;
+        ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = false;
         //
         var relativity = p.biz_leaves.RelativityOf(e.Item.Cells[Class_db_leaves_Static.TCCI_START_DATE].Text, e.Item.Cells[Class_db_leaves_Static.TCCI_END_DATE].Text);
         if (relativity == relativity_type.PAST)
           {
-          ((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-          ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+          ((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+          ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
           }
         else if (relativity == relativity_type.ESTABLISHED)
           {
-          ((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-          if (((e.Item.Cells[Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "0"))
+          ((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+          if (((e.Item.Cells[Class_db_leaves_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "0"))
             {
-            ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
             }
           else
             {
-            ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
             }
           if(p.biz_leaves.BeOkToClearImmediately
               (
-              kind_of_leave:e.Item.Cells[Static.TCCI_KIND_OF_LEAVE].Text,
+              kind_of_leave:e.Item.Cells[Class_db_leaves_Static.TCCI_KIND_OF_LEAVE].Text,
               be_user_privileged_to_clear_medical_leave:p.be_user_privileged_to_clear_medical_leave,
-              be_canonical:(e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "1"),
-              specific_end_date:DateTime.Parse(e.Item.Cells[Static.TCCI_SPECIFIC_END_DATE].Text)
+              be_canonical:(e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "1"),
+              specific_end_date:DateTime.Parse(e.Item.Cells[Class_db_leaves_Static.TCCI_SPECIFIC_END_DATE].Text)
               )
             )
           //then
             {
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text =
+              k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
             RequireConfirmation
               (
-              c: (e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
+              c: (e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
               prompt: Static.CLEAR_TO_RETURN_TO_DUTY_CONFIRMATION_PROMPT
               );
             }
           }
         else if (relativity == relativity_type.FORMATIVE)
           {
-          if (((e.Item.Cells[Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "0"))
+          if (((e.Item.Cells[Class_db_leaves_Static.TCCI_KIND_OF_LEAVE].Text == "Medical") && !p.be_user_privileged_to_clear_medical_leave) || (e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "0"))
             {
-            ((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
-            ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Visible = false;
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Visible = false;
             }
           else
             {
-            ((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
-            RequireConfirmation(((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
-            ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
+            RequireConfirmation(((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
             }
           if(p.biz_leaves.BeOkToClearImmediately
               (
-              kind_of_leave:e.Item.Cells[Static.TCCI_KIND_OF_LEAVE].Text,
+              kind_of_leave:e.Item.Cells[Class_db_leaves_Static.TCCI_KIND_OF_LEAVE].Text,
               be_user_privileged_to_clear_medical_leave:p.be_user_privileged_to_clear_medical_leave,
-              be_canonical:(e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "1"),
-              specific_end_date:DateTime.Parse(e.Item.Cells[Static.TCCI_SPECIFIC_END_DATE].Text)
+              be_canonical:(e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "1"),
+              specific_end_date:DateTime.Parse(e.Item.Cells[Class_db_leaves_Static.TCCI_SPECIFIC_END_DATE].Text)
               )
             )
           //then
             {
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
-            ((e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Visible = true;
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text =
+              k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).Text);
+            ((e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton).ToolTip = "Clear immediately to return to duty";
             RequireConfirmation
               (
-              c: (e.Item.Cells[Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
+              c: (e.Item.Cells[Class_db_leaves_Static.TCCI_CLEAR_TO_RETURN_TO_DUTY].Controls[0]) as LinkButton,
               prompt: Static.CLEAR_TO_RETURN_TO_DUTY_CONFIRMATION_PROMPT
               );
             }
           }
         else if (relativity == relativity_type.FUTURE)
           {
-          ((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
-          RequireConfirmation(((e.Item.Cells[Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
-          ((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
+          ((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton).Text);
+          RequireConfirmation(((e.Item.Cells[Class_db_leaves_Static.TCCI_DELETE].Controls[0]) as LinkButton), "Are you sure you want to delete this leave-of-absence?");
+          ((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text = k.ExpandTildePath(((e.Item.Cells[Class_db_leaves_Static.TCCI_EDIT].Controls[0]) as LinkButton).Text);
           }
-        if (e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "0")
+        if (e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "0")
           {
-          e.Item.Cells[Static.TCCI_BE_CANONICAL].Attributes.Add("style","color:gray");
-          e.Item.Cells[Static.TCCI_START_DATE].Attributes.Add("style","color:gray");
-          e.Item.Cells[Static.TCCI_END_DATE].Attributes.Add("style","color:gray");
-          e.Item.Cells[Static.TCCI_KIND_OF_LEAVE].Attributes.Add("style","color:gray");
-          e.Item.Cells[Static.TCCI_NUM_OBLIGED_SHIFTS].Attributes.Add("style","color:gray");
-          e.Item.Cells[Static.TCCI_NOTE].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_START_DATE].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_END_DATE].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_KIND_OF_LEAVE].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_NUM_SHIFTS].Attributes.Add("style","color:gray");
+          e.Item.Cells[Class_db_leaves_Static.TCCI_NOTE].Attributes.Add("style","color:gray");
           }
-        e.Item.Cells[Static.TCCI_BE_CANONICAL].Text = (e.Item.Cells[Static.TCCI_BE_CANONICAL].Text == "1" ? "BIZ-CYCLE" : "PRECISION");
+        e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text = (e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "1" ? "BIZ-CYCLE" : "PRECISION");
         p.num_datagrid_rows = p.num_datagrid_rows + 1;
         }
       }
@@ -295,9 +283,9 @@ namespace leave_detail
 
         private void Bind()
         {
-            DataGrid_leaves.Columns[Static.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
-            DataGrid_leaves.Columns[Static.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
-            DataGrid_leaves.Columns[Static.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
+            DataGrid_leaves.Columns[Class_db_leaves_Static.TCCI_EDIT].Visible = p.be_user_privileged_to_grant_leave;
+            DataGrid_leaves.Columns[Class_db_leaves_Static.TCCI_DELETE].Visible = p.be_user_privileged_to_grant_leave;
+            DataGrid_leaves.Columns[Class_db_leaves_Static.TCCI_NOTE].Visible = p.be_user_privileged_to_see_personnel_status_notes;
             p.biz_leaves.BindMemberRecords(p.biz_members.IdOf(Session["member_summary"]), p.sort_order, p.be_sort_order_ascending, DataGrid_leaves);
             // Manage control visibilities.
             p.be_datagrid_empty = (p.num_datagrid_rows == 0);
