@@ -10,6 +10,7 @@
             <cc1:TabPanel runat="server" headertext="Availabilities" id="TabPanel_availabilities"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="My assignments" id="TabPanel_my_assignments"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Watchbill assistant" id="TabPanel_assignment_assistant"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="BLS Intern assignments" id="TabPanel_bls_intern_assignments" Visible="false"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>
