@@ -225,6 +225,12 @@ namespace Class_biz_field_situations
         map_rendition_of = Regex.Replace
           (
           input:map_rendition_of,
+          pattern:"(?<prefix> )CO$|(?<prefix> )CO(?<suffix>/)|(?<prefix> )CO(?<suffix> )",
+          replacement:"${prefix}CMNS${suffix}"
+          );
+        map_rendition_of = Regex.Replace
+          (
+          input:map_rendition_of,
           pattern:"(?<prefix> )CS$|(?<prefix> )CS(?<suffix>/)|(?<prefix> )CS(?<suffix> )",
           replacement:"${prefix}CLOSE${suffix}"
           );

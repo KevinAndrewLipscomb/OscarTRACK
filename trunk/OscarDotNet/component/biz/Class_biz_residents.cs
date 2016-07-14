@@ -116,6 +116,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )CO$|(?<prefix> )CO(?<suffix> )",
+          replacement:"${prefix}CMNS${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )CS$|(?<prefix> )CS(?<suffix> )",
           replacement:"${prefix}CLOSE${suffix}",
           options:RegexOptions.Multiline
