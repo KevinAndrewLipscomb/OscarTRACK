@@ -60,10 +60,11 @@ namespace Class_biz_evals
       string third_member_id_filter,
       string aic_member_id_filter,
       k.int_sign_range inprocess_all_archived_condition,
-      k.int_positive evaluation_tier
+      k.int_positive evaluation_tier,
+      string third_section_filter = k.EMPTY
       )
       {
-      db_evals.BindBaseDataList(sort_order,be_sort_order_ascending,target,third_member_id_filter,aic_member_id_filter,inprocess_all_archived_condition,evaluation_tier);
+      db_evals.BindBaseDataList(sort_order,be_sort_order_ascending,target,third_member_id_filter,aic_member_id_filter,inprocess_all_archived_condition,evaluation_tier,third_section_filter);
       }
 
     public void BindDirectToListControl(object target)

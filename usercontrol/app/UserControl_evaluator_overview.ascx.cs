@@ -1,22 +1,21 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_evals;
+using Class_biz_members;
+using Class_biz_sections;
 using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
-using AjaxControlToolkit;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace UserControl_evaluator_overview
   {
   public partial class TWebUserControl_evaluator_overview: ki_web_ui.usercontrol_class
     {
-    public class UserControl_evaluator_overview_Static
+    private class Static
       {
       public const int TCI_OPEN = 0;
       public const int TCI_ID = 1;
@@ -37,12 +36,15 @@ namespace UserControl_evaluator_overview
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_evals biz_evals;
+      public TClass_biz_members biz_members;
+      public TClass_biz_sections biz_sections;
       public TClass_biz_user biz_user;
       public k.int_positive evaluation_tier_active;
       public k.int_positive evaluation_tier_highest;
       public uint num_evals;
       public string range;
       public string sort_order;
+      public string third_section_filter;
       public string user_member_id;
       }
 
@@ -137,6 +139,11 @@ namespace UserControl_evaluator_overview
           }
         DropDownList_range.SelectedValue = p.range;
         CheckBox_aic_me_only.Visible = (p.evaluation_tier_highest.val < int.MaxValue);
+        p.biz_sections.BindListControl
+          (
+          target:DropDownList_third_section,
+          selected_description:(p.third_section_filter.Length > 0 ? p.third_section_filter : "*")
+          );
         Bind();
         p.be_loaded = true;
         }
@@ -170,6 +177,8 @@ namespace UserControl_evaluator_overview
       else
         {
         p.biz_evals = new TClass_biz_evals();
+        p.biz_members = new TClass_biz_members();
+        p.biz_sections = new TClass_biz_sections();
         p.biz_user = new TClass_biz_user();
         //
         p.be_interactive = (Session["mode:report"] == null);
@@ -179,6 +188,7 @@ namespace UserControl_evaluator_overview
         p.evaluation_tier_highest = new k.int_positive(int.MaxValue);
         p.range = "InProcess";
         p.sort_order = "eval.nominal_day desc,shift.start desc";
+        p.third_section_filter = k.EMPTY;
         p.user_member_id = k.EMPTY;
         }
       }
@@ -189,9 +199,9 @@ namespace UserControl_evaluator_overview
     // / </summary>
     private void InitializeComponent()
       {
-      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
-      DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
-      DataGrid_control.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(DataGrid_control_ItemCommand);
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      DataGrid_control.ItemCommand += new DataGridCommandEventHandler(DataGrid_control_ItemCommand);
       PreRender += TWebUserControl_evaluator_overview_PreRender;
       }
 
@@ -212,7 +222,7 @@ namespace UserControl_evaluator_overview
         {
         var msg = new TClass_msg_protected.eval_detail();
         msg.user_member_id = p.user_member_id;
-        msg.id = k.Safe(e.Item.Cells[UserControl_evaluator_overview_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        msg.id = k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM);
         msg.be_user_evaluatee = false;
         MessageDropCrumbAndTransferTo(msg,"protected","eval_detail");
         }
@@ -225,7 +235,7 @@ namespace UserControl_evaluator_overview
         {
         if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
           {
-          link_button = ((e.Item.Cells[UserControl_evaluator_overview_Static.TCI_OPEN].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_OPEN].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -235,14 +245,14 @@ namespace UserControl_evaluator_overview
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_evaluator_overview_Static.TCI_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_ID].EnableViewState = true;
           //
           p.num_evals++;
           }
         }
       else
         {
-        e.Item.Cells[UserControl_evaluator_overview_Static.TCI_OPEN].Visible = false;
+        e.Item.Cells[Static.TCI_OPEN].Visible = false;
         }
       }
 
@@ -263,8 +273,8 @@ namespace UserControl_evaluator_overview
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_evaluator_overview_Static.TCI_AIC].Visible = (p.evaluation_tier_active.val < int.MaxValue);
-      DataGrid_control.Columns[UserControl_evaluator_overview_Static.TCI_STATUS].Visible = (p.range != "Archived");
+      DataGrid_control.Columns[Static.TCI_AIC].Visible = (p.evaluation_tier_active.val < int.MaxValue);
+      DataGrid_control.Columns[Static.TCI_STATUS].Visible = (p.range != "Archived");
       p.biz_evals.BindBaseDataList
         (
         sort_order:p.sort_order,
@@ -273,7 +283,8 @@ namespace UserControl_evaluator_overview
         third_member_id_filter:k.EMPTY,
         aic_member_id_filter:p.user_member_id,
         inprocess_all_archived_condition:new k.int_sign_range(val:(p.range.Length == 0 ? 0 : (p.range == "Archived" ? 1 : -1))),
-        evaluation_tier:p.evaluation_tier_active
+        evaluation_tier:p.evaluation_tier_active,
+        third_section_filter:p.third_section_filter
         );
       p.be_datagrid_empty = (p.num_evals == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -288,6 +299,7 @@ namespace UserControl_evaluator_overview
       var roles = p.biz_user.Roles();
       p.evaluation_tier_highest.val = (k.Has(p.biz_user.Privileges(),"see-department-scope-evals") ? 1 : (k.Has(p.biz_user.Privileges(),"see-squad-scope-evals") ? 2 : int.MaxValue));
       p.evaluation_tier_active.val = p.evaluation_tier_highest.val;
+      p.third_section_filter = (p.evaluation_tier_active.val == 1 ? k.EMPTY : k.Safe(p.biz_members.AgencyIdOfId(id:id),k.safe_hint_type.NUM));
       }
 
     protected void LinkButton_add_Click(object sender, EventArgs e)
@@ -312,6 +324,12 @@ namespace UserControl_evaluator_overview
     protected void CheckBox_aic_me_only_CheckedChanged(object sender, EventArgs e)
       {
       p.evaluation_tier_active.val = (CheckBox_aic_me_only.Checked ? int.MaxValue : p.evaluation_tier_highest.val);
+      Bind();
+      }
+
+    protected void DropDownList_third_section_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.third_section_filter = k.Safe(DropDownList_third_section.SelectedValue,k.safe_hint_type.NUM);
       Bind();
       }
 

@@ -49,6 +49,15 @@ namespace UserControl_evaluator_overview {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_aic_me_only;
         
         /// <summary>
+        /// DropDownList_third_section control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_third_section;
+        
+        /// <summary>
         /// Literal_num_evals control.
         /// </summary>
         /// <remarks>
