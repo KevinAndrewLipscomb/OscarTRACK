@@ -24,6 +24,9 @@
                       </asp:DropDownList>
                       &nbsp;&nbsp;&nbsp;
                       <asp:CheckBox ID="CheckBox_aic_me_only" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_aic_me_only_CheckedChanged" Text="AIC&nbsp;=&nbsp;Me" Visible="False" />
+                      &nbsp;&nbsp;&nbsp;
+                      <strong>3rd sxn:</strong>
+                      <asp:DropDownList ID="DropDownList_third_section" runat="server" AutoPostBack="true" OnSelectedIndexChanged="DropDownList_third_section_SelectedIndexChanged"></asp:DropDownList>
                     </td>
                     <td></td>
                     <td align="right"><asp:Literal ID="Literal_num_evals" runat="server"></asp:Literal>&nbsp;evals</td>

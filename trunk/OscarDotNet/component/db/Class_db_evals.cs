@@ -105,7 +105,8 @@ namespace Class_db_evals
       string third_member_id_filter,
       string aic_member_id_filter,
       k.int_sign_range inprocess_all_archived_condition,
-      k.int_positive evaluation_tier
+      k.int_positive evaluation_tier,
+      string third_section_filter = k.EMPTY
       )
       {
       sort_order = sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc"));
@@ -130,6 +131,10 @@ namespace Class_db_evals
         {
         filter += " and eval_status.description " + (inprocess_all_archived_condition.val == -1 ? "<>" : "=") + " 'ARCHIVED'" + k.SPACE;
         }
+      if (third_section_filter.Length > 0)
+        {
+        filter += " and third_member.section_num = '" + third_section_filter + "'" + k.SPACE;
+        }
       Open();
       (target as BaseDataList).DataSource = 
         (
@@ -144,7 +149,7 @@ namespace Class_db_evals
           + " , vehicle.id as vehicle_id"
           + " , vehicle.name as vehicle_name"
           + " , third_member.id as third_member_id"
-          + " , CONCAT(third_member.first_name,' ',third_member.last_name) as third_member_name"
+          + " , CONCAT(third_member.first_name,' ',third_member.last_name,' <',third_member.section_num) as third_member_name"
           + " , aic_member.id as aic_member_id"
           + " , CONCAT(aic_member.first_name,' ',aic_member.last_name) as aic_member_name"
           + " , eval_status.description as status"
