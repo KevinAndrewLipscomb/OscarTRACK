@@ -142,7 +142,7 @@ namespace UserControl_evaluator_overview
         p.biz_sections.BindListControl
           (
           target:DropDownList_third_section,
-          selected_description:(p.third_section_filter.Length > 0 ? p.third_section_filter : "*")
+          selected_description:(p.third_section_filter.Length > 0 ? p.third_section_filter : k.EMPTY)
           );
         Bind();
         p.be_loaded = true;
