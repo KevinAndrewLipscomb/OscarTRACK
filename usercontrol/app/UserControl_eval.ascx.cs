@@ -1237,11 +1237,11 @@ namespace UserControl_eval
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
-          foreach (TableCell cell in e.Item.Cells)
-            {
-            cell.EnableViewState = false;
-            }
-          e.Item.Cells[UserControl_eval_Static.TCI_ID].EnableViewState = true;
+          //foreach (TableCell cell in e.Item.Cells)
+          //  {
+          //  cell.EnableViewState = false;
+          //  }
+          //e.Item.Cells[UserControl_eval_Static.TCI_ID].EnableViewState = true;
           }
         else
           {
