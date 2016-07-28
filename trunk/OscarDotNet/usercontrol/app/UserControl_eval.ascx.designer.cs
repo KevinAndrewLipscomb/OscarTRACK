@@ -427,6 +427,15 @@ namespace UserControl_eval {
         protected global::System.Web.UI.WebControls.CompareValidator CompareValidator_aic;
         
         /// <summary>
+        /// CustomValidator_aic_evaluator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_aic_evaluator;
+        
+        /// <summary>
         /// Label_alt_aic_reason control.
         /// </summary>
         /// <remarks>

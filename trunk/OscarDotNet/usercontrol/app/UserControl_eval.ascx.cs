@@ -1343,6 +1343,11 @@ namespace UserControl_eval
         );
       }
 
+    protected void CustomValidator_aic_evaluator_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = (DropDownList_aic.SelectedValue == p.biz_evals.EvaluatorMemberIdOf(p.summary));
+      }
+
     } // end TWebUserControl_eval
 
   }
