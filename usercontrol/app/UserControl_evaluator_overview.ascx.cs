@@ -273,6 +273,7 @@ namespace UserControl_evaluator_overview
 
     private void Bind()
       {
+      TableCell_third_section.Visible = (p.evaluation_tier_active.val < int.MaxValue);
       DataGrid_control.Columns[Static.TCI_AIC].Visible = (p.evaluation_tier_active.val < int.MaxValue);
       DataGrid_control.Columns[Static.TCI_STATUS].Visible = (p.range != "Archived");
       p.biz_evals.BindBaseDataList
@@ -299,7 +300,7 @@ namespace UserControl_evaluator_overview
       var roles = p.biz_user.Roles();
       p.evaluation_tier_highest.val = (k.Has(p.biz_user.Privileges(),"see-department-scope-evals") ? 1 : (k.Has(p.biz_user.Privileges(),"see-squad-scope-evals") ? 2 : int.MaxValue));
       p.evaluation_tier_active.val = p.evaluation_tier_highest.val;
-      p.third_section_filter = (p.evaluation_tier_active.val == 1 ? k.EMPTY : k.Safe(p.biz_members.AgencyIdOfId(id:id),k.safe_hint_type.NUM));
+      p.third_section_filter = (p.evaluation_tier_active.val == 2 ? k.Safe(p.biz_members.AgencyIdOfId(id:id),k.safe_hint_type.NUM) : k.EMPTY );
       }
 
     protected void LinkButton_add_Click(object sender, EventArgs e)
