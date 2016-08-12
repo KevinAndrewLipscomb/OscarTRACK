@@ -170,94 +170,106 @@ namespace Class_db_role_member_map
 
         }
 
-        public string EmailTargetAboutAgencyId
-          (
-          string role_name,
-          string agency_id
-          )
-          {
-          var email_target_about_agency_id = k.EMPTY;
-          Open();
-          var dr = new MySqlCommand
-            (
-            "select email_address"
-            + " from role_member_map"
-            +   " join role on (role.id=role_member_map.role_id)"
-            +   " join member on (member.id=role_member_map.member_id)"
-            + " where role.name = '" + role_name + "'"
-            +   " and agency_id = '" + agency_id + "'",
-            connection
-            )
-            .ExecuteReader();
-          while (dr.Read())
-            {
-            email_target_about_agency_id += dr["email_address"].ToString() + k.COMMA;
-            }
-          dr.Close();
-          Close();
-          if (email_target_about_agency_id.Length > 0)
-            {
-            email_target_about_agency_id = email_target_about_agency_id.Substring(0, email_target_about_agency_id.Length - 1);
-            }
-          return email_target_about_agency_id;
-          }
-
-        public string EmailTargetOf(string role_name, string agency_short_designator)
+    public string EmailTargetAboutAgencyId
+      (
+      string role_name,
+      string agency_id
+      )
+      {
+      var email_target_about_agency_id = k.EMPTY;
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select email_address"
+        + " from role_member_map"
+        +   " join role on (role.id=role_member_map.role_id)"
+        +   " join member on (member.id=role_member_map.member_id)"
+        + " where role.name = '" + role_name + "'"
+        +   " and agency_id = '" + agency_id + "'",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
         {
-            string result;
-            MySqlDataReader dr;
-            string email_target_of = k.EMPTY;
-            this.Open();
-            dr = new MySqlCommand("select email_address" + " from role_member_map" + " join role on (role.id=role_member_map.role_id)" + " join member on (member.id=role_member_map.member_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name = \"" + role_name + "\"" + " and agency.short_designator = \"" + agency_short_designator + "\"", this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                email_target_of = email_target_of + dr["email_address"].ToString() + k.COMMA;
-            }
-            dr.Close();
-            this.Close();
-            if (email_target_of != k.EMPTY)
-            {
-                result = email_target_of.Substring(0, email_target_of.Length - 1);
-            }
-            else
-            {
-                result = k.EMPTY;
-            }
-
-            return result;
+        email_target_about_agency_id += dr["email_address"].ToString() + k.COMMA;
         }
+      dr.Close();
+      Close();
+      if (email_target_about_agency_id.Length > 0)
+        {
+        email_target_about_agency_id = email_target_about_agency_id.Substring(0, email_target_about_agency_id.Length - 1);
+        }
+      return email_target_about_agency_id;
+      }
 
-        internal string EmailTargetOfAgencyIdList
+    public string EmailTargetOf
+      (
+      string role_name,
+      string agency_short_designator
+      )
+      {
+      string email_target_of = k.EMPTY;
+      Open();
+      var dr = new MySqlCommand
+        (
+        "select email_address"
+        + " from role_member_map"
+        +   " join role on (role.id=role_member_map.role_id)"
+        +   " join member on (member.id=role_member_map.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        + " where role.name = '" + role_name + "'"
+        +   " and agency.short_designator = '" + agency_short_designator + "'"
+        + " UNION"
+        + " select email_address"
+        + " from special_role_member_map"
+        +   " join role on (role.id=special_role_member_map.role_id)"
+        +   " join member on (member.id=special_role_member_map.member_id)"
+        +   " join agency on (agency.id=special_role_member_map.agency_id)"
+        + " where role.name = '" + role_name + "'"
+        +   " and agency.short_designator = '" + agency_short_designator + "'",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        email_target_of += dr["email_address"].ToString() + k.COMMA;
+        }
+      dr.Close();
+      Close();
+      return (email_target_of != k.EMPTY ? email_target_of.Substring(0, email_target_of.Length - 1) : k.EMPTY);
+      }
+
+    internal string EmailTargetOfAgencyIdList
+      (
+      string role_name,
+      string agency_id_list
+      )
+      {
+      var email_target_of_agency_id_list = k.EMPTY;
+      if (agency_id_list.Length > 0)
+        {
+        Open();
+        var dr = new MySqlCommand
           (
-          string role_name,
-          string agency_id_list
+          "select email_address"
+          + " from role_member_map"
+          +   " join role on (role.id=role_member_map.role_id)"
+          +   " join member on (member.id=role_member_map.member_id)"
+          +   " join agency on (agency.id=member.agency_id)"
+          + " where role.name = '" + role_name + "'"
+          +   " and agency.id in (" + agency_id_list + ")",
+          connection
           )
+          .ExecuteReader();
+        while (dr.Read())
           {
-          var email_target_of_agency_id_list = k.EMPTY;
-          if (agency_id_list.Length > 0)
-            {
-            Open();
-            var dr = new MySqlCommand
-              (
-              "select email_address"
-              + " from role_member_map"
-              +   " join role on (role.id=role_member_map.role_id)"
-              +   " join member on (member.id=role_member_map.member_id)"
-              +   " join agency on (agency.id=member.agency_id)"
-              + " where role.name = '" + role_name + "'"
-              +   " and agency.id in (" + agency_id_list + ")",
-              connection
-              )
-              .ExecuteReader();
-            while (dr.Read())
-              {
-              email_target_of_agency_id_list += dr["email_address"].ToString() + k.COMMA;
-              }
-            dr.Close();
-            Close();
-            }
-          return email_target_of_agency_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)});
+          email_target_of_agency_id_list += dr["email_address"].ToString() + k.COMMA;
           }
+        dr.Close();
+        Close();
+        }
+      return email_target_of_agency_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)});
+      }
 
         public string HolderOf(string role_name)
         {
