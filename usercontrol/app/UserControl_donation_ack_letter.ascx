@@ -5,13 +5,13 @@
     <td width="5%">&nbsp;</td>
     <td width="90%">
       <table width="100%">
-        <tr><td style="height:1.25in">&nbsp;</td></tr>
+        <tr><td style="height:1.50in">&nbsp;</td></tr>
         <tr>
           <td>
             <table width="100%">
               <tr>
-                <td width="50%">&nbsp;</td>
-                <td width="50%"><asp:Literal ID="Literal_ack_date" runat="server"></asp:Literal><br />&nbsp;</td>
+                <td width="70%">&nbsp;</td>
+                <td width="30%"><asp:Literal ID="Literal_ack_date" runat="server"></asp:Literal><br />&nbsp;</td>
               </tr>
             </table>
           </td>
@@ -21,6 +21,9 @@
             <asp:Literal ID="Literal_donor_name" runat="server"></asp:Literal><br />
             <asp:Literal ID="Literal_address" runat="server"></asp:Literal><br />
             <asp:Literal ID="Literal_city" runat="server"></asp:Literal> <asp:Literal ID="Literal_state" runat="server"></asp:Literal><br />
+            <br />
+            <br />
+            <br />
             <br />
             <p>
               Thank you for the <asp:Label ID="Label_amount" runat="server" Font-Bold="True"></asp:Label> donation you made on <asp:Label ID="Label_donation_date" runat="server" Font-Bold="True"></asp:Label>.&nbsp; Please keep this written
