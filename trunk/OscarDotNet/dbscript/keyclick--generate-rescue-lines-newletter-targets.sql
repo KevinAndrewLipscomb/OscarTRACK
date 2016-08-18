@@ -1,4 +1,4 @@
-SELECT DISTINCT , IFNULL(resident_base.name,"TO OUR FRIENDS AT") as name
+SELECT DISTINCT IFNULL(resident_base.name,"TO OUR FRIENDS AT") as name
 , 'OR CURRENT RESIDENT' as catchall_line
 , IF(
       street.name = "PO BOX"
