@@ -19,7 +19,7 @@
         <td>
           <table cellpadding="10" cellspacing="0" width="100%">
             <tr><td colspan="2" align="center" style="font-size: xx-large;"><strong>LINEUP</strong></td></tr>
-            <tr><td align="center"><small>This report automatically switches to the upcoming shift at 5am & 5pm.</small></td></tr>
+            <tr><td align="center"><small>This report automatically switches to the upcoming shift at NOON &amp; MIDNIGHT.</small></td></tr>
           </table>
         </td>
       </tr>

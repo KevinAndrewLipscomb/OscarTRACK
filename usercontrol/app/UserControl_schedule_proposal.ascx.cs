@@ -261,7 +261,7 @@ namespace UserControl_schedule_proposal
         p.be_commanded_watchbill_noninteractive = (Session["mode:report/commanded-watchbill-noninteractive"] != null);
         p.be_interactive = (Session["mode:report"] == null);
         p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
-        p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:1,minutes:0,seconds:0)));
+        p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:6,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
         p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
         p.be_ok_to_edit_schedule_for_any_special_agency = false;
