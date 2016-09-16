@@ -1,4 +1,4 @@
-using Class_biz_notifications;
+using Class_biz_role_member_map;
 using kix;
 using System;
 using System.Configuration;
@@ -15,7 +15,7 @@ namespace report_monthly_bls_intern_assignments
 
     private struct p_type
       {
-      public TClass_biz_notifications biz_notifications;
+      public TClass_biz_role_member_map biz_role_member_map;
       }
 
     private p_type p;
@@ -44,7 +44,7 @@ namespace report_monthly_bls_intern_assignments
       //
       InitializeComponent();
       base.OnInit(e);
-      p.biz_notifications = new TClass_biz_notifications();
+      p.biz_role_member_map = new TClass_biz_role_member_map();
       //
       // Set session objects referenced by UserControl_roster.
       //
@@ -69,7 +69,11 @@ namespace report_monthly_bls_intern_assignments
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
-        to:p.biz_notifications.TargetOfAboutAgency("report-monthly-bls-intern-schedule-assignments"),
+        to:p.biz_role_member_map.EmailTargetOf
+          (
+          role_name:"Department Jump Seat Scheduler",
+          agency_short_designator:"EMS"
+          ),
         subject:"Report: Monthly BLS Intern Schedule Assignments",
         message_string:body,
         be_html:true
