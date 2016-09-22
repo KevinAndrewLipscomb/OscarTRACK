@@ -23,7 +23,12 @@ namespace Class_db_shifts
     internal bool BeInDayShift(TimeSpan time_of_day)
       {
       Open();
-      var be_now_day_shift = "1" == new MySqlCommand("select IF(@t between start and end,1,0) from (select @t := '" + time_of_day + "') as init,shift where name = 'DAY'",connection).ExecuteScalar().ToString();
+      var be_now_day_shift = "1" == new MySqlCommand
+        (
+        "select IF(@t between start and end,1,0) from (select @t := '" + time_of_day.ToString("hh':'mm") + "') as init,shift where name = 'DAY'",
+        connection
+        )
+        .ExecuteScalar().ToString();
       Close();
       return be_now_day_shift;
       }

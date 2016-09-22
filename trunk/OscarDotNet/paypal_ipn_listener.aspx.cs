@@ -59,6 +59,7 @@ namespace paypal_ipn_listener
       var address_zip = HttpUtility.UrlDecode(Request["address_zip"]);
       var address_country = HttpUtility.UrlDecode(Request["address_country"]);
       var address_country_code = HttpUtility.UrlDecode(Request["address_country_code"]);
+      var business = HttpUtility.UrlDecode(Request["business"]);
       //
       // Prepend PayPal validation argument.
       //
