@@ -328,6 +328,7 @@
     <Compile Include="component\biz\Class_biz_evals.cs" />
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
     <Compile Include="component\biz\Class_biz_field_situations.cs" />
+    <Compile Include="component\biz\Class_biz_fund_drives.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_incident_natures.cs" />
     <Compile Include="component\biz\Class_biz_indicator_monthly_vehicles_up_and_current.cs" />
