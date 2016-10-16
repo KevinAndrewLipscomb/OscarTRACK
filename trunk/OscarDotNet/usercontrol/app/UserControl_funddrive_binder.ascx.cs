@@ -63,6 +63,7 @@ namespace UserControl_funddrive_binder
         {
         var c = ((TWebUserControl_keyclick)(LoadControl("~/usercontrol/app/UserControl_keyclick.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_keyclick",PlaceHolder_content,InstanceId());
+        c.SetP(agency_id:p.user_member_agency_id);
         }
       else if (p.tab_index == UserControl_funddrive_binder_Static.TSSI_LOVE_LETTERS)
         {
