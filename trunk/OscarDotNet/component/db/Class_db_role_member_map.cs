@@ -20,7 +20,7 @@ namespace Class_db_role_member_map
             db_trail = new TClass_db_trail();
         }
 
-        public void Bind(string tier_quoted_value_list, string agency_filter, string sort_order, bool be_sort_order_descending, object target, out ArrayList crosstab_metadata_rec_arraylist)
+    public void Bind(string tier_quoted_value_list, string agency_filter, string sort_order, bool be_sort_order_descending, object target, out ArrayList crosstab_metadata_rec_arraylist)
         {
             crosstab_metadata_rec_type crosstab_metadata_rec;
             string crosstab_sql;
@@ -306,6 +306,29 @@ namespace Class_db_role_member_map
             }
             this.Close();
         }
+
+    internal string SoleSpecialAgencyOf
+      (
+      string role_name,
+      string member_id
+      )
+      {
+      Open();
+      var agency_id_obj = new MySqlCommand
+        (
+        "select agency_id"
+        + " from special_role_member_map"
+        +   " join role on (role.id=special_role_member_map.role_id)"
+        + " where member_id = '" + member_id + "'"
+        +   " and role.name = '" + role_name + "'"
+        + " order by special_role_member_map.id"
+        + " limit 1",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (agency_id_obj == null ? k.EMPTY : agency_id_obj.ToString());
+      }
 
     } // end TClass_db_role_member_map
 

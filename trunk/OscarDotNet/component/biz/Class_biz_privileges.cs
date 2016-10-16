@@ -55,11 +55,12 @@ namespace Class_biz_privileges
       (
       string member_id,
       string privilege_name,
-      string agency_id
+      string agency_id,
+      bool do_include_rescue_squads = false
       )
       {
       int agency_id_int;
-      return (int.TryParse(s:agency_id,result:out agency_id_int) ? (agency_id_int > 200) && db_privileges.HasForSpecialAgency(member_id,privilege_name,agency_id) : false);
+      return (int.TryParse(s:agency_id,result:out agency_id_int) ? (do_include_rescue_squads ? true : (agency_id_int > 200)) && db_privileges.HasForSpecialAgency(member_id,privilege_name,agency_id) : false);
       }
 
     } // end TClass_biz_privileges
