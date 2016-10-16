@@ -24,9 +24,13 @@ namespace Class_biz_manifest
         db_manifest = new TClass_db_manifest();
         }
 
-      internal string NewBoardingPass()
+      internal string NewBoardingPass(string agency_keyclick_enumerator)
         {
-        return db_manifest.NewBoardingPass(biz_agencies.KeyclickEnumeratorOf(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum()))),biz_user.EmailAddress());
+        return db_manifest.NewBoardingPass
+          (
+          agency_keyclick_enumerator:agency_keyclick_enumerator,
+          email_address:biz_user.EmailAddress()
+          );
         }
 
       }
