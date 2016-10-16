@@ -5,12 +5,14 @@ using Class_biz_user;
 using kix;
 using System.Configuration;
 using System.Web.UI;
+using System;
 
 namespace UserControl_keyclick
   {
 
   public struct p_type
     {
+    public string agency_id;
     public bool be_loaded;
     public TClass_biz_members biz_members;
     public TClass_biz_residents biz_residents;
@@ -44,7 +46,7 @@ namespace UserControl_keyclick
         HyperLink_analyze.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
         HyperLink_export.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
         //
-        Literal_num_rod_records.Text = p.biz_residents.NumForAgency(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))).val.ToString("N0");
+        Literal_num_rod_records.Text = p.biz_residents.NumForAgency(agency_id:p.agency_id).val.ToString("N0");
         //
         p.be_loaded = true;
         }
@@ -63,11 +65,13 @@ namespace UserControl_keyclick
         }
       else
         {
+        p.be_loaded = false;
+        //
         p.biz_members = new TClass_biz_members();
         p.biz_residents = new TClass_biz_residents();
         p.biz_user = new TClass_biz_user();
         //
-        p.be_loaded = false;
+        p.agency_id = k.EMPTY;
         p.path_to_external_keyclick = ConfigurationManager.AppSettings["path_to_external_keyclick"];
         }
       }
@@ -135,6 +139,11 @@ namespace UserControl_keyclick
     protected void LinkButton_review_Click(object sender, System.EventArgs e)
       {
       DropCrumbAndTransferTo(the_path:"donation_log.aspx");
+      }
+
+    internal void SetP(string agency_id)
+      {
+      p.agency_id = agency_id;
       }
 
     }

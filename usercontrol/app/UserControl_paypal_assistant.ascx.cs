@@ -45,12 +45,7 @@ namespace UserControl_paypal_assistant
       if (!p.be_loaded)
         {
         UserControl_drop_down_date_donation_date.selectedvalue = (p.donation_date > DateTime.MinValue ? p.donation_date : DateTime.Today);
-        p.biz_streets.BindDirectToListControl
-          (
-          target:DropDownList_donor_street,
-          agency_keyclick_enumerator:p.biz_agencies.KeyclickEnumeratorOf(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()))),
-          unselected_literal:"-- street --"
-          );
+        Bind();
         //
         TextBox_amount_donated.Text = p.amount_donated;
         TextBox_donor_email_address.Text = p.donor_email_address;
@@ -68,7 +63,7 @@ namespace UserControl_paypal_assistant
           var list_item = DropDownList_donor_street.Items.FindByText(p.donor_street_name + ", VIRGINIA BEACH, VA");
           if (list_item == null)
             {
-            list_item = DropDownList_donor_street.Items.FindByText(p.biz_streets.NormalizedSuffixRendition(name:p.donor_street_name) + ", VIRGINIA BEACH, VA");
+            list_item = DropDownList_donor_street.Items.FindByText(p.biz_streets.NormalizedSuffixRendition(name: p.donor_street_name) + ", VIRGINIA BEACH, VA");
             }
           if (list_item != null)
             {
@@ -80,6 +75,16 @@ namespace UserControl_paypal_assistant
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
         p.be_loaded = true;
         }
+      }
+
+    private void Bind()
+      {
+      p.biz_streets.BindDirectToListControl
+        (
+        target: DropDownList_donor_street,
+        agency_keyclick_enumerator: p.agency,
+        unselected_literal: "-- street --"
+        );
       }
 
     protected override void OnInit(System.EventArgs e)
@@ -231,6 +236,7 @@ namespace UserControl_paypal_assistant
         donor_house_num:k.EMPTY,
         donor_street_name:k.EMPTY
         );
+      Bind();
       }
 
     }
