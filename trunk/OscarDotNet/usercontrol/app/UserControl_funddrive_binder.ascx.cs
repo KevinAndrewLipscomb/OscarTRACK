@@ -101,7 +101,7 @@ namespace UserControl_funddrive_binder
           {
           if (Session["keyclick_boarding_pass_number"] == null)
             {
-            SessionSet("keyclick_boarding_pass_number",p.biz_manifest.NewBoardingPass());
+            SessionSet("keyclick_boarding_pass_number",p.biz_manifest.NewBoardingPass(agency_keyclick_enumerator:p.user_member_agency_keyclick_enumerator));
             }
           //
           // Note that all tabs to the left of a visible tab must be visible in order for tab changing to work.
