@@ -8,7 +8,7 @@ select "!ERR!" as status
 -- , y.name as y_name
 , x.house_num
 , street.name as street
-, CONCAT("claimed by ",GROUP_CONCAT(DISTINCT x.agency order by x.agency separator " and ")) as agencies
+, CONCAT("claimed by ",GROUP_CONCAT(DISTINCT x.agency order by x.agency separator ' and ')) as agencies
 -- , IF(x.id_in_agency_system is not null,x.id_in_agency_system,y.id_in_agency_system) as constituent
 from resident_base x
   join resident_base y on (y.agency<>x.agency and y.street_id=x.street_id and y.house_num=x.house_num)
