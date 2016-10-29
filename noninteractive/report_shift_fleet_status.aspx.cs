@@ -19,7 +19,6 @@ namespace report_shift_fleet_status
       public string agency_short_designator;
       public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
-      public string role_name;
       public string target;
       }
 
@@ -50,29 +49,34 @@ namespace report_shift_fleet_status
       base.OnInit(e);
       p.biz_members = new TClass_biz_members();
       p.biz_role_member_map = new TClass_biz_role_member_map();
+      //
       // Set session objects referenced by UserControl_roster.
+      //
       Session.Add("mode:report", k.EMPTY);
       Session.Add("mode:report/shift-fleet-status", k.EMPTY);
       p.agency_short_designator = Request["agency"];
+      var role_name = k.EMPTY;
       if (p.agency_short_designator == "EMS")
         {
-        p.role_name = "Department Fleet Coordinator";
+        role_name = "Department Fleet Coordinator";
         Session.Add("privilege_array", new string[1] {"see-all-squads"});
-        p.target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator);
+        p.target = p.biz_role_member_map.EmailTargetOf(role_name, p.agency_short_designator);
         }
       else
         {
-        p.role_name = "Squad Fleet Coordinator";
+        role_name = "Squad Fleet Coordinator";
+        var proto_member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name,p.agency_short_designator);
+        if (proto_member_id.Length == 0)
+          {
+          role_name = "Squad Commander";
+          proto_member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name,p.agency_short_designator);
+          }
         Session.Add("privilege_array", new string[0]);
-        var squad_fleet_coordinator_target = p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator);
-        p.target = squad_fleet_coordinator_target
-        + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)", p.agency_short_designator)
-        + (squad_fleet_coordinator_target.Length > 0 ? k.EMPTY : k.COMMA + p.biz_role_member_map.EmailTargetOf("Squad Commander", p.agency_short_designator))
-        ;
+        p.target = p.biz_role_member_map.EmailTargetOf(role_name,p.agency_short_designator) + k.COMMA + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)",p.agency_short_designator);
         }
-      Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
-      PlaceHolder_fleet_status.Controls.Add(((TWebUserControl_fleet)(LoadControl("~/usercontrol/app/UserControl_fleet.ascx"))));
+      var c = LoadControl("~/usercontrol/app/UserControl_fleet.ascx") as TWebUserControl_fleet;
+      PlaceHolder_fleet_status.Controls.Add(c);
+      c.SetP(agency_short_designator:p.agency_short_designator);
       }
 
     protected override void Render(HtmlTextWriter writer)

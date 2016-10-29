@@ -1717,23 +1717,44 @@ namespace Class_db_members
             return result;
         }
 
-        public string IdOfRoleHolderAtAgency(string role_name, string agency_short_designator)
+    public string IdOfRoleHolderAtAgency
+      (
+      string role_name,
+      string agency_short_designator
+      )
+      {
+      object member_id_obj;
+      Open();
+      member_id_obj = new MySqlCommand
+        (
+        "select member.id"
+        + " from member"
+        +   " join role_member_map on (role_member_map.member_id=member.id)"
+        +   " join role on (role.id=role_member_map.role_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        + " where role.name = '" + role_name + "'"
+        +   " and agency.short_designator = '" + agency_short_designator + "'",
+        connection
+        )
+        .ExecuteScalar();
+      if (member_id_obj == null)
         {
-            string result;
-            object member_id_obj;
-            this.Open();
-            member_id_obj = new MySqlCommand("select member.id" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role on (role.id=role_member_map.role_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name = \"" + role_name + "\"" + " and agency.short_designator = \"" + agency_short_designator + "\"", this.connection).ExecuteScalar();
-            if (member_id_obj != null)
-            {
-                result = member_id_obj.ToString();
-            }
-            else
-            {
-                result = k.EMPTY;
-            }
-            this.Close();
-            return result;
+        member_id_obj = new MySqlCommand
+          (
+          "select member.id"
+          + " from member"
+          +   " join special_role_member_map on (special_role_member_map.member_id=member.id)"
+          +   " join role on (role.id=special_role_member_map.role_id)"
+          +   " join agency on (agency.id=special_role_member_map.agency_id)"
+          + " where role.name = '" + role_name + "'"
+          +   " and agency.short_designator = '" + agency_short_designator + "'",
+          connection
+          )
+          .ExecuteScalar();
         }
+      Close();
+      return (member_id_obj != null ? member_id_obj.ToString() : k.EMPTY);
+      }
 
         public string IdOfUserId(string user_id)
         {
