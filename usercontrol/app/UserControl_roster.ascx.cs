@@ -77,6 +77,7 @@ namespace UserControl_roster
                 {
                     Label_author_email_address.Text = p.biz_user.EmailAddress();
                     ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_member);
+                    ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_download_distribution_list);
                 }
                 else
                 {
@@ -480,6 +481,7 @@ namespace UserControl_roster
             if (!(Session["mode:report"] != null))
             {
                 ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_member);
+                ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_download_distribution_list);
             }
 
         }
@@ -505,6 +507,16 @@ namespace UserControl_roster
             p.running_only_filter = CheckBox_running_only.Checked;
             Bind();
         }
+
+    protected void Button_download_distribution_list_Click(object sender, EventArgs e)
+      {
+      ExportToCsv
+        (
+        the_page:Page,
+        filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "_filtered_QuickMessage_targets_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm_ss_fffffff"),
+        csv_string:p.distribution_list.Replace(k.COMMA_SPACE,k.NEW_LINE)
+        );
+      }
 
     } // end TWebUserControl_roster
 

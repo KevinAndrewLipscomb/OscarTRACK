@@ -231,9 +231,17 @@
 					<td><ASP:Button id="Button_send" runat="server" text="Send" onclick="Button_send_Click"></ASP:Button></td>
 					<td></td>
 				  </tr>
-				  <tr><td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td><td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver" EnableViewState="false"></ASP:Label></small></td>
-					<td></td>
+				  <tr>
+            <td valign="top"><small><font color="#c0c0c0">Resolves to:</small></font></td>
+            <td valign="top"><small><ASP:Label id="Label_distribution_list" runat="server" forecolor="Silver" EnableViewState="false"></ASP:Label></small>
+            </td>
+					  <td></td>
 				  </tr>
+          <tr>
+            <td></td>
+            <td><asp:Button ID="Button_download_distribution_list" runat="server" Text="Download above email addresses" CausesValidation="False" OnClick="Button_download_distribution_list_Click" UseSubmitBehavior="False" /></td>
+            <td></td>
+          </tr>
 			  </table>
             </td>
 		  </tr>
