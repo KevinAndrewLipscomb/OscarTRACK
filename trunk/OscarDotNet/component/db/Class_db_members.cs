@@ -1074,6 +1074,10 @@ namespace Class_db_members
           {
           filter += " in ('EMT-B','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI') ";
           }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED_BLS)
+          {
+          filter += " in ('EMT-B','EMT-ST','EMT-E','AEMT') ";
+          }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_B)
           {
           filter += " = 'EMT-B' ";
@@ -1090,6 +1094,10 @@ namespace Class_db_members
           {
           filter += " = 'AEMT' ";
           }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED_ALS)
+          {
+          filter += " in ('EMT-CT','EMT-I','EMT-P','EMT-P-RSI') ";
+          }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_CT)
           {
           filter += " = 'EMT-CT' ";
@@ -1097,6 +1105,10 @@ namespace Class_db_members
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_I)
           {
           filter += " = 'EMT-I' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_P_ANY)
+          {
+          filter += " in ('EMT-P','EMT-P-RSI') ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_P)
           {

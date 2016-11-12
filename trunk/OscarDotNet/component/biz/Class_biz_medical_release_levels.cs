@@ -21,16 +21,10 @@ namespace Class_biz_medical_release_levels
           return uint.Parse(db_medical_release_levels.PeckCodeOf(level_code)) > 20;
           }
 
-        public bool BeLeaf(filter_type filter)
-        {
-            bool result;
-            result = false;
-            if (!(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.NOT_RELEASED, filter_type.RELEASED}).Contains(filter)))
-            {
-                result = true;
-            }
-            return result;
-        }
+    public bool BeLeaf(filter_type filter)
+      {
+      return !(new ArrayList(new filter_type[] {filter_type.ALL, filter_type.NOT_RELEASED, filter_type.RELEASED, filter_type.RELEASED_BLS, filter_type.RELEASED_ALS, filter_type.EMT_P_ANY}).Contains(filter));
+      }
 
     public bool BeRecruitAdminOrSpecOpsBoundByCode(string level_code)
       {
@@ -145,12 +139,15 @@ namespace Class_biz_medical_release_levels
         TEST_CANDIDATE,
         TRAINEE,
         RELEASED,
+        RELEASED_BLS,
         EMT_B,
         EMT_ST,
         EMT_E,
         AEMT,
+        RELEASED_ALS,
         EMT_CT,
         EMT_I,
+        EMT_P_ANY,
         EMT_P,
         EMT_P_RSI
     } // end filter_type

@@ -34,15 +34,19 @@
                                     <ASP:ListItem value="test_candidate">- - Test Candidate</ASP:ListItem>
                                     <ASP:ListItem value="trainee"       >- - BLS Intern</ASP:ListItem>
                                     <ASP:ListItem value="released"      >- Released</ASP:ListItem>
-                                    <ASP:ListItem value="emt_b"         >- - EMT-B</ASP:ListItem>
-                                    <ASP:ListItem value="emt_st"        >- - EMT-ST</ASP:ListItem>
-                                    <ASP:ListItem value="emt_e"         >- - EMT-E</ASP:ListItem>
-                                    <ASP:ListItem value="aemt"          >- - AEMT</ASP:ListItem>
-                                    <ASP:ListItem value="emt_ct"        >- - EMT-CT</ASP:ListItem>
-                                    <ASP:ListItem value="emt_i"         >- - EMT-I</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p"         >- - EMT-P</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p_rsi"     >- - EMT-P-RSI</ASP:ListItem></ASP:DropDownList>
-                                    </p>							</td>
+                                    <ASP:ListItem value="released_bls"  >- - Released BLS</ASP:ListItem>
+                                    <ASP:ListItem value="emt_b"         >- - - EMT-B</ASP:ListItem>
+                                    <ASP:ListItem value="emt_st"        >- - - EMT-ST</ASP:ListItem>
+                                    <ASP:ListItem value="emt_e"         >- - - EMT-E</ASP:ListItem>
+                                    <ASP:ListItem value="aemt"          >- - - AEMT</ASP:ListItem>
+                                    <ASP:ListItem value="released_als"  >- - Released ALS</ASP:ListItem>
+                                    <ASP:ListItem value="emt_ct"        >- - - EMT-CT</ASP:ListItem>
+                                    <ASP:ListItem value="emt_i"         >- - - EMT-I</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p_any"     >- - - EMT-P (inclusive)</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p"         >- - - - EMT-P (non-RSI)</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p_rsi"     >- - - - EMT-P-RSI</ASP:ListItem></ASP:DropDownList>
+                                    </p>
+                      </td>
                       <td>
                                     <p align="center"><small>Membership status</small><br>
                         <asp:dropdownlist id="DropDownList_enrollment_filter" runat="server" autopostback="True" width="114px" onselectedindexchanged="DropDownList_enrollment_filter_SelectedIndexChanged">
