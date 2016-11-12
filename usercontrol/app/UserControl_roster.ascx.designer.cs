@@ -94,15 +94,6 @@ namespace UserControl_roster {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_leave_filter;
         
         /// <summary>
-        /// Label_running_only control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_running_only;
-        
-        /// <summary>
         /// CheckBox_running_only control.
         /// </summary>
         /// <remarks>
@@ -110,6 +101,15 @@ namespace UserControl_roster {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_running_only;
+        
+        /// <summary>
+        /// CheckBox_hide_staff control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_hide_staff;
         
         /// <summary>
         /// RadioButtonList_which_month control.

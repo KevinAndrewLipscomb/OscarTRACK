@@ -91,10 +91,9 @@
                                     </p>
                       </td>
                       <td>
-                        <p align="center">
-                          <asp:Label id="Label_running_only" runat="server"><small>Hide 0 duties</small></asp:Label><br>
-                          <asp:CheckBox id="CheckBox_running_only" runat="server" autopostback="True" oncheckedchanged="CheckBox_running_only_CheckedChanged"></asp:CheckBox>
-                        </p>
+                        <asp:CheckBox id="CheckBox_running_only" runat="server" autopostback="True" oncheckedchanged="CheckBox_running_only_CheckedChanged" Text="Hide 0 duties" font-size="Smaller"></asp:CheckBox>
+                        <br />
+                        <asp:CheckBox id="CheckBox_hide_staff" runat="server" autopostback="True" oncheckedchanged="CheckBox_hide_staff_CheckedChanged" Text="Hide Staff" font-size="Smaller"></asp:CheckBox>
                       </td>
                       <td nowrap="true" align="left" colspan="2">
                         <asp:radiobuttonlist id="RadioButtonList_which_month" runat="server" font-size="Smaller" autopostback="True" onselectedindexchanged="RadioButtonList_which_month_SelectedIndexChanged">

@@ -39,6 +39,7 @@ namespace UserControl_roster
             public TClass_biz_sections biz_sections;
             public TClass_biz_user biz_user;
             public string distribution_list;
+            public bool do_hide_staff_filter;
             public Class_biz_enrollment.filter_type enrollment_filter;
             public Class_biz_leave.filter_type leave_filter;
             public Class_biz_medical_release_levels.filter_type med_release_level_filter;
@@ -143,6 +144,7 @@ namespace UserControl_roster
                 p.be_sort_order_ascending = true;
                 p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
                 p.distribution_list = k.EMPTY;
+                p.do_hide_staff_filter = false;
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
                 p.be_phone_list = (Session["mode:report/monthly-current-phone-list"] != null);
@@ -434,16 +436,30 @@ namespace UserControl_roster
         private void Bind()
         {
             bool be_raw_shifts_nonzero;
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0) && (!p.be_transferee_report);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
-            R.Columns[Class_db_members.Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
+            R.Columns[Class_db_members_Static.TCCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
+            R.Columns[Class_db_members_Static.TCCI_SECTION_NUM].Visible = (p.agency_filter != k.EMPTY) && (p.section_filter == 0) && (!p.be_transferee_report);
+            R.Columns[Class_db_members_Static.TCCI_MEDICAL_RELEASE_LEVEL].Visible = !p.biz_medical_release_levels.BeLeaf(p.med_release_level_filter) && (!(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN));
+            R.Columns[Class_db_members_Static.TCCI_ENROLLMENT].Visible = !p.biz_enrollment.BeLeaf(p.enrollment_filter);
+            R.Columns[Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Visible = !p.be_phone_list;
+            R.Columns[Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
+            R.Columns[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
+            R.Columns[Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
             p.distribution_list = k.EMPTY;
-            p.biz_members.BindRoster(Session["member_id"].ToString(), p.sort_order, p.be_sort_order_ascending, R, p.relative_month.ToString(), p.agency_filter, p.enrollment_filter, p.leave_filter, p.med_release_level_filter, p.section_filter, p.running_only_filter);
+            p.biz_members.BindRoster
+              (
+              member_id:Session["member_id"].ToString(),
+              sort_order:p.sort_order,
+              be_sort_order_ascending:p.be_sort_order_ascending,
+              target:R,
+              relative_month:p.relative_month.ToString(),
+              agency_filter:p.agency_filter,
+              enrollment_filter:p.enrollment_filter,
+              leave_filter:p.leave_filter,
+              med_release_level_filter:p.med_release_level_filter,
+              section_filter:p.section_filter,
+              running_only_filter:p.running_only_filter,
+              do_hide_staff_filter:p.do_hide_staff_filter
+              );
             be_raw_shifts_nonzero = (p.num_raw_shifts > 0);
             Label_core_ops_commitment_factor.Visible = be_raw_shifts_nonzero;
             Label_core_ops_commitment_caption.Visible = be_raw_shifts_nonzero;
@@ -507,6 +523,12 @@ namespace UserControl_roster
             p.running_only_filter = CheckBox_running_only.Checked;
             Bind();
         }
+
+    protected void CheckBox_hide_staff_CheckedChanged(object sender, EventArgs e)
+      {
+      p.do_hide_staff_filter = CheckBox_hide_staff.Checked;
+      Bind();
+      }
 
     protected void Button_download_distribution_list_Click(object sender, EventArgs e)
       {
