@@ -887,296 +887,294 @@ namespace Class_db_members
             BindRankedUtilization(target, true);
         }
 
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter, Class_biz_enrollment.filter_type enrollment_filter, Class_biz_leave.filter_type leave_filter, Class_biz_medical_release_levels.filter_type med_release_level_filter, uint section_filter, bool running_only_filter)
+    public void BindRoster
+      (
+      string member_id,
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string relative_month,
+      string agency_filter,
+      Class_biz_enrollment.filter_type enrollment_filter = Class_biz_enrollment.filter_type.CURRENT,
+      Class_biz_leave.filter_type leave_filter = Class_biz_leave.filter_type.NONE,
+      Class_biz_medical_release_levels.filter_type med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL,
+      uint section_filter = 0,
+      bool running_only_filter = false,
+      bool do_hide_staff_filter = false
+      )
+      {
+      var any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))";
+      sort_order = sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc"));
+      var filter = " where 1=1 ";
+      filter += (agency_filter.Length > 0 ? " and agency_id = " + agency_filter + k.SPACE : k.EMPTY);
+      if (enrollment_filter != Class_biz_enrollment.filter_type.ALL)
         {
-            string any_relevant_leave;
-            string command_text;
-            string filter;
-            string kind_of_leave_selection_clause;
-            string obliged_shifts_selection_clause;
-            any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))";
-            if (be_sort_order_ascending)
+        filter += " and enrollment_level.description ";
+        if (enrollment_filter == Class_biz_enrollment.filter_type.CURRENT)
+          {
+          filter += " in ('Applicant','Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin'" + ",'Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.APPLICANT)
+          {
+          filter += " = 'Applicant' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.OPERATIONAL)
+          {
+          filter += " in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)'" + ",'Reduced (3)','SpecOps','New trainee') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.CORE_OPS)
+          {
+          filter += " in ('Associate','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)'" + ",'Reduced (3)','New trainee') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.STANDARD)
+          {
+          filter += " in ('Regular','Life','Senior','Tenured BLS','Tenured ALS') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.LIBERAL)
+          {
+          filter += " in ('Associate','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)'" + ",'Reduced (3)','New trainee') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.ASSOCIATE)
+          {
+          filter += " = 'Associate' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.REDUCED)
+          {
+          filter += " in ('Reduced (1)','Reduced (2)','Reduced (3)') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.REGULAR)
+          {
+          filter += " = 'Regular' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.LIFE)
+          {
+          filter += " = 'Life' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.SENIOR)
+          {
+          filter += " = 'Senior' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.TENURED_BLS)
+          {
+          filter += " = 'Tenured BLS' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.TENURED_ALS)
+          {
+          filter += " = 'Tenured ALS' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.STAFF)
+          {
+          filter += " = 'Staff' ";
+          do_hide_staff_filter = false;
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.ALS_INTERN)
+          {
+          filter += " = 'ALS Intern' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.COLLEGE)
+          {
+          filter += " = 'College' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.ATYPICAL)
+          {
+          filter += " = 'Atypical' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.SPECOPS)
+          {
+          filter += " = 'SpecOps' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.RECRUIT)
+          {
+          filter += " = 'Recruit' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.ADMIN)
+          {
+          filter += " = 'Admin' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.TRANSFERRING)
+          {
+          filter += " = 'Transferring' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.SUSPENDED)
+          {
+          filter += " = 'Suspended' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.PAST)
+          {
+          filter += "  in ('Withdrew application','Unknown','Resigned','Retired','Disabled','Dismissed','Deceased') ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.WITHDREW_APPLICATION)
+          {
+          filter += " = 'Withdrew application' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.UNKNOWN)
+          {
+          filter += " = 'Unknown' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.RESIGNED)
+          {
+          filter += " = 'Resigned' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.RETIRED)
+          {
+          filter += " = 'Retired' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.DISABLED)
+          {
+          filter += " = 'Disabled' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.DISMISSED)
+          {
+          filter += " = 'Dismissed' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.DECEASED)
+          {
+          filter += " = 'Deceased' ";
+          }
+        else if (enrollment_filter == Class_biz_enrollment.filter_type.NEW_TRAINEE)
+          {
+          filter += " = 'New trainee' ";
+          }
+        if ((enrollment_filter >= Class_biz_enrollment.filter_type.CURRENT) && (enrollment_filter <= Class_biz_enrollment.filter_type.ADMIN))
+          {
+          if (leave_filter == Class_biz_leave.filter_type.OBLIGATED)
             {
-                sort_order = sort_order.Replace("%", " asc");
+            filter += " and (not(" + any_relevant_leave + ") or (leave_of_absence.start_date is null)) ";
             }
-            else
+          else if (leave_filter == Class_biz_leave.filter_type.ON_LEAVE)
             {
-                sort_order = sort_order.Replace("%", " desc");
+            filter += " and " + any_relevant_leave + k.SPACE;
             }
-            filter = " where 1=1 ";
-            if (agency_filter != k.EMPTY)
-            {
-                filter = filter + " and agency_id = " + agency_filter + k.SPACE;
-            }
-            if (enrollment_filter != Class_biz_enrollment.filter_type.ALL)
-            {
-                filter = filter + " and enrollment_level.description ";
-                switch(enrollment_filter)
-                {
-                    case Class_biz_enrollment.filter_type.CURRENT:
-                        filter = filter + " in (\"Applicant\",\"Associate\",\"Regular\",\"Life\",\"Senior\",'Tenured BLS','Tenured ALS','Staff','ALS Intern','College',\"Atypical\",\"Recruit\",\"Admin\"" + ",\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\",\"SpecOps\",\"Transferring\",\"Suspended\",\"New trainee\") ";
-                        break;
-                    case Class_biz_enrollment.filter_type.APPLICANT:
-                        filter = filter + " = \"Applicant\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.OPERATIONAL:
-                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Senior\",'Tenured BLS','Tenured ALS','Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"SpecOps\",\"New trainee\") ";
-                        break;
-                    case Class_biz_enrollment.filter_type.CORE_OPS:
-                        filter = filter + " in (\"Associate\",\"Regular\",\"Life\",\"Senior\",'Tenured BLS','Tenured ALS','Staff','ALS Intern','College',\"Atypical\",\"Reduced (1)\",\"Reduced (2)\"" + ",\"Reduced (3)\",\"New trainee\") ";
-                        break;
-                    case Class_biz_enrollment.filter_type.STANDARD:
-                        filter = filter + " in ('Regular','Life','Senior','Tenured BLS','Tenured ALS') ";
-                        break;
-                    case Class_biz_enrollment.filter_type.LIBERAL:
-                        filter = filter + " in ('Associate','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)'" + ",'Reduced (3)','New trainee') ";
-                        break;
-                    case Class_biz_enrollment.filter_type.ASSOCIATE:
-                        filter = filter + " = \"Associate\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.REDUCED:
-                        filter = filter + " in (\"Reduced (1)\",\"Reduced (2)\",\"Reduced (3)\") ";
-                        break;
-                    case Class_biz_enrollment.filter_type.REGULAR:
-                        filter = filter + " = \"Regular\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.LIFE:
-                        filter = filter + " = \"Life\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.SENIOR:
-                        filter = filter + " = \"Senior\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.TENURED_BLS:
-                        filter = filter + " = 'Tenured BLS' ";
-                        break;
-                    case Class_biz_enrollment.filter_type.TENURED_ALS:
-                        filter = filter + " = 'Tenured ALS' ";
-                        break;
-                    case Class_biz_enrollment.filter_type.STAFF:
-                        filter = filter + " = \"Staff\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.ALS_INTERN:
-                        filter = filter + " = \"ALS Intern\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.COLLEGE:
-                        filter = filter + " = \"College\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.ATYPICAL:
-                        filter = filter + " = \"Atypical\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.SPECOPS:
-                        filter = filter + " = \"SpecOps\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.RECRUIT:
-                        filter = filter + " = \"Recruit\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.ADMIN:
-                        filter = filter + " = \"Admin\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.TRANSFERRING:
-                        filter = filter + " = \"Transferring\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.SUSPENDED:
-                        filter = filter + " = \"Suspended\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.PAST:
-                        filter = filter + "  in (\"Withdrew application\",\"Unknown\",\"Resigned\",\"Retired\",\"Disabled\",\"Dismissed\",\"Deceased\") ";
-                        break;
-                    case Class_biz_enrollment.filter_type.WITHDREW_APPLICATION:
-                        filter = filter + " = \"Withdrew application\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.UNKNOWN:
-                        filter = filter + " = \"Unknown\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.RESIGNED:
-                        filter = filter + " = \"Resigned\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.RETIRED:
-                        filter = filter + " = \"Retired\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.DISABLED:
-                        filter = filter + " = \"Disabled\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.DISMISSED:
-                        filter = filter + " = \"Dismissed\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.DECEASED:
-                        filter = filter + " = \"Deceased\" ";
-                        break;
-                    case Class_biz_enrollment.filter_type.NEW_TRAINEE:
-                        filter = filter + " = \"New trainee\" ";
-                        break;
-                }
-                if ((enrollment_filter >= Class_biz_enrollment.filter_type.CURRENT) && (enrollment_filter <= Class_biz_enrollment.filter_type.ADMIN))
-                  {
-                  if (leave_filter == Class_biz_leave.filter_type.OBLIGATED)
-                    {
-                    filter = filter + " and (not(" + any_relevant_leave + ") or (leave_of_absence.start_date is null)) ";
-                    }
-                  else if (leave_filter == Class_biz_leave.filter_type.ON_LEAVE)
-                    {
-                    filter = filter + " and " + any_relevant_leave + k.SPACE;
-                    }
-                  }
-            }
-            if (med_release_level_filter != Class_biz_medical_release_levels.filter_type.ALL)
-            {
-                filter = filter + " and medical_release_code_description_map.description ";
-                switch(med_release_level_filter)
-                {
-                    case Class_biz_medical_release_levels.filter_type.NOT_RELEASED:
-                        filter = filter + " in ('None','Student','Test Candidate','BLS Intern') ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.NONE:
-                        filter = filter + " = \"none\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.IN_CLASS:
-                        filter = filter + " = \"Student\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.TEST_CANDIDATE:
-                        filter = filter + " = 'Test Candidate' ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.TRAINEE:
-                        filter = filter + " = \"BLS Intern\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.RELEASED:
-                        filter = filter + " in ('EMT-B','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI') ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_B:
-                        filter = filter + " = \"EMT-B\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_ST:
-                        filter = filter + " = \"EMT-ST\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_E:
-                        filter = filter + " = \"EMT-E\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.AEMT:
-                        filter = filter + " = 'AEMT' ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_CT:
-                        filter = filter + " = \"EMT-CT\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_I:
-                        filter = filter + " = \"EMT-I\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_P:
-                        filter = filter + " = \"EMT-P\" ";
-                        break;
-                    case Class_biz_medical_release_levels.filter_type.EMT_P_RSI:
-                        filter = filter + " = 'EMT-P-RSI' ";
-                        break;
-                }
-            }
-            if (section_filter > 0)
-            {
-                filter = filter + " and section_num = " + ((uint)(section_filter)).ToString() + k.SPACE;
-            }
-            kind_of_leave_selection_clause = "if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,\"\")";
-            obliged_shifts_selection_clause = "if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts)";
-            if (running_only_filter)
-            {
-                filter = filter + " and " + obliged_shifts_selection_clause + " > 0 ";
-            }
-            // column 1
-            // column 2
-            // column 3
-            // column 4
-            // column 5
-            // column 6
-            // column 7
-            // column 8
-            // column 9
-            // column 10
-            // column 11
-            // column 12
-            // column 13
-            // column 14
-            // column 15
-            // column 16
-            // column 17
-            command_text = "select member.id as member_id"
-            + " , last_name" 
-            + " , first_name" 
-            + " , cad_num" 
-            + " , short_designator as agency" 
-            + " , section_num" 
-            + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
-            + " , medical_release_code_description_map.description as medical_release_description" 
-            + " , if(be_driver_qualified,\"Yes\",\"No\") as be_driver_qualified" 
-            + " , enrollment_level.description as enrollment" 
-            + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
-            + " , core_ops_commitment_level_code" 
-            + " , num_shifts as enrollment_obligation"
-            + " , " + kind_of_leave_selection_clause + " as kind_of_leave" 
-            + " , " + obliged_shifts_selection_clause + " as obliged_shifts" 
-            + " , email_address" 
-            + " , phone_num" 
-            + " from member" 
-            +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
-            +   " join enrollment_history on" 
-            +     " (" 
-            +       " enrollment_history.member_id=member.id" 
-            +     " and" 
-            +       " (" 
-            +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-            +       " and" 
-            +         " (" 
-            +           " (enrollment_history.end_date is null)" 
-            +         " or" 
-            +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-            +         " )" 
-            +       " )" 
-            +     " )" 
-            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
-            +   " left join leave_of_absence on" 
-            +     " (" 
-            +       " leave_of_absence.member_id=member.id" 
-            +     " and " 
-            +       " (" 
-            +         " (leave_of_absence.start_date is null)" 
-            +       " or" 
-            +         " (" 
-            +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
-            +         " and" 
-            +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
-            +         " )" 
-            +       " )" 
-            +     " )" 
-            +   " left join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" 
-            +   " join agency on (agency.id=member.agency_id)" 
-            + filter 
-            + " order by " + sort_order;
-            this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand(command_text, this.connection).ExecuteReader();
-            ((target) as DataGrid).DataBind();
-            this.Close();
+          }
         }
-
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter)
+      if (med_release_level_filter != Class_biz_medical_release_levels.filter_type.ALL)
         {
-            BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, Class_biz_enrollment.filter_type.CURRENT);
+        filter += " and medical_release_code_description_map.description ";
+        if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.NOT_RELEASED)
+          {
+          filter += " in ('None','Student','Test Candidate','BLS Intern') ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.NONE)
+          {
+          filter += " = 'none' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.IN_CLASS)
+          {
+          filter += " = 'Student' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.TEST_CANDIDATE)
+          {
+          filter += " = 'Test Candidate' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.TRAINEE)
+          {
+          filter += " = 'BLS Intern' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED)
+          {
+          filter += " in ('EMT-B','EMT-ST','EMT-E','AEMT','EMT-CT','EMT-I','EMT-P','EMT-P-RSI') ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_B)
+          {
+          filter += " = 'EMT-B' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_ST)
+          {
+          filter += " = 'EMT-ST' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_E)
+          {
+          filter += " = 'EMT-E' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.AEMT)
+          {
+          filter += " = 'AEMT' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_CT)
+          {
+          filter += " = 'EMT-CT' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_I)
+          {
+          filter += " = 'EMT-I' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_P)
+          {
+          filter += " = 'EMT-P' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.EMT_P_RSI)
+          {
+          filter += " = 'EMT-P-RSI' ";
+          }
         }
-
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter, Class_biz_enrollment.filter_type enrollment_filter)
+      if (section_filter > 0)
         {
-            BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, Class_biz_leave.filter_type.BOTH);
+        filter += " and section_num = " + ((uint)(section_filter)).ToString() + k.SPACE;
         }
-
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter, Class_biz_enrollment.filter_type enrollment_filter, Class_biz_leave.filter_type leave_filter)
+      var kind_of_leave_selection_clause = "if(" + any_relevant_leave + ",kind_of_leave_code_description_map.description,'')";
+      var obliged_shifts_selection_clause = "if(" + any_relevant_leave + ",num_obliged_shifts,num_shifts)";
+      if (running_only_filter)
         {
-            BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, leave_filter, Class_biz_medical_release_levels.filter_type.ALL);
+        filter += " and " + obliged_shifts_selection_clause + " > 0 ";
         }
-
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter, Class_biz_enrollment.filter_type enrollment_filter, Class_biz_leave.filter_type leave_filter, Class_biz_medical_release_levels.filter_type med_release_level_filter)
-        {
-            BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, leave_filter, med_release_level_filter, 0);
-        }
-
-        public void BindRoster(string member_id, string sort_order, bool be_sort_order_ascending, object target, string relative_month, string agency_filter, Class_biz_enrollment.filter_type enrollment_filter, Class_biz_leave.filter_type leave_filter, Class_biz_medical_release_levels.filter_type med_release_level_filter, uint section_filter)
-        {
-            BindRoster(member_id, sort_order, be_sort_order_ascending, target, relative_month, agency_filter, enrollment_filter, leave_filter, med_release_level_filter, section_filter, false);
-        }
+      filter += (do_hide_staff_filter ? " and enrollment_level.description <> 'Staff'" : k.EMPTY);
+      var command_text = "select member.id as member_id"
+      + " , last_name" 
+      + " , first_name" 
+      + " , cad_num" 
+      + " , short_designator as agency" 
+      + " , section_num" 
+      + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
+      + " , medical_release_code_description_map.description as medical_release_description" 
+      + " , if(be_driver_qualified,'Yes','No') as be_driver_qualified" 
+      + " , enrollment_level.description as enrollment" 
+      + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
+      + " , core_ops_commitment_level_code" 
+      + " , num_shifts as enrollment_obligation"
+      + " , " + kind_of_leave_selection_clause + " as kind_of_leave" 
+      + " , " + obliged_shifts_selection_clause + " as obliged_shifts" 
+      + " , email_address" 
+      + " , phone_num" 
+      + " from member" 
+      +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
+      +   " join enrollment_history on" 
+      +     " (" 
+      +       " enrollment_history.member_id=member.id" 
+      +     " and" 
+      +       " (" 
+      +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+      +       " and" 
+      +         " (" 
+      +           " (enrollment_history.end_date is null)" 
+      +         " or" 
+      +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+      +         " )" 
+      +       " )" 
+      +     " )" 
+      +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
+      +   " left join leave_of_absence on" 
+      +     " (" 
+      +       " leave_of_absence.member_id=member.id" 
+      +     " and " 
+      +       " (" 
+      +         " (leave_of_absence.start_date is null)" 
+      +       " or" 
+      +         " (" 
+      +           " (leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH))" 
+      +         " and" 
+      +           " (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_month + " MONTH)))" 
+      +         " )" 
+      +       " )" 
+      +     " )" 
+      +   " left join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" 
+      +   " join agency on (agency.id=member.agency_id)" 
+      + filter 
+      + " order by " + sort_order;
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand(command_text,connection).ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
 
     internal void BindScheduleAssignmentsAuditBaseDataList
       (
