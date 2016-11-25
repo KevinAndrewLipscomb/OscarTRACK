@@ -101,6 +101,7 @@ namespace Class_db_members
       public string enrollment;
       public string equivalent_los_start_date;
       public string first_name;
+      public string first_release_as_aic_date;
       public string id;
       public string last_name;
       public string medical_release_level;
@@ -172,7 +173,13 @@ namespace Class_db_members
             new MySqlCommand(db_trail.Saved(sql), this.connection).ExecuteNonQuery();
             this.Close();
           }
-        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num, string phone_service_id)
+
+    internal string FirstReleaseAsAnAicDateOf(object summary)
+      {
+      return (summary as member_summary).first_release_as_aic_date;
+      }
+
+    public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num, string phone_service_id)
           {
           Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17, phone_num, phone_service_id, section_num:k.EMPTY);
           }
@@ -2195,7 +2202,7 @@ namespace Class_db_members
         public object Summary
           (
           string member_id,
-          string relative_month
+          string relative_month = "0"
           )
           {
           member_summary the_summary = null;
@@ -2211,6 +2218,7 @@ namespace Class_db_members
             + " , section_num" 
             + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
             + " , medical_release_code_description_map.description as medical_release_description" 
+            + " , IF(first_release_as_aic_date is not null and first_release_as_aic_date > '0001-01-01',DATE_FORMAT(first_release_as_aic_date,'%Y-%m-%d'),'') as first_release_as_aic_date"
             + " , be_driver_qualified" 
             + " , enrollment_level.description as enrollment" 
             + " , IF(enrollment_level.description in ('Withdrew application','Resigned','Retired','Disabled','Unknown','Dismissed','Deceased'),'',(TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365) as length_of_service"
@@ -2249,9 +2257,9 @@ namespace Class_db_members
           if (!be_found)
             {
             //
-            // This is the zebra case where the member has been set up to transition to a new status at date that is in the future but still within this month, and so will not match any row given the above query.  Since we must
-            // provide *some* summary, re-run the query without the call to LAST_DAY.  We could probably combine these two queries, but the above has proven so reliable for so long that we're reticent to modify it for the sake
-            // of a zebra case.
+            // This is the zebra case where the member has been set up to transition to a new status at date that is in the future but still within this month, and so will not match any row given the above query.  Since we
+            // must provide *some* summary, re-run the query without the call to LAST_DAY.  We could probably combine these two queries, but the above has proven so reliable for so long that we're reticent to modify it for
+            // the sake of a zebra case.
             //
             dr.Close();
             dr = new MySqlCommand
@@ -2264,6 +2272,7 @@ namespace Class_db_members
               + " , section_num" 
               + " , medical_release_code_description_map.pecking_order as medical_release_peck_code" 
               + " , medical_release_code_description_map.description as medical_release_description" 
+              + " , IF(first_release_as_aic_date is not null and first_release_as_aic_date > '0001-01-01',DATE_FORMAT(first_release_as_aic_date,'%Y-%m-%d'),'') as first_release_as_aic_date"
               + " , be_driver_qualified" 
               + " , enrollment_level.description as enrollment" 
               + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365 as length_of_service"
@@ -2314,6 +2323,7 @@ namespace Class_db_members
               id = member_id,
               last_name = dr["last_name"].ToString(),
               medical_release_level = dr["medical_release_description"].ToString(),
+              first_release_as_aic_date = dr["first_release_as_aic_date"].ToString(),
               length_of_service = dr["length_of_service"].ToString(),
               peck_code = dr["medical_release_peck_code"].ToString(),
               phone_num = dr["phone_num"].ToString(),
@@ -2329,10 +2339,6 @@ namespace Class_db_members
           dr.Close();
           Close();
           return the_summary;
-          }
-        public object Summary(string member_id)
-          {
-          return Summary(member_id,relative_month:"0");
           }
 
         public string UserIdOf(string member_id)

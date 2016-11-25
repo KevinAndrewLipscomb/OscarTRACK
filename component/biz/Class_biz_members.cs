@@ -144,7 +144,12 @@ namespace Class_biz_members
           return biz_medical_release_levels.BeCodeAlsForLegacyOscarPurposes(db_members.MedicalReleaseLevelCodeOf(id));
           }
 
-        public bool BeAuthorizedTierOrSameAgency(string subject_member_id, string object_member_id)
+    internal string FirstReleaseAsAnAicDateOf(object summary)
+      {
+      return db_members.FirstReleaseAsAnAicDateOf(summary);
+      }
+
+    public bool BeAuthorizedTierOrSameAgency(string subject_member_id, string object_member_id)
         {
             bool result;
             result = (HighestTierOf(subject_member_id) == "1") || (AgencyIdOfId(subject_member_id) == AgencyIdOfId(object_member_id));

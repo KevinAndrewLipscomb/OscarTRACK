@@ -110,6 +110,8 @@ namespace member_detail
                 LinkButton_change_section.Text = k.ExpandTildePath(LinkButton_change_section.Text);
                 //
                 Label_medical_release_level.Text = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
+                var first_release_as_an_aic_date = p.biz_members.FirstReleaseAsAnAicDateOf(Session["member_summary"]);
+                Literal_first_release_as_aic_phrase.Text = (first_release_as_an_aic_date.Length > 0 ? "on " + first_release_as_an_aic_date : "unrecorded");
                 //
                 Label_enrollment.Text = p.enrollment_description;
                 Label_effective_date_clause.Text = (p.enrollment_effective_date < DateTime.Today ? "since" : "effective") + k.SPACE + p.enrollment_effective_date.ToString("yyyy-MM-dd");
