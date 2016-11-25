@@ -204,6 +204,7 @@ namespace Class_biz_enrollment
       if (db_enrollment.SetLevel(new_level_code, effective_date, note, member_id, summary, target_agency_id))
         {
         set_level = true;
+        var do_purge_member_roles = false;
         if (BePastDescription(db_members.EnrollmentOf(summary)))
           {
           db_members.SetOscalertThresholds
@@ -213,7 +214,7 @@ namespace Class_biz_enrollment
             do_clear_subscriptions:true,
             summary:summary
             );
-          new TClass_biz_role_member_map().PurgeMember(member_id); // Pre-instantiating biz_role_member_map would cause a circularity.
+          do_purge_member_roles = true;
           }
         if (target_agency_id != k.EMPTY)
           {
@@ -221,8 +222,13 @@ namespace Class_biz_enrollment
           var new_agency_medium_designator = biz_agencies.MediumDesignatorOf(target_agency_id);
           if (new_agency_medium_designator != old_agency_medium_designator)
             {
+            do_purge_member_roles = true;
             biz_notifications.IssueForAgencyChange(member_id,first_name,last_name,cad_num,old_agency_medium_designator,new_agency_medium_designator);
             }
+          }
+        if (do_purge_member_roles)
+          {
+          new TClass_biz_role_member_map().PurgeMember(member_id); // Pre-instantiating biz_role_member_map would cause a circularity.
           }
         var new_level_description = db_enrollment.DescriptionOf(new_level_code);
         if (new_level_description == "Deceased")
