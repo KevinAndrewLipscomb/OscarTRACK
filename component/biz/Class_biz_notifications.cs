@@ -1208,48 +1208,57 @@ namespace Class_biz_notifications
       template_reader.Close();
       }
 
-        private delegate string IssueForMedicalReleaseLevelChange_Merge(string s);
-        public void IssueForMedicalReleaseLevelChange(string member_id, string first_name, string last_name, string cad_num, string medical_release_level)
+    private delegate string IssueForMedicalReleaseLevelChange_Merge(string s);
+    public void IssueForMedicalReleaseLevelChange
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string medical_release_level,
+      string cross_agency_id = k.EMPTY
+      )
+      {
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+
+      IssueForMedicalReleaseLevelChange_Merge Merge = delegate (string s)
         {
-            string actor = k.EMPTY;
-            string actor_email_address = k.EMPTY;
-            string actor_member_id;
-            TClass_biz_members biz_members;
-            TClass_biz_user biz_user;
-            TClass_biz_users biz_users;
-            StreamReader template_reader;
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<medical_release_level/>", medical_release_level)
+          ;
+        };
 
-            IssueForMedicalReleaseLevelChange_Merge Merge = delegate (string s)
-              {
-              return s
-                .Replace("<application_name/>", application_name)
-                .Replace("<host_domain_name/>", host_domain_name)
-                .Replace("<actor/>", actor)
-                .Replace("<actor_email_address/>", actor_email_address)
-                .Replace("<first_name/>", first_name)
-                .Replace("<last_name/>", last_name)
-                .Replace("<cad_num/>", cad_num)
-                .Replace("<medical_release_level/>", medical_release_level);
-              };
-
-            biz_members = new TClass_biz_members();
-            biz_user = new TClass_biz_user();
-            biz_users = new TClass_biz_users();
-            actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
-            actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/medical_release_level_change.txt"));
-            // from
-            // to
-            // subject
-            // body
-            // be_html
-            // cc
-            // bcc
-            // reply_to
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("medical-release-level-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
-            template_reader.Close();
-        }
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/medical_release_level_change.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id)
+        + k.COMMA + actor_email_address
+        + k.COMMA + db_notifications.TargetOf("medical-release-level-change", member_id)
+        + (cross_agency_id.Length > 0 ? k.COMMA + db_notifications.TargetOfAboutAgency(name:"medical-release-level-change",agency_id:cross_agency_id) : k.EMPTY),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        be_html:false,
+        cc:k.EMPTY,
+        bcc:k.EMPTY,
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
 
         private delegate string IssueForMemberAdded_Merge(string s);
         public void IssueForMemberAdded
