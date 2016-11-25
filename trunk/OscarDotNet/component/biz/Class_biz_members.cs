@@ -865,7 +865,16 @@ namespace Class_biz_members
                 summary:summary
                 );
               }
-            biz_notifications.IssueForMedicalReleaseLevelChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), MedicalReleaseLevelOf(summary));
+            var section = SectionOf(summary);
+            biz_notifications.IssueForMedicalReleaseLevelChange
+              (
+              member_id:IdOf(summary),
+              first_name:FirstNameOf(summary),
+              last_name:LastNameOf(summary),
+              cad_num:CadNumOf(summary),
+              medical_release_level:MedicalReleaseLevelOf(summary),
+              cross_agency_id:(be_force_to_regular_required && (section != "0") ? section : k.EMPTY)
+              );
             }
           return ok_so_far;
           }
