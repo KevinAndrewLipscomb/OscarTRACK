@@ -184,6 +184,15 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_medical_release_level;
         
         /// <summary>
+        /// Literal_first_release_as_aic_phrase control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_first_release_as_aic_phrase;
+        
+        /// <summary>
         /// LinkButton_enrollment_detail control.
         /// </summary>
         /// <remarks>

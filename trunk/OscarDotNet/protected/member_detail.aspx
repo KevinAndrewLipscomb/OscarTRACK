@@ -77,9 +77,14 @@
                         <td><ASP:Label id="Label_section" runat="server"></ASP:Label></td>
                       </tr>
                       <tr>
-                        <td>Released cert level:</td>
-                        <td><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server" onclick="LinkButton_change_medical_release_level_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
-                        <td><ASP:Label id="Label_medical_release_level" runat="server"></ASP:Label></td>
+                        <td valign="top">Released cert level:</td>
+                        <td valign="top"><ASP:LinkButton id="LinkButton_change_medical_release_level" runat="server" onclick="LinkButton_change_medical_release_level_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
+                        <td valign="top">
+                          <ASP:Label id="Label_medical_release_level" runat="server"></ASP:Label>
+                          <blockquote>
+                            <small><i>First release as an AIC <ASP:Literal id="Literal_first_release_as_aic_phrase" runat="server"></ASP:Literal></i></small>
+                          </blockquote>
+                        </td>
                       </tr>
                       <tr>
                         <td valign="top">Membership status:</td>
