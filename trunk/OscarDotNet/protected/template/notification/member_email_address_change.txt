@@ -1,0 +1,12 @@
+Email address change for <cad_num/> <last_name/>, <first_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed the email address for <agency_name/> member <first_name/> <last_name/> (<cad_num/>) to:
+
+   <member_email_address/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

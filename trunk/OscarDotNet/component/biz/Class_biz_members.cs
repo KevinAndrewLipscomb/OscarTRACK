@@ -768,15 +768,29 @@ namespace Class_biz_members
             biz_notifications.IssueForDriverQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_driver_qualified);
         }
 
-        public void SetEmailAddress(string id, string email_address)
+    public void SetEmailAddress
+      (
+      string id,
+      string email_address
+      )
+      {
+      db_members.SetEmailAddress(id, email_address);
+      var user_id = UserIdOf(id);
+      if ((user_id.Length > 0) && (email_address.Length > 0))
         {
-            db_members.SetEmailAddress(id, email_address);
-            var user_id = UserIdOf(id);
-            if ((user_id.Length > 0) && (email_address.Length > 0))
-              {
-              db_users.SetEmailAddress(user_id,email_address);
-              }
+        db_users.SetEmailAddress(user_id,email_address);
         }
+      var summary = Summary(member_id:id);
+      biz_notifications.IssueForMemberEmailAddressChange
+        (
+        member_id:id,
+        first_name:FirstNameOf(summary),
+        last_name:LastNameOf(summary),
+        cad_num:CadNumOf(summary),
+        agency_name:AgencyOf(summary),
+        member_email_address:email_address
+        );
+      }
 
     public void SetFlightMedicQualification
       (
