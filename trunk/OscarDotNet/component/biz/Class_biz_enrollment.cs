@@ -218,6 +218,11 @@ namespace Class_biz_enrollment
           }
         if (target_agency_id != k.EMPTY)
           {
+          db_members.SetSection
+            (
+            section_num:"0",
+            summary:summary
+            );
           var old_agency_medium_designator = biz_agencies.MediumDesignatorOf(biz_agencies.IdOfShortDesignator(old_agency_short_designator));
           var new_agency_medium_designator = biz_agencies.MediumDesignatorOf(target_agency_id);
           if (new_agency_medium_designator != old_agency_medium_designator)

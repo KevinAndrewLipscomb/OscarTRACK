@@ -741,13 +741,22 @@ namespace Class_biz_members
             return result;
         }
 
-        public void SetAgency(string old_agency_id, string new_agency_id, object summary)
-        {
-            string member_id;
-            db_members.SetAgency(new_agency_id, summary);
-            member_id = IdOf(summary);
-            biz_notifications.IssueForAgencyChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(old_agency_id), biz_agencies.MediumDesignatorOf(new_agency_id));
-        }
+    public void SetAgency
+      (
+      string old_agency_id,
+      string new_agency_id,
+      object summary
+      )
+      {
+      db_members.SetAgency(new_agency_id, summary);
+      db_members.SetSection
+        (
+        section_num:"0",
+        summary:summary
+        );
+      var member_id = IdOf(summary);
+      biz_notifications.IssueForAgencyChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(old_agency_id), biz_agencies.MediumDesignatorOf(new_agency_id));
+      }
 
         public bool SetCadNum(string cad_num, object summary)
         {

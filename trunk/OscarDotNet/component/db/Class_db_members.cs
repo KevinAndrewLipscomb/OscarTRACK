@@ -2060,13 +2060,17 @@ namespace Class_db_members
             (summary as member_summary).last_name = last;
         }
 
-        public void SetSection(string section_num, object summary)
-        {
-            this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = " + section_num + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
-            this.Close();
-            (summary as member_summary).section = section_num;
-        }
+    public void SetSection
+      (
+      string section_num,
+      object summary
+      )
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = '" + (section_num.Length == 0 ? "0" : section_num) + "' WHERE id = " + (summary as member_summary).id),connection).ExecuteNonQuery();
+      Close();
+      (summary as member_summary).section = section_num;
+      }
 
         internal void SetLengthOfService
           (
