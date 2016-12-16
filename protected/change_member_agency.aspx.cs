@@ -1,31 +1,24 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
 using Class_biz_agencies;
 using Class_biz_members;
-namespace change_member_agency
-{
-    public struct p_type
-    {
-        public TClass_biz_agencies biz_agencies;
-        public TClass_biz_members biz_members;
-        public string saved_agency_id;
-    } // end p_type
+using kix;
+using System;
+using System.Configuration;
 
-    public partial class TWebForm_change_member_agency: ki_web_ui.page_class
-    {
-        private p_type p;
+namespace change_member_agency
+  {
+
+  public partial class TWebForm_change_member_agency: ki_web_ui.page_class
+   {
+
+    private struct p_type
+      {
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_members biz_members;
+      public string saved_agency_id;
+      }
+
+    private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -82,11 +75,30 @@ namespace change_member_agency
             BackTrack();
         }
 
-        protected void Button_submit_Click(object sender, System.EventArgs e)
+    protected void Button_submit_Click(object sender, EventArgs e)
+      {
+      var new_agency_id = k.Safe(DropDownList_agency.SelectedValue, k.safe_hint_type.NUM);
+      if (new_agency_id == p.saved_agency_id)
         {
-            p.biz_members.SetAgency(p.saved_agency_id, k.Safe(DropDownList_agency.SelectedValue, k.safe_hint_type.NUM), Session["member_summary"]);
-            BackTrack();
+        AlertAndBackTrack
+          (
+          cause:k.alert_cause_type.USER,
+          state:k.alert_state_type.WARNING,
+          key:"nochange",
+          value:"The member's agency was NOT changed.  The member already belongs to the specified 'new' agency."
+          );
         }
+      else
+        {
+        p.biz_members.SetAgency
+          (
+          old_agency_id:p.saved_agency_id,
+          new_agency_id:new_agency_id,
+          summary:Session["member_summary"]
+          );
+        BackTrack();
+        }
+      }
 
         private void TWebForm_change_member_agency_PreRender(object sender, System.EventArgs e)
         {
@@ -95,4 +107,4 @@ namespace change_member_agency
 
     } // end TWebForm_change_member_agency
 
-}
+  }
