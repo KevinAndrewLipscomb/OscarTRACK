@@ -42,6 +42,7 @@ namespace UserControl_donation_ack_letter
         var member_summary = p.biz_members.Summary(member_id);
         Literal_member_name.Text = p.biz_members.FirstNameOf(member_summary) + k.SPACE + p.biz_members.LastNameOf(member_summary);
         Literal_member_title.Text = p.biz_user.Roles(id_of_highest_tier_of_interest:"2")[0];
+        Label_member_email_address.Text = p.biz_user.EmailAddress();
         //
         p.be_loaded = true;
         }

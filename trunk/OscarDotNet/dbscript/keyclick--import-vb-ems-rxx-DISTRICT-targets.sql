@@ -239,6 +239,12 @@ set house_num = concat(house_num,"-","UPPR")
 where address REGEXP '^.* UPPR$'
 ;
 --
+-- Prepend 0 to single digit house numbers with unit numbers, to force proper USPS interpretation/standardization.
+--
+;
+update resident_import set house_num = CONCAT('0',house_num) where house_num rlike '^[1-9]-'
+;
+--
 -- Extricate "post-directionals" (such as CENTERVILLE TPKE N) so we can normalize street suffixes.
 --
 ;

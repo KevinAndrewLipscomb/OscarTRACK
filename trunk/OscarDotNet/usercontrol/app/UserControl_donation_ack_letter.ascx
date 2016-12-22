@@ -50,7 +50,8 @@
                   <br />
                   <br />
                   <asp:Literal ID="Literal_member_name" runat="server"></asp:Literal><br />
-                  <asp:Literal ID="Literal_member_title" runat="server"></asp:Literal>
+                  <asp:Literal ID="Literal_member_title" runat="server"></asp:Literal><br />
+                  <asp:Label ID="Label_member_email_address" runat="server" Font-Italic="True"></asp:Label>
                 </td>
               </tr>
             </table>
