@@ -810,7 +810,7 @@ namespace Class_db_vehicles
         + ";"
         + " insert vehicle_quarters_history (vehicle_id,quarters_id,start_datetime)"
         + " select vehicle.id as vehicle_id"
-        + " , (select id from vehicle_quarters where medium_designator = 'EMS Admin') as quarters_id"
+        + " , (select id from vehicle_quarters where medium_designator = 'EMS HQ') as quarters_id"
         + " , NOW() as start_datetime"
         + " from vehicle"
         + " where vehicle.name = '" + name + "'"
