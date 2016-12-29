@@ -190,7 +190,7 @@ namespace UserControl_vehicle
           Table_usability.BgColor = "Lime";
           Table_usability.BorderColor = "Lime";
           Literal_usability.Text = "Will be set to UP.&nbsp; Change after adding vehicle.";
-          Literal_quarters.Text = "Will be set to <i>EMS Admin</i>.&nbsp; Change after adding vehicle.";
+          Literal_quarters.Text = "Will be set to <i>EMS HQ</i>.&nbsp; Change after adding vehicle.";
           Literal_recent_mileage.Text = "Change after adding vehicle.";
           }
         else

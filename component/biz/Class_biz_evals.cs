@@ -365,7 +365,7 @@ namespace Class_biz_evals
           + " --post-data"
           +   "=eval_id=" + id
           +   "&target_agency_id=" + db_members.SectionOfId(evaluatee_member_id)
-                // Caution:  This is a non-standard use of the section attribute.  This reflects EMS Admin's current practice of using section to indicate which squad an evaluatee intends to join in the future.
+                // Caution:  This is a non-standard use of the section attribute.  This reflects EMS HQ's current practice of using section to indicate which squad an evaluatee intends to join in the future.
           + k.SPACE
           + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_commanded_eval.aspx\""
           },
