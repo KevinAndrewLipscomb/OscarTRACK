@@ -185,6 +185,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
           if (i.val != Static.TCI_SPACER_2)
             {
             var cell = e.Item.Cells[i.val];
+            cell.BackColor = Color.LawnGreen;
             var n = new k.decimal_nonnegative(decimal.Parse(cell.Text));
             if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired"]))
               {
