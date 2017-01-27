@@ -175,6 +175,7 @@ namespace UserControl_watchbill_maag
           row.Controls.Add(cell);
           table.Controls.Add(row);
           e.Cell.Controls.Add(table);
+          e.Cell.BackColor = Color.LawnGreen;
           if (num_crew_shifts.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired"]))
             {
             e.Cell.BackColor = Color.Yellow;
