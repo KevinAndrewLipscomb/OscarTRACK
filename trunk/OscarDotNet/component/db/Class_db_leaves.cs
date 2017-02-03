@@ -330,7 +330,7 @@ namespace Class_db_leaves
         // This was not previously a mid-cycle leave event.  We must create a new such event.
         //
         mid_sql_prefix += k.EMPTY
-        + " insert into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)"
+        + " insert ignore into mid_cycle_leave (member_id,kind_of_leave_code,start_date,end_date,num_obliged_shifts,note)" // Added 'ignore' due to not-fully-understood zebra case that caused key collision.
         + " select member_id"
         + " , kind_of_leave_code"
         + " , start_date"
