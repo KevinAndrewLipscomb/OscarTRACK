@@ -85,13 +85,23 @@ namespace overview
             }
             else
             {
-                SessionSet("member_id", p.biz_members.IdOfUserId(Session["user_id"].ToString()));
-                var UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
-                AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_member_binder);
-                if (p.incoming != null)
+                var member_id = p.biz_members.IdOfUserId(Session["user_id"].ToString());
+                SessionSet("member_id",member_id);
+                var member_summary = p.biz_members.Summary(member_id);
+                if (p.biz_members.BePast(member_summary))
                   {
-                  UserControl_member_binder.SetTarget(p.incoming.target);
-                  p.incoming.target = k.EMPTY;
+                  SessionSet("member_summary",member_summary);
+                  Server.Transfer("member_detail.aspx");
+                  }
+                else
+                  {
+                  var UserControl_member_binder = ((TWebUserControl_member_binder)(LoadControl("~/usercontrol/app/UserControl_member_binder.ascx")));
+                  AddIdentifiedControlToPlaceHolder(UserControl_member_binder, "M", PlaceHolder_member_binder);
+                  if (p.incoming != null)
+                    {
+                    UserControl_member_binder.SetTarget(p.incoming.target);
+                    p.incoming.target = k.EMPTY;
+                    }
                   }
             }
 
