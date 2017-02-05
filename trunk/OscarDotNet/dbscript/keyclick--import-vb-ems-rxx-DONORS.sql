@@ -40,6 +40,16 @@ CREATE  TABLE `resident_import`
     `street_id` BIGINT UNSIGNED
   ,
     `post_directional` VARCHAR(2)
+  ,
+    `amount` DECIMAL(10,2) DEFAULT 1
+  ,
+    `method` ENUM('BIZREPLY', 'INMEMOF', 'UNSOLICITED', 'WEB', 'LOVELETTER') DEFAULT 'BIZREPLY'
+  ,
+    `in_mem_of` VARCHAR(64)
+  ,
+    `note` TEXT
+  ,
+    `date` DATE 
   )
 ;
 -- --
@@ -364,10 +374,13 @@ update resident_base
     on (resident_import.street_id=resident_base.street_id and resident_import.house_num=resident_base.house_num and resident_import.agency=resident_base.agency)
 set resident_base.name = resident_import.name, resident_base.id_in_agency_system = resident_import.id_in_agency_system
 ;
-insert ignore donation (id,amount,note,entered_by,per_clerk_seq_num)
+insert ignore donation (id,amount,note,method,in_mem_of,date,entered_by,per_clerk_seq_num)
 select id
-, 1 as amount
-, 'Identified as a donor in external data import' as note
+, amount
+, IFNULL(note,'Identified as a donor in external data import') as note
+, method
+, in_mem_of
+, date
 , 'OscarTRACK' as entered_by
 , @n := @n + 1 as per_clerk_seq_num
 from (select @n := max(per_clerk_seq_num) from donation where entered_by = 'OscarTRACK') as init, resident_base
