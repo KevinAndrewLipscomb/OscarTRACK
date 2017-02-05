@@ -1,5 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
+using Class_biz_members;
 using Class_biz_role_member_map_logs;
 using Class_msg_protected;
 using kix;
@@ -24,6 +25,7 @@ namespace UserControl_role_member_map_log
       public bool be_interactive;
       public bool be_loaded;
       public bool be_sort_order_ascending;
+      public TClass_biz_members biz_members;
       public TClass_biz_role_member_map_logs biz_role_member_map_logs;
       public TClass_msg_protected.overview msg_protected_overview;
       public uint num_role_member_map_logs;
@@ -41,6 +43,7 @@ namespace UserControl_role_member_map_log
           {
           DataGrid_control.AllowSorting = false;
           }
+        LinkButton_manage_roles.Visible = !p.biz_members.BePast(p.biz_members.Summary(p.subject_member_id));
         Bind();
         p.be_loaded = true;
         }
@@ -67,6 +70,7 @@ namespace UserControl_role_member_map_log
         }
       else
         {
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map_logs = new TClass_biz_role_member_map_logs();
         p.msg_protected_overview = new TClass_msg_protected.overview();
         //

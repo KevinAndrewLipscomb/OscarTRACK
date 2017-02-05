@@ -11,7 +11,7 @@
                 <td><b>Role history</b></td>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                 <td align="right"><small>
-                  <asp:LinkButton ID="LinkButton_manage_roles" runat="server" OnClick="LinkButton_manage_roles_Click">Manage roles</asp:LinkButton></small></td>
+                  <asp:LinkButton ID="LinkButton_manage_roles" runat="server" OnClick="LinkButton_manage_roles_Click" Visible="False">Manage roles</asp:LinkButton></small></td>
               </tr>
             </table>
           </td>
