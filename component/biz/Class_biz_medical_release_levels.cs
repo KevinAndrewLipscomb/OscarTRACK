@@ -74,9 +74,9 @@ namespace Class_biz_medical_release_levels
             if (enrollment_description == "Associate")
               {
               //
-              // An Associate must be EMT-E or higher.
+              // An Associate must be EMT-B or higher.
               //
-              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-E") >= 0);
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-B") >= 0);
               }
             else if (enrollment_description == "Tenured BLS")
               {
