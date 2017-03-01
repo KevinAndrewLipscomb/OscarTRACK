@@ -13,7 +13,7 @@ select agency,address,city,state from
   where resident_base.id > 0
     and street.name <> "PO BOX"
     and city.name = "VIRGINIA BEACH"
-    and agency in ("CBVRS","PACHVRS","KVRS","VBVRS")
+    and agency in ("OPVRS","DCVRS","CBVRS","PACHVRS","KVRS","VBVRS")
   order by RAND()
   limit 10000
   ) as sample
