@@ -196,6 +196,8 @@ namespace UserControl_member_schedule_detail
               k.Has((Session["privilege_array"] as string[]),"schedule-squad-truck-team")
             ||
               k.Has((Session["privilege_array"] as string[]),"schedule-volunteer-field-supervisor-team")
+            ||
+              k.Has((Session["privilege_array"] as string[]),"schedule-mci-team")
             )
           );
         p.be_fully_editable = p.biz_schedule_assignments.BeMemberScheduleDetailFullyEditable
@@ -633,6 +635,7 @@ namespace UserControl_member_schedule_detail
         be_condensed:false,
         be_user_squad_truck_team_scheduler:k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team"),
         be_user_volunteer_field_supervisor_team_scheduler:k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team"),
+        be_user_mci_team_scheduler:k.Has((string[])(Session["privilege_array"]),"schedule-mci-team"),
         target:proto_post_list_item_collection
         );
       p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
