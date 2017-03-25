@@ -126,6 +126,7 @@ namespace Class_biz_schedule_assignments
       var be_ok_to_schedule_any_special_agency = false;
       var be_ok_to_schedule_squad_truck_team = k.Has(session["privilege_array"] as string[],"schedule-squad-truck-team");
       var be_ok_to_schedule_volunteer_field_supervisor_team = k.Has(session["privilege_array"] as string[],"schedule-volunteer-field-supervisor-team");
+      var be_ok_to_schedule_mci_team = k.Has(session["privilege_array"] as string[],"schedule-mci-team");
       var relative_prep_month = DateTime.Today.AddMonths(relative_month.val - 1);
       var user_member_id = k.EMPTY;
       //
@@ -151,6 +152,8 @@ namespace Class_biz_schedule_assignments
           ||
             be_ok_to_schedule_volunteer_field_supervisor_team
           ||
+            be_ok_to_schedule_mci_team
+          ||
             be_ok_to_schedule_any_special_agency
           ||
             (k.Has(session["privilege_array"] as string[],"edit-schedule-tier-department-only") && be_from_same_agency)
@@ -160,7 +163,17 @@ namespace Class_biz_schedule_assignments
             be_from_same_agency
           ||
             (
-              (k.Has(session["privilege_array"] as string[],"see-all-squads") || be_ok_to_schedule_squad_truck_team || be_ok_to_schedule_volunteer_field_supervisor_team || be_ok_to_schedule_any_special_agency)
+              (
+                k.Has(session["privilege_array"] as string[],"see-all-squads")
+              ||
+                be_ok_to_schedule_squad_truck_team
+              ||
+                be_ok_to_schedule_volunteer_field_supervisor_team
+              ||
+                be_ok_to_schedule_mci_team
+              ||
+                be_ok_to_schedule_any_special_agency
+              )
             &&
               (
                 !BeFullWatchbillPublishMandatory(target_member_agency_id,relative_month)
@@ -199,6 +212,7 @@ namespace Class_biz_schedule_assignments
       bool be_squad_exclusivity_expired,
       bool be_ok_to_schedule_squad_truck_team,
       bool be_ok_to_schedule_volunteer_field_supervisor_team,
+      bool be_ok_to_schedule_mci_team,
       bool be_ok_to_edit_schedule_for_any_special_agency
       )
       {
@@ -233,6 +247,8 @@ namespace Class_biz_schedule_assignments
           be_ok_to_schedule_squad_truck_team
         ||
           be_ok_to_schedule_volunteer_field_supervisor_team
+        ||
+          be_ok_to_schedule_mci_team
         ||
           be_ok_to_edit_schedule_for_any_special_agency
         );
