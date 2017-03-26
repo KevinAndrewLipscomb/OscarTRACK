@@ -1,0 +1,29 @@
+<vehicle_name/> has a service appointment
+-- From <actor/> [via <application_name/>]
+
+The following service appointment has been scheduled:
+
+Vehicle:
+   <vehicle_name/>
+
+Where:
+   <where/>
+
+When:
+   <when/>
+
+Comment:
+   <comment/>
+
+On arrival, the following should be accomplished:
+   1. Park the vehicle on the service line.
+   2. Plug the vehicle into shore power (if applicable).
+   3. Make sure a work order is submitted to the shop.
+
+The Department will assume that <agency/> members will deliver <vehicle_name/> to this appointment unless a prior agreement is in place, or unless <agency/> tells the Department otherwise.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

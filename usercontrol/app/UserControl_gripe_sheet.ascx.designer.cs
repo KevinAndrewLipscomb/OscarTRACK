@@ -13,6 +13,15 @@ namespace UserControl_gripe_sheet {
     public partial class TWebUserControl_gripe_sheet {
         
         /// <summary>
+        /// ValidationSummary_appointment_details control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_appointment_details;
+        
+        /// <summary>
         /// Literal_title_gripes control.
         /// </summary>
         /// <remarks>
@@ -74,6 +83,69 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_best_practices;
+        
+        /// <summary>
+        /// Literal_bumper_number_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_bumper_number_2;
+        
+        /// <summary>
+        /// Literal_model_year_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_model_year_2;
+        
+        /// <summary>
+        /// Literal_chassis_make_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_chassis_make_2;
+        
+        /// <summary>
+        /// Literal_chassis_model_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_chassis_model_2;
+        
+        /// <summary>
+        /// Literal_custom_make_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_custom_make_2;
+        
+        /// <summary>
+        /// Literal_custom_model_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_custom_model_2;
+        
+        /// <summary>
+        /// Literal_kind_2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_kind_2;
         
         /// <summary>
         /// TableRow_work_order_instructions control.
@@ -425,6 +497,78 @@ namespace UserControl_gripe_sheet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_new;
+        
+        /// <summary>
+        /// TableCell_appointment_details_spacer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_appointment_details_spacer;
+        
+        /// <summary>
+        /// TableCell_appointment_details control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableCell_appointment_details;
+        
+        /// <summary>
+        /// TextBox_appointment_where control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_appointment_where;
+        
+        /// <summary>
+        /// RequiredFieldValidator_appointment_where control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_appointment_where;
+        
+        /// <summary>
+        /// TextBox_appointment_when control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_appointment_when;
+        
+        /// <summary>
+        /// RequiredFieldValidator_appointment_when control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_appointment_when;
+        
+        /// <summary>
+        /// TextBox_appointment_comment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox TextBox_appointment_comment;
+        
+        /// <summary>
+        /// Button_send_appointment_notification control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_send_appointment_notification;
         
         /// <summary>
         /// Panel_page_break control.

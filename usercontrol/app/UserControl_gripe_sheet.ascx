@@ -1,6 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_gripe_sheet.ascx.cs" Inherits="UserControl_gripe_sheet.TWebUserControl_gripe_sheet"%>
 <%@ Register Src="~/usercontrol/ki/UserControl_iva_attachment_explorer.ascx" TagPrefix="uc1" TagName="UserControl_iva_attachment_explorer" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
+<asp:ValidationSummary ID="ValidationSummary_appointment_details" runat="server" ValidationGroup="appointment_details"/>
 <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1" width="100%">
   <tr>
     <td>
@@ -34,6 +35,7 @@
                 <li>The system will automatically delete any gripe whose last entry was more than 4 months ago.</li>
                 <li>To enter a new gripe, scroll to the bottom of this page and click the NEW GRIPE button.</li>
               </ul>
+              <p>B#<asp:Literal ID="Literal_bumper_number_2" runat="server"></asp:Literal> - <asp:Literal ID="Literal_model_year_2" runat="server"></asp:Literal> <asp:Literal ID="Literal_chassis_make_2" runat="server"></asp:Literal> <asp:Literal ID="Literal_chassis_model_2" runat="server"></asp:Literal> <asp:Literal ID="Literal_custom_make_2" runat="server"></asp:Literal> <asp:Literal ID="Literal_custom_model_2" runat="server"></asp:Literal> <asp:Literal ID="Literal_kind_2" runat="server"></asp:Literal></p>
             </small>
           </td>
         </tr>
@@ -253,5 +255,31 @@
     </td>
   </tr>
 </table>
-<p><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click" UseSubmitBehavior="False"></asp:Button></p>
+<table>
+  <tr>
+    <td valign="top"><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click" UseSubmitBehavior="False"></asp:Button></td>
+    <td id="TableCell_appointment_details_spacer" runat="server" visible="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td id="TableCell_appointment_details" runat="server" align="center" visible="false">
+      <table cellpadding="5" cellspacing="0" style="border:1px solid gray;">
+        <tr><td align="center" colspan="3"><small>Appointment details</small></td></tr>
+        <tr>
+          <td align="right"><small>Where:</small></td>
+          <td><asp:TextBox ID="TextBox_appointment_where" runat="server" Columns="72" MaxLength="255">CITY GARAGE</asp:TextBox></td>
+          <td><asp:RequiredFieldValidator ID="RequiredFieldValidator_appointment_where" runat="server" ErrorMessage="Please enter an Appointment Where value." ControlToValidate="TextBox_appointment_where" Display="Dynamic" Font-Bold="True" ValidationGroup="appointment_details">&lt;ERR!</asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+          <td align="right"><small>When:</small></td>
+          <td><asp:TextBox ID="TextBox_appointment_when" runat="server" Columns="72" MaxLength="255"></asp:TextBox></td>
+          <td><asp:RequiredFieldValidator ID="RequiredFieldValidator_appointment_when" runat="server" ErrorMessage="Please enter Appointment When value." ControlToValidate="TextBox_appointment_when" Display="Dynamic" Font-Bold="True" ValidationGroup="appointment_details">&lt;ERR!</asp:RequiredFieldValidator></td>
+        </tr>
+        <tr>
+          <td align="right"><small>Comment:</small></td>
+          <td><asp:TextBox ID="TextBox_appointment_comment" runat="server" Columns="72" MaxLength="255">PM</asp:TextBox></td>
+          <td></td>
+        </tr>
+        <tr><td align="center" colspan="3"><asp:Button ID="Button_send_appointment_notification" runat="server" Text="Notify squad officers" OnClick="Button_send_appointment_notification_Click" ValidationGroup="appointment_details" /></td></tr>
+      </table>
+    </td>
+  </tr>
+</table>
 <asp:Panel ID="Panel_page_break" runat="server" Visible="false"><i>--&nbsp;END&nbsp;--</i><div style="page-break-before:always;" /></asp:Panel>
