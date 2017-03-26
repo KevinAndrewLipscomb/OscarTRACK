@@ -3,6 +3,7 @@
 using Class_biz_agencies;
 using Class_biz_gripes;
 using Class_biz_members;
+using Class_biz_notifications;
 using Class_biz_user;
 using Class_biz_vehicle_down_natures;
 using Class_biz_vehicle_usability_history;
@@ -43,11 +44,13 @@ namespace UserControl_gripe_sheet
       public bool be_interactive;
       public bool be_loaded;
       public bool be_ok_to_config_gripes;
+      public bool be_ok_to_send_appointment_notification;
       public bool be_sort_order_ascending;
       public bool be_work_order_mode;
       public TClass_biz_agencies biz_agencies;
-      public TClass_biz_members biz_members;
       public TClass_biz_gripes biz_gripes;
+      public TClass_biz_members biz_members;
+      public TClass_biz_notifications biz_notifications;
       public TClass_biz_user biz_user;
       public TClass_biz_vehicle_down_natures biz_vehicle_down_natures;
       public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
@@ -57,6 +60,8 @@ namespace UserControl_gripe_sheet
       public uint num_gripes;
       public string sort_order;
       public string user_id;
+      public string vehicle_agency_id;
+      public string vehicle_agency_short_designator;
       public object vehicle_summary;
       public string work_order_coordinator_title;
       }
@@ -150,21 +155,19 @@ namespace UserControl_gripe_sheet
         //
         Literal_title_gripes.Visible = !p.be_work_order_mode;
         Literal_title_vir.Visible = p.be_work_order_mode;
-        Literal_vehicle_name.Text = p.biz_vehicles.NameOf((p.vehicle_summary));
+        Literal_vehicle_name.Text = Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf((p.vehicle_summary));
         Literal_work_order_coordinator_title.Text = p.work_order_coordinator_title;
         Literal_work_order_coordinator_name.Text = p.biz_members.FirstNameOfMemberId(member_id) + k.SPACE + p.biz_members.LastNameOfMemberId(member_id);
-        var agency_id = p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(p.vehicle_summary));
-        Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(agency_id) + (agency_id == "0" ? k.EMPTY : " Volunteer Rescue Squad");
+        Literal_agency_long_designator.Text = p.biz_agencies.LongDesignatorOf(p.vehicle_agency_id) + (p.vehicle_agency_id == "0" ? k.EMPTY : " Volunteer Rescue Squad");
         Literal_work_order_coordinator_phone_num.Text = k.FormatAsNanpPhoneNum(p.biz_members.PhoneNumOf(member_id));
         Literal_work_order_coordinator_email_address.Text = p.biz_members.EmailAddressOf(member_id);
-        Literal_kind.Text = p.biz_vehicles.KindOf(p.vehicle_summary);
-        Literal_vehicle_name_2.Text = p.biz_vehicles.NameOf(p.vehicle_summary);
-        Literal_bumper_number.Text = p.biz_vehicles.BumperNumberOf(p.vehicle_summary);
-        Literal_model_year.Text = p.biz_vehicles.ModelYearOf(p.vehicle_summary);
-        Literal_chassis_make.Text = p.biz_vehicles.ChassisMakeOf(p.vehicle_summary);
-        Literal_chassis_model.Text = p.biz_vehicles.ChassisModelOf(p.vehicle_summary);
-        Literal_custom_make.Text = p.biz_vehicles.CustomMakeOf(p.vehicle_summary);
-        Literal_custom_model.Text = p.biz_vehicles.CustomModelOf(p.vehicle_summary);
+        Literal_kind.Text = Literal_kind_2.Text = p.biz_vehicles.KindOf(p.vehicle_summary);
+        Literal_bumper_number.Text = Literal_bumper_number_2.Text = p.biz_vehicles.BumperNumberOf(p.vehicle_summary);
+        Literal_model_year.Text = Literal_model_year_2.Text = p.biz_vehicles.ModelYearOf(p.vehicle_summary);
+        Literal_chassis_make.Text = Literal_chassis_make_2.Text = p.biz_vehicles.ChassisMakeOf(p.vehicle_summary);
+        Literal_chassis_model.Text = Literal_chassis_model_2.Text = p.biz_vehicles.ChassisModelOf(p.vehicle_summary);
+        Literal_custom_make.Text = Literal_custom_make_2.Text = p.biz_vehicles.CustomMakeOf(p.vehicle_summary);
+        Literal_custom_model.Text = Literal_custom_model_2.Text = p.biz_vehicles.CustomModelOf(p.vehicle_summary);
         Literal_vin.Text = p.biz_vehicles.VinOf(p.vehicle_summary);
         Literal_fuel.Text = p.biz_vehicles.FuelOf(p.vehicle_summary);
         Literal_tag.Text = p.biz_vehicles.TagOf(p.vehicle_summary);
@@ -185,7 +188,7 @@ namespace UserControl_gripe_sheet
         SetWorkOrderMode(!p.be_interactive);
         Button_send_to_city_garage.Visible = p.be_interactive;
         Button_send_to_comit.Visible = p.be_interactive;
-        Button_send_to_boat_shop.Visible = p.be_interactive && (p.biz_agencies.ShortDesignatorOf(agency_id) == "MRT");
+        Button_send_to_boat_shop.Visible = p.be_interactive && (p.vehicle_agency_short_designator == "MRT");
         Button_send_to_liaison.Visible = p.be_interactive;
         Literal_liaison_name.Text = ConfigurationManager.AppSettings["vehicular_issue_report_target_name"];
         RequireConfirmation
@@ -213,6 +216,10 @@ namespace UserControl_gripe_sheet
           p.gripe_inclusion_hashtable.Clear();
           }
         Bind();
+        //
+        TableCell_appointment_details_spacer.Visible = p.be_ok_to_send_appointment_notification;
+        TableCell_appointment_details.Visible = p.be_ok_to_send_appointment_notification;
+        //
         p.be_loaded = true;
         }
       if (p.be_interactive)
@@ -222,6 +229,7 @@ namespace UserControl_gripe_sheet
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_comit);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_boat_shop);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_to_liaison);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_send_appointment_notification);
         }
       InjectPersistentClientSideScript();
       }
@@ -239,8 +247,9 @@ namespace UserControl_gripe_sheet
       else
         {
         p.biz_agencies = new TClass_biz_agencies();
-        p.biz_members = new TClass_biz_members();
         p.biz_gripes = new TClass_biz_gripes();
+        p.biz_members = new TClass_biz_members();
+        p.biz_notifications = new TClass_biz_notifications();
         p.biz_user = new TClass_biz_user();
         p.biz_vehicle_down_natures = new TClass_biz_vehicle_down_natures();
         p.biz_vehicle_usability_history = new TClass_biz_vehicle_usability_history();
@@ -249,11 +258,14 @@ namespace UserControl_gripe_sheet
         p.be_interactive = true;
         p.be_loaded = false;
         p.be_ok_to_config_gripes = k.Has((string[])(Session["privilege_array"]), "config-gripes");
+        p.be_ok_to_send_appointment_notification = k.Has((string[])(Session["privilege_array"]), "send-vehicle-appointment-notifications");
         p.be_sort_order_ascending = true;
         p.be_work_order_mode = false;
         p.gripe_inclusion_hashtable = new Hashtable();
         p.main_reason_for_visit = k.EMPTY;
         p.sort_order = "id%";
+        p.vehicle_agency_id = k.EMPTY;
+        p.vehicle_agency_short_designator = k.EMPTY;
         }
       }
 
@@ -352,18 +364,18 @@ namespace UserControl_gripe_sheet
         // The execution order of the following if block and the statement afterwards is critical because of line-ending issues.
         //
         description_cell.Text = description_cell.Text.Replace(k.NEW_LINE,"<br/>");
-        ////
-        //// Hide timestamps on gripe descriptions.
-        ////
-        //if (p.be_work_order_mode)
-        //  {
-        //  description_cell.Text = Regex.Replace
-        //    (
-        //    input:description_cell.Text,
-        //    pattern:" \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}<br/>", // yyyy-MM-dd HH:mm:ss
-        //    replacement:"<br/>"
-        //    );
-        //  }
+        //
+        // hide timestamps on gripe descriptions.
+        //
+        if (p.be_work_order_mode)
+          {
+          description_cell.Text = Regex.Replace
+            (
+            input: description_cell.Text,
+            pattern: " \\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}<br/>", // yyyy-mm-dd hh:mm:ss
+            replacement: "<br/>"
+            );
+          }
         //
         e.Item.Visible = be_ok_to_display;
         p.num_gripes++;
@@ -418,6 +430,8 @@ namespace UserControl_gripe_sheet
       {
       p.user_id = user_id;
       p.vehicle_summary = vehicle_summary;
+      p.vehicle_agency_id = p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(vehicle_summary));
+      p.vehicle_agency_short_designator = p.biz_agencies.ShortDesignatorOf(p.vehicle_agency_id);
       p.work_order_coordinator_title = work_order_coordinator_title;
       p.main_reason_for_visit = main_reason_for_visit;
       if (serialized_gripe_inclusion_hashtable.Length > 0)
@@ -507,6 +521,28 @@ namespace UserControl_gripe_sheet
       {
       Button_send_Click("vehicular_issue_report_target");
       }
+
+    protected void Button_send_appointment_notification_Click(object sender, EventArgs e)
+      {
+      p.biz_notifications.IssueForVehicleAppointment
+        (
+        vehicle_name:p.biz_vehicles.NameOf(p.vehicle_summary),
+        vehicle_agency_id:p.vehicle_agency_id,
+        vehicle_agency_designator:p.vehicle_agency_short_designator,
+        where:k.Safe(TextBox_appointment_where.Text,k.safe_hint_type.PUNCTUATED),
+        when:k.Safe(TextBox_appointment_when.Text,k.safe_hint_type.PUNCTUATED),
+        comment:k.Safe(TextBox_appointment_comment.Text,k.safe_hint_type.PUNCTUATED)
+        );
+      Alert
+        (
+        cause:k.alert_cause_type.USER,
+        state:k.alert_state_type.SUCCESS,
+        key:"apptnotesent",
+        value:"Message sent",
+        be_using_scriptmanager:true
+        );
+      }
+
     } // end TWebUserControl_gripe_sheet
 
   }

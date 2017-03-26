@@ -2234,6 +2234,55 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
+        private delegate string IssueForVehicleAppointment_Merge(string s);
+        internal void IssueForVehicleAppointment
+          (
+          string vehicle_name,
+          string vehicle_agency_id,
+          string vehicle_agency_designator,
+          string where,
+          string when,
+          string comment
+          )
+          {
+          var biz_members = new TClass_biz_members();
+          var biz_user = new TClass_biz_user();
+          var biz_users = new TClass_biz_users();
+          var biz_vehicles = new TClass_biz_vehicles();
+          //
+          var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+          var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+          IssueForVehicleAppointment_Merge Merge = delegate (string s)
+            {
+            return s
+              .Replace("<application_name/>", application_name)
+              .Replace("<host_domain_name/>", host_domain_name)
+              .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+              .Replace("<actor_email_address/>", actor_email_address)
+              .Replace("<vehicle_name/>", vehicle_name)
+              .Replace("<where/>", where.ToUpper())
+              .Replace("<when/>", when.ToUpper())
+              .Replace("<comment/>", k.WrapText(comment.ToUpper(), k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
+              .Replace("<agency/>", vehicle_agency_designator)
+              ;
+            };
+
+          var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_appointment.txt"));
+          k.SmtpMailSend
+            (
+            from:ConfigurationManager.AppSettings["sender_email_address"],
+            to:actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-appointment",vehicle_agency_id),
+            subject:Merge(template_reader.ReadLine()),
+            message_string:Merge(template_reader.ReadToEnd()),
+            be_html:false,
+            cc: db_notifications.TargetOfAboutAgency("vehicle-appointment","0"),
+            bcc:k.EMPTY,
+            reply_to:actor_email_address
+            );
+          template_reader.Close();
+          }
+
         private delegate string IssueForVehicleDownNoteAppended_Merge(string s);
         public void IssueForVehicleDownNoteAppended(string vehicle_id, string down_comment)
           {
