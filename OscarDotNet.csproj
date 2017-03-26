@@ -187,6 +187,7 @@
     <Content Include="protected\template\notification\vehicle_appointment.txt" />
     <Content Include="protected\template\notification\vehicle_kind_changed.txt" />
     <Content Include="protected\template\notification\membership_reestablishment.txt" />
+    <Content Include="protected\template\notification\vehicle_ready_email.txt" />
     <Content Include="protected\watchbill.aspx" />
     <Content Include="protected\watchbill_maag.aspx" />
     <Content Include="pub\field_situation.aspx" />

@@ -1,0 +1,23 @@
+<vehicle_name/> is READY for pick-up
+-- From <actor/> [via <application_name/>]
+
+The following is READY for pick-up:
+
+Vehicle:
+   <vehicle_name/>
+
+Where:
+   <where/>
+
+Comment:
+   <comment/>
+
+It may be that this vehicle NEEDS GEAR loaded back onto it.  Please make arrangements to address this before placing the vehicle UP.
+
+The Department will assume that <agency/> members will pick up <vehicle_name/> unless a prior agreement is in place, or unless <agency/> tells the Department otherwise.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

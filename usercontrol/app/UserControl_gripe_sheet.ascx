@@ -260,15 +260,15 @@
     <td valign="top"><asp:Button ID="Button_new" runat="server" CausesValidation="False" Font-Bold="True" Text="NEW GRIPE" onclick="Button_new_Click" UseSubmitBehavior="False"></asp:Button></td>
     <td id="TableCell_appointment_details_spacer" runat="server" visible="false">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
     <td id="TableCell_appointment_details" runat="server" align="center" visible="false">
-      <table cellpadding="5" cellspacing="0" style="border:1px solid gray;">
+      <table cellpadding="5" cellspacing="0" style="border:1px solid #dcdcdc;">
         <tr><td align="center" colspan="3"><small>Appointment details</small></td></tr>
         <tr>
-          <td align="right"><small>Where:</small></td>
+          <td align="right"><small>*Where:</small></td>
           <td><asp:TextBox ID="TextBox_appointment_where" runat="server" Columns="72" MaxLength="255">CITY GARAGE</asp:TextBox></td>
           <td><asp:RequiredFieldValidator ID="RequiredFieldValidator_appointment_where" runat="server" ErrorMessage="Please enter an Appointment Where value." ControlToValidate="TextBox_appointment_where" Display="Dynamic" Font-Bold="True" ValidationGroup="appointment_details">&lt;ERR!</asp:RequiredFieldValidator></td>
         </tr>
         <tr>
-          <td align="right"><small>When:</small></td>
+          <td align="right"><small>*When:</small></td>
           <td><asp:TextBox ID="TextBox_appointment_when" runat="server" Columns="72" MaxLength="255"></asp:TextBox></td>
           <td><asp:RequiredFieldValidator ID="RequiredFieldValidator_appointment_when" runat="server" ErrorMessage="Please enter Appointment When value." ControlToValidate="TextBox_appointment_when" Display="Dynamic" Font-Bold="True" ValidationGroup="appointment_details">&lt;ERR!</asp:RequiredFieldValidator></td>
         </tr>

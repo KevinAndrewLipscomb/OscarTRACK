@@ -258,7 +258,7 @@ namespace UserControl_gripe_sheet
         p.be_interactive = true;
         p.be_loaded = false;
         p.be_ok_to_config_gripes = k.Has((string[])(Session["privilege_array"]), "config-gripes");
-        p.be_ok_to_send_appointment_notification = k.Has((string[])(Session["privilege_array"]), "send-vehicle-appointment-notifications");
+        p.be_ok_to_send_appointment_notification = k.Has((string[])(Session["privilege_array"]), "send-vehicle-shuttle-needed-notifications");
         p.be_sort_order_ascending = true;
         p.be_work_order_mode = false;
         p.gripe_inclusion_hashtable = new Hashtable();
