@@ -1,30 +1,31 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
+using Class_biz_agencies;
+using Class_biz_notifications;
 using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace mark_vehicle_up
   {
-  public struct p_type
-    {
-    public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
-    public TClass_biz_vehicles biz_vehicles;
-    public string down_comment;
-    public string vehicle_id;
-    }
 
   public partial class TWebForm_mark_vehicle_up: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public bool be_ok_to_send_ready_notification;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_notifications biz_notifications;
+      public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
+      public TClass_biz_vehicles biz_vehicles;
+      public string down_comment;
+      public string vehicle_id;
+      }
+
     private p_type p;
 
     // / <summary>
@@ -46,6 +47,10 @@ namespace mark_vehicle_up
         UserControl_drop_down_datetime_control.minute_intervals = 5;
         UserControl_drop_down_datetime_control.selectedvalue = DateTime.Now.ToUniversalTime().AddMinutes(-((Double)(Session["client_timezone_offset"])));
         TextBox_prior_note.Text = p.down_comment;
+        //
+        TableCell_readiness_details_spacer.Visible = p.be_ok_to_send_ready_notification;
+        TableCell_readiness_details.Visible = p.be_ok_to_send_ready_notification;
+        //
         }
       }
 
@@ -57,8 +62,12 @@ namespace mark_vehicle_up
       var nature_of_visit = NatureOfVisit(InstanceId() + ".p");
       if (nature_of_visit == nature_of_visit_type.VISIT_INITIAL)
         {
+        p.biz_agencies = new TClass_biz_agencies();
+        p.biz_notifications = new TClass_biz_notifications();
         p.biz_vehicle_usability_history = new TClass_biz_vehicle_usability_history();
         p.biz_vehicles = new TClass_biz_vehicles();
+        //
+        p.be_ok_to_send_ready_notification = k.Has((string[])(Session["privilege_array"]), "send-vehicle-shuttle-needed-notifications");
         p.vehicle_id = p.biz_vehicles.IdOf(Session["vehicle_summary"]);
         //
         p.down_comment = p.biz_vehicle_usability_history.LatestDownComment(p.vehicle_id);
@@ -115,6 +124,26 @@ namespace mark_vehicle_up
       var be_valid = p.biz_vehicles.BeNotEarlierTargetPmMileage(p.vehicle_id,k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM)) || CheckBox_target_pm_mileage.Checked;
       CheckBox_target_pm_mileage.Visible = !be_valid;
       args.IsValid = be_valid;
+      }
+
+    protected void Button_notify_ready_Click(object sender, EventArgs e)
+      {
+      var vehicle_agency_id = p.biz_vehicles.AgencyIdOfId(p.biz_vehicles.IdOf(Session["vehicle_summary"]));
+      p.biz_notifications.IssueForVehicleReady
+        (
+        vehicle_name:p.biz_vehicles.NameOf(Session["vehicle_summary"]),
+        vehicle_agency_id:vehicle_agency_id,
+        vehicle_agency_designator:p.biz_agencies.ShortDesignatorOf(vehicle_agency_id),
+        where:k.Safe(TextBox_ready_where.Text,k.safe_hint_type.PUNCTUATED),
+        comment:k.Safe(TextBox_ready_comment.Text,k.safe_hint_type.PUNCTUATED)
+        );
+      AlertAndBackTrack
+        (
+        cause:k.alert_cause_type.USER,
+        state:k.alert_state_type.SUCCESS,
+        key:"readysent",
+        value:"Message sent"
+        );
       }
 
     } // end TWebForm_mark_vehicle_up

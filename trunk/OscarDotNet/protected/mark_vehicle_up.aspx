@@ -1,8 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
-
 <%@ Page Language="c#" Debug="true" CodeBehind="mark_vehicle_up.aspx.cs" AutoEventWireup="True" Inherits="mark_vehicle_up.TWebForm_mark_vehicle_up" %>
-
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc3" TagName="UserControl_update_progress_blocker" Src="~/usercontrol/app/UserControl_update_progress_blocker.ascx" %>
@@ -16,90 +14,115 @@
   <body bgcolor="white">
     <form runat="server" defaultbutton="Button_submit">
       <uc1:UserControl_precontent ID="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
+      <asp:ValidationSummary ID="ValidationSummary_readiness_details" runat="server" ValidationGroup="readiness_details"/>
+      <table>
         <tr>
           <td>
-            <table cellspacing="0" cellpadding="10" border="0">
-              <tr>
-                <td bgcolor="#f5f5f5"><strong>Mark vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&nbsp;UP</strong></td>
-              </tr>
+            <table cellspacing="0" cellpadding="0" border="1" bordercolor="#dcdcdc">
               <tr>
                 <td>
                   <table cellspacing="0" cellpadding="10" border="0">
                     <tr>
-                      <td>
-                        *Approximately what date and time did the unit come up?
-                        <table cellspacing="0" cellpadding="20" border="0">
-                          <tr>
-                            <td>
-                              <uc5:UserControl_drop_down_datetime ID="UserControl_drop_down_datetime_control" runat="server" />
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td nowrap="nowrap">
-                        <asp:CustomValidator ID="CustomValidator_date" runat="server" ErrorMessage="Please enter a valid Date." Font-Bold="True" onservervalidate="CustomValidator_date_ServerValidate">!ERR!</asp:CustomValidator>
-                        <asp:CustomValidator ID="CustomValidator_datetime" runat="server" Display="Dynamic" ErrorMessage="This unit's history in this system has already overtaken the specified Date and Time." Font-Bold="True" onservervalidate="CustomValidator_datetime_ServerValidate">!ERR!</asp:CustomValidator>
-                      </td>
+                      <td bgcolor="#f5f5f5"><strong>Mark vehicle <asp:Literal ID="Literal_vehicle_name" runat="server"></asp:Literal>&nbsp;UP</strong></td>
                     </tr>
                     <tr>
                       <td>
-                        If the unit received PM during this downtime, what is the new target PM mileage?
-                        <table cellspacing="0" cellpadding="20" border="0">
+                        <table cellspacing="0" cellpadding="10" border="0">
                           <tr>
                             <td>
-                              <asp:TextBox ID="TextBox_target_pm_mileage" runat="server" Columns="7" MaxLength="7"></asp:TextBox>
+                              *Approximately what date and time did the unit come up?
+                              <table cellspacing="0" cellpadding="20" border="0">
+                                <tr>
+                                  <td>
+                                    <uc5:UserControl_drop_down_datetime ID="UserControl_drop_down_datetime_control" runat="server" />
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td nowrap="nowrap">
+                              <asp:CustomValidator ID="CustomValidator_date" runat="server" ErrorMessage="Please enter a valid Date." Font-Bold="True" onservervalidate="CustomValidator_date_ServerValidate">!ERR!</asp:CustomValidator>
+                              <asp:CustomValidator ID="CustomValidator_datetime" runat="server" Display="Dynamic" ErrorMessage="This unit's history in this system has already overtaken the specified Date and Time." Font-Bold="True" onservervalidate="CustomValidator_datetime_ServerValidate">!ERR!</asp:CustomValidator>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              If the unit received PM during this downtime, what is the new target PM mileage?
+                              <table cellspacing="0" cellpadding="20" border="0">
+                                <tr>
+                                  <td>
+                                    <asp:TextBox ID="TextBox_target_pm_mileage" runat="server" Columns="7" MaxLength="7"></asp:TextBox>
+                                  </td>
+                                  <td>
+                                    <asp:CheckBox ID="CheckBox_target_pm_mileage" runat="server" Text="Force target PM mileage backward" Visible="False" />
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td nowrap="nowrap" valign="top">
+                              <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
+                              <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Comments for this episode's downtime were:
+                              <table cellspacing="0" cellpadding="20" border="0">
+                                <tr>
+                                  <td>
+                                    <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="10" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td nowrap="nowrap" valign="top">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Enter any comments to associate with the unit coming back up:
+                              <table cellspacing="0" cellpadding="20" border="0">
+                                <tr>
+                                  <td>
+                                    <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                            <td nowrap="nowrap" valign="top">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>
+                              &nbsp;
+                              <asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
                             </td>
                             <td>
-                              <asp:CheckBox ID="CheckBox_target_pm_mileage" runat="server" Text="Force target PM mileage backward" Visible="False" />
                             </td>
                           </tr>
                         </table>
-                      </td>
-                      <td nowrap="nowrap" valign="top">
-                        <asp:RegularExpressionValidator ID="RegularExpressionValidator_target_pm_mileage" runat="server" ControlToValidate="TextBox_target_pm_mileage" ErrorMessage="Please enter a valid Target PM mileage (whole miles only)." Font-Bold="True" ValidationExpression="\d+">!ERR!</asp:RegularExpressionValidator>
-                        <asp:CustomValidator ID="CustomValidator_target_pm_mileage" runat="server" Display="Dynamic" ErrorMessage="You should not normally move the Target PM mileage backwards.  Check the 'Force target PM mileage backward' checkbox to override this error." Font-Bold="True" onservervalidate="CustomValidator_target_pm_mileage_ServerValidate">!ERR!</asp:CustomValidator>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Comments for this episode's downtime were:
-                        <table cellspacing="0" cellpadding="20" border="0">
-                          <tr>
-                            <td>
-                              <asp:TextBox ID="TextBox_prior_note" runat="server" Columns="60" Rows="10" TextMode="MultiLine" ReadOnly="true"></asp:TextBox>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td nowrap="nowrap" valign="top">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        Enter any comments to associate with the unit coming back up:
-                        <table cellspacing="0" cellpadding="20" border="0">
-                          <tr>
-                            <td>
-                              <asp:TextBox ID="TextBox_note_to_append" runat="server" Columns="60" Rows="4" TextMode="MultiLine"></asp:TextBox>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td nowrap="nowrap" valign="top">
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <asp:Button ID="Button_submit" runat="server" Text="Submit" OnClick="Button_submit_Click"></asp:Button>
-                        &nbsp;
-                        <asp:Button ID="Button_cancel" runat="server" Text="Cancel" CausesValidation="False" OnClick="Button_cancel_Click"></asp:Button>
-                      </td>
-                      <td>
-                      </td>
                     </tr>
                   </table>
+                </td>
               </tr>
+            </table>
+          </td>
+          <td id="TableCell_readiness_details_spacer" runat="server" visible="false">&nbsp;&nbsp;&nbsp;</td>
+          <td id="TableCell_readiness_details" runat="server" valign="top" visible="false">
+            <table cellpadding="5" cellspacing="0" style="border:1px solid #dcdcdc;">
+              <tr><td align="center" colspan="3"><small>Readiness details</small></td></tr>
+              <tr>
+                <td align="right"><small>*Where:</small></td>
+                <td><asp:TextBox ID="TextBox_ready_where" runat="server" Columns="40" MaxLength="72">CITY GARAGE</asp:TextBox></td>
+                <td><asp:RequiredFieldValidator ID="RequiredFieldValidator_ready_where" runat="server" ErrorMessage="Please enter a Ready Where value." Font-Bold="True" Display="Dynamic" ControlToValidate="TextBox_ready_where" ValidationGroup="readiness_details">&lt;ERR!</asp:RequiredFieldValidator></td>
+              </tr>
+              <tr>
+                <td align="right"><small>Comment:</small></td>
+                <td><asp:TextBox ID="TextBox_ready_comment" runat="server" Columns="40" MaxLength="255"></asp:TextBox></td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr><td align="center" colspan="3">
+                <asp:Button ID="Button_notify_ready" runat="server" Text="Notify squad officers" UseSubmitBehavior="False" ValidationGroup="readiness_details" OnClick="Button_notify_ready_Click" /></td></tr>
             </table>
           </td>
         </tr>
