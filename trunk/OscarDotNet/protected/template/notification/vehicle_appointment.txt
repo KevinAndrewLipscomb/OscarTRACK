@@ -18,7 +18,7 @@ Comment:
 On arrival, the following should be accomplished:
    1. Park the vehicle on the service line.
    2. Plug the vehicle into shore power (if applicable).
-   3. Make sure a work order is submitted to the shop.
+   3. Make sure a work order is submitted to the service office.
 
 The Department will assume that <agency/> members will deliver <vehicle_name/> to this appointment unless a prior agreement is in place, or unless <agency/> tells the Department otherwise.
 

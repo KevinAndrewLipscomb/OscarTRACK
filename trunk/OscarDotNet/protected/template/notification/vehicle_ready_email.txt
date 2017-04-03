@@ -12,9 +12,9 @@ Where:
 Comment:
    <comment/>
 
-It may be that this vehicle NEEDS GEAR loaded back onto it.  Please make arrangements to address this before placing the vehicle UP.
+Please ensure all ALS equipment is replaced onto this unit prior to placing it in an UP status.
 
-The Department will assume that <agency/> members will pick up <vehicle_name/> unless a prior agreement is in place, or unless <agency/> tells the Department otherwise.
+The Department expects <agency/> to pick up <vehicle_name/> unless other arrangements have been made.
 
 You can reach <actor/> at:
 
