@@ -130,6 +130,7 @@ namespace UserControl_schedule_assignments_audit
         {
         if (!p.be_interactive)
           {
+          RadioButtonList_relative_month.Enabled = false;
           DataGrid_control.AllowSorting = false;
           }
         Bind();

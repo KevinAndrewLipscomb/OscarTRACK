@@ -13,15 +13,6 @@ namespace UserControl_schedule_assignments_audit {
     public partial class TWebUserControl_schedule_assignments_audit {
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// RadioButtonList_relative_month control.
         /// </summary>
         /// <remarks>
