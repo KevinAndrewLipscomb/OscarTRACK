@@ -102,6 +102,7 @@
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill_maag.aspx" />
+    <Content Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx" />
     <Content Include="noninteractive\report_monthly_als_interns.aspx" />
     <Content Include="noninteractive\report_monthly_bls_intern_assignments.aspx" />
     <Content Include="noninteractive\report_monthly_test_candidate_roster.aspx" />
@@ -569,6 +570,13 @@
     </Compile>
     <Compile Include="noninteractive\report_commanded_watchbill_maag.aspx.designer.cs">
       <DependentUpon>report_commanded_watchbill_maag.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx.cs">
+      <DependentUpon>report_end_of_month_schedule_assignments_audit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx.designer.cs">
+      <DependentUpon>report_end_of_month_schedule_assignments_audit.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_monthly_als_interns.aspx.cs">
       <DependentUpon>report_monthly_als_interns.aspx</DependentUpon>

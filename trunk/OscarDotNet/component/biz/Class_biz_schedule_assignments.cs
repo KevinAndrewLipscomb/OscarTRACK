@@ -936,6 +936,61 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal void PublishEndOfMonthAuditReport(string working_directory)
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R01\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R02\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R04\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R05\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R06\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R09\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R13\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R14\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R16\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_schedule_assignments_audit.aspx?agency=R17\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
+        );
+      }
+
     internal void PublishFullWatchbill
       (
       string agency_filter,
