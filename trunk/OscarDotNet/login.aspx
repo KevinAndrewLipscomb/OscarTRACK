@@ -82,7 +82,11 @@
           </table>
         </td>
         <td>&nbsp;&nbsp;&nbsp;</td>
-        <td align="center"><big><b><a href="pub/field_situation.aspx" target="_blank">_\|/_<br />Active<br />Case<br />Board<br />&macr;/|\&macr;</a></b></big></td>
+        <td align="center">
+          <asp:Panel ID="Panel_public_active_case_board" runat="server" Visible="false">
+            <big><b><a href="pub/field_situation.aspx" target="_blank">_\|/_<br />Active<br />Case<br />Board<br />&macr;/|\&macr;</a></b></big>
+          </asp:Panel>
+        </td>
       </tr>
       <tr>
         <td>&nbsp;</td>
