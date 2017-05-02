@@ -64,7 +64,13 @@ CREATE  TABLE `resident_import`
 update resident_import set state = 'VA' where state = 'VIRGINIA'
 ;
 -- insert ignore state (abbreviation) select distinct state from resident_import
-  -- DO NOT POLLUTE state TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
+  -- DO NOT POLLUTE state TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
+  -- 1. In MySQL Workbench, run "select * from state order by id" and make a note of existing watermark.
+  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
+  -- 3. In MySQL Workbench, run the unsaved script.
+  -- 4. In MySQL Workbench, run "select * from state order by id" and make a note of new entries (past watermark).
+  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
+  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
 ;
 update resident_import join state on (state.abbreviation=resident_import.state) set state_id = state.id
 ;
@@ -75,7 +81,13 @@ update resident_import join state on (state.abbreviation=resident_import.state) 
 update resident_import set city = "VIRGINIA BEACH" where city = "VIRGINIA BCH"
 ;
 -- insert ignore city (name,state_id) select distinct resident_import.city as name, resident_import.state_id as state_id from resident_import
-  -- DO NOT POLLUTE city TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
+  -- DO NOT POLLUTE city TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
+  -- 1. In MySQL Workbench, run "select * from city order by id" and make a note of existing watermark.
+  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
+  -- 3. In MySQL Workbench, run the unsaved script.
+  -- 4. In MySQL Workbench, run "select * from city order by id" and make a note of new entries (past watermark).
+  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
+  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
 ;
 update resident_import join city on (city.name=resident_import.city and city.state_id=resident_import.state_id) set city_id = city.id
 ;
@@ -305,7 +317,13 @@ update ignore resident_import set address = CONCAT(address,' ',post_directional)
 --
 ;
 -- insert ignore street (name,city_id) select distinct resident_import.address as name, resident_import.city_id as city_id from resident_import
-  -- DO NOT POLLUTE street TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
+  -- DO NOT POLLUTE street TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
+  -- 1. In MySQL Workbench, run "select * from street order by id" and make a note of existing watermark.
+  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
+  -- 3. In MySQL Workbench, run the unsaved script.
+  -- 4. In MySQL Workbench, run "select * from street order by id" and make a note of new entries (past watermark).
+  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
+  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
 ;
 update resident_import join street on (street.name=resident_import.address and street.city_id=resident_import.city_id) set street_id = street.id
 ;
