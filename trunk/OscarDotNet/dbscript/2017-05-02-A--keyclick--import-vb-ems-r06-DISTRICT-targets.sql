@@ -4,9 +4,11 @@ START TRANSACTION
 --
 -- ADJUST THE BELOW STATEMENT!!!
 --
+-- If you just imported DONORS, you won't want to execute the following statement at all.
+--
 -- --
 ;
-update resident_base set name = NULL where agency = ''  -- ADJUST!!!
+-- update resident_base set name = NULL where agency = ''  -- ADJUST!!!
 ;
 -- --
 --
@@ -29,8 +31,6 @@ CREATE  TABLE `resident_import`
   ,
     `agency` ENUM('KVRS','PVRS','DCVRS','PACHVRS','CBVRS','VBVRS','OPVRS','CVRS','BVRS','SVRS') NOT NULL
   ,
-    `id_in_agency_system` VARCHAR(7)
-  ,
     `state_id` BIGINT UNSIGNED
   ,
     `city_id` BIGINT UNSIGNED
@@ -40,30 +40,43 @@ CREATE  TABLE `resident_import`
     `street_id` BIGINT UNSIGNED
   ,
     `post_directional` VARCHAR(2)
-  ,
-    `amount` DECIMAL(10,2) DEFAULT 1
-  ,
-    `method` ENUM('BIZREPLY', 'INMEMOF', 'UNSOLICITED', 'WEB', 'LOVELETTER') DEFAULT 'BIZREPLY'
-  ,
-    `in_mem_of` VARCHAR(64)
-  ,
-    `note` TEXT
-  ,
-    `date` DATE 
   )
 ;
 -- --
 --
 --
--- Insert output column from spreadsheet(s) below this comment.  If working with multiple lists, the order should be Residents, Businesses, Donors.
+-- Insert output column from spreadsheet(s) below this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
 --
 -- --
 ;
+insert ignore resident_import set name = 'Dale Hudges', address = '6408 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Daniel Haughney', address = '6477 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Ed Simpson', address = '6225 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Gary Freeman', address = '6424 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'George Gardner', address = '6520 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Jack Crandell', address = '6468 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Jame Brumley', address = '6472 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'James Freeman', address = '6436 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Kathryn Crittenden', address = '6412 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Mark Williams', address = '6432 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Michael Rush', address = '6352 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Michael Sauders', address = '6410 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Mike Mouras', address = '6489 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Mr. Cason', address = '6476 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Mr. Marelbranche', address = '6400 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = '', address = '6220 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = '', address = '6449 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = '', address = '6470 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = '', address = '6480 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = '', address = '6496 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'Susan Davis', address = '6320 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'William Hudkins', address = '6488 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
+insert ignore resident_import set name = 'William Imhoff', address = '6404 Knotts Island Rd', city = 'VIRGINIA BEACH', state = 'VA', agency = 'CVRS';
 ;
 -- --
 --
 --
--- Insert output column from spreadsheet(s) above this comment.  If working with multiple lists, the order should be Residents, Businesses, Donors.
+-- Insert output column from spreadsheet(s) above this comment.  If working with multiple lists, the order should be Donors, Residents, Businesses.
 --
 -- --
 ;
@@ -74,13 +87,7 @@ CREATE  TABLE `resident_import`
 update resident_import set state = 'VA' where state = 'VIRGINIA'
 ;
 -- insert ignore state (abbreviation) select distinct state from resident_import
-  -- DO NOT POLLUTE state TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
-  -- 1. In MySQL Workbench, run "select * from state order by id" and make a note of existing watermark.
-  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
-  -- 3. In MySQL Workbench, run the unsaved script.
-  -- 4. In MySQL Workbench, run "select * from state order by id" and make a note of new entries (past watermark).
-  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
-  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
+  -- DO NOT POLLUTE state TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
 ;
 update resident_import join state on (state.abbreviation=resident_import.state) set state_id = state.id
 ;
@@ -91,13 +98,7 @@ update resident_import join state on (state.abbreviation=resident_import.state) 
 update resident_import set city = "VIRGINIA BEACH" where city = "VIRGINIA BCH"
 ;
 -- insert ignore city (name,state_id) select distinct resident_import.city as name, resident_import.state_id as state_id from resident_import
-  -- DO NOT POLLUTE city TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
-  -- 1. In MySQL Workbench, run "select * from city order by id" and make a note of existing watermark.
-  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
-  -- 3. In MySQL Workbench, run the unsaved script.
-  -- 4. In MySQL Workbench, run "select * from city order by id" and make a note of new entries (past watermark).
-  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
-  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
+  -- DO NOT POLLUTE city TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
 ;
 update resident_import join city on (city.name=resident_import.city and city.state_id=resident_import.state_id) set city_id = city.id
 ;
@@ -110,14 +111,6 @@ update resident_import set address = REPLACE(address,'  ',' ')
 update resident_import set address = REPLACE(address,' 1/2','-1/2')
 ;
 update resident_import set address = REPLACE(address,'- ','-')
-;
-update resident_import set address = REPLACE(address,'1/2TH ','1/2 ')
-;
-update resident_import set address = REPLACE(address,'TH-1/2 ','-1/2 ')
-;
-update resident_import set address = REPLACE(address,' APT. ',' APT ')
-;
-update resident_import set address = REPLACE(address,' PH-',' PH ')
 ;
 --
 -- Extricate house_num and street from the address field, and convert Sub-Unit Designator phrases into house_num suffixes.
@@ -334,14 +327,8 @@ update ignore resident_import set address = CONCAT(address,' ',post_directional)
 -- STREET
 --
 ;
--- insert ignore street (name,city_id) select distinct resident_import.address as name, resident_import.city_id as city_id from resident_import
-  -- DO NOT POLLUTE street TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
-  -- 1. In MySQL Workbench, run "select * from street order by id" and make a note of existing watermark.
-  -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
-  -- 3. In MySQL Workbench, run the unsaved script.
-  -- 4. In MySQL Workbench, run "select * from street order by id" and make a note of new entries (past watermark).
-  -- 5. For UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, make correction(s) in the work/spreadsheet and re-populate this template.
-  -- 6. Once there are no UNVERIFIED/UNVALIDATED/UNNORMALIZED new entries, save the script with the above insert statement UNCOMMENTED.
+insert ignore street (name,city_id) select distinct resident_import.address as name, resident_import.city_id as city_id from resident_import
+  -- DO NOT POLLUTE street TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA
 ;
 update resident_import join street on (street.name=resident_import.address and street.city_id=resident_import.city_id) set street_id = street.id
 ;
@@ -360,31 +347,17 @@ delete from resident_import where name is null and house_num is null
 -- APPEND resident_import TO resident_base
 --
 ;
-insert ignore resident_base (id,name,agency,house_num,street_id,id_in_agency_system)
+insert ignore resident_base (id,name,agency,house_num,street_id)
 select @id := @id + 1 as id
 , name
 , agency
 , house_num
 , street_id
-, id_in_agency_system
 from (select @id := max(id) from resident_base) as init, resident_import
 ;
 update resident_base
   join resident_import
     on (resident_import.street_id=resident_base.street_id and resident_import.house_num=resident_base.house_num and resident_import.agency=resident_base.agency)
-set resident_base.name = resident_import.name, resident_base.id_in_agency_system = resident_import.id_in_agency_system
-;
-insert ignore donation (id,amount,note,method,in_mem_of,date,entered_by,per_clerk_seq_num)
-select id
-, amount
-, IFNULL(note,'Identified as a donor in external data import') as note
-, method
-, in_mem_of
-, date
-, 'OscarTRACK' as entered_by
-, @n := @n + 1 as per_clerk_seq_num
-from (select @n := max(per_clerk_seq_num) from donation where entered_by = 'OscarTRACK') as init, resident_base
-  join resident_import
-    on (resident_import.street_id=resident_base.street_id and resident_import.house_num=resident_base.house_num and resident_import.agency=resident_base.agency)
+set resident_base.name = resident_import.name
 ;
 COMMIT
