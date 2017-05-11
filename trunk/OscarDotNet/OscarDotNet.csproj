@@ -85,6 +85,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="cloudmailin\fleetman.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="exception.aspx" />
     <Content Include="Global.asax" />
@@ -317,6 +318,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="appcommon.cs" />
+    <Compile Include="cloudmailin\fleetman.aspx.cs">
+      <DependentUpon>fleetman.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cloudmailin\fleetman.aspx.designer.cs">
+      <DependentUpon>fleetman.aspx</DependentUpon>
+    </Compile>
     <Compile Include="component\biz\Class_biz_agency_satellite_stations.cs" />
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
     <Compile Include="component\biz\Class_biz_care_skills.cs" />
@@ -331,6 +339,7 @@
     <Compile Include="component\biz\Class_biz_evals.cs" />
     <Compile Include="component\biz\Class_biz_eval_status.cs" />
     <Compile Include="component\biz\Class_biz_field_situations.cs" />
+    <Compile Include="component\biz\Class_biz_fleetman.cs" />
     <Compile Include="component\biz\Class_biz_fund_drives.cs" />
     <Compile Include="component\biz\Class_biz_gripes.cs" />
     <Compile Include="component\biz\Class_biz_incident_natures.cs" />
