@@ -17,6 +17,7 @@
             <cc1:TabPanel runat="server" headertext="Active Case Board" id="TabPanel_field_situation"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Config" id="TabPanel_config"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="About" id="TabPanel_about"></cc1:TabPanel>
+            <cc1:TabPanel runat="server" headertext="Test" id="TabPanel_test" Visible="false"></cc1:TabPanel>
           </cc1:TabContainer>
         </td>
       </tr>

@@ -11,6 +11,7 @@ using UserControl_fleet;
 using UserControl_funddrive_binder;
 using UserControl_personnel_binder;
 using UserControl_schedule_binder;
+using UserControl_test_binder;
 
 namespace UserControl_member_binder
   {
@@ -36,6 +37,7 @@ namespace UserControl_member_binder
       public const int TSSI_ACTIVE_CASE_BOARD = 7;
       public const int TSSI_CONFIG = 8;
       public const int TSSI_ABOUT = 9;
+      public const int TSSI_TEST = 10;
       }
 
     public struct p_type
@@ -106,6 +108,11 @@ namespace UserControl_member_binder
         var c = ((TWebUserControl_about)(LoadControl("~/usercontrol/app/UserControl_about.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_about",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
+      else if (p.tab_index == Static.TSSI_TEST)
+        {
+        var c = ((TWebUserControl_test_binder)(LoadControl("~/usercontrol/app/UserControl_test_binder.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        }
       }
 
     // / <summary>
@@ -122,6 +129,7 @@ namespace UserControl_member_binder
       {
       if (!p.be_loaded)
         {
+        TabPanel_test.Visible = (new ArrayList(p.biz_user.Roles()).Contains("Application Administrator"));
         p.be_loaded = true;
         }
       TabContainer_control.ActiveTabIndex = (int)(p.tab_index);
@@ -250,6 +258,10 @@ namespace UserControl_member_binder
         else if (target.ToLower().Contains("/about/"))
           {
           p.tab_index = Static.TSSI_ABOUT;
+          }
+        else if (target.ToLower().Contains("/test/"))
+          {
+          p.tab_index = Static.TSSI_TEST;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
