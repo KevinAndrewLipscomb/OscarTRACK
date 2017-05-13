@@ -19,6 +19,7 @@ namespace fleetman
       {
       new TClass_biz_fleetman().ProcessCloudmailinRequest
         (
+        from:Request["from"],
         x_to_header:Request["x_to_header"],
         subject:Request["subject"],
         plain:Request["plain"],

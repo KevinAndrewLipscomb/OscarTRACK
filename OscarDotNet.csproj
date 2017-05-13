@@ -272,6 +272,10 @@
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
     <Content Include="usercontrol\ki\image\add-docket.png" />
@@ -2045,6 +2049,34 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.designer.cs">
       <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_binder.ascx.cs">
+      <DependentUpon>UserControl_test_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_test_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx.cs">
+      <DependentUpon>UserControl_test_cloudmailin_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_test_cloudmailin_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx.cs">
+      <DependentUpon>UserControl_test_cloudmailin_fleetman.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx.designer.cs">
+      <DependentUpon>UserControl_test_cloudmailin_fleetman.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.cs">
+      <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.designer.cs">
+      <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.cs">
       <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>

@@ -121,6 +121,15 @@ namespace UserControl_member_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_about;
         
         /// <summary>
+        /// TabPanel_test control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_test;
+        
+        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>
