@@ -8,16 +8,6 @@
     <td></td>
   </tr>
   <tr>
-    <td>from:</td>
-    <td>
-      <asp:TextBox ID="TextBox_from" runat="server" Columns="80"></asp:TextBox>
-      <ajaxToolkit:FilteredTextBoxExtender runat="server" BehaviorID="TextBox_from_FilteredTextBoxExtender" FilterMode="InvalidChars" InvalidChars="<>" TargetControlID="TextBox_from" ID="TextBox_from_FilteredTextBoxExtender"></ajaxToolkit:FilteredTextBoxExtender>
-    </td>
-    <td>
-      <asp:RequiredFieldValidator ID="RequiredFieldValidator_from" runat="server" ErrorMessage="Please enter a from." Font-Bold="True" Text="!ERR!" Display="Dynamic" ControlToValidate="TextBox_from"></asp:RequiredFieldValidator>
-    </td>
-  </tr>
-  <tr>
     <td>x_to_header:</td>
     <td>
       <asp:TextBox ID="TextBox_x_to_header" runat="server" Columns="80" TextMode="Email"></asp:TextBox>
@@ -40,14 +30,6 @@
     <td>
       <asp:TextBox ID="TextBox_plain" runat="server" Columns="80" Rows="8" TextMode="MultiLine"></asp:TextBox>
       <ajaxToolkit:FilteredTextBoxExtender ID="TextBox_plain_FilteredTextBoxExtender" runat="server" BehaviorID="TextBox_plain_FilteredTextBoxExtender" FilterMode="InvalidChars" InvalidChars="<>" TargetControlID="TextBox_plain"></ajaxToolkit:FilteredTextBoxExtender>
-    </td>
-    <td></td>
-  </tr>
-  <tr>
-    <td valign="top">message:</td>
-    <td>
-      <asp:TextBox ID="TextBox_message" runat="server" TextMode="MultiLine" Rows="12" Columns="80"></asp:TextBox>
-      <ajaxToolkit:FilteredTextBoxExtender ID="TextBox_message_FilteredTextBoxExtender" runat="server" BehaviorID="TextBox_message_FilteredTextBoxExtender" FilterMode="InvalidChars" InvalidChars="<>" TargetControlID="TextBox_message"></ajaxToolkit:FilteredTextBoxExtender>
     </td>
     <td></td>
   </tr>

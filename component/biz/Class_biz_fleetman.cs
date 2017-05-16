@@ -21,8 +21,6 @@ namespace Class_biz_fleetman
 
     internal void ProcessCloudmailinRequest
       (
-      string from,
-      string x_from_header,
       string x_to_header,
       string subject,
       string plain
@@ -35,9 +33,13 @@ namespace Class_biz_fleetman
         to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS).Replace("fleetman@frompaper2web.com",k.EMPTY))),
         subject:subject,
         message_string:k.EMPTY
-        + "-- Via the OscarTRACK FleetMan feature..." + k.NEW_LINE
+        + plain + k.NEW_LINE
         + k.NEW_LINE
-        + plain,
+        + "+---=::=---" + k.NEW_LINE
+        + "|" + k.NEW_LINE
+        + "| Via OscarTRACK FleetMan" + k.NEW_LINE
+        + "|" + k.NEW_LINE
+        + "+---=::=---" + k.NEW_LINE,
         be_html:false,
         cc:department_fleet_target,
         reply_to:department_fleet_target

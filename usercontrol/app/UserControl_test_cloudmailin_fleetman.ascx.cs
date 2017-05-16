@@ -72,14 +72,12 @@ namespace UserControl_test_cloudmailin_fleetman
 
     protected void Button_process_Click(object sender, EventArgs e)
       {
-      //p.biz_fleetman.ProcessCloudmailinRequest
-      //  (
-      //  from:k.Safe(TextBox_from.Text,k.safe_hint_type.PUNCTUATED),
-      //  x_from_header:k.Safe(TextBox_from.Text,k.safe_hint_type.PUNCTUATED),
-      //  x_to_header:k.Safe(TextBox_x_to_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
-      //  subject:k.Safe(TextBox_subject.Text,k.safe_hint_type.PUNCTUATED),
-      //  plain:k.Safe(TextBox_plain.Text,k.safe_hint_type.MEMO)
-      //  );
+      p.biz_fleetman.ProcessCloudmailinRequest
+        (
+        x_to_header:k.Safe(TextBox_x_to_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
+        subject:k.Safe(TextBox_subject.Text,k.safe_hint_type.PUNCTUATED),
+        plain:k.Safe(TextBox_plain.Text,k.safe_hint_type.MEMO)
+        );
       //
       Alert
         (
@@ -96,16 +94,13 @@ namespace UserControl_test_cloudmailin_fleetman
       TextBox_x_to_header.Text = k.EMPTY;
       TextBox_subject.Text = k.EMPTY;
       TextBox_plain.Text = k.EMPTY;
-      TextBox_message.Text = k.EMPTY;
       }
 
     protected void CheckBox_filter_extenders_be_enabled_CheckedChanged(object sender, EventArgs e)
       {
-      TextBox_from_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_x_to_header_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_subject_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_plain_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
-      TextBox_message_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       }
 
     }
