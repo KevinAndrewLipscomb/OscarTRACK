@@ -22,10 +22,10 @@ namespace Class_biz_fleetman
     internal void ProcessCloudmailinRequest
       (
       string from,
+      string x_from_header,
       string x_to_header,
       string subject,
-      string plain,
-      string message
+      string plain
       )
       {
       var department_fleet_target = db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled","0");
@@ -35,10 +35,13 @@ namespace Class_biz_fleetman
         to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(Regex.Replace(input:x_to_header,pattern:"fleetman@vbrescuecouncil\\.(com|org)",replacement:k.EMPTY))),
         subject:subject,
         message_string:k.EMPTY
-        + "-- From " + from + "..." + k.NEW_LINE
+        + "-- from: " + from + k.NEW_LINE
+        + "-- x_from_header: " + from + k.NEW_LINE
+        + "-- x_to_header: " + from + k.NEW_LINE
+        + "-- subject: " + from + k.NEW_LINE
         + k.NEW_LINE
-        + message,
-        be_html:true,
+        + plain,
+        be_html:false,
         cc:department_fleet_target,
         reply_to:department_fleet_target
         );

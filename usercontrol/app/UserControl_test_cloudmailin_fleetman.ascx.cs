@@ -72,14 +72,14 @@ namespace UserControl_test_cloudmailin_fleetman
 
     protected void Button_process_Click(object sender, EventArgs e)
       {
-      p.biz_fleetman.ProcessCloudmailinRequest
-        (
-        from:k.Safe(TextBox_from.Text,k.safe_hint_type.PUNCTUATED),
-        x_to_header:k.Safe(TextBox_x_to_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
-        subject:k.Safe(TextBox_subject.Text,k.safe_hint_type.PUNCTUATED),
-        plain:k.Safe(TextBox_plain.Text,k.safe_hint_type.MEMO),
-        message:k.Safe(TextBox_message.Text,k.safe_hint_type.MEMO)
-        );
+      //p.biz_fleetman.ProcessCloudmailinRequest
+      //  (
+      //  from:k.Safe(TextBox_from.Text,k.safe_hint_type.PUNCTUATED),
+      //  x_from_header:k.Safe(TextBox_from.Text,k.safe_hint_type.PUNCTUATED),
+      //  x_to_header:k.Safe(TextBox_x_to_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
+      //  subject:k.Safe(TextBox_subject.Text,k.safe_hint_type.PUNCTUATED),
+      //  plain:k.Safe(TextBox_plain.Text,k.safe_hint_type.MEMO)
+      //  );
       //
       Alert
         (

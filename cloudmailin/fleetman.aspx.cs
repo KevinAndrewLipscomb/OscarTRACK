@@ -22,14 +22,13 @@ namespace fleetman
       var x_to_header = Request["x_to_header"];
       var subject = Request["subject"];
       var plain = Request["plain"];
-      var message = Request["message"];
       new TClass_biz_fleetman().ProcessCloudmailinRequest
         (
-        from:Request["x_from_header"],
+        from:Request["from"],
+        x_from_header:Request["x_from_header"],
         x_to_header:Request["x_to_header"],
         subject:Request["subject"],
-        plain:Request["plain"],
-        message:Request["message"]
+        plain:Request["plain"]
         );
       }
 
