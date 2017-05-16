@@ -17,15 +17,8 @@ namespace fleetman
 
     protected void Page_Load(object sender, System.EventArgs e)
       {
-      var from = Request["from"];
-      var x_from_header = Request["x_from_header"];
-      var x_to_header = Request["x_to_header"];
-      var subject = Request["subject"];
-      var plain = Request["plain"];
       new TClass_biz_fleetman().ProcessCloudmailinRequest
         (
-        from:Request["from"],
-        x_from_header:Request["x_from_header"],
         x_to_header:Request["x_to_header"],
         subject:Request["subject"],
         plain:Request["plain"]
