@@ -32,7 +32,7 @@ namespace Class_biz_fleetman
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
-        to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(Regex.Replace(input:x_to_header,pattern:"fleetman@vbrescuecouncil\\.(com|org)",replacement:k.EMPTY))),
+        to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(Regex.Replace(input:x_to_header,pattern:"fleetman@frompaper2web.com",replacement:k.EMPTY))),
         subject:subject,
         message_string:k.EMPTY
         + "-- from: " + from + k.NEW_LINE
