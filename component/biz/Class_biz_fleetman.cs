@@ -36,9 +36,9 @@ namespace Class_biz_fleetman
         subject:subject,
         message_string:k.EMPTY
         + "-- from: " + from + k.NEW_LINE
-        + "-- x_from_header: " + from + k.NEW_LINE
-        + "-- x_to_header: " + from + k.NEW_LINE
-        + "-- subject: " + from + k.NEW_LINE
+        + "-- x_from_header: " + x_from_header + k.NEW_LINE
+        + "-- x_to_header: " + x_to_header + k.NEW_LINE
+        + "-- subject: " + subject + k.NEW_LINE
         + k.NEW_LINE
         + plain,
         be_html:false,
