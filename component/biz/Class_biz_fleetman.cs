@@ -32,13 +32,10 @@ namespace Class_biz_fleetman
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
-        to:k.EMPTY,//db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(Regex.Replace(input:x_to_header,pattern:"fleetman@frompaper2web.com",replacement:k.EMPTY))),
+        to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS).Replace("fleetman@frompaper2web.com",k.EMPTY))),
         subject:subject,
         message_string:k.EMPTY
-        + "-- from: " + from + k.NEW_LINE
-        + "-- x_from_header: " + x_from_header + k.NEW_LINE
-        + "-- x_to_header: " + x_to_header + k.NEW_LINE
-        + "-- subject: " + subject + k.NEW_LINE
+        + "-- Via the OscarTRACK FleetMan feature..." + k.NEW_LINE
         + k.NEW_LINE
         + plain,
         be_html:false,
