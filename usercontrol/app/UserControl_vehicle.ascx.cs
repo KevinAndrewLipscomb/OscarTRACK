@@ -29,6 +29,7 @@ namespace UserControl_vehicle
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_vehicles biz_vehicles;
       public TClass_biz_role_member_map biz_role_member_map;
+      public string saved_deployment_guidance;
       public string saved_kind_id;
       }
 
@@ -211,6 +212,7 @@ namespace UserControl_vehicle
             Table_usability.BorderColor = "LightGray";
             Literal_usability.Text = "DOWN";
             }
+          p.saved_deployment_guidance = k.Safe(TextBox_deployment_guidance.Text,k.safe_hint_type.PUNCTUATED);
           p.saved_kind_id = k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM);
           Literal_quarters.Text = p.biz_vehicles.QuartersOf(Session["vehicle_summary"]);
           CustomValidator_name.Enabled = false;
@@ -367,6 +369,7 @@ namespace UserControl_vehicle
         p.be_mode_add = false;
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
+        p.saved_deployment_guidance = k.EMPTY;
         p.saved_kind_id = k.EMPTY;
         }
       }
@@ -417,7 +420,8 @@ namespace UserControl_vehicle
           CheckBox_be_four_or_all_wheel_drive.Checked,
           p.be_mode_add,
           p.saved_kind_id,
-          k.Safe(TextBox_deployment_guidance.Text,k.safe_hint_type.PUNCTUATED)
+          k.Safe(TextBox_deployment_guidance.Text,k.safe_hint_type.PUNCTUATED),
+          p.saved_deployment_guidance
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();

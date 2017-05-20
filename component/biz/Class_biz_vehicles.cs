@@ -426,7 +426,8 @@ namespace Class_biz_vehicles
       bool be_four_or_all_wheel_drive,
       bool be_mode_add,
       string saved_kind_id,
-      string deployment_guidance
+      string deployment_guidance,
+      string saved_deployment_guidance
       )
       {
       var effective_dmv_inspection_due = DateTime.MinValue;
@@ -462,6 +463,10 @@ namespace Class_biz_vehicles
       else if (kind_id != saved_kind_id)
         {
         biz_notifications.IssueForVehicleKindChanged(id,saved_kind_id,kind_id);
+        }
+      if (deployment_guidance != saved_deployment_guidance)
+        {
+        biz_notifications.IssueForVehicleDeploymentGuidanceChanged(id,saved_deployment_guidance,deployment_guidance);
         }
       }
 

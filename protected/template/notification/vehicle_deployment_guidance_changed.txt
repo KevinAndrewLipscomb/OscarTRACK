@@ -1,0 +1,16 @@
+Deployment guidance change for vehicle <vehicle_name/>
+This is an automatic notification from <application_name/>.
+
+<actor/> has changed vehicle <vehicle_name/>'s deployment guidance as follows:
+
+   Old:
+      <old_deployment_guidance/>
+
+   New:
+      <new_deployment_guidance/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)

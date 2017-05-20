@@ -2283,6 +2283,49 @@ namespace Class_biz_notifications
           template_reader.Close();
           }
 
+    private delegate string IssueForVehicleDeploymentGuidanceChanged_Merge(string s);
+    internal void IssueForVehicleDeploymentGuidanceChanged
+      (
+      string vehicle_id,
+      string old_deployment_guidance,
+      string new_deployment_guidance
+      )
+      {
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var biz_vehicles = new TClass_biz_vehicles();
+      //
+      var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      var actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+
+      IssueForVehicleDeploymentGuidanceChanged_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
+          .Replace("<old_deployment_guidance/>", old_deployment_guidance)
+          .Replace("<new_deployment_guidance/>", new_deployment_guidance);
+        };
+
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_deployment_guidance_changed.txt"));
+      k.SmtpMailSend
+        (
+        ConfigurationManager.AppSettings["sender_email_address"],
+        actor_email_address + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-deployment-guidance-change", biz_vehicles.AgencyIdOfId(vehicle_id)) + k.COMMA + db_notifications.TargetOfAboutAgency("vehicle-deployment-guidance-change","0"),
+        Merge(template_reader.ReadLine()),
+        Merge(template_reader.ReadToEnd()),
+        false,
+        k.EMPTY,
+        k.EMPTY,
+        actor_email_address
+        );
+      template_reader.Close();
+      }
+
         private delegate string IssueForVehicleDownNoteAppended_Merge(string s);
         public void IssueForVehicleDownNoteAppended(string vehicle_id, string down_comment)
           {
