@@ -30,9 +30,11 @@ namespace Class_biz_fleetman
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
-        to:db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS).Replace("fleetman@frompaper2web.com",k.EMPTY))),
+        to:k.EMPTY, // db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS).Replace("fleetman@frompaper2web.com",k.EMPTY))),
         subject:subject,
         message_string:k.EMPTY
+        + "-- x_to_header: " + x_to_header + k.NEW_LINE
+        + k.NEW_LINE
         + plain + k.NEW_LINE
         + k.NEW_LINE
         + "+---=::=---" + k.NEW_LINE
