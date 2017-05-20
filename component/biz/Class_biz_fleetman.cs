@@ -1,6 +1,7 @@
 using Class_db_agencies;
 using Class_db_notifications;
 using kix;
+using System;
 using System.Configuration;
 using System.Text.RegularExpressions;
 
@@ -26,22 +27,35 @@ namespace Class_biz_fleetman
       string plain
       )
       {
+      var primary_target = k.EMPTY;
       var department_fleet_target = db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled","0");
+      var x_to_header_element_array = k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS_CSV).Split(separator:new string[] {k.COMMA},options:StringSplitOptions.RemoveEmptyEntries);
+      for (var i = new k.subtype<int>(0,x_to_header_element_array.Length); i.val < i.LAST; i.val++)
+        {
+        if (x_to_header_element_array[i.val].Contains("fleetman@frompaper2web.com"))
+          {
+          primary_target += db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:x_to_header_element_array[i.val].Replace("fleetman@frompaper2web.com",k.EMPTY)));
+          }
+        else
+          {
+          primary_target += x_to_header_element_array[i.val];
+          }
+        primary_target += k.COMMA;
+        }
       k.SmtpMailSend
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
-        to:k.EMPTY, // db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS).Replace("fleetman@frompaper2web.com",k.EMPTY))),
+        to:primary_target,
         subject:subject,
         message_string:k.EMPTY
-        + "-- x_to_header: " + x_to_header + k.NEW_LINE
-        + k.NEW_LINE
-        + plain + k.NEW_LINE
-        + k.NEW_LINE
         + "+---=::=---" + k.NEW_LINE
         + "|" + k.NEW_LINE
-        + "| Via OscarTRACK FleetMan" + k.NEW_LINE
+        + "| This message was generated via the FleetMan@VbRescueCouncil feature." + k.NEW_LINE
+        + "| Direct all responses to the Department Fleet Coordinators indicated in the Cc/Reply-To fields." + k.NEW_LINE
         + "|" + k.NEW_LINE
-        + "+---=::=---" + k.NEW_LINE,
+        + "+---=::=---" + k.NEW_LINE
+        + k.NEW_LINE
+        + plain,
         be_html:false,
         cc:department_fleet_target,
         reply_to:department_fleet_target
