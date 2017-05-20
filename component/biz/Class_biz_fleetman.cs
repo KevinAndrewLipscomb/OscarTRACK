@@ -51,7 +51,7 @@ namespace Class_biz_fleetman
         + "+---=::=---" + k.NEW_LINE
         + "|" + k.NEW_LINE
         + "| This message was generated via the FleetMan@VbRescueCouncil feature." + k.NEW_LINE
-        + "| Direct all responses to the Department Fleet Coordinators indicated in the Cc/Reply-To fields." + k.NEW_LINE
+        + "| Direct all responses through the Department Fleet Coordinators indicated in the Cc/Reply-To fields." + k.NEW_LINE
         + "|" + k.NEW_LINE
         + "+---=::=---" + k.NEW_LINE
         + k.NEW_LINE
