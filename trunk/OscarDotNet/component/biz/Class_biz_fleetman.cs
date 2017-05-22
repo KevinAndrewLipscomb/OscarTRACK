@@ -32,9 +32,25 @@ namespace Class_biz_fleetman
       var x_to_header_element_array = k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS_CSV).Split(separator:new string[] {k.COMMA},options:StringSplitOptions.RemoveEmptyEntries);
       for (var i = new k.subtype<int>(0,x_to_header_element_array.Length); i.val < i.LAST; i.val++)
         {
-        if (x_to_header_element_array[i.val].Contains("fleetman@frompaper2web.com"))
+        if
+          (
+            x_to_header_element_array[i.val].Contains("fleetman@frompaper2web.com")
+          ||
+            x_to_header_element_array[i.val].Contains("fleetman@vbrescuecouncil.")
+          )
+        //then
           {
-          primary_target += db_notifications.TargetOfAboutAgency("vehicle-needs-shuttled",db_agencies.IdOfShortDesignator(short_designator:x_to_header_element_array[i.val].Replace("fleetman@frompaper2web.com",k.EMPTY)));
+          primary_target += db_notifications.TargetOfAboutAgency
+            (
+            name:"vehicle-needs-shuttled",
+            agency_id:db_agencies.IdOfShortDesignator
+              (
+              short_designator:x_to_header_element_array[i.val]
+                .Replace("fleetman@frompaper2web.com",k.EMPTY)
+                .Replace("fleetman@vbrescuecouncil.org",k.EMPTY)
+                .Replace("fleetman@vbrescuecouncil.com",k.EMPTY)
+              )
+            );
           }
         else
           {
