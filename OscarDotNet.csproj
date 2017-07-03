@@ -103,6 +103,7 @@
     <Content Include="noninteractive\report_commanded_member_schedule_detail.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill.aspx" />
     <Content Include="noninteractive\report_commanded_watchbill_maag.aspx" />
+    <Content Include="noninteractive\report_departures_effective_today.aspx" />
     <Content Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx" />
     <Content Include="noninteractive\report_monthly_als_interns.aspx" />
     <Content Include="noninteractive\report_monthly_bls_intern_assignments.aspx" />
@@ -208,6 +209,7 @@
     <Content Include="usercontrol\app\UserControl_city.ascx" />
     <Content Include="usercontrol\app\UserControl_coverage_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_coverage_assistant_intro.ascx" />
+    <Content Include="usercontrol\app\UserControl_departures_effective_today.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_ack_email.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_ack_letter.ascx" />
     <Content Include="usercontrol\app\UserControl_donation_log.ascx" />
@@ -584,6 +586,13 @@
     </Compile>
     <Compile Include="noninteractive\report_commanded_watchbill_maag.aspx.designer.cs">
       <DependentUpon>report_commanded_watchbill_maag.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_departures_effective_today.aspx.cs">
+      <DependentUpon>report_departures_effective_today.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_departures_effective_today.aspx.designer.cs">
+      <DependentUpon>report_departures_effective_today.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx.cs">
       <DependentUpon>report_end_of_month_schedule_assignments_audit.aspx</DependentUpon>
@@ -1327,6 +1336,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_dashboard_serial_aspects_binder.ascx.designer.cs">
       <DependentUpon>UserControl_dashboard_serial_aspects_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_departures_effective_today.ascx.cs">
+      <DependentUpon>UserControl_departures_effective_today.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_departures_effective_today.ascx.designer.cs">
+      <DependentUpon>UserControl_departures_effective_today.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_donation_ack_email.ascx.cs">
       <DependentUpon>UserControl_donation_ack_email.ascx</DependentUpon>

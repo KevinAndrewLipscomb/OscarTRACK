@@ -41,6 +41,29 @@ namespace Class_db_enrollment
           return be_core_ops_committed;
           }
 
+    public void BindDeparturesEffectiveToday(object target)
+      {
+      Open();
+      ((target) as DataGrid).DataSource = new MySqlCommand
+        (
+        "SELECT CONCAT(agency.long_designator,' ',former_level.description,' member ',first_name,' ',last_name,' (CAD# ',cad_num,', ',medical_release_code_description_map.description,') has transitioned to the *',current_level.description,'* status effective today.') as departure"
+        + " FROM enrollment_history as current"
+        +   " join enrollment_history as former on (former.member_id=current.member_id and former.end_date=current.start_date)"
+        +   " join enrollment_level as current_level on (current_level.code=current.level_code)"
+        +   " join enrollment_level as former_level on (former_level.code=former.level_code)"
+        +   " join member on (member.id=current.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        + " where current.start_date = CURDATE()"
+        +   " and current.end_date is null"
+        +   " and current_level.pecking_order >= 100",
+        connection
+        )
+        .ExecuteReader();
+      ((target) as DataGrid).DataBind();
+      Close();
+      }
+
         public void BindMemberHistory(string member_id, object target)
         {
             this.Open();
