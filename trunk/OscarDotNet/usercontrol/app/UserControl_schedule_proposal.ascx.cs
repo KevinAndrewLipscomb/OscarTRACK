@@ -730,7 +730,10 @@ namespace UserControl_schedule_proposal
       //
       // Manage ablement of interactive name linkbutton.
       //
-      ((e.Item.Cells[tci_name_interactive].Controls[0]) as LinkButton).Enabled = be_ok_to_enable_controls;
+      if (!be_ok_to_enable_controls)
+        {
+        ((e.Item.Cells[tci_name_interactive].Controls[0]) as LinkButton).CommandName = ((e.Item.Cells[tci_name_interactive].Controls[0]) as LinkButton).CommandName.Replace("Select","SeeMemberDetailFor");
+        }
       //
       // Manage member_agency_id.
       //
@@ -1221,18 +1224,35 @@ namespace UserControl_schedule_proposal
 
     protected void A_ItemCommand(object source, DataGridCommandEventArgs e)
       {
+      var d_member_id = k.Safe(e.Item.Cells[Static.TCI_D_MEMBER_ID].Text,k.safe_hint_type.NUM);
+      var n_member_id = k.Safe(e.Item.Cells[Static.TCI_N_MEMBER_ID].Text,k.safe_hint_type.NUM);
       p.msg_protected_member_schedule_detail.relative_month = p.relative_month;
-      if (e.CommandName == "SelectDayAvailMember")
+      if (e.CommandName.StartsWith("Select"))
         {
-        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[Static.TCI_D_MEMBER_ID].Text,k.safe_hint_type.NUM);
-        p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[Static.TCI_D_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        if (e.CommandName == "SelectDayAvailMember")
+          {
+          p.msg_protected_member_schedule_detail.member_id = d_member_id;
+          p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[Static.TCI_D_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+          }
+        else if (e.CommandName == "SelectNightAvailMember")
+          {
+          p.msg_protected_member_schedule_detail.member_id = n_member_id;
+          p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[Static.TCI_N_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+          }
+        MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
         }
-      else if (e.CommandName == "SelectNightAvailMember")
+      if (e.CommandName.StartsWith("SeeMemberDetailFor"))
         {
-        p.msg_protected_member_schedule_detail.member_id = k.Safe(e.Item.Cells[Static.TCI_N_MEMBER_ID].Text,k.safe_hint_type.NUM);
-        p.msg_protected_member_schedule_detail.member_agency_id = k.Safe(e.Item.Cells[Static.TCI_N_MEMBER_AGENCY_ID].Text,k.safe_hint_type.NUM);
+        if (e.CommandName == "SeeMemberDetailForDayAvailMember")
+          {
+          SessionSet("member_summary",p.biz_members.Summary(d_member_id));
+          }
+        else if (e.CommandName == "SeeMemberDetailForNightAvailMember")
+          {
+          SessionSet("member_summary",p.biz_members.Summary(n_member_id));
+          }
+        MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_detail");
         }
-      MessageDropCrumbAndTransferTo(p.msg_protected_member_schedule_detail,"protected","member_schedule_detail");
       }
 
     protected void RadioButtonList_be_nominal_day_mode_specific_SelectedIndexChanged(object sender, EventArgs e)

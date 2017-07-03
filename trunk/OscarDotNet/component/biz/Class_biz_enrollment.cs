@@ -84,6 +84,11 @@ namespace Class_biz_enrollment
             return result;
         }
 
+    public void BindDeparturesEffectiveToday(object target)
+      {
+      db_enrollment.BindDeparturesEffectiveToday(target);
+      }
+
         public void BindMemberHistory(string member_id, object target)
         {
             db_enrollment.BindMemberHistory(member_id, target);
