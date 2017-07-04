@@ -58,6 +58,7 @@ namespace Class_biz_scheduled_tasks
       {
       biz_enrollment.MakeSeniorityPromotionEarlyWarnings();
       biz_enrollment.MakeSeniorityPromotions();
+      biz_enrollment.IssueDeparturesEffectiveTodayReport(current_working_directory_spec);
       biz_leaves.MakeLeaveEndingSoonNotifications();
       biz_leaves.MakeLeaveExpirationNotifications();
       biz_enrollment.MakeFailureToThriveDemotions();

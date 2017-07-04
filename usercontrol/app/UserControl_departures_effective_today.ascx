@@ -18,7 +18,7 @@
           <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
           <tr>
             <td>
-              <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" allowsorting="True" ShowHeader="false">
+              <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" allowsorting="True" ShowHeader="false" OnItemDataBound="DataGrid_control_ItemDataBound">
                 <Columns>
                   <asp:BoundColumn datafield="departure"></asp:BoundColumn>
                 </Columns>
