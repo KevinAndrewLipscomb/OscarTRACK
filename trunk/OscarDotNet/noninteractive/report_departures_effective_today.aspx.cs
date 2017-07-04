@@ -60,7 +60,7 @@ namespace report_departures_effective_today
         k.SmtpMailSend
           (
           from:ConfigurationManager.AppSettings["sender_email_address"],
-          to:p.biz_notifications.TargetOfAboutAgency(name:"any-departure",agency_id:k.EMPTY) + k.COMMA + ConfigurationManager.AppSettings["external-any-departure-notification-target"],
+          to:p.biz_notifications.TargetOfAboutAgency(name:"general-departure",agency_id:k.EMPTY) + k.COMMA + ConfigurationManager.AppSettings["external-general-departure-notification-target"],
           subject:"Report: Departures Effective Today",
           message_string:body,
           be_html:true

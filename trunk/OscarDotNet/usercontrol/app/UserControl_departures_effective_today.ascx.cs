@@ -1,6 +1,8 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_enrollment;
+using System;
+using System.Web.UI.WebControls;
 
 namespace UserControl_departures_effective_today
   {
@@ -66,6 +68,7 @@ namespace UserControl_departures_effective_today
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
+        p.num_departures = 0;
         }
       }
 
@@ -74,7 +77,7 @@ namespace UserControl_departures_effective_today
       PreRender += TWebUserControl_departures_effective_today_PreRender;
       }
 
-    private void TWebUserControl_departures_effective_today_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_departures_effective_today_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -97,7 +100,15 @@ namespace UserControl_departures_effective_today
 
     internal bool BeAny()
       {
-      return (p.num_departures > 0);
+      return !p.be_datagrid_empty;
+      }
+
+    protected void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
+      {
+      if (e.Item.ItemType.ToString().Contains("Item"))
+        {
+        p.num_departures++;
+        }
       }
 
     } // end TWebUserControl_departures_effective_today

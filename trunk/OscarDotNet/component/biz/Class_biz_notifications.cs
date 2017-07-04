@@ -72,6 +72,63 @@ namespace Class_biz_notifications
             db_notifications.CycleTallies();
         }
 
+    private delegate string IssueExternalForGeneralDeparture_Merge(string s);
+    public void IssueExternalForNonFutureGeneralDeparture // *Future* general departures are reported as part of daily_tasks.aspx.cs.
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string new_level,
+      string effective_date,
+      string note
+      )
+      {
+      string actor = k.EMPTY;
+      string actor_email_address = k.EMPTY;
+      string actor_member_id;
+      TClass_biz_members biz_members;
+      TClass_biz_user biz_user;
+      TClass_biz_users biz_users;
+      StreamReader template_reader;
+
+      IssueExternalForGeneralDeparture_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<effective_date/>", effective_date)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<member_id/>", member_id)
+          .Replace("<new_level/>", new_level)
+          .Replace("<note/>", note);
+        };
+
+      biz_members = new TClass_biz_members();
+      biz_user = new TClass_biz_user();
+      biz_users = new TClass_biz_users();
+      actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/new_enrollment_level.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:ConfigurationManager.AppSettings["external-general-departure-notification-target"],
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        be_html:false,
+        cc:k.EMPTY,
+        bcc:k.EMPTY,
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
+
         private delegate string IssueForAgencyChange_Merge(string s);
         public void IssueForAgencyChange(string member_id, string first_name, string last_name, string cad_num, string old_agency_medium_designator, string new_agency_medium_designator)
         {

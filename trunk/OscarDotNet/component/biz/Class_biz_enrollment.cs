@@ -8,6 +8,7 @@ using Class_db_members;
 using kix;
 using System;
 using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_enrollment
   {
@@ -191,6 +192,25 @@ namespace Class_biz_enrollment
         }
       }
 
+    internal void IssueDeparturesEffectiveTodayReport(string working_directory)
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+          "--output-document=/dev/null --no-check-certificate"
+          + k.SPACE
+          + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_departures_effective_today.aspx\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
+        );
+      }
+
     public bool SetLevel
       (
       string new_level_code,
@@ -210,6 +230,7 @@ namespace Class_biz_enrollment
         {
         set_level = true;
         var do_purge_member_roles = false;
+        var new_level_description = db_enrollment.DescriptionOf(new_level_code);
         if (BePastDescription(db_members.EnrollmentOf(summary)))
           {
           db_members.SetOscalertThresholds
@@ -220,6 +241,10 @@ namespace Class_biz_enrollment
             summary:summary
             );
           do_purge_member_roles = true;
+          if (effective_date <= DateTime.Today)
+            {
+            biz_notifications.IssueExternalForNonFutureGeneralDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
+            }
           }
         if (target_agency_id != k.EMPTY)
           {
@@ -240,7 +265,6 @@ namespace Class_biz_enrollment
           {
           new TClass_biz_role_member_map().PurgeMember(member_id); // Pre-instantiating biz_role_member_map would cause a circularity.
           }
-        var new_level_description = db_enrollment.DescriptionOf(new_level_code);
         if (new_level_description == "Deceased")
           {
           biz_notifications.IssueForDeath(member_id, first_name, last_name, cad_num, effective_date.ToString("yyyy-MM-dd"), note);
