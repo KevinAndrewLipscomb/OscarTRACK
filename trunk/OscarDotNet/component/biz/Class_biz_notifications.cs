@@ -97,7 +97,7 @@ namespace Class_biz_notifications
         return s
           .Replace("<application_name/>", application_name)
           .Replace("<host_domain_name/>", host_domain_name)
-          .Replace("<actor/>", actor)
+          .Replace("<actor/>", "EMS " + actor)
           .Replace("<actor_email_address/>", actor_email_address)
           .Replace("<cad_num/>", cad_num)
           .Replace("<effective_date/>", effective_date)
@@ -119,7 +119,7 @@ namespace Class_biz_notifications
         (
         from:ConfigurationManager.AppSettings["sender_email_address"],
         to:ConfigurationManager.AppSettings["external-general-departure-notification-target"],
-        subject:Merge(template_reader.ReadLine()),
+        subject:"EMS member " + Merge(template_reader.ReadLine()),
         message_string:Merge(template_reader.ReadToEnd()),
         be_html:false,
         cc:k.EMPTY,
