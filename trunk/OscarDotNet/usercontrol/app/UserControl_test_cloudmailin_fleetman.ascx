@@ -8,6 +8,16 @@
     <td></td>
   </tr>
   <tr>
+    <td>x_from_header:</td>
+    <td>
+      <asp:TextBox ID="TextBox_x_from_header" runat="server" Columns="80" TextMode="Email"></asp:TextBox>
+      <ajaxToolkit:FilteredTextBoxExtender runat="server" BehaviorID="TextBox_x_from_header_FilteredTextBoxExtender" FilterMode="InvalidChars" InvalidChars="<>" TargetControlID="TextBox_x_from_header" ID="TextBox_x_from_header_FilteredTextBoxExtender"></ajaxToolkit:FilteredTextBoxExtender>
+    </td>
+    <td>
+      <asp:RequiredFieldValidator ID="RequiredFieldValidator_x_from_header" runat="server" ErrorMessage="Please enter an x_from_header." Font-Bold="True" Text="!ERR!" Display="Dynamic" ControlToValidate="TextBox_x_from_header"></asp:RequiredFieldValidator>
+    </td>
+  </tr>
+  <tr>
     <td>x_to_header:</td>
     <td>
       <asp:TextBox ID="TextBox_x_to_header" runat="server" Columns="80" TextMode="Email"></asp:TextBox>
