@@ -22,6 +22,7 @@ namespace Class_biz_fleetman
 
     internal void ProcessCloudmailinRequest
       (
+      string x_from_header,
       string x_to_header,
       string subject,
       string plain
@@ -60,7 +61,7 @@ namespace Class_biz_fleetman
         }
       k.SmtpMailSend
         (
-        from:ConfigurationManager.AppSettings["sender_email_address"],
+        from:ConfigurationManager.AppSettings["sender_email_address"].Replace(ConfigurationManager.AppSettings["application_name"],"VbRescueCouncilFleetMan"),
         to:primary_target,
         subject:subject,
         message_string:k.EMPTY
@@ -74,6 +75,7 @@ namespace Class_biz_fleetman
         + plain,
         be_html:false,
         cc:department_fleet_target,
+        bcc:x_from_header,
         reply_to:department_fleet_target
         );
       }
