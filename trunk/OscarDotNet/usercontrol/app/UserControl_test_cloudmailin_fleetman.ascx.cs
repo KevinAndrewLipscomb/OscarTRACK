@@ -74,7 +74,7 @@ namespace UserControl_test_cloudmailin_fleetman
       {
       p.biz_fleetman.ProcessCloudmailinRequest
         (
-        x_from_header:k.Safe(TextBox_x_from_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
+        from:k.Safe(TextBox_from.Text,k.safe_hint_type.EMAIL_ADDRESS),
         x_to_header:k.Safe(TextBox_x_to_header.Text,k.safe_hint_type.EMAIL_ADDRESS_CSV),
         subject:k.Safe(TextBox_subject.Text,k.safe_hint_type.PUNCTUATED),
         plain:k.Safe(TextBox_plain.Text,k.safe_hint_type.MEMO)
@@ -99,7 +99,7 @@ namespace UserControl_test_cloudmailin_fleetman
 
     protected void CheckBox_filter_extenders_be_enabled_CheckedChanged(object sender, EventArgs e)
       {
-      TextBox_x_from_header_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
+      TextBox_from_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_x_to_header_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_subject_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 
       TextBox_plain_FilteredTextBoxExtender.Enabled = CheckBox_filter_extenders_be_enabled.Checked; 

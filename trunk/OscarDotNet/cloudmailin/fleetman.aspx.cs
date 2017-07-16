@@ -19,7 +19,7 @@ namespace fleetman
       {
       new TClass_biz_fleetman().ProcessCloudmailinRequest
         (
-        x_from_header:Request.Unvalidated["x_from_header"],
+        from:Request.Unvalidated["from"],
         x_to_header:Request.Unvalidated["x_to_header"],
         subject:Request.Unvalidated["subject"],
         plain:Request.Unvalidated["plain"]
