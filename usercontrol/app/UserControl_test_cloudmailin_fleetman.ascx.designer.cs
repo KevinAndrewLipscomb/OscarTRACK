@@ -22,31 +22,31 @@ namespace UserControl_test_cloudmailin_fleetman {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_filter_extenders_be_enabled;
         
         /// <summary>
-        /// TextBox_x_from_header control.
+        /// TextBox_from control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox TextBox_x_from_header;
+        protected global::System.Web.UI.WebControls.TextBox TextBox_from;
         
         /// <summary>
-        /// TextBox_x_from_header_FilteredTextBoxExtender control.
+        /// TextBox_from_FilteredTextBoxExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.FilteredTextBoxExtender TextBox_x_from_header_FilteredTextBoxExtender;
+        protected global::AjaxControlToolkit.FilteredTextBoxExtender TextBox_from_FilteredTextBoxExtender;
         
         /// <summary>
-        /// RequiredFieldValidator_x_from_header control.
+        /// RequiredFieldValidator_from control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_x_from_header;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_from;
         
         /// <summary>
         /// TextBox_x_to_header control.

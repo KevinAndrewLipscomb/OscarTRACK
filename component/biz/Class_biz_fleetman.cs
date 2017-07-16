@@ -22,7 +22,7 @@ namespace Class_biz_fleetman
 
     internal void ProcessCloudmailinRequest
       (
-      string x_from_header,
+      string from,
       string x_to_header,
       string subject,
       string plain
@@ -75,7 +75,7 @@ namespace Class_biz_fleetman
         + plain,
         be_html:false,
         cc:department_fleet_target,
-        bcc:x_from_header,
+        bcc:from,
         reply_to:department_fleet_target
         );
       }
