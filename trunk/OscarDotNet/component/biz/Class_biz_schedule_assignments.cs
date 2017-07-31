@@ -264,6 +264,16 @@ namespace Class_biz_schedule_assignments
       return be_user_privileged_to_edit_schedule && ((biz_members.AgencyIdOfId(member_id) == agency_id) || (biz_roles.BeUserPeckingOrderAtLeast("Application Administrator")));
       }
 
+    internal bool BeOkToSendQuickMessageByShift
+      (
+      bool be_interactive,
+      bool be_ok_to_edit_post,
+      bool be_ok_to_send_quickmessage_by_shift
+      )
+      {
+      return be_interactive && (be_ok_to_edit_post || be_ok_to_send_quickmessage_by_shift);
+      }
+
     internal bool BeOkToWorkOnNextMonthAssignments()
       {
       return (DateTime.Now.Day > uint.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]));
