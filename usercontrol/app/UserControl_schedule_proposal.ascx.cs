@@ -151,6 +151,7 @@ namespace UserControl_schedule_proposal
       public bool be_ok_to_schedule_volunteer_field_supervisor_team;
       public bool be_ok_to_schedule_mci_team;
       public bool be_ok_to_see_other_member_schedule_detail;
+      public bool be_ok_to_send_quickmessage_by_shift;
       public bool be_squad_exclusivity_expired;
       public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_agencies biz_agencies;
@@ -264,14 +265,14 @@ namespace UserControl_schedule_proposal
         p.be_lineup = (Session["mode:report/commanded-lineup"] != null);
         p.be_now_day_shift = p.biz_shifts.BeInDayShift(DateTime.Now.TimeOfDay.Add(new TimeSpan(hours:6,minutes:0,seconds:0)));
         p.be_nominal_day_mode_specific =  (p.be_interactive || p.be_lineup);
-        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
+        p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_ok_to_edit_schedule_for_any_special_agency = false;
         p.be_ok_to_edit_schedule_liberally = k.Has((string[])(Session["privilege_array"]), "edit-schedule-liberally");
-        p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_schedule_volunteer_field_supervisor_team = k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team");
         p.be_ok_to_schedule_mci_team = k.Has((string[])(Session["privilege_array"]),"schedule-mci-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
+        p.be_ok_to_send_quickmessage_by_shift = k.Has((string[])(Session["privilege_array"]), "send-quickmessage-by-shift");
         p.be_squad_exclusivity_expired = false;
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.depth_filter = "1";
@@ -286,6 +287,7 @@ namespace UserControl_schedule_proposal
         p.saved_d_unit_spec = k.EMPTY;
         p.saved_n_unit_spec = k.EMPTY;
         //
+        p.be_ok_to_edit_post = k.Has((string[])(Session["privilege_array"]), "edit-schedule") || k.Has((string[])(Session["privilege_array"]), "edit-schedule-tier-department-only");
         p.individual_work_timelines_mode = new k.int_sign_range(0);
         p.nominal_day_filter_active = (p.be_nominal_day_mode_specific ? DateTime.Today.Day.ToString() : k.EMPTY);
         p.nominal_day_filter_saved = p.nominal_day_filter_active;
@@ -843,7 +845,15 @@ namespace UserControl_schedule_proposal
       if (e.Item.ItemType == ListItemType.Header)
         {
         e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
-        if (p.be_interactive && p.be_ok_to_edit_post)
+        if(
+          p.biz_schedule_assignments.BeOkToSendQuickMessageByShift
+            (
+            be_interactive:p.be_interactive,
+            be_ok_to_edit_post:p.be_ok_to_edit_post,
+            be_ok_to_send_quickmessage_by_shift:p.be_ok_to_send_quickmessage_by_shift
+            )
+          )
+        //then
           {
           var Label_day = new Label();
           Label_day.Font.Bold = true;
