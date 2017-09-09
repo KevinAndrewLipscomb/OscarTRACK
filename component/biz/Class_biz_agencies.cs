@@ -156,10 +156,12 @@ namespace Class_biz_agencies
           bool be_user_squad_truck_team_scheduler,
           bool be_user_volunteer_field_supervisor_team_scheduler,
           bool be_user_mci_team_scheduler,
+          bool be_user_bike_team_scheduler,
           object target
           )
           {
-          db_agencies.BindEmsPostListItemCollectionShort(tier,agency_filter,post_footprint,be_condensed,be_user_squad_truck_team_scheduler,be_user_volunteer_field_supervisor_team_scheduler,be_user_mci_team_scheduler,target);
+          db_agencies.BindEmsPostListItemCollectionShort
+            (tier,agency_filter,post_footprint,be_condensed,be_user_squad_truck_team_scheduler,be_user_volunteer_field_supervisor_team_scheduler,be_user_mci_team_scheduler,be_user_bike_team_scheduler,target);
           }
 
         internal void BindEvalPostDirectToListControl(object target)
