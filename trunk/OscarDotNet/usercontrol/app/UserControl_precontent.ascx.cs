@@ -74,13 +74,18 @@ namespace UserControl_precontent
             + k.NEW_LINE
             + "The Application Administrator has been notified by pager and email.";
             //
-            if (e.Exception.ToString().Contains("Validation of viewstate MAC failed."))
+            if
+              (
+                e.Exception.ToString().Contains("Validation of viewstate MAC failed.")              
+              ||
+                e.Exception.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
+              )
               {
               cause = k.alert_cause_type.OTHER;
-              key = "invvwstmac";
+              key = "ppbvwsterr";
               alert_message_value = "To continue, please use your browser's Page Refresh/Reload feature after dismissing this message.";
               }
-            else
+            else if (!e.Exception.ToString().Contains("The client disconnected."))
               {
               if (e.Exception.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
                 {
