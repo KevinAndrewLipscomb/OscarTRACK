@@ -32,7 +32,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       public bool be_ok_to_schedule_squad_truck_team;
       public bool be_ok_to_schedule_volunteer_field_supervisor_team;
       public bool be_ok_to_schedule_mci_team;
-      public bool be_ok_to_schedule_bike_team;
       public bool be_unexpected_submissions_alert_datagrid_empty;
       public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_agencies biz_agencies;
@@ -48,7 +47,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
       public string sqt_agency_id;
       public string vfst_agency_id;
       public string mcit_agency_id;
-      public string biket_agency_id;
       }
 
     private p_type p;
@@ -88,7 +86,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_schedule_volunteer_field_supervisor_team = k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team");
         p.be_ok_to_schedule_mci_team = k.Has((string[])(Session["privilege_array"]),"schedule-mci-team");
-        p.be_ok_to_schedule_bike_team = k.Has((string[])(Session["privilege_array"]),"schedule-bike-team");
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
         p.num_unexpected_submissions_alert_datagrid_rows = 0;
@@ -98,7 +95,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
         p.sqt_agency_id = p.biz_agencies.IdOfShortDesignator("SQT");
         p.vfst_agency_id = p.biz_agencies.IdOfShortDesignator("VFS");
         p.mcit_agency_id = p.biz_agencies.IdOfShortDesignator("MCI");
-        p.biket_agency_id = p.biz_agencies.IdOfShortDesignator("BKT");
         }
       }
 
@@ -170,8 +166,6 @@ namespace UserControl_schedule_assignment_assistant_alert_unexpected_submissions
               (p.be_ok_to_schedule_volunteer_field_supervisor_team && (e.Item.Cells[Static.TCI_TARGET_AGENCY_ID].Text == p.vfst_agency_id))
             ||
               (p.be_ok_to_schedule_mci_team && (e.Item.Cells[Static.TCI_TARGET_AGENCY_ID].Text == p.mcit_agency_id))
-            ||
-              (p.be_ok_to_schedule_bike_team && (e.Item.Cells[Static.TCI_TARGET_AGENCY_ID].Text == p.biket_agency_id))
             ||
               p.biz_privileges.HasForSpecialAgency(member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),privilege_name:"edit-schedule",agency_id:p.agency_filter)
             );

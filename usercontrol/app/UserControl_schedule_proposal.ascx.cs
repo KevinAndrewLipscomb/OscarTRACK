@@ -150,7 +150,6 @@ namespace UserControl_schedule_proposal
       public bool be_ok_to_schedule_squad_truck_team;
       public bool be_ok_to_schedule_volunteer_field_supervisor_team;
       public bool be_ok_to_schedule_mci_team;
-      public bool be_ok_to_schedule_bike_team;
       public bool be_ok_to_see_other_member_schedule_detail;
       public bool be_ok_to_send_quickmessage_by_shift;
       public bool be_squad_exclusivity_expired;
@@ -272,7 +271,6 @@ namespace UserControl_schedule_proposal
         p.be_ok_to_schedule_squad_truck_team = k.Has((string[])(Session["privilege_array"]),"schedule-squad-truck-team");
         p.be_ok_to_schedule_volunteer_field_supervisor_team = k.Has((string[])(Session["privilege_array"]),"schedule-volunteer-field-supervisor-team");
         p.be_ok_to_schedule_mci_team = k.Has((string[])(Session["privilege_array"]),"schedule-mci-team");
-        p.be_ok_to_schedule_bike_team = k.Has((string[])(Session["privilege_array"]),"schedule-bike-team");
         p.be_ok_to_see_other_member_schedule_detail = k.Has((string[])(Session["privilege_array"]), "see-other-member-schedule-detail");
         p.be_ok_to_send_quickmessage_by_shift = k.Has((string[])(Session["privilege_array"]), "send-quickmessage-by-shift");
         p.be_squad_exclusivity_expired = false;
@@ -554,7 +552,6 @@ namespace UserControl_schedule_proposal
           be_user_squad_truck_team_scheduler:p.be_ok_to_schedule_squad_truck_team,
           be_user_volunteer_field_supervisor_team_scheduler:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_user_mci_team_scheduler:p.be_ok_to_schedule_mci_team,
-          be_user_bike_team_scheduler:p.be_ok_to_schedule_bike_team,
           target:proto_post_list_item_collection
           );
         p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
@@ -927,7 +924,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           );
         var n_be_selected = (e.Item.Cells[Static.TCI_N_BE_SELECTED].Text == "1");
@@ -947,7 +943,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           );
         //
@@ -1110,7 +1105,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           )
         )
@@ -1146,7 +1140,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           )
         )
@@ -1182,7 +1175,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           )
         )
@@ -1218,7 +1210,6 @@ namespace UserControl_schedule_proposal
           be_ok_to_schedule_squad_truck_team:p.be_ok_to_schedule_squad_truck_team,
           be_ok_to_schedule_volunteer_field_supervisor_team:p.be_ok_to_schedule_volunteer_field_supervisor_team,
           be_ok_to_schedule_mci_team:p.be_ok_to_schedule_mci_team,
-          be_ok_to_schedule_bike_team:p.be_ok_to_schedule_bike_team,
           be_ok_to_edit_schedule_for_any_special_agency:p.be_ok_to_edit_schedule_for_any_special_agency
           )
         )
