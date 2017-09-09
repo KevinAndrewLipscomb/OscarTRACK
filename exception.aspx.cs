@@ -40,7 +40,12 @@ namespace exception
           Table_db_down.Visible = true;
           Table_oops.Visible = false;
           }
-        else if (last_error.ToString().Contains("Validation of viewstate MAC failed."))
+        else if
+          (
+            last_error.ToString().Contains("Validation of viewstate MAC failed.")
+          ||
+            last_error.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
+          )
           {
           Server.ClearError();
           Server.Transfer("~/Default.aspx");
