@@ -108,7 +108,7 @@ namespace overview
 //
 // Uncomment the following line to disable partial page rendering.
 //
-//ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
+ScriptManager.GetCurrent(Page).EnablePartialRendering = false;
 
         }
 
