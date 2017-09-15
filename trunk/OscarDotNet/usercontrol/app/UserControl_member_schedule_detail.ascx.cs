@@ -494,6 +494,9 @@ namespace UserControl_member_schedule_detail
               be_using_scriptmanager:true
               );
             };
+          //
+          // This is where we would immediately call p.biz_schedule_assignments.SetPost to force the member onto a particular post, as Chief Kerr wants when assigning CDOs to post 010 (EMS Chief 10).
+          //
           }
         else if (e.CommandName == "ForceOff")
           {
