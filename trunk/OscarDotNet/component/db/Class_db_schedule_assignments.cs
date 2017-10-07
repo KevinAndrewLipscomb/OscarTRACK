@@ -208,6 +208,34 @@ namespace Class_db_schedule_assignments
       return be_member_on_medical_leave_for;
       }
 
+    internal bool BeMemberOnMedicalLeaveFor
+      (
+      string member_id,
+      DateTime nominal_day
+      )
+      {
+      var be_member_on_medical_leave_for = false;
+      Open();
+      be_member_on_medical_leave_for = null != 
+        new MySqlCommand
+          (
+          "select 1"
+          + " from leave_of_absence"
+          +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+          + " where"
+          +     " (member_id = '" + member_id + "')"
+          +   " and"
+          +     " (description = 'Medical')"
+          +   " and"
+          +     " ('" + nominal_day.ToString("yyyy-MM-dd") + "' between start_date and end_date)"
+          + " limit 1",
+          connection
+          )
+          .ExecuteScalar();
+      Close();
+      return be_member_on_medical_leave_for;
+      }
+
     internal bool BeMemberSelectedDuringPeriod
       (
       string member_id,
@@ -1820,7 +1848,7 @@ namespace Class_db_schedule_assignments
       return result;
       }
 
-    internal void ForceAvail
+    internal string ForceAvail
       (
       string member_id,
       DateTime nominal_day,
@@ -1829,13 +1857,14 @@ namespace Class_db_schedule_assignments
       string reviser_member_id
       )
       {
+      var id = k.EMPTY;
       Open();
       var be_done = false;
       while (!be_done)
         {
         try
           {
-          new MySqlCommand
+          id = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -1846,10 +1875,12 @@ namespace Class_db_schedule_assignments
               + " , be_selected = FALSE"
               + " , be_new = FALSE"
               + " , reviser_member_id = '" + reviser_member_id + "'"
+              + ";"
+              + " SELECT LAST_INSERT_ID()"
               ),
             connection
             )
-            .ExecuteNonQuery();
+            .ExecuteScalar().ToString();
           be_done = true;
           }
         catch (Exception e)
@@ -1861,6 +1892,7 @@ namespace Class_db_schedule_assignments
           }
         }
       Close();
+      return id;
       }
 
     internal void ForceSelection
@@ -2485,7 +2517,7 @@ namespace Class_db_schedule_assignments
       + " , post_cardinality = NULLIF('" + post_cardinality + "','')"
       + " , position_id = NULLIF('" + position_id + "','')"
       + " , member_id = NULLIF('" + member_id + "','')"
-      + " , be_selected = NULLIF('" + be_selected.ToString() + "','')"
+      + " , be_selected = " + be_selected
       + " , comment = NULLIF('" + comment + "','')"
       + k.EMPTY;
       this.Open();

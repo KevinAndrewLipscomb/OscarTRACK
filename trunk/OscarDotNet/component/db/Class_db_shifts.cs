@@ -157,6 +157,14 @@ namespace Class_db_shifts
       return result;
       }
 
+    internal string IdOfName(string name)
+      {
+      Open();
+      var id_obj = new MySqlCommand("select id from shift where name = '" + name + "'",connection).ExecuteScalar();
+      Close();
+      return (id_obj == null ? k.EMPTY : id_obj.ToString());
+      }
+
     internal string NameOf(string id)
       {
       Open();

@@ -64,6 +64,7 @@ namespace UserControl_member_schedule_detail
       public bool be_limited_preview;
       public bool be_loaded;
       public bool be_my_watchbill_mode;
+      public bool be_ok_to_one_step_avail_force_post;
       public bool be_partially_editable;
       public bool be_virgin_watchbill;
       public TClass_biz_agencies biz_agencies;
@@ -134,6 +135,8 @@ namespace UserControl_member_schedule_detail
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
+        Panel_one_step_avail_force_post.Visible = p.be_ok_to_one_step_avail_force_post;
+        //
         Bind();
         //
         InjectPersistentClientSideScript();
@@ -185,6 +188,7 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
         p.be_interactive = (Session["mode:report"] == null);
+        p.be_ok_to_one_step_avail_force_post = k.Has((Session["privilege_array"] as string[]),"one-step-avail-force-post");
         //
         p.be_partially_editable =
           (
@@ -483,20 +487,7 @@ namespace UserControl_member_schedule_detail
           }
         else if (e.CommandName == "ForceOn")
           {
-          if (!p.biz_schedule_assignments.ForceSelection(schedule_assignment_id,true))
-            {
-            Alert
-              (
-              cause:k.alert_cause_type.LOGIC,
-              state:k.alert_state_type.FAILURE,
-              key:"cantforceon",
-              value:"Sorry, you cannot select the member for duty on this shift because it would violate a business rule.  Check whether the member has a conflicting Medical Leave in effect.",
-              be_using_scriptmanager:true
-              );
-            };
-          //
-          // This is where we would immediately call p.biz_schedule_assignments.SetPost to force the member onto a particular post, as Chief Kerr wants when assigning CDOs to post 010 (EMS Chief 10).
-          //
+          ForceOn(schedule_assignment_id);
           }
         else if (e.CommandName == "ForceOff")
           {
@@ -506,7 +497,28 @@ namespace UserControl_member_schedule_detail
         }
       }
 
-    private void DataGrid_control_UpdateCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private bool ForceOn(string schedule_assignment_id)
+      {
+      var force_on = false;
+      if (p.biz_schedule_assignments.ForceSelection(schedule_assignment_id, true))
+        {
+        force_on = true;
+        }
+      else
+        {
+        Alert
+          (
+          cause: k.alert_cause_type.LOGIC,
+          state: k.alert_state_type.FAILURE,
+          key: "cantforceon",
+          value: "Sorry, you cannot select the member for duty on this shift because it would violate a business rule.  Check whether the member has a conflicting Medical Leave in effect.",
+          be_using_scriptmanager: true
+          );
+        };
+      return force_on;
+      }
+
+    private void DataGrid_control_UpdateCommand(object source, DataGridCommandEventArgs e)
       {
       var ddl_post_designator = (e.Item.Cells[Static.TCI_POST_DESIGNATOR].FindControl("DropDownList_post_designator") as DropDownList);
       if (ddl_post_designator.Visible)
@@ -574,7 +586,22 @@ namespace UserControl_member_schedule_detail
       {
       if ((the_calendar.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
         {
-        p.biz_schedule_assignments.ForceAvail(p.biz_members.IdOf(p.member_summary),the_calendar.SelectedDate,shift_name,p.member_agency_id);
+        var member_id = p.biz_members.IdOf(summary:p.member_summary);
+        var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
+          (
+          member_id:member_id,
+          nominal_day:the_calendar.SelectedDate,
+          shift_name:shift_name,
+          agency_id:p.member_agency_id
+          );
+        if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedValue != "NONE") && ForceOn(schedule_assignment_id))
+          {
+          p.biz_schedule_assignments.SetPost
+            (
+            id:schedule_assignment_id,
+            post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+            );
+          }
         }
       Bind();
       }

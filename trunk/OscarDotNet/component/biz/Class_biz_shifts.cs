@@ -60,6 +60,11 @@ namespace Class_biz_shifts
         );
       }
 
+    internal string IdOfName(string name)
+      {
+      return db_shifts.IdOfName(name);
+      }
+
     internal string NameOf(string id)
       {
       return db_shifts.NameOf(id);
