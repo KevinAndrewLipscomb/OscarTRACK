@@ -67,6 +67,15 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
       }
 
+    internal bool BeMemberOnMedicalLeaveFor
+      (
+      string member_id,
+      DateTime nominal_day
+      )
+      {
+      return db_schedule_assignments.BeMemberOnMedicalLeaveFor(member_id,nominal_day);
+      }
+
     internal bool BeMemberScheduleDetailFullyEditable
       (
       bool be_partially_editable,
@@ -506,7 +515,7 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.Delete(id);
       }
 
-    internal void ForceAvail
+    internal string ForceAvail
       (
       string member_id,
       DateTime nominal_day,
@@ -514,7 +523,7 @@ namespace Class_biz_schedule_assignments
       string agency_id
       )
       {
-      db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id,biz_members.IdOfUserId(biz_user.IdNum()));
+      return db_schedule_assignments.ForceAvail(member_id,nominal_day,shift_name,agency_id,biz_members.IdOfUserId(biz_user.IdNum()));
       }
 
     internal bool ForceSelection

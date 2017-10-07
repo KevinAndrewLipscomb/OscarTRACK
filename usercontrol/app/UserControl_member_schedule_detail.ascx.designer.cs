@@ -247,6 +247,24 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_instruction_for_calendars;
         
         /// <summary>
+        /// Panel_one_step_avail_force_post control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_one_step_avail_force_post;
+        
+        /// <summary>
+        /// DropDownList_one_step_avail_force_post_target control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_one_step_avail_force_post_target;
+        
+        /// <summary>
         /// Calendar_day control.
         /// </summary>
         /// <remarks>

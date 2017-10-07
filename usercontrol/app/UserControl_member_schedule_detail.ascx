@@ -204,9 +204,24 @@
             <br/>
             <table cellpadding="5" cellspacing="0">
               <tr id="HtmlTableRow_instruction_for_calendars" runat="server" Visible="false">
-                <td colspan="3">To force a shift into the member's availability list, click a nominal day on the appropriate shift calendar:</td>
+                <td colspan="4">To force a shift into the member's availability list, click a nominal day on the appropriate shift calendar:</td>
               </tr>
               <tr align="center">
+                <td>
+                  <asp:Panel ID="Panel_one_step_avail_force_post" runat="server">
+                    <table bgcolor="orange" cellpadding="10" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <small>Set<br />one-step<br />avail-force-post<br />target to:<br /></small>
+                          <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server">
+                            <asp:ListItem Selected="True" Value="NONE">-- None --</asp:ListItem>
+                            <asp:ListItem Value="405">010</asp:ListItem>
+                          </asp:DropDownList>
+                        </td>
+                      </tr>
+                    </table>
+                  </asp:Panel>
+                </td>
                 <td valign="top">
                   <asp:Calendar ID="Calendar_day" runat="server" BackColor="White" BorderColor="#999999" Caption="DAY" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" ShowTitle="False" Width="200px" OnSelectionChanged="Calendar_day_SelectionChanged" OnDayRender="Calendar_day_DayRender">
                     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
