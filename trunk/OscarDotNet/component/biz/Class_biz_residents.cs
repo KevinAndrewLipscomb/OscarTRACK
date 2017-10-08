@@ -158,6 +158,13 @@ namespace Class_biz_residents
         scene_visits = Regex.Replace
           (
           input:scene_visits,
+          pattern:"(?<prefix> )KP$|(?<prefix> )KP(?<suffix> )",
+          replacement:"${prefix}KEEP${suffix}",
+          options:RegexOptions.Multiline
+          );
+        scene_visits = Regex.Replace
+          (
+          input:scene_visits,
           pattern:"(?<prefix> )LD$|(?<prefix> )LD(?<suffix> )",
           replacement:"${prefix}LNDG${suffix}",
           options:RegexOptions.Multiline
