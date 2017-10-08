@@ -145,15 +145,14 @@ namespace Class_biz_leaves
             BindEndMonthDropDownList(target, use_select, false);
         }
 
-        public void BindKindDropDownList(object target, bool use_select)
-        {
-            db_leaves.BindKindDropDownList(target, use_select);
-        }
-
-        public void BindKindDropDownList(object target)
-        {
-            BindKindDropDownList(target, true);
-        }
+    public void BindKindDropDownList
+      (
+      object target,
+      bool use_select = true
+      )
+      {
+      db_leaves.BindKindDropDownList(target,use_select);
+      }
 
         public void BindMemberRecords(string member_id, string sort_order, bool be_sort_order_ascending, object target)
         {

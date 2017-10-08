@@ -52,6 +52,10 @@
 						    <table cellspacing="0" cellpadding="5" border="0">
 						      <tr>
                     <td valign="top">•</td>
+							      <td><small>Effective 1 October 2017, use Medical Leave for maternity matters.</small></td>
+                  </tr>
+                  <tr>
+                    <td valign="top">•</td>
 							      <td>
                       <small>
                         Note that once you grant a <em>Medical</em> leave involving the current month, only EMS Headquarters can edit or delete it. A Medical leave <u>must</u> extend at least into <u>next</u> month.&nbsp; Also, EMS Headquarters

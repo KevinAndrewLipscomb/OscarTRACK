@@ -103,13 +103,20 @@ namespace change_leave
                     }
                     DropDownList_end_month.SelectedIndex = (int)i;
                     // Kind of leave
-                    p.biz_leaves.BindKindDropDownList(DropDownList_kind_of_leave, false);
+                    p.biz_leaves.BindKindDropDownList
+                      (
+                      target:DropDownList_kind_of_leave,
+                      use_select:false
+                      );
+                    //
+                    var saved_kind_of_leave_mapped_to_currently_valid_equivalent = Label_saved_kind_of_leave.Text.Replace("Maternity","Medical");
                     i = 0;
-                    while (DropDownList_kind_of_leave.Items[(int)i].Text != Label_saved_kind_of_leave.Text)
-                    {
-                        i = i + 1;
-                    }
+                    while (DropDownList_kind_of_leave.Items[(int)i].Text != saved_kind_of_leave_mapped_to_currently_valid_equivalent)
+                      {
+                      i = i + 1;
+                      }
                     DropDownList_kind_of_leave.SelectedIndex = (int)i;
+                    //
                     // Num obligated shifts
                     p.biz_leaves.BindNumObligatedShiftsDropDownList(p.biz_members.EnrollmentOf(Session["member_summary"]), DropDownList_num_obligated_shifts);
                     DropDownList_num_obligated_shifts.SelectedValue = p.biz_leaves.NumObligedShiftsOfTcc(Session["leave_item"]);
