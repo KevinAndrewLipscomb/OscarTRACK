@@ -72,23 +72,34 @@ namespace Class_db_leaves
             return BeOverlap(member_id, relative_start_month, relative_end_month, "");
         }
 
-        public void BindKindDropDownList(object target, bool use_select)
+    public void BindKindDropDownList
+      (
+      object target,
+      bool use_select
+      )
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      if (use_select)
         {
-            MySqlDataReader dr;
-            this.Open();
-            ((target) as ListControl).Items.Clear();
-            if (use_select)
-            {
-                ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-            }
-            dr = new MySqlCommand("SELECT code,description FROM kind_of_leave_code_description_map ORDER BY description", this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
-            }
-            dr.Close();
-            this.Close();
+        ((target) as ListControl).Items.Add(new ListItem("-- Select --", k.EMPTY));
         }
+      var dr = new MySqlCommand
+        (
+        "SELECT code,description"
+        + " FROM kind_of_leave_code_description_map"
+        + " where be_hereafter_valid"
+        + " ORDER BY description",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
+        }
+      dr.Close();
+      Close();
+      }
 
     internal Queue<medical_expiring_this_month_rec_class> MedicalExpiringThisMonthRecQ()
       {
@@ -120,11 +131,6 @@ namespace Class_db_leaves
       Close();
       return medical_expiring_this_month_rec_q;
       }
-
-    public void BindKindDropDownList(object target)
-        {
-            BindKindDropDownList(target, true);
-        }
 
     public void BindMemberRecords
       (
