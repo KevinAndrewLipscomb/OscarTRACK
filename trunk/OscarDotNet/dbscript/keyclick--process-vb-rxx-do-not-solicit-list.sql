@@ -4,7 +4,7 @@ drop table if exists resident_to_not_solicit
 ;
 CREATE  TABLE `resident_to_not_solicit`
   (
-    `name` VARCHAR(50) NULL
+    `name` VARCHAR(50) NULL -- leave in
   ,
     `address` VARCHAR(144) NOT NULL
   ,
@@ -119,7 +119,7 @@ set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' LOT ',address) +
 where address REGEXP '^.* LOT .*'
 ;
 update ignore resident_to_not_solicit
-set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' PIER ',address) + LENGTH(' PH ')))
+set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' PH ',address) + LENGTH(' PH ')))
 , address = LEFT(address,LOCATE(' PH ',address) - 1)
 where address REGEXP '^.* PH .*'
 ;
