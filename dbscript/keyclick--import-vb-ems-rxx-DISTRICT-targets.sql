@@ -63,7 +63,7 @@ CREATE  TABLE `resident_import`
 ;
 update resident_import set state = 'VA' where state = 'VIRGINIA'
 ;
--- insert ignore state (abbreviation) select distinct state from resident_import
+-- insert ignore state (abbreviation) select distinct UPPER(state) from resident_import
   -- DO NOT POLLUTE state TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
   -- 1. In MySQL Workbench, run "select * from state order by id" and make a note of existing watermark.
   -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
@@ -80,7 +80,7 @@ update resident_import join state on (state.abbreviation=resident_import.state) 
 ;
 update resident_import set city = "VIRGINIA BEACH" where city = "VIRGINIA BCH"
 ;
--- insert ignore city (name,state_id) select distinct resident_import.city as name, resident_import.state_id as state_id from resident_import
+-- insert ignore city (name,state_id) select distinct UPPER(resident_import.city) as name, resident_import.state_id as state_id from resident_import
   -- DO NOT POLLUTE city TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
   -- 1. In MySQL Workbench, run "select * from city order by id" and make a note of existing watermark.
   -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
@@ -146,7 +146,7 @@ set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' LOT ',address) +
 where address REGEXP '^.* LOT .*'
 ;
 update ignore resident_import
-set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' PIER ',address) + LENGTH(' PH ')))
+set house_num = concat(house_num,"-",SUBSTRING(address,LOCATE(' PH ',address) + LENGTH(' PH ')))
 , address = LEFT(address,LOCATE(' PH ',address) - 1)
 where address REGEXP '^.* PH .*'
 ;
@@ -316,7 +316,7 @@ update ignore resident_import set address = CONCAT(address,' ',post_directional)
 -- STREET
 --
 ;
--- insert ignore street (name,city_id) select distinct resident_import.address as name, resident_import.city_id as city_id from resident_import
+-- insert ignore street (name,city_id) select distinct UPPER(resident_import.address) as name, resident_import.city_id as city_id from resident_import
   -- DO NOT POLLUTE street TABLE WITH UNVERIFIED/UNVALIDATED/UNNORMALIZED DATA!
   -- 1. In MySQL Workbench, run "select * from street order by id" and make a note of existing watermark.
   -- 2. In MySQL Workbench, uncomment the above INSERT statement WITHOUT SAVING THE CHANGE TO THE SCRIPT.
