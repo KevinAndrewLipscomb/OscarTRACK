@@ -26,6 +26,7 @@
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <Use64BitIISExpress />
+    <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -70,6 +71,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -200,6 +203,7 @@
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
+    <Content Include="service\authentication.svc" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
@@ -1171,6 +1175,10 @@
     <Compile Include="serial_indicator_control_chart.aspx.designer.cs">
       <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
     </Compile>
+    <Compile Include="service\authentication.svc.cs">
+      <DependentUpon>authentication.svc</DependentUpon>
+    </Compile>
+    <Compile Include="service\Iauthentication.cs" />
     <Compile Include="timeout.aspx.cs">
       <DependentUpon>timeout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
