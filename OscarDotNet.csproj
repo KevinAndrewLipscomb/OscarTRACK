@@ -203,7 +203,7 @@
     <Content Include="remind_username.aspx" />
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
-    <Content Include="service\authentication.svc" />
+    <Content Include="service\Authentication.svc" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
@@ -1175,10 +1175,10 @@
     <Compile Include="serial_indicator_control_chart.aspx.designer.cs">
       <DependentUpon>serial_indicator_control_chart.aspx</DependentUpon>
     </Compile>
-    <Compile Include="service\authentication.svc.cs">
-      <DependentUpon>authentication.svc</DependentUpon>
+    <Compile Include="service\Authentication.svc.cs">
+      <DependentUpon>Authentication.svc</DependentUpon>
     </Compile>
-    <Compile Include="service\Iauthentication.cs" />
+    <Compile Include="service\IAuthentication.cs" />
     <Compile Include="timeout.aspx.cs">
       <DependentUpon>timeout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
