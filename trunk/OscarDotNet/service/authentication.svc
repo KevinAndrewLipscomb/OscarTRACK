@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="OscarDotNet.service.authentication" CodeBehind="authentication.svc.cs" %>
