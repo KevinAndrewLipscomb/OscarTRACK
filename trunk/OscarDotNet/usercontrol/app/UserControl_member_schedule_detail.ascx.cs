@@ -188,7 +188,6 @@ namespace UserControl_member_schedule_detail
         p.arraylist_unselected_night_avail = new ArrayList();
         p.be_any_revisions = false;
         p.be_interactive = (Session["mode:report"] == null);
-        p.be_ok_to_one_step_avail_force_post = k.Has((Session["privilege_array"] as string[]),"one-step-avail-force-post");
         //
         p.be_partially_editable =
           (
@@ -219,6 +218,7 @@ namespace UserControl_member_schedule_detail
         p.num = new k.subtype<int>(0,62);
         p.num_datagrid_rows = 0;
         //
+        p.be_ok_to_one_step_avail_force_post = k.Has((Session["privilege_array"] as string[]),"one-step-avail-force-post") && p.be_fully_editable;
         if (p.be_my_watchbill_mode)
           {
           p.member_id = Session["member_id"].ToString();
