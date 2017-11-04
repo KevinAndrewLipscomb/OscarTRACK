@@ -58,7 +58,7 @@
                             <td align="left">
                               <table cellpadding="5" cellspacing="0" width="100%">
                                 <tr>
-                                  <td><small>Ph#:&nbsp;<strong><asp:HyperLink ID="HyperLink_phone_num" runat="server"/></strong></small></td>
+                                  <td nowrap="nowrap"><small>Ph#:&nbsp;<strong><asp:HyperLink ID="HyperLink_phone_num" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
                                   <td><small>Agency:&nbsp;<strong><asp:Literal ID="Literal_agency" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
