@@ -64,6 +64,11 @@
   background-color:white;
   font-weight:bold;
   }
+.ajax__tab_ki .ajax__tab_disabled
+  {
+  color:whitesmoke;
+  background-color:gainsboro;
+  }
 .ki_tab_body
   {
   padding: 4px;
@@ -111,4 +116,14 @@
   {
   background-color:white;
   font-weight:bold;
+  }
+.ajax__tab_ki_vertical .ajax__tab_disabled
+  {
+  color: whitesmoke;
+  background-color: gainsboro;
+  }
+.ajax__tab_ki_vertical .ajax__tab_disabled
+  {
+  color: whitesmoke;
+  background-color: gainsboro;
   }

@@ -6,7 +6,7 @@
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
       <tr>
         <td>
-          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <cc1:TabPanel runat="server" headertext="Street" id="TabPanel_street"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="City" id="TabPanel_city"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="State" id="TabPanel_state"></cc1:TabPanel>

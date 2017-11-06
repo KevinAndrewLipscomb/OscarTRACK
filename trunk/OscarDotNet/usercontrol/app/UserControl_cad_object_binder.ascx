@@ -6,7 +6,7 @@
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
       <tr>
         <td>
-          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <cc1:TabPanel runat="server" headertext="Incident natures" id="TabPanel_incident_natures"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Ephemeral dispatches" id="TabPanel_ephemeral_dispatches"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Incident nature translations" id="TabPanel_incident_nature_translations"></cc1:TabPanel>

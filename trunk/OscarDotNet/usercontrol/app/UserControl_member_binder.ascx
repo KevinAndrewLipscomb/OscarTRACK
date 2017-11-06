@@ -5,7 +5,7 @@
     <table cellspacing="0" cellpadding="0" width="100%" border="0">
       <tr>
         <td>
-          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <!-- The KiAspdotnetFramework does not support disabling tabs at this level. -->
             <cc1:TabPanel runat="server" headertext="Schedule" id="TabPanel_schedule"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Evals" id="TabPanel_evals"></cc1:TabPanel>

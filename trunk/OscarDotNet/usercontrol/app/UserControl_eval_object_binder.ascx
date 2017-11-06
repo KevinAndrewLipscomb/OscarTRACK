@@ -6,7 +6,7 @@
     <table cellspacing="0" cellpadding="0" border="0" width="100%">
       <tr>
         <td>
-          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki">
+          <cc1:TabContainer id="TabContainer_control" runat="server" autopostback="True" cssclass="ajax__tab_ki" CssTheme="None">
             <cc1:TabPanel runat="server" headertext="Skill ratings" id="TabPanel_skill_ratings"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Care skills" id="TabPanel_care_skills"></cc1:TabPanel>
             <cc1:TabPanel runat="server" headertext="Driver skills" id="TabPanel_driver_skills"></cc1:TabPanel>
