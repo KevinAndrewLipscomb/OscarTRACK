@@ -78,6 +78,23 @@
   }
 
 /*
+** As of AjaxControlToolkit.dll v17.1.1, applying custom CSS to a TabContainer via the CssClass attribute (that is, 'CssClass="ajax__tab_ki"') has no effect unless you also specify 'CssTheme="None"'.  When using the dynamically-loaded TabPanel / empty
+** ContentTemplate / PlaceHolder_content mechanism provided by the KiAspdotnetFramework/usercontrol/app/UserControl~template~binder.ascx-template, nothing further is required.  But when using statically-loaded TabPanel content, the following
+** declarations are required here to prevent the problem described in https://github.com/DevExpress/AjaxControlToolkit/issues/5 (TabPanels showing to the right of the tabs instead of underneath the tabs).  It is untested and unknown whether analogous
+** declarations are required for the vertical arrangement.
+*/
+.ajax__tab_ki .ajax__tab_header:after
+  {
+  clear: both;
+  }
+.ajax__tab_ki .ajax__tab_header:before,
+.ajax__tab_ki .ajax__tab_header:after
+  {
+  content: "";
+  display: table;
+  }
+
+/*
 ** AJAX__TAB_KI_VERTICAL and KI_TAB_BODY_VERTICAL
 */
 .ajax__tab_ki_vertical .ajax__tab_header
