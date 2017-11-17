@@ -1,0 +1,13 @@
+DROP TABLE IF EXISTS uniform_piece;
+CREATE TABLE IF NOT EXISTS uniform_piece (
+  id SERIAL,
+  agency_id INTEGER UNSIGNED DEFAULT 0 NOT NULL,
+  priority_id BIGINT UNSIGNED NOT NULL,
+  layer TINYINT UNSIGNED NOT NULL,
+  class_id BIGINT UNSIGNED NOT NULL,
+  name VARCHAR(31) NOT NULL,
+  authorized_quantity SMALLINT UNSIGNED,
+  PRIMARY KEY(id),
+  UNIQUE (id)
+)
+ENGINE = InnoDB;
