@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS uniform_priority;
+CREATE TABLE IF NOT EXISTS uniform_priority (
+  id SERIAL,
+  agency_id INTEGER UNSIGNED DEFAULT 0 NOT NULL,
+  value TINYINT UNSIGNED NOT NULL,
+  description VARCHAR(63) NOT NULL,
+  PRIMARY KEY(id),
+  UNIQUE (id)
+)
+ENGINE = InnoDB;

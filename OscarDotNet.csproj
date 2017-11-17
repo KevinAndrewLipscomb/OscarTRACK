@@ -248,8 +248,10 @@
     <Content Include="usercontrol\app\UserControl_patient_encounter_level.ascx" />
     <Content Include="usercontrol\app\UserControl_paypal_assistant.ascx" />
     <Content Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx" />
+    <Content Include="usercontrol\app\UserControl_rank.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
+    <Content Include="usercontrol\app\UserControl_rank_group.ascx" />
     <Content Include="usercontrol\app\UserControl_recent_oscalert_samples.ascx" />
     <Content Include="usercontrol\app\UserControl_role_member_map_log.ascx" />
     <Content Include="usercontrol\app\UserControl_scene_visits_to_love_letter_targets.ascx" />
@@ -284,6 +286,15 @@
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx" />
     <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_catalog.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_class.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_option_category.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_piece.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_piece_color.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_piece_make.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_piece_model.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_piece_vendor.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_priority.ascx" />
     <Content Include="usercontrol\app\UserControl_vehicle_quarters.ascx" />
     <Content Include="usercontrol\app\UserControl_watchbill_maag.ascx" />
     <Content Include="usercontrol\ki\image\add-docket.png" />
@@ -381,6 +392,8 @@
     <Compile Include="component\biz\Class_biz_patient_encounters.cs" />
     <Compile Include="component\biz\Class_biz_patient_encounter_levels.cs" />
     <Compile Include="component\biz\Class_biz_privileges.cs" />
+    <Compile Include="component\biz\Class_biz_ranks.cs" />
+    <Compile Include="component\biz\Class_biz_rank_groups.cs" />
     <Compile Include="component\biz\Class_biz_residents.cs" />
     <Compile Include="component\biz\Class_biz_roles.cs" />
     <Compile Include="component\biz\Class_biz_role_member_map.cs" />
@@ -397,6 +410,15 @@
     <Compile Include="component\biz\Class_biz_states.cs" />
     <Compile Include="component\biz\Class_biz_streets.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_catalogs.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_classs.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_option_categories.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_pieces.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_piece_colors.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_piece_makes.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_piece_models.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_piece_vendors.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_priorities.cs" />
     <Compile Include="component\biz\Class_biz_user.cs" />
     <Compile Include="component\biz\Class_biz_users.cs" />
     <Compile Include="component\biz\Class_biz_user_member_map.cs" />
@@ -448,6 +470,8 @@
     <Compile Include="component\db\Class_db_patient_encounters.cs" />
     <Compile Include="component\db\Class_db_patient_encounter_levels.cs" />
     <Compile Include="component\db\Class_db_privileges.cs" />
+    <Compile Include="component\db\Class_db_ranks.cs" />
+    <Compile Include="component\db\Class_db_rank_groups.cs" />
     <Compile Include="component\db\Class_db_residents.cs" />
     <Compile Include="component\db\Class_db_roles.cs" />
     <Compile Include="component\db\Class_db_role_member_map.cs" />
@@ -462,6 +486,15 @@
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
+    <Compile Include="component\db\Class_db_uniform_catalogs.cs" />
+    <Compile Include="component\db\Class_db_uniform_classs.cs" />
+    <Compile Include="component\db\Class_db_uniform_option_categories.cs" />
+    <Compile Include="component\db\Class_db_uniform_pieces.cs" />
+    <Compile Include="component\db\Class_db_uniform_piece_colors.cs" />
+    <Compile Include="component\db\Class_db_uniform_piece_makes.cs" />
+    <Compile Include="component\db\Class_db_uniform_piece_models.cs" />
+    <Compile Include="component\db\Class_db_uniform_piece_vendors.cs" />
+    <Compile Include="component\db\Class_db_uniform_priorities.cs" />
     <Compile Include="component\db\Class_db_user.cs" />
     <Compile Include="component\db\Class_db_users.cs" />
     <Compile Include="component\db\Class_db_user_member_map.cs" />
@@ -1648,6 +1681,13 @@
     <Compile Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx.designer.cs">
       <DependentUpon>UserControl_quickmessage_by_shift.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_rank.ascx.cs">
+      <DependentUpon>UserControl_rank.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_rank.ascx.designer.cs">
+      <DependentUpon>UserControl_rank.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx.cs">
       <DependentUpon>UserControl_ranked_avail_submission_compliance.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -1724,6 +1764,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_vehicles_up_and_current.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_rank_group.ascx.cs">
+      <DependentUpon>UserControl_rank_group.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_rank_group.ascx.designer.cs">
+      <DependentUpon>UserControl_rank_group.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_recent_oscalert_samples.ascx.cs">
       <DependentUpon>UserControl_recent_oscalert_samples.ascx</DependentUpon>
@@ -2103,6 +2150,69 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.designer.cs">
       <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_catalog.ascx.cs">
+      <DependentUpon>UserControl_uniform_catalog.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_catalog.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_catalog.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_class.ascx.cs">
+      <DependentUpon>UserControl_uniform_class.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_class.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_class.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_option_category.ascx.cs">
+      <DependentUpon>UserControl_uniform_option_category.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_option_category.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_option_category.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece.ascx.cs">
+      <DependentUpon>UserControl_uniform_piece.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_piece.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_color.ascx.cs">
+      <DependentUpon>UserControl_uniform_piece_color.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_color.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_piece_color.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_make.ascx.cs">
+      <DependentUpon>UserControl_uniform_piece_make.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_make.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_piece_make.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_model.ascx.cs">
+      <DependentUpon>UserControl_uniform_piece_model.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_model.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_piece_model.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_vendor.ascx.cs">
+      <DependentUpon>UserControl_uniform_piece_vendor.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_piece_vendor.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_piece_vendor.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_priority.ascx.cs">
+      <DependentUpon>UserControl_uniform_priority.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_priority.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_priority.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_update_progress_blocker.ascx.cs">
       <DependentUpon>UserControl_update_progress_blocker.ascx</DependentUpon>
