@@ -9,6 +9,7 @@ using UserControl_fleet_object_binder;
 using UserControl_fund_drive_object_binder;
 using UserControl_shift;
 using UserControl_sms_gateway;
+using UserControl_uniform_object_binder;
 
 namespace UserControl_business_objects_binder
   {
@@ -20,10 +21,11 @@ namespace UserControl_business_objects_binder
       public const int TSSI_SATELLITE_STATIONS = 1;
       public const int TSSI_FLEET_OBJECTS = 2;
       public const int TSSI_FUND_DRIVE_OBJECTS = 3;
-      public const int TSSI_SHIFTS = 4;
-      public const int TSSI_EVAL_OBJECTS = 5;
-      public const int TSSI_SMS_GATEWAYS = 6;
-      public const int TSSI_CAD_OBJECTS = 7;
+      public const int TSSI_UNIFORM_OBJECTS = 4;
+      public const int TSSI_SHIFTS = 5;
+      public const int TSSI_EVAL_OBJECTS = 6;
+      public const int TSSI_SMS_GATEWAYS = 7;
+      public const int TSSI_CAD_OBJECTS = 8;
       }
 
     private struct p_type
@@ -54,6 +56,10 @@ namespace UserControl_business_objects_binder
         if (k.Has((string[])(Session["privilege_array"]), "config-fund-drive-attributes"))
           {
           TabPanel_fund_drive_objects.Enabled = true;
+          }
+        if (k.Has((string[])(Session["privilege_array"]), "config-uniforms"))
+          {
+          TabPanel_uniform_objects.Enabled = true;
           }
         if (k.Has((string[])(Session["privilege_array"]), "config-shifts"))
           {
@@ -103,6 +109,10 @@ namespace UserControl_business_objects_binder
         else if (p.tab_index == Static.TSSI_FUND_DRIVE_OBJECTS)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))), "UserControl_fund_drive_object_binder", PlaceHolder_content);
+          }
+        else if (p.tab_index == Static.TSSI_UNIFORM_OBJECTS)
+          {
+          p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_uniform_object_binder)(LoadControl("~/usercontrol/app/UserControl_uniform_object_binder.ascx"))), "UserControl_uniform_object_binder", PlaceHolder_content);
           }
         else if (p.tab_index == Static.TSSI_SHIFTS)
           {
@@ -175,6 +185,10 @@ namespace UserControl_business_objects_binder
       else if (p.tab_index == Static.TSSI_FUND_DRIVE_OBJECTS)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_fund_drive_object_binder)(LoadControl("~/usercontrol/app/UserControl_fund_drive_object_binder.ascx"))),"UserControl_fund_drive_object_binder",PlaceHolder_content,InstanceId());
+        }
+      else if (p.tab_index == Static.TSSI_UNIFORM_OBJECTS)
+        {
+        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_uniform_object_binder)(LoadControl("~/usercontrol/app/UserControl_uniform_object_binder.ascx"))),"UserControl_uniform_object_binder",PlaceHolder_content,InstanceId());
         }
       else if (p.tab_index == Static.TSSI_SHIFTS)
         {
