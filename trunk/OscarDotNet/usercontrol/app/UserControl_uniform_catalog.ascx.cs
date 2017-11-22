@@ -284,11 +284,9 @@ namespace UserControl_uniform_catalog
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-#warning Revise the binder-related instance_id to this control appropriately.
-        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_uniform_catalog")
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_config_business_objects_binder_uniform_object_binder_uniform_catalog")
           {
-#warning Revise the ClientID path to this control appropriately.
-          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_uniform_catalog");
+          p.be_loaded &= ((Session["M_UserControl_config_UserControl_business_objects_binder_UserControl_uniform_object_binder_PlaceHolder_content"] as string) == "UserControl_uniform_catalog");
           }
 //      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_uniform_catalog")
 //        {
@@ -301,7 +299,7 @@ namespace UserControl_uniform_catalog
         p.biz_role_member_map = new TClass_biz_role_member_map();
         //
         p.be_loaded = false;
-        p.be_ok_to_config_uniform_catalogs = k.Has((string[])(Session["privilege_array"]), "config-uniform_catalogs");
+        p.be_ok_to_config_uniform_catalogs = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
         p.summary = null;
         }

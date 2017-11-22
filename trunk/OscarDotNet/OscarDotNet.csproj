@@ -288,6 +288,7 @@
     <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_catalog.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_class.ascx" />
+    <Content Include="usercontrol\app\UserControl_uniform_object_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_option_category.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_piece.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_piece_color.ascx" />
@@ -2164,6 +2165,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_uniform_class.ascx.designer.cs">
       <DependentUpon>UserControl_uniform_class.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_object_binder.ascx.cs">
+      <DependentUpon>UserControl_uniform_object_binder.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_uniform_object_binder.ascx.designer.cs">
+      <DependentUpon>UserControl_uniform_object_binder.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_uniform_option_category.ascx.cs">
       <DependentUpon>UserControl_uniform_option_category.ascx</DependentUpon>
