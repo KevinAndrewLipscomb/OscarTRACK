@@ -25,9 +25,19 @@ namespace Class_db_rank_groups
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
       var concat_clause = "concat(IFNULL(name,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
@@ -36,6 +46,7 @@ namespace Class_db_rank_groups
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from rank_group"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+        +     agency_id_filter_clause
         + " order by spec",
         connection
         )
@@ -68,7 +79,11 @@ namespace Class_db_rank_groups
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
@@ -77,6 +92,7 @@ namespace Class_db_rank_groups
         "SELECT id"
         + " , CONVERT(concat(IFNULL(name,'-')) USING utf8) as spec"
         + " FROM rank_group"
+        + " where agency_id = '" + agency_id + "'"
         + " order by spec",
         connection
         )

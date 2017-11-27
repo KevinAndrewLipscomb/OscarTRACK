@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_uniform_catalogs
   {
@@ -25,18 +22,41 @@ namespace Class_db_uniform_catalogs
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      var concat_clause = "concat(IFNULL(piece_id,'-'),'|',IFNULL(rank_group_id,'-'),'|',IFNULL(medical_release_code,'-'),'|',IFNULL(option_category_id,'-'),'|',IFNULL(be_male,'-'),'|',IFNULL(vendor_id,'-'),'|',IFNULL(model_id,'-'),'|',IFNULL(base_color_id,'-'),'|',IFNULL(trim_color_id,'-'),'|',IFNULL(metal_color_id,'-'),'|',IFNULL(instruction_to_vendor,'-'),'|',IFNULL(elaboration,'-'),'|',IFNULL(unit_cost,'-'))";
+      var concat_clause = "concat(uniform_priority.value,'-',layer,'-',uniform_class.short_designator,'-',IFNULL(REPLACE(uniform_piece.name,' ','-'),'-'),'|',IFNULL(rank_group.name,'-'),'|',IFNULL(medical_release_code_description_map.description,'-'),'|',IFNULL(uniform_option_category.name,'-'),'|',IFNULL(IF(be_male,'M','F'),'-'),'|',IFNULL(uniform_piece_vendor.name,'-'),'|',IFNULL(uniform_piece_make.name,'-'),'|',IFNULL(uniform_piece_model.name,'-'),'|',IFNULL(base_color.name,'-'),'|',IFNULL(trim_color.name,'-'),'|',IFNULL(metal_color.name,'-'),'|',IFNULL(instruction_to_vendor,'-'),'|',IFNULL(elaboration,'-'),'|',IFNULL(unit_cost,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and uniform_piece.agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "select id"
+        "select uniform_catalog.id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_catalog"
+        +   " join uniform_piece on (uniform_piece.id=uniform_catalog.piece_id)"
+        +   " join uniform_priority on (uniform_priority.id=uniform_piece.priority_id)"
+        +   " join uniform_class on (uniform_class.id=uniform_piece.class_id)"
+        +   " left join rank_group on (rank_group.id=uniform_catalog.rank_group_id)"
+        +   " left join medical_release_code_description_map on (medical_release_code_description_map.code=uniform_catalog.medical_release_code)"
+        +   " left join uniform_option_category on (uniform_option_category.id=uniform_catalog.option_category_id)"
+        +   " join uniform_piece_vendor on (uniform_piece_vendor.id=uniform_catalog.vendor_id)"
+        +   " join uniform_piece_model on (uniform_piece_model.id=uniform_catalog.model_id)"
+        +   " join uniform_piece_make on (uniform_piece_make.id=uniform_piece_model.make_id)"
+        +   " left join uniform_piece_color base_color on (base_color.id=uniform_catalog.base_color_id)"
+        +   " left join uniform_piece_color trim_color on (trim_color.id=uniform_catalog.trim_color_id)"
+        +   " left join uniform_piece_color metal_color on (metal_color.id=uniform_catalog.metal_color_id)"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
-        + " order by spec",
+        +     agency_id_filter_clause
+        + " order by uniform_priority.value, layer, uniform_class.short_designator desc, uniform_piece.name",
         connection
         )
         .ExecuteReader();
@@ -123,7 +143,7 @@ namespace Class_db_uniform_catalogs
       out string rank_group_id,
       out string medical_release_code,
       out string option_category_id,
-      out bool be_male,
+      out k.int_sign_range male_null_false_true_condition,
       out string vendor_id,
       out string model_id,
       out string base_color_id,
@@ -142,7 +162,7 @@ namespace Class_db_uniform_catalogs
       rank_group_id = k.EMPTY;
       medical_release_code = k.EMPTY;
       option_category_id = k.EMPTY;
-      be_male = false;
+      male_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(k.EMPTY);
       vendor_id = k.EMPTY;
       model_id = k.EMPTY;
       base_color_id = k.EMPTY;
@@ -165,7 +185,7 @@ namespace Class_db_uniform_catalogs
         rank_group_id = dr["rank_group_id"].ToString();
         medical_release_code = dr["medical_release_code"].ToString();
         option_category_id = dr["option_category_id"].ToString();
-        be_male = (dr["be_male"].ToString() == "1");
+        male_null_false_true_condition = k.IntsignrangeOfOptionalBoolean(dr["be_male"].ToString());
         vendor_id = dr["vendor_id"].ToString();
         model_id = dr["model_id"].ToString();
         base_color_id = dr["base_color_id"].ToString();
@@ -192,7 +212,7 @@ namespace Class_db_uniform_catalogs
       string rank_group_id,
       string medical_release_code,
       string option_category_id,
-      bool be_male,
+      k.int_sign_range male_null_false_true_condition,
       string vendor_id,
       string model_id,
       string base_color_id,
@@ -212,7 +232,7 @@ namespace Class_db_uniform_catalogs
       + " , rank_group_id = NULLIF('" + rank_group_id + "','')"
       + " , medical_release_code = NULLIF('" + medical_release_code + "','')"
       + " , option_category_id = NULLIF('" + option_category_id + "','')"
-      + " , be_male = NULLIF('" + be_male.ToString() + "','')"
+      + " , be_male = " + k.NoneFalseTrueOf(male_null_false_true_condition,"NULL")
       + " , vendor_id = NULLIF('" + vendor_id + "','')"
       + " , model_id = NULLIF('" + model_id + "','')"
       + " , base_color_id = NULLIF('" + base_color_id + "','')"

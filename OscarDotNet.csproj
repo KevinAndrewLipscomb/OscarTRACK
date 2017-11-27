@@ -412,7 +412,7 @@
     <Compile Include="component\biz\Class_biz_streets.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
     <Compile Include="component\biz\Class_biz_uniform_catalogs.cs" />
-    <Compile Include="component\biz\Class_biz_uniform_classs.cs" />
+    <Compile Include="component\biz\Class_biz_uniform_classes.cs" />
     <Compile Include="component\biz\Class_biz_uniform_option_categories.cs" />
     <Compile Include="component\biz\Class_biz_uniform_pieces.cs" />
     <Compile Include="component\biz\Class_biz_uniform_piece_colors.cs" />
@@ -488,7 +488,7 @@
     <Compile Include="component\db\Class_db_streets.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
     <Compile Include="component\db\Class_db_uniform_catalogs.cs" />
-    <Compile Include="component\db\Class_db_uniform_classs.cs" />
+    <Compile Include="component\db\Class_db_uniform_classes.cs" />
     <Compile Include="component\db\Class_db_uniform_option_categories.cs" />
     <Compile Include="component\db\Class_db_uniform_pieces.cs" />
     <Compile Include="component\db\Class_db_uniform_piece_colors.cs" />

@@ -24,9 +24,14 @@ namespace Class_biz_uniform_catalogs
       db_uniform_catalogs = new TClass_db_uniform_catalogs();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      return db_uniform_catalogs.Bind(partial_spec, target);
+      return db_uniform_catalogs.Bind(partial_spec, target, agency_id_filter);
       }
 
     public void BindBaseDataList
@@ -60,7 +65,7 @@ namespace Class_biz_uniform_catalogs
       out string rank_group_id,
       out string medical_release_code,
       out string option_category_id,
-      out bool be_male,
+      out k.int_sign_range male_null_false_true_condition,
       out string vendor_id,
       out string model_id,
       out string base_color_id,
@@ -82,7 +87,7 @@ namespace Class_biz_uniform_catalogs
         out rank_group_id,
         out medical_release_code,
         out option_category_id,
-        out be_male,
+        out male_null_false_true_condition,
         out vendor_id,
         out model_id,
         out base_color_id,
@@ -105,7 +110,7 @@ namespace Class_biz_uniform_catalogs
       string rank_group_id,
       string medical_release_code,
       string option_category_id,
-      bool be_male,
+      k.int_sign_range male_null_false_true_condition,
       string vendor_id,
       string model_id,
       string base_color_id,
@@ -127,7 +132,7 @@ namespace Class_biz_uniform_catalogs
         rank_group_id,
         medical_release_code,
         option_category_id,
-        be_male,
+        male_null_false_true_condition,
         vendor_id,
         model_id,
         base_color_id,

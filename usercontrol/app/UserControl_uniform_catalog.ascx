@@ -53,15 +53,12 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Piece&nbsp;id:</font></td>
+    <td><font class="">Piece:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_piece_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_piece" runat="server"></asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_piece_id" runat="server" errormessage="Please enter Piece&nbsp;id." font-bold="True" controltovalidate="TextBox_piece_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_piece_id" runat="server" errormessage="Please enter a valid Piece&nbsp;id." font-bold="True" controltovalidate="TextBox_piece_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_piece" runat="server" errormessage="Please select a Piece." font-bold="True" controltovalidate="DropDownList_piece">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
@@ -105,104 +102,91 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Rank&nbsp;group&nbsp;id:</font></td>
+    <td><font class="">Rank&nbsp;group:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_rank_group_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_rank_group" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_rank_group_id" runat="server" errormessage="Please enter a valid Rank&nbsp;group&nbsp;id." font-bold="True" controltovalidate="TextBox_rank_group_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
-    <td><font class="">Medical&nbsp;release&nbsp;code:</font></td>
+    <td><font class="">Medical&nbsp;release&nbsp;level:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_medical_release_code" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_medical_release_level" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_medical_release_code" runat="server" errormessage="Please enter a valid Medical&nbsp;release&nbsp;code." font-bold="True" controltovalidate="TextBox_medical_release_code" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
-    <td><font class="">Option&nbsp;category&nbsp;id:</font></td>
+    <td><font class="">Option&nbsp;category:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_option_category_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_option_category" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_option_category_id" runat="server" errormessage="Please enter a valid Option&nbsp;category&nbsp;id." font-bold="True" controltovalidate="TextBox_option_category_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
-    <td><font class="">Be&nbsp;male:</font></td>
+    <td><font class="">Gender:</font></td>
     <td>
-      <font class="">
-        <ASP:CheckBox id="CheckBox_be_male" runat="server"  cssclass="" enabled="False"></ASP:CheckBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_gender" runat="server">
+        <asp:ListItem>-- gender --</asp:ListItem>
+        <asp:ListItem Value="NULL">Unisex or N/A</asp:ListItem>
+        <asp:ListItem Value="TRUE">Male</asp:ListItem>
+        <asp:ListItem Value="FALSE">Female</asp:ListItem>
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
     </td>
   </tr>
   <tr>
-    <td><font class="">Vendor&nbsp;id:</font></td>
+    <td><font class="">Vendor:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_vendor_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_vendor" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_vendor_id" runat="server" errormessage="Please enter Vendor&nbsp;id." font-bold="True" controltovalidate="TextBox_vendor_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_vendor_id" runat="server" errormessage="Please enter a valid Vendor&nbsp;id." font-bold="True" controltovalidate="TextBox_vendor_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_vendor" runat="server" errormessage="Please select a Vendor." font-bold="True" controltovalidate="DropDownList_vendor">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
-    <td><font class="">Model&nbsp;id:</font></td>
+    <td><font class="">Make/model:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_model_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_make_model" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_model_id" runat="server" errormessage="Please enter Model&nbsp;id." font-bold="True" controltovalidate="TextBox_model_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_model_id" runat="server" errormessage="Please enter a valid Model&nbsp;id." font-bold="True" controltovalidate="TextBox_model_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_make_model" runat="server" errormessage="Please select a Model." font-bold="True" controltovalidate="DropDownList_make_model">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
-    <td><font class="">Base&nbsp;color&nbsp;id:</font></td>
+    <td><font class="">Base&nbsp;color:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_base_color_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_base_color" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_base_color_id" runat="server" errormessage="Please enter a valid Base&nbsp;color&nbsp;id." font-bold="True" controltovalidate="TextBox_base_color_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
-    <td><font class="">Trim&nbsp;color&nbsp;id:</font></td>
+    <td><font class="">Trim&nbsp;color:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_trim_color_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_trim_color" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_trim_color_id" runat="server" errormessage="Please enter a valid Trim&nbsp;color&nbsp;id." font-bold="True" controltovalidate="TextBox_trim_color_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
-    <td><font class="">Metal&nbsp;color&nbsp;id:</font></td>
+    <td><font class="">Metal&nbsp;color:</font></td>
     <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_metal_color_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
+      <asp:DropDownList ID="DropDownList_metal_color" runat="server">
+      </asp:DropDownList>
     </td>
     <td nowrap="nowrap">
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_metal_color_id" runat="server" errormessage="Please enter a valid Metal&nbsp;color&nbsp;id." font-bold="True" controltovalidate="TextBox_metal_color_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
-    </td>
+      &nbsp;</td>
   </tr>
   <tr>
     <td><font class="">Instruction&nbsp;to&nbsp;vendor:</font></td>

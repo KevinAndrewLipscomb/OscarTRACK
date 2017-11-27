@@ -1,15 +1,13 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_uniform_classs;
+using Class_biz_members;
 using Class_biz_role_member_map;
+using Class_biz_uniform_classes;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_uniform_class
   {
@@ -17,10 +15,13 @@ namespace UserControl_uniform_class
     {
     private struct p_type
       {
+      public string agency_id;
       public bool be_loaded;
-      public TClass_biz_uniform_classs biz_uniform_classs;
+      public TClass_biz_members biz_members;
+      public TClass_biz_uniform_classes biz_uniform_classes;
       public TClass_biz_role_member_map biz_role_member_map;
-      public bool be_ok_to_config_uniform_classs;
+      public TClass_biz_user biz_user;
+      public bool be_ok_to_config_uniform_classes;
       public string id;
       public presentation_mode_enum presentation_mode;
       public object summary;
@@ -32,7 +33,6 @@ namespace UserControl_uniform_class
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_agency_id.Text = k.EMPTY;
       TextBox_short_designator.Text = k.EMPTY;
       TextBox_long_designator.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
@@ -130,7 +130,7 @@ namespace UserControl_uniform_class
       {
       if (!p.be_loaded)
         {
-        LinkButton_new_record.Visible = p.be_ok_to_config_uniform_classs;
+        LinkButton_new_record.Visible = p.be_ok_to_config_uniform_classes;
         LinkButton_go_to_match_first.Text = k.ExpandTildePath(LinkButton_go_to_match_first.Text);
         LinkButton_go_to_match_prior.Text = k.ExpandTildePath(LinkButton_go_to_match_prior.Text);
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
@@ -160,7 +160,7 @@ namespace UserControl_uniform_class
       result = false;
       if
         (
-        p.biz_uniform_classs.Get
+        p.biz_uniform_classes.Get
           (
           id,
           out agency_id,
@@ -171,16 +171,15 @@ namespace UserControl_uniform_class
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_agency_id.Text = agency_id;
         TextBox_short_designator.Text = short_designator;
         TextBox_long_designator.Text = long_designator;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
         LinkButton_reset.Enabled = true;
-        SetDependentFieldAblements(p.be_ok_to_config_uniform_classs);
-        Button_submit.Enabled = p.be_ok_to_config_uniform_classs;
-        Button_delete.Enabled = p.be_ok_to_config_uniform_classs;
+        SetDependentFieldAblements(p.be_ok_to_config_uniform_classes);
+        Button_submit.Enabled = p.be_ok_to_config_uniform_classes;
+        Button_delete.Enabled = p.be_ok_to_config_uniform_classes;
         result = true;
         }
       return result;
@@ -196,8 +195,8 @@ namespace UserControl_uniform_class
       Label_lookup_hint.Enabled = false;
       LinkButton_reset.Enabled = true;
       LinkButton_new_record.Enabled = false;
-      SetDependentFieldAblements(p.be_ok_to_config_uniform_classs);
-      Button_submit.Enabled = p.be_ok_to_config_uniform_classs;
+      SetDependentFieldAblements(p.be_ok_to_config_uniform_classes);
+      Button_submit.Enabled = p.be_ok_to_config_uniform_classes;
       Button_delete.Enabled = false;
       TextBox_id.Focus();
       }
@@ -239,11 +238,14 @@ namespace UserControl_uniform_class
         }
       else
         {
-        p.biz_uniform_classs = new TClass_biz_uniform_classs();
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_uniform_classes = new TClass_biz_uniform_classes();
+        p.biz_user = new TClass_biz_user();
         //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_loaded = false;
-        p.be_ok_to_config_uniform_classs = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
+        p.be_ok_to_config_uniform_classes = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
         p.summary = null;
         }
@@ -274,10 +276,10 @@ namespace UserControl_uniform_class
       {
       if (Page.IsValid)
         {
-        p.biz_uniform_classs.Set
+        p.biz_uniform_classes.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_agency_id.Text,k.safe_hint_type.NUM).Trim(),
+          p.agency_id,
           k.Safe(TextBox_short_designator.Text,k.safe_hint_type.EMAIL_ADDRESS).Trim(),
           k.Safe(TextBox_long_designator.Text,k.safe_hint_type.PUNCTUATED).Trim()
           );
@@ -321,7 +323,7 @@ namespace UserControl_uniform_class
 
     protected void Button_delete_Click(object sender, System.EventArgs e)
       {
-      if (p.biz_uniform_classs.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.ALPHANUM)))
+      if (p.biz_uniform_classes.Delete(k.Safe(TextBox_id.Text, k.safe_hint_type.ALPHANUM)))
         {
         SetLookupMode();
         }
@@ -343,7 +345,6 @@ namespace UserControl_uniform_class
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_agency_id.Enabled = ablement;
       TextBox_short_designator.Enabled = ablement;
       TextBox_long_designator.Enabled = ablement;
       }
@@ -357,7 +358,12 @@ namespace UserControl_uniform_class
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_uniform_classs.Bind(saved_id, DropDownList_id);
+        p.biz_uniform_classes.Bind
+          (
+          partial_spec:saved_id,
+          target:DropDownList_id,
+          agency_id_filter:p.agency_id
+          );
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -392,14 +398,14 @@ namespace UserControl_uniform_class
       if (id.Length > 0)
         {
         p.id = id;
-        p.summary = p.biz_uniform_classs.Summary(id);
-        //p.be_ok_to_config_uniform_classs = p.biz_privileges.HasForAgency
+        p.summary = p.biz_uniform_classes.Summary(id);
+        //p.be_ok_to_config_uniform_classes = p.biz_privileges.HasForAgency
         //  (
         //  member_id:p.biz_members.IdOfUserId(p.biz_user.IdNum()),
-        //  privilege_name:"config-uniform_classs",
-        //  agency_id:p.biz_uniform_classs.AgencyIdOf(p.summary)
+        //  privilege_name:"config-uniform_classes",
+        //  agency_id:p.biz_uniform_classes.AgencyIdOf(p.summary)
         //  );
-        p.presentation_mode = (p.be_ok_to_config_uniform_classs ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
+        p.presentation_mode = (p.be_ok_to_config_uniform_classes ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
         }
       else
         {

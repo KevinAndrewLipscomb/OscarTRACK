@@ -25,17 +25,29 @@ namespace Class_db_uniform_piece_models
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      var concat_clause = "concat(IFNULL(make_id,'-'),'|',IFNULL(name,'-'))";
+      var concat_clause = "concat(IFNULL(uniform_piece_make.name,'-'),'|',IFNULL(uniform_piece_model.name,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "select id"
+        "select uniform_piece_model.id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_piece_model"
+        +   " join uniform_piece_make on (uniform_piece_make.id=uniform_piece_model.make_id)"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+        +     agency_id_filter_clause
         + " order by spec",
         connection
         )
@@ -68,15 +80,21 @@ namespace Class_db_uniform_piece_models
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "SELECT id"
-        + " , CONVERT(concat(IFNULL(make_id,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
+        "SELECT uniform_piece_model.id"
+        + " , CONVERT(concat(IFNULL(uniform_piece_make.name,'-'),'|',IFNULL(uniform_piece_model.name,'-')) USING utf8) as spec"
         + " FROM uniform_piece_model"
+        +   " join uniform_piece_make on (uniform_piece_make.id=uniform_piece_model.make_id)"
+        + " where agency_id = '" + agency_id + "'"
         + " order by spec",
         connection
         )

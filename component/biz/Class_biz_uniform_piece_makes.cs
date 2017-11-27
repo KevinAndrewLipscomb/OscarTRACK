@@ -24,9 +24,14 @@ namespace Class_biz_uniform_piece_makes
       db_uniform_piece_makes = new TClass_db_uniform_piece_makes();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      return db_uniform_piece_makes.Bind(partial_spec, target);
+      return db_uniform_piece_makes.Bind(partial_spec, target, agency_id_filter);
       }
 
     public void BindBaseDataList
@@ -39,9 +44,13 @@ namespace Class_biz_uniform_piece_makes
       db_uniform_piece_makes.BindBaseDataList(sort_order,be_sort_order_ascending,target);
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
-      db_uniform_piece_makes.BindDirectToListControl(target);
+      db_uniform_piece_makes.BindDirectToListControl(target,agency_id);
       }
 
     public bool Delete(string id)

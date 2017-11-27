@@ -53,27 +53,14 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Agency&nbsp;id:</font></td>
+    <td><font class="">Priority:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_agency_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:DropDownList id="DropDownList_priority" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
       </font>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_agency_id" runat="server" errormessage="Please enter Agency&nbsp;id." font-bold="True" controltovalidate="TextBox_agency_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_agency_id" runat="server" errormessage="Please enter a valid Agency&nbsp;id." font-bold="True" controltovalidate="TextBox_agency_id" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
-  </tr>
-  <tr>
-    <td><font class="">Priority&nbsp;id:</font></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_priority_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
-    </td>
-    <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_priority_id" runat="server" errormessage="Please enter Priority&nbsp;id." font-bold="True" controltovalidate="TextBox_priority_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_priority_id" runat="server" errormessage="Please enter a valid Priority&nbsp;id." font-bold="True" controltovalidate="TextBox_priority_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_priority" runat="server" errormessage="Please select a Priority." font-bold="True" controltovalidate="DropDownList_priority">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
@@ -89,15 +76,14 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Class&nbsp;id:</font></td>
+    <td><font class="">Class:</font></td>
     <td>
       <font class="">
-        <ASP:TextBox id="TextBox_class_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
+        <ASP:DropDownList id="DropDownList_class" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
       </font>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_class_id" runat="server" errormessage="Please enter Class&nbsp;id." font-bold="True" controltovalidate="TextBox_class_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_class_id" runat="server" errormessage="Please enter a valid Class&nbsp;id." font-bold="True" controltovalidate="TextBox_class_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_class" runat="server" errormessage="Please select a Class." font-bold="True" controltovalidate="DropDownList_class">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>

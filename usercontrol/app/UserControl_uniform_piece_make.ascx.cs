@@ -1,15 +1,13 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_uniform_piece_makes;
+using Class_biz_members;
 using Class_biz_role_member_map;
+using Class_biz_uniform_piece_makes;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_uniform_piece_make
   {
@@ -17,9 +15,12 @@ namespace UserControl_uniform_piece_make
     {
     private struct p_type
       {
+      public string agency_id;
       public bool be_loaded;
+      public TClass_biz_members biz_members;
       public TClass_biz_uniform_piece_makes biz_uniform_piece_makes;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_user biz_user;
       public bool be_ok_to_config_uniform_piece_makes;
       public string id;
       public presentation_mode_enum presentation_mode;
@@ -32,7 +33,6 @@ namespace UserControl_uniform_piece_make
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_agency_id.Text = k.EMPTY;
       TextBox_name.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
@@ -168,7 +168,6 @@ namespace UserControl_uniform_piece_make
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_agency_id.Text = agency_id;
         TextBox_name.Text = name;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
@@ -235,9 +234,12 @@ namespace UserControl_uniform_piece_make
         }
       else
         {
-        p.biz_uniform_piece_makes = new TClass_biz_uniform_piece_makes();
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_uniform_piece_makes = new TClass_biz_uniform_piece_makes();
+        p.biz_user = new TClass_biz_user();
         //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_loaded = false;
         p.be_ok_to_config_uniform_piece_makes = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
@@ -273,7 +275,7 @@ namespace UserControl_uniform_piece_make
         p.biz_uniform_piece_makes.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_agency_id.Text,k.safe_hint_type.NUM).Trim(),
+          p.agency_id,
           k.Safe(TextBox_name.Text,k.safe_hint_type.MAKE_MODEL).Trim()
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
@@ -338,7 +340,6 @@ namespace UserControl_uniform_piece_make
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_agency_id.Enabled = ablement;
       TextBox_name.Enabled = ablement;
       }
 
@@ -351,7 +352,12 @@ namespace UserControl_uniform_piece_make
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_uniform_piece_makes.Bind(saved_id, DropDownList_id);
+        p.biz_uniform_piece_makes.Bind
+          (
+          partial_spec:saved_id,
+          target:DropDownList_id,
+          agency_id_filter:p.agency_id
+          );
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
