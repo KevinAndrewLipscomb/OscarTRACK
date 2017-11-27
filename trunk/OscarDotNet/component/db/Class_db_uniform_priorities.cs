@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_uniform_priorities
   {
@@ -16,6 +13,9 @@ namespace Class_db_uniform_priorities
     private class uniform_priority_summary
       {
       public string id;
+      public string agency_id;
+      public k.int_positive value;
+      public string description;
       }
 
     private TClass_db_trail db_trail = null;
@@ -25,9 +25,24 @@ namespace Class_db_uniform_priorities
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    internal string AgencyIdOf(object summary)
       {
-      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(value,'-'),'|',IFNULL(description,'-'))";
+      return (summary as uniform_priority_summary).agency_id;
+      }
+
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
+      {
+      var concat_clause = "concat(IFNULL(value,'-'),'|',IFNULL(description,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
@@ -36,6 +51,7 @@ namespace Class_db_uniform_priorities
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_priority"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+        +     agency_id_filter_clause
         + " order by spec",
         connection
         )
@@ -68,15 +84,20 @@ namespace Class_db_uniform_priorities
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id_filter
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
         "SELECT id"
-        + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(value,'-'),'|',IFNULL(description,'-')) USING utf8) as spec"
+        + " , CONVERT(concat(value,' - ',description) USING utf8) as spec"
         + " FROM uniform_priority"
+        + " where agency_id = '" + agency_id_filter + "'"
         + " order by spec",
         connection
         )
@@ -110,6 +131,11 @@ namespace Class_db_uniform_priorities
         }
       Close();
       return result;
+      }
+
+    internal string DescriptionOf(object summary)
+      {
+      return (summary as uniform_priority_summary).description;
       }
 
     public bool Get
@@ -178,10 +204,18 @@ namespace Class_db_uniform_priorities
       dr.Read();
       var the_summary = new uniform_priority_summary()
         {
-        id = id
+        id = id,
+        agency_id = dr["agency_id"].ToString(),
+        value = new k.int_positive((int)dr["value"]),
+        description = dr["description"].ToString()
         };
       Close();
       return the_summary;
+      }
+
+    internal k.int_positive ValueOf(object summary)
+      {
+      return (summary as uniform_priority_summary).value;
       }
 
     } // end TClass_db_uniform_priorities

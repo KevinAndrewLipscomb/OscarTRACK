@@ -53,15 +53,10 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Make&nbsp;id:</font></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_make_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
-    </td>
+    <td><font class="">Make:</font></td>
+    <td><asp:DropDownList ID="DropDownList_make" runat="server"></asp:DropDownList></td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_make_id" runat="server" errormessage="Please enter Make&nbsp;id." font-bold="True" controltovalidate="TextBox_make_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_make_id" runat="server" errormessage="Please enter a valid Make&nbsp;id." font-bold="True" controltovalidate="TextBox_make_id" validationexpression="-?\d+">!ERR!</ASP:RegularExpressionValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_make" runat="server" errormessage="Please select a Make." font-bold="True" controltovalidate="DropDownList_make">!ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>

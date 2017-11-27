@@ -4,30 +4,45 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
-namespace Class_db_uniform_classs
+namespace Class_db_uniform_classes
   {
-  public class TClass_db_uniform_classs: TClass_db
+  public class TClass_db_uniform_classes: TClass_db
     {
     private class uniform_class_summary
       {
       public string id;
+      public string agency_id;
+      public string short_designator;
+      public string long_designator;
       }
 
     private TClass_db_trail db_trail = null;
 
-    public TClass_db_uniform_classs() : base()
+    public TClass_db_uniform_classes() : base()
       {
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    internal string AgencyIdOf(object summary)
       {
-      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(short_designator,'-'),'|',IFNULL(long_designator,'-'))";
+      return (summary as uniform_class_summary).agency_id;
+      }
+
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
+      {
+      var concat_clause = "concat(IFNULL(short_designator,'-'),'|',IFNULL(long_designator,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
@@ -36,6 +51,7 @@ namespace Class_db_uniform_classs
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_class"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+        +     agency_id_filter_clause
         + " order by spec",
         connection
         )
@@ -68,15 +84,20 @@ namespace Class_db_uniform_classs
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_filter_id
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
         "SELECT id"
-        + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(short_designator,'-'),'|',IFNULL(long_designator,'-')) USING utf8) as spec"
+        + " , IF(short_designator = long_designator,short_designator,CONVERT(concat(short_designator,' - ',long_designator) USING utf8)) as spec"
         + " FROM uniform_class"
+        + " where agency_id = '" + agency_filter_id + "'"
         + " order by spec",
         connection
         )
@@ -139,6 +160,11 @@ namespace Class_db_uniform_classs
       return result;
       }
 
+    internal string LongDesignatorOf(object summary)
+      {
+      return (summary as uniform_class_summary).long_designator;
+      }
+
     public void Set
       (
       string id,
@@ -161,6 +187,11 @@ namespace Class_db_uniform_classs
         );
       }
 
+    internal string ShortDesignatorOf(object summary)
+      {
+      return (summary as uniform_class_summary).short_designator;
+      }
+
     internal object Summary(string id)
       {
       Open();
@@ -178,12 +209,15 @@ namespace Class_db_uniform_classs
       dr.Read();
       var the_summary = new uniform_class_summary()
         {
-        id = id
+        id = id,
+        agency_id = dr["agency_id"].ToString(),
+        short_designator = dr["short_designator"].ToString(),
+        long_designator = dr["long_designator"].ToString()
         };
       Close();
       return the_summary;
       }
 
-    } // end TClass_db_uniform_classs
+    } // end TClass_db_uniform_classes
 
   }

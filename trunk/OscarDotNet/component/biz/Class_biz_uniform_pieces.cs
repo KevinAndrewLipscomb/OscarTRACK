@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_pieces;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_pieces
   {
@@ -24,9 +21,19 @@ namespace Class_biz_uniform_pieces
       db_uniform_pieces = new TClass_db_uniform_pieces();
       }
 
-    public bool Bind(string partial_spec, object target)
+    internal string AgencyIdOf(object summary)
       {
-      return db_uniform_pieces.Bind(partial_spec, target);
+      return db_uniform_pieces.AgencyIdOf(summary);
+      }
+      
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
+      {
+      return db_uniform_pieces.Bind(partial_spec, target, agency_id_filter);
       }
 
     public void BindBaseDataList
@@ -39,9 +46,13 @@ namespace Class_biz_uniform_pieces
       db_uniform_pieces.BindBaseDataList(sort_order,be_sort_order_ascending,target);
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
-      db_uniform_pieces.BindDirectToListControl(target);
+      db_uniform_pieces.BindDirectToListControl(target,agency_id);
       }
 
     public bool Delete(string id)

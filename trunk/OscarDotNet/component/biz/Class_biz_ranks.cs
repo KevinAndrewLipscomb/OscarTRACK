@@ -24,9 +24,14 @@ namespace Class_biz_ranks
       db_ranks = new TClass_db_ranks();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      return db_ranks.Bind(partial_spec, target);
+      return db_ranks.Bind(partial_spec, target, agency_id_filter);
       }
 
     public void BindBaseDataList

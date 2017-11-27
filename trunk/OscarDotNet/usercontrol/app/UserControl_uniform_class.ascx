@@ -53,18 +53,6 @@
     </td>
   </tr>
   <tr>
-    <td><font class="">Agency&nbsp;id:</font></td>
-    <td>
-      <font class="">
-        <ASP:TextBox id="TextBox_agency_id" runat="server"  cssclass="" enabled="False"></ASP:TextBox>
-      </font>
-    </td>
-    <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_agency_id" runat="server" errormessage="Please enter Agency&nbsp;id." font-bold="True" controltovalidate="TextBox_agency_id">!ERR!</ASP:RequiredFieldValidator>
-      <ASP:RegularExpressionValidator id="RegularExpressionValidator_agency_id" runat="server" errormessage="Please enter a valid Agency&nbsp;id." font-bold="True" controltovalidate="TextBox_agency_id" validationexpression="\d*">!ERR!</ASP:RegularExpressionValidator>
-    </td>
-  </tr>
-  <tr>
     <td><font class="">Short&nbsp;designator:</font></td>
     <td>
       <font class="">

@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_uniform_piece_makes
   {
@@ -25,9 +22,19 @@ namespace Class_db_uniform_piece_makes
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
       {
-      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(name,'-'))";
+      var concat_clause = "concat(IFNULL(name,'-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
@@ -36,6 +43,7 @@ namespace Class_db_uniform_piece_makes
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_piece_make"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
+        +     agency_id_filter_clause
         + " order by spec",
         connection
         )
@@ -68,15 +76,20 @@ namespace Class_db_uniform_piece_makes
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
         "SELECT id"
-        + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
+        + " , CONVERT(concat(IFNULL(name,'-')) USING utf8) as spec"
         + " FROM uniform_piece_make"
+        + " where agency_id = '" + agency_id + "'"
         + " order by spec",
         connection
         )

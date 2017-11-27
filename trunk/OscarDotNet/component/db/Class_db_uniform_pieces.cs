@@ -16,6 +16,7 @@ namespace Class_db_uniform_pieces
     private class uniform_piece_summary
       {
       public string id;
+      public string agency_id;
       }
 
     private TClass_db_trail db_trail = null;
@@ -25,18 +26,36 @@ namespace Class_db_uniform_pieces
       db_trail = new TClass_db_trail();
       }
 
-    public bool Bind(string partial_spec, object target)
+    internal string AgencyIdOf(object summary)
       {
-      var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(priority_id,'-'),'|',IFNULL(class_id,'-'),'|',IFNULL(name,'-'))";
+      return (summary as uniform_piece_summary).agency_id;
+      }
+
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
+      {
+      var concat_clause = "concat(uniform_priority.value,'-',layer,'-',uniform_class.short_designator,'-',REPLACE(name,' ','-'))";
+      var agency_id_filter_clause = k.EMPTY;
+      if (agency_id_filter.Length > 0)
+        {
+        agency_id_filter_clause = " and uniform_piece.agency_id = '" + agency_id_filter + "'";
+        }
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "select id"
+        "select uniform_piece.id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
         + " from uniform_piece"
+        +   " join uniform_priority on (uniform_priority.id=uniform_piece.priority_id)"
+        +   " join uniform_class on (uniform_class.id=uniform_piece.class_id)"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
-        + " order by spec",
+        +     agency_id_filter_clause
+        + " order by uniform_priority.value, layer, uniform_class.short_designator desc, name",
         connection
         )
         .ExecuteReader();
@@ -68,15 +87,22 @@ namespace Class_db_uniform_pieces
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id
+      )
       {
       Open();
       ((target) as ListControl).Items.Clear();
       var dr = new MySqlCommand
         (
-        "SELECT id"
-        + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(priority_id,'-'),'|',IFNULL(class_id,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
+        "SELECT uniform_piece.id"
+        + " , CONVERT(concat(uniform_priority.value,'-',layer,'-',uniform_class.short_designator,'-',REPLACE(name,' ','-')) USING utf8) as spec"
         + " FROM uniform_piece"
+        +   " join uniform_priority on (uniform_priority.id=uniform_piece.priority_id)"
+        +   " join uniform_class on (uniform_class.id=uniform_piece.class_id)"
+        +   " where uniform_piece.agency_id = '" + agency_id + "'"
         + " order by spec",
         connection
         )
@@ -193,7 +219,8 @@ namespace Class_db_uniform_pieces
       dr.Read();
       var the_summary = new uniform_piece_summary()
         {
-        id = id
+        id = id,
+        agency_id = dr["agency_id"].ToString()
         };
       Close();
       return the_summary;

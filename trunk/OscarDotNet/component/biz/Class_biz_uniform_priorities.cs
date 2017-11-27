@@ -2,8 +2,6 @@
 
 using Class_db_uniform_priorities;
 using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_priorities
   {
@@ -24,9 +22,19 @@ namespace Class_biz_uniform_priorities
       db_uniform_priorities = new TClass_db_uniform_priorities();
       }
 
-    public bool Bind(string partial_spec, object target)
+    internal string AgencyIdOf(object summary)
       {
-      return db_uniform_priorities.Bind(partial_spec, target);
+      return db_uniform_priorities.AgencyIdOf(summary);
+      }
+      
+    public bool Bind
+      (
+      string partial_spec,
+      object target,
+      string agency_id_filter
+      )
+      {
+      return db_uniform_priorities.Bind(partial_spec, target, agency_id_filter);
       }
 
     public void BindBaseDataList
@@ -39,9 +47,13 @@ namespace Class_biz_uniform_priorities
       db_uniform_priorities.BindBaseDataList(sort_order,be_sort_order_ascending,target);
       }
 
-    public void BindDirectToListControl(object target)
+    public void BindDirectToListControl
+      (
+      object target,
+      string agency_id_filter
+      )
       {
-      db_uniform_priorities.BindDirectToListControl(target);
+      db_uniform_priorities.BindDirectToListControl(target,agency_id_filter);
       }
 
     public bool Delete(string id)
@@ -49,6 +61,11 @@ namespace Class_biz_uniform_priorities
       return db_uniform_priorities.Delete(id);
       }
 
+    internal string DescriptionOf(object summary)
+      {
+      return db_uniform_priorities.DescriptionOf(summary);
+      }
+      
     public bool Get
       (
       string id,
@@ -88,6 +105,11 @@ namespace Class_biz_uniform_priorities
       return db_uniform_priorities.Summary(id);
       }
 
+    internal k.int_positive ValueOf(object summary)
+      {
+      return db_uniform_priorities.ValueOf(summary);
+      }
+      
     } // end TClass_biz_uniform_priorities
 
   }

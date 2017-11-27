@@ -1,15 +1,15 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_uniform_pieces;
+using Class_biz_members;
 using Class_biz_role_member_map;
+using Class_biz_uniform_classes;
+using Class_biz_uniform_pieces;
+using Class_biz_uniform_priorities;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_uniform_piece
   {
@@ -17,12 +17,17 @@ namespace UserControl_uniform_piece
     {
     private struct p_type
       {
+      public string agency_id;
       public bool be_loaded;
-      public TClass_biz_uniform_pieces biz_uniform_pieces;
+      public TClass_biz_members biz_members;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_uniform_classes biz_uniform_classes;
+      public TClass_biz_uniform_pieces biz_uniform_pieces;
+      public TClass_biz_uniform_priorities biz_uniform_priorities;
+      public TClass_biz_user biz_user;
       public bool be_ok_to_config_uniform_pieces;
       public string id;
-      public presentation_mode_enum presentation_mode;
+      public Class_biz_uniform_pieces.presentation_mode_enum presentation_mode;
       public object summary;
       }
 
@@ -32,10 +37,9 @@ namespace UserControl_uniform_piece
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_agency_id.Text = k.EMPTY;
-      TextBox_priority_id.Text = k.EMPTY;
+      DropDownList_priority.ClearSelection();
       TextBox_layer.Text = k.EMPTY;
-      TextBox_class_id.Text = k.EMPTY;
+      DropDownList_class.ClearSelection();
       TextBox_name.Text = k.EMPTY;
       TextBox_authorized_quantity.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
@@ -139,7 +143,21 @@ namespace UserControl_uniform_piece
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-        if (p.presentation_mode == presentation_mode_enum.NEW)
+        //
+        p.biz_uniform_priorities.BindDirectToListControl
+          (
+          target:DropDownList_priority,
+          agency_id_filter:p.agency_id
+          );
+        DropDownList_priority.Items.Insert(0,(new ListItem("-- priority --",k.EMPTY)));
+        p.biz_uniform_classes.BindDirectToListControl
+          (
+          target:DropDownList_class,
+          agency_id_filter:p.agency_id
+          );
+        DropDownList_class.Items.Insert(0,(new ListItem("-- class --",k.EMPTY)));
+        //
+        if (p.presentation_mode == Class_biz_uniform_pieces.presentation_mode_enum.NEW)
           {
           }
         else
@@ -180,10 +198,9 @@ namespace UserControl_uniform_piece
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_agency_id.Text = agency_id;
-        TextBox_priority_id.Text = priority_id;
+        DropDownList_priority.SelectedValue = priority_id;
         TextBox_layer.Text = layer;
-        TextBox_class_id.Text = class_id;
+        DropDownList_class.SelectedValue = class_id;
         TextBox_name.Text = name;
         TextBox_authorized_quantity.Text = authorized_quantity;
         Button_lookup.Enabled = false;
@@ -251,9 +268,14 @@ namespace UserControl_uniform_piece
         }
       else
         {
-        p.biz_uniform_pieces = new TClass_biz_uniform_pieces();
+        p.biz_members = new TClass_biz_members();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_uniform_classes = new TClass_biz_uniform_classes();
+        p.biz_uniform_pieces = new TClass_biz_uniform_pieces();
+        p.biz_uniform_priorities = new TClass_biz_uniform_priorities();
+        p.biz_user = new TClass_biz_user();
         //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_loaded = false;
         p.be_ok_to_config_uniform_pieces = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
@@ -289,10 +311,10 @@ namespace UserControl_uniform_piece
         p.biz_uniform_pieces.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_agency_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_priority_id.Text,k.safe_hint_type.NUM).Trim(),
+          p.agency_id,
+          k.Safe(DropDownList_priority.SelectedValue,k.safe_hint_type.NUM).Trim(),
           k.Safe(TextBox_layer.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_class_id.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_class.SelectedValue,k.safe_hint_type.NUM).Trim(),
           k.Safe(TextBox_name.Text,k.safe_hint_type.PUNCTUATED).Trim(),
           k.Safe(TextBox_authorized_quantity.Text,k.safe_hint_type.NUM).Trim()
           );
@@ -358,10 +380,9 @@ namespace UserControl_uniform_piece
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_agency_id.Enabled = ablement;
-      TextBox_priority_id.Enabled = ablement;
+      DropDownList_priority.Enabled = ablement;
       TextBox_layer.Enabled = ablement;
-      TextBox_class_id.Enabled = ablement;
+      DropDownList_class.Enabled = ablement;
       TextBox_name.Enabled = ablement;
       TextBox_authorized_quantity.Enabled = ablement;
       }
@@ -375,7 +396,12 @@ namespace UserControl_uniform_piece
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_uniform_pieces.Bind(saved_id, DropDownList_id);
+        p.biz_uniform_pieces.Bind
+          (
+          partial_spec:saved_id,
+          target:DropDownList_id,
+          agency_id_filter:p.agency_id
+          );
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -417,13 +443,13 @@ namespace UserControl_uniform_piece
         //  privilege_name:"config-uniform_pieces",
         //  agency_id:p.biz_uniform_pieces.AgencyIdOf(p.summary)
         //  );
-        p.presentation_mode = (p.be_ok_to_config_uniform_pieces ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
+        p.presentation_mode = (p.be_ok_to_config_uniform_pieces ? Class_biz_uniform_pieces.presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = Class_biz_uniform_pieces.presentation_mode_enum.REVIEW_ONLY);
         }
       else
         {
         p.id = k.EMPTY;
         p.summary = null;
-        p.presentation_mode = presentation_mode_enum.NEW;
+        p.presentation_mode = Class_biz_uniform_pieces.presentation_mode_enum.NEW;
         }
       }
 

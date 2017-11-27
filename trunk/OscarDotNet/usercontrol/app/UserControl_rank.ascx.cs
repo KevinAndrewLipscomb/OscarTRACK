@@ -1,15 +1,13 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
+using Class_biz_members;
 using Class_biz_ranks;
 using Class_biz_role_member_map;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_rank
   {
@@ -17,9 +15,12 @@ namespace UserControl_rank
     {
     private struct p_type
       {
+      public string agency_id;
       public bool be_loaded;
+      public TClass_biz_members biz_members;
       public TClass_biz_ranks biz_ranks;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_user biz_user;
       public bool be_ok_to_config_ranks;
       public string id;
       public presentation_mode_enum presentation_mode;
@@ -32,7 +33,6 @@ namespace UserControl_rank
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_agency_id.Text = k.EMPTY;
       TextBox_name.Text = k.EMPTY;
       TextBox_pecking_order.Text = k.EMPTY;
       Literal_match_index.Text = k.EMPTY;
@@ -171,7 +171,6 @@ namespace UserControl_rank
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_agency_id.Text = agency_id;
         TextBox_name.Text = name;
         TextBox_pecking_order.Text = pecking_order;
         Button_lookup.Enabled = false;
@@ -239,9 +238,12 @@ namespace UserControl_rank
         }
       else
         {
+        p.biz_members = new TClass_biz_members();
         p.biz_ranks = new TClass_biz_ranks();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_user = new TClass_biz_user();
         //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_loaded = false;
         p.be_ok_to_config_ranks = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
@@ -277,7 +279,7 @@ namespace UserControl_rank
         p.biz_ranks.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_agency_id.Text,k.safe_hint_type.NUM).Trim(),
+          p.agency_id,
           k.Safe(TextBox_name.Text,k.safe_hint_type.HYPHENATED_ALPHANUM_WORDS).Trim(),
           k.Safe(TextBox_pecking_order.Text,k.safe_hint_type.NUM).Trim()
           );
@@ -343,7 +345,6 @@ namespace UserControl_rank
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_agency_id.Enabled = ablement;
       TextBox_name.Enabled = ablement;
       TextBox_pecking_order.Enabled = ablement;
       }
@@ -357,7 +358,12 @@ namespace UserControl_rank
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_ranks.Bind(saved_id, DropDownList_id);
+        p.biz_ranks.Bind
+          (
+          partial_spec:saved_id,
+          target:DropDownList_id,
+          agency_id_filter:p.agency_id
+          );
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {

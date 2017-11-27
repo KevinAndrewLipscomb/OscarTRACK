@@ -1,15 +1,20 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~kicrudhelped~item.ascx.cs~template
 
-using Class_biz_uniform_catalogs;
+using Class_biz_medical_release_levels;
+using Class_biz_members;
+using Class_biz_rank_groups;
 using Class_biz_role_member_map;
+using Class_biz_uniform_catalogs;
+using Class_biz_uniform_option_categories;
+using Class_biz_uniform_piece_colors;
+using Class_biz_uniform_piece_models;
+using Class_biz_uniform_piece_vendors;
+using Class_biz_uniform_pieces;
+using Class_biz_user;
 using kix;
 using System;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
-using System.Collections;
-using UserControl_drop_down_date;
 
 namespace UserControl_uniform_catalog
   {
@@ -17,12 +22,22 @@ namespace UserControl_uniform_catalog
     {
     private struct p_type
       {
+      public string agency_id;
       public bool be_loaded;
-      public TClass_biz_uniform_catalogs biz_uniform_catalogs;
+      public TClass_biz_medical_release_levels biz_medical_release_levels;
+      public TClass_biz_members biz_members;
+      public TClass_biz_rank_groups biz_rank_groups;
       public TClass_biz_role_member_map biz_role_member_map;
+      public TClass_biz_uniform_catalogs biz_uniform_catalogs;
+      public TClass_biz_uniform_option_categories biz_uniform_option_categories;
+      public TClass_biz_uniform_piece_colors biz_uniform_piece_colors;
+      public TClass_biz_uniform_piece_models biz_uniform_piece_models;
+      public TClass_biz_uniform_piece_vendors biz_uniform_piece_vendors;
+      public TClass_biz_uniform_pieces biz_uniform_pieces;
+      public TClass_biz_user biz_user;
       public bool be_ok_to_config_uniform_catalogs;
       public string id;
-      public presentation_mode_enum presentation_mode;
+      public Class_biz_uniform_catalogs.presentation_mode_enum presentation_mode;
       public object summary;
       }
 
@@ -32,20 +47,20 @@ namespace UserControl_uniform_catalog
       {
       TextBox_id.Text = k.EMPTY;
       DropDownList_id.Visible = false;
-      TextBox_piece_id.Text = k.EMPTY;
+      DropDownList_piece.ClearSelection();
       CheckBox_be_branded.Checked = false;
       CheckBox_be_size_dependent.Checked = false;
       CheckBox_be_specific_rank_dependent.Checked = false;
       CheckBox_be_extra_individualized.Checked = false;
-      TextBox_rank_group_id.Text = k.EMPTY;
-      TextBox_medical_release_code.Text = k.EMPTY;
-      TextBox_option_category_id.Text = k.EMPTY;
-      CheckBox_be_male.Checked = false;
-      TextBox_vendor_id.Text = k.EMPTY;
-      TextBox_model_id.Text = k.EMPTY;
-      TextBox_base_color_id.Text = k.EMPTY;
-      TextBox_trim_color_id.Text = k.EMPTY;
-      TextBox_metal_color_id.Text = k.EMPTY;
+      DropDownList_rank_group.ClearSelection();
+      DropDownList_medical_release_level.ClearSelection();
+      DropDownList_option_category.ClearSelection();
+      DropDownList_gender.ClearSelection();
+      DropDownList_vendor.ClearSelection();
+      DropDownList_make_model.ClearSelection();
+      DropDownList_base_color.ClearSelection();
+      DropDownList_trim_color.ClearSelection();
+      DropDownList_metal_color.ClearSelection();
       TextBox_instruction_to_vendor.Text = k.EMPTY;
       TextBox_elaboration.Text = k.EMPTY;
       TextBox_unit_cost.Text = k.EMPTY;
@@ -150,7 +165,59 @@ namespace UserControl_uniform_catalog
         LinkButton_go_to_match_next.Text = k.ExpandTildePath(LinkButton_go_to_match_next.Text);
         LinkButton_go_to_match_last.Text = k.ExpandTildePath(LinkButton_go_to_match_last.Text);
         RequireConfirmation(Button_delete, "Are you sure you want to delete this record?");
-        if (p.presentation_mode == presentation_mode_enum.NEW)
+        //
+        p.biz_uniform_pieces.BindDirectToListControl
+          (
+          target:DropDownList_piece,
+          agency_id:p.agency_id
+          );
+        DropDownList_piece.Items.Insert(0,(new ListItem("-- piece --",k.EMPTY)));
+        p.biz_rank_groups.BindDirectToListControl
+          (
+          target:DropDownList_rank_group,
+          agency_id:p.agency_id
+          );
+        DropDownList_rank_group.Items.Insert(0,(new ListItem("-- rank group --",k.EMPTY)));
+        p.biz_medical_release_levels.BindListControl(DropDownList_medical_release_level);
+        DropDownList_medical_release_level.Items.Insert(0,(new ListItem("-- medical release level --",k.EMPTY)));
+        p.biz_uniform_option_categories.BindDirectToListControl
+          (
+          target:DropDownList_option_category,
+          agency_id:p.agency_id
+          );
+        DropDownList_option_category.Items.Insert(0,(new ListItem("-- option category --",k.EMPTY)));
+        p.biz_uniform_piece_vendors.BindDirectToListControl
+          (
+          target:DropDownList_vendor,
+          agency_id:p.agency_id
+          );
+        DropDownList_vendor.Items.Insert(0,(new ListItem("-- vendor --",k.EMPTY)));
+        p.biz_uniform_piece_models.BindDirectToListControl
+          (
+          target:DropDownList_make_model,
+          agency_id:p.agency_id
+          );
+        DropDownList_make_model.Items.Insert(0,(new ListItem("-- make/model --",k.EMPTY)));
+        p.biz_uniform_piece_colors.BindDirectToListControl
+          (
+          target:DropDownList_base_color,
+          agency_id:p.agency_id
+          );
+        DropDownList_base_color.Items.Insert(0,(new ListItem("-- base color --",k.EMPTY)));
+        p.biz_uniform_piece_colors.BindDirectToListControl
+          (
+          target:DropDownList_trim_color,
+          agency_id:p.agency_id
+          );
+        DropDownList_trim_color.Items.Insert(0,(new ListItem("-- trim color --",k.EMPTY)));
+        p.biz_uniform_piece_colors.BindDirectToListControl
+          (
+          target:DropDownList_metal_color,
+          agency_id:p.agency_id
+          );
+        DropDownList_metal_color.Items.Insert(0,(new ListItem("-- metal color --",k.EMPTY)));
+        //
+        if (p.presentation_mode == Class_biz_uniform_catalogs.presentation_mode_enum.NEW)
           {
           }
         else
@@ -176,7 +243,7 @@ namespace UserControl_uniform_catalog
       string rank_group_id;
       string medical_release_code;
       string option_category_id;
-      bool be_male;
+      k.int_sign_range male_null_false_true_condition;
       string vendor_id;
       string model_id;
       string base_color_id;
@@ -199,7 +266,7 @@ namespace UserControl_uniform_catalog
           out rank_group_id,
           out medical_release_code,
           out option_category_id,
-          out be_male,
+          out male_null_false_true_condition,
           out vendor_id,
           out model_id,
           out base_color_id,
@@ -213,20 +280,20 @@ namespace UserControl_uniform_catalog
         {
         TextBox_id.Text = id;
         TextBox_id.Enabled = false;
-        TextBox_piece_id.Text = piece_id;
+        DropDownList_piece.SelectedValue = piece_id;
         CheckBox_be_branded.Checked = be_branded;
         CheckBox_be_size_dependent.Checked = be_size_dependent;
         CheckBox_be_specific_rank_dependent.Checked = be_specific_rank_dependent;
         CheckBox_be_extra_individualized.Checked = be_extra_individualized;
-        TextBox_rank_group_id.Text = rank_group_id;
-        TextBox_medical_release_code.Text = medical_release_code;
-        TextBox_option_category_id.Text = option_category_id;
-        CheckBox_be_male.Checked = be_male;
-        TextBox_vendor_id.Text = vendor_id;
-        TextBox_model_id.Text = model_id;
-        TextBox_base_color_id.Text = base_color_id;
-        TextBox_trim_color_id.Text = trim_color_id;
-        TextBox_metal_color_id.Text = metal_color_id;
+        DropDownList_rank_group.SelectedValue = rank_group_id;
+        DropDownList_medical_release_level.SelectedValue = medical_release_code;
+        DropDownList_option_category.SelectedValue = option_category_id;
+        DropDownList_gender.SelectedValue = k.NoneFalseTrueOf(male_null_false_true_condition,"NULL");
+        DropDownList_vendor.SelectedValue = vendor_id;
+        DropDownList_make_model.SelectedValue = model_id;
+        DropDownList_base_color.SelectedValue = base_color_id;
+        DropDownList_trim_color.SelectedValue = trim_color_id;
+        DropDownList_metal_color.SelectedValue = metal_color_id;
         TextBox_instruction_to_vendor.Text = instruction_to_vendor;
         TextBox_elaboration.Text = elaboration;
         TextBox_unit_cost.Text = unit_cost;
@@ -295,9 +362,19 @@ namespace UserControl_uniform_catalog
         }
       else
         {
-        p.biz_uniform_catalogs = new TClass_biz_uniform_catalogs();
+        p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
+        p.biz_members = new TClass_biz_members();
+        p.biz_rank_groups = new TClass_biz_rank_groups();
         p.biz_role_member_map = new TClass_biz_role_member_map();
+        p.biz_uniform_catalogs = new TClass_biz_uniform_catalogs();
+        p.biz_uniform_option_categories = new TClass_biz_uniform_option_categories();
+        p.biz_uniform_piece_colors = new TClass_biz_uniform_piece_colors();
+        p.biz_uniform_piece_models = new TClass_biz_uniform_piece_models();
+        p.biz_uniform_piece_vendors = new TClass_biz_uniform_piece_vendors();
+        p.biz_uniform_pieces = new TClass_biz_uniform_pieces();
+        p.biz_user = new TClass_biz_user();
         //
+        p.agency_id = p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum()));
         p.be_loaded = false;
         p.be_ok_to_config_uniform_catalogs = k.Has((string[])(Session["privilege_array"]), "config-uniforms");
         p.id = k.EMPTY;
@@ -333,20 +410,20 @@ namespace UserControl_uniform_catalog
         p.biz_uniform_catalogs.Set
           (
           k.Safe(TextBox_id.Text,k.safe_hint_type.NUM),
-          k.Safe(TextBox_piece_id.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_piece.SelectedValue,k.safe_hint_type.NUM).Trim(),
           CheckBox_be_branded.Checked,
           CheckBox_be_size_dependent.Checked,
           CheckBox_be_specific_rank_dependent.Checked,
           CheckBox_be_extra_individualized.Checked,
-          k.Safe(TextBox_rank_group_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_medical_release_code.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_option_category_id.Text,k.safe_hint_type.NUM).Trim(),
-          CheckBox_be_male.Checked,
-          k.Safe(TextBox_vendor_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_model_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_base_color_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_trim_color_id.Text,k.safe_hint_type.NUM).Trim(),
-          k.Safe(TextBox_metal_color_id.Text,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_rank_group.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_medical_release_level.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_option_category.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.IntsignrangeOfOptionalBoolean(k.Safe(DropDownList_gender.SelectedValue,k.safe_hint_type.ALPHA).Trim()),
+          k.Safe(DropDownList_vendor.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_make_model.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_base_color.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_trim_color.SelectedValue,k.safe_hint_type.NUM).Trim(),
+          k.Safe(DropDownList_metal_color.SelectedValue,k.safe_hint_type.NUM).Trim(),
           k.Safe(TextBox_instruction_to_vendor.Text,k.safe_hint_type.MEMO).Trim(),
           k.Safe(TextBox_elaboration.Text,k.safe_hint_type.PUNCTUATED).Trim(),
           k.Safe(TextBox_unit_cost.Text,k.safe_hint_type.REAL_NUM).Trim()
@@ -413,20 +490,20 @@ namespace UserControl_uniform_catalog
 
     private void SetDependentFieldAblements(bool ablement)
       {
-      TextBox_piece_id.Enabled = ablement;
+      DropDownList_piece.Enabled = ablement;
       CheckBox_be_branded.Enabled = ablement;
       CheckBox_be_size_dependent.Enabled = ablement;
       CheckBox_be_specific_rank_dependent.Enabled = ablement;
       CheckBox_be_extra_individualized.Enabled = ablement;
-      TextBox_rank_group_id.Enabled = ablement;
-      TextBox_medical_release_code.Enabled = ablement;
-      TextBox_option_category_id.Enabled = ablement;
-      CheckBox_be_male.Enabled = ablement;
-      TextBox_vendor_id.Enabled = ablement;
-      TextBox_model_id.Enabled = ablement;
-      TextBox_base_color_id.Enabled = ablement;
-      TextBox_trim_color_id.Enabled = ablement;
-      TextBox_metal_color_id.Enabled = ablement;
+      DropDownList_rank_group.Enabled = ablement;
+      DropDownList_medical_release_level.Enabled = ablement;
+      DropDownList_option_category.Enabled = ablement;
+      DropDownList_gender.Enabled = ablement;
+      DropDownList_vendor.Enabled = ablement;
+      DropDownList_make_model.Enabled = ablement;
+      DropDownList_base_color.Enabled = ablement;
+      DropDownList_trim_color.Enabled = ablement;
+      DropDownList_metal_color.Enabled = ablement;
       TextBox_instruction_to_vendor.Enabled = ablement;
       TextBox_elaboration.Enabled = ablement;
       TextBox_unit_cost.Enabled = ablement;
@@ -441,7 +518,12 @@ namespace UserControl_uniform_catalog
       if (!PresentRecord(saved_id))
         {
         TextBox_id.Text = saved_id;
-        p.biz_uniform_catalogs.Bind(saved_id, DropDownList_id);
+        p.biz_uniform_catalogs.Bind
+          (
+          partial_spec:saved_id,
+          target:DropDownList_id,
+          agency_id_filter:p.agency_id
+          );
         num_matches = (uint)(DropDownList_id.Items.Count);
         if (num_matches > 0)
           {
@@ -483,13 +565,13 @@ namespace UserControl_uniform_catalog
         //  privilege_name:"config-uniform_catalogs",
         //  agency_id:p.biz_uniform_catalogs.AgencyIdOf(p.summary)
         //  );
-        p.presentation_mode = (p.be_ok_to_config_uniform_catalogs ? presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = presentation_mode_enum.REVIEW_ONLY);
+        p.presentation_mode = (p.be_ok_to_config_uniform_catalogs ? Class_biz_uniform_catalogs.presentation_mode_enum.FULL_FUNCTION : p.presentation_mode = Class_biz_uniform_catalogs.presentation_mode_enum.REVIEW_ONLY);
         }
       else
         {
         p.id = k.EMPTY;
         p.summary = null;
-        p.presentation_mode = presentation_mode_enum.NEW;
+        p.presentation_mode = Class_biz_uniform_catalogs.presentation_mode_enum.NEW;
         }
       }
 
