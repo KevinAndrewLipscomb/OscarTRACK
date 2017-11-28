@@ -559,16 +559,15 @@ namespace Class_biz_notifications
       actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
       var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/elective_departure.txt"));
       //
-      // These statements are a kludge to account for the way BLS Interns are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+      // These statements are a kludge to account for the way non-released personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
       //
       var additional_target_string = k.EMPTY;
-      var member_summary = biz_members.Summary(member_id);
-      if (biz_members.MedicalReleaseLevelOf(member_summary) == "BLS Intern")
+      if (!biz_members.BeReleased(member_id))
         {
         additional_target_string = k.COMMA + db_notifications.TargetOfAboutAgency
           (
           name:"elective-departure",
-          agency_id:biz_members.SectionOf(member_summary) // KLUDGE: Pass section_num as agency_id
+          agency_id:biz_members.SectionOf(biz_members.Summary(member_id)) // KLUDGE: Pass section num as agency_id
           );
         }
       //
@@ -1986,49 +1985,72 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
-        private delegate string IssueForSectionChange_Merge(string s);
-        public void IssueForSectionChange(string member_id, string first_name, string last_name, string cad_num, string agency_name, string section_num)
+    private delegate string IssueForSectionChange_Merge(string s);
+    public void IssueForSectionChange
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string agency_name,
+      string section_num
+      )
+      {
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+
+      IssueForSectionChange_Merge Merge = delegate (string s)
         {
-            string actor = k.EMPTY;
-            string actor_email_address = k.EMPTY;
-            string actor_member_id;
-            TClass_biz_members biz_members;
-            TClass_biz_user biz_user;
-            TClass_biz_users biz_users;
-            StreamReader template_reader;
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<agency_name/>", agency_name)
+          .Replace("<section_num/>", section_num)
+          ;
+        };
 
-            IssueForSectionChange_Merge Merge = delegate (string s)
-              {
-              return s
-                .Replace("<application_name/>", application_name)
-                .Replace("<host_domain_name/>", host_domain_name)
-                .Replace("<actor/>", actor)
-                .Replace("<actor_email_address/>", actor_email_address)
-                .Replace("<first_name/>", first_name)
-                .Replace("<last_name/>", last_name)
-                .Replace("<cad_num/>", cad_num)
-                .Replace("<agency_name/>", agency_name)
-                .Replace("<section_num/>", section_num);
-              };
-
-            biz_members = new TClass_biz_members();
-            biz_user = new TClass_biz_user();
-            biz_users = new TClass_biz_users();
-            actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
-            actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
-            actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/section_change.txt"));
-            // from
-            // to
-            // subject
-            // body
-            // be_html
-            // cc
-            // bcc
-            // reply_to
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("section-change", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
-            template_reader.Close();
+      var biz_members = new TClass_biz_members();
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/section_change.txt"));
+      //
+      // These statements are a kludge to account for the way non-released personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+      //
+      var additional_target_string = k.EMPTY;
+      if (!biz_members.BeReleased(member_id))
+        {
+        additional_target_string = k.COMMA + db_notifications.TargetOfAboutAgency
+          (
+          name:"section-change",
+          agency_id:section_num // KLUDGE: Pass section_num as agency_id
+          );
         }
+      //
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:biz_members.EmailAddressOf(member_id)
+        + k.COMMA + actor_email_address
+        + k.COMMA + db_notifications.TargetOf
+            (
+            name:"section-change",
+            member_id:member_id
+            )
+        + additional_target_string,
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
 
         private delegate string IssueForSeniorityPromotion_Merge(string s);
         public void IssueForSeniorityPromotion(string member_id, string first_name, string last_name, string cad_num, string new_level)

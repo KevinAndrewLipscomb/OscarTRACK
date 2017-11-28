@@ -103,7 +103,7 @@ namespace Class_db_uniform_pieces
         +   " join uniform_priority on (uniform_priority.id=uniform_piece.priority_id)"
         +   " join uniform_class on (uniform_class.id=uniform_piece.class_id)"
         +   " where uniform_piece.agency_id = '" + agency_id + "'"
-        + " order by spec",
+        + " order by uniform_priority.value, layer, uniform_class.short_designator desc, uniform_piece.name",
         connection
         )
         .ExecuteReader();
