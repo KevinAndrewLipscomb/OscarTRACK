@@ -29,7 +29,7 @@ namespace Class_db_uniform_catalogs
       string agency_id_filter
       )
       {
-      var concat_clause = "concat(uniform_priority.value,'-',layer,'-',uniform_class.short_designator,'-',IFNULL(REPLACE(uniform_piece.name,' ','-'),'-'),'|',IFNULL(rank_group.name,'-'),'|',IFNULL(medical_release_code_description_map.description,'-'),'|',IFNULL(uniform_option_category.name,'-'),'|',IFNULL(IF(be_male,'M','F'),'-'),'|',IFNULL(uniform_piece_vendor.name,'-'),'|',IFNULL(uniform_piece_make.name,'-'),'|',IFNULL(uniform_piece_model.name,'-'),'|',IFNULL(base_color.name,'-'),'|',IFNULL(trim_color.name,'-'),'|',IFNULL(metal_color.name,'-'),'|',IFNULL(instruction_to_vendor,'-'),'|',IFNULL(elaboration,'-'),'|',IFNULL(unit_cost,'-'))";
+      var concat_clause = "concat(uniform_priority.value,'-',layer,'-',uniform_class.short_designator,'-',IFNULL(REPLACE(uniform_piece.name,' ','-'),'-'),'|',IFNULL(rank_group.name,'-'),'|',IFNULL(medical_release_code_description_map.description,'-'),'|',IFNULL(uniform_option_category.name,'-'),'|',IF(be_male is null,'-',IF(be_male,'M','F')),'|',IFNULL(uniform_piece_vendor.name,'-'),'|',IFNULL(uniform_piece_make.name,'-'),'|',IFNULL(uniform_piece_model.name,'-'),'|',IFNULL(base_color.name,'-'),'|',IFNULL(trim_color.name,'-'),'|',IFNULL(metal_color.name,'-'),'|',IFNULL(instruction_to_vendor,'-'),'|',IFNULL(elaboration,'-'),'|',IFNULL(unit_cost,'-'))";
       var agency_id_filter_clause = k.EMPTY;
       if (agency_id_filter.Length > 0)
         {
