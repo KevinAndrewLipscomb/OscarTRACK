@@ -134,18 +134,6 @@
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:ButtonColumn>
-                <asp:ButtonColumn CommandName="UpdateMileage" DataTextField="last_known_mileage" HeaderText="Recent mileage" SortExpression="CAST(vehicle.recent_mileage AS unsigned)%,vehicle_name">
-                  <HeaderStyle HorizontalAlign="Center" />
-                  <ItemStyle HorizontalAlign="Right" />
-                </asp:ButtonColumn>
-                <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed))%,vehicle_name">
-                  <HeaderStyle HorizontalAlign="Center" />
-                  <ItemStyle HorizontalAlign="Right" Wrap="False" />
-                </asp:BoundColumn>
-                <asp:BoundColumn DataField="dmv_inspection_due" HeaderText="DMV inspection due" ReadOnly="True" SortExpression="dmv_inspection_due%,vehicle_name">
-                  <HeaderStyle HorizontalAlign="Center" />
-                  <ItemStyle HorizontalAlign="Center" />
-                </asp:BoundColumn>
                 <asp:BoundColumn DataField="model_year" HeaderText="Model year" ReadOnly="True" SortExpression="model_year%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="chassis_make" HeaderText="Chassis make" ReadOnly="True" SortExpression="chassis_make%,chassis_model,vehicle_name">
                   <HeaderStyle HorizontalAlign="Right" />
@@ -162,11 +150,23 @@
                 </asp:BoundColumn>
                 <asp:BoundColumn DataField="custom_model" HeaderText="Custom model" ReadOnly="True" SortExpression="custom_model%,custom_make,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="fuel_description" HeaderText="Fuel" ReadOnly="True" SortExpression="fuel_description%,vehicle_name"></asp:BoundColumn>
+                <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vehicle_kind" HeaderText="Kind" ReadOnly="True" SortExpression="vehicle_kind%,vehicle_name">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,vehicle_name"></asp:BoundColumn>
+                <asp:ButtonColumn CommandName="UpdateMileage" DataTextField="last_known_mileage" HeaderText="Recent mileage" SortExpression="CAST(vehicle.recent_mileage AS unsigned)%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" Font-Size="Small" />
+                  <ItemStyle HorizontalAlign="Right" Font-Size="Small" />
+                </asp:ButtonColumn>
+                <asp:BoundColumn DataField="miles_from_pm" HeaderText="Miles from PM" ReadOnly="True" SortExpression="(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed))%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" Font-Size="Small" />
+                  <ItemStyle HorizontalAlign="Right" Wrap="False" Font-Size="Small" />
+                </asp:BoundColumn>
+                <asp:BoundColumn DataField="dmv_inspection_due" HeaderText="DMV inspection due" ReadOnly="True" SortExpression="dmv_inspection_due%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" Font-Size="Small" />
+                  <ItemStyle HorizontalAlign="Center" Font-Size="Small" />
+                </asp:BoundColumn>
                 <asp:BoundColumn DataField="bumper_number" HeaderText="Bumper #" ReadOnly="True" SortExpression="bumper_number%">
                   <HeaderStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>

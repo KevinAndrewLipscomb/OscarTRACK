@@ -464,7 +464,7 @@ namespace Class_biz_vehicles
         {
         biz_notifications.IssueForVehicleKindChanged(id,saved_kind_id,kind_id);
         }
-      if (deployment_guidance != saved_deployment_guidance)
+      if ((id.Length > 0) && (deployment_guidance != saved_deployment_guidance))
         {
         biz_notifications.IssueForVehicleDeploymentGuidanceChanged(id,saved_deployment_guidance,deployment_guidance);
         }
