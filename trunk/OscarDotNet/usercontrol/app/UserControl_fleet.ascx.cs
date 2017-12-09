@@ -33,18 +33,18 @@ namespace UserControl_fleet
       public const int TCI_DOWN_DURATION = 9;
       public const int TCI_APPEND_NOTE = 10;
       public const int TCI_QUARTERS = 11;
-      public const int TCI_RECENT_MILEAGE = 12;
-      public const int TCI_MILES_FROM_PM = 13;
-      public const int TCI_DMV_INSPECTION_DUE = 14;
-      public const int TCI_MODEL_YEAR = 15;
-      public const int TCI_CHASSIS_MAKE = 16;
-      public const int TCI_CHASSIS_MODEL = 17;
-      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 18;
-      public const int TCI_CUSTOM_MAKE = 19;
-      public const int TCI_CUSTOM_MODEL = 20;
-      public const int TCI_FUEL = 21;
-      public const int TCI_KIND = 22;
-      public const int TCI_AGENCY = 23;
+      public const int TCI_MODEL_YEAR = 12;
+      public const int TCI_CHASSIS_MAKE = 13;
+      public const int TCI_CHASSIS_MODEL = 14;
+      public const int TCI_BE_FOUR_OR_ALL_WHEEL_DRIVE = 15;
+      public const int TCI_CUSTOM_MAKE = 16;
+      public const int TCI_CUSTOM_MODEL = 17;
+      public const int TCI_FUEL = 18;
+      public const int TCI_AGENCY = 19;
+      public const int TCI_KIND = 20;
+      public const int TCI_RECENT_MILEAGE = 21;
+      public const int TCI_MILES_FROM_PM = 22;
+      public const int TCI_DMV_INSPECTION_DUE = 23;
       public const int TCI_BUMPER_NUMBER = 24;
       public const int TCI_TAG = 25;
       public const int TCI_VIN = 26;
@@ -335,65 +335,65 @@ namespace UserControl_fleet
           var down_duration = e.Item.Cells[Static.TCI_DOWN_DURATION].Text;
           ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Text += (down_duration == "0" ? k.EMPTY : "<small> " + down_duration + "d</small>");
           }
-        var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
-        var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
-        if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
+        if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R") || e.Item.Cells[Static.TCI_AGENCY].Text == "MRT")
           {
-          if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
+          var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+          var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
+          if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
             {
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+            if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
+              {
+              e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = "+" + e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
+              }
+            var miles_from_pm = int.Parse(miles_from_pm_text);
+            if (miles_from_pm >= (be_target_pm_mileage_meaningful ? p.miles_from_pm_alert_threshold : p.alternative_pm_alert_threshold.val))
+              {
+              e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightYellow;
+              e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightYellow;
+              }
+            if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
+              {
+              e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightPink;
+              e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.Blue;
+              e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightPink;
+              be_up_and_current = false;
+              }
             }
-          var miles_from_pm = int.Parse(miles_from_pm_text);
-          if (miles_from_pm >= (be_target_pm_mileage_meaningful ? p.miles_from_pm_alert_threshold : p.alternative_pm_alert_threshold.val))
+          else if (be_target_pm_mileage_meaningful)
             {
-            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Yellow;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Yellow;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.LightPink;
+            e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.Blue;
+            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.LightPink;
+            be_up_and_current = false;
             }
-          if (miles_from_pm >= p.miles_from_pm_alarm_threshold)
+          var dmv_inspection_due_text = k.Safe(e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
+          if (dmv_inspection_due_text != k.EMPTY)
             {
-            e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
-            e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
-            e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
+            var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
+            var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString("D2");
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
+            if (DateTime.Today.ToString("yyyy-MM-dd").CompareTo(dmv_inspection_due_month + "-01") >= 0)
+              {
+              e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.LightYellow;
+              }
+            if (DateTime.Today >= dmv_inspection_due_date)
+              {
+              e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.LightPink;
+              be_up_and_current = false;
+              }
+            }
+          else if (e.Item.Cells[Static.TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL].Text == "1")
+            {
+            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.LightPink;
             be_up_and_current = false;
             }
           }
-        else if (be_target_pm_mileage_meaningful)
+        else
           {
-          e.Item.Cells[Static.TCI_RECENT_MILEAGE].BackColor = Color.Red;
-          e.Item.Cells[Static.TCI_RECENT_MILEAGE].ForeColor = Color.LightBlue;
-          e.Item.Cells[Static.TCI_MILES_FROM_PM].BackColor = Color.Red;
-          e.Item.Cells[Static.TCI_MILES_FROM_PM].ForeColor = Color.White;
-          e.Item.Cells[Static.TCI_MILES_FROM_PM].Font.Bold = true;
-          be_up_and_current = false;
+          e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = k.NO_BREAK_SPACE;
+          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text = k.NO_BREAK_SPACE;
           }
-        var dmv_inspection_due_text = k.Safe(e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
-        if (dmv_inspection_due_text != k.EMPTY)
-          {
-          var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
-          var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString("D2");
-          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text = dmv_inspection_due_month;
-          if (DateTime.Today.ToString("yyyy-MM-dd").CompareTo(dmv_inspection_due_month + "-01") >= 0)
-            {
-            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
-            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Yellow;
-            }
-          if (DateTime.Today >= dmv_inspection_due_date)
-            {
-            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
-            e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
-            be_up_and_current = false;
-            }
-          }
-        else if (e.Item.Cells[Static.TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL].Text == "1")
-          {
-          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].BackColor = Color.Red;
-          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].ForeColor = Color.White;
-          e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Font.Bold = true;
-          be_up_and_current = false;
-          }
+
         if (p.be_interactive)
           {
           link_button = ((e.Item.Cells[Static.TCI_SELECT].Controls[0]) as LinkButton);
