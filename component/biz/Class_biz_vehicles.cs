@@ -242,7 +242,7 @@ namespace Class_biz_vehicles
       out string deployment_guidance
       )
       {
-      return db_vehicles.Get
+      var result = db_vehicles.Get
         (
         id,
         out agency_id,
@@ -264,6 +264,11 @@ namespace Class_biz_vehicles
         out be_four_or_all_wheel_drive,
         out deployment_guidance
         );
+      if (target_pm_mileage == 0xFFFFFFFF.ToString("d")) // max MySQL int value
+        {
+        target_pm_mileage = k.EMPTY;
+        }
+      return result;
       }
 
     public string IdOf(object summary)
@@ -430,10 +435,28 @@ namespace Class_biz_vehicles
       string saved_deployment_guidance
       )
       {
+      var agency_id_int = new k.int_nonnegative(val:int.Parse(agency_id));
       var effective_dmv_inspection_due = DateTime.MinValue;
-      if (dmv_inspection_due != DateTime.MinValue)
+      if(
+          (
+            (agency_id_int.val > 0)
+          &&
+            (agency_id_int.val < 200)
+          )
+        ||
+          (agency_id_int.val == 203) // MRT
+        )
+      //then
         {
-        effective_dmv_inspection_due = new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1);
+        if (dmv_inspection_due != DateTime.MinValue)
+          {
+          effective_dmv_inspection_due = new DateTime(dmv_inspection_due.Year,dmv_inspection_due.Month,1).AddMonths(1).AddDays(-1);
+          }
+        }
+      else
+        {
+        target_pm_mileage = 0xFFFFFFFF.ToString("d");
+        effective_dmv_inspection_due = DateTime.MaxValue; // max MySQL date
         }
       db_vehicles.Set
         (
