@@ -101,7 +101,9 @@ namespace Class_biz_vehicles
       DateTime proposed_date
       )
       {
-      return db_vehicles.BeNotEarlierDmvInspectionDue(id,proposed_date);
+      var agency_id_of_id = int.Parse(db_vehicles.AgencyIdOfId(id));
+      return !(((agency_id_of_id > 0) && (agency_id_of_id < 200)) || (agency_id_of_id == 203))
+        || db_vehicles.BeNotEarlierDmvInspectionDue(id,proposed_date);
       }
 
     public bool BeNotEarlierTargetPmMileage
@@ -110,7 +112,9 @@ namespace Class_biz_vehicles
       string proposed_mileage
       )
       {
-      return db_vehicles.BeNotEarlierTargetPmMileage(id,proposed_mileage);
+      var agency_id_of_id = int.Parse(db_vehicles.AgencyIdOfId(id));
+      return !(((agency_id_of_id > 0) && (agency_id_of_id < 200)) || (agency_id_of_id == 203))
+        || db_vehicles.BeNotEarlierTargetPmMileage(id,proposed_mileage);
       }
 
     public bool BeNotLessMileage
