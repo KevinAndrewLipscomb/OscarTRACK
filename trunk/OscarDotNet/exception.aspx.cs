@@ -45,6 +45,8 @@ namespace exception
             last_error.ToString().Contains("Validation of viewstate MAC failed.")
           ||
             last_error.ToString().Contains("Failed to load viewstate.  The control tree into which viewstate is being loaded must match")
+          ||
+            last_error.ToString().Contains("The state information is invalid for this page and might be corrupted.")
           )
           {
           Server.ClearError();
