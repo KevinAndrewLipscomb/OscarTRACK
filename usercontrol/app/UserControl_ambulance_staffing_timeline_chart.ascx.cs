@@ -179,19 +179,39 @@ namespace UserControl_ambulance_staffing_timeline_chart
           {
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           }
-        //
-        for (var i = new k.subtype<int>(2,e.Item.Cells.Count); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(2,8); i.val < i.LAST; i.val++)
+          //
+          // D0000-D0230 or 0600h-0830h -- geo
+          //
+          {
+          var cell = e.Item.Cells[i.val];
+          cell.BackColor = Color.LawnGreen;
+          var n = new k.decimal_nonnegative(decimal.Parse(cell.Text));
+          if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required_geo"]))
+            {
+            cell.ForeColor = Color.White;
+            cell.BackColor = Color.Red;
+            }
+          if (i.val%2 == 1)
+            {
+            cell.Style.Add(key:"border-right",value:"1px solid WhiteSmoke");
+            }
+          }
+        for (var i = new k.subtype<int>(8,33); i.val < i.LAST; i.val++)
+          //
+          // D0300-N0230 or 0900h-2030h -- peak
+          //
           {
           if (i.val != Static.TCI_SPACER_2)
             {
             var cell = e.Item.Cells[i.val];
             cell.BackColor = Color.LawnGreen;
             var n = new k.decimal_nonnegative(decimal.Parse(cell.Text));
-            if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired"]))
+            if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired_peak"]))
               {
               cell.BackColor = Color.Yellow;
               }
-            if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required"]))
+            if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required_peak"]))
               {
               cell.ForeColor = Color.White;
               cell.BackColor = Color.Red;
@@ -204,6 +224,46 @@ namespace UserControl_ambulance_staffing_timeline_chart
               {
               cell.Style.Add(key:"border-left",value:"1px solid WhiteSmoke");
               }
+            }
+          }
+        for (var i = new k.subtype<int>(33,45); i.val < i.LAST; i.val++)
+          //
+          // N0300-N0830 or 2100h-0230h -- off-peak
+          //
+          {
+          var cell = e.Item.Cells[i.val];
+          cell.BackColor = Color.LawnGreen;
+          var n = new k.decimal_nonnegative(decimal.Parse(cell.Text));
+          if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired_off_peak"]))
+            {
+            cell.BackColor = Color.Yellow;
+            }
+          if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required_off_peak"]))
+            {
+            cell.ForeColor = Color.White;
+            cell.BackColor = Color.Red;
+            }
+          if (i.val%2 == 1)
+            {
+            cell.Style.Add(key:"border-left",value:"1px solid WhiteSmoke");
+            }
+          }
+        for (var i = new k.subtype<int>(45,51); i.val < i.LAST; i.val++)
+          //
+          // N0900-N1130 or 0300h-0530h -- geo
+          //
+          {
+          var cell = e.Item.Cells[i.val];
+          cell.BackColor = Color.LawnGreen;
+          var n = new k.decimal_nonnegative(decimal.Parse(cell.Text));
+          if (n.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required_geo"]))
+            {
+            cell.ForeColor = Color.White;
+            cell.BackColor = Color.Red;
+            }
+          if (i.val%2 == 1)
+            {
+            cell.Style.Add(key:"border-left",value:"1px solid WhiteSmoke");
             }
           }
         //
