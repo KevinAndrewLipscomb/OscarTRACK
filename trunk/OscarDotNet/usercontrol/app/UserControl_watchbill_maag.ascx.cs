@@ -176,11 +176,11 @@ namespace UserControl_watchbill_maag
           table.Controls.Add(row);
           e.Cell.Controls.Add(table);
           e.Cell.BackColor = Color.LawnGreen;
-          if (num_crew_shifts.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_desired"]))
+          if (num_crew_shifts.val < int.Parse(ConfigurationManager.AppSettings[(shift_name == "DAY" ? "num_staffed_ambulances_desired_peak" : "num_staffed_ambulances_desired_off_peak")]))
             {
             e.Cell.BackColor = Color.Yellow;
             }
-          if (num_crew_shifts.val < int.Parse(ConfigurationManager.AppSettings["num_staffed_ambulances_required"]))
+          if (num_crew_shifts.val < int.Parse(ConfigurationManager.AppSettings[(shift_name == "DAY" ? "num_staffed_ambulances_required_peak" : "num_staffed_ambulances_required_off_peak")]))
             {
             e.Cell.ForeColor = Color.White;
             e.Cell.BackColor = Color.Red;
