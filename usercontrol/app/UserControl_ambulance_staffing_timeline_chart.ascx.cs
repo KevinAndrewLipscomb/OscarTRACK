@@ -167,9 +167,23 @@ namespace UserControl_ambulance_staffing_timeline_chart
     private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
-      if ((e.Item.ItemType == ListItemType.Header) && p.nominal_day_filter.Length == 0)
+      if (e.Item.ItemType == ListItemType.Header)
         {
-        e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
+        if (p.nominal_day_filter.Length == 0)
+          {
+          e.Item.Cells[Static.TCI_NOMINAL_DAY].Text = DateTime.Now.AddMonths(p.relative_month.val).ToString("MMM").ToUpper();
+          }
+        //
+        // Add indicators for PEAK and OFF-PEAK demand periods.
+        //
+        for (var i = new k.subtype<int>(8,33); i.val < i.LAST; i.val++)
+          {
+          e.Item.Cells[i.val].Style.Add("background-color","silver");
+          }
+        for (var i = new k.subtype<int>(33,45); i.val < i.LAST; i.val++)
+          {
+          e.Item.Cells[i.val].Style.Add("background-color","gainsboro");
+          }
         }
       if (e.Item.ItemType.ToString().EndsWith("Item"))
         {
