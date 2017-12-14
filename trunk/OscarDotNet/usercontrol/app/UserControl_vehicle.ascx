@@ -77,7 +77,7 @@
     <td></td>
     <td>
       <font class="">
-        <ASP:DropDownList id="DropDownList_agency" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
+        <ASP:DropDownList id="DropDownList_agency" runat="server"  cssclass="" enabled="False" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_agency_SelectedIndexChanged"></ASP:DropDownList>
       </font>
     </td>
     <td nowrap="nowrap">
@@ -203,7 +203,7 @@
     <td nowrap="nowrap">
     </td>
   </tr>
-  <tr>
+  <tr id="TableRow_target_pm_mileage" runat="server">
     <td><font class="">Target&nbsp;PM&nbsp;mileage:</font></td>
     <td></td>
     <td>
@@ -219,7 +219,7 @@
         onservervalidate="CustomValidator_be_target_pm_mileage_meaningful_ServerValidate">!ERR!</asp:CustomValidator>
     </td>
   </tr>
-  <tr>
+  <tr id="TableRow_dmv_inspection_due" runat="server">
     <td><font class="">DMV&nbsp;inspection&nbsp;due:</font></td>
     <td></td>
     <td>
