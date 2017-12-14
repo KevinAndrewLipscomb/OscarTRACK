@@ -3,8 +3,8 @@ This is an automatic notification from <application_name/>.
 
 <actor/> has changed vehicle <vehicle_name/>'s kind as follows:
 
-   Old:  <old_kind/>
-   New:  <new_kind/>
+   Old kind:  <old_kind/>
+   New kind:  <new_kind/>
 
 You can reach <actor/> at:
 

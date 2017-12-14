@@ -3,10 +3,10 @@ This is an automatic notification from <application_name/>.
 
 <actor/> has changed vehicle <vehicle_name/>'s deployment guidance as follows:
 
-   Old:
+   Old guidance:
       <old_deployment_guidance/>
 
-   New:
+   New guidance:
       <new_deployment_guidance/>
 
 You can reach <actor/> at:

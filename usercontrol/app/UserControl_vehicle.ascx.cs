@@ -616,6 +616,19 @@ namespace UserControl_vehicle
       args.IsValid = p.biz_vehicles.BeGoodCombinationKindTargetPmMileage(k.Safe(DropDownList_kind.SelectedValue,k.safe_hint_type.NUM),k.Safe(TextBox_target_pm_mileage.Text,k.safe_hint_type.NUM));
       }
 
+    protected void DropDownList_agency_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      var be_extra_tracking_appropriate_so_far = true;
+      var agency_id = k.Safe(DropDownList_agency.SelectedValue,k.safe_hint_type.NUM);
+      if (agency_id.Length > 0)
+        {
+        var agency_id_int = int.Parse(agency_id);
+        be_extra_tracking_appropriate_so_far &= (((agency_id_int > 0) && (agency_id_int < 200)) || (agency_id_int == 203));
+        }
+      TableRow_target_pm_mileage.Visible = be_extra_tracking_appropriate_so_far;
+      TableRow_dmv_inspection_due.Visible = be_extra_tracking_appropriate_so_far;
+      }
+
     } // end TWebUserControl_vehicle
 
   }
