@@ -1,17 +1,12 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
 using Class_biz_agencies;
+using Class_biz_efficipay_dockets;
 using Class_biz_members;
 using Class_biz_user;
 using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using UserControl_efficipay_teaser;
 using UserControl_efficipay;
+using UserControl_efficipay_teaser;
 
 namespace UserControl_efficipay_binder
   {
@@ -26,9 +21,11 @@ namespace UserControl_efficipay_binder
     public bool be_loaded;
     public bool be_ok_to_perform_efficipay_ops;
     public TClass_biz_agencies biz_agencies;
+    public TClass_biz_efficipay_dockets biz_efficipay_dockets;
     public TClass_biz_members biz_members;
     public TClass_biz_user biz_user;
     public string content_id;
+    public string user_member_agency_id;
     public uint tab_index;
     }
 
@@ -63,13 +60,19 @@ namespace UserControl_efficipay_binder
       else
         {
         p.biz_agencies = new TClass_biz_agencies();
+        p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
         p.biz_members = new TClass_biz_members();
         p.biz_user = new TClass_biz_user();
         //
         p.be_loaded = false;
+        //
+        var member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
+        p.user_member_agency_id = p.biz_members.AgencyIdOfId(member_id);
+        p.user_member_agency_id = (p.user_member_agency_id == "0" ? p.biz_efficipay_dockets.LegacyAgencyIdOfMemberId(member_id:member_id) : p.user_member_agency_id);
+        //
         p.be_ok_to_perform_efficipay_ops =
             (
-              p.biz_agencies.BeEfficipayEnabled(p.biz_members.AgencyIdOfId(p.biz_members.IdOfUserId(p.biz_user.IdNum())))
+              p.biz_agencies.BeEfficipayEnabled(id:p.user_member_agency_id)
             &&
               (k.Has(Session["privilege_array"] as string[],"create-efficipay-docket") || k.Has(Session["privilege_array"] as string[],"sign-efficipay-docket"))
             )
@@ -140,8 +143,8 @@ namespace UserControl_efficipay_binder
       else if (p.tab_index == UserControl_efficipay_binder_Static.TSSI_CURRENT)
         {
         var c = ((TWebUserControl_efficipay)(LoadControl("~/usercontrol/app/UserControl_efficipay.ascx")));
-        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
-        //c.SetTarget(target);
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay",PlaceHolder_content); // As a special case, we are disregarding be_fresh_control_required here.
+        c.SetP(p.user_member_agency_id);
         }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)

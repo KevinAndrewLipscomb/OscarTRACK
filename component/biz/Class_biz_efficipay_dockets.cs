@@ -4,10 +4,10 @@ using Class_biz_notifications;
 using Class_db_efficipay_dockets;
 using Class_db_efficipay_tokens;
 using Class_db_members;
+using Class_db_role_member_map;
 using Ionic.Crc;
 using kix;
 using System;
-using System.Collections;
 using System.IO;
 using System.Text;
 
@@ -29,6 +29,7 @@ namespace Class_biz_efficipay_dockets
     private TClass_db_efficipay_dockets db_efficipay_dockets = null;
     private TClass_db_efficipay_tokens db_efficipay_tokens = null;
     private TClass_db_members db_members = null;
+    private TClass_db_role_member_map db_role_member_map = null;
 
     public TClass_biz_efficipay_dockets() : base()
       {
@@ -36,6 +37,7 @@ namespace Class_biz_efficipay_dockets
       db_efficipay_dockets = new TClass_db_efficipay_dockets();
       db_efficipay_tokens = new TClass_db_efficipay_tokens();
       db_members = new TClass_db_members();
+      db_role_member_map = new TClass_db_role_member_map();
       }
 
     internal void ApplySignature
@@ -192,6 +194,15 @@ namespace Class_biz_efficipay_dockets
     internal string IdOf(object summary)
       {
       return db_efficipay_dockets.IdOf(summary);
+      }
+
+    internal string LegacyAgencyIdOfMemberId(string member_id)
+      {
+      return db_role_member_map.SoleSpecialAgencyOf
+        (
+        role_name:"Squad Treasurer",
+        member_id:member_id
+        );
       }
 
     internal void PromoteToReadyForReview

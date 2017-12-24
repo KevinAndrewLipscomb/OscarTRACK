@@ -1,6 +1,7 @@
 using kix;
 using UserControl_schedule_assignments_audit;
 using UserControl_roster;
+using UserControl_uniform_mart;
 
 namespace UserControl_personnel_binder
 {
@@ -8,6 +9,7 @@ namespace UserControl_personnel_binder
     {
     public const int TSSI_ROSTER = 0;
     public const int TSSI_RESULTS = 1;
+    public const int TSSI_PROVISIONING = 2;
     }
 
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~personnel~binder.pas
@@ -51,6 +53,9 @@ namespace UserControl_personnel_binder
                     case UserControl_personnel_binder_Static.TSSI_RESULTS:
                         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignments_audit)(LoadControl("~/usercontrol/app/UserControl_schedule_assignments_audit.ascx"))), "UserControl_schedule_assignments_audit", PlaceHolder_content);
                         break;
+                    case UserControl_personnel_binder_Static.TSSI_PROVISIONING:
+                        p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_uniform_mart)(LoadControl("~/usercontrol/app/UserControl_uniform_mart.ascx"))), "UserControl_uniform_mart", PlaceHolder_content);
+                        break;
                 }
             }
             else
@@ -76,6 +81,9 @@ namespace UserControl_personnel_binder
                 case UserControl_personnel_binder_Static.TSSI_RESULTS:
                     p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_schedule_assignments_audit)(LoadControl("~/usercontrol/app/UserControl_schedule_assignments_audit.ascx"))),"UserControl_schedule_assignments_audit",PlaceHolder_content,InstanceId());
                     break;
+                case UserControl_personnel_binder_Static.TSSI_PROVISIONING:
+                    p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_uniform_mart)(LoadControl("~/usercontrol/app/UserControl_uniform_mart.ascx"))),"UserControl_uniform_mart",PlaceHolder_content,InstanceId());
+                    break;
             }
         }
 
@@ -85,9 +93,8 @@ namespace UserControl_personnel_binder
         // / </summary>
         private void InitializeComponent()
         {
-            this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_personnel_binder_PreRender;
+            TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+            PreRender += TWebUserControl_personnel_binder_PreRender;
         }
 
         private void TWebUserControl_personnel_binder_PreRender(object sender, System.EventArgs e)
