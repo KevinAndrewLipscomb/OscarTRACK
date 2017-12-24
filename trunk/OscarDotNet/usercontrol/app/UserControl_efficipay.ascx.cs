@@ -7,11 +7,9 @@ using Class_biz_user;
 using Class_msg_protected;
 using kix;
 using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using System.Collections;
+using System.Web.UI;
+using System.Web.UI.WebControls;
 
 namespace UserControl_efficipay
   {
@@ -165,7 +163,7 @@ namespace UserControl_efficipay
       InjectPersistentClientSideScript();
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();
@@ -194,17 +192,12 @@ namespace UserControl_efficipay
         }
       }
 
-    // / <summary>
-    // / Required method for Designer support -- do not modify
-    // / the contents of this method with the code editor.
-    // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-      this.DataGrid_control.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_control_ItemCommand);
-      this.PreRender += this.TWebUserControl_efficipay_PreRender;
-      //this.Load += this.Page_Load;
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      DataGrid_control.ItemCommand += new DataGridCommandEventHandler(DataGrid_control_ItemCommand);
+      PreRender += TWebUserControl_efficipay_PreRender;
       }
 
     private void TWebUserControl_efficipay_PreRender(object sender, System.EventArgs e)
@@ -218,16 +211,17 @@ namespace UserControl_efficipay
       return this;
       }
 
-    private void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
       {
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
+        p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
         p.msg_protected_efficipay_docket_detail.summary = p.biz_efficipay_dockets.Summary(k.Safe(e.Item.Cells[UserControl_efficipay_Static.TCI_ID].Text,k.safe_hint_type.NUM));
         MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_docket_detail");
         }
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
       if (p.be_interactive)
@@ -255,7 +249,7 @@ namespace UserControl_efficipay
         }
       }
 
-    private void DataGrid_control_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+    private void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
       {
       if (e.SortExpression == p.sort_order)
         {
@@ -288,6 +282,7 @@ namespace UserControl_efficipay
 
     protected void LinkButton_add_docket_Click(object sender, EventArgs e)
       {
+      p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
       p.msg_protected_efficipay_docket_detail.summary = null;
       MessageDropCrumbAndTransferTo(p.msg_protected_efficipay_docket_detail,"protected","efficipay_docket_detail");
       }
@@ -297,6 +292,12 @@ namespace UserControl_efficipay
       p.agency_id = ((sender as RadioButtonList).SelectedValue == "Squad" ? p.saved_agency_id : "0");
       p.msg_protected_efficipay_docket_detail.agency_id = p.agency_id;
       Bind();
+      }
+
+    internal void SetP(string agency_id)
+      {
+      p.agency_id = agency_id;
+      p.saved_agency_id = p.agency_id;
       }
 
     } // end TWebUserControl_efficipay

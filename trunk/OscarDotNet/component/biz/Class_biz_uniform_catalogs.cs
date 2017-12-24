@@ -38,10 +38,11 @@ namespace Class_biz_uniform_catalogs
       (
       string sort_order,
       bool be_sort_order_ascending,
-      object target
+      object target,
+      string agency_filter
       )
       {
-      db_uniform_catalogs.BindBaseDataList(sort_order,be_sort_order_ascending,target);
+      db_uniform_catalogs.BindBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter);
       }
 
     public void BindDirectToListControl(object target)

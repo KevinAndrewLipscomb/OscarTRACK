@@ -73,14 +73,50 @@ namespace Class_db_uniform_catalogs
       (
       string sort_order,
       bool be_sort_order_ascending,
-      object target
+      object target,
+      string agency_filter
       )
-      {
+      {      
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
         "select uniform_catalog.id as id"
-        + " from uniform_catalog",
+        + " , uniform_priority.value as priority"
+        + " , uniform_piece.layer as layer"
+        + " , uniform_class.short_designator as class"
+        + " , uniform_piece.name as name"
+        + " , IF(be_branded,'Y','N') as be_branded"
+        + " , IF(be_size_dependent,'Y','N') as be_size_dependent"
+        + " , IF(be_specific_rank_dependent,'Y','N') as be_specific_rank_dependent"
+        + " , IF(be_extra_individualized,'Y','N') as be_extra_individualized"
+        + " , rank_group.name as rank_group"
+        + " , medical_release_code_description_map.description as cert_level"
+        + " , uniform_option_category.name as option_category"
+        + " , IF(be_male is null,'',IF(be_male,'M','F')) as gender"
+        + " , uniform_piece_vendor.name as vendor"
+        + " , uniform_piece_make.name as make"
+        + " , uniform_piece_model.name as model"
+        + " , base_color.name as base_color"
+        + " , trim_color.name as trim_color"
+        + " , metal_color.name as metal_color"
+        + " , elaboration"
+        + " , unit_cost as cost"
+        + " from uniform_catalog"
+        +   " left join uniform_piece on (uniform_piece.id=uniform_catalog.piece_id)"
+        +   " left join agency on (agency.id=uniform_piece.agency_id)"
+        +   " left join uniform_priority on (uniform_priority.id=uniform_piece.priority_id)"
+        +   " left join uniform_class on (uniform_class.id=uniform_piece.class_id)"
+        +   " left join rank_group on (rank_group.id=uniform_catalog.rank_group_id)"
+        +   " left join medical_release_code_description_map on (medical_release_code_description_map.code=uniform_catalog.medical_release_code)"
+        +   " left join uniform_option_category on (uniform_option_category.id=uniform_catalog.option_category_id)"
+        +   " left join uniform_piece_vendor on (uniform_piece_vendor.id=uniform_catalog.vendor_id)"
+        +   " left join uniform_piece_model on (uniform_piece_model.id=uniform_catalog.model_id)"
+        +   " left join uniform_piece_make on (uniform_piece_make.id=uniform_piece_model.make_id)"
+        +   " left join uniform_piece_color base_color on (base_color.id=uniform_catalog.base_color_id)"
+        +   " left join uniform_piece_color trim_color on (trim_color.id=uniform_catalog.trim_color_id)"
+        +   " left join uniform_piece_color metal_color on (metal_color.id=uniform_catalog.metal_color_id)"
+        + " where uniform_piece.agency_id = '" + agency_filter + "'"
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();
