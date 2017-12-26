@@ -153,7 +153,7 @@ namespace UserControl_member_schedule_detail
         }
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();

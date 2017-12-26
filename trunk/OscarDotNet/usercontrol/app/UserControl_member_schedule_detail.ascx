@@ -216,6 +216,28 @@
                           <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server">
                             <asp:ListItem Selected="True" Value="NONE">-- None --</asp:ListItem>
                             <asp:ListItem Value="405">010</asp:ListItem>
+                            <asp:ListItem Value="406">001</asp:ListItem>
+                            <asp:ListItem Value="408">002</asp:ListItem>
+                            <asp:ListItem Value="301">Z01</asp:ListItem>
+                            <asp:ListItem Value="302">Z02</asp:ListItem>
+                            <asp:ListItem Value="303">Z03</asp:ListItem>
+                            <asp:ListItem Value="304">Z04</asp:ListItem>
+                            <asp:ListItem Value="305">Z05</asp:ListItem>
+                            <asp:ListItem Value="306">Z06</asp:ListItem>
+                            <asp:ListItem Value="307">Z07</asp:ListItem>
+                            <asp:ListItem Value="308">Z08</asp:ListItem>
+                            <asp:ListItem Value="309">Z09</asp:ListItem>
+                            <asp:ListItem Value="310">Z10</asp:ListItem>
+                            <asp:ListItem Value="312">Z12</asp:ListItem>
+                            <asp:ListItem Value="314">Z14</asp:ListItem>
+                            <asp:ListItem Value="315">Z15</asp:ListItem>
+                            <asp:ListItem Value="316">Z16</asp:ListItem>
+                            <asp:ListItem Value="317">Z17</asp:ListItem>
+                            <asp:ListItem Value="318">Z18</asp:ListItem>
+                            <asp:ListItem Value="319">Z19</asp:ListItem>
+                            <asp:ListItem Value="320">Z20</asp:ListItem>
+                            <asp:ListItem Value="321">Z21</asp:ListItem>
+                            <asp:ListItem Value="322">Z22</asp:ListItem>
                           </asp:DropDownList>
                         </td>
                       </tr>
