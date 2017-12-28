@@ -4,6 +4,7 @@ using appcommon;
 using Class_biz_agencies;
 using Class_biz_efficipay_dockets;
 using Class_biz_members;
+using Class_biz_privileges;
 using Class_biz_role_member_map;
 using Class_biz_user;
 using kix;
@@ -29,11 +30,13 @@ namespace UserControl_efficipay_docket
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_efficipay_dockets biz_efficipay_dockets;
       public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
       public TClass_biz_role_member_map biz_role_member_map;
       public TClass_biz_user biz_user;
       public string check_num;
       public Class_fs fs;
       public string id;
+      public string member_id;
       public string signer_1_member_id;
       public string signer_2_member_id;
       }
@@ -196,6 +199,7 @@ namespace UserControl_efficipay_docket
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_efficipay_dockets = new TClass_biz_efficipay_dockets();
         p.biz_members = new TClass_biz_members();
+        p.biz_privileges = new TClass_biz_privileges();
         p.biz_role_member_map = new TClass_biz_role_member_map();
         p.biz_user = new TClass_biz_user();
         p.fs = new Class_fs();
@@ -206,6 +210,7 @@ namespace UserControl_efficipay_docket
         p.be_signer = k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket") || k.Has((string[])(Session["privilege_array"]), "sign-efficipay-docket-for-rc");
         p.check_num = k.EMPTY;
         p.id = k.EMPTY;
+        p.member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
         p.signer_1_member_id = k.EMPTY;
         p.signer_2_member_id = k.EMPTY;
         }
@@ -269,6 +274,13 @@ namespace UserControl_efficipay_docket
       else
         {
         p.id = p.biz_efficipay_dockets.IdOf(summary);
+        p.be_signer |= p.biz_privileges.HasForSpecialAgency
+          (
+          member_id:p.member_id,
+          privilege_name:"sign-efficipay-docket",
+          agency_id:p.agency_id,
+          do_include_rescue_squads:true
+          );
         PresentRecord(p.id);
         }
       ManageControlAblementsAndVisibilities();
@@ -420,7 +432,7 @@ namespace UserControl_efficipay_docket
         id: p.id,
         agency_id: p.agency_id,
         check_num: p.check_num,
-        member_id: p.biz_members.IdOfUserId(p.biz_user.IdNum())
+        member_id: p.member_id
         );
       BackTrack();
       }
