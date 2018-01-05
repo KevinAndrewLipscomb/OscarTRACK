@@ -191,7 +191,7 @@ namespace UserControl_field_situation
 
     private void Bind()
       {
-      DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature;
+      //DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature;
       DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
       Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
