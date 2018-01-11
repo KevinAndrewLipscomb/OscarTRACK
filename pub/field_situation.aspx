@@ -16,7 +16,7 @@
   <body bgcolor="white">
     <form runat="server">
       <uc1:UserControl_precontent id="UserControl_precontent" runat="server"></uc1:UserControl_precontent>
-      <uc3:UserControl_field_situation ID="UserControl_field_situation_control" runat="server" />
+      <uc3:UserControl_field_situation ID="UserControl_field_situation_control" runat="server" />      
       <uc1:UserControl_postcontent id="UserControl_postcontent" runat="server"></uc1:UserControl_postcontent>
       <uc2:UserControl_update_progress_blocker id="UserControl_update_progress_blocker_control" runat="server"></uc2:UserControl_update_progress_blocker>
     </form>
