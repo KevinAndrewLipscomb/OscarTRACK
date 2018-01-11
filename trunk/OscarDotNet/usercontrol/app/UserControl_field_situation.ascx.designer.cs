@@ -40,6 +40,15 @@ namespace UserControl_field_situation {
         protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_none;
         
         /// <summary>
+        /// TableData_cases control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_cases;
+        
+        /// <summary>
         /// DataGrid_control control.
         /// </summary>
         /// <remarks>
@@ -56,6 +65,24 @@ namespace UserControl_field_situation {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image Image_control;
+        
+        /// <summary>
+        /// TableData_supression_notice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_supression_notice;
+        
+        /// <summary>
+        /// HyperLink_application_login_link control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_application_login_link;
         
         /// <summary>
         /// UserControl_recent_oscalert_samples_control control.

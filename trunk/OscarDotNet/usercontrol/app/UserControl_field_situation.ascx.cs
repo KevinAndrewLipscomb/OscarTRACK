@@ -1,6 +1,5 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
-using AjaxControlToolkit;
 using Class_biz_field_situations;
 using kix;
 using System;
@@ -74,11 +73,18 @@ namespace UserControl_field_situation
         }
       }
 
-    protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
       {
       if (!p.be_loaded)
         {
         UpdatePanel_cases.Visible = p.be_field_situation_enabled;
+        if (!p.be_ok_to_show_nature)
+          {
+          TableData_cases.Visible = false;
+          TableData_supression_notice.Visible = true;
+          HyperLink_application_login_link.Text = ConfigurationManager.AppSettings["application_name"];
+          HyperLink_application_login_link.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"];
+          }
         Table_notes.Visible = p.be_field_situation_enabled;
         if (!p.be_interactive)
           {
@@ -90,7 +96,7 @@ namespace UserControl_field_situation
       InjectPersistentClientSideScript();
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();
@@ -133,11 +139,11 @@ namespace UserControl_field_situation
     // / </summary>
     private void InitializeComponent()
       {
-      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
       PreRender += TWebUserControl_field_situation_PreRender;
       }
 
-    private void TWebUserControl_field_situation_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_field_situation_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -148,7 +154,7 @@ namespace UserControl_field_situation
       return this;
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {

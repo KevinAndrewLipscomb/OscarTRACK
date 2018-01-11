@@ -27,8 +27,8 @@
               <td>
                 <table>
                   <tr valign="top">
-                    <td id="TableData_none" runat="server"><em>--&nbsp;NONE&nbsp;--</em></td>
-                    <td>
+                    <td id="TableData_none" runat="server" nowrap="nowrap"><em>--&nbsp;NONE&nbsp;--</em></td>
+                    <td id="TableData_cases" runat="server">
                       <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="5" autogeneratecolumns="False" allowsorting="True" OnItemCommand="DataGrid_control_ItemCommand">
                         <Columns>
                           <asp:BoundColumn DataField="id" Visible="False"></asp:BoundColumn>
@@ -60,6 +60,18 @@
                       </asp:DataGrid>
                     </td>
                     <td><asp:Image ID="Image_control" runat="server" AlternateText="Static overview map" ToolTip="Static overview map" EnableViewState="False" Height="400px" Width="400px"/></td>
+                    <td id="TableData_supression_notice" runat="server" visible="false">
+                      <table cellpadding="10" cellspacing="0">
+                        <tr>
+                          <td>
+                            <b>
+                              Members of the Virginia Beach EMS Department and its volunteer rescue squads can access the full field situation display by logging into
+                              <asp:HyperLink ID="HyperLink_application_login_link" runat="server"></asp:HyperLink>.
+                            </b>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
                   </tr>
                 </table>
               </td>
