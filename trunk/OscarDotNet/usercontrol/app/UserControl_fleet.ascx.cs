@@ -60,6 +60,7 @@ namespace UserControl_fleet
       public bool be_interactive;
       public bool be_interest_dynamic;
       public bool be_loaded;
+      public bool be_mode_report_pub_fleet_status;
       public bool be_sort_order_ascending;
       public bool be_ok_to_config_vehicles;
       public bool be_ok_to_append_vehicle_down_notes;
@@ -225,10 +226,10 @@ namespace UserControl_fleet
         //
         p.alternative_pm_alert_threshold = new k.int_negative(int.Parse(ConfigurationManager.AppSettings["alternative_pm_alert_threshold"]));
         p.be_four_or_all_wheel_drive_filter = false;
+        p.be_mode_report_pub_fleet_status = (Session["mode:report/pub-fleet-status"] != null);
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
         p.be_ok_to_append_vehicle_down_notes = k.Has((string[])(Session["privilege_array"]), "append-vehicle-down-note");
         p.be_ok_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
-        p.be_interactive = ((Session["mode:report"] == null) && (Session["mode:report/pub-fleet-status"] == null));
         p.be_interest_dynamic = true;
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
@@ -240,6 +241,7 @@ namespace UserControl_fleet
         p.vehicle_kind_filter = k.EMPTY;
         //
         p.agency_filter = k.EMPTY;
+        p.be_interactive = ((Session["mode:report"] == null) && !p.be_mode_report_pub_fleet_status);
         if (!(p.be_interactive && p.biz_vehicles.BeOkToDefaultAgencyFilterToAll(p.be_ok_to_see_all_squads,p.biz_user.Roles())) && (Session["member_id"] != null))
           {
           p.agency_filter = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
@@ -481,9 +483,9 @@ namespace UserControl_fleet
       DataGrid_control.Columns[Static.TCI_STATUS_DOWN].Visible = (p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_APPEND_NOTE].Visible = (p.be_interest_dynamic) && p.be_ok_to_append_vehicle_down_notes;
       DataGrid_control.Columns[Static.TCI_QUARTERS].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic);
-      DataGrid_control.Columns[Static.TCI_DMV_INSPECTION_DUE].Visible = (p.be_interest_dynamic);
+      DataGrid_control.Columns[Static.TCI_RECENT_MILEAGE].Visible = (p.be_interest_dynamic && !p.be_mode_report_pub_fleet_status);
+      DataGrid_control.Columns[Static.TCI_MILES_FROM_PM].Visible = (p.be_interest_dynamic && !p.be_mode_report_pub_fleet_status);
+      DataGrid_control.Columns[Static.TCI_DMV_INSPECTION_DUE].Visible = (p.be_interest_dynamic && !p.be_mode_report_pub_fleet_status);
       DataGrid_control.Columns[Static.TCI_MODEL_YEAR].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_CHASSIS_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_CHASSIS_MODEL].Visible = (!p.be_interest_dynamic);
