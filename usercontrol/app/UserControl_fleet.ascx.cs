@@ -162,7 +162,7 @@ namespace UserControl_fleet
       // );
       }
 
-    protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
       {
       if (!p.be_loaded)
         {
@@ -194,7 +194,7 @@ namespace UserControl_fleet
         }
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();
@@ -253,14 +253,13 @@ namespace UserControl_fleet
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-      this.DataGrid_control.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_control_ItemCommand);
-      this.PreRender += this.TWebUserControl_fleet_PreRender;
-      //this.Load += this.Page_Load;
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      DataGrid_control.ItemCommand += new DataGridCommandEventHandler(DataGrid_control_ItemCommand);
+      PreRender += TWebUserControl_fleet_PreRender;
       }
 
-    private void TWebUserControl_fleet_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_fleet_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -271,7 +270,7 @@ namespace UserControl_fleet
       return this;
       }
 
-    private void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
       {
       if (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
         {
@@ -307,7 +306,7 @@ namespace UserControl_fleet
         }
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       if ((new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
@@ -334,6 +333,11 @@ namespace UserControl_fleet
           be_up_and_current = false;
           var down_duration = e.Item.Cells[Static.TCI_DOWN_DURATION].Text;
           ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Text += (down_duration == "0" ? k.EMPTY : "<small> " + down_duration + "d</small>");
+          LabelizeAndSetTextForeColor
+            (
+            table_cell:e.Item.Cells[Static.TCI_DEPLOYMENT_GUIDANCE],
+            fore_color:Color.LightGray
+            );
           }
         if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R") || e.Item.Cells[Static.TCI_AGENCY].Text == "MRT")
           {
@@ -450,7 +454,7 @@ namespace UserControl_fleet
         }
       }
 
-    private void DataGrid_control_SortCommand(object source, System.Web.UI.WebControls.DataGridSortCommandEventArgs e)
+    private void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
       {
       if (e.SortExpression == p.sort_order)
         {
