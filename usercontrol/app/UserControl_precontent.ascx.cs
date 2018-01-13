@@ -105,7 +105,7 @@ namespace UserControl_precontent
               k.EscalatedException
                 (
                 the_exception:e.Exception,
-                user_identity_name:HttpContext.Current.User.Identity.Name,
+                user_identity_name:HttpContext.Current.User.Identity.Name + (HttpContext.Current.User.Identity.Name.Length > 0 ? k.SPACE : k.EMPTY) + "from " + Request.UserHostAddress + k.SPACE + "(" + k.DomainNameOfIpAddress(Request.UserHostAddress) + ")",
                 session:Session,
                 engine_innodb_status:engine_innodb_status
                 );
