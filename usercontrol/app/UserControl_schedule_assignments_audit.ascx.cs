@@ -155,7 +155,7 @@ namespace UserControl_schedule_assignments_audit
         //
         if (instance_id == "ASP.protected_overview_aspx.M_schedule_assignments_audit")
           {
-          p.be_loaded &= ((Session["M_PlaceHolder_content"] as string) == "UserControl_schedule_assignments_audit");
+          p.be_loaded &= ((Session["M_P_PlaceHolder_content"] as string) == "UserControl_schedule_assignments_audit");
           }
 //      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_schedule_assignments_audit")
 //        {

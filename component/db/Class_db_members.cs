@@ -160,7 +160,7 @@ namespace Class_db_members
                 sql = sql + " , cad_num = \"" + cad_num + "\"";
             }
             sql = sql + " , email_address = \"" + email_address + "\"" + " , medical_release_code = '" + medical_release_code.ToString() + "' , be_driver_qualified = " + be_driver_qualified.ToString() + " , agency_id = " + agency_id.ToString() + " , phone_num = \"" + phone_num + "\", phone_service_id = NULLIF('" + phone_service_id + "','')";
-            if (new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 19, 20, 21, 23, 24, 25, 26, 27}).Contains(enrollment_code))
+            if (new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 19, 20, 23, 24, 25, 26, 27}).Contains(enrollment_code))
             {
                 sql = sql + " , equivalent_los_start_date = \"" + enrollment_date_string + "\"";
             }

@@ -427,12 +427,12 @@ namespace Class_db_enrollment
                 dr.Close();
                 if (effective_date >= latest_start_date)
                 {
-                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 18, 21}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction).ExecuteScalar()))
+                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction).ExecuteScalar()))
                     {
                         // This member's new status counts toward length-of-service, and the member has never had such a status before.
                         new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), connection, transaction).ExecuteNonQuery();
                     }
-                    else if (new ArrayList(new uint[] {11, 12, 13, 14, 15, 16, 22}).Contains(current_level_code))
+                    else if (new ArrayList(new uint[] {10, 11, 12, 13, 14, 15, 16, 22}).Contains(current_level_code))
                     {
                         // The member has been spending time in a status that does not count toward length-of-service, so advance the member's
                         // equivalent_los_start_date.
