@@ -162,11 +162,9 @@ namespace UserControl_uniform_mart
         // If this control is being used dynamically under one or more parent binder(s), it must ascertain which instance it is, and whether or not that instance's parent binder
         // had it loaded already.
         //
-#warning Revise the binder-related instance_id to this control appropriately.
-        if (instance_id == "ASP.protected_overview_aspx.UserControl_member_binder_uniform_mart")
+        if (instance_id == "ASP.protected_overview_aspx.UserControl_M_P_uniform_mart")
           {
-#warning Revise the ClientID path to this control appropriately.
-          p.be_loaded &= ((Session["UserControl_member_binder_PlaceHolder_content"] as string) == "UserControl_uniform_mart");
+          p.be_loaded &= ((Session["M_P_PlaceHolder_content"] as string) == "UserControl_uniform_mart");
           }
 //      else if (instance_id == "ASP.~_aspx.UserControl_~_binder_uniform_mart")
 //        {
