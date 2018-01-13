@@ -390,6 +390,7 @@ namespace UserControl_fleet
           }
         else
           {
+          e.Item.Cells[Static.TCI_RECENT_MILEAGE].Text = k.NO_BREAK_SPACE;
           e.Item.Cells[Static.TCI_MILES_FROM_PM].Text = k.NO_BREAK_SPACE;
           e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text = k.NO_BREAK_SPACE;
           }
@@ -416,9 +417,13 @@ namespace UserControl_fleet
           link_button = ((e.Item.Cells[Static.TCI_QUARTERS].Controls[0]) as LinkButton);
           link_button.ToolTip = "Relocate";
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
-          link_button = ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton);
-          link_button.ToolTip = "Update";
-          ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+          //
+          if (e.Item.Cells[Static.TCI_RECENT_MILEAGE].Text != k.NO_BREAK_SPACE)
+            {
+            link_button = ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton);
+            link_button.ToolTip = "Update";
+            ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
+            }
           //
           // Remove all cell controls from viewstate except for the one at TCI_ID.
           //
