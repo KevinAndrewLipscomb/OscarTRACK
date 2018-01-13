@@ -445,7 +445,10 @@ namespace UserControl_fleet
           ((e.Item.Cells[Static.TCI_STATUS_DOWN].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[Static.TCI_APPEND_NOTE].Controls[0]) as LinkButton).Enabled = false;
           ((e.Item.Cells[Static.TCI_QUARTERS].Controls[0]) as LinkButton).Enabled = false;
-          ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
+          if (e.Item.Cells[Static.TCI_RECENT_MILEAGE].Text != k.NO_BREAK_SPACE)
+            {
+            ((e.Item.Cells[Static.TCI_RECENT_MILEAGE].Controls[0]) as LinkButton).Enabled = false;
+            }
           }
         if (be_up_and_current)
           {
