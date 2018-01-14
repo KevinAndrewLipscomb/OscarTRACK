@@ -39,94 +39,92 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_POST_CARDINALITY_NONINTERACTIVE = 12;
       public const int TCI_D_POST_CARDINALITY_INTERACTIVE = 13;
       public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
-      public const int TCI_D_BE_FLIGHT_MEDIC = 15;
-      public const int TCI_D_BE_MARINE_MEDIC = 16;
-      public const int TCI_D_COLON = 17;
-      public const int TCI_D_NAME_INTERACTIVE = 18;
-      public const int TCI_D_NAME_NONINTERACTIVE = 19;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 20;
-      public const int TCI_D_MEMBER_AGENCY_ID = 21;
-      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 22;
-      public const int TCI_D_BE_SELECTED = 23;
-      public const int TCI_D_COMMENT = 24;
-      public const int TCI_D_BE_CHALLENGE = 25;
-      public const int TCI_D_BE_GREENHORNS = 26;
-      public const int TCI_D_PHONE_NUM = 27;
-      public const int TCI_TIMELINE_SPACER_LEFT = 28;
-      public const int TCI_D0000 = 29;
-      public const int TCI_D0030 = 30;
-      public const int TCI_D0100 = 31;
-      public const int TCI_D0130 = 32;
-      public const int TCI_D0200 = 33;
-      public const int TCI_D0230 = 34;
-      public const int TCI_D0300 = 35;
-      public const int TCI_D0330 = 36;
-      public const int TCI_D0400 = 37;
-      public const int TCI_D0430 = 38;
-      public const int TCI_D0500 = 39;
-      public const int TCI_D0530 = 40;
-      public const int TCI_D0600 = 41;
-      public const int TCI_D0630 = 42;
-      public const int TCI_D0700 = 43;
-      public const int TCI_D0730 = 44;
-      public const int TCI_D0800 = 45;
-      public const int TCI_D0830 = 46;
-      public const int TCI_D0900 = 47;
-      public const int TCI_D0930 = 48;
-      public const int TCI_D1000 = 49;
-      public const int TCI_D1030 = 50;
-      public const int TCI_D1100 = 51;
-      public const int TCI_D1130 = 52;
-      public const int TCI_N0000 = 53;
-      public const int TCI_N0030 = 54;
-      public const int TCI_N0100 = 55;
-      public const int TCI_N0130 = 56;
-      public const int TCI_N0200 = 57;
-      public const int TCI_N0230 = 58;
-      public const int TCI_N0300 = 59;
-      public const int TCI_N0330 = 60;
-      public const int TCI_N0400 = 61;
-      public const int TCI_N0430 = 62;
-      public const int TCI_N0500 = 63;
-      public const int TCI_N0530 = 64;
-      public const int TCI_N0600 = 65;
-      public const int TCI_N0630 = 66;
-      public const int TCI_N0700 = 67;
-      public const int TCI_N0730 = 68;
-      public const int TCI_N0800 = 69;
-      public const int TCI_N0830 = 70;
-      public const int TCI_N0900 = 71;
-      public const int TCI_N0930 = 72;
-      public const int TCI_N1000 = 73;
-      public const int TCI_N1030 = 74;
-      public const int TCI_N1100 = 75;
-      public const int TCI_N1130 = 76;
-      public const int TCI_TIMELINE_SPACER_RIGHT = 77;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 78;
-      public const int TCI_N_SLASH = 79;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 80;
-      public const int TCI_N_SPACER_MINOR = 81;
-      public const int TCI_N_ASSIGNMENT_ID = 82;
-      public const int TCI_N_POST_ID = 83;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 84;
-      public const int TCI_N_MEMBER_ID = 85;
-      public const int TCI_N_POST_DESIGNATOR = 86;
-      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 87;
-      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 88;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 89;
-      public const int TCI_N_BE_FLIGHT_MEDIC = 90;
-      public const int TCI_N_BE_MARINE_MEDIC = 91;
-      public const int TCI_N_COLON = 92;
-      public const int TCI_N_NAME_INTERACTIVE = 93;
-      public const int TCI_N_NAME_NONINTERACTIVE = 94;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 95;
-      public const int TCI_N_MEMBER_AGENCY_ID = 96;
-      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 97;
-      public const int TCI_N_BE_SELECTED = 98;
-      public const int TCI_N_COMMENT = 99;
-      public const int TCI_N_BE_CHALLENGE = 100;
-      public const int TCI_N_BE_GREENHORNS = 101;
-      public const int TCI_N_PHONE_NUM = 102;
+      public const int TCI_D_BE_MARINE_MEDIC = 15;
+      public const int TCI_D_COLON = 16;
+      public const int TCI_D_NAME_INTERACTIVE = 17;
+      public const int TCI_D_NAME_NONINTERACTIVE = 18;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 19;
+      public const int TCI_D_MEMBER_AGENCY_ID = 20;
+      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 21;
+      public const int TCI_D_BE_SELECTED = 22;
+      public const int TCI_D_COMMENT = 23;
+      public const int TCI_D_BE_CHALLENGE = 24;
+      public const int TCI_D_BE_GREENHORNS = 25;
+      public const int TCI_D_PHONE_NUM = 26;
+      public const int TCI_TIMELINE_SPACER_LEFT = 27;
+      public const int TCI_D0000 = 28;
+      public const int TCI_D0030 = 29;
+      public const int TCI_D0100 = 30;
+      public const int TCI_D0130 = 31;
+      public const int TCI_D0200 = 32;
+      public const int TCI_D0230 = 33;
+      public const int TCI_D0300 = 34;
+      public const int TCI_D0330 = 35;
+      public const int TCI_D0400 = 36;
+      public const int TCI_D0430 = 37;
+      public const int TCI_D0500 = 38;
+      public const int TCI_D0530 = 39;
+      public const int TCI_D0600 = 40;
+      public const int TCI_D0630 = 41;
+      public const int TCI_D0700 = 42;
+      public const int TCI_D0730 = 43;
+      public const int TCI_D0800 = 44;
+      public const int TCI_D0830 = 45;
+      public const int TCI_D0900 = 46;
+      public const int TCI_D0930 = 47;
+      public const int TCI_D1000 = 48;
+      public const int TCI_D1030 = 49;
+      public const int TCI_D1100 = 50;
+      public const int TCI_D1130 = 51;
+      public const int TCI_N0000 = 52;
+      public const int TCI_N0030 = 53;
+      public const int TCI_N0100 = 54;
+      public const int TCI_N0130 = 55;
+      public const int TCI_N0200 = 56;
+      public const int TCI_N0230 = 57;
+      public const int TCI_N0300 = 58;
+      public const int TCI_N0330 = 59;
+      public const int TCI_N0400 = 60;
+      public const int TCI_N0430 = 61;
+      public const int TCI_N0500 = 62;
+      public const int TCI_N0530 = 63;
+      public const int TCI_N0600 = 64;
+      public const int TCI_N0630 = 65;
+      public const int TCI_N0700 = 66;
+      public const int TCI_N0730 = 67;
+      public const int TCI_N0800 = 68;
+      public const int TCI_N0830 = 69;
+      public const int TCI_N0900 = 70;
+      public const int TCI_N0930 = 71;
+      public const int TCI_N1000 = 72;
+      public const int TCI_N1030 = 73;
+      public const int TCI_N1100 = 74;
+      public const int TCI_N1130 = 75;
+      public const int TCI_TIMELINE_SPACER_RIGHT = 76;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 77;
+      public const int TCI_N_SLASH = 78;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 79;
+      public const int TCI_N_SPACER_MINOR = 80;
+      public const int TCI_N_ASSIGNMENT_ID = 81;
+      public const int TCI_N_POST_ID = 82;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 83;
+      public const int TCI_N_MEMBER_ID = 84;
+      public const int TCI_N_POST_DESIGNATOR = 85;
+      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 86;
+      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 87;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 88;
+      public const int TCI_N_BE_MARINE_MEDIC = 89;
+      public const int TCI_N_COLON = 90;
+      public const int TCI_N_NAME_INTERACTIVE = 91;
+      public const int TCI_N_NAME_NONINTERACTIVE = 92;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 93;
+      public const int TCI_N_MEMBER_AGENCY_ID = 94;
+      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 95;
+      public const int TCI_N_BE_SELECTED = 96;
+      public const int TCI_N_COMMENT = 97;
+      public const int TCI_N_BE_CHALLENGE = 98;
+      public const int TCI_N_BE_GREENHORNS = 99;
+      public const int TCI_N_PHONE_NUM = 100;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 0;
       public const int CI_DESIGNATOR_LABEL = 1;
@@ -506,7 +504,6 @@ namespace UserControl_schedule_proposal
         A.Columns[Static.TCI_D_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
-        A.Columns[Static.TCI_D_BE_FLIGHT_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_BE_MARINE_MEDIC].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_COLON].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_NAME_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != 1);
@@ -533,7 +530,6 @@ namespace UserControl_schedule_proposal
         A.Columns[Static.TCI_N_POST_CARDINALITY_NONINTERACTIVE].Visible = !p.be_interactive && !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_POST_CARDINALITY_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
-        A.Columns[Static.TCI_N_BE_FLIGHT_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_BE_MARINE_MEDIC].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_COLON].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_NAME_INTERACTIVE].Visible = p.be_interactive && (p.individual_work_timelines_mode.val != -1);
@@ -631,7 +627,6 @@ namespace UserControl_schedule_proposal
       bool be_ok_to_enable_controls,
       int tci_comment,
       int tci_medical_release_description,
-      int tci_be_flight_medic,
       int tci_be_marine_medic,
       int tci_colon,
       int tci_name_interactive,
@@ -656,7 +651,6 @@ namespace UserControl_schedule_proposal
         if (p.be_interactive)
           {
           e.Item.Cells[tci_medical_release_description].Font.Bold = true;
-          e.Item.Cells[tci_be_flight_medic].Font.Bold = true;
           e.Item.Cells[tci_be_marine_medic].Font.Bold = true;
           e.Item.Cells[tci_colon].Font.Bold = true;
           e.Item.Cells[tci_name_interactive].Font.Bold = true;
@@ -673,7 +667,6 @@ namespace UserControl_schedule_proposal
           {
           e.Item.Cells[tci_comment].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_medical_release_description].BackColor = Color.PaleGreen;
-          e.Item.Cells[tci_be_flight_medic].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_be_marine_medic].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_colon].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_name_interactive].BackColor = Color.PaleGreen;
@@ -685,7 +678,6 @@ namespace UserControl_schedule_proposal
           {
           e.Item.Cells[tci_comment].BackColor = Color.Yellow;
           e.Item.Cells[tci_medical_release_description].BackColor = Color.Yellow;
-          e.Item.Cells[tci_be_flight_medic].BackColor = Color.Yellow;
           e.Item.Cells[tci_be_marine_medic].BackColor = Color.Yellow;
           e.Item.Cells[tci_colon].BackColor = Color.Yellow;
           e.Item.Cells[tci_name_interactive].BackColor = Color.Yellow;
@@ -698,7 +690,6 @@ namespace UserControl_schedule_proposal
         {
         e.Item.Cells[tci_member_agency_id].ForeColor = Color.Gray;
         e.Item.Cells[tci_medical_release_description].ForeColor = Color.Gray;
-        e.Item.Cells[tci_be_flight_medic].ForeColor = Color.Gray;
         e.Item.Cells[tci_be_marine_medic].ForeColor = Color.Gray;
         e.Item.Cells[tci_colon].ForeColor = Color.Gray;
         e.Item.Cells[tci_be_driver_qualified].ForeColor = Color.Gray;
@@ -730,7 +721,6 @@ namespace UserControl_schedule_proposal
       //
       // Manage display of 'merit badge' columns.
       //
-      e.Item.Cells[tci_be_flight_medic].Text = (e.Item.Cells[tci_be_flight_medic].Text == "&nbsp;" ? k.EMPTY : (e.Item.Cells[tci_be_flight_medic].Text == "0" ? "&nbsp;" : "&infin;"));
       e.Item.Cells[tci_be_marine_medic].Text = (e.Item.Cells[tci_be_marine_medic].Text == "&nbsp;" ? k.EMPTY : (e.Item.Cells[tci_be_marine_medic].Text == "0" ? "&nbsp;" : "&asymp;"));
       //
       // Manage ablement of interactive name linkbutton.
@@ -756,7 +746,6 @@ namespace UserControl_schedule_proposal
         {
         e.Item.Cells[tci_comment].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_medical_release_description].Style.Add("border-top","thin solid silver");
-        e.Item.Cells[tci_be_flight_medic].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_be_marine_medic].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_colon].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_name_interactive].Style.Add("border-top","thin solid silver");
@@ -990,7 +979,6 @@ namespace UserControl_schedule_proposal
           d_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           Static.TCI_D_COMMENT,
           Static.TCI_D_MEDICAL_RELEASE_DESCRIPTION,
-          Static.TCI_D_BE_FLIGHT_MEDIC,
           Static.TCI_D_BE_MARINE_MEDIC,
           Static.TCI_D_COLON,
           Static.TCI_D_NAME_INTERACTIVE,
@@ -1013,7 +1001,6 @@ namespace UserControl_schedule_proposal
           n_be_ok_to_enable_controls || p.be_ok_to_see_other_member_schedule_detail,
           Static.TCI_N_COMMENT,
           Static.TCI_N_MEDICAL_RELEASE_DESCRIPTION,
-          Static.TCI_N_BE_FLIGHT_MEDIC,
           Static.TCI_N_BE_MARINE_MEDIC,
           Static.TCI_N_COLON,
           Static.TCI_N_NAME_INTERACTIVE,

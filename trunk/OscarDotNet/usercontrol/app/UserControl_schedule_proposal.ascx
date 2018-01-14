@@ -96,7 +96,7 @@
               </asp:DataList>
               Ð&nbsp;=&nbsp;non-driver
               <br />
-              005&nbsp;=&nbsp;EMS-5&nbsp;etc,&nbsp; &infin;&nbsp;=&nbsp;Flight&nbsp;medic,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; Q14&nbsp;=&nbsp;Squad-14&nbsp;etc
+              001&nbsp;=&nbsp;EMS-1&nbsp;etc,&nbsp; 010&nbsp;=&nbsp;Chief&nbsp;10,&nbsp; &asymp;&nbsp;=&nbsp;Marine&nbsp;medic,&nbsp; Q14&nbsp;=&nbsp;Squad-14&nbsp;etc
             </small>
           </td>
         </tr>
@@ -179,9 +179,6 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="d_medical_release_description" ReadOnly="True">
-                        <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
-                      </asp:BoundColumn>
-                      <asp:BoundColumn DataField="d_be_flight_medic" ReadOnly="True">
                         <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="d_be_marine_medic" ReadOnly="True">
@@ -291,9 +288,6 @@
                         <ItemStyle VerticalAlign="Bottom" />
                       </asp:TemplateColumn>
                       <asp:BoundColumn DataField="n_medical_release_description" ReadOnly="True">
-                        <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
-                      </asp:BoundColumn>
-                      <asp:BoundColumn DataField="n_be_flight_medic" ReadOnly="True">
                         <ItemStyle VerticalAlign="Bottom" HorizontalAlign="Center" />
                       </asp:BoundColumn>
                       <asp:BoundColumn DataField="n_be_marine_medic" ReadOnly="True">
