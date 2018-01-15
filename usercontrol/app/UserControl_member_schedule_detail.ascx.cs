@@ -760,6 +760,7 @@ namespace UserControl_member_schedule_detail
         be_partially_editable:p.be_partially_editable,
         relative_month:p.relative_month
         );
+      p.be_ok_to_one_step_avail_force_post = k.Has((Session["privilege_array"] as string[]),"one-step-avail-force-post") && p.be_fully_editable;
       Bind();
       }
     internal void SetFilter(string member_agency_id,k.subtype<int> relative_month,string member_id,bool be_virgin_watchbill)
