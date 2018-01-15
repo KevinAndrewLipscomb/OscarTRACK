@@ -511,7 +511,11 @@ namespace UserControl_member_schedule_detail
           cause: k.alert_cause_type.LOGIC,
           state: k.alert_state_type.FAILURE,
           key: "cantforceon",
-          value: "Sorry, you cannot select the member for duty on this shift because it would violate a business rule.  Check whether the member has a conflicting Medical Leave in effect.",
+          value: "Sorry, you cannot select the member for duty on this shift because it would violate a business rule.  Possible violations include:" + k.NEW_LINE
+          + k.NEW_LINE
+          + "(a) The member has a conflicting Medical Leave in effect." + k.NEW_LINE
+          + k.NEW_LINE
+          + "(b) You are working on next month's schedule before its initial proposal has been generated.  If this is the case, click the Refresh button at the top of the Watchbill Assistant control on the Overview page.",
           be_using_scriptmanager: true
           );
         };
