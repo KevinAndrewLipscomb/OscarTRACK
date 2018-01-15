@@ -534,7 +534,20 @@ namespace Class_biz_schedule_assignments
       {
       var force_selection = true;
       //
-      if (be_selected && db_schedule_assignments.BeMemberOnMedicalLeaveFor(id))
+      if(
+          be_selected
+        &&
+          (
+            db_schedule_assignments.BeMemberOnMedicalLeaveFor(id)
+          ||
+            (
+              NominalDayOf(Summary(id)).Month == DateTime.Today.AddMonths(1).Month
+            &&
+              !BeProposalGeneratedForNextMonth()
+            )
+          )
+        )
+      //then
         {
         force_selection = false;
         }
