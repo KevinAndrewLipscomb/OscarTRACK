@@ -215,9 +215,7 @@
                           <small>Set<br />one-step<br />avail-force-post<br />target to:<br /></small>
                           <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server">
                             <asp:ListItem Selected="True" Value="NONE">-- None --</asp:ListItem>
-                            <asp:ListItem Value="405">010</asp:ListItem>
-                            <asp:ListItem Value="406">001</asp:ListItem>
-                            <asp:ListItem Value="408">002</asp:ListItem>
+                            <asp:ListItem Value="0">EMS</asp:ListItem>
                             <asp:ListItem Value="301">Z01</asp:ListItem>
                             <asp:ListItem Value="302">Z02</asp:ListItem>
                             <asp:ListItem Value="303">Z03</asp:ListItem>
@@ -238,7 +236,9 @@
                             <asp:ListItem Value="320">Z20</asp:ListItem>
                             <asp:ListItem Value="321">Z21</asp:ListItem>
                             <asp:ListItem Value="322">Z22</asp:ListItem>
-                            <asp:ListItem Value="0">EMS</asp:ListItem>
+                            <asp:ListItem Value="405">010</asp:ListItem>
+                            <asp:ListItem Value="406">001</asp:ListItem>
+                            <asp:ListItem Value="408">002</asp:ListItem>
                           </asp:DropDownList>
                         </td>
                       </tr>
