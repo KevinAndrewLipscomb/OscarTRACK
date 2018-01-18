@@ -35,7 +35,7 @@ namespace UserControl_field_situation
       public bool be_loaded;
       public bool be_notes_body_visible;
       public bool be_ok_to_fix_dangling;
-      public bool be_ok_to_show_nature;
+      public bool be_ok_to_show_nature_and_address;
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
@@ -78,9 +78,8 @@ namespace UserControl_field_situation
       if (!p.be_loaded)
         {
         UpdatePanel_cases.Visible = p.be_field_situation_enabled;
-        if (!p.be_ok_to_show_nature)
+        if (!p.be_ok_to_show_nature_and_address)
           {
-          TableData_cases.Visible = false;
           TableData_supression_notice.Visible = true;
           HyperLink_application_login_link.Text = ConfigurationManager.AppSettings["application_name"];
           HyperLink_application_login_link.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"];
@@ -121,13 +120,13 @@ namespace UserControl_field_situation
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
-        p.be_ok_to_show_nature = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation");
+        p.be_ok_to_show_nature_and_address = (instance_id == "ASP.protected_overview_aspx.UserControl_M_field_situation");
         p.be_sort_order_ascending = true;
         p.label = 'A';
         p.marker_address_q = new Queue<string>();
         p.sort_order = "case_num desc, field_situation.id desc";
         //
-        p.be_ok_to_fix_dangling = p.be_ok_to_show_nature && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
+        p.be_ok_to_fix_dangling = p.be_ok_to_show_nature_and_address && k.Has((Session["privilege_array"] as string[]),"config-cad-objects");
         //
         p.be_field_situation_enabled = bool.Parse(ConfigurationManager.AppSettings["be_field_situation_enabled"]) || p.be_ok_to_fix_dangling;
         }
@@ -197,8 +196,9 @@ namespace UserControl_field_situation
 
     private void Bind()
       {
-      //DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature;
+      //DataGrid_control.Columns[Static.TCI_NATURE].Visible = p.be_ok_to_show_nature_and_address;
       DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
+      DataGrid_control.Columns[Static.TCI_ADDRESS].Visible = p.be_ok_to_show_nature_and_address;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
       Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
         (
