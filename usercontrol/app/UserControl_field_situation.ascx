@@ -60,14 +60,14 @@
                       </asp:DataGrid>
                     </td>
                     <td><asp:Image ID="Image_control" runat="server" AlternateText="Static overview map" ToolTip="Static overview map" EnableViewState="False" Height="400px" Width="400px"/></td>
-                    <td id="TableData_supression_notice" runat="server" visible="false">
+                    <td id="TableData_supression_notice" runat="server" visible="false" width="250em">
                       <table cellpadding="10" cellspacing="0">
                         <tr>
                           <td>
-                            <b>
+                            <small>
                               Members of the Virginia Beach EMS Department and its volunteer rescue squads can access the full field situation display by logging into
                               <asp:HyperLink ID="HyperLink_application_login_link" runat="server"></asp:HyperLink>.
-                            </b>
+                            </small>
                           </td>
                         </tr>
                       </table>
