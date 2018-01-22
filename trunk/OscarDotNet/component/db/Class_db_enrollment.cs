@@ -76,25 +76,71 @@ namespace Class_db_enrollment
             this.Close();
         }
 
-        public void BindTransitionRadioButtonList(string member_id, string tier_id, object target)
+    public void BindTransitionRadioButtonList(string member_id, string tier_id, object target)
+      {
+      Open();
+      ((target) as RadioButtonList).Items.Clear();
+      var dr = new MySqlCommand
+        (
+        "SELECT DISTINCT valid_next_level_code"
+        + " , description"
+        + " , elaboration"
+        + " FROM enrollment_transition"
+        +   " join enrollment_level on (enrollment_level.code=enrollment_transition.valid_next_level_code)"
+        + " where current_level_code ="
+        +     " ("
+        +     " select level_code"
+        +     " from enrollment_history"
+        +     " where member_id = '" + member_id + "'"
+        +     " order by start_date desc, end_date limit 1"
+        +     " )"
+        +   " and"
+        +     " ("
+        +       " (required_historical_level_code is null)"
+        +     " or"
+        +       " ("
+        +       " required_historical_level_code in"
+        +         " ("
+        +         " select DISTINCT level_code"
+        +         " from enrollment_history"
+        +         " where member_id = '" + member_id + "'"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " and"
+        +     " ("
+        +       " (disallowed_historical_level_code is null)"
+        +     " or"
+        +       " ("
+        +       " disallowed_historical_level_code not in"
+        +         " ("
+        +         " select DISTINCT level_code"
+        +         " from enrollment_history"
+        +         " where member_id = '" + member_id + "'"
+        +         " )"
+        +       " )"
+        +     " )"
+        +   " and"
+        +     " authorized_tier_id >= '" + tier_id + "'"
+        + " order by pecking_order",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
         {
-            MySqlDataReader dr;
-            string display_html;
-            this.Open();
-            ((target) as RadioButtonList).Items.Clear();
-            dr = new MySqlCommand("SELECT DISTINCT valid_next_level_code" + " , description" + " , elaboration" + " FROM enrollment_transition" + " join enrollment_level on (enrollment_level.code=enrollment_transition.valid_next_level_code)" + " where current_level_code =" + " (select level_code from enrollment_history where member_id = " + member_id + " order by start_date desc, end_date limit 1)" + " and" + " (" + " (required_historical_level_code is null)" + " or" + " (required_historical_level_code in (select level_code from enrollment_history where member_id = " + member_id + "))" + " )" + " and" + " (" + " (disallowed_historical_level_code is null)" + " or" + " (disallowed_historical_level_code not in (select level_code from enrollment_history where member_id = " + member_id + "))" + " )" + " and" + " authorized_tier_id >= " + tier_id + " order by pecking_order", this.connection).ExecuteReader();
-            while (dr.Read())
-            {
-                display_html = "<b>" + dr["description"].ToString() + "</b>";
-                if (dr["elaboration"].ToString() != k.EMPTY)
-                {
-                    display_html = display_html + "<table>" + "<tr>" + "<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>" + "<td><small><i>" + dr["elaboration"].ToString() + "</i></small></td>" + "</tr>" + "</table>";
-                }
-                ((target) as RadioButtonList).Items.Add(new ListItem(display_html, dr["valid_next_level_code"].ToString()));
-            }
-            dr.Close();
-            this.Close();
+        ((target) as RadioButtonList).Items.Add
+          (
+          item:new ListItem
+            (
+            text:"<b>" + dr["description"].ToString() + "</b>"
+              + (dr["elaboration"].ToString().Length > 0 ? "<table><tr><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td><small><i>" + dr["elaboration"].ToString() + "</i></small></td></tr></table>" : k.EMPTY),
+            value:dr["valid_next_level_code"].ToString()
+            )
+          );
         }
+      dr.Close();
+      Close();
+      }
 
         public void BindUncontrolledListControl(object target)
         {
