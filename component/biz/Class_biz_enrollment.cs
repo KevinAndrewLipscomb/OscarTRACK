@@ -152,21 +152,24 @@ namespace Class_biz_enrollment
             }
         }
 
-        public void MakeSeniorityPromotions()
+    public void MakeSeniorityPromotions()
+      {
+      try
         {
-            TClass_biz_members biz_members;
-            uint i;
-            string member_id;
-            Queue member_id_q;
-            biz_members = new TClass_biz_members();
-            member_id_q = db_enrollment.SeniorityPromotionsSince(db_enrollment.MakeSeniorityPromotions());
-            uint member_id_q_count = (uint)(member_id_q.Count);
-            for (i = 1; i <= member_id_q_count; i ++ )
-            {
-                member_id = member_id_q.Dequeue().ToString();
-                biz_notifications.IssueForSeniorityPromotion(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), biz_members.EnrollmentOfMemberId(member_id));
-            }
+        var member_id = k.EMPTY;
+        var biz_members = new TClass_biz_members();
+        var member_id_q = db_enrollment.SeniorityPromotionsSince(db_enrollment.MakeSeniorityPromotions()); // In unticipated situations, it may be possible for this to fail.
+        for (var i = new k.subtype<int>(0,member_id_q.Count); i.val < i.LAST; i.val++ )
+          {
+          member_id = member_id_q.Dequeue().ToString();
+          biz_notifications.IssueForSeniorityPromotion(member_id, biz_members.FirstNameOfMemberId(member_id), biz_members.LastNameOfMemberId(member_id), biz_members.CadNumOfMemberId(member_id), biz_members.EnrollmentOfMemberId(member_id));
+          }
         }
+      catch (Exception the_exception)
+        {
+        k.EscalatedException(the_exception);
+        }
+      }
 
     internal void MakeSeniorityPromotionEarlyWarnings()
       {
