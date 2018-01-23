@@ -59,14 +59,7 @@ namespace Class_biz_scheduled_tasks
     public void DoDailyChores(string current_working_directory_spec)
       {
       biz_enrollment.MakeSeniorityPromotionEarlyWarnings();
-      try
-        {
-        biz_enrollment.MakeSeniorityPromotions(); // In unticipated situations, it may be possible for this to fail and prevent the other chores from getting done.
-        }
-      catch (Exception the_exception)
-        {
-        k.EscalatedException(the_exception);
-        }
+      biz_enrollment.MakeSeniorityPromotions();
       biz_enrollment.IssueDeparturesEffectiveTodayReport(current_working_directory_spec);
       biz_leaves.MakeLeaveEndingSoonNotifications();
       biz_leaves.MakeLeaveExpirationNotifications();
