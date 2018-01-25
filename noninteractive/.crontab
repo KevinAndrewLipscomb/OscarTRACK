@@ -20,7 +20,6 @@ MAILTO=kevin.lipscomb@kvrs.org
 46 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R16
 47 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R17
 48 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=MRT
-49 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=SAR
 50 04  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=EMS
 31 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R01
 32 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R02
@@ -33,12 +32,13 @@ MAILTO=kevin.lipscomb@kvrs.org
 46 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R16
 47 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=R17
 48 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=MRT
-49 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=SAR
 50 16  *  * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=EMS
 #
 # Weekly
 #
 30 23  *  * 0 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/weekly_tasks.aspx
+49 04  *  * 1 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=SAR
+51 04  *  * 1 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=MCI
 #
 # Monthly
 #
