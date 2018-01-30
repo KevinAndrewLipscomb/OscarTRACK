@@ -134,6 +134,8 @@ namespace UserControl_member_schedule_detail
           HtmlTableRow_instruction_for_calendars.Visible = p.be_fully_editable;
           }
         //
+        TableData_9to9.Visible = p.be_ok_to_one_step_avail_force_post;
+        //
         Calendar_day.VisibleDate = month_of_interest;
         Calendar_9to9.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
@@ -793,7 +795,7 @@ namespace UserControl_member_schedule_detail
         {
         e.Day.IsSelectable = true;
         e.Cell.ForeColor = Color.Blue;
-        e.Cell.BackColor = (e.Day.IsWeekend ? System.Drawing.ColorTranslator.FromHtml("#FFFFCC") : Color.White);
+        e.Cell.BackColor = (e.Day.IsWeekend ? ColorTranslator.FromHtml("#FFFFCC") : Color.White);
         e.Cell.Font.Bold = false;
         }
       if (!p.be_fully_editable && be_revised_avail)
