@@ -183,6 +183,19 @@ namespace Class_db_schedule_assignments
       return be_adventitious_change_detected;
       }
 
+    internal bool BeMemberAvailableEitherCanonicalShiftThisNominalDay
+      (
+      string member_id,
+      DateTime nominal_day
+      )
+      {
+      Open();
+      var be_member_available_either_canonical_shift_this_nominal_day =
+        "0" != new MySqlCommand("select count(*) from schedule_assignment where member_id = '" + member_id + "' and nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return be_member_available_either_canonical_shift_this_nominal_day;
+      }
+
     internal bool BeMemberOnMedicalLeaveFor(string id)
       {
       var be_member_on_medical_leave_for = false;

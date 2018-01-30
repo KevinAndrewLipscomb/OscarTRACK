@@ -67,6 +67,15 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BeNotificationPendingForAllInScope(agency_filter,relative_month);
       }
 
+    internal bool BeMemberAvailableEitherCanonicalShiftThisNominalDay
+      (
+      string member_id,
+      DateTime nominal_day
+      )
+      {
+      return db_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,nominal_day);
+      }
+
     internal bool BeMemberOnMedicalLeaveFor
       (
       string member_id,
