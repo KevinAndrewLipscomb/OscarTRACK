@@ -257,6 +257,17 @@
                   </asp:Calendar>
                 </td>
                 <td valign="top">
+                  <asp:Calendar ID="Calendar_9to9" runat="server" BackColor="White" BorderColor="#999999" Caption="9TO9" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" ShowTitle="False" Width="200px" OnSelectionChanged="Calendar_9to9_SelectionChanged" OnDayRender="Calendar_9to9_DayRender">
+                    <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
+                    <NextPrevStyle VerticalAlign="Bottom" />
+                    <OtherMonthDayStyle ForeColor="#808080" />
+                    <SelectedDayStyle BackColor="#666666" Font-Bold="True" ForeColor="White" />
+                    <SelectorStyle BackColor="#CCCCCC" />
+                    <TitleStyle BackColor="#999999" BorderColor="Black" Font-Bold="True" />
+                    <WeekendDayStyle BackColor="#FFFFCC" />
+                  </asp:Calendar>
+                </td>
+                <td valign="top">
                   <asp:Calendar ID="Calendar_night" runat="server" BackColor="White" BorderColor="#999999" Caption="NIGHT" CellPadding="4" DayNameFormat="Shortest" Font-Names="Verdana" Font-Size="8pt" ForeColor="Black" Height="180px" ShowTitle="False" Width="200px" OnSelectionChanged="Calendar_night_SelectionChanged" OnDayRender="Calendar_night_DayRender">
                     <DayHeaderStyle BackColor="#CCCCCC" Font-Bold="True" Font-Size="7pt" />
                     <NextPrevStyle VerticalAlign="Bottom" />

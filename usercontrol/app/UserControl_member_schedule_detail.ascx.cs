@@ -4,6 +4,7 @@ using Class_biz_availabilities;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_schedule_assignments;
+using Class_biz_shifts;
 using Class_msg_protected;
 using kix;
 using System;
@@ -72,6 +73,7 @@ namespace UserControl_member_schedule_detail
       public TClass_biz_leaves biz_leaves;
       public TClass_biz_members biz_members;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_shifts biz_shifts;
       public DateTime start_of_earliest_unselected;
       public DateTime end_of_latest_unselected;
       public string member_agency_id;
@@ -91,7 +93,7 @@ namespace UserControl_member_schedule_detail
       EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);
       }
 
-    protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
       {
       if (!p.be_loaded)
         {
@@ -133,6 +135,7 @@ namespace UserControl_member_schedule_detail
           }
         //
         Calendar_day.VisibleDate = month_of_interest;
+        Calendar_9to9.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
         Panel_one_step_avail_force_post.Visible = p.be_ok_to_one_step_avail_force_post;
@@ -179,6 +182,7 @@ namespace UserControl_member_schedule_detail
         p.biz_leaves = new TClass_biz_leaves();
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
+        p.biz_shifts = new TClass_biz_shifts();
         //
         p.arraylist_revised_day_avail = new ArrayList();
         p.arraylist_revised_night_avail = new ArrayList();
@@ -243,7 +247,7 @@ namespace UserControl_member_schedule_detail
       PreRender += TWebUserControl_member_schedule_detail_PreRender;
       }
 
-    private void TWebUserControl_member_schedule_detail_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_member_schedule_detail_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -254,12 +258,12 @@ namespace UserControl_member_schedule_detail
       return this;
       }
 
-    protected void Button_done_Click(object sender, System.EventArgs e)
+    protected void Button_done_Click(object sender, EventArgs e)
       {
       BackTrack();
       }
 
-    protected void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    protected void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       LinkButton link_button;
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
@@ -450,7 +454,7 @@ namespace UserControl_member_schedule_detail
         }
       }
 
-    protected void DataGrid_control_ItemCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    protected void DataGrid_control_ItemCommand(object source, DataGridCommandEventArgs e)
       {
       var schedule_assignment_id = k.Safe(e.Item.Cells[Static.TCI_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM);
       if (e.CommandName == "JumpToWatchbillNominalDay")
@@ -570,13 +574,13 @@ namespace UserControl_member_schedule_detail
       Bind();
       }
 
-    private void DataGrid_control_CancelCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private void DataGrid_control_CancelCommand(object source, DataGridCommandEventArgs e)
       {
       DataGrid_control.EditItemIndex =  -1;
       Bind();
       }
 
-    private void DataGrid_control_EditCommand(object source, System.Web.UI.WebControls.DataGridCommandEventArgs e)
+    private void DataGrid_control_EditCommand(object source, DataGridCommandEventArgs e)
       {
       DataGrid_control.EditItemIndex = e.Item.ItemIndex;
       Bind();
@@ -588,34 +592,119 @@ namespace UserControl_member_schedule_detail
       string shift_name
       )
       {
+      var member_id = p.biz_members.IdOf(summary:p.member_summary);
+      var be_one_step_avail_force_post_mode = (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedValue != "NONE"));
       if ((the_calendar.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
         {
-        var member_id = p.biz_members.IdOf(summary:p.member_summary);
-        var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
-          (
-          member_id:member_id,
-          nominal_day:the_calendar.SelectedDate,
-          shift_name:shift_name,
-          agency_id:p.member_agency_id
-          );
-        if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedValue != "NONE") && ForceOn(schedule_assignment_id))
+        if (new ArrayList() {"9TO9"}.Contains(shift_name))
           {
-          p.biz_schedule_assignments.SetPost
+          if (!p.biz_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,the_calendar.SelectedDate))
+            {
+            //
+            // This availability crosses "canonical" shift boundaries.  Convert it to dual canonical shift boundaries with partial-shift comments.
+            //
+            var comment_1 = p.biz_shifts.StartHHofName(shift_name) + "-18";
+            var comment_2 = "18-" + p.biz_shifts.EndHHofName(shift_name);
+            var schedule_assignment_id_1 = p.biz_schedule_assignments.ForceAvail
+              (
+              member_id:member_id,
+              nominal_day:the_calendar.SelectedDate,
+              shift_name:"DAY",
+              agency_id:p.member_agency_id
+              );
+            p.biz_schedule_assignments.SetComment
+              (
+              id:schedule_assignment_id_1,
+              comment:comment_1
+              );
+            if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_1))
+              {
+              p.biz_schedule_assignments.SetPost
+                (
+                id:schedule_assignment_id_1,
+                post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+                );
+              }
+            var schedule_assignment_id_2 = p.biz_schedule_assignments.ForceAvail
+              (
+              member_id:member_id,
+              nominal_day:the_calendar.SelectedDate,
+              shift_name:"NIGHT",
+              agency_id:p.member_agency_id
+              );
+            p.biz_schedule_assignments.SetComment
+              (
+              id:schedule_assignment_id_2,
+              comment:comment_2
+              );
+            if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_2))
+              {
+              p.biz_schedule_assignments.SetPost
+                (
+                id:schedule_assignment_id_2,
+                post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+                );
+              }
+            }
+          }
+        else
+          {
+          //
+          // This availability is for a "canonical" shift.  No partial-shift comments are needed.
+          //
+          var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
             (
-            id:schedule_assignment_id,
-            post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+            member_id:member_id,
+            nominal_day:the_calendar.SelectedDate,
+            shift_name:shift_name,
+            agency_id:p.member_agency_id
             );
+          if (!new ArrayList() { "DAY", "NIGHT" }.Contains(shift_name))
+            {
+            //
+            // This availability is for a partial-canonical-shift period.  Determine which of the two canonical shifts it falls in and apply the appropriate comment.
+            //
+            var comment = k.EMPTY;
+            if (new ArrayList() { "MORNING", "1ST POWER", "2ND POWER", "AFTERNOON" }.Contains(shift_name))
+              {
+              shift_name = "DAY";
+              }
+            else if (new ArrayList() { "EVENING", "GRAVEYARD" }.Contains(shift_name))
+              {
+              shift_name = "NIGHT";
+              }
+            comment = p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name);
+            p.biz_schedule_assignments.SetComment
+              (
+              id: schedule_assignment_id,
+              comment: comment
+              );
+            }
+          if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
+            {
+            p.biz_schedule_assignments.SetPost
+              (
+              id:schedule_assignment_id,
+              post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+              );
+            }
           }
         }
       Bind();
       }
 
-    protected void Calendar_day_SelectionChanged(object sender, System.EventArgs e)
+    protected void Calendar_day_SelectionChanged(object sender, EventArgs e)
       {
       CalendarSelectionChanged(Calendar_day,"DAY");
       }
 
-    protected void Calendar_night_SelectionChanged(object sender, System.EventArgs e)
+    protected void Calendar_9to9_SelectionChanged(object sender, EventArgs e)
+      {
+      CalendarSelectionChanged(Calendar_9to9,"9TO9");
+      Calendar_9to9.SelectedDate = DateTime.MinValue;
+      }
+
+    protected void Calendar_night_SelectionChanged(object sender, EventArgs e)
       {
       CalendarSelectionChanged(Calendar_night,"NIGHT");
       }
@@ -704,6 +793,8 @@ namespace UserControl_member_schedule_detail
         {
         e.Day.IsSelectable = true;
         e.Cell.ForeColor = Color.Blue;
+        e.Cell.BackColor = (e.Day.IsWeekend ? System.Drawing.ColorTranslator.FromHtml("#FFFFCC") : Color.White);
+        e.Cell.Font.Bold = false;
         }
       if (!p.be_fully_editable && be_revised_avail)
         {
@@ -732,6 +823,12 @@ namespace UserControl_member_schedule_detail
     protected void Calendar_day_DayRender(object sender, DayRenderEventArgs e)
       {
       CalendarDayRender(p.arraylist_revised_day_avail,p.arraylist_selected_day_avail,p.arraylist_unselected_day_avail,e);
+      }
+
+    protected void Calendar_9to9_DayRender(object sender, DayRenderEventArgs e)
+      {
+      var dummy_arraylist = new ArrayList();
+      CalendarDayRender(dummy_arraylist,dummy_arraylist,dummy_arraylist,e);
       }
 
     protected void Calendar_night_DayRender(object sender, DayRenderEventArgs e)

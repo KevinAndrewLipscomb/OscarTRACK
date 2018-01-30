@@ -124,6 +124,14 @@ namespace Class_db_shifts
       return result;
       }
 
+    internal string EndHHofName(string name)
+      {
+      Open();
+      var end_hh_of_name = new MySqlCommand("select TIME_FORMAT(end,'%H') from shift where name = '" + name + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return end_hh_of_name;
+      }
+
     public bool Get
       (
       string id,
@@ -203,6 +211,14 @@ namespace Class_db_shifts
         )
         .ExecuteNonQuery();
       this.Close();
+      }
+
+    internal string StartHHofName(string name)
+      {
+      Open();
+      var start_hh_of_name = new MySqlCommand("select TIME_FORMAT(start,'%H') from shift where name = '" + name + "'",connection).ExecuteScalar().ToString();
+      Close();
+      return start_hh_of_name;
       }
 
     } // end TClass_db_shifts

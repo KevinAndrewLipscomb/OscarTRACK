@@ -41,6 +41,11 @@ namespace Class_biz_shifts
       return db_shifts.Delete(id);
       }
 
+    internal string EndHHofName(string name)
+      {
+      return db_shifts.EndHHofName(name);
+      }
+
     public bool Get
       (
       string id,
@@ -87,6 +92,11 @@ namespace Class_biz_shifts
         name,
         pecking_order
         );
+      }
+
+    internal string StartHHofName(string name)
+      {
+      return db_shifts.StartHHofName(name);
       }
 
     } // end TClass_biz_shifts
