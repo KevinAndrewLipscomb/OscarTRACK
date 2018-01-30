@@ -274,6 +274,15 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.Calendar Calendar_day;
         
         /// <summary>
+        /// TableData_9to9 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_9to9;
+        
+        /// <summary>
         /// Calendar_9to9 control.
         /// </summary>
         /// <remarks>
