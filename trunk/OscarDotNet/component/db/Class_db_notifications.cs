@@ -212,7 +212,7 @@ namespace Class_db_notifications
       else if (agency_id != k.EMPTY)
         {
         // All other agencies are tier 2
-        variant_condition = " where (tier_id = 2) and (member.agency_id = '" + agency_id + "')";
+        variant_condition = " where (tier_id = 2) and ({AGENCY_ID_PARENT_TABLE}.agency_id = '" + agency_id + "')";
         }
       //
       MySqlDataReader dr;
@@ -224,7 +224,7 @@ namespace Class_db_notifications
         +   " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)"
         +   " join role on (role.id=role_member_map.role_id)"
         +   " join notification on (notification.id=role_notification_map.notification_id)"
-        + variant_condition
+        + variant_condition.Replace("{AGENCY_ID_PARENT_TABLE}","member")
         + " and notification.name = '" + name + "'"
         + " UNION"
         + " select email_address"
@@ -233,7 +233,7 @@ namespace Class_db_notifications
         +   " join role_notification_map on (role_notification_map.role_id=special_role_member_map.role_id)"
         +   " join role on (role.id=special_role_member_map.role_id)"
         +   " join notification on (notification.id=role_notification_map.notification_id)"
-        + variant_condition
+        + variant_condition.Replace("{AGENCY_ID_PARENT_TABLE}","special_role_member_map")
         + " and notification.name = '" + name + "'",
         connection
         )
