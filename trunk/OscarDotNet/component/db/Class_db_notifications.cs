@@ -194,53 +194,64 @@ namespace Class_db_notifications
           return TargetOf(name,member_id,k.EMPTY);
           }
 
-        public string TargetOfAboutAgency(string name)
-          {
-          return TargetOfAboutAgency(name,k.EMPTY);
-          }
-        public string TargetOfAboutAgency(string name, string agency_id)
+    public string TargetOfAboutAgency
+      (
+      string name,
+      string agency_id = k.EMPTY
+      )
+      {
+      var variant_condition = k.EMPTY;
+      var target_of_about_agency = k.EMPTY;
+      uint num_addressees = 0;
+      Open();
+      if (agency_id == "0")
         {
-            string result;
-            MySqlDataReader dr;
-            uint num_addressees;
-            string target_of_about_agency;
-            var variant_condition = k.EMPTY;
-            target_of_about_agency = k.EMPTY;
-            num_addressees = 0;
-            this.Open();
-            if (agency_id == "0")
-            {
-                // EMS is tier 1
-                variant_condition = " where (tier_id = 1)";
-            }
-            else if (agency_id != k.EMPTY)
-            {
-                // All other agencies are tier 2
-                variant_condition = " where (tier_id = 2) and (agency_id = \"" + agency_id + "\")";
-            }
-            dr = new MySqlCommand("select email_address" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + variant_condition + " and notification.name = \"" + name + "\"", this.connection).ExecuteReader();
-            if (dr != null)
-            {
-                while (dr.Read())
-                {
-                    target_of_about_agency = target_of_about_agency + dr["email_address"].ToString() + k.COMMA;
-                    num_addressees = num_addressees + 1;
-                }
-            }
-            dr.Close();
-            IncrementTallies(name, num_addressees);
-            this.Close();
-            if (target_of_about_agency != k.EMPTY)
-            {
-                result = target_of_about_agency.Substring(0, target_of_about_agency.Length - 1);
-            }
-            else
-            {
-                result = k.EMPTY;
-            }
-
-            return result;
+        // EMS is tier 1
+        variant_condition = " where (tier_id = 1)";
         }
+      else if (agency_id != k.EMPTY)
+        {
+        // All other agencies are tier 2
+        variant_condition = " where (tier_id = 2) and (member.agency_id = '" + agency_id + "')";
+        }
+      //
+      MySqlDataReader dr;
+      dr = new MySqlCommand
+        (
+        "select email_address"
+        + " from member"
+        +   " join role_member_map on (role_member_map.member_id=member.id)"
+        +   " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)"
+        +   " join role on (role.id=role_member_map.role_id)"
+        +   " join notification on (notification.id=role_notification_map.notification_id)"
+        + variant_condition
+        + " and notification.name = '" + name + "'"
+        + " UNION"
+        + " select email_address"
+        + " from member"
+        +   " join special_role_member_map on (special_role_member_map.member_id=member.id)"
+        +   " join role_notification_map on (role_notification_map.role_id=special_role_member_map.role_id)"
+        +   " join role on (role.id=special_role_member_map.role_id)"
+        +   " join notification on (notification.id=role_notification_map.notification_id)"
+        + variant_condition
+        + " and notification.name = '" + name + "'",
+        connection
+        )
+        .ExecuteReader();
+      if (dr != null)
+        {
+        while (dr.Read())
+          {
+          target_of_about_agency += dr["email_address"].ToString() + k.COMMA;
+          num_addressees++;
+          }
+        }
+      dr.Close();
+      //
+      IncrementTallies(name, num_addressees);
+      Close();
+      return (target_of_about_agency.Length > 0 ? target_of_about_agency.Substring(0, target_of_about_agency.Length - 1) : k.EMPTY);
+      }
 
     } // end TClass_db_notifications
 
