@@ -15,11 +15,11 @@
         }
       .check_right_cell_table_payload_row
         {
-        height: 1.3125in;
+        height: 1.125in;
         }
       .check_right_cell_table_spacer_row
         {
-        height: 1.3125in;
+        height: 1.5in;
         }
       .check_segment
         {
