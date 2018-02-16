@@ -8,6 +8,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Web.UI.WebControls;
 
@@ -3034,9 +3035,17 @@ namespace Class_db_schedule_assignments
       (
       string relative_month,
       bool be_official,
-      bool be_ok_to_work_on_next_month_assignments
+      bool be_ok_to_work_on_next_month_assignments,
+      StreamWriter log
       )
       {
+      log.WriteLine
+        (
+        DateTime.Now.ToString("s")
+        + " db_schedule_assignments.Update: relative_month = " + relative_month
+        + ", be_official = " + be_official.ToString()
+        + ", be_ok_to_work_on_next_month_assignments = " + be_ok_to_work_on_next_month_assignments.ToString()
+        );
       //
       const string BE_WHOLE_COMMENT_HH_RANGE = "comment rlike '^" + HH_RANGE_PATTERN + "$'";
       const string BE_WHOLE_COMMENT_HHMM_RANGE = "comment rlike '^" + HHMM_RANGE_PATTERN + "$'";
@@ -3140,6 +3149,7 @@ namespace Class_db_schedule_assignments
             + " on duplicate key update schedule_assignment.comment = IF(not schedule_assignment.be_selected and schedule_assignment.comment is null,@result_comment,schedule_assignment.comment)"
             + ";";
             }
+          log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will load new availabilities from avail_sheet.");
           new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
           //
           if (be_ok_to_work_on_next_month_assignments)
@@ -3147,6 +3157,7 @@ namespace Class_db_schedule_assignments
             //
             // Determine initial shift popularities.  Do not save operations on temporary table to the db_trail.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine initial shift popularities.");
             new MySqlCommand
               (
               " create temporary table shift_popularity"
@@ -3182,6 +3193,7 @@ namespace Class_db_schedule_assignments
             //
             // Determine released member flexibilities.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine released member flexibilities.");
             var dr = new MySqlCommand
               (
               "select member.id as member_id"
@@ -3262,6 +3274,7 @@ namespace Class_db_schedule_assignments
             //
             // Trim assignments in excess of obligations from most flexible released members that fall on most popular shifts.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will build a trimables list for " + member_id_q.Count + " released members.");
             trimables = k.EMPTY;
             while (member_id_q.Count > 0)
               {
@@ -3284,7 +3297,8 @@ namespace Class_db_schedule_assignments
                 }
               dr.Close();
               }
-            if (trimables != k.EMPTY)
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for released members.");
+            if (trimables.Length > 0)
               {
               new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
               }
@@ -3293,6 +3307,7 @@ namespace Class_db_schedule_assignments
             // Factor in need.
             //
             //--
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will factor in need.");
             var swappables = k.EMPTY;
             var done = false;
             while (!done)
@@ -3391,6 +3406,7 @@ namespace Class_db_schedule_assignments
             //
             // Determine flexibilities versus minimum intended assignments for thirds.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine flexibilities versus minimum intended assignments for thirds.");
             dr = new MySqlCommand
               (
               "select member.id as member_id"
@@ -3453,6 +3469,7 @@ namespace Class_db_schedule_assignments
             //
             // Trim assignments in excess of obligations from most flexible third members that fall on most popular shifts.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will build a trimables list for " + member_id_q.Count + " thirds.");
             trimables = k.EMPTY;
             while (member_id_q.Count > 0)
               {
@@ -3475,13 +3492,15 @@ namespace Class_db_schedule_assignments
                 }
               dr.Close();
               }
-            if (trimables != k.EMPTY)
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for thirds.");
+            if (trimables.Length > 0)
               {
               new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
               }
             //
             // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which BLS Interns want how many extra assignments.");
             dr = new MySqlCommand
               (
               "select member.id as member_id"
@@ -3539,6 +3558,7 @@ namespace Class_db_schedule_assignments
             //
             // Give extra assignments to interested thirds where possible
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will give extra assignments to interested thirds where possible.");
             var member_id = k.EMPTY;
             var num_extras = 0;
             while (member_id_q.Count > 0)
@@ -3585,6 +3605,7 @@ namespace Class_db_schedule_assignments
             //
             // Mark all current assignments hands off for this routine, and clean up.
             //
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will mark all current assignments hands off for this routine, and clean up.");
             new MySqlCommand
               (
               Dispositioned("update schedule_assignment set be_new = FALSE")
@@ -3595,11 +3616,13 @@ namespace Class_db_schedule_assignments
               )
               .ExecuteNonQuery();
             }
+          log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will COMMIT.");
           transaction.Commit();
           be_done = true;
           }
         catch (Exception e)
           {
+          log.WriteLine(DateTime.Now.ToString("s") + " ***db_schedule_assignments.Update: Transaction will ROLLBACK DUE TO EXCEPTION.");
           transaction.Rollback();
           if (e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
