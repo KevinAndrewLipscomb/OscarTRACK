@@ -14,6 +14,8 @@ using kix;
 using System;
 using System.Collections;
 using System.Configuration;
+using System.IO;
+using System.Web;
 using System.Web.SessionState;
 using System.Web.UI.WebControls;
 
@@ -672,13 +674,19 @@ namespace Class_biz_schedule_assignments
 
     internal void LogAvailabilitySubmissionComplianceData()
       {
+      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/biz_schedule_assignments.log"),append:true);
+      log.AutoFlush = true;
+      log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.LogAvailabilitySubmissionComplianceData: Calling db_schedule_assignments.Update...");
       db_schedule_assignments.Update
         (
         relative_month:"1",
         be_official:true,
-        be_ok_to_work_on_next_month_assignments:false
+        be_ok_to_work_on_next_month_assignments:false,
+        log:log
         );
+      log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.LogAvailabilitySubmissionComplianceData: ... Done calling db_schedule_assignments.Update.");
       db_schedule_assignments.LogAvailabilitySubmissionComplianceData();
+      log.Close();
       }
 
     internal void LogCommensurationData()
@@ -1287,17 +1295,24 @@ namespace Class_biz_schedule_assignments
       {
       lock (update_lock)
         {
+        var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/biz_schedule_assignments.log"),append:true);
+        log.AutoFlush = true;
         var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
         if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
           {
+          log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: Rigging for proposal generation...");
           db_schedule_assignments.RigForProposalGeneration();
+          log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: ... Done rigging for proposal generation.");
           }
+        log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: Calling db_schedule_assignments.Update...");
         db_schedule_assignments.Update
           (
           relative_month:relative_month,
           be_official:(relative_month == "0") || be_ok_to_work_on_next_month_assignments,
-          be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments
+          be_ok_to_work_on_next_month_assignments:be_ok_to_work_on_next_month_assignments,
+          log:log
           );
+        log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: ... Done calling db_schedule_assignments.Update.");
         //
         // Do a publish that only goes to sched coords and doesn't clear the be_notification_pending flag.  This will alert sched coords of new selections automatically made by the Update.
         //
@@ -1308,6 +1323,7 @@ namespace Class_biz_schedule_assignments
           {
           PublishPendingNotifications(relative_month_subtype,be_virgin_watchbill,working_directory,be_limited_preview:true);
           }
+        log.Close();
         }
       }
 
