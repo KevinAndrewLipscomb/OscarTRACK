@@ -7,6 +7,7 @@ using Class_biz_privileges;
 using Class_biz_roles;
 using Class_biz_user;
 using Class_db_agencies;
+using Class_db_role_member_map;
 using Class_db_schedule_assignment_logs;
 using Class_db_schedule_assignments;
 using kix;
@@ -30,6 +31,7 @@ namespace Class_biz_schedule_assignments
     private TClass_biz_roles biz_roles = null;
     private TClass_biz_user biz_user = null;
     private TClass_db_agencies db_agencies = null;
+    private TClass_db_role_member_map db_role_member_map = null;
     private TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
     private TClass_db_schedule_assignments db_schedule_assignments = null;
 
@@ -44,6 +46,7 @@ namespace Class_biz_schedule_assignments
       biz_roles = new TClass_biz_roles();
       biz_user = new TClass_biz_user();
       db_agencies = new TClass_db_agencies();
+      db_role_member_map = new TClass_db_role_member_map();
       db_schedule_assignment_logs = new TClass_db_schedule_assignment_logs();
       db_schedule_assignments = new TClass_db_schedule_assignments();
       }
@@ -157,7 +160,14 @@ namespace Class_biz_schedule_assignments
           member_id:user_member_id,
           privilege_name:"edit-schedule"
           );
-        be_from_same_agency = (target_member_agency_id == biz_members.AgencyIdOfId(user_member_id));
+        be_from_same_agency = new ArrayList()
+          {
+          biz_members.AgencyIdOfId(user_member_id),
+          db_role_member_map.SoleSpecialAgencyOf("Department Chief Scheduler",user_member_id),
+          db_role_member_map.SoleSpecialAgencyOf("Department Scheduler",user_member_id),
+          db_role_member_map.SoleSpecialAgencyOf("Department Jump Seat Scheduler",user_member_id)
+          }
+          .Contains(target_member_agency_id);
         }
       //
       return
