@@ -57,7 +57,7 @@
                   </asp:datagrid>
                 </td>
               </tr>
-              <tr id="TableRow_none" runat="server"><td><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
+              <tr id="TableRow_none" runat="server"><td nowrap="nowrap"><p></p><em>--&nbsp;NONE&nbsp;--</em></td></tr>
             </table>
           </td>
         </tr>

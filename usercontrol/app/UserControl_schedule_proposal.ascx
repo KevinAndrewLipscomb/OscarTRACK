@@ -188,6 +188,9 @@
                         <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
+                      <asp:BoundColumn DataField="d_cad_num" Visible="false">
+                        <ItemStyle VerticalAlign="Bottom" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn CommandName="SelectDayAvailMember" DataTextField="d_name" HeaderText="DAY" Visible="false">
                         <HeaderStyle HorizontalAlign="Left" />
                         <ItemStyle VerticalAlign="Bottom" />
@@ -297,6 +300,9 @@
                         <ItemStyle VerticalAlign="Bottom" />
                         <ItemTemplate>:</ItemTemplate>
                       </asp:TemplateColumn>
+                      <asp:BoundColumn DataField="n_cad_num" Visible="false">
+                        <ItemStyle VerticalAlign="Bottom" />
+                      </asp:BoundColumn>
                       <asp:ButtonColumn CommandName="SelectNightAvailMember" DataTextField="n_name" HeaderText="NIGHT" Visible="false">
                         <HeaderStyle HorizontalAlign="Left" />
                         <ItemStyle VerticalAlign="Bottom" />

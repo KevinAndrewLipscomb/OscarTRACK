@@ -41,90 +41,92 @@ namespace UserControl_schedule_proposal
       public const int TCI_D_MEDICAL_RELEASE_DESCRIPTION = 14;
       public const int TCI_D_BE_MARINE_MEDIC = 15;
       public const int TCI_D_COLON = 16;
-      public const int TCI_D_NAME_INTERACTIVE = 17;
-      public const int TCI_D_NAME_NONINTERACTIVE = 18;
-      public const int TCI_D_BE_DRIVER_QUALIFIED = 19;
-      public const int TCI_D_MEMBER_AGENCY_ID = 20;
-      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 21;
-      public const int TCI_D_BE_SELECTED = 22;
-      public const int TCI_D_COMMENT = 23;
-      public const int TCI_D_BE_CHALLENGE = 24;
-      public const int TCI_D_BE_GREENHORNS = 25;
-      public const int TCI_D_PHONE_NUM = 26;
-      public const int TCI_TIMELINE_SPACER_LEFT = 27;
-      public const int TCI_D0000 = 28;
-      public const int TCI_D0030 = 29;
-      public const int TCI_D0100 = 30;
-      public const int TCI_D0130 = 31;
-      public const int TCI_D0200 = 32;
-      public const int TCI_D0230 = 33;
-      public const int TCI_D0300 = 34;
-      public const int TCI_D0330 = 35;
-      public const int TCI_D0400 = 36;
-      public const int TCI_D0430 = 37;
-      public const int TCI_D0500 = 38;
-      public const int TCI_D0530 = 39;
-      public const int TCI_D0600 = 40;
-      public const int TCI_D0630 = 41;
-      public const int TCI_D0700 = 42;
-      public const int TCI_D0730 = 43;
-      public const int TCI_D0800 = 44;
-      public const int TCI_D0830 = 45;
-      public const int TCI_D0900 = 46;
-      public const int TCI_D0930 = 47;
-      public const int TCI_D1000 = 48;
-      public const int TCI_D1030 = 49;
-      public const int TCI_D1100 = 50;
-      public const int TCI_D1130 = 51;
-      public const int TCI_N0000 = 52;
-      public const int TCI_N0030 = 53;
-      public const int TCI_N0100 = 54;
-      public const int TCI_N0130 = 55;
-      public const int TCI_N0200 = 56;
-      public const int TCI_N0230 = 57;
-      public const int TCI_N0300 = 58;
-      public const int TCI_N0330 = 59;
-      public const int TCI_N0400 = 60;
-      public const int TCI_N0430 = 61;
-      public const int TCI_N0500 = 62;
-      public const int TCI_N0530 = 63;
-      public const int TCI_N0600 = 64;
-      public const int TCI_N0630 = 65;
-      public const int TCI_N0700 = 66;
-      public const int TCI_N0730 = 67;
-      public const int TCI_N0800 = 68;
-      public const int TCI_N0830 = 69;
-      public const int TCI_N0900 = 70;
-      public const int TCI_N0930 = 71;
-      public const int TCI_N1000 = 72;
-      public const int TCI_N1030 = 73;
-      public const int TCI_N1100 = 74;
-      public const int TCI_N1130 = 75;
-      public const int TCI_TIMELINE_SPACER_RIGHT = 76;
-      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 77;
-      public const int TCI_N_SLASH = 78;
-      public const int TCI_N_NUM_UNITS_CITYWIDE = 79;
-      public const int TCI_N_SPACER_MINOR = 80;
-      public const int TCI_N_ASSIGNMENT_ID = 81;
-      public const int TCI_N_POST_ID = 82;
-      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 83;
-      public const int TCI_N_MEMBER_ID = 84;
-      public const int TCI_N_POST_DESIGNATOR = 85;
-      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 86;
-      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 87;
-      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 88;
-      public const int TCI_N_BE_MARINE_MEDIC = 89;
-      public const int TCI_N_COLON = 90;
-      public const int TCI_N_NAME_INTERACTIVE = 91;
-      public const int TCI_N_NAME_NONINTERACTIVE = 92;
-      public const int TCI_N_BE_DRIVER_QUALIFIED = 93;
-      public const int TCI_N_MEMBER_AGENCY_ID = 94;
-      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 95;
-      public const int TCI_N_BE_SELECTED = 96;
-      public const int TCI_N_COMMENT = 97;
-      public const int TCI_N_BE_CHALLENGE = 98;
-      public const int TCI_N_BE_GREENHORNS = 99;
-      public const int TCI_N_PHONE_NUM = 100;
+      public const int TCI_D_CAD_NUM = 17;
+      public const int TCI_D_NAME_INTERACTIVE = 18;
+      public const int TCI_D_NAME_NONINTERACTIVE = 19;
+      public const int TCI_D_BE_DRIVER_QUALIFIED = 20;
+      public const int TCI_D_MEMBER_AGENCY_ID = 21;
+      public const int TCI_D_MEMBER_AGENCY_DESIGNATOR = 22;
+      public const int TCI_D_BE_SELECTED = 23;
+      public const int TCI_D_COMMENT = 24;
+      public const int TCI_D_BE_CHALLENGE = 25;
+      public const int TCI_D_BE_GREENHORNS = 26;
+      public const int TCI_D_PHONE_NUM = 27;
+      public const int TCI_TIMELINE_SPACER_LEFT = 28;
+      public const int TCI_D0000 = 29;
+      public const int TCI_D0030 = 30;
+      public const int TCI_D0100 = 31;
+      public const int TCI_D0130 = 32;
+      public const int TCI_D0200 = 33;
+      public const int TCI_D0230 = 34;
+      public const int TCI_D0300 = 35;
+      public const int TCI_D0330 = 36;
+      public const int TCI_D0400 = 37;
+      public const int TCI_D0430 = 38;
+      public const int TCI_D0500 = 39;
+      public const int TCI_D0530 = 40;
+      public const int TCI_D0600 = 41;
+      public const int TCI_D0630 = 42;
+      public const int TCI_D0700 = 43;
+      public const int TCI_D0730 = 44;
+      public const int TCI_D0800 = 45;
+      public const int TCI_D0830 = 46;
+      public const int TCI_D0900 = 47;
+      public const int TCI_D0930 = 48;
+      public const int TCI_D1000 = 49;
+      public const int TCI_D1030 = 50;
+      public const int TCI_D1100 = 51;
+      public const int TCI_D1130 = 52;
+      public const int TCI_N0000 = 53;
+      public const int TCI_N0030 = 54;
+      public const int TCI_N0100 = 55;
+      public const int TCI_N0130 = 56;
+      public const int TCI_N0200 = 57;
+      public const int TCI_N0230 = 58;
+      public const int TCI_N0300 = 59;
+      public const int TCI_N0330 = 60;
+      public const int TCI_N0400 = 61;
+      public const int TCI_N0430 = 62;
+      public const int TCI_N0500 = 63;
+      public const int TCI_N0530 = 64;
+      public const int TCI_N0600 = 65;
+      public const int TCI_N0630 = 66;
+      public const int TCI_N0700 = 67;
+      public const int TCI_N0730 = 68;
+      public const int TCI_N0800 = 69;
+      public const int TCI_N0830 = 70;
+      public const int TCI_N0900 = 71;
+      public const int TCI_N0930 = 72;
+      public const int TCI_N1000 = 73;
+      public const int TCI_N1030 = 74;
+      public const int TCI_N1100 = 75;
+      public const int TCI_N1130 = 76;
+      public const int TCI_TIMELINE_SPACER_RIGHT = 77;
+      public const int TCI_N_NUM_UNITS_FROM_AGENCY = 78;
+      public const int TCI_N_SLASH = 79;
+      public const int TCI_N_NUM_UNITS_CITYWIDE = 80;
+      public const int TCI_N_SPACER_MINOR = 81;
+      public const int TCI_N_ASSIGNMENT_ID = 82;
+      public const int TCI_N_POST_ID = 83;
+      public const int TCI_N_AGENCY_SHORT_DESIGNATOR = 84;
+      public const int TCI_N_MEMBER_ID = 85;
+      public const int TCI_N_POST_DESIGNATOR = 86;
+      public const int TCI_N_POST_CARDINALITY_NONINTERACTIVE = 87;
+      public const int TCI_N_POST_CARDINALITY_INTERACTIVE = 88;
+      public const int TCI_N_MEDICAL_RELEASE_DESCRIPTION = 89;
+      public const int TCI_N_BE_MARINE_MEDIC = 90;
+      public const int TCI_N_COLON = 91;
+      public const int TCI_N_CAD_NUM = 92;
+      public const int TCI_N_NAME_INTERACTIVE = 93;
+      public const int TCI_N_NAME_NONINTERACTIVE = 94;
+      public const int TCI_N_BE_DRIVER_QUALIFIED = 95;
+      public const int TCI_N_MEMBER_AGENCY_ID = 96;
+      public const int TCI_N_MEMBER_AGENCY_DESIGNATOR = 97;
+      public const int TCI_N_BE_SELECTED = 98;
+      public const int TCI_N_COMMENT = 99;
+      public const int TCI_N_BE_CHALLENGE = 100;
+      public const int TCI_N_BE_GREENHORNS = 101;
+      public const int TCI_N_PHONE_NUM = 102;
       //
       public const int CI_DESIGNATOR_DROPDOWNLIST = 0;
       public const int CI_DESIGNATOR_LABEL = 1;
@@ -512,6 +514,7 @@ namespace UserControl_schedule_proposal
         A.Columns[Static.TCI_D_MEMBER_AGENCY_DESIGNATOR].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_COMMENT].Visible = (!p.be_lineup || p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_D_PHONE_NUM].Visible = (p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
+        A.Columns[Static.TCI_D_CAD_NUM].Visible = (p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         A.Columns[Static.TCI_TIMELINE_SPACER_LEFT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != 1);
         for (var i = new k.subtype<int>(Static.TCI_D0000,Static.TCI_D1130 + 1); i.val < i.LAST; i.val++)
           {
@@ -538,6 +541,7 @@ namespace UserControl_schedule_proposal
         A.Columns[Static.TCI_N_MEMBER_AGENCY_DESIGNATOR].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_COMMENT].Visible = !(p.be_lineup && p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         A.Columns[Static.TCI_N_PHONE_NUM].Visible = (p.be_lineup && !p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
+        A.Columns[Static.TCI_N_CAD_NUM].Visible = (p.be_lineup && !p.be_now_day_shift) && (p.individual_work_timelines_mode.val != -1);
         //
         p.biz_schedule_assignments.GetAgencyFootprintInfo(p.agency_filter,p.relative_month,p.nominal_day_filter_active,out p.post_footprint,out p.max_post_cardinality_actual);
         var proto_post_list_item_collection = new ListItemCollection();
@@ -640,6 +644,7 @@ namespace UserControl_schedule_proposal
       int tci_num_units_citywide,
       int tci_slash,
       int tci_phone_num,
+      int tci_cad_num,
       bool be_unit_spec_change
       )
       {
@@ -669,10 +674,12 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[tci_medical_release_description].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_be_marine_medic].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_colon].BackColor = Color.PaleGreen;
+          e.Item.Cells[tci_cad_num].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_name_interactive].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_name_noninteractive].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_be_driver_qualified].BackColor = Color.PaleGreen;
           e.Item.Cells[tci_member_agency_designator].BackColor = Color.PaleGreen;
+          e.Item.Cells[tci_phone_num].BackColor = Color.PaleGreen;
           }
         if (e.Item.Cells[tci_be_challenge].Text == "1")
           {
@@ -680,10 +687,12 @@ namespace UserControl_schedule_proposal
           e.Item.Cells[tci_medical_release_description].BackColor = Color.Yellow;
           e.Item.Cells[tci_be_marine_medic].BackColor = Color.Yellow;
           e.Item.Cells[tci_colon].BackColor = Color.Yellow;
+          e.Item.Cells[tci_cad_num].BackColor = Color.Yellow;
           e.Item.Cells[tci_name_interactive].BackColor = Color.Yellow;
           e.Item.Cells[tci_name_noninteractive].BackColor = Color.Yellow;
           e.Item.Cells[tci_be_driver_qualified].BackColor = Color.Yellow;
           e.Item.Cells[tci_member_agency_designator].BackColor = Color.Yellow;
+          e.Item.Cells[tci_phone_num].BackColor = Color.Yellow;
           }
         }
       else
@@ -748,6 +757,7 @@ namespace UserControl_schedule_proposal
         e.Item.Cells[tci_medical_release_description].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_be_marine_medic].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_colon].Style.Add("border-top","thin solid silver");
+        e.Item.Cells[tci_cad_num].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_name_interactive].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_name_noninteractive].Style.Add("border-top","thin solid silver");
         e.Item.Cells[tci_be_driver_qualified].Style.Add("border-top","thin solid silver");
@@ -992,6 +1002,7 @@ namespace UserControl_schedule_proposal
           Static.TCI_D_NUM_UNITS_CITYWIDE,
           Static.TCI_D_SLASH,
           Static.TCI_D_PHONE_NUM,
+          Static.TCI_D_CAD_NUM,
           be_d_unit_spec_change
           );
         ManageSimpleColumns
@@ -1014,6 +1025,7 @@ namespace UserControl_schedule_proposal
           Static.TCI_N_NUM_UNITS_CITYWIDE,
           Static.TCI_N_SLASH,
           Static.TCI_N_PHONE_NUM,
+          Static.TCI_N_CAD_NUM,
           be_n_unit_spec_change
           );
         //
