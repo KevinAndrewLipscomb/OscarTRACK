@@ -1297,6 +1297,8 @@ namespace Class_biz_schedule_assignments
         {
         var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/biz_schedule_assignments.log"),append:true);
         log.AutoFlush = true;
+        var member_summary = biz_members.Summary(biz_members.IdOfUserId(biz_user.IdNum()));
+        log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: Current user is " + biz_members.CadNumOf(member_summary) + k.SPACE + biz_members.FirstNameOf(member_summary) + k.SPACE + biz_members.LastNameOf(member_summary) + "...");
         var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
         if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
           {
@@ -1318,7 +1320,7 @@ namespace Class_biz_schedule_assignments
         //
         var relative_month_int = int.Parse(relative_month);
         var relative_month_subtype = new k.subtype<int>(relative_month_int,relative_month_int);
-        var be_virgin_watchbill = BeFullWatchbillPublishMandatory(biz_members.AgencyIdOfId(biz_members.IdOfUserId(biz_user.IdNum())),relative_month_subtype);
+        var be_virgin_watchbill = BeFullWatchbillPublishMandatory(biz_members.AgencyIdOfId(biz_members.IdOf(member_summary)),relative_month_subtype);
         if (!be_virgin_watchbill)
           {
           PublishPendingNotifications(relative_month_subtype,be_virgin_watchbill,working_directory,be_limited_preview:true);
