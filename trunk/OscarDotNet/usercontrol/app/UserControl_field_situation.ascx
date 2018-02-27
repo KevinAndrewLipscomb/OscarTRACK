@@ -107,15 +107,11 @@
               </tr>
               <tr>
                 <td valign="top">&bull;</td>
-                <td>It runs behind when the 911 center is very busy.</td>
+                <td>It may run behind when the 911 center is very busy.</td>
               </tr>
               <tr>
                 <td valign="top">&bull;</td>
                 <td>It only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
-              </tr>
-              <tr>
-                <td valign="top">&bull;</td>
-                <td>It sometimes shows case nature &quot;reclassifications&quot;.&nbsp; These are not actually assigned units.&nbsp; It is poor practice to "reclassify" your cases.&nbsp; Document the true nature in the run report instead.</td>
               </tr>
             </table>
           </td>
@@ -141,20 +137,16 @@
                       <td>
                         <table>
                           <tr>
-                            <td>###</td>
+                            <td>A</td>
                             <td>Ambulance</td>
                           </tr>
                           <tr>
-                            <td>AIR</td>
-                            <td>Va Beach air ambulance</td>
-                          </tr>
-                          <tr>
-                            <td>BRIG</td>
-                            <td>Brigade chief</td>
+                            <td>ECH</td>
+                            <td>EMS Chief</td>
                           </tr>
                           <tr>
                             <td>EMS</td>
-                            <td>Supervisor or higher command officer</td>
+                            <td>Field supervisor</td>
                           </tr>
                           <tr>
                             <td>HOLD</td>
@@ -169,8 +161,16 @@
                             <td>Lifeguard supervisor</td>
                           </tr>
                           <tr>
-                            <td>MRTK</td>
+                            <td>MBOAT</td>
+                            <td>EMS Boat</td>
+                          </tr>
+                          <tr>
+                            <td>MMTK</td>
                             <td>Marine rescue truck</td>
+                          </tr>
+                          <tr>
+                            <td>MSQ</td>
+                            <td>EMS squad (crash) truck</td>
                           </tr>
                           <tr>
                             <td>NGALE</td>
@@ -181,20 +181,8 @@
                             <td>Navy rescue (ambulance)</td>
                           </tr>
                           <tr>
-                            <td>R</td>
-                            <td>Rescue district (info only)</td>
-                          </tr>
-                          <tr>
-                            <td>RB</td>
-                            <td>Rescue boat</td>
-                          </tr>
-                          <tr>
-                            <td>SQ</td>
-                            <td>Squad (crash)</td>
-                          </tr>
-                          <tr>
-                            <td>Z</td>
-                            <td>Zone car ALS</td>
+                            <td>ZM</td>
+                            <td>Zone medic ALS car</td>
                           </tr>
                         </table>
                       </td>
@@ -301,26 +289,6 @@
                           <tr>
                             <td>U</td>
                             <td>Utility</td>
-                          </tr>
-                        </table>
-                        <br />
-                        <table>
-                          <tr><td colspan="2"><span style="text-decoration: underline">Suffixes</span>:</td></tr>
-                          <tr>
-                            <td>~R</td>
-                            <td>BLS</td>
-                          </tr>
-                          <tr>
-                            <td>~S</td>
-                            <td>Shock-trauma/Enhanced/Advanced</td>
-                          </tr>
-                          <tr>
-                            <td>~P</td>
-                            <td>Intermediate/Paramedic/MD</td>
-                          </tr>
-                          <tr>
-                            <td>~DR</td>
-                            <td>Driver-only</td>
                           </tr>
                         </table>
                       </td>
@@ -463,12 +431,13 @@
           <td>
     <pre>
     The format for an ambulance callsign is:
-       [station number][twenty number][common suffix]
+       [station number][twenty number]
     Examples:
-       [ 1][20][R] →  120R (Ocean Park station, ambulance 20, staffed BLS)
-       [ 2][21][S] →  221S (Davis Corner station, ambulance 21, staffed Shock-trauma/Enhanced/Advanced)
+       [ 1][20] →  120 (Ocean Park station, ambulance 20)
+       [ 2][21] →  221 (Davis Corner station, ambulance 21)
        :
-       [22][29][P] → 2229P (First Landing station, ambulance 29, staffed Intermediate/Paramedic)
+       [22][29] → 2229 (First Landing station, ambulance 29)
+    On the air, a "P" suffix indicates an ALS unit.
     </pre>
           </td>
         </tr>
