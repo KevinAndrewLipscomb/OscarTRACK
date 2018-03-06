@@ -39,6 +39,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
+      public bool be_ok_to_audit_holdouts;
       public bool be_ok_to_edit_schedule_tier_department_only;
       public bool be_post_publish_submissions_detected;
       public bool be_user_privileged_to_see_all_squads;
@@ -57,7 +58,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
 
     private p_type p;
 
-    protected void Page_Load(object sender, System.EventArgs e)
+    protected void Page_Load(object sender, EventArgs e)
       {
       if (!p.be_loaded)
         {
@@ -72,7 +73,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         }
       }
 
-    protected override void OnInit(System.EventArgs e)
+    protected override void OnInit(EventArgs e)
       {
       // Required for Designer support
       InitializeComponent();
@@ -93,6 +94,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
         //
         p.agency_filter = k.EMPTY;
         p.be_interactive = !(Session["mode:report"] != null);
+        p.be_ok_to_audit_holdouts = k.Has((string[])(Session["privilege_array"]), "audit-holdouts");
         p.be_ok_to_edit_schedule_tier_department_only = p.biz_schedule_assignments.BeOkToEditScheduleTierDepartmentOnly(privilege_array:Session["privilege_array"] as string[]);
         p.be_user_privileged_to_see_all_squads = k.Has((Session["privilege_array"] as string[]), "see-all-squads")  && !p.be_ok_to_edit_schedule_tier_department_only;
         p.be_sort_order_ascending = true;
@@ -115,7 +117,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       PreRender += TWebUserControl_schedule_assignment_assistant_holdouts_PreRender;
       }
 
-    private void TWebUserControl_schedule_assignment_assistant_holdouts_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_schedule_assignment_assistant_holdouts_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -159,7 +161,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       DataGrid_control.Columns[Static.TCI_COMPLIANCY_MARK].Visible = !p.be_ok_to_edit_schedule_tier_department_only;
       DataGrid_control.Columns[Static.TCI_BE_NOTIFICATION_PENDING].Visible =
         p.be_post_publish_submissions_detected && (new ArrayList {k.EMPTY,"1","S"}).Contains(p.compliancy_filter) && !p.be_ok_to_edit_schedule_tier_department_only;
-      if (p.be_user_privileged_to_see_all_squads)
+      if (p.be_user_privileged_to_see_all_squads || p.be_ok_to_audit_holdouts)
         {
         be_suppressed = false;
         p.biz_schedule_assignments.BindSubmissionCompliancyBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.release_filter,p.relative_month,p.compliancy_filter,show_transferring_members:true);
@@ -271,7 +273,7 @@ namespace UserControl_schedule_assignment_assistant_holdouts
       Bind();
       }
 
-    protected void Button_send_Click(object sender, System.EventArgs e)
+    protected void Button_send_Click(object sender, EventArgs e)
       {
       k.SmtpMailSend
         (
