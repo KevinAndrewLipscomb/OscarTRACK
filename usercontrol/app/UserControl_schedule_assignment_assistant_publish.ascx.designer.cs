@@ -65,5 +65,14 @@ namespace UserControl_schedule_assignment_assistant_publish {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_publish;
+        
+        /// <summary>
+        /// Label_check_agency_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_check_agency_filter;
     }
 }

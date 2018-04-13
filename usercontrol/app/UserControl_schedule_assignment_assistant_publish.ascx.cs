@@ -125,6 +125,7 @@ namespace UserControl_schedule_assignment_assistant_publish
       p.be_ok_to_edit_schedule_for_selected_special_agency = p.biz_privileges.HasForSpecialAgency(member_id:p.user_member_id,privilege_name:"edit-schedule",agency_id:p.agency_filter);
       //
       ManageAblements();
+      Label_check_agency_filter.Visible = ((p.agency_filter.Length == 0) || (p.agency_filter == "0"));
       }
 
     protected void CustomValidator_full_schedule_format_ServerValidate(object source, ServerValidateEventArgs args)
