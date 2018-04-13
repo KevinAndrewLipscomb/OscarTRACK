@@ -47,4 +47,4 @@
     <td></td>
   </tr>
 </table>
-<asp:Button ID="Button_publish" runat="server" Font-Bold="True" onclick="Button_publish_Click" Text="PUBLISH" Enabled="False"/>
+<asp:Button ID="Button_publish" runat="server" Font-Bold="True" onclick="Button_publish_Click" Text="PUBLISH" Enabled="False"/>&nbsp;&nbsp;<small><asp:Label ID="Label_check_agency_filter" runat="server" Text="Note that the <i><b>Agency=All</b></i> filter publishes to all agencies; <i><b>Agency=EMS</b></i> does not include rescue squads or special teams." ForeColor="#FF9900" Visible="False"></asp:Label></small>
