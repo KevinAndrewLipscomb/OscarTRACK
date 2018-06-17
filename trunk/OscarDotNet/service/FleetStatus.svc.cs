@@ -1,5 +1,6 @@
 ﻿using Class_biz_vehicles;
 using Class_db_vehicles;
+using kix;
 using System.Collections.Generic;
 using System.Web.UI.WebControls;
 
@@ -19,12 +20,17 @@ namespace OscarDotNet.service
       string quarters_filter
       )
       {
+      sort_order = k.Safe(sort_order ?? k.EMPTY,k.safe_hint_type.KI_SORT_EXPRESSION);
+      agency_filter = k.Safe(agency_filter ?? k.EMPTY,k.safe_hint_type.NUM);
+      vehicle_kind_filter = k.Safe(vehicle_kind_filter ?? k.EMPTY,k.safe_hint_type.NUM);
+      quarters_filter = k.Safe(quarters_filter ?? k.EMPTY,k.safe_hint_type.NUM);
+      //
       var the_items = new List<vehicle_summary>();
       var biz_vehicles = new TClass_biz_vehicles();
       var target = new DataGrid();
       biz_vehicles.BindBaseDataList
         (
-        sort_order:sort_order,
+        sort_order:(sort_order.Length > 0 ? sort_order : "vehicle_name"),
         be_sort_order_ascending:be_sort_order_ascending,
         target:target,
         agency_filter:agency_filter,
