@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OscarDotNet</RootNamespace>
     <AssemblyName>OscarDotNet</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
@@ -204,6 +204,7 @@
     <Content Include="salogin.aspx" />
     <Content Include="serial_indicator_control_chart.aspx" />
     <Content Include="service\Authentication.svc" />
+    <Content Include="service\FleetStatus.svc" />
     <Content Include="timeout.aspx" />
     <Content Include="usercontrol\app\UserControl_agency_satellite_station.ascx" />
     <Content Include="usercontrol\app\UserControl_ambulance_staffing_timeline_chart.ascx" />
@@ -1213,7 +1214,11 @@
     <Compile Include="service\Authentication.svc.cs">
       <DependentUpon>Authentication.svc</DependentUpon>
     </Compile>
+    <Compile Include="service\FleetStatus.svc.cs">
+      <DependentUpon>FleetStatus.svc</DependentUpon>
+    </Compile>
     <Compile Include="service\IAuthentication.cs" />
+    <Compile Include="service\IFleetStatus.cs" />
     <Compile Include="timeout.aspx.cs">
       <DependentUpon>timeout.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
