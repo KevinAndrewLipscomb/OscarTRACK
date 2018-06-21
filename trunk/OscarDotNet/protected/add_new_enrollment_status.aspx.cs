@@ -8,6 +8,7 @@ using kix;
 using System;
 using System.Configuration;
 using System.Web.UI;
+using System.Web.UI.WebControls;
 using UserControl_drop_down_date;
 
 namespace add_new_enrollment_status
@@ -15,6 +16,7 @@ namespace add_new_enrollment_status
     public struct p_type
     {
         public bool be_member_squad_affiliation_weak;
+        public bool be_ok_to_grant_associate_enrollment;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_enrollment biz_enrollment;
         public TClass_biz_medical_release_levels biz_medical_release_levels;
@@ -100,6 +102,8 @@ namespace add_new_enrollment_status
                     // UserControl_effective_date. := (RadioButtonList_disposition.items.count > 0);
                     TextBox_note.Enabled = (RadioButtonList_disposition.Items.Count > 0);
                     Button_submit.Enabled = (RadioButtonList_disposition.Items.Count > 0);
+                    //
+                    p.be_ok_to_grant_associate_enrollment = k.Has((string[])(Session["privilege_array"]), "grant-associate-enrollment");
                 }
             }
             ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_submit);
@@ -169,6 +173,11 @@ namespace add_new_enrollment_status
           {
           BackTrack(2);
           }
+
+    protected void CustomValidator_associate_enrollment_ServerValidate(object source, ServerValidateEventArgs args)
+      {
+      args.IsValid = (RadioButtonList_disposition.SelectedValue != p.biz_enrollment.CodeOf("Associate")) || p.be_ok_to_grant_associate_enrollment;
+      }
 
     } // end TWebForm_add_new_enrollment_status
 
