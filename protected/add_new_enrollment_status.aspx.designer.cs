@@ -148,6 +148,15 @@ namespace add_new_enrollment_status {
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_control;
         
         /// <summary>
+        /// CustomValidator_associate_enrollment control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_associate_enrollment;
+        
+        /// <summary>
         /// Button_submit control.
         /// </summary>
         /// <remarks>
