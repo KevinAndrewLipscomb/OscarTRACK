@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <%@ Page Language="c#" Debug="true" CodeBehind="quarters_detail.aspx.cs" AutoEventWireup="True" Inherits="quarters_detail.TWebForm_quarters_detail" %>
 

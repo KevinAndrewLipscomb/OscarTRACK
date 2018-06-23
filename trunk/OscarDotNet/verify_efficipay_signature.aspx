@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <%@ Page Language="c#" Debug="true" CodeBehind="verify_efficipay_signature.aspx.cs" AutoEventWireup="True" Inherits="verify_efficipay_signature.TWebForm_verify_efficipay_signature" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>

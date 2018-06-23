@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 <%@ Page language="c#" Debug="true" Codebehind="report_commanded_gripe_sheet.aspx.cs" AutoEventWireup="True" Inherits="report_commanded_gripe_sheet.TWebForm_report_commanded_gripe_sheet" EnableViewState="false"%>
 <%@ Register src="../usercontrol/app/UserControl_common_header_bar.ascx" tagname="UserControl_common_header_bar" tagprefix="uc1" %>

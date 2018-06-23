@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 
 <%@ Page Language="c#" Debug="true" CodeBehind="append_vehicle_down_note.aspx.cs" AutoEventWireup="True" Inherits="append_vehicle_down_note.TWebForm_append_vehicle_down_note" %>

@@ -1,5 +1,5 @@
 <%@ Page Language="c#" Debug="true" CodeBehind="fleetman.aspx.cs" AutoEventWireup="True" Inherits="fleetman.TWebForm_fleetman" validateRequest="false"%>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title></title>

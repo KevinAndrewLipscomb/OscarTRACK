@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <%@ Page Language="c#" Debug="true" CodeBehind="usability_detail.aspx.cs" AutoEventWireup="True" Inherits="usability_detail.TWebForm_usability_detail" %>
 

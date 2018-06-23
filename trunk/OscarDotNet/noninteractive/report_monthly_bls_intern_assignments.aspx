@@ -2,7 +2,7 @@
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head runat="server">
     <!-- $Id$ -->
