@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 
 <%@ Page Language="c#" Debug="true" CodeBehind="usability_detail.aspx.cs" AutoEventWireup="True" Inherits="usability_detail.TWebForm_usability_detail" %>
 
