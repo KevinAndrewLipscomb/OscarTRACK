@@ -2,7 +2,7 @@
 <%@ Register src="UserControl_recent_oscalert_samples.ascx" tagname="UserControl_recent_oscalert_samples" tagprefix="uc1" %>
 <%@ Register Src="~/usercontrol/app/UserControl_recent_oscalert_samples.ascx" TagPrefix="uc2" TagName="UserControl_recent_oscalert_samples" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
-<h2>Virginia Beach EMS & Fire Active Case Board - <a href="https://www.broadcastify.com/scripts/playlists/1/14744/-6119150156.m3u" target="_blank">&raquo;Listen!&laquo;</a></h2>
+<h2>Virginia Beach EMS & Fire Active Case Board - <a href="http://fp2w.net" target="_blank">&raquo;Listen!&laquo;</a></h2>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional" Visible="false">
   <ContentTemplate>
     <table bordercolor="#dcdcdc" cellspacing="0" cellpadding="0" border="1">
