@@ -4,21 +4,17 @@
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <table>
   <tr>
-    <td><h2>Virginia Beach EMS & Fire Active Case Board</h2></td>
-    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td align="right">
+      <strong><big><big>Virginia Beach EMS & Fire Active Case Board</big></big></strong>
+      <br />
+      <small><small><a href="https://www.broadcastify.com/listen/feed/14744" target="_blank">Scanner feed details</a></small></small>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;</td>
     <td>
-      <script src="/scripts/me_2.17.0/build/mediaelement-and-player.min.js"></script>
-        <link rel="stylesheet" href="/scripts/me_2.17.0/build/mediaelementplayer.min.css"/>
-        <audio width="300" id="mePlayer_14744" src="http://listen.broadcastify.com:80?t=C1C708FBF8C5F642B76F2592363EA516FEDA91B9936297A26670794224E6DDF2D63776A52E56926901C8176B8655B5FF9531F97174B7D4BDD6EE4BDE9B96393C" type="audio/mp3" controls="controls"></audio>
-        <script>
-          $('audio').mediaelementplayer({
-            features: ['playpause', 'current', 'volume'],
-            error: function () {
-              alert("Feed has disconnected from the server.  This could be due to a power outage, network connection problem, or server problem.  Click OK to restart the player.  If the player fails to connect then the feed might be down for an extended timeframe.");
-              location.reload();
-            }
-          });
-      </script>
+      <audio controls>
+        <source src="http://listen.broadcastify.com:80?t=C1C708FBF8C5F642B76F2592363EA516FEDA91B9936297A26670794224E6DDF2D63776A52E56926901C8176B8655B5FF9531F97174B7D4BDD6EE4BDE9B96393C" type="audio/mp3">
+        Sorry, your bowser does not support the audio control.
+      </audio>
     </td>
   </tr>
 </table>
