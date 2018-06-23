@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 <%@ Page language="c#" Debug="true" Codebehind="watchbill.aspx.cs" AutoEventWireup="True" Inherits="watchbill.TWebForm_watchbill" EnableViewState="false"%>
 <%@ Register src="../usercontrol/app/UserControl_schedule_proposal.ascx" tagname="UserControl_schedule_proposal" tagprefix="uc1" %>

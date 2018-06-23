@@ -1,5 +1,5 @@
 <%@ Page language="c#" Debug="true" Codebehind="milestone_sweep.aspx.cs" AutoEventWireup="True" Inherits="milestone_sweep.TWebForm_milestone_sweep" %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html>
   <head runat="server">

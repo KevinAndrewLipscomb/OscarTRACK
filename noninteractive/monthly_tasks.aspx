@@ -1,5 +1,5 @@
 <%@ Page language="c#" Debug="true" Codebehind="monthly_tasks.aspx.cs" AutoEventWireup="True" Inherits="monthly_tasks.TWebForm_monthly_tasks" %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html>
   <head runat="server">

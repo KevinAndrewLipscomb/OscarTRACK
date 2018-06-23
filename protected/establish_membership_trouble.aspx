@@ -1,7 +1,7 @@
 <%@ Page language="c#" Debug="true" Codebehind="establish_membership_trouble.aspx.cs" AutoEventWireup="True" Inherits="establish_membership_trouble.TWebForm_establish_membership_trouble" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 
 <html>
   <head runat="server">
