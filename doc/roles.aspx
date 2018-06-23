@@ -1,7 +1,7 @@
 <%@ Page language="c#" Debug="true" Codebehind="roles.aspx.cs" AutoEventWireup="True" Inherits="roles.TWebForm_roles" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc2" TagName="UserControl_role_help" Src="~/usercontrol/app/UserControl_role_help.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
   <head runat="server">
     <title></title>

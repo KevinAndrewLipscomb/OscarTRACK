@@ -2,7 +2,7 @@
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
   <head runat="server">
     <!-- $Id: report_monthly_transferees.aspx 2817 2009-09-09 13:48:28Z KevinAnLipscomb $ -->

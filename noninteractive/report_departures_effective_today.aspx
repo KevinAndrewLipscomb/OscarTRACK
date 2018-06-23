@@ -1,7 +1,7 @@
 <%@ Page language="c#" Debug="true" Codebehind="report_departures_effective_today.aspx.cs" AutoEventWireup="True" Inherits="report_departures_effective_today.TWebForm_report_departures_effective_today" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_departures_effective_today" Src="~/usercontrol/app/UserControl_departures_effective_today.ascx" %>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
   <head runat="server">
     <title></title>

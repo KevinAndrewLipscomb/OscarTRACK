@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 
 <%@ Page Language="c#" Debug="true" CodeBehind="bounty_program.aspx.cs" AutoEventWireup="True" Inherits="bounty_program.TWebForm_bounty_program" %>
