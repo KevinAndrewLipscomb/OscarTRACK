@@ -29,8 +29,10 @@ namespace Class_db_schedule_assignments
     public string member_id;
     public string member_last_name;
     public string member_first_name;
+    public string member_cad_num;
     public string member_medical_release_level;
     public string member_agency_id;
+    public string member_phone_num;
     public string comment;
     public bool be_selected;
     }
@@ -2783,8 +2785,10 @@ namespace Class_db_schedule_assignments
           + " , comment"
           + " , last_name"
           + " , first_name"
+          + " , cad_num"
           + " , medical_release_code_description_map.watchbill_rendition as medical_release_level"
           + " , member.agency_id as member_agency_id"
+          + " , member.phone_num as member_phone_num"
           + " , be_selected"
           + " FROM schedule_assignment"
           +   " join shift on (shift.id=schedule_assignment.shift_id)"
@@ -2811,8 +2815,10 @@ namespace Class_db_schedule_assignments
         member_id = dr["member_id"].ToString(),
         member_last_name = dr["last_name"].ToString(),
         member_first_name = dr["first_name"].ToString(),
+        member_cad_num = dr["cad_num"].ToString(),
         member_medical_release_level = dr["medical_release_level"].ToString(),
         member_agency_id = dr["member_agency_id"].ToString(),
+        member_phone_num = k.FormatAsNanpPhoneNum(dr["member_phone_num"].ToString()),
         comment = dr["comment"].ToString(),
         be_selected = (dr["be_selected"].ToString() == "1")
         };
