@@ -14,6 +14,27 @@ using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignments
   {
+
+  public class schedule_assignment_summary
+    {
+    public string id;
+    public DateTime nominal_day;
+    public string shift_id;
+    public string shift_name;
+    public TimeSpan shift_start;
+    public TimeSpan shift_end;
+    public string post_id;
+    public string post_designator;
+    public string post_cardinality;
+    public string member_id;
+    public string member_last_name;
+    public string member_first_name;
+    public string member_medical_release_level;
+    public string member_agency_id;
+    public string comment;
+    public bool be_selected;
+    }
+
   public class TClass_db_schedule_assignments: TClass_db
     {
 
@@ -38,28 +59,14 @@ namespace Class_db_schedule_assignments
     private const string HHMM_RANGE_PATTERN = "([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
-    private class schedule_assignment_summary
-      {
-      public string id;
-      public DateTime nominal_day;
-      public string shift_id;
-      public string shift_name;
-      public TimeSpan shift_start;
-      public TimeSpan shift_end;
-      public string post_id;
-      public string post_designator;
-      public string post_cardinality;
-      public string member_id;
-      public string comment;
-      }
-
     private TClass_db_shifts db_shifts = null;
     private TClass_db_trail db_trail = null;
 
     private string CommonBindBaseDataListByShiftSelectClause(string first_name_clause)
       {
       return k.EMPTY
-      + " select short_designator as agency_short_designator"
+      + " select schedule_assignment.id as schedule_assignment_id"
+      + " , short_designator as agency_short_designator"
       + " , IF(be_selected," + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ",'') as post_cardinality"
       + " , watchbill_rendition as medical_release_description"
       + " , concat(last_name,', '," + first_name_clause + ") as name"
@@ -2774,9 +2781,16 @@ namespace Class_db_schedule_assignments
           + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
           + " , member_id"
           + " , comment"
+          + " , last_name"
+          + " , first_name"
+          + " , medical_release_code_description_map.watchbill_rendition as medical_release_level"
+          + " , member.agency_id as member_agency_id"
+          + " , be_selected"
           + " FROM schedule_assignment"
           +   " join shift on (shift.id=schedule_assignment.shift_id)"
           +   " join agency on (agency.id=schedule_assignment.post_id)"
+          +   " join member on (member.id=schedule_assignment.member_id)"
+          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
           + " where schedule_assignment.id = '" + id + "'",
           connection
           )
@@ -2795,7 +2809,12 @@ namespace Class_db_schedule_assignments
         post_designator = dr["post_designator"].ToString(),
         post_cardinality = dr["post_cardinality"].ToString(),
         member_id = dr["member_id"].ToString(),
-        comment = dr["comment"].ToString()
+        member_last_name = dr["last_name"].ToString(),
+        member_first_name = dr["first_name"].ToString(),
+        member_medical_release_level = dr["medical_release_level"].ToString(),
+        member_agency_id = dr["member_agency_id"].ToString(),
+        comment = dr["comment"].ToString(),
+        be_selected = (dr["be_selected"].ToString() == "1")
         };
       Close();
       return the_summary;
