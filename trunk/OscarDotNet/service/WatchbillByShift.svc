@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="OscarDotNet.service.WatchbillByShift" CodeBehind="WatchbillByShift.svc.cs" %>
