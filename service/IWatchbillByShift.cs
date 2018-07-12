@@ -1,5 +1,4 @@
 ﻿using Class_db_schedule_assignments;
-using kix;
 using System.Collections.Generic;
 using System.ServiceModel;
 

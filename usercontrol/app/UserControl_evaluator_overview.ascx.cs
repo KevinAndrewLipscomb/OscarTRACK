@@ -325,6 +325,7 @@ namespace UserControl_evaluator_overview
     protected void CheckBox_aic_me_only_CheckedChanged(object sender, EventArgs e)
       {
       p.evaluation_tier_active.val = (CheckBox_aic_me_only.Checked ? int.MaxValue : p.evaluation_tier_highest.val);
+      p.third_section_filter = (CheckBox_aic_me_only.Checked ? k.EMPTY : (p.evaluation_tier_active.val == 2 ? k.Safe(p.biz_members.AgencyIdOfId(id:p.user_member_id),k.safe_hint_type.NUM) : k.EMPTY ));
       Bind();
       }
 
