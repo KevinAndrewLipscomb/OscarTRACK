@@ -21,6 +21,7 @@ namespace UserControl_vehicle
       public bool be_loaded;
       public bool be_mode_add;
       public bool be_ok_to_config_vehicles;
+      public bool be_ok_to_edit_deployment_guidance;
       public bool be_ok_to_retire_vehicles;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_chassis_models biz_chassis_models;
@@ -368,6 +369,7 @@ namespace UserControl_vehicle
         p.be_loaded = false;
         p.be_mode_add = false;
         p.be_ok_to_config_vehicles = k.Has((string[])(Session["privilege_array"]), "config-vehicles");
+        p.be_ok_to_edit_deployment_guidance = k.Has((string[])(Session["privilege_array"]), "edit-vehicle-deployment-guidance");
         p.be_ok_to_retire_vehicles = k.Has((string[])(Session["privilege_array"]), "retire-vehicles");
         p.saved_deployment_guidance = k.EMPTY;
         p.saved_kind_id = k.EMPTY;
