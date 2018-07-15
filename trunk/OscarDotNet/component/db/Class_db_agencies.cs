@@ -251,7 +251,9 @@ namespace Class_db_agencies
             + " from agency"
             +   " left join agency_satellite_station on (agency_satellite_station.satellite_station_id=agency.id)"
             + " where be_ems_post"
-            +     (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200)") + ")")
+            +     (tier == "1" ? k.EMPTY : " and (('" + agency_filter + "' in (agency.id,agency_id)) or (agency.id in (0" + (post_footprint.Length > 0 ? k.COMMA + post_footprint : k.EMPTY) + "))" + (be_condensed ? k.EMPTY : " or (agency.id < 200) or (agency.id between 700 and 799)") + ")")
+                    // Agency IDs less than 200 are volunteer rescue squad posts.
+                    // Agency IDs in the 700 range are Special Event posts.
             +     (be_user_squad_truck_team_scheduler ? " or short_designator = 'SQT' or short_designator like 'Q%'" : k.EMPTY)
             +     (be_user_volunteer_field_supervisor_team_scheduler ? " or short_designator = 'VFS'" : k.EMPTY)
             +     (be_user_mci_team_scheduler ? " or short_designator = 'MCI'" : k.EMPTY)
