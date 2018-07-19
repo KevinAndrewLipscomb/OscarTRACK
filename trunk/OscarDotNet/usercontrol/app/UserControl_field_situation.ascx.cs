@@ -1,6 +1,7 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.ascx.cs
 
 using Class_biz_field_situations;
+using Class_ss_broadcastify;
 using kix;
 using System;
 using System.Collections;
@@ -39,6 +40,7 @@ namespace UserControl_field_situation
       public bool be_sort_order_ascending;
       public bool be_station_numbers_body_visible;
       public TClass_biz_field_situations biz_field_situations;
+      public TClass_ss_broadcastify ss_broadcastify;
       public char label;
       public Queue<string> marker_address_q;
       public uint num_field_situations;
@@ -78,6 +80,11 @@ namespace UserControl_field_situation
       if (!p.be_loaded)
         {
         UpdatePanel_cases.Visible = p.be_field_situation_enabled;
+        Audio_control.Src = p.ss_broadcastify.AudioSrcUrl
+          (
+          feed_id:ConfigurationManager.AppSettings["broadcastify_feed_id"],
+          domain_key:ConfigurationManager.AppSettings["broadcastify_domain_key"]
+          );
         if (!p.be_ok_to_show_nature_and_address)
           {
           TableData_supression_notice.Visible = true;
@@ -117,6 +124,7 @@ namespace UserControl_field_situation
       else
         {
         p.biz_field_situations = new TClass_biz_field_situations();
+        p.ss_broadcastify = new TClass_ss_broadcastify();
         //
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
