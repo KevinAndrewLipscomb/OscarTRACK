@@ -10,11 +10,7 @@
       <small><small><a href="https://www.broadcastify.com/listen/feed/14744" target="_blank">Scanner feed details</a></small></small>
     </td>
     <td>&nbsp;&nbsp;&nbsp;</td>
-    <td>
-      <audio controls src="http://audio10.broadcastify.com/m9hygrp4cfnvb6z.mp3?nc=72789141" preload="none">
-        Sorry, your bowser does not support the audio control.
-      </audio>
-    </td>
+    <td><audio id="Audio_control" runat="server" controls preload="none">Sorry, your bowser does not support the audio control.</audio></td>
   </tr>
 </table>
 <asp:UpdatePanel id="UpdatePanel_cases" runat="server" updatemode="Conditional" Visible="false">
