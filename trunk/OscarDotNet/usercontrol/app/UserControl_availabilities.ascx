@@ -11,21 +11,31 @@
       for&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_next" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_next]</asp:HyperLink>&nbsp;or&nbsp;<asp:HyperLink ID="HyperLink_submit_avails_for_month_following" runat="server" NavigateUrl="$OSCAR/form-submit-avails-2.phtml" Target="_blank" Font-Bold="True" Font-Underline="True">[HyperLink_submit_avails_for_month_following]</asp:HyperLink>
     </td>
     <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-    <td rowspan="3" valign="top">
-      <table border="1" cellspacing="0" cellpadding="1">
-        <tr bgcolor="#D0D0D0">
-          <td colspan="3" align="center">
-            <small><i>Submissions from <asp:HyperLink id="HyperLink_vorps" runat="server" target="_blank" NavigateUrl="$OSCAR/meaning-of-vorp.phtml">VORPs</asp:HyperLink><small>&nbsp;<asp:HyperLink id="HyperLink_more_stats" runat="server" target="_blank" NavigateUrl="$OSCAR/stats.phtml">(more&nbsp;stats)</asp:HyperLink></small></i></small>
+    <td rowspan="4" valign="top">
+      <table>
+        <tr><td><small><asp:LinkButton ID="LinkButton_vb_ems_sideband" runat="server" Font-Bold="True" OnClick="LinkButton_vb_ems_sideband_Click">Register your smartphone</asp:LinkButton> on the</small></td></tr>
+        <tr>
+          <td>
+            <table bgcolor="#D0D0D0" cellpadding="5" cellspacing="0">
+              <tr>
+                <td valign="middle"><asp:Image ID="Image_vb_ems_sideband_channel_logo" runat="server" ImageUrl="~/protected/image/vb-ems-sideband-channel-logo.png" /></td>
+                <td valign="middle"><strong>VB&nbsp;EMS&nbsp;SIDEBAND</strong>&nbsp;channel</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr><td><small>for unofficial coordination of INCLEMENT WEATHER SUPPORT and MCI CALLBACKS</small></td></tr>
+        <tr>
+          <td>
+            <table cellpadding="0" cellspacing="0">
+              <tr>
+                <td valign="middle" width="1%"><small>powered&nbsp;by&nbsp;</small></td>
+                <td valign="middle"><img src="https://design.zello.com/support.zello.com/img/nav-logo.svg" /></td>
+              </tr>
+            </table>
           </td>
         </tr>
       </table>
-      <br/>
-      <p>
-        <asp:HyperLink id="HyperLink_oscar_u" runat="server" target="_blank" NavigateUrl="$OSCAR/training.phtml">
-          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="~/protected/image/mortarboard.gif" alt="Cap"/>&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
-      <p>
-        <asp:HyperLink id="HyperLink_class_act" runat="server" target="_blank" NavigateUrl="$OSCAR/form-submit-class-act.phtml">
-          <img id="Img_trophy" runat="server" align="middle" border="1" src="~/protected/image/trophy-icon.gif" alt="Trophy"/>&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
     </td>
   </tr>
   <tr>
@@ -73,6 +83,23 @@
     </td>
     <td valign="top">
       <small>Answers to frequently asked questions.</small>
+    </td>
+    <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td rowspan="5" valign="top">
+      <table cellspacing="0" cellpadding="5">
+        <tr bgcolor="#D0D0D0">
+          <td colspan="3" align="center">
+            <small><i>Submissions from <asp:HyperLink id="HyperLink_vorps" runat="server" target="_blank" NavigateUrl="$OSCAR/meaning-of-vorp.phtml">VORPs</asp:HyperLink><small>&nbsp;<asp:HyperLink id="HyperLink_more_stats" runat="server" target="_blank" NavigateUrl="$OSCAR/stats.phtml">(more&nbsp;stats)</asp:HyperLink></small></i></small>
+          </td>
+        </tr>
+      </table>
+      <br/>
+      <p>
+        <asp:HyperLink id="HyperLink_oscar_u" runat="server" target="_blank" NavigateUrl="$OSCAR/training.phtml">
+          <img id="Img_mortarboard" runat="server" align="middle" border="1" src="~/protected/image/mortarboard.gif" alt="Cap"/>&nbsp;<b>OSCAR&nbsp;U.</b></asp:HyperLink></p>
+      <p>
+        <asp:HyperLink id="HyperLink_class_act" runat="server" target="_blank" NavigateUrl="$OSCAR/form-submit-class-act.phtml">
+          <img id="Img_trophy" runat="server" align="middle" border="1" src="~/protected/image/trophy-icon.gif" alt="Trophy"/>&nbsp;<b>Class&nbsp;Act</b></asp:HyperLink></p>
     </td>
   </tr>
   <tr>

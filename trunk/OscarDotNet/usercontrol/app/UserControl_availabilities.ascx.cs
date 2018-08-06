@@ -56,6 +56,7 @@ namespace UserControl_availabilities
         //
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(ImageButton_coverage_assistant);
         ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_coverage_assistant);
+        ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_vb_ems_sideband);
         //
         p.be_loaded = true;
         }
@@ -161,6 +162,10 @@ namespace UserControl_availabilities
       DropCrumbAndTransferTo("coverage_assistant_intro.aspx");
       }
 
+    protected void LinkButton_vb_ems_sideband_Click(object sender, EventArgs e)
+      {
+      DropCrumbAndTransferTo("register_on_vb_ems_sideband.aspx");
+      }
     }
 
   }

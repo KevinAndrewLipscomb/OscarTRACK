@@ -40,6 +40,69 @@ namespace UserControl_availabilities {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_submit_avails_for_month_following;
         
         /// <summary>
+        /// LinkButton_vb_ems_sideband control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_vb_ems_sideband;
+        
+        /// <summary>
+        /// Image_vb_ems_sideband_channel_logo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image_vb_ems_sideband_channel_logo;
+        
+        /// <summary>
+        /// ImageButton_coverage_assistant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ImageButton ImageButton_coverage_assistant;
+        
+        /// <summary>
+        /// LinkButton_coverage_assistant control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_coverage_assistant;
+        
+        /// <summary>
+        /// HyperLink_reconfirm_or_retract control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_reconfirm_or_retract;
+        
+        /// <summary>
+        /// HyperLink_request control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_request;
+        
+        /// <summary>
+        /// HyperLink_faq control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_faq;
+        
+        /// <summary>
         /// HyperLink_vorps control.
         /// </summary>
         /// <remarks>
@@ -92,51 +155,6 @@ namespace UserControl_availabilities {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlImage Img_trophy;
-        
-        /// <summary>
-        /// ImageButton_coverage_assistant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.ImageButton ImageButton_coverage_assistant;
-        
-        /// <summary>
-        /// LinkButton_coverage_assistant control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton LinkButton_coverage_assistant;
-        
-        /// <summary>
-        /// HyperLink_reconfirm_or_retract control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_reconfirm_or_retract;
-        
-        /// <summary>
-        /// HyperLink_request control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_request;
-        
-        /// <summary>
-        /// HyperLink_faq control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_faq;
         
         /// <summary>
         /// HyperLink_modify control.
