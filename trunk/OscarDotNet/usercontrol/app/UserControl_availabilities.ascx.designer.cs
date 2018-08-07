@@ -58,6 +58,15 @@ namespace UserControl_availabilities {
         protected global::System.Web.UI.WebControls.Image Image_vb_ems_sideband_channel_logo;
         
         /// <summary>
+        /// Image_zello_logo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image Image_zello_logo;
+        
+        /// <summary>
         /// ImageButton_coverage_assistant control.
         /// </summary>
         /// <remarks>
