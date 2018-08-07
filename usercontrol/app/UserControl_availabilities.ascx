@@ -30,7 +30,7 @@
             <table cellpadding="0" cellspacing="0">
               <tr>
                 <td valign="middle" width="1%"><small>powered&nbsp;by&nbsp;</small></td>
-                <td valign="middle"><img src="https://design.zello.com/support.zello.com/img/nav-logo.svg" /></td>
+                <td valign="middle"><asp:Image ID="Image_zello_logo" runat="server" ImageUrl="~/protected/image/zello-nav-logo.png" /></td>
               </tr>
             </table>
           </td>

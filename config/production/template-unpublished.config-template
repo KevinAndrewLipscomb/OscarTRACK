@@ -10,4 +10,5 @@
   <add key="query_string_protection_password" value="~"/>
   <add key="vbemsbridge_username" value="~"/>
   <add key="vbemsbridge_password" value="~"/>
+  <add key="vb_ems_sideband_password" value="~"/>
 </appSettings>

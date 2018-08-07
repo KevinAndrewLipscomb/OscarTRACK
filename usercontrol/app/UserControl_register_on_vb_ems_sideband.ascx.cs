@@ -18,6 +18,7 @@ namespace UserControl_register_on_vb_ems_sideband
       {
       if (!p.be_loaded)
         {
+        Literal_vb_ems_sideband_password.Text = ConfigurationManager.AppSettings["vb_ems_sideband_password"];
         p.be_loaded = true;
         }
       }

@@ -22,7 +22,7 @@
                   <table cellpadding="0" cellspacing="0">
                     <tr>
                       <td valign="middle" width="1%"><small>powered&nbsp;by&nbsp;</small></td>
-                      <td valign="middle"><img src="https://design.zello.com/support.zello.com/img/nav-logo.svg" /></td>
+                      <td valign="middle"><asp:Image ID="Image_zello_logo" runat="server" ImageUrl="~/protected/image/zello-nav-logo.png" /></td>
                     </tr>
                   </table>
                 </td>
@@ -60,10 +60,8 @@
                       <li><p>Type and select <strong>VB EMS SIDEBAND</strong>.</p>
                       </li>
                       <li>
-                        <p>
-                          For the password to the channel, email or text your <strong>name</strong> and <strong>officer code</strong> to
-                          <asp:HyperLink id="HyperLink_mailto_link" runat="server" Font-Italic="True" NavigateUrl="mailto:VbEmsSideBand@frompaper2web.com?subject=Name%20%26%20officer%20code%20for%20password%20to%20VB%20EMS%20SIDEBAND%20channel">VbEmsSideBand@frompaper2web.com</asp:HyperLink>.
-                        </p>
+                        <p>The password for this channel (only needed during initial registration) is:</p>
+                        <blockquote><big><strong><code><asp:Literal ID="Literal_vb_ems_sideband_password" runat="server"></asp:Literal></code></strong></big></blockquote>
                       </li>
                     </ol>
                   </td>
