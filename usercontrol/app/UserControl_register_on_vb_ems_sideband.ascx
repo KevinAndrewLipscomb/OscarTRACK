@@ -41,7 +41,7 @@
             <p>Zello works as long as you have WiFi or cellular service.</p>
             <p><strong>It is important for this channel to remain idle during normal operating conditions, and moderators will enforce this.<sup>*</sup></strong></p>
             <blockquote>
-              <table cellpadding="10" cellspacing="0" style="border:1px solid gray;"> <!-- background-image: url(""); -->
+              <table cellpadding="10" cellspacing="0" style="border:1px solid gray;">
                 <tr>
                   <td>
                     <p>To register your smartphone on the VB EMS SIDEBAND channel, do the following:</p>
@@ -68,9 +68,41 @@
                 </tr>
               </table>
             </blockquote>
-            <p>
-              <sup>*</sup>Zello lets anyone create <a href="https://support.zello.com/hc/en-us/articles/230746727-Channel-Quick-Start-Guide-" target="_blank">other channels</a> for other purposes.
-            </p>
+            <p>When the VB EMS SIDEBAND channel is active, the following help may be needed for...</p>
+            <blockquote>
+              <table>
+                <tr>
+                  <td valign="top">
+                    <table cellpadding="10" cellspacing="0" style="border:1px solid gray;">
+                      <tr bgcolor="#D0D0D0"><td align="center">INCLEMENT WEATHER SUPPORT</td></tr>
+                      <tr>
+                        <td valign="top">
+                          <table>
+                            <tr><td>&bull;</td><td>Hi-clearance 4WD vehicles to shuttle personnel</td></tr>
+                            <tr><td>&bull;</td><td>Drivers for trailer tow vehicles</td></tr>
+                            <tr><td>&bull;</td><td>Jon boats</td></tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                  <td valign="top">&nbsp;&nbsp;&nbsp;</td>
+                  <td valign="top">
+                    <table cellpadding="10" cellspacing="0" style="border:1px solid gray;">
+                      <tr bgcolor="#D0D0D0"><td align="center">MCI CALLBACKS</td></tr>
+                      <tr>
+                        <td valign="top">
+                          <table>
+                            <tr><td>&bull;</td><td>Released AICs -- report to the closest station that has an ambulance and log into the CAD.</td></tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </blockquote>
+            <p><sup>*</sup>Zello lets anyone create <a href="https://support.zello.com/hc/en-us/articles/230746727-Channel-Quick-Start-Guide-" target="_blank">other channels</a> for other purposes.</p>
           </td>
         </tr>
       </table>
