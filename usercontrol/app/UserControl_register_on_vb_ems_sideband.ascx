@@ -34,7 +34,7 @@
         <tr>
           <td>
             <p>
-              The VB EMS SIDEBAND channel is an unofficial comunications tool for coordination of INCLEMENT WEATHER SUPPORT and MCI CALLBACKS.&nbsp; Fundamentally, it converts your device into a crystal-clear push-to-talk walkie-talkie, but it
+              The VB EMS SIDEBAND channel is an unofficial communications tool for coordination of INCLEMENT WEATHER SUPPORT and MCI CALLBACKS.&nbsp; Fundamentally, it converts your device into a crystal-clear push-to-talk walkie-talkie, but it
               also supports text messaging, photo attachments, and location sharing.  The VB EMS SIDEBAND channel is a like a &quot;tac&quot; channel, but Zello makes it easy to move into private one-on-one conversations, or to create private ad-hoc
               groups on the fly.
             </p>
