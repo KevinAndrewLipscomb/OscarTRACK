@@ -97,7 +97,8 @@ namespace UserControl_availabilities
         p.member_id = p.biz_members.IdOfUserId(p.biz_user.IdNum());
         p.user_member_agency_id = p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
         //
-        var home_squad = (p.user_member_agency_id == "0" ? "ERS" : p.user_member_agency_id);
+        var user_member_agency_id_int = int.Parse(p.user_member_agency_id);
+        var home_squad = ((user_member_agency_id_int == 0) || (user_member_agency_id_int >= 200)? "ERS" : p.user_member_agency_id);
         var be_als_string = (p.biz_members.BeAlsForLegacyOscarPurposes(Session["member_id"].ToString()) ? "TRUE" : k.EMPTY);
         p.query_string_invariant_part = "?"
         + "first_name=" + Server.UrlEncode(p.biz_members.FirstNameOfMemberId(p.member_id))
