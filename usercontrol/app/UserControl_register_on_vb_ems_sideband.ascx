@@ -93,7 +93,7 @@
                       <tr>
                         <td valign="top">
                           <table>
-                            <tr><td>&bull;</td><td>Released AICs -- report to the closest station that has an ambulance and log into the CAD.</td></tr>
+                            <tr><td>&bull;</td><td>Released AIC-drivers -- report to the closest station that has an ambulance and log into the CAD.</td></tr>
                           </table>
                         </td>
                       </tr>
