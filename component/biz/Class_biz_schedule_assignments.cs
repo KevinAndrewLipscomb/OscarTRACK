@@ -1300,7 +1300,7 @@ namespace Class_biz_schedule_assignments
         var member_summary = biz_members.Summary(biz_members.IdOfUserId(biz_user.IdNum()));
         log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: Current user is " + biz_members.CadNumOf(member_summary) + k.SPACE + biz_members.FirstNameOf(member_summary) + k.SPACE + biz_members.LastNameOf(member_summary) + "...");
         var be_ok_to_work_on_next_month_assignments = BeOkToWorkOnNextMonthAssignments();
-        if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth())
+        if (be_ok_to_work_on_next_month_assignments && !BeProposalGeneratedForNextMonth() && (relative_month == "1"))
           {
           log.WriteLine(DateTime.Now.ToString("s") + " biz_schedule_assignments.Update: Rigging for proposal generation...");
           db_schedule_assignments.RigForProposalGeneration();
