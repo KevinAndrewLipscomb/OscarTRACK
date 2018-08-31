@@ -67,6 +67,11 @@ namespace Class_biz_enrollment
             db_members = new TClass_db_members();
         }
 
+     internal bool BeCoreOpsCommitted(string enrollment_level_code)
+       {
+       return db_enrollment.BeCoreOpsCommitted(enrollment_level_code);
+       }
+
         public bool BeLeaf(filter_type filter)
         {
             bool result;
