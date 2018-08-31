@@ -112,6 +112,15 @@ namespace Class_biz_schedule_assignments
         );
       }
 
+    internal bool BeMemberSelectedAfter
+      (
+      string member_id,
+      DateTime date
+      )
+      {
+      return db_schedule_assignments.BeMemberSelectedDuringPeriod(member_id,date,DateTime.MaxValue);
+      }
+
     internal bool BeMemberSelectedDuringFuturePartOfPeriod
       (
       string member_id,

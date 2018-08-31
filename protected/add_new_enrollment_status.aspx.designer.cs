@@ -139,13 +139,13 @@ namespace add_new_enrollment_status {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_new_status;
         
         /// <summary>
-        /// CustomValidator_control control.
+        /// CustomValidator_med_release_level_enrollment_incompatibility control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_control;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_med_release_level_enrollment_incompatibility;
         
         /// <summary>
         /// CustomValidator_associate_enrollment control.
@@ -155,6 +155,15 @@ namespace add_new_enrollment_status {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_associate_enrollment;
+        
+        /// <summary>
+        /// CustomValidator_duty_selection_conflict control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator_duty_selection_conflict;
         
         /// <summary>
         /// Button_submit control.

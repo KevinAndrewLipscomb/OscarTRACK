@@ -3,6 +3,7 @@ using Class_biz_agencies;
 using Class_biz_enrollment;
 using Class_biz_medical_release_levels;
 using Class_biz_members;
+using Class_biz_schedule_assignments;
 using Class_biz_user;
 using kix;
 using System;
@@ -21,6 +22,7 @@ namespace add_new_enrollment_status
         public TClass_biz_enrollment biz_enrollment;
         public TClass_biz_medical_release_levels biz_medical_release_levels;
         public TClass_biz_members biz_members;
+        public TClass_biz_schedule_assignments biz_schedule_assignments;
         public TClass_biz_user biz_user;
         public string member_id_of_user_id;
     }
@@ -69,6 +71,7 @@ namespace add_new_enrollment_status
                     p.biz_enrollment = new TClass_biz_enrollment();
                     p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
                     p.biz_members = new TClass_biz_members();
+                    p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
                     p.biz_user = new TClass_biz_user();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
                     if (cad_num_string == k.EMPTY)
@@ -148,7 +151,7 @@ namespace add_new_enrollment_status
             SessionSet(InstanceId() + ".p", p);
         }
 
-        protected void CustomValidator_control_ServerValidate(object source, System.Web.UI.WebControls.ServerValidateEventArgs args)
+        protected void CustomValidator_med_release_level_enrollment_incompatibility_ServerValidate(object source, ServerValidateEventArgs args)
           {
           args.IsValid = false;
           var current_medical_release_level = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
@@ -159,9 +162,23 @@ namespace add_new_enrollment_status
             }
           else
             {
-            CustomValidator_control.ErrorMessage = first_name + "'s current released cert level is '" + current_medical_release_level + "', which is incompatible with the Membership Status that you selected.  If " + first_name
-            + " has been released at a different medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and change " + first_name + "'s Released cert level appropriately.  Then perform your current action again.";
+            CustomValidator_med_release_level_enrollment_incompatibility.ErrorMessage = first_name + "'s current released cert level is '" + current_medical_release_level + "', which is incompatible with the Membership Status that you selected.  If "
+            + first_name + " has been released at a different medical cert level, please go back to " + first_name + k.APOSTROPHE + "s member_detail page and change "
+            + first_name + k.APOSTROPHE + "s Released cert level appropriately.  Then perform your current action again.";
             }
+          }
+
+        protected void CustomValidator_duty_selection_conflict_ServerValidate(object source, ServerValidateEventArgs args)
+          {
+          args.IsValid =
+              p.biz_enrollment.BeCoreOpsCommitted(k.Safe(RadioButtonList_disposition.SelectedValue,k.safe_hint_type.NUM))
+            ||
+              !p.biz_schedule_assignments.BeMemberSelectedAfter
+                (
+                member_id:p.biz_members.IdOf(Session["member_summary"]),
+                date:UserControl_effective_date.selectedvalue
+                )
+            ;
           }
 
         protected void RadioButtonList_disposition_SelectedIndexChanged(object sender, EventArgs e)
