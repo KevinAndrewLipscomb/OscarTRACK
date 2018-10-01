@@ -17,15 +17,16 @@ namespace UserControl_watchbill_maag
 
     public static class Static
       {
-      public const int TCI_POST_DESIGNATOR = 0;
-      public const int TCI_POST_CARDINALITY = 1;
-      public const int TCI_MEDICAL_RELEASE_DESCRIPTION = 2;
-      public const int TCI_NAME = 3;
-      public const int TCI_BE_DRIVER_QUALIFIED = 4;
-      public const int TCI_MEMBER_AGENCY_ID = 5;
-      public const int TCI_COMMENT = 6;
-      public const int TCI_BE_CHALLENGE = 7;
-      public const int TCI_BE_GREENHORNS = 8;
+      public const int TCI_ID = 0;
+      public const int TCI_POST_DESIGNATOR = 1;
+      public const int TCI_POST_CARDINALITY = 2;
+      public const int TCI_MEDICAL_RELEASE_DESCRIPTION = 3;
+      public const int TCI_NAME = 4;
+      public const int TCI_BE_DRIVER_QUALIFIED = 5;
+      public const int TCI_MEMBER_AGENCY_ID = 6;
+      public const int TCI_COMMENT = 7;
+      public const int TCI_BE_CHALLENGE = 8;
+      public const int TCI_BE_GREENHORNS = 9;
       }
 
     private struct p_type
@@ -194,6 +195,7 @@ namespace UserControl_watchbill_maag
       var be_any_kind_of_item = (new ArrayList {ListItemType.AlternatingItem,ListItemType.Item,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType));
       if (be_any_kind_of_item)
         {
+        e.Item.Cells[Static.TCI_ID].Visible = false;
         var current_unit_spec = e.Item.Cells[Static.TCI_POST_DESIGNATOR].Text + "--" + e.Item.Cells[Static.TCI_POST_CARDINALITY].Text;
         if (current_unit_spec != p.saved_unit_spec)
           {
