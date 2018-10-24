@@ -28,6 +28,7 @@ namespace report_commanded_member_schedule_detail
       public string other_agency_ids;
       public string publisher;
       public k.subtype<int> relative_month;
+      public string time_triggered;
       }
 
     private p_type p;
@@ -61,6 +62,7 @@ namespace report_commanded_member_schedule_detail
         HyperLink_web_site.NavigateUrl = url;
         //
         Literal_publisher.Text = p.publisher + (p.be_limited_preview ? " performing a Refresh" : k.EMPTY);
+        Literal_time_triggered.Text = p.time_triggered;
         }
       }
 
@@ -88,6 +90,7 @@ namespace report_commanded_member_schedule_detail
         p.publisher = k.Safe(Request["publisher"],k.safe_hint_type.HUMAN_NAME);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
+        p.time_triggered = k.Safe(Request["time_triggered"],k.safe_hint_type.DATE_TIME);
         //
         SessionSet("mode:report",k.EMPTY);
         //

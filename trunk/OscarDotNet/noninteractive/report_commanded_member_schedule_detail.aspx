@@ -17,7 +17,7 @@
         <asp:HyperLink ID="HyperLink_web_site" runat="server" Font-Bold="True"/> and click the "My assignments" tab.</p>
       <br />
       <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
-      <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal>.</small></p>
+      <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal> at <asp:Literal ID="Literal_time_triggered" runat="server"></asp:Literal>.</small></p>
     </form>
   </body>
 </html>
