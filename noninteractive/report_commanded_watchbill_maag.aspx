@@ -16,7 +16,7 @@
       browser and/or page or print settings.&nbsp; (In particular, you should set landscape mode and reduce print margins.)</p>
       <p>Because its rendition depends so heavily on settings controlled at your end, technical support for the month-at-a-glance rendition of the Watchbill is extremely limited.&nbsp; If you have trouble viewing or printing it, please log into
       <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> to view it in your browser.</p>
-      <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal>.</small></p>
+      <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal> at <asp:Literal ID="Literal_time_triggered" runat="server"></asp:Literal>.</small></p>
       <asp:Panel ID="Panel_page_break" runat="server"><div style="page-break-before:always;" /></asp:Panel>
       <p><asp:PlaceHolder ID="PlaceHolder_watchbill_maag" runat="server"></asp:PlaceHolder></p>
     </form>

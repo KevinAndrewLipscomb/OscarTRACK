@@ -40,6 +40,15 @@ namespace report_commanded_watchbill_maag {
         protected global::System.Web.UI.WebControls.Literal Literal_publisher;
         
         /// <summary>
+        /// Literal_time_triggered control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_time_triggered;
+        
+        /// <summary>
         /// Panel_page_break control.
         /// </summary>
         /// <remarks>

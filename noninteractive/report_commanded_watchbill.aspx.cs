@@ -24,6 +24,7 @@ namespace report_commanded_watchbill
       public string publisher;
       public string release_filter;
       public k.subtype<int> relative_month;
+      public string time_triggered;
       }
 
     private p_type p;
@@ -65,6 +66,7 @@ namespace report_commanded_watchbill
         HyperLink_web_site.NavigateUrl = url;
         //
         Literal_publisher.Text = p.publisher;
+        Literal_time_triggered.Text = p.time_triggered;
         }
       }
 
@@ -89,6 +91,7 @@ namespace report_commanded_watchbill
         p.release_filter = k.Safe(Request["release_filter"],k.safe_hint_type.NUM);
         p.relative_month = new k.subtype<int>(0,1);
         p.relative_month.val = int.Parse(k.Safe(Request["relative_month"],k.safe_hint_type.NUM));
+        p.time_triggered = k.Safe(Request["time_triggered"],k.safe_hint_type.DATE_TIME);
         //
         Session.Add("mode:report", k.EMPTY);
         Session.Add("mode:report/commanded-watchbill-noninteractive", k.EMPTY);
