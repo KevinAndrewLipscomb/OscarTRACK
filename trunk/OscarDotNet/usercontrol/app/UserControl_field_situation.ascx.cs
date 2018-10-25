@@ -208,14 +208,17 @@ namespace UserControl_field_situation
       DataGrid_control.Columns[Static.TCI_REMOVE].Visible = p.be_ok_to_fix_dangling;
       DataGrid_control.Columns[Static.TCI_ADDRESS].Visible = p.be_ok_to_show_nature_and_address;
       p.biz_field_situations.BindBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control);
-      Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
-        (
-        marker_address_q:p.marker_address_q,
-        height:400,
-        width:400,
-        server_mappath_tilde:Server.MapPath("~"),
-        tilde_path_prefix:"~/pub/scratch/field_situation"
-        );
+      if (Image_control.Visible)
+        {
+        Image_control.ImageUrl = p.biz_field_situations.MultiMarkerMapImageUrl
+          (
+          marker_address_q:p.marker_address_q,
+          height:400,
+          width:400,
+          server_mappath_tilde:Server.MapPath("~"),
+          tilde_path_prefix:"~/pub/scratch/field_situation"
+          );
+        }
       p.be_datagrid_empty = (p.num_field_situations == 0);
       TableData_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
