@@ -216,6 +216,8 @@
                           <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server">
                             <asp:ListItem Selected="True" Value="NONE">-- None --</asp:ListItem>
                             <asp:ListItem Value="0">EMS</asp:ListItem>
+                            <asp:ListItem Value="6">R06</asp:ListItem>
+                            <asp:ListItem Value="13">R13</asp:ListItem>
                             <asp:ListItem Value="301">Z01</asp:ListItem>
                             <asp:ListItem Value="302">Z02</asp:ListItem>
                             <asp:ListItem Value="303">Z03</asp:ListItem>
