@@ -282,7 +282,7 @@ namespace Class_biz_enrollment
           biz_notifications.IssueForNewEnrollmentLevel(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
           }
         //
-        if ((new ArrayList() {"Transferring","Unknown","Resigned","Retired"}).Contains(new_level_description))
+        if ((ConfigurationManager.AppSettings["exit_survey_url"] != null) && (ConfigurationManager.AppSettings["exit_survey_url"].Length > 0) && new ArrayList() {"Transferring","Unknown","Resigned","Retired"}.Contains(new_level_description))
           {
           biz_notifications.IssueForElectiveDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
           }
