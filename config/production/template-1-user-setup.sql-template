@@ -53,7 +53,7 @@ grant  select
   on oscardotnetdb.member
   to 'ki-keyclick'@'localhost'
 ;
-create user if not exists 'ki-keyclick'@'70.84.138.98' identified by '~ki-keyclick-password~';
+create user if not exists 'ki-keyclick'@'51.79.5.240' identified by '~ki-keyclick-password~';
 grant  select
   on oscardotnetdb.member
-  to 'ki-keyclick'@'70.84.138.98'
+  to 'ki-keyclick'@'51.79.5.240'
