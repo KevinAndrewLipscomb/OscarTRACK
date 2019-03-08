@@ -68,7 +68,7 @@
       <asp:Literal ID="Literal_released_evaluatee" runat="server" Visible="false"></asp:Literal>
     </td>
     <td nowrap="nowrap">
-      <ASP:RequiredFieldValidator id="RequiredFieldValidator_third_member_id" runat="server" errormessage="Please select an Evaluatee." font-bold="True" controltovalidate="DropDownList_evaluatee">&lt;ERR!</ASP:RequiredFieldValidator>
+      <ASP:RequiredFieldValidator id="RequiredFieldValidator_third_member_id" runat="server" errormessage="Either you have not selected an Evaluatee, or the indicated Evaluatee has now been released and you may let this eval expire naturally because it is no longer needed." font-bold="True" controltovalidate="DropDownList_evaluatee">&lt;ERR!</ASP:RequiredFieldValidator>
     </td>
   </tr>
   <tr>
