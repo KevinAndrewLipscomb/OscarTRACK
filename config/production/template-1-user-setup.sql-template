@@ -1,5 +1,5 @@
-create user if not exists 'ki-oscartrack'@'localhost' identified by '~ki-oscartrack-password~';
-grant  select
+create user if not exists 'ki-oscartrack'@'::1' identified by '~ki-oscartrack-password~';
+grant select
  , insert
  , update
  , delete
@@ -10,7 +10,7 @@ grant  select
  , alter routine
  , create temporary tables
   on oscardotnetdb.*
-  to 'ki-oscartrack'@'localhost'
+  to 'ki-oscartrack'@'::1'
 ;
 --
 -- Must grant PROCESS priv to primary user to include SHOW ENGINE INNODB
@@ -19,15 +19,15 @@ grant  select
 ;
 grant process
   on *.*
-  to 'ki-oscartrack'@'localhost'
+  to 'ki-oscartrack'@'::1'
 ;
-create user if not exists 'ki-oscartrackh'@'localhost' identified by '~ki-oscartrackh-password~';
-grant  select
+create user if not exists 'ki-oscartrackh'@'::1' identified by '~ki-oscartrackh-password~';
+grant select
   on homedb.*
-  to 'ki-oscartrackh'@'localhost'
+  to 'ki-oscartrackh'@'::1'
 ;
-create user if not exists 'ki-oscartrackk'@'localhost' identified by '~ki-oscartrackk-password~';
-grant  select
+create user if not exists 'ki-oscartrackk'@'::1' identified by '~ki-oscartrackk-password~';
+grant select
  , insert
  , update
  , delete
@@ -36,24 +36,24 @@ grant  select
  , create temporary tables
  , execute
   on keyclick.*
-  to 'ki-oscartrackk'@'localhost'
+  to 'ki-oscartrackk'@'::1'
 ;
-create user if not exists 'ki-oscartracko'@'localhost' identified by '~ki-oscartracko-password~';
-grant  select
+create user if not exists 'ki-oscartracko'@'::1' identified by '~ki-oscartracko-password~';
+grant select
  , delete
   on oscar.*
-  to 'ki-oscartracko'@'localhost'
+  to 'ki-oscartracko'@'::1'
 ;
 --
 -- KEYclick needs access to oscardotnetdb.member for controlled out-of-area donation reporting
 --
 ;
-create user if not exists 'ki-keyclick'@'localhost' identified by '~ki-keyclick-password~';
-grant  select
+create user if not exists 'ki-keyclick'@'::1' identified by '~ki-keyclick-password~';
+grant select
   on oscardotnetdb.member
-  to 'ki-keyclick'@'localhost'
+  to 'ki-keyclick'@'::1'
 ;
 create user if not exists 'ki-keyclick'@'51.79.5.240' identified by '~ki-keyclick-password~';
-grant  select
+grant select
   on oscardotnetdb.member
   to 'ki-keyclick'@'51.79.5.240'

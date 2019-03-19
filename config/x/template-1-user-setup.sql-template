@@ -1,5 +1,5 @@
-create user if not exists 'ki-oscartrack-x'@'localhost' identified by '~ki-oscartrack-x-password~';
-grant  select
+create user if not exists 'ki-oscartrack-x'@'::1' identified by '~ki-oscartrack-x-password~';
+grant select
  , insert
  , update
  , delete
@@ -10,7 +10,7 @@ grant  select
  , alter routine
  , create temporary tables
   on oscardotnetdb_x.*
-  to 'ki-oscartrack-x'@'localhost'
+  to 'ki-oscartrack-x'@'::1'
 ;
 --
 -- Must grant PROCESS priv to primary user to include SHOW ENGINE INNODB
@@ -19,15 +19,15 @@ grant  select
 ;
 grant process
   on *.*
-  to 'ki-oscartrack-x'@'localhost'
+  to 'ki-oscartrack-x'@'::1'
 ;
-create user if not exists 'ki-oscartrackh-x'@'localhost' identified by '~ki-oscartrackh-x-password~';
-grant  select
+create user if not exists 'ki-oscartrackh-x'@'::1' identified by '~ki-oscartrackh-x-password~';
+grant select
   on homedb_x.*
-  to 'ki-oscartrackh-x'@'localhost'
+  to 'ki-oscartrackh-x'@'::1'
 ;
-create user if not exists 'ki-oscartrackk-x'@'localhost' identified by '~ki-oscartrackk-x-password~';
-grant  select
+create user if not exists 'ki-oscartrackk-x'@'::1' identified by '~ki-oscartrackk-x-password~';
+grant select
  , insert
  , update
  , delete
@@ -36,10 +36,10 @@ grant  select
  , create temporary tables
  , execute
   on keyclick_x.*
-  to 'ki-oscartrackk-x'@'localhost'
+  to 'ki-oscartrackk-x'@'::1'
 ;
-create user if not exists 'ki-oscartracko-x'@'localhost' identified by '~ki-oscartracko-x-password~';
-grant  select
+create user if not exists 'ki-oscartracko-x'@'::1' identified by '~ki-oscartracko-x-password~';
+grant select
  , delete
   on oscar_x.*
-  to 'ki-oscartracko-x'@'localhost'
+  to 'ki-oscartracko-x'@'::1'
