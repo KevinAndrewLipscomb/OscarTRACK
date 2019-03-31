@@ -63,6 +63,7 @@ namespace UserControl_ranked_vehicles_up_and_current
             p.r17_shiftwise_factor_array_list,
             p.sar_shiftwise_factor_array_list
             );
+          p.biz_indicator_shiftwise_vehicles_up_and_current.Purge();
           }
         p.be_loaded = true;
         }

@@ -1,7 +1,4 @@
 using Class_db_indicator_shiftwise_vehicles_up_and_current;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_indicator_shiftwise_vehicles_up_and_current
   {
@@ -29,6 +26,11 @@ namespace Class_biz_indicator_shiftwise_vehicles_up_and_current
     internal void BindSpecialForMonthlyMedians(object target)
       {
       db_indicator_shiftwise_vehicles_up_and_current.BindSpecialForMonthlyMedians(target);
+      }
+
+    internal void Purge()
+      {
+      db_indicator_shiftwise_vehicles_up_and_current.Purge();
       }
 
     } // end TClass_biz_indicator_shiftwise_vehicles_up_and_current
