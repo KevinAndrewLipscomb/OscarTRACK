@@ -82,6 +82,13 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
       Close();
       }
 
+    internal void Purge()
+      {
+      Open();
+      new MySqlCommand(db_trail.Saved("delete from indicator_shiftwise_vehicles_up_and_current where date < DATE_SUB(CURDATE(),INTERVAL 2 MONTH)"),connection).ExecuteNonQuery();
+      Close();
+      }
+
     } // end TClass_db_indicator_shiftwise_vehicles_up_and_current
 
   }
