@@ -1752,8 +1752,17 @@ namespace Class_biz_notifications
         }
 
         private delegate string IssueForNewEnrollmentLevel_Merge(string s);
-        public void IssueForNewEnrollmentLevel(string member_id, string first_name, string last_name, string cad_num, string new_level, string effective_date, string note)
-        {
+        public void IssueForNewEnrollmentLevel
+          (
+          string member_id,
+          string first_name,
+          string last_name,
+          string cad_num,
+          string new_level,
+          string effective_date,
+          string note
+          )
+          {
             string actor = k.EMPTY;
             string actor_email_address = k.EMPTY;
             string actor_member_id;
@@ -1784,18 +1793,36 @@ namespace Class_biz_notifications
             actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
             actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
             actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
-            template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/new_enrollment_level.txt"));
-            // from
-            // to
-            // subject
-            // body
-            // be_html
-            // cc
-            // bcc
-            // reply_to
-            k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], biz_members.EmailAddressOf(member_id) + k.COMMA + actor_email_address + k.COMMA + db_notifications.TargetOf("new-enrollment-level", member_id), Merge(template_reader.ReadLine()), Merge(template_reader.ReadToEnd()), false, k.EMPTY, k.EMPTY, actor_email_address);
+            template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/new_enrollment_level.txt"));
+            //
+            // These statements are a kludge to account for the way non-released personnel are tracked (as owned by EMS, then by section_num, instead of by agency as for all other personnel).
+            //
+            var additional_target_string = k.EMPTY;
+            if (!biz_members.BeReleased(member_id))
+              {
+              additional_target_string = k.COMMA + db_notifications.TargetOfAboutAgency
+                (
+                name:"new-enrollment-level",
+                agency_id:biz_members.SectionOf(biz_members.Summary(member_id)) // KLUDGE: Pass section num as agency_id
+                );
+              }
+            //
+            k.SmtpMailSend
+              (
+              from:ConfigurationManager.AppSettings["sender_email_address"],
+              to:biz_members.EmailAddressOf(member_id)
+              + k.COMMA + actor_email_address
+              + k.COMMA + db_notifications.TargetOf("new-enrollment-level", member_id)
+              + additional_target_string,
+              subject:Merge(template_reader.ReadLine()),
+              message_string:Merge(template_reader.ReadToEnd()),
+              be_html:false,
+              cc:k.EMPTY,
+              bcc:k.EMPTY,
+              reply_to:actor_email_address
+              );
             template_reader.Close();
-        }
+          }
 
         private delegate string IssueForNewVehicle_Merge(string s);
         internal void IssueForNewVehicle
