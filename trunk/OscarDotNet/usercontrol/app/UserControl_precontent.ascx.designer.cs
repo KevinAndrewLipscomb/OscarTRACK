@@ -101,5 +101,14 @@ namespace UserControl_precontent {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary_control;
+        
+        /// <summary>
+        /// UserControl_app_level_announcement control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_app_level_announcement.TWebUserControl_app_level_announcement UserControl_app_level_announcement;
     }
 }
