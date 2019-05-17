@@ -2,6 +2,8 @@
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_bread_crumb_trail" Src="~/usercontrol/ki/UserControl_bread_crumb_trail.ascx" %>
 <%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+<%@ Register Src="~/usercontrol/app/UserControl_app_level_announcement.ascx" TagPrefix="uc1" TagName="UserControl_app_level_announcement" %>
+
 <asp:ScriptManager ID="ScriptManager_control" runat="server" onasyncpostbackerror="ScriptManager_control_AsyncPostBackError" AsyncPostBackTimeout="300"><Scripts><asp:ScriptReference Path="~/js/ErrorHandler.js" /></Scripts></asp:ScriptManager>
 <table width="100%" bgcolor="#b0c4de" border="1" bordercolor="lightsteelblue" cellspacing="0" cellpadding="0">
   <tr>
@@ -42,3 +44,5 @@
           <ASP:ValidationSummary id="ValidationSummary_control" runat="server"></ASP:ValidationSummary>
         </ContentTemplate>
       </asp:UpdatePanel>
+      <uc1:UserControl_app_level_announcement runat="server" id="UserControl_app_level_announcement" />
+      
