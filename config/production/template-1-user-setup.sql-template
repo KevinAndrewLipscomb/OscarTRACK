@@ -1,4 +1,4 @@
-create user if not exists 'ki-oscartrack'@'::1' identified by '~ki-oscartrack-password~';
+create user if not exists 'ki-oscartrack'@'127.0.0.1' identified by '~ki-oscartrack-password~';
 grant select
  , insert
  , update
@@ -10,7 +10,7 @@ grant select
  , alter routine
  , create temporary tables
   on oscardotnetdb.*
-  to 'ki-oscartrack'@'::1'
+  to 'ki-oscartrack'@'127.0.0.1'
 ;
 --
 -- Must grant PROCESS priv to primary user to include SHOW ENGINE INNODB
@@ -19,14 +19,14 @@ grant select
 ;
 grant process
   on *.*
-  to 'ki-oscartrack'@'::1'
+  to 'ki-oscartrack'@'127.0.0.1'
 ;
-create user if not exists 'ki-oscartrackh'@'::1' identified by '~ki-oscartrackh-password~';
+create user if not exists 'ki-oscartrackh'@'127.0.0.1' identified by '~ki-oscartrackh-password~';
 grant select
   on homedb.*
-  to 'ki-oscartrackh'@'::1'
+  to 'ki-oscartrackh'@'127.0.0.1'
 ;
-create user if not exists 'ki-oscartrackk'@'::1' identified by '~ki-oscartrackk-password~';
+create user if not exists 'ki-oscartrackk'@'127.0.0.1' identified by '~ki-oscartrackk-password~';
 grant select
  , insert
  , update
@@ -36,22 +36,22 @@ grant select
  , create temporary tables
  , execute
   on keyclick.*
-  to 'ki-oscartrackk'@'::1'
+  to 'ki-oscartrackk'@'127.0.0.1'
 ;
-create user if not exists 'ki-oscartracko'@'::1' identified by '~ki-oscartracko-password~';
+create user if not exists 'ki-oscartracko'@'127.0.0.1' identified by '~ki-oscartracko-password~';
 grant select
  , delete
   on oscar.*
-  to 'ki-oscartracko'@'::1'
+  to 'ki-oscartracko'@'127.0.0.1'
 ;
 --
 -- KEYclick needs access to oscardotnetdb.member for controlled out-of-area donation reporting
 --
 ;
-create user if not exists 'ki-keyclick'@'::1' identified by '~ki-keyclick-password~';
+create user if not exists 'ki-keyclick'@'127.0.0.1' identified by '~ki-keyclick-password~';
 grant select
   on oscardotnetdb.member
-  to 'ki-keyclick'@'::1'
+  to 'ki-keyclick'@'127.0.0.1'
 ;
 create user if not exists 'ki-keyclick'@'51.79.5.240' identified by '~ki-keyclick-password~';
 grant select
