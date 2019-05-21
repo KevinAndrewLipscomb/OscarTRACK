@@ -320,7 +320,7 @@ namespace Class_db_agencies
           Open();
           ((target) as DataGrid).DataSource = new MySqlCommand
             (
-            "select NULL as rank"
+            "select NULL as `rank`"
             + " , concat(medium_designator,' - ',long_designator) as agency"
             + " , value"
             + " from indicator_commensuration"

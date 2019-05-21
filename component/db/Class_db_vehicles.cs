@@ -378,7 +378,7 @@ namespace Class_db_vehicles
         + ";"
         + " SET @n = 0"
         + ";"
-        + " SELECT NULL as rank"
+        + " SELECT NULL as `rank`"
         + " , concat(medium_designator,' - ',long_designator) as agency"
         + " , @num_vehicles_up_and_current :="
         +     " ("

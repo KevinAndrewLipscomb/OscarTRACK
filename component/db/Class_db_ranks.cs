@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_ranks
   {
@@ -44,7 +41,7 @@ namespace Class_db_ranks
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
-        + " from rank"
+        + " from `rank`"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         +     agency_id_filter_clause
         + " order by spec",
@@ -70,8 +67,8 @@ namespace Class_db_ranks
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "select rank.id as id"
-        + " from rank",
+        "select `rank`.id as id"
+        + " from `rank`",
         connection
         )
         .ExecuteReader();
@@ -87,7 +84,7 @@ namespace Class_db_ranks
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
-        + " FROM rank"
+        + " FROM `rank`"
         + " order by spec",
         connection
         )
@@ -106,7 +103,7 @@ namespace Class_db_ranks
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from rank where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        new MySqlCommand(db_trail.Saved("delete from `rank` where id = \"" + id + "\""), connection).ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -137,7 +134,7 @@ namespace Class_db_ranks
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from rank where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      var dr = new MySqlCommand("select * from `rank` where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -165,7 +162,7 @@ namespace Class_db_ranks
       + k.EMPTY;
       db_trail.MimicTraditionalInsertOnDuplicateKeyUpdate
         (
-        target_table_name:"rank",
+        target_table_name:"`rank`",
         key_field_name:"id",
         key_field_value:id,
         childless_field_assignments_clause:childless_field_assignments_clause
@@ -180,7 +177,7 @@ namespace Class_db_ranks
         new MySqlCommand
           (
           "SELECT *"
-          + " FROM rank"
+          + " FROM `rank`"
           + " where id = '" + id + "'",
           connection
           )
