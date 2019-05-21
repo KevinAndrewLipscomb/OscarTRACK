@@ -1291,7 +1291,7 @@ namespace Class_db_schedule_assignments
       Open();
       ((target) as DataGrid).DataSource = new MySqlCommand
         (
-        "select NULL as rank"
+        "select NULL as `rank`"
         + " , concat(medium_designator,' - ',long_designator) as agency"
         + " , value"
         + " from indicator_avail_submission_compliance"
@@ -3370,7 +3370,7 @@ namespace Class_db_schedule_assignments
                 + " select member_id,schedule_assignment_id,num_released_members_assigned"
                 + " from"
                 +   " ("
-                +   " SELECT IF(member_id <> @hi_saved_member_id,@hi_rank := 1,@hi_rank := @hi_rank + 1) as rank"
+                +   " SELECT IF(member_id <> @hi_saved_member_id,@hi_rank := 1,@hi_rank := @hi_rank + 1) as `rank`"
                 +   " , @hi_saved_member_id := member_id as member_id"
                 +   " , schedule_assignment_id"
                 +   " , num_released_members_assigned"
@@ -3378,13 +3378,13 @@ namespace Class_db_schedule_assignments
                 +   " where be_selected"
                 +   " order by member_id,num_released_members_assigned desc"
                 +   " ) as high_duty_populations"
-                + " where rank = 1"
+                + " where `rank` = 1"
                 + ";"
                 + " create temporary table most_needed"
                 + " select member_id,schedule_assignment_id,num_released_members_assigned"
                 + " from"
                 +   " ("
-                +   " SELECT IF(member_id <> @lo_saved_member_id,@lo_rank := 1,@lo_rank := @lo_rank + 1) as rank"
+                +   " SELECT IF(member_id <> @lo_saved_member_id,@lo_rank := 1,@lo_rank := @lo_rank + 1) as `rank`"
                 +   " , @lo_saved_member_id := member_id as member_id"
                 +   " , schedule_assignment_id"
                 +   " , num_released_members_assigned"
@@ -3392,7 +3392,7 @@ namespace Class_db_schedule_assignments
                 +   " where not be_selected"
                 +   " order by member_id,num_released_members_assigned asc"
                 +   " ) as low_duty_populations"
-                + " where rank = 1",
+                + " where `rank` = 1",
                 connection,
                 transaction
                 )

@@ -21,7 +21,7 @@ namespace Class_db_indicator_median_length_of_service
             this.Open();
             transaction = this.connection.BeginTransaction();
             try {
-                ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as rank" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_median_length_of_service" + " join agency on (agency.id=indicator_median_length_of_service.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", this.connection, transaction).ExecuteReader();
+                ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_median_length_of_service" + " join agency on (agency.id=indicator_median_length_of_service.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", this.connection, transaction).ExecuteReader();
                 ((target) as DataGrid).DataBind();
                 ((MySqlDataReader)(((target) as DataGrid).DataSource)).Close();
                 if (be_trendable)
