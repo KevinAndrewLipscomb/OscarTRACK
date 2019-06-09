@@ -22,6 +22,15 @@ namespace UserControl_app_level_announcement {
         protected global::System.Web.UI.WebControls.Panel Panel_content;
         
         /// <summary>
+        /// Panel_inner control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_inner;
+        
+        /// <summary>
         /// Label_application_name control.
         /// </summary>
         /// <remarks>
@@ -31,12 +40,12 @@ namespace UserControl_app_level_announcement {
         protected global::System.Web.UI.WebControls.Label Label_application_name;
         
         /// <summary>
-        /// Panel_content_DropShadowExtender control.
+        /// Panel_inner_DropShadowExtender control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::AjaxControlToolkit.DropShadowExtender Panel_content_DropShadowExtender;
+        protected global::AjaxControlToolkit.DropShadowExtender Panel_inner_DropShadowExtender;
     }
 }
