@@ -36,6 +36,15 @@ namespace Class_biz_schedule_assignment_logs
       db_schedule_assignment_logs.BindDirectToListControl(target);
       }
 
+    internal void BindEndOfMonthTapOutReportBaseDataList
+      (
+      string agency_id,
+      object target
+      )
+      {
+      db_schedule_assignment_logs.BindEndOfMonthTapOutReportBaseDataList(agency_id,target);
+      }
+
     public bool Delete(string id)
       {
       return db_schedule_assignment_logs.Delete(id);

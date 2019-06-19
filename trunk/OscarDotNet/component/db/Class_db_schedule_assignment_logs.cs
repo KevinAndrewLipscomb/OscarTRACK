@@ -87,6 +87,47 @@ namespace Class_db_schedule_assignment_logs
       Close();
       }
 
+    internal void BindEndOfMonthTapOutReportBaseDataList
+      (
+      string agency_id,
+      object target
+      )
+      {
+      Open();
+      ((target) as BaseDataList).DataSource = new MySqlCommand
+        (
+        "SELECT short_designator"
+        + " , concat(first_name,' ',last_name,' (',cad_num,')') as member"
+        + " , DATE_FORMAT(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),'%Y-%m-%d %H%i') as expected_start"
+        + " , comment"
+        + " , IF(TIMEDIFF(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),sal_last.timestamp) > 0,"
+        +       " TIME_FORMAT(TIMEDIFF(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),sal_last.timestamp),'%k') + 1,"
+        +       " 'NONE'"
+		    +       " ) as hours_warning"
+        + " FROM schedule_assignment_log sal_last"
+        +   " left join schedule_assignment_log sal_any on (sal_any.action like 'forced %' and sal_last.action like 'forced %' and sal_any.assignment_id=sal_last.assignment_id and sal_any.id<sal_last.id)"
+        +   " join schedule_assignment on (schedule_assignment.id=sal_last.assignment_id)"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join agency on (agency.id=member.agency_id)"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        + " where agency_id = '" + agency_id + "'"
+        +   " and MONTH(nominal_day) = MONTH(CURDATE())"
+        +   " and sal_any.id is null"
+        +   " and sal_last.action = 'forced OFF'"
+        +   " and DATEDIFF(ADDTIME(schedule_assignment.nominal_day,shift.start),sal_last.timestamp) <= 3"
+        +   " and comment not like '%CVD%'"
+        +   " and comment not like '%cvr%'"
+        +   " and comment not like '%swap%'"
+        +   " and comment not like '%switch%'"
+        +   " and comment not like '%covered%'"
+        + " order by short_designator, cad_num, nominal_day, start'",
+        connection
+        )
+        .ExecuteReader();
+      ((target) as BaseDataList).DataBind();
+      Close();
+      }
+
     public void BindDirectToListControl(object target)
       {
       Open();
