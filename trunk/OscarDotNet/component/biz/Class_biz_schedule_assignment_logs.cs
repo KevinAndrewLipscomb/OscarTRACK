@@ -2,6 +2,8 @@
 
 using Class_db_schedule_assignment_logs;
 using kix;
+using System.Collections;
+using System.Configuration;
 
 namespace Class_biz_schedule_assignment_logs
   {
@@ -36,13 +38,15 @@ namespace Class_biz_schedule_assignment_logs
       db_schedule_assignment_logs.BindDirectToListControl(target);
       }
 
-    internal void BindEndOfMonthTapOutReportBaseDataList
+    internal void BindEndOfMonthTapoutReportBaseDataList
       (
-      string agency_id,
-      object target
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter
       )
       {
-      db_schedule_assignment_logs.BindEndOfMonthTapOutReportBaseDataList(agency_id,target);
+      db_schedule_assignment_logs.BindEndOfMonthTapoutReportBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter);
       }
 
     public bool Delete(string id)
@@ -75,6 +79,69 @@ namespace Class_biz_schedule_assignment_logs
         out timestamp,
         out actor_member_id,
         out action
+        );
+      }
+
+    internal void PublishEndOfMonthTapOutReport(string working_directory)
+      {
+      var stdout = k.EMPTY;
+      var stderr = k.EMPTY;
+      k.RunCommandIteratedOverArguments
+        (
+        "c:\\cygwin\\bin\\wget",
+        new ArrayList()
+          {
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R01\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R02\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R04\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R05\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R06\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R09\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R13\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R14\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R16\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=R17\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx?agency=EMS\""
+          ,
+            "--output-document=/dev/null --no-check-certificate"
+            + k.SPACE
+            + "\"" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + "noninteractive/report_end_of_month_tapouts.aspx\""
+          },
+        working_directory,
+        out stdout,
+        out stderr
         );
       }
 

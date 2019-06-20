@@ -7,6 +7,7 @@ using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_residents;
 using Class_biz_schedule_assignments;
+using Class_biz_schedule_assignment_logs;
 using Class_biz_states;
 using Class_biz_streets;
 using Class_db_members;
@@ -29,6 +30,7 @@ namespace Class_biz_scheduled_tasks
     private TClass_biz_members biz_members = null;
     private TClass_biz_residents biz_residents = null;
     private TClass_biz_schedule_assignments biz_schedule_assignments = null;
+    private TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs = null;
     private TClass_biz_states biz_states = null;
     private TClass_biz_streets biz_streets = null;
     private TClass_db_members db_members = null;
@@ -45,6 +47,7 @@ namespace Class_biz_scheduled_tasks
       biz_members = new TClass_biz_members();
       biz_residents = new TClass_biz_residents();
       biz_schedule_assignments = new TClass_biz_schedule_assignments();
+      biz_schedule_assignment_logs = new TClass_biz_schedule_assignment_logs();
       biz_states = new TClass_biz_states();
       biz_streets = new TClass_biz_streets();
       db_members = new TClass_db_members();
@@ -75,6 +78,7 @@ namespace Class_biz_scheduled_tasks
     internal void DoEndOfMonthChores(string working_directory)
       {
       biz_schedule_assignments.PublishEndOfMonthAuditReport(working_directory);
+      biz_schedule_assignment_logs.PublishEndOfMonthTapOutReport(working_directory);
       biz_schedule_assignments.PublishArchivalEndOfMonthWatchbill(working_directory);
       biz_schedule_assignments.LogCommensurationData();
       }
