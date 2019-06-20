@@ -109,6 +109,7 @@
     <Content Include="noninteractive\report_commanded_watchbill_maag.aspx" />
     <Content Include="noninteractive\report_departures_effective_today.aspx" />
     <Content Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx" />
+    <Content Include="noninteractive\report_end_of_month_tapouts.aspx" />
     <Content Include="noninteractive\report_monthly_als_interns.aspx" />
     <Content Include="noninteractive\report_monthly_bls_intern_assignments.aspx" />
     <Content Include="noninteractive\report_monthly_test_candidate_roster.aspx" />
@@ -293,6 +294,7 @@
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
+    <Content Include="usercontrol\app\UserControl_tapouts.ascx" />
     <Content Include="usercontrol\app\UserControl_test_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx" />
@@ -652,6 +654,13 @@
     </Compile>
     <Compile Include="noninteractive\report_end_of_month_schedule_assignments_audit.aspx.designer.cs">
       <DependentUpon>report_end_of_month_schedule_assignments_audit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="noninteractive\report_end_of_month_tapouts.aspx.cs">
+      <DependentUpon>report_end_of_month_tapouts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="noninteractive\report_end_of_month_tapouts.aspx.designer.cs">
+      <DependentUpon>report_end_of_month_tapouts.aspx</DependentUpon>
     </Compile>
     <Compile Include="noninteractive\report_monthly_als_interns.aspx.cs">
       <DependentUpon>report_monthly_als_interns.aspx</DependentUpon>
@@ -2165,6 +2174,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.designer.cs">
       <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_tapouts.ascx.cs">
+      <DependentUpon>UserControl_tapouts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_tapouts.ascx.designer.cs">
+      <DependentUpon>UserControl_tapouts.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_binder.ascx.cs">
       <DependentUpon>UserControl_test_binder.ascx</DependentUpon>

@@ -87,31 +87,35 @@ namespace Class_db_schedule_assignment_logs
       Close();
       }
 
-    internal void BindEndOfMonthTapOutReportBaseDataList
+    internal void BindEndOfMonthTapoutReportBaseDataList
       (
-      string agency_id,
-      object target
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter
       )
       {
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
-        "SELECT short_designator"
-        + " , concat(first_name,' ',last_name,' (',cad_num,')') as member"
+        "SELECT sal_last.id as id"
+        + " , short_designator as agency"
+        + " , concat(provider.first_name,' ',provider.last_name,' (',provider.cad_num,')') as provider"
         + " , DATE_FORMAT(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),'%Y-%m-%d %H%i') as expected_start"
         + " , comment"
         + " , IF(TIMEDIFF(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),sal_last.timestamp) > 0,"
         +       " TIME_FORMAT(TIMEDIFF(ADDTIME(ADDTIME(schedule_assignment.nominal_day,shift.start),muster_to_logon_timespan),sal_last.timestamp),'%k') + 1,"
         +       " 'NONE'"
 		    +       " ) as hours_warning"
+        + " , concat(actor.first_name,' ',actor.last_name) as actor"
         + " FROM schedule_assignment_log sal_last"
         +   " left join schedule_assignment_log sal_any on (sal_any.action like 'forced %' and sal_last.action like 'forced %' and sal_any.assignment_id=sal_last.assignment_id and sal_any.id<sal_last.id)"
         +   " join schedule_assignment on (schedule_assignment.id=sal_last.assignment_id)"
-        +   " join member on (member.id=schedule_assignment.member_id)"
-        +   " join agency on (agency.id=member.agency_id)"
+        +   " join member provider on (provider.id=schedule_assignment.member_id)"
+        +   " join agency on (agency.id=provider.agency_id)"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
-        + " where agency_id = '" + agency_id + "'"
-        +   " and MONTH(nominal_day) = MONTH(CURDATE())"
+        +   " join member actor on (actor.id=sal_last.actor_member_id)"
+        + " where MONTH(nominal_day) = MONTH(CURDATE())"
         +   " and sal_any.id is null"
         +   " and sal_last.action = 'forced OFF'"
         +   " and DATEDIFF(ADDTIME(schedule_assignment.nominal_day,shift.start),sal_last.timestamp) <= 3"
@@ -120,7 +124,8 @@ namespace Class_db_schedule_assignment_logs
         +   " and comment not like '%swap%'"
         +   " and comment not like '%switch%'"
         +   " and comment not like '%covered%'"
-        + " order by short_designator, cad_num, nominal_day, start'",
+        +   (agency_filter.Length > 0 ? " and provider.agency_id = '" + agency_filter + "'" : k.EMPTY)
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();
