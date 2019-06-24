@@ -44,8 +44,11 @@
 <asp:Panel ID="Panel_third_slot_saturation_image" runat="server"><p><img id="Img_third_slot_saturation" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=third_slot_saturation" alt="third_slot_saturation" /></p></asp:Panel>
 <asp:Panel ID="Panel_third_slot_saturation_not_meaningful_here" runat="server" Visible="false"><blockquote><small><em>A squad-by-squad breakdown is not currently meaningful for this metric.</em></small></blockquote></asp:Panel>
 <p>&nbsp;</p>
-<p><b>10. Degree to which agency personnel took each of a month's crew-shifts as an opportunity to make a qualifying status update to a vehicle: </b></p>
+<p><b>10. Approximate degree to which members ran their duties as scheduled, without qualifying as "tapouts".&nbsp; This metric is affected by the way schedule changes are recorded and by the agency's associated crew-shifts forecast as recorded at the beginning of the month: </b></p>
+<p><img id="Img_scheduled_duty_compliance" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=scheduled_duty_compliance" alt="scheduled_duty_compliance" /></p>
+<p>&nbsp;</p>
+<p><b>11. Degree to which agency personnel took each of a month's crew-shifts as an opportunity to make a qualifying status update to a vehicle: </b></p>
 <p><img id="Img_fleet_tracking_participation" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=fleet_tracking_participation" alt="fleet_tracking_participation" /></p>
 <p>&nbsp;</p>
-<p><b>11. Degree to which vehicles in the agency's fleet were UP and within their PM and DMV inspection targets: </b></p>
+<p><b>12. Degree to which vehicles in the agency's fleet were UP and within their PM and DMV inspection targets: </b></p>
 <p><img id="Img_vehicles_up_and_current" runat="server" width="781" height="417" src="@serial_indicator_control_chart.aspx?indicator=monthly_vehicles_up_and_current" alt="monthly_vehicles_up_and_current" /></p>

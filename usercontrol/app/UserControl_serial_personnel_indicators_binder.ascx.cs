@@ -5,6 +5,7 @@ using UserControl_serial_indicator_length_of_service;
 using UserControl_serial_indicator_num_core_ops_members;
 using UserControl_serial_indicator_num_members_in_pipeline;
 using UserControl_serial_indicator_potential_crew_shifts;
+using UserControl_serial_indicator_scheduled_duty_compliance;
 using UserControl_serial_indicator_standard_enrollment;
 using UserControl_serial_indicator_third_slot_saturation;
 using UserControl_serial_indicator_utilization;
@@ -22,6 +23,7 @@ namespace UserControl_serial_personnel_indicators_binder
     public const int TSSI_AVAIL_SUBMISSION_COMPLIANCE = 6;
     public const int TSSI_COMMENSURATION = 7;
     public const int TSSI_THIRD_SLOT_SATURATION = 8;
+    public const int TSSI_SCHEDULED_DUTY_COMPLIANCE = 9;
     }
 
     public struct p_type
@@ -145,6 +147,11 @@ namespace UserControl_serial_personnel_indicators_binder
         var c = ((TWebUserControl_serial_indicator_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_third_slot_saturation.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_serial_indicator_third_slot_saturation",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
+      else if (p.tab_index == UserControl_serial_personnel_indicators_binder_Static.TSSI_SCHEDULED_DUTY_COMPLIANCE)
+        {
+        var c = ((TWebUserControl_serial_indicator_scheduled_duty_compliance)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_scheduled_duty_compliance.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_serial_indicator_scheduled_duty_compliance",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
       {
@@ -191,6 +198,10 @@ namespace UserControl_serial_personnel_indicators_binder
           {
           p.tab_index = UserControl_serial_personnel_indicators_binder_Static.TSSI_THIRD_SLOT_SATURATION;
           }
+        else if (target.ToLower().Contains("/scheduled_duty_compliance/"))
+          {
+          p.tab_index = UserControl_serial_personnel_indicators_binder_Static.TSSI_SCHEDULED_DUTY_COMPLIANCE;
+          }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
@@ -202,4 +213,3 @@ namespace UserControl_serial_personnel_indicators_binder
     } // end TWebUserControl_serial_personnel_indicators_binder
 
 }
-

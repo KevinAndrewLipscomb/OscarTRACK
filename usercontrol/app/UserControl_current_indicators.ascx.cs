@@ -6,6 +6,7 @@ using UserControl_ranked_fleet_tracking_participation;
 using UserControl_ranked_length_of_service;
 using UserControl_ranked_num_members_in_pipeline;
 using UserControl_ranked_standard_enrollment;
+using UserControl_ranked_scheduled_duty_compliance;
 using UserControl_ranked_third_slot_saturation;
 using UserControl_ranked_utilization;
 using UserControl_ranked_vehicles_up_and_current;
@@ -46,6 +47,7 @@ namespace UserControl_current_indicators
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_commensuration)(LoadControl("~/usercontrol/app/UserControl_ranked_commensuration.ascx"))),"UserControl_ranked_commensuration",PlaceHolder_ranked_commensuration,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_num_members_in_pipeline)(LoadControl("~/usercontrol/app/UserControl_ranked_num_members_in_pipeline.ascx"))),"UserControl_ranked_num_members_in_pipeline",PlaceHolder_ranked_num_members_in_pipeline,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_third_slot_saturation)(LoadControl("~/usercontrol/app/UserControl_ranked_third_slot_saturation.ascx"))),"UserControl_ranked_third_slot_saturation",PlaceHolder_ranked_third_slot_saturation,InstanceId());
+                AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_scheduled_duty_compliance)(LoadControl("~/usercontrol/app/UserControl_ranked_scheduled_duty_compliance.ascx"))),"UserControl_ranked_scheduled_duty_compliance",PlaceHolder_ranked_scheduled_duty_compliance,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_ranked_fleet_tracking_participation.ascx"))),"UserControl_ranked_fleet_tracking_participation",PlaceHolder_ranked_fleet_tracking_participation,InstanceId());
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_ranked_vehicles_up_and_current)(LoadControl("~/usercontrol/app/UserControl_ranked_vehicles_up_and_current.ascx"))),"UserControl_ranked_vehicles_up_and_current",PlaceHolder_ranked_vehicles_up_and_current,InstanceId());
             }

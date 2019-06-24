@@ -2,6 +2,7 @@
 
 using Class_db_schedule_assignment_logs;
 using kix;
+using System;
 using System.Collections;
 using System.Configuration;
 
@@ -49,6 +50,11 @@ namespace Class_biz_schedule_assignment_logs
       db_schedule_assignment_logs.BindEndOfMonthTapoutReportBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter);
       }
 
+    internal void BindRankedScheduledDutyCompliance(object target)
+      {
+      db_schedule_assignment_logs.BindRankedScheduledDutyCompliance(target);
+      }
+
     public bool Delete(string id)
       {
       return db_schedule_assignment_logs.Delete(id);
@@ -80,6 +86,20 @@ namespace Class_biz_schedule_assignment_logs
         out actor_member_id,
         out action
         );
+      }
+
+    internal void LogMetric
+      (
+      string agency_id,
+      k.int_nonnegative num_released_core_ops_tapouts
+      )
+      {
+      db_schedule_assignment_logs.LogMetric(agency_id,num_released_core_ops_tapouts);
+      }
+
+    internal string OverallScheduledDutyCompliance()
+      {
+      return db_schedule_assignment_logs.OverallScheduledDutyCompliance();
       }
 
     internal void PublishEndOfMonthTapOutReport(string working_directory)

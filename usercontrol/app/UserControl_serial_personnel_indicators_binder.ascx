@@ -15,6 +15,7 @@
               <cc1:TabPanel runat="server" headertext="Avail submission compliance" id="TabPanel_avail_submission_compliance"></cc1:TabPanel>
               <cc1:TabPanel runat="server" headertext="Initial schedule completion" id="TabPanel_initial_schedule_completion"></cc1:TabPanel>
               <cc1:TabPanel runat="server" headertext="'Third slot' saturation" id="TabPanel_third_slot_saturation"></cc1:TabPanel>
+              <cc1:TabPanel runat="server" headertext="Scheduled duty compliance" id="TabPanel_scheduled_duty_compliance"></cc1:TabPanel>
             </cc1:TabContainer></td>
         </tr>
         <tr>

@@ -184,6 +184,15 @@ namespace UserControl_serial_indicators_per_agency {
         protected global::System.Web.UI.WebControls.Panel Panel_third_slot_saturation_not_meaningful_here;
         
         /// <summary>
+        /// Img_scheduled_duty_compliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlImage Img_scheduled_duty_compliance;
+        
+        /// <summary>
         /// Img_fleet_tracking_participation control.
         /// </summary>
         /// <remarks>
