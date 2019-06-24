@@ -247,7 +247,7 @@ namespace UserControl_tapouts
       p.be_datagrid_empty = (p.num_tapouts.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
-      Literal_num_tapouts.Text = p.num_tapouts.ToString();
+      Literal_num_tapouts.Text = p.num_tapouts.val.ToString();
       if ((Session["mode:report/end-of-month-tapouts"] != null) && (p.agency_id != "0")) // As currently calculated, there is no valid denominator for this metric when the scope is limited to pure VBDEMS/404 members.
         {
         p.biz_schedule_assignment_logs.LogMetric
