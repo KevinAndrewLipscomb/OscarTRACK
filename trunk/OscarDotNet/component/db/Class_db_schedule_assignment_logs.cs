@@ -6,6 +6,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
+using System;
 using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignment_logs
@@ -87,6 +88,66 @@ namespace Class_db_schedule_assignment_logs
       Close();
       }
 
+    internal void LogMetric
+      (
+      string agency_id,
+      k.int_nonnegative num_released_core_ops_tapouts
+      )
+      {
+      var be_agency_id_applicable = (agency_id.Length > 0);
+      Open();
+      var forecast_slots = 2*Decimal.Parse
+        (
+        new MySqlCommand
+          (
+          " select value"
+          + " from indicator_crew_shifts_forecast"
+          + " where year = YEAR(CURDATE())"
+          +   " and month = MONTH(CURDATE())"
+          +   " and" + (be_agency_id_applicable ? k.EMPTY : " not") + " be_agency_id_applicable"
+          +   " and agency_id = '" + agency_id + "'",
+          connection
+          )
+          .ExecuteScalar().ToString()
+        );
+      new MySqlCommand
+        (
+        db_trail.Saved
+          (
+          "replace indicator_scheduled_duty_compliance"
+          + " set year = YEAR(ADDDATE(CURDATE(),INTERVAL 1 MONTH))"
+          + " , month = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))"
+          + " , be_agency_id_applicable = " + be_agency_id_applicable.ToString()
+          + " , agency_id = '" + (be_agency_id_applicable ? agency_id : "0") + "'"
+          + " , value = 100.0*(" + forecast_slots.ToString() + " - " + num_released_core_ops_tapouts.val.ToString() + ")/" + forecast_slots.ToString()
+          ),
+        connection
+        )
+        .ExecuteNonQuery();
+      Close();
+      }
+
+    public void BindDirectToListControl(object target)
+      {
+      Open();
+      ((target) as ListControl).Items.Clear();
+      var dr = new MySqlCommand
+        (
+        "SELECT id"
+        + " , CONVERT(concat(IFNULL(assignment_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(action,'-')) USING utf8) as spec"
+        + " FROM schedule_assignment_log"
+        + " order by spec",
+        connection
+        )
+        .ExecuteReader();
+      while (dr.Read())
+        {
+        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
+        }
+      dr.Close();
+      Close();
+      }
+
     internal void BindEndOfMonthTapoutReportBaseDataList
       (
       string sort_order,
@@ -133,24 +194,25 @@ namespace Class_db_schedule_assignment_logs
       Close();
       }
 
-    public void BindDirectToListControl(object target)
+    internal void BindRankedScheduledDutyCompliance(object target)
       {
       Open();
-      ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      ((target) as DataGrid).DataSource = new MySqlCommand
         (
-        "SELECT id"
-        + " , CONVERT(concat(IFNULL(assignment_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(action,'-')) USING utf8) as spec"
-        + " FROM schedule_assignment_log"
-        + " order by spec",
+        "select NULL as `rank`"
+        + " , concat(medium_designator,' - ',long_designator) as agency"
+        + " , value"
+        + " from indicator_scheduled_duty_compliance"
+        +   " join agency on (agency.id=indicator_scheduled_duty_compliance.agency_id)"
+        + " where year = YEAR(CURDATE())"
+        +   " and month = MONTH(CURDATE())"
+        +   " and agency_id <> 0"
+        +   " and be_agency_id_applicable = TRUE"
+        + " order by value desc",
         connection
         )
         .ExecuteReader();
-      while (dr.Read())
-        {
-        ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
-        }
-      dr.Close();
+      ((target) as DataGrid).DataBind();
       Close();
       }
 
@@ -227,6 +289,15 @@ namespace Class_db_schedule_assignment_logs
       dr.Close();
       Close();
       return result;
+      }
+
+    internal string OverallScheduledDutyCompliance()
+      {
+      Open();
+      var overall_scheduled_duty_compliance_obj =
+        new MySqlCommand("select FORMAT(value,0)" + " from indicator_scheduled_duty_compliance where year = YEAR(CURDATE()) and month = MONTH(CURDATE()) and not be_agency_id_applicable",connection).ExecuteScalar();
+      Close();
+      return (overall_scheduled_duty_compliance_obj == null ? k.EMPTY : overall_scheduled_duty_compliance_obj.ToString());
       }
 
     public void Set

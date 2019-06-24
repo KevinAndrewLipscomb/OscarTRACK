@@ -21,6 +21,7 @@
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_length_of_service" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_utilization" runat="server"></ASP:PlaceHolder></p>
                   <p><ASP:PlaceHolder id="PlaceHolder_ranked_commensuration" runat="server"></ASP:PlaceHolder></p>
+                  <p><ASP:PlaceHolder id="PlaceHolder_ranked_scheduled_duty_compliance" runat="server"></ASP:PlaceHolder></p>
                 </td>
               </tr>
             </table>

@@ -261,6 +261,7 @@
     <Content Include="usercontrol\app\UserControl_quickmessage_by_shift.ascx" />
     <Content Include="usercontrol\app\UserControl_rank.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_avail_submission_compliance.ascx" />
+    <Content Include="usercontrol\app\UserControl_ranked_scheduled_duty_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_ranked_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_rank_group.ascx" />
     <Content Include="usercontrol\app\UserControl_recent_oscalert_samples.ascx" />
@@ -286,6 +287,7 @@
     <Content Include="usercontrol\app\UserControl_serial_fleet_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_avail_submission_compliance.ascx" />
+    <Content Include="usercontrol\app\UserControl_serial_indicator_scheduled_duty_compliance.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_indicator_vehicles_up_and_current.ascx" />
     <Content Include="usercontrol\app\UserControl_serial_personnel_indicators_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_shift.ascx" />
@@ -1782,6 +1784,13 @@
     <Compile Include="usercontrol\app\UserControl_ranked_num_members_in_pipeline.ascx.designer.cs">
       <DependentUpon>UserControl_ranked_num_members_in_pipeline.ascx</DependentUpon>
     </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_scheduled_duty_compliance.ascx.cs">
+      <DependentUpon>UserControl_ranked_scheduled_duty_compliance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_ranked_scheduled_duty_compliance.ascx.designer.cs">
+      <DependentUpon>UserControl_ranked_scheduled_duty_compliance.ascx</DependentUpon>
+    </Compile>
     <Compile Include="usercontrol\app\UserControl_ranked_standard_enrollment.ascx.cs">
       <DependentUpon>UserControl_ranked_standard_enrollment.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -2098,6 +2107,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_potential_crew_shifts.ascx.designer.cs">
       <DependentUpon>UserControl_serial_indicator_potential_crew_shifts.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_scheduled_duty_compliance.ascx.cs">
+      <DependentUpon>UserControl_serial_indicator_scheduled_duty_compliance.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_serial_indicator_scheduled_duty_compliance.ascx.designer.cs">
+      <DependentUpon>UserControl_serial_indicator_scheduled_duty_compliance.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_serial_indicator_standard_enrollment.ascx.cs">
       <DependentUpon>UserControl_serial_indicator_standard_enrollment.ascx</DependentUpon>

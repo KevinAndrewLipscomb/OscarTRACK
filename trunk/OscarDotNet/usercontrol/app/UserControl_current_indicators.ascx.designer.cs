@@ -94,6 +94,15 @@ namespace UserControl_current_indicators {
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_commensuration;
         
         /// <summary>
+        /// PlaceHolder_ranked_scheduled_duty_compliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder_ranked_scheduled_duty_compliance;
+        
+        /// <summary>
         /// PlaceHolder_ranked_fleet_tracking_participation control.
         /// </summary>
         /// <remarks>

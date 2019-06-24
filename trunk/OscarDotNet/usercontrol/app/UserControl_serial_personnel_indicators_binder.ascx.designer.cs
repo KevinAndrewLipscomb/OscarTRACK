@@ -112,6 +112,15 @@ namespace UserControl_serial_personnel_indicators_binder {
         protected global::AjaxControlToolkit.TabPanel TabPanel_third_slot_saturation;
         
         /// <summary>
+        /// TabPanel_scheduled_duty_compliance control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::AjaxControlToolkit.TabPanel TabPanel_scheduled_duty_compliance;
+        
+        /// <summary>
         /// PlaceHolder_content control.
         /// </summary>
         /// <remarks>

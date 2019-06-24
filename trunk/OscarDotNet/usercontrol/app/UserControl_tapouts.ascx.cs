@@ -30,7 +30,8 @@ namespace UserControl_tapouts
       public bool be_sort_order_ascending;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs;
-      public uint num_tapouts;
+      public k.int_nonnegative num_released_core_ops_tapouts;
+      public k.int_nonnegative num_tapouts;
       public string sort_order;
       }
 
@@ -172,6 +173,8 @@ namespace UserControl_tapouts
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.num_tapouts = new k.int_nonnegative();
+        p.num_released_core_ops_tapouts = new k.int_nonnegative();
         p.sort_order = "provider.agency_id%, provider.cad_num, expected_start";
         }
       }
@@ -208,7 +211,11 @@ namespace UserControl_tapouts
       {
       if (e.Item.ItemType.ToString().Contains("Item"))
         {
-        p.num_tapouts++;
+        p.num_tapouts.val++;
+        if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R"))
+          {
+          p.num_released_core_ops_tapouts.val++;
+          }
         }
       }
 
@@ -237,11 +244,20 @@ namespace UserControl_tapouts
         target:DataGrid_control,
         agency_filter:p.agency_id
         );
-      p.be_datagrid_empty = (p.num_tapouts == 0);
+      p.be_datagrid_empty = (p.num_tapouts.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;
       Literal_num_tapouts.Text = p.num_tapouts.ToString();
-      p.num_tapouts = 0;
+      if ((Session["mode:report/end-of-month-tapouts"] != null) && (p.agency_id != "0")) // As currently calculated, there is no valid denominator for this metric when the scope is limited to pure VBDEMS/404 members.
+        {
+        p.biz_schedule_assignment_logs.LogMetric
+          (
+          agency_id:p.agency_id,
+          num_released_core_ops_tapouts:p.num_released_core_ops_tapouts
+          );
+        }
+      p.num_tapouts.val = 0;
+      p.num_released_core_ops_tapouts.val = 0;
       }
 
     internal void SetFilter
