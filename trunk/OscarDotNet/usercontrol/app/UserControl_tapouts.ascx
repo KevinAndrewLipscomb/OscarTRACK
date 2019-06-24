@@ -28,6 +28,7 @@
                 <asp:BoundColumn datafield="agency" headertext="Agency" sortexpression="provider.agency_id%, provider.cad_num, expected_start" visible="false">
                   <ItemStyle horizontalalign="Center"></ItemStyle>
                 </asp:BoundColumn>
+                <asp:BoundColumn datafield="provider_id" visible="false"/>
                 <asp:BoundColumn datafield="provider" headertext="Provider" sortexpression="provider.cad_num%, expected_start" >
                   <ItemStyle Font-Bold="True" />
                 </asp:BoundColumn>
@@ -38,7 +39,9 @@
                 <asp:BoundColumn datafield="hours_warning" headertext="Hours of warning" sortexpression="hours_warning%, provider.cad_num, expected_start">
                   <ItemStyle horizontalalign="Center"></ItemStyle>
                 </asp:BoundColumn>
+                <asp:BoundColumn datafield="actor_id" visible="false"/>
                 <asp:BoundColumn datafield="actor" headertext="Documented by" sortexpression="actor.last_name%, actor.first_name, sal_last.id" />
+                <asp:BoundColumn datafield="actor_timestamp" visible="false"/>
               </Columns>
               <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
             </asp:DataGrid>

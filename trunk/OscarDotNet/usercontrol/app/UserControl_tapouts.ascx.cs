@@ -2,7 +2,9 @@
 
 using Class_biz_agencies;
 using Class_biz_schedule_assignment_logs;
+using Class_biz_tapouts;
 using kix;
+using System;
 using System.Web.UI.WebControls;
 
 namespace UserControl_tapouts
@@ -14,11 +16,14 @@ namespace UserControl_tapouts
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
       public const int TCI_AGENCY = 2;
-      public const int TCI_PROVIDER = 3;
-      public const int TCI_EXPECTED_START = 4;
-      public const int TCI_COMMENT = 5;
-      public const int TCI_HOURS_WARNING = 6;
-      public const int TCI_DOCUMENTED_BY = 7;
+      public const int TCI_PROVIDER_ID = 3;
+      public const int TCI_PROVIDER = 4;
+      public const int TCI_EXPECTED_START = 5;
+      public const int TCI_COMMENT = 6;
+      public const int TCI_HOURS_WARNING = 7;
+      public const int TCI_ACTOR_ID = 8;
+      public const int TCI_DOCUMENTED_BY = 9;
+      public const int TCI_ACTOR_TIMESTAMP = 10;
       }
 
     private struct p_type
@@ -30,6 +35,7 @@ namespace UserControl_tapouts
       public bool be_sort_order_ascending;
       public TClass_biz_agencies biz_agencies;
       public TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs;
+      public TClass_biz_tapouts biz_tapouts;
       public k.int_nonnegative num_released_core_ops_tapouts;
       public k.int_nonnegative num_tapouts;
       public string sort_order;
@@ -168,6 +174,7 @@ namespace UserControl_tapouts
         p.biz_agencies = new TClass_biz_agencies();
         p.biz_schedule_assignment_logs = new TClass_biz_schedule_assignment_logs();
         //p.msg_protected_schedule_assignment_log_detail = new TClass_msg_protected.schedule_assignment_log_detail();
+        p.biz_tapouts = new TClass_biz_tapouts();
         //
         p.agency_id = k.EMPTY;
         p.be_interactive = (Session["mode:report"] == null);
@@ -211,6 +218,21 @@ namespace UserControl_tapouts
       {
       if (e.Item.ItemType.ToString().Contains("Item"))
         {
+        //
+        if (p.agency_id.Length == 0)  // Only make a permanent record of this tapout if we're working on the CITYWIDE report.
+          {
+          p.biz_tapouts.Set
+            (
+            id:k.EMPTY,
+            member_id:k.Safe(e.Item.Cells[Static.TCI_PROVIDER_ID].Text,k.safe_hint_type.NUM),
+            expected_start:DateTime.Parse(e.Item.Cells[Static.TCI_EXPECTED_START].Text),
+            comment:k.Safe(e.Item.Cells[Static.TCI_COMMENT].Text,k.safe_hint_type.PUNCTUATED),
+            hours_warning:k.Safe(e.Item.Cells[Static.TCI_HOURS_WARNING].Text,k.safe_hint_type.HYPHENATED_NUM),
+            actor_member_id:k.Safe(e.Item.Cells[Static.TCI_ACTOR_ID].Text,k.safe_hint_type.NUM),
+            actor_timestamp:DateTime.Parse(e.Item.Cells[Static.TCI_ACTOR_TIMESTAMP].Text)
+            );
+          }
+        //
         p.num_tapouts.val++;
         if (e.Item.Cells[Static.TCI_AGENCY].Text.StartsWith("R"))
           {
@@ -260,7 +282,7 @@ namespace UserControl_tapouts
       p.num_released_core_ops_tapouts.val = 0;
       }
 
-    internal void SetFilter
+    internal void SetP
       (
       string agency_id
       )

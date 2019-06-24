@@ -71,7 +71,7 @@ namespace report_end_of_month_tapouts
         var UserControl_tapouts_control = ((LoadControl("~/usercontrol/app/UserControl_tapouts.ascx") as TWebUserControl_tapouts));
         PlaceHolder_tapouts.Controls.Add(UserControl_tapouts_control);
         p.agency_id = (p.agency_short_designator.Length > 0 ? p.biz_agencies.IdOfShortDesignator(p.agency_short_designator) : k.EMPTY);
-        UserControl_tapouts_control.SetFilter(agency_id:p.agency_id);
+        UserControl_tapouts_control.SetP(agency_id:p.agency_id);
         }
       else if (nature_of_visit_unlimited == nature_of_visit_type.VISIT_POSTBACK_STANDARD)
         {

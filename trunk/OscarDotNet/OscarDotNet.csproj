@@ -296,6 +296,7 @@
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
+    <Content Include="usercontrol\app\UserControl_tapout.ascx" />
     <Content Include="usercontrol\app\UserControl_tapouts.ascx" />
     <Content Include="usercontrol\app\UserControl_test_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
@@ -426,6 +427,7 @@
     <Compile Include="component\biz\Class_biz_sms_gateways.cs" />
     <Compile Include="component\biz\Class_biz_states.cs" />
     <Compile Include="component\biz\Class_biz_streets.cs" />
+    <Compile Include="component\biz\Class_biz_tapouts.cs" />
     <Compile Include="component\biz\Class_biz_tiers.cs" />
     <Compile Include="component\biz\Class_biz_uniform_catalogs.cs" />
     <Compile Include="component\biz\Class_biz_uniform_classes.cs" />
@@ -502,6 +504,7 @@
     <Compile Include="component\db\Class_db_sms_gateways.cs" />
     <Compile Include="component\db\Class_db_states.cs" />
     <Compile Include="component\db\Class_db_streets.cs" />
+    <Compile Include="component\db\Class_db_tapouts.cs" />
     <Compile Include="component\db\Class_db_tiers.cs" />
     <Compile Include="component\db\Class_db_uniform_catalogs.cs" />
     <Compile Include="component\db\Class_db_uniform_classes.cs" />
@@ -2190,6 +2193,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.designer.cs">
       <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_tapout.ascx.cs">
+      <DependentUpon>UserControl_tapout.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_tapout.ascx.designer.cs">
+      <DependentUpon>UserControl_tapout.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_tapouts.ascx.cs">
       <DependentUpon>UserControl_tapouts.ascx</DependentUpon>
