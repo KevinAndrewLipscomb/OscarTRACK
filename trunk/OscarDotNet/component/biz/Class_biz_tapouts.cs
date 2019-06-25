@@ -33,10 +33,11 @@ namespace Class_biz_tapouts
       (
       string sort_order,
       bool be_sort_order_ascending,
-      object target
+      object target,
+      string member_id
       )
       {
-      db_tapouts.BindBaseDataList(sort_order,be_sort_order_ascending,target);
+      db_tapouts.BindBaseDataList(sort_order,be_sort_order_ascending,target,member_id);
       }
 
     public void BindDirectToListControl(object target)

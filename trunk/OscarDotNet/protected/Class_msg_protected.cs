@@ -32,6 +32,10 @@ namespace Class_msg_protected
       internal string user_member_id = k.EMPTY;
       internal bool be_user_evaluatee = true;
       }
+    public class individual_tapout_detail
+      {
+      internal string member_id = k.EMPTY;
+      }
     public class member_schedule_detail
       {
       internal string member_id = k.EMPTY;

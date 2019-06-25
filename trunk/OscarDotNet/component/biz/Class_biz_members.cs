@@ -694,6 +694,21 @@ namespace Class_biz_members
             return result;
         }
 
+        public k.int_nonnegative NumTapouts1MonthAgoOf(object summary)
+          {
+          return db_members.NumTapouts1MonthAgoOf(summary);
+          }
+
+        public k.int_nonnegative NumTapouts2MonthsAgoOf(object summary)
+          {
+          return db_members.NumTapouts2MonthsAgoOf(summary);
+          }
+
+        public k.int_nonnegative NumTapouts3MonthsAgoOf(object summary)
+          {
+          return db_members.NumTapouts3MonthsAgoOf(summary);
+          }
+
         public string OverallFleetTrackingParticipation()
           {
           return db_members.OverallFleetTrackingParticipation();

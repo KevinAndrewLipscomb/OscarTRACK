@@ -106,12 +106,12 @@
                         <td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server" onclick="LinkButton_change_driver_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
                       </tr>
-                      <tr>
+                      <tr visible="false">
                         <td>On squad truck team:</td>
                         <td><ASP:LinkButton id="LinkButton_change_squad_truck_team_qual" runat="server" onclick="LinkButton_change_squad_truck_team_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_on_squad_truck_team" runat="server"></ASP:Label></td>
                       </tr>
-                      <tr>
+                      <tr visible="false">
                         <td>Flight medic:</td>
                         <td><ASP:LinkButton id="LinkButton_change_flight_medic_qual" runat="server" onclick="LinkButton_change_flight_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_flight_medic" runat="server"></ASP:Label></td>
@@ -120,6 +120,29 @@
                         <td>Marine medic:</td>
                         <td><ASP:LinkButton id="LinkButton_change_marine_medic_qual" runat="server" onclick="LinkButton_change_marine_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_marine_medic" runat="server"></ASP:Label></td>
+                      </tr>
+                      <tr id="TableRow_tapouts" runat="server" visible="false">
+                        <td>Tapouts:</td>
+                        <td><ASP:LinkButton id="LinkButton_individual_tapout_detail" runat="server" onclick="LinkButton_individual_tapout_detail_Click"><img src="~/protected/image/open_document16_h.png" alt="Detail" border="0" height="16" width="16" /></ASP:LinkButton></td>
+                        <td valign="middle">
+                          <table cellspacing="0" cellpadding="1" border="0">
+                              <tr style="color:lightgray">
+                                <td>Three months ago:</td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                <td><ASP:Label id="Label_num_tapouts_3_months_ago" runat="server"></ASP:Label></td>
+                              </tr>
+                              <tr style="color:darkgray">
+                                <td>Two months ago:</td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                <td><ASP:Label id="Label_num_tapouts_2_months_ago" runat="server"></ASP:Label></td>
+                              </tr>
+                              <tr>
+                                <td>One month ago:</td>
+                                <td>&nbsp;&nbsp;&nbsp;</td>
+                                <td><ASP:Label id="Label_num_tapouts_1_month_ago" runat="server" Font-Bold="true"></ASP:Label></td>
+                              </tr>
+                          </table>
+                          </td>
                       </tr>
                     </table>
                     <br/>
