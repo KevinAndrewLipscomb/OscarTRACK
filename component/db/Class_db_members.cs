@@ -3,6 +3,7 @@ using Class_biz_sms_gateways;
 using Class_db;
 using Class_db_agencies;
 using Class_db_medical_release_levels;
+using Class_db_tapouts;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
@@ -115,6 +116,9 @@ namespace Class_db_members
       public bool be_flight_medic;
       public bool be_marine_medic;
       public bool be_on_squad_truck_team;
+      public k.int_nonnegative num_tapouts_1_month_ago;
+      public k.int_nonnegative num_tapouts_2_months_ago;
+      public k.int_nonnegative num_tapouts_3_months_ago;
       }
 
     public class TClass_db_members: TClass_db
@@ -1918,6 +1922,21 @@ namespace Class_db_members
             return result;
         }
 
+        public k.int_nonnegative NumTapouts1MonthAgoOf(object summary)
+          {
+          return (summary as member_summary).num_tapouts_1_month_ago;
+          }
+
+        public k.int_nonnegative NumTapouts2MonthsAgoOf(object summary)
+          {
+          return (summary as member_summary).num_tapouts_2_months_ago;
+          }
+
+        public k.int_nonnegative NumTapouts3MonthsAgoOf(object summary)
+          {
+          return (summary as member_summary).num_tapouts_3_months_ago;
+          }
+
         public string PhoneNumOf(string member_id)
         {
             string result;
@@ -2234,6 +2253,9 @@ namespace Class_db_members
             + " , be_flight_medic"
             + " , be_marine_medic"
             + " , be_on_squad_truck_team"
+            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH))),0) as num_tapouts_1_month_ago"
+            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH))),0) as num_tapouts_2_months_ago"
+            + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH))),0) as num_tapouts_3_months_ago"
             + " from member" 
             +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
             +   " join enrollment_history on" 
@@ -2253,6 +2275,7 @@ namespace Class_db_members
             +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
             +   " join agency on (agency.id=member.agency_id)"
             +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+            +   " left join tapout on (tapout.member_id=member.id)"
             + " where member.id = '" + member_id + "'",
             connection
             )
@@ -2288,6 +2311,9 @@ namespace Class_db_members
               + " , be_flight_medic"
               + " , be_marine_medic"
               + " , be_on_squad_truck_team"
+              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH)),0) as num_tapouts_1_month_ago"
+              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 2 MONTH)),0) as num_tapouts_2_months_ago"
+              + " , IFNULL(sum(MONTH(tapout.expected_start) = MONTH(SUBDATE(CURDATE(),INTERVAL 3 MONTH)),0) as num_tapouts_3_months_ago"
               + " from member" 
               +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
               +   " join enrollment_history on" 
@@ -2307,6 +2333,7 @@ namespace Class_db_members
               +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" 
               +   " join agency on (agency.id=member.agency_id)"
               +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+              +   " left join tapout on (tapout.member_id=member.id)"
               + " where member.id = '" + member_id + "'",
               connection
               )
@@ -2337,7 +2364,10 @@ namespace Class_db_members
               be_placeholder = (dr["be_placeholder"].ToString() == "1"),
               be_flight_medic = (dr["be_flight_medic"].ToString() == "1"),
               be_marine_medic = (dr["be_marine_medic"].ToString() == "1"),
-              be_on_squad_truck_team = (dr["be_on_squad_truck_team"].ToString() == "1")
+              be_on_squad_truck_team = (dr["be_on_squad_truck_team"].ToString() == "1"),
+              num_tapouts_1_month_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_1_month_ago"].ToString())),
+              num_tapouts_2_months_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_2_months_ago"].ToString())),
+              num_tapouts_3_months_ago = new k.int_nonnegative(val:int.Parse(dr["num_tapouts_3_months_ago"].ToString())),
               };
             }
           dr.Close();

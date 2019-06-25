@@ -53,14 +53,22 @@ namespace Class_db_tapouts
       (
       string sort_order,
       bool be_sort_order_ascending,
-      object target
+      object target,
+      string member_id
       )
       {
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
         "select tapout.id as id"
-        + " from tapout",
+        + " , DATE_FORMAT(expected_start,'%Y-%m-%d %H:%i') as expected_start"
+        + " , comment"
+        + " , IFNULL(hours_warning,'NONE') as hours_warning"
+        + " , CONCAT(actor.last_name,', ',actor.first_name) as actor"
+        + " from tapout"
+        +   " join member actor on (actor.id=tapout.actor_member_id)"
+        + " where member_id = '" + member_id + "'"
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();

@@ -319,6 +319,51 @@ namespace member_detail {
         protected global::System.Web.UI.WebControls.Label Label_be_marine_medic;
         
         /// <summary>
+        /// TableRow_tapouts control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_tapouts;
+        
+        /// <summary>
+        /// LinkButton_individual_tapout_detail control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton LinkButton_individual_tapout_detail;
+        
+        /// <summary>
+        /// Label_num_tapouts_3_months_ago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_num_tapouts_3_months_ago;
+        
+        /// <summary>
+        /// Label_num_tapouts_2_months_ago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_num_tapouts_2_months_ago;
+        
+        /// <summary>
+        /// Label_num_tapouts_1_month_ago control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_num_tapouts_1_month_ago;
+        
+        /// <summary>
         /// UserControl_role_member_map_log_control control.
         /// </summary>
         /// <remarks>

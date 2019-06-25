@@ -4,6 +4,7 @@ using Class_biz_enrollment;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_privileges;
+using Class_biz_tapouts;
 using Class_biz_user;
 using Class_msg_protected;
 using kix;
@@ -22,8 +23,10 @@ namespace member_detail
           public TClass_biz_leaves biz_leaves;
           public TClass_biz_members biz_members;
           public TClass_biz_privileges biz_privileges;
+          public TClass_biz_tapouts biz_tapouts;
           public TClass_biz_user biz_user;
           public TClass_msg_protected.member_schedule_detail msg_protected_member_schedule_detail;
+          public TClass_msg_protected.individual_tapout_detail msg_protected_individual_tapout_detail;
           public string cad_num_string;
           public string enrollment_description;
           public DateTime enrollment_effective_date;
@@ -40,6 +43,7 @@ namespace member_detail
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
         // / </summary>
+
         private void InitializeComponent()
         {
             this.PreRender += this.TWebForm_member_detail_PreRender;
@@ -170,6 +174,16 @@ namespace member_detail
                 LinkButton_change_flight_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-flight-medic-qual") && be_authorized_tier_or_same_agency);
                 LinkButton_change_marine_medic_qual.Visible = (k.Has((string[])(Session["privilege_array"]), "change-marine-medic-qual") && be_authorized_tier_or_same_agency);
                 //
+                priv_of_interest = "see-personnel-status-notes";
+                TableRow_tapouts.Visible = (k.Has((string[])(Session["privilege_array"]),priv_of_interest) && be_authorized_tier_or_same_agency);
+                if (TableRow_tapouts.Visible)
+                  {
+                  Label_num_tapouts_3_months_ago.Text = p.biz_members.NumTapouts3MonthsAgoOf(Session["member_summary"]).val.ToString();
+                  Label_num_tapouts_2_months_ago.Text = p.biz_members.NumTapouts2MonthsAgoOf(Session["member_summary"]).val.ToString();
+                  Label_num_tapouts_1_month_ago.Text = p.biz_members.NumTapouts1MonthAgoOf(Session["member_summary"]).val.ToString();
+                  LinkButton_individual_tapout_detail.Text = k.ExpandTildePath(LinkButton_individual_tapout_detail.Text);
+                  }
+                //
                 UserControl_role_member_map_log_control.SetP(subject_member_id:p.target_member_id);
             }
         }
@@ -206,7 +220,9 @@ namespace member_detail
                     p.biz_leaves = new TClass_biz_leaves();
                     p.biz_members = new TClass_biz_members();
                     p.biz_privileges = new TClass_biz_privileges();
+                    p.biz_tapouts = new TClass_biz_tapouts();
                     p.biz_user = new TClass_biz_user();
+                    p.msg_protected_individual_tapout_detail = new TClass_msg_protected.individual_tapout_detail();
                     p.msg_protected_member_schedule_detail = new TClass_msg_protected.member_schedule_detail();
                     //
                     p.target_member_id = p.biz_members.IdOf(Session["member_summary"]);
@@ -300,6 +316,17 @@ namespace member_detail
     protected void LinkButton_change_marine_medic_qual_Click(object sender, EventArgs e)
       {
       DropCrumbAndTransferTo("change_member_marine_medic_qualification.aspx");
+      }
+
+    protected void LinkButton_individual_tapout_detail_Click(object sender, EventArgs e)
+      {
+      p.msg_protected_individual_tapout_detail.member_id = p.target_member_id;
+      MessageDropCrumbAndTransferTo
+        (
+        msg:p.msg_protected_individual_tapout_detail,
+        folder_name:"protected",
+        aspx_name:"individual_tapout_detail"
+        );
       }
 
     protected void LinkButton_schedule_detail_Click(object sender, EventArgs e)
