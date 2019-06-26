@@ -9,8 +9,8 @@
             <em>(Citywide = </em><ASP:Label id="Label_overall" runat="server" font-italic="True"></ASP:Label><em>)</em></p>
             <p>
               <small>
-                This block shows the approximate degree to which members ran their duties as scheduled, without qualifying as "tapouts".&nbsp; This metric is affected by the way schedule changes are recorded and by the agency's associated crew-shifts
-                forecast as recorded at the beginning of the month.
+                This block shows the approximate degree to which members ran their duties as scheduled during the prior calendar month, without qualifying as "tapouts".&nbsp; This metric is affected by the way schedule changes are recorded, and by the
+                agency's associated crew-shifts forecast as recorded at the beginning of the same month.
               </small>
             </p>
           </td>
