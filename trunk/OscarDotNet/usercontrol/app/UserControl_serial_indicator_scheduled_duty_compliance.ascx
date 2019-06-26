@@ -1,7 +1,7 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_serial_indicator_scheduled_duty_compliance.ascx.cs" Inherits="UserControl_serial_indicator_scheduled_duty_compliance.TWebUserControl_serial_indicator_scheduled_duty_compliance"%>
 <p>
-  These control charts show the approximate degree to which members ran their duties as scheduled, without qualifying as "tapouts".&nbsp; This metric is affected by the way schedule changes are recorded and by the agency's associated crew-shifts
-  forecast as recorded at the beginning of the month.
+  These control charts show the approximate degree to which members ran their duties as scheduled, without qualifying as "tapouts".&nbsp; This metric is affected by the way schedule changes are recorded, and by the agency's associated crew-shifts
+  forecast as recorded at the beginning of the same month.
 </p>
 <table>
   <tr>

@@ -207,8 +207,8 @@ namespace Class_db_schedule_assignment_logs
         + " , value"
         + " from indicator_scheduled_duty_compliance"
         +   " join agency on (agency.id=indicator_scheduled_duty_compliance.agency_id)"
-        + " where year = YEAR(CURDATE())"
-        +   " and month = MONTH(CURDATE())"
+        + " where year = YEAR(SUBDATE(CURDATE(),INTERVAL 1 MONTH))"
+        +   " and month = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH))"
         +   " and agency_id <> 0"
         +   " and be_agency_id_applicable = TRUE"
         + " order by value desc",
@@ -297,8 +297,12 @@ namespace Class_db_schedule_assignment_logs
     internal string OverallScheduledDutyCompliance()
       {
       Open();
-      var overall_scheduled_duty_compliance_obj =
-        new MySqlCommand("select FORMAT(value,0)" + " from indicator_scheduled_duty_compliance where year = YEAR(CURDATE()) and month = MONTH(CURDATE()) and not be_agency_id_applicable",connection).ExecuteScalar();
+      var overall_scheduled_duty_compliance_obj = new MySqlCommand
+        (
+        "select FORMAT(value,0) from indicator_scheduled_duty_compliance where year = YEAR(SUBDATE(CURDATE(),INTERVAL 1 MONTH)) and month = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH)) and not be_agency_id_applicable",
+        connection
+        )
+        .ExecuteScalar();
       Close();
       return (overall_scheduled_duty_compliance_obj == null ? k.EMPTY : overall_scheduled_duty_compliance_obj.ToString());
       }
