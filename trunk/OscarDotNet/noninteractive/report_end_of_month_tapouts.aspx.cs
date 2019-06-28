@@ -107,7 +107,9 @@ namespace report_end_of_month_tapouts
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf("Squad Manager (possibly paid)",p.agency_short_designator)
         + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Squad Commander",p.agency_short_designator);
+        + p.biz_role_member_map.EmailTargetOf("Squad Commander",p.agency_short_designator)
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Squad Tapout Tracker",p.agency_short_designator);
         }
       k.SmtpMailSend
         (
