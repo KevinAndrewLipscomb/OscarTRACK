@@ -106,12 +106,12 @@
                         <td><ASP:LinkButton id="LinkButton_change_driver_qual" runat="server" onclick="LinkButton_change_driver_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_driver_qualified" runat="server"></ASP:Label></td>
                       </tr>
-                      <tr visible="false">
+                      <tr runat="server" visible="false">
                         <td>On squad truck team:</td>
                         <td><ASP:LinkButton id="LinkButton_change_squad_truck_team_qual" runat="server" onclick="LinkButton_change_squad_truck_team_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_on_squad_truck_team" runat="server"></ASP:Label></td>
                       </tr>
-                      <tr visible="false">
+                      <tr runat="server" visible="false">
                         <td>Flight medic:</td>
                         <td><ASP:LinkButton id="LinkButton_change_flight_medic_qual" runat="server" onclick="LinkButton_change_flight_medic_qual_Click"><img src="~/protected/image/draw_freehand_16_h.png" alt="Edit" border="0" height="16" width="16" /></ASP:LinkButton></td>
                         <td><ASP:Label id="Label_be_flight_medic" runat="server"></ASP:Label></td>
