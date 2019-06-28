@@ -716,7 +716,7 @@ namespace UserControl_schedule_proposal
       //
       if (e.Item.Cells[tci_medical_release_description].Text != "&nbsp;")
         {
-        e.Item.Cells[tci_medical_release_description].Font.Italic = (new ArrayList() {"¶","P","I","C"}).Contains(e.Item.Cells[tci_medical_release_description].Text);
+        e.Item.Cells[tci_medical_release_description].Font.Italic = (new ArrayList() {"#","¶","P","I","C"}).Contains(e.Item.Cells[tci_medical_release_description].Text);
         //
         if (new ArrayList() {"s","b"}.Contains(e.Item.Cells[tci_medical_release_description].Text))
           {

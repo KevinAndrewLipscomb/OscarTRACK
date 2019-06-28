@@ -149,7 +149,8 @@ namespace Class_biz_medical_release_levels
         EMT_I,
         EMT_P_ANY,
         EMT_P,
-        EMT_P_RSI
+        EMT_P_RSI,
+        MD
     } // end filter_type
 
 }

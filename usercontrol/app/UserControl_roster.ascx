@@ -44,7 +44,8 @@
                                     <ASP:ListItem value="emt_i"         >- - - EMT-I</ASP:ListItem>
                                     <ASP:ListItem value="emt_p_any"     >- - - EMT-P (inclusive)</ASP:ListItem>
                                     <ASP:ListItem value="emt_p"         >- - - - EMT-P (non-RSI)</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p_rsi"     >- - - - EMT-P-RSI</ASP:ListItem></ASP:DropDownList>
+                                    <ASP:ListItem value="emt_p_rsi"     >- - - - EMT-P-RSI</ASP:ListItem>
+                                    <ASP:ListItem value="md"            >- - - MD</ASP:ListItem></ASP:DropDownList>
                                     </p>
                       </td>
                       <td>
