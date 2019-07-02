@@ -86,6 +86,10 @@ namespace Class_biz_medical_release_levels
               {
               be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"EMT-CT") >= 0);
               }
+            else if (enrollment_description == "EDP")
+              {
+              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"Physician") >= 0);
+              }
             else
               {
               //
@@ -150,7 +154,7 @@ namespace Class_biz_medical_release_levels
         EMT_P_ANY,
         EMT_P,
         EMT_P_RSI,
-        MD
+        PHYSICIAN
     } // end filter_type
 
 }
