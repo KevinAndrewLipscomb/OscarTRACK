@@ -370,11 +370,11 @@ namespace UserControl_roster
                 }
                 if (p.biz_medical_release_levels.BeReleased(e.Item.Cells[Class_db_members_Static.TCCI_MEDICAL_RELEASE_PECK_CODE].Text))
                 {
-                    if (e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text != "&nbsp;")
+                    if ((e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text != "&nbsp;") && (e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text != "EDP"))
                     {
                         p.num_raw_shifts = p.num_raw_shifts + uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text);
                     }
-                    if (e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text != "&nbsp;")
+                    if ((e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text != "&nbsp;") && (e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text != "EDP"))
                     {
                         p.num_cooked_shifts = p.num_cooked_shifts + uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text);
                     }
