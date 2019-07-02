@@ -45,7 +45,7 @@
                                     <ASP:ListItem value="emt_p_any"     >- - - EMT-P (inclusive)</ASP:ListItem>
                                     <ASP:ListItem value="emt_p"         >- - - - EMT-P (non-RSI)</ASP:ListItem>
                                     <ASP:ListItem value="emt_p_rsi"     >- - - - EMT-P-RSI</ASP:ListItem>
-                                    <ASP:ListItem value="md"            >- - - MD</ASP:ListItem></ASP:DropDownList>
+                                    <ASP:ListItem value="physician"     >- - - Physician</ASP:ListItem></ASP:DropDownList>
                                     </p>
                       </td>
                       <td>
@@ -61,6 +61,7 @@
                                     <ASP:ListItem value="senior"                 >- - - - - Senior</ASP:ListItem>
                                     <ASP:ListItem value="life"                   >- - - - - Life</ASP:ListItem>
                                     <ASP:ListItem value="regular"                >- - - - - Regular</ASP:ListItem>
+                                    <ASP:ListItem value="edp"                    >- - - - - EDP</ASP:ListItem>
                                     <ASP:ListItem value="liberal"                >- - - - Liberal</ASP:ListItem>
                                     <ASP:ListItem value="reduced"                >- - - - - Reduced</ASP:ListItem>
                                     <ASP:ListItem value="associate"              >- - - - - Associate</ASP:ListItem>
@@ -112,7 +113,7 @@
                             <tr>
                               <td align="center" valign="middle"><small><asp:label id="Label_num_rows" runat="server" font-bold="True"></asp:label><br>members</small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
-                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Senior">standard enrollment</ASP:Label></small></td>
+                              <td align="center" valign="middle"><small><asp:label id="Label_core_ops_commitment_factor" runat="server" font-bold="True" tooltip="Regular, Life, Senior, Tenured BLS, Tenured ALS, EDP"></asp:label><br><ASP:Label id="Label_core_ops_commitment_caption" runat="server" tooltip="Regular, Life, Senior">standard enrollment</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>
                               <td align="center" valign="middle"><small><ASP:Label id="Label_utilization" runat="server" font-bold="True"></ASP:Label><br><ASP:Label id="Label_utilization_caption" runat="server"> utilization</ASP:Label></small></td>
                               <td>&nbsp;&nbsp;&nbsp;</td>

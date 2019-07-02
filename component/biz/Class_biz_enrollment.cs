@@ -26,6 +26,7 @@ namespace Class_biz_enrollment
     TENURED_ALS,
     LIFE,
     REGULAR,
+    EDP,
     LIBERAL,
     REDUCED,
     ASSOCIATE,

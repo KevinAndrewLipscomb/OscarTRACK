@@ -6,7 +6,7 @@
         <tr bgcolor="#f5f5f5">
           <td>
                 <p><strong>Core operations commitment factor</strong><br>
-				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the percentage of released core operations personnel who the agency has enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS).&nbsp; The lower this factor, the more personnel the agency has enrolled at liberal levels (Associate, Reduced, Staff, ALS Intern, College, Atypical).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</small></p>
+				  <em>(Citywide =&nbsp;</em><ASP:Label id="Label_total" runat="server" font-italic="True"></ASP:Label><em>)</em></p><p><small>This block shows the percentage of released core operations personnel who the agency has enrolled at one of the standard levels (Regular, Life, Senior, Tenured BLS, Tenured ALS, EDP).&nbsp; The lower this factor, the more personnel the agency has enrolled at liberal levels (Associate, Reduced, Staff, ALS Intern, College, Atypical).&nbsp; Standard enrollees commit more duty shifts per month than liberal enrollees.</small></p>
           </td>
         </tr>
         <tr>
