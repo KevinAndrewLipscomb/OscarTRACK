@@ -156,6 +156,25 @@ namespace Class_db_schedule_assignment_logs
       string agency_filter
       )
       {
+      BindEndOfPeriodTapoutReportBaseDataList
+        (
+        sort_order:sort_order,
+        be_sort_order_ascending:be_sort_order_ascending,
+        target:target,
+        agency_filter:agency_filter,
+        period_condition:"MONTH(nominal_day) = MONTH(CURDATE())"
+        );
+      }
+
+    private void BindEndOfPeriodTapoutReportBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter,
+      string period_condition
+      )
+      {
       Open();
       ((target) as BaseDataList).DataSource = new MySqlCommand
         (
@@ -179,7 +198,7 @@ namespace Class_db_schedule_assignment_logs
         +   " join agency on (agency.id=provider.agency_id)"
         +   " join shift on (shift.id=schedule_assignment.shift_id)"
         +   " join member actor on (actor.id=sal_last.actor_member_id)"
-        + " where MONTH(nominal_day) = MONTH(CURDATE())"
+        + " where " + period_condition
         +   " and sal_any.id is null"
         +   " and sal_last.action = 'forced OFF'"
         +   " and DATEDIFF(ADDTIME(schedule_assignment.nominal_day,shift.start),sal_last.timestamp) <= 3"
@@ -195,6 +214,24 @@ namespace Class_db_schedule_assignment_logs
         .ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
+      }
+
+    internal void BindEndOfWeekTapoutReportBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter
+      )
+      {
+      BindEndOfPeriodTapoutReportBaseDataList
+        (
+        sort_order:sort_order,
+        be_sort_order_ascending:be_sort_order_ascending,
+        target:target,
+        agency_filter:agency_filter,
+        period_condition:"nominal_day between SUBDATE(CURDATE(),INTERVAL 6 DAY) and CURDATE()"
+        );
       }
 
     internal void BindRankedScheduledDutyCompliance(object target)
