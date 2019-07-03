@@ -219,7 +219,7 @@ namespace UserControl_tapouts
       if (e.Item.ItemType.ToString().Contains("Item"))
         {
         //
-        if (p.agency_id.Length == 0)  // Only make a permanent record of this tapout if we're working on the CITYWIDE report.
+        if ((Session["mode:report/end-of-month-tapouts"] != null) && (p.agency_id.Length == 0))  // Only make a permanent record of this tapout if we're working on the CITYWIDE end-of-month report.
           {
           p.biz_tapouts.Set
             (
@@ -259,13 +259,26 @@ namespace UserControl_tapouts
     private void Bind()
       {
       DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_id.Length == 0);
-      p.biz_schedule_assignment_logs.BindEndOfMonthTapoutReportBaseDataList
-        (
-        sort_order:p.sort_order,
-        be_sort_order_ascending:p.be_sort_order_ascending,
-        target:DataGrid_control,
-        agency_filter:p.agency_id
-        );
+      if (Session["mode:report/end-of-week-tapouts"] != null) // end of WEEK
+        {
+        p.biz_schedule_assignment_logs.BindEndOfWeekTapoutReportBaseDataList
+          (
+          sort_order:p.sort_order,
+          be_sort_order_ascending:p.be_sort_order_ascending,
+          target:DataGrid_control,
+          agency_filter:p.agency_id
+          );
+        }
+      else // end of MONTH
+        {
+        p.biz_schedule_assignment_logs.BindEndOfMonthTapoutReportBaseDataList
+          (
+          sort_order:p.sort_order,
+          be_sort_order_ascending:p.be_sort_order_ascending,
+          target:DataGrid_control,
+          agency_filter:p.agency_id
+          );
+        }
       p.be_datagrid_empty = (p.num_tapouts.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
       DataGrid_control.Visible = !p.be_datagrid_empty;

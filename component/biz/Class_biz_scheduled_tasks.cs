@@ -1,3 +1,4 @@
+using System;
 using Class_biz_availabilities;
 using Class_biz_cities;
 using Class_biz_enrollment;
@@ -6,14 +7,12 @@ using Class_biz_gripes;
 using Class_biz_leaves;
 using Class_biz_members;
 using Class_biz_residents;
-using Class_biz_schedule_assignments;
 using Class_biz_schedule_assignment_logs;
+using Class_biz_schedule_assignments;
 using Class_biz_states;
 using Class_biz_streets;
 using Class_db_members;
-using kix;
 using OscarDotNet.component.os;
-using System;
 
 namespace Class_biz_scheduled_tasks
   {
@@ -22,6 +21,7 @@ namespace Class_biz_scheduled_tasks
     {
 
     private TClass_biz_availabilities biz_availabilities = null;
+
     private TClass_biz_cities biz_cities = null;
     private TClass_biz_enrollment biz_enrollment = null;
     private TClass_biz_evals biz_evals = null;

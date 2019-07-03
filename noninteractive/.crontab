@@ -39,6 +39,17 @@ MAILTO=kevin.lipscomb@kvrs.org
 30 23  *  * 0 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/weekly_tasks.aspx
 49 04  *  * 6 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=SAR
 51 04  *  * 6 wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_shift_fleet_status.aspx?agency=MCI
+31 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R01
+32 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R02
+34 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R04
+35 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R05
+36 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R06
+39 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R09
+43 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R13
+44 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R14
+46 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R16
+47 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=R17
+50 23  7,14,21 * * wget --output-document=/dev/null --no-check-certificate --timeout=14400 --tries=1 https://localhost/OscarTRACK/noninteractive/report_end_of_week_tapouts.aspx?agency=EMS
 #
 # Monthly
 #

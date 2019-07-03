@@ -50,6 +50,17 @@ namespace Class_biz_schedule_assignment_logs
       db_schedule_assignment_logs.BindEndOfMonthTapoutReportBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter);
       }
 
+    internal void BindEndOfWeekTapoutReportBaseDataList
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string agency_filter
+      )
+      {
+      db_schedule_assignment_logs.BindEndOfWeekTapoutReportBaseDataList(sort_order,be_sort_order_ascending,target,agency_filter);
+      }
+
     internal void BindRankedScheduledDutyCompliance(object target)
       {
       db_schedule_assignment_logs.BindRankedScheduledDutyCompliance(target);
