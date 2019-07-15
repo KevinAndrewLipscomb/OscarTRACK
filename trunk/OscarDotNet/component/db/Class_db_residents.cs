@@ -200,8 +200,18 @@ namespace Class_db_residents
       + " CREATE TABLE love_letter_target SELECT distinct address from scene_visited where love_letter_batch_designator = '" + love_letter_batch_designator + "' and agency = '" + agency + "'"
       + ";"
       + " DELETE from love_letter_target"
-      + " WHERE address like '100 264%'" // I-264
-        + " or address like '100 64%'" // I-64
+      + " WHERE address like '264E % AFTER'" // I-264
+        + " or address like '264E % AT'" // I-264
+        + " or address like '264E % BEFORE'" // I-264
+        + " or address like '264W % AFTER'" // I-264
+        + " or address like '264W % AT'" // I-264
+        + " or address like '264W % BEFORE'" // I-264
+        + " or address like '64E % AFTER'" // I-64
+        + " or address like '64E % AT'" // I-64
+        + " or address like '64E % BEFORE'" // I-64
+        + " or address like '64W % AFTER'" // I-64
+        + " or address like '64W % AT'" // I-64
+        + " or address like '64W % BEFORE'" // I-64
         + " or address like '100 DN %'" // Dam Neck base
         + " or address like '100 LC %'" // Little Creek base
         + " or address like '%/%'" // an intersection
@@ -236,6 +246,10 @@ namespace Class_db_residents
           + " , '2837 SHORE DR'"
           + " , '3513 BOW CREEK BLVD'" // Residence of a Plaza Life Member
           + " , '100 MARSH CW'"
+          + " , '104 N WITCHDUCK RD'" // Housing Resource Center operations
+          + " , '124 N WITCHDUCK RD'" // Housing Resource Center apartments
+          + " , '64E TWIN BRIDGES'"
+          + " , '64W TWIN BRIDGES'"
           + " )"
       + ";"
       + " DELETE FROM love_letter_target WHERE address in (select address from immune_scene_visited)"
