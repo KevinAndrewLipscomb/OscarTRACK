@@ -1,7 +1,6 @@
 using Class_ss;
-using HtmlAgilityPack;
+using kix;
 using System;
-using System.Configuration;
 using System.Net;
 
 namespace Class_ss_broadcastify
@@ -17,7 +16,7 @@ namespace Class_ss_broadcastify
       {      
       }
 
-    private bool Request_api_broadcastify_com_EmbedPlayer
+    private string Request_api_broadcastify_com_EmbedPlayer
       (
       string feed_id,
       string domain_key,
@@ -41,15 +40,15 @@ namespace Class_ss_broadcastify
 	    catch (WebException e)
 	    {
 		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return false;
+		    else return e.Message + k.NEW_LINE + e.StackTrace;
 	    }
-	    catch (Exception)
+	    catch (Exception e)
 	    {
 		    if(response != null) response.Close();
-		    return false;
+		    return e.Message + k.NEW_LINE + e.StackTrace;
 	    }
 
-	    return true;
+	    return k.EMPTY;
     }
 
     internal string AudioSrcUrl
@@ -59,9 +58,10 @@ namespace Class_ss_broadcastify
       )
       {
       HttpWebResponse response;
-      if(!Request_api_broadcastify_com_EmbedPlayer(feed_id,domain_key,out response))
+      var request_api_broadcastify_com_embedplayer = Request_api_broadcastify_com_EmbedPlayer(feed_id,domain_key,out response);
+      if(request_api_broadcastify_com_embedplayer.Length > 0)
         {
-        throw new Exception("Request_api_broadcastify_com_EmbedPlayer() returned FALSE.");
+        throw new Exception("Request_api_broadcastify_com_EmbedPlayer() returned [" + request_api_broadcastify_com_embedplayer + "]");
         }
       return HtmlDocumentOf(ConsumedStreamOf(response)).DocumentNode.SelectSingleNode(xpath:"audio").Attributes[name:"src"].Value;
       //

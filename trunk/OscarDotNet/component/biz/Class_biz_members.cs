@@ -918,17 +918,23 @@ namespace Class_biz_members
           return ok_so_far;
           }
 
-        public void SetPhoneNumAndClearCellularProvider(string phone_num, object summary)
+    public void SetPhoneNumAndClearCellularProvider
+      (
+      string phone_num,
+      object summary
+      )
+      {
+      if (phone_num.Length == 7)
         {
-            string member_id;
-            if (phone_num.Length == 7)
-            {
-                phone_num = "757" + phone_num;
-            }
-            db_members.SetPhoneNumAndClearCellularProvider(phone_num, summary);
-            member_id = IdOf(summary);
-            biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
+        phone_num = "757" + phone_num;
         }
+      db_members.SetPhoneNumAndClearCellularProvider(phone_num, summary);
+      var member_id = IdOf(summary);
+      if (member_id.Length > 0)
+        {
+        biz_notifications.IssueForPhoneNumChange(member_id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), biz_agencies.MediumDesignatorOf(AgencyIdOfId(member_id)), phone_num);
+        }
+      }
 
     internal void SetOscalertSettings
       (
