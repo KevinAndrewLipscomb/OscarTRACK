@@ -35,17 +35,23 @@ namespace Class_ss_broadcastify
 		    request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko";
 		    request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
 
+        //
+        // Added to resolve "The request was aborted: Could not create SSL/TLS secure channel." exceptions.
+        //
+        ServicePointManager.Expect100Continue = true;
+        ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
+        //
 		    response = (HttpWebResponse)request.GetResponse();
 	    }
 	    catch (WebException e)
 	    {
 		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return e.Message + k.NEW_LINE + e.StackTrace;
+		    else return e.Message + k.NEW_LINE + e.StackTrace + k.NEW_LINE + "Expect100Continue = " + ServicePointManager.Expect100Continue + k.NEW_LINE + "SecurityProtocol = " + ServicePointManager.SecurityProtocol;
 	    }
 	    catch (Exception e)
 	    {
 		    if(response != null) response.Close();
-		    return e.Message + k.NEW_LINE + e.StackTrace;
+		    return e.Message + k.NEW_LINE + e.StackTrace + k.NEW_LINE + "Expect100Continue = " + ServicePointManager.Expect100Continue + k.NEW_LINE + "SecurityProtocol = " + ServicePointManager.SecurityProtocol;
 	    }
 
 	    return k.EMPTY;
