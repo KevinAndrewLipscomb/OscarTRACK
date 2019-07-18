@@ -35,23 +35,17 @@ namespace Class_ss_broadcastify
 		    request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko";
 		    request.Headers.Set(HttpRequestHeader.AcceptEncoding, "gzip, deflate");
 
-        //
-        // Added to resolve "The request was aborted: Could not create SSL/TLS secure channel." exceptions.
-        //
-        ServicePointManager.Expect100Continue = true;
-        ServicePointManager.SecurityProtocol |= SecurityProtocolType.Tls12;
-        //
 		    response = (HttpWebResponse)request.GetResponse();
 	    }
 	    catch (WebException e)
 	    {
 		    if (e.Status == WebExceptionStatus.ProtocolError) response = (HttpWebResponse)e.Response;
-		    else return e.Message + k.NEW_LINE + e.StackTrace + k.NEW_LINE + "Expect100Continue = " + ServicePointManager.Expect100Continue + k.NEW_LINE + "SecurityProtocol = " + ServicePointManager.SecurityProtocol;
+		    else return e.Message + k.NEW_LINE + e.StackTrace;
 	    }
 	    catch (Exception e)
 	    {
 		    if(response != null) response.Close();
-		    return e.Message + k.NEW_LINE + e.StackTrace + k.NEW_LINE + "Expect100Continue = " + ServicePointManager.Expect100Continue + k.NEW_LINE + "SecurityProtocol = " + ServicePointManager.SecurityProtocol;
+		    return e.Message + k.NEW_LINE + e.StackTrace;
 	    }
 
 	    return k.EMPTY;
@@ -63,14 +57,18 @@ namespace Class_ss_broadcastify
       string domain_key
       )
       {
+      var audio_src_url = k.EMPTY;
       HttpWebResponse response;
       var request_api_broadcastify_com_embedplayer = Request_api_broadcastify_com_EmbedPlayer(feed_id,domain_key,out response);
       if(request_api_broadcastify_com_embedplayer.Length > 0)
         {
-        throw new Exception("Request_api_broadcastify_com_EmbedPlayer() returned [" + request_api_broadcastify_com_embedplayer + "]");
+        k.SilentAlarm(the_exception:new Exception("Request_api_broadcastify_com_EmbedPlayer() returned " + request_api_broadcastify_com_embedplayer));
         }
-      return HtmlDocumentOf(ConsumedStreamOf(response)).DocumentNode.SelectSingleNode(xpath:"audio").Attributes[name:"src"].Value;
-      //
+      else
+        {
+        audio_src_url = HtmlDocumentOf(ConsumedStreamOf(response)).DocumentNode.SelectSingleNode(xpath:"audio").Attributes[name:"src"].Value;
+        }
+      return audio_src_url;
       }
 
     }
