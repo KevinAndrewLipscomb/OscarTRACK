@@ -56,7 +56,7 @@
                                 <td><a id="QuickMessage"><strong>QuickMessage</strong></a></td>
                                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                                 <td align="right">
-                                  <asp:RadioButtonList ID="RadioButtonList_quick_message_mode" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonList_quick_message_mode_SelectedIndexChanged" Visible="false">
+                                  <asp:RadioButtonList ID="RadioButtonList_quick_message_mode" runat="server" AutoPostBack="True" RepeatDirection="Horizontal" onselectedindexchanged="RadioButtonList_quick_message_mode_SelectedIndexChanged">
                                     <asp:ListItem Selected="True" Value="email">Email</asp:ListItem>
                                     <asp:ListItem Value="sms">SMS</asp:ListItem>
                                   </asp:RadioButtonList>
@@ -81,7 +81,7 @@
                                 <td><ASP:Literal id="Literal_author_target" runat="server"></ASP:Literal></td>
                                 <td></td>
                               </tr>
-                              <tr id="TableRow_reply_to" runat="server" visible="false">
+                              <tr id="TableRow_reply_to" runat="server">
                                 <td>Reply-to:</td>
                                 <td>
                                   <asp:RadioButtonList ID="RadioButtonList_reply_to" runat="server" RepeatDirection="Horizontal">

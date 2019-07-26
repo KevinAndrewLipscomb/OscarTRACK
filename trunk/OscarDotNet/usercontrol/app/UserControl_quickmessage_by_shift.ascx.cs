@@ -217,7 +217,7 @@ namespace UserControl_quickmessage_by_shift
         p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
         //
         p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
-        p.user_target_sms = k.EMPTY; //p.biz_members.SmsTargetOf(member_id:p.user_member_id);
+        p.user_target_sms = p.biz_members.SmsTargetOf(member_id:p.user_member_id);
         }
       }
 
