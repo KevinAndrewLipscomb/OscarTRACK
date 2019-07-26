@@ -2230,6 +2230,22 @@ namespace Class_db_members
       (summary as member_summary).be_on_squad_truck_team = be_on_squad_truck_team;
       }
 
+    internal string SmsTargetOf(string member_id)
+      {
+      Open();
+      var sms_target_of_obj = new MySqlCommand
+        (
+        "select concat(phone_num,'@',hostname)"
+        + " from member"
+        +   " join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where member.id = '" + member_id + "'",
+        connection
+        )
+        .ExecuteScalar();
+      Close();
+      return (sms_target_of_obj == null ? k.EMPTY : sms_target_of_obj.ToString());
+      }
+
         public object Summary
           (
           string member_id,

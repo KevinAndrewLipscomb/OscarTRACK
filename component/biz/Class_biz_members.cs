@@ -966,6 +966,11 @@ namespace Class_biz_members
       biz_notifications.IssueForSquadTruckTeamQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_on_squad_truck_team);
       }
 
+    internal string SmsTargetOf(string member_id)
+      {
+      return db_members.SmsTargetOf(member_id);
+      }
+
         public object Summary
           (
           string member_id,
