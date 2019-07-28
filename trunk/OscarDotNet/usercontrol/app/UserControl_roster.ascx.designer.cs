@@ -265,13 +265,85 @@ namespace UserControl_roster {
         protected global::System.Web.UI.HtmlControls.HtmlTable Table_quick_message;
         
         /// <summary>
-        /// Label_author_email_address control.
+        /// RadioButtonList_quick_message_mode control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label_author_email_address;
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_quick_message_mode;
+        
+        /// <summary>
+        /// RequiredFieldValidator_quick_message_mode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_quick_message_mode;
+        
+        /// <summary>
+        /// Literal_quick_message_kind_email control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_quick_message_kind_email;
+        
+        /// <summary>
+        /// Literal_quick_message_kind_sms control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_quick_message_kind_sms;
+        
+        /// <summary>
+        /// Literal_author_target control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_author_target;
+        
+        /// <summary>
+        /// TableRow_reply_to control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_reply_to;
+        
+        /// <summary>
+        /// RadioButtonList_reply_to control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_reply_to;
+        
+        /// <summary>
+        /// RequiredFieldValidator_reply_to control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_reply_to;
+        
+        /// <summary>
+        /// TableRow_subject control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableRow TableRow_subject;
         
         /// <summary>
         /// TextBox_quick_message_subject control.

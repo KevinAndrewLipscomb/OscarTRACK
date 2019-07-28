@@ -38,7 +38,8 @@ namespace UserControl_roster
             public TClass_biz_members biz_members;
             public TClass_biz_sections biz_sections;
             public TClass_biz_user biz_user;
-            public string distribution_list;
+            public string distribution_list_email;
+            public string distribution_list_sms;
             public bool do_hide_staff_filter;
             public Class_biz_enrollment.filter_type enrollment_filter;
             public Class_biz_leave.filter_type leave_filter;
@@ -56,6 +57,10 @@ namespace UserControl_roster
             public uint section_filter;
             public string sort_order;
             public ArrayList years_of_service_array_list;
+            public string user_member_id;
+            public string[] user_role_string_array;
+            public string user_target_email;
+            public string user_target_sms;
         } // end p_type
 
         protected void Page_Load(object sender, System.EventArgs e)
@@ -76,7 +81,7 @@ namespace UserControl_roster
                 CheckBox_phone_list.Checked = p.be_phone_list;
                 if (Session["mode:report"] == null)
                 {
-                    Label_author_email_address.Text = p.biz_user.EmailAddress();
+                    Literal_author_target.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.user_target_email : p.user_target_sms);
                     ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_member);
                     ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_download_distribution_list);
                 }
@@ -143,7 +148,8 @@ namespace UserControl_roster
                   }
                 p.be_sort_order_ascending = true;
                 p.enrollment_filter = Class_biz_enrollment.filter_type.CURRENT;
-                p.distribution_list = k.EMPTY;
+                p.distribution_list_email = k.EMPTY;
+                p.distribution_list_sms = k.EMPTY;
                 p.do_hide_staff_filter = false;
                 p.leave_filter = Class_biz_leave.filter_type.BOTH;
                 p.med_release_level_filter = Class_biz_medical_release_levels.filter_type.ALL;
@@ -160,7 +166,13 @@ namespace UserControl_roster
                 p.relative_month = 0;
                 p.running_only_filter = false;
                 p.sort_order = "last_name,first_name,cad_num";
+                p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+                p.user_role_string_array = p.biz_user.Roles();
                 p.years_of_service_array_list = new ArrayList();
+                //
+                p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
+                p.user_target_sms = p.biz_members.SmsTargetOf(member_id:p.user_member_id);
+                //
                 if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler") || (Session["mode:report/monthly-core-ops-roster"] != null))
                 {
                     p.enrollment_filter = Class_biz_enrollment.filter_type.CORE_OPS;
@@ -261,20 +273,45 @@ namespace UserControl_roster
 
         protected void Button_send_Click(object sender, System.EventArgs e)
         {
-            k.SmtpMailSend
-              (
-              from:ConfigurationManager.AppSettings["sender_email_address"],
-              to:p.biz_user.EmailAddress(),
-              subject:TextBox_quick_message_subject.Text,
-              message_string:"-- From " + p.biz_user.FullTitle() + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString()) + " (" + p.biz_user.EmailAddress() + ") [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE + k.NEW_LINE + TextBox_quick_message_body.Text,
-              be_html:false,
-              cc:k.EMPTY,
-              bcc:p.distribution_list,
-              reply_to:p.biz_user.EmailAddress()
-              );
-            TextBox_quick_message_subject.Text = k.EMPTY;
-            TextBox_quick_message_body.Text = k.EMPTY;
-            Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
+            var be_email_mode = (RadioButtonList_quick_message_mode.SelectedValue == "email");
+            var distribution_list = (be_email_mode ? p.distribution_list_email : p.distribution_list_sms);
+            if (distribution_list.Length > 0)
+              {
+              var attribution = k.EMPTY;
+              if (be_email_mode)
+                {
+                attribution += "-- From "
+                + p.user_role_string_array[0] + k.SPACE + p.biz_members.FirstNameOfMemberId(Session["member_id"].ToString()) + k.SPACE + p.biz_members.LastNameOfMemberId(Session["member_id"].ToString())
+                + " (" + p.biz_user.EmailAddress() + ")"
+                + " [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE
+                + k.NEW_LINE;
+                }
+              k.SmtpMailSend
+                (
+                from:ConfigurationManager.AppSettings["sender_email_address"],
+                to:distribution_list,
+                subject:TextBox_quick_message_subject.Text,
+                message_string:attribution + TextBox_quick_message_body.Text,
+                be_html:false,
+                cc:k.EMPTY,
+                bcc:p.biz_user.EmailAddress(),
+                reply_to:(RadioButtonList_reply_to.SelectedValue == "bouncer" ? ConfigurationManager.AppSettings["bouncer_email_address"] : (RadioButtonList_reply_to.SelectedValue == "email" ? p.user_target_email : p.user_target_sms))
+                );
+              TextBox_quick_message_subject.Text = k.EMPTY;
+              TextBox_quick_message_body.Text = k.EMPTY;
+              Alert(k.alert_cause_type.LOGIC, k.alert_state_type.NORMAL, "messagsnt", "Message sent", true);
+              }
+            else
+              {
+              Alert
+                (
+                cause:k.alert_cause_type.USER,
+                state:k.alert_state_type.FAILURE,
+                key:"noqmrecips",
+                value:"Message *NOT* sent.  No recipients are selected.",
+                be_using_scriptmanager:true
+                );
+              }
             // Apparently we must call RegisterPostBackControl on all the linkbuttons again.
             Bind();
 
@@ -393,7 +430,8 @@ namespace UserControl_roster
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text != "&nbsp;")
                 {
-                    p.distribution_list = p.distribution_list + e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text + k.COMMA_SPACE;
+                    p.distribution_list_email += e.Item.Cells[Class_db_members_Static.TCCI_EMAIL_ADDRESS].Text + k.COMMA_SPACE;
+                    p.distribution_list_sms += (e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text == "&nbsp;" ? k.EMPTY : e.Item.Cells[Class_db_members_Static.TCCI_SMS_TARGET].Text + k.COMMA_SPACE);
                 }
                 if (e.Item.Cells[Class_db_members_Static.TCCI_PHONE_NUM].Text != k.EMPTY)
                 {
@@ -444,7 +482,8 @@ namespace UserControl_roster
             R.Columns[Class_db_members_Static.TCCI_LEAVE].Visible = (p.leave_filter != Class_biz_leave.filter_type.OBLIGATED) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Visible = !(p.enrollment_filter == Class_biz_enrollment.filter_type.ADMIN) && (!p.be_transferee_report);
             R.Columns[Class_db_members_Static.TCCI_PHONE_NUM].Visible = p.be_phone_list || p.be_reporting_personnel_in_pipeline;
-            p.distribution_list = k.EMPTY;
+            p.distribution_list_email = k.EMPTY;
+            p.distribution_list_sms = k.EMPTY;
             p.biz_members.BindRoster
               (
               member_id:Session["member_id"].ToString(),
@@ -485,8 +524,9 @@ namespace UserControl_roster
             TableRow_none.Visible = p.be_datagrid_empty;
             TableRow_data.Visible = !p.be_datagrid_empty;
             Table_quick_message.Visible = k.Has((string[])(Session["privilege_array"]), "send-quickmessages") && !p.be_datagrid_empty && !p.be_phone_list;
-            p.distribution_list = (p.distribution_list + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
-            Label_distribution_list.Text = p.distribution_list;
+            p.distribution_list_email = (p.distribution_list_email + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+            p.distribution_list_sms = (p.distribution_list_sms + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+            Label_distribution_list.Text = (RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms);
             // Clear aggregation vars for next bind, if any.
             p.num_cooked_shifts = 0;
             p.num_core_ops_members = 0;
@@ -499,8 +539,35 @@ namespace UserControl_roster
                 ScriptManager.GetCurrent(Page).RegisterPostBackControl(LinkButton_add_member);
                 ScriptManager.GetCurrent(Page).RegisterPostBackControl(Button_download_distribution_list);
             }
-
+          //
         }
+
+    protected void RadioButtonList_quick_message_mode_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      if (RadioButtonList_quick_message_mode.SelectedValue == "email")
+        {
+        Literal_quick_message_kind_email.Visible = true;
+        Literal_quick_message_kind_sms.Visible = false;
+        Literal_author_target.Text = p.user_target_email;
+        RadioButtonList_reply_to.SelectedValue = "email";
+        TableRow_subject.Visible = true;
+        TextBox_quick_message_body.Columns = 72;
+        TextBox_quick_message_body.Rows = 18;
+        Label_distribution_list.Text = p.distribution_list_email;
+        }
+      else
+        {
+        Literal_quick_message_kind_email.Visible = false;
+        Literal_quick_message_kind_sms.Visible = true;
+        Literal_author_target.Text = p.user_target_sms;
+        RadioButtonList_reply_to.SelectedValue = "phone";
+        TableRow_subject.Visible = false;
+        TextBox_quick_message_body.Columns = 40;
+        TextBox_quick_message_body.Rows = 4;
+        Label_distribution_list.Text = p.distribution_list_sms;
+        }
+      Bind();
+      }
 
         public TWebUserControl_roster Fresh()
         {
@@ -536,7 +603,7 @@ namespace UserControl_roster
         (
         the_page:Page,
         filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "_filtered_QuickMessage_targets_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm_ss_fffffff"),
-        csv_string:p.distribution_list.Replace(k.COMMA_SPACE,k.NEW_LINE)
+        csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).Replace(k.COMMA_SPACE,k.NEW_LINE)
         );
       }
 

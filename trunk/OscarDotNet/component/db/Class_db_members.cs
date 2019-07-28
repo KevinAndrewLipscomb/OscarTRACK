@@ -35,6 +35,7 @@ namespace Class_db_members
         public const int TCCI_OBLIGED_SHIFTS = 15;
         public const int TCCI_EMAIL_ADDRESS = 16;
         public const int TCCI_PHONE_NUM = 17;
+        public const int TCCI_SMS_TARGET = 18;
         public static string CrewShiftsForecastMetricFromWhereClause(string relative_month)
           {
           return k.EMPTY
@@ -1166,6 +1167,7 @@ namespace Class_db_members
       + " , " + obliged_shifts_selection_clause + " as obliged_shifts" 
       + " , email_address" 
       + " , phone_num" 
+      + " , IFNULL(concat(phone_num,'@',sms_gateway.hostname),'') as sms_target"
       + " from member" 
       +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" 
       +   " join enrollment_history on" 
@@ -1199,6 +1201,7 @@ namespace Class_db_members
       +     " )" 
       +   " left join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)" 
       +   " join agency on (agency.id=member.agency_id)" 
+      +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
       + filter 
       + " order by " + sort_order;
       Open();

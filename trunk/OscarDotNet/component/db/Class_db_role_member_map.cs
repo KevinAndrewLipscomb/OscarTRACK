@@ -114,10 +114,12 @@ namespace Class_db_role_member_map
         "select concat(last_name,', ',first_name) as member_name"
         + " , short_designator as agency_designator"
         + " , email_address"
+        + " , IFNULL(concat(phone_num,'@',sms_gateway.hostname),'') as sms_target"
         + " from role_member_map"
         +   " join member on (member.id=role_member_map.member_id)"
         +   " join agency on (agency.id=member.agency_id)"
         +   " join role on (role.id=role_member_map.role_id)"
+        +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
         + " where role.name = '" + role_name + "'"
         +   (agency_filter.Length > 0 ? " and agency.id = '" + agency_filter + "'" : k.EMPTY)
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ?  " asc" : " desc")),
@@ -342,6 +344,7 @@ namespace Class_db_role_member_map.Units
     public const int CI_MEMBER_NAME = 1;
     public const int CI_FIRST_CROSSTAB = 2;
     public const int ROLE_HOLDER_EMAIL_ADDRESS_CI = 2;
+    public const int ROLE_HOLDER_SMS_TARGET_CI = 3;
     }
   }
 
