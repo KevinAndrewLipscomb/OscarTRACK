@@ -95,7 +95,7 @@ namespace Class_db_schedule_assignments
       +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
       +   " join shift on (shift.id=schedule_assignment.shift_id)"
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
-      +   " join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+      +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
       + " where TRUE"
       +   (depth_filter.Length > 0 ? " and" + (depth_filter == "0" ? " not" : k.EMPTY) + " be_selected" : k.EMPTY)
       +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
@@ -999,7 +999,7 @@ namespace Class_db_schedule_assignments
         + CommonBindBaseDataListByShiftSelectClause(first_name_clause:"first_name")
         + " , be_selected"
         + " , email_address as email_target"
-        + " , concat(phone_num,'@',sms_gateway.hostname) as sms_target"
+        + " , IFNULL(concat(phone_num,'@',sms_gateway.hostname),'') as sms_target"
         + CommonBindBaseDataListByShiftFromWhereOrderByClause
             (
             relative_month:relative_month,
