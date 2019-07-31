@@ -39,7 +39,7 @@ namespace UserControl_schedule_assignments_audit
       public TClass_biz_members biz_members;
       public TClass_biz_user biz_user;
       public bool do_limit_to_compliant;
-      public bool do_limit_to_negative_balance_hours;
+      public string max_balance_hours_filter;
       public k.int_nonnegative num_members;
       public k.subtype<int> relative_month;
       public string release_filter;
@@ -174,7 +174,7 @@ namespace UserControl_schedule_assignments_audit
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
         p.do_limit_to_compliant = false;
-        p.do_limit_to_negative_balance_hours = false;
+        p.max_balance_hours_filter = k.EMPTY;
         p.num_members = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
@@ -260,7 +260,7 @@ namespace UserControl_schedule_assignments_audit
         agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()),
         release_filter:p.release_filter,
         do_limit_to_compliant:p.do_limit_to_compliant,
-        do_limit_to_negative_balance_hours:p.do_limit_to_negative_balance_hours
+        max_balance_hours_filter:p.max_balance_hours_filter
         );
       p.be_datagrid_empty = (p.num_members.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -292,12 +292,6 @@ namespace UserControl_schedule_assignments_audit
       Bind();
       }
 
-    protected void CheckBox_do_limit_to_negative_balance_hours_CheckedChanged(object sender, EventArgs e)
-      {
-      p.do_limit_to_negative_balance_hours = CheckBox_do_limit_to_ngative_balance_hours.Checked;
-      Bind();
-      }
-
     protected void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
       {
       if (e.SortExpression == p.sort_order)
@@ -313,6 +307,11 @@ namespace UserControl_schedule_assignments_audit
       Bind();
       }
 
+    protected void DropDownList_max_balance_hours_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.max_balance_hours_filter = k.Safe(DropDownList_max_balance_hours.SelectedValue,k.safe_hint_type.HYPHENATED_NUM);
+      Bind();
+      }
     } // end TWebUserControl_schedule_assignments_audit
 
   }
