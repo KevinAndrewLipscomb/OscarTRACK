@@ -29,10 +29,10 @@
         </tr>
         <tr>
           <td bgcolor="#dcdcdc">
-            <table cellspacing="0" cellpadding="0" border="0">
+            <table cellspacing="0" cellpadding="10" border="0" width="1%">
               <tr>
-                <td><b>Filter:</b></td>
-                <td>
+                <td><b>Filters:</b></td>
+                <td nowrap="nowrap">
                   <small>
                     <asp:RadioButtonList ID="RadioButtonList_relative_month" runat="server" AutoPostBack="True" onselectedindexchanged="RadioButtonList_relative_month_SelectedIndexChanged">
                       <asp:ListItem Selected="True" Value="0">This month</asp:ListItem>
@@ -40,49 +40,65 @@
                     </asp:RadioButtonList>
                   </small>
                 </td>
+                <td align="center" nowrap="nowrap">
+                  <small>Release level</small><br/>
+                  <ASP:DropDownList id="DropDownList_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_release_filter_SelectedIndexChanged">
+                    <ASP:ListItem value="" selected="True">All</ASP:ListItem>
+                    <ASP:ListItem value="1">Released</ASP:ListItem>
+                    <ASP:ListItem value="0">Not released</ASP:ListItem>
+                  </ASP:DropDownList>
+   							</td>
+                <td nowrap="nowrap">
+                  <small>
+                    <asp:CheckBox ID="CheckBox_do_limit_to_compliant" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_compliant_CheckedChanged" Text="Compliant only" />
+                    <br />
+                    <asp:CheckBox ID="CheckBox_do_limit_to_ngative_balance_hours" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_negative_balance_hours_CheckedChanged" Text="Negative balance hours only" />
+                  </small>
+                </td>
               </tr>
             </table>
           </td>
+          <td><asp:Button ID="Button_randomize" runat="server" Text="Randomize" OnClick="Button_randomize_Click" /></td>
         </tr>
         <tr id="TableRow_none" runat="server"><td><em>--&nbsp;NONE&nbsp;--</em></td></tr>
         <tr>
           <td>
-            <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False">
+            <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="10" autogeneratecolumns="False" AllowSorting="True" OnSortCommand="DataGrid_control_SortCommand">
               <Columns>
-                <asp:BoundColumn datafield="agency" HeaderText="Agency">
+                <asp:BoundColumn datafield="agency" HeaderText="Agency" SortExpression="member.agency_id%, be_released desc, last_name, first_name, cad_num">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="name" headertext="Name"></asp:BoundColumn>
-                <asp:BoundColumn datafield="cad_num" headertext="CAD #">
+                <asp:BoundColumn datafield="name" headertext="Name" SortExpression="last_name%, first_name, cad_num"></asp:BoundColumn>
+                <asp:BoundColumn datafield="cad_num" headertext="CAD #" SortExpression="cad_num%">
                   <HeaderStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="be_released" headertext="Released?">
+                <asp:BoundColumn datafield="be_released" headertext="Released?" SortExpression="be_released%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="enrollment_level" headertext="Membership status">
+                <asp:BoundColumn datafield="enrollment_level" headertext="Membership status" SortExpression="enrollment_level.pecking_order%, be_released desc, member.agency_id, last_name, first_name, cad_num">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="be_on_squad_truck_team" HeaderText="SQTM?">
+                <asp:BoundColumn datafield="be_on_squad_truck_team" HeaderText="SQTM?" visible="false" SortExpression="be_on_squad_truck_team%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="obligation" headertext="Obliged hours">
+                <asp:BoundColumn datafield="obligation" headertext="Obliged hours" SortExpression="obligation%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="be_compliant" headertext="Compliant?">
+                <asp:BoundColumn datafield="be_compliant" headertext="Compliant?" SortExpression="be_compliant%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_avails" headertext="Available hours">
+                <asp:BoundColumn datafield="num_avails" headertext="Available hours" SortExpression="num_avails%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours">
+                <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours" SortExpression="num_assignments%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="balance" headertext="Balance hours">
+                <asp:BoundColumn datafield="balance" headertext="Balance hours" SortExpression="balance%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours">
+                <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours" SortExpression="num_ambulance_hours%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
               </Columns>

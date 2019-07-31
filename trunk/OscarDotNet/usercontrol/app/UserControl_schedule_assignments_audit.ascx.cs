@@ -38,8 +38,11 @@ namespace UserControl_schedule_assignments_audit
       public bool be_user_privileged_to_see_all_squads;
       public TClass_biz_members biz_members;
       public TClass_biz_user biz_user;
+      public bool do_limit_to_compliant;
+      public bool do_limit_to_negative_balance_hours;
       public k.int_nonnegative num_members;
       public k.subtype<int> relative_month;
+      public string release_filter;
       public string sort_order;
       }
 
@@ -170,9 +173,12 @@ namespace UserControl_schedule_assignments_audit
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.do_limit_to_compliant = false;
+        p.do_limit_to_negative_balance_hours = false;
         p.num_members = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
-        p.sort_order = k.EMPTY;
+        p.release_filter = k.EMPTY;
+        p.sort_order = "member.agency_id, be_released desc, last_name, first_name, cad_num";
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         }
       }
@@ -217,7 +223,7 @@ namespace UserControl_schedule_assignments_audit
             {
             cell.EnableViewState = false;
             }
-          //e.Item.Cells[Static.TCI_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_CAD_NUM].EnableViewState = true;
           //
           p.num_members.val++;
           }
@@ -251,7 +257,10 @@ namespace UserControl_schedule_assignments_audit
         be_sort_ascending:p.be_sort_order_ascending,
         target:DataGrid_control,
         relative_month:p.relative_month,
-        agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString())
+        agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()),
+        release_filter:p.release_filter,
+        do_limit_to_compliant:p.do_limit_to_compliant,
+        do_limit_to_negative_balance_hours:p.do_limit_to_negative_balance_hours
         );
       p.be_datagrid_empty = (p.num_members.val == 0);
       TableRow_none.Visible = p.be_datagrid_empty;
@@ -262,6 +271,45 @@ namespace UserControl_schedule_assignments_audit
     protected void RadioButtonList_relative_month_SelectedIndexChanged(object sender, EventArgs e)
       {
       p.relative_month.val = int.Parse(k.Safe(RadioButtonList_relative_month.SelectedValue,k.safe_hint_type.NUM));
+      Bind();
+      }
+
+    protected void Button_randomize_Click(object sender, EventArgs e)
+      {
+      p.sort_order = "RAND()";
+      Bind();
+      }
+
+    protected void DropDownList_release_filter_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      p.release_filter = k.Safe(DropDownList_release_filter.SelectedValue,k.safe_hint_type.NUM);
+      Bind();
+      }
+
+    protected void CheckBox_do_limit_to_compliant_CheckedChanged(object sender, EventArgs e)
+      {
+      p.do_limit_to_compliant = CheckBox_do_limit_to_compliant.Checked;
+      Bind();
+      }
+
+    protected void CheckBox_do_limit_to_negative_balance_hours_CheckedChanged(object sender, EventArgs e)
+      {
+      p.do_limit_to_negative_balance_hours = CheckBox_do_limit_to_ngative_balance_hours.Checked;
+      Bind();
+      }
+
+    protected void DataGrid_control_SortCommand(object source, DataGridSortCommandEventArgs e)
+      {
+      if (e.SortExpression == p.sort_order)
+        {
+        p.be_sort_order_ascending = !p.be_sort_order_ascending;
+        }
+      else
+        {
+        p.sort_order = k.Safe(e.SortExpression, k.safe_hint_type.KI_SORT_EXPRESSION);
+        p.be_sort_order_ascending = true;
+        }
+      DataGrid_control.EditItemIndex =  -1;
       Bind();
       }
 

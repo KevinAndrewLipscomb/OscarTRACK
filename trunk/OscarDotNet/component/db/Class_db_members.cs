@@ -1216,7 +1216,10 @@ namespace Class_db_members
       bool be_sort_ascending,
       object target,
       k.subtype<int> relative_month,
-      string agency_filter
+      string agency_filter,
+      string release_filter,
+      bool do_limit_to_compliant,
+      bool do_limit_to_negative_balance_hours
       )
       {
       Open();
@@ -1284,9 +1287,12 @@ namespace Class_db_members
         +     " )"
         +   " and"
         +     " (agency.id " + (agency_filter == k.EMPTY ? "<> 0" : "= '" + agency_filter + "'") + ")"
+        +     (release_filter.Length > 0 ? " and (medical_release_code_description_map.pecking_order " + (release_filter == "1" ? ">=" : "<") + " 20)" : k.EMPTY)
+        +     (do_limit_to_compliant ? " and ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','College','Atypical'),FALSE,NULL))" : k.EMPTY)
         +   " )"
         + " group by member.id"
-        + " order by member.agency_id,be_released desc,last_name,first_name,cad_num",
+        +   (do_limit_to_negative_balance_hours ? " HAVING balance < 0" : k.EMPTY)
+        + " order by " + sort_order.Replace("%",(be_sort_ascending ? " asc" : " desc")),
         connection
         )
         .ExecuteReader();
