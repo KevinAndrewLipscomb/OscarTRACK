@@ -49,11 +49,18 @@
                   </ASP:DropDownList>
    							</td>
                 <td nowrap="nowrap">
-                  <small>
-                    <asp:CheckBox ID="CheckBox_do_limit_to_compliant" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_compliant_CheckedChanged" Text="Compliant only" />
-                    <br />
-                    <asp:CheckBox ID="CheckBox_do_limit_to_ngative_balance_hours" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_negative_balance_hours_CheckedChanged" Text="Negative balance hours only" />
-                  </small>
+                  <small><asp:CheckBox ID="CheckBox_do_limit_to_compliant" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_compliant_CheckedChanged" Text="Compliant only" /></small>
+                </td>
+                <td align="center" nowrap="nowrap">
+                  <small>Balance hours</small><br />
+                  <asp:DropDownList ID="DropDownList_max_balance_hours" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_max_balance_hours_SelectedIndexChanged">
+                    <asp:ListItem Value="" Selected="True">Any</asp:ListItem>
+                    <asp:ListItem Value="0">&lt;0</asp:ListItem>
+                    <asp:ListItem Value="-4">&lt;-4</asp:ListItem>
+                    <asp:ListItem Value="-16">&lt;-16</asp:ListItem>
+                    <asp:ListItem Value="-28">&lt;-28</asp:ListItem>
+                    <asp:ListItem Value="-40">&lt;-40</asp:ListItem>
+                  </asp:DropDownList>
                 </td>
               </tr>
             </table>
@@ -95,7 +102,7 @@
                 <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours" SortExpression="num_assignments%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="balance" headertext="Balance hours" SortExpression="balance%, member.agency_id, be_released desc, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="balance" headertext="Balance hours" SortExpression="CAST(balance AS DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
                 <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours" SortExpression="num_ambulance_hours%, member.agency_id, be_released desc, last_name, first_name, cad_num">

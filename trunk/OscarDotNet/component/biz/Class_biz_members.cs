@@ -397,10 +397,10 @@ namespace Class_biz_members
       string agency_filter,
       string release_filter,
       bool do_limit_to_compliant,
-      bool do_limit_to_negative_balance_hours
+      string max_balance_hours_filter
       )
       {
-      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month,agency_filter,release_filter,do_limit_to_compliant,do_limit_to_negative_balance_hours);
+      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month,agency_filter,release_filter,do_limit_to_compliant,max_balance_hours_filter);
       }
 
         public void BindSpecialForRankedLengthOfService(object target)

@@ -40,13 +40,13 @@ namespace UserControl_schedule_assignments_audit {
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_do_limit_to_compliant;
         
         /// <summary>
-        /// CheckBox_do_limit_to_ngative_balance_hours control.
+        /// DropDownList_max_balance_hours control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.CheckBox CheckBox_do_limit_to_ngative_balance_hours;
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList_max_balance_hours;
         
         /// <summary>
         /// Button_randomize control.

@@ -1219,7 +1219,7 @@ namespace Class_db_members
       string agency_filter,
       string release_filter,
       bool do_limit_to_compliant,
-      bool do_limit_to_negative_balance_hours
+      string max_balance_hours_filter
       )
       {
       Open();
@@ -1291,7 +1291,7 @@ namespace Class_db_members
         +     (do_limit_to_compliant ? " and ((condensed_schedule_assignment.member_id is not null) or IF(enrollment_level.description not in ('Staff','College','Atypical'),FALSE,NULL))" : k.EMPTY)
         +   " )"
         + " group by member.id"
-        +   (do_limit_to_negative_balance_hours ? " HAVING balance < 0" : k.EMPTY)
+        +   (max_balance_hours_filter.Length > 0 ? " HAVING balance < " + max_balance_hours_filter : k.EMPTY)
         + " order by " + sort_order.Replace("%",(be_sort_ascending ? " asc" : " desc")),
         connection
         )
