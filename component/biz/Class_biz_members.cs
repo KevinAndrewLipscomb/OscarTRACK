@@ -394,10 +394,13 @@ namespace Class_biz_members
       bool be_sort_ascending,
       object target,
       k.subtype<int> relative_month,
-      string agency_filter
+      string agency_filter,
+      string release_filter,
+      bool do_limit_to_compliant,
+      bool do_limit_to_negative_balance_hours
       )
       {
-      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month,agency_filter);
+      db_members.BindScheduleAssignmentsAuditBaseDataList(sort_order,be_sort_ascending,target,relative_month,agency_filter,release_filter,do_limit_to_compliant,do_limit_to_negative_balance_hours);
       }
 
         public void BindSpecialForRankedLengthOfService(object target)
