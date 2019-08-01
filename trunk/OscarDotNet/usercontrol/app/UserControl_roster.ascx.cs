@@ -141,6 +141,10 @@ namespace UserControl_roster
                 if (Session["mode:report"] == null)
                   {
                   p.agency_filter = (p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()));
+                  p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+                  p.user_role_string_array = p.biz_user.Roles();
+                  p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
+                  p.user_target_sms = p.biz_members.SmsTargetOf(member_id:p.user_member_id);
                   }
                 else
                   {
@@ -166,12 +170,7 @@ namespace UserControl_roster
                 p.relative_month = 0;
                 p.running_only_filter = false;
                 p.sort_order = "last_name,first_name,cad_num";
-                p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
-                p.user_role_string_array = p.biz_user.Roles();
                 p.years_of_service_array_list = new ArrayList();
-                //
-                p.user_target_email = p.biz_members.EmailAddressOf(member_id:p.user_member_id);
-                p.user_target_sms = p.biz_members.SmsTargetOf(member_id:p.user_member_id);
                 //
                 if (HttpContext.Current.User.IsInRole("Squad Scheduler") || HttpContext.Current.User.IsInRole("Department Scheduler") || (Session["mode:report/monthly-core-ops-roster"] != null))
                 {
