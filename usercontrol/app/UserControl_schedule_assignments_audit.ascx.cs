@@ -39,6 +39,7 @@ namespace UserControl_schedule_assignments_audit
       public TClass_biz_members biz_members;
       public TClass_biz_user biz_user;
       public bool do_limit_to_compliant;
+      public bool do_limit_to_unused_availability;
       public string max_balance_hours_filter;
       public k.int_nonnegative num_members;
       public k.subtype<int> relative_month;
@@ -174,6 +175,7 @@ namespace UserControl_schedule_assignments_audit
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
         p.do_limit_to_compliant = false;
+        p.do_limit_to_unused_availability = false;
         p.max_balance_hours_filter = k.EMPTY;
         p.num_members = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
@@ -260,6 +262,7 @@ namespace UserControl_schedule_assignments_audit
         agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()),
         release_filter:p.release_filter,
         do_limit_to_compliant:p.do_limit_to_compliant,
+        do_limit_to_unused_availability:p.do_limit_to_unused_availability,
         max_balance_hours_filter:p.max_balance_hours_filter
         );
       p.be_datagrid_empty = (p.num_members.val == 0);
@@ -289,6 +292,11 @@ namespace UserControl_schedule_assignments_audit
     protected void CheckBox_do_limit_to_compliant_CheckedChanged(object sender, EventArgs e)
       {
       p.do_limit_to_compliant = CheckBox_do_limit_to_compliant.Checked;
+      CheckBox_do_limit_to_unused_availability.Enabled = p.do_limit_to_compliant;
+      if (!p.do_limit_to_compliant)
+        {
+        CheckBox_do_limit_to_unused_availability.Checked = false;
+        }
       Bind();
       }
 
@@ -312,6 +320,13 @@ namespace UserControl_schedule_assignments_audit
       p.max_balance_hours_filter = k.Safe(DropDownList_max_balance_hours.SelectedValue,k.safe_hint_type.HYPHENATED_NUM);
       Bind();
       }
+
+    protected void CheckBox_do_limit_to_unused_availability_CheckedChanged(object sender, EventArgs e)
+      {
+      p.do_limit_to_unused_availability = CheckBox_do_limit_to_unused_availability.Checked;
+      Bind();
+      }
+
     } // end TWebUserControl_schedule_assignments_audit
 
   }

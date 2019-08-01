@@ -49,7 +49,11 @@
                   </ASP:DropDownList>
    							</td>
                 <td nowrap="nowrap">
-                  <small><asp:CheckBox ID="CheckBox_do_limit_to_compliant" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_compliant_CheckedChanged" Text="Compliant only" /></small>
+                  <small>
+                    <asp:CheckBox ID="CheckBox_do_limit_to_compliant" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_compliant_CheckedChanged" Text="Compliant only" />
+                    <br />
+                    <asp:CheckBox ID="CheckBox_do_limit_to_unused_availability" runat="server" AutoPostBack="True" OnCheckedChanged="CheckBox_do_limit_to_unused_availability_CheckedChanged" Text="Unused availability only"  enabled="false"/>
+                  </small>
                 </td>
                 <td align="center" nowrap="nowrap">
                   <small>Balance hours</small><br />
