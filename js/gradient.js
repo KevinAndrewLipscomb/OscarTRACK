@@ -35,12 +35,12 @@ function createGradient() {
 		params = objArray[i].className.split(" ");
 		if(document.all && !window.opera) {
 			objArray[i].style.width = objArray[i].offsetWidth + "px";
-			params[3] == "horizontal"?gType = 1:gType = 0;
+			params[3] === "horizontal"?gType = 1:gType = 0;
 			objArray[i].style.filter = "progid:DXImageTransform.Microsoft.Gradient(GradientType="+gType+",StartColorStr=\"#" + params[1] + "\",EndColorStr=\"#" + params[2] + "\")";
 	} else {
 			colorArray = createColorPath(params[1],params[2]);
 			x=0;y=0;
-			if(params[3] == "horizontal") {
+			if(params[3] === "horizontal") {
 				w=Math.round(objArray[i].offsetWidth/colorArray.length);
 				if(!w)w=1;
 				h = objArray[i].offsetHeight;
@@ -54,7 +54,7 @@ function createGradient() {
 			for(p=0;p<colorArray.length;p++) {
 				g = document.createElement("div");
 				g.setAttribute("style","position:absolute;z-index:0;top:" + y + "px;left:" + x + "px;height:" + h + "px;width:" + w + "px;background-color:rgb(" + colorArray[p][0] + "," + colorArray[p][1] + "," + colorArray[p][2] + ");");
-				params[3] == "horizontal"?x+=w:y+=h;
+				params[3] === "horizontal"?x+=w:y+=h;
 				tmpDOM.appendChild(g);
 				if(y>=objArray[i].offsetHeight || x >= objArray[i].offsetWidth) break;
 			}
@@ -69,7 +69,7 @@ function getGradientObjects() {
 	objs = new Array();
 	for(i=0;i<a.length;i++) {
 		c = a[i].className;
-		if(c != "") if(c.indexOf("gradient") == 0) objs[objs.length] = a[i];
+		if(c !== "") if(c.indexOf("gradient") === 0) objs[objs.length] = a[i];
 	} 
 	return objs;
 }
@@ -100,7 +100,7 @@ function toDec(hex) {
 	
 function makeGrandParent(obj) {
 	disp = document.defaultView.getComputedStyle(obj,'').display;
-	disp == "block"?nSpan = document.createElement("div"):	nSpan = document.createElement("span");
+	disp === "block"?nSpan = document.createElement("div"):	nSpan = document.createElement("span");
 	mHTML = obj.innerHTML;
 	obj.innerHTML = "";
 	nSpan.innerHTML = mHTML;

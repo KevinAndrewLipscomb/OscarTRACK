@@ -180,7 +180,7 @@ namespace UserControl_schedule_assignments_audit
         p.num_members = new k.int_nonnegative();
         p.relative_month = new k.subtype<int>(0,1);
         p.release_filter = k.EMPTY;
-        p.sort_order = "member.agency_id, be_released desc, last_name, first_name, cad_num";
+        p.sort_order = "agency, be_released desc, last_name, first_name, cad_num";
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         }
       }
