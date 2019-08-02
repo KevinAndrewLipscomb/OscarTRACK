@@ -94,22 +94,22 @@
                 <asp:BoundColumn datafield="be_on_squad_truck_team" HeaderText="SQTM?" visible="false" SortExpression="be_on_squad_truck_team%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="obligation" headertext="Obliged hours" SortExpression="obligation%, member.agency_id, be_released desc, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="obligation" headertext="Obliged hours" SortExpression="CAST(obligation as DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn datafield="be_compliant" headertext="Compliant?" SortExpression="be_compliant%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_avails" headertext="Available hours" SortExpression="num_avails%, member.agency_id, be_released desc, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="num_avails" headertext="Available hours" SortExpression="CAST(num_avails AS DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours" SortExpression="num_assignments%, member.agency_id, be_released desc, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="num_assignments" headertext="Assigned hours" SortExpression="CAST(num_assignments AS DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
                 <asp:BoundColumn datafield="balance" headertext="Balance hours" SortExpression="CAST(balance AS DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours" SortExpression="num_ambulance_hours%, member.agency_id, be_released desc, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="num_ambulance_hours" headertext="Ambulance hours" SortExpression="CAST(num_ambulance_hours AS DECIMAL)%, member.agency_id, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Right" />
                 </asp:BoundColumn>
               </Columns>
