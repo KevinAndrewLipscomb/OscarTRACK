@@ -85,7 +85,8 @@ namespace Class_db_schedule_assignments
       string nominal_day_filter,
       string shift_name,
       string agency_filter,
-      string depth_filter
+      string depth_filter,
+      string release_condition_clause = k.EMPTY
       )
       {
       return k.EMPTY
@@ -97,11 +98,12 @@ namespace Class_db_schedule_assignments
       +   " left join challenge_analysis using (nominal_day,shift_id,post_id,post_cardinality)"
       +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
       + " where TRUE"
-      +   (depth_filter.Length > 0 ? " and" + (depth_filter == "0" ? " not" : k.EMPTY) + " be_selected" : k.EMPTY)
+      +     (depth_filter.Length > 0 ? " and" + (depth_filter == "0" ? " not" : k.EMPTY) + " be_selected" : k.EMPTY)
       +   " and MONTH(schedule_assignment.nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
       +   " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'"
       +   " and shift.name = '" + shift_name + "'"
-      +   (agency_filter.Length > 0 ? " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))" : k.EMPTY)
+      +     (agency_filter.Length > 0 ? " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))" : k.EMPTY)
+      +     release_condition_clause
       + " order by post_id"
       + " , be_selected desc"
       + " , post_cardinality"
@@ -975,9 +977,19 @@ namespace Class_db_schedule_assignments
       string shift_name,
       string nominal_day_filter,
       string depth_filter,
-      object target
+      object target,
+      string release_filter = k.EMPTY
       )
       {
+      var release_condition_clause = k.EMPTY;
+      if (release_filter == "1")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order >= 20";
+        }
+      else if (release_filter == "0")
+        {
+        release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
+        }
       Open();
       (target as BaseDataList).DataSource = new MySqlCommand
         (
@@ -1006,7 +1018,8 @@ namespace Class_db_schedule_assignments
             nominal_day_filter:nominal_day_filter,
             shift_name:shift_name,
             agency_filter:agency_filter,
-            depth_filter:depth_filter
+            depth_filter:depth_filter,
+            release_condition_clause:release_condition_clause
             )
         + ";"
         + " drop temporary table challenge_analysis"

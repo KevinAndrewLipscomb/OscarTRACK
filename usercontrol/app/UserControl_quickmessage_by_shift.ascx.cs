@@ -312,7 +312,8 @@ namespace UserControl_quickmessage_by_shift
         shift_name:p.shift_name,
         nominal_day_filter:p.nominal_day_filter,
         depth_filter:p.depth_filter,
-        target:DataGrid_control
+        target:DataGrid_control,
+        release_filter:p.release_filter
         );
       p.be_datagrid_empty = (p.num_schedule_assignments == 0);
       TableRow_none.Visible = p.be_datagrid_empty;

@@ -411,10 +411,11 @@ namespace Class_biz_schedule_assignments
       string shift_name,
       string nominal_day_filter,
       string depth_filter,
-      object target
+      object target,
+      string release_filter = k.EMPTY
       )
       {
-      db_schedule_assignments.BindBaseDataListByShiftForQuickMessage(agency_filter,relative_month,shift_name,nominal_day_filter,depth_filter,target);
+      db_schedule_assignments.BindBaseDataListByShiftForQuickMessage(agency_filter,relative_month,shift_name,nominal_day_filter,depth_filter,target,release_filter);
       }
 
     internal void BindInsufficientDriversAlertBaseDataList
