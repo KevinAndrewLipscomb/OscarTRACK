@@ -137,6 +137,23 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.BeMemberSelectedDuringPeriod(member_id,period_start,period_end);
       }
 
+    internal bool BeOkToAllowMemberScheduleDetailControlMonthSwitch
+      (
+      bool be_interactive,
+      bool be_my_watchbill_mode,
+      string member_agency_id
+      )
+      {
+      return
+        (
+          be_interactive
+        &&
+          !BeFullWatchbillPublishMandatory(member_agency_id,new k.subtype<int>(1,1))
+        &&
+          BeOkToWorkOnNextMonthAssignments()
+        );
+    }
+
     internal bool BeOkToDefaultAgencyFilterToAll
       (
       bool be_user_privileged_to_see_all_squads,
