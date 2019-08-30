@@ -103,15 +103,11 @@ namespace UserControl_member_schedule_detail
         Literal_name.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
         Literal_name_2.Text = Literal_name.Text;
         Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
-        LinkButton_switch_month.Visible =
+        LinkButton_switch_month.Visible = p.biz_schedule_assignments.BeOkToAllowMemberScheduleDetailControlMonthSwitch
           (
-            p.be_interactive
-          &&
-            p.be_my_watchbill_mode
-          &&
-            !p.biz_schedule_assignments.BeFullWatchbillPublishMandatory(p.member_agency_id,new k.subtype<int>(1,1))
-          &&
-            p.biz_schedule_assignments.BeOkToWorkOnNextMonthAssignments()
+          be_interactive:p.be_interactive,
+          be_my_watchbill_mode:p.be_my_watchbill_mode,
+          member_agency_id:p.member_agency_id
           );
         //
         Literal_agency.Text = p.biz_members.AgencyOf(p.member_summary);
