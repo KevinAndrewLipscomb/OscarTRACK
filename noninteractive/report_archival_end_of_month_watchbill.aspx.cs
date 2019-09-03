@@ -99,7 +99,9 @@ namespace report_archival_end_of_month_watchbill
         + k.COMMA
         + p.biz_role_member_map.EmailTargetOf("Department Scheduler", "EMS")
         + k.COMMA
-        + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler", "EMS");
+        + p.biz_role_member_map.EmailTargetOf("Department Jump Seat Scheduler", "EMS")
+        + k.COMMA
+        + p.biz_role_member_map.EmailTargetOf("Department Schedule Auditor", "EMS");
         }
       else
         {
