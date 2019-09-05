@@ -126,6 +126,10 @@ namespace UserControl_ambulance_staffing_timeline_chart
           {
           p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S"); // Use parent UserControl_strength_chart values since we're static on the parent control.
           }
+        else if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_C_ambulance_staffing_timeline_chart_control")
+          {
+          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S"); // Use parent UserControl_strength_chart values since we're static on the parent control.
+          }
         }
       else
         {
@@ -134,7 +138,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
         p.agency_filter = k.EMPTY;
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
-        p.be_ok_to_analyze_balancing_opportunities = k.Has(Session["privilege_array"] as string[],"analyze-balancing-opportunities");
+        p.be_ok_to_analyze_balancing_opportunities = k.Has(Session["privilege_array"] as string[],"analyze-balancing-opportunities") && (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_S_T");
         p.be_sort_order_ascending = true;
         p.heavy_nominal_day = k.EMPTY;
         p.heavy_shift_name = k.EMPTY;

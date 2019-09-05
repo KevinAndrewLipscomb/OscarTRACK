@@ -13,15 +13,6 @@ namespace UserControl_strength_balancing_opportunities {
     public partial class TWebUserControl_strength_balancing_opportunities {
         
         /// <summary>
-        /// UpdatePanel_control control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.UpdatePanel UpdatePanel_control;
-        
-        /// <summary>
         /// RadioButton_dummy_heavy control.
         /// </summary>
         /// <remarks>
