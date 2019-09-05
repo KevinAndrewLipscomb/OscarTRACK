@@ -1,4 +1,5 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_ambulance_staffing_timeline_chart.ascx.cs" Inherits="UserControl_ambulance_staffing_timeline_chart.TWebUserControl_ambulance_staffing_timeline_chart"%>
+<%@ Register Src="~/usercontrol/app/UserControl_strength_balancing_opportunities.ascx" TagPrefix="uc1" TagName="UserControl_strength_balancing_opportunities" %>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~datagrid~sortable.ascx-template -->
 <asp:DataGrid id="DataGrid_control" runat="server" gridlines="Horizontal" cellpadding="2" autogeneratecolumns="False" Font-Size="Small">
   <Columns>
@@ -31,7 +32,31 @@
     <asp:BoundColumn datafield="d1030" HeaderText="&lt;br/&gt;1&lt;br/&gt;6&lt;br/&gt;3&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center"/></asp:BoundColumn>
     <asp:BoundColumn datafield="d1100" HeaderText="&lt;br/&gt;1&lt;br/&gt;7&lt;br/&gt;0&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center"/></asp:BoundColumn>
     <asp:BoundColumn datafield="d1130" HeaderText="&lt;br/&gt;1&lt;br/&gt;7&lt;br/&gt;3&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center" Font-Bold="true"/></asp:BoundColumn>
+    <asp:TemplateColumn Visible="false">
+      <ItemStyle BackColor="PaleGreen"/>
+      <ItemTemplate>
+        <asp:RadioButton ID="RadioButton_d_heavily_staffed" runat="server" AutoPostBack="True" OnCheckedChanged="RadioButton_heavily_staffed_CheckedChanged" nominal_day='<%# Eval("nominal_day","{0:yyyy-MM-dd}") %>' shift_name="DAY"/>
+      </ItemTemplate>
+    </asp:TemplateColumn>
+    <asp:TemplateColumn Visible="false">
+      <ItemStyle BackColor="LightSalmon"/>
+      <ItemTemplate>
+        <asp:RadioButton ID="RadioButton_d_short_staffed" runat="server" AutoPostBack="True" OnCheckedChanged="RadioButton_short_staffed_CheckedChanged" nominal_day='<%# Eval("nominal_day","{0:yyyy-MM-dd}") %>' shift_name="DAY"/>
+      </ItemTemplate>
+    </asp:TemplateColumn>
     <asp:TemplateColumn><HeaderStyle Width="5px"/></asp:TemplateColumn>
+    <asp:TemplateColumn Visible="false">
+      <ItemStyle BackColor="LightSalmon"/>
+      <ItemTemplate>
+        <asp:RadioButton ID="RadioButton_n_short_staffed" runat="server" AutoPostBack="True" OnCheckedChanged="RadioButton_short_staffed_CheckedChanged" nominal_day='<%# Eval("nominal_day","{0:yyyy-MM-dd}") %>' shift_name="NIGHT"/>
+      </ItemTemplate>
+    </asp:TemplateColumn>
+    <asp:TemplateColumn Visible="false">
+      <ItemStyle BackColor="PaleGreen"/>
+      <ItemTemplate>
+        <asp:RadioButton ID="RadioButton_n_heavily_staffed" runat="server" AutoPostBack="True" OnCheckedChanged="RadioButton_heavily_staffed_CheckedChanged" nominal_day='<%# Eval("nominal_day","{0:yyyy-MM-dd}") %>' shift_name="NIGHT"/>
+      </ItemTemplate>
+    </asp:TemplateColumn>
     <asp:BoundColumn datafield="n0000" HeaderText="&lt;br/&gt;1&lt;br/&gt;8&lt;br/&gt;0&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center" Font-Bold="true"/></asp:BoundColumn>
     <asp:BoundColumn datafield="n0030" HeaderText="&lt;br/&gt;1&lt;br/&gt;8&lt;br/&gt;3&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center"/></asp:BoundColumn>
     <asp:BoundColumn datafield="n0100" HeaderText="&lt;br/&gt;1&lt;br/&gt;9&lt;br/&gt;0&lt;br/&gt;0"><HeaderStyle HorizontalAlign="Center"/></asp:BoundColumn>
@@ -59,3 +84,7 @@
   </Columns>
   <HeaderStyle backcolor="WhiteSmoke"></HeaderStyle>
 </asp:DataGrid>
+<br/>
+<asp:Panel ID="Panel_balance_opportunities" runat="server" visible="false">
+  <center><uc1:UserControl_strength_balancing_opportunities runat="server" id="UserControl_strength_balancing_opportunities_control" /></center>
+</asp:Panel>

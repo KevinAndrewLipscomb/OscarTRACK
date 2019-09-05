@@ -297,6 +297,7 @@
     <Content Include="usercontrol\app\UserControl_sms_gateway.ascx" />
     <Content Include="usercontrol\app\UserControl_state.ascx" />
     <Content Include="usercontrol\app\UserControl_street.ascx" />
+    <Content Include="usercontrol\app\UserControl_strength_balancing_opportunities.ascx" />
     <Content Include="usercontrol\app\UserControl_strength_chart.ascx" />
     <Content Include="usercontrol\app\UserControl_tapout.ascx" />
     <Content Include="usercontrol\app\UserControl_tapouts.ascx" />
@@ -2202,6 +2203,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_street.ascx.designer.cs">
       <DependentUpon>UserControl_street.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_strength_balancing_opportunities.ascx.cs">
+      <DependentUpon>UserControl_strength_balancing_opportunities.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_strength_balancing_opportunities.ascx.designer.cs">
+      <DependentUpon>UserControl_strength_balancing_opportunities.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_strength_chart.ascx.cs">
       <DependentUpon>UserControl_strength_chart.ascx</DependentUpon>

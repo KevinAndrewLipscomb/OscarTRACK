@@ -4,7 +4,6 @@ using Class_biz_schedule_assignments;
 using Class_msg_protected;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.Drawing;
 using System.Web.UI;
@@ -42,40 +41,49 @@ namespace UserControl_ambulance_staffing_timeline_chart
       public const int TCI_D1030 = 23;
       public const int TCI_D1100 = 24;
       public const int TCI_D1130 = 25;
-      public const int TCI_SPACER_2 = 26;
-      public const int TCI_N0000 = 27;
-      public const int TCI_N0030 = 28;
-      public const int TCI_N0100 = 29;
-      public const int TCI_N0130 = 30;
-      public const int TCI_N0200 = 31;
-      public const int TCI_N0230 = 32;
-      public const int TCI_N0300 = 33;
-      public const int TCI_N0330 = 34;
-      public const int TCI_N0400 = 35;
-      public const int TCI_N0430 = 36;
-      public const int TCI_N0500 = 37;
-      public const int TCI_N0530 = 38;
-      public const int TCI_N0600 = 39;
-      public const int TCI_N0630 = 40;
-      public const int TCI_N0700 = 41;
-      public const int TCI_N0730 = 42;
-      public const int TCI_N0800 = 43;
-      public const int TCI_N0830 = 44;
-      public const int TCI_N0900 = 45;
-      public const int TCI_N0930 = 46;
-      public const int TCI_N1000 = 47;
-      public const int TCI_N1030 = 48;
-      public const int TCI_N1100 = 49;
-      public const int TCI_N1130 = 50;
+      public const int TCI_D_HEAVILY_STAFFED = 26;
+      public const int TCI_D_SHORT_STAFFED = 27;
+      public const int TCI_SPACER_2 = 28;
+      public const int TCI_N_SHORT_STAFFED = 29;
+      public const int TCI_N_HEAVILY_STAFFED = 30;
+      public const int TCI_N0000 = 31;
+      public const int TCI_N0030 = 32;
+      public const int TCI_N0100 = 33;
+      public const int TCI_N0130 = 34;
+      public const int TCI_N0200 = 35;
+      public const int TCI_N0230 = 36;
+      public const int TCI_N0300 = 37;
+      public const int TCI_N0330 = 38;
+      public const int TCI_N0400 = 39;
+      public const int TCI_N0430 = 40;
+      public const int TCI_N0500 = 41;
+      public const int TCI_N0530 = 42;
+      public const int TCI_N0600 = 43;
+      public const int TCI_N0630 = 44;
+      public const int TCI_N0700 = 45;
+      public const int TCI_N0730 = 46;
+      public const int TCI_N0800 = 47;
+      public const int TCI_N0830 = 48;
+      public const int TCI_N0900 = 49;
+      public const int TCI_N0930 = 50;
+      public const int TCI_N1000 = 51;
+      public const int TCI_N1030 = 52;
+      public const int TCI_N1100 = 53;
+      public const int TCI_N1130 = 54;
       }
 
     private struct p_type
       {
       public string agency_filter;
+      public bool be_ok_to_analyze_balancing_opportunities;
       public bool be_interactive;
       public bool be_loaded;
       public bool be_sort_order_ascending;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public string heavy_nominal_day;
+      public string heavy_shift_name;
+      public string light_nominal_day;
+      public string light_shift_name;
       public string nominal_day_filter;
       public k.subtype<int> relative_month;
       public string sort_order;
@@ -87,7 +95,11 @@ namespace UserControl_ambulance_staffing_timeline_chart
       {
       if (!p.be_loaded)
         {
-        if (!p.be_interactive)
+        if (p.be_interactive)
+          {
+          Panel_balance_opportunities.Visible = p.be_ok_to_analyze_balancing_opportunities;
+          }
+        else
           {
           DataGrid_control.AllowSorting = false;
           }
@@ -122,7 +134,12 @@ namespace UserControl_ambulance_staffing_timeline_chart
         p.agency_filter = k.EMPTY;
         p.be_interactive = (Session["mode:report"] == null);
         p.be_loaded = false;
+        p.be_ok_to_analyze_balancing_opportunities = k.Has(Session["privilege_array"] as string[],"analyze-balancing-opportunities");
         p.be_sort_order_ascending = true;
+        p.heavy_nominal_day = k.EMPTY;
+        p.heavy_shift_name = k.EMPTY;
+        p.light_nominal_day = k.EMPTY;
+        p.light_shift_name = k.EMPTY;
         p.nominal_day_filter = k.EMPTY;
         p.relative_month = new k.subtype<int>(0,1);
         p.sort_order = k.EMPTY;
@@ -176,11 +193,11 @@ namespace UserControl_ambulance_staffing_timeline_chart
         //
         // Add indicators for PEAK and OFF-PEAK demand periods.
         //
-        for (var i = new k.subtype<int>(8,33); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_D0300,Static.TCI_N0300); i.val < i.LAST; i.val++) // 0900h-2030h -- peak
           {
           e.Item.Cells[i.val].Style.Add("background-color","silver");
           }
-        for (var i = new k.subtype<int>(33,45); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_N0300,Static.TCI_N0900); i.val < i.LAST; i.val++) // 2100h-0230h -- off-peak
           {
           e.Item.Cells[i.val].Style.Add("background-color","gainsboro");
           }
@@ -193,7 +210,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
           {
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           }
-        for (var i = new k.subtype<int>(2,8); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_D0000,Static.TCI_D0300); i.val < i.LAST; i.val++)
           //
           // D0000-D0230 or 0600h-0830h -- geo
           //
@@ -211,12 +228,12 @@ namespace UserControl_ambulance_staffing_timeline_chart
             cell.Style.Add(key:"border-right",value:"1px solid WhiteSmoke");
             }
           }
-        for (var i = new k.subtype<int>(8,33); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_D0300,Static.TCI_N0300); i.val < i.LAST; i.val++)
           //
           // D0300-N0230 or 0900h-2030h -- peak
           //
           {
-          if (i.val != Static.TCI_SPACER_2)
+          if ((i.val < Static.TCI_D_HEAVILY_STAFFED) || (i.val > Static.TCI_N_HEAVILY_STAFFED))
             {
             var cell = e.Item.Cells[i.val];
             cell.BackColor = Color.LawnGreen;
@@ -230,17 +247,17 @@ namespace UserControl_ambulance_staffing_timeline_chart
               cell.ForeColor = Color.White;
               cell.BackColor = Color.Red;
               }
-            if ((i.val < Static.TCI_SPACER_2) && (i.val%2 == 1))
+            if ((i.val < Static.TCI_D_HEAVILY_STAFFED) && (i.val%2 == 1))
               {
               cell.Style.Add(key:"border-right",value:"1px solid WhiteSmoke");
               }
-            else if ((i.val > Static.TCI_SPACER_2) && (i.val%2 == 1))
+            else if ((i.val > Static.TCI_N_HEAVILY_STAFFED) && (i.val%2 == 1))
               {
               cell.Style.Add(key:"border-left",value:"1px solid WhiteSmoke");
               }
             }
           }
-        for (var i = new k.subtype<int>(33,45); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_N0300,Static.TCI_N0900); i.val < i.LAST; i.val++)
           //
           // N0300-N0830 or 2100h-0230h -- off-peak
           //
@@ -262,7 +279,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
             cell.Style.Add(key:"border-left",value:"1px solid WhiteSmoke");
             }
           }
-        for (var i = new k.subtype<int>(45,51); i.val < i.LAST; i.val++)
+        for (var i = new k.subtype<int>(Static.TCI_N0900,Static.TCI_N1130 + 1); i.val < i.LAST; i.val++)
           //
           // N0900-N1130 or 0300h-0530h -- geo
           //
@@ -281,6 +298,22 @@ namespace UserControl_ambulance_staffing_timeline_chart
             }
           }
         //
+        if (p.be_interactive && p.be_ok_to_analyze_balancing_opportunities)
+          {
+          RadioButton radio_button;
+          //
+          radio_button = (e.Item.FindControl("RadioButton_d_heavily_staffed") as RadioButton);
+          radio_button.Checked = (p.heavy_nominal_day == radio_button.Attributes["nominal_day"]) && (p.heavy_shift_name == "DAY");
+          //
+          radio_button = (e.Item.FindControl("RadioButton_d_short_staffed") as RadioButton);
+          radio_button.Checked = (p.light_nominal_day == radio_button.Attributes["nominal_day"]) && (p.light_shift_name == "DAY");
+          //
+          radio_button = (e.Item.FindControl("RadioButton_n_short_staffed") as RadioButton);
+          radio_button.Checked = (p.light_nominal_day == radio_button.Attributes["nominal_day"]) && (p.light_shift_name == "NIGHT");
+          //
+          radio_button = (e.Item.FindControl("RadioButton_n_heavily_staffed") as RadioButton);
+          radio_button.Checked = (p.heavy_nominal_day == radio_button.Attributes["nominal_day"]) && (p.heavy_shift_name == "NIGHT");
+          }
         // Remove all cell controls from viewstate except for the one at TCI_ID.
         //
         foreach (TableCell cell in e.Item.Cells)
@@ -309,7 +342,20 @@ namespace UserControl_ambulance_staffing_timeline_chart
     private void Bind()
       {
       DataGrid_control.Columns[Static.TCI_NOMINAL_DAY].Visible = (p.nominal_day_filter.Length == 0);
+      var be_balance_analysis_controls_visible = p.be_interactive && p.be_ok_to_analyze_balancing_opportunities;
+      (DataGrid_control.Columns[Static.TCI_D_HEAVILY_STAFFED] as TemplateColumn).Visible = be_balance_analysis_controls_visible;
+      (DataGrid_control.Columns[Static.TCI_D_SHORT_STAFFED] as TemplateColumn).Visible = be_balance_analysis_controls_visible;
+      (DataGrid_control.Columns[Static.TCI_N_SHORT_STAFFED] as TemplateColumn).Visible = be_balance_analysis_controls_visible;
+      (DataGrid_control.Columns[Static.TCI_N_HEAVILY_STAFFED] as TemplateColumn).Visible = be_balance_analysis_controls_visible;
       p.biz_schedule_assignments.BindAmbulanceStaffingTimeLineChartBaseDataList(p.sort_order,p.be_sort_order_ascending,DataGrid_control,p.agency_filter,p.relative_month,p.nominal_day_filter);
+      UserControl_strength_balancing_opportunities_control.SetP
+        (
+        heavy_nominal_day:p.heavy_nominal_day,
+        heavy_shift_name:p.heavy_shift_name,
+        light_nominal_day:p.light_nominal_day,
+        light_shift_name:p.light_shift_name,
+        relative_month:p.relative_month
+        );
       }
 
     internal void SetP
@@ -322,6 +368,22 @@ namespace UserControl_ambulance_staffing_timeline_chart
       p.agency_filter = agency_filter;
       p.relative_month = relative_month;
       p.nominal_day_filter = nominal_day_filter;
+      Bind();
+      }
+
+    protected void RadioButton_heavily_staffed_CheckedChanged(object sender, EventArgs e)
+      {
+      var sender_attributes = (sender as RadioButton).Attributes;
+      p.heavy_nominal_day = k.Safe(sender_attributes["nominal_day"],k.safe_hint_type.DATE_TIME);
+      p.heavy_shift_name = k.Safe(sender_attributes["shift_name"],k.safe_hint_type.ALPHA);
+      Bind();
+      }
+
+    protected void RadioButton_short_staffed_CheckedChanged(object sender, EventArgs e)
+      {
+      var sender_attributes = (sender as RadioButton).Attributes;
+      p.light_nominal_day = k.Safe(sender_attributes["nominal_day"],k.safe_hint_type.DATE_TIME);
+      p.light_shift_name = k.Safe(sender_attributes["shift_name"],k.safe_hint_type.ALPHA);
       Bind();
       }
 

@@ -370,6 +370,20 @@ namespace Class_biz_schedule_assignments
       return db_schedule_assignments.Bind(partial_spec, target);
       }
 
+    internal void BindBalancingOpportunities
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string heavy_nominal_day,
+      string heavy_shift_name,
+      string light_nominal_day,
+      string light_shift_name
+      )
+      {
+      db_schedule_assignments.BindBalancingOpportunities(sort_order,be_sort_order_ascending,target,heavy_nominal_day,heavy_shift_name,light_nominal_day,light_shift_name);
+      }
+
     internal void BindBaseDataList
       (
       string agency_filter,

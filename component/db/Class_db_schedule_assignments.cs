@@ -474,6 +474,49 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void BindBalancingOpportunities
+      (
+      string sort_order,
+      bool be_sort_order_ascending,
+      object target,
+      string heavy_nominal_day,
+      string heavy_shift_name,
+      string light_nominal_day,
+      string light_shift_name
+      )
+      {
+      Open();
+      (target as BaseDataList).DataSource = new MySqlCommand
+        (
+        "select member.id as member_id"
+        + " , CONCAT(last_name,', ',first_name) as member"
+        + " , CONCAT(agency.short_designator,CHAR(ASCII('a') + heavy.post_cardinality - 1 using ascii)) as current_assignment"
+        + " , heavy.comment as comment"
+        + " , email_address as email_target"
+        + " , concat(phone_num,'@',sms_gateway.hostname) as sms_target"
+        + " from schedule_assignment heavy"
+        +   " join shift heavy_shift on (heavy_shift.id=heavy.shift_id)"
+        +   " join member on (member.id=heavy.member_id)"
+        +   " join agency on (agency.id=heavy.post_id)"
+        +   " join schedule_assignment light on (light.member_id=heavy.member_id)"
+        +   " join shift light_shift on (light_shift.id=light.shift_id)"
+        +   " left join sms_gateway on (sms_gateway.id=member.phone_service_id)"
+        + " where member.agency_id between 1 and 199"
+        +   " and heavy.nominal_day = '" + heavy_nominal_day + "'"
+        +   " and heavy_shift.name = '" + heavy_shift_name + "'"
+        +   " and heavy.be_selected"
+        +   " and NOT light.be_selected"
+        +   " and light.nominal_day = '" + light_nominal_day + "'"
+        +   " and light_shift.name = '" + light_shift_name + "'"
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindBaseDataList
       (
       string agency_filter,
