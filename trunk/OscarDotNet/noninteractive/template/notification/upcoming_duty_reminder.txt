@@ -32,6 +32,8 @@ If not specified above, deployment guidance (information about which vehicle to 
 
    https://<host_domain_name/>/<application_name/>/pub/fleet_status.aspx?agency=<agency_short_designator/>
 
+Please submit a unit check-off sheet according to the process established by the vehicle's owner.
+
 
 STANDARD NOTICE:  You are expected to stand this duty, or take responsibility for getting it covered.
 

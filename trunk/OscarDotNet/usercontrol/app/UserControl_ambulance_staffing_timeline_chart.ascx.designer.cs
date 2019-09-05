@@ -20,5 +20,23 @@ namespace UserControl_ambulance_staffing_timeline_chart {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
+        
+        /// <summary>
+        /// Panel_balance_opportunities control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel Panel_balance_opportunities;
+        
+        /// <summary>
+        /// UserControl_strength_balancing_opportunities_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_strength_balancing_opportunities.TWebUserControl_strength_balancing_opportunities UserControl_strength_balancing_opportunities_control;
     }
 }
