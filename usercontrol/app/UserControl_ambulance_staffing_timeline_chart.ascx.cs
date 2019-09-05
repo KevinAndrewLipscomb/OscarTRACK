@@ -128,7 +128,7 @@ namespace UserControl_ambulance_staffing_timeline_chart
           }
         else if (instance_id == "ASP.protected_overview_aspx.UserControl_M_S_G_C_ambulance_staffing_timeline_chart_control")
           {
-          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "S"); // Use parent UserControl_strength_chart values since we're static on the parent control.
+          p.be_loaded &= ((Session["M_S_G_PlaceHolder_content"] as string) == "C"); // Use parent UserControl_schedule_proposal values since we're static on the parent control.
           }
         }
       else
