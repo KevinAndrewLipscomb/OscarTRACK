@@ -28,7 +28,7 @@ This assignment carries the following comment, which may modify the above values
 
    <comment/>
 
-If not specified above, deployment guidance (information about which vehicle to staff) may be available here:
+If not specified above, DEPLOYMENT GUIDANCE (information about which vehicle to staff) may be available here:
 
    https://<host_domain_name/>/<application_name/>/pub/fleet_status.aspx?agency=<agency_short_designator/>
 
