@@ -793,8 +793,14 @@ namespace Class_biz_members
 
         public void SetDriverQualification(bool be_driver_qualified, object summary)
         {
+            var id = IdOf(summary);
             db_members.SetDriverQualification(be_driver_qualified, summary);
-            biz_notifications.IssueForDriverQualificationChange(IdOf(summary), FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_driver_qualified);
+            biz_notifications.IssueForDriverQualificationChange(id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary), be_driver_qualified);
+            //
+            if (!be_driver_qualified && BeReleased(id))
+              {
+              biz_notifications.IssueForDriverRestricted(id, FirstNameOf(summary), LastNameOf(summary), CadNumOf(summary));
+              }
         }
 
     public void SetEmailAddress

@@ -188,6 +188,7 @@
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-out-of-area.txt" />
     <Content Include="protected\template\notification\acknowledgment-to-paypal-donor-unrecognized.txt" />
     <Content Include="protected\template\notification\death.txt" />
+    <Content Include="protected\template\notification\driver_restricted.txt" />
     <Content Include="protected\template\notification\efficipay-docket-needs-final-imprint.txt" />
     <Content Include="protected\template\notification\elective_departure.txt" />
     <Content Include="protected\template\notification\eval_archived.txt" />
