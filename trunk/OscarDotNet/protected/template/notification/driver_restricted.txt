@@ -1,0 +1,12 @@
+<first_name/> <last_name/> (<cad_num/>) established driving privilegs REVOKED
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following change in <application_name/>:
+
+   Established driving privileges for <first_name/> <last_name/> (<cad_num/>) have been REVOKED.
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
