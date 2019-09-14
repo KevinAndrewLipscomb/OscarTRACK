@@ -116,11 +116,15 @@ namespace UserControl_strength_balancing_opportunities
         p.light_shift_name = k.EMPTY;
         p.num_opportunities = new k.int_nonnegative();
         p.sort_order = "member%";
-        p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
         //
-        var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
-        p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
-        p.user_target_sms = p.biz_members.SmsTargetOf(member_id:member_id);
+        if (p.be_interactive)
+          {
+          p.user_member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+          //
+          var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+          p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
+          p.user_target_sms = p.biz_members.SmsTargetOf(member_id:member_id);
+          }
         }
       }
 
