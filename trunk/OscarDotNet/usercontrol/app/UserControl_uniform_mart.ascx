@@ -45,7 +45,7 @@
                       <HeaderStyle HorizontalAlign="Center" />
                       <ItemStyle HorizontalAlign="Center" VerticalAlign="Top" />
                     </asp:BoundColumn>
-                    <asp:BoundColumn datafield="cert_level" headertext="Cert level" sortexpression="medical_release_level%, priority, layer, class desc, name, rank_group.pecking_order">
+                    <asp:BoundColumn datafield="cert_level" headertext="Cert level" sortexpression="cert_level%, priority, layer, class desc, name, rank_group.pecking_order">
                       <HeaderStyle HorizontalAlign="Center" />
                       <ItemStyle HorizontalAlign="Center" Wrap="False" VerticalAlign="Top" />
                     </asp:BoundColumn>
