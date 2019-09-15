@@ -193,6 +193,24 @@ namespace login {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_Frompaper2webDotCom;
         
         /// <summary>
+        /// HyperLink_mis_definition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_mis_definition;
+        
+        /// <summary>
+        /// HyperLink_erp_definition control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_erp_definition;
+        
+        /// <summary>
         /// Hidden_client_timezone_offset control.
         /// </summary>
         /// <remarks>

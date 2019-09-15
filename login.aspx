@@ -117,11 +117,29 @@
       <tr>
         <td style="border-top:2px dashed lightsteelblue; border-bottom:2px dashed lightsteelblue;" valign="top">
           <small>
-            <strong><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal></strong> is
-            <asp:HyperLink ID="HyperLink_open_source_software_definition" runat="server" NavigateUrl="http://en.wikipedia.org/wiki/Open_source_software" Target="_blank">open source software</asp:HyperLink>.&nbsp;
-            Its <asp:HyperLink ID="HyperLink_software_repository_definition" runat="server" NavigateUrl="http://en.wikipedia.org/wiki/Software_repository" Target="_blank">repository</asp:HyperLink> is
-            <asp:HyperLink ID="HyperLink_repository_here" runat="server" NavigateUrl="http://sourceforge.net/p/kveo-it-project/code/HEAD/tree/trunk/OscarDotNet/" Target="_blank">HERE</asp:HyperLink>.&nbsp;
-            <asp:HyperLink ID="HyperLink_Frompaper2webDotCom" runat="server" NavigateUrl="http://frompaper2web.com" Target="_blank">FromPaper2Web.com</asp:HyperLink> provides development, hosting, and maintenance.
+            <strong><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal></strong> is:
+            <table cellspacing="0" cellpadding="5" border="0">
+              <tr>
+                <td>&bull;</td>
+                <td>
+                  <asp:HyperLink ID="HyperLink_open_source_software_definition" runat="server" NavigateUrl="http://en.wikipedia.org/wiki/Open_source_software" Target="_blank">Open Source Software</asp:HyperLink>.&nbsp;
+                  Its <asp:HyperLink ID="HyperLink_software_repository_definition" runat="server" NavigateUrl="http://en.wikipedia.org/wiki/Software_repository" Target="_blank">repository</asp:HyperLink> is
+                  <asp:HyperLink ID="HyperLink_repository_here" runat="server" NavigateUrl="http://sourceforge.net/p/kveo-it-project/code/HEAD/tree/trunk/OscarDotNet/" Target="_blank">HERE</asp:HyperLink>.&nbsp;
+                  <asp:HyperLink ID="HyperLink_Frompaper2webDotCom" runat="server" NavigateUrl="http://frompaper2web.com" Target="_blank">FromPaper2Web.com</asp:HyperLink> provides development, hosting, and maintenance.
+                </td>
+              </tr>
+              <tr>
+                <td>&bull;</td>
+                <td>
+                  a "fifth era" <asp:HyperLink ID="HyperLink_mis_definition" runat="server" NavigateUrl="https://en.wikipedia.org/wiki/Management_information_system" Target="_blank">Management Information System</asp:HyperLink>
+                  with <asp:HyperLink ID="HyperLink_erp_definition" runat="server" NavigateUrl="https://en.wikipedia.org/wiki/Enterprise_resource_planning" Target="_blank">Enterprise Resource Planning</asp:HyperLink> elements
+                </td>
+              </tr>
+              <tr>
+                <td>&bull;</td>
+                <td>the volunteer rescue squads' backup to the Department's planned primary system</td>
+              </tr>
+            </table>
           </small>
         </td>
       </tr>
