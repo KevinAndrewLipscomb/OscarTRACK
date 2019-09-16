@@ -137,7 +137,7 @@
               </tr>
               <tr>
                 <td>&bull;</td>
-                <td>the volunteer rescue squads' backup to the Department's planned primary system</td>
+                <td>the volunteer rescue squads' backup to the Department's suite of existing and planned primary systems</td>
               </tr>
             </table>
           </small>
