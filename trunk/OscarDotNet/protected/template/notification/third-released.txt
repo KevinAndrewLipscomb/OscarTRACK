@@ -1,0 +1,21 @@
+Third released: <first_name/>  <last_name/> (<cad_num/>)
+This is an automatic notification from <application_name/>.
+
+<actor/> has made the following change in <application_name/>:
+
+   <first_name/> <last_name/> (<cad_num/>) was a "third" and has now
+   been released to general supervision as a(n):
+
+      <medical_release_level/>
+
+Using <first_name/> in the current cycle to staff one or more additional response units may now be possible.  You should be able to reach <first_name/> at:
+
+  <released_member_email_address/> (mailto:<released_member_email_address/>)
+
+  tel:<released_member_phone_num/>
+
+You can reach <actor/> at:
+
+   <actor_email_address/> (mailto:<actor_email_address/>)
+
+-- <application_name/> (http://<host_domain_name/>/<application_name/>)
