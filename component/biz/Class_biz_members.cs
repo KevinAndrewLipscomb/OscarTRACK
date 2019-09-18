@@ -897,12 +897,14 @@ namespace Class_biz_members
           )
           {
           var ok_so_far = true;
+          var member_id = IdOf(summary);
           if (be_force_to_regular_required)
             {
-            ok_so_far = biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), effective_date, k.EMPTY, IdOf(summary), summary);
+            ok_so_far = biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), effective_date, k.EMPTY, member_id, summary);
             }
           if (ok_so_far)
             {
+            var saved_be_under_general_supervision = BeReleased(member_id);
             db_members.SetMedicalReleaseCode(new_code, summary);
             if (BePast(summary))
               {
@@ -917,13 +919,25 @@ namespace Class_biz_members
             var section = SectionOf(summary);
             biz_notifications.IssueForMedicalReleaseLevelChange
               (
-              member_id:IdOf(summary),
+              member_id:member_id,
               first_name:FirstNameOf(summary),
               last_name:LastNameOf(summary),
               cad_num:CadNumOf(summary),
               medical_release_level:MedicalReleaseLevelOf(summary),
               cross_agency_id:(be_force_to_regular_required && (section != "0") ? section : k.EMPTY)
               );
+            if (!saved_be_under_general_supervision && BeReleased(member_id))
+              {
+              biz_notifications.IssueForThirdReleased
+                (
+                member_id:member_id,
+                first_name:FirstNameOf(summary),
+                last_name:LastNameOf(summary),
+                cad_num:CadNumOf(summary),
+                medical_release_level:MedicalReleaseLevelOf(summary),
+                cross_agency_id:(be_force_to_regular_required && (section != "0") ? section : k.EMPTY)
+                );
+              }
             }
           return ok_so_far;
           }

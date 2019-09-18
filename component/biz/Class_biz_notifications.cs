@@ -2273,6 +2273,63 @@ namespace Class_biz_notifications
             template_reader.Close();
         }
 
+    private delegate string IssueForThirdReleased_Merge(string s);
+    public void IssueForThirdReleased
+      (
+      string member_id,
+      string first_name,
+      string last_name,
+      string cad_num,
+      string medical_release_level,
+      string cross_agency_id = k.EMPTY
+      )
+      {
+      var biz_members = new TClass_biz_members();
+      //
+      var actor = k.EMPTY;
+      var actor_email_address = k.EMPTY;
+      var member_email_address = biz_members.EmailAddressOf(member_id);
+      var member_phone_num = biz_members.PhoneNumOf(member_id);
+
+      IssueForThirdReleased_Merge Merge = delegate (string s)
+        {
+        return s
+          .Replace("<application_name/>", application_name)
+          .Replace("<host_domain_name/>", host_domain_name)
+          .Replace("<actor/>", actor)
+          .Replace("<actor_email_address/>", actor_email_address)
+          .Replace("<first_name/>", first_name)
+          .Replace("<last_name/>", last_name)
+          .Replace("<cad_num/>", cad_num)
+          .Replace("<medical_release_level/>", medical_release_level)
+          .Replace("<released_member_email_address/>", member_email_address)
+          .Replace("<released_member_phone_num/>", k.FormatAsNanpPhoneNum(member_phone_num))
+          ;
+        };
+
+      var biz_user = new TClass_biz_user();
+      var biz_users = new TClass_biz_users();
+      var actor_member_id = biz_members.IdOfUserId(biz_user.IdNum());
+      actor = biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id);
+      actor_email_address = biz_users.PasswordResetEmailAddressOfId(biz_user.IdNum());
+      var template_reader = File.OpenText(HttpContext.Current.Server.MapPath("template/notification/third-released.txt"));
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:member_email_address
+        + k.COMMA + actor_email_address
+        + k.COMMA + db_notifications.TargetOf("third-released", member_id)
+        + (cross_agency_id.Length > 0 ? k.COMMA + db_notifications.TargetOfAboutAgency(name:"third-released",agency_id:cross_agency_id) : k.EMPTY),
+        subject:Merge(template_reader.ReadLine()),
+        message_string:Merge(template_reader.ReadToEnd()),
+        be_html:false,
+        cc:k.EMPTY,
+        bcc:k.EMPTY,
+        reply_to:actor_email_address
+        );
+      template_reader.Close();
+      }
+
         private delegate string IssueForUpcomingDuty_Merge(string s);
         internal void IssueForUpcomingDuty(string schedule_assignment_id)
           {
