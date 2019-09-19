@@ -152,7 +152,19 @@ namespace Class_biz_schedule_assignments
         &&
           BeOkToWorkOnNextMonthAssignments()
         );
-    }
+      }
+
+    internal bool BeOkToAllowNextMonthAudit(bool be_interactive)
+      {
+      return
+        (
+          be_interactive
+        &&
+          BeProposalGeneratedForNextMonth()
+        &&
+          BeOkToWorkOnNextMonthAssignments()
+        );
+      }
 
     internal bool BeOkToDefaultAgencyFilterToAll
       (
