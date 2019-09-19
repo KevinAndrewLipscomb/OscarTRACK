@@ -144,12 +144,7 @@ namespace UserControl_schedule_assignments_audit
       if (!p.be_loaded)
         {
         DataGrid_control.AllowSorting = p.be_interactive;
-        RadioButtonList_relative_month.Enabled = p.biz_schedule_assignments.BeOkToAllowMemberScheduleDetailControlMonthSwitch
-          (
-          be_interactive:p.be_interactive,
-          be_my_watchbill_mode:false,
-          member_agency_id:p.biz_members.AgencyIdOfId(Session["member_id"].ToString())
-          );
+        RadioButtonList_relative_month.Enabled = p.biz_schedule_assignments.BeOkToAllowNextMonthAudit(p.be_interactive);
         Bind();
         if (p.be_interactive)
           {
