@@ -37,6 +37,7 @@ namespace UserControl_schedule_assignments_audit
 
     private struct p_type
       {
+      public string agency_id;
       public bool be_datagrid_empty;
       public bool be_interactive;
       public bool be_loaded;
@@ -198,9 +199,14 @@ namespace UserControl_schedule_assignments_audit
         p.sort_order = "agency, be_released desc, last_name, first_name, cad_num";
         p.be_user_privileged_to_see_all_squads = k.Has((string[])(Session["privilege_array"]), "see-all-squads");
         //
-        var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
-        p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
-        p.user_target_sms = p.biz_members.SmsTargetOf(member_id:member_id);
+        p.agency_id = p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString());
+        //
+        if (p.be_interactive)
+          {
+          var member_id = p.biz_members.IdOfUserId(user_id:p.biz_user.IdNum());
+          p.user_target_email = p.biz_members.EmailAddressOf(member_id:member_id);
+          p.user_target_sms = p.biz_members.SmsTargetOf(member_id:member_id);
+          }
         }
       }
 
@@ -210,11 +216,11 @@ namespace UserControl_schedule_assignments_audit
     // / </summary>
     private void InitializeComponent()
       {
-      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
       PreRender += TWebUserControl_schedule_assignments_audit_PreRender;
       }
 
-    private void TWebUserControl_schedule_assignments_audit_PreRender(object sender, System.EventArgs e)
+    private void TWebUserControl_schedule_assignments_audit_PreRender(object sender, EventArgs e)
       {
       SessionSet(InstanceId() + ".p", p);
       }
@@ -225,12 +231,12 @@ namespace UserControl_schedule_assignments_audit
       return this;
       }
 
-    private void DataGrid_control_ItemDataBound(object sender, System.Web.UI.WebControls.DataGridItemEventArgs e)
+    private void DataGrid_control_ItemDataBound(object sender, DataGridItemEventArgs e)
       {
       //LinkButton link_button;
       //if (p.be_interactive)
       //  {
-        if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
+        if (e.Item.ItemType.ToString().EndsWith("Item"))
           {
           var balance_cell = e.Item.Cells[Static.TCI_BALANCE];
           if (balance_cell.Text.StartsWith("-"))
@@ -278,7 +284,7 @@ namespace UserControl_schedule_assignments_audit
         be_sort_ascending:p.be_sort_order_ascending,
         target:DataGrid_control,
         relative_month:p.relative_month,
-        agency_filter:p.biz_members.BeOkToDefaultAgencyFilterToAll(p.be_user_privileged_to_see_all_squads,p.biz_user.Roles()) ? k.EMPTY : p.biz_members.AgencyIdOfId(Session["member_id"].ToString()),
+        agency_filter:p.agency_id,
         release_filter:p.release_filter,
         do_limit_to_compliant:p.do_limit_to_compliant,
         do_limit_to_unused_availability:p.do_limit_to_unused_availability,
