@@ -2,13 +2,12 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
 using System.Collections.Specialized;
 using System.Web.UI.WebControls;
 
 namespace Class_db_users
-{
-    public class TClass_db_users: TClass_db
+  {
+  public class TClass_db_users: TClass_db
     {
 
         private TClass_db_trail db_trail = null;
