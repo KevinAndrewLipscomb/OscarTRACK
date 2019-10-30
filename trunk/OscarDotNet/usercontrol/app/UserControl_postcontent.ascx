@@ -31,7 +31,7 @@
                                 </tr>
                                 <tr>
                                   <td valign="top">&bull;</td>
-                                  <td><small><a href="http://www.vbems.com/download/policies/operations/OPS-EMS-Duty-Policy.pdf" target="_blank">EMS Duty Policy</a></small></td>
+                                  <td><small><a href="https://www.vbems.com/download/policies/operations/OPS-EMS-Duty-Policy.pdf" target="_blank">EMS Duty Policy</a></small></td>
                                 </tr>
                               </table>
                             </td>
