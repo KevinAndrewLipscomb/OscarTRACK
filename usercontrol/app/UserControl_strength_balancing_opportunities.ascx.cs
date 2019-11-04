@@ -258,7 +258,7 @@ namespace UserControl_strength_balancing_opportunities
         TextBox_quick_message_body.Text = k.EMPTY
         + "For " + (relative_month.val == 0 ? "this" : "next") + " month, I'd like to move you from " + p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(DateTime.Parse(p.heavy_nominal_day)) + k.SPACE + p.heavy_shift_name
         + " (when we're heavily staffed) to " + p.biz_schedule_assignments.MonthlessRenditionOfNominalDay(DateTime.Parse(p.light_nominal_day)) + k.SPACE + p.light_shift_name
-        + " (when we're currently short-staffed).  Would that be ok?" + k.NEW_LINE
+        + " (when we're currently short-staffed, possibly to a different station).  Would that be ok?" + k.NEW_LINE
         + k.NEW_LINE
         + "-- " + (user_member_first_name.Length > 1 ? user_member_first_name[0] + user_member_first_name.Substring(1).ToLower() : user_member_first_name);
         }
