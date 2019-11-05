@@ -1068,7 +1068,7 @@ namespace Class_db_members
         filter += " and medical_release_code_description_map.description ";
         if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.NOT_RELEASED)
           {
-          filter += " in ('None','Student','Test Candidate','BLS Intern') ";
+          filter += " in ('None','Student','Test Candidate','BLS Intern','Facilitated Physician') ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.NONE)
           {
@@ -1085,6 +1085,10 @@ namespace Class_db_members
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.TRAINEE)
           {
           filter += " = 'BLS Intern' ";
+          }
+        else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.FACILITATED_PHYSICIAN)
+          {
+          filter += " = 'Facilitated Physician' ";
           }
         else if (med_release_level_filter == Class_biz_medical_release_levels.filter_type.RELEASED)
           {

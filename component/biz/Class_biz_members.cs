@@ -892,15 +892,15 @@ namespace Class_biz_members
           (
           string new_code,
           object summary,
-          bool be_force_to_regular_required,
+          string enrollment_level_to_force_description,
           DateTime effective_date
           )
           {
           var ok_so_far = true;
           var member_id = IdOf(summary);
-          if (be_force_to_regular_required)
+          if (enrollment_level_to_force_description.Length > 0)
             {
-            ok_so_far = biz_enrollment.SetLevel(biz_enrollment.CodeOf("Regular"), effective_date, k.EMPTY, member_id, summary);
+            ok_so_far = biz_enrollment.SetLevel(biz_enrollment.CodeOf(enrollment_level_to_force_description), effective_date, k.EMPTY, member_id, summary);
             }
           if (ok_so_far)
             {
@@ -924,7 +924,7 @@ namespace Class_biz_members
               last_name:LastNameOf(summary),
               cad_num:CadNumOf(summary),
               medical_release_level:MedicalReleaseLevelOf(summary),
-              cross_agency_id:(be_force_to_regular_required && (section != "0") ? section : k.EMPTY)
+              cross_agency_id:(enrollment_level_to_force_description.Length > 0 && (section != "0") ? section : k.EMPTY)
               );
             if (!saved_be_under_general_supervision && BeReleased(member_id))
               {
@@ -935,7 +935,7 @@ namespace Class_biz_members
                 last_name:LastNameOf(summary),
                 cad_num:CadNumOf(summary),
                 medical_release_level:MedicalReleaseLevelOf(summary),
-                cross_agency_id:(be_force_to_regular_required && (section != "0") ? section : k.EMPTY)
+                cross_agency_id:(enrollment_level_to_force_description.Length > 0 && (section != "0") ? section : k.EMPTY)
                 );
               }
             }
