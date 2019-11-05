@@ -3582,7 +3582,7 @@ namespace Class_db_schedule_assignments
             //
             // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
             //
-            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which Test Candidates, BLS Interns want how many extra assignments.");
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which Test Candidates, BLS Interns, and Facilitated Physicians want how many extra assignments.");
             dr = new MySqlCommand
               (
               "select member.id as member_id"
@@ -3621,7 +3621,7 @@ namespace Class_db_schedule_assignments
               +       " )" 
               +     " )" 
               + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month + " MONTH))"
-              +   " and medical_release_code_description_map.description in ('Test Candidate','BLS Intern')"
+              +   " and medical_release_code_description_map.description in ('Test Candidate','BLS Intern','Facilitated Physician')"
               + " group by member.id"
               +   " having num_extras > 0"
               + " order by num_extras",
