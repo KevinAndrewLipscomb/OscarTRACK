@@ -46,7 +46,8 @@
                               <asp:CustomValidator id="CustomValidator_control" runat="server" display="Dynamic" font-bold="True" onservervalidate="CustomValidator_control_ServerValidate">!ERR!</asp:CustomValidator>
                             </blockquote>
                             <asp:Panel  id="Panel_effective_date" runat="server" visible="false">
-                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to Regular for you.</p>
+                              <p><asp:Literal ID="Literal_application_name" runat="server"></asp:Literal>&nbsp;will force <asp:Literal ID="Literal_member_name_4" runat="server"></asp:Literal>'s Membership Status to
+                              <asp:Literal ID="Literal_enrollment_level_description" runat="server"></asp:Literal> for you.</p>
                               <p>When does the new Membership Status become effective?</p>
                               <blockquote><uc2:UserControl_drop_down_date ID="UserControl_drop_down_date_effective_date" runat="server" /></blockquote>
                             </asp:Panel>

@@ -88,7 +88,7 @@ namespace Class_biz_medical_release_levels
               }
             else if (enrollment_description == "EDP")
               {
-              be_valid_enrollment_level_for_current = (PeckingOrderCompareTo(description,"Physician") >= 0);
+              be_valid_enrollment_level_for_current = description.Contains("Physician");
               }
             else
               {
@@ -142,6 +142,7 @@ namespace Class_biz_medical_release_levels
         IN_CLASS,
         TEST_CANDIDATE,
         TRAINEE,
+        FACILITATED_PHYSICIAN,
         RELEASED,
         RELEASED_BLS,
         EMT_B,

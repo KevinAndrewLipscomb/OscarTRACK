@@ -130,6 +130,15 @@ namespace change_member_medical_release_level {
         protected global::System.Web.UI.WebControls.Literal Literal_member_name_4;
         
         /// <summary>
+        /// Literal_enrollment_level_description control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_enrollment_level_description;
+        
+        /// <summary>
         /// UserControl_drop_down_date_effective_date control.
         /// </summary>
         /// <remarks>

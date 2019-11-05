@@ -3582,7 +3582,7 @@ namespace Class_db_schedule_assignments
             //
             // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
             //
-            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which BLS Interns want how many extra assignments.");
+            log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which Test Candidates, BLS Interns want how many extra assignments.");
             dr = new MySqlCommand
               (
               "select member.id as member_id"

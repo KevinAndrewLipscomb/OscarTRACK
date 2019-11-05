@@ -7,17 +7,22 @@ using System.Web.UI;
 
 namespace change_member_medical_release_level
   {
-  public struct p_type
-    {
-        public TClass_biz_medical_release_levels biz_medical_release_levels;
-        public TClass_biz_members biz_members;
-        public string saved_level;
-    } // end p_type
 
-    public partial class TWebForm_change_member_medical_release_level: ki_web_ui.page_class
+  public partial class TWebForm_change_member_medical_release_level: ki_web_ui.page_class
     {
-        private p_type p;
+
+    public struct p_type
+      {
+      public TClass_biz_medical_release_levels biz_medical_release_levels;
+      public TClass_biz_members biz_members;
+      public string enrollment_level_to_force_description;
+      public string saved_level;
+      }
+
+    private p_type p;
+
         protected new System.Web.UI.HtmlControls.HtmlTitle Title = null;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -72,6 +77,7 @@ namespace change_member_medical_release_level
             base.OnInit(e);
             p.biz_members = new TClass_biz_members();
             p.biz_medical_release_levels = new TClass_biz_medical_release_levels();
+            p.enrollment_level_to_force_description = k.EMPTY;
             p.saved_level = p.biz_members.MedicalReleaseLevelOf(Session["member_summary"]);
 
         }
@@ -105,10 +111,10 @@ namespace change_member_medical_release_level
               if(
                 p.biz_members.SetMedicalReleaseCode
                   (
-                  k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
-                  Session["member_summary"],
-                  Panel_effective_date.Visible,
-                  UserControl_drop_down_date_effective_date.selectedvalue
+                  new_code:k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM),
+                  summary:Session["member_summary"],
+                  enrollment_level_to_force_description:p.enrollment_level_to_force_description,
+                  effective_date:UserControl_drop_down_date_effective_date.selectedvalue
                   )
                 )
                 {
@@ -128,8 +134,10 @@ namespace change_member_medical_release_level
 
         protected void DropDownList_medical_release_level_SelectedIndexChanged(object sender, EventArgs e)
           {
-          Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level)
-          && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM)));
+          var new_level_code = k.Safe(DropDownList_medical_release_level.SelectedValue, k.safe_hint_type.NUM);
+          Panel_effective_date.Visible = (p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByDescription(p.saved_level) && !p.biz_medical_release_levels.BeRecruitAdminOrSpecOpsBoundByCode(new_level_code));
+          p.enrollment_level_to_force_description = (Panel_effective_date.Visible ? (p.biz_medical_release_levels.DescriptionOf(new_level_code).Contains("Physician") ? "EDP" : "Regular") : k.EMPTY);
+          Literal_enrollment_level_description.Text = p.enrollment_level_to_force_description;
           }
 
     } // end TWebForm_change_member_medical_release_level

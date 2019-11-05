@@ -28,24 +28,25 @@
                                     <p align="center">
                         <small>Released cert level</small><br><ASP:DropDownList id="DropDownList_med_release_filter" runat="server" autopostback="True" onselectedindexchanged="DropDownList_med_release_filter_SelectedIndexChanged">
                                     <ASP:ListItem value="all" selected="True">All</ASP:ListItem>
-                                    <ASP:ListItem value="not_released"  >- Not released</ASP:ListItem>
-                                    <ASP:ListItem value="none"          >- - None</ASP:ListItem>
-                                    <ASP:ListItem value="in_class"      >- - Student</ASP:ListItem>
-                                    <ASP:ListItem value="test_candidate">- - Test Candidate</ASP:ListItem>
-                                    <ASP:ListItem value="trainee"       >- - BLS Intern</ASP:ListItem>
-                                    <ASP:ListItem value="released"      >- Released</ASP:ListItem>
-                                    <ASP:ListItem value="released_bls"  >- - Released BLS</ASP:ListItem>
-                                    <ASP:ListItem value="emt_b"         >- - - EMT-B</ASP:ListItem>
-                                    <ASP:ListItem value="emt_st"        >- - - EMT-ST</ASP:ListItem>
-                                    <ASP:ListItem value="emt_e"         >- - - EMT-E</ASP:ListItem>
-                                    <ASP:ListItem value="aemt"          >- - - AEMT</ASP:ListItem>
-                                    <ASP:ListItem value="released_als"  >- - Released ALS</ASP:ListItem>
-                                    <ASP:ListItem value="emt_ct"        >- - - EMT-CT</ASP:ListItem>
-                                    <ASP:ListItem value="emt_i"         >- - - EMT-I</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p_any"     >- - - EMT-P (inclusive)</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p"         >- - - - EMT-P (non-RSI)</ASP:ListItem>
-                                    <ASP:ListItem value="emt_p_rsi"     >- - - - EMT-P-RSI</ASP:ListItem>
-                                    <ASP:ListItem value="physician"     >- - - Physician</ASP:ListItem></ASP:DropDownList>
+                                    <ASP:ListItem value="not_released"         >- Not released</ASP:ListItem>
+                                    <ASP:ListItem value="none"                 >- - None</ASP:ListItem>
+                                    <ASP:ListItem value="in_class"             >- - Student</ASP:ListItem>
+                                    <ASP:ListItem value="test_candidate"       >- - Test Candidate</ASP:ListItem>
+                                    <ASP:ListItem value="trainee"              >- - BLS Intern</ASP:ListItem>
+                                    <ASP:ListItem value="facilitated_physician">- - Facilitated Physician</ASP:ListItem>
+                                    <ASP:ListItem value="released"             >- Released</ASP:ListItem>
+                                    <ASP:ListItem value="released_bls"         >- - Released BLS</ASP:ListItem>
+                                    <ASP:ListItem value="emt_b"                >- - - EMT-B</ASP:ListItem>
+                                    <ASP:ListItem value="emt_st"               >- - - EMT-ST</ASP:ListItem>
+                                    <ASP:ListItem value="emt_e"                >- - - EMT-E</ASP:ListItem>
+                                    <ASP:ListItem value="aemt"                 >- - - AEMT</ASP:ListItem>
+                                    <ASP:ListItem value="released_als"         >- - Released ALS</ASP:ListItem>
+                                    <ASP:ListItem value="emt_ct"               >- - - EMT-CT</ASP:ListItem>
+                                    <ASP:ListItem value="emt_i"                >- - - EMT-I</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p_any"            >- - - EMT-P (inclusive)</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p"                >- - - - EMT-P (non-RSI)</ASP:ListItem>
+                                    <ASP:ListItem value="emt_p_rsi"            >- - - - EMT-P-RSI</ASP:ListItem>
+                                    <ASP:ListItem value="physician"            >- - - Physician</ASP:ListItem></ASP:DropDownList>
                                     </p>
                       </td>
                       <td>
@@ -61,10 +62,10 @@
                                     <ASP:ListItem value="senior"                 >- - - - - Senior</ASP:ListItem>
                                     <ASP:ListItem value="life"                   >- - - - - Life</ASP:ListItem>
                                     <ASP:ListItem value="regular"                >- - - - - Regular</ASP:ListItem>
-                                    <ASP:ListItem value="edp"                    >- - - - - EDP</ASP:ListItem>
                                     <ASP:ListItem value="liberal"                >- - - - Liberal</ASP:ListItem>
                                     <ASP:ListItem value="reduced"                >- - - - - Reduced</ASP:ListItem>
                                     <ASP:ListItem value="associate"              >- - - - - Associate</ASP:ListItem>
+                                    <ASP:ListItem value="edp"                    >- - - - - EDP</ASP:ListItem>
                                     <ASP:ListItem value="staff"                  >- - - - - Staff</ASP:ListItem>
                                     <ASP:ListItem value="als_intern"             >- - - - - ALS Intern</ASP:ListItem>
                                     <ASP:ListItem value="college"                >- - - - - College</ASP:ListItem>

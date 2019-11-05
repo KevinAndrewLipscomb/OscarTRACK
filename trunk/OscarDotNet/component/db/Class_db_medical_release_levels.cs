@@ -17,14 +17,37 @@ namespace Class_db_medical_release_levels
             // TODO: Add any constructor code here
 
         }
-        public bool BeValidForCurrentEnrollmentLevel(string code, string enrollment_level_description)
-        {
-            bool result;
-            this.Open();
-            result = "1" == new MySqlCommand("select" + " (" + " select TRUE" + " from enrollment_level" + " where description = \"" + enrollment_level_description + "\"" + " and core_ops_commitment_level_code = 1" + " )" + " or" + " (" + " select TRUE" + " from medical_release_code_description_map" + " where code = \"" + code + "\"" + " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = \"BLS Intern\")" + " )", this.connection).ExecuteScalar().ToString();
-            this.Close();
-            return result;
-        }
+
+    public bool BeValidForCurrentEnrollmentLevel
+      (
+      string code,
+      string enrollment_level_description
+      )
+      {
+      Open();
+      var result = "1" ==
+        new MySqlCommand
+          (
+          "select"
+          + " ("
+          + " select TRUE"
+          + " from enrollment_level"
+          + " where description = '" + enrollment_level_description + "'"
+          +   " and core_ops_commitment_level_code = 1"
+          + " )"
+          + " or"
+          + " ("
+          + " select TRUE"
+          + " from medical_release_code_description_map"
+          + " where code = '" + code + "'"
+          +   " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'BLS Intern')"
+          + " )",
+          connection
+          )
+          .ExecuteScalar().ToString();
+      Close();
+      return result;
+      }
 
         internal void BindBaseDataList(object target)
           {
