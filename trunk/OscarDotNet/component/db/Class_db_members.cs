@@ -1249,6 +1249,7 @@ namespace Class_db_members
         +   " , FORMAT(IFNULL(sum(TIME_TO_SEC(TIMEDIFF(muster_to_logoff_timespan,muster_to_logon_timespan))/3600*be_selected*(post_id between 1 and 199)),0),1) as num_ambulance_hours"
         +   " , email_address as email_target"
         +   " , concat(phone_num,'@',sms_gateway.hostname) as sms_target"
+        +   " , enrollment_level.pecking_order as enrollment_level_pecking_order"
         +   " from member"
         +     " join agency on (agency.id=member.agency_id)"
         +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"

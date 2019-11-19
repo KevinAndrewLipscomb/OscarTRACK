@@ -97,7 +97,7 @@
                 <asp:BoundColumn datafield="be_released" headertext="Released?" SortExpression="be_released%, agency, be_released desc, last_name, first_name, cad_num">
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
-                <asp:BoundColumn datafield="enrollment_level" headertext="Membership status" SortExpression="enrollment_level.pecking_order%, be_released desc, agency, last_name, first_name, cad_num">
+                <asp:BoundColumn datafield="enrollment_level" headertext="Membership status" SortExpression="enrollment_level_pecking_order%, be_released desc, agency, last_name, first_name, cad_num">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>
