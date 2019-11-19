@@ -2106,20 +2106,36 @@ namespace Class_db_schedule_assignments
         nominal_day_condition_clause = " and DAY(schedule_assignment.nominal_day) = '" + nominal_day_filter + "'";
         }
       Open();
-      var dr = new MySqlCommand
-        (
-        "select GROUP_CONCAT(distinct post_id order by post_id) as posts"
-        + " , max(" + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ") as max_post_cardinality"
-        + " from schedule_assignment"
-        +   " join member on (member.id=schedule_assignment.member_id)"
-        + " where be_selected"
-        +     agency_filter_clause
-        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-        +     nominal_day_condition_clause
-        + " group by NULL",
-        connection
-        )
-        .ExecuteReader();
+      MySqlDataReader dr = null;
+      var be_done = false;
+      while (!be_done)
+        {
+        try
+          {
+          dr = new MySqlCommand
+            (
+            "select GROUP_CONCAT(distinct post_id order by post_id) as posts"
+            + " , max(" + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ") as max_post_cardinality"
+            + " from schedule_assignment"
+            +   " join member on (member.id=schedule_assignment.member_id)"
+            + " where be_selected"
+            +     agency_filter_clause
+            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+            +     nominal_day_condition_clause
+            + " group by NULL",
+            connection
+            )
+            .ExecuteReader();
+          be_done = true;
+          }
+        catch (Exception e)
+          {
+          if (!e.ToString().Contains("There is already an open DataReader associated with this Connection which must be closed first."))
+            {
+            throw e;
+            }
+          }
+        }
       if (dr.Read())
         {
         posts = dr["posts"].ToString();
