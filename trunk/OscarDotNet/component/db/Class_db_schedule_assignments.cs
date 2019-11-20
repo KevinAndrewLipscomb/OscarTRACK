@@ -2139,10 +2139,8 @@ namespace Class_db_schedule_assignments
             num_tries.val++;
             log.WriteLine
               (
-              value:DateTime.Now.ToString("s")
-              + " db_schedule_assignments.GetAgencyFootprintInfo: Caught 'There is already an open DataReader associated with this Connection which must be closed first.'  Looping for retry #"
-              + num_tries.val.ToString()
-              + "..."
+              value:DateTime.Now.ToString("s") + " db_schedule_assignments.GetAgencyFootprintInfo: Caught 'There is already an open DataReader associated with this Connection which must be closed first.' for connection.ServerThread "
+              + connection.ServerThread + ".  Looping for retry #" + num_tries.val.ToString() + "..."
               );
             }
           else
