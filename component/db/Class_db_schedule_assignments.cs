@@ -10,6 +10,7 @@ using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace Class_db_schedule_assignments
@@ -2095,6 +2096,8 @@ namespace Class_db_schedule_assignments
       out string max_post_cardinality
       )
       {
+      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/db_schedule_assignments_GetAgencyFootprintInfo.log"),append:true);
+      log.AutoFlush = true;
       var agency_filter_clause = k.EMPTY;
       if (agency_filter.Length > 0)
         {
@@ -2108,6 +2111,7 @@ namespace Class_db_schedule_assignments
       Open();
       MySqlDataReader dr = null;
       var be_done = false;
+      var num_tries = new k.int_nonnegative();
       while (!be_done)
         {
         try
@@ -2130,7 +2134,18 @@ namespace Class_db_schedule_assignments
           }
         catch (Exception e)
           {
-          if (!e.ToString().Contains("There is already an open DataReader associated with this Connection which must be closed first."))
+          if (e.ToString().Contains("There is already an open DataReader associated with this Connection which must be closed first."))
+            {
+            num_tries.val++;
+            log.WriteLine
+              (
+              value:DateTime.Now.ToString("s")
+              + " db_schedule_assignments.GetAgencyFootprintInfo: Caught 'There is already an open DataReader associated with this Connection which must be closed first.'  Looping for retry #"
+              + num_tries.val.ToString()
+              + "..."
+              );
+            }
+          else
             {
             throw e;
             }
@@ -2148,6 +2163,7 @@ namespace Class_db_schedule_assignments
         }
       dr.Close();
       Close();
+      log.Close();
       }
 
     internal void GetInfoAboutMemberInMonth
