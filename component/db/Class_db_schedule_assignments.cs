@@ -2096,8 +2096,6 @@ namespace Class_db_schedule_assignments
       out string max_post_cardinality
       )
       {
-      var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/db_schedule_assignments_GetAgencyFootprintInfo.log"),append:true);
-      log.AutoFlush = true;
       var agency_filter_clause = k.EMPTY;
       if (agency_filter.Length > 0)
         {
@@ -2137,11 +2135,14 @@ namespace Class_db_schedule_assignments
           if (e.ToString().Contains("There is already an open DataReader associated with this Connection which must be closed first."))
             {
             num_tries.val++;
+            var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/db_schedule_assignments_GetAgencyFootprintInfo_" + connection.ServerThread + ".log"),append:true);
+            log.AutoFlush = true;
             log.WriteLine
               (
               value:DateTime.Now.ToString("s") + " db_schedule_assignments.GetAgencyFootprintInfo: Caught 'There is already an open DataReader associated with this Connection which must be closed first.' for connection.ServerThread "
               + connection.ServerThread + ".  Looping for retry #" + num_tries.val.ToString() + "..."
               );
+            log.Close();
             }
           else
             {
@@ -2161,7 +2162,6 @@ namespace Class_db_schedule_assignments
         }
       dr.Close();
       Close();
-      log.Close();
       }
 
     internal void GetInfoAboutMemberInMonth
