@@ -32,6 +32,7 @@ namespace Class_db_vehicles
     public string recent_mileage_update_time;
     public bool be_four_or_all_wheel_drive;
     public string deployment_guidance;
+    public bool can_receive_legacy_cot_fastener;
     }
 
   public class TClass_db_vehicles: TClass_db
@@ -237,34 +238,10 @@ namespace Class_db_vehicles
       string agency_filter,
       string vehicle_kind_filter,
       bool be_four_or_all_wheel_drive_filter,
-      string quarters_filter
+      string quarters_filter,
+      bool can_receive_legacy_cot_fastener_filter
       )
       {
-      if (be_sort_order_ascending)
-        {
-        sort_order = sort_order.Replace("%", " asc");
-        }
-      else
-        {
-        sort_order = sort_order.Replace("%", " desc");
-        }
-      var filter = " where vehicle.be_active ";
-      if (agency_filter != k.EMPTY)
-        {
-        filter += " and agency_id = '" + agency_filter + "'" + k.SPACE;
-        }
-      if (vehicle_kind_filter != k.EMPTY)
-        {
-        filter += " and kind_id = '" + vehicle_kind_filter + "'" + k.SPACE;
-        }
-      if (be_four_or_all_wheel_drive_filter)
-        {
-          filter += " and be_four_or_all_wheel_drive ";
-        }
-      if (quarters_filter != k.EMPTY)
-        {
-        filter += " and vehicle_quarters.id = '" + quarters_filter + "'" + k.SPACE;
-        }
       Open();
       (target as BaseDataList).DataSource = 
         (
@@ -295,6 +272,7 @@ namespace Class_db_vehicles
           + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
           + " , be_target_pm_mileage_meaningful"
           + " , be_dmv_inspection_due_meaningful"
+          + " , IF(vehicle_kind.description = 'Ambulance',IF(can_receive_legacy_cot_fastener,'YES','no'),'') as can_receive_legacy_cot_fastener"
           + " from vehicle"
           +   " join agency on (agency.id=vehicle.agency_id)"
           +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
@@ -318,9 +296,14 @@ namespace Class_db_vehicles
           +     " )"
           +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
           +   " left join gripe on (gripe.vehicle_id=vehicle.id)"
-          + filter
+          + " where vehicle.be_active"
+          +     (agency_filter.Length > 0 ? " and agency_id = '" + agency_filter + "'" : k.EMPTY)
+          +     (vehicle_kind_filter.Length > 0 ? " and kind_id = '" + vehicle_kind_filter + "'" : k.EMPTY)
+          +     (be_four_or_all_wheel_drive_filter ? " and be_four_or_all_wheel_drive" : k.EMPTY)
+          +     (quarters_filter.Length > 0 ? " and vehicle_quarters.id = '" + quarters_filter + "'" : k.EMPTY)
+          +     (can_receive_legacy_cot_fastener_filter ? " and can_receive_legacy_cot_fastener" : k.EMPTY)
           + " group by vehicle.id"
-          + " order by " + sort_order,
+          + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
           connection
           )
         .ExecuteReader()
@@ -536,7 +519,8 @@ namespace Class_db_vehicles
       out DateTime dmv_inspection_due,
       out DateTime recent_mileage_update_time,
       out bool be_four_or_all_wheel_drive,
-      out string deployment_guidance
+      out string deployment_guidance,
+      out bool can_receive_legacy_cot_fastener
       )
       {
       bool result;
@@ -560,10 +544,11 @@ namespace Class_db_vehicles
       recent_mileage_update_time = DateTime.MinValue;
       be_four_or_all_wheel_drive = false;
       deployment_guidance = k.EMPTY;
+      can_receive_legacy_cot_fastener = false;
       result = false;
       //
-      this.Open();
-      dr = new MySqlCommand("select * from vehicle where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      Open();
+      dr = new MySqlCommand("select * from vehicle where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -598,10 +583,11 @@ namespace Class_db_vehicles
           }
         be_four_or_all_wheel_drive = (dr["be_four_or_all_wheel_drive"].ToString() == "1");
         deployment_guidance = dr["deployment_guidance"].ToString();
+        can_receive_legacy_cot_fastener = ("1" == dr["can_receive_legacy_cot_fastener"].ToString());
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
@@ -776,7 +762,8 @@ namespace Class_db_vehicles
       DateTime dmv_inspection_due,
       bool be_four_or_all_wheel_drive,
       bool be_mode_add,
-      string deployment_guidance
+      string deployment_guidance,
+      bool can_receive_legacy_cot_fastener
       )
       {
       string childless_field_assignments_clause = k.EMPTY
@@ -796,6 +783,7 @@ namespace Class_db_vehicles
       + " , dmv_inspection_due = NULLIF('" + dmv_inspection_due.ToString("yyyy-MM-dd") + "','0001-01-01')"
       + " , be_four_or_all_wheel_drive = " + be_four_or_all_wheel_drive.ToString()
       + " , deployment_guidance = NULLIF('" + deployment_guidance + "','')"
+      + " , can_receive_legacy_cot_fastener = " + can_receive_legacy_cot_fastener.ToString()
       + k.EMPTY;
       var sql = k.EMPTY
       + "insert vehicle"

@@ -17,7 +17,8 @@ namespace OscarDotNet.service
       string agency_filter,
       string vehicle_kind_filter,
       bool be_four_or_all_wheel_drive_filter,
-      string quarters_filter
+      string quarters_filter,
+      bool can_receive_legacy_cot_fastener_filter = false
       )
       {
       sort_order = k.Safe(sort_order ?? k.EMPTY,k.safe_hint_type.KI_SORT_EXPRESSION);
@@ -36,7 +37,8 @@ namespace OscarDotNet.service
         agency_filter:agency_filter,
         vehicle_kind_filter:vehicle_kind_filter,
         be_four_or_all_wheel_drive_filter:be_four_or_all_wheel_drive_filter,
-        quarters_filter:quarters_filter
+        quarters_filter:quarters_filter,
+        can_receive_legacy_cot_fastener_filter:can_receive_legacy_cot_fastener_filter
         );
       foreach (DataGridItem item in target.Items)
         {

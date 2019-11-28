@@ -42,20 +42,22 @@ namespace UserControl_fleet
       public const int TCI_FUEL = 18;
       public const int TCI_AGENCY = 19;
       public const int TCI_KIND = 20;
-      public const int TCI_RECENT_MILEAGE = 21;
-      public const int TCI_MILES_FROM_PM = 22;
-      public const int TCI_DMV_INSPECTION_DUE = 23;
-      public const int TCI_BUMPER_NUMBER = 24;
-      public const int TCI_TAG = 25;
-      public const int TCI_VIN = 26;
-      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 27;
-      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 28;
+      public const int TCI_CAN_RECEIVE_LEGACY_COT_FASTENER = 21;
+      public const int TCI_RECENT_MILEAGE = 22;
+      public const int TCI_MILES_FROM_PM = 23;
+      public const int TCI_DMV_INSPECTION_DUE = 24;
+      public const int TCI_BUMPER_NUMBER = 25;
+      public const int TCI_TAG = 26;
+      public const int TCI_VIN = 27;
+      public const int TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL = 28;
+      public const int TCI_BE_DMV_INSPECTION_DUE_MEANINGFUL = 29;
       }
 
     private struct p_type
       {
       public string agency_filter;
       public k.int_negative alternative_pm_alert_threshold;
+      public bool be_datagrid_empty;
       public bool be_four_or_all_wheel_drive_filter;
       public bool be_interactive;
       public bool be_interest_dynamic;
@@ -72,6 +74,7 @@ namespace UserControl_fleet
       public TClass_biz_vehicle_quarters biz_vehicle_quarters;
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_vehicles biz_vehicles;
+      public bool can_receive_legacy_cot_fastener_filter;
       public int miles_from_pm_alarm_threshold;
       public int miles_from_pm_alert_threshold;
       public uint num_usable;
@@ -183,6 +186,7 @@ namespace UserControl_fleet
         p.biz_vehicle_quarters.BindDirectToListControlMedium(DropDownList_quarters_filter,p.quarters_filter,true);
         p.biz_vehicle_kinds.BindListControl(DropDownList_vehicle_kind_filter,p.vehicle_kind_filter,true);
         CheckBox_be_four_or_all_wheel_drive_filter.Checked = p.be_four_or_all_wheel_drive_filter;
+        CheckBox_can_receive_legacy_cot_fastener_filter.Checked = p.can_receive_legacy_cot_fastener_filter;
         p.biz_agencies.BindListControlShort(DropDownList_agency_filter,p.agency_filter,true);
         RadioButtonList_interest.SelectedIndex = (p.be_interest_dynamic ? 0 : 1);
         Bind();
@@ -233,6 +237,7 @@ namespace UserControl_fleet
         p.be_interest_dynamic = true;
         p.be_loaded = false;
         p.be_sort_order_ascending = true;
+        p.can_receive_legacy_cot_fastener_filter = false;
         p.miles_from_pm_alarm_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alarm_threshold"]);
         p.miles_from_pm_alert_threshold = int.Parse(ConfigurationManager.AppSettings["miles_from_pm_alert_threshold"]);
         p.num_vehicles_up_and_current = new k.int_nonnegative();
@@ -494,11 +499,34 @@ namespace UserControl_fleet
       DataGrid_control.Columns[Static.TCI_CUSTOM_MODEL].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_FUEL].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_KIND].Visible = (p.vehicle_kind_filter == k.EMPTY);
+      DataGrid_control.Columns[Static.TCI_CAN_RECEIVE_LEGACY_COT_FASTENER].Visible =
+        (
+          !p.be_interest_dynamic
+        &&
+          (
+            (p.vehicle_kind_filter.Length == 0)
+          ||
+            (p.biz_vehicle_kinds.DescriptionOf(p.vehicle_kind_filter) == "Ambulance")
+          )
+        );
       DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
       DataGrid_control.Columns[Static.TCI_BUMPER_NUMBER].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_TAG].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_VIN].Visible = (!p.be_interest_dynamic);
-      p.biz_vehicles.BindBaseDataList(p.sort_order, p.be_sort_order_ascending, DataGrid_control, p.agency_filter, p.vehicle_kind_filter, p.be_four_or_all_wheel_drive_filter, p.quarters_filter);
+      p.biz_vehicles.BindBaseDataList
+        (
+        sort_order:p.sort_order,
+        be_sort_order_ascending:p.be_sort_order_ascending,
+        target:DataGrid_control,
+        agency_filter:p.agency_filter,
+        vehicle_kind_filter:p.vehicle_kind_filter,
+        be_four_or_all_wheel_drive_filter:p.be_four_or_all_wheel_drive_filter,
+        quarters_filter:p.quarters_filter,
+        can_receive_legacy_cot_fastener_filter:p.can_receive_legacy_cot_fastener_filter
+        );
+      p.be_datagrid_empty = (p.num_vehicles == 0);
+      TableRow_none.Visible = p.be_datagrid_empty;
+      TableRow_data.Visible = !p.be_datagrid_empty;
       Literal_num_rows.Text = p.num_vehicles.ToString();
       Literal_num_usable.Text = p.num_usable.ToString();
       //
@@ -572,6 +600,12 @@ namespace UserControl_fleet
     protected void CheckBox_be_four_or_all_wheel_drive_filter_CheckedChanged(object sender, EventArgs e)
       {
       p.be_four_or_all_wheel_drive_filter = CheckBox_be_four_or_all_wheel_drive_filter.Checked;
+      Bind();
+      }
+
+    protected void CheckBox_can_receive_legacy_cot_fastener_filter_CheckedChanged(object sender, EventArgs e)
+      {
+      p.can_receive_legacy_cot_fastener_filter = CheckBox_can_receive_legacy_cot_fastener_filter.Checked;
       Bind();
       }
 

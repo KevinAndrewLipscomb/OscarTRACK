@@ -70,6 +70,7 @@ namespace UserControl_vehicle
       Literal_recent_mileage_update_time.Text = k.EMPTY;
       CheckBox_be_four_or_all_wheel_drive.Checked = false;
       TextBox_deployment_guidance.Text = k.EMPTY;
+      CheckBox_can_receive_legacy_cot_fastener.Checked = false;
       Literal_match_index.Text = k.EMPTY;
       Literal_num_matches.Text = k.EMPTY;
       Panel_match_numbers.Visible = false;
@@ -245,6 +246,7 @@ namespace UserControl_vehicle
       DateTime recent_mileage_update_time;
       bool be_four_or_all_wheel_drive;
       string deployment_guidance;
+      bool can_receive_legacy_cot_fastener;
       result = false;
       if
         (
@@ -268,7 +270,8 @@ namespace UserControl_vehicle
           out dmv_inspection_due,
           out recent_mileage_update_time,
           out be_four_or_all_wheel_drive,
-          out deployment_guidance
+          out deployment_guidance,
+          out can_receive_legacy_cot_fastener
           )
         )
         {
@@ -291,7 +294,7 @@ namespace UserControl_vehicle
         UserControl_drop_down_date_dmv_inspection_due.selectedvalue = dmv_inspection_due;
         if (recent_mileage_update_time == DateTime.MinValue)
           {
-            Literal_recent_mileage_update_time.Text = " (updated never)";
+          Literal_recent_mileage_update_time.Text = " (updated never)";
           }
         else
           {
@@ -299,11 +302,13 @@ namespace UserControl_vehicle
           }
         CheckBox_be_four_or_all_wheel_drive.Checked = be_four_or_all_wheel_drive;
         TextBox_deployment_guidance.Text = deployment_guidance;
+        CheckBox_can_receive_legacy_cot_fastener.Checked = can_receive_legacy_cot_fastener;
         Button_lookup.Enabled = false;
         Label_lookup_arrow.Enabled = false;
         Label_lookup_hint.Enabled = false;
         LinkButton_reset.Enabled = true;
         SetDependentFieldAblements(p.be_ok_to_config_vehicles);
+        ManageControlVisibilities();
         Button_submit.Enabled = p.be_ok_to_config_vehicles;
         Button_delete.Enabled = p.be_ok_to_config_vehicles;
         result = true;
@@ -423,7 +428,8 @@ namespace UserControl_vehicle
           p.be_mode_add,
           p.saved_kind_id,
           k.Safe(TextBox_deployment_guidance.Text,k.safe_hint_type.PUNCTUATED),
-          p.saved_deployment_guidance
+          p.saved_deployment_guidance,
+          CheckBox_can_receive_legacy_cot_fastener.Checked
           );
         Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
         BackTrack();
@@ -503,6 +509,7 @@ namespace UserControl_vehicle
       UserControl_drop_down_date_dmv_inspection_due.enabled = ablement;
       CheckBox_be_four_or_all_wheel_drive.Enabled = ablement;
       TextBox_deployment_guidance.Enabled = ablement;
+      CheckBox_can_receive_legacy_cot_fastener.Enabled = ablement;
       }
 
     protected void Button_lookup_Click(object sender, System.EventArgs e)
@@ -629,6 +636,16 @@ namespace UserControl_vehicle
         }
       TableRow_target_pm_mileage.Visible = be_extra_tracking_appropriate_so_far;
       TableRow_dmv_inspection_due.Visible = be_extra_tracking_appropriate_so_far;
+      }
+
+    protected void DropDownList_kind_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      ManageControlVisibilities();
+      }
+
+    private void ManageControlVisibilities()
+      {
+      CheckBox_can_receive_legacy_cot_fastener.Visible = DropDownList_kind.SelectedItem.Text == "Ambulance";
       }
 
     } // end TWebUserControl_vehicle
