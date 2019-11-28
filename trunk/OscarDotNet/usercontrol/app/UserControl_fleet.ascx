@@ -17,23 +17,20 @@
                             <td>
                               <b><small>Filters:</small></b>
                             </td>
-                            <td id="TableDate_quarters_filter" runat="server">
-                              <p align="center">
+                            <td id="TableDate_quarters_filter" runat="server" align="center">
                                 <small>Quarters</small><br>
                                 <asp:DropDownList ID="DropDownList_quarters_filter" runat="server" AutoPostBack="True" onselectedindexchanged="DropDownList_quarters_filter_SelectedIndexChanged"></asp:DropDownList>
                             </td>
-                            <td id="TableData_vehicle_kind_filter" runat="server">
-                              <p align="center">
+                            <td id="TableData_vehicle_kind_filter" runat="server" align="center">
                                 <small>Kind</small><br>
                                 <asp:DropDownList ID="DropDownList_vehicle_kind_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_vehicle_kind_filter_SelectedIndexChanged"></asp:DropDownList>
                             </td>
-                            <td id="TableData_be_four_or_all_wheel_drive_filter" runat="server">
-                              <p align="center">
-                                <small>4WD/AWD only</small><br>
-                                <asp:CheckBox ID="CheckBox_be_four_or_all_wheel_drive_filter" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_be_four_or_all_wheel_drive_filter_CheckedChanged" />
+                            <td>
+                                <asp:CheckBox ID="CheckBox_be_four_or_all_wheel_drive_filter" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_be_four_or_all_wheel_drive_filter_CheckedChanged" Text="4WD/AWD only" font-size="Smaller"/>
+                                <br/>
+                                <asp:CheckBox ID="CheckBox_can_receive_legacy_cot_fastener_filter" runat="server" AutoPostBack="True" oncheckedchanged="CheckBox_can_receive_legacy_cot_fastener_filter_CheckedChanged" Text="Can receive legacy cot fastener" font-size="Smaller"/>
                             </td>
-                            <td id="TableData_agency_filter" runat="server">
-                              <p align="center">
+                            <td id="TableData_agency_filter" runat="server" align="center">
                                 <small>Agency</small><br>
                                 <asp:DropDownList ID="DropDownList_agency_filter" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_agency_filter_SelectedIndexChanged"></asp:DropDownList>
                             </td>
@@ -152,6 +149,10 @@
                 <asp:BoundColumn DataField="fuel_description" HeaderText="Fuel" ReadOnly="True" SortExpression="fuel_description%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="agency" HeaderText="Agency" ReadOnly="True" SortExpression="agency%,vehicle_name"></asp:BoundColumn>
                 <asp:BoundColumn DataField="vehicle_kind" HeaderText="Kind" ReadOnly="True" SortExpression="vehicle_kind%,vehicle_name">
+                  <HeaderStyle HorizontalAlign="Center" />
+                  <ItemStyle HorizontalAlign="Center" />
+                </asp:BoundColumn>
+                <asp:BoundColumn DataField="can_receive_legacy_cot_fastener" HeaderText="Can receive legacy cot fastener?" ReadOnly="True" Visible="False" SortExpression="can_receive_legacy_cot_fastener%,vehicle_name">
                   <HeaderStyle HorizontalAlign="Center" />
                   <ItemStyle HorizontalAlign="Center" />
                 </asp:BoundColumn>

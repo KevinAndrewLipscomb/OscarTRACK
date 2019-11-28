@@ -49,15 +49,6 @@ namespace UserControl_fleet {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_vehicle_kind_filter;
         
         /// <summary>
-        /// TableData_be_four_or_all_wheel_drive_filter control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_be_four_or_all_wheel_drive_filter;
-        
-        /// <summary>
         /// CheckBox_be_four_or_all_wheel_drive_filter control.
         /// </summary>
         /// <remarks>
@@ -65,6 +56,15 @@ namespace UserControl_fleet {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CheckBox CheckBox_be_four_or_all_wheel_drive_filter;
+        
+        /// <summary>
+        /// CheckBox_can_receive_legacy_cot_fastener_filter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_can_receive_legacy_cot_fastener_filter;
         
         /// <summary>
         /// TableData_agency_filter control.

@@ -211,6 +211,15 @@ namespace UserControl_vehicle {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList_kind;
         
         /// <summary>
+        /// CheckBox_can_receive_legacy_cot_fastener control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CheckBox CheckBox_can_receive_legacy_cot_fastener;
+        
+        /// <summary>
         /// RequiredFieldValidator_kind control.
         /// </summary>
         /// <remarks>

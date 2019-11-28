@@ -89,7 +89,7 @@
     <td></td>
     <td>
       <font class="">
-        <ASP:DropDownList id="DropDownList_kind" runat="server"  cssclass="" enabled="False"></ASP:DropDownList>
+        <ASP:DropDownList id="DropDownList_kind" runat="server"  cssclass="" enabled="False" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_kind_SelectedIndexChanged"></ASP:DropDownList>&nbsp;<asp:CheckBox ID="CheckBox_can_receive_legacy_cot_fastener" runat="server" Text="Can receive legacy cot fastener" visible="false"/>
       </font>
     </td>
     <td nowrap="nowrap">

@@ -148,10 +148,11 @@ namespace Class_biz_vehicles
       string agency_filter,
       string vehicle_kind_filter,
       bool be_four_or_all_wheel_drive_filter,
-      string quarters_filter
+      string quarters_filter,
+      bool can_receive_legacy_cot_fastener_filter
       )
       {
-      db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter);
+      db_vehicles.BindBaseDataList(sort_order, be_sort_order_ascending, target, agency_filter, vehicle_kind_filter, be_four_or_all_wheel_drive_filter,quarters_filter,can_receive_legacy_cot_fastener_filter);
       }
 
     public void BindDirectToListControl(object target)
@@ -243,7 +244,8 @@ namespace Class_biz_vehicles
       out DateTime dmv_inspection_due,
       out DateTime recent_mileage_update_time,
       out bool be_four_or_all_wheel_drive,
-      out string deployment_guidance
+      out string deployment_guidance,
+      out bool can_receive_legacy_cot_fastener
       )
       {
       var result = db_vehicles.Get
@@ -266,7 +268,8 @@ namespace Class_biz_vehicles
         out dmv_inspection_due,
         out recent_mileage_update_time,
         out be_four_or_all_wheel_drive,
-        out deployment_guidance
+        out deployment_guidance,
+        out can_receive_legacy_cot_fastener
         );
       if (target_pm_mileage == 0xFFFFFFFF.ToString("d")) // max MySQL int value
         {
@@ -436,7 +439,8 @@ namespace Class_biz_vehicles
       bool be_mode_add,
       string saved_kind_id,
       string deployment_guidance,
-      string saved_deployment_guidance
+      string saved_deployment_guidance,
+      bool can_receive_legacy_cot_fastener
       )
       {
       var agency_id_int = new k.int_nonnegative(val:int.Parse(agency_id));
@@ -481,7 +485,8 @@ namespace Class_biz_vehicles
         effective_dmv_inspection_due,
         be_four_or_all_wheel_drive,
         be_mode_add,
-        deployment_guidance
+        deployment_guidance,
+        can_receive_legacy_cot_fastener
         );
       if (saved_kind_id.Length == 0)
         {

@@ -16,7 +16,8 @@ namespace OscarDotNet.service
       string agency_filter,
       string vehicle_kind_filter,
       bool be_four_or_all_wheel_drive_filter,
-      string quarters_filter
+      string quarters_filter,
+      bool can_receive_legacy_cot_fastener_filter = false
       );
     }
   }
