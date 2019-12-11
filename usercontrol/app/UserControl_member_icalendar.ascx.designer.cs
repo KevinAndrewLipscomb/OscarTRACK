@@ -20,5 +20,32 @@ namespace UserControl_member_icalendar {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DataGrid DataGrid_control;
+        
+        /// <summary>
+        /// Literal_application_name control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name;
+        
+        /// <summary>
+        /// HyperLink_subscribe_via_google_calendar_render control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_subscribe_via_google_calendar_render;
+        
+        /// <summary>
+        /// HyperLink_subscribe_via_webcal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_subscribe_via_webcal;
     }
 }
