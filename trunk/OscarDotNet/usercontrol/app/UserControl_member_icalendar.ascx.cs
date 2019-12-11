@@ -172,7 +172,7 @@ namespace UserControl_member_icalendar
           )
         );
       icalendar.Close();
-      HyperLink_subscribe_via_google_calendar_render.NavigateUrl = "https://www.google.com/calendar/render?cid=" + Server.UrlEncode(ConfigurationManager.AppSettings["runtime_root_fullspec"] + path_common_part);
+      HyperLink_subscribe_via_google_calendar_render.NavigateUrl = "https://www.google.com/calendar/render?cid=" + Server.UrlEncode(ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","http") + path_common_part);
       HyperLink_subscribe_via_webcal.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("http","webcal") + path_common_part;
       }
 
