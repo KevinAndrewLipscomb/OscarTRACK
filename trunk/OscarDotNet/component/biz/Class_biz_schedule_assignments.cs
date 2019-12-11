@@ -487,6 +487,15 @@ namespace Class_biz_schedule_assignments
       db_schedule_assignments.BindMemberScheduleDetailBaseDataList(member_id,relative_month,agency_id,target);
       }
 
+    internal void BindMemberScheduleDetailBaseDataListForIcalendar
+      (
+      string member_id,
+      object target
+      )
+      {
+      db_schedule_assignments.BindMemberScheduleDetailBaseDataListForIcalendar(member_id,target);
+      }
+
     internal void BindPostCardinalityListControl
       (
       string max_post_cardinality,

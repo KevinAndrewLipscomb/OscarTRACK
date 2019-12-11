@@ -3,6 +3,8 @@
 <%@ Page language="c#" Debug="true" Codebehind="report_commanded_member_schedule_detail.aspx.cs" AutoEventWireup="True" Inherits="report_commanded_member_schedule_detail.TWebForm_report_commanded_member_schedule_detail" %>
 <%@ Register src="../usercontrol/app/UserControl_common_header_bar.ascx" tagname="UserControl_common_header_bar" tagprefix="uc1" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_member_schedule_detail" Src="~/usercontrol/app/UserControl_member_schedule_detail.ascx" %>
+<%@ Register Src="~/usercontrol/app/UserControl_member_icalendar.ascx" TagPrefix="uc1" TagName="UserControl_member_icalendar" %>
+
 <html>
   <head runat="server">
     <!-- $Id$ -->
@@ -18,6 +20,7 @@
       <br />
       <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>
       <p><small>The transmission of this message was triggered by <asp:Literal ID="Literal_publisher" runat="server"></asp:Literal> at <asp:Literal ID="Literal_time_triggered" runat="server"></asp:Literal>.</small></p>
+      <uc1:UserControl_member_icalendar runat="server" ID="UserControl_member_icalendar_control" />
     </form>
   </body>
 </html>
