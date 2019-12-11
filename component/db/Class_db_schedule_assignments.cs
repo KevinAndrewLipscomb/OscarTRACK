@@ -1283,8 +1283,8 @@ namespace Class_db_schedule_assignments
         (
         "select sa1.id as schedule_assignment_id"
         + " , name as shift_name"
-        + " , DATE_FORMAT(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logon_timespan)) HOUR),'%Y%m%dT%H%i00') as logon_time"
-        + " , DATE_FORMAT(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logoff_timespan)) HOUR),'%Y%m%dT%H%i00') as logoff_time"
+        + " , DATE_FORMAT(CONVERT_TZ(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logon_timespan)) HOUR),@@session.time_zone,'+00:00'),'%Y%m%dT%H%i00Z') as logon_time"
+        + " , DATE_FORMAT(CONVERT_TZ(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logoff_timespan)) HOUR),@@session.time_zone,'+00:00'),'%Y%m%dT%H%i00Z') as logoff_time"
         + " , short_designator as post_short_designator"
         + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
         + " , medium_designator as post_medium_designator"
