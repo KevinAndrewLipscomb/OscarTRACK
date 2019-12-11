@@ -63,6 +63,8 @@ namespace report_commanded_member_schedule_detail
         //
         Literal_publisher.Text = p.publisher + (p.be_limited_preview ? " performing a Refresh" : k.EMPTY);
         Literal_time_triggered.Text = p.time_triggered;
+        //
+        UserControl_member_icalendar_control.Publish(member_id:p.member_id);
         }
       }
 

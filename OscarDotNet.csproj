@@ -253,6 +253,7 @@
     <Content Include="usercontrol\app\UserControl_incident_nature.ascx" />
     <Content Include="usercontrol\app\UserControl_incident_nature_translation.ascx" />
     <Content Include="usercontrol\app\UserControl_keyclick.ascx" />
+    <Content Include="usercontrol\app\UserControl_member_icalendar.ascx" />
     <Content Include="usercontrol\app\UserControl_member_profile.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail.ascx" />
     <Content Include="usercontrol\app\UserControl_member_schedule_detail_bls_interns.ascx" />
@@ -1665,6 +1666,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_binder.ascx.designer.cs">
       <DependentUpon>UserControl_member_binder.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_icalendar.ascx.cs">
+      <DependentUpon>UserControl_member_icalendar.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_member_icalendar.ascx.designer.cs">
+      <DependentUpon>UserControl_member_icalendar.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_member_profile.ascx.cs">
       <DependentUpon>UserControl_member_profile.ascx</DependentUpon>

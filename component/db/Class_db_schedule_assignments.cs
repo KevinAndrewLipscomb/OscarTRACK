@@ -1272,6 +1272,72 @@ namespace Class_db_schedule_assignments
       Close();
       }
 
+    internal void BindMemberScheduleDetailBaseDataListForIcalendar
+      (
+      string member_id,
+      object target
+      )
+      {
+      Open();
+      (target as DataGrid).DataSource = new MySqlCommand
+        (
+        "select sa1.id as schedule_assignment_id"
+        + " , name as shift_name"
+        + " , DATE_FORMAT(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logon_timespan)) HOUR),'%Y%m%dT%H%i00') as logon_time"
+        + " , DATE_FORMAT(ADDDATE(nominal_day,INTERVAL HOUR(ADDTIME(start,muster_to_logoff_timespan)) HOUR),'%Y%m%dT%H%i00') as logoff_time"
+        + " , short_designator as post_short_designator"
+        + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
+        + " , medium_designator as post_medium_designator"
+        + " , long_designator as post_long_designator"
+        + " , IFNULL(address,'') as post_address"
+        + " , IFNULL(door_code,'') as door_code"
+        + " , IFNULL(comment,'') as comment"
+        + " , ("
+        +   " select group_concat("
+        +     " concat("
+        +       " IFNULL(concat(keyclick_enumerator,' '),''),"
+        +       " description,"
+        +       " ' ',"
+        +       " first_name,"
+        +       " ' ',"
+        +       " last_name,"
+        +       " IFNULL(concat(' {',sa2.comment,'}'),''),"
+        +       " ', ',SPACE(3),"
+        +       " IFNULL(IF(email_address = '','',email_address),''),"
+        +       " IF(email_address <> '' and phone_num <> '',concat(', ',SPACE(3)),''),"
+        +       " IFNULL(IF(phone_num = '','',concat('tel:',SUBSTRING(phone_num,1,3),'-',SUBSTRING(phone_num,4,3),'-',SUBSTRING(phone_num,7))),'')"
+        +       " )"
+        +     " order by pecking_order desc,equivalent_los_start_date separator ', '"
+        +   " )"
+        +   " from schedule_assignment sa2"
+        +     " join member on (member.id=sa2.member_id)"
+        +     " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        +     " join agency on (agency.id=member.agency_id)"
+        +   " where sa2.nominal_day = sa1.nominal_day"
+        +     " and sa2.shift_id = sa1.shift_id"
+        +     " and sa2.post_id = sa1.post_id"
+        +     " and sa2.post_cardinality = sa1.post_cardinality"
+        +     " and be_selected"
+        +     " and sa2.member_id <> sa1.member_id"
+        +   " )"
+        +   " as partner_list"
+        + " , IFNULL(CONCAT(first_name,' ',last_name),'') as reviser"
+        + " , IFNULL(last_revised,'') as last_revised"
+        + " from schedule_assignment sa1"
+        +   " join shift on (shift.id=sa1.shift_id)"
+        +   " join agency on (agency.id=sa1.post_id)"
+        +   " join member reviser on (reviser.id=sa1.reviser_member_id)"
+        + " where member_id = '" + member_id + "'"
+        +   " and be_selected"
+        + " order by logon_time",
+        connection
+        )
+        .ExecuteReader();
+      (target as BaseDataList).DataBind();
+      ((target as BaseDataList).DataSource as MySqlDataReader).Close();
+      Close();
+      }
+
     internal void BindPotentialHelpersBaseDataList
       (
       string sort_order,
