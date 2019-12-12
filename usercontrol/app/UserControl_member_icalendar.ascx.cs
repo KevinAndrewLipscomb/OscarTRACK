@@ -49,6 +49,16 @@ namespace UserControl_member_icalendar
       {
       if (!p.be_loaded)
         {
+        Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
+        Literal_application_name_2.Text = Literal_application_name.Text;
+        Literal_application_name_3.Text = Literal_application_name.Text;
+        Literal_application_name_4.Text = Literal_application_name.Text;
+        Literal_application_name_5.Text = Literal_application_name.Text;
+        Literal_application_name_6.Text = Literal_application_name.Text;
+        Literal_application_name_7.Text = Literal_application_name.Text;
+        Literal_application_name_8.Text = Literal_application_name.Text;
+        Literal_application_name_9.Text = Literal_application_name.Text;
+        //
         p.be_loaded = true;
         }
       }
