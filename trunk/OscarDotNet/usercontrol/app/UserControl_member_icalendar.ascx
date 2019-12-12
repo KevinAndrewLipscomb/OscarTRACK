@@ -22,7 +22,7 @@
   <tr>
     <td>
       <table cellpadding="10" cellspacing="0">
-        <tr><td bgcolor="Gold"colspan="2"><strong>Auto-calendaring</strong></td></tr>
+        <tr><td bgcolor="khaki" colspan="2"><strong>Auto-calendaring</strong></td></tr>
         <tr><td colspan="2">To make your <asp:Literal ID="Literal_application_name" runat="server"></asp:Literal> assignments show up in your online calendaring system, do the following.&nbsp; You should <u>not</u> need to repeat this process in the future:</td></tr>
         <tr>
           <td align="right">&bull;</td>

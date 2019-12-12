@@ -123,13 +123,13 @@ namespace UserControl_member_icalendar
         + "DTSTART:" + e.Item.Cells[Static.TCI_LOGON_TIME].Text + k.NEW_LINE
         + "DTEND:" + e.Item.Cells[Static.TCI_LOGOFF_TIME].Text + k.NEW_LINE
         + "SUMMARY:" + e.Item.Cells[Static.TCI_POST_SHORT_DESIGNATOR].Text + k.NEW_LINE
-        + "DESCRIPTION:VBEMS duty at " + e.Item.Cells[Static.TCI_POST_MEDIUM_DESIGNATOR].Text + k.SPACE_HYPHEN_SPACE + e.Item.Cells[Static.TCI_POST_LONG_DESIGNATOR].Text + "\n"
-        +   e.Item.Cells[Static.TCI_SHIFT_NAME].Text + " shift, crew '" + e.Item.Cells[Static.TCI_POST_CARDINALITY].Text + "'\n"
-        +   "Door code: " + (e.Item.Cells[Static.TCI_DOOR_CODE].Text == "&nbsp;" ? "(none)" : e.Item.Cells[Static.TCI_DOOR_CODE].Text) + "\n"
-        +   (e.Item.Cells[Static.TCI_COMMENT].Text == "&nbsp;" ? k.EMPTY : "Comment: " + e.Item.Cells[Static.TCI_COMMENT].Text + "\n")
-        +   "Partner(s):" + (e.Item.Cells[Static.TCI_PARTNER_LIST].Text == "&nbsp;" ? " (none)" : "\n   " + e.Item.Cells[Static.TCI_PARTNER_LIST].Text.Replace(k.COMMA_SPACE,"\n" + (new String(Convert.ToChar(k.SPACE), 3)))) + "\n"
-        +   (e.Item.Cells[Static.TCI_POST_ADDRESS].Text == "&nbsp;" ? k.EMPTY : "Address: " + e.Item.Cells[Static.TCI_POST_ADDRESS].Text + "\n" + "Google map: http://google.com/maps?q=" + HttpUtility.UrlEncode(e.Item.Cells[Static.TCI_POST_ADDRESS].Text + ", VIRGINIA BEACH, VA") + "\n")
-        +   (e.Item.Cells[Static.TCI_LAST_REVISED].Text.Length > 0 ? "Last revised at " + e.Item.Cells[Static.TCI_LAST_REVISED].Text + " by " + e.Item.Cells[Static.TCI_REVISER].Text + "\n" : k.EMPTY)
+        + "DESCRIPTION:VBEMS duty at " + e.Item.Cells[Static.TCI_POST_MEDIUM_DESIGNATOR].Text + k.SPACE_HYPHEN_SPACE + e.Item.Cells[Static.TCI_POST_LONG_DESIGNATOR].Text + "\\n"
+        +   e.Item.Cells[Static.TCI_SHIFT_NAME].Text + " shift, crew '" + e.Item.Cells[Static.TCI_POST_CARDINALITY].Text + "'\\n"
+        +   "Door code: " + (e.Item.Cells[Static.TCI_DOOR_CODE].Text == "&nbsp;" ? "(none)" : e.Item.Cells[Static.TCI_DOOR_CODE].Text) + "\\n"
+        +   (e.Item.Cells[Static.TCI_COMMENT].Text == "&nbsp;" ? k.EMPTY : "Comment: " + e.Item.Cells[Static.TCI_COMMENT].Text + "\\n")
+        +   "Partner(s):" + (e.Item.Cells[Static.TCI_PARTNER_LIST].Text == "&nbsp;" ? " (none)" : "\n   " + e.Item.Cells[Static.TCI_PARTNER_LIST].Text.Replace(k.COMMA_SPACE,"\n" + (new String(Convert.ToChar(k.SPACE), 3)))) + "\\n"
+        +   (e.Item.Cells[Static.TCI_POST_ADDRESS].Text == "&nbsp;" ? k.EMPTY : "Address: " + e.Item.Cells[Static.TCI_POST_ADDRESS].Text + "\\n" + "Google map: http://google.com/maps?q=" + HttpUtility.UrlEncode(e.Item.Cells[Static.TCI_POST_ADDRESS].Text + ", VIRGINIA BEACH, VA") + "\\n")
+        +   (e.Item.Cells[Static.TCI_LAST_REVISED].Text.Length > 0 ? "Last revised at " + e.Item.Cells[Static.TCI_LAST_REVISED].Text + " by " + e.Item.Cells[Static.TCI_REVISER].Text + "\\n" : k.EMPTY)
         +   ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
         + "CONTACT:" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
         + "END:VEVENT" + k.NEW_LINE;
