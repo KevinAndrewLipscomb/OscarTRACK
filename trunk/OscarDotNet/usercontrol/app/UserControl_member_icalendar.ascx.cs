@@ -116,7 +116,7 @@ namespace UserControl_member_icalendar
       {
       if (e.Item.ItemType.ToString().EndsWith("Item"))
         {
-        const string INTRAPROPERTY_NEW_LINE = "\\n" + k.NEW_LINE;
+        const string INTRAPROPERTY_NEW_LINE = k.NEW_LINE + k.TAB;
         p.vevent_list += k.EMPTY
         + "BEGIN:VEVENT" + k.NEW_LINE
         + "DTSTAMP:" + DateTime.Now.ToUniversalTime().ToString("yyyyMMddTHHmm00Z") + k.NEW_LINE
