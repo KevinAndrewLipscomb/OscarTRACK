@@ -131,8 +131,8 @@ namespace UserControl_member_icalendar
         +   "Partner(s):"
         +     (e.Item.Cells[Static.TCI_PARTNER_LIST].Text == "&nbsp;" ? " (none)" : LINE_FOLD + (new String(Convert.ToChar(k.SPACE), 3)) + e.Item.Cells[Static.TCI_PARTNER_LIST].Text.Replace(k.COMMA_SPACE,LINE_FOLD + (new String(Convert.ToChar(k.SPACE), 3)))) + LINE_FOLD
         +   (e.Item.Cells[Static.TCI_POST_ADDRESS].Text == "&nbsp;" ? k.EMPTY : "Address: " + e.Item.Cells[Static.TCI_POST_ADDRESS].Text + LINE_FOLD + "Google map: http://google.com/maps?q=" + HttpUtility.UrlEncode(e.Item.Cells[Static.TCI_POST_ADDRESS].Text + ", VIRGINIA BEACH, VA") + LINE_FOLD)
-        +   (e.Item.Cells[Static.TCI_LAST_REVISED].Text.Length > 0 ? "Last revised at " + e.Item.Cells[Static.TCI_LAST_REVISED].Text + " by " + e.Item.Cells[Static.TCI_REVISER].Text + LINE_FOLD : k.EMPTY)
-        +   ConfigurationManager.AppSettings["runtime_root_fullspec"] + "\\n" + k.NEW_LINE //Outlook (only, as far as I can tell) does not split the last two lines properly without the \\n here.
+        +   ConfigurationManager.AppSettings["runtime_root_fullspec"] + LINE_FOLD
+        +   (e.Item.Cells[Static.TCI_LAST_REVISED].Text.Length > 0 ? "Last revised at " + e.Item.Cells[Static.TCI_LAST_REVISED].Text + " by " + e.Item.Cells[Static.TCI_REVISER].Text + k.NEW_LINE : k.EMPTY) // Looks like the last of a folded set of lines should not end in a LINE_FOLD sequence.
         + (e.Item.Cells[Static.TCI_POST_ADDRESS].Text == "&nbsp;" ? k.EMPTY : "LOCATION:" + e.Item.Cells[Static.TCI_POST_ADDRESS].Text + k.NEW_LINE)
         + "CONTACT:" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
         + "URL:" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
