@@ -1,6 +1,5 @@
 using System;
 using System.Configuration;
-using System.Text;
 
 namespace UserControl_autocalendaring_subscriptions
   {
@@ -30,9 +29,9 @@ namespace UserControl_autocalendaring_subscriptions
         Literal_application_name_8.Text = Literal_application_name.Text;
         Literal_application_name_9.Text = Literal_application_name.Text;
         //
-        HyperLink_subscribe_via_google_calendar_render.NavigateUrl =
-          "https://www.google.com/calendar/render?cid=" + Convert.ToBase64String(Encoding.ASCII.GetBytes(ConfigurationManager.AppSettings["runtime_root_fullspec"] + p.icalendar_path_common_part));
         HyperLink_subscribe_via_webcal.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("http","webcal") + p.icalendar_path_common_part;
+        Literal_cid.Text = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","http") + p.icalendar_path_common_part;
+          // Use this method for Google Calendar until "https://www.google.com/calendar/render?cid=" either accepts a CID prefixed with "http", "https" or "webcal" properly.
         //
         p.be_loaded = true;
         }
