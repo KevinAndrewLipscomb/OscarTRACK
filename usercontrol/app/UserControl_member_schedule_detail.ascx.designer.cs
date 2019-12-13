@@ -308,5 +308,14 @@ namespace UserControl_member_schedule_detail {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlTableRow HtmlTableRow_key_revised;
+        
+        /// <summary>
+        /// UserControl_autocalendaring_subscriptions_control control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::UserControl_autocalendaring_subscriptions.TWebUserControl_autocalendaring_subscriptions UserControl_autocalendaring_subscriptions_control;
     }
 }
