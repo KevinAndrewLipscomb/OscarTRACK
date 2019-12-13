@@ -162,6 +162,7 @@ namespace UserControl_member_icalendar
           )
         );
       icalendar.Close();
+      Controls.Remove(this);
       }
 
     }
