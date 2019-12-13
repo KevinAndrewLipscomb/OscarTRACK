@@ -1,6 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_member_icalendar.ascx.cs" Inherits="UserControl_member_icalendar.TWebUserControl_member_icalendar"%>
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
-<asp:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" onitemdatabound="DataGrid_control_ItemDataBound" style="border:none; display:none" ShowHeader="False">
+<asp:DataGrid id="DataGrid_control" runat="server" autogeneratecolumns="False" onitemdatabound="DataGrid_control_ItemDataBound" style="display:none" ShowHeader="False" BorderStyle="None" GridLines="None">
   <Columns>
     <asp:BoundColumn datafield="schedule_assignment_id"></asp:BoundColumn>
     <asp:BoundColumn datafield="shift_name"></asp:BoundColumn>
