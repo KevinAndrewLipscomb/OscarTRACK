@@ -27,11 +27,10 @@
         <tr>
           <td align="right" valign="top">&bull;</td>
           <td>
-            <asp:HyperLink ID="HyperLink_subscribe_via_google_calendar_render" runat="server" Font-Bold="True" Target="_blank">Subscribe using Google Calendar</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink_subscribe_via_webcal" runat="server" Font-Bold="True" Target="_blank">Subscribe via your local calendar app</asp:HyperLink>
             <blockquote>
               <small>
-                Google retains sole control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_6" runat="server"></asp:Literal> into your calendar.&nbsp; It may be a day or more before changes
-                are reflected in Google Calendar.&nbsp; Neither you nor <asp:Literal ID="Literal_application_name_7" runat="server"></asp:Literal> can control this.
+                Your local calendar app probably gives you control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_8" runat="server"></asp:Literal>.
               </small>
             </blockquote>
           </td>
@@ -39,10 +38,21 @@
         <tr>
           <td align="right" valign="top">&bull;</td>
           <td>
-            <asp:HyperLink ID="HyperLink_subscribe_via_webcal" runat="server" Font-Bold="True" Target="_blank">Subscribe via your local calendar app</asp:HyperLink>
+            <b>Subscribe using Google Calendar</b>
             <blockquote>
               <small>
-                Your local calendar app probably gives you control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_8" runat="server"></asp:Literal>.
+                Steps:
+                <ol>
+                  <li><a href="https://calendar.google.com" target="_blank">Open a new browser tab, navigate to Google Calendar</a>, and make sure you're logged in.</li>
+                  <li>In the "Other calendars" section, click the "+" (Add other calendars) button.</li>
+                  <li>Click "From URL".</li>
+                  <li>Enter the following string (which is personalized for <u>you</u>) and click the "Add calendar" button:</li>
+                </ol>
+                <blockquote><blockquote><b><code><asp:Literal ID="Literal_cid" runat="server"></asp:Literal></code></b></blockquote></blockquote>
+                <p>
+                  Google retains sole control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_6" runat="server"></asp:Literal> into your calendar.&nbsp; It may be a day or more before changes
+                  are reflected in Google Calendar.&nbsp; Neither you nor <asp:Literal ID="Literal_application_name_7" runat="server"></asp:Literal> can control this.
+                </p>
               </small>
             </blockquote>
           </td>
