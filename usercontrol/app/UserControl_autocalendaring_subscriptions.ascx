@@ -27,7 +27,7 @@
         <tr>
           <td align="right" valign="top">&bull;</td>
           <td>
-            <asp:HyperLink ID="HyperLink_subscribe_via_webcal" runat="server" Font-Bold="True" Target="_blank">Subscribe via your local calendar app</asp:HyperLink>
+            <asp:HyperLink ID="HyperLink_subscribe_via_webcal" runat="server" Font-Bold="True">Subscribe via your local calendar app</asp:HyperLink>
             <blockquote>
               <small>
                 Your local calendar app probably gives you control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_8" runat="server"></asp:Literal>.
