@@ -1,4 +1,6 @@
 <%@ Control Language="c#" AutoEventWireup="True" Codebehind="UserControl_member_schedule_detail.ascx.cs" Inherits="UserControl_member_schedule_detail.TWebUserControl_member_schedule_detail"%>
+<%@ Register Src="~/usercontrol/app/UserControl_autocalendaring_subscriptions.ascx" TagPrefix="uc1" TagName="UserControl_autocalendaring_subscriptions" %>
+
 <!-- Derived from KiAspdotnetFramework/usercontrol/app/UserControl~template~std.ascx-template -->
 <style type="text/css">
   .revised
@@ -291,6 +293,8 @@
                 </td>
               </tr>
             </table>
+            <br />
+            <uc1:UserControl_autocalendaring_subscriptions runat="server" id="UserControl_autocalendaring_subscriptions_control" visible="false" />
           </td>
         </tr>
       </table>

@@ -36,10 +36,6 @@ namespace UserControl_member_icalendar
       public bool be_loaded;
       public TClass_biz_members biz_members;
       public TClass_biz_schedule_assignments biz_schedule_assignments;
-      public string key;
-      public string member_cad_num;
-      public string member_first_name;
-      public string member_id;
       public string vevent_list;
       }
 
@@ -49,16 +45,6 @@ namespace UserControl_member_icalendar
       {
       if (!p.be_loaded)
         {
-        Literal_application_name.Text = ConfigurationManager.AppSettings["application_name"];
-        Literal_application_name_2.Text = Literal_application_name.Text;
-        Literal_application_name_3.Text = Literal_application_name.Text;
-        Literal_application_name_4.Text = Literal_application_name.Text;
-        Literal_application_name_5.Text = Literal_application_name.Text;
-        Literal_application_name_6.Text = Literal_application_name.Text;
-        Literal_application_name_7.Text = Literal_application_name.Text;
-        Literal_application_name_8.Text = Literal_application_name.Text;
-        Literal_application_name_9.Text = Literal_application_name.Text;
-        //
         p.be_loaded = true;
         }
       }
@@ -93,9 +79,6 @@ namespace UserControl_member_icalendar
         p.biz_members = new TClass_biz_members();
         p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
         //
-        p.key = k.EMPTY;
-        p.member_cad_num = k.EMPTY;
-        p.member_id = k.EMPTY;
         p.vevent_list = k.EMPTY;
         //
         p.be_loaded = false;
@@ -150,28 +133,21 @@ namespace UserControl_member_icalendar
         }
       }
 
-    private void Bind()
+    internal void Publish(string member_id)
       {
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataListForIcalendar
         (
-        member_id:p.member_id,
+        member_id:member_id,
         target:DataGrid_control
         );
-      }
-
-    internal void Publish(string member_id)
-      {
-      p.member_id = member_id;
-      Bind();
       //
       // Build and (over)write member's iCalendar into perplexibase, named using digest of p.member_id, member CAD num, member first name, perplexibase_salt.
       //
-      var summary = p.biz_members.Summary(p.member_id);
-      p.member_first_name = p.biz_members.FirstNameOf(summary);
-      p.member_cad_num = p.biz_members.CadNumOf(summary);
-      p.key = k.Digest(p.biz_members.IdOf(summary) + p.member_first_name + p.member_cad_num + ConfigurationManager.AppSettings["perplexibase_salt"]);
-      var path_common_part = "perplexibase/ical/" + p.key + ".ics";
-      var icalendar = new StreamWriter(path:HttpContext.Current.Server.MapPath("~/" + path_common_part));
+      var summary = p.biz_members.Summary(member_id);
+      var member_first_name = p.biz_members.FirstNameOf(summary);
+      var member_cad_num = p.biz_members.CadNumOf(summary);
+      var icalendar =
+        new StreamWriter(path:Server.MapPath("~/perplexibase/ical/" + k.Digest(p.biz_members.IdOf(summary) + member_first_name + member_cad_num + ConfigurationManager.AppSettings["perplexibase_salt"]) + ".ics"));
       icalendar.Write
         (
         k.Unix2Dos
@@ -179,15 +155,13 @@ namespace UserControl_member_icalendar
           "BEGIN:VCALENDAR" + k.NEW_LINE
           + "PRODID:" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
           + "VERSION:2.0" + k.NEW_LINE
-          + "NAME:" + ConfigurationManager.AppSettings["application_name"] + " assignments - " + p.member_first_name + k.SPACE + p.biz_members.LastNameOf(summary) + " (" + p.member_cad_num + ")" + k.NEW_LINE
+          + "NAME:" + ConfigurationManager.AppSettings["application_name"] + " assignments - " + member_first_name + k.SPACE + p.biz_members.LastNameOf(summary) + " (" + member_cad_num + ")" + k.NEW_LINE
           + "URL:" + ConfigurationManager.AppSettings["runtime_root_fullspec"] + k.NEW_LINE
           + p.vevent_list
           + "END:VCALENDAR" + k.NEW_LINE
           )
         );
       icalendar.Close();
-      HyperLink_subscribe_via_google_calendar_render.NavigateUrl = "https://www.google.com/calendar/render?cid=" + Server.UrlEncode(ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","http") + path_common_part);
-      HyperLink_subscribe_via_webcal.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("http","webcal") + path_common_part;
       }
 
     }

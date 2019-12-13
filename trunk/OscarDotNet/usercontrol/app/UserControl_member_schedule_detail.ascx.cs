@@ -11,6 +11,8 @@ using System;
 using System.Collections;
 using System.Configuration;
 using System.Drawing;
+using System.IO;
+using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -99,8 +101,9 @@ namespace UserControl_member_schedule_detail
         {
         Label_preview_warning.Visible = p.be_limited_preview;
         //
+        var member_first_name = p.biz_members.FirstNameOf(p.member_summary);
         var month_of_interest = DateTime.Now.AddMonths(p.relative_month.val);
-        Literal_name.Text = p.biz_members.FirstNameOf(p.member_summary) + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
+        Literal_name.Text = member_first_name + k.SPACE + p.biz_members.LastNameOf(p.member_summary);
         Literal_name_2.Text = Literal_name.Text;
         Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
         LinkButton_switch_month.Visible = p.biz_schedule_assignments.BeOkToAllowMemberScheduleDetailControlMonthSwitch
@@ -136,9 +139,17 @@ namespace UserControl_member_schedule_detail
         Calendar_9to9.VisibleDate = month_of_interest;
         Calendar_night.VisibleDate = month_of_interest;
         //
-        Panel_one_step_avail_force_post.Visible = p.be_ok_to_one_step_avail_force_post;
+        Panel_one_step_avail_force_post.Visible = p.be_interactive && p.be_ok_to_one_step_avail_force_post;
         //
         Bind();
+        //
+        if (p.be_my_watchbill_mode)
+          {
+          var icalendar_path_common_part =
+            "perplexibase/ical/" + k.Digest(p.member_id + member_first_name + p.biz_members.CadNumOf(p.member_summary) + ConfigurationManager.AppSettings["perplexibase_salt"]) + ".ics";
+          UserControl_autocalendaring_subscriptions_control.Visible = File.Exists(HttpContext.Current.Server.MapPath("~/" + icalendar_path_common_part));
+          UserControl_autocalendaring_subscriptions_control.SetP(icalendar_path_common_part);
+          }
         //
         InjectPersistentClientSideScript();
         p.be_loaded = true;
@@ -872,6 +883,7 @@ namespace UserControl_member_schedule_detail
       p.be_interactive = be_interactive;
       p.be_fully_editable = p.be_fully_editable && be_interactive;
       p.be_partially_editable = p.be_partially_editable && be_interactive;
+      p.be_my_watchbill_mode = p.be_my_watchbill_mode && be_interactive;
       }
 
     protected void Button_mark_tbr_Click(object sender, EventArgs e)
