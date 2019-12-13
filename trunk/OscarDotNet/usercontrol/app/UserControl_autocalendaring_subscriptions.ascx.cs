@@ -1,5 +1,3 @@
-using Class_biz_members;
-using kix;
 using System;
 using System.Configuration;
 
@@ -32,7 +30,7 @@ namespace UserControl_autocalendaring_subscriptions
         Literal_application_name_9.Text = Literal_application_name.Text;
         //
         HyperLink_subscribe_via_google_calendar_render.NavigateUrl =
-          "https://www.google.com/calendar/render?cid=" + Server.UrlEncode(ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","http") + p.icalendar_path_common_part);
+          "https://www.google.com/calendar/render?cid=" + Server.UrlEncode(ConfigurationManager.AppSettings["runtime_root_fullspec"] + p.icalendar_path_common_part);
         HyperLink_subscribe_via_webcal.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("http","webcal") + p.icalendar_path_common_part;
         //
         p.be_loaded = true;
