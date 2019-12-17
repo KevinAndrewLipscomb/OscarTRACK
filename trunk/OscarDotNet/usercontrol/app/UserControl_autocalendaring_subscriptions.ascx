@@ -57,7 +57,7 @@
                     Use your calendaring software to "subscribe" or "add" a calendar "from the internet" or "from URL", and enter the following address:
                     <blockquote><b><pre><asp:Literal ID="Literal_webcals_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
-                  <td valign="top">&nbsp;</td>
+                  <td valign="top">Mozilla Thunderbird Lightning</td>
                 </tr>
                 <tr>
                   <td valign="top">&nbsp;</td>
@@ -66,7 +66,7 @@
                     Unsubscribe what you added in the above step, then try again using the following address:
                     <blockquote><b><pre><asp:Literal ID="Literal_webcal_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
-                  <td valign="top">&nbsp;</td>
+                  <td valign="top">Google Calendar<sup>*</sup></td>
                 </tr>
                 <tr>
                   <td valign="top">&nbsp;</td>
@@ -84,7 +84,7 @@
                     Unsubscribe what you added in the above step, then try again using the following address:
                     <blockquote><b><pre><asp:Literal ID="Literal_http_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
-                  <td valign="top">Google Calendar<sup>*</sup></td>
+                  <td valign="top">&nbsp;</td>
                 </tr>
               </table>
             </small>
