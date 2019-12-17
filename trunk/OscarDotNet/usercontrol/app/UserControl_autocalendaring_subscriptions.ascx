@@ -55,7 +55,7 @@
                   <td align="center" valign="top">2</td>
                   <td valign="top">
                     Use your calendaring software to "subscribe" or "add" a calendar "from the internet" or "from URL", and enter the following address:
-                    <blockquote><b><code><asp:Literal ID="Literal_webcals_url" runat="server"></asp:Literal></code></b></blockquote>
+                    <blockquote><b><pre><asp:Literal ID="Literal_webcals_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
                   <td valign="top">&nbsp;</td>
                 </tr>
@@ -64,7 +64,7 @@
                   <td align="center" valign="top">3</td>
                   <td valign="top">
                     Unsubscribe what you added in the above step, then try again using the following address:
-                    <blockquote><b><code><asp:Literal ID="Literal_webcal_url" runat="server"></asp:Literal></code></b></blockquote>
+                    <blockquote><b><pre><asp:Literal ID="Literal_webcal_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
                   <td valign="top">&nbsp;</td>
                 </tr>
@@ -73,7 +73,7 @@
                   <td align="center" valign="top">4</td>
                   <td valign="top">
                     Unsubscribe what you added in the above step, then try again using the following address:
-                    <blockquote><b><code><asp:Literal ID="Literal_https_url" runat="server"></asp:Literal></code></b></blockquote>
+                    <blockquote><b><pre><asp:Literal ID="Literal_https_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
                   <td valign="top">&nbsp;</td>
                 </tr>
@@ -82,7 +82,7 @@
                   <td align="center" valign="top">5</td>
                   <td valign="top">
                     Unsubscribe what you added in the above step, then try again using the following address:
-                    <blockquote><b><code><asp:Literal ID="Literal_http_url" runat="server"></asp:Literal></code></b></blockquote>
+                    <blockquote><b><pre><asp:Literal ID="Literal_http_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
                   <td valign="top">Google Calendar<sup>*</sup></td>
                 </tr>
