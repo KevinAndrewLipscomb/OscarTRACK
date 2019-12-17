@@ -58,33 +58,6 @@ namespace UserControl_autocalendaring_subscriptions {
         protected global::System.Web.UI.WebControls.Literal Literal_application_name_5;
         
         /// <summary>
-        /// HyperLink_subscribe_via_webcal control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink HyperLink_subscribe_via_webcal;
-        
-        /// <summary>
-        /// Literal_application_name_8 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_application_name_8;
-        
-        /// <summary>
-        /// Literal_cid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal Literal_cid;
-        
-        /// <summary>
         /// Literal_application_name_6 control.
         /// </summary>
         /// <remarks>
@@ -103,6 +76,69 @@ namespace UserControl_autocalendaring_subscriptions {
         protected global::System.Web.UI.WebControls.Literal Literal_application_name_7;
         
         /// <summary>
+        /// HyperLink_mailto_appadmin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_mailto_appadmin;
+        
+        /// <summary>
+        /// HyperLink_subscribe_via_webcals control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HyperLink HyperLink_subscribe_via_webcals;
+        
+        /// <summary>
+        /// Literal_webcals_url control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_webcals_url;
+        
+        /// <summary>
+        /// Literal_webcal_url control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_webcal_url;
+        
+        /// <summary>
+        /// Literal_https_url control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_https_url;
+        
+        /// <summary>
+        /// Literal_http_url control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_http_url;
+        
+        /// <summary>
+        /// Literal_application_name_8 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name_8;
+        
+        /// <summary>
         /// Literal_application_name_9 control.
         /// </summary>
         /// <remarks>
@@ -110,5 +146,32 @@ namespace UserControl_autocalendaring_subscriptions {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal Literal_application_name_9;
+        
+        /// <summary>
+        /// Literal_application_name_10 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name_10;
+        
+        /// <summary>
+        /// Literal_application_name_11 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name_11;
+        
+        /// <summary>
+        /// Literal_application_name_12 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_application_name_12;
     }
 }
