@@ -29,7 +29,7 @@
               </p>
               <p>
                 Calendar integration is an evolving technology.&nbsp; If you detect that updates should be made to these instructions, please
-                <asp:HyperLink ID="HyperLink_mailto_appadmin" runat="server" Font-Italic="True" Target="_blank">notify the Application Administrator</asp:HyperLink>.
+                <asp:HyperLink ID="HyperLink_mailto_appadmin" runat="server" Target="_blank">notify the Application Administrator</asp:HyperLink>.
               </p>
             </small>
           </td>
@@ -39,7 +39,7 @@
             <small>
               <table cellpadding="10" cellspacing="0" border="1" bordercolor="gainsboro">
                 <tr>
-                  <td bgcolor="gainsboro"><b>Sophistication</b></td>
+                  <td bgcolor="gainsboro"><b>Sophistication level</b></td>
                   <td bgcolor="gainsboro"><b>OPTION</b></td>
                   <td bgcolor="gainsboro"><b>Process</b></td>
                   <td bgcolor="gainsboro"><b>Tested in...</b></td>
@@ -84,7 +84,7 @@
                     Unsubscribe what you added in the above step, then try again using the following address:
                     <blockquote><b><code><asp:Literal ID="Literal_http_url" runat="server"></asp:Literal></code></b></blockquote>
                   </td>
-                  <td valign="top">Google Calendar</td>
+                  <td valign="top">Google Calendar<sup>*</sup></td>
                 </tr>
               </table>
             </small>
@@ -95,13 +95,13 @@
             <small>
               NOTES
               <ul>
-                <li>Reminder alerts and display colors for events in your subscribed calendar are under your control, not <asp:Literal ID="Literal_application_name_8" runat="server"></asp:Literal>'s.</li>
-                <li>Your local calendar app probably gives you control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_9" runat="server"></asp:Literal>.</li>
+                <li>Anyone you share these personalized URLs with will be able to see your <asp:Literal ID="Literal_application_name_8" runat="server"></asp:Literal> assignments.</li>
+                <li>Reminder alerts and display colors for events in your subscribed calendar are under your control, not <asp:Literal ID="Literal_application_name_9" runat="server"></asp:Literal>'s.</li>
+                <li>Your local calendar app probably gives you control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_10" runat="server"></asp:Literal>.</li>
                 <li>
-                  Google retains sole control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_10" runat="server"></asp:Literal> into your calendar.&nbsp; It may be a day or more before
-                  changes are reflected in Google Calendar.&nbsp; Neither you nor <asp:Literal ID="Literal_application_name_11" runat="server"></asp:Literal> can control this.
+                  <sup>*</sup>Google retains sole control over how often your duty assignment data gets "pulled" from <asp:Literal ID="Literal_application_name_11" runat="server"></asp:Literal> into your calendar.&nbsp; It may be a day or more before
+                  changes are reflected in Google Calendar.&nbsp; Neither you nor <asp:Literal ID="Literal_application_name_12" runat="server"></asp:Literal> can control this.
                 </li>
-                <li>Anyone you share these URLs with will be able to see your <asp:Literal ID="Literal_application_name_12" runat="server"></asp:Literal> assignments.</li>
               </ul>
             </small>
           </td>
