@@ -1,5 +1,6 @@
 using System;
 using System.Configuration;
+using System.Text.RegularExpressions;
 
 namespace UserControl_autocalendaring_subscriptions
   {
@@ -28,10 +29,17 @@ namespace UserControl_autocalendaring_subscriptions
         Literal_application_name_7.Text = Literal_application_name.Text;
         Literal_application_name_8.Text = Literal_application_name.Text;
         Literal_application_name_9.Text = Literal_application_name.Text;
+        Literal_application_name_10.Text = Literal_application_name.Text;
+        Literal_application_name_11.Text = Literal_application_name.Text;
+        Literal_application_name_12.Text = Literal_application_name.Text;
+        HyperLink_mailto_appadmin.NavigateUrl = "mailto:" + ConfigurationManager.AppSettings["application_name"] + "-appadmin@" + ConfigurationManager.AppSettings["host_domain_name"];
         //
-        HyperLink_subscribe_via_webcal.NavigateUrl = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","webcal") + p.icalendar_path_common_part;
-        Literal_cid.Text = ConfigurationManager.AppSettings["runtime_root_fullspec"].Replace("https","http") + p.icalendar_path_common_part;
-          // Use this method for Google Calendar until "https://www.google.com/calendar/render?cid=" either accepts a CID prefixed with "http", "https" or "webcal" properly.
+        var webcals_url = Regex.Replace(ConfigurationManager.AppSettings["runtime_root_fullspec"],".+:","webcals:") + p.icalendar_path_common_part;
+        HyperLink_subscribe_via_webcals.NavigateUrl = webcals_url;
+        Literal_webcals_url.Text = webcals_url;
+        Literal_webcal_url.Text = webcals_url.Replace("webcals","webcal");
+        Literal_https_url.Text = webcals_url.Replace("webcals","https");
+        Literal_http_url.Text = webcals_url.Replace("webcals","http"); // Use this method for Google Calendar until "https://www.google.com/calendar/render?cid=" either accepts a CID prefixed with "http", "https" or "webcal" properly.
         //
         p.be_loaded = true;
         }
