@@ -20,7 +20,7 @@
         <asp:HyperLink ID="HyperLink_web_site" runat="server" Font-Bold="True"/> and click the "My assignments" tab.
       </p>
       <table cellpadding="5" cellspacing="0" bgcolor="khaki" border="1" bordercolor="gainsboro">
-        <tr><td><small>Tired of manually entering your assignments into your online calendaring system?&nbsp; Log in, open the "My assignments" tab, scroll down, and read about <b>Auto-calendaring</b>!</small></td></tr>
+        <tr><td>Tired of manually entering your assignments into your online calendaring system?&nbsp; Log in, open the "My assignments" tab, scroll down, and read about <b>Auto-calendaring</b>!</td></tr>
       </table>
       <br />
       <uc1:UserControl_member_schedule_detail id="UserControl_member_schedule_detail_control" runat="server"></uc1:UserControl_member_schedule_detail>

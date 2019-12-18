@@ -15,10 +15,16 @@
               </p>
               <table align="center" bgcolor="whitesmoke" cellpadding="10" width="80%">
                 <tr>
-                  <td>
-                    <b>NOTE:&nbsp; Email notifications from <asp:Literal ID="Literal_application_name_4" runat="server"></asp:Literal> always take precedence over the information displayed in your calendaring system.</b>&nbsp;
-                    <asp:Literal ID="Literal_application_name_5" runat="server"></asp:Literal> has no ability to "push" updates to your calendaring system.&nbsp; Your calendaring system should automatically "pull" your assignments from
-                    <asp:Literal ID="Literal_application_name_6" runat="server"></asp:Literal>.
+                  <td align="center">
+                    <b>
+                      NOTE
+                      <br />
+                      Email notifications from <asp:Literal ID="Literal_application_name_4" runat="server"></asp:Literal> always take precedence over the information displayed in your calendaring system.
+                    </b>
+                    <br />
+                    <asp:Literal ID="Literal_application_name_5" runat="server"></asp:Literal> has no ability to "push" updates to your calendaring system.
+                    <br />
+                    Your calendaring system should automatically "pull" your assignments from <asp:Literal ID="Literal_application_name_6" runat="server"></asp:Literal>.
                   </td>
                 </tr>
               </table>
@@ -27,6 +33,7 @@
                 and least standards compliant.&nbsp; Try option 1 first, and only move on if it doesn't work for you.&nbsp; Once an option causes your <asp:Literal ID="Literal_application_name_7" runat="server"></asp:Literal> assignments to be
                 displayed in your calendaring system, STOP.
               </p>
+              <p>"<u>Importing</u>" your assignments directly into your personal calendar is <u>not</u> recommended, because doing so prevents auto-updates from being made.</p>
               <p>
                 Calendar integration is an evolving technology.&nbsp; If you detect that updates should be made to these instructions, please
                 <asp:HyperLink ID="HyperLink_mailto_appadmin" runat="server" Target="_blank">notify the Application Administrator</asp:HyperLink>.
@@ -54,7 +61,7 @@
                   <td valign="top">&nbsp;</td>
                   <td align="center" valign="top">2</td>
                   <td valign="top">
-                    Use your calendaring software to "subscribe" or "add" a calendar "from the internet" or "from URL", and enter the following address:
+                    Use your calendaring software to "<u>subscribe</u>" or "<u>add</u>" a calendar "<u>from the internet</u>", "<u>from the network</u>" or "<u>from URL</u>", and enter the following address:
                     <blockquote><b><pre><asp:Literal ID="Literal_webcals_url" runat="server"></asp:Literal></pre></b></blockquote>
                   </td>
                   <td valign="top">Mozilla Thunderbird Lightning</td>
