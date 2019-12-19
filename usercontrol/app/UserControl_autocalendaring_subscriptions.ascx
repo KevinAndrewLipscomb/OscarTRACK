@@ -13,7 +13,7 @@
                 <asp:Literal ID="Literal_application_name_2" runat="server"></asp:Literal> now provides a personalized read-only <i>iCalendar</i> overlay that your online calendaring system can display.&nbsp; Once you set this up, you should
                 <u>not</u> need to repeat the process in the future (unless your officer code or first name change in <asp:Literal ID="Literal_application_name_3" runat="server"></asp:Literal>).
               </p>
-              <table align="center" bgcolor="whitesmoke" cellpadding="10" width="80%">
+              <table align="center" bgcolor="gainsboro" cellpadding="10" width="80%">
                 <tr>
                   <td align="center">
                     <b>
@@ -33,7 +33,9 @@
                 and least standards compliant.&nbsp; Try option 1 first, and only move on if it doesn't work for you.&nbsp; Once an option causes your <asp:Literal ID="Literal_application_name_7" runat="server"></asp:Literal> assignments to be
                 displayed in your calendaring system, STOP.
               </p>
-              <p>"<u>Importing</u>" your assignments directly into your personal calendar is <u>not</u> recommended, because doing so prevents auto-updates from being made.</p>
+              <p>
+                "<u>Importing</u>" your assignments directly into your personal calendar (as opposed to "subscribing" or "adding" your assignments as an overlay) is <u>not</u> recommended, because "importing" prevents auto-updates from being made.
+              </p>
               <p>
                 Calendar integration is an evolving technology.&nbsp; If you detect that updates should be made to these instructions, please
                 <asp:HyperLink ID="HyperLink_mailto_appadmin" runat="server" Target="_blank">notify the Application Administrator</asp:HyperLink>.
