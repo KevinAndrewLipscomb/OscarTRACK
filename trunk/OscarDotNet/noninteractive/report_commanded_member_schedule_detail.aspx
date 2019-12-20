@@ -19,7 +19,7 @@
         <asp:Literal ID="Literal_member_name" runat="server"></asp:Literal>'s assignments for <b><asp:Literal ID="Literal_which_month" runat="server"></asp:Literal></b> month are shown below.&nbsp; If this message does not display neatly, log into
         <asp:HyperLink ID="HyperLink_web_site" runat="server" Font-Bold="True"/> and click the "My assignments" tab.
       </p>
-      <table cellpadding="5" cellspacing="0" bgcolor="khaki" border="1" bordercolor="gainsboro">
+      <table id="Table_consider_auto_calendaring" runat="server" cellpadding="5" cellspacing="0" bgcolor="khaki" border="1" bordercolor="gainsboro">
         <tr><td>Tired of manually entering your assignments into your online calendaring system?&nbsp; Log in, open the "My assignments" tab, scroll down, and read about <b>Auto-calendaring</b>!</td></tr>
       </table>
       <br />

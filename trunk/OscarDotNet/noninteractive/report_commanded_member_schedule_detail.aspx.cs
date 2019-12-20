@@ -61,6 +61,8 @@ namespace report_commanded_member_schedule_detail
         HyperLink_web_site.Text = url;
         HyperLink_web_site.NavigateUrl = url;
         //
+        Table_consider_auto_calendaring.Visible = !p.be_limited_preview;
+        //
         Literal_publisher.Text = p.publisher + (p.be_limited_preview ? " performing a Refresh" : k.EMPTY);
         Literal_time_triggered.Text = p.time_triggered;
         //
