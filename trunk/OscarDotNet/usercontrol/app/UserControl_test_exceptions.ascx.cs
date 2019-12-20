@@ -83,16 +83,20 @@ namespace UserControl_test_exceptions
 
     protected void Button_deadlock_Click(object sender, EventArgs e)
       {
-      var x = new Exception("ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction");
-      x.Source = "MySql";
-      throw x;
+      var x = new Exception("ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction")
+        {
+        Source = "MySql"
+        };
+    throw x;
       }
 
     protected void Button_other_mysql_Click(object sender, EventArgs e)
       {
-      var x = new Exception("Other MySQL");
-      x.Source = "MySql";
-      throw x;
+      var x = new Exception("Other MySQL")
+        {
+        Source = "MySql"
+        };
+    throw x;
       }
 
     protected void Button_other_Click(object sender, EventArgs e)
