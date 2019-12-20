@@ -49,6 +49,15 @@ namespace report_commanded_member_schedule_detail {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_web_site;
         
         /// <summary>
+        /// Table_consider_auto_calendaring control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTable Table_consider_auto_calendaring;
+        
+        /// <summary>
         /// UserControl_member_schedule_detail_control control.
         /// </summary>
         /// <remarks>
