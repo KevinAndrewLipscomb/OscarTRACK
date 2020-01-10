@@ -61,13 +61,13 @@ namespace Class_biz_fleetman
         }
       k.SmtpMailSend
         (
-        from:ConfigurationManager.AppSettings["sender_email_address"].Replace(ConfigurationManager.AppSettings["application_name"],"VbRescueCouncilFleetMan"),
+        from:ConfigurationManager.AppSettings["sender_email_address"].Replace(ConfigurationManager.AppSettings["application_name"],"VbRescueCouncilFleetManSvc"),
         to:primary_target,
         subject:subject,
         message_string:k.EMPTY
         + "+---=::=---" + k.NEW_LINE
         + "|" + k.NEW_LINE
-        + "| This message was delivered via the VbRescueCouncil FleetMan feature." + k.NEW_LINE
+        + "| This message was delivered via the VbRescueCouncil FleetMan service." + k.NEW_LINE
         + "| Direct all responses through the Department Fleet Coordinators indicated in the Cc/Reply-To fields." + k.NEW_LINE
         + "|" + k.NEW_LINE
         + "+---=::=---" + k.NEW_LINE
