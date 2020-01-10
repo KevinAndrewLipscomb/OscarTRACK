@@ -926,7 +926,7 @@ namespace Class_biz_members
               medical_release_level:MedicalReleaseLevelOf(summary),
               cross_agency_id:(enrollment_level_to_force_description.Length > 0 && (section != "0") ? section : k.EMPTY)
               );
-            if (!saved_be_under_general_supervision && BeReleased(member_id))
+            if (!saved_be_under_general_supervision && BeReleased(member_id) && (biz_medical_release_levels.DescriptionOf(code:new_code) != "Physician"))
               {
               biz_notifications.IssueForThirdReleased
                 (
