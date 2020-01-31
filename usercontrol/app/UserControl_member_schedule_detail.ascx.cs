@@ -610,7 +610,7 @@ namespace UserControl_member_schedule_detail
           if (!p.biz_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,the_calendar.SelectedDate))
             {
             //
-            // This availability crosses "canonical" shift boundaries.  Convert it to dual canonical shift boundaries with partial-shift comments.
+            // This availability crosses "canonical" shift boundaries and should be represented as such.  Convert it to dual canonical shift boundaries with partial-shift comments.
             //
             var comment_1 = p.biz_shifts.StartHHofName(shift_name) + "-18";
             var comment_2 = "18-" + p.biz_shifts.EndHHofName(shift_name);
@@ -659,34 +659,33 @@ namespace UserControl_member_schedule_detail
         else
           {
           //
-          // This availability is for a "canonical" shift.  No partial-shift comments are needed.
+          // This availability is for a "canonical" shift or should be represented as such.
           //
+          var representative_shift_name = shift_name;
+          if (new ArrayList() { "MORNING", "1ST POWER", "2ND POWER", "AFTERNOON", "DAY/7TO7" }.Contains(shift_name))
+            {
+            representative_shift_name = "DAY";
+            }
+          else if (new ArrayList() { "EVENING", "GRAVEYARD", "NIGHT/7TO7" }.Contains(shift_name))
+            {
+            representative_shift_name = "NIGHT";
+            }
           var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
             (
             member_id:member_id,
             nominal_day:the_calendar.SelectedDate,
-            shift_name:shift_name,
+            shift_name:representative_shift_name,
             agency_id:p.member_agency_id
             );
           if (!new ArrayList() { "DAY", "NIGHT" }.Contains(shift_name))
             {
             //
-            // This availability is for a partial-canonical-shift period.  Determine which of the two canonical shifts it falls in and apply the appropriate comment.
+            // This availability is for a partial or offset shift period.  Apply the appropriate comment.
             //
-            var comment = k.EMPTY;
-            if (new ArrayList() { "MORNING", "1ST POWER", "2ND POWER", "AFTERNOON" }.Contains(shift_name))
-              {
-              shift_name = "DAY";
-              }
-            else if (new ArrayList() { "EVENING", "GRAVEYARD" }.Contains(shift_name))
-              {
-              shift_name = "NIGHT";
-              }
-            comment = p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name);
             p.biz_schedule_assignments.SetComment
               (
               id: schedule_assignment_id,
-              comment: comment
+              comment: p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name)
               );
             }
           if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
@@ -704,7 +703,12 @@ namespace UserControl_member_schedule_detail
 
     protected void Calendar_day_SelectionChanged(object sender, EventArgs e)
       {
-      CalendarSelectionChanged(Calendar_day,"DAY");
+      var shift_name = "DAY";
+      if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010"))
+        {
+        shift_name = "DAY/7TO7";
+        }
+      CalendarSelectionChanged(Calendar_day,shift_name);
       }
 
     protected void Calendar_9to9_SelectionChanged(object sender, EventArgs e)
@@ -715,7 +719,12 @@ namespace UserControl_member_schedule_detail
 
     protected void Calendar_night_SelectionChanged(object sender, EventArgs e)
       {
-      CalendarSelectionChanged(Calendar_night,"NIGHT");
+      var shift_name = "NIGHT";
+      if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010"))
+        {
+        shift_name = "NIGHT/7TO7";
+        }
+      CalendarSelectionChanged(Calendar_night,shift_name);
       }
 
     private void Bind()
