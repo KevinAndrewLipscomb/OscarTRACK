@@ -123,6 +123,13 @@ namespace UserControl_member_schedule_detail
         HyperLink_email_address.Text = p.biz_members.EmailAddressOf(p.biz_members.IdOf(p.member_summary));
         HyperLink_email_address.NavigateUrl = "mailto:" + HyperLink_email_address.Text;
         //
+        var first_release_as_an_aic_date = p.biz_members.FirstReleaseAsAnAicDateOf(p.member_summary);
+        Literal_aic_since.Text = (p.biz_members.BeReleased(p.member_id) && first_release_as_an_aic_date.Length > 0 ? first_release_as_an_aic_date : "unrecorded");
+        if ((first_release_as_an_aic_date.Length > 0) && (DateTime.Parse(first_release_as_an_aic_date).AddMonths(int.Parse(ConfigurationManager.AppSettings["greenhorn_period_in_months"])) > DateTime.Today))
+          {
+          TableData_aic_since.BgColor = Color.PaleGreen.Name;
+          }
+        //
         if (p.be_fully_editable)
           {
           Panel_sensitive_submission_detail.Visible = true;
