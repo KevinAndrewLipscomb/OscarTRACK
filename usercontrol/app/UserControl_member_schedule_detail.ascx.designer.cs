@@ -112,6 +112,24 @@ namespace UserControl_member_schedule_detail {
         protected global::System.Web.UI.WebControls.HyperLink HyperLink_email_address;
         
         /// <summary>
+        /// TableData_aic_since control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlTableCell TableData_aic_since;
+        
+        /// <summary>
+        /// Literal_aic_since control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Literal Literal_aic_since;
+        
+        /// <summary>
         /// Literal_leave control.
         /// </summary>
         /// <remarks>

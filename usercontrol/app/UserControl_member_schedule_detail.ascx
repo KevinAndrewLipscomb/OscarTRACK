@@ -79,6 +79,8 @@
                                 <tr>
                                   <td><small>Email:&nbsp;<strong><asp:HyperLink ID="HyperLink_email_address" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
+                                  <td id="TableData_aic_since" runat="server"><small>AIC since:&nbsp;<asp:Literal ID="Literal_aic_since" runat="server"/></small></td>
+                                  <td>&nbsp;</td>
                                   <td><small>Leave/reduction:&nbsp;<strong><asp:Literal ID="Literal_leave" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
                                   <td><small>Driver:&nbsp;<strong><asp:Literal ID="Literal_be_driver" runat="server"/></strong></small></td>
