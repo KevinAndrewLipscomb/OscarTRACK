@@ -113,15 +113,7 @@
               </tr>
               <tr>
                 <td valign="top">&bull;</td>
-                <td>It pulls data from a rather sloppy external data source.&nbsp; Cases older than three hours are filtered out unless multiple units are still assigned.&nbsp; Some cases may linger after actual closure.</td>
-              </tr>
-              <tr>
-                <td valign="top">&bull;</td>
-                <td>It may run behind when the 911 center is very busy.</td>
-              </tr>
-              <tr>
-                <td valign="top">&bull;</td>
-                <td>It only forms a rough "Impression" of the nature of the case (for OSCALERT purposes) because the external data source does not reliably reveal specific natures.</td>
+                <td>It only forms a rough &quot;Impression&quot; of the nature of the case (for OSCALERT purposes) because the external data source does not reveal specific natures.</td>
               </tr>
             </table>
           </td>
@@ -136,16 +128,13 @@
               <tr>
                 <td>
                   <table>
-                    <tr>
-                      <td style="text-decoration: underline">EMS Department</td>
-                      <td>&nbsp;</td>
-                      <td style="text-decoration: underline">Fire Department</td>
-                      <td>&nbsp;</td>
-                      <td style="text-decoration: underline">Common</td>
-                    </tr>
                     <tr valign="top">
                       <td>
                         <table>
+                          <tr>
+                            <td style="text-decoration: underline">Prefix</td>
+                            <td style="text-decoration: underline">Meaning</td>
+                          </tr>
                           <tr>
                             <td>A</td>
                             <td>Ambulance</td>
@@ -159,14 +148,6 @@
                             <td>Field supervisor</td>
                           </tr>
                           <tr>
-                            <td>HOLD</td>
-                            <td>Placeholder - ambulance</td>
-                          </tr>
-                          <tr>
-                            <td>HZC</td>
-                            <td>Placeholder - zone car or ALS provider</td>
-                          </tr>
-                          <tr>
                             <td>LG</td>
                             <td>Lifeguard supervisor</td>
                           </tr>
@@ -175,12 +156,12 @@
                             <td>EMS Boat</td>
                           </tr>
                           <tr>
-                            <td>MMTK</td>
-                            <td>Marine rescue truck</td>
+                            <td>MD</td>
+                            <td>Physician</td>
                           </tr>
                           <tr>
-                            <td>MSQ</td>
-                            <td>EMS squad (crash) truck</td>
+                            <td>MMTK</td>
+                            <td>Marine rescue truck</td>
                           </tr>
                           <tr>
                             <td>NGALE</td>
@@ -191,114 +172,12 @@
                             <td>Navy rescue (ambulance)</td>
                           </tr>
                           <tr>
-                            <td>ZM</td>
-                            <td>Zone medic ALS car</td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td>&nbsp;</td>
-                      <td>
-                        <table>
-                          <tr>
-                            <td>BAT</td>
-                            <td>Battalion chief</td>
-                          </tr>
-                          <tr>
-                            <td>BRU</td>
-                            <td>Brush truck</td>
-                          </tr>
-                          <tr>
-                            <td>CAR</td>
-                            <td>Division chief or higher command officer</td>
-                          </tr>
-                          <tr>
-                            <td>CHE</td>
-                            <td>Chesapeake engine</td>
-                          </tr>
-                          <tr>
-                            <td>COCH</td>
-                            <td>City Of Chesapeake auto-aid</td>
-                          </tr>
-                          <tr>
-                            <td>CONF</td>
-                            <td>City Of Norfolk auto-aid</td>
-                          </tr>
-                          <tr>
-                            <td>E</td>
-                            <td>Engine</td>
-                          </tr>
-                          <tr>
-                            <td>FBOA</td>
-                            <td>Fire boat</td>
-                          </tr>
-                          <tr>
-                            <td>FI</td>
-                            <td>Fire investigator</td>
-                          </tr>
-                          <tr>
-                            <td>FM</td>
-                            <td>Fire marshal</td>
-                          </tr>
-                          <tr>
-                            <td>FR</td>
-                            <td>Fire rescue (crash/technical)</td>
-                          </tr>
-                          <tr>
-                            <td>HAZ</td>
-                            <td>Hazmat</td>
-                          </tr>
-                          <tr>
-                            <td>INS</td>
-                            <td>Inspector</td>
-                          </tr>
-                          <tr>
-                            <td>L</td>
-                            <td>Ladder</td>
-                          </tr>
-                          <tr>
-                            <td>NE</td>
-                            <td>Navy engine</td>
-                          </tr>
-                          <tr>
-                            <td>NFE</td>
-                            <td>Norfolk engine</td>
-                          </tr>
-                          <tr>
-                            <td>PIO</td>
-                            <td>Public information officer</td>
-                          </tr>
-                          <tr>
-                            <td>PU</td>
-                            <td>Public utilities</td>
-                          </tr>
-                          <tr>
-                            <td>SAFE</td>
-                            <td>Safety</td>
-                          </tr>
-                          <tr>
-                            <td>T</td>
-                            <td>Tanker (water tender)</td>
-                          </tr>
-                          <tr>
-                            <td>ZOD</td>
-                            <td>Zodiac boat</td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td>&nbsp;</td>
-                      <td>
-                        <table>
-                          <tr>
-                            <td>TAC</td>
-                            <td>Tactical radio channel</td>
-                          </tr>
-                          <tr>
-                            <td>SUP</td>
-                            <td>Support</td>
-                          </tr>
-                          <tr>
                             <td>U</td>
                             <td>Utility</td>
+                          </tr>
+                          <tr>
+                            <td>ZM</td>
+                            <td>Zone medic ALS car</td>
                           </tr>
                         </table>
                       </td>
@@ -441,13 +320,13 @@
           <td>
     <pre>
     The format for an ambulance callsign is:
-       [station number][twenty number]
+       [volunteer rescue squad number][twenty number]
     Examples:
-       [ 1][20] →  120 (Ocean Park station, ambulance 20)
-       [ 2][21] →  221 (Davis Corner station, ambulance 21)
+       [ 1][20] →  120 (Ocean Park VRS, ambulance 20)
+       [ 2][21] →  221 (Davis Corner VRS, ambulance 21)
        :
-       [22][29] → 2229 (First Landing station, ambulance 29)
-    On the air, a "P" suffix indicates an ALS unit.
+       [17][29] → 1729 (Sandbridge VRS, ambulance 29)
+    A &quot;P&quot; suffix indicates an ALS unit.
     </pre>
           </td>
         </tr>
