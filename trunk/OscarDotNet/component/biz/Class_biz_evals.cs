@@ -176,7 +176,7 @@ namespace Class_biz_evals
       // Auto-advance evals stalled > 2 days
       //
       //--
-      num_days.val = 2;
+      num_days.val = int.Parse(ConfigurationManager.AppSettings["min_num_daily_scans_to_wait_before_auto_advancing_an_eval"]);
       //
       // by evaluatee
       //
