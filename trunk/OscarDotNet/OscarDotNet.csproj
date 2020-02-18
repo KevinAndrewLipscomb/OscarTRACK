@@ -90,6 +90,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="cloudmailin\fleetman.aspx" />
+    <Content Include="cloudmailin\group.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="exception.aspx" />
     <Content Include="Global.asax" />
@@ -307,6 +308,7 @@
     <Content Include="usercontrol\app\UserControl_test_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_binder.ascx" />
     <Content Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx" />
+    <Content Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx" />
     <Content Include="usercontrol\app\UserControl_test_exceptions.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_catalog.ascx" />
     <Content Include="usercontrol\app\UserControl_uniform_class.ascx" />
@@ -371,6 +373,13 @@
     </Compile>
     <Compile Include="cloudmailin\fleetman.aspx.designer.cs">
       <DependentUpon>fleetman.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="cloudmailin\group.aspx.cs">
+      <DependentUpon>group.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="cloudmailin\group.aspx.designer.cs">
+      <DependentUpon>group.aspx</DependentUpon>
     </Compile>
     <Compile Include="component\biz\Class_biz_agency_satellite_stations.cs" />
     <Compile Include="component\biz\Class_biz_availabilities.cs" />
@@ -2269,6 +2278,13 @@
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_cloudmailin_fleetman.ascx.designer.cs">
       <DependentUpon>UserControl_test_cloudmailin_fleetman.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx.cs">
+      <DependentUpon>UserControl_test_cloudmailin_group.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usercontrol\app\UserControl_test_cloudmailin_group.ascx.designer.cs">
+      <DependentUpon>UserControl_test_cloudmailin_group.ascx</DependentUpon>
     </Compile>
     <Compile Include="usercontrol\app\UserControl_test_exceptions.ascx.cs">
       <DependentUpon>UserControl_test_exceptions.ascx</DependentUpon>

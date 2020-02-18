@@ -2,6 +2,7 @@
 
 using kix;
 using UserControl_test_cloudmailin_fleetman;
+using UserControl_test_cloudmailin_group;
 using System;
 
 namespace UserControl_test_cloudmailin_binder
@@ -19,6 +20,7 @@ namespace UserControl_test_cloudmailin_binder
     private static class Static
       {
       public const int TSSI_FLEETMAN = 0;
+      public const int TSSI_GROUP = 1;
       }
 
     private struct p_type
@@ -40,6 +42,11 @@ namespace UserControl_test_cloudmailin_binder
         {
         var c = ((TWebUserControl_test_cloudmailin_fleetman)(LoadControl("~/usercontrol/app/UserControl_test_cloudmailin_fleetman.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_cloudmailin_fleetman",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
+        }
+      else if (p.tab_index == Static.TSSI_GROUP)
+        {
+        var c = ((TWebUserControl_test_cloudmailin_group)(LoadControl("~/usercontrol/app/UserControl_test_cloudmailin_group.ascx")));
+        p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_cloudmailin_group",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
       }
     private void FillPlaceHolder(bool be_fresh_control_required)
@@ -135,11 +142,15 @@ namespace UserControl_test_cloudmailin_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         if (target.ToLower().Contains("/fleetman/"))
           {
           p.tab_index = Static.TSSI_FLEETMAN;
+          }
+        else if (target.ToLower().Contains("/group/"))
+          {
+          p.tab_index = Static.TSSI_GROUP;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
@@ -152,4 +163,3 @@ namespace UserControl_test_cloudmailin_binder
     } // end TWebUserControl_test_cloudmailin_binder
 
   }
-
