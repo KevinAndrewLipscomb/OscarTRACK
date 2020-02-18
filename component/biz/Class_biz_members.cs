@@ -436,44 +436,37 @@ namespace Class_biz_members
             return result;
         }
 
-        public Queue CurrentMemberEmailAddressesQueue
-          (
-          string agency_short_designator,
-          bool be_core_ops_only
-          )
-          {
-          return db_members.CurrentMemberEmailAddresses(agency_short_designator,be_core_ops_only);
-          }
-        public Queue CurrentMemberEmailAddressesQueue(string agency_short_designator)
-          {
-          return CurrentMemberEmailAddressesQueue(agency_short_designator,false);
-          }
-        public Queue CurrentMemberEmailAddressesQueue()
-          {
-          return CurrentMemberEmailAddressesQueue("",false);
-          }
+    public Queue CurrentMemberEmailAddressesQueue
+      (
+      string agency_short_designator = k.EMPTY,
+      bool be_core_ops_only = false,
+      string enrollment_level = k.EMPTY
+      )
+      {
+      return db_members.CurrentMemberEmailAddresses(agency_short_designator,be_core_ops_only,enrollment_level);
+      }
 
-        public string CurrentMemberEmailAddressesString(string agency_short_designator)
+    public string CurrentMemberEmailAddressesString
+      (
+      string agency_short_designator = k.EMPTY,
+      bool be_core_ops_only = false,
+      string enrollment_level = k.EMPTY
+      )
+      {
+      var current_member_email_addresses = k.EMPTY;
+      var q = CurrentMemberEmailAddressesQueue
+        (
+        agency_short_designator:agency_short_designator,
+        be_core_ops_only:be_core_ops_only,
+        enrollment_level:enrollment_level
+        );
+      var q_count = new k.int_nonnegative(q.Count);
+      for (var i = new k.int_positive(); i.val <= q_count.val; i.val++ )
         {
-            string result;
-            string current_member_email_addresses;
-            uint i;
-            Queue q;
-            current_member_email_addresses = k.EMPTY;
-            q = CurrentMemberEmailAddressesQueue(agency_short_designator);
-            uint q_count = (uint)(q.Count);
-            for (i = 1; i <= q_count; i ++ )
-            {
-                current_member_email_addresses = current_member_email_addresses + q.Dequeue().ToString() + k.COMMA_SPACE;
-            }
-            result = (current_member_email_addresses + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
-            return result;
+        current_member_email_addresses = current_member_email_addresses + q.Dequeue().ToString() + k.COMMA_SPACE;
         }
-
-        public string CurrentMemberEmailAddressesString()
-        {
-            return CurrentMemberEmailAddressesString("");
-        }
+      return (current_member_email_addresses + k.SPACE).TrimEnd(new char[] {Convert.ToChar(k.COMMA), Convert.ToChar(k.SPACE)});
+      }
 
         internal string EfficipaySignatureIdentifierOf(string id)
           {
@@ -746,6 +739,56 @@ namespace Class_biz_members
             result = db_members.PeckCodeOf(summary);
             return result;
         }
+
+    internal void ProcessCloudmailinRequest
+      (
+      string from,
+      string x_to_header,
+      string subject,
+      string plain
+      )
+      {
+      var primary_target = k.EMPTY;
+      var x_to_header_element_array = k.Safe(x_to_header,k.safe_hint_type.EMAIL_ADDRESS_CSV).Split(separator:new string[] {k.COMMA},options:StringSplitOptions.RemoveEmptyEntries);
+      for (var i = new k.subtype<int>(0,x_to_header_element_array.Length); i.val < i.LAST; i.val++)
+        {
+        if
+          (
+            x_to_header_element_array[i.val].Contains("group@frompaper2web.com")
+          ||
+            x_to_header_element_array[i.val].Contains("group@vbrescuecouncil.")
+          )
+        //then
+          {
+          var group_selector = x_to_header_element_array[i.val]
+            .Replace("group@frompaper2web.com",k.EMPTY)
+            .Replace("group@vbrescuecouncil.org",k.EMPTY)
+            .Replace("group@vbrescuecouncil.com",k.EMPTY);
+          //
+          if (group_selector.ToUpper() == "MD2")
+            {
+            primary_target += CurrentMemberEmailAddressesString(enrollment_level:"EDP");
+            }
+          }
+        else
+          {
+          primary_target += x_to_header_element_array[i.val];
+          }
+        primary_target += k.COMMA;
+        }
+      k.SmtpMailSend
+        (
+        from:ConfigurationManager.AppSettings["sender_email_address"],
+        to:primary_target,
+        subject:subject,
+        message_string:"-- From " + from + " [via " + ConfigurationManager.AppSettings["application_name"] + "]" + k.NEW_LINE
+        + k.NEW_LINE
+        + plain,
+        be_html:false,
+        bcc:from,
+        reply_to:from
+        );
+      }
 
         public string RetentionOf(object summary)
         {

@@ -1392,71 +1392,68 @@ namespace Class_db_members
             return result;
         }
 
-        public Queue CurrentMemberEmailAddresses
-          (
-          string agency_short_designator,
-          bool be_core_ops_only
-          )
-          {
-          var current_member_email_addresses = new Queue();
-          var sql = "select email_address"
-          + " from member"
-          +   " join enrollment_history on"
-          +     " ("
-          +       " enrollment_history.member_id=member.id"
-          +     " and"
-          +       " ("
-          +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
-          +       " and"
-          +         " ("
-          +           " (enrollment_history.end_date is null)"
-          +         " or"
-          +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
-          +         " )"
-          +       " )"
-          +     " )"
-          +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)";
-          if (agency_short_designator != k.EMPTY)
-            {
-            sql += " join agency on (agency.id=member.agency_id)";
-            }
-          sql += " where email_address is not null and email_address <> ''";
-          if (be_core_ops_only)
-            {
-            sql += k.EMPTY
-            + " and"
-            +   " ("
-            +     " enrollment_level.description in ('Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','New trainee')"
-            +   " or"
-            +     " (enrollment_level.description = 'Recruit' and medical_release_code = '9')"
-            +   " )";
-            }
-          else
-            {
-            sql += " and enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee')";
-            }
-          if (agency_short_designator != k.EMPTY)
-            {
-            sql += " and agency.short_designator = '" + agency_short_designator + "'";
-            }
-          Open();
-          var dr = new MySqlCommand(sql,connection).ExecuteReader();
-          while (dr.Read())
-            {
-            current_member_email_addresses.Enqueue(dr["email_address"]);
-            }
-          dr.Close();
-          Close();
-          return current_member_email_addresses;
-          }
-        public Queue CurrentMemberEmailAddresses(string agency_short_designator)
-          {
-          return CurrentMemberEmailAddresses(agency_short_designator,false);
-          }
-        public Queue CurrentMemberEmailAddresses()
-          {
-          return CurrentMemberEmailAddresses("",false);
-          }
+    public Queue CurrentMemberEmailAddresses
+      (
+      string agency_short_designator = k.EMPTY,
+      bool be_core_ops_only = false,
+      string enrollment_level = k.EMPTY
+      )
+      {
+      var current_member_email_addresses = new Queue();
+      var sql = "select email_address"
+      + " from member"
+      +   " join enrollment_history on"
+      +     " ("
+      +       " enrollment_history.member_id=member.id"
+      +     " and"
+      +       " ("
+      +         " (enrollment_history.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))"
+      +       " and"
+      +         " ("
+      +           " (enrollment_history.end_date is null)"
+      +         " or"
+      +           " (enrollment_history.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))"
+      +         " )"
+      +       " )"
+      +     " )"
+      +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)";
+      if (agency_short_designator.Length > 0)
+        {
+        sql += " join agency on (agency.id=member.agency_id)";
+        }
+      sql += " where email_address is not null and email_address <> ''";
+      if (be_core_ops_only)
+        {
+        sql += k.EMPTY
+        + " and"
+        +   " ("
+        +     " enrollment_level.description in ('Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','Transferring','New trainee')"
+        +   " or"
+        +     " (enrollment_level.description = 'Recruit' and medical_release_code = '9')"
+        +   " )";
+        }
+      else
+        {
+        sql += " and enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin','Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee')";
+        }
+      if (agency_short_designator.Length > 0)
+        {
+        sql += " and agency.short_designator = '" + agency_short_designator + "'";
+        }
+      if (enrollment_level.Length > 0)
+        {
+        sql += " and enrollment_level.description = '" + enrollment_level + "'";
+        }
+      Open();
+      var dr = new MySqlCommand(sql,connection).ExecuteReader();
+      while (dr.Read())
+        {
+        current_member_email_addresses.Enqueue(dr["email_address"]);
+        }
+      dr.Close();
+      Close();
+      return current_member_email_addresses;
+      }
 
         internal string EfficipaySignatureIdentifierOf(string id)
           {
