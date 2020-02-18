@@ -440,17 +440,17 @@ namespace Class_biz_members
       (
       string agency_short_designator = k.EMPTY,
       bool be_core_ops_only = false,
-      string enrollment_level = k.EMPTY
+      string medical_release_level_like = k.EMPTY
       )
       {
-      return db_members.CurrentMemberEmailAddresses(agency_short_designator,be_core_ops_only,enrollment_level);
+      return db_members.CurrentMemberEmailAddresses(agency_short_designator,be_core_ops_only,medical_release_level_like);
       }
 
     public string CurrentMemberEmailAddressesString
       (
       string agency_short_designator = k.EMPTY,
       bool be_core_ops_only = false,
-      string enrollment_level = k.EMPTY
+      string medical_release_level_like = k.EMPTY
       )
       {
       var current_member_email_addresses = k.EMPTY;
@@ -458,7 +458,7 @@ namespace Class_biz_members
         (
         agency_short_designator:agency_short_designator,
         be_core_ops_only:be_core_ops_only,
-        enrollment_level:enrollment_level
+        medical_release_level_like:medical_release_level_like
         );
       var q_count = new k.int_nonnegative(q.Count);
       for (var i = new k.int_positive(); i.val <= q_count.val; i.val++ )
@@ -767,7 +767,7 @@ namespace Class_biz_members
           //
           if (group_selector.ToUpper() == "MD2")
             {
-            primary_target += CurrentMemberEmailAddressesString(enrollment_level:"EDP");
+            primary_target += CurrentMemberEmailAddressesString(medical_release_level_like:"%Physician");
             }
           }
         else
