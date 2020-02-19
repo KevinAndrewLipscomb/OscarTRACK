@@ -1396,7 +1396,7 @@ namespace Class_db_members
       (
       string agency_short_designator = k.EMPTY,
       bool be_core_ops_only = false,
-      string medical_release_level_like = k.EMPTY
+      string enrollment_level = k.EMPTY
       )
       {
       var current_member_email_addresses = new Queue();
@@ -1421,10 +1421,6 @@ namespace Class_db_members
         {
         sql += " join agency on (agency.id=member.agency_id)";
         }
-      if (medical_release_level_like.Length > 0)
-        {
-        sql += " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)";
-        }
       sql += " where email_address is not null and email_address <> ''";
       if (be_core_ops_only)
         {
@@ -1444,9 +1440,9 @@ namespace Class_db_members
         {
         sql += " and agency.short_designator = '" + agency_short_designator + "'";
         }
-      if (medical_release_level_like.Length > 0)
+      if (enrollment_level.Length > 0)
         {
-        sql += " and medical_release_code_description_map.description like '" + medical_release_level_like + "'";
+        sql += " and enrollment_level.description = '" + enrollment_level + "'";
         }
       Open();
       var dr = new MySqlCommand(sql,connection).ExecuteReader();
