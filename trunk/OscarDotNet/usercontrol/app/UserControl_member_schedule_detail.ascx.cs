@@ -610,98 +610,158 @@ namespace UserControl_member_schedule_detail
       {
       var member_id = p.biz_members.IdOf(summary:p.member_summary);
       var be_one_step_avail_force_post_mode = (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedValue != "NONE"));
-      if ((the_calendar.SelectedDate.Month == DateTime.Now.AddMonths(p.relative_month.val).Month))
+      //
+      for (var i = new k.subtype<int>(the_first:0,the_last:the_calendar.SelectedDates.Count); i.val < i.LAST; i.val++)
         {
-        if (new ArrayList() {"9TO9"}.Contains(shift_name))
+        if(
+            (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+          &&
+            shift_name.StartsWith("DAY")
+          &&
+            (the_calendar.SelectedDates.Count > 1)
+          &&
+            new ArrayList() {DayOfWeek.Saturday,DayOfWeek.Sunday}.Contains(the_calendar.SelectedDates[i.val].DayOfWeek)
+          )
+          //then
           {
-          if (!p.biz_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,the_calendar.SelectedDate))
-            {
-            //
-            // This availability crosses "canonical" shift boundaries and should be represented as such.  Convert it to dual canonical shift boundaries with partial-shift comments.
-            //
-            var comment_1 = p.biz_shifts.StartHHofName(shift_name) + "-18";
-            var comment_2 = "18-" + p.biz_shifts.EndHHofName(shift_name);
-            var schedule_assignment_id_1 = p.biz_schedule_assignments.ForceAvail
-              (
-              member_id:member_id,
-              nominal_day:the_calendar.SelectedDate,
-              shift_name:"DAY",
-              agency_id:p.member_agency_id
-              );
-            p.biz_schedule_assignments.SetComment
-              (
-              id:schedule_assignment_id_1,
-              comment:comment_1
-              );
-            if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_1))
-              {
-              p.biz_schedule_assignments.SetPost
-                (
-                id:schedule_assignment_id_1,
-                post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
-                );
-              }
-            var schedule_assignment_id_2 = p.biz_schedule_assignments.ForceAvail
-              (
-              member_id:member_id,
-              nominal_day:the_calendar.SelectedDate,
-              shift_name:"NIGHT",
-              agency_id:p.member_agency_id
-              );
-            p.biz_schedule_assignments.SetComment
-              (
-              id:schedule_assignment_id_2,
-              comment:comment_2
-              );
-            if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_2))
-              {
-              p.biz_schedule_assignments.SetPost
-                (
-                id:schedule_assignment_id_2,
-                post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
-                );
-              }
-            }
+          // do nothing
           }
         else
           {
-          //
-          // This availability is for a "canonical" shift or should be represented as such.
-          //
-          var representative_shift_name = shift_name;
-          if (new ArrayList() { "MORNING", "1ST POWER", "2ND POWER", "AFTERNOON", "DAY/7TO7" }.Contains(shift_name))
+          if (the_calendar.SelectedDates[i.val].Month == DateTime.Now.AddMonths(p.relative_month.val).Month)
             {
-            representative_shift_name = "DAY";
-            }
-          else if (new ArrayList() { "EVENING", "GRAVEYARD", "NIGHT/7TO7" }.Contains(shift_name))
-            {
-            representative_shift_name = "NIGHT";
-            }
-          var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
-            (
-            member_id:member_id,
-            nominal_day:the_calendar.SelectedDate,
-            shift_name:representative_shift_name,
-            agency_id:p.member_agency_id
-            );
-          if (!new ArrayList() { "DAY", "NIGHT" }.Contains(shift_name))
-            {
-            //
-            // This availability is for a partial or offset shift period.  Apply the appropriate comment.
-            //
-            p.biz_schedule_assignments.SetComment
-              (
-              id: schedule_assignment_id,
-              comment: p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name)
-              );
-            }
-          if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
-            {
-            p.biz_schedule_assignments.SetPost
-              (
-              id:schedule_assignment_id,
-              post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
-              );
+            if (new ArrayList() {"9TO9"}.Contains(shift_name))
+              {
+              if (!p.biz_schedule_assignments.BeMemberAvailableEitherCanonicalShiftThisNominalDay(member_id,the_calendar.SelectedDates[i.val]))
+                {
+                //
+                // This availability crosses "canonical" shift boundaries and should be represented as such.  Convert it to dual canonical shift boundaries with partial-shift comments.
+                //
+                var comment_1 = p.biz_shifts.StartHHofName(shift_name) + "-18";
+                var comment_2 = "18-" + p.biz_shifts.EndHHofName(shift_name);
+                var schedule_assignment_id_1 = p.biz_schedule_assignments.ForceAvail
+                  (
+                  member_id:member_id,
+                  nominal_day:the_calendar.SelectedDates[i.val],
+                  shift_name:"DAY",
+                  agency_id:p.member_agency_id
+                  );
+                p.biz_schedule_assignments.SetComment
+                  (
+                  id:schedule_assignment_id_1,
+                  comment:comment_1
+                  );
+                if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_1))
+                  {
+                  p.biz_schedule_assignments.SetPost
+                    (
+                    id:schedule_assignment_id_1,
+                    post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+                    );
+                  }
+                var schedule_assignment_id_2 = p.biz_schedule_assignments.ForceAvail
+                  (
+                  member_id:member_id,
+                  nominal_day:the_calendar.SelectedDates[i.val],
+                  shift_name:"NIGHT",
+                  agency_id:p.member_agency_id
+                  );
+                p.biz_schedule_assignments.SetComment
+                  (
+                  id:schedule_assignment_id_2,
+                  comment:comment_2
+                  );
+                if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id_2))
+                  {
+                  p.biz_schedule_assignments.SetPost
+                    (
+                    id:schedule_assignment_id_2,
+                    post_id:k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM)
+                    );
+                  }
+                }
+              }
+            else
+              {
+              //
+              // This availability is for a "canonical" shift or should be represented as such.
+              //
+              var representative_shift_name = shift_name;
+              if (new ArrayList() {"MORNING","1ST POWER","2ND POWER","AFTERNOON","DAY/7TO7","DAY/8TO5"}.Contains(shift_name))
+                {
+                representative_shift_name = "DAY";
+                }
+              else if (new ArrayList() {"EVENING","GRAVEYARD","NIGHT/7TO7","NIGHT/AFTERHOURS"}.Contains(shift_name))
+                {
+                representative_shift_name = "NIGHT";
+                }
+              var schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
+                (
+                member_id:member_id,
+                nominal_day:the_calendar.SelectedDates[i.val],
+                shift_name:representative_shift_name,
+                agency_id:p.member_agency_id
+                );
+              if (!new ArrayList() {"DAY","NIGHT"}.Contains(shift_name))
+                {
+                //
+                // This availability is for a partial or offset shift period.  Apply the appropriate comment.
+                //
+                p.biz_schedule_assignments.SetComment
+                  (
+                  id: schedule_assignment_id,
+                  comment: p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name)
+                  );
+                }
+              if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
+                {
+                var post_id = k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM);
+                p.biz_schedule_assignments.SetPost
+                  (
+                  id:schedule_assignment_id,
+                  post_id:post_id
+                  );
+                //
+                // As a special case, when selecting a member as CDO for a full week of night shifts, also select the member for the corresponding weekend days.
+                //
+                if(
+                    (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+                  &&
+                    shift_name.StartsWith("NIGHT")
+                  &&
+                    (the_calendar.SelectedDates.Count > 1)
+                  &&
+                    new ArrayList() {DayOfWeek.Saturday,DayOfWeek.Sunday}.Contains(the_calendar.SelectedDates[i.val].DayOfWeek)
+                  )
+                  //then
+                  {
+                  var corresponding_shift_name = "DAY/8TO5";
+                  schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
+                    (
+                    member_id:member_id,
+                    nominal_day:the_calendar.SelectedDates[i.val],
+                    shift_name:"DAY", // representatively
+                    agency_id:p.member_agency_id
+                    );
+                  //
+                  // This availability is for a partial or offset shift period.  Apply the appropriate comment.
+                  //
+                  p.biz_schedule_assignments.SetComment
+                    (
+                    id: schedule_assignment_id,
+                    comment: p.biz_shifts.StartHHofName(corresponding_shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(corresponding_shift_name)
+                    );
+                  if (ForceOn(schedule_assignment_id))
+                    {
+                    p.biz_schedule_assignments.SetPost
+                      (
+                      id:schedule_assignment_id,
+                      post_id:post_id
+                      );
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -711,9 +771,16 @@ namespace UserControl_member_schedule_detail
     protected void Calendar_day_SelectionChanged(object sender, EventArgs e)
       {
       var shift_name = "DAY";
-      if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010"))
+      if (p.be_ok_to_one_step_avail_force_post)
         {
-        shift_name = "DAY/7TO7";
+        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010")
+          {
+          shift_name = "DAY/7TO7";
+          }
+        else if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+          {
+          shift_name = "DAY/8TO5";
+          }
         }
       CalendarSelectionChanged(Calendar_day,shift_name);
       }
@@ -727,9 +794,16 @@ namespace UserControl_member_schedule_detail
     protected void Calendar_night_SelectionChanged(object sender, EventArgs e)
       {
       var shift_name = "NIGHT";
-      if (p.be_ok_to_one_step_avail_force_post && (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010"))
+      if (p.be_ok_to_one_step_avail_force_post)
         {
-        shift_name = "NIGHT/7TO7";
+        if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "010")
+          {
+          shift_name = "NIGHT/7TO7";
+          }
+        else if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+          {
+          shift_name = "NIGHT/AFTERHOURS";
+          }
         }
       CalendarSelectionChanged(Calendar_night,shift_name);
       }
@@ -792,6 +866,9 @@ namespace UserControl_member_schedule_detail
       p.proto_post_list_item_array = new ListItem[proto_post_list_item_collection.Count];
       proto_post_list_item_collection.CopyTo(p.proto_post_list_item_array,0);
       //
+      Calendar_day.SelectedDates.Clear();
+      Calendar_9to9.SelectedDates.Clear();
+      Calendar_night.SelectedDates.Clear();
       p.biz_schedule_assignments.BindMemberScheduleDetailBaseDataList(p.biz_members.IdOf(p.member_summary),p.relative_month,p.member_agency_id,DataGrid_control);
       p.be_datagrid_empty = (p.num_datagrid_rows == 0);
       HtmlTableRow_data.Visible = !p.be_datagrid_empty;
@@ -914,6 +991,7 @@ namespace UserControl_member_schedule_detail
       var month_of_interest = DateTime.Now.AddMonths(p.relative_month.val);
       Literal_month.Text = month_of_interest.ToString("MMMM").ToUpper();
       Calendar_day.VisibleDate = month_of_interest;
+      Calendar_9to9.VisibleDate = month_of_interest;
       Calendar_night.VisibleDate = month_of_interest;
       Bind();
       }
@@ -932,6 +1010,21 @@ namespace UserControl_member_schedule_detail
       {
       SetInteractivity(false);
       Panel_sensitive_submission_detail.Visible = k.Has(Session["privilege_array"] as string[],"see-bulk-bls-intern-schedule-detail");
+      }
+
+    protected void DropDownList_one_step_avail_force_post_target_SelectedIndexChanged(object sender, EventArgs e)
+      {
+      if (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+        {
+        Calendar_day.SelectionMode = CalendarSelectionMode.DayWeekMonth;
+        Calendar_night.SelectionMode = CalendarSelectionMode.DayWeek;
+        }
+      else
+        {
+        Calendar_day.SelectionMode = CalendarSelectionMode.Day;
+        Calendar_night.SelectionMode = CalendarSelectionMode.Day;
+        }
+      Bind();
       }
 
     }
