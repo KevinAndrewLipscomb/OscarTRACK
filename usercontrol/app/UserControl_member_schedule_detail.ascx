@@ -79,7 +79,7 @@
                                 <tr>
                                   <td><small>Email:&nbsp;<strong><asp:HyperLink ID="HyperLink_email_address" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
-                                  <td id="TableData_aic_since" runat="server"><small>AIC since:&nbsp;<asp:Literal ID="Literal_aic_since" runat="server"/></small></td>
+                                  <td id="TableData_aic_since" runat="server"><small>AIC&nbsp;since: <asp:Literal ID="Literal_aic_since" runat="server"/></small></td>
                                   <td>&nbsp;</td>
                                   <td><small>Leave/reduction:&nbsp;<strong><asp:Literal ID="Literal_leave" runat="server"/></strong></small></td>
                                   <td>&nbsp;</td>
@@ -217,7 +217,7 @@
                       <tr>
                         <td align="center">
                           <small>Set<br />one-step<br />avail-force-post<br />target to:<br /></small>
-                          <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server">
+                          <asp:DropDownList ID="DropDownList_one_step_avail_force_post_target" runat="server" AutoPostBack="True" OnSelectedIndexChanged="DropDownList_one_step_avail_force_post_target_SelectedIndexChanged">
                             <asp:ListItem Selected="True" Value="NONE">-- None --</asp:ListItem>
                             <asp:ListItem Value="0">EMS</asp:ListItem>
                             <asp:ListItem Value="6">R06</asp:ListItem>
@@ -246,6 +246,9 @@
                             <asp:ListItem Value="405">010</asp:ListItem>
                             <asp:ListItem Value="406">001</asp:ListItem>
                             <asp:ListItem Value="408">002</asp:ListItem>
+                            <asp:ListItem Value="407">003</asp:ListItem>
+                            <asp:ListItem Value="417">017</asp:ListItem>
+                            <asp:ListItem Value="450">CDO</asp:ListItem>
                           </asp:DropDownList>
                         </td>
                       </tr>
