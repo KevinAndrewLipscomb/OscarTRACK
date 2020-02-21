@@ -2016,7 +2016,7 @@ namespace Class_db_schedule_assignments
         {
         try
           {
-          id = new MySqlCommand
+          var mysql_command = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -2027,12 +2027,10 @@ namespace Class_db_schedule_assignments
               + " , be_selected = FALSE"
               + " , be_new = FALSE"
               + " , reviser_member_id = '" + reviser_member_id + "'"
-              + ";"
-              + " SELECT LAST_INSERT_ID()"
               ),
             connection
-            )
-            .ExecuteScalar().ToString();
+            );
+            id = (mysql_command.ExecuteNonQuery() > 0 ? mysql_command.LastInsertedId.ToString() : k.EMPTY);
           be_done = true;
           }
         catch (Exception e)
