@@ -702,62 +702,65 @@ namespace UserControl_member_schedule_detail
                 shift_name:representative_shift_name,
                 agency_id:p.member_agency_id
                 );
-              if (!new ArrayList() {"DAY","NIGHT"}.Contains(shift_name))
+              if (schedule_assignment_id.Length > 0)
                 {
-                //
-                // This availability is for a partial or offset shift period.  Apply the appropriate comment.
-                //
-                p.biz_schedule_assignments.SetComment
-                  (
-                  id: schedule_assignment_id,
-                  comment: p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name)
-                  );
-                }
-              if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
-                {
-                var post_id = k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM);
-                p.biz_schedule_assignments.SetPost
-                  (
-                  id:schedule_assignment_id,
-                  post_id:post_id
-                  );
-                //
-                // As a special case, when selecting a member as CDO for a full week of night shifts, also select the member for the corresponding weekend days.
-                //
-                if(
-                    (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
-                  &&
-                    shift_name.StartsWith("NIGHT")
-                  &&
-                    (the_calendar.SelectedDates.Count > 1)
-                  &&
-                    new ArrayList() {DayOfWeek.Saturday,DayOfWeek.Sunday}.Contains(the_calendar.SelectedDates[i.val].DayOfWeek)
-                  )
-                  //then
+                if (!new ArrayList() {"DAY","NIGHT"}.Contains(shift_name))
                   {
-                  var corresponding_shift_name = "DAY/8TO5";
-                  schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
-                    (
-                    member_id:member_id,
-                    nominal_day:the_calendar.SelectedDates[i.val],
-                    shift_name:"DAY", // representatively
-                    agency_id:p.member_agency_id
-                    );
                   //
                   // This availability is for a partial or offset shift period.  Apply the appropriate comment.
                   //
                   p.biz_schedule_assignments.SetComment
                     (
                     id: schedule_assignment_id,
-                    comment: p.biz_shifts.StartHHofName(corresponding_shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(corresponding_shift_name)
+                    comment: p.biz_shifts.StartHHofName(shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(shift_name)
                     );
-                  if (ForceOn(schedule_assignment_id))
+                  }
+                if (be_one_step_avail_force_post_mode && ForceOn(schedule_assignment_id))
+                  {
+                  var post_id = k.Safe(DropDownList_one_step_avail_force_post_target.SelectedValue,k.safe_hint_type.NUM);
+                  p.biz_schedule_assignments.SetPost
+                    (
+                    id:schedule_assignment_id,
+                    post_id:post_id
+                    );
+                  //
+                  // As a special case, when selecting a member as CDO for a full week of night shifts, also select the member for the corresponding weekend days.
+                  //
+                  if(
+                      (DropDownList_one_step_avail_force_post_target.SelectedItem.Text == "CDO")
+                    &&
+                      shift_name.StartsWith("NIGHT")
+                    &&
+                      (the_calendar.SelectedDates.Count > 1)
+                    &&
+                      new ArrayList() {DayOfWeek.Saturday,DayOfWeek.Sunday}.Contains(the_calendar.SelectedDates[i.val].DayOfWeek)
+                    )
+                    //then
                     {
-                    p.biz_schedule_assignments.SetPost
+                    var corresponding_shift_name = "DAY/8TO5";
+                    schedule_assignment_id = p.biz_schedule_assignments.ForceAvail
                       (
-                      id:schedule_assignment_id,
-                      post_id:post_id
+                      member_id:member_id,
+                      nominal_day:the_calendar.SelectedDates[i.val],
+                      shift_name:"DAY", // representatively
+                      agency_id:p.member_agency_id
                       );
+                    //
+                    // This availability is for a partial or offset shift period.  Apply the appropriate comment.
+                    //
+                    p.biz_schedule_assignments.SetComment
+                      (
+                      id: schedule_assignment_id,
+                      comment: p.biz_shifts.StartHHofName(corresponding_shift_name) + k.HYPHEN + p.biz_shifts.EndHHofName(corresponding_shift_name)
+                      );
+                    if (ForceOn(schedule_assignment_id))
+                      {
+                      p.biz_schedule_assignments.SetPost
+                        (
+                        id:schedule_assignment_id,
+                        post_id:post_id
+                        );
+                      }
                     }
                   }
                 }

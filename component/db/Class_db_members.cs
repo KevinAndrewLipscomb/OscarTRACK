@@ -2276,7 +2276,6 @@ namespace Class_db_members
           )
           {
           member_summary the_summary = null;
-          var be_found = false;
           Open();
           var dr = new MySqlCommand
             (
@@ -2327,8 +2326,7 @@ namespace Class_db_members
             connection
             )
             .ExecuteReader();
-          be_found = dr.Read();
-          if (!be_found)
+          if (!dr.HasRows)
             {
             //
             // This is the zebra case where the member has been set up to transition to a new status at date that is in the future but still within this month, and so will not match any row given the above query.  Since we
@@ -2385,10 +2383,10 @@ namespace Class_db_members
               connection
               )
               .ExecuteReader();
-            be_found = dr.Read();
             }
-          if (be_found)
+          if (dr.HasRows)
             {
+            dr.Read();
             the_summary = new member_summary()
               {
               agency = dr["agency"].ToString(),
