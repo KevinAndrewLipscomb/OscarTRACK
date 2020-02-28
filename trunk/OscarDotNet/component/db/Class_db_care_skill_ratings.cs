@@ -4,10 +4,7 @@ using Class_db;
 using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_care_skill_ratings
   {
@@ -151,21 +148,16 @@ namespace Class_db_care_skill_ratings
       string patient_encounter_id
       )
       {
-      var childless_field_assignments_clause = k.EMPTY
-      + "care_skill_id = NULLIF('" + care_skill_id + "','')"
-      + " , skill_rating_id = NULLIF('" + skill_rating_id + "','')"
-      + " , patient_encounter_id = NULLIF('" + patient_encounter_id + "','')"
-      + k.EMPTY;
       Open();
       new MySqlCommand
         (
         db_trail.Saved
           (
-          "insert care_skill_rating"
+          "replace care_skill_rating"
           + " set id = NULLIF('" + id + "','')"
-          + " , " + childless_field_assignments_clause
-          + " on duplicate key update "
-          + childless_field_assignments_clause
+          + " , care_skill_id = NULLIF('" + care_skill_id + "','')"
+          + " , skill_rating_id = NULLIF('" + skill_rating_id + "','')"
+          + " , patient_encounter_id = NULLIF('" + patient_encounter_id + "','')"
           ),
           connection
         )
