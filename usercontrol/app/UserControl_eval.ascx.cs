@@ -1122,60 +1122,73 @@ namespace UserControl_eval
           TextBox_third_rebuttal.Text = (third_rebuttal.Length > 0 ? third_rebuttal : "Concur");
           Literal_third_rebuttal.Text = TextBox_third_rebuttal.Text;
           }
-        SaveRecord();
-        if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") && (p.presentation_mode == presentation_mode_enum.EVALUATEE_WORK))
+        if (k.Safe(DropDownList_status.SelectedValue,k.safe_hint_type.NUM).Length > 0) // This condition has been observed, but should not occur.
           {
-          p.biz_notifications.IssueForEvalNeedsAicInput
-            (
-            eval_id:p.biz_evals.IdOf(p.summary),
-            nominal_day:p.biz_evals.NominalDayOf(p.summary),
-            shift_name:p.biz_evals.ShiftNameOf(p.summary),
-            post_designator:p.biz_evals.PostDesignatorOf(p.summary),
-            post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
-            vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
-            evaluatee_name:p.biz_evals.EvaluateeNameOf(p.summary),
-            evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
-            evaluator_member_id:p.biz_evals.EvaluatorMemberIdOf(p.summary)
-            );
-          }
-        else if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") || (status_after_lock_and_submit == "NEEDS_EVALUATEE_REBUTTAL"))
-          {
-          p.biz_notifications.IssueForEvalNeedsEvaluateeRebuttal
-            (
-            eval_id:p.biz_evals.IdOf(p.summary),
-            nominal_day:p.biz_evals.NominalDayOf(p.summary),
-            shift_name:p.biz_evals.ShiftNameOf(p.summary),
-            post_designator:p.biz_evals.PostDesignatorOf(p.summary),
-            post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
-            vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
-            evaluator_name:p.biz_evals.EvaluatorNameOf(p.summary),
-            evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary)
-            );
+          SaveRecord();
+          if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") && (p.presentation_mode == presentation_mode_enum.EVALUATEE_WORK))
+            {
+            p.biz_notifications.IssueForEvalNeedsAicInput
+              (
+              eval_id:p.biz_evals.IdOf(p.summary),
+              nominal_day:p.biz_evals.NominalDayOf(p.summary),
+              shift_name:p.biz_evals.ShiftNameOf(p.summary),
+              post_designator:p.biz_evals.PostDesignatorOf(p.summary),
+              post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
+              vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
+              evaluatee_name:p.biz_evals.EvaluateeNameOf(p.summary),
+              evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
+              evaluator_member_id:p.biz_evals.EvaluatorMemberIdOf(p.summary)
+              );
+            }
+          else if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") || (status_after_lock_and_submit == "NEEDS_EVALUATEE_REBUTTAL"))
+            {
+            p.biz_notifications.IssueForEvalNeedsEvaluateeRebuttal
+              (
+              eval_id:p.biz_evals.IdOf(p.summary),
+              nominal_day:p.biz_evals.NominalDayOf(p.summary),
+              shift_name:p.biz_evals.ShiftNameOf(p.summary),
+              post_designator:p.biz_evals.PostDesignatorOf(p.summary),
+              post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
+              vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
+              evaluator_name:p.biz_evals.EvaluatorNameOf(p.summary),
+              evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary)
+              );
+            }
+          else
+            {
+            //p.biz_notifications.IssueForEvalArchived
+            //  (
+            //  eval_id:p.biz_evals.IdOf(p.summary),
+            //  nominal_day:p.biz_evals.NominalDayOf(p.summary),
+            //  shift_name:p.biz_evals.ShiftNameOf(p.summary),
+            //  post_designator:p.biz_evals.PostDesignatorOf(p.summary),
+            //  post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
+            //  vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
+            //  evaluatee_name:p.biz_evals.EvaluateeNameOf(p.summary),
+            //  evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
+            //  evaluator_name:p.biz_evals.EvaluatorNameOf(p.summary),
+            //  evaluator_member_id:p.biz_evals.EvaluatorMemberIdOf(p.summary)
+            //  );
+            var working_directory = Server.MapPath("scratch");
+            p.biz_evals.Send
+              (
+              id:p.biz_evals.IdOf(p.summary),
+              evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
+              working_directory:working_directory
+              );
+            }
+          BackTrack();
           }
         else
           {
-          //p.biz_notifications.IssueForEvalArchived
-          //  (
-          //  eval_id:p.biz_evals.IdOf(p.summary),
-          //  nominal_day:p.biz_evals.NominalDayOf(p.summary),
-          //  shift_name:p.biz_evals.ShiftNameOf(p.summary),
-          //  post_designator:p.biz_evals.PostDesignatorOf(p.summary),
-          //  post_cardinality:p.biz_evals.PostCardinalityOf(p.summary),
-          //  vehicle_name:p.biz_evals.VehicleNameOf(p.summary),
-          //  evaluatee_name:p.biz_evals.EvaluateeNameOf(p.summary),
-          //  evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
-          //  evaluator_name:p.biz_evals.EvaluatorNameOf(p.summary),
-          //  evaluator_member_id:p.biz_evals.EvaluatorMemberIdOf(p.summary)
-          //  );
-          var working_directory = Server.MapPath("scratch");
-          p.biz_evals.Send
+          AlertAndBackTrack
             (
-            id:p.biz_evals.IdOf(p.summary),
-            evaluatee_member_id:p.biz_evals.EvaluateeMemberIdOf(p.summary),
-            working_directory:working_directory
+            cause:k.alert_cause_type.LOGIC,
+            state:k.alert_state_type.FAILURE,
+            key:"ASSERTFAIL",
+            value:"Something's wrong.  Please reload this eval and try again."
             );
           }
-        BackTrack();
         }
       }
 
