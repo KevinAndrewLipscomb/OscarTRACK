@@ -1122,7 +1122,7 @@ namespace UserControl_eval
           TextBox_third_rebuttal.Text = (third_rebuttal.Length > 0 ? third_rebuttal : "Concur");
           Literal_third_rebuttal.Text = TextBox_third_rebuttal.Text;
           }
-        if (k.Safe(DropDownList_status.SelectedValue,k.safe_hint_type.NUM).Length > 0) // This condition has been observed, but should not occur.
+        if (k.Safe(DropDownList_status.SelectedValue,k.safe_hint_type.NUM).Length > 0) // This condition being false has been observed, but should not occur.
           {
           SaveRecord();
           if ((status_after_lock_and_submit == "NEEDS_BOTH_LOCKS") && (p.presentation_mode == presentation_mode_enum.EVALUATEE_WORK))

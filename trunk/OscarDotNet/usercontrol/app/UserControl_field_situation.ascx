@@ -322,10 +322,10 @@
     The format for an ambulance callsign is:
        A[volunteer rescue squad number][twenty number]
     Examples:
-       A[ 1][20] →  120 (Ocean Park VRS, ambulance 20)
-       A[ 2][21] →  221 (Davis Corner VRS, ambulance 21)
+       A[ 1][20] →  A120 (Ocean Park VRS, Ambulance 20)
+       A[ 2][21] →  A221 (Davis Corner VRS, Ambulance 21)
        :
-       A[17][29] → 1729 (Sandbridge VRS, ambulance 29)
+       A[17][29] → A1729 (Sandbridge VRS, Ambulance 29)
     A &quot;P&quot; suffix indicates an ALS unit.
     </pre>
           </td>
