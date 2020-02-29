@@ -338,8 +338,21 @@ namespace UserControl_patient_encounter
       {
       if (Page.IsValid)
         {
-        SavePatientEncounter(p.id);
-        Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+        if (p.guid.Length > 0) // This condition being false has been observed, but should not occur.
+          {
+          SavePatientEncounter(p.id);
+          Alert(k.alert_cause_type.USER, k.alert_state_type.SUCCESS, "recsaved", "Record saved.", true);
+          }
+        else
+          {
+          Alert
+            (
+            cause:k.alert_cause_type.LOGIC,
+            state:k.alert_state_type.FAILURE,
+            key:"ASSERTFAIL",
+            value:"Something's wrong.  Please reload this eval and try again."
+            );
+          }
         BackTrack();
         }
       else
