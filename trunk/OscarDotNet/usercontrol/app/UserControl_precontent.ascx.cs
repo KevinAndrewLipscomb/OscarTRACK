@@ -21,6 +21,13 @@ namespace UserControl_precontent
 
     private p_type p;
 
+    private void Logout()
+      {
+      FormsAuthentication.SignOut();
+      Session.Clear();
+      Session.Abandon();
+      Server.Transfer(k.ExpandTildePath("~/Default.aspx"));
+      }
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
@@ -108,7 +115,7 @@ namespace UserControl_precontent
               k.EscalatedException
                 (
                 the_exception:e.Exception,
-                user_identity_name:HttpContext.Current.User.Identity.Name + (HttpContext.Current.User.Identity.Name.Length > 0 ? k.SPACE : k.EMPTY) + "from " + Request.UserHostAddress + k.SPACE + "(" + k.DomainNameOfIpAddress(Request.UserHostAddress) + ")",
+                user_identity_name:(HttpContext.Current.User.Identity.Name.Length > 0 ? HttpContext.Current.User.Identity.Name : "(EMPTY HttpContext.Current.User.Identity.Name)") + " from " + Request.UserHostAddress + k.SPACE + "(" + k.DomainNameOfIpAddress(Request.UserHostAddress) + ")",
                 session:Session,
                 engine_innodb_status:engine_innodb_status
                 );
@@ -125,16 +132,20 @@ namespace UserControl_precontent
 
     protected void LinkButton_profile_Click(object sender, System.EventArgs e)
       {
-      DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/member_profile.aspx"));
+      if (HttpContext.Current.User.Identity.Name.Length > 0)
+        {
+        DropCrumbAndTransferTo(k.ExpandTildePath("~/protected/member_profile.aspx"));
+        }
+      else
+        {
+        Logout();
+        }
       }
 
-        protected void LinkButton_logout_Click(object sender, System.EventArgs e)
-        {
-            FormsAuthentication.SignOut();
-            Session.Clear();
-            Session.Abandon();
-            Server.Transfer(k.ExpandTildePath("~/Default.aspx"));
-        }
+    protected void LinkButton_logout_Click(object sender, System.EventArgs e)
+      {
+      Logout();
+      }
 
     protected void LinkButton_role_comms_Click(object sender, System.EventArgs e)
       {
