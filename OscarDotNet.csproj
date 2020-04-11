@@ -12,7 +12,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>OscarDotNet</RootNamespace>
     <AssemblyName>OscarDotNet</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
@@ -50,7 +50,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxControlToolkit, Version=17.1.1.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
+    <Reference Include="AjaxControlToolkit, Version=19.1.0.0, Culture=neutral, PublicKeyToken=28f01b0e84b6d53e, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\AjaxControlToolkit.dll</HintPath>
     </Reference>
@@ -62,15 +62,23 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Ionic.Zip.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="MySql.Data, Version=6.9.8.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\Program Files\MySQL\Connector NET\Assemblies\v4.5\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="NodaTime, Version=2.4.7.0, Culture=neutral, PublicKeyToken=4226afe0d9b296d1, processorArchitecture=MSIL">
+      <HintPath>packages\NodaTime.2.4.7\lib\net45\NodaTime.dll</HintPath>
     </Reference>
     <Reference Include="QCChart2DNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=777bb05e591192d4" />
     <Reference Include="QCSPCChartNet, Version=1.7.1.2, Culture=neutral, PublicKeyToken=f5ea9c29edc9f4ca" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Reflection.TypeExtensions, Version=4.1.5.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Reflection.TypeExtensions.4.7.0\lib\net461\System.Reflection.TypeExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -2713,6 +2721,7 @@
     <Content Include="usercontrol\ki\UserControl_drop_down_time_of_day.ascx" />
     <Content Include="usercontrol\ki\UserControl_print_div.ascx" />
     <Content Include="usercontrol\ki\UserControl_session_interrupted.ascx" />
+    <None Include="packages.config" />
     <None Include="work.bat" />
   </ItemGroup>
   <ItemGroup>

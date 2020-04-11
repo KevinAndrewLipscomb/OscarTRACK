@@ -917,24 +917,29 @@ namespace Class_db_schedule_assignments
           (target as BaseDataList).DataBind();
           ((target as BaseDataList).DataSource as MySqlDataReader).Close();
           //
-          var dr = new MySqlCommand
+          using
             (
-            "select count(distinct member_id) as num_members"
-            + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
-            + common_from_where_clause,
-            connection,
-            transaction
+            var dr = new MySqlCommand
+              (
+              "select count(distinct member_id) as num_members"
+              + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
+              + common_from_where_clause,
+              connection,
+              transaction
+              )
+              .ExecuteReader()
             )
-            .ExecuteReader();
-          dr.Read();
-          (num_members = new k.int_nonnegative()).val = int.Parse(dr["num_members"].ToString());
-          num_crew_shifts = new k.decimal_nonnegative();
-          object num_crew_shifts_obj;
-          if ((num_crew_shifts_obj = dr["num_crew_shifts"]) != DBNull.Value)
             {
-            (num_crew_shifts = new k.decimal_nonnegative()).val = decimal.Parse(num_crew_shifts_obj.ToString());
+            dr.Read();
+            (num_members = new k.int_nonnegative()).val = int.Parse(dr["num_members"].ToString());
+            num_crew_shifts = new k.decimal_nonnegative();
+            object num_crew_shifts_obj;
+            if ((num_crew_shifts_obj = dr["num_crew_shifts"]) != DBNull.Value)
+              {
+              (num_crew_shifts = new k.decimal_nonnegative()).val = decimal.Parse(num_crew_shifts_obj.ToString());
+              }
+            dr.Close();
             }
-          dr.Close();
           //
           new MySqlCommand
             (
