@@ -150,28 +150,6 @@
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </td>
     <td align="right" valign="top">
-      <b><asp:HyperLink ID="HyperLink_catch_up" runat="server" target="_blank" NavigateUrl="$KEYclick/whats-new.phtml">Catch up</asp:HyperLink></b>
-    </td>
-    <td valign="top">
-      on what's new.
-    </td>
-  </tr>
-  <tr>
-    <td>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </td>
-    <td align="right" valign="top">
-      <b><font color="D0D0D0">Modify</font></b>
-    </td>
-    <td valign="top">
-      system settings (KEYclick Authorities only).
-    </td>
-  </tr>
-  <tr>
-    <td>
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    </td>
-    <td align="right" valign="top">
       <b><asp:HyperLink ID="HyperLink_faq" runat="server" target="_blank" NavigateUrl="$KEYclick/faq.phtml">FAQ</asp:HyperLink></b>
     </td>
     <td valign="top">
