@@ -35,7 +35,6 @@ namespace UserControl_keyclick
         HyperLink_modify_or_remove.NavigateUrl = HyperLink_modify_or_remove.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         HyperLink_analyze.NavigateUrl = HyperLink_analyze.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         HyperLink_export.NavigateUrl = HyperLink_export.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
-        HyperLink_catch_up.NavigateUrl = HyperLink_catch_up.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         HyperLink_faq.NavigateUrl = HyperLink_faq.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         HyperLink_contact.NavigateUrl = HyperLink_contact.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         //
