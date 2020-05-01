@@ -1,11 +1,9 @@
-using AjaxControlToolkit;
 using Class_biz_members;
 using Class_biz_residents;
 using Class_biz_user;
 using kix;
 using System.Configuration;
 using System.Web.UI;
-using System;
 
 namespace UserControl_keyclick
   {
@@ -38,12 +36,12 @@ namespace UserControl_keyclick
         HyperLink_faq.NavigateUrl = HyperLink_faq.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         HyperLink_contact.NavigateUrl = HyperLink_contact.NavigateUrl.Replace("$KEYclick",p.path_to_external_keyclick);
         //
-        HyperLink_log_new.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
-        HyperLink_log_old.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
-        HyperLink_add.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
-        HyperLink_modify_or_remove.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
-        HyperLink_analyze.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
-        HyperLink_export.NavigateUrl += "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_log_new.NavigateUrl = HyperLink_log_new.NavigateUrl.Split('?')[0] + "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_log_old.NavigateUrl = HyperLink_log_old.NavigateUrl.Split('?')[0] +  "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_add.NavigateUrl = HyperLink_add.NavigateUrl.Split('?')[0] +  "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_modify_or_remove.NavigateUrl = HyperLink_modify_or_remove.NavigateUrl.Split('?')[0] +  "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_analyze.NavigateUrl = HyperLink_analyze.NavigateUrl.Split('?')[0] +  "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
+        HyperLink_export.NavigateUrl = HyperLink_export.NavigateUrl.Split('?')[0] +  "?bpn=" + Session["keyclick_boarding_pass_number"].ToString();
         //
         Literal_num_rod_records.Text = p.biz_residents.NumForAgency(agency_id:p.agency_id).val.ToString("N0");
         //
