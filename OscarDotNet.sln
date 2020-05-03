@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Express 2013 for Web
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OscarDotNet", "OscarDotNet.csproj", "{2E8AA26F-5990-4E80-8C15-DC8FB42C5800}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -12,6 +12,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ki", "lib\ki\ki.csproj", "{A20C347B-5154-47B9-A275-36157BF73352}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "oscalib", "lib\oscalib\oscalib.csproj", "{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}"
+EndProject
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "photolib", "..\photolib\photolib.msbuildproj", "{687077D7-0792-4E8B-91C8-10D3E3BBF734}"
+EndProject
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "keyclick", "..\keyclick\keyclick.msbuildproj", "{60C8585C-444E-43FC-96D8-8582818F5567}"
+EndProject
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "oscar", "..\oscar\oscar.msbuildproj", "{CDFB1A77-BD63-46B9-AB8B-ADF4897D4D7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,8 +37,23 @@ Global
 		{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24557AC7-3C17-4149-9A5D-E920A4C5A0E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{687077D7-0792-4E8B-91C8-10D3E3BBF734}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{687077D7-0792-4E8B-91C8-10D3E3BBF734}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{687077D7-0792-4E8B-91C8-10D3E3BBF734}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{687077D7-0792-4E8B-91C8-10D3E3BBF734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60C8585C-444E-43FC-96D8-8582818F5567}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60C8585C-444E-43FC-96D8-8582818F5567}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60C8585C-444E-43FC-96D8-8582818F5567}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60C8585C-444E-43FC-96D8-8582818F5567}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFB1A77-BD63-46B9-AB8B-ADF4897D4D7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFB1A77-BD63-46B9-AB8B-ADF4897D4D7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFB1A77-BD63-46B9-AB8B-ADF4897D4D7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFB1A77-BD63-46B9-AB8B-ADF4897D4D7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0D8E17C0-18E4-4637-A3D8-2E2E977BA8C4}
 	EndGlobalSection
 EndGlobal
