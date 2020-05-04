@@ -771,7 +771,7 @@ namespace Class_db_schedule_assignments
       ;
       //
       Open();
-      var transaction = connection.BeginTransaction();
+      using var transaction = connection.BeginTransaction();
       //
       // Since we are only using selects and temporary tables, do not save this to the db_trail.
       //
