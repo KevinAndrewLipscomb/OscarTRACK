@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="remind_username.aspx.cs" AutoEventWireup="True" Inherits="remind_username.TWebForm_remind_username" %>
+<%@ Page language="c#" codebehind="remind_username.aspx.cs" AutoEventWireup="True" Inherits="remind_username.TWebForm_remind_username" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>

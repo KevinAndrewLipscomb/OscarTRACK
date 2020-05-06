@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="statement_member_status.aspx.cs" AutoEventWireup="True" Inherits="statement_member_status.TWebForm_statement_member_status" %>
+<%@ Page language="c#" codebehind="statement_member_status.aspx.cs" AutoEventWireup="True" Inherits="statement_member_status.TWebForm_statement_member_status" %>
 <!DOCTYPE html>
 
 <html>

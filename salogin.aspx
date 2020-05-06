@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="salogin.aspx.cs" AutoEventWireup="True" Inherits="salogin.TWebForm_salogin" %>
+<%@ Page language="c#" codebehind="salogin.aspx.cs" AutoEventWireup="True" Inherits="salogin.TWebForm_salogin" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>

@@ -1,4 +1,4 @@
-<%@ Page Language="c#" Debug="true" CodeBehind="report_shift_fleet_status.aspx.cs" AutoEventWireup="True" Inherits="report_shift_fleet_status.TWebForm_report_shift_fleet_status" EnableViewState="false" %>
+<%@ Page Language="c#" codebehind="report_shift_fleet_status.aspx.cs" AutoEventWireup="True" Inherits="report_shift_fleet_status.TWebForm_report_shift_fleet_status" EnableViewState="false" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>

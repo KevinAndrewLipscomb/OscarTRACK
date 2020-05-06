@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="report_monthly_current_phone_list.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_current_phone_list.TWebForm_report_monthly_current_phone_list" EnableViewState="false" %>
+<%@ Page language="c#" codebehind="report_monthly_current_phone_list.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_current_phone_list.TWebForm_report_monthly_current_phone_list" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>
 <!DOCTYPE html>

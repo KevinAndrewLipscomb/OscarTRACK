@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="leave_detail.aspx.cs" AutoEventWireup="True" Inherits="leave_detail.TWebForm_leave_detail" %>
+<%@ Page language="c#" codebehind="leave_detail.aspx.cs" AutoEventWireup="True" Inherits="leave_detail.TWebForm_leave_detail" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <html>

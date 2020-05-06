@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_member_email_address.aspx.cs" AutoEventWireup="True" Inherits="change_member_email_address.TWebForm_change_member_email_address" %>
+<%@ Page language="c#" codebehind="change_member_email_address.aspx.cs" AutoEventWireup="True" Inherits="change_member_email_address.TWebForm_change_member_email_address" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <!DOCTYPE html>

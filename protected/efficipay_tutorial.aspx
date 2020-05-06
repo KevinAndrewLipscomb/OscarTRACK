@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="efficipay_tutorial.aspx.cs" AutoEventWireup="True" Inherits="efficipay_tutorial.TWebForm_efficipay_tutorial" %>
+<%@ Page language="c#" codebehind="efficipay_tutorial.aspx.cs" AutoEventWireup="True" Inherits="efficipay_tutorial.TWebForm_efficipay_tutorial" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc2" TagName="UserControl_efficipay_tutorial" Src="~/usercontrol/ki/UserControl_efficipay_tutorial.ascx" %>

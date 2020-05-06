@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="change_member_medical_release_level.aspx.cs" AutoEventWireup="True" Inherits="change_member_medical_release_level.TWebForm_change_member_medical_release_level" %>
+<%@ Page language="c#" codebehind="change_member_medical_release_level.aspx.cs" AutoEventWireup="True" Inherits="change_member_medical_release_level.TWebForm_change_member_medical_release_level" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register src="../usercontrol/ki/UserControl_drop_down_date.ascx" tagname="UserControl_drop_down_date" tagprefix="uc2" %>
