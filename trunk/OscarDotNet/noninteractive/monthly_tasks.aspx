@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="monthly_tasks.aspx.cs" AutoEventWireup="True" Inherits="monthly_tasks.TWebForm_monthly_tasks" %>
+<%@ Page language="c#" codebehind="monthly_tasks.aspx.cs" AutoEventWireup="True" Inherits="monthly_tasks.TWebForm_monthly_tasks" %>
 <!DOCTYPE html>
 
 <html>

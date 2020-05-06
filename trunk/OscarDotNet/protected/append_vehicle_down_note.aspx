@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 
-<%@ Page Language="c#" Debug="true" CodeBehind="append_vehicle_down_note.aspx.cs" AutoEventWireup="True" Inherits="append_vehicle_down_note.TWebForm_append_vehicle_down_note" %>
+<%@ Page Language="c#" codebehind="append_vehicle_down_note.aspx.cs" AutoEventWireup="True" Inherits="append_vehicle_down_note.TWebForm_append_vehicle_down_note" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>

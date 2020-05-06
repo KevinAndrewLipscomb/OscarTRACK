@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="add_new_enrollment_status.aspx.cs" AutoEventWireup="True" Inherits="add_new_enrollment_status.TWebForm_add_new_enrollment_status" %>
+<%@ Page language="c#" codebehind="add_new_enrollment_status.aspx.cs" AutoEventWireup="True" Inherits="add_new_enrollment_status.TWebForm_add_new_enrollment_status" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_drop_down_date" Src="~/usercontrol/ki/UserControl_drop_down_date.ascx" %>

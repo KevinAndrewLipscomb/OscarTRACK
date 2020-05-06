@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
-<%@ Page language="c#" Debug="true" Codebehind="report_end_of_month_schedule_assignments_audit.aspx.cs" AutoEventWireup="True" Inherits="report_end_of_month_schedule_assignments_audit.TWebForm_report_end_of_month_schedule_assignments_audit" EnableViewState="false"%>
+<%@ Page language="c#" codebehind="report_end_of_month_schedule_assignments_audit.aspx.cs" AutoEventWireup="True" Inherits="report_end_of_month_schedule_assignments_audit.TWebForm_report_end_of_month_schedule_assignments_audit" EnableViewState="false"%>
 <%@ Register src="../usercontrol/app/UserControl_common_header_bar.ascx" tagname="UserControl_common_header_bar" tagprefix="uc1" %>
 <html>
   <head runat="server">

@@ -1,4 +1,4 @@
-<%@ Page Language="c#" Debug="true" CodeBehind="fleetman.aspx.cs" AutoEventWireup="True" Inherits="fleetman.TWebForm_fleetman" validateRequest="false"%>
+<%@ Page Language="c#" codebehind="fleetman.aspx.cs" AutoEventWireup="True" Inherits="fleetman.TWebForm_fleetman" validateRequest="false"%>
 <!DOCTYPE html>
 <html>
   <head>

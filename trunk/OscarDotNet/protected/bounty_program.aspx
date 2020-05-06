@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- Derived from KiAspdotnetFramework/protected/template~protected~nonlanding.aspx~template -->
 
-<%@ Page Language="c#" Debug="true" CodeBehind="bounty_program.aspx.cs" AutoEventWireup="True" Inherits="bounty_program.TWebForm_bounty_program" %>
+<%@ Page Language="c#" codebehind="bounty_program.aspx.cs" AutoEventWireup="True" Inherits="bounty_program.TWebForm_bounty_program" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>

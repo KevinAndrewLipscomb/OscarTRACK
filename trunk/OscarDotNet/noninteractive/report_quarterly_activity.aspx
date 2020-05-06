@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="report_quarterly_activity.aspx.cs" AutoEventWireup="True" Inherits="report_quarterly_activity.TWebForm_report_quarterly_activity" EnableViewState="false" %>
+<%@ Page language="c#" codebehind="report_quarterly_activity.aspx.cs" AutoEventWireup="True" Inherits="report_quarterly_activity.TWebForm_report_quarterly_activity" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_behind_the_scenes_activity" Src="~/usercontrol/app/UserControl_behind_the_scenes_activity.ascx" %>
 <!DOCTYPE html>

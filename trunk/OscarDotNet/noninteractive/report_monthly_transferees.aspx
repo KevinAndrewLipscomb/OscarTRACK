@@ -1,4 +1,4 @@
-<%@ Page Language="c#" Debug="true" CodeBehind="report_monthly_transferees.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_transferees.TWebForm_report_monthly_transferees" EnableViewState="false" %>
+<%@ Page Language="c#" codebehind="report_monthly_transferees.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_transferees.TWebForm_report_monthly_transferees" EnableViewState="false" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Reference Control="~/usercontrol/app/UserControl_roster.ascx" %>

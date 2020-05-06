@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="report_departures_effective_today.aspx.cs" AutoEventWireup="True" Inherits="report_departures_effective_today.TWebForm_report_departures_effective_today" EnableViewState="false" %>
+<%@ Page language="c#" codebehind="report_departures_effective_today.aspx.cs" AutoEventWireup="True" Inherits="report_departures_effective_today.TWebForm_report_departures_effective_today" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_departures_effective_today" Src="~/usercontrol/app/UserControl_departures_effective_today.ascx" %>
 <!DOCTYPE html>

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<%@ Page Language="c#" Debug="true" CodeBehind="usability_detail.aspx.cs" AutoEventWireup="True" Inherits="usability_detail.TWebForm_usability_detail" %>
+<%@ Page Language="c#" codebehind="usability_detail.aspx.cs" AutoEventWireup="True" Inherits="usability_detail.TWebForm_usability_detail" %>
 
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>

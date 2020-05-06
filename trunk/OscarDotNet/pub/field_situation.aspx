@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<%@ Page language="c#" Debug="true" Codebehind="field_situation.aspx.cs" AutoEventWireup="True" Inherits="field_situation.TWebForm_field_situation" %>
+<%@ Page language="c#" codebehind="field_situation.aspx.cs" AutoEventWireup="True" Inherits="field_situation.TWebForm_field_situation" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_precontent" Src="~/usercontrol/app/UserControl_precontent.ascx" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_postcontent" Src="~/usercontrol/app/UserControl_postcontent.ascx" %>
 <%@ Register TagPrefix="asp" Namespace="System.Web.UI" Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>

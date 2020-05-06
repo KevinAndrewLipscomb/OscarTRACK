@@ -1,4 +1,4 @@
-<%@ Page Language="c#" Debug="true" CodeBehind="report_monthly_per_agency_serial_indicators.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators" EnableViewState="false" %>
+<%@ Page Language="c#" codebehind="report_monthly_per_agency_serial_indicators.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_per_agency_serial_indicators.TWebForm_report_monthly_per_agency_serial_indicators" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <%@ Register Src="../usercontrol/app/UserControl_serial_indicators_per_agency.ascx" TagName="UserControl_serial_indicators_per_agency" TagPrefix="uc2" %>
 <!DOCTYPE html>

@@ -1,4 +1,4 @@
-<%@ Page language="c#" Debug="true" Codebehind="report_monthly_core_ops_dashboard.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard" EnableViewState="false" %>
+<%@ Page language="c#" codebehind="report_monthly_core_ops_dashboard.aspx.cs" AutoEventWireup="True" Inherits="report_monthly_core_ops_dashboard.TWebForm_report_monthly_core_ops_dashboard" EnableViewState="false" %>
 <%@ Register TagPrefix="uc1" TagName="UserControl_common_header_bar" Src="~/usercontrol/app/UserControl_common_header_bar.ascx" %>
 <!DOCTYPE html>
 <html>
