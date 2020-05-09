@@ -104,7 +104,7 @@ namespace paypal_ipn_listener
                 {"amount_donated",k.Safe(amount_donated,k.safe_hint_type.REAL_NUM_INCLUDING_NEGATIVE)},
                 {"donor_email_address",k.Safe(donor_email_address,k.safe_hint_type.EMAIL_ADDRESS)},
                 {"donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME)},
-                {"donation_date",DateTime.ParseExact(s: date_of_donation.Remove(21),format: "HH:mm:ss MMM dd,yyyy",provider: CultureInfo.InvariantCulture)}
+                {"donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture)}
               };
             //
             var street_address_candidate = k.EMPTY;
