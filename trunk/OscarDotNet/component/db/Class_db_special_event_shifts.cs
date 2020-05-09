@@ -13,7 +13,7 @@ namespace Class_db_special_event_shifts
   {
   public class TClass_db_special_event_shifts: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_special_event_shifts() : base()
       {
@@ -25,7 +25,7 @@ namespace Class_db_special_event_shifts
       var concat_clause = "concat(IFNULL(special_event_id,'-'),'|',IFNULL(nominal_day,'-'),'|',IFNULL(name,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -33,8 +33,8 @@ namespace Class_db_special_event_shifts
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -48,15 +48,15 @@ namespace Class_db_special_event_shifts
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(special_event_id,'-'),'|',IFNULL(nominal_day,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
         + " FROM special_event_shift"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -71,7 +71,8 @@ namespace Class_db_special_event_shifts
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from special_event_shift where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from special_event_shift where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -102,7 +103,8 @@ namespace Class_db_special_event_shifts
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from special_event_shift where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from special_event_shift where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         special_event_id = dr["special_event_id"].ToString();
@@ -129,7 +131,7 @@ namespace Class_db_special_event_shifts
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -140,8 +142,8 @@ namespace Class_db_special_event_shifts
           + childless_field_assignments_clause
           ),
           connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

@@ -10,7 +10,7 @@ namespace Class_db_vehicle_quarters
   {
   public class TClass_db_vehicle_quarters: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_vehicle_quarters() : base()
       {
@@ -22,7 +22,7 @@ namespace Class_db_vehicle_quarters
       var concat_clause = "concat(IFNULL(medium_designator,'-'),'|',IFNULL(long_designator,'-'),'|',IFNULL(be_active,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -30,8 +30,8 @@ namespace Class_db_vehicle_quarters
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -49,15 +49,15 @@ namespace Class_db_vehicle_quarters
         {
         (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
         }
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(" + designator_clause + " USING utf8) as spec"
         + " FROM vehicle_quarters"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -110,7 +110,8 @@ namespace Class_db_vehicle_quarters
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from vehicle_quarters where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_quarters where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -146,7 +147,8 @@ namespace Class_db_vehicle_quarters
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from vehicle_quarters where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_quarters where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         medium_designator = dr["medium_designator"].ToString();
@@ -167,12 +169,12 @@ namespace Class_db_vehicle_quarters
       )
       {
       Open();
-      var id_with_competing_long_designator_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id from vehicle_quarters where long_designator = '" + long_designator + "' and id <> '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var id_with_competing_long_designator_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_with_competing_long_designator_obj == null ? k.EMPTY : id_with_competing_long_designator_obj.ToString());
       }
@@ -184,12 +186,12 @@ namespace Class_db_vehicle_quarters
       )
       {
       Open();
-      var id_with_competing_medium_designator_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id from vehicle_quarters where medium_designator = '" + medium_designator + "' and id <> '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var id_with_competing_medium_designator_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_with_competing_medium_designator_obj == null ? k.EMPTY : id_with_competing_medium_designator_obj.ToString());
       }
@@ -197,7 +199,8 @@ namespace Class_db_vehicle_quarters
     public string MediumDashLongDesignatorOfId(string id)
       {
       Open();
-      var medium_dash_long_designator_of_id = new MySqlCommand("select concat(medium_designator,' - ',long_designator) from vehicle_quarters where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select concat(medium_designator,' - ',long_designator) from vehicle_quarters where id = '" + id + "'",connection);
+      var medium_dash_long_designator_of_id = my_sql_command.ExecuteScalar().ToString();
       Close();
       return medium_dash_long_designator_of_id;
       }
@@ -218,7 +221,7 @@ namespace Class_db_vehicle_quarters
       + " , be_active = " + be_active.ToString()
       + k.EMPTY;
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -229,8 +232,8 @@ namespace Class_db_vehicle_quarters
           + childless_field_assignments_clause
           ),
           connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

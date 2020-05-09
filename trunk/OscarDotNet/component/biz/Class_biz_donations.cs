@@ -13,11 +13,11 @@ namespace Class_biz_donations
   public class TClass_biz_donations
     {
 
-    private TClass_biz_agencies biz_agencies = null;
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_biz_user biz_user = null;
-    private TClass_db_donations db_donations = null;
+    private readonly TClass_biz_agencies biz_agencies = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_biz_user biz_user = null;
+    private readonly TClass_db_donations db_donations = null;
       
     public TClass_biz_donations() : base()
       {

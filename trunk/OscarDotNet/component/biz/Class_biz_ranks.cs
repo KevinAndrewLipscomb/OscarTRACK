@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_ranks;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_ranks
   {
@@ -17,7 +14,7 @@ namespace Class_biz_ranks
 
   public class TClass_biz_ranks
     {
-    private TClass_db_ranks db_ranks = null;
+    private readonly TClass_db_ranks db_ranks = null;
 
     public TClass_biz_ranks() : base()
       {

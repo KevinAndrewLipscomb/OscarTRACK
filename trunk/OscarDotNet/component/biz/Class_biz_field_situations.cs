@@ -21,8 +21,8 @@ namespace Class_biz_field_situations
     //
     //--
 
-    private TClass_db_field_situations db_field_situations = null;
-    private Class_fs fs = null;
+    private readonly TClass_db_field_situations db_field_situations = null;
+    private readonly Class_fs fs = null;
 
     //--
     //
@@ -95,7 +95,8 @@ namespace Class_biz_field_situations
         {
         try
           {
-          new WebClient().DownloadFile
+          using var web_client = new WebClient();
+          web_client.DownloadFile
             (
             address:static_part + dynamic_part,
             fileName:disk_file_spec

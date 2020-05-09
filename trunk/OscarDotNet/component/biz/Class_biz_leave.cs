@@ -1,8 +1,8 @@
-using System;
 using System.Collections;
+
 namespace Class_biz_leave
-{
-    public class TClass_biz_leave
+  {
+  public class TClass_biz_leave
     {
         //Constructor  Create()
         public TClass_biz_leave() : base()

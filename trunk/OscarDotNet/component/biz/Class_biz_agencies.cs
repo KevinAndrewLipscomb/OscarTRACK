@@ -9,9 +9,9 @@ namespace Class_biz_agencies
     public class TClass_biz_agencies
     {
 
-        private TClass_biz_roles biz_roles = null;
-        private TClass_db_agencies db_agencies = null;
-        private TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
+        private readonly TClass_biz_roles biz_roles = null;
+        private readonly TClass_db_agencies db_agencies = null;
+        private readonly TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
 
         //Constructor  Create()
         public TClass_biz_agencies() : base()

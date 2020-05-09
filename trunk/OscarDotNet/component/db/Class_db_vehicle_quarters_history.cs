@@ -13,7 +13,7 @@ namespace Class_db_vehicle_quarters_history
   {
   public class TClass_db_vehicle_quarters_history: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_vehicle_quarters_history() : base()
       {
@@ -28,12 +28,12 @@ namespace Class_db_vehicle_quarters_history
       {
       var be_later = true;
       Open();
-      var max_start_datetime = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select DATE_FORMAT(max(start_datetime),'%Y-%m-%d %H:%i') as max_start_datetime from vehicle_quarters_history where vehicle_id = '" + vehicle_id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var max_start_datetime = my_sql_command.ExecuteScalar();
       if (max_start_datetime != DBNull.Value)
         {
         be_later = (DateTime.Parse(max_start_datetime.ToString()) < proposed_datetime);
@@ -47,7 +47,7 @@ namespace Class_db_vehicle_quarters_history
       var concat_clause = "concat(IFNULL(start_datetime,'-'),'|',IFNULL(end_datetime,'-'),'|',IFNULL(note,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -55,8 +55,8 @@ namespace Class_db_vehicle_quarters_history
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -70,15 +70,15 @@ namespace Class_db_vehicle_quarters_history
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(start_datetime,'-'),'|',IFNULL(end_datetime,'-'),'|',IFNULL(note,'-')) USING utf8) as spec"
         + " FROM vehicle_quarters_history"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -104,7 +104,7 @@ namespace Class_db_vehicle_quarters_history
         {
         sort_order = sort_order.Replace("%", " desc");
         }
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select vehicle_quarters_history.id as id"
         + " , vehicle_quarters.medium_designator as designator"
@@ -123,8 +123,8 @@ namespace Class_db_vehicle_quarters_history
         + " where vehicle_id = " + vehicle_id
         + " order by " + sort_order,
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -136,7 +136,8 @@ namespace Class_db_vehicle_quarters_history
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from vehicle_quarters_history where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_quarters_history where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -174,7 +175,8 @@ namespace Class_db_vehicle_quarters_history
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from vehicle_quarters_history where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_quarters_history where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         vehicle_id = dr["vehicle_id"].ToString();
@@ -193,7 +195,8 @@ namespace Class_db_vehicle_quarters_history
       {
       var id_of_current = k.EMPTY;
       Open();
-      var obj = new MySqlCommand("select quarters_id from vehicle_quarters_history where vehicle_id = '" + vehicle_id + "' and end_datetime is null",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select quarters_id from vehicle_quarters_history where vehicle_id = '" + vehicle_id + "' and end_datetime is null",connection);
+      var obj = my_sql_command.ExecuteScalar();
       Close();
       if (obj != null)
         {
@@ -220,7 +223,7 @@ namespace Class_db_vehicle_quarters_history
       + " , note = NULLIF('" + note + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -231,8 +234,8 @@ namespace Class_db_vehicle_quarters_history
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

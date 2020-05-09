@@ -29,7 +29,7 @@ namespace OscarDotNet.service
       //
       var the_items = new List<schedule_assignment_summary>();
       var biz_schedule_assignments = new TClass_biz_schedule_assignments();
-      var target = new DataGrid();
+      using var target = new DataGrid();
       biz_schedule_assignments.BindBaseDataListByShiftForQuickMessage
         (
         agency_filter:agency_filter,

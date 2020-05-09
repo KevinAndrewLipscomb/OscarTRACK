@@ -25,7 +25,7 @@ namespace Class_db_efficipay_dockets
 
   public class TClass_db_efficipay_dockets: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_efficipay_dockets() : base()
       {
@@ -43,13 +43,16 @@ namespace Class_db_efficipay_dockets
       var transaction = connection.BeginTransaction();
       try
         {
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (db_trail.Saved("update efficipay_docket set signer_1_member_id = '" + member_id + "' where id = '" + id + "' and signer_1_member_id is null"),connection,transaction)
-          .ExecuteNonQuery();
-        new MySqlCommand
+          ;
+        my_sql_command_1.ExecuteNonQuery();
+        using var my_sql_command_2 = new MySqlCommand
           (db_trail.Saved("update efficipay_docket set signer_2_member_id = '" + member_id + "' where id = '" + id + "' and signer_2_member_id is null and signer_1_member_id is not null and signer_1_member_id <> '" + member_id + "'"),connection,transaction)
-          .ExecuteNonQuery();
-        apply_signature = "1" == new MySqlCommand("select IF(signer_1_member_id is not null and signer_2_member_id is not null,1,0) from efficipay_docket where id = '" + id + "'",connection,transaction).ExecuteScalar().ToString();
+          ;
+        my_sql_command_2.ExecuteNonQuery();
+        using var my_sql_command_3 = new MySqlCommand("select IF(signer_1_member_id is not null and signer_2_member_id is not null,1,0) from efficipay_docket where id = '" + id + "'",connection,transaction);
+        apply_signature = "1" == my_sql_command_3.ExecuteScalar().ToString();
         transaction.Commit();
         }
       catch (Exception e)
@@ -65,7 +68,8 @@ namespace Class_db_efficipay_dockets
       {
       var be_num_in_use = true;
       Open();
-      be_num_in_use = "1" == new MySqlCommand("select IF(count(*) > 0,1,0) from efficipay_docket where num = '" + num + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select IF(count(*) > 0,1,0) from efficipay_docket where num = '" + num + "'",connection);
+      be_num_in_use = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_num_in_use;
       }
@@ -74,12 +78,12 @@ namespace Class_db_efficipay_dockets
       {
       var be_ok_to_sign = false;
       Open();
-      be_ok_to_sign = "1" == new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IF((signer_1_member_id is null) or (signer_2_member_id is null),1,0) from efficipay_docket where id = '" + id + "'",
         connection
-        )
-        .ExecuteScalar().ToString();
+        );      
+      be_ok_to_sign = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_ok_to_sign;
       }
@@ -89,7 +93,7 @@ namespace Class_db_efficipay_dockets
       var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(num,'-'),'|',IFNULL(attachment_key,'-'),'|',IFNULL(be_ready_for_review,'-'),'|',IFNULL(signer_1_member_id,'-'),'|',IFNULL(signer_2_member_id,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -97,8 +101,8 @@ namespace Class_db_efficipay_dockets
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -135,24 +139,21 @@ namespace Class_db_efficipay_dockets
         filter += " and" + (ready_for_review_filter == "0" ? " not" : k.EMPTY) + " be_ready_for_review ";
         }
       Open();
-      (target as BaseDataList).DataSource = 
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select efficipay_docket.id as id"
-          + " , num"
-          + " , IF(be_ready_for_review,'Yes','No') as be_ready_for_review"
-          + " , IFNULL(concat(m1.cad_num,' ',m1.first_name,' ',m1.last_name),'') as signer_1"
-          + " , IFNULL(concat(m2.cad_num,' ',m2.first_name,' ',m2.last_name),'') as signer_2"
-          + " from efficipay_docket"
-          +   " left join member m1 on (m1.id=efficipay_docket.signer_1_member_id)"
-          +   " left join member m2 on (m2.id=efficipay_docket.signer_2_member_id)"
-          + filter
-          + " order by " + sort_order,
-          connection
-          )
-        .ExecuteReader()
+        "select efficipay_docket.id as id"
+        + " , num"
+        + " , IF(be_ready_for_review,'Yes','No') as be_ready_for_review"
+        + " , IFNULL(concat(m1.cad_num,' ',m1.first_name,' ',m1.last_name),'') as signer_1"
+        + " , IFNULL(concat(m2.cad_num,' ',m2.first_name,' ',m2.last_name),'') as signer_2"
+        + " from efficipay_docket"
+        +   " left join member m1 on (m1.id=efficipay_docket.signer_1_member_id)"
+        +   " left join member m2 on (m2.id=efficipay_docket.signer_2_member_id)"
+        + filter
+        + " order by " + sort_order,
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -161,15 +162,15 @@ namespace Class_db_efficipay_dockets
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(num,'-'),'|',IFNULL(attachment_key,'-'),'|',IFNULL(be_ready_for_review,'-'),'|',IFNULL(signer_1_member_id,'-'),'|',IFNULL(signer_2_member_id,'-')) USING utf8) as spec"
         + " FROM efficipay_docket"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -184,7 +185,8 @@ namespace Class_db_efficipay_dockets
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from efficipay_docket where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from efficipay_docket where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -223,7 +225,8 @@ namespace Class_db_efficipay_dockets
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from efficipay_docket where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from efficipay_docket where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -266,7 +269,7 @@ namespace Class_db_efficipay_dockets
       var transaction = connection.BeginTransaction();
       try
         {
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           db_trail.Saved
             (
@@ -278,11 +281,12 @@ namespace Class_db_efficipay_dockets
             ),
             connection,
             transaction
-          )
-          .ExecuteNonQuery();
+            );
+        my_sql_command_1.ExecuteNonQuery();
         if (id.Length == 0)
           {
-          id = new MySqlCommand("select id from efficipay_docket where attachment_key = '" + attachment_key + "'",connection,transaction).ExecuteScalar().ToString();
+          using var my_sql_command_2 = new MySqlCommand("select id from efficipay_docket where attachment_key = '" + attachment_key + "'",connection,transaction);
+          id = my_sql_command_2.ExecuteScalar().ToString();
           }
         transaction.Commit();
         }
@@ -298,23 +302,20 @@ namespace Class_db_efficipay_dockets
     public object Summary(string efficipay_docket_id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select agency_id"
-          + " , num"
-          + " , attachment_key"
-          + " , be_ready_for_review"
-          + " , IFNULL(signer_1_member_id,'') as signer_1_member_id"
-          + " , IFNULL(signer_2_member_id,'') as signer_2_member_id"
-          + " , IFNULL(DATE_FORMAT(expiration_date,'%Y-%m-%d %H:%i'),'') as expiration_date"
-          + " from efficipay_docket"
-          + " where id = '" + efficipay_docket_id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "select agency_id"
+        + " , num"
+        + " , attachment_key"
+        + " , be_ready_for_review"
+        + " , IFNULL(signer_1_member_id,'') as signer_1_member_id"
+        + " , IFNULL(signer_2_member_id,'') as signer_2_member_id"
+        + " , IFNULL(DATE_FORMAT(expiration_date,'%Y-%m-%d %H:%i'),'') as expiration_date"
+        + " from efficipay_docket"
+        + " where id = '" + efficipay_docket_id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new efficipay_docket_summary()
         {

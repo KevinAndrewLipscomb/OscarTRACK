@@ -17,25 +17,24 @@ using Class_biz_vehicles;
 using Class_db_notifications;
 using kix;
 using System;
-using System.Collections;
 using System.Configuration;
 using System.IO;
 using System.Web;
 
 namespace Class_biz_notifications
-{
-    public static class Class_biz_notifications_Static
+  {
+  public static class Class_biz_notifications_Static
     {
         public static char[] BreakChars = new char[2 + 1] {Convert.ToChar(k.SPACE),Convert.ToChar(k.TAB),Convert.ToChar(0)};
     }
 
     public class TClass_biz_notifications
     {
-        private string application_name = k.EMPTY;
-        private TClass_db_notifications db_notifications = null;
-        private string host_domain_name = k.EMPTY;
-        private string last_day_of_month_to_submit_schedule_availabilities = k.EMPTY;
-        private string runtime_root_fullspec = k.EMPTY;
+        private readonly string application_name = k.EMPTY;
+        private readonly TClass_db_notifications db_notifications = null;
+        private readonly string host_domain_name = k.EMPTY;
+        private readonly string last_day_of_month_to_submit_schedule_availabilities = k.EMPTY;
+        private readonly string runtime_root_fullspec = k.EMPTY;
 
         public TClass_biz_notifications() : base()
         {
@@ -1544,8 +1543,7 @@ namespace Class_biz_notifications
                   break_char_array:Class_biz_notifications_Static.BreakChars,
                   max_line_len:short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])
                   )
-                )
-              ;
+);
             };
 
           var biz_members = new TClass_biz_members();

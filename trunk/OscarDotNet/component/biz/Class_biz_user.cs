@@ -9,8 +9,8 @@ namespace Class_biz_user
   public class TClass_biz_user
     {
   
-    private TClass_db_user db_user = null;
-    private TClass_db_users db_users = null;
+    private readonly TClass_db_user db_user = null;
+    private readonly TClass_db_users db_users = null;
 
     public TClass_biz_user() : base()
       {

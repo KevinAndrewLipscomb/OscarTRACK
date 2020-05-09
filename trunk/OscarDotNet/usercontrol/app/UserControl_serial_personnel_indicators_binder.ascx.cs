@@ -99,7 +99,7 @@ namespace UserControl_serial_personnel_indicators_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == UserControl_serial_personnel_indicators_binder_Static.TSSI_NUM_CORE_OPS_MEMBERS)
@@ -152,10 +152,6 @@ namespace UserControl_serial_personnel_indicators_binder
         var c = ((TWebUserControl_serial_indicator_scheduled_duty_compliance)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_scheduled_duty_compliance.ascx")));
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_serial_indicator_scheduled_duty_compliance",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     public void SetTarget(string target)

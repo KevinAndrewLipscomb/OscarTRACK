@@ -25,26 +25,25 @@ namespace Class_db_medical_release_levels
       )
       {
       Open();
-      var result = "1" ==
-        new MySqlCommand
-          (
-          "select"
-          + " ("
-          + " select TRUE"
-          + " from enrollment_level"
-          + " where description = '" + enrollment_level_description + "'"
-          +   " and core_ops_commitment_level_code = 1"
-          + " )"
-          + " or"
-          + " ("
-          + " select TRUE"
-          + " from medical_release_code_description_map"
-          + " where code = '" + code + "'"
-          +   " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'BLS Intern')"
-          + " )",
-          connection
-          )
-          .ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select"
+        + " ("
+        + " select TRUE"
+        + " from enrollment_level"
+        + " where description = '" + enrollment_level_description + "'"
+        +   " and core_ops_commitment_level_code = 1"
+        + " )"
+        + " or"
+        + " ("
+        + " select TRUE"
+        + " from medical_release_code_description_map"
+        + " where code = '" + code + "'"
+        +   " and pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'BLS Intern')"
+        + " )",
+        connection
+        );
+      var result = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return result;
       }
@@ -52,7 +51,7 @@ namespace Class_db_medical_release_levels
         internal void BindBaseDataList(object target)
           {
           Open();
-          (target as BaseDataList).DataSource = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select watchbill_rendition"
             + " , description"
@@ -60,8 +59,8 @@ namespace Class_db_medical_release_levels
             + " where be_hereafter_valid"
             + " order by pecking_order desc",
             connection
-            )
-            .ExecuteReader();
+            );
+          (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
           (target as BaseDataList).DataBind();
           ((target as BaseDataList).DataSource as MySqlDataReader).Close();
           Close();
@@ -73,7 +72,8 @@ namespace Class_db_medical_release_levels
             this.Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-            dr = new MySqlCommand("SELECT code, description from medical_release_code_description_map where be_hereafter_valid order by pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT code, description from medical_release_code_description_map where be_hereafter_valid order by pecking_order", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
@@ -86,7 +86,8 @@ namespace Class_db_medical_release_levels
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select description from medical_release_code_description_map where code = " + code, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select description from medical_release_code_description_map where code = " + code, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -94,7 +95,8 @@ namespace Class_db_medical_release_levels
         internal string PeckCodeOf(string level_code)
           {
           Open();
-          var peck_code_of = new MySqlCommand("select pecking_order from medical_release_code_description_map where code = '" + level_code + "'",connection).ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand("select pecking_order from medical_release_code_description_map where code = '" + level_code + "'",connection);
+          var peck_code_of = my_sql_command.ExecuteScalar().ToString();
           Close();
           return peck_code_of;
           }
@@ -106,12 +108,9 @@ namespace Class_db_medical_release_levels
           )
           {
           Open();
-          var pecking_order_compare_to =
-            (
-              (int.Parse(new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_x + "'",connection).ExecuteScalar().ToString()))
-            .CompareTo
-              (int.Parse(new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_y + "'",connection).ExecuteScalar().ToString()))
-            );
+          using var my_sql_command_x = new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_x + "'",connection);
+          using var my_sql_command_y = new MySqlCommand("select pecking_order from medical_release_code_description_map where description = '" + description_y + "'",connection);
+          var pecking_order_compare_to = int.Parse(my_sql_command_x.ExecuteScalar().ToString()).CompareTo(int.Parse(my_sql_command_y.ExecuteScalar().ToString()));
           Close();
           return pecking_order_compare_to;
           }

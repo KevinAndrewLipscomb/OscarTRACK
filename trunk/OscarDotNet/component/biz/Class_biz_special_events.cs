@@ -7,7 +7,7 @@ namespace Class_biz_special_events
   public class TClass_biz_special_events
     {
 
-    private TClass_db_special_events db_special_events = null;
+    private readonly TClass_db_special_events db_special_events = null;
 
     public TClass_biz_special_events() : base()
       {

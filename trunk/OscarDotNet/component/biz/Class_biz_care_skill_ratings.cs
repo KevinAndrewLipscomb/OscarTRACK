@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_care_skill_ratings;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_care_skill_ratings
   {
   public class TClass_biz_care_skill_ratings
     {
-    private TClass_db_care_skill_ratings db_care_skill_ratings = null;
+    private readonly TClass_db_care_skill_ratings db_care_skill_ratings = null;
 
     public TClass_biz_care_skill_ratings() : base()
       {

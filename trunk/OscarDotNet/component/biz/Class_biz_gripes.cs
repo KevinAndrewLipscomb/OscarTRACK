@@ -22,10 +22,10 @@ namespace Class_biz_gripes
   public class TClass_biz_gripes
     {
 
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_db_gripes db_gripes = null;
-    private Class_fs fs = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_db_gripes db_gripes = null;
+    private readonly Class_fs fs = null;
 
     public TClass_biz_gripes() : base()
       {

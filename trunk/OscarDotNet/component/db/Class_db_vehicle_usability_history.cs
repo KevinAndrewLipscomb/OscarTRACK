@@ -13,7 +13,7 @@ namespace Class_db_vehicle_usability_history
   {
   public class TClass_db_vehicle_usability_history: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_vehicle_usability_history() : base()
       {
@@ -28,12 +28,12 @@ namespace Class_db_vehicle_usability_history
       {
       var be_later = true;
       Open();
-      var max_time_went_down = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select DATE_FORMAT(max(time_went_down),'%Y-%m-%d %H:%i') as max_time_went_down from vehicle_usability_history where vehicle_id = '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var max_time_went_down = my_sql_command.ExecuteScalar();
       if (max_time_went_down != DBNull.Value)
         {
         be_later = (DateTime.Parse(max_time_went_down.ToString()) < proposed_datetime);
@@ -47,7 +47,7 @@ namespace Class_db_vehicle_usability_history
       var concat_clause = "concat(IFNULL(time_went_down,'-'),'|',IFNULL(mileage,'-'),'|',IFNULL(time_came_up,'-'),'|',IFNULL(down_comment,'-'),'|',IFNULL(up_comment,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -55,8 +55,8 @@ namespace Class_db_vehicle_usability_history
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -83,7 +83,7 @@ namespace Class_db_vehicle_usability_history
         {
         sort_order = sort_order.Replace("%", " desc");
         }
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select vehicle_usability_history.id as id"
         + " , nature_id"
@@ -105,8 +105,8 @@ namespace Class_db_vehicle_usability_history
         + " where vehicle_id = " + vehicle_id
         + " order by " + sort_order,
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -115,15 +115,15 @@ namespace Class_db_vehicle_usability_history
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(time_went_down,'-'),'|',IFNULL(mileage,'-'),'|',IFNULL(time_came_up,'-'),'|',IFNULL(down_comment,'-'),'|',IFNULL(up_comment,'-')) USING utf8) as spec"
         + " FROM vehicle_usability_history"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -139,7 +139,8 @@ namespace Class_db_vehicle_usability_history
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from vehicle_usability_history where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_usability_history where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -181,7 +182,8 @@ namespace Class_db_vehicle_usability_history
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from vehicle_usability_history where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_usability_history where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         vehicle_id = dr["vehicle_id"].ToString();
@@ -201,7 +203,8 @@ namespace Class_db_vehicle_usability_history
     public string LatestDownComment(string vehicle_id)
       {
       Open();
-      var latest_down_comment = (new MySqlCommand("select IFNULL(down_comment,'') from vehicle_usability_history where vehicle_id = '" + vehicle_id + "' and time_came_up is null",connection).ExecuteScalar() ?? k.EMPTY).ToString();
+      using var my_sql_command = new MySqlCommand("select IFNULL(down_comment,'') from vehicle_usability_history where vehicle_id = '" + vehicle_id + "' and time_came_up is null",connection);
+      var latest_down_comment = (my_sql_command.ExecuteScalar() ?? k.EMPTY).ToString();
       Close();
       return latest_down_comment;
       }
@@ -213,7 +216,8 @@ namespace Class_db_vehicle_usability_history
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update vehicle_usability_history set down_comment = '" + replacement_note + "' where vehicle_id = '" + vehicle_id + "' and time_came_up is null"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("update vehicle_usability_history set down_comment = '" + replacement_note + "' where vehicle_id = '" + vehicle_id + "' and time_came_up is null"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -239,7 +243,7 @@ namespace Class_db_vehicle_usability_history
       + " , up_comment = NULLIF('" + up_comment + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -250,8 +254,8 @@ namespace Class_db_vehicle_usability_history
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

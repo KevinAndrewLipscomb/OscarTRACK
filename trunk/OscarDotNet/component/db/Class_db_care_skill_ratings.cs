@@ -10,7 +10,7 @@ namespace Class_db_care_skill_ratings
   {
   public class TClass_db_care_skill_ratings: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_care_skill_ratings() : base()
       {
@@ -22,7 +22,7 @@ namespace Class_db_care_skill_ratings
       var concat_clause = "concat(id)";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -30,8 +30,8 @@ namespace Class_db_care_skill_ratings
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -48,23 +48,20 @@ namespace Class_db_care_skill_ratings
       )
       {
       Open();
-      (target as BaseDataList).DataSource = 
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select care_skill.id as care_skill_id"
-          + " , care_skill.description as care_skill_description"
-          + " , IF(designator = '?','?','') as performed_needs_rating"
-          + " , IFNULL(care_skill_rating.id,'-') as care_skill_rating_id"
-          + " , IFNULL(care_skill_rating.skill_rating_id,'-') as care_skill_rating_skill_rating_id"
-          + " from care_skill"
-          +   " left join care_skill_rating on (care_skill_rating.care_skill_id=care_skill.id and patient_encounter_id = '" + patient_encounter_id + "')"
-          +   " left join skill_rating on (skill_rating.id=care_skill_rating.skill_rating_id)"
-          + " order by tier,care_skill_description",
-          connection
-          )
-        .ExecuteReader()
+        "select care_skill.id as care_skill_id"
+        + " , care_skill.description as care_skill_description"
+        + " , IF(designator = '?','?','') as performed_needs_rating"
+        + " , IFNULL(care_skill_rating.id,'-') as care_skill_rating_id"
+        + " , IFNULL(care_skill_rating.skill_rating_id,'-') as care_skill_rating_skill_rating_id"
+        + " from care_skill"
+        +   " left join care_skill_rating on (care_skill_rating.care_skill_id=care_skill.id and patient_encounter_id = '" + patient_encounter_id + "')"
+        +   " left join skill_rating on (skill_rating.id=care_skill_rating.skill_rating_id)"
+        + " order by tier,care_skill_description",
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -73,15 +70,15 @@ namespace Class_db_care_skill_ratings
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(id) USING utf8) as spec"
         + " FROM care_skill_rating"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -96,7 +93,8 @@ namespace Class_db_care_skill_ratings
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from care_skill_rating where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from care_skill_rating where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -127,7 +125,8 @@ namespace Class_db_care_skill_ratings
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from care_skill_rating where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from care_skill_rating where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         care_skill_id = dr["care_skill_id"].ToString();
@@ -149,7 +148,7 @@ namespace Class_db_care_skill_ratings
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -160,8 +159,8 @@ namespace Class_db_care_skill_ratings
           + " , patient_encounter_id = NULLIF('" + patient_encounter_id + "','')"
           ),
           connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

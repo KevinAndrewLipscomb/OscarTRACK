@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_chassis_models;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_chassis_models
   {
   public class TClass_biz_chassis_models
     {
-    private TClass_db_chassis_models db_chassis_models = null;
+    private readonly TClass_db_chassis_models db_chassis_models = null;
 
     public TClass_biz_chassis_models() : base()
       {

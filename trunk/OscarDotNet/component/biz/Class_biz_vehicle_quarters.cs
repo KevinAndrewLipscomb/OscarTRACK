@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_vehicle_quarters;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_vehicle_quarters
   {
   public class TClass_biz_vehicle_quarters
     {
-    private TClass_db_vehicle_quarters db_vehicle_quarters = null;
+    private readonly TClass_db_vehicle_quarters db_vehicle_quarters = null;
 
     public TClass_biz_vehicle_quarters() : base()
       {

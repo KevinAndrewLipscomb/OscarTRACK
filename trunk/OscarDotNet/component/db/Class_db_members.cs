@@ -125,11 +125,11 @@ namespace Class_db_members
     public class TClass_db_members: TClass_db
     {
 
-        private TClass_biz_notifications biz_notifications = null;
-        private TClass_biz_sms_gateways biz_sms_gateways = null;
-        private TClass_db_agencies db_agencies = null;
-        private TClass_db_medical_release_levels db_medical_release_levels = null;
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_biz_notifications biz_notifications = null;
+        private readonly TClass_biz_sms_gateways biz_sms_gateways = null;
+        private readonly TClass_db_agencies db_agencies = null;
+        private readonly TClass_db_medical_release_levels db_medical_release_levels = null;
+        private readonly TClass_db_trail db_trail = null;
 
         public TClass_db_members() : base()
         {
@@ -150,10 +150,10 @@ namespace Class_db_members
           uint agency_id,
           string email_address,
           DateTime enrollment_date,
-          uint enrollment_code,
-          string phone_num,
-          string phone_service_id,
-          string section_num
+          uint enrollment_code = 17,
+          string phone_num = k.EMPTY,
+          string phone_service_id = k.EMPTY,
+          string section_num = k.EMPTY
           )
           {
             string enrollment_date_string;
@@ -175,7 +175,8 @@ namespace Class_db_members
               }
             sql = sql + ";" + " insert into enrollment_history" + " set member_id = (select max(id) from member)" + " , level_code = " + enrollment_code.ToString() + " , start_date = \"" + enrollment_date_string + "\"" + ";" + " COMMIT";
             this.Open();
-            new MySqlCommand(db_trail.Saved(sql), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved(sql), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
           }
 
@@ -183,19 +184,6 @@ namespace Class_db_members
       {
       return (summary as member_summary).first_release_as_aic_date;
       }
-
-    public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code, string phone_num, string phone_service_id)
-          {
-          Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17, phone_num, phone_service_id, section_num:k.EMPTY);
-          }
-        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date)
-        {
-            Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, 17);
-        }
-        public void Add(string first_name, string last_name, string cad_num, uint medical_release_code, bool be_driver_qualified, uint agency_id, string email_address, DateTime enrollment_date, uint enrollment_code)
-        {
-            Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_code, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
-        }
 
     public string AgencyIdOf(object summary)
       {
@@ -212,7 +200,8 @@ namespace Class_db_members
             string result;
             object agency_id_of_id_obj;
             this.Open();
-            agency_id_of_id_obj = new MySqlCommand("SELECT agency_id FROM member WHERE id = \"" + id + "\"", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("SELECT agency_id FROM member WHERE id = \"" + id + "\"", this.connection);
+            agency_id_of_id_obj = my_sql_command.ExecuteScalar();
             this.Close();
             if ((agency_id_of_id_obj != null))
             {
@@ -228,7 +217,8 @@ namespace Class_db_members
         internal bool BeDriverQualifiedOfId(string id)
           {
           Open();
-          var be_driver_qualified_of_id = ("1" == new MySqlCommand("select be_driver_qualified from member where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          using var my_sql_command = new MySqlCommand("select be_driver_qualified from member where id = '" + id + "'",connection);
+          var be_driver_qualified_of_id = ("1" == my_sql_command.ExecuteScalar().ToString());
           Close();
           return be_driver_qualified_of_id;
           }
@@ -252,7 +242,8 @@ namespace Class_db_members
         {
             bool result;
             this.Open();
-            result = (new MySqlCommand("select 1 from member where cad_num = \"" + cad_num + "\"", this.connection).ExecuteScalar() != null);
+            using var my_sql_command = new MySqlCommand("select 1 from member where cad_num = \"" + cad_num + "\"", this.connection);
+            result = (my_sql_command.ExecuteScalar() != null);
             this.Close();
             return result;
         }
@@ -264,14 +255,15 @@ namespace Class_db_members
             sql = "select 1 from member where" + " (" + " first_name = \"" + first_name + "\"" + " and last_name = \"" + last_name + "\"";
             if (cad_num == "")
             {
-                sql = sql + ")";
+                sql += ")";
             }
             else
             {
-                sql = sql + " and (cad_num = \"" + cad_num + "\" or cad_num is null or cad_num like \"9%\")) or (cad_num = \"" + cad_num + "\")";
+                sql += " and (cad_num = \"" + cad_num + "\" or cad_num is null or cad_num like \"9%\")) or (cad_num = \"" + cad_num + "\")";
             }
             this.Open();
-            result = (new MySqlCommand(sql, this.connection).ExecuteScalar() != null);
+            using var my_sql_command = new MySqlCommand(sql, this.connection);
+            result = (my_sql_command.ExecuteScalar() != null);
             this.Close();
             return result;
         }
@@ -280,7 +272,8 @@ namespace Class_db_members
           {
           var be_role_holder = true;
           Open();
-          be_role_holder = ("1" == new MySqlCommand("select (count(role_id) > 0) from member join role_member_map on (role_member_map.member_id=member.id) where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          using var my_sql_command = new MySqlCommand("select (count(role_id) > 0) from member join role_member_map on (role_member_map.member_id=member.id) where id = '" + id + "'",connection);
+          be_role_holder = ("1" == my_sql_command.ExecuteScalar().ToString());
           Close();
           return be_role_holder;
           }
@@ -300,7 +293,7 @@ namespace Class_db_members
           claimed_member_id = k.EMPTY;
           claimed_member_email_address = k.EMPTY;
           Open();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select role.name as role_name"
             + " , concat(member.first_name,' ',member.last_name) as member_name"
@@ -313,8 +306,8 @@ namespace Class_db_members
             + " order by role.pecking_order"
             + " limit 1",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           if (dr.Read())
             {
             claimed_role_name = dr["role_name"].ToString();
@@ -337,7 +330,8 @@ namespace Class_db_members
         {
             bool result;
             this.Open();
-            result = ("1" == new MySqlCommand("select be_valid_profile from member where id = " + id, this.connection).ExecuteScalar().ToString());
+            using var my_sql_command = new MySqlCommand("select be_valid_profile from member where id = " + id, this.connection);
+            result = ("1" == my_sql_command.ExecuteScalar().ToString());
             this.Close();
             return result;
         }
@@ -357,7 +351,8 @@ namespace Class_db_members
                 where_clause = where_clause + " and (agency_id = \"" + agency_filter + "\")";
             }
             this.Open();
-            dr = new MySqlCommand("select member.id as member_id" + " , concat(last_name,\", \",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_designator" + " from member" + " join enrollment_history" + " on" + " (" + "   enrollment_history.member_id=member.id" + " and" + "   (enrollment_history.end_date is null)" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + where_clause + " order by member_designator", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select member.id as member_id" + " , concat(last_name,\", \",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_designator" + " from member" + " join enrollment_history" + " on" + " (" + "   enrollment_history.member_id=member.id" + " and" + "   (enrollment_history.end_date is null)" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + where_clause + " order by member_designator", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["member_designator"].ToString(), dr["member_id"].ToString()));
@@ -399,7 +394,7 @@ namespace Class_db_members
             ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
           Open();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select member.id as member_id"
             + " , concat(last_name,', ',first_name,' (',IFNULL(cad_num,''),')') as member_designator"
@@ -426,8 +421,8 @@ namespace Class_db_members
             +     " )"
             + " order by member_designator",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             ((target) as ListControl).Items.Add(new ListItem(dr["member_designator"].ToString(), dr["member_id"].ToString()));
@@ -461,7 +456,7 @@ namespace Class_db_members
             ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
           Open();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select member.id as member_id"
             + " , concat(last_name,', ',first_name,' (',IFNULL(cad_num,''),')') as member_designator"
@@ -479,8 +474,8 @@ namespace Class_db_members
             +   " and medical_release_code_description_map.pecking_order >= (select pecking_order from medical_release_code_description_map where description = 'EMT-B')"
             + " order by member_designator",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             ((target) as ListControl).Items.Add(new ListItem(dr["member_designator"].ToString(), dr["member_id"].ToString()));
@@ -512,10 +507,12 @@ namespace Class_db_members
             {
                 // Log squad-by-squad indicators.
                 // Log citywide indicator.
-                new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + from_where_phrase + " group by agency.id" + ";" + " replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + from_where_phrase + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
+                using var my_sql_command_1 = new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + from_where_phrase + " group by agency.id" + ";" + " replace indicator_core_ops_size (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + from_where_phrase + ";" + " COMMIT"), this.connection);
+                my_sql_command_1.ExecuteNonQuery();
             }
             // Bind datagrid for display.
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_phrase + " as count" + from_where_phrase + " group by agency.id" + " order by count desc", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_phrase + " as count" + from_where_phrase + " group by agency.id" + " order by count desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -534,10 +531,12 @@ namespace Class_db_members
             {
                 // Log squad-by-squad indicators.
                 // Log citywide indicator.
-                new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_from_where_clause + " group by agency.id" + ";" + " replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_from_where_clause + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
+                using var my_sql_command_1 = new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_from_where_clause + " group by agency.id" + ";" + " replace indicator_crew_shifts_forecast (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_from_where_clause + ";" + " COMMIT"), this.connection);
+                my_sql_command_1.ExecuteNonQuery();
             }
             // Bind datagrid for display.
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_from_where_clause + " group by agency.id" + " order by num_crew_shifts desc", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_from_where_clause + " group by agency.id" + " order by num_crew_shifts desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -556,7 +555,7 @@ namespace Class_db_members
           Open();
           if (do_log)
             {
-            new MySqlCommand
+            using var my_sql_command_1 = new MySqlCommand
               (
               db_trail.Saved
                 (
@@ -636,11 +635,11 @@ namespace Class_db_members
                 + " COMMIT"
                 ),
               connection
-              )
-              .ExecuteNonQuery();
+              );
+            my_sql_command_1.ExecuteNonQuery();
             db_agencies.CycleFleetTrackingOpsTallies();
             }
-          ((target) as DataGrid).DataSource = new MySqlCommand
+          using var my_sql_command_2 = new MySqlCommand
             (
             "select NULL as `rank`"
             + " , concat(medium_designator,' - ',long_designator) as agency"
@@ -653,8 +652,8 @@ namespace Class_db_members
             +   " and agency.id <> 0"
             + " order by value desc",
             connection
-            )
-            .ExecuteReader();
+            );
+          ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
           ((target) as DataGrid).DataBind();
           Close();
           }
@@ -670,10 +669,12 @@ namespace Class_db_members
             {
                 // Log squad-by-squad indicators.
                 // Log citywide indicator.
-                new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + from_where_phrase + " group by agency.id" + ";" + " replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + from_where_phrase + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
+                using var my_sql_command_1 = new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + from_where_phrase + " group by agency.id" + ";" + " replace indicator_num_members_in_pipeline (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + from_where_phrase + ";" + " COMMIT"), this.connection);
+                my_sql_command_1.ExecuteNonQuery();
             }
             // Bind datagrid for display.
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_phrase + " as count" + from_where_phrase + " group by agency.id" + " order by count desc", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , " + metric_phrase + " as count" + from_where_phrase + " group by agency.id" + " order by count desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -694,10 +695,12 @@ namespace Class_db_members
             {
                 // Log squad-by-squad indicators.
                 // Log citywide indicator.
-                new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + "*100" + from_where_phrase + " group by agency.id" + ";" + " replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + "*100" + from_where_phrase + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
+                using var my_sql_command_1 = new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + "*100" + from_where_phrase + " group by agency.id" + ";" + " replace indicator_standard_enrollment (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + "*100" + from_where_phrase + ";" + " COMMIT"), this.connection);
+                my_sql_command_1.ExecuteNonQuery();
             }
             // Bind datagrid for display.
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , count(if((core_ops_commitment_level_code = 3),1,NULL)) as num_standard_enrollments" + " , count(*) as num_core_ops_members" + " , " + metric_phrase + " as factor" + from_where_phrase + " group by agency.id" + " order by factor desc, num_core_ops_members desc", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , count(if((core_ops_commitment_level_code = 3),1,NULL)) as num_standard_enrollments" + " , count(*) as num_core_ops_members" + " , " + metric_phrase + " as factor" + from_where_phrase + " group by agency.id" + " order by factor desc, num_core_ops_members desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -792,7 +795,7 @@ namespace Class_db_members
           Open();
           if (do_log)
             {
-            new MySqlCommand
+            using var my_sql_command_1 = new MySqlCommand
               (
               db_trail.Saved
                 (
@@ -819,11 +822,11 @@ namespace Class_db_members
                 + " COMMIT"
                 ),
                 connection
-              )
-              .ExecuteNonQuery();
+                );
+            my_sql_command_1.ExecuteNonQuery();
             }
           // Bind datagrid for display.
-          ((target) as DataGrid).DataSource = new MySqlCommand
+          using var my_sql_command_2 = new MySqlCommand
             (
             "select NULL as `rank`"
             + " , concat(medium_designator,\" - \",long_designator) as agency"
@@ -864,8 +867,8 @@ namespace Class_db_members
             + " group by agency.id"
             + " order by third_saturation_factor",
             connection
-            )
-            .ExecuteReader();
+            );
+          ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
           ((target) as DataGrid).DataBind();
           Close();
           }
@@ -886,10 +889,12 @@ namespace Class_db_members
             {
                 // Log squad-by-squad indicators.
                 // Log citywide indicator.
-                new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + "*100" + from_where_phrase + " group by agency.id" + ";" + " replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + "*100" + from_where_phrase + ";" + " COMMIT"), this.connection).ExecuteNonQuery();
+                using var my_sql_command_1 = new MySqlCommand(db_trail.Saved("START TRANSACTION;" + " replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , TRUE" + " , agency.id" + " , " + metric_phrase + "*100" + from_where_phrase + " group by agency.id" + ";" + " replace indicator_utilization (year,month,be_agency_id_applicable,agency_id,value)" + " select YEAR(CURDATE())" + " , MONTH(CURDATE())" + " , FALSE" + " , 0" + " , " + metric_phrase + "*100" + from_where_phrase + ";" + " COMMIT"), this.connection);
+                my_sql_command_1.ExecuteNonQuery();
             }
             // Bind datagrid for display.
-            ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , IFNULL(sum(" + " if" + " (" + " (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE()))," + " num_obliged_shifts," + " num_shifts" + " )" + " ),0) as num_cooked_shifts" + " , IFNULL(sum(num_shifts),0) as num_raw_shifts" + " , " + metric_phrase + " as utilization" + from_where_phrase + " group by agency.id" + " order by utilization desc", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , IFNULL(sum(" + " if" + " (" + " (leave_of_absence.start_date <= CURDATE()) and (leave_of_absence.end_date >= LAST_DAY(CURDATE()))," + " num_obliged_shifts," + " num_shifts" + " )" + " ),0) as num_cooked_shifts" + " , IFNULL(sum(num_shifts),0) as num_raw_shifts" + " , " + metric_phrase + " as utilization" + from_where_phrase + " group by agency.id" + " order by utilization desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -901,7 +906,6 @@ namespace Class_db_members
 
     public void BindRoster
       (
-      string member_id,
       string sort_order,
       bool be_sort_order_ascending,
       object target,
@@ -1209,7 +1213,8 @@ namespace Class_db_members
       + filter 
       + " order by " + sort_order;
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand(command_text,connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand(command_text,connection);
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -1228,7 +1233,7 @@ namespace Class_db_members
       )
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select *"
         + " from"
@@ -1311,8 +1316,8 @@ namespace Class_db_members
         +     (max_balance_hours_filter.Length > 0 ? " and (balance < " + max_balance_hours_filter + ")": k.EMPTY)
         + " order by " + sort_order.Replace("%",(be_sort_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -1320,7 +1325,8 @@ namespace Class_db_members
         public void BindSpecialForRankedLengthOfService(object target)
         {
             this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand("select agency.id as agency" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= CURDATE())" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in ('Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and" + " core_ops_commitment_level_code > 1", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select agency.id as agency" + " , (TO_DAYS(CURDATE()) - TO_DAYS(equivalent_los_start_date))/365" + " as length_of_service" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " join enrollment_history" + " on" + " (" + " enrollment_history.member_id=member.id" + " and" + " (" + " (enrollment_history.start_date <= CURDATE())" + " and" + " (" + " (enrollment_history.end_date is null)" + " or" + " (enrollment_history.end_date >= LAST_DAY(CURDATE()))" + " )" + " )" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " join agency on (agency.id=member.agency_id)" + " where" + " enrollment_level.description in ('Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Reduced (1)','Reduced (2)','Reduced (3)','New trainee')" + " and" + " medical_release_code_description_map.pecking_order >= " + ((uint)(Class_db_medical_release_levels_Static.LOWEST_RELEASED_PECK_CODE)).ToString() + " and" + " core_ops_commitment_level_code > 1", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -1358,7 +1364,7 @@ namespace Class_db_members
         sort_order = sort_order.Replace("%", " desc");
         }
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
@@ -1371,8 +1377,8 @@ namespace Class_db_members
         + filter
         + " order by " + sort_order,
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1387,7 +1393,8 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select cad_num from member where id = " + member_id, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select cad_num from member where id = " + member_id, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1445,7 +1452,8 @@ namespace Class_db_members
         sql += " and enrollment_level.description = '" + enrollment_level + "'";
         }
       Open();
-      var dr = new MySqlCommand(sql,connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand(sql,connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         current_member_email_addresses.Enqueue(dr["email_address"]);
@@ -1458,8 +1466,8 @@ namespace Class_db_members
         internal string EfficipaySignatureIdentifierOf(string id)
           {
           Open();
-          var efficipay_signature_identifier_of =
-            new MySqlCommand("select concat(cad_num,' ',LEFT(first_name,1),LOWER(SUBSTRING(first_name,2)),' ',LEFT(last_name,1),LOWER(SUBSTRING(last_name,2))) from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand("select concat(cad_num,' ',LEFT(first_name,1),LOWER(SUBSTRING(first_name,2)),' ',LEFT(last_name,1),LOWER(SUBSTRING(last_name,2))) from member where id = '" + id + "'",connection);
+          var efficipay_signature_identifier_of = my_sql_command.ExecuteScalar().ToString();
           Close();
           return efficipay_signature_identifier_of;
           }
@@ -1467,12 +1475,12 @@ namespace Class_db_members
         internal string EmailAddressByCadNum(string cad_num)
           {
           Open();
-          var email_address_by_cad_num_obj = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select email_address from member where cad_num = '" + cad_num + "'",
             connection
-            )
-            .ExecuteScalar();
+            );
+          var email_address_by_cad_num_obj = my_sql_command.ExecuteScalar();
           Close();
           if (email_address_by_cad_num_obj != null)
             {
@@ -1489,7 +1497,8 @@ namespace Class_db_members
             string result;
             object email_address_obj;
             this.Open();
-            email_address_obj = new MySqlCommand("select email_address from member where id = \"" + member_id + "\"", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select email_address from member where id = \"" + member_id + "\"", this.connection);
+            email_address_obj = my_sql_command.ExecuteScalar();
             if (email_address_obj != null)
             {
                 result = email_address_obj.ToString();
@@ -1511,7 +1520,8 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select description" + " from member" + " join enrollment_history on (enrollment_history.member_id=member.id)" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " where member.id = " + member_id + " and start_date <= CURDATE()" + " and ((end_date >= CURDATE()) or (end_date is null))" + " order by enrollment_history.id desc" + " limit 1", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select description" + " from member" + " join enrollment_history on (enrollment_history.member_id=member.id)" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " where member.id = " + member_id + " and start_date <= CURDATE()" + " and ((end_date >= CURDATE()) or (end_date is null))" + " order by enrollment_history.id desc" + " limit 1", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1530,7 +1540,8 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select first_name from member where id = '" + member_id + "'", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select first_name from member where id = '" + member_id + "'", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1553,7 +1564,7 @@ namespace Class_db_members
       do_oscalert_for_mrt = false;
       do_oscalert_for_sart = false;
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IFNULL(general.description,'') as oscalert_threshold_general"
         + " , IFNULL(als.description,'') as oscalert_threshold_als"
@@ -1566,8 +1577,8 @@ namespace Class_db_members
         +   " left join field_situation_impression als on (als.pecking_order=member.min_oscalert_peck_order_als)"
         + " where member.id = '" + (summary as member_summary).id + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         oscalert_threshold_general = dr["oscalert_threshold_general"].ToString();
@@ -1585,7 +1596,8 @@ namespace Class_db_members
         {
             MySqlDataReader dr;
             this.Open();
-            dr = new MySqlCommand("SELECT name," + "be_valid_profile " + "FROM member " + "WHERE id = \"" + id + "\"", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT name," + "be_valid_profile " + "FROM member " + "WHERE id = \"" + id + "\"", this.connection);
+            dr = my_sql_command.ExecuteReader();
             dr.Read();
             name = dr["name"].ToString();
             be_valid_profile = (dr["be_valid_profile"].ToString() == "1");
@@ -1605,7 +1617,7 @@ namespace Class_db_members
       phone_num_digits = k.EMPTY;
       carrier_name = k.EMPTY;
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IFNULL(concat(phone_num,'@',hostname),'') as email_address"
         + " , IFNULL(phone_num,'') as phone_num_digits"
@@ -1614,8 +1626,8 @@ namespace Class_db_members
         +   " join sms_gateway on (sms_gateway.id=member.phone_service_id)"
         + " where member.id = '" + id + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         email_address = dr["email_address"].ToString();
@@ -1635,15 +1647,17 @@ namespace Class_db_members
       highest_tier_of.val = highest_tier_of.LAST;
       //
       Open();
-      var standard_tier_id_obj = new MySqlCommand
-        ("select min(tier_id) from member join role_member_map on (role_member_map.member_id=member.id) join role on (role.id=role_member_map.role_id) where member.id = '" + id + "'",connection).ExecuteScalar();
+      using var my_sql_command_1 = new MySqlCommand
+        ("select min(tier_id) from member join role_member_map on (role_member_map.member_id=member.id) join role on (role.id=role_member_map.role_id) where member.id = '" + id + "'",connection);
+      var standard_tier_id_obj = my_sql_command_1.ExecuteScalar();
       if ((standard_tier_id_obj != null) && (standard_tier_id_obj != DBNull.Value))
         {
         highest_tier_of.val = int.Parse(standard_tier_id_obj.ToString());
         }
-      var special_tier_id_obj = new MySqlCommand
+      using var my_sql_command_2 = new MySqlCommand
         ("select min(tier_id) from member join special_role_member_map on (special_role_member_map.member_id=member.id) join role on (role.id=special_role_member_map.role_id) where member.id = '" + id + "'",connection)
-        .ExecuteScalar();
+        ;
+      var special_tier_id_obj = my_sql_command_2.ExecuteScalar();
       if ((special_tier_id_obj != null) && (special_tier_id_obj != DBNull.Value))
         {
         highest_tier_of.val = Math.Min(highest_tier_of.val,int.Parse(special_tier_id_obj.ToString()));
@@ -1657,7 +1671,7 @@ namespace Class_db_members
         {
         var holdout_q = new Queue();
         Open();
-        var dr = new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           "select member.id as member_id"
           + " from member"
@@ -1703,8 +1717,8 @@ namespace Class_db_members
           +   " and be_ok_to_nag"
           ,
           connection
-          )
-          .ExecuteReader();
+          );
+        var dr = my_sql_command.ExecuteReader();
         while (dr.Read())
           {
           holdout_q.Enqueue(dr["member_id"]);
@@ -1722,7 +1736,8 @@ namespace Class_db_members
     internal string IdOfEmailAddress(string email_address)
       {
       Open();
-      var id_of_email_address_obj = new MySqlCommand("select id from member where email_address = '" + email_address + "'",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select id from member where email_address = '" + email_address + "'",connection);
+      var id_of_email_address_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_of_email_address_obj == null ? k.EMPTY : id_of_email_address_obj.ToString());
       }
@@ -1738,7 +1753,8 @@ namespace Class_db_members
                 sql = sql + " and cad_num = \"" + cad_num + "\"";
             }
             this.Open();
-            id_obj = new MySqlCommand(sql, this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand(sql, this.connection);
+            id_obj = my_sql_command.ExecuteScalar();
             this.Close();
             if (id_obj != null)
             {
@@ -1756,7 +1772,8 @@ namespace Class_db_members
             string result;
             object member_id_obj;
             this.Open();
-            member_id_obj = new MySqlCommand("select member.id" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role on (role.id=role_member_map.role_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name = \"" + role_name + "\"", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select member.id" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role on (role.id=role_member_map.role_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name = \"" + role_name + "\"", this.connection);
+            member_id_obj = my_sql_command.ExecuteScalar();
             if (member_id_obj != null)
             {
                 result = member_id_obj.ToString();
@@ -1777,7 +1794,7 @@ namespace Class_db_members
       {
       object member_id_obj;
       Open();
-      member_id_obj = new MySqlCommand
+      using var my_sql_command_1 = new MySqlCommand
         (
         "select member.id"
         + " from member"
@@ -1787,11 +1804,11 @@ namespace Class_db_members
         + " where role.name = '" + role_name + "'"
         +   " and agency.short_designator = '" + agency_short_designator + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      member_id_obj = my_sql_command_1.ExecuteScalar();
       if (member_id_obj == null)
         {
-        member_id_obj = new MySqlCommand
+        using var my_sql_command_2 = new MySqlCommand
           (
           "select member.id"
           + " from member"
@@ -1801,8 +1818,8 @@ namespace Class_db_members
           + " where role.name = '" + role_name + "'"
           +   " and agency.short_designator = '" + agency_short_designator + "'",
           connection
-          )
-          .ExecuteScalar();
+          );
+        member_id_obj = my_sql_command_2.ExecuteScalar();
         }
       Close();
       return (member_id_obj != null ? member_id_obj.ToString() : k.EMPTY);
@@ -1813,7 +1830,8 @@ namespace Class_db_members
             string result;
             object member_id_obj;
             this.Open();
-            member_id_obj = new MySqlCommand("select member_id from user_member_map where user_id = " + user_id, this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select member_id from user_member_map where user_id = " + user_id, this.connection);
+            member_id_obj = my_sql_command.ExecuteScalar();
             if (member_id_obj != null)
             {
                 result = member_id_obj.ToString();
@@ -1835,7 +1853,8 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select last_name from member where id = '" + member_id + "'", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select last_name from member where id = '" + member_id + "'", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1846,7 +1865,7 @@ namespace Class_db_members
       var length_of_service = k.EMPTY;
       var any_relevant_leave = "(leave_of_absence.start_date <= DATE_ADD(CURDATE(),INTERVAL 1 MONTH))" + " and (leave_of_absence.end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH)))";
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select last_name"
         + " , first_name"
@@ -1879,8 +1898,8 @@ namespace Class_db_members
         + " group by member.id"
         + " order by RAND()",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         length_of_service = (dr["length_of_service"] != DBNull.Value ? ((decimal)(dr["length_of_service"])).ToString("F2") + " years" : k.EMPTY);
@@ -1915,8 +1934,9 @@ namespace Class_db_members
         internal string MedicalReleaseLevelCodeOf(string id)
           {
           Open();
-          var medical_release_level_code_of = new MySqlCommand("select code from member join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code) where id = '" + id + "'", connection)
-            .ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand("select code from member join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code) where id = '" + id + "'", connection)
+            ;
+          var medical_release_level_code_of = my_sql_command.ExecuteScalar().ToString();
           Close();
           return medical_release_level_code_of;
           }
@@ -1930,7 +1950,8 @@ namespace Class_db_members
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select description" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " where id = " + member_id, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select description" + " from member" + " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)" + " where id = " + member_id, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -1942,7 +1963,8 @@ namespace Class_db_members
             string names_similar_to;
             names_similar_to = k.EMPTY;
             this.Open();
-            dr = new MySqlCommand("select concat(first_name,\" \",last_name,\" (\",IFNULL(cad_num,\"\"),\")\") as hit" + " from member" + " where SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",-1)" + " )" + " or SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",-1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",-1)" + " )", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select concat(first_name,\" \",last_name,\" (\",IFNULL(cad_num,\"\"),\")\") as hit" + " from member" + " where SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + last_name + "\"),\";\",-1)" + " )" + " or SUBSTRING_INDEX(DOUBLE_METAPHONE(last_name),\";\",-1) in" + " (" + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",1)" + " ," + " SUBSTRING_INDEX(DOUBLE_METAPHONE(\"" + first_name + "\"),\";\",-1)" + " )", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 names_similar_to = names_similar_to + dr["hit"].ToString() + separator;
@@ -1973,7 +1995,8 @@ namespace Class_db_members
             string result;
             object phone_num_obj;
             this.Open();
-            phone_num_obj = new MySqlCommand("select phone_num from member where id = \"" + member_id + "\"", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select phone_num from member where id = \"" + member_id + "\"", this.connection);
+            phone_num_obj = my_sql_command.ExecuteScalar();
             if (phone_num_obj != null)
             {
                 result = phone_num_obj.ToString();
@@ -1995,7 +2018,7 @@ namespace Class_db_members
           {
           var result = k.EMPTY;
           Open();
-          object overall_fleet_tracking_participation_obj = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select FORMAT(value,0)"
             + " from indicator_fleet_tracking_participation"
@@ -2003,8 +2026,8 @@ namespace Class_db_members
             +   " and MONTH(STR_TO_DATE(concat(year,'-',month,'-1'),'%Y-%m-%d')) = MONTH(CURDATE())"
             +   " and not be_agency_id_applicable",
             connection
-            )
-            .ExecuteScalar();
+            );
+          object overall_fleet_tracking_participation_obj = my_sql_command.ExecuteScalar();
           if (overall_fleet_tracking_participation_obj != null)
             {
             result = overall_fleet_tracking_participation_obj.ToString();
@@ -2041,7 +2064,8 @@ namespace Class_db_members
         internal string SectionOfId(string id)
           {
           Open();
-          var section_of_id = new MySqlCommand("select section_num from member where id = '" + id + "'",connection).ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand("select section_num from member where id = '" + id + "'",connection);
+          var section_of_id = my_sql_command.ExecuteScalar().ToString();
           Close();
           return section_of_id;
           }
@@ -2049,7 +2073,8 @@ namespace Class_db_members
         public void SetAgency(string agency_id, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member SET agency_id = " + agency_id + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET agency_id = " + agency_id + " WHERE id = " + (summary as member_summary).id), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
             (summary as member_summary).agency = db_agencies.ShortDesignatorOf(agency_id);
         }
@@ -2057,7 +2082,8 @@ namespace Class_db_members
         public void SetCadNum(string cad_num, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET cad_num = \"" + cad_num + "\"" + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member" + " SET cad_num = \"" + cad_num + "\"" + " WHERE id = " + (summary as member_summary).id), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
             (summary as member_summary).cad_num = cad_num;
         }
@@ -2065,7 +2091,8 @@ namespace Class_db_members
         public void SetDriverQualification(bool be_driver_qualified, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET be_driver_qualified = " + be_driver_qualified.ToString() + " WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member" + " SET be_driver_qualified = " + be_driver_qualified.ToString() + " WHERE id = " + (summary as member_summary).id), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
             (summary as member_summary).be_driver_qualified = be_driver_qualified;
         }
@@ -2073,7 +2100,8 @@ namespace Class_db_members
         public void SetEmailAddress(string id, string email_address)
           {
           Open();
-          new MySqlCommand(db_trail.Saved("UPDATE member" + " SET email_address = \"" + email_address + "\"" + " WHERE id = '" + id + "'"), connection).ExecuteNonQuery();
+          using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member" + " SET email_address = \"" + email_address + "\"" + " WHERE id = '" + id + "'"), connection);
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -2084,7 +2112,8 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("UPDATE member SET be_flight_medic = " + be_flight_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET be_flight_medic = " + be_flight_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).be_flight_medic = be_flight_medic;
       }
@@ -2096,7 +2125,8 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("UPDATE member SET be_marine_medic = " + be_marine_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET be_marine_medic = " + be_marine_medic.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).be_marine_medic = be_marine_medic;
       }
@@ -2104,7 +2134,8 @@ namespace Class_db_members
         public void SetName(string first, string last, object summary)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member" + " SET first_name = \"" + first + "\"" + " , last_name = \"" + last + "\"" + "  WHERE id = " + (summary as member_summary).id), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member" + " SET first_name = \"" + first + "\"" + " , last_name = \"" + last + "\"" + "  WHERE id = " + (summary as member_summary).id), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
             (summary as member_summary).first_name = first;
             (summary as member_summary).last_name = last;
@@ -2117,7 +2148,8 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = '" + (section_num.Length == 0 ? "0" : section_num) + "' WHERE id = " + (summary as member_summary).id),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET section_num = '" + (section_num.Length == 0 ? "0" : section_num) + "' WHERE id = " + (summary as member_summary).id),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).section = section_num;
       }
@@ -2137,7 +2169,8 @@ namespace Class_db_members
             );
 
           Open();
-          new MySqlCommand(db_trail.Saved("UPDATE member SET equivalent_los_start_date = '" + (DateTime.Today - length_of_service_timespan).ToString("yyyy-MM-dd") + "' WHERE id = '" + IdOf(summary) + "'"),connection).ExecuteNonQuery();
+          using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET equivalent_los_start_date = '" + (DateTime.Today - length_of_service_timespan).ToString("yyyy-MM-dd") + "' WHERE id = '" + IdOf(summary) + "'"),connection);
+          my_sql_command.ExecuteNonQuery();
           Close();
           (summary as member_summary).length_of_service = length_of_service.ToString("F4");
           }
@@ -2149,7 +2182,7 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2158,8 +2191,8 @@ namespace Class_db_members
           + " WHERE id = '" + (summary as member_summary).id + "'"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).medical_release_level = db_medical_release_levels.DescriptionOf(code);
       }
@@ -2177,7 +2210,7 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2192,8 +2225,8 @@ namespace Class_db_members
           + " where id = '" + (summary as member_summary).id + "'"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).phone_service_id = phone_service_id;
       (summary as member_summary).phone_service = biz_sms_gateways.CarrierNameOfId(id:phone_service_id);
@@ -2220,14 +2253,16 @@ namespace Class_db_members
         + " , do_oscalert_for_sart = FALSE";
         }
       Open();
-      new MySqlCommand(db_trail.Saved(sql + " where id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved(sql + " where id = '" + (summary as member_summary).id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
     public void SetPhoneNumAndClearCellularProvider(string phone_num, object summary)
       {
       Open();
-      new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "', phone_service_id = NULL WHERE id = '" + (summary as member_summary).id) + "'",connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET phone_num = '" + phone_num + "', phone_service_id = NULL WHERE id = '" + (summary as member_summary).id) + "'",connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).phone_num = phone_num;
       (summary as member_summary).phone_service_id = k.EMPTY;
@@ -2237,7 +2272,8 @@ namespace Class_db_members
         public void SetProfile(string id, string name)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("UPDATE member " + "SET name = \"" + name + "\"" + ", be_valid_profile = TRUE " + "WHERE id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member " + "SET name = \"" + name + "\"" + ", be_valid_profile = TRUE " + "WHERE id = \"" + id + "\""), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 
@@ -2248,7 +2284,8 @@ namespace Class_db_members
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("UPDATE member SET be_on_squad_truck_team = " + be_on_squad_truck_team.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE member SET be_on_squad_truck_team = " + be_on_squad_truck_team.ToString() + " WHERE id = '" + (summary as member_summary).id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as member_summary).be_on_squad_truck_team = be_on_squad_truck_team;
       }
@@ -2256,15 +2293,15 @@ namespace Class_db_members
     internal string SmsTargetOf(string member_id)
       {
       Open();
-      var sms_target_of_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select concat(phone_num,'@',hostname)"
         + " from member"
         +   " join sms_gateway on (sms_gateway.id=member.phone_service_id)"
         + " where member.id = '" + member_id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var sms_target_of_obj = my_sql_command.ExecuteScalar();
       Close();
       return (sms_target_of_obj == null ? k.EMPTY : sms_target_of_obj.ToString());
       }
@@ -2278,7 +2315,7 @@ namespace Class_db_members
           member_summary the_summary = null;
           var be_found = false;
           Open();
-          var dr = new MySqlCommand
+          using var my_sql_command_1 = new MySqlCommand
             (
             "select last_name" 
             + " , first_name" 
@@ -2325,8 +2362,8 @@ namespace Class_db_members
             +   " left join tapout on (tapout.member_id=member.id)"
             + " where member.id = '" + member_id + "'",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command_1.ExecuteReader();
           be_found = dr.Read();
           if (!be_found)
             {
@@ -2336,7 +2373,7 @@ namespace Class_db_members
             // the sake of a zebra case.
             //
             dr.Close();
-            dr = new MySqlCommand
+            using var my_sql_command_2 = new MySqlCommand
               (
               "select last_name" 
               + " , first_name" 
@@ -2383,8 +2420,8 @@ namespace Class_db_members
               +   " left join tapout on (tapout.member_id=member.id)"
               + " where member.id = '" + member_id + "'",
               connection
-              )
-              .ExecuteReader();
+              );
+            dr = my_sql_command_2.ExecuteReader();
             be_found = dr.Read();
             }
           if (be_found)
@@ -2427,7 +2464,8 @@ namespace Class_db_members
             string result;
             object user_id_obj;
             this.Open();
-            user_id_obj = new MySqlCommand("select user_id from user_member_map where member_id = " + member_id, this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select user_id from user_member_map where member_id = " + member_id, this.connection);
+            user_id_obj = my_sql_command.ExecuteScalar();
             if (user_id_obj != null)
             {
                 result = user_id_obj.ToString();

@@ -9,7 +9,7 @@ namespace Class_db_states
 {
     public class TClass_db_states: TClass_dbkeyclick
     {
-        private TClass_dbkeyclick_trail db_trail = null;
+        private readonly TClass_dbkeyclick_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_states() : base()
         {
@@ -22,7 +22,8 @@ namespace Class_db_states
             MySqlDataReader dr;
             this.Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT id" + " , abbreviation" + " FROM state" + " WHERE abbreviation like \"%" + partial_spec + "%\"" + " order by abbreviation", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id" + " , abbreviation" + " FROM state" + " WHERE abbreviation like \"%" + partial_spec + "%\"" + " order by abbreviation", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + k.SPACE_HYPHENS_SPACE + dr["abbreviation"].ToString(), dr["id"].ToString()));
@@ -42,7 +43,8 @@ namespace Class_db_states
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
-            dr = new MySqlCommand("SELECT id,abbreviation FROM state where abbreviation <> \"(none specified)\" order by id", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id,abbreviation FROM state where abbreviation <> \"(none specified)\" order by id", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["abbreviation"].ToString(), dr["id"].ToString()));
@@ -72,7 +74,8 @@ namespace Class_db_states
             result = true;
             this.Open();
             try {
-                new MySqlCommand(db_trail.Saved("delete from state where id = " + id), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from state where id = " + id), this.connection);
+                my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
                 if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
@@ -96,7 +99,8 @@ namespace Class_db_states
             abbreviation = k.EMPTY;
             result = false;
             this.Open();
-            dr = new MySqlCommand("select abbreviation from state where id = \"" + id + "\"", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select abbreviation from state where id = \"" + id + "\"", this.connection);
+            dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
                 abbreviation = dr["abbreviation"].ToString();
@@ -110,7 +114,8 @@ namespace Class_db_states
     internal void Prune()
       {
       Open();
-      new MySqlCommand("delete from state where id not in (select distinct state_id from city)",connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand("delete from state where id not in (select distinct state_id from city)",connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -119,7 +124,8 @@ namespace Class_db_states
             string childless_field_assignments_clause;
             childless_field_assignments_clause = "abbreviation = \"" + abbreviation.ToUpper() + "\"";
             this.Open();
-            new MySqlCommand(db_trail.Saved("insert state" + " set id = NULLIF(\"" + id + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("insert state" + " set id = NULLIF(\"" + id + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
 
         }

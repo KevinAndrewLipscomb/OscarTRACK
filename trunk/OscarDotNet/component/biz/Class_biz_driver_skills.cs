@@ -7,7 +7,7 @@ namespace Class_biz_driver_skills
   public class TClass_biz_driver_skills
     {
 
-    private TClass_db_driver_skills db_driver_skills = null;
+    private readonly TClass_db_driver_skills db_driver_skills = null;
 
     public TClass_biz_driver_skills() : base()
       {

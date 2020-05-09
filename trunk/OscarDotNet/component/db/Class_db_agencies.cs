@@ -25,7 +25,7 @@ namespace Class_db_agencies
 
     public class TClass_db_agencies: TClass_db
     {
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_agencies() : base()
         {
@@ -36,7 +36,8 @@ namespace Class_db_agencies
         internal bool BeEfficipayEnabled(string id)
           {
           Open();
-          var be_efficipay_enabled = ("1" == new MySqlCommand("select be_efficipay_enabled from agency where id = '" + id + "'",connection).ExecuteScalar().ToString());
+          using var my_sql_command = new MySqlCommand("select be_efficipay_enabled from agency where id = '" + id + "'",connection);
+          var be_efficipay_enabled = ("1" == my_sql_command.ExecuteScalar().ToString());
           Close();
           return be_efficipay_enabled;
           }
@@ -49,7 +50,7 @@ namespace Class_db_agencies
       {
       var be_notification_pending_for_all_in_scope = true;
       Open();
-      be_notification_pending_for_all_in_scope = "1" == new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IF(sum(not be_notification_pending) = 0,1,0)"
         + " from schedule_assignment"
@@ -57,8 +58,8 @@ namespace Class_db_agencies
         + " where agency_id = '" + agency_filter + "'"
         +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
-        )
-        .ExecuteScalar().ToString();
+        );
+      be_notification_pending_for_all_in_scope = "1" ==  my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_notification_pending_for_all_in_scope;
       }
@@ -66,7 +67,8 @@ namespace Class_db_agencies
     internal bool BeKeyclickEnabled(string id)
       {
       Open();
-      var be_keyclick_enabled = ("1" == new MySqlCommand("select be_keyclick_enabled from agency where id = '" + id + "'",connection).ExecuteScalar().ToString());
+      using var my_sql_command = new MySqlCommand("select be_keyclick_enabled from agency where id = '" + id + "'",connection);
+      var be_keyclick_enabled = ("1" == my_sql_command.ExecuteScalar().ToString());
       Close();
       return be_keyclick_enabled;
       }
@@ -76,7 +78,7 @@ namespace Class_db_agencies
           var concat_clause = "concat(id,'|',short_designator,'|',long_designator,'|',keyclick_enumerator,'|',oscar_classic_enumerator)";
           Open();
           ((target) as ListControl).Items.Clear();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select id"
             + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -84,8 +86,8 @@ namespace Class_db_agencies
             + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
             + " order by spec",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -102,7 +104,8 @@ namespace Class_db_agencies
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_ems_post = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_ems_post = TRUE" + " order by short_designator", this.connection);
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
@@ -113,10 +116,6 @@ namespace Class_db_agencies
             (target as ListControl).SelectedValue = selected_id;
             }
           this.Close();
-          }
-        private void BindEmsPostListControl(string unselected_literal,string designator_clause,object target)
-          {
-          BindEmsPostListControl(unselected_literal, designator_clause, target, k.EMPTY);
           }
 
         public void BindEmsPostListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
@@ -151,7 +150,8 @@ namespace Class_db_agencies
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-          var dr = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection);
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
@@ -162,10 +162,6 @@ namespace Class_db_agencies
             (target as ListControl).SelectedValue = selected_id;
             }
           this.Close();
-          }
-        private void BindListControl(string unselected_literal,string designator_clause,object target)
-          {
-          BindListControl(unselected_literal, designator_clause, target, k.EMPTY);
           }
 
         public void BindListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
@@ -221,7 +217,8 @@ namespace Class_db_agencies
           Open();
           (target as ListControl).Items.Clear();
           (target as ListControl).Items.Add(new ListItem("-- Select --",k.EMPTY));
-          var dr = new MySqlCommand("SELECT id,short_designator as designator from agency where not be_active order by short_designator", connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("SELECT id,short_designator as designator from agency where not be_active order by short_designator", connection);
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
@@ -245,7 +242,7 @@ namespace Class_db_agencies
           {
           Open();
           (target as ListItemCollection).Clear();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select agency.id,agency.short_designator"
             + " from agency"
@@ -260,8 +257,8 @@ namespace Class_db_agencies
             +     (be_user_bike_team_scheduler ? " or short_designator = 'BKT'" : k.EMPTY)
             + " order by agency.id",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             (target as ListItemCollection).Add(new ListItem(dr["short_designator"].ToString(), dr["id"].ToString()));
@@ -276,7 +273,8 @@ namespace Class_db_agencies
           Open();
           (target as ListControl).Items.Clear();
           (target as ListControl).Items.Add(new ListItem("-- Post --",""));
-          var dr = new MySqlCommand("SELECT id,short_designator from agency where be_ems_post and agency.id > 0 and agency.id < 200 order by short_designator",connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("SELECT id,short_designator from agency where be_ems_post and agency.id > 0 and agency.id < 200 order by short_designator",connection);
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             (target as ListControl).Items.Add(new ListItem(dr["short_designator"].ToString(), dr["id"].ToString()));
@@ -288,7 +286,8 @@ namespace Class_db_agencies
         public void BindForCommensuration(object target)
         {
             this.Open();
-            ((target) as DataGrid).DataSource = new MySqlCommand("select agency.id as agency_id" + " , concat(medium_designator,\" - \",long_designator) as designator" + " , " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id < 200" + " and be_active" + " group by agency.id" + " order by agency.id", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select agency.id as agency_id" + " , concat(medium_designator,\" - \",long_designator) as designator" + " , " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id < 200" + " and be_active" + " group by agency.id" + " order by agency.id", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -298,27 +297,29 @@ namespace Class_db_agencies
             this.Open();
             if (indicator == "third_slot_saturation")
               {
-              ((target) as DataGrid).DataSource = new MySqlCommand
+              using var my_sql_command = new MySqlCommand
                 (
                 "select distinct 'CITYWIDE' as designator"
                 + " , 0 as id"
                 + " , 0 as be_agency_id_applicable",
                 connection
-                )
-                .ExecuteReader();
+                );
+              ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
+              ((target) as DataGrid).DataBind();
               }
             else
               {
-              ((target) as DataGrid).DataSource = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", this.connection).ExecuteReader();
+              using var my_sql_command = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", this.connection);
+              ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
+              ((target) as DataGrid).DataBind();
               }
-            ((target) as DataGrid).DataBind();
             this.Close();
         }
 
         public void BindRankedCommensuration(object target)
           {
           Open();
-          ((target) as DataGrid).DataSource = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select NULL as `rank`"
             + " , concat(medium_designator,' - ',long_designator) as agency"
@@ -331,8 +332,8 @@ namespace Class_db_agencies
             +   " and be_agency_id_applicable = TRUE"
             + " order by value desc",
             connection
-            )
-            .ExecuteReader();
+            );
+          ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
           ((target) as DataGrid).DataBind();
           Close();
           }
@@ -340,7 +341,8 @@ namespace Class_db_agencies
         public void CycleFleetTrackingOpsTallies()
           {
           Open();
-          new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = 0"), connection).ExecuteNonQuery();
+          using var my_sql_command = new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = 0"), connection);
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -350,7 +352,8 @@ namespace Class_db_agencies
           Open();
           try
             {
-            new MySqlCommand(db_trail.Saved("delete from agency where id = '" + id + "'"),connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from agency where id = '" + id + "'"),connection);
+            my_sql_command.ExecuteNonQuery();
             }
           catch(System.Exception e)
             {
@@ -400,7 +403,8 @@ namespace Class_db_agencies
           be_efficipay_enabled = false;
           var result = false;
           Open();
-          var dr = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("select * from agency where CAST(id AS CHAR) = '" + id + "'", connection);
+          var dr = my_sql_command.ExecuteReader();
           if (dr.Read())
             {
             short_designator = dr["short_designator"].ToString();
@@ -427,7 +431,8 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -435,12 +440,12 @@ namespace Class_db_agencies
         internal string IdResponsibleForPost(string post_id)
           {
           Open();
-          var id_responsible_for_post = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select IFNULL(IF((select be_active from agency where id = '" + post_id + "'),'" + post_id + "',(select agency_id from agency_satellite_station where satellite_station_id = '" + post_id + "')),0)",
             connection
-            )
-            .ExecuteScalar().ToString();
+            );
+          var id_responsible_for_post = my_sql_command.ExecuteScalar().ToString();
           Close();
           return id_responsible_for_post;
           }
@@ -448,7 +453,8 @@ namespace Class_db_agencies
         public void IncrementFleetTrackingOpsTally(string id)
           {
           Open();
-          new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = fleet_tracking_ops_tally + 1 where id = '" + id + "'"), connection).ExecuteNonQuery();
+          using var my_sql_command = new MySqlCommand(db_trail.Saved("update agency set fleet_tracking_ops_tally = fleet_tracking_ops_tally + 1 where id = '" + id + "'"), connection);
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -456,7 +462,8 @@ namespace Class_db_agencies
           {
           var keyclick_enumerator_of = k.EMPTY;
           Open();
-          var keyclick_enumerator_of_obj = new MySqlCommand("select keyclick_enumerator from agency where id = '" + id + "'",connection).ExecuteScalar();
+          using var my_sql_command = new MySqlCommand("select keyclick_enumerator from agency where id = '" + id + "'",connection);
+          var keyclick_enumerator_of_obj = my_sql_command.ExecuteScalar();
           Close();
           if (keyclick_enumerator_of_obj != DBNull.Value)
             {
@@ -485,7 +492,7 @@ namespace Class_db_agencies
           var year = this_day_next_month.Year.ToString();
           var month = this_day_next_month.Month.ToString();
           Open();
-          new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "replace indicator_commensuration (year,month,be_agency_id_applicable,agency_id,value) values"
             + " (" + year + k.COMMA + month + k.COMMA + "TRUE" + k.COMMA + "1" + k.COMMA + "IF((@num_forecast := (select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id = '1')) = 0,0,ROUND(100*" + num_actual_crew_shifts_r01.val + "/@num_forecast))),"
@@ -502,8 +509,8 @@ namespace Class_db_agencies
             + " (" + year + k.COMMA + month + k.COMMA + "FALSE" + k.COMMA + "0" + k.COMMA + "IF((@num_forecast := (select " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + ")) = 0,0,ROUND(100*" + num_actual_crew_shifts_all.val + "/@num_forecast)))"
             ,
             connection
-            )
-            .ExecuteNonQuery();
+            );
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -511,7 +518,8 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select long_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select long_designator from agency where id = '" + id + "'", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -519,7 +527,8 @@ namespace Class_db_agencies
     internal string LongDesignatorOfKeyclickEnumerator(string keyclick_enumerator)
       {
       Open();
-      var long_designator_of_keyclick_enumerator = new MySqlCommand("select long_designator from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select long_designator from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection);
+      var long_designator_of_keyclick_enumerator = my_sql_command.ExecuteScalar().ToString();
       Close();
       return long_designator_of_keyclick_enumerator;
       }
@@ -528,7 +537,8 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select medium_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select medium_designator from agency where id = '" + id + "'", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -537,7 +547,8 @@ namespace Class_db_agencies
           {
           var oscar_classic_enumerator_of = k.EMPTY;
           Open();
-          var oscar_classic_enumerator_of_obj = new MySqlCommand("select oscar_classic_enumerator from agency where id = '" + id + "'",connection).ExecuteScalar();
+          using var my_sql_command = new MySqlCommand("select oscar_classic_enumerator from agency where id = '" + id + "'",connection);
+          var oscar_classic_enumerator_of_obj = my_sql_command.ExecuteScalar();
           Close();
           if (oscar_classic_enumerator_of_obj != DBNull.Value)
             {
@@ -552,7 +563,8 @@ namespace Class_db_agencies
             object overall_commensuration_obj;
             result = k.EMPTY;
             this.Open();
-            overall_commensuration_obj = new MySqlCommand("select FORMAT(value,0)" + " from indicator_commensuration" + " where year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and not be_agency_id_applicable", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select FORMAT(value,0)" + " from indicator_commensuration" + " where year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and not be_agency_id_applicable", this.connection);
+            overall_commensuration_obj = my_sql_command.ExecuteScalar();
             if (overall_commensuration_obj != null)
             {
                 result = overall_commensuration_obj.ToString();
@@ -582,7 +594,7 @@ namespace Class_db_agencies
         }
       var serial_indicator_rec_q = new Queue();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select year,month," + dependent_parameter_name
         + " from indicator_" + indicator
@@ -590,8 +602,8 @@ namespace Class_db_agencies
         +   " and be_agency_id_applicable = '" + be_agency_id_applicable + "'"
         +     additional_where_clause,
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         serial_indicator_rec.year = uint.Parse(dr["year"].ToString());
@@ -638,7 +650,7 @@ namespace Class_db_agencies
           + " , be_efficipay_enabled = " + be_efficipay_enabled.ToString()
           + k.EMPTY;
           Open();
-          new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -649,8 +661,8 @@ namespace Class_db_agencies
               + childless_field_assignments_clause
               ),
              connection
-             )
-             .ExecuteNonQuery();
+             );
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -673,7 +685,8 @@ namespace Class_db_agencies
                 sql = sql + " (" + year + k.COMMA + month + k.COMMA + commensuration_rec.be_agency_id_applicable.ToString() + k.COMMA + commensuration_rec.agency_id + k.COMMA + (commensuration_rec.commensuration_factor * 100).ToString("F0") + " ),";
             }
             this.Open();
-            new MySqlCommand(db_trail.Saved(sql.Substring(0, sql.Length - 1)), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved(sql.Substring(0, sql.Length - 1)), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 
@@ -681,7 +694,8 @@ namespace Class_db_agencies
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select short_designator from agency where id = '" + id + "'", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select short_designator from agency where id = '" + id + "'", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -689,7 +703,8 @@ namespace Class_db_agencies
     internal string WebAddressOfKeyclickEnumerator(string keyclick_enumerator)
       {
       Open();
-      var web_address_of_keyclick_enumerator = new MySqlCommand("select web_address from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select web_address from agency where keyclick_enumerator = '" + keyclick_enumerator + "'", connection);
+      var web_address_of_keyclick_enumerator = my_sql_command.ExecuteScalar().ToString();
       Close();
       return web_address_of_keyclick_enumerator;
       }

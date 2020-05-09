@@ -177,8 +177,7 @@ namespace add_new_enrollment_status
                 (
                 member_id:p.biz_members.IdOf(Session["member_summary"]),
                 date:UserControl_effective_date.selectedvalue
-                )
-            ;
+);
           }
 
         protected void RadioButtonList_disposition_SelectedIndexChanged(object sender, EventArgs e)

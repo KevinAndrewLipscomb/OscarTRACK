@@ -14,7 +14,7 @@ namespace Class_biz_uniform_pieces
 
   public class TClass_biz_uniform_pieces
     {
-    private TClass_db_uniform_pieces db_uniform_pieces = null;
+    private readonly TClass_db_uniform_pieces db_uniform_pieces = null;
 
     public TClass_biz_uniform_pieces() : base()
       {

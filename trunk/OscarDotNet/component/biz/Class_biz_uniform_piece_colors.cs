@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_piece_colors;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_piece_colors
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_piece_colors
 
   public class TClass_biz_uniform_piece_colors
     {
-    private TClass_db_uniform_piece_colors db_uniform_piece_colors = null;
+    private readonly TClass_db_uniform_piece_colors db_uniform_piece_colors = null;
 
     public TClass_biz_uniform_piece_colors() : base()
       {

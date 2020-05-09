@@ -30,7 +30,7 @@ namespace UserControl_ranked_commensuration
                 Label_overall.Text = p.biz_agencies.OverallCommensuration();
                 if (Label_overall.Text != k.EMPTY)
                 {
-                    Label_overall.Text = Label_overall.Text + " %";
+                    Label_overall.Text += " %";
                     p.biz_agencies.BindRankedCommensuration(DataGrid_detail);
                     DataGrid_detail.Visible = true;
                     Label_no_data.Visible = false;
@@ -95,7 +95,7 @@ namespace UserControl_ranked_commensuration
             if (new ArrayList {ListItemType.Item,ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
             {
                 // We are dealing with a data row, not a header or footer row.
-                p.rank = p.rank + 1;
+                p.rank++;
                 e.Item.Cells[0].Text = p.rank.ToString();
             }
         }

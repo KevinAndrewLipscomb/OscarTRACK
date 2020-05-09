@@ -18,7 +18,7 @@ namespace Class_db_uniform_classes
       public string long_designator;
       }
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_uniform_classes() : base()
       {
@@ -45,7 +45,7 @@ namespace Class_db_uniform_classes
         }
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -54,8 +54,8 @@ namespace Class_db_uniform_classes
         +     agency_id_filter_clause
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -67,19 +67,21 @@ namespace Class_db_uniform_classes
 
     internal void BindBaseDataList
       (
+      #pragma warning disable IDE0060 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       object target
+      #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select uniform_class.id as id"
         + " from uniform_class",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -92,7 +94,7 @@ namespace Class_db_uniform_classes
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , IF(short_designator = long_designator,short_designator,CONVERT(concat(short_designator,' - ',long_designator) USING utf8)) as spec"
@@ -100,8 +102,8 @@ namespace Class_db_uniform_classes
         + " where agency_id = '" + agency_filter_id + "'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -116,7 +118,8 @@ namespace Class_db_uniform_classes
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from uniform_class where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from uniform_class where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -147,7 +150,8 @@ namespace Class_db_uniform_classes
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from uniform_class where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from uniform_class where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -195,17 +199,14 @@ namespace Class_db_uniform_classes
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT *"
-          + " FROM uniform_class"
-          + " where id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT *"
+        + " FROM uniform_class"
+        + " where id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new uniform_class_summary()
         {

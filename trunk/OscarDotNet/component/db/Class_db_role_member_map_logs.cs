@@ -17,9 +17,9 @@ namespace Class_db_role_member_map_logs
       public string id;
       }
 
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_user  biz_user = null;
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_user  biz_user = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_role_member_map_logs() : base()
       {
@@ -33,7 +33,7 @@ namespace Class_db_role_member_map_logs
       var concat_clause = "concat(IFNULL(subject_member_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(role.name,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -42,8 +42,8 @@ namespace Class_db_role_member_map_logs
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -62,7 +62,7 @@ namespace Class_db_role_member_map_logs
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT be_granted"
         + " , role.name as role"
@@ -74,8 +74,8 @@ namespace Class_db_role_member_map_logs
         + " where subject_member_id = '" + subject_member_id + "'"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -84,7 +84,7 @@ namespace Class_db_role_member_map_logs
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(subject_member_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(role.name,'-')) USING utf8) as spec"
@@ -92,8 +92,8 @@ namespace Class_db_role_member_map_logs
         +   " join role on (role.id=role_member_map_log.role_id)"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -108,7 +108,8 @@ namespace Class_db_role_member_map_logs
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from role_member_map_log where id = '" + id + "'"), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_member_map_log where id = '" + id + "'"), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -133,7 +134,7 @@ namespace Class_db_role_member_map_logs
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -144,8 +145,8 @@ namespace Class_db_role_member_map_logs
           + " , role_id = '" + role_id + "'"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -167,7 +168,8 @@ namespace Class_db_role_member_map_logs
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from role_member_map_log where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from role_member_map_log where CAST(id AS CHAR) = '" + id + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         subject_member_id = dr["subject_member_id"].ToString();
@@ -211,17 +213,14 @@ namespace Class_db_role_member_map_logs
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT *"
-          + " FROM role_member_map_log"
-          + " where id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT *"
+        + " FROM role_member_map_log"
+        + " where id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new role_member_map_log_summary()
         {

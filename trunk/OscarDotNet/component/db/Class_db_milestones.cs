@@ -7,7 +7,7 @@ namespace Class_db_milestones
 {
     public class TClass_db_milestones: TClass_db
     {
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_milestones() : base()
         {
@@ -19,7 +19,8 @@ namespace Class_db_milestones
             MySqlDataReader dr;
             this.Open();
             // + biz_fiscal_years.IdOfCurrent
-            dr = new MySqlCommand("select be_processed,value" + " from fy_calendar" + " where fiscal_year_id = " + " and milestone_code = " + code.ToString(), this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select be_processed,value" + " from fy_calendar" + " where fiscal_year_id = " + " and milestone_code = " + code.ToString(), this.connection);
+            dr = my_sql_command.ExecuteReader();
             dr.Read();
             be_processed = (dr["be_processed"].ToString() == "1");
             value = DateTime.Parse(dr["value"].ToString());
@@ -33,7 +34,8 @@ namespace Class_db_milestones
             // + biz_fiscal_years.IdOfCurrent
             cmdText = "update fy_calendar" + " set be_processed = TRUE" + " where fiscal_year_id = " + " and milestone_code = " + code.ToString();
             this.Open();
-            new MySqlCommand(db_trail.Saved(cmdText), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved(cmdText), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 

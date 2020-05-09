@@ -1,25 +1,16 @@
+using Class_db_accounts;
 using System.Configuration;
 
-
-using System;
-
-
-using Class_biz_agencies;
-using Class_biz_user;
-using Class_db_accounts;
 namespace Class_biz_accounts
-{
-    public class TClass_biz_accounts
+  {
+  public class TClass_biz_accounts
     {
-        private TClass_biz_agencies biz_agencies = null;
-        private TClass_biz_user biz_user = null;
-        private TClass_db_accounts db_accounts = null;
+        private readonly TClass_db_accounts db_accounts = null;
+
         //Constructor  Create()
         public TClass_biz_accounts() : base()
         {
             // TODO: Add any constructor code here
-            biz_agencies = new TClass_biz_agencies();
-            biz_user = new TClass_biz_user();
             db_accounts = new TClass_db_accounts();
         }
         public bool BeStalePassword(string user_kind, string user_id)

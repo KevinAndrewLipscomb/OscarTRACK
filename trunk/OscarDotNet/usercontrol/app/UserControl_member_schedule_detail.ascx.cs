@@ -109,7 +109,6 @@ namespace UserControl_member_schedule_detail
         LinkButton_switch_month.Visible = p.biz_schedule_assignments.BeOkToAllowMemberScheduleDetailControlMonthSwitch
           (
           be_interactive:p.be_interactive,
-          be_my_watchbill_mode:p.be_my_watchbill_mode,
           member_agency_id:p.member_agency_id
           );
         //

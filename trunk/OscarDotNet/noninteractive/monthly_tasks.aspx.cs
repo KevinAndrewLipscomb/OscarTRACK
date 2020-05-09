@@ -16,7 +16,7 @@ namespace monthly_tasks
 
         protected void Page_Load(object sender, System.EventArgs e)
         {
-            new TClass_biz_scheduled_tasks().DoMonthlyChores(HttpContext.Current.Server.MapPath("."));
+            new TClass_biz_scheduled_tasks().DoMonthlyChores();
         }
 
         protected override void OnInit(EventArgs e)

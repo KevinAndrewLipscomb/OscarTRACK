@@ -16,14 +16,14 @@ namespace Class_biz_vehicles
   {
   public class TClass_biz_vehicles
     {
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_gripes biz_gripes = null;
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_biz_roles biz_roles = null;
-    private TClass_biz_user biz_user = null;
-    private TClass_db_agencies db_agencies = null;
-    private TClass_db_vehicles db_vehicles = null;
-    private TClass_db_vehicle_kinds db_vehicle_kinds = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_gripes biz_gripes = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_biz_roles biz_roles = null;
+    private readonly TClass_biz_user biz_user = null;
+    private readonly TClass_db_agencies db_agencies = null;
+    private readonly TClass_db_vehicles db_vehicles = null;
+    private readonly TClass_db_vehicle_kinds db_vehicle_kinds = null;
 
     public TClass_biz_vehicles() : base()
       {

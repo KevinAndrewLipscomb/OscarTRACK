@@ -7,7 +7,7 @@ namespace Class_biz_skill_ratings
   public class TClass_biz_skill_ratings
     {
 
-    private TClass_db_skill_ratings db_skill_ratings = null;
+    private readonly TClass_db_skill_ratings db_skill_ratings = null;
 
     public TClass_biz_skill_ratings() : base()
       {

@@ -2,14 +2,12 @@
 
 using Class_db_streets;
 using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_streets
   {
   public class TClass_biz_streets
     {
-    private TClass_db_streets db_streets = null;
+    private readonly TClass_db_streets db_streets = null;
 
     public TClass_biz_streets() : base()
       {

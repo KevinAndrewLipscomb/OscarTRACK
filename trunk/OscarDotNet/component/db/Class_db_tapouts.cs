@@ -18,7 +18,7 @@ namespace Class_db_tapouts
       public string id;
       }
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_tapouts() : base()
       {
@@ -30,7 +30,7 @@ namespace Class_db_tapouts
       var concat_clause = "concat(IFNULL(expected_start,'-'),'|',IFNULL(comment,'-'),'|',IFNULL(timestamp,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -38,8 +38,8 @@ namespace Class_db_tapouts
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -58,7 +58,7 @@ namespace Class_db_tapouts
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select tapout.id as id"
         + " , DATE_FORMAT(expected_start,'%Y-%m-%d %H:%i') as expected_start"
@@ -70,8 +70,8 @@ namespace Class_db_tapouts
         + " where member_id = '" + member_id + "'"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -80,15 +80,15 @@ namespace Class_db_tapouts
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(expected_start,'-'),'|',IFNULL(comment,'-'),'|',IFNULL(timestamp,'-')) USING utf8) as spec"
         + " FROM tapout"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -103,7 +103,8 @@ namespace Class_db_tapouts
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from tapout where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from tapout where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -140,7 +141,8 @@ namespace Class_db_tapouts
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from tapout where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from tapout where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         member_id = dr["member_id"].ToString();
@@ -187,17 +189,14 @@ namespace Class_db_tapouts
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT *"
-          + " FROM tapout"
-          + " where id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT *"
+        + " FROM tapout"
+        + " where id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new tapout_summary()
         {

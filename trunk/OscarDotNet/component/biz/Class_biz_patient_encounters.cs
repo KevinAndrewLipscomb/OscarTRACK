@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_patient_encounters;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_patient_encounters
   {
   public class TClass_biz_patient_encounters
     {
-    private TClass_db_patient_encounters db_patient_encounters = null;
+    private readonly TClass_db_patient_encounters db_patient_encounters = null;
 
     public TClass_biz_patient_encounters() : base()
       {

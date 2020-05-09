@@ -1,13 +1,12 @@
 using Class_db_indicator_median_length_of_service;
 using kix;
-using System;
 using System.Collections;
 
 namespace Class_biz_indicator_median_length_of_service
-{
-    public class TClass_biz_indicator_median_length_of_service
+  {
+  public class TClass_biz_indicator_median_length_of_service
     {
-        private TClass_db_indicator_median_length_of_service db_indicator_median_length_of_service = null;
+        private readonly TClass_db_indicator_median_length_of_service db_indicator_median_length_of_service = null;
         //Constructor  Create()
         public TClass_biz_indicator_median_length_of_service() : base()
         {

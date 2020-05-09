@@ -24,7 +24,8 @@ namespace Class_db_tiers
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-            dr = new MySqlCommand("SELECT id,name from tier order by id", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id,name from tier order by id", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
@@ -46,7 +47,8 @@ namespace Class_db_tiers
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select id from tier where name = \"" + name + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select id from tier where name = \"" + name + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -55,7 +57,8 @@ namespace Class_db_tiers
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select name from tier where id = \"" + id + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select name from tier where id = \"" + id + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }

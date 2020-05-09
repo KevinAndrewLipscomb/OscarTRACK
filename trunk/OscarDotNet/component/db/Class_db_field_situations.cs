@@ -12,13 +12,15 @@ namespace Class_db_field_situations
 
     internal void BindBaseDataList
       (
+      #pragma warning disable IDE0060 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       object target
+      #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select field_situation.id as id"
         + " , DATE_FORMAT(time_initialized,'%Y-%m-%d %H:%i') as time_initialized"
@@ -39,8 +41,8 @@ namespace Class_db_field_situations
         +     " )"
         + " order by case_num desc, field_situation.id desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -48,7 +50,7 @@ namespace Class_db_field_situations
     internal void Remove(string id)
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -58,8 +60,8 @@ namespace Class_db_field_situations
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

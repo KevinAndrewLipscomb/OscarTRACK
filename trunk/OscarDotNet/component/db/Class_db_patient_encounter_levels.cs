@@ -17,7 +17,7 @@ namespace Class_db_patient_encounter_levels
   public class TClass_db_patient_encounter_levels: TClass_db
     {
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_patient_encounter_levels() : base()
       {
@@ -32,7 +32,7 @@ namespace Class_db_patient_encounter_levels
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT lpad(id,4,'0') as id"
         + " , description"
@@ -40,8 +40,8 @@ namespace Class_db_patient_encounter_levels
         + " WHERE concat(lpad(id,4,'0'),' -- ',description) like '%" + partial_spec + "%'"
         + " order by description",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + k.SPACE_HYPHENS_SPACE + dr["description"].ToString(), dr["id"].ToString()));
@@ -64,7 +64,8 @@ namespace Class_db_patient_encounter_levels
         ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
         }
       Open();
-      var dr = new MySqlCommand("SELECT id,description FROM patient_encounter_level where description <> '(none specified)' order by id", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("SELECT id,description FROM patient_encounter_level where description <> '(none specified)' order by id", connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["id"].ToString()));
@@ -91,7 +92,8 @@ namespace Class_db_patient_encounter_levels
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from patient_encounter_level where id = '" + id + "'"), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from patient_encounter_level where id = '" + id + "'"), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -117,7 +119,8 @@ namespace Class_db_patient_encounter_levels
       description = k.EMPTY;
       var result = false;
       Open();
-      var dr = new MySqlCommand("select description from patient_encounter_level where id = '" + id + "'", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select description from patient_encounter_level where id = '" + id + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         description = dr["description"].ToString();
@@ -136,7 +139,7 @@ namespace Class_db_patient_encounter_levels
       {
       var childless_field_assignments_clause = "description = '" + description + "'";
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -147,8 +150,8 @@ namespace Class_db_patient_encounter_levels
           + childless_field_assignments_clause
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

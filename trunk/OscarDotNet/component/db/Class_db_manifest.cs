@@ -13,7 +13,7 @@ namespace Class_db_manifest
   public class TClass_db_manifest: TClass_dbkeyclick
     {
 
-    private TClass_dbkeyclick_trail dbkeyclick_trail = null;
+    private readonly TClass_dbkeyclick_trail dbkeyclick_trail = null;
     
     public TClass_db_manifest() : base()
       {
@@ -28,14 +28,15 @@ namespace Class_db_manifest
       {
       var boarding_pass_number_string = k.EMPTY;
       var ascii_encoding = new ASCIIEncoding();
-      var byte_buf = MD5.Create().ComputeHash(ascii_encoding.GetBytes(((new Random()).Next().ToString())));
+      using var the_md5 = MD5.Create();
+      var byte_buf = the_md5.ComputeHash(ascii_encoding.GetBytes(((new Random()).Next().ToString())));
       var i = new k.subtype<int>(0,16);
       for (i.val = 0; i.val < 16; i.val ++ )
         {
         boarding_pass_number_string += byte_buf[i.val].ToString("x2");
         }
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         dbkeyclick_trail.Saved
           (
@@ -47,8 +48,8 @@ namespace Class_db_manifest
           + " , expiration_time = UNIX_TIMESTAMP() + 60*(select value from tuning_parm where name='boarding-pass-valid-minutes')"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       return boarding_pass_number_string;
       }

@@ -173,7 +173,7 @@ namespace UserControl_ranked_vehicles_up_and_current
       if ((new ArrayList {ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.Item,ListItemType.SelectedItem}).Contains(e.Item.ItemType))
         {
         // We are dealing with a data row, not a header or footer row.
-        p.rank = p.rank + 1;
+        p.rank++;
         e.Item.Cells[0].Text = p.rank.ToString();
         var num_vehicles_up_and_current = decimal.Parse(e.Item.Cells[2].Text);
         var num_vehicles = decimal.Parse(e.Item.Cells[3].Text);

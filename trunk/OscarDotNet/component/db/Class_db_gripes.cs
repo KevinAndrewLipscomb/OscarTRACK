@@ -14,7 +14,7 @@ namespace Class_db_gripes
   {
   public class TClass_db_gripes: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_gripes() : base()
       {
@@ -24,7 +24,8 @@ namespace Class_db_gripes
     internal bool BeVehicleLogEmpty(string vehicle_id)
       {
       Open();
-      var be_vehicle_log_empty = ("0" == new MySqlCommand("select count(*) from gripe where vehicle_id = '" + vehicle_id + "'",connection).ExecuteScalar().ToString());
+      using var my_sql_command = new MySqlCommand("select count(*) from gripe where vehicle_id = '" + vehicle_id + "'",connection);
+      var be_vehicle_log_empty = ("0" == my_sql_command.ExecuteScalar().ToString());
       Close();
       return be_vehicle_log_empty;
       }
@@ -39,7 +40,7 @@ namespace Class_db_gripes
       var concat_clause = "concat(IFNULL(description,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -48,8 +49,8 @@ namespace Class_db_gripes
         +   " and " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -67,7 +68,7 @@ namespace Class_db_gripes
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(description,'-')) USING utf8) as spec"
@@ -75,8 +76,8 @@ namespace Class_db_gripes
         + " where vehicle_id = '" + vehicle_id + "'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -102,7 +103,7 @@ namespace Class_db_gripes
         {
         sort_order = sort_order.Replace("%", " desc");
         }
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select gripe.id as id"
         + " , description"
@@ -111,8 +112,8 @@ namespace Class_db_gripes
         + " where vehicle_id = '" + vehicle_id + "'"
         + " order by " + sort_order,
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -124,7 +125,8 @@ namespace Class_db_gripes
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from gripe where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from gripe where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -156,7 +158,7 @@ namespace Class_db_gripes
       result = false;
       //
       Open();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select name"
         + " , description"
@@ -164,8 +166,8 @@ namespace Class_db_gripes
         +   " join vehicle on (vehicle.id=gripe.vehicle_id)"
         + " where CAST(gripe.id AS CHAR) = '" + id + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         vehicle_name = dr["name"].ToString();
@@ -187,12 +189,12 @@ namespace Class_db_gripes
       id_q = new Queue();
       description_q = new Queue();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id,description from gripe where vehicle_id = '" + vehicle_id + "' order by id",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         id_q.Enqueue(dr["id"].ToString());
@@ -209,7 +211,8 @@ namespace Class_db_gripes
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update gripe set description = '" + replacement_note + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("update gripe set description = '" + replacement_note + "' where id = '" + id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -225,7 +228,7 @@ namespace Class_db_gripes
       + " , description = NULLIF('" + description + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -236,8 +239,8 @@ namespace Class_db_gripes
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 
@@ -245,7 +248,8 @@ namespace Class_db_gripes
       {
       var stalled_id_q = new Queue<string>();
       Open();
-      var dr = new MySqlCommand("select id from gripe where last_entry_datetime < DATE_SUB(CURDATE(),INTERVAL 4 MONTH)",connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select id from gripe where last_entry_datetime < DATE_SUB(CURDATE(),INTERVAL 4 MONTH)",connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         stalled_id_q.Enqueue(dr["id"].ToString());

@@ -160,8 +160,8 @@ namespace UserControl_behind_the_scenes_activity
             {
                 case ListItemType.Item:
                 case ListItemType.AlternatingItem:
-                    p.total_events_for_cycle = p.total_events_for_cycle + uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text);
-                    p.total_messages_for_cycle = p.total_messages_for_cycle + uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_MESSAGES].Text);
+                    p.total_events_for_cycle += uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text);
+                    p.total_messages_for_cycle += uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_MESSAGES].Text);
                     break;
                 case ListItemType.Footer:
                     e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text = p.total_events_for_cycle.ToString();
@@ -176,8 +176,8 @@ namespace UserControl_behind_the_scenes_activity
             {
                 case ListItemType.Item:
                 case ListItemType.AlternatingItem:
-                    p.total_events_for_lifetime = p.total_events_for_lifetime + uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text);
-                    p.total_messages_for_lifetime = p.total_messages_for_lifetime + uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_MESSAGES].Text);
+                    p.total_events_for_lifetime += uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text);
+                    p.total_messages_for_lifetime += uint.Parse(e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_MESSAGES].Text);
                     break;
                 case ListItemType.Footer:
                     e.Item.Cells[Units.UserControl_behind_the_scenes_activity.TCCI_TALLY_OF_EVENTS].Text = p.total_events_for_lifetime.ToString();

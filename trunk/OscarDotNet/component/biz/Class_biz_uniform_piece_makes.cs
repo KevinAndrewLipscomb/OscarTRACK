@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_piece_makes;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_piece_makes
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_piece_makes
 
   public class TClass_biz_uniform_piece_makes
     {
-    private TClass_db_uniform_piece_makes db_uniform_piece_makes = null;
+    private readonly TClass_db_uniform_piece_makes db_uniform_piece_makes = null;
 
     public TClass_biz_uniform_piece_makes() : base()
       {

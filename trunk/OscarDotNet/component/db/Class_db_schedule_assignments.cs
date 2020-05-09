@@ -62,8 +62,8 @@ namespace Class_db_schedule_assignments
     private const string HHMM_RANGE_PATTERN = "([0-1][0-9]|2[0-4])[0-5][0-9]-([0-1][0-9]|2[0-4])[0-5][0-9]";
     private const string POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE = "CAST(CHAR(ASCII('a') + post_cardinality - 1) as CHAR)";
 
-    private TClass_db_shifts db_shifts = null;
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_shifts db_shifts = null;
+    private readonly TClass_db_trail db_trail = null;
 
     private string CommonBindBaseDataListByShiftSelectClause(string first_name_clause)
       {
@@ -164,7 +164,7 @@ namespace Class_db_schedule_assignments
       var transaction = connection.BeginTransaction();
       try
         {
-        be_adventitious_change_detected = "1" == new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           "select count(*)"
           + " from schedule_assignment"
@@ -183,9 +183,10 @@ namespace Class_db_schedule_assignments
           +   " and schedule_assignment.last_revised > this_user.last_login",
           connection,
           transaction
-          )
-          .ExecuteScalar().ToString();
-        new MySqlCommand("update user set last_login = NOW() where id = '" + user_id + "'",connection,transaction).ExecuteNonQuery(); // Deliberately not db_trail.Saved.
+          );
+        be_adventitious_change_detected = "1" == my_sql_command_1.ExecuteScalar().ToString();
+        using var my_sql_command_2 = new MySqlCommand("update user set last_login = NOW() where id = '" + user_id + "'",connection,transaction);
+        my_sql_command_2.ExecuteNonQuery(); // Deliberately not db_trail.Saved.
         transaction.Commit();
         }
       catch (Exception e)
@@ -204,8 +205,8 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      var be_member_available_either_canonical_shift_this_nominal_day =
-        "0" != new MySqlCommand("select count(*) from schedule_assignment where member_id = '" + member_id + "' and nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select count(*) from schedule_assignment where member_id = '" + member_id + "' and nominal_day = '" + nominal_day.ToString("yyyy-MM-dd") + "'",connection);
+      var be_member_available_either_canonical_shift_this_nominal_day = "0" != my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_member_available_either_canonical_shift_this_nominal_day;
       }
@@ -214,23 +215,22 @@ namespace Class_db_schedule_assignments
       {
       var be_member_on_medical_leave_for = false;
       Open();
-      be_member_on_medical_leave_for = null != 
-        new MySqlCommand
-          (
-          "select 1"
-          + " from schedule_assignment"
-          +   " join leave_of_absence on (leave_of_absence.member_id=schedule_assignment.member_id)"
-          +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
-          + " where"
-          +     " (schedule_assignment.id = '" + id + "')"
-          +   " and"
-          +     " (description = 'Medical')"
-          +   " and"
-          +     " (nominal_day between start_date and end_date)"
-          + " limit 1",
-          connection
-          )
-          .ExecuteScalar();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select 1"
+        + " from schedule_assignment"
+        +   " join leave_of_absence on (leave_of_absence.member_id=schedule_assignment.member_id)"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where"
+        +     " (schedule_assignment.id = '" + id + "')"
+        +   " and"
+        +     " (description = 'Medical')"
+        +   " and"
+        +     " (nominal_day between start_date and end_date)"
+        + " limit 1",
+        connection
+        ); 
+      be_member_on_medical_leave_for = null != my_sql_command.ExecuteScalar();
       Close();
       return be_member_on_medical_leave_for;
       }
@@ -243,22 +243,21 @@ namespace Class_db_schedule_assignments
       {
       var be_member_on_medical_leave_for = false;
       Open();
-      be_member_on_medical_leave_for = null != 
-        new MySqlCommand
-          (
-          "select 1"
-          + " from leave_of_absence"
-          +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
-          + " where"
-          +     " (member_id = '" + member_id + "')"
-          +   " and"
-          +     " (description = 'Medical')"
-          +   " and"
-          +     " ('" + nominal_day.ToString("yyyy-MM-dd") + "' between start_date and end_date)"
-          + " limit 1",
-          connection
-          )
-          .ExecuteScalar();
+      using var my_sql_command = new MySqlCommand
+        (
+        "select 1"
+        + " from leave_of_absence"
+        +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
+        + " where"
+        +     " (member_id = '" + member_id + "')"
+        +   " and"
+        +     " (description = 'Medical')"
+        +   " and"
+        +     " ('" + nominal_day.ToString("yyyy-MM-dd") + "' between start_date and end_date)"
+        + " limit 1",
+        connection
+        ); 
+      be_member_on_medical_leave_for = null != my_sql_command.ExecuteScalar();
       Close();
       return be_member_on_medical_leave_for;
       }
@@ -271,7 +270,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      var be_member_selected_during_period = "0" != new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select count(*)"
         + " from schedule_assignment"
@@ -280,8 +279,8 @@ namespace Class_db_schedule_assignments
         +   " and be_selected"
         +   " and ADDTIME(nominal_day,start) between '" + period_start.ToString("yyyy-MM-dd HH:mm") + "' and '" + period_end.ToString("yyyy-MM-dd HH:mm") + "'",
         connection
-        )
-        .ExecuteScalar().ToString();
+        );
+      var be_member_selected_during_period = "0" != my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_member_selected_during_period;
       }
@@ -294,7 +293,7 @@ namespace Class_db_schedule_assignments
       {
       var be_notification_pending_for_all_in_scope = true;
       Open();
-      be_notification_pending_for_all_in_scope = "1" == new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IF(sum(not be_notification_pending) = 0,1,0)"
         + " from schedule_assignment"
@@ -302,8 +301,8 @@ namespace Class_db_schedule_assignments
         + " where agency_id = '" + agency_filter + "'"
         +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
-        )
-        .ExecuteScalar().ToString();
+        );
+      be_notification_pending_for_all_in_scope = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_notification_pending_for_all_in_scope;
       }
@@ -320,7 +319,7 @@ namespace Class_db_schedule_assignments
       var be_pending_notifications = false;
       var liberal_conditions = (be_virgin_watchbill ? k.EMPTY : " or post_id = '" + publisher_member_agency_id + "' or agency_satellite_station.agency_id = '" + publisher_member_agency_id + "' or reviser_member_id = '" + publisher_member_id + "'");
       Open();
-      be_pending_notifications = "1" == new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select count(member_id) > 0"
         + " from schedule_assignment"
@@ -331,8 +330,8 @@ namespace Class_db_schedule_assignments
         +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
         +   " and (member.agency_id = '" + publisher_member_agency_id + "'" + liberal_conditions + " )",
         connection
-        )
-        .ExecuteScalar().ToString();
+        );
+      be_pending_notifications = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_pending_notifications;
       }
@@ -340,8 +339,8 @@ namespace Class_db_schedule_assignments
     internal bool BeProposalGeneratedForNextMonth()
       {
       Open();
-      var be_proposal_generated_for_next_month = "0" != new MySqlCommand
-        ("select count(*) from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH)) and be_selected",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select count(*) from schedule_assignment where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH)) and be_selected",connection);
+      var be_proposal_generated_for_next_month = "0" != my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_proposal_generated_for_next_month;
       }
@@ -351,7 +350,7 @@ namespace Class_db_schedule_assignments
       var concat_clause = "concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -359,8 +358,8 @@ namespace Class_db_schedule_assignments
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -372,16 +371,18 @@ namespace Class_db_schedule_assignments
 
     internal void BindAmbulanceStaffingTimeLineChartBaseDataList
       (
+      #pragma warning disable IDE0060 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       DataGrid target,
       string agency_filter,
       k.subtype<int> relative_month,
       string nominal_day_filter = k.EMPTY
+      #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
       Open();
-      target.DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select nominal_day"
         + " , d0000,d0030,d0100,d0130,d0200,d0230,d0300,d0330,d0400,d0430,d0500,d0530,d0600,d0630,d0700,d0730,d0800,d0830,d0900,d0930,d1000,d1030,d1100,d1130"
@@ -468,8 +469,8 @@ namespace Class_db_schedule_assignments
         +   " as granular_coverage_levels_night"
         + " using (nominal_day)",
         connection
-        )
-        .ExecuteReader();
+        );
+      target.DataSource = my_sql_command.ExecuteReader();
       target.DataBind();
       (target.DataSource as MySqlDataReader).Close();
       Close();
@@ -487,7 +488,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select member.id as member_id"
         + " , CONCAT(last_name,', ',first_name) as member"
@@ -511,8 +512,8 @@ namespace Class_db_schedule_assignments
         +   " and light_shift.name = '" + light_shift_name + "'"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -780,7 +781,7 @@ namespace Class_db_schedule_assignments
         {
         try
           {
-          new MySqlCommand
+          using var my_sql_command_1 = new MySqlCommand
             (
             "create temporary table num_units"
             + " select nominal_day"
@@ -911,21 +912,22 @@ namespace Class_db_schedule_assignments
             +     " using (nominal_day,display_seq_num)",
             connection,
             transaction
-            )
-            .ExecuteNonQuery();
-          (target as BaseDataList).DataSource = new MySqlCommand("select * from this_month_schedule_assignment",connection,transaction).ExecuteReader();
+            );
+          my_sql_command_1.ExecuteNonQuery();
+          using var my_sql_command_2 = new MySqlCommand("select * from this_month_schedule_assignment",connection,transaction);
+          (target as BaseDataList).DataSource = my_sql_command_2.ExecuteReader();
           (target as BaseDataList).DataBind();
           ((target as BaseDataList).DataSource as MySqlDataReader).Close();
           //
-          using var dr = new MySqlCommand
+          using var my_sql_command_3 = new MySqlCommand
             (
             "select count(distinct member_id) as num_members"
             + " , sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200)/2 as num_crew_shifts"
             + common_from_where_clause,
             connection,
             transaction
-            )
-            .ExecuteReader();
+            );
+          using var dr = my_sql_command_3.ExecuteReader();
           dr.Read();
           (num_members = new k.int_nonnegative()).val = int.Parse(dr["num_members"].ToString());
           num_crew_shifts = new k.decimal_nonnegative();
@@ -936,7 +938,7 @@ namespace Class_db_schedule_assignments
             }
           dr.Close();
           //
-          new MySqlCommand
+          using var my_sql_command_4 = new MySqlCommand
             (
             "drop temporary table num_units"
             + " , challenge_analysis"
@@ -947,8 +949,8 @@ namespace Class_db_schedule_assignments
             + " , this_month_schedule_assignment",
             connection,
             transaction
-            )
-            .ExecuteNonQuery();
+            );
+          my_sql_command_4.ExecuteNonQuery();
           //
           transaction.Commit();
           be_done = true;
@@ -976,7 +978,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -1007,8 +1009,8 @@ namespace Class_db_schedule_assignments
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1035,7 +1037,7 @@ namespace Class_db_schedule_assignments
         release_condition_clause = " and medical_release_code_description_map.pecking_order < 20";
         }
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -1070,8 +1072,8 @@ namespace Class_db_schedule_assignments
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1081,15 +1083,15 @@ namespace Class_db_schedule_assignments
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(nominal_day,'-'),'|',IFNULL(shift_id,'-'),'|',IFNULL(post_id,'-'),'|',IFNULL(post_cardinality,'-'),'|',IFNULL(position_id,'-'),'|',IFNULL(member_id,'-'),'|',IFNULL(be_selected,'-'),'|',IFNULL(comment,'-')) USING utf8) as spec"
         + " FROM schedule_assignment"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -1107,7 +1109,7 @@ namespace Class_db_schedule_assignments
       {
       var post_filter = (agency_filter != k.EMPTY ? " and post_id = '" + agency_filter + "' or agency_satellite_station.agency_id = '" + agency_filter + "'" : k.EMPTY);
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select nominal_day"
         + " , shift.name as shift_name"
@@ -1125,8 +1127,8 @@ namespace Class_db_schedule_assignments
         + " group by nominal_day,shift_id,post_id"
         +   " having be_insufficient_drivers",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1141,7 +1143,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         //
         // The MySQL query order of operations is critical here.  It is typically(?) as follows:
@@ -1265,8 +1267,8 @@ namespace Class_db_schedule_assignments
         +     " ) as msd_calculated_time_off_after"
         +   " ) as msd_calculated_time_off_before",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1279,7 +1281,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      (target as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select sa1.id as schedule_assignment_id"
         + " , name as shift_name"
@@ -1331,8 +1333,8 @@ namespace Class_db_schedule_assignments
         +   " and be_selected"
         + " order by logon_time",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as DataGrid).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1347,7 +1349,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         " select concat(object_member.last_name,', ',object_member.first_name) as name"
         + " , agency.short_designator as agency"
@@ -1403,8 +1405,8 @@ namespace Class_db_schedule_assignments
         + " group by object_member.id"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       ((target as DataGrid).DataSource as MySqlDataReader).Close();
       Close();
@@ -1413,7 +1415,7 @@ namespace Class_db_schedule_assignments
     internal void BindRankedAvailabilitySubmissionCompliance(object target)
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select NULL as `rank`"
         + " , concat(medium_designator,' - ',long_designator) as agency"
@@ -1424,8 +1426,8 @@ namespace Class_db_schedule_assignments
         +   " and be_agency_id_applicable = TRUE"
         + " order by value desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       ((target as DataGrid).DataSource as MySqlDataReader).Close();
       Close();
@@ -1486,7 +1488,7 @@ namespace Class_db_schedule_assignments
         }
       //
       Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select distinct concat(member.first_name,' ',member.last_name) as name"
         + " , member.id as member_id"
@@ -1542,8 +1544,8 @@ namespace Class_db_schedule_assignments
         + filter
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1578,7 +1580,7 @@ namespace Class_db_schedule_assignments
         //
         // Since we are only using selects and temporary tables, do not save this to the db_trail.
         //
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
           + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
@@ -1587,9 +1589,9 @@ namespace Class_db_schedule_assignments
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        new MySqlCommand
+          );
+        my_sql_command_1.ExecuteNonQuery();
+        using var my_sql_command_2 = new MySqlCommand
           (
           "create temporary table times_off"
           + " select @on_duty := on_duty as on_duty"
@@ -1602,9 +1604,9 @@ namespace Class_db_schedule_assignments
           + " from (select @on_duty := '', @off_duty := '', @member_id := '', @saved_schedule_assignment_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id",
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        (target as BaseDataList).DataSource = new MySqlCommand
+          );
+        my_sql_command_2.ExecuteNonQuery();
+        using var my_sql_command_3 = new MySqlCommand
           (
           "select concat(member.first_name,' ',member.last_name) as name"
           + " , times_off.member_id as member_id"
@@ -1635,11 +1637,12 @@ namespace Class_db_schedule_assignments
           + " order by time_off,second_schedule_assignment.nominal_day,second_shift.start",
           connection,
           transaction
-          )
-          .ExecuteReader();
+          );
+        (target as BaseDataList).DataSource = my_sql_command_3.ExecuteReader();
         (target as BaseDataList).DataBind();
         ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-        new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_off",connection,transaction).ExecuteNonQuery();
+        using var my_sql_command_4 = new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_off",connection,transaction);
+        my_sql_command_4.ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
@@ -1680,7 +1683,7 @@ namespace Class_db_schedule_assignments
         //
         // Since we are only using selects and temporary tables, do not save this to the db_trail.
         //
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
           + " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
@@ -1689,9 +1692,10 @@ namespace Class_db_schedule_assignments
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        new MySqlCommand
+          );
+        my_sql_command_1.ExecuteNonQuery();
+        //
+        using var my_sql_command_2 = new MySqlCommand
           (
           "create temporary table times_on"
           + " select schedule_assignment_id"
@@ -1701,9 +1705,10 @@ namespace Class_db_schedule_assignments
           + " from (select @time_on := '', @off_duty := '', @member_id := '') as dummy,assignment_start_and_end_datetimes_sorted_by_member_id",
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        (target as BaseDataList).DataSource = new MySqlCommand
+          );
+        my_sql_command_2.ExecuteNonQuery();
+        //
+        using var my_sql_command_3 = new MySqlCommand
           (
           "select concat(first_name,' ',last_name) as name"
           + " , times_on.member_id as member_id"
@@ -1722,11 +1727,14 @@ namespace Class_db_schedule_assignments
           + " order by schedule_assignment.nominal_day,shift.start",
           connection,
           transaction
-          )
-          .ExecuteReader();
+          );
+        (target as BaseDataList).DataSource = my_sql_command_3.ExecuteReader();
         (target as BaseDataList).DataBind();
         ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-        new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_on",connection,transaction).ExecuteNonQuery();
+        //
+        using var my_sql_command_4 = new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,times_on",connection,transaction);
+        my_sql_command_4.ExecuteNonQuery();
+        //
         transaction.Commit();
         }
       catch (Exception e)
@@ -1781,7 +1789,7 @@ namespace Class_db_schedule_assignments
         //
         // Since we are only using selects and temporary tables, do not save this to the db_trail.
         //
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_COMMON_SELECT_FROM_WHERE_CLAUSE
           + initial_time_window_condition_clause
@@ -1789,23 +1797,23 @@ namespace Class_db_schedule_assignments
           + ASSIGNMENT_START_AND_END_DATETIMES_SORTED_BY_MEMBER_ID_ORDER_BY_CLAUSE,
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
+          );
+        my_sql_command_1.ExecuteNonQuery();
         //
         // MySQL does not allow joining a temporary table to itself, so make a copy.
         //
-        new MySqlCommand
+        using var my_sql_command_2 = new MySqlCommand
           (
           "create temporary table a_to"
           + " select * from assignment_start_and_end_datetimes_sorted_by_member_id a_from",
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
+          );
+        my_sql_command_2.ExecuteNonQuery();
         //
         // Now perform the SELECT that joins "a_from" to a_to.
         //
-        (target as BaseDataList).DataSource = new MySqlCommand
+        using var my_sql_command_3 = new MySqlCommand
           (
           "select DATE_FORMAT(a_to.on_duty,'%Y-%m-%d') as gap_day"
           + " , DATE_FORMAT(a_to.on_duty,'%H:%i') as gap_time"
@@ -1829,11 +1837,14 @@ namespace Class_db_schedule_assignments
           + " order by a_from.off_duty,a_from.post_id",
           connection,
           transaction
-          )
-          .ExecuteReader();
+          );
+        (target as BaseDataList).DataSource = my_sql_command_3.ExecuteReader();
         (target as BaseDataList).DataBind();
         ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-        new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,a_to",connection,transaction).ExecuteNonQuery();
+        //
+        using var my_sql_command_4 = new MySqlCommand("drop temporary table assignment_start_and_end_datetimes_sorted_by_member_id,a_to",connection,transaction);
+        my_sql_command_4.ExecuteNonQuery();
+        //
         transaction.Commit();
         }
       catch (Exception e)
@@ -1870,7 +1881,7 @@ namespace Class_db_schedule_assignments
       //
       // Since we are only using selects and temporary tables, do not save this to the db_trail.
       //
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         k.EMPTY
         //
@@ -1963,8 +1974,8 @@ namespace Class_db_schedule_assignments
         + " )"
         + " order by last_name,first_name",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -1983,7 +1994,8 @@ namespace Class_db_schedule_assignments
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from schedule_assignment where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from schedule_assignment where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -2016,7 +2028,7 @@ namespace Class_db_schedule_assignments
         {
         try
           {
-          var mysql_command = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -2030,7 +2042,7 @@ namespace Class_db_schedule_assignments
               ),
             connection
             );
-            id = (mysql_command.ExecuteNonQuery() > 0 ? mysql_command.LastInsertedId.ToString() : k.EMPTY);
+            id = (my_sql_command.ExecuteNonQuery() > 0 ? my_sql_command.LastInsertedId.ToString() : k.EMPTY);
           be_done = true;
           }
         catch (Exception e)
@@ -2053,7 +2065,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2064,8 +2076,8 @@ namespace Class_db_schedule_assignments
           + " where id = '" + id + "'"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2096,7 +2108,7 @@ namespace Class_db_schedule_assignments
       partner_list = k.EMPTY;
       //
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select *"
         + " , ("
@@ -2131,8 +2143,8 @@ namespace Class_db_schedule_assignments
         + " from schedule_assignment sa1"
         + " where CAST(id AS CHAR) = '" + id + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         nominal_day = DateTime.Parse(dr["nominal_day"].ToString());
@@ -2172,48 +2184,21 @@ namespace Class_db_schedule_assignments
         }
       Open();
       MySqlDataReader dr = null;
-      var be_done = false;
       var num_tries = new k.int_nonnegative();
-      while (!be_done)
-        {
-        try
-          {
-          dr = new MySqlCommand
-            (
-            "select GROUP_CONCAT(distinct post_id order by post_id) as posts"
-            + " , max(" + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ") as max_post_cardinality"
-            + " from schedule_assignment"
-            +   " join member on (member.id=schedule_assignment.member_id)"
-            + " where be_selected"
-            +     agency_filter_clause
-            +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
-            +     nominal_day_condition_clause
-            + " group by NULL",
-            connection
-            )
-            .ExecuteReader();
-          be_done = true;
-          }
-        catch (Exception e)
-          {
-          if (e.ToString().Contains("There is already an open DataReader associated with this Connection which must be closed first."))
-            {
-            num_tries.val++;
-            var log = new StreamWriter(path:HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["scratch_folder"] + "/db_schedule_assignments_GetAgencyFootprintInfo_" + connection.ServerThread + ".log"),append:true);
-            log.AutoFlush = true;
-            log.WriteLine
-              (
-              value:DateTime.Now.ToString("s") + " db_schedule_assignments.GetAgencyFootprintInfo: Caught 'There is already an open DataReader associated with this Connection which must be closed first.' for connection.ServerThread "
-              + connection.ServerThread + ".  Looping for retry #" + num_tries.val.ToString() + "..."
-              );
-            log.Close();
-            }
-          else
-            {
-            throw e;
-            }
-          }
-        }
+      using var my_sql_command = new MySqlCommand
+        (
+        "select GROUP_CONCAT(distinct post_id order by post_id) as posts"
+        + " , max(" + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + ") as max_post_cardinality"
+        + " from schedule_assignment"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        + " where be_selected"
+        +     agency_filter_clause
+        +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))"
+        +     nominal_day_condition_clause
+        + " group by NULL",
+        connection
+        );
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         posts = dr["posts"].ToString();
@@ -2238,7 +2223,7 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select count(*) as num"
         + " , IFNULL(min(IF(be_selected,'9999-12-31 23:59:59',DATE_FORMAT(ADDTIME(nominal_day,start),'%Y-%m-%d %H:%i:%s'))),'9999-12-31 23:59:59') as start_of_earliest_unselected"
@@ -2248,8 +2233,8 @@ namespace Class_db_schedule_assignments
         + " where member_id = '" + member_id + "'"
         +   " and MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       num.val = int.Parse(dr["num"].ToString());
       start_of_earliest_unselected = DateTime.Parse(dr["start_of_earliest_unselected"].ToString());
@@ -2279,7 +2264,7 @@ namespace Class_db_schedule_assignments
       most_likely_aic_member_id = k.EMPTY;
       //
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command_1 = new MySqlCommand
         (
         "select DATE_FORMAT(nominal_day,'%Y-%m-%d') as most_likely_nominal_day"
         + " , shift_id as most_likely_shift_id"
@@ -2295,8 +2280,8 @@ namespace Class_db_schedule_assignments
         + " order by @shift_start desc"
         + " limit 1",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command_1.ExecuteReader();
       if (dr.Read())
         {
         most_likely_nominal_day = dr["most_likely_nominal_day"].ToString();
@@ -2306,7 +2291,8 @@ namespace Class_db_schedule_assignments
         most_likely_time_in = dr["most_likely_start"].ToString();
         most_likely_time_out = dr["most_likely_end"].ToString();
         dr.Close();
-        dr = new MySqlCommand
+        //
+        using var my_sql_command_2 = new MySqlCommand
           (
           "select member_id as most_likely_aic_member_id"
           + " from schedule_assignment"
@@ -2320,8 +2306,8 @@ namespace Class_db_schedule_assignments
           + " order by medical_release_code_description_map.pecking_order desc, member.equivalent_los_start_date"
           + " limit 1",
           connection
-          )
-          .ExecuteReader();
+          );
+        dr = my_sql_command_2.ExecuteReader();
         if (dr.Read())
           {
           most_likely_aic_member_id = dr["most_likely_aic_member_id"].ToString();
@@ -2343,7 +2329,8 @@ namespace Class_db_schedule_assignments
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select nominal_day,shift.name as shift_name from schedule_assignment join shift on (shift.id=schedule_assignment.shift_id) where CAST(schedule_assignment.id AS CHAR) = '" + id + "'", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select nominal_day,shift.name as shift_name from schedule_assignment join shift on (shift.id=schedule_assignment.shift_id) where CAST(schedule_assignment.id AS CHAR) = '" + id + "'", this.connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         nominal_day = DateTime.Parse(dr["nominal_day"].ToString());
@@ -2423,7 +2410,7 @@ namespace Class_db_schedule_assignments
       +     " (enrollment_level.description in ('Staff','College','Atypical','Transferring'))"
       +   " )";
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2455,8 +2442,8 @@ namespace Class_db_schedule_assignments
           + " COMMIT"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2467,7 +2454,8 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = IF(comment is null,'TBR',concat('TBR ',comment)) where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + " and member_id = '" + member_id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("update schedule_assignment set comment = IF(comment is null,'TBR',concat('TBR ',comment)) where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + " and member_id = '" + member_id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2485,13 +2473,13 @@ namespace Class_db_schedule_assignments
           member_id_list += member_id_q.Dequeue() + k.COMMA;
           }
         Open();
-        new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           db_trail.Saved
             ("update schedule_assignment set be_notification_pending = FALSE where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL " + relative_month.val + " MONTH))" + " and member_id in (" + member_id_list.Trim(new char[] {Convert.ToChar(k.COMMA)}) + ")"),
           connection
-          )
-          .ExecuteNonQuery();
+          );
+        my_sql_command.ExecuteNonQuery();
         Close();
         }
       }
@@ -2499,7 +2487,7 @@ namespace Class_db_schedule_assignments
     internal void RigForProposalGeneration()
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "update schedule_assignment join member on (member.id=schedule_assignment.member_id) set"
         +   " be_selected = IF(post_id = agency_id,TRUE,FALSE)"
@@ -2508,8 +2496,8 @@ namespace Class_db_schedule_assignments
         + " where MONTH(nominal_day) = MONTH(ADDDATE(CURDATE(),INTERVAL 1 MONTH))"
         ,
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2526,7 +2514,8 @@ namespace Class_db_schedule_assignments
     internal void Purge()
       {
       Open();
-      new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 1 MONTH),'%Y-%m-01')",connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand("delete from schedule_assignment where nominal_day < DATE_FORMAT(SUBDATE(CURDATE(),INTERVAL 1 MONTH),'%Y-%m-01')",connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2539,7 +2528,7 @@ namespace Class_db_schedule_assignments
       var selected_and_notifiable_within_future_hours_id_q = new Queue();
       //
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select schedule_assignment.id as schedule_assignment_id"
         + " from schedule_assignment"
@@ -2554,8 +2543,8 @@ namespace Class_db_schedule_assignments
         +   " and be_ok_to_send_duty_reminders"
         +   " and email_address is not null",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         selected_and_notifiable_within_future_hours_id_q.Enqueue(dr["schedule_assignment_id"].ToString());
@@ -2592,7 +2581,7 @@ namespace Class_db_schedule_assignments
         agency_condition_clause = " and ((agency_id = '" + agency_filter + "') or (post_id = '" + agency_filter + "') or (post_id in (select satellite_station_id from agency_satellite_station where agency_id = '" + agency_filter + "')))";
         }
       Open();
-      var num_crew_shifts_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select sum(be_selected and medical_release_code_description_map.pecking_order >= 20 and post_id < 200 and (comment is null or comment not rlike '[[:digit:]]-[[:digit:]]'))/2 as num_crew_shifts"
         + " from schedule_assignment"
@@ -2605,8 +2594,8 @@ namespace Class_db_schedule_assignments
         +   " and shift.name = '" + shift_name + "'"
         +     agency_condition_clause,
         connection
-        )
-        .ExecuteScalar();
+        );
+      var num_crew_shifts_obj = my_sql_command.ExecuteScalar();
       var num_crew_shifts = new k.decimal_nonnegative();
       if (num_crew_shifts_obj != DBNull.Value)
         {
@@ -2622,15 +2611,15 @@ namespace Class_db_schedule_assignments
       object overall_availability_submission_compliance_obj;
       var result = k.EMPTY;
       Open();
-      overall_availability_submission_compliance_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select FORMAT(value,0)"
         + " from indicator_avail_submission_compliance"
         + " where concat(year,'-',LPAD(month,2,'0')) = (select max(concat(year,'-',LPAD(month,2,'0'))) from indicator_avail_submission_compliance)"
         +   " and not be_agency_id_applicable",
         connection
-        )
-        .ExecuteScalar();
+        );
+      overall_availability_submission_compliance_obj = my_sql_command.ExecuteScalar();
       if (overall_availability_submission_compliance_obj != null)
         {
         result = overall_availability_submission_compliance_obj.ToString();
@@ -2653,7 +2642,7 @@ namespace Class_db_schedule_assignments
       member_id_q.Clear();
       other_agency_ids_q.Clear();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select member_id"
         + " , group_concat(distinct NULLIF(IFNULL(agency_satellite_station.agency_id,post_id),'" + publisher_member_agency_id + "') separator ',') as other_agencies"
@@ -2665,8 +2654,8 @@ namespace Class_db_schedule_assignments
         +   " and (member.agency_id = '" + publisher_member_agency_id + "'" + liberal_conditions + " )"
         + " group by member_id",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         member_id_q.Enqueue(dr["member_id"].ToString());
@@ -2700,7 +2689,7 @@ namespace Class_db_schedule_assignments
       + " , comment = NULLIF('" + comment + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2711,8 +2700,8 @@ namespace Class_db_schedule_assignments
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 
@@ -2760,7 +2749,7 @@ namespace Class_db_schedule_assignments
         }
       //
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -2773,8 +2762,8 @@ namespace Class_db_schedule_assignments
           + " where id = '" + id + "'"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       //
       return
@@ -2797,7 +2786,8 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("update schedule_assignment set post_id = '" + post_id + "', be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2809,7 +2799,8 @@ namespace Class_db_schedule_assignments
       )
       {
       Open();
-      new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("update schedule_assignment set post_cardinality = ASCII('" + post_cardinality + "') - ASCII('a') + 1, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id = '" + id + "'"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -2830,7 +2821,6 @@ namespace Class_db_schedule_assignments
 
     internal string SpreadSelections
       (
-      string member_id,
       bool be_member_released,
       string id_a,
       string id_b,
@@ -2866,7 +2856,8 @@ namespace Class_db_schedule_assignments
       //
       Open();
       var transaction = connection.BeginTransaction();
-      var primary_selected_assignment_to_swap = new MySqlCommand
+      //
+      using var my_sql_command_1 = new MySqlCommand
         (
         "select"
         + " IF("
@@ -2888,8 +2879,8 @@ namespace Class_db_schedule_assignments
         +   " )",
         connection,
         transaction
-        )
-        .ExecuteScalar().ToString();
+        );
+      var primary_selected_assignment_to_swap = my_sql_command_1.ExecuteScalar().ToString();
       var unselected_assignment_to_swap_obj = UnselectedAssignmentToSwapObj(primary_selected_assignment_to_swap,intolerable_gap,be_member_released,transaction);
       if (unselected_assignment_to_swap_obj == null)
         {
@@ -2897,7 +2888,7 @@ namespace Class_db_schedule_assignments
         }
       if (unselected_assignment_to_swap_obj != null)
         {
-        new MySqlCommand
+        using var my_sql_command_2 = new MySqlCommand
           (
           db_trail.Saved
             (
@@ -2908,8 +2899,8 @@ namespace Class_db_schedule_assignments
             ),
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
+          );
+        my_sql_command_2.ExecuteNonQuery();
         spread_selections = primary_selected_assignment_to_swap;
         }
       transaction.Commit();
@@ -2920,37 +2911,34 @@ namespace Class_db_schedule_assignments
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
-          + " , shift_id"
-          + " , shift.name as shift_name"
-          + " , shift.start as shift_start"
-          + " , shift.end as shift_end"
-          + " , post_id"
-          + " , agency.short_designator as post_designator"
-          + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
-          + " , member_id"
-          + " , comment"
-          + " , last_name"
-          + " , first_name"
-          + " , cad_num"
-          + " , medical_release_code_description_map.watchbill_rendition as medical_release_level"
-          + " , member.agency_id as member_agency_id"
-          + " , member.phone_num as member_phone_num"
-          + " , be_selected"
-          + " FROM schedule_assignment"
-          +   " join shift on (shift.id=schedule_assignment.shift_id)"
-          +   " join agency on (agency.id=schedule_assignment.post_id)"
-          +   " join member on (member.id=schedule_assignment.member_id)"
-          +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
-          + " where schedule_assignment.id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT DATE_FORMAT(nominal_day,'%Y-%m-%d') as nominal_day"
+        + " , shift_id"
+        + " , shift.name as shift_name"
+        + " , shift.start as shift_start"
+        + " , shift.end as shift_end"
+        + " , post_id"
+        + " , agency.short_designator as post_designator"
+        + " , " + POST_CARDINALITY_NUM_TO_CHAR_CONVERSION_CLAUSE + " as post_cardinality"
+        + " , member_id"
+        + " , comment"
+        + " , last_name"
+        + " , first_name"
+        + " , cad_num"
+        + " , medical_release_code_description_map.watchbill_rendition as medical_release_level"
+        + " , member.agency_id as member_agency_id"
+        + " , member.phone_num as member_phone_num"
+        + " , be_selected"
+        + " FROM schedule_assignment"
+        +   " join shift on (shift.id=schedule_assignment.shift_id)"
+        +   " join agency on (agency.id=schedule_assignment.post_id)"
+        +   " join member on (member.id=schedule_assignment.member_id)"
+        +   " join medical_release_code_description_map on (medical_release_code_description_map.code=member.medical_release_code)"
+        + " where schedule_assignment.id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new schedule_assignment_summary()
         {
@@ -2987,7 +2975,7 @@ namespace Class_db_schedule_assignments
       var transaction = connection.BeginTransaction();
       try
         {
-        var target_id = new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           "select target.id as id"
           + " FROM"
@@ -3009,10 +2997,13 @@ namespace Class_db_schedule_assignments
           + " limit 1",
           connection,
           transaction
-          )
-          .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
-          .ExecuteNonQuery();
+          );
+        var target_id = my_sql_command_1.ExecuteScalar().ToString();
+        //
+        using var my_sql_command_2 = new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+          ;
+        my_sql_command_2.ExecuteNonQuery();
+        //
         transaction.Commit();
         }
       catch (Exception e)
@@ -3033,7 +3024,7 @@ namespace Class_db_schedule_assignments
       var transaction = connection.BeginTransaction();
       try
         {
-        var target_id = new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand
           (
           "select target.id as id"
           + " FROM"
@@ -3055,10 +3046,13 @@ namespace Class_db_schedule_assignments
           + " limit 1",
           connection,
           transaction
-          )
-          .ExecuteScalar().ToString();
-        new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
-          .ExecuteNonQuery();
+          );
+        var target_id = my_sql_command_1.ExecuteScalar().ToString();
+        //
+        using var my_sql_command_2 = new MySqlCommand(db_trail.Saved("update schedule_assignment set be_selected = not be_selected, be_notification_pending = ADDTIME(nominal_day,(select start from shift where id = shift_id)) > NOW(), reviser_member_id = '" + reviser_member_id + "' where id in ('" + id + "','" + target_id + "')"),connection,transaction)
+          ;
+        my_sql_command_2.ExecuteNonQuery();
+        //
         transaction.Commit();
         }
       catch (Exception e)
@@ -3082,7 +3076,7 @@ namespace Class_db_schedule_assignments
         //
         var order_by_populations_direction = (be_member_released ? "asc" : "desc");
         //
-        return new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           //
           // The MySQL query order of operations is critical here.  It is as follows:
@@ -3202,8 +3196,8 @@ namespace Class_db_schedule_assignments
           + " limit 1",
           connection,
           transaction
-          )
-          .ExecuteScalar();
+          );
+        return my_sql_command.ExecuteScalar();
         }
 
     private delegate string Update_Dispositioned(string sql);
@@ -3326,7 +3320,8 @@ namespace Class_db_schedule_assignments
             + ";";
             }
           log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will load new availabilities from avail_sheet.");
-          new MySqlCommand(Dispositioned(sql),connection,transaction).ExecuteNonQuery();
+          using var my_sql_command_1 = new MySqlCommand(Dispositioned(sql),connection,transaction);
+          my_sql_command_1.ExecuteNonQuery();
           //
           if (be_ok_to_work_on_next_month_assignments)
             {
@@ -3334,7 +3329,7 @@ namespace Class_db_schedule_assignments
             // Determine initial shift popularities.  Do not save operations on temporary table to the db_trail.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine initial shift popularities.");
-            new MySqlCommand
+            using var my_sql_command_2 = new MySqlCommand
               (
               " create temporary table shift_popularity"
               + " select nominal_day"
@@ -3354,8 +3349,8 @@ namespace Class_db_schedule_assignments
               + " , add key (num_released_members_available desc)",
               connection,
               transaction
-              )
-              .ExecuteNonQuery();
+              );
+            my_sql_command_2.ExecuteNonQuery();
             //----
             //
             // RELEASED MEMBERS
@@ -3370,7 +3365,7 @@ namespace Class_db_schedule_assignments
             // Determine released member flexibilities.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine released member flexibilities.");
-            var dr = new MySqlCommand
+            using var my_sql_command_3 = new MySqlCommand
               (
               "select member.id as member_id"
               + " , ("
@@ -3437,8 +3432,8 @@ namespace Class_db_schedule_assignments
               + " order by num_excess_avails desc",
               connection,
               transaction
-              )
-              .ExecuteReader();
+              );
+            var dr = my_sql_command_3.ExecuteReader();
             var member_id_q = new Queue();
             var quantity_of_interest_q = new Queue();
             while (dr.Read())
@@ -3454,7 +3449,7 @@ namespace Class_db_schedule_assignments
             trimables = k.EMPTY;
             while (member_id_q.Count > 0)
               {
-              dr = new MySqlCommand
+              using var my_sql_command_4 = new MySqlCommand
                 (
                 " select schedule_assignment.id as id"
                 + " from schedule_assignment"
@@ -3465,8 +3460,8 @@ namespace Class_db_schedule_assignments
                 + " limit " + quantity_of_interest_q.Dequeue(),
                 connection,
                 transaction
-                )
-                .ExecuteReader();
+                );
+              dr = my_sql_command_4.ExecuteReader();
               while (dr.Read())
                 {
                 trimables += dr["id"].ToString() + k.COMMA;
@@ -3476,7 +3471,8 @@ namespace Class_db_schedule_assignments
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for released members.");
             if (trimables.Length > 0)
               {
-              new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+              using var my_sql_command_5 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction);
+              my_sql_command_5.ExecuteNonQuery();
               }
             //--
             //
@@ -3491,7 +3487,7 @@ namespace Class_db_schedule_assignments
               //
               // Determine shift wealth (how many released members are assigned to each shift).
               //
-              new MySqlCommand
+              using var my_sql_command_6 = new MySqlCommand
                 (
                 "create temporary table shift_population"
                 + " select nominal_day"
@@ -3546,9 +3542,10 @@ namespace Class_db_schedule_assignments
                 + " where `rank` = 1",
                 connection,
                 transaction
-                )
-                .ExecuteNonQuery();
-              dr = new MySqlCommand
+                );
+              my_sql_command_6.ExecuteNonQuery();
+              //
+              using var my_sql_command_7 = new MySqlCommand
                 (
                 "select least_needed.schedule_assignment_id as least_needed_assignment_id"
                 + " , most_needed.schedule_assignment_id as most_needed_assignment_id"
@@ -3557,8 +3554,8 @@ namespace Class_db_schedule_assignments
                 + " limit 1",
                 connection,
                 transaction
-                )
-                .ExecuteReader();
+                );
+              dr = my_sql_command_7.ExecuteReader();
               if (dr.Read())
                 {
                 swappables = dr["least_needed_assignment_id"].ToString() + k.COMMA + dr["most_needed_assignment_id"].ToString();
@@ -3570,9 +3567,11 @@ namespace Class_db_schedule_assignments
               dr.Close();
               if (!done)
                 {
-                new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected, reviser_member_id = null where be_new and (id in (" + swappables + "))"),connection,transaction).ExecuteNonQuery();
+                using var my_sql_command_8 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = not be_selected, reviser_member_id = null where be_new and (id in (" + swappables + "))"),connection,transaction);
+                my_sql_command_8.ExecuteNonQuery();
                 }
-              new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction).ExecuteNonQuery();
+              using var my_sql_command_9 = new MySqlCommand("drop temporary table shift_population,member_assignment_vs_shift_population,least_needed,most_needed",connection,transaction);
+              my_sql_command_9.ExecuteNonQuery();
               }
             //----
             //
@@ -3583,7 +3582,7 @@ namespace Class_db_schedule_assignments
             // Determine flexibilities versus minimum intended assignments for thirds.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine flexibilities versus minimum intended assignments for thirds.");
-            dr = new MySqlCommand
+            using var my_sql_command_10 = new MySqlCommand
               (
               "select member.id as member_id"
               + " , ("
@@ -3632,8 +3631,8 @@ namespace Class_db_schedule_assignments
               + " order by num_excess_avails desc",
               connection,
               transaction
-              )
-              .ExecuteReader();
+              );
+            dr = my_sql_command_10.ExecuteReader();
             member_id_q.Clear();
             quantity_of_interest_q.Clear();
             while (dr.Read())
@@ -3649,7 +3648,7 @@ namespace Class_db_schedule_assignments
             trimables = k.EMPTY;
             while (member_id_q.Count > 0)
               {
-              dr = new MySqlCommand
+              using var my_sql_command_11 = new MySqlCommand
                 (
                 " select schedule_assignment.id as id"
                 + " from schedule_assignment"
@@ -3660,8 +3659,8 @@ namespace Class_db_schedule_assignments
                 + " limit " + quantity_of_interest_q.Dequeue(),
                 connection,
                 transaction
-                )
-                .ExecuteReader();
+                );
+              dr = my_sql_command_11.ExecuteReader();
               while (dr.Read())
                 {
                 trimables += dr["id"].ToString() + k.COMMA;
@@ -3671,13 +3670,14 @@ namespace Class_db_schedule_assignments
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will" + (trimables.Length > 0 ? k.SPACE : " NOT ") + "trim selections for thirds.");
             if (trimables.Length > 0)
               {
-              new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction).ExecuteNonQuery();
+              using var my_sql_command_12 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = FALSE, reviser_member_id = null where be_new and (id in (" + trimables.Trim(new char[] {Convert.ToChar(k.COMMA)}) + "))"),connection,transaction);
+              my_sql_command_12.ExecuteNonQuery();
               }
             //
             // Determine which BLS Interns want how many extra assignments.  Students are not allowed to run extras.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will determine which Test Candidates, BLS Interns, and Facilitated Physicians want how many extra assignments.");
-            dr = new MySqlCommand
+            using var my_sql_command_13 = new MySqlCommand
               (
               "select member.id as member_id"
               + " , num_extras"
@@ -3721,8 +3721,8 @@ namespace Class_db_schedule_assignments
               + " order by num_extras",
               connection,
               transaction
-              )
-              .ExecuteReader();
+              );
+            dr = my_sql_command_13.ExecuteReader();
             member_id_q.Clear();
             quantity_of_interest_q.Clear();
             while (dr.Read())
@@ -3741,7 +3741,7 @@ namespace Class_db_schedule_assignments
               {
               member_id = member_id_q.Dequeue().ToString();
               num_extras = int.Parse(quantity_of_interest_q.Dequeue().ToString());
-              var selectable_id_obj = new MySqlCommand
+              using var my_sql_command_14 = new MySqlCommand
                 (
                 "select id"
                 + " from schedule_assignment as x"
@@ -3766,11 +3766,12 @@ namespace Class_db_schedule_assignments
                 + " limit 1",
                 connection,
                 transaction
-                )
-                .ExecuteScalar();
+                );
+              var selectable_id_obj = my_sql_command_14.ExecuteScalar();
               if (selectable_id_obj != null)
                 {
-                new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE, reviser_member_id = null where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction).ExecuteNonQuery();
+                using var my_sql_command_15 = new MySqlCommand(Dispositioned("update schedule_assignment set be_selected = TRUE, reviser_member_id = null where be_new and id = '" + selectable_id_obj.ToString() + "'"),connection,transaction);
+                my_sql_command_15.ExecuteNonQuery();
                 if (num_extras > 1)
                   {
                   member_id_q.Enqueue(member_id);
@@ -3782,15 +3783,15 @@ namespace Class_db_schedule_assignments
             // Mark all current assignments hands off for this routine, and clean up.
             //
             log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will mark all current assignments hands off for this routine, and clean up.");
-            new MySqlCommand
+            using var my_sql_command_16 = new MySqlCommand
               (
               Dispositioned("update schedule_assignment set be_new = FALSE")
               + ";"
               + " drop temporary table shift_popularity",
               connection,
               transaction
-              )
-              .ExecuteNonQuery();
+              );
+            my_sql_command_16.ExecuteNonQuery();
             }
           log.WriteLine(DateTime.Now.ToString("s") + " db_schedule_assignments.Update: Transaction will COMMIT.");
           transaction.Commit();
@@ -3802,7 +3803,8 @@ namespace Class_db_schedule_assignments
           transaction.Rollback();
           if (e.ToString().Contains("Deadlock found when trying to get lock; try restarting transaction"))
             {
-            new MySqlCommand("drop temporary table if exists shift_popularity",connection).ExecuteNonQuery();
+            using var my_sql_command_17 = new MySqlCommand("drop temporary table if exists shift_popularity",connection);
+            my_sql_command_17.ExecuteNonQuery();
             }
           else
             {

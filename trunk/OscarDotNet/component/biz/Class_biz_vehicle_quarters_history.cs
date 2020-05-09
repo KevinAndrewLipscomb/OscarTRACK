@@ -10,8 +10,8 @@ namespace Class_biz_vehicle_quarters_history
   {
   public class TClass_biz_vehicle_quarters_history
     {
-    private TClass_biz_members biz_members = null;
-    private TClass_db_vehicle_quarters_history db_vehicle_quarters_history = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_db_vehicle_quarters_history db_vehicle_quarters_history = null;
 
     public TClass_biz_vehicle_quarters_history() : base()
       {

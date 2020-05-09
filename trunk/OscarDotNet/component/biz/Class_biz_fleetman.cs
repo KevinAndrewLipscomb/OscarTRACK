@@ -3,7 +3,6 @@ using Class_db_notifications;
 using kix;
 using System;
 using System.Configuration;
-using System.Text.RegularExpressions;
 
 namespace Class_biz_fleetman
   {
@@ -11,8 +10,8 @@ namespace Class_biz_fleetman
   public class TClass_biz_fleetman
     {
 
-    private TClass_db_agencies db_agencies = null;
-    private TClass_db_notifications db_notifications = null;
+    private readonly TClass_db_agencies db_agencies = null;
+    private readonly TClass_db_notifications db_notifications = null;
 
     internal TClass_biz_fleetman() : base()
       {

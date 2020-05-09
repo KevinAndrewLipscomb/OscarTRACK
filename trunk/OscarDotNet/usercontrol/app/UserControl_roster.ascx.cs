@@ -408,22 +408,22 @@ namespace UserControl_roster
                 {
                     if ((e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text != "&nbsp;") && (e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text != "EDP"))
                     {
-                        p.num_raw_shifts = p.num_raw_shifts + uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text);
+                        p.num_raw_shifts += uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT_OBLIGATION].Text);
                     }
                     if ((e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text != "&nbsp;") && (e.Item.Cells[Class_db_members_Static.TCCI_ENROLLMENT].Text != "EDP"))
                     {
-                        p.num_cooked_shifts = p.num_cooked_shifts + uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text);
+                        p.num_cooked_shifts += uint.Parse(e.Item.Cells[Class_db_members_Static.TCCI_OBLIGED_SHIFTS].Text);
                     }
                     if (e.Item.Cells[Class_db_members_Static.TCCI_COMMITMENT_LEVEL_CODE].Text.CompareTo("1") > 0)
                     {
-                        p.num_core_ops_members = p.num_core_ops_members + 1;
+                        p.num_core_ops_members++;
                         if (e.Item.Cells[Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Text != "&nbsp;")
                         {
                             p.years_of_service_array_list.Add(decimal.Parse(e.Item.Cells[Class_db_members_Static.TCCI_LENGTH_OF_SERVICE].Text));
                         }
                         if (e.Item.Cells[Class_db_members_Static.TCCI_COMMITMENT_LEVEL_CODE].Text == "3")
                         {
-                            p.num_standard_commitments = p.num_standard_commitments + 1;
+                            p.num_standard_commitments++;
                         }
                     }
                 }
@@ -445,7 +445,7 @@ namespace UserControl_roster
                   }
                 e.Item.Cells[Class_db_members_Static.TCCI_ID].EnableViewState = true;
                 //
-                p.num_datagrid_rows = p.num_datagrid_rows + 1;
+                p.num_datagrid_rows++;
             }
 
         }
@@ -485,7 +485,6 @@ namespace UserControl_roster
             p.distribution_list_sms = k.EMPTY;
             p.biz_members.BindRoster
               (
-              member_id:Session["member_id"].ToString(),
               sort_order:p.sort_order,
               be_sort_order_ascending:p.be_sort_order_ascending,
               target:R,
@@ -600,7 +599,6 @@ namespace UserControl_roster
       {
       ExportToCsv
         (
-        the_page:Page,
         filename_sans_extension:ConfigurationManager.AppSettings["application_name"] + "_filtered_QuickMessage_targets_" + DateTime.Now.ToString("yyyy_MM_dd_HHmm_ss_fffffff"),
         csv_string:(RadioButtonList_quick_message_mode.SelectedValue == "email" ? p.distribution_list_email : p.distribution_list_sms).Replace(k.COMMA_SPACE,k.NEW_LINE)
         );

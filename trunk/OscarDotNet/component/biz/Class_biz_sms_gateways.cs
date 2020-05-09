@@ -2,14 +2,12 @@
 
 using Class_db_sms_gateways;
 using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_sms_gateways
   {
   public class TClass_biz_sms_gateways
     {
-    private TClass_db_sms_gateways db_sms_gateways = null;
+    private readonly TClass_db_sms_gateways db_sms_gateways = null;
 
     public TClass_biz_sms_gateways() : base()
       {

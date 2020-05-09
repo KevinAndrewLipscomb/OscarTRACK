@@ -1,9 +1,7 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_tapouts;
-using kix;
 using System;
-using System.Collections;
 
 namespace Class_biz_tapouts
   {
@@ -17,7 +15,7 @@ namespace Class_biz_tapouts
 
   public class TClass_biz_tapouts
     {
-    private TClass_db_tapouts db_tapouts = null;
+    private readonly TClass_db_tapouts db_tapouts = null;
 
     public TClass_biz_tapouts() : base()
       {

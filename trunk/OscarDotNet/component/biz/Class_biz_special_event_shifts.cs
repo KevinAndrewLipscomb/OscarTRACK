@@ -9,7 +9,7 @@ namespace Class_biz_special_event_shifts
   {
   public class TClass_biz_special_event_shifts
     {
-    private TClass_db_special_event_shifts db_special_event_shifts = null;
+    private readonly TClass_db_special_event_shifts db_special_event_shifts = null;
 
     public TClass_biz_special_event_shifts() : base()
       {

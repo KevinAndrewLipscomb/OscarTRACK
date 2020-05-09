@@ -59,12 +59,12 @@ namespace UserControl_ranked_standard_enrollment
             if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
             {
                 // We are dealing with a data row, not a header or footer row.
-                p.rank = p.rank + 1;
+                p.rank++;
                 e.Item.Cells[0].Text = p.rank.ToString();
                 num_cooked_shifts = decimal.Parse(e.Item.Cells[2].Text);
                 num_raw_shifts = decimal.Parse(e.Item.Cells[3].Text);
-                p.total_cooked = p.total_cooked + num_cooked_shifts;
-                p.total_raw = p.total_raw + num_raw_shifts;
+                p.total_cooked += num_cooked_shifts;
+                p.total_raw += num_raw_shifts;
                 //e.Item.Cells[4].Text = (num_cooked_shifts / num_raw_shifts).ToString("P0");
             }
         }

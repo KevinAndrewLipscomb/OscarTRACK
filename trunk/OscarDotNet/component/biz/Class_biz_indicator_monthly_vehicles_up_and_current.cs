@@ -8,7 +8,7 @@ namespace Class_biz_indicator_monthly_vehicles_up_and_current
   public class TClass_biz_indicator_monthly_vehicles_up_and_current
     {
 
-    private TClass_db_indicator_monthly_vehicles_up_and_current db_indicator_monthly_vehicles_up_and_current = null;
+    private readonly TClass_db_indicator_monthly_vehicles_up_and_current db_indicator_monthly_vehicles_up_and_current = null;
 
     public TClass_biz_indicator_monthly_vehicles_up_and_current() : base()
       {

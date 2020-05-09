@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_agency_satellite_stations;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_agency_satellite_stations
   {
   public class TClass_biz_agency_satellite_stations
     {
-    private TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
+    private readonly TClass_db_agency_satellite_stations db_agency_satellite_stations = null;
 
     public TClass_biz_agency_satellite_stations() : base()
       {

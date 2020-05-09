@@ -82,7 +82,7 @@ namespace change_leave
                         i = 0;
                         while (DropDownList_start_month.Items[(int)i].Text != Label_saved_start_month.Text)
                         {
-                            i = i + 1;
+                            i++;
                         }
                         DropDownList_start_month.SelectedIndex = (int)i;
                         p.saved_effective_start_month_offset = k.Safe(DropDownList_start_month.SelectedValue, k.safe_hint_type.NUM);
@@ -99,7 +99,7 @@ namespace change_leave
                     i = 0;
                     while (DropDownList_end_month.Items[(int)i].Text != Label_saved_end_month.Text)
                     {
-                        i = i + 1;
+                        i++;
                     }
                     DropDownList_end_month.SelectedIndex = (int)i;
                     // Kind of leave
@@ -113,7 +113,7 @@ namespace change_leave
                     i = 0;
                     while (DropDownList_kind_of_leave.Items[(int)i].Text != saved_kind_of_leave_mapped_to_currently_valid_equivalent)
                       {
-                      i = i + 1;
+                      i++;
                       }
                     DropDownList_kind_of_leave.SelectedIndex = (int)i;
                     //

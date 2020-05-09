@@ -40,7 +40,7 @@ namespace UserControl_eval_object_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == UserControl_eval_object_binder_Static.TSSI_SKILL_RATINGS)
@@ -73,10 +73,6 @@ namespace UserControl_eval_object_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_patient_age_unit",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     // / <summary>

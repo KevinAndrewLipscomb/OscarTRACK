@@ -12,7 +12,7 @@ namespace Class_biz_fund_drives
     //
     //--
 
-    private TClass_db_role_member_map db_role_member_map = null;
+    private readonly TClass_db_role_member_map db_role_member_map = null;
 
     //--
     //

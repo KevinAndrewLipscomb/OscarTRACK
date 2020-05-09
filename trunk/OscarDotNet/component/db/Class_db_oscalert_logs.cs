@@ -13,11 +13,13 @@ namespace Class_db_oscalert_logs
 
     internal void BindBaseDataList
       (
+      #pragma warning disable IDE0060 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       object target,
       string impression_filter,
       string recency_filter
+      #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
       var impression_filter_clause = k.EMPTY;
@@ -81,7 +83,7 @@ namespace Class_db_oscalert_logs
           }
         }
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as timestamp"
         + " , content"
@@ -92,8 +94,8 @@ namespace Class_db_oscalert_logs
         +   " and timestamp >= DATE_SUB(NOW(),INTERVAL 1 " + recency_filter_unit + ")"
         + " order by id desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }

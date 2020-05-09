@@ -54,7 +54,7 @@ namespace UserControl_ranked_third_slot_saturation
       if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
         {
         // We are dealing with a data row, not a header or footer row.
-        p.rank = p.rank + 1;
+        p.rank++;
         e.Item.Cells[0].Text = p.rank.ToString();
         var num_third_shifts = decimal.Parse(e.Item.Cells[2].Text);
         var num_crew_shifts = decimal.Parse(e.Item.Cells[3].Text);

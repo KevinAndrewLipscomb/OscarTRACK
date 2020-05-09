@@ -18,9 +18,9 @@ namespace Class_db_schedule_assignment_logs
       public string id;
       }
 
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_user  biz_user = null;
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_user  biz_user = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_schedule_assignment_logs() : base()
       {
@@ -34,7 +34,7 @@ namespace Class_db_schedule_assignment_logs
       var concat_clause = "concat(IFNULL(assignment_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(action,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -42,8 +42,8 @@ namespace Class_db_schedule_assignment_logs
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -63,7 +63,7 @@ namespace Class_db_schedule_assignment_logs
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT DATE_FORMAT(timestamp,'%Y-%m-%d %H:%i:%s') as at"
         + " , concat(actor.first_name,' ',actor.last_name) as scheduler"
@@ -82,8 +82,8 @@ namespace Class_db_schedule_assignment_logs
         +   " and timestamp > DATE_SUB(CURDATE(),INTERVAL " + days_old + " DAY)"
         + " order by timestamp",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -96,21 +96,19 @@ namespace Class_db_schedule_assignment_logs
       {
       var be_agency_id_applicable = (agency_id.Length > 0);
       Open();
-      var forecast_slots = 2*Decimal.Parse
+      using var my_sql_command_1 = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          " select value"
-          + " from indicator_crew_shifts_forecast"
-          + " where year = YEAR(CURDATE())"
-          +   " and month = MONTH(CURDATE())"
-          +   " and" + (be_agency_id_applicable ? k.EMPTY : " not") + " be_agency_id_applicable"
-          +   " and agency_id = '" + agency_id + "'",
-          connection
-          )
-          .ExecuteScalar().ToString()
+        " select value"
+        + " from indicator_crew_shifts_forecast"
+        + " where year = YEAR(CURDATE())"
+        +   " and month = MONTH(CURDATE())"
+        +   " and" + (be_agency_id_applicable ? k.EMPTY : " not") + " be_agency_id_applicable"
+        +   " and agency_id = '" + agency_id + "'",
+        connection
         );
-      new MySqlCommand
+      var forecast_slots = 2*Decimal.Parse(my_sql_command_1.ExecuteScalar().ToString());
+      //
+      using var my_sql_command_2 = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -122,8 +120,8 @@ namespace Class_db_schedule_assignment_logs
           + " , value = 100.0*(" + forecast_slots.ToString() + " - " + num_released_core_ops_tapouts.val.ToString() + ")/" + forecast_slots.ToString()
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_2.ExecuteNonQuery();
       Close();
       }
 
@@ -131,15 +129,15 @@ namespace Class_db_schedule_assignment_logs
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(assignment_id,'-'),'|',IFNULL(timestamp,'-'),'|',IFNULL(actor_member_id,'-'),'|',IFNULL(action,'-')) USING utf8) as spec"
         + " FROM schedule_assignment_log"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -176,7 +174,7 @@ namespace Class_db_schedule_assignment_logs
       )
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT sal_last.id as id"
         + " , short_designator as agency"
@@ -210,8 +208,8 @@ namespace Class_db_schedule_assignment_logs
         +   (agency_filter.Length > 0 ? " and provider.agency_id = '" + agency_filter + "'" : k.EMPTY)
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -237,7 +235,7 @@ namespace Class_db_schedule_assignment_logs
     internal void BindRankedScheduledDutyCompliance(object target)
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select NULL as `rank`"
         + " , concat(medium_designator,' - ',long_designator) as agency"
@@ -250,8 +248,8 @@ namespace Class_db_schedule_assignment_logs
         +   " and be_agency_id_applicable = TRUE"
         + " order by value desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -262,7 +260,8 @@ namespace Class_db_schedule_assignment_logs
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from schedule_assignment_log where id = '" + id + "'"), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from schedule_assignment_log where id = '" + id + "'"), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -286,7 +285,7 @@ namespace Class_db_schedule_assignment_logs
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -296,8 +295,8 @@ namespace Class_db_schedule_assignment_logs
           + " , action = NULLIF('" + action + "','')"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -317,7 +316,8 @@ namespace Class_db_schedule_assignment_logs
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from schedule_assignment_log where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from schedule_assignment_log where CAST(id AS CHAR) = '" + id + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         assignment_id = dr["assignment_id"].ToString();
@@ -334,12 +334,12 @@ namespace Class_db_schedule_assignment_logs
     internal string OverallScheduledDutyCompliance()
       {
       Open();
-      var overall_scheduled_duty_compliance_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select FORMAT(value,0) from indicator_scheduled_duty_compliance where year = YEAR(SUBDATE(CURDATE(),INTERVAL 1 MONTH)) and month = MONTH(SUBDATE(CURDATE(),INTERVAL 1 MONTH)) and not be_agency_id_applicable",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var overall_scheduled_duty_compliance_obj = my_sql_command.ExecuteScalar();
       Close();
       return (overall_scheduled_duty_compliance_obj == null ? k.EMPTY : overall_scheduled_duty_compliance_obj.ToString());
       }
@@ -371,17 +371,14 @@ namespace Class_db_schedule_assignment_logs
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT *"
-          + " FROM schedule_assignment_log"
-          + " where id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT *"
+        + " FROM schedule_assignment_log"
+        + " where id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new schedule_assignment_log_summary()
         {

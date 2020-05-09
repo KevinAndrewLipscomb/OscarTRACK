@@ -20,7 +20,7 @@ namespace Class_db_roles
     public class TClass_db_roles: TClass_db
     {
 
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
 
         public TClass_db_roles() : base()
         {
@@ -35,8 +35,9 @@ namespace Class_db_roles
           )
           {
           Open();
-          var be_pecking_order_at_least = "1" == new MySqlCommand
-            ("select IF((select pecking_order from role where name = '" + subject_name + "') <= (select pecking_order from role where name = '" + object_name + "'),1,0)",connection).ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand
+            ("select IF((select pecking_order from role where name = '" + subject_name + "') <= (select pecking_order from role where name = '" + object_name + "'),1,0)",connection);
+          var be_pecking_order_at_least = "1" == my_sql_command.ExecuteScalar().ToString();
           Close();
           return be_pecking_order_at_least;
           }
@@ -47,7 +48,8 @@ namespace Class_db_roles
             MySqlDataReader dr;
             this.Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by pecking_order", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
@@ -70,14 +72,15 @@ namespace Class_db_roles
             where_clause = " where name <> \"Member\"";
             if (tier_quoted_value_list != k.DOUBLE_QUOTE)
             {
-                where_clause = where_clause + " and (tier_id in (" + tier_quoted_value_list + "))";
+                where_clause += " and (tier_id in (" + tier_quoted_value_list + "))";
             }
             if (!has_config_roles_and_matrices)
             {
-                where_clause = where_clause + " and (name <> \"Application Administrator\")";
+                where_clause += " and (name <> \"Application Administrator\")";
             }
             this.Open();
-            dr = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
@@ -112,7 +115,8 @@ namespace Class_db_roles
             result = true;
             this.Open();
             try {
-                new MySqlCommand(db_trail.Saved("delete from role where name = \"" + name + "\""), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role where name = \"" + name + "\""), this.connection);
+                my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
                 if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
@@ -141,7 +145,8 @@ namespace Class_db_roles
           be_occasional = false;
           var result = false;
           Open();
-          var dr = new MySqlCommand("select * from role where CAST(name AS CHAR) = '" + name + "'", connection).ExecuteReader();
+          using var my_sql_command = new MySqlCommand("select * from role where CAST(name AS CHAR) = '" + name + "'", connection);
+          var dr = my_sql_command.ExecuteReader();
           if (dr.Read())
             {
             name = dr["name"].ToString();
@@ -159,7 +164,8 @@ namespace Class_db_roles
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select name from role where id = \"" + id + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select name from role where id = \"" + id + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -176,7 +182,7 @@ namespace Class_db_roles
           + " , pecking_order = NULLIF('" + pecking_order + "','')"
           + " , be_occasional = " + be_occasional.ToString();
           Open();
-          new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -187,8 +193,8 @@ namespace Class_db_roles
               + childless_field_assignments_clause
               ),
             connection
-            )
-            .ExecuteNonQuery();
+            );
+          my_sql_command.ExecuteNonQuery();
           Close();
           }
 
@@ -196,7 +202,8 @@ namespace Class_db_roles
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select tier_id from role where id = \"" + id + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select tier_id from role where id = \"" + id + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -205,7 +212,8 @@ namespace Class_db_roles
           {
           const string LOWEST_POSSIBLE_TIER_STRING = "255";
           Open();
-          var tier_of_name_obj = new MySqlCommand("select IFNULL(tier_id," + LOWEST_POSSIBLE_TIER_STRING + ") as tier_id from role where name = '" + name + "'",connection).ExecuteScalar().ToString();
+          using var my_sql_command = new MySqlCommand("select IFNULL(tier_id," + LOWEST_POSSIBLE_TIER_STRING + ") as tier_id from role where name = '" + name + "'",connection);
+          var tier_of_name_obj = my_sql_command.ExecuteScalar().ToString();
           Close();
           return (tier_of_name_obj == null ? LOWEST_POSSIBLE_TIER_STRING : tier_of_name_obj.ToString());
           }

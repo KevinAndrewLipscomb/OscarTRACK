@@ -334,8 +334,7 @@ namespace UserControl_efficipay_docket
       var status = p.biz_efficipay_dockets.StatusOf(p.id,p.check_num,CheckBox_be_ready_for_review.Checked,p.signer_1_member_id,p.signer_2_member_id);
       if ((HyperLink_printable_overlay.NavigateUrl.Length == 0) && (status > Class_biz_efficipay_dockets_Static.NEEDS_AN_ATTACHMENT))
         {
-        var final_check_imprint_hashtable = new Hashtable();
-        final_check_imprint_hashtable["efficipay_docket_id"] = p.id;
+        var final_check_imprint_hashtable = new Hashtable {["efficipay_docket_id"] = p.id};
         HyperLink_printable_overlay.NavigateUrl = "~/protected/efficipay_final_check_imprint.aspx?" + ShieldedQueryStringOfHashtable(final_check_imprint_hashtable);
         }
       if (status == Class_biz_efficipay_dockets_Static.NEEDS_CHECK_NUM)

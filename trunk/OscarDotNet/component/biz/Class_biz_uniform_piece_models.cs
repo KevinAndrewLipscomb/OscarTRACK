@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_piece_models;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_piece_models
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_piece_models
 
   public class TClass_biz_uniform_piece_models
     {
-    private TClass_db_uniform_piece_models db_uniform_piece_models = null;
+    private readonly TClass_db_uniform_piece_models db_uniform_piece_models = null;
 
     public TClass_biz_uniform_piece_models() : base()
       {

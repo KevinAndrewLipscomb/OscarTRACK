@@ -25,11 +25,11 @@ namespace Class_biz_efficipay_dockets
 
   public class TClass_biz_efficipay_dockets
     {
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_db_efficipay_dockets db_efficipay_dockets = null;
-    private TClass_db_efficipay_tokens db_efficipay_tokens = null;
-    private TClass_db_members db_members = null;
-    private TClass_db_role_member_map db_role_member_map = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_db_efficipay_dockets db_efficipay_dockets = null;
+    private readonly TClass_db_efficipay_tokens db_efficipay_tokens = null;
+    private readonly TClass_db_members db_members = null;
+    private readonly TClass_db_role_member_map db_role_member_map = null;
 
     public TClass_biz_efficipay_dockets() : base()
       {
@@ -87,7 +87,7 @@ namespace Class_biz_efficipay_dockets
       var trimmed_signer_last_name = signer_last_name.Trim();
       var normalized_signer_last_name = trimmed_signer_last_name.Substring(0,1).ToUpper() + trimmed_signer_last_name.Substring(1).ToLower();
       var byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + signer_member_id + k.SPACE + normalized_signer_first_name + k.SPACE + normalized_signer_last_name + k.SPACE + db_efficipay_tokens.GetById(token_id));
-      var crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(byte_buf),false);
+      using var crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(byte_buf),false);
       crc_calculator_stream.Read(byte_buf,0,byte_buf.Length);
       return (crc_calculator_stream.Crc.ToString("X8") == hex_code.ToUpper());
       }
@@ -181,12 +181,12 @@ namespace Class_biz_efficipay_dockets
       var current_token = db_efficipay_tokens.Current();
       //
       var first_byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + first_signer + k.SPACE + current_token);
-      var first_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(first_byte_buf),false);
+      using var first_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(first_byte_buf),false);
       first_crc_calculator_stream.Read(first_byte_buf,0,first_byte_buf.Length);
       first_hash = first_crc_calculator_stream.Crc.ToString("X8");
       //
       var second_byte_buf = UTF8Encoding.Default.GetBytes(check_num + k.SPACE + second_signer + k.SPACE + current_token);
-      var second_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(second_byte_buf),false);
+      using var second_crc_calculator_stream = new CrcCalculatorStream(new MemoryStream(second_byte_buf),false);
       second_crc_calculator_stream.Read(second_byte_buf,0,second_byte_buf.Length);
       second_hash = second_crc_calculator_stream.Crc.ToString("X8");
       }

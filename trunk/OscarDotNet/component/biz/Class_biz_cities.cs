@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_cities;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_cities
   {
   public class TClass_biz_cities
     {
-    private TClass_db_cities db_cities = null;
+    private readonly TClass_db_cities db_cities = null;
 
     public TClass_biz_cities() : base()
       {

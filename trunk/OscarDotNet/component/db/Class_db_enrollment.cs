@@ -15,8 +15,8 @@ namespace Class_db_enrollment
 
     public class TClass_db_enrollment: TClass_db
     {
-        private TClass_db_agencies db_agencies = null;
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_agencies db_agencies = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_enrollment() : base()
         {
@@ -28,15 +28,15 @@ namespace Class_db_enrollment
         internal bool BeCoreOpsCommitted(string enrollment_level_code)
           {
           Open();
-          var be_core_ops_committed = "1" == new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select core_ops_commitment_level.name <> 'None'"
             + " from enrollment_level"
             +   " join core_ops_commitment_level on (core_ops_commitment_level.code=enrollment_level.core_ops_commitment_level_code)"
             + " where enrollment_level.code = '" + enrollment_level_code + "'",
             connection
-            )
-            .ExecuteScalar().ToString();
+            );
+          var be_core_ops_committed = "1" == my_sql_command.ExecuteScalar().ToString();
           Close();
           return be_core_ops_committed;
           }
@@ -44,7 +44,7 @@ namespace Class_db_enrollment
     public void BindDeparturesEffectiveToday(object target)
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT CONCAT(agency.long_designator,' ',former_level.description,' member ',first_name,' ',last_name,' (CAD# ',cad_num,', ',medical_release_code_description_map.description,') has transitioned to the *',current_level.description,'* status effective today.') as departure"
         + " FROM enrollment_history as current"
@@ -58,8 +58,8 @@ namespace Class_db_enrollment
         +   " and current.end_date is null"
         +   " and current_level.pecking_order >= 100",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -71,7 +71,8 @@ namespace Class_db_enrollment
             // column 1
             // column 2
             // column 3
-            ((target) as DataGrid).DataSource = new MySqlCommand("select enrollment_history.id as id" + " , date_format(start_date,\"%Y-%m-%d\") as start_date" + " , enrollment_level.description as description" + " , note" + " from enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " where member.id = " + member_id + " order by start_date desc, enrollment_history.id desc", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select enrollment_history.id as id" + " , date_format(start_date,\"%Y-%m-%d\") as start_date" + " , enrollment_level.description as description" + " , note" + " from enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + " where member.id = " + member_id + " order by start_date desc, enrollment_history.id desc", this.connection);
+            ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
             ((target) as DataGrid).DataBind();
             this.Close();
         }
@@ -80,7 +81,7 @@ namespace Class_db_enrollment
       {
       Open();
       ((target) as RadioButtonList).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT DISTINCT valid_next_level_code"
         + " , description"
@@ -124,8 +125,8 @@ namespace Class_db_enrollment
         +     " authorized_tier_id >= '" + tier_id + "'"
         + " order by pecking_order",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as RadioButtonList).Items.Add
@@ -148,7 +149,8 @@ namespace Class_db_enrollment
             this.Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-            dr = new MySqlCommand("SELECT code, description from enrollment_level where be_hereafter_valid order by pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT code, description from enrollment_level where be_hereafter_valid order by pecking_order", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
@@ -161,7 +163,8 @@ namespace Class_db_enrollment
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select elaboration from enrollment_level where description = \"" + description + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select elaboration from enrollment_level where description = \"" + description + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -170,7 +173,8 @@ namespace Class_db_enrollment
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select code from enrollment_level where description = \"" + description + "\"", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select code from enrollment_level where description = \"" + description + "\"", this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -183,21 +187,18 @@ namespace Class_db_enrollment
           )
           {
           Open();
-          var dr =
+          using var my_sql_command = new MySqlCommand
             (
-            new MySqlCommand
-              (
-              "select description"
-              + " , IF(IFNULL(start_date,'0000-00-00') = '0000-00-00','0001-01-01',start_date) as start_date"
-              + " from enrollment_history"
-              +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
-              + " where member_id = '" + member_id + "'"
-              + " order by start_date desc, id desc"
-              + " limit 1",
-              connection
-              )
-              .ExecuteReader()
+            "select description"
+            + " , IF(IFNULL(start_date,'0000-00-00') = '0000-00-00','0001-01-01',start_date) as start_date"
+            + " from enrollment_history"
+            +   " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)"
+            + " where member_id = '" + member_id + "'"
+            + " order by start_date desc, id desc"
+            + " limit 1",
+            connection
             );
+          var dr = my_sql_command.ExecuteReader();
           dr.Read();
           description = dr["description"].ToString();
           effective_date = DateTime.Parse(dr["start_date"].ToString());
@@ -208,7 +209,8 @@ namespace Class_db_enrollment
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select description from enrollment_level where code = " + level_code, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select description from enrollment_level where code = " + level_code, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -220,7 +222,8 @@ namespace Class_db_enrollment
             Queue member_id_q;
             member_id_q = new Queue();
             this.Open();
-            dr = new MySqlCommand("select member_id" + " from enrollment_history" + " where id > " + watermark + " and level_code = 16" + " and end_date is null", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select member_id" + " from enrollment_history" + " where id > " + watermark + " and level_code = 16" + " and end_date is null", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 member_id_q.Enqueue(dr["member_id"]);
@@ -236,9 +239,11 @@ namespace Class_db_enrollment
             string result;
             string watermark;
             this.Open();
-            watermark = new MySqlCommand("select max(id) from enrollment_history", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command_1 = new MySqlCommand("select max(id) from enrollment_history", this.connection);
+            watermark = my_sql_command_1.ExecuteScalar().ToString();
             // Deliberately not db_trail.Saved.
-            new MySqlCommand("START TRANSACTION;" + " insert into enrollment_history (member_id,level_code,start_date,end_date)" + " SELECT member_id,16,curdate(),NULL" + " FROM enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " update enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " set end_date = curdate()" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " COMMIT", this.connection).ExecuteNonQuery();
+            using var my_sql_command_2 = new MySqlCommand("START TRANSACTION;" + " insert into enrollment_history (member_id,level_code,start_date,end_date)" + " SELECT member_id,16,curdate(),NULL" + " FROM enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " update enrollment_history" + " join member on (member.id=enrollment_history.member_id)" + " set end_date = curdate()" + " where level_code = 17" + " and end_date is null" + " and start_date <= date_sub(curdate(),interval 1 year)" + " and enrollment_history.id <= " + watermark + " ;" + " COMMIT", this.connection);
+            my_sql_command_2.ExecuteNonQuery();
             this.Close();
             result = watermark;
             return result;
@@ -249,9 +254,10 @@ namespace Class_db_enrollment
             string result;
             string watermark;
             this.Open();
-            watermark = new MySqlCommand("select max(id) from enrollment_history", this.connection).ExecuteScalar().ToString();
+            using var my_sql_command_1 = new MySqlCommand("select max(id) from enrollment_history", this.connection);
+            watermark = my_sql_command_1.ExecuteScalar().ToString();
             // Deliberately not db_trail.Saved.
-            new MySqlCommand
+            using var my_sql_command_2 = new MySqlCommand
               (
               "START TRANSACTION"
               + ";"
@@ -321,8 +327,8 @@ namespace Class_db_enrollment
               + ";"
               + " COMMIT",
               connection
-              )
-              .ExecuteNonQuery();
+              );
+            my_sql_command_2.ExecuteNonQuery();
             this.Close();
             result = watermark;
             return result;
@@ -336,7 +342,7 @@ namespace Class_db_enrollment
       //
       // Regular members approaching Life status
       //
-      dr = new MySqlCommand
+      using var my_sql_command_1 = new MySqlCommand
         (
         "select member_id"
         + " FROM enrollment_history"
@@ -345,8 +351,8 @@ namespace Class_db_enrollment
         +   " and end_date is null"
         +   " and equivalent_los_start_date = date_sub(curdate(),interval 119 month)", // one month shy of 10 years
         connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command_1.ExecuteReader();
       while (dr.Read())
         {
         member_id_q.Enqueue(dr["member_id"].ToString());
@@ -355,7 +361,7 @@ namespace Class_db_enrollment
       //
       // Life members approaching Senior status
       //
-      dr = new MySqlCommand
+      using var my_sql_command_2 = new MySqlCommand
         (
         "select member_id"
         + " FROM enrollment_history"
@@ -364,8 +370,8 @@ namespace Class_db_enrollment
         +   " and end_date is null"
         +   " and equivalent_los_start_date = date_sub(curdate(),interval 239 month)", // one month shy of 20 years
         connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command_2.ExecuteReader();
       while (dr.Read())
         {
         member_id_q.Enqueue(dr["member_id"].ToString());
@@ -374,7 +380,7 @@ namespace Class_db_enrollment
       //
       // Senior members approaching Tenured status
       //
-      dr = new MySqlCommand
+      using var my_sql_command_3 = new MySqlCommand
         (
         "select member_id"
         + " FROM enrollment_history"
@@ -383,8 +389,8 @@ namespace Class_db_enrollment
         +   " and end_date is null"
         +   " and equivalent_los_start_date = date_sub(curdate(),interval 359 month)", // one month shy of 30 years
         connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command_3.ExecuteReader();
       while (dr.Read())
         {
         member_id_q.Enqueue(dr["member_id"].ToString());
@@ -400,7 +406,8 @@ namespace Class_db_enrollment
             uint result;
             object num_obliged_shifts_obj;
             this.Open();
-            num_obliged_shifts_obj = new MySqlCommand("select num_shifts from enrollment_level where description = \"" + description + "\"", this.connection).ExecuteScalar();
+            using var my_sql_command = new MySqlCommand("select num_shifts from enrollment_level where description = \"" + description + "\"", this.connection);
+            num_obliged_shifts_obj = my_sql_command.ExecuteScalar();
             if (num_obliged_shifts_obj != DBNull.Value)
             {
                 result = uint.Parse(num_obliged_shifts_obj.ToString());
@@ -417,7 +424,7 @@ namespace Class_db_enrollment
           {
           var member_id_q = new Queue();
           Open();
-          var dr = new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             "select member_id"
             + " from enrollment_history"
@@ -426,8 +433,8 @@ namespace Class_db_enrollment
             +   " and description in ('Life','Senior','Tenured BLS','Tenured ALS')"
             +   " and end_date is null",
             connection
-            )
-            .ExecuteReader();
+            );
+          var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
             member_id_q.Enqueue(dr["member_id"]);
@@ -454,7 +461,7 @@ namespace Class_db_enrollment
             try {
                 // No matter what, we need to know the latest start date of the member's enrollment history because we must make sure the new
                 // status does not take effect prior.  We might also need to know the current level.  Just retrieve both values.
-                dr = new MySqlCommand
+                using var my_sql_command_1 = new MySqlCommand
                   (
                   "select DATE_FORMAT(start_date,'%Y-%m-%d') as start_date"
                   + " , level_code"
@@ -464,8 +471,8 @@ namespace Class_db_enrollment
                   + " limit 1",
                   connection,
                   transaction
-                  )
-                  .ExecuteReader();
+                  );
+                dr = my_sql_command_1.ExecuteReader();
                 dr.Read();
                 var start_date_string = dr["start_date"].ToString();
                 latest_start_date = (start_date_string == "0000-00-00" ? effective_date : DateTime.Parse(start_date_string));
@@ -473,19 +480,24 @@ namespace Class_db_enrollment
                 dr.Close();
                 if (effective_date >= latest_start_date)
                 {
-                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 23, 24, 25, 28}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction).ExecuteScalar()))
+                    using var my_sql_command_2 = new MySqlCommand("select equivalent_los_start_date from member where id = \"" + member_id + "\"", connection, transaction);
+                    if ((new ArrayList(new uint[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 18, 23, 24, 25, 28}).Contains(uint.Parse(new_level_code))) && (DBNull.Value == my_sql_command_2.ExecuteScalar()))
                     {
                         // This member's new status counts toward length-of-service, and the member has never had such a status before.
-                        new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), connection, transaction).ExecuteNonQuery();
+                        using var my_sql_command_3 = new MySqlCommand(db_trail.Saved("update member set equivalent_los_start_date = \"" + effective_date_string + "\" where id = \"" + member_id + "\""), connection, transaction);
+                        my_sql_command_3.ExecuteNonQuery();
                     }
                     else if (new ArrayList(new uint[] {10, 11, 12, 13, 14, 15, 16, 22}).Contains(current_level_code))
                     {
                         // The member has been spending time in a status that does not count toward length-of-service, so advance the member's
                         // equivalent_los_start_date.
-                        new MySqlCommand(db_trail.Saved("update member" + " set equivalent_los_start_date =" + " ADDDATE(equivalent_los_start_date,DATEDIFF(\"" + effective_date_string + "\",\"" + latest_start_date.ToString("yyyy-MM-dd") + "\"))" + " where id = \"" + member_id + "\""), connection, transaction).ExecuteNonQuery();
+                        using var my_sql_command_4 = new MySqlCommand(db_trail.Saved("update member" + " set equivalent_los_start_date =" + " ADDDATE(equivalent_los_start_date,DATEDIFF(\"" + effective_date_string + "\",\"" + latest_start_date.ToString("yyyy-MM-dd") + "\"))" + " where id = \"" + member_id + "\""), connection, transaction);
+                        my_sql_command_4.ExecuteNonQuery();
                     }
-                    new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), connection, transaction).ExecuteNonQuery();
-                    new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), connection, transaction).ExecuteNonQuery();
+                    using var my_sql_command_5 = new MySqlCommand(db_trail.Saved("update enrollment_history" + " set end_date = \"" + effective_date_string + "\"" + " where member_id = " + member_id + " and end_date is null"), connection, transaction);
+                    my_sql_command_5.ExecuteNonQuery();
+                    using var my_sql_command_6 = new MySqlCommand(db_trail.Saved("insert enrollment_history" + " set member_id = " + member_id + " , level_code = " + new_level_code + " , start_date = \"" + effective_date_string + "\"" + " , note = \"" + note + "\""), connection, transaction);
+                    my_sql_command_6.ExecuteNonQuery();
                     var ok_so_far = true;
                     var be_member_squad_affiliation_weak = (new ArrayList(new uint[] {11,12,14,15,16,20,22}).Contains(current_level_code));
                     if (be_member_squad_affiliation_weak && !(new_level_code == "13"))
@@ -494,15 +506,17 @@ namespace Class_db_enrollment
                       // A transfer is being completed.
                       //
                       ok_so_far = (target_agency_id != k.EMPTY);
-                      new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), connection, transaction).ExecuteNonQuery();
+                      using var my_sql_command_7 = new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), connection, transaction);
+                      my_sql_command_7.ExecuteNonQuery();
                       }
                     if ((new ArrayList(new string[] {"11","12","13","14","15","16","20","22"}).Contains(new_level_code)))
                       {
                       //
                       // A transfer or past status is being initiated.  Curtail any existing leave and cancel any future ones.  
                       //
-                      new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),connection,transaction).ExecuteNonQuery();
-                      new MySqlCommand
+                      using var my_sql_command_8 = new MySqlCommand(db_trail.Saved("delete from leave_of_absence where member_id = '" + member_id + "' and start_date >= '" + effective_date.ToString("yyyy-MM-dd") + "'"),connection,transaction);
+                      my_sql_command_8.ExecuteNonQuery();
+                      using var my_sql_command_9 = new MySqlCommand
                         (
                         db_trail.Saved
                           (
@@ -513,8 +527,8 @@ namespace Class_db_enrollment
                           ),
                         connection,
                         transaction
-                        )
-                        .ExecuteNonQuery();
+                        );
+                      my_sql_command_9.ExecuteNonQuery();
                       }
                     if (ok_so_far)
                       {

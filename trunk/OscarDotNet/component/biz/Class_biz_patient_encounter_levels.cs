@@ -7,7 +7,7 @@ namespace Class_biz_patient_encounter_levels
   public class TClass_biz_patient_encounter_levels
     {
 
-    private TClass_db_patient_encounter_levels db_patient_encounter_levels = null;
+    private readonly TClass_db_patient_encounter_levels db_patient_encounter_levels = null;
 
     public TClass_biz_patient_encounter_levels() : base()
       {

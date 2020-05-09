@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_piece_vendors;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_piece_vendors
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_piece_vendors
 
   public class TClass_biz_uniform_piece_vendors
     {
-    private TClass_db_uniform_piece_vendors db_uniform_piece_vendors = null;
+    private readonly TClass_db_uniform_piece_vendors db_uniform_piece_vendors = null;
 
     public TClass_biz_uniform_piece_vendors() : base()
       {

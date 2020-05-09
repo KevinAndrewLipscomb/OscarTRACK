@@ -85,15 +85,15 @@ namespace Class_dbkeyclick_trail
       {
       // Make a local journal entry for convenient review.
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "insert into journal"
         + " set timestamp = CURRENT_TIMESTAMP"
         + " , actor = \"" + HttpContext.Current.User.Identity.Name + "\""
         + " , action = \"" + Regex.Replace(action, Convert.ToString(k.QUOTE), k.DOUBLE_QUOTE) + "\"",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       // Send a representation of the action offsite as a contingency.
       k.SmtpMailSend

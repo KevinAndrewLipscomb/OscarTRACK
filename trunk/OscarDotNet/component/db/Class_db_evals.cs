@@ -31,7 +31,7 @@ namespace Class_db_evals
 
   public class TClass_db_evals: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_evals() : base()
       {
@@ -46,21 +46,22 @@ namespace Class_db_evals
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "update eval set status_id = (select id from eval_status where description = '" + status_description + "')"
         + (be_on_behalf_of_evaluatee ? (status_description == "NEEDS_BOTH_LOCKS" ? " , be_locked_by_third_initially = TRUE" : k.EMPTY) : " , be_locked_by_aic = TRUE")
         + " where id = '" + id + "'",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
     internal bool BeLockedByAicOf(object summary)
       {
       Open();
-      var be_locked_by_aic_of = "1" == new MySqlCommand("select be_locked_by_aic from eval where id = '" + (summary as eval_summary).id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select be_locked_by_aic from eval where id = '" + (summary as eval_summary).id + "'",connection);
+      var be_locked_by_aic_of = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_locked_by_aic_of;
       }
@@ -68,7 +69,8 @@ namespace Class_db_evals
     internal bool BeLockedByThirdInitiallyOf(object summary)
       {
       Open();
-      var be_locked_by_third_initially_of = "1" == new MySqlCommand("select be_locked_by_third_initially from eval where id = '" + (summary as eval_summary).id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select be_locked_by_third_initially from eval where id = '" + (summary as eval_summary).id + "'",connection);
+      var be_locked_by_third_initially_of = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_locked_by_third_initially_of;
       }
@@ -78,7 +80,7 @@ namespace Class_db_evals
       var concat_clause = "concat(id)";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -86,8 +88,8 @@ namespace Class_db_evals
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -136,37 +138,34 @@ namespace Class_db_evals
         filter += " and third_member.section_num = '" + third_section_filter + "'" + k.SPACE;
         }
       Open();
-      (target as BaseDataList).DataSource = 
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select eval.id as id"
-          + " , DATE_FORMAT(nominal_day,'%a %Y-%m-%d') as nominal_day"
-          + " , shift.id as shift_id"
-          + " , shift.name as shift_name"
-          + " , post.short_designator as post_designator"
-          + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
-          + " , vehicle.id as vehicle_id"
-          + " , vehicle.name as vehicle_name"
-          + " , third_member.id as third_member_id"
-          + " , CONCAT(third_member.first_name,' ',third_member.last_name,' <',third_member.section_num) as third_member_name"
-          + " , aic_member.id as aic_member_id"
-          + " , CONCAT(aic_member.first_name,' ',aic_member.last_name) as aic_member_name"
-          + " , eval_status.description as status"
-          + " from eval"
-          +   " join shift on (shift.id=eval.shift_id)"
-          +   " join agency post on (post.id=eval.post_id)"
-          +   " join vehicle on (vehicle.id=eval.vehicle_id)"
-          +   " join member third_member on (third_member.id=eval.third_member_id)"
-          +   " join member aic_member on (aic_member.id=eval.aic_member_id)"
-          +   " join eval_status on (eval_status.id=eval.status_id)"
-          +   " join agency aic_member_agency on (aic_member_agency.id=aic_member.agency_id)"
-          + filter
-          + " order by " + sort_order,
-          connection
-          )
-        .ExecuteReader()
+        "select eval.id as id"
+        + " , DATE_FORMAT(nominal_day,'%a %Y-%m-%d') as nominal_day"
+        + " , shift.id as shift_id"
+        + " , shift.name as shift_name"
+        + " , post.short_designator as post_designator"
+        + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
+        + " , vehicle.id as vehicle_id"
+        + " , vehicle.name as vehicle_name"
+        + " , third_member.id as third_member_id"
+        + " , CONCAT(third_member.first_name,' ',third_member.last_name,' <',third_member.section_num) as third_member_name"
+        + " , aic_member.id as aic_member_id"
+        + " , CONCAT(aic_member.first_name,' ',aic_member.last_name) as aic_member_name"
+        + " , eval_status.description as status"
+        + " from eval"
+        +   " join shift on (shift.id=eval.shift_id)"
+        +   " join agency post on (post.id=eval.post_id)"
+        +   " join vehicle on (vehicle.id=eval.vehicle_id)"
+        +   " join member third_member on (third_member.id=eval.third_member_id)"
+        +   " join member aic_member on (aic_member.id=eval.aic_member_id)"
+        +   " join eval_status on (eval_status.id=eval.status_id)"
+        +   " join agency aic_member_agency on (aic_member_agency.id=aic_member.agency_id)"
+        + filter
+        + " order by " + sort_order,
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -175,15 +174,15 @@ namespace Class_db_evals
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(id) USING utf8) as spec"
         + " FROM eval"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -198,7 +197,8 @@ namespace Class_db_evals
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from eval where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from eval where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -293,7 +293,7 @@ namespace Class_db_evals
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select third_member_id"
         + " , nominal_day"
@@ -323,8 +323,8 @@ namespace Class_db_evals
         + " from eval"
         + " where CAST(id AS CHAR) = '" + id + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         third_member_id = dr["third_member_id"].ToString();
@@ -451,34 +451,31 @@ namespace Class_db_evals
       {
       eval_summary the_summary_base = null;
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select eval.id as id"
-          + " , nominal_day"
-          + " , shift.id as shift_id"
-          + " , shift.name as shift_name"
-          + " , agency.short_designator as post_designator"
-          + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
-          + " , agency.id as post_id"
-          + " , vehicle.id as vehicle_id"
-          + " , vehicle.name as vehicle_name"
-          + " , aic_member.id as aic_member_id"
-          + " , CONCAT(aic_member.first_name,' ',aic_member.last_name) as aic_member_name"
-          + " , third_member.id as third_member_id"
-          + " , CONCAT(third_member.first_name,' ',third_member.last_name) as third_member_name"
-          + " from eval"
-          +   " join shift on (shift.id=eval.shift_id)"
-          +   " join agency on (agency.id=eval.post_id)"
-          +   " join vehicle on (vehicle.id=eval.vehicle_id)"
-          +   " join member aic_member on (aic_member.id=eval.aic_member_id)"
-          +   " join member third_member on (third_member.id=eval.third_member_id)"
-          + " where " + condition_clause,
-          connection
-          )
-          .ExecuteReader()
+        "select eval.id as id"
+        + " , nominal_day"
+        + " , shift.id as shift_id"
+        + " , shift.name as shift_name"
+        + " , agency.short_designator as post_designator"
+        + " , CHAR(ASCII('a') + post_cardinality - 1 using ascii) as post_cardinality"
+        + " , agency.id as post_id"
+        + " , vehicle.id as vehicle_id"
+        + " , vehicle.name as vehicle_name"
+        + " , aic_member.id as aic_member_id"
+        + " , CONCAT(aic_member.first_name,' ',aic_member.last_name) as aic_member_name"
+        + " , third_member.id as third_member_id"
+        + " , CONCAT(third_member.first_name,' ',third_member.last_name) as third_member_name"
+        + " from eval"
+        +   " join shift on (shift.id=eval.shift_id)"
+        +   " join agency on (agency.id=eval.post_id)"
+        +   " join vehicle on (vehicle.id=eval.vehicle_id)"
+        +   " join member aic_member on (aic_member.id=eval.aic_member_id)"
+        +   " join member third_member on (third_member.id=eval.third_member_id)"
+        + " where " + condition_clause,
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         the_summary_base = new eval_summary()
@@ -524,15 +521,15 @@ namespace Class_db_evals
         additional_condition_clause = " and (description = 'NEEDS_BOTH_LOCKS' and be_locked_by_third_initially)";
         }
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select eval.id as id"
         + " from eval join eval_status on (eval_status.id=eval.status_id)"
         + " where NOW() > ADDDATE(time_last_modified ,INTERVAL " + num_days.val + " DAY)"
         +     additional_condition_clause,
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         stalled_id_q.Enqueue(dr["id"].ToString());
@@ -545,7 +542,8 @@ namespace Class_db_evals
     internal string StatusDescriptionOf(object summary)
       {
       Open();
-      var status_description_of = new MySqlCommand("select description from eval_status join eval on (eval.status_id=eval_status.id) where eval.id = '" + (summary as eval_summary).id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select description from eval_status join eval on (eval.status_id=eval_status.id) where eval.id = '" + (summary as eval_summary).id + "'",connection);
+      var status_description_of = my_sql_command.ExecuteScalar().ToString();
       Close();
       return status_description_of;
       }

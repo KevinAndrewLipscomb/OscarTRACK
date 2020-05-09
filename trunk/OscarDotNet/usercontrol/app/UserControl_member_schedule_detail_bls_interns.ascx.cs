@@ -107,7 +107,6 @@ namespace UserControl_member_schedule_detail_bls_interns
       p.relative_month.val = (DateTime.Today.Day <= int.Parse(ConfigurationManager.AppSettings["last_day_of_month_to_actually_wait_for_schedule_availabilities"]) ? 0 : 1);
       p.biz_members.BindRoster
         (
-        member_id:k.EMPTY,
         sort_order:"last_name,first_name,cad_num",
         be_sort_order_ascending:true,
         target:DataGrid_control,

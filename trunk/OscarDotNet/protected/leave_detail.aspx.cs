@@ -262,7 +262,7 @@ namespace leave_detail
           e.Item.Cells[Class_db_leaves_Static.TCCI_NOTE].Attributes.Add("style","color:gray");
           }
         e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text = (e.Item.Cells[Class_db_leaves_Static.TCCI_BE_CANONICAL].Text == "1" ? "BIZ-CYCLE" : "PRECISION");
-        p.num_datagrid_rows = p.num_datagrid_rows + 1;
+        p.num_datagrid_rows++;
         }
       }
 

@@ -36,7 +36,7 @@ namespace UserControl_cad_object_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == Static.TSSI_INCIDENT_NATURES)
@@ -57,10 +57,6 @@ namespace UserControl_cad_object_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_incident_nature_translation",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     // / <summary>
@@ -168,7 +164,7 @@ namespace UserControl_cad_object_binder
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;
         PlaceHolder_content.Controls.Clear();
-        FillPlaceHolder(false,target);
+        FillPlaceHolder(false);
         //
         }
       }

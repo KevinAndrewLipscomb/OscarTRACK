@@ -13,7 +13,7 @@ namespace Class_db_cities
   {
   public class TClass_db_cities: TClass_dbkeyclick
     {
-    private TClass_dbkeyclick_trail dbkeyclick_trail = null;
+    private readonly TClass_dbkeyclick_trail dbkeyclick_trail = null;
 
     public TClass_db_cities() : base()
       {
@@ -27,7 +27,7 @@ namespace Class_db_cities
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select city.id"
         + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
@@ -36,8 +36,8 @@ namespace Class_db_cities
         + " where concat(" + concat_phrase + ") like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -66,7 +66,7 @@ namespace Class_db_cities
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT city.id"
         + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
@@ -74,8 +74,8 @@ namespace Class_db_cities
         +   " join state on (state.id=city.state_id)"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -91,7 +91,8 @@ namespace Class_db_cities
       this.Open();
       try
         {
-        new MySqlCommand(dbkeyclick_trail.Saved("delete from city where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("delete from city where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -123,7 +124,8 @@ namespace Class_db_cities
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from city where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from city where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         state_id = dr["state_id"].ToString();
@@ -138,7 +140,8 @@ namespace Class_db_cities
     internal void Prune()
       {
       Open();
-      new MySqlCommand("delete from city where id not in (select distinct city_id from street)",connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand("delete from city where id not in (select distinct city_id from street)",connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -154,7 +157,7 @@ namespace Class_db_cities
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         dbkeyclick_trail.Saved
           (
@@ -165,8 +168,8 @@ namespace Class_db_cities
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

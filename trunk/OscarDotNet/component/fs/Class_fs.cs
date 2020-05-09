@@ -15,7 +15,7 @@ namespace OscarDotNet.component.os
       {
       if (Directory.Exists(spec))
         {
-        File.Create(spec + "\\" + Class_os_Static.FOLDER_CONDEMNATION_FLAG_FILE_NAME);
+        using var the_file = File.Create(spec + "\\" + Class_os_Static.FOLDER_CONDEMNATION_FLAG_FILE_NAME);
         }
       }
 
