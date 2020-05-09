@@ -23,7 +23,7 @@ namespace Global
 
     protected void Application_Start(object sender, EventArgs e)
       {
-      //chartview.SetLicensePath(this.Server.MapPath("bin"));
+      //chartview.SetLicensePath(Server.MapPath("bin"));
       //
       // Establish an application-scoped object to allow synchronized control of nonreentrant spcchartnet code.
       //

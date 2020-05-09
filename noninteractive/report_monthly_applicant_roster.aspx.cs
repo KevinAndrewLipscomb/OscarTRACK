@@ -52,22 +52,22 @@ namespace report_monthly_applicant_roster
             p.biz_members = new TClass_biz_members();
             p.biz_role_member_map = new TClass_biz_role_member_map();
             // Set session objects referenced by UserControl_roster.
-            this.Session.Add("mode:report", k.EMPTY);
-            this.Session.Add("mode:report/monthly-applicant-roster", k.EMPTY);
-            p.agency_short_designator = this.Request["agency"];
+            Session.Add("mode:report", k.EMPTY);
+            Session.Add("mode:report/monthly-applicant-roster", k.EMPTY);
+            p.agency_short_designator = Request["agency"];
             Session.Add("noninteractive_effective_agency_id",p.biz_agencies.IdOfShortDesignator(p.agency_short_designator));
             if (p.agency_short_designator == "EMS")
             {
                 p.role_name = "Department Human Resources Officer";
-                this.Session.Add("privilege_array", new string[1] {"see-all-squads"});
+                Session.Add("privilege_array", new string[1] {"see-all-squads"});
             }
             else
             {
                 p.role_name = "Squad Membership Coordinator";
-                this.Session.Add("privilege_array", new string[0]);
+                Session.Add("privilege_array", new string[0]);
             }
-            this.Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
-            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(this.LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
+            Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
+            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
 
         }
 
@@ -89,7 +89,7 @@ namespace report_monthly_applicant_roster
             // body
             // be_html
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, p.agency_short_designator), "Report: Monthly Applicant Roster", body, true);
-            this.Session.Abandon();
+            Session.Abandon();
 
         }
 

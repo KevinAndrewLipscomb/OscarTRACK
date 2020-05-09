@@ -28,8 +28,7 @@ namespace donation_log
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_donation_log_PreRender;
+      PreRender += TWebForm_donation_log_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

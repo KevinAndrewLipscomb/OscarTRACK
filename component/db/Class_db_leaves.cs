@@ -61,10 +61,10 @@ namespace Class_db_leaves
                 cmdtext += " and id <> " + id;
             }
             cmdtext += " limit 1";
-            this.Open();
-            using var my_sql_command = new MySqlCommand(cmdtext, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(cmdtext, connection);
             result = (my_sql_command.ExecuteScalar() != null);
-            this.Close();
+            Close();
             return result;
         }
 
@@ -374,7 +374,7 @@ namespace Class_db_leaves
           string due_to_phrase
           )
           {
-          this.Open();
+          Open();
           using var my_sql_command = new MySqlCommand
             (
             db_trail.Saved
@@ -389,10 +389,10 @@ namespace Class_db_leaves
               + "; "
               + "COMMIT"
               ),
-            this.connection
+            connection
             );
           my_sql_command.ExecuteNonQuery();
-          this.Close();
+          Close();
           }
 
     public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
@@ -428,20 +428,20 @@ namespace Class_db_leaves
         public string DescriptionOf(string code)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT description FROM kind_of_leave_code_description_map WHERE code = " + code, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT description FROM kind_of_leave_code_description_map WHERE code = " + code, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
         public DateTime EndDateOf(string id)
         {
             DateTime result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select end_date from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select end_date from leave_of_absence where id = " + id, connection);
             result = (DateTime)(my_sql_command.ExecuteScalar());
-            this.Close();
+            Close();
             return result;
         }
 
@@ -536,30 +536,30 @@ namespace Class_db_leaves
         public string KindOfLeaveCodeOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select kind_of_leave_code from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select kind_of_leave_code from leave_of_absence where id = " + id, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
         public string MemberIdOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select member_id from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select member_id from leave_of_absence where id = " + id, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
         public string NoteOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select note from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select note from leave_of_absence where id = " + id, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -580,10 +580,10 @@ namespace Class_db_leaves
         public uint NumObligedShiftsOf(string id)
         {
             uint result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select num_obliged_shifts from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select num_obliged_shifts from leave_of_absence where id = " + id, connection);
             result = uint.Parse(my_sql_command.ExecuteScalar().ToString());
-            this.Close();
+            Close();
             return result;
         }
 
@@ -597,10 +597,10 @@ namespace Class_db_leaves
         public DateTime StartDateOf(string id)
         {
             DateTime result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select start_date from leave_of_absence where id = " + id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select start_date from leave_of_absence where id = " + id, connection);
             result = (DateTime)(my_sql_command.ExecuteScalar());
-            this.Close();
+            Close();
             return result;
         }
 

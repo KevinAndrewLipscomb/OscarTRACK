@@ -21,8 +21,7 @@ namespace new_user_registration
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_new_user_registration_PreRender;
+            PreRender += TWebForm_new_user_registration_PreRender;
         }
 
     private void InjectPersistentClientSideScript()

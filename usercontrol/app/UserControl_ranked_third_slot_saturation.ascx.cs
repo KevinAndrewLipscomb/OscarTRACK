@@ -6,6 +6,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 
 using Class_biz_members;
+
 namespace UserControl_ranked_third_slot_saturation
   {
   public struct p_type
@@ -77,9 +78,8 @@ namespace UserControl_ranked_third_slot_saturation
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_ranked_third_slot_saturation_PreRender;
+      DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+      PreRender += TWebUserControl_ranked_third_slot_saturation_PreRender;
       }
 
     private void TWebUserControl_ranked_third_slot_saturation_PreRender(object sender, System.EventArgs e)

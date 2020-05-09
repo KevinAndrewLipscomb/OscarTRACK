@@ -257,8 +257,7 @@ namespace UserControl_uniform_class
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_class_PreRender;
+      PreRender += TWebUserControl_uniform_class_PreRender;
       }
 
     private void TWebUserControl_uniform_class_PreRender(object sender, System.EventArgs e)

@@ -253,8 +253,7 @@ namespace UserControl_uniform_piece_color
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_piece_color_PreRender;
+      PreRender += TWebUserControl_uniform_piece_color_PreRender;
       }
 
     private void TWebUserControl_uniform_piece_color_PreRender(object sender, System.EventArgs e)

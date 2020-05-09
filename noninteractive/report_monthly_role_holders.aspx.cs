@@ -24,7 +24,7 @@ namespace report_monthly_role_holders
         {
             string url;
             Title = ConfigurationManager.AppSettings["application_name"] + " - report_monthly_role_holders";
-            Label_agency.Text = this.Request["agency"];
+            Label_agency.Text = Request["agency"];
             Label_application_name_1.Text = ConfigurationManager.AppSettings["application_name"];
             Label_application_name_2.Text = ConfigurationManager.AppSettings["application_name"];
             url = ConfigurationManager.AppSettings["runtime_root_fullspec"];
@@ -40,10 +40,10 @@ namespace report_monthly_role_holders
             InitializeComponent();
             base.OnInit(e);
             // Set session objects referenced by UserControl_roster.
-            this.Session.Add("mode:report", k.EMPTY);
-            this.Session.Add("mode:report/monthly-role-holders-per-agency", k.EMPTY);
+            Session.Add("mode:report", k.EMPTY);
+            Session.Add("mode:report/monthly-role-holders-per-agency", k.EMPTY);
             p.biz_role_member_map = new TClass_biz_role_member_map();
-            if (this.Request["agency"] == "EMS")
+            if (Request["agency"] == "EMS")
             {
                 p.role_name = "Department Authority";
             }
@@ -51,8 +51,8 @@ namespace report_monthly_role_holders
             {
                 p.role_name = "Squad Commander";
             }
-            this.Session.Add("agency_short_designator", this.Request["agency"]);
-            PlaceHolder_control.Controls.Add(((TWebUserControl_role_holders_per_agency)(this.LoadControl("~/usercontrol/app/UserControl_role_holders_per_agency.ascx"))));
+            Session.Add("agency_short_designator", Request["agency"]);
+            PlaceHolder_control.Controls.Add(((TWebUserControl_role_holders_per_agency)(LoadControl("~/usercontrol/app/UserControl_role_holders_per_agency.ascx"))));
 
         }
 
@@ -74,8 +74,8 @@ namespace report_monthly_role_holders
             // body
             // be_html
             // cc
-           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, this.Request["agency"]), "Report: Monthly " + this.Request["agency"] + " Role Holders", body, true, ConfigurationManager.AppSettings["sender_email_address"]);
-            this.Session.Abandon();
+           k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_role_member_map.EmailTargetOf(p.role_name, Request["agency"]), "Report: Monthly " + Request["agency"] + " Role Holders", body, true, ConfigurationManager.AppSettings["sender_email_address"]);
+            Session.Abandon();
 
         }
 

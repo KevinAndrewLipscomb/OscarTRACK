@@ -25,7 +25,7 @@ namespace Class_db_cities
       var concat_phrase = "IFNULL(city.name,'-'),'|',IFNULL(state.abbreviation,'-')";
       bool result;
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -35,7 +35,7 @@ namespace Class_db_cities
         +   " join state on (state.id=city.state_id)"
         + " where concat(" + concat_phrase + ") like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -43,7 +43,7 @@ namespace Class_db_cities
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       result = ((target) as ListControl).Items.Count > 0;
       return result;
       }
@@ -64,7 +64,7 @@ namespace Class_db_cities
         concat_phrase = "IFNULL(city.name,'-'),'|',IFNULL(state.abbreviation,'-')";
         }
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -73,7 +73,7 @@ namespace Class_db_cities
         + " FROM city"
         +   " join state on (state.id=city.state_id)"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -81,17 +81,17 @@ namespace Class_db_cities
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     public bool Delete(string id)
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("delete from city where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("delete from city where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -105,7 +105,7 @@ namespace Class_db_cities
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -123,8 +123,8 @@ namespace Class_db_cities
       name = k.EMPTY;
       result = false;
       //
-      this.Open();
-      using var my_sql_command = new MySqlCommand("select * from city where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from city where CAST(id AS CHAR) = \"" + id + "\"", connection);
       dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
@@ -133,7 +133,7 @@ namespace Class_db_cities
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
@@ -156,7 +156,7 @@ namespace Class_db_cities
       + " state_id = NULLIF('" + state_id + "','')"
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       using var my_sql_command = new MySqlCommand
         (
         dbkeyclick_trail.Saved
@@ -167,10 +167,10 @@ namespace Class_db_cities
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
           );
       my_sql_command.ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     } // end TClass_db_cities

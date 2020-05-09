@@ -25,8 +25,7 @@ namespace change_member_agency
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_change_member_agency_PreRender;
+            PreRender += TWebForm_change_member_agency_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

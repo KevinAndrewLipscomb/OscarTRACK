@@ -38,8 +38,7 @@ namespace add_new_enrollment_status
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_add_new_enrollment_status_PreRender;
+            PreRender += TWebForm_add_new_enrollment_status_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_vehicles_up_and_current
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_vehicles_up_and_current_PreRender;
+            PreRender += TWebUserControl_serial_indicator_vehicles_up_and_current_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_vehicles_up_and_current_PreRender(object sender, System.EventArgs e)

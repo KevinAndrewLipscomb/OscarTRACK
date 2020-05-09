@@ -25,7 +25,7 @@ namespace Class_db_chassis_models
       var concat_phrase = "IFNULL(chassis_model.name,'-'),'|',IFNULL(chassis_make.name,'-')";
       bool result;
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -35,7 +35,7 @@ namespace Class_db_chassis_models
         +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
         + " where concat(" + concat_phrase + ") like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -43,7 +43,7 @@ namespace Class_db_chassis_models
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       result = ((target) as ListControl).Items.Count > 0;
       return result;
       }
@@ -64,7 +64,7 @@ namespace Class_db_chassis_models
         concat_phrase = "IFNULL(chassis_model.name,'-')";
         }
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -73,7 +73,7 @@ namespace Class_db_chassis_models
         + " FROM chassis_model"
         +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -81,17 +81,17 @@ namespace Class_db_chassis_models
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     public bool Delete(string id)
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from chassis_model where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from chassis_model where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -105,7 +105,7 @@ namespace Class_db_chassis_models
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -156,8 +156,8 @@ namespace Class_db_chassis_models
       name = k.EMPTY;
       result = false;
       //
-      this.Open();
-      using var my_sql_command = new MySqlCommand("select * from chassis_model where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from chassis_model where CAST(id AS CHAR) = \"" + id + "\"", connection);
       dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
@@ -166,7 +166,7 @@ namespace Class_db_chassis_models
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
@@ -181,7 +181,7 @@ namespace Class_db_chassis_models
       + " make_id = NULLIF('" + make_id + "','')"
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
@@ -192,10 +192,10 @@ namespace Class_db_chassis_models
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
           );
       my_sql_command.ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     } // end TClass_db_chassis_models

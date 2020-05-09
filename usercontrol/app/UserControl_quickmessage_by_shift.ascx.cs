@@ -227,10 +227,9 @@ namespace UserControl_quickmessage_by_shift
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-      this.PreRender += this.TWebUserControl_quickmessage_by_shift_PreRender;
-      //this.Load += this.Page_Load;
+      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      PreRender += TWebUserControl_quickmessage_by_shift_PreRender;
       }
 
     private void TWebUserControl_quickmessage_by_shift_PreRender(object sender, System.EventArgs e)

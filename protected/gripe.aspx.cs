@@ -27,8 +27,7 @@ namespace gripe
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_gripe_PreRender;
+      PreRender += TWebForm_gripe_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

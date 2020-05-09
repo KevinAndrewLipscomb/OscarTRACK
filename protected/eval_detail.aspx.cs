@@ -21,8 +21,7 @@ namespace eval_detail
         // / </summary>
         private void InitializeComponent()
           {
-          this.PreRender += this.TWebForm_eval_detail_PreRender;
-          //this.Load += this.Page_Load;
+          PreRender += TWebForm_eval_detail_PreRender;
           }
 
         protected void Page_Load(object sender, System.EventArgs e)

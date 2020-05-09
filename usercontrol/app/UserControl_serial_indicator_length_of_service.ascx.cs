@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_length_of_service
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_length_of_service_PreRender;
+            PreRender += TWebUserControl_serial_indicator_length_of_service_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_length_of_service_PreRender(object sender, System.EventArgs e)

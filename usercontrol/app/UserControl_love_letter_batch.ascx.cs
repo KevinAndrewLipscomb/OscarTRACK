@@ -232,8 +232,7 @@ namespace UserControl_love_letter_batch
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_love_letter_batch_PreRender;
+      PreRender += TWebUserControl_love_letter_batch_PreRender;
       }
 
     private void TWebUserControl_love_letter_batch_PreRender(object sender, System.EventArgs e)

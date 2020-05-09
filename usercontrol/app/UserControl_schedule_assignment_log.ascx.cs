@@ -170,8 +170,8 @@ namespace UserControl_schedule_assignment_log
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.PreRender += this.TWebUserControl_schedule_assignment_log_PreRender;
+      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      PreRender += TWebUserControl_schedule_assignment_log_PreRender;
       }
 
     private void TWebUserControl_schedule_assignment_log_PreRender(object sender, System.EventArgs e)

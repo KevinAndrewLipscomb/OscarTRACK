@@ -14,6 +14,7 @@ using System.Web.UI.WebControls;
 
 using Class_biz_members;
 using Class_biz_users;
+
 namespace change_name
 {
     public struct p_type
@@ -33,8 +34,7 @@ namespace change_name
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_change_name_PreRender;
+            PreRender += TWebForm_change_name_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

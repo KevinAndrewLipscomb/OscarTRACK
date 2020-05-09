@@ -19,66 +19,66 @@ namespace Class_db_accounts
         public bool BeStalePassword(string user_kind, string user_id)
         {
             bool result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT be_stale_password FROM " + user_kind + "_user where id=" + user_id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT be_stale_password FROM " + user_kind + "_user where id=" + user_id, connection);
             result = "1" == my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
         public void BindSquadCommanders(object target)
         {
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", "0"));
-            using var my_sql_command = new MySqlCommand("SELECT squad_commander_user.id,concat(squad_commander_user.id,\"50\") as name" + " FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)" + " WHERE agency.be_active = TRUE" + " and squad_commander_user.be_active = TRUE" + " ORDER BY agency.id", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT squad_commander_user.id,concat(squad_commander_user.id,\"50\") as name" + " FROM squad_commander_user JOIN agency on (agency.id = squad_commander_user.id)" + " WHERE agency.be_active = TRUE" + " and squad_commander_user.be_active = TRUE" + " ORDER BY agency.id", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), "squad_commander_" + dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public void BindDepartmentStaffers(object target)
         {
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", "0"));
-            using var my_sql_command = new MySqlCommand("SELECT id,name " + "FROM department_staffer_user JOIN department_staffer using (id) " + "WHERE be_active = TRUE " + "ORDER BY name", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT id,name " + "FROM department_staffer_user JOIN department_staffer using (id) " + "WHERE be_active = TRUE " + "ORDER BY name", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), "department_staffer_" + dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public void BindMembers(object target)
         {
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", "0"));
-            using var my_sql_command = new MySqlCommand("SELECT id" + " , concat(last_name,\", \",first_name,ifnull(concat(\", \",cad_num),\"\")) as name" + " FROM member_user JOIN member using (id)" + " WHERE be_active = TRUE" + " ORDER BY last_name,first_name,cad_num", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT id" + " , concat(last_name,\", \",first_name,ifnull(concat(\", \",cad_num),\"\")) as name" + " FROM member_user JOIN member using (id)" + " WHERE be_active = TRUE" + " ORDER BY last_name,first_name,cad_num", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), "member_" + dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public void Check(string user_kind, string user_id, out bool be_stale_password, out string email_address)
         {
             MySqlDataReader dr;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT be_stale_password" + " , password_reset_email_address" + " FROM " + user_kind + "_user" + " where id = " + user_id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT be_stale_password" + " , password_reset_email_address" + " FROM " + user_kind + "_user" + " where id = " + user_id, connection);
             dr = my_sql_command.ExecuteReader();
             dr.Read();
             if (dr["be_stale_password"].ToString() == "0")
@@ -99,16 +99,16 @@ namespace Class_db_accounts
                 email_address = k.EMPTY;
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public string EmailAddressByKindId(string user_kind, string user_id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select password_reset_email_address from " + user_kind + "_user where id = " + user_id, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select password_reset_email_address from " + user_kind + "_user where id = " + user_id, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -118,15 +118,15 @@ namespace Class_db_accounts
             MySqlDataReader dr;
             string email_target;
             email_target = k.EMPTY;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select password_reset_email_address" + " from department_staffer_user" + " join department_staffer_role on (department_staffer_role.user_id=department_staffer_user.id)" + " join department_staffer_group on (department_staffer_group.id=department_staffer_role.group_id)" + " where department_staffer_group.name = \"" + role + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select password_reset_email_address" + " from department_staffer_user" + " join department_staffer_role on (department_staffer_role.user_id=department_staffer_user.id)" + " join department_staffer_group on (department_staffer_group.id=department_staffer_role.group_id)" + " where department_staffer_group.name = \"" + role + "\"", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 email_target = email_target + dr["password_reset_email_address"].ToString() + k.COMMA;
             }
             dr.Close();
-            this.Close();
+            Close();
             result = email_target.Substring(0, email_target.Length - 1);
             return result;
         }
@@ -134,35 +134,35 @@ namespace Class_db_accounts
         public bool Exists(string user_kind, string user_id, string encoded_password)
         {
             bool result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT 1 FROM " + user_kind + "_user" + " where id = " + user_id + " and encoded_password = \"" + encoded_password + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT 1 FROM " + user_kind + "_user" + " where id = " + user_id + " and encoded_password = \"" + encoded_password + "\"", connection);
             result = null != my_sql_command.ExecuteScalar();
-            this.Close();
+            Close();
             return result;
         }
 
         public void SetEmailAddress(string user_kind, string user_id, string email_address)
         {
-            this.Open();
-            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE " + user_kind + "_user " + "SET password_reset_email_address = \"" + email_address + "\"" + "WHERE id = " + user_id), this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("UPDATE " + user_kind + "_user " + "SET password_reset_email_address = \"" + email_address + "\"" + "WHERE id = " + user_id), connection);
             my_sql_command.ExecuteNonQuery();
-            this.Close();
+            Close();
         }
 
         public void SetPassword(string user_kind, string user_id, string encoded_password)
         {
-            this.Open();
-            using var my_sql_command = new MySqlCommand(db_trail.Saved("update " + user_kind + "_user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = FALSE " + " where id = " + user_id), this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("update " + user_kind + "_user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = FALSE " + " where id = " + user_id), connection);
             my_sql_command.ExecuteNonQuery();
-            this.Close();
+            Close();
         }
 
         public void SetTemporaryPassword(string user_kind, string user_id, string encoded_password)
         {
-            this.Open();
-            using var my_sql_command = new MySqlCommand(db_trail.Saved("update " + user_kind + "_user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = TRUE " + " where id = " + user_id), this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("update " + user_kind + "_user" + " set encoded_password = \"" + encoded_password + "\"," + " be_stale_password = TRUE " + " where id = " + user_id), connection);
             my_sql_command.ExecuteNonQuery();
-            this.Close();
+            Close();
         }
 
     } // end TClass_db_accounts

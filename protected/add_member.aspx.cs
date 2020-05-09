@@ -36,8 +36,7 @@ namespace add_member
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebForm_add_member_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebForm_add_member_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

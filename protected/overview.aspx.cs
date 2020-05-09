@@ -31,8 +31,7 @@ namespace overview
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebForm_overview_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebForm_overview_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

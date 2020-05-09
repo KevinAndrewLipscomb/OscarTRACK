@@ -33,8 +33,7 @@ namespace update_vehicle_mileage
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_update_vehicle_mileage_PreRender;
+      PreRender += TWebForm_update_vehicle_mileage_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

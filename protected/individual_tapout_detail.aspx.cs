@@ -39,7 +39,7 @@ namespace individual_tapout_detail
     private void InitializeComponent()
       {
       DataGrid_control.ItemDataBound += new DataGridItemEventHandler(DataGrid_control_ItemDataBound);
-      PreRender += this.TWebForm_individual_tapout_detail_PreRender;
+      PreRender += TWebForm_individual_tapout_detail_PreRender;
       }
 
     protected void Page_Load(object sender, EventArgs e)

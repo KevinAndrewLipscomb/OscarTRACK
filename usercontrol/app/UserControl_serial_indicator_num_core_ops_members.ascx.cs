@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_num_core_ops_members
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_num_core_ops_members_PreRender;
+            PreRender += TWebUserControl_serial_indicator_num_core_ops_members_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_num_core_ops_members_PreRender(object sender, System.EventArgs e)

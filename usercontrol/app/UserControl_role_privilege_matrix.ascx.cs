@@ -10,6 +10,7 @@ using Class_biz_role_privilege_map;
 using Class_biz_tiers;
 using Class_db_roles;
 using Class_db_role_privilege_map;
+
 namespace UserControl_role_privilege_matrix
 {
     public struct p_type
@@ -205,10 +206,9 @@ namespace UserControl_role_privilege_matrix
         // / </summary>
         private void InitializeComponent()
         {
-            this.GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_control_Sorting);
-            this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
-            this.PreRender += this.TWebUserControl_role_privilege_matrix_PreRender;
-            //this.Load += this.Page_Load;
+            GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(GridView_control_Sorting);
+            GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(GridView_control_RowDataBound);
+            PreRender += TWebUserControl_role_privilege_matrix_PreRender;
         }
 
         private void TWebUserControl_role_privilege_matrix_PreRender(object sender, System.EventArgs e)

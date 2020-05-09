@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_scheduled_duty_compliance
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_scheduled_duty_compliance_PreRender;
+            PreRender += TWebUserControl_serial_indicator_scheduled_duty_compliance_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_scheduled_duty_compliance_PreRender(object sender, System.EventArgs e)

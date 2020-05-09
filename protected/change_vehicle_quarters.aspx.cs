@@ -35,8 +35,7 @@ namespace change_vehicle_quarters
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_change_vehicle_quarters_PreRender;
+      PreRender += TWebForm_change_vehicle_quarters_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

@@ -33,10 +33,9 @@ namespace usability_detail
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-            this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_usability_detail_PreRender;
+            DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+            DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+            PreRender += TWebForm_usability_detail_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

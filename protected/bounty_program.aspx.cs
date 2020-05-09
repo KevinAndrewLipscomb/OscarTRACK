@@ -28,8 +28,7 @@ namespace bounty_program
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_bounty_program_PreRender;
+      PreRender += TWebForm_bounty_program_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

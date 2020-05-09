@@ -269,8 +269,7 @@ namespace UserControl_tapout
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_tapout_PreRender;
+      PreRender += TWebUserControl_tapout_PreRender;
       }
 
     private void TWebUserControl_tapout_PreRender(object sender, System.EventArgs e)

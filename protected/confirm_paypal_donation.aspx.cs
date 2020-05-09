@@ -26,7 +26,6 @@ namespace confirm_paypal_donation
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
       PreRender += TWebForm_confirm_paypal_donation_PreRender;
       }
 

@@ -233,8 +233,7 @@ namespace UserControl_custom_model
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_custom_model_PreRender;
+      PreRender += TWebUserControl_custom_model_PreRender;
       }
 
     private void TWebUserControl_custom_model_PreRender(object sender, System.EventArgs e)

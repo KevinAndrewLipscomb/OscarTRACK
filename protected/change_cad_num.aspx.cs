@@ -14,6 +14,7 @@ using System.Web.UI.WebControls;
 
 using Class_biz_members;
 using Class_biz_users;
+
 namespace change_cad_num
 {
     public struct p_type
@@ -31,8 +32,7 @@ namespace change_cad_num
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_change_cad_num_PreRender;
+            PreRender += TWebForm_change_cad_num_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

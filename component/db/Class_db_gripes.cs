@@ -38,7 +38,7 @@ namespace Class_db_gripes
       )
       {
       var concat_clause = "concat(IFNULL(description,'-'))";
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -48,7 +48,7 @@ namespace Class_db_gripes
         + " where vehicle_id = '" + vehicle_id + "'"
         +   " and " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -56,7 +56,7 @@ namespace Class_db_gripes
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       return ((target) as ListControl).Items.Count > 0;
       }
 
@@ -66,7 +66,7 @@ namespace Class_db_gripes
       object target
       )
       {
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -75,7 +75,7 @@ namespace Class_db_gripes
         + " FROM gripe"
         + " where vehicle_id = '" + vehicle_id + "'"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -83,7 +83,7 @@ namespace Class_db_gripes
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     internal void BindLog
@@ -122,10 +122,10 @@ namespace Class_db_gripes
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from gripe where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from gripe where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -139,7 +139,7 @@ namespace Class_db_gripes
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -227,7 +227,7 @@ namespace Class_db_gripes
       + "vehicle_id = NULLIF((select id from vehicle where name = '" + vehicle_name + "' and be_active),'')"
       + " , description = NULLIF('" + description + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
@@ -238,10 +238,10 @@ namespace Class_db_gripes
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
           );
       my_sql_command.ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     internal Queue<string> StalledIdQ()

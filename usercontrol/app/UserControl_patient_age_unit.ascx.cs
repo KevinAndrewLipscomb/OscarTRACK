@@ -202,8 +202,7 @@ namespace UserControl_patient_age_unit
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_patient_age_unit_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_patient_age_unit_PreRender;
         }
 
         private void TWebUserControl_patient_age_unit_PreRender(object sender, System.EventArgs e)

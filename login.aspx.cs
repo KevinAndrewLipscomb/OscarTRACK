@@ -21,8 +21,7 @@ namespace login
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_login_PreRender;
+            PreRender += TWebForm_login_PreRender;
         }
 
         private void InjectPersistentClientSideScript()

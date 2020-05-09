@@ -196,7 +196,6 @@ namespace UserControl_tapouts
       DataGrid_control.SortCommand += new DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
       DataGrid_control.ItemCommand += new DataGridCommandEventHandler(DataGrid_control_ItemCommand);
       PreRender += TWebUserControl_tapouts_PreRender;
-      //Load += Page_Load;
       }
 
     private void TWebUserControl_tapouts_PreRender(object sender, System.EventArgs e)

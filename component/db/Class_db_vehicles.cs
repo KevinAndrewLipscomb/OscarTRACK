@@ -211,7 +211,7 @@ namespace Class_db_vehicles
       {
       bool result;
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -220,7 +220,7 @@ namespace Class_db_vehicles
         + " from vehicle"
         + " where concat(IFNULL(name,'-'),'|',IFNULL(bumper_number,'-'),'|',IFNULL(model_year,'-'),'|',IFNULL(vin,'-'),'|',IFNULL(license_plate,'-')) like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -228,7 +228,7 @@ namespace Class_db_vehicles
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       result = ((target) as ListControl).Items.Count > 0;
       return result;
       }
@@ -315,7 +315,7 @@ namespace Class_db_vehicles
     public void BindDirectToListControl(object target)
       {
       MySqlDataReader dr;
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -323,7 +323,7 @@ namespace Class_db_vehicles
         + " , CONVERT(concat(IFNULL(name,'-'),'|',IFNULL(bumper_number,'-'),'|',IFNULL(model_year,'-'),'|',IFNULL(vin,'-'),'|',IFNULL(license_plate,'-')) USING utf8) as spec"
         + " FROM vehicle"
         + " order by spec",
-        this.connection
+        connection
         );
       dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -331,7 +331,7 @@ namespace Class_db_vehicles
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     internal void BindActiveKindAndNameDirectToListControl(object target)
@@ -474,10 +474,10 @@ namespace Class_db_vehicles
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -491,7 +491,7 @@ namespace Class_db_vehicles
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 

@@ -8,6 +8,7 @@ using System.Collections;
 
 using Class_biz_agencies;
 using Class_db_agencies;
+
 namespace UserControl_commensuration
 {
     public struct p_type
@@ -59,9 +60,8 @@ namespace UserControl_commensuration
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_commensuration.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_commensuration_ItemDataBound);
-            this.PreRender += this.TWebUserControl_commensuration_PreRender;
-            //this.Load += this.Page_Load;
+            DataGrid_commensuration.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_commensuration_ItemDataBound);
+            PreRender += TWebUserControl_commensuration_PreRender;
         }
 
         private void TWebUserControl_commensuration_PreRender(object sender, System.EventArgs e)

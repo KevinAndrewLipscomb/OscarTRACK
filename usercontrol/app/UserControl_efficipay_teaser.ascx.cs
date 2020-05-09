@@ -125,8 +125,7 @@ namespace UserControl_efficipay_teaser
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_efficipay_teaser_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_efficipay_teaser_PreRender;
         }
 
         private void TWebUserControl_efficipay_teaser_PreRender(object sender, System.EventArgs e)

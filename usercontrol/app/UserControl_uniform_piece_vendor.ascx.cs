@@ -253,8 +253,7 @@ namespace UserControl_uniform_piece_vendor
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_piece_vendor_PreRender;
+      PreRender += TWebUserControl_uniform_piece_vendor_PreRender;
       }
 
     private void TWebUserControl_uniform_piece_vendor_PreRender(object sender, System.EventArgs e)

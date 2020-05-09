@@ -222,8 +222,7 @@ namespace UserControl_efficipay_docket
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_efficipay_docket_PreRender;
+      PreRender += TWebUserControl_efficipay_docket_PreRender;
       }
 
     private void TWebUserControl_efficipay_docket_PreRender(object sender, System.EventArgs e)

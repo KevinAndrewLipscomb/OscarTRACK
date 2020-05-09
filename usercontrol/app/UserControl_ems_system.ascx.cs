@@ -202,8 +202,7 @@ namespace UserControl_ems_system
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_ems_system_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_ems_system_PreRender;
         }
 
         private void TWebUserControl_ems_system_PreRender(object sender, System.EventArgs e)

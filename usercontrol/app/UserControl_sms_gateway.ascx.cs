@@ -223,8 +223,7 @@ namespace UserControl_sms_gateway
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_sms_gateway_PreRender;
+      PreRender += TWebUserControl_sms_gateway_PreRender;
       }
 
     private void TWebUserControl_sms_gateway_PreRender(object sender, System.EventArgs e)

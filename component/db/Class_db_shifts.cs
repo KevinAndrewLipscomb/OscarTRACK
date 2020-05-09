@@ -36,7 +36,7 @@ namespace Class_db_shifts
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(start,'-'),'|',IFNULL(end,'-'),'|',IFNULL(name,'-'))";
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -45,7 +45,7 @@ namespace Class_db_shifts
         + " from shift"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -53,13 +53,13 @@ namespace Class_db_shifts
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       return ((target) as ListControl).Items.Count > 0;
       }
 
     public void BindDirectToListControl(object target)
       {
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -67,7 +67,7 @@ namespace Class_db_shifts
         + " , CONVERT(concat(IFNULL(start,'-'),'|',IFNULL(end,'-'),'|',IFNULL(name,'-')) USING utf8) as spec"
         + " FROM shift"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -75,7 +75,7 @@ namespace Class_db_shifts
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     internal void BindDirectToListControlByPeckingOrder(object target)
@@ -104,10 +104,10 @@ namespace Class_db_shifts
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from shift where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from shift where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -121,7 +121,7 @@ namespace Class_db_shifts
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -152,8 +152,8 @@ namespace Class_db_shifts
       pecking_order = k.EMPTY;
       result = false;
       //
-      this.Open();
-      using var my_sql_command = new MySqlCommand("select * from shift where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from shift where CAST(id AS CHAR) = \"" + id + "\"", connection);
       dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
@@ -164,7 +164,7 @@ namespace Class_db_shifts
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
@@ -201,7 +201,7 @@ namespace Class_db_shifts
       + " , name = NULLIF('" + name + "','')"
       + " , pecking_order = NULLIF('" + pecking_order + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
@@ -212,10 +212,10 @@ namespace Class_db_shifts
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
           );
       my_sql_command.ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     internal string StartHHofName(string name)

@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 
 using Class_biz_notifications;
+
 namespace UserControl_behind_the_scenes_activity
 {
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~datagrid~sortable.pas
@@ -135,10 +136,9 @@ namespace UserControl_behind_the_scenes_activity
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_for_cycle.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_for_cycle_ItemDataBound);
-            this.DataGrid_for_lifetime.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_for_lifetime_ItemDataBound);
-            this.PreRender += this.TWebUserControl_behind_the_scenes_activity_PreRender;
-            //this.Load += this.Page_Load;
+            DataGrid_for_cycle.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_for_cycle_ItemDataBound);
+            DataGrid_for_lifetime.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_for_lifetime_ItemDataBound);
+            PreRender += TWebUserControl_behind_the_scenes_activity_PreRender;
         }
 
         private void TWebUserControl_behind_the_scenes_activity_PreRender(object sender, System.EventArgs e)

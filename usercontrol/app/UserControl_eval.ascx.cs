@@ -615,8 +615,7 @@ namespace UserControl_eval
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_eval_PreRender;
+      PreRender += TWebUserControl_eval_PreRender;
       }
 
     private void TWebUserControl_eval_PreRender(object sender, System.EventArgs e)

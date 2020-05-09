@@ -56,7 +56,7 @@ namespace UserControl_field_situation
         ScriptManager.RegisterStartupScript
           (
           control:this,
-          type:this.GetType(),
+          type:GetType(),
           key:"ClientSideAutorefreshCountdown",
           script:k.EMPTY
           + " function El(id)"

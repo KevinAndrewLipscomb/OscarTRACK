@@ -258,8 +258,7 @@ namespace UserControl_uniform_priority
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_priority_PreRender;
+      PreRender += TWebUserControl_uniform_priority_PreRender;
       }
 
     private void TWebUserControl_uniform_priority_PreRender(object sender, System.EventArgs e)

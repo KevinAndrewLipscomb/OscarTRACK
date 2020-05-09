@@ -150,8 +150,7 @@ namespace UserControl_member_profile
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_member_profile_PreRender;
+      PreRender += TWebUserControl_member_profile_PreRender;
       }
 
     private void TWebUserControl_member_profile_PreRender(object sender, System.EventArgs e)

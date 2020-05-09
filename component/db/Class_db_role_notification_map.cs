@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Class_db;
 using Class_db_trail;
 using Class_db_roles;
+
 namespace Class_db_role_notification_map
 {
     public class TClass_db_role_notification_map: TClass_db
@@ -36,8 +37,8 @@ namespace Class_db_role_notification_map
             {
                 crosstab_where_clause = " and tier_id in (" + tier_quoted_value_list + ")";
             }
-            this.Open();
-            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", this.connection);
+            Open();
+            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", connection);
             dr = my_sql_command_1.ExecuteReader();
             while (dr.Read())
             {
@@ -59,10 +60,10 @@ namespace Class_db_role_notification_map
             {
                 sort_order = sort_order.Replace("%", " asc");
             }
-            using var my_sql_command_2 = new MySqlCommand("select notification.id as notification_id" + " , notification.name as notification_name" + crosstab_sql + " from notification" + " left outer join role_notification_map on (role_notification_map.notification_id=notification.id)" + " left outer join role on (role.id=role_notification_map.role_id)" + " group by notification.id" + " order by " + sort_order, this.connection);
+            using var my_sql_command_2 = new MySqlCommand("select notification.id as notification_id" + " , notification.name as notification_name" + crosstab_sql + " from notification" + " left outer join role_notification_map on (role_notification_map.notification_id=notification.id)" + " left outer join role on (role.id=role_notification_map.role_id)" + " group by notification.id" + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -72,7 +73,7 @@ namespace Class_db_role_notification_map
             where_clause = " where role.name <> \"Member\"";
             if (tier_quoted_value_list != k.DOUBLE_QUOTE)
             {
-                where_clause = where_clause + " and (tier_id in (" + tier_quoted_value_list + "))";
+                where_clause += " and (tier_id in (" + tier_quoted_value_list + "))";
             }
             if (be_sort_order_ascending)
             {
@@ -82,28 +83,28 @@ namespace Class_db_role_notification_map
             {
                 sort_order = sort_order.Replace("%", " desc");
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , notification.name as notification_name" + " , notification_id" + " from role_notification_map" + " join notification on (notification.id=role_notification_map.notification_id)" + " join role on (role.id=role_notification_map.role_id)" + where_clause + " order by " + sort_order, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , notification.name as notification_name" + " , notification_id" + " from role_notification_map" + " join notification on (notification.id=role_notification_map.notification_id)" + " join role on (role.id=role_notification_map.role_id)" + where_clause + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
         public void Save(string notification_id, string role_id, bool be_granted)
         {
-            this.Open();
+            Open();
             if (be_granted)
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_notification_map set notification_id = \"" + notification_id + "\", role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_notification_map set notification_id = \"" + notification_id + "\", role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
             else
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_notification_map where notification_id = \"" + notification_id + "\" and role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_notification_map where notification_id = \"" + notification_id + "\" and role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
-            this.Close();
+            Close();
         }
 
     } // end TClass_db_role_notification_map

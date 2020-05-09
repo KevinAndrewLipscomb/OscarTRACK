@@ -236,8 +236,7 @@ namespace UserControl_agency_satellite_station
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_agency_satellite_station_PreRender;
+      PreRender += TWebUserControl_agency_satellite_station_PreRender;
       }
 
     private void TWebUserControl_agency_satellite_station_PreRender(object sender, System.EventArgs e)

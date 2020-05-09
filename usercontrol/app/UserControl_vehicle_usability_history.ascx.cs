@@ -237,8 +237,7 @@ namespace UserControl_vehicle_usability_history
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_vehicle_usability_history_PreRender;
+      PreRender += TWebUserControl_vehicle_usability_history_PreRender;
       }
 
     private void TWebUserControl_vehicle_usability_history_PreRender(object sender, System.EventArgs e)

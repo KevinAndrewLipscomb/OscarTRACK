@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_third_slot_saturation
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_third_slot_saturation_PreRender;
+            PreRender += TWebUserControl_serial_indicator_third_slot_saturation_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_third_slot_saturation_PreRender(object sender, System.EventArgs e)

@@ -20,7 +20,7 @@ namespace Class_db_vehicle_quarters
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(medium_designator,'-'),'|',IFNULL(long_designator,'-'),'|',IFNULL(be_active,'-'))";
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -29,7 +29,7 @@ namespace Class_db_vehicle_quarters
         + " from vehicle_quarters"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -37,13 +37,13 @@ namespace Class_db_vehicle_quarters
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       return ((target) as ListControl).Items.Count > 0;
       }
 
     public void BindDirectToListControl(string unselected_literal,string designator_clause,object target,string selected_id)
       {
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       if (unselected_literal != k.EMPTY)
         {
@@ -55,7 +55,7 @@ namespace Class_db_vehicle_quarters
         + " , CONVERT(" + designator_clause + " USING utf8) as spec"
         + " FROM vehicle_quarters"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -67,7 +67,7 @@ namespace Class_db_vehicle_quarters
         {
         (target as ListControl).SelectedValue = selected_id;
         }
-      this.Close();
+      Close();
       }
     public void BindDirectToListControl(object target)
       {
@@ -107,10 +107,10 @@ namespace Class_db_vehicle_quarters
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_quarters where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_quarters where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -124,7 +124,7 @@ namespace Class_db_vehicle_quarters
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -146,8 +146,8 @@ namespace Class_db_vehicle_quarters
       be_active = false;
       result = false;
       //
-      this.Open();
-      using var my_sql_command = new MySqlCommand("select * from vehicle_quarters where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_quarters where CAST(id AS CHAR) = \"" + id + "\"", connection);
       dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
@@ -158,7 +158,7 @@ namespace Class_db_vehicle_quarters
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 

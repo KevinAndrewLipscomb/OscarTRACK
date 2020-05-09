@@ -216,10 +216,9 @@ namespace UserControl_coverage_assistant
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.DataGrid_control_SortCommand);
-      this.PreRender += this.TWebUserControl_coverage_assistant_PreRender;
-      //this.Load += this.Page_Load;
+      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      DataGrid_control.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(DataGrid_control_SortCommand);
+      PreRender += TWebUserControl_coverage_assistant_PreRender;
       }
 
     private void TWebUserControl_coverage_assistant_PreRender(object sender, System.EventArgs e)

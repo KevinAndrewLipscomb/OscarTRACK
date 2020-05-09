@@ -28,8 +28,7 @@ namespace grant_leave
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_grant_leave_PreRender;
+            PreRender += TWebForm_grant_leave_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

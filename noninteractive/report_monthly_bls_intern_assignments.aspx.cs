@@ -49,7 +49,7 @@ namespace report_monthly_bls_intern_assignments
       // Set session objects referenced by UserControl_roster.
       //
       Session.Add("mode:report", k.EMPTY);
-      PlaceHolder_roster.Controls.Add(((TWebUserControl_member_schedule_detail_bls_interns)(this.LoadControl("~/usercontrol/app/UserControl_member_schedule_detail_bls_interns.ascx"))));
+      PlaceHolder_roster.Controls.Add(((TWebUserControl_member_schedule_detail_bls_interns)(LoadControl("~/usercontrol/app/UserControl_member_schedule_detail_bls_interns.ascx"))));
       }
 
     protected override void Render(HtmlTextWriter writer)

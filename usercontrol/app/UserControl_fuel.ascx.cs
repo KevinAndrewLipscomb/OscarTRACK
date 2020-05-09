@@ -216,8 +216,7 @@ namespace UserControl_fuel
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_fuel_PreRender;
+      PreRender += TWebUserControl_fuel_PreRender;
       }
 
     private void TWebUserControl_fuel_PreRender(object sender, System.EventArgs e)

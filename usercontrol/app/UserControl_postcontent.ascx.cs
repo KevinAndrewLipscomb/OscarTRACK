@@ -1,6 +1,7 @@
 using System;
 using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
+
 namespace UserControl_postcontent
 {
     public partial class TWebUserControl_postcontent: ki_web_ui.usercontrol_class
@@ -28,7 +29,6 @@ namespace UserControl_postcontent
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
         }
 
     } // end TWebUserControl_postcontent

@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_num_members_in_pipeline
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_num_members_in_pipeline_PreRender;
+            PreRender += TWebUserControl_serial_indicator_num_members_in_pipeline_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_num_members_in_pipeline_PreRender(object sender, System.EventArgs e)

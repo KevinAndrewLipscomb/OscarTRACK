@@ -78,9 +78,8 @@ namespace UserControl_fund_drive_object_binder
     // / </summary>
     private void InitializeComponent()
       {
-      this.TabContainer_control.ActiveTabChanged += this.TabContainer_control_ActiveTabChanged;
-      this.PreRender += this.TWebUserControl_fund_drive_object_binder_PreRender;
-      //this.Load += this.Page_Load;
+      TabContainer_control.ActiveTabChanged += TabContainer_control_ActiveTabChanged;
+      PreRender += TWebUserControl_fund_drive_object_binder_PreRender;
       }
 
     private void TWebUserControl_fund_drive_object_binder_PreRender(object sender, System.EventArgs e)

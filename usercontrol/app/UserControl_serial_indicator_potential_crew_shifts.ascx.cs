@@ -74,8 +74,7 @@ namespace UserControl_serial_indicator_potential_crew_shifts
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_serial_indicator_potential_crew_shifts_PreRender;
+            PreRender += TWebUserControl_serial_indicator_potential_crew_shifts_PreRender;
         }
 
         private void TWebUserControl_serial_indicator_potential_crew_shifts_PreRender(object sender, System.EventArgs e)

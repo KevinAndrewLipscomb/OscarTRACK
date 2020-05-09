@@ -242,8 +242,7 @@ namespace UserControl_incident_nature
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_incident_nature_PreRender;
+      PreRender += TWebUserControl_incident_nature_PreRender;
       }
 
     private void TWebUserControl_incident_nature_PreRender(object sender, System.EventArgs e)

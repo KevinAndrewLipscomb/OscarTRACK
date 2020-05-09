@@ -216,8 +216,7 @@ namespace UserControl_custom_make
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_custom_make_PreRender;
+      PreRender += TWebUserControl_custom_make_PreRender;
       }
 
     private void TWebUserControl_custom_make_PreRender(object sender, System.EventArgs e)

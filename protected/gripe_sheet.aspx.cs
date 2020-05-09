@@ -22,8 +22,7 @@ namespace gripe_sheet
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_gripe_sheet_PreRender;
+      PreRender += TWebForm_gripe_sheet_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

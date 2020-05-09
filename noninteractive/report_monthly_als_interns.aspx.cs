@@ -64,7 +64,7 @@ namespace report_monthly_als_interns
       Session.Add("privilege_array", new string[1] {"see-all-squads"});
       Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name,p.agency_short_designator));
       Session.Add("noninteractive_effective_agency_id",k.EMPTY);
-      PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(this.LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
+      PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
       }
 
     protected override void Render(HtmlTextWriter writer)

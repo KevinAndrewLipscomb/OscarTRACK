@@ -21,8 +21,7 @@ namespace salogin
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_salogin_PreRender;
+            PreRender += TWebForm_salogin_PreRender;
         }
 
     private void InjectPersistentClientSideScript()

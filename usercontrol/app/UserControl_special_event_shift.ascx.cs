@@ -236,8 +236,7 @@ namespace UserControl_special_event_shift
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_special_event_shift_PreRender;
+      PreRender += TWebUserControl_special_event_shift_PreRender;
       }
 
     private void TWebUserControl_special_event_shift_PreRender(object sender, System.EventArgs e)

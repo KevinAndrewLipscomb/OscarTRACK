@@ -30,8 +30,7 @@ namespace patient_encounter_detail
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_patient_encounter_detail_PreRender;
+      PreRender += TWebForm_patient_encounter_detail_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

@@ -248,8 +248,7 @@ namespace UserControl_ephemeral_dispatch
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_ephemeral_dispatch_PreRender;
+      PreRender += TWebUserControl_ephemeral_dispatch_PreRender;
       }
 
     private void TWebUserControl_ephemeral_dispatch_PreRender(object sender, System.EventArgs e)

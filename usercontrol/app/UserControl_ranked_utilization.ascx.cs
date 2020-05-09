@@ -7,6 +7,7 @@ using System.Collections;
 
 using Class_biz_members;
 using appcommon;
+
 namespace UserControl_ranked_utilization
 {
     public struct p_type
@@ -82,9 +83,8 @@ namespace UserControl_ranked_utilization
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebUserControl_ranked_utilization_PreRender;
+            DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+            PreRender += TWebUserControl_ranked_utilization_PreRender;
         }
 
         private void TWebUserControl_ranked_utilization_PreRender(object sender, System.EventArgs e)

@@ -54,9 +54,8 @@ namespace UserControl_ranked_fleet_tracking_participation
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            this.PreRender += this.TWebUserControl_ranked_fleet_tracking_participation_PreRender;
-            //this.Load += this.Page_Load;
+            DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+            PreRender += TWebUserControl_ranked_fleet_tracking_participation_PreRender;
         }
 
         private void TWebUserControl_ranked_fleet_tracking_participation_PreRender(object sender, System.EventArgs e)
