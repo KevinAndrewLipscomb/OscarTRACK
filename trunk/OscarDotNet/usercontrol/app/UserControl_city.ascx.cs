@@ -233,8 +233,7 @@ namespace UserControl_city
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_city_PreRender;
+      PreRender += TWebUserControl_city_PreRender;
       }
 
     private void TWebUserControl_city_PreRender(object sender, System.EventArgs e)

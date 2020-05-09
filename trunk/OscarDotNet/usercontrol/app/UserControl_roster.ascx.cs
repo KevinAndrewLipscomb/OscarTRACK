@@ -322,11 +322,10 @@ namespace UserControl_roster
         // / </summary>
         private void InitializeComponent()
         {
-            this.R.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.R_ItemDataBound);
-            this.R.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(this.R_SortCommand);
-            this.R.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.R_ItemCommand);
-            this.PreRender += this.TWebUserControl_roster_PreRender;
-            //this.Load += this.Page_Load;
+            R.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(R_ItemDataBound);
+            R.SortCommand += new System.Web.UI.WebControls.DataGridSortCommandEventHandler(R_SortCommand);
+            R.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(R_ItemCommand);
+            PreRender += TWebUserControl_roster_PreRender;
         }
 
         protected void DropDownList_section_filter_SelectedIndexChanged(object sender, System.EventArgs e)

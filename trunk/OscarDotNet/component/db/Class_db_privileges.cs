@@ -15,16 +15,16 @@ namespace Class_db_privileges
         {
             bool result;
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            using var my_sql_command = new MySqlCommand("SELECT name FROM privilege WHERE name like \"" + partial_name + "%\" order by name", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT name FROM privilege WHERE name like \"" + partial_name + "%\" order by name", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             result = ((target) as ListControl).Items.Count > 0;
             return result;
         }
@@ -37,15 +37,15 @@ namespace Class_db_privileges
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select privilege.id as privilege_id" + " , name as privilege_name" + " from privilege" + " order by privilege_name", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select privilege.id as privilege_id" + " , name as privilege_name" + " from privilege" + " order by privilege_name", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["privilege_name"].ToString(), dr["privilege_id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
@@ -70,8 +70,8 @@ namespace Class_db_privileges
 
             soft_hyphenation_text = k.EMPTY;
             result = false;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", connection);
             dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
@@ -80,7 +80,7 @@ namespace Class_db_privileges
                 result = true;
             }
             dr.Close();
-            this.Close();
+            Close();
             return result;
         }
 

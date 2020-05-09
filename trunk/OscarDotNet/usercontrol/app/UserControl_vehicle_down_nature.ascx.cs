@@ -228,8 +228,7 @@ namespace UserControl_vehicle_down_nature
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_vehicle_down_nature_PreRender;
+      PreRender += TWebUserControl_vehicle_down_nature_PreRender;
       }
 
     private void TWebUserControl_vehicle_down_nature_PreRender(object sender, System.EventArgs e)

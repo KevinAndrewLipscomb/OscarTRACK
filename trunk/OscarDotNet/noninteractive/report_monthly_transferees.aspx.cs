@@ -55,12 +55,12 @@ namespace report_monthly_transferees
             p.role_name = "Department Human Resources Coordinator";
             p.agency_short_designator = "EMS";
             // Set session objects referenced by UserControl_roster.
-            this.Session.Add("mode:report", k.EMPTY);
-            this.Session.Add("mode:report/monthly-transferees", k.EMPTY);
-            this.Session.Add("privilege_array", new string[1] {"see-all-squads"});
-            this.Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name,p.agency_short_designator));
+            Session.Add("mode:report", k.EMPTY);
+            Session.Add("mode:report/monthly-transferees", k.EMPTY);
+            Session.Add("privilege_array", new string[1] {"see-all-squads"});
+            Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name,p.agency_short_designator));
             Session.Add("noninteractive_effective_agency_id",k.EMPTY);
-            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(this.LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
+            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
 
         }
 
@@ -82,7 +82,7 @@ namespace report_monthly_transferees
             // body
             // be_html
             k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_notifications.TargetOfAboutAgency("report-monthly-transferees"), "Report: Monthly Transferees", body, true);
-            this.Session.Abandon();
+            Session.Abandon();
 
         }
 

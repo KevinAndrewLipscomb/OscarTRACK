@@ -246,8 +246,7 @@ namespace UserControl_schedule_assignment
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_schedule_assignment_PreRender;
+      PreRender += TWebUserControl_schedule_assignment_PreRender;
       }
 
     private void TWebUserControl_schedule_assignment_PreRender(object sender, System.EventArgs e)

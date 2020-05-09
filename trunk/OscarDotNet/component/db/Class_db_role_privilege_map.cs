@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 using Class_db;
 using Class_db_trail;
 using Class_db_roles;
+
 namespace Class_db_role_privilege_map
 {
     public class TClass_db_role_privilege_map: TClass_db
@@ -36,8 +37,8 @@ namespace Class_db_role_privilege_map
             {
                 crosstab_where_clause = " and tier_id in (" + tier_quoted_value_list + ")";
             }
-            this.Open();
-            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", this.connection);
+            Open();
+            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", connection);
             dr = my_sql_command_1.ExecuteReader();
             while (dr.Read())
             {
@@ -59,10 +60,10 @@ namespace Class_db_role_privilege_map
             {
                 sort_order = sort_order.Replace("%", " asc");
             }
-            using var my_sql_command_2 = new MySqlCommand("select privilege.id as privilege_id" + " , privilege.name as privilege_name" + crosstab_sql + " from privilege" + " left outer join role_privilege_map on (role_privilege_map.privilege_id=privilege.id)" + " left outer join role on (role.id=role_privilege_map.role_id)" + " group by privilege.id" + " order by " + sort_order, this.connection);
+            using var my_sql_command_2 = new MySqlCommand("select privilege.id as privilege_id" + " , privilege.name as privilege_name" + crosstab_sql + " from privilege" + " left outer join role_privilege_map on (role_privilege_map.privilege_id=privilege.id)" + " left outer join role on (role.id=role_privilege_map.role_id)" + " group by privilege.id" + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -72,7 +73,7 @@ namespace Class_db_role_privilege_map
             where_clause = " where role.name <> \"Member\"";
             if (tier_quoted_value_list != k.DOUBLE_QUOTE)
             {
-                where_clause = where_clause + " and (tier_id in (" + tier_quoted_value_list + "))";
+                where_clause += " and (tier_id in (" + tier_quoted_value_list + "))";
             }
             if (be_sort_order_ascending)
             {
@@ -82,28 +83,28 @@ namespace Class_db_role_privilege_map
             {
                 sort_order = sort_order.Replace("%", " desc");
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , privilege.name as privilege_name" + " , privilege_id" + " from role_privilege_map" + " join privilege on (privilege.id=role_privilege_map.privilege_id)" + " join role on (role.id=role_privilege_map.role_id)" + where_clause + " order by " + sort_order, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , privilege.name as privilege_name" + " , privilege_id" + " from role_privilege_map" + " join privilege on (privilege.id=role_privilege_map.privilege_id)" + " join role on (role.id=role_privilege_map.role_id)" + where_clause + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
         public void Save(string privilege_id, string role_id, bool be_granted)
         {
-            this.Open();
+            Open();
             if (be_granted)
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_privilege_map set privilege_id = \"" + privilege_id + "\", role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_privilege_map set privilege_id = \"" + privilege_id + "\", role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
             else
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_privilege_map where privilege_id = \"" + privilege_id + "\" and role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_privilege_map where privilege_id = \"" + privilege_id + "\" and role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
-            this.Close();
+            Close();
         }
 
     } // end TClass_db_role_privilege_map

@@ -125,8 +125,7 @@ namespace UserControl_schedule_assignment_assistant_intro
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_schedule_assignment_assistant_intro_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_schedule_assignment_assistant_intro_PreRender;
         }
 
         private void TWebUserControl_schedule_assignment_assistant_intro_PreRender(object sender, System.EventArgs e)

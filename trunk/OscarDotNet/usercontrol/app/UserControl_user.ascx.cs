@@ -116,8 +116,7 @@ namespace UserControl_user
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_user_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_user_PreRender;
         }
 
         private void TWebUserControl_user_PreRender(object sender, System.EventArgs e)

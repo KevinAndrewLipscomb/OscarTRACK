@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 
 using Class_biz_residents;
+
 namespace UserControl_log_new_donation
 {
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~std.pas
@@ -137,8 +138,7 @@ namespace UserControl_log_new_donation
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_log_new_donation_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_log_new_donation_PreRender;
         }
 
         private void TWebUserControl_log_new_donation_PreRender(object sender, System.EventArgs e)

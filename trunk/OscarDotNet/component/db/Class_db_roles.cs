@@ -46,16 +46,16 @@ namespace Class_db_roles
         {
             bool result;
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            using var my_sql_command = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by pecking_order", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT name FROM role WHERE name like \"" + partial_name + "%\" order by pecking_order", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             result = ((target) as ListControl).Items.Count > 0;
             return result;
         }
@@ -78,15 +78,15 @@ namespace Class_db_roles
             {
                 where_clause += " and (name <> \"Application Administrator\")";
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT id,name FROM role" + where_clause + " order by pecking_order", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
@@ -113,9 +113,9 @@ namespace Class_db_roles
         {
             bool result;
             result = true;
-            this.Open();
+            Open();
             try {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role where name = \"" + name + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role where name = \"" + name + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
@@ -128,7 +128,7 @@ namespace Class_db_roles
                     throw e;
                 }
             }
-            this.Close();
+            Close();
             return result;
         }
 
@@ -163,10 +163,10 @@ namespace Class_db_roles
         public string NameOfId(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select name from role where id = \"" + id + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select name from role where id = \"" + id + "\"", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -201,10 +201,10 @@ namespace Class_db_roles
         public string TierOfId(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select tier_id from role where id = \"" + id + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select tier_id from role where id = \"" + id + "\"", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 

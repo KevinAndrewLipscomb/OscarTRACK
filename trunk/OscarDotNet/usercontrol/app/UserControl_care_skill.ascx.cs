@@ -202,8 +202,7 @@ namespace UserControl_care_skill
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_care_skill_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_care_skill_PreRender;
         }
 
         private void TWebUserControl_care_skill_PreRender(object sender, System.EventArgs e)

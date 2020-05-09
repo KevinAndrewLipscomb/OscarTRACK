@@ -14,6 +14,7 @@ using System.Web.UI.WebControls;
 
 using Class_biz_sections;
 using Class_biz_members;
+
 namespace change_member_section
 {
     public struct p_type
@@ -31,8 +32,7 @@ namespace change_member_section
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_change_member_section_PreRender;
+            PreRender += TWebForm_change_member_section_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

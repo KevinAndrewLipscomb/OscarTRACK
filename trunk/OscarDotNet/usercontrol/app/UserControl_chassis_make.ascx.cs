@@ -216,8 +216,7 @@ namespace UserControl_chassis_make
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_chassis_make_PreRender;
+      PreRender += TWebUserControl_chassis_make_PreRender;
       }
 
     private void TWebUserControl_chassis_make_PreRender(object sender, System.EventArgs e)

@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 using Class_biz_users;
+
 namespace remind_username
 {
     public struct p_type
@@ -28,8 +29,7 @@ namespace remind_username
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_remind_username_PreRender;
+            PreRender += TWebForm_remind_username_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

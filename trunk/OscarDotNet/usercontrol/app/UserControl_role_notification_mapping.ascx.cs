@@ -168,11 +168,10 @@ namespace UserControl_role_notification_mapping
         // / </summary>
         private void InitializeComponent()
         {
-            this.GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(this.GridView_control_Sorting);
-            this.GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(this.GridView_control_RowDataBound);
-            this.GridView_control.RowDeleting += new System.Web.UI.WebControls.GridViewDeleteEventHandler(this.GridView_control_RowDeleting);
-            this.PreRender += this.TWebUserControl_role_notification_mapping_PreRender;
-            //this.Load += this.Page_Load;
+            GridView_control.Sorting += new System.Web.UI.WebControls.GridViewSortEventHandler(GridView_control_Sorting);
+            GridView_control.RowDataBound += new System.Web.UI.WebControls.GridViewRowEventHandler(GridView_control_RowDataBound);
+            GridView_control.RowDeleting += new System.Web.UI.WebControls.GridViewDeleteEventHandler(GridView_control_RowDeleting);
+            PreRender += TWebUserControl_role_notification_mapping_PreRender;
         }
 
         private void TWebUserControl_role_notification_mapping_PreRender(object sender, System.EventArgs e)

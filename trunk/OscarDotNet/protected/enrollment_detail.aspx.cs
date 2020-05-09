@@ -27,10 +27,9 @@ namespace enrollment_detail
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_member_history.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(this.DataGrid_member_history_ItemCommand);
-            this.DataGrid_member_history.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_member_history_ItemDataBound);
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_enrollment_detail_PreRender;
+            DataGrid_member_history.ItemCommand += new System.Web.UI.WebControls.DataGridCommandEventHandler(DataGrid_member_history_ItemCommand);
+            DataGrid_member_history.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_member_history_ItemDataBound);
+            PreRender += TWebForm_enrollment_detail_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

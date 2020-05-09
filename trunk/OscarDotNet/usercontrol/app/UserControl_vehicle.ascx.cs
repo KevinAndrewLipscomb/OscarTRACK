@@ -387,8 +387,7 @@ namespace UserControl_vehicle
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_vehicle_PreRender;
+      PreRender += TWebUserControl_vehicle_PreRender;
       }
 
     private void TWebUserControl_vehicle_PreRender(object sender, System.EventArgs e)

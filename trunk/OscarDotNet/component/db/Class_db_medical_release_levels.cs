@@ -69,26 +69,26 @@ namespace Class_db_medical_release_levels
         public void BindListControl(object target)
         {
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
             ((target) as ListControl).Items.Add(new ListItem("-- Select --", ""));
-            using var my_sql_command = new MySqlCommand("SELECT code, description from medical_release_code_description_map where be_hereafter_valid order by pecking_order", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT code, description from medical_release_code_description_map where be_hereafter_valid order by pecking_order", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
         }
 
         public string DescriptionOf(string code)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select description from medical_release_code_description_map where code = " + code, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select description from medical_release_code_description_map where code = " + code, connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 

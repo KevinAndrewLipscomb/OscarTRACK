@@ -23,8 +23,7 @@ namespace change_password
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebForm_change_password_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebForm_change_password_PreRender;
         }
 
     private void InjectPersistentClientSideScript()

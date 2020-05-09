@@ -17,6 +17,7 @@ using System.Text;
 using System.IO;
 using Class_biz_members;
 using UserControl_current_indicators;
+
 namespace report_monthly_core_ops_dashboard
 {
     public struct p_type
@@ -55,9 +56,9 @@ namespace report_monthly_core_ops_dashboard
             base.OnInit(e);
             p.biz_members = new TClass_biz_members();
             // Set session objects referenced by UserControl_roster.
-            this.Session.Add("mode:report", k.EMPTY);
-            this.Session.Add("mode:report/monthly-core-ops-dashboard", k.EMPTY);
-            PlaceHolder_current.Controls.Add(((TWebUserControl_current_indicators)(this.LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))));
+            Session.Add("mode:report", k.EMPTY);
+            Session.Add("mode:report/monthly-core-ops-dashboard", k.EMPTY);
+            PlaceHolder_current.Controls.Add(((TWebUserControl_current_indicators)(LoadControl("~/usercontrol/app/UserControl_current_indicators.ascx"))));
 
         }
 
@@ -86,7 +87,7 @@ namespace report_monthly_core_ops_dashboard
                 // be_html
                 k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], recipient_q.Dequeue().ToString(), "Report: Monthly Core Ops Dashboard", body, true);
             }
-            this.Session.Abandon();
+            Session.Abandon();
 
         }
 

@@ -29,8 +29,7 @@ namespace efficipay_docket_detail
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_efficipay_docket_detail_PreRender;
+      PreRender += TWebForm_efficipay_docket_detail_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

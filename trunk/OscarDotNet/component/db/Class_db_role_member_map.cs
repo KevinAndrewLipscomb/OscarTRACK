@@ -39,8 +39,8 @@ namespace Class_db_role_member_map
             {
                 crosstab_where_clause = " and tier_id in (" + tier_quoted_value_list + ")";
             }
-            this.Open();
-            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text,tier_id" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", this.connection);
+            Open();
+            using var my_sql_command_1 = new MySqlCommand("select id,name,soft_hyphenation_text,tier_id" + " from role" + " where name <> \"Member\"" + crosstab_where_clause + " order by pecking_order", connection);
             dr = my_sql_command_1.ExecuteReader();
             while (dr.Read())
             {
@@ -57,7 +57,7 @@ namespace Class_db_role_member_map
             where_clause = " where enrollment_level.description in ('Applicant','Associate','EDP','Regular','Life','Senior','Tenured BLS','Tenured ALS','Staff','ALS Intern','College','Atypical','Recruit','Admin'" + ",'Reduced (1)','Reduced (2)','Reduced (3)','SpecOps','Transferring','Suspended','New trainee') ";
             if (agency_filter != k.EMPTY)
             {
-                where_clause = where_clause + " and agency_id = \"" + agency_filter + "\"";
+                where_clause += " and agency_id = \"" + agency_filter + "\"";
             }
             if (be_sort_order_descending)
             {
@@ -67,10 +67,10 @@ namespace Class_db_role_member_map
             {
                 sort_order = sort_order.Replace("%", " asc");
             }
-            using var my_sql_command_2 = new MySqlCommand("select member.id as member_id" + " , concat(last_name,\"" + k.COMMA_SPACE + "\",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_name" + crosstab_sql + " from member" + " left outer join role_member_map on (role_member_map.member_id=member.id)" + " left outer join role on (role.id=role_member_map.role_id)" + " join enrollment_history" + " on" + " (" + "   enrollment_history.member_id=member.id" + " and" + "   (enrollment_history.end_date is null)" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + where_clause + " group by member.id" + " order by " + sort_order, this.connection);
+            using var my_sql_command_2 = new MySqlCommand("select member.id as member_id" + " , concat(last_name,\"" + k.COMMA_SPACE + "\",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_name" + crosstab_sql + " from member" + " left outer join role_member_map on (role_member_map.member_id=member.id)" + " left outer join role on (role.id=role_member_map.role_id)" + " join enrollment_history" + " on" + " (" + "   enrollment_history.member_id=member.id" + " and" + "   (enrollment_history.end_date is null)" + " )" + " join enrollment_level on (enrollment_level.code=enrollment_history.level_code)" + where_clause + " group by member.id" + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command_2.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -80,11 +80,11 @@ namespace Class_db_role_member_map
             where_clause = " where role.name <> \"Member\"";
             if (tier_quoted_value_list != k.DOUBLE_QUOTE)
             {
-                where_clause = where_clause + " and (tier_id in (" + tier_quoted_value_list + "))";
+                where_clause += " and (tier_id in (" + tier_quoted_value_list + "))";
             }
             if (agency_filter != k.EMPTY)
             {
-                where_clause = where_clause + " and (agency_id = \"" + agency_filter + "\")";
+                where_clause += " and (agency_id = \"" + agency_filter + "\")";
             }
             if (be_sort_order_ascending)
             {
@@ -94,11 +94,11 @@ namespace Class_db_role_member_map
             {
                 sort_order = sort_order.Replace("%", " desc");
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , concat(member.last_name,\", \",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_designator" + " , member_id" + " , cad_num" + " , agency_id" + " from role_member_map" + " join member on (member.id=role_member_map.member_id)" + " join role on (role.id=role_member_map.role_id)" + where_clause + " order by " + sort_order, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select role_id" + " , tier_id as role_tier_id" + " , pecking_order as role_pecking_order" + " , role.name as role_name" + " , concat(member.last_name,\", \",first_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_designator" + " , member_id" + " , cad_num" + " , agency_id" + " from role_member_map" + " join member on (member.id=role_member_map.member_id)" + " join role on (role.id=role_member_map.role_id)" + where_clause + " order by " + sort_order, connection);
             ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -150,11 +150,11 @@ namespace Class_db_role_member_map
                 tier_specific_sort_hint_column = " , \"\" as sort_hint";
                 tier_specific_where_conditions = k.EMPTY + " and agency_id = \"" + agency_id + "\"" + " and tier_id > \"1\"";
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select " + role_name_construction_clause + " as role_name" + " , concat(first_name,\" \",last_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_name" + " , cad_num" + tier_specific_sort_hint_column + " from role_member_map" + " join role on (role.id=role_member_map.role_id)" + " join member on (member.id=role_member_map.member_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name <> \"Member\"" + tier_specific_where_conditions + " order by role.pecking_order,sort_hint,cad_num", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select " + role_name_construction_clause + " as role_name" + " , concat(first_name,\" \",last_name,\" (\",IFNULL(cad_num,\"\"),\")\") as member_name" + " , cad_num" + tier_specific_sort_hint_column + " from role_member_map" + " join role on (role.id=role_member_map.role_id)" + " join member on (member.id=role_member_map.member_id)" + " join agency on (agency.id=member.agency_id)" + " where role.name <> \"Member\"" + tier_specific_where_conditions + " order by role.pecking_order,sort_hint,cad_num", connection);
             ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -169,11 +169,11 @@ namespace Class_db_role_member_map
             {
                 sql = k.EMPTY + "select distinct role.name as role_name" + " , \"\" as sort_hint" + " from role_member_map" + "   join role on (role.id=role_member_map.role_id)" + "   join member on (member.id=role_member_map.member_id)" + "   join agency on (agency.id=member.agency_id)" + " where role.name not in" + "   (" + "   select distinct role.name" + "   from role_member_map" + "     join role on (role.id=role_member_map.role_id)" + "     join member on (member.id=role_member_map.member_id)" + "     join agency on (agency.id=member.agency_id)" + "   where role.name <> \"Member\"" + "     and tier_id > \"1\"" + "     and agency_id = \"" + agency_id + "\"" + "   )" + "   and tier_id > \"1\"" + " order by role.pecking_order,sort_hint";
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand(sql, this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(sql, connection);
             ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
-            this.Close();
+            Close();
 
         }
 
@@ -281,10 +281,10 @@ namespace Class_db_role_member_map
         public string HolderOf(string role_name)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select concat(first_name,\" \",last_name)" + " from role_member_map" + " join role on (role.id=role_member_map.role_id)" + " join member on (member.id=role_member_map.member_id)" + " where role.name = \"" + role_name + "\"" + " limit 1", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select concat(first_name,\" \",last_name)" + " from role_member_map" + " join role on (role.id=role_member_map.role_id)" + " join member on (member.id=role_member_map.member_id)" + " where role.name = \"" + role_name + "\"" + " limit 1", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -304,18 +304,18 @@ namespace Class_db_role_member_map
 
         public void Save(string member_id, string role_id, bool be_granted)
         {
-            this.Open();
+            Open();
             if (be_granted)
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_member_map set member_id = \"" + member_id + "\", role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore role_member_map set member_id = \"" + member_id + "\", role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
             else
             {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_member_map where member_id = \"" + member_id + "\" and role_id = \"" + role_id + "\""), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from role_member_map where member_id = \"" + member_id + "\" and role_id = \"" + role_id + "\""), connection);
                 my_sql_command.ExecuteNonQuery();
             }
-            this.Close();
+            Close();
         }
 
     internal string SoleSpecialAgencyOf

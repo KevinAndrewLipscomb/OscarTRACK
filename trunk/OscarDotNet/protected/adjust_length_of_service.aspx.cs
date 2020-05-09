@@ -40,8 +40,7 @@ namespace adjust_length_of_service
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_adjust_length_of_service_PreRender;
+      PreRender += TWebForm_adjust_length_of_service_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

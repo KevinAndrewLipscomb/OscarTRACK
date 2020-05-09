@@ -29,8 +29,7 @@ namespace change_member_medical_release_level
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebForm_change_member_medical_release_level_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebForm_change_member_medical_release_level_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

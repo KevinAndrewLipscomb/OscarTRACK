@@ -50,22 +50,22 @@ namespace report_monthly_current_phone_list
             p.biz_agencies = new TClass_biz_agencies();
             p.biz_members = new TClass_biz_members();
             // Set session objects referenced by UserControl_roster.
-            this.Session.Add("mode:report", k.EMPTY);
-            this.Session.Add("mode:report/monthly-current-phone-list", k.EMPTY);
+            Session.Add("mode:report", k.EMPTY);
+            Session.Add("mode:report/monthly-current-phone-list", k.EMPTY);
             Session.Add("noninteractive_effective_agency_id",p.biz_agencies.IdOfShortDesignator(Request["agency"]));
-            if (this.Request["agency"] == "EMS")
+            if (Request["agency"] == "EMS")
             {
                 role_name = "Department Authority";
-                this.Session.Add("privilege_array", new string[1] {"see-all-squads"});
+                Session.Add("privilege_array", new string[1] {"see-all-squads"});
             }
             else
             {
                 role_name = "Squad Commander";
-                this.Session.Add("privilege_array", new string[0]);
+                Session.Add("privilege_array", new string[0]);
             }
-            p.member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name, this.Request["agency"]);
-            this.Session.Add("member_id", p.member_id);
-            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(this.LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
+            p.member_id = p.biz_members.IdOfAppropriateRoleHolder(role_name, Request["agency"]);
+            Session.Add("member_id", p.member_id);
+            PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
 
         }
 
@@ -83,7 +83,7 @@ namespace report_monthly_current_phone_list
             // //
             body = sb.ToString();
             // Send output stream as an email message.
-            recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue(this.Request["agency"]);
+            recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue(Request["agency"]);
             uint recipient_q_count = (uint)(recipient_q.Count);
             for (i = 1; i <= recipient_q_count; i ++ )
             {
@@ -94,7 +94,7 @@ namespace report_monthly_current_phone_list
                 // be_html
                 k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], recipient_q.Dequeue().ToString(), "Report: Monthly Current Phone List", body, true);
             }
-            this.Session.Abandon();
+            Session.Abandon();
 
         }
 

@@ -80,8 +80,7 @@ namespace UserControl_scene_visits_to_love_letter_targets
     // / </summary>
     private void InitializeComponent()
       {
-      this.PreRender += this.TWebUserControl_scene_visits_to_love_letter_targets_PreRender;
-      //this.Load += this.Page_Load;
+      PreRender += TWebUserControl_scene_visits_to_love_letter_targets_PreRender;
       }
 
     private void TWebUserControl_scene_visits_to_love_letter_targets_PreRender(object sender, System.EventArgs e)

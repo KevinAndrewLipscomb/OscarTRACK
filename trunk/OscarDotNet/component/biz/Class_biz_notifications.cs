@@ -46,6 +46,7 @@ namespace Class_biz_notifications
             runtime_root_fullspec = ConfigurationManager.AppSettings["runtime_root_fullspec"];
         }
 
+
         public void BindDirectToListControl(object target, string unselected_literal, string selected_value)
         {
             db_notifications.BindDirectToListControl(target, unselected_literal, selected_value);

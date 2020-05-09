@@ -45,7 +45,7 @@ namespace Class_db_vehicle_usability_history
     public bool Bind(string partial_spec, object target)
       {
       var concat_clause = "concat(IFNULL(time_went_down,'-'),'|',IFNULL(mileage,'-'),'|',IFNULL(time_came_up,'-'),'|',IFNULL(down_comment,'-'),'|',IFNULL(up_comment,'-'))";
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -54,7 +54,7 @@ namespace Class_db_vehicle_usability_history
         + " from vehicle_usability_history"
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -62,7 +62,7 @@ namespace Class_db_vehicle_usability_history
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       return ((target) as ListControl).Items.Count > 0;
       }
 
@@ -113,7 +113,7 @@ namespace Class_db_vehicle_usability_history
 
     public void BindDirectToListControl(object target)
       {
-      this.Open();
+      Open();
       ((target) as ListControl).Items.Clear();
       using var my_sql_command = new MySqlCommand
         (
@@ -121,7 +121,7 @@ namespace Class_db_vehicle_usability_history
         + " , CONVERT(concat(IFNULL(time_went_down,'-'),'|',IFNULL(mileage,'-'),'|',IFNULL(time_came_up,'-'),'|',IFNULL(down_comment,'-'),'|',IFNULL(up_comment,'-')) USING utf8) as spec"
         + " FROM vehicle_usability_history"
         + " order by spec",
-        this.connection
+        connection
         );
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
@@ -129,17 +129,17 @@ namespace Class_db_vehicle_usability_history
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      this.Close();
+      Close();
       }
 
     public bool Delete(string id)
       {
       bool result;
       result = true;
-      this.Open();
+      Open();
       try
         {
-        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_usability_history where id = \"" + id + "\""), this.connection);
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_usability_history where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
@@ -153,7 +153,7 @@ namespace Class_db_vehicle_usability_history
           throw e;
           }
         }
-      this.Close();
+      Close();
       return result;
       }
 
@@ -181,8 +181,8 @@ namespace Class_db_vehicle_usability_history
       up_comment = k.EMPTY;
       result = false;
       //
-      this.Open();
-      using var my_sql_command = new MySqlCommand("select * from vehicle_usability_history where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      Open();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_usability_history where CAST(id AS CHAR) = \"" + id + "\"", connection);
       dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
@@ -196,7 +196,7 @@ namespace Class_db_vehicle_usability_history
         result = true;
         }
       dr.Close();
-      this.Close();
+      Close();
       return result;
       }
 
@@ -242,7 +242,7 @@ namespace Class_db_vehicle_usability_history
       + " , down_comment = NULLIF('" + down_comment + "','')"
       + " , up_comment = NULLIF('" + up_comment + "','')"
       + k.EMPTY;
-      this.Open();
+      Open();
       using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
@@ -253,10 +253,10 @@ namespace Class_db_vehicle_usability_history
           + " on duplicate key update "
           + childless_field_assignments_clause
           ),
-          this.connection
+          connection
           );
       my_sql_command.ExecuteNonQuery();
-      this.Close();
+      Close();
       }
 
     } // end TClass_db_vehicle_usability_history

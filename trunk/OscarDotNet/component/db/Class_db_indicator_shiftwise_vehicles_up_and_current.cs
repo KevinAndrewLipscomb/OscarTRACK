@@ -39,7 +39,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
     public void BindLatestRankedPercentages(object target, bool be_trendable)
       {
       Open();
-      var transaction = this.connection.BeginTransaction();
+      var transaction = connection.BeginTransaction();
       try
         {
         using var my_sql_command_1 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_shiftwise_vehicles_up_and_current" + " join agency on (agency.id=indicator_shiftwise_vehicles_up_and_current.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", connection, transaction);
@@ -48,7 +48,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
         ((MySqlDataReader)(((target) as DataGrid).DataSource)).Close();
         if (be_trendable)
           {
-          using var my_sql_command_2 = new MySqlCommand("delete from indicator_shiftwise_vehicles_up_and_current where not be_trendable", this.connection, transaction);
+          using var my_sql_command_2 = new MySqlCommand("delete from indicator_shiftwise_vehicles_up_and_current where not be_trendable", connection, transaction);
           my_sql_command_2.ExecuteNonQuery();
           }
         transaction.Commit();

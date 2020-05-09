@@ -19,8 +19,7 @@ namespace vehicle_detail
         // / </summary>
         private void InitializeComponent()
           {
-          this.PreRender += this.TWebForm_vehicle_detail_PreRender;
-          //this.Load += this.Page_Load;
+          PreRender += TWebForm_vehicle_detail_PreRender;
           }
 
         protected void Page_Load(object sender, System.EventArgs e)

@@ -202,8 +202,7 @@ namespace UserControl_patient_encounter_level
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_patient_encounter_level_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_patient_encounter_level_PreRender;
         }
 
         private void TWebUserControl_patient_encounter_level_PreRender(object sender, System.EventArgs e)

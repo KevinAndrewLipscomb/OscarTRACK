@@ -13,6 +13,7 @@ using System.Web.UI.WebControls;
 
 
 using Class_biz_members;
+
 namespace change_member_driver_qualification
 {
     public struct p_type
@@ -30,8 +31,7 @@ namespace change_member_driver_qualification
         // / </summary>
         private void InitializeComponent()
         {
-            //this.Load += this.Page_Load;
-            this.PreRender += this.TWebForm_change_member_driver_qualification_PreRender;
+            PreRender += TWebForm_change_member_driver_qualification_PreRender;
         }
 
         protected void Page_Load(object sender, System.EventArgs e)

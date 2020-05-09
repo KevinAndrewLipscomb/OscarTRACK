@@ -253,8 +253,7 @@ namespace UserControl_uniform_option_category
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_option_category_PreRender;
+      PreRender += TWebUserControl_uniform_option_category_PreRender;
       }
 
     private void TWebUserControl_uniform_option_category_PreRender(object sender, System.EventArgs e)

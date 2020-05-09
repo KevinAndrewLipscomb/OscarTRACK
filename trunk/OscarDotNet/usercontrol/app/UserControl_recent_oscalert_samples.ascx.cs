@@ -89,8 +89,8 @@ namespace UserControl_recent_oscalert_samples
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_control_ItemDataBound);
-      this.PreRender += this.TWebUserControl_recent_oscalert_samples_PreRender;
+      DataGrid_control.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_control_ItemDataBound);
+      PreRender += TWebUserControl_recent_oscalert_samples_PreRender;
       }
 
     private void TWebUserControl_recent_oscalert_samples_PreRender(object sender, System.EventArgs e)

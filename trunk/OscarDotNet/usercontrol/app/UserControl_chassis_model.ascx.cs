@@ -233,8 +233,7 @@ namespace UserControl_chassis_model
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_chassis_model_PreRender;
+      PreRender += TWebUserControl_chassis_model_PreRender;
       }
 
     private void TWebUserControl_chassis_model_PreRender(object sender, System.EventArgs e)

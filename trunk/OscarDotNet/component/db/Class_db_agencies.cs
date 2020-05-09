@@ -98,13 +98,13 @@ namespace Class_db_agencies
 
         private void BindEmsPostListControl(string unselected_literal,string designator_clause,object target,string selected_id)
           {
-          this.Open();
+          Open();
           (target as ListControl).Items.Clear();
           if (unselected_literal != k.EMPTY)
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_ems_post = TRUE" + " order by short_designator", this.connection);
+          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_ems_post = TRUE" + " order by short_designator", connection);
           var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
@@ -115,7 +115,7 @@ namespace Class_db_agencies
             {
             (target as ListControl).SelectedValue = selected_id;
             }
-          this.Close();
+          Close();
           }
 
         public void BindEmsPostListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
@@ -144,13 +144,13 @@ namespace Class_db_agencies
 
         private void BindListControl(string unselected_literal,string designator_clause,object target,string selected_id)
           {
-          this.Open();
+          Open();
           (target as ListControl).Items.Clear();
           if (unselected_literal != k.EMPTY)
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
-          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", this.connection);
+          using var my_sql_command = new MySqlCommand("SELECT id" + " , " + designator_clause + " as designator" + " from agency" + " where be_active = TRUE" + " order by short_designator", connection);
           var dr = my_sql_command.ExecuteReader();
           while (dr.Read())
             {
@@ -161,7 +161,7 @@ namespace Class_db_agencies
             {
             (target as ListControl).SelectedValue = selected_id;
             }
-          this.Close();
+          Close();
           }
 
         public void BindListControlShort(object target,string selected_id,bool be_available_option_all,string unselected_literal)
@@ -285,16 +285,16 @@ namespace Class_db_agencies
 
         public void BindForCommensuration(object target)
         {
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select agency.id as agency_id" + " , concat(medium_designator,\" - \",long_designator) as designator" + " , " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id < 200" + " and be_active" + " group by agency.id" + " order by agency.id", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select agency.id as agency_id" + " , concat(medium_designator,\" - \",long_designator) as designator" + " , " + Class_db_members_Static.CrewShiftsForecastMetricFromWhereClause("1") + " and agency.id < 200" + " and be_active" + " group by agency.id" + " order by agency.id", connection);
             ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
             ((target) as DataGrid).DataBind();
-            this.Close();
+            Close();
         }
 
         public void BindForControlCharts(string indicator, object target)
         {
-            this.Open();
+            Open();
             if (indicator == "third_slot_saturation")
               {
               using var my_sql_command = new MySqlCommand
@@ -309,11 +309,11 @@ namespace Class_db_agencies
               }
             else
               {
-              using var my_sql_command = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", this.connection);
+              using var my_sql_command = new MySqlCommand("select distinct if(be_agency_id_applicable,concat(medium_designator,\" - \",long_designator),\"CITYWIDE\") as designator" + " , id" + " , be_agency_id_applicable" + " from indicator_" + indicator + " join agency on (agency.id=indicator_" + indicator + ".agency_id)" + " order by be_agency_id_applicable,id", connection);
               ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
               ((target) as DataGrid).DataBind();
               }
-            this.Close();
+            Close();
         }
 
         public void BindRankedCommensuration(object target)
@@ -430,10 +430,10 @@ namespace Class_db_agencies
         public string IdOfShortDesignator(string short_designator)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select id from agency where short_designator = \"" + short_designator + "\"", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -517,10 +517,10 @@ namespace Class_db_agencies
         public string LongDesignatorOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select long_designator from agency where id = '" + id + "'", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select long_designator from agency where id = '" + id + "'", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -536,10 +536,10 @@ namespace Class_db_agencies
         public string MediumDesignatorOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select medium_designator from agency where id = '" + id + "'", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select medium_designator from agency where id = '" + id + "'", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -562,14 +562,14 @@ namespace Class_db_agencies
             string result;
             object overall_commensuration_obj;
             result = k.EMPTY;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select FORMAT(value,0)" + " from indicator_commensuration" + " where year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and not be_agency_id_applicable", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select FORMAT(value,0)" + " from indicator_commensuration" + " where year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and not be_agency_id_applicable", connection);
             overall_commensuration_obj = my_sql_command.ExecuteScalar();
             if (overall_commensuration_obj != null)
             {
                 result = overall_commensuration_obj.ToString();
             }
-            this.Close();
+            Close();
             return result;
         }
 
@@ -684,19 +684,19 @@ namespace Class_db_agencies
                 commensuration_rec = (commensuration_rec_type)(commensuration_rec_q.Dequeue());
                 sql = sql + " (" + year + k.COMMA + month + k.COMMA + commensuration_rec.be_agency_id_applicable.ToString() + k.COMMA + commensuration_rec.agency_id + k.COMMA + (commensuration_rec.commensuration_factor * 100).ToString("F0") + " ),";
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand(db_trail.Saved(sql.Substring(0, sql.Length - 1)), this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved(sql.Substring(0, sql.Length - 1)), connection);
             my_sql_command.ExecuteNonQuery();
-            this.Close();
+            Close();
         }
 
         public string ShortDesignatorOf(string id)
         {
             string result;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select short_designator from agency where id = '" + id + "'", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select short_designator from agency where id = '" + id + "'", connection);
             result = my_sql_command.ExecuteScalar().ToString();
-            this.Close();
+            Close();
             return result;
         }
 

@@ -236,8 +236,7 @@ namespace UserControl_gripe
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_gripe_PreRender;
+      PreRender += TWebUserControl_gripe_PreRender;
       }
 
     private void TWebUserControl_gripe_PreRender(object sender, System.EventArgs e)

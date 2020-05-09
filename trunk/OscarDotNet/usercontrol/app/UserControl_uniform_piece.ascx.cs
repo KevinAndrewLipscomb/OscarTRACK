@@ -289,8 +289,7 @@ namespace UserControl_uniform_piece
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_uniform_piece_PreRender;
+      PreRender += TWebUserControl_uniform_piece_PreRender;
       }
 
     private void TWebUserControl_uniform_piece_PreRender(object sender, System.EventArgs e)

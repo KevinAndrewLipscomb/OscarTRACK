@@ -35,7 +35,7 @@ namespace report_monthly_per_agency_serial_indicators
       url = "http://" + ConfigurationManager.AppSettings["host_domain_name"] + "/" + ConfigurationManager.AppSettings["application_name"];
       HyperLink_web_site.Text = url;
       HyperLink_web_site.NavigateUrl = url;
-      p.agency_id = p.biz_agencies.IdOfShortDesignator(this.Request["agency"]);
+      p.agency_id = p.biz_agencies.IdOfShortDesignator(Request["agency"]);
       UserControl_serial_indicators_per_agency_control.agency_id = p.agency_id;
       }
 
@@ -49,7 +49,7 @@ namespace report_monthly_per_agency_serial_indicators
       // Set session objects referenced by UserControl_roster.
       Session.Add("mode:report", k.EMPTY);
       Session.Add("mode:report/monthly-per-agency-serial-indicators", k.EMPTY);
-      if (this.Request["agency"] == "EMS")
+      if (Request["agency"] == "EMS")
         {
         Session.Add("privilege_array", new string[1] {"see-all-squads"});
         }
@@ -76,8 +76,8 @@ namespace report_monthly_per_agency_serial_indicators
       // subject
       // body
       // be_html
-      k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_notifications.TargetOfAboutAgency("report-monthly-per-agency-serial-indicators", p.agency_id), "Report: Monthly " + this.Request["agency"] + " Serial Indicators", body, true);
-      this.Session.Abandon();
+      k.SmtpMailSend(ConfigurationManager.AppSettings["sender_email_address"], p.biz_notifications.TargetOfAboutAgency("report-monthly-per-agency-serial-indicators", p.agency_id), "Report: Monthly " + Request["agency"] + " Serial Indicators", body, true);
+      Session.Abandon();
       }
 
     } // end TWebForm_report_monthly_per_agency_serial_indicators

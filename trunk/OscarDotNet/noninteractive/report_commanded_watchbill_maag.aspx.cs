@@ -108,7 +108,7 @@ namespace report_commanded_watchbill_maag
           p.biz_role_member_map.EmailTargetOfAppropriateScheduler(p.agency_filter)
           );
         }
-      this.Session.Abandon();
+      Session.Abandon();
       }
 
     } // end TWebForm_report_commanded_watchbill_maag

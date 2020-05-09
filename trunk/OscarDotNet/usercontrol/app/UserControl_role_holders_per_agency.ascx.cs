@@ -8,6 +8,7 @@ using System.Collections;
 
 using Class_biz_agencies;
 using Class_biz_role_member_map;
+
 namespace UserControl_role_holders_per_agency
 {
     public struct p_type
@@ -140,8 +141,7 @@ namespace UserControl_role_holders_per_agency
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_role_holders_per_agency_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_role_holders_per_agency_PreRender;
         }
 
         private void TWebUserControl_role_holders_per_agency_PreRender(object sender, System.EventArgs e)

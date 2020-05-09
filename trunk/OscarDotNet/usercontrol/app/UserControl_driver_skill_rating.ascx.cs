@@ -233,8 +233,7 @@ namespace UserControl_driver_skill_rating
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_driver_skill_rating_PreRender;
+      PreRender += TWebUserControl_driver_skill_rating_PreRender;
       }
 
     private void TWebUserControl_driver_skill_rating_PreRender(object sender, System.EventArgs e)

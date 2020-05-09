@@ -216,8 +216,7 @@ namespace UserControl_vehicle_kind
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_vehicle_kind_PreRender;
+      PreRender += TWebUserControl_vehicle_kind_PreRender;
       }
 
     private void TWebUserControl_vehicle_kind_PreRender(object sender, System.EventArgs e)

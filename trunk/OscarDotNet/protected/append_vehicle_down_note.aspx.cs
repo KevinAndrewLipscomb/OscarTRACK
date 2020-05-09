@@ -33,8 +33,7 @@ namespace append_vehicle_down_note
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_append_vehicle_down_note_PreRender;
+      PreRender += TWebForm_append_vehicle_down_note_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)

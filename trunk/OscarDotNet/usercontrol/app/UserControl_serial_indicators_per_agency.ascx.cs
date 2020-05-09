@@ -127,8 +127,7 @@ namespace UserControl_serial_indicators_per_agency
     // / </summary>
     private void InitializeComponent()
       {
-      this.PreRender += this.TWebUserControl_serial_indicators_per_agency_PreRender;
-      //this.Load += this.Page_Load;
+      PreRender += TWebUserControl_serial_indicators_per_agency_PreRender;
       }
 
     private void TWebUserControl_serial_indicators_per_agency_PreRender(object sender, System.EventArgs e)

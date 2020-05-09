@@ -19,8 +19,7 @@ namespace add_vehicle
         // / </summary>
         private void InitializeComponent()
           {
-          this.PreRender += this.TWebForm_add_vehicle_PreRender;
-          //this.Load += this.Page_Load;
+          PreRender += TWebForm_add_vehicle_PreRender;
           }
 
         protected void Page_Load(object sender, System.EventArgs e)

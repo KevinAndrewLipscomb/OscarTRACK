@@ -5,6 +5,7 @@ using System;
 using System.Web.UI.WebControls;
 using Class_dbkeyclick;
 using Class_dbkeyclick_trail;
+
 namespace Class_db_states
 {
     public class TClass_db_states: TClass_dbkeyclick
@@ -20,16 +21,16 @@ namespace Class_db_states
         {
             bool result;
             MySqlDataReader dr;
-            this.Open();
+            Open();
             ((target) as ListControl).Items.Clear();
-            using var my_sql_command = new MySqlCommand("SELECT id" + " , abbreviation" + " FROM state" + " WHERE abbreviation like \"%" + partial_spec + "%\"" + " order by abbreviation", this.connection);
+            using var my_sql_command = new MySqlCommand("SELECT id" + " , abbreviation" + " FROM state" + " WHERE abbreviation like \"%" + partial_spec + "%\"" + " order by abbreviation", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + k.SPACE_HYPHENS_SPACE + dr["abbreviation"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             result = ((target) as ListControl).Items.Count > 0;
             return result;
         }
@@ -42,15 +43,15 @@ namespace Class_db_states
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
-            this.Open();
-            using var my_sql_command = new MySqlCommand("SELECT id,abbreviation FROM state where abbreviation <> \"(none specified)\" order by id", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("SELECT id,abbreviation FROM state where abbreviation <> \"(none specified)\" order by id", connection);
             dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["abbreviation"].ToString(), dr["id"].ToString()));
             }
             dr.Close();
-            this.Close();
+            Close();
             if (selected_value != k.EMPTY)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
@@ -72,9 +73,9 @@ namespace Class_db_states
         {
             bool result;
             result = true;
-            this.Open();
+            Open();
             try {
-                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from state where id = " + id), this.connection);
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from state where id = " + id), connection);
                 my_sql_command.ExecuteNonQuery();
             }
             catch(System.Exception e) {
@@ -87,7 +88,7 @@ namespace Class_db_states
                     throw e;
                 }
             }
-            this.Close();
+            Close();
             return result;
         }
 
@@ -98,8 +99,8 @@ namespace Class_db_states
 
             abbreviation = k.EMPTY;
             result = false;
-            this.Open();
-            using var my_sql_command = new MySqlCommand("select abbreviation from state where id = \"" + id + "\"", this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand("select abbreviation from state where id = \"" + id + "\"", connection);
             dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
@@ -107,7 +108,7 @@ namespace Class_db_states
                 result = true;
             }
             dr.Close();
-            this.Close();
+            Close();
             return result;
         }
 
@@ -123,10 +124,10 @@ namespace Class_db_states
         {
             string childless_field_assignments_clause;
             childless_field_assignments_clause = "abbreviation = \"" + abbreviation.ToUpper() + "\"";
-            this.Open();
-            using var my_sql_command = new MySqlCommand(db_trail.Saved("insert state" + " set id = NULLIF(\"" + id + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), this.connection);
+            Open();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("insert state" + " set id = NULLIF(\"" + id + "\",\"\")" + " , " + childless_field_assignments_clause + " on duplicate key update " + childless_field_assignments_clause), connection);
             my_sql_command.ExecuteNonQuery();
-            this.Close();
+            Close();
 
         }
 

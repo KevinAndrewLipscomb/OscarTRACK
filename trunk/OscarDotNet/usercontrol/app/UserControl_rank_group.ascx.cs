@@ -257,8 +257,7 @@ namespace UserControl_rank_group
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_rank_group_PreRender;
+      PreRender += TWebUserControl_rank_group_PreRender;
       }
 
     private void TWebUserControl_rank_group_PreRender(object sender, System.EventArgs e)

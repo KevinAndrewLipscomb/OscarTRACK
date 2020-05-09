@@ -196,10 +196,9 @@ namespace UserControl_ranked_vehicles_up_and_current
     // / </summary>
     private void InitializeComponent()
       {
-      this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-      this.DataGrid_special.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_special_ItemDataBound);
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_ranked_vehicles_up_and_current_PreRender;
+      DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+      DataGrid_special.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_special_ItemDataBound);
+      PreRender += TWebUserControl_ranked_vehicles_up_and_current_PreRender;
       }
 
     private void TWebUserControl_ranked_vehicles_up_and_current_PreRender(object sender, System.EventArgs e)

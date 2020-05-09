@@ -35,7 +35,7 @@ namespace serial_indicator_control_chart
             // takes into account all scheduled leap days
             serial_indicator_rec_type datum;
             uint i;
-            ((this.Application["spcchartnet_avail"]) as AutoResetEvent).WaitOne();
+            ((Application["spcchartnet_avail"]) as AutoResetEvent).WaitOne();
             // One data point per month
             // months wide
             // time distance between data points
@@ -63,7 +63,7 @@ namespace serial_indicator_control_chart
             chart.PrimaryChart.ControlLineMode = SPCChartObjects.CONTROL_LINE_VARIABLE;
             chart.PrimaryChart.DisplayChart = true;
             chart.TextRenderingHint = TextRenderingHint.ClearTypeGridFit;
-            var history = new TClass_biz_agencies().SerialIndicatorData(k.Safe(this.Request["indicator"], k.safe_hint_type.ECMASCRIPT_WORD), k.Safe(this.Request["agency"], k.safe_hint_type.NUM), k.Safe(this.Request["be_agency_applicable"], k.safe_hint_type.NUM));
+            var history = new TClass_biz_agencies().SerialIndicatorData(k.Safe(Request["indicator"], k.safe_hint_type.ECMASCRIPT_WORD), k.Safe(Request["agency"], k.safe_hint_type.NUM), k.Safe(Request["be_agency_applicable"], k.safe_hint_type.NUM));
             uint history_count = (uint)(history.Count);
             if (history_count > 0)
             {
@@ -101,8 +101,8 @@ namespace serial_indicator_control_chart
             chart.RebuildChartUsingCurrentData();
             var image = new BufferedImage(chart, ImageFormat.Jpeg);
             image.JpegImageQuality = 100;
-            image.SaveImage(this.Response.OutputStream);
-            ((this.Application["spcchartnet_avail"]) as AutoResetEvent).Set();
+            image.SaveImage(Response.OutputStream);
+            ((Application["spcchartnet_avail"]) as AutoResetEvent).Set();
 
         }
 

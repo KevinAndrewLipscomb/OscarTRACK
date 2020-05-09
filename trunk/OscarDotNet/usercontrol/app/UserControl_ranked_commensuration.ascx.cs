@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Collections;
 using Class_biz_agencies;
 using Class_biz_role_member_map;
+
 namespace UserControl_ranked_commensuration
 {
     public struct p_type
@@ -72,9 +73,8 @@ namespace UserControl_ranked_commensuration
         // / </summary>
         private void InitializeComponent()
         {
-            this.DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-            this.PreRender += this.TWebUserControl_ranked_commensuration_PreRender;
-            //this.Load += this.Page_Load;
+            DataGrid_detail.ItemDataBound += new System.Web.UI.WebControls.DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+            PreRender += TWebUserControl_ranked_commensuration_PreRender;
         }
 
         private void TWebUserControl_ranked_commensuration_PreRender(object sender, System.EventArgs e)

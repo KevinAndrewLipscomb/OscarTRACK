@@ -243,8 +243,7 @@ namespace UserControl_incident_nature_translation
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_incident_nature_translation_PreRender;
+      PreRender += TWebUserControl_incident_nature_translation_PreRender;
       }
 
     private void TWebUserControl_incident_nature_translation_PreRender(object sender, System.EventArgs e)

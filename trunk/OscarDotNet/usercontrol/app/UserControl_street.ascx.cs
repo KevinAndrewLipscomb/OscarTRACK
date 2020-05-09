@@ -233,8 +233,7 @@ namespace UserControl_street
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebUserControl_street_PreRender;
+      PreRender += TWebUserControl_street_PreRender;
       }
 
     private void TWebUserControl_street_PreRender(object sender, System.EventArgs e)

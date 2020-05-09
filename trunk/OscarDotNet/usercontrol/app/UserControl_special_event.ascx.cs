@@ -202,8 +202,7 @@ namespace UserControl_special_event
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_special_event_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_special_event_PreRender;
         }
 
         private void TWebUserControl_special_event_PreRender(object sender, System.EventArgs e)

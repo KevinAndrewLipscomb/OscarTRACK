@@ -1,4 +1,5 @@
 using System;
+
 namespace appcommon
 {
     public static class appcommon_Static

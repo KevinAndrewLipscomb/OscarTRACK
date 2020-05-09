@@ -65,8 +65,8 @@ namespace UserControl_ranked_scheduled_duty_compliance
     // / </summary>
     private void InitializeComponent()
       {
-      DataGrid_detail.ItemDataBound += new DataGridItemEventHandler(this.DataGrid_detail_ItemDataBound);
-      PreRender += this.TWebUserControl_ranked_scheduled_duty_compliance_PreRender;
+      DataGrid_detail.ItemDataBound += new DataGridItemEventHandler(DataGrid_detail_ItemDataBound);
+      PreRender += TWebUserControl_ranked_scheduled_duty_compliance_PreRender;
       }
 
     private void TWebUserControl_ranked_scheduled_duty_compliance_PreRender(object sender, System.EventArgs e)

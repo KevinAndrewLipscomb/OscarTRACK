@@ -8,6 +8,7 @@ using System.Collections;
 
 using Class_biz_states;
 using UserControl_drop_down_date;
+
 namespace UserControl_state
 {
     // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
@@ -206,8 +207,7 @@ namespace UserControl_state
         // / </summary>
         private void InitializeComponent()
         {
-            this.PreRender += this.TWebUserControl_state_PreRender;
-            //this.Load += this.Page_Load;
+            PreRender += TWebUserControl_state_PreRender;
         }
 
         private void TWebUserControl_state_PreRender(object sender, System.EventArgs e)

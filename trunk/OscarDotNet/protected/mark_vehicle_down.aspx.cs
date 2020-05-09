@@ -34,8 +34,7 @@ namespace mark_vehicle_down
     // / </summary>
     private void InitializeComponent()
       {
-      //this.Load += this.Page_Load;
-      this.PreRender += this.TWebForm_mark_vehicle_down_PreRender;
+      PreRender += TWebForm_mark_vehicle_down_PreRender;
       }
 
     protected void Page_Load(object sender, System.EventArgs e)
