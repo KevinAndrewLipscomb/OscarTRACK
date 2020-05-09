@@ -19,16 +19,16 @@ namespace Class_biz_members
   public class TClass_biz_members
     {
 
-        private TClass_biz_agencies biz_agencies = null;
-        private TClass_biz_enrollment biz_enrollment = null;
-        private TClass_biz_medical_release_levels biz_medical_release_levels = null;
-        private TClass_biz_notifications biz_notifications = null;
-        private TClass_biz_roles biz_roles = null;
-        private TClass_biz_user biz_user = null;
-        private TClass_db_leaves db_leaves = null;
-        private TClass_db_members db_members = null;
-        private TClass_db_sms_gateways db_sms_gateways = null;
-        private TClass_db_users db_users = null;
+        private readonly TClass_biz_agencies biz_agencies = null;
+        private readonly TClass_biz_enrollment biz_enrollment = null;
+        private readonly TClass_biz_medical_release_levels biz_medical_release_levels = null;
+        private readonly TClass_biz_notifications biz_notifications = null;
+        private readonly TClass_biz_roles biz_roles = null;
+        private readonly TClass_biz_user biz_user = null;
+        private readonly TClass_db_leaves db_leaves = null;
+        private readonly TClass_db_members db_members = null;
+        private readonly TClass_db_sms_gateways db_sms_gateways = null;
+        private readonly TClass_db_users db_users = null;
 
         public TClass_biz_members() : base()
         {
@@ -54,10 +54,10 @@ namespace Class_biz_members
           string agency_id,
           string email_address,
           DateTime enrollment_date,
-          string enrollment_level,
-          string phone_num,
-          string phone_service_id,
-          string section_num
+          string enrollment_level = k.EMPTY,
+          string phone_num = k.EMPTY,
+          string phone_service_id = k.EMPTY,
+          string section_num = k.EMPTY
           )
           {
             bool result;
@@ -103,20 +103,6 @@ namespace Class_biz_members
             }
             return result;
           }
-
-    public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level, string phone_num, string phone_service_id)
-          {
-          return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, "", phone_num, phone_service_id, section_num:k.EMPTY);
-          }
-        public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date)
-        {
-            return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, "");
-        }
-
-        public bool Add(string first_name, string last_name, string cad_num, string medical_release_code, bool be_driver_qualified, string agency_id, string email_address, DateTime enrollment_date, string enrollment_level)
-        {
-            return Add(first_name, last_name, cad_num, medical_release_code, be_driver_qualified, agency_id, email_address, enrollment_date, enrollment_level, phone_num:k.EMPTY, phone_service_id:k.EMPTY);
-        }
 
     public string AgencyIdOf(object summary)
       {
@@ -368,7 +354,6 @@ namespace Class_biz_members
 
     public void BindRoster
       (
-      string member_id,
       string sort_order,
       bool be_sort_order_ascending,
       object target,
@@ -382,7 +367,7 @@ namespace Class_biz_members
       bool do_hide_staff_filter = false
       )
       {
-      db_members.BindRoster(member_id,sort_order,be_sort_order_ascending,target,relative_month,agency_filter,enrollment_filter,leave_filter,med_release_level_filter,section_filter,running_only_filter,do_hide_staff_filter);
+      db_members.BindRoster(sort_order,be_sort_order_ascending,target,relative_month,agency_filter,enrollment_filter,leave_filter,med_release_level_filter,section_filter,running_only_filter,do_hide_staff_filter);
       }
 
     internal void BindScheduleAssignmentsAuditBaseDataList
@@ -597,7 +582,6 @@ namespace Class_biz_members
 
         public bool InitiateTransfer
           (
-          string current_agency_id,
           DateTime effective_date,
           string note,
           object summary

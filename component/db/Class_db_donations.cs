@@ -12,7 +12,7 @@ namespace Class_db_donations
   public class TClass_db_donations: TClass_dbkeyclick
     {
 
-    private TClass_dbkeyclick_trail dbkeyclick_trail = null;
+    private readonly TClass_dbkeyclick_trail dbkeyclick_trail = null;
     
     private static string EnteredByConditionOf
       (
@@ -78,31 +78,28 @@ namespace Class_db_donations
         range_condition = "YEAR(timestamp) = '" + range + "'";
         }
       Open();
-      (target as BaseDataList).DataSource =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select CONCAT(entered_by,'-',per_clerk_seq_num) as `key`"
-          + " , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp"
-          + " , amount"
-          + " , IFNULL(resident_base.name,'OUR FRIENDS AT') as name"
-          + " , CONCAT(house_num,' ',street.name) as address"
-          + " , city.name as city"
-          + " , abbreviation as state"
-          + " from donation"
-          + " join resident_base using (id)"
-          + " join street on (street.id=resident_base.street_id)"
-          + " join city on (city.id=street.city_id)"
-          + " join state on (state.id=city.state_id)"
-          + " where " + range_condition
-          + " and agency = '" + agency_scope + "'"
-          + " and donation.id > 0"
-          + " and " + EnteredByConditionOf(user_email_address,entered_by_filter)
-          + " order by " + sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc")),
-          connection
-          )
-        .ExecuteReader()
+        "select CONCAT(entered_by,'-',per_clerk_seq_num) as `key`"
+        + " , DATE_FORMAT(timestamp,'%Y-%m-%d %T') as timestamp"
+        + " , amount"
+        + " , IFNULL(resident_base.name,'OUR FRIENDS AT') as name"
+        + " , CONCAT(house_num,' ',street.name) as address"
+        + " , city.name as city"
+        + " , abbreviation as state"
+        + " from donation"
+        + " join resident_base using (id)"
+        + " join street on (street.id=resident_base.street_id)"
+        + " join city on (city.id=street.city_id)"
+        + " join state on (state.id=city.state_id)"
+        + " where " + range_condition
+        + " and agency = '" + agency_scope + "'"
+        + " and donation.id > 0"
+        + " and " + EnteredByConditionOf(user_email_address,entered_by_filter)
+        + " order by " + sort_order.Replace("%", (be_sort_order_ascending ? " asc" : " desc")),
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -122,8 +119,9 @@ namespace Class_db_donations
       var transaction = connection.BeginTransaction();
       try
         {
-        var per_clerk_seq_num = new MySqlCommand("select ifnull(max(per_clerk_seq_num)+1,1) as per_clerk_seq_num from donation where entered_by = '" + user_email_address + "'",connection,transaction).ExecuteScalar().ToString();
-        new MySqlCommand
+        using var my_sql_command_1 = new MySqlCommand("select ifnull(max(per_clerk_seq_num)+1,1) as per_clerk_seq_num from donation where entered_by = '" + user_email_address + "'",connection,transaction);
+        var per_clerk_seq_num = my_sql_command_1.ExecuteScalar().ToString();
+        using var my_sql_command_2 = new MySqlCommand
           (
           dbkeyclick_trail.Saved
             (
@@ -133,9 +131,9 @@ namespace Class_db_donations
             ),
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        new MySqlCommand
+          );
+        my_sql_command_2.ExecuteNonQuery();
+        using var my_sql_command_3 = new MySqlCommand
           (
           dbkeyclick_trail.Saved
             (
@@ -151,9 +149,10 @@ namespace Class_db_donations
             ),
           connection,
           transaction
-          )
-          .ExecuteNonQuery();
-        new MySqlCommand(dbkeyclick_trail.Saved("update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction).ExecuteNonQuery();
+          );
+        my_sql_command_3.ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("update resident_base set year_of_last_appeal_to_become_a_donor = null where id = '" + id + "'"),connection,transaction);
+        my_sql_command.ExecuteNonQuery();
         transaction.Commit();
         }
       catch (Exception e)
@@ -175,7 +174,7 @@ namespace Class_db_donations
       var recent_per_clerk = new StringBuilder("key,amount,name,address,city,state,date");
       recent_per_clerk.AppendLine();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select CONCAT_WS('" + k.COMMA + "'"
         +   " , " + k.SQL_CSV_FIELDIFY_PREFIX + "CONCAT(entered_by,'-',per_clerk_seq_num)" + k.SQL_CSV_FIELDIFY_SUFFIX
@@ -197,8 +196,8 @@ namespace Class_db_donations
         +   " and timestamp >= '" + watermark + "'"
         + " order by timestamp desc, entered_by, per_clerk_seq_num",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         recent_per_clerk.AppendLine(dr["record"].ToString());

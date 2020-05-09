@@ -1,5 +1,4 @@
 using Class_biz_agencies;
-using Class_biz_medical_release_levels;
 using Class_biz_members;
 using Class_biz_notifications;
 using Class_biz_role_member_map;
@@ -53,16 +52,14 @@ namespace Class_biz_enrollment
   public class TClass_biz_enrollment
     {
 
-        private TClass_biz_agencies biz_agencies = null;
-        private TClass_biz_medical_release_levels biz_medical_release_levels = null;
-        private TClass_biz_notifications biz_notifications = null;
-        private TClass_db_enrollment db_enrollment = null;
-        private TClass_db_members db_members = null;
+        private readonly TClass_biz_agencies biz_agencies = null;
+        private readonly TClass_biz_notifications biz_notifications = null;
+        private readonly TClass_db_enrollment db_enrollment = null;
+        private readonly TClass_db_members db_members = null;
 
         public TClass_biz_enrollment() : base()
         {
             biz_agencies = new TClass_biz_agencies();
-            biz_medical_release_levels = new TClass_biz_medical_release_levels();
             biz_notifications = new TClass_biz_notifications();
             db_enrollment = new TClass_db_enrollment();
             db_members = new TClass_db_members();

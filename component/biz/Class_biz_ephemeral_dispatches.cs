@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_ephemeral_dispatches;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_ephemeral_dispatches
   {
@@ -17,7 +14,7 @@ namespace Class_biz_ephemeral_dispatches
 
   public class TClass_biz_ephemeral_dispatches
     {
-    private TClass_db_ephemeral_dispatches db_ephemeral_dispatches = null;
+    private readonly TClass_db_ephemeral_dispatches db_ephemeral_dispatches = null;
 
     public TClass_biz_ephemeral_dispatches() : base()
       {

@@ -1,11 +1,11 @@
-using kix;
-using System;
 using Class_db_states;
+using kix;
+
 namespace Class_biz_states
-{
-    public class TClass_biz_states
+  {
+  public class TClass_biz_states
     {
-        private TClass_db_states db_states = null;
+        private readonly TClass_db_states db_states = null;
         //Constructor  Create()
         public TClass_biz_states() : base()
         {

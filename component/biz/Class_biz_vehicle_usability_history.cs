@@ -2,11 +2,9 @@
 
 using Class_biz_members;
 using Class_biz_notifications;
-using Class_biz_vehicles;
 using Class_db_vehicle_usability_history;
 using kix;
 using System;
-using System.Collections;
 
 namespace Class_biz_vehicle_usability_history
   {
@@ -16,16 +14,14 @@ namespace Class_biz_vehicle_usability_history
     }
   public class TClass_biz_vehicle_usability_history
     {
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_biz_vehicles biz_vehicles = null;
-    private TClass_db_vehicle_usability_history db_vehicle_usability_history = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_db_vehicle_usability_history db_vehicle_usability_history = null;
 
     public TClass_biz_vehicle_usability_history() : base()
       {
       biz_members = new TClass_biz_members();
       biz_notifications = new TClass_biz_notifications();
-      biz_vehicles = new TClass_biz_vehicles();
       db_vehicle_usability_history = new TClass_db_vehicle_usability_history();
       }
 

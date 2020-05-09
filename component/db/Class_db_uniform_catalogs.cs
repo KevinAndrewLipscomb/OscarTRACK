@@ -15,7 +15,7 @@ namespace Class_db_uniform_catalogs
       public string id;
       }
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_uniform_catalogs() : base()
       {
@@ -37,7 +37,7 @@ namespace Class_db_uniform_catalogs
         }
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select uniform_catalog.id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -58,8 +58,8 @@ namespace Class_db_uniform_catalogs
         +     agency_id_filter_clause
         + " order by uniform_priority.value, layer, uniform_class.short_designator desc, uniform_piece.name",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -78,7 +78,7 @@ namespace Class_db_uniform_catalogs
       )
       {      
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select uniform_catalog.id as id"
         + " , uniform_priority.value as priority"
@@ -118,8 +118,8 @@ namespace Class_db_uniform_catalogs
         + " where uniform_piece.agency_id = '" + agency_filter + "'"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -128,15 +128,15 @@ namespace Class_db_uniform_catalogs
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(piece_id,'-'),'|',IFNULL(rank_group_id,'-'),'|',IFNULL(medical_release_code,'-'),'|',IFNULL(option_category_id,'-'),'|',IFNULL(be_male,'-'),'|',IFNULL(vendor_id,'-'),'|',IFNULL(model_id,'-'),'|',IFNULL(base_color_id,'-'),'|',IFNULL(trim_color_id,'-'),'|',IFNULL(metal_color_id,'-'),'|',IFNULL(instruction_to_vendor,'-'),'|',IFNULL(elaboration,'-'),'|',IFNULL(unit_cost,'-')) USING utf8) as spec"
         + " FROM uniform_catalog"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -151,7 +151,8 @@ namespace Class_db_uniform_catalogs
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from uniform_catalog where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from uniform_catalog where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -210,7 +211,8 @@ namespace Class_db_uniform_catalogs
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from uniform_catalog where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from uniform_catalog where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         piece_id = dr["piece_id"].ToString();
@@ -290,17 +292,14 @@ namespace Class_db_uniform_catalogs
     internal object Summary(string id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "SELECT *"
-          + " FROM uniform_catalog"
-          + " where id = '" + id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "SELECT *"
+        + " FROM uniform_catalog"
+        + " where id = '" + id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new uniform_catalog_summary()
         {

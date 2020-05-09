@@ -131,7 +131,7 @@ namespace UserControl_efficipay_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == UserControl_efficipay_binder_Static.TSSI_TEASER)
@@ -146,10 +146,6 @@ namespace UserControl_efficipay_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_efficipay",PlaceHolder_content); // As a special case, we are disregarding be_fresh_control_required here.
         c.SetP(p.user_member_agency_id);
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     public void SetTarget(string target)

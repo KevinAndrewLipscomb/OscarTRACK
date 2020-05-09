@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_option_categories;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_option_categories
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_option_categories
 
   public class TClass_biz_uniform_option_categories
     {
-    private TClass_db_uniform_option_categories db_uniform_option_categories = null;
+    private readonly TClass_db_uniform_option_categories db_uniform_option_categories = null;
 
     public TClass_biz_uniform_option_categories() : base()
       {

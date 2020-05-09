@@ -37,7 +37,7 @@ namespace Class_db_vehicles
 
   public class TClass_db_vehicles: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_vehicles() : base()
       {
@@ -51,12 +51,12 @@ namespace Class_db_vehicles
       )
       {
       Open();
-      var be_license_plate_collision_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IFNULL(name,'') from vehicle where be_active and license_plate = '" + license_plate + "' and id <> '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var be_license_plate_collision_obj = my_sql_command.ExecuteScalar();
       Close();
       if (be_license_plate_collision_obj == null)
         {
@@ -71,7 +71,8 @@ namespace Class_db_vehicles
     public string AgencyIdOfId(string id)
       {
       Open();
-      var agency_id_of_id = new MySqlCommand("select agency_id from vehicle where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select agency_id from vehicle where id = '" + id + "'",connection);
+      var agency_id_of_id = my_sql_command.ExecuteScalar().ToString();
       Close();
       return agency_id_of_id;
       }
@@ -83,7 +84,7 @@ namespace Class_db_vehicles
       )
       {
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select (count(vehicle.id) - count(time_went_down)) as num"
         + " , ((count(vehicle.id) - count(time_went_down))/count(vehicle.id)) as fraction"
@@ -99,8 +100,8 @@ namespace Class_db_vehicles
         +   " and (vehicle_kind.description = 'Ambulance')"
         ,
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       num.val = int.Parse(dr["num"].ToString());
       fraction.val = decimal.Parse(dr["fraction"].ToString());
@@ -116,7 +117,8 @@ namespace Class_db_vehicles
     internal bool BeNameActive(string name)
       {
       Open();
-      var be_name_active = ("0" != new MySqlCommand("select count(*) from vehicle where name = '" + name + "' and be_active",connection).ExecuteScalar().ToString());
+      using var my_sql_command = new MySqlCommand("select count(*) from vehicle where name = '" + name + "' and be_active",connection);
+      var be_name_active = ("0" != my_sql_command.ExecuteScalar().ToString());
       Close();
       return be_name_active;
       }
@@ -131,12 +133,12 @@ namespace Class_db_vehicles
       if (proposed_date != DateTime.MinValue)
         {
         Open();
-        var current_dmv_inspection_due = new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           "select dmv_inspection_due from vehicle where id = '" + id + "'",
           connection
-          )
-          .ExecuteScalar();
+          );
+        var current_dmv_inspection_due = my_sql_command.ExecuteScalar();
         if (current_dmv_inspection_due != DBNull.Value)
           {
           be_not_earlier_dmv_inspection_due = (DateTime.Parse(current_dmv_inspection_due.ToString()) <= proposed_date);
@@ -156,12 +158,12 @@ namespace Class_db_vehicles
       if (proposed_mileage != k.EMPTY)
         {
         Open();
-        var current_target_pm_mileage = new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           "select target_pm_mileage from vehicle where id = '" + id + "'",
           connection
-          )
-          .ExecuteScalar();
+          );
+        var current_target_pm_mileage = my_sql_command.ExecuteScalar();
         if (current_target_pm_mileage != DBNull.Value)
           {
           be_not_earlier_target_pm_mileage = (uint.Parse(current_target_pm_mileage.ToString()) <= uint.Parse(proposed_mileage));
@@ -181,12 +183,12 @@ namespace Class_db_vehicles
       if (proposed_mileage != k.EMPTY)
         {
         Open();
-        var recent_mileage = new MySqlCommand
+        using var my_sql_command = new MySqlCommand
           (
           "select recent_mileage from vehicle where id = '" + id + "'",
           connection
-          )
-          .ExecuteScalar();
+          );
+        var recent_mileage = my_sql_command.ExecuteScalar();
         if (recent_mileage != DBNull.Value)
           {
           be_not_less_mileage = (uint.Parse(recent_mileage.ToString()) <= uint.Parse(proposed_mileage));
@@ -199,7 +201,8 @@ namespace Class_db_vehicles
     internal bool BeDown(string id)
       {
       Open();
-      var be_down_obj = new MySqlCommand("select (time_came_up is null) as be_down from vehicle_usability_history where vehicle_id = '" + id + "' order by id desc limit 1",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select (time_came_up is null) as be_down from vehicle_usability_history where vehicle_id = '" + id + "' order by id desc limit 1",connection);
+      var be_down_obj = my_sql_command.ExecuteScalar();
       Close();
       return ((be_down_obj != null) && (be_down_obj.ToString() == "1"));
       }
@@ -210,7 +213,7 @@ namespace Class_db_vehicles
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(concat(IFNULL(name,'-'),'|',IFNULL(bumper_number,'-'),'|',IFNULL(model_year,'-'),'|',IFNULL(vin,'-'),'|',IFNULL(license_plate,'-')) USING utf8) as spec"
@@ -218,8 +221,8 @@ namespace Class_db_vehicles
         + " where concat(IFNULL(name,'-'),'|',IFNULL(bumper_number,'-'),'|',IFNULL(model_year,'-'),'|',IFNULL(vin,'-'),'|',IFNULL(license_plate,'-')) like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -243,71 +246,68 @@ namespace Class_db_vehicles
       )
       {
       Open();
-      (target as BaseDataList).DataSource = 
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select vehicle.id as vehicle_id"
-          + " , vehicle.name as vehicle_name"
-          + " , IFNULL(deployment_guidance,'') as deployment_guidance"
-          + " , count(gripe.vehicle_id) as num_gripes"
-          + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
-          + " , IF(vehicle_down_nature.id is null,-1,TIMESTAMPDIFF(MINUTE,time_went_down,NOW()) DIV 1440) as down_duration"
-          + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
-          + " , IFNULL(recent_mileage,'???') as last_known_mileage"
-          + " , IFNULL(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed),'???') as miles_from_pm"
-          + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'???') as dmv_inspection_due"
-          + " , IFNULL(model_year,'') as model_year"
-          + " , chassis_make.name as chassis_make"
-          + " , chassis_model.name as chassis_model"
-          + " , IF(be_four_or_all_wheel_drive,'YES','no') as be_four_or_all_wheel_drive"
-          + " , IFNULL(custom_make.name,'') as custom_make"
-          + " , IFNULL(custom_model.name,'') as custom_model"
-          + " , IFNULL(fuel.description,'') as fuel_description"
-          + " , vehicle_kind.description as vehicle_kind"
-          + " , agency.short_designator as agency"
-          + " , IFNULL(bumper_number,'') as bumper_number"
-          + " , IFNULL(license_plate,'') as tag"
-          + " , IFNULL(vin,'') as vin"
-          + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
-          + " , be_target_pm_mileage_meaningful"
-          + " , be_dmv_inspection_due_meaningful"
-          + " , IF(vehicle_kind.description = 'Ambulance',IF(can_receive_legacy_cot_fastener,'YES','no'),'') as can_receive_legacy_cot_fastener"
-          + " from vehicle"
-          +   " join agency on (agency.id=vehicle.agency_id)"
-          +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
-          +   " join chassis_model on (chassis_model.id=vehicle.chassis_model_id)"
-          +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
-          +   " left join custom_model on (custom_model.id=vehicle.custom_model_id)"
-          +   " left join custom_make on (custom_make.id=custom_model.make_id)"
-          +   " left join fuel on (fuel.id=vehicle.fuel_id)"
-          +   " left join vehicle_usability_history on"
-          +     " ("
-          +       " vehicle_usability_history.vehicle_id=vehicle.id"
-          +     " and"
-          +       " vehicle_usability_history.time_came_up is null"
-          +     " )"
-          +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
-          +   " left join vehicle_quarters_history on"
-          +     " ("
-          +       " vehicle_quarters_history.vehicle_id=vehicle.id"
-          +     " and"
-          +       " vehicle_quarters_history.end_datetime is null"
-          +     " )"
-          +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
-          +   " left join gripe on (gripe.vehicle_id=vehicle.id)"
-          + " where vehicle.be_active"
-          +     (agency_filter.Length > 0 ? " and agency_id = '" + agency_filter + "'" : k.EMPTY)
-          +     (vehicle_kind_filter.Length > 0 ? " and kind_id = '" + vehicle_kind_filter + "'" : k.EMPTY)
-          +     (be_four_or_all_wheel_drive_filter ? " and be_four_or_all_wheel_drive" : k.EMPTY)
-          +     (quarters_filter.Length > 0 ? " and vehicle_quarters.id = '" + quarters_filter + "'" : k.EMPTY)
-          +     (can_receive_legacy_cot_fastener_filter ? " and can_receive_legacy_cot_fastener" : k.EMPTY)
-          + " group by vehicle.id"
-          + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
-          connection
-          )
-        .ExecuteReader()
+        "select vehicle.id as vehicle_id"
+        + " , vehicle.name as vehicle_name"
+        + " , IFNULL(deployment_guidance,'') as deployment_guidance"
+        + " , count(gripe.vehicle_id) as num_gripes"
+        + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
+        + " , IF(vehicle_down_nature.id is null,-1,TIMESTAMPDIFF(MINUTE,time_went_down,NOW()) DIV 1440) as down_duration"
+        + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
+        + " , IFNULL(recent_mileage,'???') as last_known_mileage"
+        + " , IFNULL(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed),'???') as miles_from_pm"
+        + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'???') as dmv_inspection_due"
+        + " , IFNULL(model_year,'') as model_year"
+        + " , chassis_make.name as chassis_make"
+        + " , chassis_model.name as chassis_model"
+        + " , IF(be_four_or_all_wheel_drive,'YES','no') as be_four_or_all_wheel_drive"
+        + " , IFNULL(custom_make.name,'') as custom_make"
+        + " , IFNULL(custom_model.name,'') as custom_model"
+        + " , IFNULL(fuel.description,'') as fuel_description"
+        + " , vehicle_kind.description as vehicle_kind"
+        + " , agency.short_designator as agency"
+        + " , IFNULL(bumper_number,'') as bumper_number"
+        + " , IFNULL(license_plate,'') as tag"
+        + " , IFNULL(vin,'') as vin"
+        + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
+        + " , be_target_pm_mileage_meaningful"
+        + " , be_dmv_inspection_due_meaningful"
+        + " , IF(vehicle_kind.description = 'Ambulance',IF(can_receive_legacy_cot_fastener,'YES','no'),'') as can_receive_legacy_cot_fastener"
+        + " from vehicle"
+        +   " join agency on (agency.id=vehicle.agency_id)"
+        +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
+        +   " join chassis_model on (chassis_model.id=vehicle.chassis_model_id)"
+        +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
+        +   " left join custom_model on (custom_model.id=vehicle.custom_model_id)"
+        +   " left join custom_make on (custom_make.id=custom_model.make_id)"
+        +   " left join fuel on (fuel.id=vehicle.fuel_id)"
+        +   " left join vehicle_usability_history on"
+        +     " ("
+        +       " vehicle_usability_history.vehicle_id=vehicle.id"
+        +     " and"
+        +       " vehicle_usability_history.time_came_up is null"
+        +     " )"
+        +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
+        +   " left join vehicle_quarters_history on"
+        +     " ("
+        +       " vehicle_quarters_history.vehicle_id=vehicle.id"
+        +     " and"
+        +       " vehicle_quarters_history.end_datetime is null"
+        +     " )"
+        +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
+        +   " left join gripe on (gripe.vehicle_id=vehicle.id)"
+        + " where vehicle.be_active"
+        +     (agency_filter.Length > 0 ? " and agency_id = '" + agency_filter + "'" : k.EMPTY)
+        +     (vehicle_kind_filter.Length > 0 ? " and kind_id = '" + vehicle_kind_filter + "'" : k.EMPTY)
+        +     (be_four_or_all_wheel_drive_filter ? " and be_four_or_all_wheel_drive" : k.EMPTY)
+        +     (quarters_filter.Length > 0 ? " and vehicle_quarters.id = '" + quarters_filter + "'" : k.EMPTY)
+        +     (can_receive_legacy_cot_fastener_filter ? " and can_receive_legacy_cot_fastener" : k.EMPTY)
+        + " group by vehicle.id"
+        + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -317,15 +317,15 @@ namespace Class_db_vehicles
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(name,'-'),'|',IFNULL(bumper_number,'-'),'|',IFNULL(model_year,'-'),'|',IFNULL(vin,'-'),'|',IFNULL(license_plate,'-')) USING utf8) as spec"
         + " FROM vehicle"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -339,9 +339,10 @@ namespace Class_db_vehicles
       Open();
       ((target) as ListControl).Items.Clear();
       ((target) as ListControl).Items.Add(new ListItem("-- Unit --",k.EMPTY));
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         ("SELECT vehicle.id as vehicle_id, concat('Ambulance ',name) as spec FROM vehicle join vehicle_kind on (vehicle_kind.id=vehicle.kind_id) where be_active and description = 'Ambulance' order by name",connection)
-        .ExecuteReader();
+        ;
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["vehicle_id"].ToString()));
@@ -353,7 +354,7 @@ namespace Class_db_vehicles
     internal void BindRankedUpAndCurrent(object target)
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -398,8 +399,8 @@ namespace Class_db_vehicles
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -440,8 +441,12 @@ namespace Class_db_vehicles
         }
       sql += "COMMIT";
       Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
-      (summary as vehicle_summary).quarters = new MySqlCommand("select medium_designator from vehicle_quarters where id = '" + quarters_id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command_1 = new MySqlCommand(db_trail.Saved(sql),connection);
+      my_sql_command_1.ExecuteNonQuery();
+      //
+      using var my_sql_command_2 = new MySqlCommand("select medium_designator from vehicle_quarters where id = '" + quarters_id + "'",connection);
+      (summary as vehicle_summary).quarters = my_sql_command_2.ExecuteScalar().ToString();
+      //
       Close();
       }
 
@@ -472,7 +477,8 @@ namespace Class_db_vehicles
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from vehicle where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -548,7 +554,8 @@ namespace Class_db_vehicles
       result = false;
       //
       Open();
-      dr = new MySqlCommand("select * from vehicle where CAST(id AS CHAR) = '" + id + "'", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from vehicle where CAST(id AS CHAR) = '" + id + "'", connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -629,7 +636,8 @@ namespace Class_db_vehicles
         (summary as vehicle_summary).recent_mileage_update_time = this_minute;
         }
       Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved(sql),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as vehicle_summary).status = "DOWN";
       }
@@ -660,7 +668,8 @@ namespace Class_db_vehicles
         + " COMMIT";
         }
       Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved(sql),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       (summary as vehicle_summary).status = "UP";
       }
@@ -683,7 +692,8 @@ namespace Class_db_vehicles
     public string NameOfId(string id)
       {
       Open();
-      var name_of_id = new MySqlCommand("select name from vehicle where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select name from vehicle where id = '" + id + "'",connection);
+      var name_of_id = my_sql_command.ExecuteScalar().ToString();
       Close();
       return name_of_id;
       }
@@ -691,12 +701,12 @@ namespace Class_db_vehicles
     internal string NameWithCompetingBumperNumber(string id, string bumper_number)
       {
       Open();
-      var be_bumper_number_collision_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select IFNULL(name,'') from vehicle where bumper_number = '" + bumper_number + "' and id <> '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var be_bumper_number_collision_obj = my_sql_command.ExecuteScalar();
       Close();
       if (be_bumper_number_collision_obj == null)
         {
@@ -711,12 +721,12 @@ namespace Class_db_vehicles
     internal string NameWithCompetingVin(string id, string vin)
       {
       Open();
-      var name_with_competing_vin_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select name from vehicle where vin = '" + vin + "' and id <> '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var name_with_competing_vin_obj = my_sql_command.ExecuteScalar();
       Close();
       if (name_with_competing_vin_obj == null)
         {
@@ -807,7 +817,8 @@ namespace Class_db_vehicles
         + " COMMIT";
         }
       Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved(sql),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -818,13 +829,17 @@ namespace Class_db_vehicles
       )
       {
       Open();
-      var set_mileage = DateTime.Parse((new MySqlCommand("select IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'0001-01-01') from vehicle where id = '" + id + "'",connection).ExecuteScalar().ToString()));
-      new MySqlCommand
+      //
+      using var my_sql_command_1 = new MySqlCommand("select IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'0001-01-01') from vehicle where id = '" + id + "'",connection);
+      var set_mileage = DateTime.Parse((my_sql_command_1.ExecuteScalar().ToString()));
+      //
+      using var my_sql_command_2 = new MySqlCommand
         (
         db_trail.Saved("update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm") + "' where id = '" + id + "'"),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_2.ExecuteNonQuery();
+      //
       Close();
       return set_mileage;
       }
@@ -832,57 +847,54 @@ namespace Class_db_vehicles
     public object Summary(string vehicle_id)
       {
       Open();
-      var dr =
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select vehicle.name as vehicle_name"
-          + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
-          + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
-          + " , IFNULL(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed),'???') as miles_from_pm"
-          + " , IFNULL(recent_mileage,'') as recent_mileage"
-          + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'') as dmv_inspection_due"
-          + " , IFNULL(model_year,'') as model_year"
-          + " , chassis_make.name as chassis_make"
-          + " , chassis_model.name as chassis_model"
-          + " , IFNULL(custom_make.name,'') as custom_make"
-          + " , IFNULL(custom_model.name,'') as custom_model"
-          + " , IFNULL(fuel.description,'') as fuel_description"
-          + " , vehicle_kind.description as vehicle_kind"
-          + " , agency.short_designator as agency"
-          + " , IFNULL(bumper_number,'') as bumper_number"
-          + " , IFNULL(license_plate,'') as tag"
-          + " , IFNULL(vin,'') as vin"
-          + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
-          + " , be_four_or_all_wheel_drive"
-          + " , IFNULL(deployment_guidance,'') as deployment_guidance"
-          + " from vehicle"
-          +   " join agency on (agency.id=vehicle.agency_id)"
-          +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
-          +   " join chassis_model on (chassis_model.id=vehicle.chassis_model_id)"
-          +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
-          +   " left join custom_model on (custom_model.id=vehicle.custom_model_id)"
-          +   " left join custom_make on (custom_make.id=custom_model.make_id)"
-          +   " join fuel on (fuel.id=vehicle.fuel_id)"
-          +   " left join vehicle_usability_history on"
-          +     " ("
-          +       " vehicle_usability_history.vehicle_id=vehicle.id"
-          +     " and"
-          +       " vehicle_usability_history.time_came_up is null"
-          +     " )"
-          +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
-          +   " left join vehicle_quarters_history on"
-          +     " ("
-          +       " vehicle_quarters_history.vehicle_id=vehicle.id"
-          +     " and"
-          +       " vehicle_quarters_history.end_datetime is null"
-          +     " )"
-          +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
-          + " where vehicle.id = '" + vehicle_id + "'",
-          connection
-          )
-          .ExecuteReader()
+        "select vehicle.name as vehicle_name"
+        + " , IF(vehicle_down_nature.id is null,'UP','DOWN') as status"
+        + " , IFNULL(vehicle_quarters.medium_designator,'???') as quarters"
+        + " , IFNULL(CAST(recent_mileage AS signed) - CAST(target_pm_mileage AS signed),'???') as miles_from_pm"
+        + " , IFNULL(recent_mileage,'') as recent_mileage"
+        + " , IFNULL(DATE_FORMAT(dmv_inspection_due,'%Y-%m-%d'),'') as dmv_inspection_due"
+        + " , IFNULL(model_year,'') as model_year"
+        + " , chassis_make.name as chassis_make"
+        + " , chassis_model.name as chassis_model"
+        + " , IFNULL(custom_make.name,'') as custom_make"
+        + " , IFNULL(custom_model.name,'') as custom_model"
+        + " , IFNULL(fuel.description,'') as fuel_description"
+        + " , vehicle_kind.description as vehicle_kind"
+        + " , agency.short_designator as agency"
+        + " , IFNULL(bumper_number,'') as bumper_number"
+        + " , IFNULL(license_plate,'') as tag"
+        + " , IFNULL(vin,'') as vin"
+        + " , IFNULL(DATE_FORMAT(recent_mileage_update_time,'%Y-%m-%d %H:%i'),'') as recent_mileage_update_time"
+        + " , be_four_or_all_wheel_drive"
+        + " , IFNULL(deployment_guidance,'') as deployment_guidance"
+        + " from vehicle"
+        +   " join agency on (agency.id=vehicle.agency_id)"
+        +   " join vehicle_kind on (vehicle_kind.id=vehicle.kind_id)"
+        +   " join chassis_model on (chassis_model.id=vehicle.chassis_model_id)"
+        +   " join chassis_make on (chassis_make.id=chassis_model.make_id)"
+        +   " left join custom_model on (custom_model.id=vehicle.custom_model_id)"
+        +   " left join custom_make on (custom_make.id=custom_model.make_id)"
+        +   " join fuel on (fuel.id=vehicle.fuel_id)"
+        +   " left join vehicle_usability_history on"
+        +     " ("
+        +       " vehicle_usability_history.vehicle_id=vehicle.id"
+        +     " and"
+        +       " vehicle_usability_history.time_came_up is null"
+        +     " )"
+        +   " left join vehicle_down_nature on (vehicle_down_nature.id=vehicle_usability_history.nature_id)"
+        +   " left join vehicle_quarters_history on"
+        +     " ("
+        +       " vehicle_quarters_history.vehicle_id=vehicle.id"
+        +     " and"
+        +       " vehicle_quarters_history.end_datetime is null"
+        +     " )"
+        +   " left join vehicle_quarters on (vehicle_quarters.id=vehicle_quarters_history.quarters_id)"
+        + " where vehicle.id = '" + vehicle_id + "'",
+        connection
         );
+      var dr = my_sql_command.ExecuteReader();
       dr.Read();
       var the_summary = new vehicle_summary()
         {

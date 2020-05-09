@@ -1,15 +1,13 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_efficipay_tokens;
-using kix;
 using System;
-using System.Collections;
 
 namespace Class_biz_efficipay_tokens
   {
   public class TClass_biz_efficipay_tokens
     {
-    private TClass_db_efficipay_tokens db_efficipay_tokens = null;
+    private readonly TClass_db_efficipay_tokens db_efficipay_tokens = null;
 
     public TClass_biz_efficipay_tokens() : base()
       {
@@ -56,8 +54,7 @@ namespace Class_biz_efficipay_tokens
     public void Set
       (
       string id,
-      string value,
-      DateTime time_created
+      string value
       )
       {
       db_efficipay_tokens.Set

@@ -13,7 +13,7 @@ namespace Class_db_fuels
   {
   public class TClass_db_fuels: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_fuels() : base()
       {
@@ -26,7 +26,7 @@ namespace Class_db_fuels
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(concat(IFNULL(description,'-')) USING utf8) as spec"
@@ -34,8 +34,8 @@ namespace Class_db_fuels
         + " where concat(IFNULL(description,'-')) like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -51,15 +51,15 @@ namespace Class_db_fuels
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(description,'-')) USING utf8) as spec"
         + " FROM fuel"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -75,7 +75,8 @@ namespace Class_db_fuels
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from fuel where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from fuel where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -95,7 +96,8 @@ namespace Class_db_fuels
     internal string DescriptionOf(string id)
       {
       Open();
-      var description_of_obj = new MySqlCommand("SELECT CONVERT(concat(IFNULL(description,'-')) USING utf8) FROM fuel where id = '" + id + "'",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("SELECT CONVERT(concat(IFNULL(description,'-')) USING utf8) FROM fuel where id = '" + id + "'",connection);
+      var description_of_obj = my_sql_command.ExecuteScalar();
       Close();
       return (description_of_obj == null ? k.EMPTY : description_of_obj.ToString());
       }
@@ -113,7 +115,8 @@ namespace Class_db_fuels
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from fuel where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from fuel where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         description = dr["description"].ToString();
@@ -134,7 +137,7 @@ namespace Class_db_fuels
       + " description = NULLIF('" + description + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -145,8 +148,8 @@ namespace Class_db_fuels
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

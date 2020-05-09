@@ -44,7 +44,7 @@ namespace Class_db_leaves
     public class TClass_db_leaves: TClass_db
     {
 
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_leaves() : base()
         {
@@ -58,11 +58,12 @@ namespace Class_db_leaves
             cmdtext = "select 1" + " from leave_of_absence" + " where" + " member_id = " + member_id + " and" + " (" + " (" + " start_date <= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " and" + " end_date >= DATE_ADD(DATE_FORMAT(CURDATE(),\"%Y-%m-01\"),INTERVAL " + relative_start_month + " MONTH)" + " )" + " or" + " (" + " start_date <= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " and" + " end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL " + relative_end_month + " MONTH))" + " )" + " )";
             if (id != k.EMPTY)
             {
-                cmdtext = cmdtext + " and id <> " + id;
+                cmdtext += " and id <> " + id;
             }
-            cmdtext = cmdtext + " limit 1";
+            cmdtext += " limit 1";
             this.Open();
-            result = (new MySqlCommand(cmdtext, this.connection).ExecuteScalar() != null);
+            using var my_sql_command = new MySqlCommand(cmdtext, this.connection);
+            result = (my_sql_command.ExecuteScalar() != null);
             this.Close();
             return result;
         }
@@ -84,15 +85,15 @@ namespace Class_db_leaves
         {
         ((target) as ListControl).Items.Add(new ListItem("-- Select --", k.EMPTY));
         }
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT code,description"
         + " FROM kind_of_leave_code_description_map"
         + " where be_hereafter_valid"
         + " ORDER BY description",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["code"].ToString()));
@@ -105,7 +106,7 @@ namespace Class_db_leaves
       {
       var medical_expiring_this_month_rec_q = new Queue<medical_expiring_this_month_rec_class>();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , member_id"
@@ -116,8 +117,8 @@ namespace Class_db_leaves
         + " where description = 'Medical'"
         +   " and end_date = LAST_DAY(CURDATE())",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         var medical_expiring_this_month_rec = new medical_expiring_this_month_rec_class();
@@ -141,7 +142,7 @@ namespace Class_db_leaves
       )
       {
       Open();
-      ((target) as DataGrid).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select be_canonical,id,start_date,end_date,specific_end_date,kind_of_leave,num_obliged_shifts,note from"
         + " ("
@@ -179,8 +180,8 @@ namespace Class_db_leaves
         + " ) as all_leave_records"
         + " order by " + sort_order.Replace("%",(be_sort_order_ascending ? " asc" : " desc")),
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as DataGrid).DataSource = my_sql_command.ExecuteReader();
       ((target) as DataGrid).DataBind();
       Close();
       }
@@ -211,8 +212,9 @@ namespace Class_db_leaves
       //
       // Manage mid-cycle start.
       //
+      using var my_sql_command_1 = new MySqlCommand("select date_format(start_date,'%Y-%m') from leave_of_absence where id = '" + id + "'",connection);
       if(
-          (new MySqlCommand("select date_format(start_date,'%Y-%m') from leave_of_absence where id = '" + id + "'",connection).ExecuteScalar().ToString().CompareTo(DateTime.Today.ToString("yyyy-MM")) > 0)
+          (my_sql_command_1.ExecuteScalar().ToString().CompareTo(DateTime.Today.ToString("yyyy-MM")) > 0)
         &&
           (new_relative_start_month == "0")
         &&
@@ -235,7 +237,8 @@ namespace Class_db_leaves
       //
       // Manage mid-cycle end.
       //
-      var linked_mid_cycle_leave_id_obj = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection).ExecuteScalar();
+      using var my_sql_command_2 = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection);
+      var linked_mid_cycle_leave_id_obj = my_sql_command_2.ExecuteScalar();
       if (linked_mid_cycle_leave_id_obj != null)
         {
         manage_mid_cycle_end_sql = k.EMPTY
@@ -248,7 +251,7 @@ namespace Class_db_leaves
       //
       // Execute
       //
-      new MySqlCommand
+      using var my_sql_command_3 = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -259,8 +262,8 @@ namespace Class_db_leaves
           + " COMMIT"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_3.ExecuteNonQuery();
       Close();
       }
 
@@ -279,7 +282,8 @@ namespace Class_db_leaves
       //
       // Manage mid-cycle end.
       //
-      var linked_mid_cycle_leave_id_obj = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection).ExecuteScalar();
+      using var my_sql_command_1 = new MySqlCommand("select mid_cycle_leave.id from leave_of_absence join mid_cycle_leave using (member_id,end_date) where leave_of_absence.id = '" + id + "'",connection);
+      var linked_mid_cycle_leave_id_obj = my_sql_command_1.ExecuteScalar();
       if (linked_mid_cycle_leave_id_obj != null)
         {
         manage_mid_cycle_end_sql = k.EMPTY
@@ -291,7 +295,7 @@ namespace Class_db_leaves
       //
       // Execute
       //
-      new MySqlCommand
+      using var my_sql_command_2 = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -301,8 +305,8 @@ namespace Class_db_leaves
           + " COMMIT"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_2.ExecuteNonQuery();
       Close();
       }
 
@@ -310,10 +314,11 @@ namespace Class_db_leaves
       {
       var mid_sql_prefix = k.EMPTY;
       Open();
+      using var my_sql_command_1 = new MySqlCommand("select 1 from leave_of_absence where id = '" + id + "' and date_format(start_date,'%Y-%m') = date_format(CURDATE(),'%Y-%m')",connection);
       if(
           (DateTime.Today.AddDays(1).Day > 1) // today is not already the last day of the month
         &&
-          (new MySqlCommand("select 1 from leave_of_absence where id = '" + id + "' and date_format(start_date,'%Y-%m') = date_format(CURDATE(),'%Y-%m')",connection).ExecuteScalar() != null)
+          (my_sql_command_1.ExecuteScalar() != null)
             // the specified leave started this month
         )
       //then
@@ -323,14 +328,16 @@ namespace Class_db_leaves
         //
         mid_sql_prefix = MidSqlPrefix(id);
         }
-      new MySqlCommand(db_trail.Saved(mid_sql_prefix + " delete from leave_of_absence where id = '" + id + "'" + (mid_sql_prefix.Length > 0 ? "; COMMIT" : k.EMPTY)),connection).ExecuteNonQuery();
+      using var my_sql_command_2 = new MySqlCommand(db_trail.Saved(mid_sql_prefix + " delete from leave_of_absence where id = '" + id + "'" + (mid_sql_prefix.Length > 0 ? "; COMMIT" : k.EMPTY)),connection);
+      my_sql_command_2.ExecuteNonQuery();
       Close();
       }
 
     private string MidSqlPrefix(string id)
       {
       var mid_sql_prefix = "START TRANSACTION;";
-      if (null == new MySqlCommand("select id from mid_cycle_leave where CURDATE() between start_date and end_date",connection).ExecuteScalar())
+      using var my_sql_command = new MySqlCommand("select id from mid_cycle_leave where CURDATE() between start_date and end_date",connection);
+      if (null == my_sql_command.ExecuteScalar())
         {
         //
         // This was not previously a mid-cycle leave event.  We must create a new such event.
@@ -368,7 +375,7 @@ namespace Class_db_leaves
           )
           {
           this.Open();
-          new MySqlCommand
+          using var my_sql_command = new MySqlCommand
             (
             db_trail.Saved
               (
@@ -383,15 +390,15 @@ namespace Class_db_leaves
               + "COMMIT"
               ),
             this.connection
-            )
-            .ExecuteNonQuery();
+            );
+          my_sql_command.ExecuteNonQuery();
           this.Close();
           }
 
     public void DescribeThisAndNextMonthForMember(string member_id, out string this_month_description, out string next_month_description, string null_description)
       {
       Open();
-      var this_month_description_obj = new MySqlCommand
+      using var my_sql_command_1 = new MySqlCommand
         (
         "select CONCAT(description,IF(num_obliged_shifts = '0',' Lv',CONCAT(' rdx (',num_obliged_shifts,')'))) as description"
         + " from leave_of_absence"
@@ -400,10 +407,10 @@ namespace Class_db_leaves
         +   " and start_date <= CONCAT(DATE_FORMAT(CURDATE(),'%Y-%m-'),'01')"
         +   " and end_date >= LAST_DAY(CURDATE())",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var this_month_description_obj = my_sql_command_1.ExecuteScalar();
       this_month_description = (this_month_description_obj == null ? null_description : this_month_description_obj.ToString());
-      var next_month_description_obj = new MySqlCommand
+      using var my_sql_command_2 = new MySqlCommand
         (
         "select CONCAT(description,IF(num_obliged_shifts = '0',' Lv',CONCAT(' rdx (',num_obliged_shifts,')'))) as description"
         + " from leave_of_absence"
@@ -412,8 +419,8 @@ namespace Class_db_leaves
         +   " and start_date <= CONCAT(DATE_FORMAT(DATE_ADD(CURDATE(),INTERVAL 1 MONTH),'%Y-%m-'),'01')"
         +   " and end_date >= LAST_DAY(DATE_ADD(CURDATE(),INTERVAL 1 MONTH))",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var next_month_description_obj = my_sql_command_2.ExecuteScalar();
       next_month_description = (next_month_description_obj == null ? null_description : next_month_description_obj.ToString());
       Close();
       }
@@ -422,7 +429,8 @@ namespace Class_db_leaves
         {
             string result;
             this.Open();
-            result = new MySqlCommand("SELECT description FROM kind_of_leave_code_description_map WHERE code = " + code, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("SELECT description FROM kind_of_leave_code_description_map WHERE code = " + code, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -431,7 +439,8 @@ namespace Class_db_leaves
         {
             DateTime result;
             this.Open();
-            result = (DateTime)(new MySqlCommand("select end_date from leave_of_absence where id = " + id, this.connection).ExecuteScalar());
+            using var my_sql_command = new MySqlCommand("select end_date from leave_of_absence where id = " + id, this.connection);
+            result = (DateTime)(my_sql_command.ExecuteScalar());
             this.Close();
             return result;
         }
@@ -447,7 +456,7 @@ namespace Class_db_leaves
       {
       var expire_after_days_rec_q = new Queue<expire_after_days_rec_class>();
       Open();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select member_id"
         + " , description as kind_of_leave"
@@ -455,8 +464,8 @@ namespace Class_db_leaves
         +   " join kind_of_leave_code_description_map on (kind_of_leave_code_description_map.code=leave_of_absence.kind_of_leave_code)"
         + " where end_date = (CURDATE() + INTERVAL " + n.ToString() + " DAY)",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         var expire_after_days_rec = new expire_after_days_rec_class();
@@ -505,7 +514,8 @@ namespace Class_db_leaves
         + " COMMIT";
         }
       Open();
-      new MySqlCommand(db_trail.Saved(sql),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved(sql),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -527,7 +537,8 @@ namespace Class_db_leaves
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select kind_of_leave_code from leave_of_absence where id = " + id, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select kind_of_leave_code from leave_of_absence where id = " + id, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -536,7 +547,8 @@ namespace Class_db_leaves
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select member_id from leave_of_absence where id = " + id, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select member_id from leave_of_absence where id = " + id, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -545,7 +557,8 @@ namespace Class_db_leaves
         {
             string result;
             this.Open();
-            result = new MySqlCommand("select note from leave_of_absence where id = " + id, this.connection).ExecuteScalar().ToString();
+            using var my_sql_command = new MySqlCommand("select note from leave_of_absence where id = " + id, this.connection);
+            result = my_sql_command.ExecuteScalar().ToString();
             this.Close();
             return result;
         }
@@ -568,7 +581,8 @@ namespace Class_db_leaves
         {
             uint result;
             this.Open();
-            result = uint.Parse(new MySqlCommand("select num_obliged_shifts from leave_of_absence where id = " + id, this.connection).ExecuteScalar().ToString());
+            using var my_sql_command = new MySqlCommand("select num_obliged_shifts from leave_of_absence where id = " + id, this.connection);
+            result = uint.Parse(my_sql_command.ExecuteScalar().ToString());
             this.Close();
             return result;
         }
@@ -584,7 +598,8 @@ namespace Class_db_leaves
         {
             DateTime result;
             this.Open();
-            result = (DateTime)(new MySqlCommand("select start_date from leave_of_absence where id = " + id, this.connection).ExecuteScalar());
+            using var my_sql_command = new MySqlCommand("select start_date from leave_of_absence where id = " + id, this.connection);
+            result = (DateTime)(my_sql_command.ExecuteScalar());
             this.Close();
             return result;
         }

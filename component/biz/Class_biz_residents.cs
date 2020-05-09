@@ -1,14 +1,13 @@
 using Class_db_residents;
 using kix;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Class_biz_residents
   {
-    public class TClass_biz_residents
+  public class TClass_biz_residents
       {
 
-      private TClass_db_residents db_residents = null;
+      private readonly TClass_db_residents db_residents = null;
       
       public TClass_biz_residents() : base()
         {

@@ -295,7 +295,6 @@ namespace UserControl_donation_log
         {
         ExportToCsv
           (
-          the_page:Page,
           filename_sans_extension:"donation_data_logged_by_" + (p.entered_by_filter.Length > 0 ? p.entered_by_filter.ToUpper() : "ALL"),
           csv_string:p.biz_donations.RecentPerClerkAsCsv
             (

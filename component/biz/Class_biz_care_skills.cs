@@ -7,7 +7,7 @@ namespace Class_biz_care_skills
   public class TClass_biz_care_skills
     {
 
-    private TClass_db_care_skills db_care_skills = null;
+    private readonly TClass_db_care_skills db_care_skills = null;
 
     public TClass_biz_care_skills() : base()
       {

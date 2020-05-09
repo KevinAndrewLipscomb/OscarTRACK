@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_custom_models;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_custom_models
   {
   public class TClass_biz_custom_models
     {
-    private TClass_db_custom_models db_custom_models = null;
+    private readonly TClass_db_custom_models db_custom_models = null;
 
     public TClass_biz_custom_models() : base()
       {

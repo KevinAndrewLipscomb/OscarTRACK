@@ -13,7 +13,7 @@ namespace Class_db_custom_models
   {
   public class TClass_db_custom_models: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_custom_models() : base()
       {
@@ -27,7 +27,7 @@ namespace Class_db_custom_models
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select custom_model.id"
         + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
@@ -36,8 +36,8 @@ namespace Class_db_custom_models
         + " where concat(" + concat_phrase + ") like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -66,7 +66,7 @@ namespace Class_db_custom_models
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT custom_model.id"
         + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
@@ -74,8 +74,8 @@ namespace Class_db_custom_models
         +   " join custom_make on (custom_make.id=custom_model.make_id)"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -91,7 +91,8 @@ namespace Class_db_custom_models
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from custom_model where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from custom_model where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -124,15 +125,15 @@ namespace Class_db_custom_models
         concat_phrase = "IFNULL(custom_model.name,'-')";
         }
       Open();
-      var description_of_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT CONVERT(concat(" + concat_phrase + ") USING utf8)"
         + " FROM custom_model"
         +   " join custom_make on (custom_make.id=custom_model.make_id)"
         + " where custom_model.id = '" + id + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var description_of_obj = my_sql_command.ExecuteScalar();
       Close();
       return (description_of_obj == null ? k.EMPTY : description_of_obj.ToString());
       }
@@ -152,7 +153,8 @@ namespace Class_db_custom_models
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from custom_model where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from custom_model where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         make_id = dr["make_id"].ToString();
@@ -176,7 +178,7 @@ namespace Class_db_custom_models
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -187,8 +189,8 @@ namespace Class_db_custom_models
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

@@ -9,8 +9,8 @@ namespace Class_biz_roles
   public class TClass_biz_roles
     {
 
-    private TClass_biz_user biz_user;
-    private TClass_db_roles db_roles = null;
+    private readonly TClass_biz_user biz_user;
+    private readonly TClass_db_roles db_roles = null;
 
     public TClass_biz_roles() : base()
       {

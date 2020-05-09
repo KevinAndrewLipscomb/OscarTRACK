@@ -35,7 +35,7 @@ namespace UserControl_test_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == Static.TSSI_EXCEPTIONS)
@@ -50,10 +50,6 @@ namespace UserControl_test_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_test_cloudmailin_binder",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         //c.SetTarget(target);
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     // / <summary>

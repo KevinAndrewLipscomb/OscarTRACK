@@ -7,7 +7,7 @@ namespace Class_biz_eval_statuses
   public class TClass_biz_eval_statuses
     {
 
-    private TClass_db_eval_statuses db_eval_statuses = null;
+    private readonly TClass_db_eval_statuses db_eval_statuses = null;
 
     public TClass_biz_eval_statuses() : base()
       {

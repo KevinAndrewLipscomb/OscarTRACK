@@ -1,28 +1,24 @@
-using MySql.Data.MySqlClient;
-using kix;
-using System;
-
-using System.Web.UI.WebControls;
 using Class_db;
-using Class_db_trail;
+using kix;
+using MySql.Data.MySqlClient;
+using System.Web.UI.WebControls;
+
 namespace Class_db_privileges
-{
-    public class TClass_db_privileges: TClass_db
+  {
+  public class TClass_db_privileges: TClass_db
     {
-        private TClass_db_trail db_trail = null;
-        //Constructor  Create()
         public TClass_db_privileges() : base()
         {
-            // TODO: Add any constructor code here
-            db_trail = new TClass_db_trail();
         }
+
         public bool Bind(string partial_name, object target)
         {
             bool result;
             MySqlDataReader dr;
             this.Open();
             ((target) as ListControl).Items.Clear();
-            dr = new MySqlCommand("SELECT name FROM privilege WHERE name like \"" + partial_name + "%\" order by name", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("SELECT name FROM privilege WHERE name like \"" + partial_name + "%\" order by name", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["name"].ToString(), dr["name"].ToString()));
@@ -42,7 +38,8 @@ namespace Class_db_privileges
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
-            dr = new MySqlCommand("select privilege.id as privilege_id" + " , name as privilege_name" + " from privilege" + " order by privilege_name", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select privilege.id as privilege_id" + " , name as privilege_name" + " from privilege" + " order by privilege_name", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["privilege_name"].ToString(), dr["privilege_id"].ToString()));
@@ -74,7 +71,8 @@ namespace Class_db_privileges
             soft_hyphenation_text = k.EMPTY;
             result = false;
             this.Open();
-            dr = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select * from privilege where CAST(name AS CHAR) = \"" + name + "\"", this.connection);
+            dr = my_sql_command.ExecuteReader();
             if (dr.Read())
             {
                 name = dr["name"].ToString();
@@ -93,7 +91,7 @@ namespace Class_db_privileges
       )
       {
       Open();
-      var has_for_special_agency_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select 1"
         + " from member"
@@ -104,8 +102,8 @@ namespace Class_db_privileges
         + " where member.id = '" + member_id + "'"
         +   " and privilege.name = '" + privilege_name + "'",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var has_for_special_agency_obj = my_sql_command.ExecuteScalar();
       Close();
       return (has_for_special_agency_obj != null);
       }
@@ -118,7 +116,7 @@ namespace Class_db_privileges
       )
       {
       Open();
-      var has_for_special_agency_obj = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select 1"
         + " from member"
@@ -130,8 +128,8 @@ namespace Class_db_privileges
         +   " and privilege.name = '" + privilege_name + "'"
         +   " and (special_role_member_map.agency_id = '" + agency_id + "')",
         connection
-        )
-        .ExecuteScalar();
+        );
+      var has_for_special_agency_obj = my_sql_command.ExecuteScalar();
       Close();
       return (has_for_special_agency_obj != null);
       }

@@ -6,8 +6,8 @@ namespace Class_biz_medical_release_levels
 {
     public class TClass_biz_medical_release_levels
     {
-        private TClass_db_enrollment db_enrollment = null;
-        private TClass_db_medical_release_levels db_medical_release_levels = null;
+        private readonly TClass_db_enrollment db_enrollment = null;
+        private readonly TClass_db_medical_release_levels db_medical_release_levels = null;
         //Constructor  Create()
         public TClass_biz_medical_release_levels() : base()
         {

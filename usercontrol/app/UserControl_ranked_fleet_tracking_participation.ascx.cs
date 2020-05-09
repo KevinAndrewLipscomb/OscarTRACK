@@ -77,7 +77,7 @@ namespace UserControl_ranked_fleet_tracking_participation
             if (new ArrayList {ListItemType.Item,ListItemType.AlternatingItem,ListItemType.EditItem,ListItemType.SelectedItem}.Contains(e.Item.ItemType))
             {
                 // We are dealing with a data row, not a header or footer row.
-                p.rank = p.rank + 1;
+                p.rank++;
                 e.Item.Cells[0].Text = p.rank.ToString();
             }
         }

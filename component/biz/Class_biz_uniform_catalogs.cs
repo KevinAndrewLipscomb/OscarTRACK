@@ -2,8 +2,6 @@
 
 using Class_db_uniform_catalogs;
 using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_catalogs
   {
@@ -17,7 +15,7 @@ namespace Class_biz_uniform_catalogs
 
   public class TClass_biz_uniform_catalogs
     {
-    private TClass_db_uniform_catalogs db_uniform_catalogs = null;
+    private readonly TClass_db_uniform_catalogs db_uniform_catalogs = null;
 
     public TClass_biz_uniform_catalogs() : base()
       {

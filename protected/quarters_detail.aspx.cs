@@ -114,7 +114,7 @@ namespace quarters_detail
                   e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "h " + duration_component_array[1] + "m";
                   }
                 //
-                p.num_datagrid_rows = p.num_datagrid_rows + 1;
+                p.num_datagrid_rows++;
                 //
                 // Remove all cell controls from viewstate except for the one at TCI_ID.
                 //

@@ -8,7 +8,8 @@ namespace Class_db_indicator_median_length_of_service
 {
     public class TClass_db_indicator_median_length_of_service: TClass_db
     {
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
+        
         //Constructor  Create()
         public TClass_db_indicator_median_length_of_service() : base()
         {
@@ -21,12 +22,14 @@ namespace Class_db_indicator_median_length_of_service
             this.Open();
             transaction = this.connection.BeginTransaction();
             try {
-                ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_median_length_of_service" + " join agency on (agency.id=indicator_median_length_of_service.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", this.connection, transaction).ExecuteReader();
+                using var my_sql_command_1 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_median_length_of_service" + " join agency on (agency.id=indicator_median_length_of_service.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", this.connection, transaction);
+                ((target) as DataGrid).DataSource = my_sql_command_1.ExecuteReader();
                 ((target) as DataGrid).DataBind();
                 ((MySqlDataReader)(((target) as DataGrid).DataSource)).Close();
                 if (be_trendable)
                 {
-                    new MySqlCommand("delete from indicator_median_length_of_service where not be_trendable", this.connection, transaction).ExecuteNonQuery();
+                    using var my_sql_command_2 = new MySqlCommand("delete from indicator_median_length_of_service where not be_trendable", this.connection, transaction);
+                    my_sql_command_2.ExecuteNonQuery();
                 }
                 transaction.Commit();
             }
@@ -46,7 +49,8 @@ namespace Class_db_indicator_median_length_of_service
                 sql = db_trail.Saved(sql);
             }
             this.Open();
-            new MySqlCommand(sql, this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(sql, this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 

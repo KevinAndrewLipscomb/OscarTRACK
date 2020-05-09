@@ -1,15 +1,13 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_shifts;
-using kix;
 using System;
-using System.Collections;
 
 namespace Class_biz_shifts
   {
   public class TClass_biz_shifts
     {
-    private TClass_db_shifts db_shifts = null;
+    private readonly TClass_db_shifts db_shifts = null;
 
     public TClass_biz_shifts() : base()
       {

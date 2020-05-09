@@ -1,4 +1,3 @@
-using System;
 using Class_biz_availabilities;
 using Class_biz_cities;
 using Class_biz_enrollment;
@@ -11,7 +10,6 @@ using Class_biz_schedule_assignment_logs;
 using Class_biz_schedule_assignments;
 using Class_biz_states;
 using Class_biz_streets;
-using Class_db_members;
 using OscarDotNet.component.os;
 
 namespace Class_biz_scheduled_tasks
@@ -20,21 +18,20 @@ namespace Class_biz_scheduled_tasks
   public class TClass_biz_scheduled_tasks
     {
 
-    private TClass_biz_availabilities biz_availabilities = null;
+    private readonly TClass_biz_availabilities biz_availabilities = null;
 
-    private TClass_biz_cities biz_cities = null;
-    private TClass_biz_enrollment biz_enrollment = null;
-    private TClass_biz_evals biz_evals = null;
-    private TClass_biz_gripes biz_gripes = null;
-    private TClass_biz_leaves biz_leaves = null;
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_residents biz_residents = null;
-    private TClass_biz_schedule_assignments biz_schedule_assignments = null;
-    private TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs = null;
-    private TClass_biz_states biz_states = null;
-    private TClass_biz_streets biz_streets = null;
-    private TClass_db_members db_members = null;
-    private Class_fs fs = null;
+    private readonly TClass_biz_cities biz_cities = null;
+    private readonly TClass_biz_enrollment biz_enrollment = null;
+    private readonly TClass_biz_evals biz_evals = null;
+    private readonly TClass_biz_gripes biz_gripes = null;
+    private readonly TClass_biz_leaves biz_leaves = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_residents biz_residents = null;
+    private readonly TClass_biz_schedule_assignments biz_schedule_assignments = null;
+    private readonly TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs = null;
+    private readonly TClass_biz_states biz_states = null;
+    private readonly TClass_biz_streets biz_streets = null;
+    private readonly Class_fs fs = null;
 
     public TClass_biz_scheduled_tasks() : base()
       {
@@ -50,7 +47,6 @@ namespace Class_biz_scheduled_tasks
       biz_schedule_assignment_logs = new TClass_biz_schedule_assignment_logs();
       biz_states = new TClass_biz_states();
       biz_streets = new TClass_biz_streets();
-      db_members = new TClass_db_members();
       fs = new Class_fs();
       }
 
@@ -83,7 +79,7 @@ namespace Class_biz_scheduled_tasks
       biz_schedule_assignments.LogCommensurationData();
       }
 
-    internal void DoFirstOfMonthChores(string v)
+    internal void DoFirstOfMonthChores()
       {
       biz_leaves.KeepMedicalsExtendedIntoNextMonth();
       }
@@ -93,7 +89,7 @@ namespace Class_biz_scheduled_tasks
       biz_members.MakeMemberStatusStatements();
       }
 
-    internal void DoMonthlyChores(string p)
+    internal void DoMonthlyChores()
       {
       biz_availabilities.Purge();
       biz_schedule_assignments.Purge();

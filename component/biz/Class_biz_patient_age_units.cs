@@ -7,7 +7,7 @@ namespace Class_biz_patient_age_units
   public class TClass_biz_patient_age_units
     {
 
-    private TClass_db_patient_age_units db_patient_age_units = null;
+    private readonly TClass_db_patient_age_units db_patient_age_units = null;
 
     public TClass_biz_patient_age_units() : base()
       {

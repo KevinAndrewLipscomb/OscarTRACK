@@ -15,7 +15,7 @@ namespace Class_biz_uniform_priorities
 
   public class TClass_biz_uniform_priorities
     {
-    private TClass_db_uniform_priorities db_uniform_priorities = null;
+    private readonly TClass_db_uniform_priorities db_uniform_priorities = null;
 
     public TClass_biz_uniform_priorities() : base()
       {

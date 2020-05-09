@@ -54,9 +54,9 @@ namespace UserControl_ranked_crew_shifts_forecast
             if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
             {
                 // We are dealing with a data row, not a header or footer row.
-                p.rank = p.rank + 1;
+                p.rank++;
                 e.Item.Cells[0].Text = p.rank.ToString();
-                p.total = p.total + decimal.Parse(e.Item.Cells[2].Text);
+                p.total += decimal.Parse(e.Item.Cells[2].Text);
             }
         }
 

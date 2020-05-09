@@ -1,11 +1,11 @@
-using System;
-
-using System.Collections;
-using Class_db_milestones;
 using Class_biz_users;
+using Class_db_milestones;
+using System;
+using System.Collections;
+
 namespace Class_biz_milestones
-{
-    public class TClass_biz_milestones
+  {
+  public class TClass_biz_milestones
     {
         //Constructor  Create()
         public TClass_biz_milestones() : base()
@@ -69,7 +69,7 @@ namespace Class_biz_milestones
                             // be_handled := TRUE;
                             // end;
                             }
-                            i = i + 1;
+                            i++;
                         }
                     }
                 }
@@ -93,8 +93,8 @@ namespace Class_biz_milestones
 }
 
 namespace Class_biz_milestones.Units
-{
-    public class Class_biz_milestones
+  {
+  public class Class_biz_milestones
     {
         // REMINDER_CONTROL_TABLE
         public const int MAX_NUM_REMINDERS = 6;

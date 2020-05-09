@@ -98,12 +98,14 @@ namespace paypal_ipn_listener
           //
           if (new ArrayList() {"infotech@kvrs.org"}.Contains(receiver_email.ToLower()))
             {
-            var hash_table = new Hashtable();
-            hash_table.Add("agency","KVRS");
-            hash_table.Add("amount_donated",k.Safe(amount_donated,k.safe_hint_type.REAL_NUM_INCLUDING_NEGATIVE));
-            hash_table.Add("donor_email_address",k.Safe(donor_email_address,k.safe_hint_type.EMAIL_ADDRESS));
-            hash_table.Add("donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME));
-            hash_table.Add("donation_date",DateTime.ParseExact(s:date_of_donation.Remove(21),format:"HH:mm:ss MMM dd, yyyy",provider:CultureInfo.InvariantCulture));
+            var hash_table = new Hashtable
+              {
+                {"agency","KVRS"},
+                {"amount_donated",k.Safe(amount_donated,k.safe_hint_type.REAL_NUM_INCLUDING_NEGATIVE)},
+                {"donor_email_address",k.Safe(donor_email_address,k.safe_hint_type.EMAIL_ADDRESS)},
+                {"donor_name",k.Safe(donor_first_name,k.safe_hint_type.HUMAN_NAME) + k.SPACE + k.Safe(donor_last_name,k.safe_hint_type.HUMAN_NAME)},
+                {"donation_date",DateTime.ParseExact(s: date_of_donation.Remove(21),format: "HH:mm:ss MMM dd,yyyy",provider: CultureInfo.InvariantCulture)}
+              };
             //
             var street_address_candidate = k.EMPTY;
             if (memo != null)

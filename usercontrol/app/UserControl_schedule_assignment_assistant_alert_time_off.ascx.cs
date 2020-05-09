@@ -227,11 +227,10 @@ namespace UserControl_schedule_assignment_assistant_alert_time_off
         {
         p.biz_schedule_assignments.SpreadSelections
           (
-          k.Safe(e.Item.Cells[Static.TCI_MEMBER_ID].Text,k.safe_hint_type.NUM),
-          (e.Item.Cells[Static.TCI_BE_MEMBER_RELEASED].Text == "1"),
-          k.Safe(e.Item.Cells[Static.TCI_FIRST_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
-          k.Safe(e.Item.Cells[Static.TCI_SECOND_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
-          k.Safe(e.Item.Cells[Static.TCI_TIME_OFF].Text,k.safe_hint_type.NUM)
+          be_member_released:(e.Item.Cells[Static.TCI_BE_MEMBER_RELEASED].Text == "1"),
+          id_a:k.Safe(e.Item.Cells[Static.TCI_FIRST_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          id_b:k.Safe(e.Item.Cells[Static.TCI_SECOND_SCHEDULE_ASSIGNMENT_ID].Text,k.safe_hint_type.NUM),
+          intolerable_gap:k.Safe(e.Item.Cells[Static.TCI_TIME_OFF].Text,k.safe_hint_type.NUM)
           );
         Bind();
         }

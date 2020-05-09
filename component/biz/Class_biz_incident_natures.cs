@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_incident_natures;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_incident_natures
   {
@@ -17,7 +14,7 @@ namespace Class_biz_incident_natures
 
   public class TClass_biz_incident_natures
     {
-    private TClass_db_incident_natures db_incident_natures = null;
+    private readonly TClass_db_incident_natures db_incident_natures = null;
 
     public TClass_biz_incident_natures() : base()
       {

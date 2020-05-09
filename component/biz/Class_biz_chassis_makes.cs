@@ -1,15 +1,12 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_chassis_makes;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_chassis_makes
   {
   public class TClass_biz_chassis_makes
     {
-    private TClass_db_chassis_makes db_chassis_makes = null;
+    private readonly TClass_db_chassis_makes db_chassis_makes = null;
 
     public TClass_biz_chassis_makes() : base()
       {

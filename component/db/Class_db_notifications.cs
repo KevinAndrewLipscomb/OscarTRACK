@@ -14,10 +14,10 @@ namespace Class_db_notifications
     public class TClass_db_notifications: TClass_db
     {
 
-        private TClass_biz_data_conditions biz_data_conditions = null;
-        private TClass_db_trail db_trail = null;
-        private string tier_2_match_field = String.Empty;
-        private string tier_3_match_field = String.Empty;
+        private readonly TClass_biz_data_conditions biz_data_conditions = null;
+        private readonly TClass_db_trail db_trail = null;
+        private readonly string tier_2_match_field = String.Empty;
+        private readonly string tier_3_match_field = String.Empty;
 
         public TClass_db_notifications() : base()
         {
@@ -37,7 +37,8 @@ namespace Class_db_notifications
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
             this.Open();
-            dr = new MySqlCommand("select notification.id as notification_id" + " , name as notification_name" + " from notification" + " order by notification_name", this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select notification.id as notification_id" + " , name as notification_name" + " from notification" + " order by notification_name", this.connection);
+            dr = my_sql_command.ExecuteReader();
             while (dr.Read())
             {
                 ((target) as ListControl).Items.Add(new ListItem(dr["notification_name"].ToString(), dr["notification_id"].ToString()));
@@ -64,10 +65,12 @@ namespace Class_db_notifications
         public void BindTallies(object DataGrid_for_cycle, object DataGrid_for_lifetime)
         {
             this.Open();
-            ((DataGrid_for_cycle) as DataGrid).DataSource = new MySqlCommand("select name" + " , tally_of_events_for_cycle" + " , activity_description" + " , tally_of_messages_for_cycle" + " from notification" + " where name <> \"needs-enrollment-review\"" + " order by activity_pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command_1 = new MySqlCommand("select name" + " , tally_of_events_for_cycle" + " , activity_description" + " , tally_of_messages_for_cycle" + " from notification" + " where name <> \"needs-enrollment-review\"" + " order by activity_pecking_order", this.connection);
+            ((DataGrid_for_cycle) as DataGrid).DataSource = my_sql_command_1.ExecuteReader();
             ((DataGrid_for_cycle) as DataGrid).DataBind();
             ((MySqlDataReader)(((DataGrid)(DataGrid_for_cycle)).DataSource)).Close();
-            ((DataGrid_for_lifetime) as DataGrid).DataSource = new MySqlCommand("select name" + " , tally_of_events_for_lifetime" + " , activity_description" + " , tally_of_messages_for_lifetime" + " from notification" + " where name <> \"needs-enrollment-review\"" + " order by activity_pecking_order", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select name" + " , tally_of_events_for_lifetime" + " , activity_description" + " , tally_of_messages_for_lifetime" + " from notification" + " where name <> \"needs-enrollment-review\"" + " order by activity_pecking_order", this.connection);
+            ((DataGrid_for_lifetime) as DataGrid).DataSource = my_sql_command_2.ExecuteReader();
             ((DataGrid_for_lifetime) as DataGrid).DataBind();
             ((MySqlDataReader)(((DataGrid)(DataGrid_for_lifetime)).DataSource)).Close();
             this.Close();
@@ -76,14 +79,16 @@ namespace Class_db_notifications
         public void CycleTallies()
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("update notification set tally_of_messages_for_cycle = 0, tally_of_events_for_cycle = 0"), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("update notification set tally_of_messages_for_cycle = 0, tally_of_events_for_cycle = 0"), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 
         public void IncrementTallies(string name, uint num_addressees)
         {
             this.Open();
-            new MySqlCommand(db_trail.Saved("update notification" + " set tally_of_messages_for_cycle = tally_of_messages_for_cycle + " + num_addressees.ToString() + " , tally_of_events_for_cycle = tally_of_events_for_cycle + 1" + " , tally_of_messages_for_lifetime = tally_of_messages_for_lifetime + " + num_addressees.ToString() + " , tally_of_events_for_lifetime = tally_of_events_for_lifetime + 1" + " where name = \"" + name + "\""), this.connection).ExecuteNonQuery();
+            using var my_sql_command = new MySqlCommand(db_trail.Saved("update notification" + " set tally_of_messages_for_cycle = tally_of_messages_for_cycle + " + num_addressees.ToString() + " , tally_of_events_for_cycle = tally_of_events_for_cycle + 1" + " , tally_of_messages_for_lifetime = tally_of_messages_for_lifetime + " + num_addressees.ToString() + " , tally_of_events_for_lifetime = tally_of_events_for_lifetime + 1" + " where name = \"" + name + "\""), this.connection);
+            my_sql_command.ExecuteNonQuery();
             this.Close();
         }
 
@@ -109,13 +114,15 @@ namespace Class_db_notifications
             num_addressees = 0;
             this.Open();
             // Get tier 2 and 3 associations of target member.
-            dr = new MySqlCommand("select " + tier_2_match_field + k.COMMA + tier_3_match_field + " from member where id = " + member_id, this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select " + tier_2_match_field + k.COMMA + tier_3_match_field + " from member where id = " + member_id, this.connection);
+            dr = my_sql_command.ExecuteReader();
             dr.Read();
             tier_2_match_value = dr[tier_2_match_field].ToString();
             tier_3_match_value = dr[tier_3_match_field].ToString();
             dr.Close();
             // Tier 1 stakeholders
-            dr = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 1" + " and notification.name = \"" + name + "\"", this.connection).ExecuteReader();
+            using var my_sql_command_1 = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 1" + " and notification.name = \"" + name + "\"", this.connection);
+            dr = my_sql_command_1.ExecuteReader();
             if (dr != null)
             {
                 while (dr.Read())
@@ -130,13 +137,14 @@ namespace Class_db_notifications
                     //
                       {
                       target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                      num_addressees = num_addressees + 1;
+                      num_addressees++;
                       }
                 }
             }
             dr.Close();
             // Tier 2 stakeholders
-            dr = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 2" + " and " + tier_2_match_field + " = " + tier_2_match_value + " and notification.name = \"" + name + "\"", this.connection).ExecuteReader();
+            using var my_sql_command_2 = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 2" + " and " + tier_2_match_field + " = " + tier_2_match_value + " and notification.name = \"" + name + "\"", this.connection);
+            dr = my_sql_command_2.ExecuteReader();
             if (dr != null)
             {
                 while (dr.Read())
@@ -151,13 +159,14 @@ namespace Class_db_notifications
                     //
                       {
                       target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                      num_addressees = num_addressees + 1;
+                      num_addressees++;
                       }
                 }
             }
             dr.Close();
             // Tier 3 stakeholders
-            dr = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 3" + " and " + tier_2_match_field + " = " + tier_2_match_value + " and " + tier_3_match_field + " = " + tier_3_match_value + " and notification.name = \"" + name + "\"", this.connection).ExecuteReader();
+            using var my_sql_command_3 = new MySqlCommand("select email_address" + " , data_condition.name as data_condition_name" + " from member" + " join role_member_map on (role_member_map.member_id=member.id)" + " join role_notification_map on (role_notification_map.role_id=role_member_map.role_id)" + " join role on (role.id=role_member_map.role_id)" + " join notification on (notification.id=role_notification_map.notification_id)" + " join data_condition on (data_condition.id=role_notification_map.data_condition_id)" + " where tier_id = 3" + " and " + tier_2_match_field + " = " + tier_2_match_value + " and " + tier_3_match_field + " = " + tier_3_match_value + " and notification.name = \"" + name + "\"", this.connection);
+            dr = my_sql_command_3.ExecuteReader();
             if (dr != null)
             {
                 while (dr.Read())
@@ -172,7 +181,7 @@ namespace Class_db_notifications
                     //
                       {
                       target_of = target_of + dr["email_address"].ToString() + k.COMMA;
-                      num_addressees = num_addressees + 1;
+                      num_addressees++;
                       }
                 }
             }
@@ -216,7 +225,7 @@ namespace Class_db_notifications
         }
       //
       MySqlDataReader dr;
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select email_address"
         + " from member"
@@ -236,8 +245,8 @@ namespace Class_db_notifications
         + variant_condition.Replace("{AGENCY_ID_PARENT_TABLE}","special_role_member_map")
         + " and notification.name = '" + name + "'",
         connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       if (dr != null)
         {
         while (dr.Read())

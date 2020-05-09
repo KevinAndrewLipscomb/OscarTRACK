@@ -51,7 +51,7 @@ namespace UserControl_funddrive_binder
     private void FillPlaceHolder
       (
       bool be_fresh_control_required,
-      string target
+      string target = k.EMPTY
       )
       {
       if (p.tab_index == UserControl_funddrive_binder_Static.TSSI_TEASER)
@@ -77,10 +77,6 @@ namespace UserControl_funddrive_binder
         p.content_id = AddIdentifiedControlToPlaceHolder(c,"UserControl_paypal_assistant",PlaceHolder_content,(be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.Set(agency:p.user_member_agency_keyclick_enumerator);
         }
-      }
-    private void FillPlaceHolder(bool be_fresh_control_required)
-      {
-      FillPlaceHolder(be_fresh_control_required,k.EMPTY);
       }
 
     // / <summary>

@@ -9,7 +9,7 @@ namespace Class_db_user_member_map
 {
     public class TClass_db_user_member_map: TClass_db
     {
-        private TClass_db_trail db_trail = null;
+        private readonly TClass_db_trail db_trail = null;
         //Constructor  Create()
         public TClass_db_user_member_map() : base()
         {
@@ -26,7 +26,8 @@ namespace Class_db_user_member_map
                 sort_order = sort_order.Replace("%", " desc");
             }
             this.Open();
-            ((target) as GridView).DataSource = new MySqlCommand("select user_id" + " , user.username as user_name" + " , concat(member.last_name,\", \",member.first_name) as member_name" + " , member_id" + " from user_member_map" + " join member on (member.id=user_member_map.member_id)" + " join user on (user.id=user_member_map.user_id)" + " order by " + sort_order, this.connection).ExecuteReader();
+            using var my_sql_command = new MySqlCommand("select user_id" + " , user.username as user_name" + " , concat(member.last_name,\", \",member.first_name) as member_name" + " , member_id" + " from user_member_map" + " join member on (member.id=user_member_map.member_id)" + " join user on (user.id=user_member_map.user_id)" + " order by " + sort_order, this.connection);
+            ((target) as GridView).DataSource = my_sql_command.ExecuteReader();
             ((target) as GridView).DataBind();
             this.Close();
 
@@ -37,11 +38,13 @@ namespace Class_db_user_member_map
             this.Open();
             if (be_granted)
             {
-                new MySqlCommand(db_trail.Saved("insert ignore user_member_map set member_id = \"" + member_id + "\", user_id = \"" + user_id + "\""), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("insert ignore user_member_map set member_id = \"" + member_id + "\", user_id = \"" + user_id + "\""), this.connection);
+                my_sql_command.ExecuteNonQuery();
             }
             else
             {
-                new MySqlCommand(db_trail.Saved("delete from user_member_map where member_id = \"" + member_id + "\" and user_id = \"" + user_id + "\""), this.connection).ExecuteNonQuery();
+                using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from user_member_map where member_id = \"" + member_id + "\" and user_id = \"" + user_id + "\""), this.connection);
+                my_sql_command.ExecuteNonQuery();
             }
             this.Close();
         }

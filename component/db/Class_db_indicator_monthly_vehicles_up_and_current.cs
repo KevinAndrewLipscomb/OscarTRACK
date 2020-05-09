@@ -9,7 +9,7 @@ namespace Class_db_indicator_monthly_vehicles_up_and_current
   public class TClass_db_indicator_monthly_vehicles_up_and_current : TClass_db
     {
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_indicator_monthly_vehicles_up_and_current() : base()
       {
@@ -35,7 +35,7 @@ namespace Class_db_indicator_monthly_vehicles_up_and_current
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -134,8 +134,8 @@ namespace Class_db_indicator_monthly_vehicles_up_and_current
           + " COMMIT"
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

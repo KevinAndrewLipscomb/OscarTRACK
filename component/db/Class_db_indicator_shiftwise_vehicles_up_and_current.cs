@@ -11,7 +11,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
   public class TClass_db_indicator_shiftwise_vehicles_up_and_current: TClass_db
     {
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_indicator_shiftwise_vehicles_up_and_current() : base()
       {
@@ -22,7 +22,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
     internal void BindSpecialForMonthlyMedians(object target)
       {
       Open();
-      ((target) as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select short_designator as agency"
         + " , value as shiftwise_factor"
@@ -30,8 +30,8 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
         +   " join agency on (agency.id=indicator_shiftwise_vehicles_up_and_current.agency_id)"
         + " where PERIOD_DIFF(DATE_FORMAT(date,'%Y%m'),DATE_FORMAT(CURDATE(),'%Y%m')) = -1",
         connection
-        )
-        .ExecuteReader();
+        );
+      ((target) as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       ((target) as BaseDataList).DataBind();
       Close();
       }
@@ -42,12 +42,14 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
       var transaction = this.connection.BeginTransaction();
       try
         {
-        ((target) as DataGrid).DataSource = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_shiftwise_vehicles_up_and_current" + " join agency on (agency.id=indicator_shiftwise_vehicles_up_and_current.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", connection, transaction).ExecuteReader();
+        using var my_sql_command_1 = new MySqlCommand("select NULL as `rank`" + " , concat(medium_designator,\" - \",long_designator) as agency" + " , m" + " from indicator_shiftwise_vehicles_up_and_current" + " join agency on (agency.id=indicator_shiftwise_vehicles_up_and_current.agency_id)" + " where be_trendable = " + be_trendable.ToString() + " and year = YEAR(CURDATE())" + " and month = MONTH(CURDATE())" + " and be_agency_id_applicable = TRUE" + " order by m desc", connection, transaction);
+        ((target) as DataGrid).DataSource = my_sql_command_1.ExecuteReader();
         ((target) as DataGrid).DataBind();
         ((MySqlDataReader)(((target) as DataGrid).DataSource)).Close();
         if (be_trendable)
           {
-          new MySqlCommand("delete from indicator_shiftwise_vehicles_up_and_current where not be_trendable", this.connection, transaction).ExecuteNonQuery();
+          using var my_sql_command_2 = new MySqlCommand("delete from indicator_shiftwise_vehicles_up_and_current where not be_trendable", this.connection, transaction);
+          my_sql_command_2.ExecuteNonQuery();
           }
         transaction.Commit();
         }
@@ -65,7 +67,7 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
       )
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -77,15 +79,16 @@ namespace Class_db_indicator_shiftwise_vehicles_up_and_current
           + " , value = '" + (value*100).ToString() + "'"
           )
         ,connection
-        )
-        .ExecuteNonQuery();
+);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
     internal void Purge()
       {
       Open();
-      new MySqlCommand(db_trail.Saved("delete from indicator_shiftwise_vehicles_up_and_current where date < DATE_SUB(CURDATE(),INTERVAL 2 MONTH)"),connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from indicator_shiftwise_vehicles_up_and_current where date < DATE_SUB(CURDATE(),INTERVAL 2 MONTH)"),connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

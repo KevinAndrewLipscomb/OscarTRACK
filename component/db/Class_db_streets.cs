@@ -13,7 +13,7 @@ namespace Class_db_streets
   {
   public class TClass_db_streets: TClass_dbkeyclick
     {
-    private TClass_dbkeyclick_trail dbkeyclick_trail = null;
+    private readonly TClass_dbkeyclick_trail dbkeyclick_trail = null;
 
     public TClass_db_streets() : base()
       {
@@ -27,7 +27,7 @@ namespace Class_db_streets
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select street.id"
         + " , CONVERT(concat(" + concat_phrase + ") USING utf8) as spec"
@@ -37,8 +37,8 @@ namespace Class_db_streets
         + " where concat(" + concat_phrase + ") like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -59,7 +59,7 @@ namespace Class_db_streets
       {
       ((target) as ListControl).Items.Clear();
       Open();
-      (target as ListControl).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT DISTINCT street.id as id"
         + " , CONVERT(concat(street.name,', ',city.name,', ',state.abbreviation) USING utf8) as spec"
@@ -70,8 +70,8 @@ namespace Class_db_streets
         + " where resident_base.agency = '" + agency_keyclick_enumerator + "'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as ListControl).DataSource = my_sql_command.ExecuteReader();
       (target as ListControl).DataValueField = "id";
       (target as ListControl).DataTextField = "spec";
       (target as ListControl).DataBind();
@@ -103,7 +103,8 @@ namespace Class_db_streets
       this.Open();
       try
         {
-        new MySqlCommand(dbkeyclick_trail.Saved("delete from street where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("delete from street where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -135,7 +136,8 @@ namespace Class_db_streets
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from street where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from street where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         city_id = dr["city_id"].ToString();
@@ -154,7 +156,8 @@ namespace Class_db_streets
       )
       {
       Open();
-      var id_of_obj = new MySqlCommand("select street.id from street join city on (city.id=street.city_id) where street.name = '" + street_name + "' and city.name = '" + city_name + "'",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select street.id from street join city on (city.id=street.city_id) where street.name = '" + street_name + "' and city.name = '" + city_name + "'",connection);
+      var id_of_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_of_obj == null ? k.EMPTY : id_of_obj.ToString());
       }
@@ -162,7 +165,8 @@ namespace Class_db_streets
     internal string NormalizedSuffixRendition(string name)
       {
       Open();
-      var normalized_suffix_rendition = new MySqlCommand("select NORMALIZED_STREET_SUFFIX_RENDITION('" + name.Substring(0,Math.Min(name.Length,127)) + "')",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select NORMALIZED_STREET_SUFFIX_RENDITION('" + name.Substring(0,Math.Min(name.Length,127)) + "')",connection);
+      var normalized_suffix_rendition = my_sql_command.ExecuteScalar().ToString();
       Close();
       return normalized_suffix_rendition;
       }
@@ -170,7 +174,8 @@ namespace Class_db_streets
     internal void Prune()
       {
       Open();
-      new MySqlCommand("delete from street where id not in (select distinct street_id from resident_base) and city_id <> (select id from city where name = 'VIRGINIA BEACH')",connection).ExecuteNonQuery();
+      using var my_sql_command = new MySqlCommand("delete from street where id not in (select distinct street_id from resident_base) and city_id <> (select id from city where name = 'VIRGINIA BEACH')",connection);
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -186,7 +191,7 @@ namespace Class_db_streets
       + " , name = NULLIF('" + name + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         dbkeyclick_trail.Saved
           (
@@ -197,8 +202,8 @@ namespace Class_db_streets
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

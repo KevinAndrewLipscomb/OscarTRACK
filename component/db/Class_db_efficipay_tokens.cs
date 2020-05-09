@@ -13,7 +13,7 @@ namespace Class_db_efficipay_tokens
   {
   public class TClass_db_efficipay_tokens: TClass_dbhomedb
     {
-    private TClass_dbhomedb_trail dbhomedb_trail = null;
+    private readonly TClass_dbhomedb_trail dbhomedb_trail = null;
 
     public TClass_db_efficipay_tokens() : base()
       {
@@ -25,7 +25,7 @@ namespace Class_db_efficipay_tokens
       var concat_clause = "concat(IFNULL(time_created,'-'),'|',IFNULL(time_retired,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -33,8 +33,8 @@ namespace Class_db_efficipay_tokens
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -48,15 +48,15 @@ namespace Class_db_efficipay_tokens
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(time_created,'-'),'|',IFNULL(time_retired,'-')) USING utf8) as spec"
         + " FROM efficipay_token"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -69,15 +69,15 @@ namespace Class_db_efficipay_tokens
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , concat('Between ',time_created,' and ',IFNULL(time_retired,'NOW')) as time_period"
         + " FROM efficipay_token"
         + " order by time_created desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["time_period"].ToString(), dr["id"].ToString()));
@@ -89,7 +89,8 @@ namespace Class_db_efficipay_tokens
     internal string Current()
       {
       Open();
-      var c = new MySqlCommand("select value from efficipay_token where id = (select max(id) from efficipay_token) and time_retired is null",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select value from efficipay_token where id = (select max(id) from efficipay_token) and time_retired is null",connection);
+      var c = my_sql_command.ExecuteScalar().ToString();
       Close();
       return c;
       }
@@ -100,7 +101,8 @@ namespace Class_db_efficipay_tokens
       Open();
       try
         {
-        new MySqlCommand(dbhomedb_trail.Saved("delete from efficipay_token where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(dbhomedb_trail.Saved("delete from efficipay_token where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -131,7 +133,8 @@ namespace Class_db_efficipay_tokens
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from efficipay_token where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from efficipay_token where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         value = dr["value"].ToString();
@@ -147,7 +150,8 @@ namespace Class_db_efficipay_tokens
     internal string GetById(string token_id)
       {
       Open();
-      var value = new MySqlCommand("select value from efficipay_token where id = '" + token_id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select value from efficipay_token where id = '" + token_id + "'",connection);
+      var value = my_sql_command.ExecuteScalar().ToString();
       Close();
       return value;
       }
@@ -163,7 +167,7 @@ namespace Class_db_efficipay_tokens
       + " , time_created = NOW()"
       + k.EMPTY;
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         dbhomedb_trail.Saved
           (
@@ -180,8 +184,8 @@ namespace Class_db_efficipay_tokens
           + " COMMIT"
           ),
           connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

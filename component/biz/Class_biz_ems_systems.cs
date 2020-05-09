@@ -7,7 +7,7 @@ namespace Class_biz_ems_systems
   public class TClass_biz_ems_systems
     {
 
-    private TClass_db_ems_systems db_ems_systems = null;
+    private readonly TClass_db_ems_systems db_ems_systems = null;
 
     public TClass_biz_ems_systems() : base()
       {

@@ -26,9 +26,9 @@ namespace Class_biz_evals
   public class TClass_biz_evals
     {
 
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_db_evals db_evals = null;
-    private TClass_db_members db_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_db_evals db_evals = null;
+    private readonly TClass_db_members db_members = null;
 
     public TClass_biz_evals() : base()
       {

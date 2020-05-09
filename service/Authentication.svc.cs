@@ -7,7 +7,7 @@ namespace OscarDotNet.service
   public class Authentication : IAuthentication
     {
 
-    private TClass_biz_users biz_users = new TClass_biz_users();
+    private readonly TClass_biz_users biz_users = new TClass_biz_users();
 
     public bool BeAuthorized
       (

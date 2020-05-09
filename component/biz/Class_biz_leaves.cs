@@ -11,10 +11,10 @@ namespace Class_biz_leaves
 {
     public class TClass_biz_leaves
     {
-        private TClass_db_enrollment db_enrollment = null;
-        private TClass_db_leaves db_leaves = null;
-        private TClass_biz_members biz_members = null;
-        private TClass_biz_notifications biz_notifications = null;
+        private readonly TClass_db_enrollment db_enrollment = null;
+        private readonly TClass_db_leaves db_leaves = null;
+        private readonly TClass_biz_members biz_members = null;
+        private readonly TClass_biz_notifications biz_notifications = null;
 
     //Constructor  Create()
     public TClass_biz_leaves() : base()

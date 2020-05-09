@@ -28,7 +28,7 @@ namespace OscarDotNet.service
       //
       var the_items = new List<vehicle_summary>();
       var biz_vehicles = new TClass_biz_vehicles();
-      var target = new DataGrid();
+      using var target = new DataGrid();
       biz_vehicles.BindBaseDataList
         (
         sort_order:(sort_order.Length > 0 ? sort_order : "vehicle_name"),

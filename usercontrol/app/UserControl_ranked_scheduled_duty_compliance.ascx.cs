@@ -26,7 +26,7 @@ namespace UserControl_ranked_scheduled_duty_compliance
         Label_overall.Text = p.biz_schedule_assignment_logs.OverallScheduledDutyCompliance();
         if (Label_overall.Text != k.EMPTY)
           {
-          Label_overall.Text = Label_overall.Text + " %";
+          Label_overall.Text += " %";
           p.biz_schedule_assignment_logs.BindRankedScheduledDutyCompliance(DataGrid_detail);
           DataGrid_detail.Visible = true;
           Label_no_data.Visible = false;
@@ -85,7 +85,7 @@ namespace UserControl_ranked_scheduled_duty_compliance
       if (e.Item.ItemType.ToString().Contains("Item"))
         {
         // We are dealing with a data row, not a header or footer row.
-        p.rank = p.rank + 1;
+        p.rank++;
         e.Item.Cells[0].Text = p.rank.ToString();
         }
       }

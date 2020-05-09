@@ -7,7 +7,7 @@ namespace Class_biz_availabilities
   public class TClass_biz_availabilities
     {
 
-    private TClass_db_availabilities db_availabilities = null;
+    private readonly TClass_db_availabilities db_availabilities = null;
 
     public TClass_biz_availabilities() : base()
       {

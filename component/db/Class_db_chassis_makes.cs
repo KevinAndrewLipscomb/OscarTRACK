@@ -13,7 +13,7 @@ namespace Class_db_chassis_makes
   {
   public class TClass_db_chassis_makes: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_chassis_makes() : base()
       {
@@ -26,7 +26,7 @@ namespace Class_db_chassis_makes
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(concat(IFNULL(name,'-')) USING utf8) as spec"
@@ -34,8 +34,8 @@ namespace Class_db_chassis_makes
         + " where concat(IFNULL(name,'-')) like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -51,15 +51,15 @@ namespace Class_db_chassis_makes
       MySqlDataReader dr;
       this.Open();
       ((target) as ListControl).Items.Clear();
-      dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(name,'-')) USING utf8) as spec"
         + " FROM chassis_make"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -75,7 +75,8 @@ namespace Class_db_chassis_makes
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from chassis_make where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from chassis_make where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -105,7 +106,8 @@ namespace Class_db_chassis_makes
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from chassis_make where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from chassis_make where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         name = dr["name"].ToString();
@@ -126,7 +128,7 @@ namespace Class_db_chassis_makes
       + " name = NULLIF('" + name + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -137,8 +139,8 @@ namespace Class_db_chassis_makes
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

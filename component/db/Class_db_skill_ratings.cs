@@ -17,7 +17,7 @@ namespace Class_db_skill_ratings
   public class TClass_db_skill_ratings: TClass_db
     {
 
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_skill_ratings() : base()
       {
@@ -32,7 +32,7 @@ namespace Class_db_skill_ratings
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT lpad(id,4,'0') as id"
         + " , designator"
@@ -41,8 +41,8 @@ namespace Class_db_skill_ratings
         + " WHERE concat(lpad(id,4,'0'),'|',designator,'|',description) like '%" + partial_spec + "%'"
         + " order by description",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["id"].ToString() + k.SPACE_HYPHENS_SPACE + dr["description"].ToString(), dr["id"].ToString()));
@@ -65,7 +65,8 @@ namespace Class_db_skill_ratings
         ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
         }
       Open();
-      var dr = new MySqlCommand("SELECT id,description FROM skill_rating where description <> '(none specified)' order by id", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("SELECT id,description FROM skill_rating where description <> '(none specified)' order by id", connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["description"].ToString(), dr["id"].ToString()));
@@ -91,7 +92,8 @@ namespace Class_db_skill_ratings
       Open();
       (target as ListItemCollection).Clear();
       (target as ListItemCollection).Add(new ListItem("(not applicable)","-"));
-      var dr = new MySqlCommand("select id,description from skill_rating where for_evaluatee_both_evaluator_condition in (-1,0) order by pecking_order",connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select id,description from skill_rating where for_evaluatee_both_evaluator_condition in (-1,0) order by pecking_order",connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         (target as ListItemCollection).Add(new ListItem(dr["description"].ToString(),dr["id"].ToString()));
@@ -105,7 +107,8 @@ namespace Class_db_skill_ratings
       Open();
       (target as ListItemCollection).Clear();
       (target as ListItemCollection).Add(new ListItem("(not applicable)","-"));
-      var dr = new MySqlCommand("select id,description from skill_rating where for_evaluatee_both_evaluator_condition in (0,1) order by pecking_order",connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select id,description from skill_rating where for_evaluatee_both_evaluator_condition in (0,1) order by pecking_order",connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         (target as ListItemCollection).Add(new ListItem(dr["description"].ToString(),dr["id"].ToString()));
@@ -119,7 +122,8 @@ namespace Class_db_skill_ratings
       Open();
       (target as ListItemCollection).Clear();
       (target as ListItemCollection).Add(new ListItem("(not applicable)","-"));
-      var dr = new MySqlCommand("select id,description from skill_rating order by id",connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select id,description from skill_rating order by id",connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         (target as ListItemCollection).Add(new ListItem(dr["description"].ToString(),dr["id"].ToString()));
@@ -134,7 +138,8 @@ namespace Class_db_skill_ratings
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from skill_rating where id = '" + id + "'"), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from skill_rating where id = '" + id + "'"), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -162,7 +167,8 @@ namespace Class_db_skill_ratings
       description = k.EMPTY;
       var result = false;
       Open();
-      var dr = new MySqlCommand("select designator,description from skill_rating where id = '" + id + "'", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select designator,description from skill_rating where id = '" + id + "'", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         designator = dr["designator"].ToString();
@@ -183,7 +189,7 @@ namespace Class_db_skill_ratings
       {
       var childless_field_assignments_clause = "designator = '" + designator + "', description = '" + description + "'";
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -194,8 +200,8 @@ namespace Class_db_skill_ratings
           + childless_field_assignments_clause
           ),
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

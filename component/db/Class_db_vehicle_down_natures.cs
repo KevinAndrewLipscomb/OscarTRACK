@@ -13,7 +13,7 @@ namespace Class_db_vehicle_down_natures
   {
   public class TClass_db_vehicle_down_natures: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_vehicle_down_natures() : base()
       {
@@ -25,7 +25,7 @@ namespace Class_db_vehicle_down_natures
       var concat_clause = "concat(IFNULL(name,'-'),'|',IFNULL(elaboration,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -33,8 +33,8 @@ namespace Class_db_vehicle_down_natures
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -48,15 +48,15 @@ namespace Class_db_vehicle_down_natures
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(name,'-'),'|',IFNULL(elaboration,'-')) USING utf8) as spec"
         + " FROM vehicle_down_nature"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -69,15 +69,15 @@ namespace Class_db_vehicle_down_natures
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(elaboration USING utf8) as spec"
         + " FROM vehicle_down_nature"
         + " order by pecking_order",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -93,7 +93,8 @@ namespace Class_db_vehicle_down_natures
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from vehicle_down_nature where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle_down_nature where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -113,7 +114,8 @@ namespace Class_db_vehicle_down_natures
     public string ElaborationOf(string id)
       {
       Open();
-      var elaboration_of = new MySqlCommand("select elaboration from vehicle_down_nature where id = '" + id + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select elaboration from vehicle_down_nature where id = '" + id + "'",connection);
+      var elaboration_of = my_sql_command.ExecuteScalar().ToString();
       Close();
       return elaboration_of;
       }
@@ -137,7 +139,8 @@ namespace Class_db_vehicle_down_natures
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from vehicle_down_nature where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from vehicle_down_nature where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         name = dr["name"].ToString();
@@ -154,7 +157,8 @@ namespace Class_db_vehicle_down_natures
     internal string IdOfName(string name)
       {
       Open();
-      var id_of_name_obj = new MySqlCommand("select id from vehicle_down_nature where name = '" + name + "'",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select id from vehicle_down_nature where name = '" + name + "'",connection);
+      var id_of_name_obj = my_sql_command.ExecuteScalar();
       Close();
       return (id_of_name_obj == null ? k.EMPTY : id_of_name_obj.ToString());
       }
@@ -175,7 +179,7 @@ namespace Class_db_vehicle_down_natures
           + " , elaboration = NULLIF('" + elaboration + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -186,8 +190,8 @@ namespace Class_db_vehicle_down_natures
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

@@ -1,18 +1,20 @@
-using System;
-
 using Class_db_tiers;
+
 namespace Class_biz_tiers
-{
-    public class TClass_biz_tiers
+  {
+  public class TClass_biz_tiers
     {
-        private TClass_db_tiers db_tiers = null;
+        private readonly TClass_db_tiers db_tiers = null;
         //Constructor  Create()
         public TClass_biz_tiers() : base()
         {
             // TODO: Add any constructor code here
             db_tiers = new TClass_db_tiers();
         }
+        
+        #pragma warning disable IDE0060 // Remove unused parameter
         public void BindListControl(object target, string selected_id, bool be_available_option_all, string unselected_literal)
+        #pragma warning restore IDE0060 // Remove unused parameter
         {
             db_tiers.BindListControl(target, unselected_literal, selected_id);
         }

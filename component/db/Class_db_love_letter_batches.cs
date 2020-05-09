@@ -13,7 +13,7 @@ namespace Class_db_love_letter_batches
   {
   public class TClass_db_love_letter_batches: TClass_dbkeyclick
     {
-    private TClass_dbkeyclick_trail db_trail = null;
+    private readonly TClass_dbkeyclick_trail db_trail = null;
 
     public TClass_db_love_letter_batches() : base()
       {
@@ -25,7 +25,7 @@ namespace Class_db_love_letter_batches
       var concat_clause = "concat(IFNULL(designator,'-'))";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -33,8 +33,8 @@ namespace Class_db_love_letter_batches
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -48,15 +48,15 @@ namespace Class_db_love_letter_batches
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(designator,'-')) USING utf8) as spec"
         + " FROM love_letter_batch"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -73,7 +73,7 @@ namespace Class_db_love_letter_batches
       )
       {
  	    Open();
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select *"
         + " from"
@@ -88,8 +88,8 @@ namespace Class_db_love_letter_batches
         +   " ) as recentmost_first"
         + " order by designator",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
       Close();
@@ -101,7 +101,8 @@ namespace Class_db_love_letter_batches
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from love_letter_batch where id = '" + id + "'"), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from love_letter_batch where id = '" + id + "'"), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -130,7 +131,8 @@ namespace Class_db_love_letter_batches
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from love_letter_batch where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from love_letter_batch where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         designator = dr["designator"].ToString();

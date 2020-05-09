@@ -2,7 +2,6 @@
 
 using Class_db_schedule_assignment_logs;
 using kix;
-using System;
 using System.Collections;
 using System.Configuration;
 
@@ -10,7 +9,7 @@ namespace Class_biz_schedule_assignment_logs
   {
   public class TClass_biz_schedule_assignment_logs
     {
-    private TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
+    private readonly TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
 
     public TClass_biz_schedule_assignment_logs() : base()
       {

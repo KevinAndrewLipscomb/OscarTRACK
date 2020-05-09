@@ -13,7 +13,7 @@ namespace Class_db_agency_satellite_stations
   {
   public class TClass_db_agency_satellite_stations: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_agency_satellite_stations() : base()
       {
@@ -28,7 +28,8 @@ namespace Class_db_agency_satellite_stations
       {
       var be_station_satellite_of_agency = false;
       Open();
-      be_station_satellite_of_agency = "1" == new MySqlCommand("select IFNULL((select 1 from agency_satellite_station where agency_id = '" + agency_id + "' and satellite_station_id = '" + station_num + "'),0)",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select IFNULL((select 1 from agency_satellite_station where agency_id = '" + agency_id + "' and satellite_station_id = '" + station_num + "'),0)",connection);
+      be_station_satellite_of_agency = "1" == my_sql_command.ExecuteScalar().ToString();
       Close();
       return be_station_satellite_of_agency;
       }
@@ -38,7 +39,7 @@ namespace Class_db_agency_satellite_stations
       var concat_clause = "concat(IFNULL(agency_id,'-'),'|',IFNULL(a.short_designator,'-'),'|',IFNULL(a.medium_designator,'-'),'|',IFNULL(a.long_designator,'-'),'|',IFNULL(satellite_station_id,'-'),'|',IFNULL(s.short_designator,'-'),'|',IFNULL(s.medium_designator,'-'),'|',IFNULL(s.long_designator,'-'))";
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select agency_satellite_station.id as agency_satellite_station_id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -48,8 +49,8 @@ namespace Class_db_agency_satellite_stations
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["agency_satellite_station_id"].ToString()));
@@ -63,15 +64,15 @@ namespace Class_db_agency_satellite_stations
       {
       this.Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(IFNULL(agency_id,'-'),'|',IFNULL(satellite_station_id,'-')) USING utf8) as spec"
         + " FROM agency_satellite_station"
         + " order by spec",
         this.connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -87,7 +88,8 @@ namespace Class_db_agency_satellite_stations
       this.Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from agency_satellite_station where id = \"" + id + "\""), this.connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from agency_satellite_station where id = \"" + id + "\""), this.connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -119,7 +121,8 @@ namespace Class_db_agency_satellite_stations
       result = false;
       //
       this.Open();
-      dr = new MySqlCommand("select * from agency_satellite_station where CAST(id AS CHAR) = \"" + id + "\"", this.connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from agency_satellite_station where CAST(id AS CHAR) = \"" + id + "\"", this.connection);
+      dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         agency_id = dr["agency_id"].ToString();
@@ -143,7 +146,7 @@ namespace Class_db_agency_satellite_stations
       + " , satellite_station_id = NULLIF('" + satellite_station_id + "','')"
       + k.EMPTY;
       this.Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         db_trail.Saved
           (
@@ -154,8 +157,8 @@ namespace Class_db_agency_satellite_stations
           + childless_field_assignments_clause
           ),
           this.connection
-        )
-        .ExecuteNonQuery();
+          );
+      my_sql_command.ExecuteNonQuery();
       this.Close();
       }
 

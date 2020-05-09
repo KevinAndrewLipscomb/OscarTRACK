@@ -2,14 +2,12 @@
 
 using Class_db_love_letter_batches;
 using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_love_letter_batches
   {
   public class TClass_biz_love_letter_batches
     {
-    private TClass_db_love_letter_batches db_love_letter_batches = null;
+    private readonly TClass_db_love_letter_batches db_love_letter_batches = null;
 
     public TClass_biz_love_letter_batches() : base()
       {

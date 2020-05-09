@@ -1,6 +1,5 @@
 using Class_db_agencies;
 using Class_dbkeyclick;
-using Class_dbkeyclick_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
@@ -12,19 +11,18 @@ namespace Class_db_residents
   public class TClass_db_residents: TClass_dbkeyclick
     {
 
-    private TClass_db_agencies db_agencies = null;
-    private TClass_dbkeyclick_trail dbkeyclick_trail = null;
+    private readonly TClass_db_agencies db_agencies = null;
     
     public TClass_db_residents() : base()
       {
       db_agencies = new TClass_db_agencies();
-      dbkeyclick_trail = new TClass_dbkeyclick_trail();
       }
 
     public bool BeExtantId(string id)
       {
       Open();
-      var result = (null != new MySqlCommand("select TRUE from resident where id = '" + id + "'", connection).ExecuteScalar());
+      using var my_sql_command = new MySqlCommand("select TRUE from resident where id = '" + id + "'", connection);
+      var result = (null != my_sql_command.ExecuteScalar());
       Close();
       return result;
       }
@@ -47,7 +45,7 @@ namespace Class_db_residents
       var i = new k.subtype<int>(0,word_array.Length);
       //
       Open();
-      new MySqlCommand
+      using var my_sql_command_1 = new MySqlCommand
         (
         "create temporary table possible_match"
         + " ("
@@ -59,8 +57,8 @@ namespace Class_db_residents
         + " , primary key (resident_id,web_donor_id)"
         + " )",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_1.ExecuteNonQuery();
       //
       // Match at least one word in the specified resident name.
       //
@@ -73,7 +71,8 @@ namespace Class_db_residents
           }
         condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
         }
-      new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection).ExecuteNonQuery();
+      using var my_sql_command_2 = new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection);
+      my_sql_command_2.ExecuteNonQuery();
       //
       // Match all words in the specified resident name.
       //
@@ -86,44 +85,47 @@ namespace Class_db_residents
           }
         condition_clause += " resident_base.name like '%" + word_array[i.val] +"%'";
         }
-      new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection).ExecuteNonQuery();
+      using var my_sql_command_3 = new MySqlCommand(insert_where_clause + (condition_clause.Length > 0 ? " and (" + condition_clause + ") " : k.EMPTY) + collision_clause,connection);
+      my_sql_command_3.ExecuteNonQuery();
       //
       // Match the specified house_num and street.
       //
       if ((house_num != k.EMPTY) && (street_id != k.EMPTY))
         {
-        new MySqlCommand(insert_where_clause + " and house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection).ExecuteNonQuery();
+        using var my_sql_command_4 = new MySqlCommand(insert_where_clause + " and house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection);
+        my_sql_command_4.ExecuteNonQuery();
         }
       //
       // Match email address
       //
-      new MySqlCommand(insert_where_clause + " and email_address = '" + email_address + "'" + collision_clause,connection).ExecuteNonQuery();
+      using var my_sql_command_5 = new MySqlCommand(insert_where_clause + " and email_address = '" + email_address + "'" + collision_clause,connection);
+      my_sql_command_5.ExecuteNonQuery();
       //
       // Match prior donations attributed to resident.
       //
-      new MySqlCommand
+      using var my_sql_command_6 = new MySqlCommand
         (
         "update possible_match set score = score + 1"
         + " , num_priors = (select count(*) from donation where donation.id = possible_match.resident_id)"
         + " , avg_amount = IFNULL((select avg(amount) from donation where donation.id = possible_match.resident_id),0)",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_6.ExecuteNonQuery();
       //
       // Match prior donations attributed to web_donor.
       //
-      new MySqlCommand
+      using var my_sql_command_7 = new MySqlCommand
         (
         "update possible_match set score = score + 1"
         + " , num_priors = num_priors + (select count(*) from donation where donation.web_donor_id = possible_match.web_donor_id)"
         + " , avg_amount = IFNULL((avg_amount + (select avg(amount) from donation where donation.web_donor_id = possible_match.web_donor_id))/2,avg_amount)",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command_7.ExecuteNonQuery();
       //
       // Bind possible matches to target
       //
-      (target as BaseDataList).DataSource = new MySqlCommand
+      using var my_sql_command_8 = new MySqlCommand
         (
         "select resident_base.id as id"
         + " , IFNULL(resident_base.name,'') as name"
@@ -144,11 +146,12 @@ namespace Class_db_residents
         + " group by resident_base.id"
         + " order by score desc, num_priors desc",
         connection
-        )
-        .ExecuteReader();
+        );
+      (target as BaseDataList).DataSource = my_sql_command_8.ExecuteReader();
       (target as BaseDataList).DataBind();
       ((target as BaseDataList).DataSource as MySqlDataReader).Close();
-      new MySqlCommand("drop temporary table possible_match",connection).ExecuteNonQuery();
+      using var my_sql_command_9 = new MySqlCommand("drop temporary table possible_match",connection);
+      my_sql_command_9.ExecuteNonQuery();
       Close();
       }
 
@@ -268,7 +271,8 @@ namespace Class_db_residents
       + ";"
       + " COMMIT";
       Open();
-      var dr = new MySqlCommand(script,connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand(script,connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         output += dr["address"].ToString() + k.NEW_LINE;
@@ -282,7 +286,8 @@ namespace Class_db_residents
       {
       var num_for_agency = new k.int_nonnegative();
       Open();
-      num_for_agency.val = int.Parse(new MySqlCommand("select count(*) from resident_base  where agency='" + db_agencies.KeyclickEnumeratorOf(agency_id) + "'",connection).ExecuteScalar().ToString());
+      using var my_sql_command = new MySqlCommand("select count(*) from resident_base  where agency='" + db_agencies.KeyclickEnumeratorOf(agency_id) + "'",connection);
+      num_for_agency.val = int.Parse(my_sql_command.ExecuteScalar().ToString());
       Close();
       return num_for_agency;
       }
@@ -290,7 +295,7 @@ namespace Class_db_residents
     internal void ScrubToApplicationStandards()
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -325,8 +330,8 @@ namespace Class_db_residents
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 

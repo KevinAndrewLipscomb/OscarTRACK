@@ -13,7 +13,7 @@ namespace Class_db_patient_encounters
   {
   public class TClass_db_patient_encounters: TClass_db
     {
-    private TClass_db_trail db_trail = null;
+    private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_patient_encounters() : base()
       {
@@ -25,7 +25,7 @@ namespace Class_db_patient_encounters
       var concat_clause = "concat(id)";
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "select id"
         + " , CONVERT(" + concat_clause + " USING utf8) as spec"
@@ -33,8 +33,8 @@ namespace Class_db_patient_encounters
         + " where " + concat_clause + " like '%" + partial_spec.ToUpper() + "%'"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -56,27 +56,24 @@ namespace Class_db_patient_encounters
         filter += " and eval_id = '" + eval_id_filter + "'" + k.SPACE;
         }
       Open();
-      (target as BaseDataList).DataSource = 
+      using var my_sql_command = new MySqlCommand
         (
-        new MySqlCommand
-          (
-          "select patient_encounter.id as id"
-          + " , chief_complaint"
-          + " , CONCAT(patient_age,' ',patient_age_unit.description) as patient_age_spec"
-          + " , patient_encounter_level.description as patient_encounter_level"
-          + " , IFNULL(GROUP_CONCAT('<tt>',skill_rating.designator,'</tt> :',care_skill.description order by skill_rating.pecking_order desc, tier, care_skill.description SEPARATOR '<br>'),'-- NONE --') as skill_performance"
-          + " from patient_encounter"
-          +   " join patient_age_unit on (patient_age_unit.id=patient_encounter.patient_age_unit_id)"
-          +   " join patient_encounter_level on (patient_encounter_level.id=patient_encounter.patient_encounter_level_id)"
-          +   " left join care_skill_rating on (care_skill_rating.patient_encounter_id=patient_encounter.id)"
-          +   " left join care_skill on (care_skill.id=care_skill_rating.care_skill_id)"
-          +   " left join skill_rating on (skill_rating.id=care_skill_rating.skill_rating_id)"
-          + filter
-          + " group by patient_encounter.id",
-          connection
-          )
-        .ExecuteReader()
+        "select patient_encounter.id as id"
+        + " , chief_complaint"
+        + " , CONCAT(patient_age,' ',patient_age_unit.description) as patient_age_spec"
+        + " , patient_encounter_level.description as patient_encounter_level"
+        + " , IFNULL(GROUP_CONCAT('<tt>',skill_rating.designator,'</tt> :',care_skill.description order by skill_rating.pecking_order desc, tier, care_skill.description SEPARATOR '<br>'),'-- NONE --') as skill_performance"
+        + " from patient_encounter"
+        +   " join patient_age_unit on (patient_age_unit.id=patient_encounter.patient_age_unit_id)"
+        +   " join patient_encounter_level on (patient_encounter_level.id=patient_encounter.patient_encounter_level_id)"
+        +   " left join care_skill_rating on (care_skill_rating.patient_encounter_id=patient_encounter.id)"
+        +   " left join care_skill on (care_skill.id=care_skill_rating.care_skill_id)"
+        +   " left join skill_rating on (skill_rating.id=care_skill_rating.skill_rating_id)"
+        + filter
+        + " group by patient_encounter.id",
+        connection
         );
+      (target as BaseDataList).DataSource = my_sql_command.ExecuteReader();
       (target as BaseDataList).DataBind();
       Close();
       }
@@ -85,15 +82,15 @@ namespace Class_db_patient_encounters
       {
       Open();
       ((target) as ListControl).Items.Clear();
-      var dr = new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "SELECT id"
         + " , CONVERT(concat(id) USING utf8) as spec"
         + " FROM patient_encounter"
         + " order by spec",
         connection
-        )
-        .ExecuteReader();
+        );
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         ((target) as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
@@ -108,7 +105,8 @@ namespace Class_db_patient_encounters
       Open();
       try
         {
-        new MySqlCommand(db_trail.Saved("delete from patient_encounter where id = \"" + id + "\""), connection).ExecuteNonQuery();
+        using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from patient_encounter where id = \"" + id + "\""), connection);
+        my_sql_command.ExecuteNonQuery();
         }
       catch(System.Exception e)
         {
@@ -145,7 +143,8 @@ namespace Class_db_patient_encounters
       var result = false;
       //
       Open();
-      var dr = new MySqlCommand("select * from patient_encounter where CAST(id AS CHAR) = \"" + id + "\"", connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select * from patient_encounter where CAST(id AS CHAR) = \"" + id + "\"", connection);
+      var dr = my_sql_command.ExecuteReader();
       if (dr.Read())
         {
         eval_id = dr["eval_id"].ToString();
@@ -164,7 +163,8 @@ namespace Class_db_patient_encounters
     internal string IdOfUnique(string guid)
       {
       Open();
-      var id_of_unique = new MySqlCommand("select id from patient_encounter where guid = '" + guid + "'",connection).ExecuteScalar().ToString();
+      using var my_sql_command = new MySqlCommand("select id from patient_encounter where guid = '" + guid + "'",connection);
+      var id_of_unique = my_sql_command.ExecuteScalar().ToString();
       Close();
       return id_of_unique;
       }

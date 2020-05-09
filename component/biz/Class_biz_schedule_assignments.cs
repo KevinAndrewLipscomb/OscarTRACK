@@ -26,16 +26,16 @@ namespace Class_biz_schedule_assignments
 
     public const int MAX_PER_MONTH = 62;
 
-    private TClass_biz_agencies biz_agencies = null;
-    private TClass_biz_members biz_members = null;
-    private TClass_biz_notifications biz_notifications = null;
-    private TClass_biz_privileges biz_privileges = null;
-    private TClass_biz_roles biz_roles = null;
-    private TClass_biz_user biz_user = null;
-    private TClass_db_agencies db_agencies = null;
-    private TClass_db_role_member_map db_role_member_map = null;
-    private TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
-    private TClass_db_schedule_assignments db_schedule_assignments = null;
+    private readonly TClass_biz_agencies biz_agencies = null;
+    private readonly TClass_biz_members biz_members = null;
+    private readonly TClass_biz_notifications biz_notifications = null;
+    private readonly TClass_biz_privileges biz_privileges = null;
+    private readonly TClass_biz_roles biz_roles = null;
+    private readonly TClass_biz_user biz_user = null;
+    private readonly TClass_db_agencies db_agencies = null;
+    private readonly TClass_db_role_member_map db_role_member_map = null;
+    private readonly TClass_db_schedule_assignment_logs db_schedule_assignment_logs = null;
+    private readonly TClass_db_schedule_assignments db_schedule_assignments = null;
 
     private static readonly Object update_lock = new object();
 
@@ -140,7 +140,6 @@ namespace Class_biz_schedule_assignments
     internal bool BeOkToAllowMemberScheduleDetailControlMonthSwitch
       (
       bool be_interactive,
-      bool be_my_watchbill_mode,
       string member_agency_id
       )
       {
@@ -753,7 +752,7 @@ namespace Class_biz_schedule_assignments
 
     internal void LogCommensurationData()
       {
-      var dummy_basedatalist = new DataGrid();
+      using var dummy_basedatalist = new DataGrid();
       var dummy_k_int_nonnegative = new k.int_nonnegative();
       var num_crew_shifts_all = new k.decimal_nonnegative();
       var num_crew_shifts_ems = new k.decimal_nonnegative();
@@ -1299,7 +1298,6 @@ namespace Class_biz_schedule_assignments
 
     internal void SpreadSelections
       (
-      string member_id,
       bool be_member_released,
       string id_a,
       string id_b,
@@ -1310,7 +1308,7 @@ namespace Class_biz_schedule_assignments
       var saved_summary_b = db_schedule_assignments.Summary(id_b);
       var saved_spec_a = db_schedule_assignments.PostDesignatorOf(saved_summary_a) + db_schedule_assignments.PostCardinalityOf(saved_summary_a);
       var saved_spec_b = db_schedule_assignments.PostDesignatorOf(saved_summary_b) + db_schedule_assignments.PostCardinalityOf(saved_summary_b);
-      var affected_id = db_schedule_assignments.SpreadSelections(member_id,be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
+      var affected_id = db_schedule_assignments.SpreadSelections(be_member_released,id_a,id_b,intolerable_gap,biz_members.IdOfUserId(biz_user.IdNum()));
       if (affected_id.Length > 0)
         {
         var saved_spec = (affected_id == id_a ? saved_spec_a : saved_spec_b);

@@ -18,7 +18,8 @@ namespace Class_db_availabilities
       var num_extra_for_member_for_month = new k.int_nonnegative();
       var num_extra_for_member_for_month_obj = new Object();
       Open();
-      num_extra_for_member_for_month_obj = new MySqlCommand("select num_extras from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection).ExecuteScalar();
+      using var my_sql_command = new MySqlCommand("select num_extras from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection);
+      num_extra_for_member_for_month_obj = my_sql_command.ExecuteScalar();
       if ((num_extra_for_member_for_month_obj != null) && (num_extra_for_member_for_month_obj != DBNull.Value))
         {
         num_extra_for_member_for_month.val = int.Parse(num_extra_for_member_for_month_obj.ToString());
@@ -30,7 +31,7 @@ namespace Class_db_availabilities
     internal void Purge()
       {
       Open();
-      new MySqlCommand
+      using var my_sql_command = new MySqlCommand
         (
         "START TRANSACTION"
         + ";"
@@ -58,8 +59,8 @@ namespace Class_db_availabilities
         + ";"
         + " COMMIT",
         connection
-        )
-        .ExecuteNonQuery();
+        );
+      my_sql_command.ExecuteNonQuery();
       Close();
       }
 
@@ -71,7 +72,8 @@ namespace Class_db_availabilities
       {
       var comments = k.EMPTY;
       Open();
-      var dr = new MySqlCommand("select note from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection).ExecuteReader();
+      using var my_sql_command = new MySqlCommand("select note from avail_sheet where odnmid = '" + member_id + "' and month = '" + month_abbreviation + "'",connection);
+      var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
         if (comments != k.EMPTY)

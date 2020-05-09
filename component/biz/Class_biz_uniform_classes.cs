@@ -1,9 +1,6 @@
 // Derived from KiAspdotnetFramework/component/biz/Class~biz~~template~kicrudhelped~item.cs~template
 
 using Class_db_uniform_classes;
-using kix;
-using System;
-using System.Collections;
 
 namespace Class_biz_uniform_classes
   {
@@ -17,7 +14,7 @@ namespace Class_biz_uniform_classes
 
   public class TClass_biz_uniform_classes
     {
-    private TClass_db_uniform_classes db_uniform_classes = null;
+    private readonly TClass_db_uniform_classes db_uniform_classes = null;
 
     public TClass_biz_uniform_classes() : base()
       {
