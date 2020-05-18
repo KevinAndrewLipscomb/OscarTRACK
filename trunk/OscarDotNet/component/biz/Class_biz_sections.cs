@@ -18,7 +18,7 @@ namespace Class_biz_sections
       )
       {
       ((target) as DropDownList).Items.Clear();
-      if (selected_description == k.EMPTY)
+      if (selected_description.Length == 0)
         {
         ((target) as DropDownList).Items.Add(new ListItem("-- Select --", ""));
         }

@@ -90,7 +90,7 @@ namespace Class_db_residents
       //
       // Match the specified house_num and street.
       //
-      if ((house_num != k.EMPTY) && (street_id != k.EMPTY))
+      if ((house_num.Length > 0) && (street_id.Length > 0))
         {
         using var my_sql_command_4 = new MySqlCommand(insert_where_clause + " and house_num like '%" + house_num + "%' and street_id = '" + street_id + "'" + collision_clause,connection);
         my_sql_command_4.ExecuteNonQuery();

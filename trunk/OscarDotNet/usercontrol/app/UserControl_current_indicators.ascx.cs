@@ -15,8 +15,14 @@ namespace UserControl_current_indicators
 {
     public partial class TWebUserControl_current_indicators: ki_web_ui.usercontrol_class
     {
+
+        private struct p_type
+        {
+            public bool be_loaded;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -73,11 +79,6 @@ namespace UserControl_current_indicators
             Session.Remove(InstanceId() + ".p");
             return this;
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-        } // end p_type
 
     } // end TWebUserControl_current_indicators
 

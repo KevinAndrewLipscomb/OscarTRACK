@@ -155,6 +155,7 @@ namespace Class_biz_enrollment
             }
         }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types")]
     public void MakeSeniorityPromotions()
       {
       try
@@ -252,7 +253,7 @@ namespace Class_biz_enrollment
             biz_notifications.IssueExternalForNonFutureGeneralDeparture(member_id, first_name, last_name, cad_num, new_level_description, effective_date.ToString("yyyy-MM-dd"), note);
             }
           }
-        if (target_agency_id != k.EMPTY)
+        if (target_agency_id.Length > 0)
           {
           db_members.SetSection
             (

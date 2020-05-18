@@ -9,7 +9,7 @@ using UserControl_role_holders_per_agency;
 
 namespace report_monthly_role_holders
 {
-    public partial class TWebForm_report_monthly_role_holders: System.Web.UI.Page
+    public partial class TWebForm_report_monthly_role_holders: ki_web_ui.page_class
     {
         private p_type p;
         // / <summary>
@@ -58,15 +58,14 @@ namespace report_monthly_role_holders
 
         protected override void Render(HtmlTextWriter writer)
         {
-            string body;
-            StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
-            sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
+            var sb = new StringBuilder();
+            using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+            base.Render(html_text_writer);
             // //
             // writer.Write(sb.ToString());
             // //
-            body = sb.ToString();
+            var body = sb.ToString();
             // Send output stream as an email message.
             // from
             // to
@@ -83,7 +82,7 @@ namespace report_monthly_role_holders
         {
             public TClass_biz_role_member_map biz_role_member_map;
             public string role_name;
-        } // end p_type
+        }
 
     } // end TWebForm_report_monthly_role_holders
 

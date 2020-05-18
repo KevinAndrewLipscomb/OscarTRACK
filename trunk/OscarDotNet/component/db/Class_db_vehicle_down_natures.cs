@@ -104,7 +104,7 @@ namespace Class_db_vehicle_down_natures
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

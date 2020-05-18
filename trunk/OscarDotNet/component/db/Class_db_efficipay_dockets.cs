@@ -5,26 +5,25 @@ using Class_db_trail;
 using kix;
 using MySql.Data.MySqlClient;
 using System;
-using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_efficipay_dockets
   {
-  public class efficipay_docket_summary
-    {
-    public string id;
-    public string agency_id;
-    public string num;
-    public string attachment_key;
-    public bool be_ready_for_review;
-    public string signer_1_member_id;
-    public string signer_2_member_id;
-    public string expiration_date;
-    }
-
   public class TClass_db_efficipay_dockets: TClass_db
     {
+
+    private class efficipay_docket_summary
+      {
+      public string id;
+      public string agency_id;
+      public string num;
+      public string attachment_key;
+      public bool be_ready_for_review;
+      public string signer_1_member_id;
+      public string signer_2_member_id;
+      public string expiration_date;
+      }
+
     private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_efficipay_dockets() : base()
@@ -55,10 +54,10 @@ namespace Class_db_efficipay_dockets
         apply_signature = "1" == my_sql_command_3.ExecuteScalar().ToString();
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       return apply_signature;
@@ -196,7 +195,7 @@ namespace Class_db_efficipay_dockets
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();
@@ -290,10 +289,10 @@ namespace Class_db_efficipay_dockets
           }
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       return id;

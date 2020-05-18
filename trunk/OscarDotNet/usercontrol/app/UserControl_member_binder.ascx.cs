@@ -40,7 +40,7 @@ namespace UserControl_member_binder
       public const int TSSI_TEST = 10;
       }
 
-    public struct p_type
+    private struct p_type
       {
       public bool be_loaded;
       public TClass_biz_user biz_user;
@@ -52,8 +52,10 @@ namespace UserControl_member_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target = k.EMPTY
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
       if (p.tab_index == Static.TSSI_SCHEDULE)
@@ -217,7 +219,7 @@ namespace UserControl_member_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         if (target.ToLower().Contains("/schedule/"))
           {

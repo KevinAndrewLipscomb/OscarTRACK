@@ -9,18 +9,19 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_establish_membership
 {
-    public struct p_type
+    public partial class TWebUserControl_establish_membership: ki_web_ui.usercontrol_class
+    {
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_members biz_members;
         public TClass_biz_notifications biz_notifications;
         public TClass_biz_user biz_user;
         public TClass_biz_users biz_users;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_establish_membership: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

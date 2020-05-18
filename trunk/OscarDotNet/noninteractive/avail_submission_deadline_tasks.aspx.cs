@@ -4,7 +4,7 @@ using System.Web;
 
 namespace avail_submission_deadline_tasks
 {
-    public partial class TWebForm_avail_submission_deadline_tasks: System.Web.UI.Page
+    public partial class TWebForm_avail_submission_deadline_tasks: ki_web_ui.page_class
     {
         // / <summary>
         // / Required method for Designer support -- do not modify

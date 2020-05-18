@@ -13,6 +13,7 @@ namespace Class_biz_users
         private readonly TClass_biz_user biz_user = null;
         private readonly TClass_db_members db_members = null;
         private readonly TClass_db_users db_users = null;
+
         //Constructor  Create()
         public TClass_biz_users() : base()
         {
@@ -22,6 +23,7 @@ namespace Class_biz_users
             db_members = new TClass_db_members();
             db_users = new TClass_db_users();
         }
+
         public bool AcceptAsMember
           (
           string cad_num,
@@ -32,7 +34,7 @@ namespace Class_biz_users
           {
           var saved_member_email_address = db_members.EmailAddressByCadNum(cad_num);
           var accept_as_member = db_users.AcceptAsMember(cad_num,last_name,id);
-          if ((saved_member_email_address != k.EMPTY) && accept_as_member)
+          if ((saved_member_email_address.Length > 0) && accept_as_member)
             {
             biz_notifications.IssueForMembershipReestablishment(saved_member_email_address,username,biz_user.EmailAddress());
             }
@@ -179,7 +181,7 @@ namespace Class_biz_users
         {
             db_users.SetEmailAddress(id, email_address);
             var member_id = db_members.IdOfUserId(id);
-            if (member_id != k.EMPTY)
+            if (member_id.Length > 0)
               {
               db_members.SetEmailAddress(member_id,email_address);
               }

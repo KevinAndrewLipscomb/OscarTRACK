@@ -112,7 +112,7 @@ namespace Class_db_love_letter_batches
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

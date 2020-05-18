@@ -175,7 +175,7 @@ namespace UserControl_log_new_donation
         {
             public bool be_loaded;
             public TClass_biz_residents biz_residents;
-        } // end p_type
+        }
 
     } // end TWebUserControl_log_new_donation
 

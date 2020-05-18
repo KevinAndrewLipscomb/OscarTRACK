@@ -1,3 +1,5 @@
+// Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
+
 using Class_biz_patient_age_units;
 using kix;
 using System;
@@ -6,11 +8,18 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_patient_age_unit
 {
-    // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~trivial~item.pas
     public partial class TWebUserControl_patient_age_unit: ki_web_ui.usercontrol_class
     {
+
+        private struct p_type
+        {
+            public bool be_loaded;
+            public bool be_ok_to_config_patient_age_units;
+            public TClass_biz_patient_age_units biz_patient_age_units;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         private void Clear()
         {
             TextBox_id.Text = k.EMPTY;
@@ -320,13 +329,6 @@ namespace UserControl_patient_age_unit
           }
             }
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-            public bool be_ok_to_config_patient_age_units;
-            public TClass_biz_patient_age_units biz_patient_age_units;
-        } // end p_type
 
     } // end TWebUserControl_patient_age_unit
 

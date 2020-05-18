@@ -1,28 +1,23 @@
-using kix;
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
 
 using Class_biz_agencies;
 using Class_biz_role_member_map;
 
 namespace UserControl_role_holders_per_agency
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_role_holders_per_agency: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public string agency_id;
         public bool be_interactive;
         public bool be_loaded;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_role_member_map biz_role_member_map;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_role_holders_per_agency: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);

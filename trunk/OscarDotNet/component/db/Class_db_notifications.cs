@@ -32,7 +32,7 @@ namespace Class_db_notifications
         {
             MySqlDataReader dr;
             ((target) as ListControl).Items.Clear();
-            if (unselected_literal != k.EMPTY)
+            if (unselected_literal.Length > 0)
             {
                 ((target) as ListControl).Items.Add(new ListItem(unselected_literal, k.EMPTY));
             }
@@ -45,7 +45,7 @@ namespace Class_db_notifications
             }
             dr.Close();
             Close();
-            if (selected_value != k.EMPTY)
+            if (selected_value.Length > 0)
             {
                 ((target) as ListControl).SelectedValue = selected_value;
             }
@@ -132,7 +132,7 @@ namespace Class_db_notifications
                       ||
                         ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
                       ||
-                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                        ((role_name.Length > 0) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
                       )
                     //
                       {
@@ -154,7 +154,7 @@ namespace Class_db_notifications
                       ||
                         ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
                       ||
-                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                        ((role_name.Length > 0) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
                       )
                     //
                       {
@@ -176,7 +176,7 @@ namespace Class_db_notifications
                       ||
                         ((dr["data_condition_name"].ToString() == "BeMemberTrainee") && biz_data_conditions.BeMemberTrainee(member_id))
                       ||
-                        ((role_name != k.EMPTY) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
+                        ((role_name.Length > 0) && (dr["data_condition_name"].ToString() == "BeRolePersonnelRelated") && biz_data_conditions.BeRolePersonnelRelated(role_name))
                       )
                     //
                       {
@@ -188,7 +188,7 @@ namespace Class_db_notifications
             dr.Close();
             IncrementTallies(name, num_addressees);
             Close();
-            if (target_of != k.EMPTY)
+            if (target_of.Length > 0)
             {
                 result = target_of.Substring(0, target_of.Length - 1);
             }
@@ -218,7 +218,7 @@ namespace Class_db_notifications
         // EMS is tier 1
         variant_condition = " where (tier_id = 1)";
         }
-      else if (agency_id != k.EMPTY)
+      else if (agency_id.Length > 0)
         {
         // All other agencies are tier 2
         variant_condition = " where (tier_id = 2) and ({AGENCY_ID_PARENT_TABLE}.agency_id = '" + agency_id + "')";

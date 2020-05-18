@@ -8,8 +8,16 @@ namespace UserControl_user
 {
     public partial class TWebUserControl_user: ki_web_ui.usercontrol_class
     {
+
+        private struct p_type
+        {
+            public bool be_loaded;
+            public bool be_ok_to_config_users;
+            public TClass_biz_users biz_users;
+        }
+
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         private void Clear()
         {
             TextBox_username.Text = k.EMPTY;
@@ -225,13 +233,6 @@ namespace UserControl_user
           }
             }
         }
-
-        private struct p_type
-        {
-            public bool be_loaded;
-            public bool be_ok_to_config_users;
-            public TClass_biz_users biz_users;
-        } // end p_type
 
     } // end TWebUserControl_user
 

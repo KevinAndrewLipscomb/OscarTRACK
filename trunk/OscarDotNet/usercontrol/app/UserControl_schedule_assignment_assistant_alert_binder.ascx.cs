@@ -1,12 +1,6 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~template~binder.cs~template
 
 using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_schedule_assignment_assistant_alert_time_off;
 using UserControl_schedule_assignment_assistant_alert_time_on;
 using UserControl_schedule_assignment_assistant_alert_travel_gap;
@@ -14,27 +8,27 @@ using UserControl_schedule_assignment_assistant_alert_unexpected_submissions;
 
 namespace UserControl_schedule_assignment_assistant_alert_binder
   {
-  public class UserControl_schedule_assignment_assistant_alert_binder_Static
-    {
-    public const int TSSI_UNEXPECTED_SUBMISSIONS = 0;
-    public const int TSSI_TIME_OFF = 1;
-    public const int TSSI_TIME_ON = 2;
-    public const int TSSI_TRAVEL_GAP = 3;
-    }
-
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_loaded;
-    public bool be_ok_to_work_on_next_month_assignments;
-    public string content_id;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    public uint tab_index;
-    }
-
   public partial class TWebUserControl_schedule_assignment_assistant_alert_binder: ki_web_ui.usercontrol_class
     {
+
+    private static class UserControl_schedule_assignment_assistant_alert_binder_Static
+      {
+      public const int TSSI_UNEXPECTED_SUBMISSIONS = 0;
+      public const int TSSI_TIME_OFF = 1;
+      public const int TSSI_TIME_ON = 2;
+      public const int TSSI_TRAVEL_GAP = 3;
+      }
+
+    private struct p_type
+      {
+      public string agency_filter;
+      public bool be_loaded;
+      public string content_id;
+      public k.subtype<int> relative_month;
+      public string release_filter;
+      public uint tab_index;
+      }
+
     private p_type p;
 
     TWebUserControl_schedule_assignment_assistant_alert_time_off UserControl_schedule_assignment_assistant_alert_time_off = null;
@@ -170,8 +164,10 @@ namespace UserControl_schedule_assignment_assistant_alert_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
       if (p.tab_index == UserControl_schedule_assignment_assistant_alert_binder_Static.TSSI_TIME_OFF)

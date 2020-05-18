@@ -114,7 +114,7 @@ namespace Class_db_tapouts
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -94,7 +94,7 @@ namespace Class_db_cities
         using var my_sql_command = new MySqlCommand(dbkeyclick_trail.Saved("delete from city where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
-      catch(System.Exception e)
+      catch(Exception e)
         {
         if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
           {
@@ -102,7 +102,7 @@ namespace Class_db_cities
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

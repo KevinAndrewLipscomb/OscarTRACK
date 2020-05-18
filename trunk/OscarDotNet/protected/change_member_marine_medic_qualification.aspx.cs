@@ -5,15 +5,16 @@ using System.Configuration;
 
 namespace change_member_marine_medic_qualification
 {
-    public struct p_type
+    public partial class TWebForm_change_member_marine_medic_qualification: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public bool be_marine_medic_initially_qualified;
         public TClass_biz_members biz_members;
-    } // end p_type
+    }
 
-    public partial class TWebForm_change_member_marine_medic_qualification: ki_web_ui.page_class
-    {
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

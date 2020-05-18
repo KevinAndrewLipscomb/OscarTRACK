@@ -532,7 +532,7 @@ namespace UserControl_patient_encounter
         {
         var skill_rating_id = k.Safe(e.Item.Cells[UserControl_patient_encounter_Static.TCI_CARE_SKILL_RATING_SKILL_RATING_ID].Text,k.safe_hint_type.NUM);
         var skill_rating_drop_down_list = ((e.Item.Cells[UserControl_patient_encounter_Static.TCI_SKILL_RATING].Controls[0]) as DropDownList);
-//        if (skill_rating_id != k.EMPTY)
+//        if (skill_rating_id.Length > 0)
 //          {
           foreach (ListItem list_item in p.proto_skill_rating_list_item_array)
             {

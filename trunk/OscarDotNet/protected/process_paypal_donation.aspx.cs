@@ -5,26 +5,15 @@ using Class_msg_protected;
 using kix;
 using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace process_paypal_donation
   {
-  public struct p_type
-    {
-    public TClass_biz_residents biz_residents;
-    public TClass_msg_protected.process_paypal_donation incoming;
-    public TClass_msg_protected.confirm_paypal_donation msg_protected_confirm_paypal_donation;
-    }
-
   public partial class TWebForm_process_paypal_donation: ki_web_ui.page_class
     {
-    public class TWebForm_process_paypal_donation_Static
+
+    private static class Static
       {
       public const int TCI_SELECT = 0;
       public const int TCI_ID = 1;
@@ -36,6 +25,13 @@ namespace process_paypal_donation
       public const int TCI_SCORE = 7;
       public const int TCI_NUM_PRIORS = 8;
       public const int TCI_AVG_AMOUNT = 9;
+      }
+
+    private struct p_type
+      {
+      public TClass_biz_residents biz_residents;
+      public TClass_msg_protected.process_paypal_donation incoming;
+      public TClass_msg_protected.confirm_paypal_donation msg_protected_confirm_paypal_donation;
       }
 
     private p_type p;
@@ -94,13 +90,13 @@ namespace process_paypal_donation
         {
         // We are dealing with a data row, not a header or footer row.
         p.msg_protected_confirm_paypal_donation.from_process_paypal_donation = p.incoming;
-        p.msg_protected_confirm_paypal_donation.resident_id = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_ID].Text,k.safe_hint_type.NUM);
-        p.msg_protected_confirm_paypal_donation.resident_name = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_NAME].Text.Replace("&nbsp;",k.EMPTY),k.safe_hint_type.ORG_NAME_ASTERICIZED);
-        p.msg_protected_confirm_paypal_donation.resident_house_num_and_street = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_HOUSE_NUM_AND_STREET].Text,k.safe_hint_type.POSTAL_STREET_ADDRESS);
-        p.msg_protected_confirm_paypal_donation.resident_city = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_CITY].Text,k.safe_hint_type.POSTAL_CITY);
-        p.msg_protected_confirm_paypal_donation.resident_state = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_STATE].Text,k.safe_hint_type.ALPHA);
-        p.msg_protected_confirm_paypal_donation.num_priors = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_NUM_PRIORS].Text,k.safe_hint_type.NUM);
-        p.msg_protected_confirm_paypal_donation.avg_amount = k.Safe(e.Item.Cells[TWebForm_process_paypal_donation_Static.TCI_AVG_AMOUNT].Text,k.safe_hint_type.CURRENCY_USA);
+        p.msg_protected_confirm_paypal_donation.resident_id = k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        p.msg_protected_confirm_paypal_donation.resident_name = k.Safe(e.Item.Cells[Static.TCI_NAME].Text.Replace("&nbsp;",k.EMPTY),k.safe_hint_type.ORG_NAME_ASTERICIZED);
+        p.msg_protected_confirm_paypal_donation.resident_house_num_and_street = k.Safe(e.Item.Cells[Static.TCI_HOUSE_NUM_AND_STREET].Text,k.safe_hint_type.POSTAL_STREET_ADDRESS);
+        p.msg_protected_confirm_paypal_donation.resident_city = k.Safe(e.Item.Cells[Static.TCI_CITY].Text,k.safe_hint_type.POSTAL_CITY);
+        p.msg_protected_confirm_paypal_donation.resident_state = k.Safe(e.Item.Cells[Static.TCI_STATE].Text,k.safe_hint_type.ALPHA);
+        p.msg_protected_confirm_paypal_donation.num_priors = k.Safe(e.Item.Cells[Static.TCI_NUM_PRIORS].Text,k.safe_hint_type.NUM);
+        p.msg_protected_confirm_paypal_donation.avg_amount = k.Safe(e.Item.Cells[Static.TCI_AVG_AMOUNT].Text,k.safe_hint_type.CURRENCY_USA);
         MessageDropCrumbAndTransferTo(p.msg_protected_confirm_paypal_donation,"protected","confirm_paypal_donation");
         }
       }

@@ -59,7 +59,7 @@ namespace Class_db_vehicle_kinds
       {
       Open();
       (target as ListControl).Items.Clear();
-      if (unselected_literal != k.EMPTY)
+      if (unselected_literal.Length > 0)
         {
         (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
         }
@@ -77,7 +77,7 @@ namespace Class_db_vehicle_kinds
         (target as ListControl).Items.Add(new ListItem(dr["spec"].ToString(), dr["id"].ToString()));
         }
       dr.Close();
-      if (selected_id != k.EMPTY)
+      if (selected_id.Length > 0)
         {
         (target as ListControl).SelectedValue = selected_id;
         }
@@ -134,7 +134,7 @@ namespace Class_db_vehicle_kinds
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

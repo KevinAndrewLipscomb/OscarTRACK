@@ -13,7 +13,8 @@ namespace UserControl_evaluatee_overview
   {
   public partial class TWebUserControl_evaluatee_overview: ki_web_ui.usercontrol_class
     {
-    public class UserControl_evaluatee_overview_Static
+
+    private static class Static
       {
       public const int TCI_OPEN = 0;
       public const int TCI_ID = 1;
@@ -200,7 +201,7 @@ namespace UserControl_evaluatee_overview
         {
         var msg = new TClass_msg_protected.eval_detail();
         msg.user_member_id = p.user_member_id;
-        msg.id = k.Safe(e.Item.Cells[UserControl_evaluatee_overview_Static.TCI_ID].Text,k.safe_hint_type.NUM);
+        msg.id = k.Safe(e.Item.Cells[Static.TCI_ID].Text,k.safe_hint_type.NUM);
         MessageDropCrumbAndTransferTo(msg,"protected","eval_detail");
         }
       }
@@ -212,7 +213,7 @@ namespace UserControl_evaluatee_overview
         {
         if (new ArrayList {ListItemType.AlternatingItem, ListItemType.Item, ListItemType.EditItem, ListItemType.SelectedItem}.Contains(e.Item.ItemType))
           {
-          link_button = ((e.Item.Cells[UserControl_evaluatee_overview_Static.TCI_OPEN].Controls[0]) as LinkButton);
+          link_button = ((e.Item.Cells[Static.TCI_OPEN].Controls[0]) as LinkButton);
           link_button.Text = k.ExpandTildePath(link_button.Text);
           ScriptManager.GetCurrent(Page).RegisterPostBackControl(link_button);
           //
@@ -222,14 +223,14 @@ namespace UserControl_evaluatee_overview
             {
             cell.EnableViewState = false;
             }
-          e.Item.Cells[UserControl_evaluatee_overview_Static.TCI_ID].EnableViewState = true;
+          e.Item.Cells[Static.TCI_ID].EnableViewState = true;
           //
           p.num_evals++;
           }
         }
       else
         {
-        e.Item.Cells[UserControl_evaluatee_overview_Static.TCI_OPEN].Visible = false;
+        e.Item.Cells[Static.TCI_OPEN].Visible = false;
         }
       }
 
@@ -250,7 +251,7 @@ namespace UserControl_evaluatee_overview
 
     private void Bind()
       {
-      DataGrid_control.Columns[UserControl_evaluatee_overview_Static.TCI_STATUS].Visible = (p.range != "Archived");
+      DataGrid_control.Columns[Static.TCI_STATUS].Visible = (p.range != "Archived");
       p.biz_evals.BindBaseDataList
         (
         sort_order:p.sort_order,

@@ -23,12 +23,17 @@ using System.Web;
 
 namespace Class_biz_notifications
   {
+
   public static class Class_biz_notifications_Static
     {
-        public static char[] BreakChars = new char[2 + 1] {Convert.ToChar(k.SPACE),Convert.ToChar(k.TAB),Convert.ToChar(0)};
+    private static readonly char[] the_break_chars = new char[2 + 1] { Convert.ToChar(k.SPACE), Convert.ToChar(k.TAB), Convert.ToChar(0) };
+    public static char[] BreakChars()
+      {
+      return the_break_chars;
+      }
     }
 
-    public class TClass_biz_notifications
+  public class TClass_biz_notifications
     {
         private readonly string application_name = k.EMPTY;
         private readonly TClass_db_notifications db_notifications = null;
@@ -215,7 +220,7 @@ namespace Class_biz_notifications
           //
           var biz_members = new TClass_biz_members();
           var member_email_address = biz_members.EmailAddressOf(member_id);
-          if (member_email_address != k.EMPTY)
+          if (member_email_address.Length > 0)
             {
             var biz_agencies = new TClass_biz_agencies();
             var biz_role_member_map = new TClass_biz_role_member_map();
@@ -249,7 +254,7 @@ namespace Class_biz_notifications
           //
           var biz_members = new TClass_biz_members();
           var member_email_address = biz_members.EmailAddressOf(member_id);
-          if (member_email_address != k.EMPTY)
+          if (member_email_address.Length > 0)
             {
             var biz_agencies = new TClass_biz_agencies();
             var biz_role_member_map = new TClass_biz_role_member_map();
@@ -282,7 +287,7 @@ namespace Class_biz_notifications
           //
           var biz_members = new TClass_biz_members();
           var member_email_address = biz_members.EmailAddressOf(member_id);
-          if (member_email_address != k.EMPTY)
+          if (member_email_address.Length > 0)
             {
             var biz_agencies = new TClass_biz_agencies();
             var biz_role_member_map = new TClass_biz_role_member_map();
@@ -885,7 +890,7 @@ namespace Class_biz_notifications
             third_rebuttal:out dummy_string
             );
           var target_email_address = biz_members.EmailAddressOf((be_stalled_by_evaluatee ? third_member_id : aic_member_id));
-          if (target_email_address != k.EMPTY)
+          if (target_email_address.Length > 0)
             {
             var biz_agencies = new TClass_biz_agencies();
             var biz_role_member_map = new TClass_biz_role_member_map();
@@ -1541,7 +1546,7 @@ namespace Class_biz_notifications
                   (
                   t:rationale,
                   insert_string:k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6),
-                  break_char_array:Class_biz_notifications_Static.BreakChars,
+                  break_char_array:Class_biz_notifications_Static.BreakChars(),
                   max_line_len:short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])
                   )
 );
@@ -1669,7 +1674,7 @@ namespace Class_biz_notifications
                 .Replace("<host_domain_name/>", host_domain_name)
                 .Replace("<full_name/>", full_name.ToUpper())
                 .Replace("<user_email_address/>", user_email_address)
-                .Replace("<explanation/>", k.WrapText(explanation, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+                .Replace("<explanation/>", k.WrapText(explanation, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
               };
 
             biz_user = new TClass_biz_user();
@@ -1734,7 +1739,7 @@ namespace Class_biz_notifications
               .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
-              .Replace("<description/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+              .Replace("<description/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/gripe_submission.txt"));
@@ -2471,7 +2476,7 @@ namespace Class_biz_notifications
               .Replace("<vehicle_name/>", vehicle_name)
               .Replace("<where/>", where.ToUpper())
               .Replace("<when/>", when.ToUpper())
-              .Replace("<comment/>", k.WrapText(comment.ToUpper(), k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
+              .Replace("<comment/>", k.WrapText(comment.ToUpper(), k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
               .Replace("<agency/>", vehicle_agency_designator)
               ;
             };
@@ -2553,7 +2558,7 @@ namespace Class_biz_notifications
               .Replace("<actor/>", biz_user.FullTitle() + k.SPACE + biz_members.FirstNameOfMemberId(actor_member_id) + k.SPACE + biz_members.LastNameOfMemberId(actor_member_id))
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
-              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_down_note_appended.txt"));
@@ -2638,7 +2643,7 @@ namespace Class_biz_notifications
               .Replace("<time_went_down/>", time_went_down.ToString("yyyy-MM-dd HH:mm"))
               .Replace("<nature/>", biz_vehicle_down_natures.ElaborationOf(nature_id))
               .Replace("<mileage/>", mileage)
-              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+              .Replace("<down_comment/>", k.WrapText(down_comment, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_down.txt"));
@@ -2677,8 +2682,8 @@ namespace Class_biz_notifications
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", biz_vehicles.NameOfId(vehicle_id))
               .Replace("<time_came_up/>", time_came_up.ToString("yyyy-MM-dd HH:mm"))
-              .Replace("<down_comment/>", k.WrapText(down_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
-              .Replace("<up_comment/>", k.WrapText(up_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+              .Replace("<down_comment/>", k.WrapText(down_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
+              .Replace("<up_comment/>", k.WrapText(up_comment, WRAPTEXT_INSERT_STRING, Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_marked_up.txt"));
@@ -2719,7 +2724,7 @@ namespace Class_biz_notifications
               .Replace("<quarters_designator/>", biz_vehicle_quarters.MediumDashLongDesignatorOfId(quarters_id))
               .Replace("<effective_datetime/>", effective_datetime.ToString("yyyy-MM-dd HH:mm"))
               .Replace("<mileage/>", mileage)
-              .Replace("<note/>", k.WrapText(note, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
+              .Replace("<note/>", k.WrapText(note, k.NEW_LINE + new string(Convert.ToChar(k.SPACE),6), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])));
             };
 
           var template_reader = System.IO.File.OpenText(HttpContext.Current.Server.MapPath("template/notification/vehicle_quarters_change.txt"));
@@ -2764,7 +2769,7 @@ namespace Class_biz_notifications
               .Replace("<actor_email_address/>", actor_email_address)
               .Replace("<vehicle_name/>", vehicle_name)
               .Replace("<where/>", where.ToUpper())
-              .Replace("<comment/>", k.WrapText(comment.ToUpper(), k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars, short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
+              .Replace("<comment/>", k.WrapText(comment.ToUpper(), k.NEW_LINE + new string(Convert.ToChar(k.SPACE),3), Class_biz_notifications_Static.BreakChars(), short.Parse(ConfigurationManager.AppSettings["email_blockquote_maxcol"])))
               .Replace("<agency/>", vehicle_agency_designator)
               ;
             };

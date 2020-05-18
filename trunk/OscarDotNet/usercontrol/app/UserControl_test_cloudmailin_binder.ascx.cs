@@ -34,8 +34,10 @@ namespace UserControl_test_cloudmailin_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
       if (p.tab_index == Static.TSSI_FLEETMAN)

@@ -1,34 +1,28 @@
 // Derived from KiAspdotnetFramework/UserControl/app/UserControl~fund_drive_object~binder.cs~fund_drive_object
 
-using kix;
-using System;
-using System.Collections;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 using UserControl_city;
 using UserControl_state;
 using UserControl_street;
 
 namespace UserControl_fund_drive_object_binder
   {
-  public class UserControl_fund_drive_object_binder_Static
-    {
-    public const int TSSI_STREET = 0;
-    public const int TSSI_CITY = 1;
-    public const int TSSI_STATE = 2;
-    }
-
-  public struct p_type
-    {
-    public bool be_loaded;
-    public string content_id;
-    public uint tab_index;
-    }
-
   public partial class TWebUserControl_fund_drive_object_binder: ki_web_ui.usercontrol_class
     {
+
+    private static class Static
+      {
+      public const int TSSI_STREET = 0;
+      public const int TSSI_CITY = 1;
+      public const int TSSI_STATE = 2;
+      }
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public string content_id;
+      public uint tab_index;
+      }
+
     private p_type p;
 
     private void Page_Load(object sender, System.EventArgs e)
@@ -51,15 +45,15 @@ namespace UserControl_fund_drive_object_binder
         //
         // Dynamic controls must be re-added on each postback.
         //
-        if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STREET)
+        if (p.tab_index == Static.TSSI_STREET)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))), "UserControl_street", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_CITY)
+        else if (p.tab_index == Static.TSSI_CITY)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_city)(LoadControl("~/usercontrol/app/UserControl_city.ascx"))), "UserControl_city", PlaceHolder_content);
           }
-        else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STATE)
+        else if (p.tab_index == Static.TSSI_STATE)
           {
           p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_state)(LoadControl("~/usercontrol/app/UserControl_state.ascx"))), "UserControl_state", PlaceHolder_content);
           }
@@ -67,7 +61,7 @@ namespace UserControl_fund_drive_object_binder
       else
         {
         p.be_loaded = false;
-        p.tab_index = UserControl_fund_drive_object_binder_Static.TSSI_STREET;
+        p.tab_index = Static.TSSI_STREET;
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))),"UserControl_street",PlaceHolder_content,InstanceId());
         }
       }
@@ -102,15 +96,15 @@ namespace UserControl_fund_drive_object_binder
       {
       p.tab_index = (uint)(TabContainer_control.ActiveTabIndex);
       PlaceHolder_content.Controls.Clear();
-      if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STREET)
+      if (p.tab_index == Static.TSSI_STREET)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_street)(LoadControl("~/usercontrol/app/UserControl_street.ascx"))),"UserControl_street",PlaceHolder_content,InstanceId());
         }
-      else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_CITY)
+      else if (p.tab_index == Static.TSSI_CITY)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_city)(LoadControl("~/usercontrol/app/UserControl_city.ascx"))),"UserControl_city",PlaceHolder_content,InstanceId());
         }
-      else if (p.tab_index == UserControl_fund_drive_object_binder_Static.TSSI_STATE)
+      else if (p.tab_index == Static.TSSI_STATE)
         {
         p.content_id = AddIdentifiedControlToPlaceHolder(((TWebUserControl_state)(LoadControl("~/usercontrol/app/UserControl_state.ascx"))),"UserControl_state",PlaceHolder_content,InstanceId());
         }

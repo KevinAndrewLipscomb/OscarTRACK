@@ -7,30 +7,30 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace Class_db_evals
   {
 
-  public class eval_summary
-    {
-    public string id;
-    public DateTime nominal_day;
-    public string shift_id;
-    public string shift_name;
-    public string post_id;
-    public string post_designator;
-    public string post_cardinality;
-    public string vehicle_id;
-    public string vehicle_name;
-    public string aic_member_id;
-    public string aic_member_name;
-    public string third_member_id;
-    public string third_member_name;
-    }
-
   public class TClass_db_evals: TClass_db
     {
+
+    private class eval_summary
+      {
+      public string id;
+      public DateTime nominal_day;
+      public string shift_id;
+      public string shift_name;
+      public string post_id;
+      public string post_designator;
+      public string post_cardinality;
+      public string vehicle_id;
+      public string vehicle_name;
+      public string aic_member_id;
+      public string aic_member_name;
+      public string third_member_id;
+      public string third_member_name;
+      }
+
     private readonly TClass_db_trail db_trail = null;
 
     public TClass_db_evals() : base()
@@ -208,7 +208,7 @@ namespace Class_db_evals
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -11,31 +11,32 @@ using UserControl_schedule_assignment_assistant_binder;
 
 namespace UserControl_schedule_binder
   {
-  public class UserControl_schedule_binder_Static
-    {
-    public const int TSSI_AVAILABILITIES = 0;
-    public const int TSSI_MY_ASSIGNMENTS = 1;
-    public const int TSSI_ASSIGNMENT_ASSISTANT = 2;
-    public const int TSSI_BLS_INTERN_ASSIGNMENTS = 3;
-    }
-
-  public struct p_type
-    {
-    public bool be_loaded;
-    public TClass_biz_members biz_members;
-    public TClass_biz_user biz_user;
-    public string content_id;
-    public uint tab_index;
-    }
-
   public partial class TWebUserControl_schedule_binder: ki_web_ui.usercontrol_class
     {
+
+    private static class Static
+      {
+      public const int TSSI_AVAILABILITIES = 0;
+      public const int TSSI_MY_ASSIGNMENTS = 1;
+      public const int TSSI_ASSIGNMENT_ASSISTANT = 2;
+      public const int TSSI_BLS_INTERN_ASSIGNMENTS = 3;
+      }
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public TClass_biz_members biz_members;
+      public TClass_biz_user biz_user;
+      public string content_id;
+      public uint tab_index;
+      }
+
     private p_type p;
 
-    protected TWebUserControl_availabilities UserControl_availabilities = null;
-    protected TWebUserControl_member_schedule_detail UserControl_member_schedule_detail = null;
-    protected TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
-    protected TWebUserControl_member_schedule_detail_bls_interns UserControl_member_schedule_detail_bls_interns = null;
+    internal TWebUserControl_availabilities UserControl_availabilities = null;
+    internal TWebUserControl_member_schedule_detail UserControl_member_schedule_detail = null;
+    internal TWebUserControl_schedule_assignment_assistant_binder UserControl_schedule_assignment_assistant_binder = null;
+    internal TWebUserControl_member_schedule_detail_bls_interns UserControl_member_schedule_detail_bls_interns = null;
 
     private void Page_Load(object sender, System.EventArgs e)
       {
@@ -91,11 +92,11 @@ namespace UserControl_schedule_binder
             )
             .Contains(p.biz_user.Roles()[0]))
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
+          p.tab_index = Static.TSSI_ASSIGNMENT_ASSISTANT;
           }
         else
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+          p.tab_index = Static.TSSI_AVAILABILITIES;
           }
         FillPlaceHolder(true);
         }
@@ -136,27 +137,29 @@ namespace UserControl_schedule_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
-      if (p.tab_index == UserControl_schedule_binder_Static.TSSI_AVAILABILITIES)
+      if (p.tab_index == Static.TSSI_AVAILABILITIES)
         {
         var c = UserControl_availabilities;
         p.content_id = AddIdentifiedControlToPlaceHolder(c, "UserControl_availabilities", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
-      else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_MY_ASSIGNMENTS)
+      else if (p.tab_index == Static.TSSI_MY_ASSIGNMENTS)
         {
         var c = UserControl_member_schedule_detail;
         p.content_id = AddIdentifiedControlToPlaceHolder(c, "UserControl_member_schedule_detail", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
         }
-      else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT)
+      else if (p.tab_index == Static.TSSI_ASSIGNMENT_ASSISTANT)
         {
         var c = UserControl_schedule_assignment_assistant_binder;
         p.content_id = AddIdentifiedControlToPlaceHolder(c, "G", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
         c.SetTarget(target);
         }
-      else if (p.tab_index == UserControl_schedule_binder_Static.TSSI_BLS_INTERN_ASSIGNMENTS)
+      else if (p.tab_index == Static.TSSI_BLS_INTERN_ASSIGNMENTS)
         {
         var c = UserControl_member_schedule_detail_bls_interns;
         p.content_id = AddIdentifiedControlToPlaceHolder(c, "UserControl_member_schedule_detail_bls_interns", PlaceHolder_content, (be_fresh_control_required ? InstanceId() : k.EMPTY));
@@ -169,23 +172,23 @@ namespace UserControl_schedule_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         if (target.ToLower().Contains("/availabilities/"))
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_AVAILABILITIES;
+          p.tab_index = Static.TSSI_AVAILABILITIES;
           }
         else if (target.ToLower().Contains("/my-assignments/"))
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_MY_ASSIGNMENTS;
+          p.tab_index = Static.TSSI_MY_ASSIGNMENTS;
           }
         else if (target.ToLower().Contains("/assignment-assistant/"))
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_ASSIGNMENT_ASSISTANT;
+          p.tab_index = Static.TSSI_ASSIGNMENT_ASSISTANT;
           }
         else if (target.ToLower().Contains("/bls-intern-assignments/"))
           {
-          p.tab_index = UserControl_schedule_binder_Static.TSSI_BLS_INTERN_ASSIGNMENTS;
+          p.tab_index = Static.TSSI_BLS_INTERN_ASSIGNMENTS;
           }
         //
         TabContainer_control.ActiveTabIndex = (int)p.tab_index;

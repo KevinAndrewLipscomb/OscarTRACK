@@ -5,15 +5,15 @@ using System.Web.UI.WebControls;
 namespace UserControl_ranked_avail_submission_compliance
   {
 
-  public struct p_type
-    {
-    public bool be_loaded;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public uint rank;
-    }
-
   public partial class TWebUserControl_ranked_avail_submission_compliance: ki_web_ui.usercontrol_class
     {
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public uint rank;
+      }
 
     private p_type p;
 

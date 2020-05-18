@@ -12,7 +12,7 @@ namespace UserControl_ranked_fleet_tracking_participation
         public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public uint rank;
-    } // end p_type
+    }
 
     public partial class TWebUserControl_ranked_fleet_tracking_participation: ki_web_ui.usercontrol_class
     {

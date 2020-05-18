@@ -6,15 +6,16 @@ using System.Web.UI;
 
 namespace change_phone_num
   {
-  public struct p_type
-    {
-        public TClass_biz_members biz_members;
-    } // end p_type
-
     public partial class TWebForm_change_phone_num: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+          public TClass_biz_members biz_members;
+      }
+
         private p_type p;
-        protected new System.Web.UI.HtmlControls.HtmlTitle Title = null;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.

@@ -178,7 +178,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
         }
       else if
         (
-          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter.Length == 0))
         ||
           p.be_ok_to_edit_schedule_for_selected_special_agency
         )
@@ -231,7 +231,7 @@ namespace UserControl_schedule_assignment_assistant_alert_travel_gap
           .Replace(" DAY",k.EMPTY);
         //
         var member_agency_id = k.Safe(e.Item.Cells[Static.TCI_AGENCY_ID].Text,k.safe_hint_type.NUM);
-        if (member_agency_id != k.EMPTY)
+        if (member_agency_id.Length > 0)
           {
           ((e.Item.Cells[Static.TCI_MEMBER_AGENCY_DESIGNATOR].Controls[0]) as Label).Text =
             (member_agency_id == p.agency_filter ? k.EMPTY : "<" + member_agency_id + "&nbsp;&nbsp;");

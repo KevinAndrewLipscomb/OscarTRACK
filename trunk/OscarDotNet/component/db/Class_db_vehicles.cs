@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 
 namespace Class_db_vehicles
   {
+
+  [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1051:Do not declare visible instance fields")]
   public class vehicle_summary
     {
     public string agency;
@@ -155,7 +157,7 @@ namespace Class_db_vehicles
       )
       {
       var be_not_earlier_target_pm_mileage = true;
-      if (proposed_mileage != k.EMPTY)
+      if (proposed_mileage.Length > 0)
         {
         Open();
         using var my_sql_command = new MySqlCommand
@@ -180,7 +182,7 @@ namespace Class_db_vehicles
       )
       {
       var be_not_less_mileage = true;
-      if (proposed_mileage != k.EMPTY)
+      if (proposed_mileage.Length > 0)
         {
         Open();
         using var my_sql_command = new MySqlCommand
@@ -433,7 +435,7 @@ namespace Class_db_vehicles
       + " , start_datetime = '" + effective_datetime.ToString("yyyy-MM-dd HH:mm") + "'"
       + " , note = NULLIF('" + note + "','')"
       + "; ";
-      if (mileage != k.EMPTY)
+      if (mileage.Length > 0)
         {
         var this_minute = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
         sql += "update vehicle set recent_mileage = '" + mileage + "', recent_mileage_update_time = '" + this_minute + "' where id = '" + vehicle_id + "'; ";
@@ -480,7 +482,7 @@ namespace Class_db_vehicles
         using var my_sql_command = new MySqlCommand(db_trail.Saved("delete from vehicle where id = \"" + id + "\""), connection);
         my_sql_command.ExecuteNonQuery();
         }
-      catch(System.Exception e)
+      catch(Exception e)
         {
         if (e.Message.StartsWith("Cannot delete or update a parent row: a foreign key constraint fails", true, null))
           {
@@ -488,7 +490,7 @@ namespace Class_db_vehicles
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();
@@ -624,7 +626,7 @@ namespace Class_db_vehicles
       + " , nature_id = '" + nature_id + "'"
       + " , mileage = NULLIF('" + mileage + "','')"
       + " , down_comment = NULLIF('" + down_comment + "','')";
-      if (mileage != k.EMPTY)
+      if (mileage.Length > 0)
         {
         var this_minute = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
         sql = "START TRANSACTION;"

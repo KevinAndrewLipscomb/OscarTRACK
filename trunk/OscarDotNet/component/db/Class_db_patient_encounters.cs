@@ -116,7 +116,7 @@ namespace Class_db_patient_encounters
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();
@@ -131,7 +131,7 @@ namespace Class_db_patient_encounters
       out string patient_age,
       out string patient_age_unit_id,
       out string patient_encounter_level_id,
-      out string guid
+      out string the_guid
       )
       {
       eval_id = k.EMPTY;
@@ -139,7 +139,7 @@ namespace Class_db_patient_encounters
       patient_age = k.EMPTY;
       patient_age_unit_id = k.EMPTY;
       patient_encounter_level_id = k.EMPTY;
-      guid = k.EMPTY;
+      the_guid = k.EMPTY;
       var result = false;
       //
       Open();
@@ -152,7 +152,7 @@ namespace Class_db_patient_encounters
         patient_age = dr["patient_age"].ToString();
         patient_age_unit_id = dr["patient_age_unit_id"].ToString();
         patient_encounter_level_id = dr["patient_encounter_level_id"].ToString();
-        guid = dr["guid"].ToString();
+        the_guid = dr["guid"].ToString();
         result = true;
         }
       dr.Close();
@@ -177,7 +177,7 @@ namespace Class_db_patient_encounters
       string patient_age,
       string patient_age_unit_id,
       string patient_encounter_level_id,
-      string guid
+      string the_guid
       )
       {
       var childless_field_assignments_clause = k.EMPTY
@@ -186,7 +186,7 @@ namespace Class_db_patient_encounters
       + " , patient_age = NULLIF('" + patient_age + "','')"
       + " , patient_age_unit_id = NULLIF('" + patient_age_unit_id + "','')"
       + " , patient_encounter_level_id = NULLIF('" + patient_encounter_level_id + "','')"
-      + " , guid = NULLIF('" + guid + "','')"
+      + " , guid = NULLIF('" + the_guid + "','')"
       + k.EMPTY;
       db_trail.MimicTraditionalInsertOnDuplicateKeyUpdate
         (
@@ -194,7 +194,7 @@ namespace Class_db_patient_encounters
         key_field_name:"id",
         key_field_value:id,
         childless_field_assignments_clause:childless_field_assignments_clause,
-        additional_match_condition:" or guid = '" + guid + "'"
+        additional_match_condition:" or guid = '" + the_guid + "'"
         );
       }
 

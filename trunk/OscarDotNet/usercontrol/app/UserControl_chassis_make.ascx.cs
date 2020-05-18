@@ -343,7 +343,7 @@ namespace UserControl_chassis_make
       public TClass_biz_chassis_makes biz_chassis_makes;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_chassis_makes;
-      } // end p_type
+      }
 
     } // end TWebUserControl_chassis_make
 

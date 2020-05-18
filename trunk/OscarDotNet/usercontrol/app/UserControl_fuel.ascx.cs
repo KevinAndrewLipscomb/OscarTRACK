@@ -343,7 +343,7 @@ namespace UserControl_fuel
       public TClass_biz_fuels biz_fuels;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_fuels;
-      } // end p_type
+      }
 
     } // end TWebUserControl_fuel
 

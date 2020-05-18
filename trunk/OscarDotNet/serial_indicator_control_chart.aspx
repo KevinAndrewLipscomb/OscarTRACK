@@ -1,1 +1,1 @@
-<%@ Page language="c#" codebehind="serial_indicator_control_chart.aspx.cs" AutoEventWireup="True" Inherits="serial_indicator_control_chart.TWebForm1" MaintainScrollPositionOnPostback="false" %>
+<%@ Page language="c#" codebehind="serial_indicator_control_chart.aspx.cs" AutoEventWireup="True" Inherits="serial_indicator_control_chart.TWebForm_serial_indicator_control_chart" MaintainScrollPositionOnPostback="false" %>

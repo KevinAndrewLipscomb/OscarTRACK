@@ -76,7 +76,7 @@ namespace Class_db_availabilities
       var dr = my_sql_command.ExecuteReader();
       while (dr.Read())
         {
-        if (comments != k.EMPTY)
+        if (comments.Length > 0)
           {
           comments += k.NEW_LINE + ":" + k.NEW_LINE + ":" + k.NEW_LINE;
           }

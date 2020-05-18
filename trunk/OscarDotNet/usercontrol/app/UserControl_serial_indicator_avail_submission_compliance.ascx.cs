@@ -24,7 +24,7 @@ namespace UserControl_serial_indicator_avail_submission_compliance
       }
 
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name = null;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

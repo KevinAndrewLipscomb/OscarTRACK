@@ -77,11 +77,11 @@ namespace Class_db_streets
       (target as ListControl).DataBind();
       ((target as ListControl).DataSource as MySqlDataReader).Close();
       Close();
-      if (unselected_literal != k.EMPTY)
+      if (unselected_literal.Length > 0)
         {
         ((target) as ListControl).Items.Insert(0,new ListItem(unselected_literal, k.EMPTY));
         }
-      if (selected_value != k.EMPTY)
+      if (selected_value.Length > 0)
         {
         ((target) as ListControl).SelectedValue = selected_value;
         }
@@ -114,7 +114,7 @@ namespace Class_db_streets
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

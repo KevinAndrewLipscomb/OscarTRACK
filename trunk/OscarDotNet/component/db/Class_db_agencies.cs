@@ -9,19 +9,19 @@ using System.Web.UI.WebControls;
 
 namespace Class_db_agencies
 {
-    public struct commensuration_rec_type
+    internal struct commensuration_rec_type
     {
         public string agency_id;
         public decimal commensuration_factor;
         public bool be_agency_id_applicable;
-    } // end commensuration_rec_type
+    }
 
-    public struct serial_indicator_rec_type
+    internal struct serial_indicator_rec_type
     {
         public uint year;
         public uint month;
         public double value;
-    } // end serial_indicator_rec_type
+    }
 
     public class TClass_db_agencies: TClass_db
     {
@@ -100,7 +100,7 @@ namespace Class_db_agencies
           {
           Open();
           (target as ListControl).Items.Clear();
-          if (unselected_literal != k.EMPTY)
+          if (unselected_literal.Length > 0)
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
@@ -111,7 +111,7 @@ namespace Class_db_agencies
             (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
             }
           dr.Close();
-          if (selected_id != k.EMPTY)
+          if (selected_id.Length > 0)
             {
             (target as ListControl).SelectedValue = selected_id;
             }
@@ -146,7 +146,7 @@ namespace Class_db_agencies
           {
           Open();
           (target as ListControl).Items.Clear();
-          if (unselected_literal != k.EMPTY)
+          if (unselected_literal.Length > 0)
             {
             (target as ListControl).Items.Add(new ListItem(unselected_literal, ""));
             }
@@ -157,7 +157,7 @@ namespace Class_db_agencies
             (target as ListControl).Items.Add(new ListItem(dr["designator"].ToString(), dr["id"].ToString()));
             }
           dr.Close();
-          if (selected_id != k.EMPTY)
+          if (selected_id.Length > 0)
             {
             (target as ListControl).SelectedValue = selected_id;
             }
@@ -363,7 +363,7 @@ namespace Class_db_agencies
               }
             else
               {
-              throw e;
+              throw;
               }
             }
           Close();

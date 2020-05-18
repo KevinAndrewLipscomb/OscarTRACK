@@ -162,7 +162,7 @@ namespace Class_db_uniform_catalogs
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

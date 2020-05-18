@@ -21,7 +21,7 @@ namespace UserControl_special_event_shift
       public TClass_biz_special_event_shifts biz_special_event_shifts;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_special_event_shifts;
-      } // end p_type
+      }
 
     private p_type p;
 

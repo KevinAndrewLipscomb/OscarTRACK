@@ -20,6 +20,7 @@ namespace Class_db_manifest
       dbkeyclick_trail = new TClass_dbkeyclick_trail();
       }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms")]
     internal string NewBoardingPass
       (
       string agency_keyclick_enumerator,

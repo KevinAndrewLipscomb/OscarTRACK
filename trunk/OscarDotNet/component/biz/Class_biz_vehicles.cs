@@ -87,7 +87,7 @@ namespace Class_biz_vehicles
       string target_pm_mileage
       )
       {
-      return !(db_vehicle_kinds.BeTargetPmMileageMeaningful(kind_id) && (target_pm_mileage == k.EMPTY));
+      return !(db_vehicle_kinds.BeTargetPmMileageMeaningful(kind_id) && (target_pm_mileage.Length == 0));
       }
 
     internal bool BeNameActive(string name)

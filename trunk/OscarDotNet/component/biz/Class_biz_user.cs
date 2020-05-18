@@ -1,6 +1,7 @@
 using Class_db_user;
 using Class_db_users;
 using kix;
+using System;
 using System.Web;
 
 namespace Class_biz_user
@@ -82,7 +83,7 @@ namespace Class_biz_user
 
     public string[] Roles(string id_of_highest_tier_of_interest = k.EMPTY)
       {
-      var role_array = new string[] {};
+      var role_array = Array.Empty<string>();
       if (HttpContext.Current.User.Identity.Name.Length > 0)
         {
         role_array = db_user.RolesOf

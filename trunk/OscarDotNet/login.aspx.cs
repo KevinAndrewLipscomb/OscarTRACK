@@ -7,14 +7,16 @@ using System.Web.UI;
 
 namespace login
 {
-    public struct p_type
-    {
-        public TClass_biz_users biz_users;
-    } // end p_type
-
     public partial class TWebForm_login: ki_web_ui.page_class
     {
+
+    private struct p_type
+    {
+        public TClass_biz_users biz_users;
+    }
+
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -85,7 +87,7 @@ namespace login
         protected void LinkButton_forgot_password_Click(object sender, System.EventArgs e)
         {
             string username;
-            if (TextBox_username.Text == k.EMPTY)
+            if (TextBox_username.Text.Length == 0)
             {
                 Alert(k.alert_cause_type.USER, k.alert_state_type.FAILURE, "misusrnam", "Please enter your username.", true);
             }

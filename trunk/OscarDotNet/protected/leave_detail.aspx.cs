@@ -16,7 +16,7 @@ namespace leave_detail
   public partial class TWebForm_leave_detail: ki_web_ui.page_class
     {
 
-    public static class Static
+    private static class Static
       {
       public const string CLEAR_TO_RETURN_TO_DUTY_CONFIRMATION_PROMPT = k.EMPTY
       + "This will clear the member's Medical Leave and allow the member to be scheduled for duty effective immediately." + k.NEW_LINE
@@ -120,7 +120,7 @@ namespace leave_detail
                     p.num_datagrid_rows = 0;
                     p.sort_order = "start_date%";
                     p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
-                    if (p.cad_num_string == k.EMPTY)
+                    if (p.cad_num_string.Length == 0)
                     {
                         p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }

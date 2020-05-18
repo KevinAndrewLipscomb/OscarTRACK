@@ -5,8 +5,8 @@ using kix;
 using System.Collections;
 
 namespace Class_biz_agencies
-{
-    public class TClass_biz_agencies
+  {
+  public class TClass_biz_agencies
     {
 
         private readonly TClass_biz_roles biz_roles = null;

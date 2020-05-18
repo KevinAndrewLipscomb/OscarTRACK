@@ -118,7 +118,7 @@ namespace Class_db_shifts
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

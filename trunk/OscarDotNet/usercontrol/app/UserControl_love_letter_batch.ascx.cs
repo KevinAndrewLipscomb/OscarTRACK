@@ -21,7 +21,7 @@ namespace UserControl_love_letter_batch
       public TClass_biz_love_letter_batchs biz_love_letter_batchs;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_love_letter_batchs;
-      } // end p_type
+      }
 
     private p_type p;
 

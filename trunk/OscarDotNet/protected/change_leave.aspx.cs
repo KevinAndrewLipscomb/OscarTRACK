@@ -1,4 +1,3 @@
-using AjaxControlToolkit;
 using appcommon;
 using Class_biz_leaves;
 using Class_biz_members;
@@ -10,8 +9,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace change_leave
-{
-    public struct p_type
+  {
+  public partial class TWebForm_change_leave: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public TClass_biz_leaves biz_leaves;
         public TClass_biz_members biz_members;
@@ -19,10 +20,8 @@ namespace change_leave
         public string effective_start_month_offset;
         public string saved_effective_start_month_offset;
         public string saved_note;
-    } // end p_type
+    }
 
-    public partial class TWebForm_change_leave: ki_web_ui.page_class
-    {
         private p_type p;
 
         // / <summary>
@@ -64,7 +63,7 @@ namespace change_leave
                     p.biz_members = new TClass_biz_members();
                     p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
-                    if (cad_num_string == k.EMPTY)
+                    if (cad_num_string.Length == 0)
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }

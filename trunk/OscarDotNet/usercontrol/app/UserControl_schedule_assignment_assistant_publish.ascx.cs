@@ -2,43 +2,35 @@ using Class_biz_members;
 using Class_biz_privileges;
 using Class_biz_schedule_assignments;
 using Class_biz_user;
-using Class_msg_protected;
 using kix;
 using System;
-using System.Collections;
-using System.Configuration;
-using System.Drawing;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 namespace UserControl_schedule_assignment_assistant_publish
   {
 
-  public struct p_type
-    {
-    public string agency_filter;
-    public bool be_loaded;
-    public bool be_ok_to_edit_schedule;
-    public bool be_ok_to_edit_schedule_for_selected_special_agency;
-    public bool be_ok_to_edit_schedule_tier_department_only;
-    public bool be_user_privileged_to_see_all_squads;
-    public bool be_virgin_watchbill;
-    public TClass_biz_members biz_members;
-    public TClass_biz_privileges biz_privileges;
-    public TClass_biz_schedule_assignments biz_schedule_assignments;
-    public TClass_biz_user biz_user;
-    public string own_agency;
-    public k.subtype<int> relative_month;
-    public string release_filter;
-    public string user_member_id;
-    public string user_id;
-    }
-
   public partial class TWebUserControl_schedule_assignment_assistant_publish: ki_web_ui.usercontrol_class
     {
 
-    public class UserControl_schedule_assignment_assistant_publish_Static
+    private struct p_type
       {
+      public string agency_filter;
+      public bool be_loaded;
+      public bool be_ok_to_edit_schedule;
+      public bool be_ok_to_edit_schedule_for_selected_special_agency;
+      public bool be_ok_to_edit_schedule_tier_department_only;
+      public bool be_user_privileged_to_see_all_squads;
+      public bool be_virgin_watchbill;
+      public TClass_biz_members biz_members;
+      public TClass_biz_privileges biz_privileges;
+      public TClass_biz_schedule_assignments biz_schedule_assignments;
+      public TClass_biz_user biz_user;
+      public string own_agency;
+      public k.subtype<int> relative_month;
+      public string release_filter;
+      public string user_member_id;
+      public string user_id;
       }
 
     private p_type p;

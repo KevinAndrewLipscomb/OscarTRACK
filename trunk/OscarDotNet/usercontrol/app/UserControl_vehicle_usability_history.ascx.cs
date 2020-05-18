@@ -382,7 +382,7 @@ namespace UserControl_vehicle_usability_history
       public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_vehicle_usability_history;
-      } // end p_type
+      }
 
     } // end TWebUserControl_vehicle_usability_history
 

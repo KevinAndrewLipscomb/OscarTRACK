@@ -27,15 +27,10 @@ namespace UserControl_user_member_mapping
             public TClass_biz_users biz_users;
             public bool may_add_mappings;
             public string sort_order;
-        } // end p_type
+        }
 
         private p_type p;
 
-        protected System.Web.UI.WebControls.Button Button_add = null;
-        protected System.Web.UI.WebControls.DropDownList DropDownList_user = null;
-        protected System.Web.UI.WebControls.DropDownList DropDownList_member = null;
-        protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_user = null;
-        protected System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator_member = null;
         private void InjectPersistentClientSideScript()
         {
             // EstablishClientSideFunction(k.client_side_function_enumeral_type.EL);

@@ -9,16 +9,17 @@ using System.Web.UI;
 
 namespace report_monthly_per_agency_serial_indicators
   {
-  public struct p_type
+  public partial class TWebForm_report_monthly_per_agency_serial_indicators: ki_web_ui.page_class
     {
-    public string agency_id;
-    public TClass_biz_agencies biz_agencies;
-    public TClass_biz_notifications biz_notifications;
-    }
+    private struct p_type
+      {
+      public string agency_id;
+      public TClass_biz_agencies biz_agencies;
+      public TClass_biz_notifications biz_notifications;
+      }
 
-  public partial class TWebForm_report_monthly_per_agency_serial_indicators: System.Web.UI.Page
-    {
     private p_type p;
+
     // / <summary>
     // / Required method for Designer support -- do not modify
     // / the contents of this method with the code editor.
@@ -26,7 +27,7 @@ namespace report_monthly_per_agency_serial_indicators
     private void InitializeComponent()
       {
       }
-
+      
     protected void Page_Load(object sender, System.EventArgs e)
       {
       string url;
@@ -55,21 +56,20 @@ namespace report_monthly_per_agency_serial_indicators
         }
       else
         {
-        Session.Add("privilege_array", new string[0]);
+        Session.Add("privilege_array", Array.Empty<string>());
         }
       }
 
     protected override void Render(HtmlTextWriter writer)
       {
-      string body;
-      StringBuilder sb;
       // Write the HTML stream into a StringBuilder.
-      sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      var sb = new StringBuilder();
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       // //
       // writer.Write(sb.ToString());
       // //
-      body = sb.ToString();
+      var body = sb.ToString();
       // Send output stream as an email message.
       // from
       // to

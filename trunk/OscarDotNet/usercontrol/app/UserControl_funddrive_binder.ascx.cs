@@ -50,8 +50,10 @@ namespace UserControl_funddrive_binder
 
     private void FillPlaceHolder
       (
+      #pragma warning disable CA1801 // Remove unused parameter
       bool be_fresh_control_required,
       string target = k.EMPTY
+      #pragma warning restore CA1801 // Remove unused parameter
       )
       {
       if (p.tab_index == UserControl_funddrive_binder_Static.TSSI_TEASER)
@@ -216,7 +218,7 @@ namespace UserControl_funddrive_binder
 
     public void SetTarget(string target)
       {
-      if (target != k.EMPTY)
+      if (target.Length > 0)
         {
         if (target.ToLower().Contains("/teaser/"))
           {

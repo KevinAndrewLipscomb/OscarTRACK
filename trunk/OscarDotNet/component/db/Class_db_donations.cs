@@ -14,7 +14,7 @@ namespace Class_db_donations
 
     private readonly TClass_dbkeyclick_trail dbkeyclick_trail = null;
     
-    private static string EnteredByConditionOf
+    private string EnteredByConditionOf
       (
       string user_email_address,
       string entered_by_filter
@@ -155,10 +155,10 @@ namespace Class_db_donations
         my_sql_command.ExecuteNonQuery();
         transaction.Commit();
         }
-      catch (Exception e)
+      catch
         {
         transaction.Rollback();
-        throw e;
+        throw;
         }
       Close();
       }

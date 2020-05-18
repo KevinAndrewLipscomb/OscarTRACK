@@ -10,7 +10,7 @@ namespace individual_tapout_detail
   {
   public partial class TWebForm_individual_tapout_detail: ki_web_ui.page_class
     {
-    public class Static
+    private static class Static
       {
       public const int TCCI_ID = 0;
       public const int TCCI_EXPECTED_LOGON_TIME = 1;
@@ -83,7 +83,7 @@ namespace individual_tapout_detail
           //
           p.be_sort_order_ascending = false;
           p.cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
-          if (p.cad_num_string == k.EMPTY)
+          if (p.cad_num_string.Length == 0)
             {
             p.cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
             }

@@ -343,7 +343,7 @@ namespace UserControl_vehicle_kind
       public TClass_biz_vehicle_kinds biz_vehicle_kinds;
       public TClass_biz_role_member_map biz_role_member_map;
       public bool be_ok_to_config_vehicle_kinds;
-      } // end p_type
+      }
 
     } // end TWebUserControl_vehicle_kind
 

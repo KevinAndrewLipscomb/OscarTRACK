@@ -96,7 +96,7 @@ namespace exception
     protected void Button_submit_Click(object sender, System.EventArgs e)
       {
       var comment = k.Safe(TextArea_user_comment.Value, k.safe_hint_type.PUNCTUATED);
-      if (comment != k.EMPTY)
+      if (comment.Length > 0)
         {
         k.SmtpMailSend
           (

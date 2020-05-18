@@ -1,25 +1,21 @@
-using System;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-using System.Collections;
-
 using Class_biz_members;
+using System.Web.UI.WebControls;
 
 namespace UserControl_ranked_core_ops_size
-{
-    public struct p_type
+  {
+  public partial class TWebUserControl_ranked_core_ops_size: ki_web_ui.usercontrol_class
+    {
+
+    private struct p_type
     {
         public bool be_loaded;
         public TClass_biz_members biz_members;
         public uint rank;
         public uint total;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_ranked_core_ops_size: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)

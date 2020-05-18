@@ -1,26 +1,18 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
 using Class_msg_protected;
-using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace efficipay_docket_detail
   {
-  public struct p_type
+  public partial class TWebForm_efficipay_docket_detail: ki_web_ui.page_class
+    {
+  private struct p_type
     {
     public TClass_msg_protected.efficipay_docket_detail incoming;
     }
 
-  public partial class TWebForm_efficipay_docket_detail: ki_web_ui.page_class
-    {
     private p_type p;
 
     // / <summary>

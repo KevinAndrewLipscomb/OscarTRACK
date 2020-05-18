@@ -12,7 +12,7 @@ using UserControl_roster;
 namespace report_monthly_als_interns
   {
 
-  public partial class TWebForm_report_monthly_als_interns: System.Web.UI.Page
+  public partial class TWebForm_report_monthly_als_interns: ki_web_ui.page_class
     {
 
     private struct p_type
@@ -47,8 +47,8 @@ namespace report_monthly_als_interns
     protected override void OnInit(EventArgs e)
       {
       //
-      // Required for Designer support
       //
+      // Required for Designer support
       InitializeComponent();
       base.OnInit(e);
       p.biz_members = new TClass_biz_members();
@@ -73,7 +73,8 @@ namespace report_monthly_als_interns
       // Write the HTML stream into a StringBuilder.
       //
       var sb = new StringBuilder();
-      base.Render(new HtmlTextWriter(new StringWriter(sb)));
+      using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+      base.Render(html_text_writer);
       // //
       // writer.Write(sb.ToString());
       // //

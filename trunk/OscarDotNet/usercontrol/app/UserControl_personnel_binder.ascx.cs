@@ -119,7 +119,7 @@ namespace UserControl_personnel_binder
             public bool be_loaded;
             public string content_id;
             public uint tab_index;
-        } // end p_type
+        }
 
     } // end TWebUserControl_personnel_binder
 

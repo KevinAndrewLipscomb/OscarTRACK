@@ -1,35 +1,24 @@
-using System.Configuration;
-
-using kix;
-
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
-
-
-
-using System.Text;
-using System.IO;
 using Class_biz_members;
+using kix;
+using System;
+using System.Configuration;
+using System.IO;
+using System.Text;
+using System.Web.UI;
 using UserControl_current_indicators;
 
 namespace report_monthly_core_ops_dashboard
-{
-    public struct p_type
+  {
+  public partial class TWebForm_report_monthly_core_ops_dashboard: ki_web_ui.page_class
+    {
+
+    private struct p_type
     {
         public TClass_biz_members biz_members;
-        public string member_id;
-    } // end p_type
+    }
 
-    public partial class TWebForm_report_monthly_core_ops_dashboard: System.Web.UI.Page
-    {
         private p_type p;
-        protected System.Web.UI.WebControls.Label Label_application_name_2 = null;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -64,19 +53,17 @@ namespace report_monthly_core_ops_dashboard
 
         protected override void Render(HtmlTextWriter writer)
         {
-            string body;
             uint i;
-            Queue recipient_q;
-            StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
-            sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
+            var sb = new StringBuilder();
+            using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+            base.Render(html_text_writer);
             // //
             // writer.Write(sb.ToString());
             // //
-            body = sb.ToString();
+            var body = sb.ToString();
             // Send output stream as an email message.
-            recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue();
+            var recipient_q = p.biz_members.CurrentMemberEmailAddressesQueue();
             uint recipient_q_count = (uint)(recipient_q.Count);
             for (i = 1; i <= recipient_q_count; i ++ )
             {

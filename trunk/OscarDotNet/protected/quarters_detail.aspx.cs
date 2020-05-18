@@ -10,7 +10,8 @@ namespace quarters_detail
 {
     public partial class TWebForm_quarters_detail: ki_web_ui.page_class
     {
-    public class quarters_detail_Static
+
+    private static class Static
       {
       public const int TCCI_ID = 0;
       public const int TCCI_NAME = 1;
@@ -20,7 +21,20 @@ namespace quarters_detail
       public const int TCCI_DURATION_RAW = 5;
       public const int TCCI_DURATION_COOKED = 6;
       }
+
+        private struct p_type
+        {
+            public bool be_datagrid_empty;
+            public bool be_sort_order_ascending;
+            public TClass_biz_user biz_user;
+            public TClass_biz_vehicles biz_vehicles;
+            public TClass_biz_vehicle_quarters_history biz_vehicle_quarters_history;
+            public uint num_datagrid_rows;
+            public string sort_order;
+        }
+
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -93,24 +107,24 @@ namespace quarters_detail
             if ((e.Item.ItemType == ListItemType.AlternatingItem) || (e.Item.ItemType == ListItemType.EditItem) || (e.Item.ItemType == ListItemType.Item) || (e.Item.ItemType == ListItemType.SelectedItem))
             {
                 // We are dealing with a data row, not a header or footer row.
-                e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text = e.Item.Cells[quarters_detail_Static.TCCI_NOTE].Text.Replace(k.NEW_LINE,"<br>");
+                e.Item.Cells[Static.TCCI_NOTE].Text = e.Item.Cells[Static.TCCI_NOTE].Text.Replace(k.NEW_LINE,"<br>");
                 //
                 // Transform raw duration from MySQL d.hh:mm:ss format to friendly format (in which the ss component will be discarded).
                 // This arrangement is now an amalgamation of the standard MySQL duration format plus a workaround for the fact that a standard MySQL duration cannot exceed 838h 59m 59s.
                 //
                 var duration_component_array = new string[3];
-                if (e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Contains(k.PERIOD))
+                if (e.Item.Cells[Static.TCCI_DURATION_RAW].Text.Contains(k.PERIOD))
                   {
-                  duration_component_array = e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {'.',':'});
+                  duration_component_array = e.Item.Cells[Static.TCCI_DURATION_RAW].Text.Split(new char[] {'.',':'});
                   var num_days = int.Parse(duration_component_array[0]);
                   var num_hours = int.Parse(duration_component_array[1]);
                   var num_minutes = int.Parse(duration_component_array[2]);
-                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = (num_days == 0 ? (num_hours == 0 ? num_minutes.ToString() + "m" : num_hours.ToString() + "h") : num_days.ToString() + "d");
+                  e.Item.Cells[Static.TCCI_DURATION_COOKED].Text = (num_days == 0 ? (num_hours == 0 ? num_minutes.ToString() + "m" : num_hours.ToString() + "h") : num_days.ToString() + "d");
                   }
                 else
                   {
-                  duration_component_array = e.Item.Cells[quarters_detail_Static.TCCI_DURATION_RAW].Text.Split(new char[] {':'});
-                  e.Item.Cells[quarters_detail_Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "h " + duration_component_array[1] + "m";
+                  duration_component_array = e.Item.Cells[Static.TCCI_DURATION_RAW].Text.Split(new char[] {':'});
+                  e.Item.Cells[Static.TCCI_DURATION_COOKED].Text = duration_component_array[0] + "h " + duration_component_array[1] + "m";
                   }
                 //
                 p.num_datagrid_rows++;
@@ -121,7 +135,7 @@ namespace quarters_detail
                   {
                   cell.EnableViewState = false;
                   }
-                e.Item.Cells[quarters_detail_Static.TCCI_ID].EnableViewState = true;
+                e.Item.Cells[Static.TCCI_ID].EnableViewState = true;
                 //
             }
         }
@@ -152,17 +166,6 @@ namespace quarters_detail
             p.num_datagrid_rows = 0;
 
         }
-
-        private struct p_type
-        {
-            public bool be_datagrid_empty;
-            public bool be_sort_order_ascending;
-            public TClass_biz_user biz_user;
-            public TClass_biz_vehicles biz_vehicles;
-            public TClass_biz_vehicle_quarters_history biz_vehicle_quarters_history;
-            public uint num_datagrid_rows;
-            public string sort_order;
-        } // end p_type
 
     } // end TWebForm_quarters_detail
 

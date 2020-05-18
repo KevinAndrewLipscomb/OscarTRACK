@@ -7,32 +7,32 @@ using System.Web.UI.WebControls;
 
 namespace UserControl_ranked_vehicles_up_and_current
   {
-  public struct p_type
-    {
-    public bool be_loaded;
-    public TClass_biz_vehicles biz_vehicles;
-    public TClass_biz_indicator_monthly_vehicles_up_and_current biz_indicator_monthly_vehicles_up_and_current;
-    public TClass_biz_indicator_shiftwise_vehicles_up_and_current biz_indicator_shiftwise_vehicles_up_and_current;
-    public ArrayList citywide_shiftwise_factor_array_list;
-    public ArrayList mrt_shiftwise_factor_array_list;
-    public ArrayList r01_shiftwise_factor_array_list;
-    public ArrayList r02_shiftwise_factor_array_list;
-    public ArrayList r04_shiftwise_factor_array_list;
-    public ArrayList r05_shiftwise_factor_array_list;
-    public ArrayList r06_shiftwise_factor_array_list;
-    public ArrayList r09_shiftwise_factor_array_list;
-    public ArrayList r13_shiftwise_factor_array_list;
-    public ArrayList r14_shiftwise_factor_array_list;
-    public ArrayList r16_shiftwise_factor_array_list;
-    public ArrayList r17_shiftwise_factor_array_list;
-    public ArrayList sar_shiftwise_factor_array_list;
-    public uint rank;
-    public decimal total_num_vehicles;
-    public decimal total_num_vehicles_up_and_current;
-    }
-
   public partial class TWebUserControl_ranked_vehicles_up_and_current: ki_web_ui.usercontrol_class
     {
+
+    private struct p_type
+      {
+      public bool be_loaded;
+      public TClass_biz_vehicles biz_vehicles;
+      public TClass_biz_indicator_monthly_vehicles_up_and_current biz_indicator_monthly_vehicles_up_and_current;
+      public TClass_biz_indicator_shiftwise_vehicles_up_and_current biz_indicator_shiftwise_vehicles_up_and_current;
+      public ArrayList citywide_shiftwise_factor_array_list;
+      public ArrayList mrt_shiftwise_factor_array_list;
+      public ArrayList r01_shiftwise_factor_array_list;
+      public ArrayList r02_shiftwise_factor_array_list;
+      public ArrayList r04_shiftwise_factor_array_list;
+      public ArrayList r05_shiftwise_factor_array_list;
+      public ArrayList r06_shiftwise_factor_array_list;
+      public ArrayList r09_shiftwise_factor_array_list;
+      public ArrayList r13_shiftwise_factor_array_list;
+      public ArrayList r14_shiftwise_factor_array_list;
+      public ArrayList r16_shiftwise_factor_array_list;
+      public ArrayList r17_shiftwise_factor_array_list;
+      public ArrayList sar_shiftwise_factor_array_list;
+      public uint rank;
+      public decimal total_num_vehicles;
+      public decimal total_num_vehicles_up_and_current;
+      }
 
     private p_type p;
 

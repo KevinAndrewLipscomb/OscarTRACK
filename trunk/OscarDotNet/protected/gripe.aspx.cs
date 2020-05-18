@@ -1,24 +1,16 @@
 // Derived from template~protected~nonlanding.aspx.cs~template
 
-using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
-using System.Web.UI.WebControls;
 
 namespace gripe
   {
-  public struct p_type
-    {
-    }
-
   public partial class TWebForm_gripe: ki_web_ui.page_class
     {
+    private struct p_type
+      {
+      }
+
     private p_type p;
 
     // / <summary>

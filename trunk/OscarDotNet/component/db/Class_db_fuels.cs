@@ -86,7 +86,7 @@ namespace Class_db_fuels
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

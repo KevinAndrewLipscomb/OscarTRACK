@@ -107,7 +107,7 @@ namespace Class_db_driver_skill_ratings
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -9,7 +9,7 @@ namespace UserControl_ranked_scheduled_duty_compliance
   public partial class TWebUserControl_ranked_scheduled_duty_compliance: ki_web_ui.usercontrol_class
     {
 
-    public struct p_type
+    private struct p_type
       {
       public bool be_loaded;
       public TClass_biz_schedule_assignment_logs biz_schedule_assignment_logs;
@@ -24,7 +24,7 @@ namespace UserControl_ranked_scheduled_duty_compliance
       if (!p.be_loaded)
         {
         Label_overall.Text = p.biz_schedule_assignment_logs.OverallScheduledDutyCompliance();
-        if (Label_overall.Text != k.EMPTY)
+        if (Label_overall.Text.Length > 0)
           {
           Label_overall.Text += " %";
           p.biz_schedule_assignment_logs.BindRankedScheduledDutyCompliance(DataGrid_detail);

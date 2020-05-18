@@ -64,9 +64,11 @@ namespace Class_db_uniform_piece_models
     internal void BindBaseDataList
       (
       #pragma warning disable IDE0060 // Remove unused parameter
+      #pragma warning disable CA1801 // Remove unused parameter
       string sort_order,
       bool be_sort_order_ascending,
       object target
+      #pragma warning restore CA1801 // Remove unused parameter
       #pragma warning restore IDE0060 // Remove unused parameter
       )
       {
@@ -126,7 +128,7 @@ namespace Class_db_uniform_piece_models
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

@@ -271,7 +271,7 @@ namespace Class_db_schedule_assignment_logs
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

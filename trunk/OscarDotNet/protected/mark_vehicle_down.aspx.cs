@@ -5,27 +5,22 @@ using Class_biz_vehicle_usability_history;
 using Class_biz_vehicles;
 using kix;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Configuration;
-using System.Web;
-using System.Web.SessionState;
-using System.Web.UI;
-using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 namespace mark_vehicle_down
   {
-  public struct p_type
-    {
-    public TClass_biz_vehicle_down_natures biz_vehicle_down_natures;
-    public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
-    public TClass_biz_vehicles biz_vehicles;
-    public string vehicle_id;
-    }
-
   public partial class TWebForm_mark_vehicle_down: ki_web_ui.page_class
     {
+
+    private struct p_type
+      {
+      public TClass_biz_vehicle_down_natures biz_vehicle_down_natures;
+      public TClass_biz_vehicle_usability_history biz_vehicle_usability_history;
+      public TClass_biz_vehicles biz_vehicles;
+      public string vehicle_id;
+      }
+
     private p_type p;
 
     // / <summary>

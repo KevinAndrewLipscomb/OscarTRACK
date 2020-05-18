@@ -350,7 +350,7 @@ namespace UserControl_fleet
           {
           var miles_from_pm_text = e.Item.Cells[Static.TCI_MILES_FROM_PM].Text;
           var be_target_pm_mileage_meaningful = (e.Item.Cells[Static.TCI_BE_TARGET_PM_MILEAGE_MEANINGFUL].Text == "1");
-          if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM) != k.EMPTY)
+          if (k.Safe(miles_from_pm_text,k.safe_hint_type.NUM).Length > 0)
             {
             if ((miles_from_pm_text != "0") && !miles_from_pm_text.StartsWith("-"))
               {
@@ -378,7 +378,7 @@ namespace UserControl_fleet
             be_up_and_current = false;
             }
           var dmv_inspection_due_text = k.Safe(e.Item.Cells[Static.TCI_DMV_INSPECTION_DUE].Text,k.safe_hint_type.HYPHENATED_NUM);
-          if (dmv_inspection_due_text != k.EMPTY)
+          if (dmv_inspection_due_text.Length > 0)
             {
             var dmv_inspection_due_date = DateTime.Parse(dmv_inspection_due_text);
             var dmv_inspection_due_month = dmv_inspection_due_date.Year.ToString() + k.HYPHEN + dmv_inspection_due_date.Month.ToString("D2");
@@ -498,7 +498,7 @@ namespace UserControl_fleet
       DataGrid_control.Columns[Static.TCI_CUSTOM_MAKE].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_CUSTOM_MODEL].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_FUEL].Visible = (!p.be_interest_dynamic);
-      DataGrid_control.Columns[Static.TCI_KIND].Visible = (p.vehicle_kind_filter == k.EMPTY);
+      DataGrid_control.Columns[Static.TCI_KIND].Visible = (p.vehicle_kind_filter.Length == 0);
       DataGrid_control.Columns[Static.TCI_CAN_RECEIVE_LEGACY_COT_FASTENER].Visible =
         (
           !p.be_interest_dynamic
@@ -509,7 +509,7 @@ namespace UserControl_fleet
             (p.biz_vehicle_kinds.DescriptionOf(p.vehicle_kind_filter) == "Ambulance")
           )
         );
-      DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_filter == k.EMPTY);
+      DataGrid_control.Columns[Static.TCI_AGENCY].Visible = (p.agency_filter.Length == 0);
       DataGrid_control.Columns[Static.TCI_BUMPER_NUMBER].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_TAG].Visible = (!p.be_interest_dynamic);
       DataGrid_control.Columns[Static.TCI_VIN].Visible = (!p.be_interest_dynamic);

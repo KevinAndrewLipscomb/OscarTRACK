@@ -15,7 +15,7 @@ namespace UserControl_watchbill_maag
   public partial class TWebUserControl_watchbill_maag: ki_web_ui.usercontrol_class
     {
 
-    public static class Static
+    private static class Static
       {
       public const int TCI_ID = 0;
       public const int TCI_POST_DESIGNATOR = 1;
@@ -58,7 +58,7 @@ namespace UserControl_watchbill_maag
           {
           referrer = "<a href=\"" + referrer + "\">" + referrer + "</a>";
           }
-        var scope = (p.agency_filter == k.EMPTY ? "AGGREGATED" : (p.agency_filter == "0" ? "AGENCY 404" : "RESCUE " + p.agency_filter));
+        var scope = (p.agency_filter.Length == 0 ? "AGGREGATED" : (p.agency_filter == "0" ? "AGENCY 404" : "RESCUE " + p.agency_filter));
         Calendar_day.Caption = "<b><big><big><big><big>" + scope + " DAYS -- " + referrer + "</big></big></big></big></b>";
         Calendar_night.Caption = "<b><big><big><big><big>" + scope + " NIGHTS -- " + referrer + "</big></big></big></big></b>";
         p.be_loaded = true;
@@ -134,7 +134,7 @@ namespace UserControl_watchbill_maag
       {
       e.Cell.HorizontalAlign = HorizontalAlign.Left;
       e.Cell.VerticalAlign = VerticalAlign.Top;
-      if (p.agency_filter != k.EMPTY)
+      if (p.agency_filter.Length > 0)
         {
         if (!e.Day.IsOtherMonth)
           {

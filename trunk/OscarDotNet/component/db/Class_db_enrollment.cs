@@ -448,7 +448,9 @@ namespace Class_db_enrollment
           {
           return SetLevel(new_level_code,effective_date,note,member_id,summary,k.EMPTY);
           }
-        public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
+
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1031:Do not catch general exception types", Justification = "<Pending>")]
+    public bool SetLevel(string new_level_code, DateTime effective_date, string note, string member_id, object summary, string target_agency_id)
         {
             uint current_level_code;
             MySqlDataReader dr;
@@ -505,7 +507,7 @@ namespace Class_db_enrollment
                       //
                       // A transfer is being completed.
                       //
-                      ok_so_far = (target_agency_id != k.EMPTY);
+                      ok_so_far = (target_agency_id.Length > 0);
                       using var my_sql_command_7 = new MySqlCommand(db_trail.Saved("update member set agency_id = '" + target_agency_id + "' where id = '" + member_id + "'"), connection, transaction);
                       my_sql_command_7.ExecuteNonQuery();
                       }

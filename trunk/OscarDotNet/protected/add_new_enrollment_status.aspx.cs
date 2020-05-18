@@ -10,11 +10,13 @@ using System;
 using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using UserControl_drop_down_date;
 
 namespace add_new_enrollment_status
-{
-    public struct p_type
+  {
+  public partial class TWebForm_add_new_enrollment_status: ki_web_ui.page_class
+    {
+
+    private struct p_type
     {
         public bool be_member_squad_affiliation_weak;
         public bool be_ok_to_grant_associate_enrollment;
@@ -27,10 +29,7 @@ namespace add_new_enrollment_status
         public string member_id_of_user_id;
     }
 
-    public partial class TWebForm_add_new_enrollment_status: ki_web_ui.page_class
-    {
         private p_type p;
-        protected TWebUserControl_drop_down_date UserControl_effective_date = null;
 
         // / <summary>
         // / Required method for Designer support -- do not modify
@@ -73,7 +72,7 @@ namespace add_new_enrollment_status
                     p.biz_schedule_assignments = new TClass_biz_schedule_assignments();
                     p.biz_user = new TClass_biz_user();
                     cad_num_string = p.biz_members.CadNumOf(Session["member_summary"]);
-                    if (cad_num_string == k.EMPTY)
+                    if (cad_num_string.Length == 0)
                     {
                         cad_num_string = appcommon_Static.NOT_APPLICABLE_INDICATION_HTML;
                     }

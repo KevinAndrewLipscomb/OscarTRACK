@@ -147,7 +147,7 @@ namespace Class_db_vehicle_quarters_history
           }
         else
           {
-          throw e;
+          throw;
           }
         }
       Close();

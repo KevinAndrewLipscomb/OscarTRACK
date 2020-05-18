@@ -27,7 +27,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
       public const int TCI_TIME_ON = 7;
       }
 
-    public struct p_type
+    private struct p_type
       {
       public string agency_filter;
       public bool be_interactive;
@@ -135,7 +135,7 @@ namespace UserControl_schedule_assignment_assistant_alert_time_on
         }
       else if
         (
-          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter == k.EMPTY))
+          (k.Has(Session["privilege_array"] as string[],"edit-schedule") && (p.agency_filter == own_agency || p.agency_filter.Length == 0))
         ||
           p.be_ok_to_edit_schedule_for_special_agency
         )

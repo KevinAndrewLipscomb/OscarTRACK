@@ -3,21 +3,23 @@ using UserControl_serial_indicator_vehicles_up_and_current;
 
 namespace UserControl_serial_fleet_indicators_binder
 {
-  public static class UserControl_serial_fleet_indicators_binder_Static
+    public partial class TWebUserControl_serial_fleet_indicators_binder: ki_web_ui.usercontrol_class
     {
-    public const int TSSI_FLEET_TRACKING_PARTICIPATION = 0;
-    public const int TSSI_VEHICLES_UP_AND_CURRENT = 1;
-    }
 
-    public struct p_type
+    private static class Static
+      {
+      public const int TSSI_FLEET_TRACKING_PARTICIPATION = 0;
+      public const int TSSI_VEHICLES_UP_AND_CURRENT = 1;
+      }
+
+    private struct p_type
     {
         public bool be_loaded;
         public uint tab_index;
-    } // end p_type
+    }
 
-    public partial class TWebUserControl_serial_fleet_indicators_binder: ki_web_ui.usercontrol_class
-    {
         private p_type p;
+
         protected void Page_Load(object sender, System.EventArgs e)
         {
             if (!p.be_loaded)
@@ -38,10 +40,10 @@ namespace UserControl_serial_fleet_indicators_binder
                 p.be_loaded = IsPostBack && ((Session["M_PlaceHolder_content"] as string) == "UserControl_serial_fleet_indicators_binder");
                 switch(p.tab_index)
                 {
-                    case UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION:
+                    case Static.TSSI_FLEET_TRACKING_PARTICIPATION:
                         AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))), "UserControl_serial_indicator_fleet_tracking_participation", PlaceHolder_content);
                         break;
-                    case UserControl_serial_fleet_indicators_binder_Static.TSSI_VEHICLES_UP_AND_CURRENT:
+                    case Static.TSSI_VEHICLES_UP_AND_CURRENT:
                         AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_vehicles_up_and_current)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_vehicles_up_and_current.ascx"))), "UserControl_serial_indicator_vehicles_up_and_current", PlaceHolder_content);
                         break;
                 }
@@ -49,7 +51,7 @@ namespace UserControl_serial_fleet_indicators_binder
             else
             {
                 p.be_loaded = false;
-                p.tab_index = UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION;
+                p.tab_index = Static.TSSI_FLEET_TRACKING_PARTICIPATION;
                 AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))),"UserControl_serial_indicator_fleet_tracking_participation",PlaceHolder_content,InstanceId());
             }
 
@@ -84,10 +86,10 @@ namespace UserControl_serial_fleet_indicators_binder
             PlaceHolder_content.Controls.Clear();
             switch(p.tab_index)
             {
-                case UserControl_serial_fleet_indicators_binder_Static.TSSI_FLEET_TRACKING_PARTICIPATION:
+                case Static.TSSI_FLEET_TRACKING_PARTICIPATION:
                     AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_fleet_tracking_participation)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_fleet_tracking_participation.ascx"))),"UserControl_serial_indicator_fleet_tracking_participation",PlaceHolder_content,InstanceId());
                     break;
-                case UserControl_serial_fleet_indicators_binder_Static.TSSI_VEHICLES_UP_AND_CURRENT:
+                case Static.TSSI_VEHICLES_UP_AND_CURRENT:
                     AddIdentifiedControlToPlaceHolder(((TWebUserControl_serial_indicator_vehicles_up_and_current)(LoadControl("~/usercontrol/app/UserControl_serial_indicator_vehicles_up_and_current.ascx"))),"UserControl_serial_indicator_vehicles_up_and_current",PlaceHolder_content,InstanceId());
                     break;
             }

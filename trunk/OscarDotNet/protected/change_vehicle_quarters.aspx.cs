@@ -16,7 +16,9 @@ using System.Web.UI.WebControls;
 
 namespace change_vehicle_quarters
   {
-  public struct p_type
+  public partial class TWebForm_change_vehicle_quarters: ki_web_ui.page_class
+    {
+  private struct p_type
     {
     public TClass_biz_vehicle_quarters biz_vehicle_quarters;
     public TClass_biz_vehicle_quarters_history biz_vehicle_quarters_history;
@@ -25,8 +27,6 @@ namespace change_vehicle_quarters
     public object vehicle_summary;
     }
 
-  public partial class TWebForm_change_vehicle_quarters: ki_web_ui.page_class
-    {
     private p_type p;
 
     // / <summary>

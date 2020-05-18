@@ -11,18 +11,19 @@ using UserControl_roster;
 
 namespace report_monthly_recruit_awaiting_class_roster
 {
-    public struct p_type
+    public partial class TWebForm_report_monthly_recruit_awaiting_class_roster: ki_web_ui.page_class
+    {
+    private struct p_type
     {
         public string agency_short_designator;
         public TClass_biz_agencies biz_agencies;
         public TClass_biz_members biz_members;
         public TClass_biz_role_member_map biz_role_member_map;
         public string role_name;
-    } // end p_type
+    }
 
-    public partial class TWebForm_report_monthly_recruit_awaiting_class_roster: System.Web.UI.Page
-    {
         private p_type p;
+
         // / <summary>
         // / Required method for Designer support -- do not modify
         // / the contents of this method with the code editor.
@@ -64,7 +65,7 @@ namespace report_monthly_recruit_awaiting_class_roster
             else
             {
                 p.role_name = "Squad Membership Coordinator";
-                Session.Add("privilege_array", new string[0]);
+                Session.Add("privilege_array", Array.Empty<string>());
             }
             Session.Add("member_id", p.biz_members.IdOfAppropriateRoleHolder(p.role_name, p.agency_short_designator));
             PlaceHolder_roster.Controls.Add(((TWebUserControl_roster)(LoadControl("~/usercontrol/app/UserControl_roster.ascx"))));
@@ -77,7 +78,8 @@ namespace report_monthly_recruit_awaiting_class_roster
             StringBuilder sb;
             // Write the HTML stream into a StringBuilder.
             sb = new StringBuilder();
-            base.Render(new HtmlTextWriter(new StringWriter(sb)));
+            using var html_text_writer = new HtmlTextWriter(new StringWriter(sb));
+            base.Render(html_text_writer);
             // //
             // writer.Write(sb.ToString());
             // //

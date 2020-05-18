@@ -8,7 +8,10 @@ using System.Web.UI;
 namespace UserControl_keyclick
   {
 
-  public struct p_type
+  public partial class TWebUserControl_keyclick: ki_web_ui.usercontrol_class
+    {
+
+  private struct p_type
     {
     public string agency_id;
     public bool be_loaded;
@@ -17,9 +20,6 @@ namespace UserControl_keyclick
     public TClass_biz_user biz_user;
     public string path_to_external_keyclick;
     }
-
-  public partial class TWebUserControl_keyclick: ki_web_ui.usercontrol_class
-    {
 
     private p_type p;
 
